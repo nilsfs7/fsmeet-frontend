@@ -1,12 +1,12 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import { Poly } from 'next/font/google';
+import { Arvo } from 'next/font/google';
 
-const poly = Poly({ subsets: ['latin'], weight: ['400'] });
+const baseFont = Arvo({ subsets: ['latin'], weight: ['400'] });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={poly.className}>
+    <main className={baseFont.className}>
       <Component {...pageProps} />
     </main>
   );
