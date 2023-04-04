@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 const Results: NextPage = () => {
   return (
     <div>
-      <h1 className="justify-center flex pb-24 pt-32 text-7xl">Battle Result</h1>
+      <h1 className="flex justify-center pb-24 pt-32 text-7xl">Battle Result</h1>
       <div className="grid grid-cols-2">
         <div className="flex justify-center">
           <PlayerResult
@@ -24,7 +24,7 @@ const Results: NextPage = () => {
           />
         </div>
       </div>
-      <h1 className="justify-center flex pt-24 text-7xl">Nils wins!</h1>
+      <h1 className="flex justify-center pt-24 text-7xl">Nils wins!</h1>
     </div>
   );
 };
