@@ -1,4 +1,4 @@
-import MenuButton from '@/components/menu/MenuButton';
+import MenuButton from '@/components/common/MenuButton';
 import { NextPage } from 'next';
 import Link from 'next/link';
 

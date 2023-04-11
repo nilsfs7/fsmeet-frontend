@@ -3,9 +3,8 @@ import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import MenuButton from '@/components/common/MenuButton';
 import router from 'next/router';
-import Link from 'next/link';
 
-const Login: NextPage = () => {
+const Register: NextPage = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -20,17 +19,26 @@ const Login: NextPage = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const response = await fetch('http://localhost:3000/v1/auth/login', {
+    const responseCreateUser = await fetch('http://localhost:3000/v1/users', {
       method: 'POST',
       body: JSON.stringify({ username: username, password: password }),
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    const body = await response.json();
-    if (body.accessToken) {
-      setCookie('jwt', body.accessToken);
-      console.log(body.accessToken);
+    console.log(responseCreateUser.status);
+
+    if (responseCreateUser.status == 201) {
+      const responseLogin = await fetch('http://localhost:3000/v1/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ username: username, password: password }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const bodyLogin = await responseLogin.json();
+      setCookie('jwt', bodyLogin.accessToken);
+
       router.push(`/`);
     }
   };
@@ -48,15 +56,8 @@ const Login: NextPage = () => {
             <label className="pr-4">Password:</label>
             <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} />
           </div>
-
           <div className="flex justify-center py-2">
-            <Link href={'/register'}>
-              <label className="cursor-pointer pr-4 underline">No account yet?</label>
-            </Link>
-          </div>
-
-          <div className="flex justify-center py-2">
-            <MenuButton text="Login"></MenuButton>
+            <MenuButton text="Create Account" />
           </div>
         </div>
       </form>
@@ -64,4 +65,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default Register;
