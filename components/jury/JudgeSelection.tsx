@@ -2,10 +2,11 @@ import { useState } from 'react';
 import OverlayButton from '../common/OverlayButton';
 
 interface IJudgeSelection {
-  image: string;
+  image: string | null;
+  isHeadJudge?: boolean;
 }
 
-const JudgeSelection = ({ image }: IJudgeSelection) => {
+const JudgeSelection = ({ image, isHeadJudge = false }: IJudgeSelection) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -18,17 +19,23 @@ const JudgeSelection = ({ image }: IJudgeSelection) => {
         }}
         onMouseOver={() => setHovered(true)}
       >
-        <div className="nft-image-container group relative flex w-full justify-center overflow-hidden rounded-lg border-2  border-black text-center ">
-          <img className="h-64 w-48 justify-center  object-cover shadow-2xl shadow-black duration-300 group-hover:scale-125" src={image} alt="Judge-1" />
+        <div className="nft-image-container group relative flex w-full justify-center overflow-hidden rounded-lg border-2 border-black text-center">
+          <img
+            className={`${image ? 'object-cover' : 'object-none'} h-64 w-48 justify-center shadow-2xl shadow-black duration-300 group-hover:scale-125`}
+            src={image ? image : '/actions/add-judge.png'}
+            alt="Judge-1"
+          />
 
-          {hovered && (
+          {image && hovered && (
             <>
               {/* <div className={`absolute bottom-4 left-4 flex cursor-pointer`}>
                 <OverlayButton text="Add" />
               </div> */}
-              <div className={`absolute bottom-4 right-4 flex cursor-pointer`}>
-                <OverlayButton text="Remove" />
-              </div>
+              {!isHeadJudge && (
+                <div className={`absolute bottom-4 right-4 flex cursor-pointer`}>
+                  <OverlayButton text="Remove" />
+                </div>
+              )}
             </>
           )}
         </div>

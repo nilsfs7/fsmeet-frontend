@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.14",
     "@next/font": "^13.2.4",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
+    "jwt-decode": "^3.1.2",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-cookie": "^4.1.1",
