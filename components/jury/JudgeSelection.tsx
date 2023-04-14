@@ -21,8 +21,8 @@ const JudgeSelection = ({ image, isHeadJudge = false }: IJudgeSelection) => {
       >
         <div className="nft-image-container group relative flex w-full justify-center overflow-hidden rounded-lg border-2 border-black text-center">
           <img
-            className={`${image ? 'object-cover' : 'object-none'} h-64 w-48 justify-center shadow-2xl shadow-black duration-300 group-hover:scale-125`}
-            src={image ? image : '/actions/add-judge.png'}
+            className={`${image ? 'object-cover' : 'object-contain'} h-64 w-48 justify-center shadow-2xl shadow-black duration-300 group-hover:scale-125`}
+            src={image ? image : '/jury/judge-no-img.png'}
             alt="Judge-1"
           />
 

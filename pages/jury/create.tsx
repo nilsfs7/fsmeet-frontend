@@ -1,21 +1,46 @@
 import MenuButton from '@/components/common/MenuButton';
 import JudgeSelection from '@/components/jury/JudgeSelection';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import jwt_decode from 'jwt-decode';
-import Dropdown from '@/components/common/Dropdown';
+import Dropdown, { MenuItem } from '@/components/common/Dropdown';
 
-const CreateJury: NextPage = () => {
+const CreateJury: NextPage = (props: any) => {
+  const users = props.data;
+
   const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
-  const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false });
-  const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true });
-  const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false });
+  const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false, imageUrl: null });
+  const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
+  const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
+  const [judgesList, setJudgesList] = useState([{ text: '', value: '' }]);
+
+  function getUserByName(name: string) {
+    return users.filter((u: any) => {
+      return u.username == name;
+    })[0];
+  }
+
+  const onChangeJudge1 = (name: string) => {
+    setJudge1({ name: name, isHeadJudge: judge1.isHeadJudge, imageUrl: getUserByName(name).imageUrl });
+  };
+
+  const onChangeJudge3 = (name: string) => {
+    setJudge3({ name: name, isHeadJudge: judge3.isHeadJudge, imageUrl: getUserByName(name).imageUrl });
+  };
 
   useEffect(() => {
     const decoded: any = jwt_decode(cookies.jwt);
-    console.log(decoded);
-    setJudge2({ name: decoded.username, isHeadJudge: true });
+
+    setJudge2({ name: decoded.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(decoded.username).imageUrl });
+
+    const menusJudges: MenuItem[] = [];
+    users.map((user: any) => {
+      if (user.username != judge2.name) {
+        menusJudges.push({ text: user.username, value: user.username });
+      }
+    });
+    setJudgesList(menusJudges);
   }, [judge2.name]);
 
   const onStartSession = async () => {
@@ -46,34 +71,23 @@ const CreateJury: NextPage = () => {
     console.log(body);
   };
 
-  // TODO: remove
-
-  const image1 = null;
-  //   'https://scontent-frt3-2.xx.fbcdn.net/v/t39.30808-6/322393006_831212341299554_3330508460597125504_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=OY62GTZ-rNUAX9MvG6H&_nc_ht=scontent-frt3-2.xx&oh=00_AfBOw1csl1Lbt7C5Q2HrYhIY-lr3o5qJeG4KLZN8Kbt3jQ&oe=64396303';
-
-  const image2 =
-    'https://scontent-muc2-1.xx.fbcdn.net/v/t31.18172-8/17492379_1395721013824677_2431623315541165382_o.jpg?_nc_cat=101&ccb=1-7&_nc_sid=174925&_nc_ohc=HxVgLT_npx4AX-WRSrd&_nc_ht=scontent-muc2-1.xx&oh=00_AfDNqfcc7VuvR0-bjrGcEHQA4Om_dOKr7xiHiS2Hu6-7Fg&oe=645399B7';
-
-  const image3 =
-    'https://static.wixstatic.com/media/beedc1_dea19613168348f0b71c124cf29309f2~mv2.jpg/v1/fill/w_1322,h_1480,al_b,q_85,usm_0.66_1.00_0.01,enc_auto/beedc1_dea19613168348f0b71c124cf29309f2~mv2.jpg';
-
   return (
     <div className="flex h-screen flex-col justify-center">
       <div className="flex flex-col items-center justify-center sm:flex-row">
-        <JudgeSelection image={image1} isHeadJudge={judge1.isHeadJudge} />
-        <JudgeSelection image={image2} isHeadJudge={judge2.isHeadJudge} />
-        <JudgeSelection image={image3} isHeadJudge={judge3.isHeadJudge} />
+        <JudgeSelection image={judge1.imageUrl} isHeadJudge={judge1.isHeadJudge} />
+        <JudgeSelection image={judge2.imageUrl} isHeadJudge={judge2.isHeadJudge} />
+        <JudgeSelection image={judge3.imageUrl} isHeadJudge={judge3.isHeadJudge} />
       </div>
 
       <div className="flex flex-col items-center justify-center sm:flex-row">
         <div className="m-2">
-          <Dropdown menus={[]} defaultMenu={{ text: '', value: '' }} onChange={() => {}} />
+          <Dropdown menus={judgesList} defaultMenu={{ text: '', value: '' }} onChange={onChangeJudge1} />
         </div>
         <div className="m-2">
-          <Dropdown menus={[{ text: judge2.name, value: judge2.name }]} onChange={() => {}} />
+          <Dropdown menus={[{ text: judge2.name, value: judge2.name }]} disabled={true} onChange={() => {}} />
         </div>
         <div className="m-2">
-          <Dropdown menus={[]} defaultMenu={{ text: '', value: '' }} onChange={() => {}} />
+          <Dropdown menus={judgesList} defaultMenu={{ text: '', value: '' }} onChange={onChangeJudge3} />
         </div>
       </div>
 
@@ -87,3 +101,14 @@ const CreateJury: NextPage = () => {
 };
 
 export default CreateJury;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await fetch('http://localhost:3000/v1/users');
+  const data = await response.json();
+
+  return {
+    props: {
+      data: data,
+    },
+  };
+};

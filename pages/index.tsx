@@ -12,7 +12,7 @@ const CreateJury: NextPage = () => {
       </div>
       <div className="flex justify-center py-2">
         <Link href={'/jury/create'}>
-          <MenuButton text="Host Jury" />
+          <MenuButton text="Create Jury" />
         </Link>
       </div>
       <div className="flex justify-center py-2">
