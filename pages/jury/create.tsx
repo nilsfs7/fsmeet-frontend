@@ -44,7 +44,7 @@ const CreateJury: NextPage = (props: any) => {
   }, [judge2.name]);
 
   const onStartSession = async () => {
-    const response = await fetch('http://localhost:3000/v1/juries', {
+    const response = await fetch(`${process.env.BACKEND_ADDRESS}/v1/juries`, {
       method: 'POST',
       body: JSON.stringify({
         judges: [
@@ -103,7 +103,7 @@ const CreateJury: NextPage = (props: any) => {
 export default CreateJury;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await fetch('http://localhost:3000/v1/users');
+  const response = await fetch(`${process.env.BACKEND_ADDRESS}/v1/users`);
   const data = await response.json();
 
   return {

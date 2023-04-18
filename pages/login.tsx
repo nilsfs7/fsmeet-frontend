@@ -20,7 +20,7 @@ const Login: NextPage = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const response = await fetch('http://localhost:3000/v1/auth/login', {
+    const response = await fetch(`${process.env.BACKEND_ADDRESS}/v1/auth/login`, {
       method: 'POST',
       body: JSON.stringify({ username: username, password: password }),
       headers: {

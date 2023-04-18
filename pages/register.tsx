@@ -19,7 +19,7 @@ const Register: NextPage = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const responseCreateUser = await fetch('http://localhost:3000/v1/users', {
+    const responseCreateUser = await fetch(`${process.env.BACKEND_ADDRESS}/v1/users`, {
       method: 'POST',
       body: JSON.stringify({ username: username, password: password }),
       headers: {
@@ -29,7 +29,7 @@ const Register: NextPage = () => {
     console.log(responseCreateUser.status);
 
     if (responseCreateUser.status == 201) {
-      const responseLogin = await fetch('http://localhost:3000/v1/auth/login', {
+      const responseLogin = await fetch(`${process.env.BACKEND_ADDRESS}/v1/auth/login`, {
         method: 'POST',
         body: JSON.stringify({ username: username, password: password }),
         headers: {

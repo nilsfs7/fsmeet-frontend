@@ -1,6 +1,6 @@
 interface IButton {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const MenuButton = ({ text, onClick }: IButton) => {
