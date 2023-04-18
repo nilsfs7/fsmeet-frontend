@@ -4,17 +4,14 @@ FROM node:18.16.0 as build
 ## Create app directory
 WORKDIR /app
 
-## Install app dependencies
-COPY tsconfig*.json package*.json yarn.lock ./
-RUN yarn --prod
-
 ## Bundle app source
 COPY . .
 
+## Install app dependencies
+RUN yarn
+
 ## Build app
 RUN yarn build
-
-
 
 # Run stage
 FROM node:18.16.0
@@ -33,6 +30,7 @@ COPY --from=build /app/package.json ./package.json
 ## Expose port
 EXPOSE 3001
 
+## Declare environment variables
 ENV BACKEND_ADDRESS=http://localhost:3000
 
 ## Execute app
