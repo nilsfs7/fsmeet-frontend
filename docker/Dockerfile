@@ -31,7 +31,7 @@ COPY --from=build /app/package.json ./package.json
 EXPOSE 3001
 
 ## Declare environment variables
-ENV BACKEND_ADDRESS=http://localhost:3000
+ENV NEXT_PUBLIC_BACKEND_URL=http://localhost:3000
 
 ## Execute app
 CMD ["npm", "start"]
