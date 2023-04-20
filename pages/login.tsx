@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
-import MenuButton from '@/components/common/MenuButton';
+import Button from '@/components/common/Button';
 import router from 'next/router';
 import Link from 'next/link';
 
@@ -56,7 +56,7 @@ const Login: NextPage = () => {
           </div>
 
           <div className="flex justify-center py-2">
-            <MenuButton text="Login"></MenuButton>
+            <Button text="Login" />
           </div>
         </div>
       </form>

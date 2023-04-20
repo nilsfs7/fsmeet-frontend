@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useCookies } from 'react-cookie';
-import MenuButton from '@/components/common/MenuButton';
+import Button from '@/components/common/Button';
 import router from 'next/router';
 
 const Logout: NextPage = () => {
@@ -18,7 +18,7 @@ const Logout: NextPage = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex h-screen columns-2 flex-col justify-center">
           <div className="flex justify-center py-2">
-            <MenuButton text="Logout" />
+            <Button text="Logout" />
           </div>
         </div>
       </form>

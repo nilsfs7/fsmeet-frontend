@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
-import MenuButton from '@/components/common/MenuButton';
+import Button from '@/components/common/Button';
 import router from 'next/router';
 
 const Register: NextPage = () => {
@@ -57,7 +57,7 @@ const Register: NextPage = () => {
             <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} />
           </div>
           <div className="flex justify-center py-2">
-            <MenuButton text="Create Account" />
+            <Button text="Create Account" />
           </div>
         </div>
       </form>

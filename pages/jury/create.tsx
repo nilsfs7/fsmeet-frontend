@@ -1,4 +1,4 @@
-import MenuButton from '@/components/common/MenuButton';
+import Button from '@/components/common/Button';
 import JudgeSelection from '@/components/jury/JudgeSelection';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
@@ -93,7 +93,7 @@ const CreateJury: NextPage = (props: any) => {
 
       <div className="flex justify-center">
         <div className="flex justify-center py-2">
-          <MenuButton text="Start Session" onClick={onStartSession} />
+          <Button text="Start Session" onClick={onStartSession} />
         </div>
       </div>
     </div>
