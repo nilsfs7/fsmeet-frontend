@@ -15,8 +15,12 @@ const Account = () => {
     setImageUrl(event.target.value);
   };
 
-  const decoded: any = jwt_decode(cookies.jwt);
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded.username}`, fetcher);
+  let decoded: any = null;
+  if (cookies.jwt) {
+    decoded = jwt_decode(cookies.jwt);
+  }
+
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded === null ? 'undefined' : decoded.username}`, fetcher);
   if (error) return 'An error has occurred.';
   if (isLoading) return 'Loading...';
 
