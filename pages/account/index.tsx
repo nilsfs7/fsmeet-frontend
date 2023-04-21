@@ -1,14 +1,13 @@
 import Button from '@/components/common/Button';
 import jwt_decode from 'jwt-decode';
 import router from 'next/router';
-import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import { useState } from 'react';
+import { getCookie, deleteCookie } from 'cookies-next';
 import useSWR from 'swr';
 
 const fetcher = (url: RequestInfo | URL) => fetch(url).then(res => res.json());
 
 const Account = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
   const [imageUrl, setImageUrl] = useState();
 
   const handleInputImageChanged = (event: any) => {
@@ -16,7 +15,7 @@ const Account = () => {
   };
 
   const handleLogoutClicked = async () => {
-    removeCookie('jwt');
+    deleteCookie('jwt');
     router.push('/');
   };
 
@@ -26,7 +25,7 @@ const Account = () => {
       body: JSON.stringify({ username: `${decoded.username}`, imageUrl: imageUrl }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies.jwt}`,
+        Authorization: `Bearer ${getCookie('jwt')}`,
       },
     });
 
@@ -35,9 +34,10 @@ const Account = () => {
     }
   };
 
+  const jwt = getCookie('jwt');
   let decoded: any = null;
-  if (cookies.jwt) {
-    decoded = jwt_decode(cookies.jwt);
+  if (typeof jwt === 'string') {
+    decoded = jwt_decode(jwt);
   }
 
   const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded === null ? 'undefined' : decoded.username}`, fetcher);

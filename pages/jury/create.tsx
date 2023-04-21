@@ -2,14 +2,13 @@ import Button from '@/components/common/Button';
 import JudgeSelection from '@/components/jury/JudgeSelection';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import jwt_decode from 'jwt-decode';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
+import { getCookie } from 'cookies-next';
 
 const CreateJury: NextPage = (props: any) => {
   const users = props.data;
 
-  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
   const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false, imageUrl: null });
   const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
   const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
@@ -30,9 +29,13 @@ const CreateJury: NextPage = (props: any) => {
   };
 
   useEffect(() => {
-    const decoded: any = jwt_decode(cookies.jwt);
+    const jwt = getCookie('jwt');
 
-    setJudge2({ name: decoded.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(decoded.username).imageUrl });
+    if (typeof jwt === 'string') {
+      const decoded: any = jwt_decode(jwt);
+
+      setJudge2({ name: decoded.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(decoded.username).imageUrl });
+    }
 
     const menusJudges: MenuItem[] = [];
     users.map((user: any) => {
@@ -64,7 +67,7 @@ const CreateJury: NextPage = (props: any) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies.jwt}`,
+        Authorization: `Bearer ${getCookie('jwt')}`,
       },
     });
     const body = await response.json();
