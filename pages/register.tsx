@@ -1,11 +1,10 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
-import { useCookies } from 'react-cookie';
 import Button from '@/components/common/Button';
 import router from 'next/router';
+import { setCookie } from 'cookies-next';
 
 const Register: NextPage = () => {
-  const [cookies, setCookie, removeCookie] = useCookies();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
