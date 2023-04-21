@@ -9,6 +9,7 @@ import { getCookie } from 'cookies-next';
 const CreateJury: NextPage = (props: any) => {
   const users = props.data;
 
+  const [jwt, setJwt] = useState(getCookie('jwt'));
   const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false, imageUrl: null });
   const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
   const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
@@ -28,7 +29,6 @@ const CreateJury: NextPage = (props: any) => {
     setJudge3({ name: name, isHeadJudge: judge3.isHeadJudge, imageUrl: getUserByName(name).imageUrl });
   };
 
-  const jwt = getCookie('jwt');
   useEffect(() => {
     if (typeof jwt === 'string') {
       const decoded: any = jwt_decode(jwt);
