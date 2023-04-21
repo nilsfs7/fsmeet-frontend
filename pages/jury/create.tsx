@@ -28,9 +28,8 @@ const CreateJury: NextPage = (props: any) => {
     setJudge3({ name: name, isHeadJudge: judge3.isHeadJudge, imageUrl: getUserByName(name).imageUrl });
   };
 
+  const jwt = getCookie('jwt');
   useEffect(() => {
-    const jwt = getCookie('jwt');
-
     if (typeof jwt === 'string') {
       const decoded: any = jwt_decode(jwt);
 
