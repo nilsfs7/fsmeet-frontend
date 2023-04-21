@@ -7,9 +7,8 @@ import Dropdown, { MenuItem } from '@/components/common/Dropdown';
 import { getCookie } from 'cookies-next';
 
 const CreateJury: NextPage = (props: any) => {
-  const users = props.data;
-
-  const [jwt, setJwt] = useState(getCookie('jwt'));
+  const users = props.data.users;
+  const jwt = props.data.jwt;
   const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false, imageUrl: null });
   const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
   const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
@@ -106,7 +105,8 @@ export default CreateJury;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`);
-  const data = await response.json();
+  const jwt = getCookie('jwt'); // probably delete
+  const data = { users: await response.json(), jwt: jwt };
 
   return {
     props: {
