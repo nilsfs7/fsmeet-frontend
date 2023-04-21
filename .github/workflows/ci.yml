@@ -39,5 +39,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          file: ./docker/Dockerfile
+          file: ./Dockerfile
           tags: ${{ env.TAGS }}
