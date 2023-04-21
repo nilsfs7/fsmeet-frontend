@@ -66,7 +66,7 @@ const CreateJury: NextPage = (props: any) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${getCookie('jwt')}`,
+        Authorization: `Bearer ${jwt}`,
       },
     });
     const body = await response.json();
