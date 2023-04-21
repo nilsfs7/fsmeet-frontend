@@ -15,7 +15,7 @@ docker pull luisnaldo7/fsjudge-frontend:latest
 or build image
 
 ```
-docker build -t luisnaldo7/fsjudge-frontend:latest -f docker/Dockerfile .
+docker build -t luisnaldo7/fsjudge-frontend:latest .
 ```
 
 execute container

@@ -11,22 +11,16 @@ const Account = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
   const [imageUrl, setImageUrl] = useState();
 
-  const handleInputImage = (event: any) => {
+  const handleInputImageChanged = (event: any) => {
     setImageUrl(event.target.value);
   };
 
-  let decoded: any = null;
-  if (cookies.jwt) {
-    decoded = jwt_decode(cookies.jwt);
-  }
+  const handleLogoutClicked = async () => {
+    removeCookie('jwt');
+    router.push('/');
+  };
 
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded === null ? 'undefined' : decoded.username}`, fetcher);
-  if (error) return 'An error has occurred.';
-  if (isLoading) return 'Loading...';
-
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-
+  const handleSaveClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'PUT',
       body: JSON.stringify({ username: `${decoded.username}`, imageUrl: imageUrl }),
@@ -41,20 +35,30 @@ const Account = () => {
     }
   };
 
+  let decoded: any = null;
+  if (cookies.jwt) {
+    decoded = jwt_decode(cookies.jwt);
+  }
+
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded === null ? 'undefined' : decoded.username}`, fetcher);
+  if (error) return 'An error has occurred.';
+  if (isLoading) return 'Loading...';
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="flex h-screen columns-2 flex-col justify-center">
-          <div className="flex justify-center py-2">
-            <label className="pr-4">Image URL:</label>
-            <input type="text" required minLength={2} defaultValue={data.imageUrl} value={imageUrl} className="" onChange={handleInputImage} />
-          </div>
-
-          <div className="flex justify-center py-2">
-            <Button text="Save" />
-          </div>
+      <div className="flex h-screen columns-2 flex-col justify-center">
+        <div className="flex justify-center py-2">
+          <label className="pr-4">Image URL:</label>
+          <input type="text" required minLength={2} defaultValue={data.imageUrl} value={imageUrl} className="" onChange={handleInputImageChanged} />
         </div>
-      </form>
+
+        <div className="flex justify-center py-2">
+          <Button text="Save" onClick={handleSaveClicked} />
+        </div>
+        <div className="flex justify-center py-2">
+          <Button text="Logout" onClick={handleLogoutClicked} />
+        </div>
+      </div>
     </>
   );
 };
