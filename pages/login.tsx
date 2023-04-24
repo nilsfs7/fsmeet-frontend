@@ -28,8 +28,7 @@ const Login: NextPage = () => {
     if (body.accessToken) {
       setCookie('jwt', body.accessToken, { path: '/' });
 
-      // router.push(`/`);
-      router.replace('/');
+      router.push(`/`);
     }
   };
 
