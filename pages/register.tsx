@@ -35,8 +35,8 @@ const Register: NextPage = () => {
           'Content-Type': 'application/json',
         },
       });
-      const bodyLogin = await responseLogin.json();
-      setCookie('jwt', bodyLogin.accessToken);
+      const body = await responseLogin.json();
+      setCookie('jwt', body.accessToken, { path: '/' });
 
       router.push(`/`);
     }
