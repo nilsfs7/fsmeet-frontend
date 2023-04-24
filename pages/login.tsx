@@ -29,6 +29,8 @@ const Login: NextPage = () => {
     const body = await response.json();
     if (body.accessToken) {
       setCookie('jwt', body.accessToken, { path: '/' });
+
+      router.replace('/');
       router.push(`/`);
     }
   };

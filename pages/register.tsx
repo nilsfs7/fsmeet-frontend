@@ -36,9 +36,12 @@ const Register: NextPage = () => {
         },
       });
       const body = await responseLogin.json();
-      setCookie('jwt', body.accessToken, { path: '/' });
+      if (body.accessToken) {
+        setCookie('jwt', body.accessToken, { path: '/' });
 
-      router.push(`/`);
+        router.replace('/');
+        router.push(`/`);
+      }
     }
   };
 

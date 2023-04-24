@@ -16,6 +16,7 @@ const Account = () => {
 
   const handleLogoutClicked = async () => {
     deleteCookie('jwt');
+    router.replace('/');
     router.push('/');
   };
 
