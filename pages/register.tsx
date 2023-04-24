@@ -39,7 +39,7 @@ const Register: NextPage = () => {
       if (body.accessToken) {
         setCookie('jwt', body.accessToken, { path: '/' });
 
-        router.push(`/`);
+        // router.push(`/`);
         router.replace('/');
       }
     }
