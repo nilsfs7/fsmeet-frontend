@@ -14,7 +14,7 @@ const Account = () => {
     setImageUrl(event.target.value);
   };
 
-  const handleLogoutClicked = async () => {
+  const handleLogoutClicked = () => {
     deleteCookie('jwt', { path: '/' });
 
     // router.push('/');

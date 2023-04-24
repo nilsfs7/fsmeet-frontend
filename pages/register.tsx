@@ -15,9 +15,7 @@ const Register: NextPage = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-
+  const handleCreateClicked = async () => {
     const responseCreateUser = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'POST',
       body: JSON.stringify({ username: username, password: password }),
@@ -47,22 +45,20 @@ const Register: NextPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="flex h-screen columns-2 flex-col justify-center">
-          <div className="flex justify-center py-2">
-            <label className="pr-4">User:</label>
-            <input type="text" required minLength={2} value={username} className="" onChange={handleInputChangeUsername} />
-          </div>
-
-          <div className="flex justify-center py-2">
-            <label className="pr-4">Password:</label>
-            <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} />
-          </div>
-          <div className="flex justify-center py-2">
-            <Button text="Create Account" />
-          </div>
+      <div className="flex h-screen columns-2 flex-col justify-center">
+        <div className="flex justify-center py-2">
+          <label className="pr-4">User:</label>
+          <input type="text" required minLength={2} value={username} className="" onChange={handleInputChangeUsername} />
         </div>
-      </form>
+
+        <div className="flex justify-center py-2">
+          <label className="pr-4">Password:</label>
+          <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} />
+        </div>
+        <div className="flex justify-center py-2">
+          <Button text="Create Account" onClick={handleCreateClicked} />
+        </div>
+      </div>
     </>
   );
 };
