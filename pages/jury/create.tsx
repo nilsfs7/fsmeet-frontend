@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
 import { getCookie } from 'cookies-next';
-import router from 'next/router';
 
 const CreateJury: NextPage = (props: any) => {
   const users = props.data;
@@ -14,7 +13,6 @@ const CreateJury: NextPage = (props: any) => {
   const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
   const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
   const [judgesList, setJudgesList] = useState([{ text: '', value: '' }]);
-  const [jwt] = useState(getCookie('jwt'));
 
   function getUserByName(name: string) {
     return users.filter((u: any) => {
@@ -31,7 +29,7 @@ const CreateJury: NextPage = (props: any) => {
   };
 
   useEffect(() => {
-    // const jwt = getCookie('jwt');
+    const jwt = getCookie('jwt');
     if (typeof jwt === 'string') {
       const decoded: any = jwt_decode(jwt);
 
@@ -68,7 +66,7 @@ const CreateJury: NextPage = (props: any) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${jwt}`,
+        Authorization: `Bearer ${getCookie('jwt')}`,
       },
     });
     const body = await response.json();
