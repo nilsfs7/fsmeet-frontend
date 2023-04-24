@@ -32,10 +32,13 @@ const CreateJury: NextPage = (props: any) => {
 
   useEffect(() => {
     const jwt = getCookie('jwt');
+    console.log(jwt);
     if (typeof jwt === 'string') {
       const decoded: any = jwt_decode(jwt);
       setJWT(decoded);
+      console.log('set');
     }
+    console.log('pushed');
     router.push('/');
   });
 
