@@ -14,6 +14,7 @@ const CreateJury: NextPage = (props: any) => {
   const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
   const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
   const [judgesList, setJudgesList] = useState([{ text: '', value: '' }]);
+  const [jwt] = useState(getCookie('jwt'));
 
   function getUserByName(name: string) {
     return users.filter((u: any) => {
@@ -30,7 +31,7 @@ const CreateJury: NextPage = (props: any) => {
   };
 
   useEffect(() => {
-    const jwt = getCookie('jwt');
+    // const jwt = getCookie('jwt');
     if (typeof jwt === 'string') {
       const decoded: any = jwt_decode(jwt);
 
@@ -67,7 +68,7 @@ const CreateJury: NextPage = (props: any) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${getCookie('jwt')}`,
+        Authorization: `Bearer ${jwt}`,
       },
     });
     const body = await response.json();
@@ -105,12 +106,7 @@ const CreateJury: NextPage = (props: any) => {
 
 export default CreateJury;
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const jwt = getCookie('jwt');
-  if (!jwt) {
-    router.push('/login');
-  }
-
+export const getServerSideProps: GetServerSideProps = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`);
   const data = await response.json();
 
