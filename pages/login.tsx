@@ -30,8 +30,8 @@ const Login: NextPage = () => {
     if (body.accessToken) {
       setCookie('jwt', body.accessToken, { path: '/' });
 
-      router.replace('/login');
-      // router.push(`/`);
+      router.push(`/`);
+      router.replace('/');
     }
   };
 

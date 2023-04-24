@@ -15,9 +15,10 @@ const Account = () => {
   };
 
   const handleLogoutClicked = async () => {
-    deleteCookie('jwt');
-    router.replace('/account');
-    // router.push('/');
+    deleteCookie('jwt', { path: '/' });
+
+    router.push('/');
+    router.replace('/');
   };
 
   const handleSaveClicked = async () => {
