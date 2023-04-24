@@ -24,9 +24,9 @@ const CreateJury: NextPage = () => {
           </Link>
         </div>
         <div className="flex justify-center py-2">
-          {/* <Link href={'/jury/create'}> */}
-          <Button text="Create Jury" onClick={onClickJuryCreate} />
-          {/* </Link> */}
+          <a href={'/jury/create'}>
+            <Button text="Create Jury" />
+          </a>
         </div>
         <div className="flex justify-center py-2">
           <Link href={'/'}>
