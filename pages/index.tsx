@@ -11,10 +11,6 @@ const CreateJury: NextPage = () => {
     router.push('/account');
   };
 
-  const onClickJuryCreate = () => {
-    router.push('/jury/create');
-  };
-
   return (
     <>
       <div className="flex h-screen flex-col justify-center">
@@ -24,9 +20,9 @@ const CreateJury: NextPage = () => {
           </Link>
         </div>
         <div className="flex justify-center py-2">
-          <a href={'/jury/create'}>
+          <Link href={'/jury/create'}>
             <Button text="Create Jury" />
-          </a>
+          </Link>
         </div>
         <div className="flex justify-center py-2">
           <Link href={'/'}>

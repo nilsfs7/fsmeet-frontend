@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
 import { getCookie } from 'cookies-next';
+import router from 'next/router';
 
 const CreateJury: NextPage = (props: any) => {
   const users = props.data;
@@ -104,7 +105,12 @@ const CreateJury: NextPage = (props: any) => {
 
 export default CreateJury;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async context => {
+  const jwt = getCookie('jwt');
+  if (!jwt) {
+    router.push('/login');
+  }
+
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`);
   const data = await response.json();
 
