@@ -31,21 +31,17 @@ const CreateJury: NextPage = (props: any) => {
   };
 
   useEffect(() => {
-    // const jwt = getCookie('jwt');
-    // if (typeof jwt === 'string') {
-    //   const decoded: any = jwt_decode(jwt);
+    if (session?.user?.name) {
+      setJudge2({ name: session.user.name, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(session.user.name).imageUrl });
 
-    // setJudge2({ name: decoded.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(decoded.username).imageUrl });
-    setJudge2({ name: 'nils', isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName('nils').imageUrl });
-    // }
-
-    const menusJudges: MenuItem[] = [];
-    users.map((user: any) => {
-      if (user.username != judge2.name) {
-        menusJudges.push({ text: user.username, value: user.username });
-      }
-    });
-    setJudgesList(menusJudges);
+      const menusJudges: MenuItem[] = [];
+      users.map((user: any) => {
+        if (user.username != judge2.name) {
+          menusJudges.push({ text: user.username, value: user.username });
+        }
+      });
+      setJudgesList(menusJudges);
+    }
   }, [judge2.name]);
 
   const onStartSession = async () => {

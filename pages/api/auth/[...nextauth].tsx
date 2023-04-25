@@ -1,4 +1,4 @@
-import NextAuth, { Awaitable, Session, User } from 'next-auth';
+import NextAuth, { Session, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import jwt_decode from 'jwt-decode';
 import { AdapterUser } from 'next-auth/adapters';
@@ -16,7 +16,7 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
 
-      async authorize(credentials, req) {
+      async authorize(credentials, req): Promise<User | null> {
         if (credentials?.username && credentials?.password) {
           const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`, {
             method: 'POST',
@@ -30,7 +30,8 @@ export default NextAuth({
           const decoded: any = jwt_decode(body.accessToken);
 
           if (response.ok && body.accessToken) {
-            return decoded.username;
+            const user: User = { id: decoded.username };
+            return user;
           }
         }
 
@@ -49,11 +50,19 @@ export default NextAuth({
       return false;
     },
 
-    jwt: async ({  token , user }) => {
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.name = user.id;
+      }
+
       return token;
     },
 
     session({ session, token, user }) {
+      if (session.user) {
+        session.user.name = token.name;
+      }
+
       return session;
     },
   },

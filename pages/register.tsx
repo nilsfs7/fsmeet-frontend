@@ -10,8 +10,15 @@ const Register: NextPage = () => {
   const handleInputChangeUsername = (event: any) => {
     setUsername(event.target.value);
   };
+
   const handleInputChangePassword = (event: any) => {
     setPassword(event.target.value);
+  };
+
+  const handleInputKeypressPassword = (e: any) => {
+    if (e.keyCode === 13) {
+      handleCreateClicked();
+    }
   };
 
   const handleCreateClicked = async () => {
@@ -34,8 +41,6 @@ const Register: NextPage = () => {
       });
       const body = await responseLogin.json();
       if (body.accessToken) {
-        // setCookie('jwt', body.accessToken, { path: '/' });
-
         router.push(`/`);
       }
     }
@@ -46,12 +51,12 @@ const Register: NextPage = () => {
       <div className="flex h-screen columns-2 flex-col justify-center">
         <div className="flex justify-center py-2">
           <label className="pr-4">User:</label>
-          <input type="text" required minLength={2} value={username} className="" onChange={handleInputChangeUsername} />
+          <input type="text" autoFocus required minLength={2} value={username} className="" onChange={handleInputChangeUsername} />
         </div>
 
         <div className="flex justify-center py-2">
           <label className="pr-4">Password:</label>
-          <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} />
+          <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} onKeyDown={handleInputKeypressPassword} />
         </div>
         <div className="flex justify-center py-2">
           <Button text="Create Account" onClick={handleCreateClicked} />

@@ -12,17 +12,16 @@ const Login: NextPage = () => {
   const handleInputChangeUsername = (event: any) => {
     setUsername(event.target.value);
   };
-  
+
   const handleInputChangePassword = (event: any) => {
     setPassword(event.target.value);
   };
 
   const handleInputKeypressPassword = (e: any) => {
-  
-  if (e.keyCode === 13) {
-    handleLoginClicked();
-  }
-};
+    if (e.keyCode === 13) {
+      handleLoginClicked();
+    }
+  };
 
   const handleLoginClicked = async () => {
     await signIn('credentials', { username: username, password: password, callbackUrl: '/' });
