@@ -2,13 +2,15 @@ import Button from '@/components/common/Button';
 import JudgeSelection from '@/components/jury/JudgeSelection';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import jwt_decode from 'jwt-decode';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
-import { getCookie } from 'cookies-next';
+import { useSession } from 'next-auth/react';
+import router from 'next/router';
+import { decode } from 'next-auth/jwt';
 
 const CreateJury: NextPage = (props: any) => {
   const users = props.data;
 
+  const { data: session, status } = useSession();
   const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false, imageUrl: null });
   const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
   const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
@@ -29,12 +31,13 @@ const CreateJury: NextPage = (props: any) => {
   };
 
   useEffect(() => {
-    const jwt = getCookie('jwt');
-    if (typeof jwt === 'string') {
-      const decoded: any = jwt_decode(jwt);
+    // const jwt = getCookie('jwt');
+    // if (typeof jwt === 'string') {
+    //   const decoded: any = jwt_decode(jwt);
 
-      setJudge2({ name: decoded.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(decoded.username).imageUrl });
-    }
+    // setJudge2({ name: decoded.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(decoded.username).imageUrl });
+    setJudge2({ name: 'nils', isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName('nils').imageUrl });
+    // }
 
     const menusJudges: MenuItem[] = [];
     users.map((user: any) => {
@@ -66,12 +69,16 @@ const CreateJury: NextPage = (props: any) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${getCookie('jwt')}`,
+        Authorization: `Bearer ${'123'}`,
       },
     });
     const body = await response.json();
     console.log(body);
   };
+
+  if (status === 'unauthenticated') {
+    router.push('/login');
+  }
 
   return (
     <div className="flex h-screen flex-col justify-center">
@@ -104,7 +111,15 @@ const CreateJury: NextPage = (props: any) => {
 
 export default CreateJury;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async context => {
+  const sessionToken = context.req.cookies['next-auth.session-token'];
+  const decoded = await decode({
+    token: sessionToken,
+    secret: process.env.NEXTAUTH_SECRET as string,
+  });
+
+  console.log(decoded);
+
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`);
   const data = await response.json();
 

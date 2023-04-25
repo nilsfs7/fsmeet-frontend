@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
 import Button from '@/components/common/Button';
-import router from 'next/router';
 import Link from 'next/link';
-import { setCookie } from 'cookies-next';
+
+import { signIn } from 'next-auth/react';
 
 const Login: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -15,21 +15,8 @@ const Login: NextPage = () => {
   const handleInputChangePassword = (event: any) => {
     setPassword(event.target.value);
   };
-
   const handleLoginClicked = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`, {
-      method: 'POST',
-      body: JSON.stringify({ username: username, password: password }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const body = await response.json();
-    if (body.accessToken) {
-      setCookie('jwt', body.accessToken, { path: '/' });
-
-      router.push(`/`);
-    }
+    await signIn('credentials', { username: username, password: password, callbackUrl: '/' });
   };
 
   return (
@@ -39,18 +26,15 @@ const Login: NextPage = () => {
           <label className="pr-4">User:</label>
           <input type="text" required minLength={2} value={username} className="" onChange={handleInputChangeUsername} />
         </div>
-
         <div className="flex justify-center py-2">
           <label className="pr-4">Password:</label>
           <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} />
         </div>
-
         <div className="flex justify-center py-2">
           <Link href={'/register'}>
             <label className="cursor-pointer pr-4 underline">No account yet?</label>
           </Link>
         </div>
-
         <div className="flex justify-center py-2">
           <Button text="Login" onClick={handleLoginClicked} />
         </div>

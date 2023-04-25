@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import Button from '@/components/common/Button';
 import router from 'next/router';
-import { setCookie } from 'cookies-next';
 
 const Register: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -35,10 +34,9 @@ const Register: NextPage = () => {
       });
       const body = await responseLogin.json();
       if (body.accessToken) {
-        setCookie('jwt', body.accessToken, { path: '/' });
+        // setCookie('jwt', body.accessToken, { path: '/' });
 
-        // router.push(`/`);
-        router.replace('/');
+        router.push(`/`);
       }
     }
   };

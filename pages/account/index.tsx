@@ -1,8 +1,7 @@
 import Button from '@/components/common/Button';
-import jwt_decode from 'jwt-decode';
 import router from 'next/router';
 import { useState } from 'react';
-import { getCookie, deleteCookie } from 'cookies-next';
+import { signOut } from 'next-auth/react';
 import useSWR from 'swr';
 
 const fetcher = (url: RequestInfo | URL) => fetch(url).then(res => res.json());
@@ -14,20 +13,18 @@ const Account = () => {
     setImageUrl(event.target.value);
   };
 
-  const handleLogoutClicked = () => {
-    deleteCookie('jwt', { path: '/' });
-
-    // router.push('/');
-    router.replace('/');
+  const handleLogoutClicked = async () => {
+    await signOut({ redirect: false });
+    router.push('/');
   };
 
   const handleSaveClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'PUT',
-      body: JSON.stringify({ username: `${decoded.username}`, imageUrl: imageUrl }),
+      body: JSON.stringify({ username: `${'nils'}`, imageUrl: imageUrl }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${getCookie('jwt')}`,
+        Authorization: `Bearer ${'jwt'}`,
       },
     });
 
@@ -36,13 +33,8 @@ const Account = () => {
     }
   };
 
-  const jwt = getCookie('jwt');
-  let decoded: any = null;
-  if (typeof jwt === 'string') {
-    decoded = jwt_decode(jwt);
-  }
-
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded === null ? 'undefined' : decoded.username}`, fetcher);
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/nils`, fetcher);
+  // const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded === null ? 'undefined' : decoded.username}`, fetcher);
   if (error) return 'An error has occurred.';
   if (isLoading) return 'Loading...';
 
