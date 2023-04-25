@@ -34,6 +34,7 @@ EXPOSE 3001
 
 ## Declare environment variables
 ENV NEXT_PUBLIC_BACKEND_URL=http://localhost:3000
+ENV NEXTAUTH_SECRET=secret
 
 ## Execute app
 CMD ["npm", "start"]
