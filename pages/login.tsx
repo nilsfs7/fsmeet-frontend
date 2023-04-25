@@ -12,9 +12,18 @@ const Login: NextPage = () => {
   const handleInputChangeUsername = (event: any) => {
     setUsername(event.target.value);
   };
+  
   const handleInputChangePassword = (event: any) => {
     setPassword(event.target.value);
   };
+
+  const handleInputKeypressPassword = (e: any) => {
+  
+  if (e.keyCode === 13) {
+    handleLoginClicked();
+  }
+};
+
   const handleLoginClicked = async () => {
     await signIn('credentials', { username: username, password: password, callbackUrl: '/' });
   };
@@ -24,11 +33,11 @@ const Login: NextPage = () => {
       <div className="flex h-screen columns-2 flex-col justify-center">
         <div className="flex justify-center py-2">
           <label className="pr-4">User:</label>
-          <input type="text" required minLength={2} value={username} className="" onChange={handleInputChangeUsername} />
+          <input type="text" autoFocus required minLength={2} value={username} className="" onChange={handleInputChangeUsername} />
         </div>
         <div className="flex justify-center py-2">
           <label className="pr-4">Password:</label>
-          <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} />
+          <input type="password" required minLength={2} value={password} className="" onChange={handleInputChangePassword} onKeyDown={handleInputKeypressPassword} />
         </div>
         <div className="flex justify-center py-2">
           <Link href={'/register'}>

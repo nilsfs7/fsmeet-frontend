@@ -1,5 +1,7 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth, { Awaitable, Session, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import jwt_decode from 'jwt-decode';
+import { AdapterUser } from 'next-auth/adapters';
 
 export default NextAuth({
   session: {
@@ -25,14 +27,13 @@ export default NextAuth({
           });
 
           const body = await response.json();
+          const decoded: any = jwt_decode(body.accessToken);
 
-          // If no error and we have user data, return it
           if (response.ok && body.accessToken) {
-            return body.accessToken;
+            return decoded.username;
           }
         }
 
-        // Return null if user data could not be retrieved
         return null;
       },
     }),
@@ -42,9 +43,18 @@ export default NextAuth({
     signOut: '/account',
   },
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      console.log(user);
-      return true;
+    async signIn({ user }: { user: User | AdapterUser }) {
+      if (user) return true;
+
+      return false;
+    },
+
+    jwt: async ({  token , user }) => {
+      return token;
+    },
+
+    session({ session, token, user }) {
+      return session;
     },
   },
 });
