@@ -108,7 +108,6 @@ const CreateJury: NextPage = (props: any) => {
 export default CreateJury;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  console.log(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`);
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`);
   const data = await response.json();
 
