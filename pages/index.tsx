@@ -8,7 +8,7 @@ const CreateJury: NextPage = () => {
     <>
       <div className="flex h-screen flex-col justify-center">
         {/* profile */}
-        <div className="hidden sm:block">
+        <div className="sm:block">
           <div className="m-6 flex justify-end">
             <Profile />
           </div>
