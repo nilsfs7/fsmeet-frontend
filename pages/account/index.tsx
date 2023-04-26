@@ -1,12 +1,14 @@
 import Button from '@/components/common/Button';
 import router from 'next/router';
 import { useState } from 'react';
-import { signOut } from 'next-auth/react';
-import useSWR from 'swr';
+import { signOut, useSession } from 'next-auth/react';
+import { GetServerSideProps } from 'next';
+import { decode } from 'next-auth/jwt';
 
-const fetcher = (url: RequestInfo | URL) => fetch(url).then(res => res.json());
+const Account = (props: any) => {
+  const user = props.data;
 
-const Account = () => {
+  const { data: session, status } = useSession();
   const [imageUrl, setImageUrl] = useState();
 
   const handleInputImageChanged = (event: any) => {
@@ -14,8 +16,8 @@ const Account = () => {
   };
 
   const handleLogoutClicked = async () => {
-    await signOut({ redirect: false });
     router.push('/');
+    await signOut({ redirect: false });
   };
 
   const handleSaveClicked = async () => {
@@ -33,19 +35,17 @@ const Account = () => {
     }
   };
 
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/nils`, fetcher);
-  // const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded === null ? 'undefined' : decoded.username}`, fetcher);
-  if (error) return 'An error has occurred.';
-  if (isLoading) return 'Loading...';
+  if (status === 'unauthenticated') {
+    router.push('/login');
+  }
 
   return (
     <>
       <div className="flex h-screen columns-2 flex-col justify-center">
         <div className="flex justify-center py-2">
           <label className="pr-4">Image URL:</label>
-          <input type="text" required minLength={2} defaultValue={data.imageUrl} value={imageUrl} className="" onChange={handleInputImageChanged} />
+          <input type="text" required minLength={2} defaultValue={user.imageUrl} value={imageUrl} className="" onChange={handleInputImageChanged} />
         </div>
-
         <div className="flex justify-center py-2">
           <Button text="Save" onClick={handleSaveClicked} />
         </div>
@@ -57,3 +57,20 @@ const Account = () => {
   );
 };
 export default Account;
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const sessionToken = context.req.cookies['next-auth.session-token'];
+  const decoded = await decode({
+    token: sessionToken,
+    secret: process.env.NEXTAUTH_SECRET as string,
+  });
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded?.name}`);
+  const data = await response.json();
+
+  return {
+    props: {
+      data: data,
+    },
+  };
+};

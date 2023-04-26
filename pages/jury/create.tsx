@@ -107,15 +107,7 @@ const CreateJury: NextPage = (props: any) => {
 
 export default CreateJury;
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const sessionToken = context.req.cookies['next-auth.session-token'];
-  const decoded = await decode({
-    token: sessionToken,
-    secret: process.env.NEXTAUTH_SECRET as string,
-  });
-
-  console.log(decoded);
-
+export const getServerSideProps: GetServerSideProps = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`);
   const data = await response.json();
 
