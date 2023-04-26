@@ -18,6 +18,7 @@ export default NextAuth({
 
       async authorize(credentials, req): Promise<User | null> {
         if (credentials?.username && credentials?.password) {
+          console.log('process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login');
           const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`, {
             method: 'POST',
             body: JSON.stringify({ username: credentials.username, password: credentials.password }),
