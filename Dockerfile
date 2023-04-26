@@ -33,7 +33,7 @@ COPY --from=build /app/next.config.js ./next.config.js
 EXPOSE 3001
 
 ## Declare environment variables
-ENV NEXT_PUBLIC_BACKEND_URL=http://localhost:3000
+ENV NEXT_PUBLIC_BACKEND_URL=http://dffb.org:9211
 ENV NEXTAUTH_URL=http://dffb.org:9211
 ENV NEXTAUTH_SECRET=secret
 
