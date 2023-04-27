@@ -44,4 +44,4 @@ jobs:
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
           build-args: |
-            COMMIT_SHA=${SHA}
+            "COMMIT_SHA=${SHA}"
