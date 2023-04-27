@@ -40,7 +40,5 @@ ENV NEXT_PUBLIC_BACKEND_URL=http://dffb.org:9211
 ENV NEXTAUTH_URL=http://dffb.org:9211
 ENV NEXTAUTH_SECRET=secret
 
-
-
 ## Execute app
 CMD ["npm", "start"]
