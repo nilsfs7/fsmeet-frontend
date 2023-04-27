@@ -42,4 +42,4 @@ jobs:
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
           build-args: |
-            COMMIT_SHA="$GITHUB_SHA"
+            COMMIT_SHA="${GITHUB_SHA}"
