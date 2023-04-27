@@ -23,6 +23,10 @@ jobs:
               echo "TAGS=luisnaldo7/fsjudge-frontend:latest,luisnaldo7/fsjudge-frontend:prod" >> "$GITHUB_ENV"  
           fi
 
+      - name: Get Short SHA
+        id: short-sha
+        run: echo "::set-output name=short-sha::${{ github.sha:0:7 }}"
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -37,11 +41,9 @@ jobs:
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
-        env:
-          SHA: ${{ github.sha:0:7 }}
         with:
           push: true
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
           build-args: |
-            COMMIT_SHA=${{ env.SHA }}
+            COMMIT_SHA=${{ steps.short-sha.outputs.short-sha }}
