@@ -32,7 +32,7 @@ const CreateJury: NextPage = (props: any) => {
 
   useEffect(() => {
     if (session?.user?.name) {
-      // setJudge2({ name: session.user.name, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(session.user.name).imageUrl });
+      setJudge2({ name: session.user.name, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(session.user.name).imageUrl });
       // const menusJudges: MenuItem[] = [];
       // users.map((user: any) => {
       //   if (user.username != judge2.name) {
