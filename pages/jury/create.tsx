@@ -30,21 +30,6 @@ const CreateJury: NextPage = (props: any) => {
     setJudge3({ name: name, isHeadJudge: judge3.isHeadJudge, imageUrl: getUserByName(name).imageUrl });
   };
 
-  useEffect(() => {
-    if (session?.user?.name) {
-      // setJudge2({ name: session.user.name, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(session.user.name).imageUrl });
-      const menusJudges: MenuItem[] = [];
-      users.map((user: any) => {
-        if (user.username != judge2.name) {
-          menusJudges.push({ text: user.username, value: user.username });
-        }
-      });
-      console.log('set other judges');
-      console.log(menusJudges);
-      setJudgesList(menusJudges);
-    }
-  }, [judge2.name]);
-
   const onStartSession = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/juries`, {
       method: 'POST',
@@ -66,12 +51,27 @@ const CreateJury: NextPage = (props: any) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${'123'}`,
+        Authorization: `Bearer ${'TODO'}`,
       },
     });
     const body = await response.json();
     console.log(body);
   };
+
+  useEffect(() => {
+    if (session?.user?.name) {
+      setJudge2({ name: session.user.name, isHeadJudge: judge2.isHeadJudge, imageUrl: null });
+      const menusJudges: MenuItem[] = [];
+      users.map((user: any) => {
+        if (user.username != judge2.name) {
+          menusJudges.push({ text: user.username, value: user.username });
+        }
+      });
+      console.log('set other judges');
+      console.log(menusJudges);
+      setJudgesList(menusJudges);
+    }
+  }, [judge2.name]);
 
   if (status === 'unauthenticated') {
     router.push('/login');
