@@ -12,7 +12,7 @@ RUN yarn
 
 ## Declare build arguments
 ARG COMMIT_SHA="n/a"
-ARG BACKEND_URL=http://dffb.org:9211
+ARG BACKEND_URL=http://dffb.org:9210
 ARG AUTH_URL=http://dffb.org:9211
 ARG AUTH_SECRET=secret
 

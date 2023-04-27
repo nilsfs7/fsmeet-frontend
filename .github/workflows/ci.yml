@@ -17,10 +17,6 @@ jobs:
     env:
       TAGS: luisnaldo7/fsjudge-frontend:dev
     steps:
-      - name: Set outputs
-        id: short-sha
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
       - name: Set environment for branch
         run: |
           if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
@@ -41,9 +37,11 @@ jobs:
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
+        env:
+          SHA: ${{ github.sha }}
         with:
           push: true
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
           build-args: |
-            COMMIT_SHA=${{ steps.short-sha.outputs.sha_short }}
+            COMMIT_SHA=${{ env.SHA }}
