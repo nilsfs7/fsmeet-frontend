@@ -46,4 +46,4 @@ jobs:
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
           build-args: |
-            COMMIT_SHA=${{ steps.short-sha.outputs.short-sha }}
+            COMMIT_SHA=${{ steps.short-sha.outputs.sha_short }}
