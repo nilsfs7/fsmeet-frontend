@@ -17,12 +17,9 @@ jobs:
     env:
       TAGS: luisnaldo7/fsjudge-frontend:dev
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Get Short SHA
+      - name: Set outputs
         id: short-sha
-        run: echo "::set-output name=short-sha::${{ github.sha:0:7 }}"
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Set environment for branch
         run: |
