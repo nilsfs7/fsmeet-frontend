@@ -46,4 +46,4 @@ jobs:
           # build-args: |
           #   COMMIT_SHA=${SHA}
           args: |
-            --build-arg GITHUB_SHA=${{ SHA }}
+            --build-arg GITHUB_SHA=${{ env.SHA }}
