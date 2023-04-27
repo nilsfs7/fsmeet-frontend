@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 const Home: NextPage = () => {
   console.log(`version: ${process.env.NEXT_PUBLIC_COMMIT_SHA}`);
+  const shortVer = process.env.NEXT_PUBLIC_COMMIT_SHA && process.env.NEXT_PUBLIC_COMMIT_SHA?.length > 7 ? process.env.NEXT_PUBLIC_COMMIT_SHA?.substring(0, 7) : process.env.NEXT_PUBLIC_COMMIT_SHA;
 
   return (
     <>
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
             </Link>
           </div>
         </div>
-        <div>ver. {process.env.NEXT_PUBLIC_COMMIT_SHA}</div>
+        <div>ver. {shortVer}</div>
       </div>
     </>
   );
