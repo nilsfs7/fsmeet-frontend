@@ -37,11 +37,10 @@ jobs:
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
-        env:
-          SHA: ${{ github.sha }}
         with:
+          context: .
           push: true
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
-          build-args: |
-            COMMIT_SHA=${SHA}
+          args: |
+            --build-arg GITHUB_SHA=${{ github.sha }}
