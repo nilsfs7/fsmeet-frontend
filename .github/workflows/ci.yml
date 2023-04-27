@@ -36,14 +36,12 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker images
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         env:
           SHA: ${{ github.sha }}
         with:
           push: true
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
-          # build-args: |
-          #   COMMIT_SHA=${SHA}
-          args: |
-            --build-arg GITHUB_SHA=123
+          build-args: |
+            COMMIT_SHA=${SHA}
