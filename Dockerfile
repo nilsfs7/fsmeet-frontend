@@ -32,10 +32,10 @@ COPY --from=build /app/next.config.js ./next.config.js
 ## Expose port
 EXPOSE 3001
 
-ARG COMMIT="n/a"
+ARG COMMIT_SHA="n/a"
 
 ## Declare environment variables
-ENV NEXT_PUBLIC_COMMIT_SHA=${COMMIT}
+ENV NEXT_PUBLIC_COMMIT_SHA=${COMMIT_SHA}
 ENV NEXT_PUBLIC_BACKEND_URL=http://dffb.org:9211
 ENV NEXTAUTH_URL=http://dffb.org:9211
 ENV NEXTAUTH_SECRET=secret
