@@ -17,15 +17,18 @@ jobs:
     env:
       TAGS: luisnaldo7/fsjudge-frontend:dev
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get Short SHA
+        id: short-sha
+        run: echo "::set-output name=short-sha::${{ github.sha:0:7 }}"
+
       - name: Set environment for branch
         run: |
           if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
               echo "TAGS=luisnaldo7/fsjudge-frontend:latest,luisnaldo7/fsjudge-frontend:prod" >> "$GITHUB_ENV"  
           fi
-
-      - name: Get Short SHA
-        id: short-sha
-        run: echo "::set-output name=short-sha::${{ github.sha:0:7 }}"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
