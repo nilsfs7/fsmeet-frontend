@@ -3,7 +3,7 @@ import Profile from '@/components/user/profile';
 import { NextPage } from 'next';
 import Link from 'next/link';
 
-const CreateJury: NextPage = () => {
+const Home: NextPage = () => {
   return (
     <>
       <div className="flex h-screen flex-col justify-center">
@@ -32,9 +32,10 @@ const CreateJury: NextPage = () => {
             </Link>
           </div>
         </div>
+        <label>version: {process.env.NEXT_PUBLIC_COMMIT_SHA}</label>
       </div>
     </>
   );
 };
 
-export default CreateJury;
+export default Home;

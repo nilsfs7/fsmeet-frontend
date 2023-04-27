@@ -41,3 +41,5 @@ jobs:
           push: true
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
+          build-args: |
+            "GITHUB_SHA=$(git rev-parse --short $GITHUB_SHA)"

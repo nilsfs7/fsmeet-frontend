@@ -32,10 +32,15 @@ COPY --from=build /app/next.config.js ./next.config.js
 ## Expose port
 EXPOSE 3001
 
+ARG COMMIT="n/a"
+
 ## Declare environment variables
+ENV NEXT_PUBLIC_COMMIT_SHA=${COMMIT}
 ENV NEXT_PUBLIC_BACKEND_URL=http://dffb.org:9211
 ENV NEXTAUTH_URL=http://dffb.org:9211
 ENV NEXTAUTH_SECRET=secret
+
+
 
 ## Execute app
 CMD ["npm", "start"]
