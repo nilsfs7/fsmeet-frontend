@@ -15,7 +15,7 @@ docker pull luisnaldo7/fsjudge-frontend:latest
 or build image
 
 ```
-docker build -t luisnaldo7/fsjudge-frontend:latest .
+docker build --build-arg COMMIT_SHA=456 -t luisnaldo7/fsjudge-frontend:latest .
 ```
 
 execute container

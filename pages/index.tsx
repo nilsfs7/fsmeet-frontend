@@ -4,6 +4,8 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 
 const Home: NextPage = () => {
+  console.log(`version: ${process.env.NEXT_PUBLIC_COMMIT_SHA}`);
+
   return (
     <>
       <div className="flex h-screen flex-col justify-center">
@@ -32,7 +34,7 @@ const Home: NextPage = () => {
             </Link>
           </div>
         </div>
-        <label>version: {process.env.NEXT_PUBLIC_COMMIT_SHA}</label>
+        <div>ver. {process.env.NEXT_PUBLIC_COMMIT_SHA}</div>
       </div>
     </>
   );

@@ -10,6 +10,18 @@ COPY . .
 ## Install app dependencies
 RUN yarn
 
+## Declare build arguments
+ARG COMMIT_SHA="n/a"
+ARG BACKEND_URL=http://dffb.org:9211
+ARG AUTH_URL=http://dffb.org:9211
+ARG AUTH_SECRET=secret
+
+## Declare environment variables
+ENV NEXT_PUBLIC_COMMIT_SHA=$COMMIT_SHA
+ENV NEXT_PUBLIC_BACKEND_URL=$BACKEND_URL
+ENV NEXTAUTH_URL=$AUTH_URL
+ENV NEXTAUTH_SECRET=$AUTH_SECRET
+
 ## Build app
 RUN yarn build
 
@@ -31,14 +43,6 @@ COPY --from=build /app/next.config.js ./next.config.js
 
 ## Expose port
 EXPOSE 3001
-
-ARG COMMIT_SHA="n/a"
-
-## Declare environment variables
-ENV NEXT_PUBLIC_COMMIT_SHA=${COMMIT_SHA}
-ENV NEXT_PUBLIC_BACKEND_URL=http://dffb.org:9211
-ENV NEXTAUTH_URL=http://dffb.org:9211
-ENV NEXTAUTH_SECRET=secret
 
 ## Execute app
 CMD ["npm", "start"]
