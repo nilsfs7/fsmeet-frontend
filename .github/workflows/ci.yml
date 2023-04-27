@@ -38,7 +38,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         env:
-          SHA: ${{ github.sha }}
+          SHA: ${{ github.sha:0:7 }}
         with:
           push: true
           file: ./Dockerfile
