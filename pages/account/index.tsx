@@ -11,8 +11,10 @@ const Account = ({ session }: any) => {
   };
 
   const handleLogoutClicked = async () => {
-    router.push('/');
     await signOut({ redirect: false });
+    localStorage.removeItem('username');
+    localStorage.removeItem('imageUrl');
+    router.push('/');
   };
 
   const handleSaveClicked = async () => {

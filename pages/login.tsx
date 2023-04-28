@@ -2,8 +2,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import Button from '@/components/common/Button';
 import Link from 'next/link';
-
-import { signIn } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 
 const Login: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -25,6 +24,12 @@ const Login: NextPage = () => {
 
   const handleLoginClicked = async () => {
     await signIn('credentials', { username: username, password: password, callbackUrl: '/' });
+
+    const session = await getSession();
+    if (session) {
+      localStorage.setItem('username', session.user.username);
+      localStorage.setItem('imageUrl', session.user.imageUrl);
+    }
   };
 
   return (
