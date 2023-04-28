@@ -13,12 +13,10 @@ interface Props {
 const baseFont = Arvo({ subsets: ['latin'], weight: ['400'] });
 
 export default function App({ Component, pageProps }: Props) {
-  const { session, ...rest } = pageProps;
-
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={pageProps.session}>
       <main className={baseFont.className}>
-        <Component {...rest} />
+        <Component {...pageProps} />
       </main>
     </SessionProvider>
   );

@@ -27,14 +27,10 @@ export default NextAuth({
           });
 
           const body = await response.json();
-          const decoded: any = jwt_decode(body.accessToken);
-
-          if (response.ok && body.accessToken) {
-            const user: User = { id: decoded.username };
-            return user;
+          if (body) {
+            return body;
           }
         }
-
         return null;
       },
     }),
@@ -51,18 +47,12 @@ export default NextAuth({
     },
 
     jwt: async ({ token, user }) => {
-      if (user) {
-        token.name = user.id;
-      }
-
-      return token;
+      return { ...token, ...user };
     },
 
-    session({ session, token, user }) {
-      if (session.user) {
-        session.user.name = token.name;
-      }
-
+    session({ session, token, user }: { session: any; token: any; user: any }) {
+      const decoded: any = jwt_decode(token.accessToken);
+      session.user = { username: decoded.username, imageUrl: decoded.imageUrl, accessToken: token.accessToken } as any;
       return session;
     },
   },

@@ -1,15 +1,10 @@
 import Button from '@/components/common/Button';
 import router from 'next/router';
-import { useState } from 'react';
-import { signOut, useSession } from 'next-auth/react';
-import { GetServerSideProps } from 'next';
-import { decode } from 'next-auth/jwt';
+import { useEffect, useState } from 'react';
+import { getSession, signOut } from 'next-auth/react';
 
-const Account = (props: any) => {
-  const user = props.data;
-
-  const { data: session, status } = useSession();
-  const [imageUrl, setImageUrl] = useState();
+const Account = ({ session }: any) => {
+  const [imageUrl, setImageUrl] = useState('');
 
   const handleInputImageChanged = (event: any) => {
     setImageUrl(event.target.value);
@@ -23,10 +18,10 @@ const Account = (props: any) => {
   const handleSaveClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'PUT',
-      body: JSON.stringify({ username: `${'nils'}`, imageUrl: imageUrl }),
+      body: JSON.stringify({ username: `${session?.user?.accessToken}`, imageUrl: imageUrl }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${'jwt'}`,
+        Authorization: `Bearer ${session?.user?.accessToken}`,
       },
     });
 
@@ -35,16 +30,21 @@ const Account = (props: any) => {
     }
   };
 
-  if (status === 'unauthenticated') {
-    router.push('/login');
-  }
+  useEffect(() => {
+    async function fetchUser() {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
+      const user = await res.json();
+      setImageUrl(user.imageUrl);
+    }
+    fetchUser();
+  }, []);
 
   return (
     <>
       <div className="flex h-screen columns-2 flex-col justify-center">
         <div className="flex justify-center py-2">
           <label className="pr-4">Image URL:</label>
-          <input type="text" required minLength={2} defaultValue={user.imageUrl} value={imageUrl} className="" onChange={handleInputImageChanged} />
+          <input type="text" required minLength={2} value={imageUrl ? imageUrl : ''} className="" onChange={handleInputImageChanged} />
         </div>
         <div className="flex justify-center py-2">
           <Button text="Save" onClick={handleSaveClicked} />
@@ -58,19 +58,11 @@ const Account = (props: any) => {
 };
 export default Account;
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const sessionToken = context.req.cookies['next-auth.session-token'];
-  const decoded = await decode({
-    token: sessionToken,
-    secret: process.env.NEXTAUTH_SECRET as string,
-  });
-
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${decoded?.name}`);
-  const data = await response.json();
-
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
   return {
     props: {
-      data: data,
+      session,
     },
   };
-};
+}

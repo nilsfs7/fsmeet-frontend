@@ -3,14 +3,13 @@ import JudgeSelection from '@/components/jury/JudgeSelection';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
-import { useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import router from 'next/router';
-import { decode } from 'next-auth/jwt';
 
 const CreateJury: NextPage = (props: any) => {
   const users = props.data;
+  const session = props.session;
 
-  const { data: session, status } = useSession();
   const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false, imageUrl: null });
   const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
   const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
@@ -51,7 +50,7 @@ const CreateJury: NextPage = (props: any) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${'TODO'}`,
+        Authorization: `Bearer ${session.user.accessToken}`,
       },
     });
     const body = await response.json();
@@ -59,23 +58,18 @@ const CreateJury: NextPage = (props: any) => {
   };
 
   useEffect(() => {
-    if (session?.user?.name) {
-      setJudge2({ name: session.user.name, isHeadJudge: judge2.isHeadJudge, imageUrl: null });
+    if (session?.user?.username) {
+      setJudge2({ name: session.user.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(session.user.username).imageUrl });
+
       const menusJudges: MenuItem[] = [];
       users.map((user: any) => {
         if (user.username != judge2.name) {
           menusJudges.push({ text: user.username, value: user.username });
         }
       });
-      console.log('set other judges');
-      console.log(menusJudges);
       setJudgesList(menusJudges);
     }
   }, [judge2.name]);
-
-  if (status === 'unauthenticated') {
-    router.push('/login');
-  }
 
   return (
     <div className="flex h-screen flex-col justify-center">
@@ -108,13 +102,16 @@ const CreateJury: NextPage = (props: any) => {
 
 export default CreateJury;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getSession(context);
+
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`);
   const data = await response.json();
 
   return {
     props: {
       data: data,
+      session: session,
     },
   };
 };

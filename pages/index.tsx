@@ -1,6 +1,7 @@
 import Button from '@/components/common/Button';
 import Profile from '@/components/user/profile';
 import { NextPage } from 'next';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 const Home: NextPage = () => {
