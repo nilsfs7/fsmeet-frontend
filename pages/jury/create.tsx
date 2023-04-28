@@ -54,7 +54,6 @@ const CreateJury: NextPage = (props: any) => {
       },
     });
     const body = await response.json();
-    console.log(body);
   };
 
   useEffect(() => {

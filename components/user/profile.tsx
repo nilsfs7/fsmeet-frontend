@@ -21,7 +21,7 @@ const Profile = () => {
       <button className="h-full w-full" onClick={onClickProfile}>
         <div className="grid grid-flow-col items-center">
           <img alt={'user'} src={isAuthenticated() ? session?.user?.imageUrl : defaultImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
-          <div className="my- mx-4 text-xl">{isAuthenticated() && session?.user?.username ? session.user.username : 'Login'}</div>
+          <div className="mx-4 text-xl">{isAuthenticated() && session?.user ? session.user.username : 'Login'}</div>
         </div>
       </button>
     </div>
