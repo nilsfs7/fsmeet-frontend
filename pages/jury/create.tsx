@@ -10,6 +10,10 @@ const CreateJury: NextPage = (props: any) => {
   const users = props.data;
   const session = props.session;
 
+  if (!session) {
+    router.push('/login');
+  }
+
   const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false, imageUrl: null });
   const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
   const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
