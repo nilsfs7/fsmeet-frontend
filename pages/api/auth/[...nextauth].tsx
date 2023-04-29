@@ -4,9 +4,9 @@ import jwt_decode from 'jwt-decode';
 import { AdapterUser } from 'next-auth/adapters';
 
 export default NextAuth({
-  session: {
-    strategy: 'jwt',
-  },
+  // session: {
+  //   strategy: 'jwt',
+  // },
   providers: [
     CredentialsProvider({
       name: 'Credentials',

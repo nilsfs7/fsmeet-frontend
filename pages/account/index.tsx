@@ -28,6 +28,7 @@ const Account = ({ session }: any) => {
     });
 
     if (response.status === 200) {
+      localStorage.setItem('imageUrl', imageUrl);
       router.push(`/`);
     }
   };

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from '@/components/common/Button';
 import Link from 'next/link';
 import { getSession, signIn } from 'next-auth/react';
+import router from 'next/router';
 
 const Login: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -23,13 +24,21 @@ const Login: NextPage = () => {
   };
 
   const handleLoginClicked = async () => {
-    await signIn('credentials', { username: username, password: password, callbackUrl: '/' });
+    await signIn('credentials', { username: username, password: password, redirect: false }).then(async response => {
+      console.log(response);
 
-    const session = await getSession();
-    if (session) {
-      localStorage.setItem('username', session.user.username);
-      localStorage.setItem('imageUrl', session.user.imageUrl);
-    }
+      const session = await getSession();
+      if (session) {
+        localStorage.setItem('username', session.user.username);
+        localStorage.setItem('imageUrl', session.user.imageUrl);
+
+        localStorage.setItem('nosesh', 'false');
+      } else {
+        localStorage.setItem('nosesh', 'true');
+      }
+
+      router.replace('/');
+    });
   };
 
   return (
