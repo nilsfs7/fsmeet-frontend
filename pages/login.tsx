@@ -31,11 +31,11 @@ const Login: NextPage = () => {
         if (session.user.imageUrl) {
           localStorage.setItem('imageUrl', session.user.imageUrl);
         }
+
+        router.replace('/');
       } else {
         console.log('user info not set');
       }
-
-      router.replace('/');
     });
   };
 
