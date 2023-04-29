@@ -6,6 +6,12 @@ import Dropdown, { MenuItem } from '@/components/common/Dropdown';
 import { getSession } from 'next-auth/react';
 import router from 'next/router';
 
+type Judge = {
+  name: string;
+  isHeadJudge: boolean;
+  imageUrl: string | null;
+};
+
 const CreateJury: NextPage = (props: any) => {
   const users = props.data;
   const session = props.session;
@@ -14,9 +20,9 @@ const CreateJury: NextPage = (props: any) => {
     router.push('/login');
   }
 
-  const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false, imageUrl: null });
-  const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
-  const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
+  const [judge1, setJudge1] = useState<Judge>({ name: '', isHeadJudge: false, imageUrl: null });
+  const [judge2, setJudge2] = useState<Judge>({ name: '', isHeadJudge: true, imageUrl: null });
+  const [judge3, setJudge3] = useState<Judge>({ name: '', isHeadJudge: false, imageUrl: null });
   const [judgesList, setJudgesList] = useState([{ text: '', value: '' }]);
 
   function getUserByName(name: string) {
@@ -62,7 +68,9 @@ const CreateJury: NextPage = (props: any) => {
 
   useEffect(() => {
     if (session?.user?.username) {
-      setJudge2({ name: session.user.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(session.user.username).imageUrl });
+      const imageUrl = localStorage.getItem('imageUrl');
+      setJudge2({ name: session.user.username, isHeadJudge: judge2.isHeadJudge, imageUrl: imageUrl ? imageUrl : null });
+      // setJudge2({ name: session.user.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(session.user.username).imageUrl });
 
       const menusJudges: MenuItem[] = [];
       users.map((user: any) => {
