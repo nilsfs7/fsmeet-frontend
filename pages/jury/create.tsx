@@ -70,7 +70,6 @@ const CreateJury: NextPage = (props: any) => {
     if (session?.user?.username) {
       const imageUrl = localStorage.getItem('imageUrl');
       setJudge2({ name: session.user.username, isHeadJudge: judge2.isHeadJudge, imageUrl: imageUrl ? imageUrl : null });
-      // setJudge2({ name: session.user.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(session.user.username).imageUrl });
 
       const menusJudges: MenuItem[] = [];
       users.map((user: any) => {

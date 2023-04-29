@@ -14,19 +14,11 @@ const Profile = () => {
 
   useEffect(() => {
     const name = localStorage.getItem('username');
-
     setUsername(name ? name : null);
 
-    console.log(123);
-  }, [username]);
-
-  useEffect(() => {
     const url = localStorage.getItem('imageUrl');
-
     setImageUrl(url ? url : null);
-
-    console.log(456);
-  }, [, imageUrl]);
+  }, [username, imageUrl]);
 
   const onClickProfile = (e: any) => {
     isAuthenticated() ? router.push(routeAccount) : router.push(routeLogin);
@@ -41,7 +33,7 @@ const Profile = () => {
       <button className="h-full w-full" onClick={onClickProfile}>
         <div className="grid grid-flow-col items-center">
           <img alt={'user'} src={isAuthenticated() && imageUrl ? imageUrl : defaultImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
-          <div className="mx-4 text-xl">{isAuthenticated() ? session?.user?.username : 'Login'}</div>
+          <div className="mx-4 text-xl">{isAuthenticated() ? username : 'Login'}</div>
         </div>
       </button>
     </div>
@@ -49,21 +41,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-//@ts-ignore
-// export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-//   const session = await getSession({ req: context.req });
-
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: '/login',
-//         permananet: false,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: { session },
-//   };
-// };

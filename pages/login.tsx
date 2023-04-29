@@ -24,17 +24,13 @@ const Login: NextPage = () => {
   };
 
   const handleLoginClicked = async () => {
-    await signIn('credentials', { username: username, password: password, redirect: false }).then(async response => {
-      console.log(response);
-
+    await signIn('credentials', { username: username, password: password, redirect: false }).then(async () => {
       const session = await getSession();
       if (session) {
         localStorage.setItem('username', session.user.username);
         localStorage.setItem('imageUrl', session.user.imageUrl);
-
-        localStorage.setItem('nosesh', 'false');
       } else {
-        localStorage.setItem('nosesh', 'true');
+        console.log('user info not set');
       }
 
       router.replace('/');
