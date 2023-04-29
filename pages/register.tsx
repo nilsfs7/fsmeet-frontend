@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import Button from '@/components/common/Button';
 import router from 'next/router';
+import { getSession, signIn } from 'next-auth/react';
 
 const Register: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -32,17 +33,17 @@ const Register: NextPage = () => {
     console.log(responseCreateUser.status);
 
     if (responseCreateUser.status == 201) {
-      const responseLogin = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`, {
-        method: 'POST',
-        body: JSON.stringify({ username: username, password: password }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      await signIn('credentials', { username: username, password: password, redirect: false }).then(async () => {
+        const session = await getSession();
+        if (session) {
+          localStorage.setItem('username', session.user.username);
+          localStorage.setItem('imageUrl', session.user.imageUrl);
+        } else {
+          console.log('user info not set');
+        }
+
+        router.replace('/');
       });
-      const body = await responseLogin.json();
-      if (body.accessToken) {
-        router.push(`/`);
-      }
     }
   };
 
