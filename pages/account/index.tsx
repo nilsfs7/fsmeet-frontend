@@ -18,18 +18,21 @@ const Account = ({ session }: any) => {
   };
 
   const handleSaveClicked = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
-      method: 'PUT',
-      body: JSON.stringify({ username: `${session?.user?.accessToken}`, imageUrl: imageUrl }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.user?.accessToken}`,
-      },
-    });
+    // add more validation here
+    if (imageUrl) {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
+        method: 'PUT',
+        body: JSON.stringify({ username: `${session?.user?.accessToken}`, imageUrl: imageUrl }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session?.user?.accessToken}`,
+        },
+      });
 
-    if (response.status === 200) {
-      localStorage.setItem('imageUrl', imageUrl);
-      router.push(`/`);
+      if (response.status === 200) {
+        localStorage.setItem('imageUrl', imageUrl);
+        router.push(`/`);
+      }
     }
   };
 

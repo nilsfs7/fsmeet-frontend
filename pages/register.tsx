@@ -37,7 +37,9 @@ const Register: NextPage = () => {
         const session = await getSession();
         if (session) {
           localStorage.setItem('username', session.user.username);
-          localStorage.setItem('imageUrl', session.user.imageUrl);
+          if (session.user.imageUrl) {
+            localStorage.setItem('imageUrl', session.user.imageUrl);
+          }
         } else {
           console.log('user info not set');
         }
