@@ -24,7 +24,7 @@ const Results: NextPage = (props: any) => {
 export default Results;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await fetch(`${process.env.BACKEND_ADDRESS}/v1/results/current`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/results/current`);
   const data = await response.json();
 
   return {

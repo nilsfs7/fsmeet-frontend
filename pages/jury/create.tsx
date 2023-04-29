@@ -1,18 +1,28 @@
-import MenuButton from '@/components/common/MenuButton';
+import Button from '@/components/common/Button';
 import JudgeSelection from '@/components/jury/JudgeSelection';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
-import jwt_decode from 'jwt-decode';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
+import { getSession } from 'next-auth/react';
+import router from 'next/router';
+
+type Judge = {
+  name: string;
+  isHeadJudge: boolean;
+  imageUrl: string | null;
+};
 
 const CreateJury: NextPage = (props: any) => {
   const users = props.data;
+  const session = props.session;
 
-  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
-  const [judge1, setJudge1] = useState({ name: '', isHeadJudge: false, imageUrl: null });
-  const [judge2, setJudge2] = useState({ name: '', isHeadJudge: true, imageUrl: null });
-  const [judge3, setJudge3] = useState({ name: '', isHeadJudge: false, imageUrl: null });
+  if (!session) {
+    router.push('/login');
+  }
+
+  const [judge1, setJudge1] = useState<Judge>({ name: '', isHeadJudge: false, imageUrl: null });
+  const [judge2, setJudge2] = useState<Judge>({ name: '', isHeadJudge: true, imageUrl: null });
+  const [judge3, setJudge3] = useState<Judge>({ name: '', isHeadJudge: false, imageUrl: null });
   const [judgesList, setJudgesList] = useState([{ text: '', value: '' }]);
 
   function getUserByName(name: string) {
@@ -29,22 +39,8 @@ const CreateJury: NextPage = (props: any) => {
     setJudge3({ name: name, isHeadJudge: judge3.isHeadJudge, imageUrl: getUserByName(name).imageUrl });
   };
 
-  useEffect(() => {
-    const decoded: any = jwt_decode(cookies.jwt);
-
-    setJudge2({ name: decoded.username, isHeadJudge: judge2.isHeadJudge, imageUrl: getUserByName(decoded.username).imageUrl });
-
-    const menusJudges: MenuItem[] = [];
-    users.map((user: any) => {
-      if (user.username != judge2.name) {
-        menusJudges.push({ text: user.username, value: user.username });
-      }
-    });
-    setJudgesList(menusJudges);
-  }, [judge2.name]);
-
   const onStartSession = async () => {
-    const response = await fetch(`${process.env.BACKEND_ADDRESS}/v1/juries`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/juries`, {
       method: 'POST',
       body: JSON.stringify({
         judges: [
@@ -64,12 +60,26 @@ const CreateJury: NextPage = (props: any) => {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${cookies.jwt}`,
+        Authorization: `Bearer ${session.user.accessToken}`,
       },
     });
     const body = await response.json();
-    console.log(body);
   };
+
+  useEffect(() => {
+    if (session?.user?.username) {
+      const imageUrl = localStorage.getItem('imageUrl');
+      setJudge2({ name: session.user.username, isHeadJudge: judge2.isHeadJudge, imageUrl: imageUrl ? imageUrl : null });
+
+      const menusJudges: MenuItem[] = [];
+      users.map((user: any) => {
+        if (user.username != judge2.name) {
+          menusJudges.push({ text: user.username, value: user.username });
+        }
+      });
+      setJudgesList(menusJudges);
+    }
+  }, [judge2.name]);
 
   return (
     <div className="flex h-screen flex-col justify-center">
@@ -93,7 +103,7 @@ const CreateJury: NextPage = (props: any) => {
 
       <div className="flex justify-center">
         <div className="flex justify-center py-2">
-          <MenuButton text="Start Session" onClick={onStartSession} />
+          <Button text="Start Session" onClick={onStartSession} />
         </div>
       </div>
     </div>
@@ -102,13 +112,16 @@ const CreateJury: NextPage = (props: any) => {
 
 export default CreateJury;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await fetch(`${process.env.BACKEND_ADDRESS}/v1/users`);
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getSession(context);
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`);
   const data = await response.json();
 
   return {
     props: {
       data: data,
+      session: session,
     },
   };
 };
