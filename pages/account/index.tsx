@@ -11,7 +11,7 @@ const Account = ({ session }: any) => {
   const [createObjectURL, setCreateObjectURL] = useState('');
 
   const handleBackToHomeClicked = () => {
-    router.push('/');
+    router.replace('/');
   };
 
   const handleLogoutClicked = async () => {
