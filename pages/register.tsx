@@ -30,7 +30,6 @@ const Register: NextPage = () => {
         'Content-Type': 'application/json',
       },
     });
-    console.log(responseCreateUser.status);
 
     if (responseCreateUser.status == 201) {
       await signIn('credentials', { username: username, password: password, redirect: false }).then(async () => {
