@@ -1,8 +1,10 @@
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
+import { Fragment } from 'react';
+import { Transition } from '@headlessui/react';
 
-const defaultImg = '/profile/default-pfp.png';
+const defaultImg = '/profile/user.png';
 const routeLogin = '/login';
 const routeAccount = '/account';
 
@@ -11,6 +13,11 @@ const Profile = () => {
 
   const [username, setUsername] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const [opened, setOpened] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
+  const menuItems = ['Account', 'Logout'];
+  const menuItemIcons = ['/profile/settings.webp', '/profile/logout.png'];
 
   useEffect(() => {
     const name = localStorage.getItem('username');
@@ -21,21 +28,67 @@ const Profile = () => {
   }, [username, imageUrl]);
 
   const onClickProfile = (e: any) => {
-    isAuthenticated() ? router.push(routeAccount) : router.push(routeLogin);
+    !isAuthenticated() ? router.push(routeLogin) : !opened ? setOpened(true) : setOpened(false);
   };
+
+  const onAccountClicked = () => {
+    router.push(routeAccount);
+  };
+
+  const onLogoutClicked = async () => {
+    await signOut({ redirect: false });
+    localStorage.removeItem('username');
+    localStorage.removeItem('imageUrl');
+    router.push('/');
+  };
+
+  const menuItemActions = [onAccountClicked, onLogoutClicked];
 
   const isAuthenticated = () => {
     return status === 'authenticated';
   };
 
   return (
-    <div className="grid min-w-[100px] cursor-pointer rounded-lg border-2 border-black bg-zinc-300 p-1 hover:bg-zinc-400">
-      <button className="h-full w-full" onClick={onClickProfile}>
-        <div className="grid grid-flow-col items-center">
-          <img alt={'user'} src={isAuthenticated() && imageUrl ? imageUrl : defaultImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
-          <div className="mx-4 text-xl">{isAuthenticated() ? username : 'Login'}</div>
+    <div className="relative">
+      <div className="static grid h-14 min-w-[100px] cursor-pointer rounded-lg border-2 border-black bg-zinc-300 p-1 hover:bg-zinc-400">
+        <button className="h-full w-full" onClick={onClickProfile}>
+          <div className="grid grid-flow-col items-center">
+            <img src={isAuthenticated() && imageUrl ? imageUrl : defaultImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
+            <div className="mx-4 text-xl">{isAuthenticated() ? username : 'Login'}</div>
+          </div>
+        </button>
+      </div>
+
+      <Transition
+        as={Fragment}
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+        show={isAuthenticated() && opened}
+      >
+        <div className={`absolute right-0 top-14 mt-2 w-full max-w-[150px] rounded-lg border-2 border-black bg-zinc-300`}>
+          {menuItems.map((menuItem, index) => {
+            return (
+              <div
+                key={index}
+                className={`flex h-[48px] cursor-pointer items-center pl-2 pr-2 
+                ${activeIndex === index ? 'bg-zinc-400' : ''} 
+                ${index === 0 ? 'rounded-t-[8px]' : ''} 
+                ${index === menuItems.length - 1 ? 'rounded-b-[8px]' : ''}`}
+                onMouseEnter={() => setActiveIndex(index)}
+                onMouseLeave={() => setActiveIndex(undefined)}
+                onClick={menuItemActions[index]}
+              >
+                <img src={`${menuItemIcons[index]}`} className="mx-2 w-[24px] object-fill" alt="icon" />
+                <div className={''}>{menuItem}</div>
+              </div>
+            );
+          })}
         </div>
-      </button>
+      </Transition>
     </div>
   );
 };

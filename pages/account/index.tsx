@@ -70,7 +70,7 @@ const Account = ({ session }: any) => {
           </div>
 
           <div className="flex justify-center py-2">
-            <label className="pr-4">Image:</label>
+            {/* <label className="pr-4">Image:</label> */}
             <input type="file" className="" onChange={uploadToClient} />
           </div>
           <div className="flex justify-center py-2">
