@@ -7,6 +7,7 @@ import { Transition } from '@headlessui/react';
 const defaultImg = '/profile/user.png';
 const routeLogin = '/login';
 const routeAccount = '/account';
+const routeEvents = '/events';
 
 const Profile = () => {
   const { data: session, status } = useSession();
@@ -16,8 +17,8 @@ const Profile = () => {
 
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-  const menuItems = ['Account', 'Logout'];
-  const menuItemIcons = ['/profile/settings.webp', '/profile/logout.png'];
+  const menuItems = ['My Events', 'Settings', 'Logout'];
+  const menuItemIcons = ['/profile/events.png', '/profile/settings.webp', '/profile/logout.png'];
 
   useEffect(() => {
     const name = localStorage.getItem('username');
@@ -31,6 +32,10 @@ const Profile = () => {
     !isAuthenticated() ? router.push(routeLogin) : !opened ? setOpened(true) : setOpened(false);
   };
 
+  const onEventsClicked = () => {
+    router.push(routeEvents);
+  };
+
   const onAccountClicked = () => {
     router.push(routeAccount);
   };
@@ -42,7 +47,7 @@ const Profile = () => {
     router.push('/');
   };
 
-  const menuItemActions = [onAccountClicked, onLogoutClicked];
+  const menuItemActions = [onEventsClicked, onAccountClicked, onLogoutClicked];
 
   const isAuthenticated = () => {
     return status === 'authenticated';
@@ -50,15 +55,17 @@ const Profile = () => {
 
   return (
     <div className="relative">
-      <div className="static grid h-14 min-w-[100px] cursor-pointer rounded-lg border-2 border-black bg-zinc-300 p-1 hover:bg-zinc-400">
+      {/* picture and name  */}
+      <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border-2 border-black bg-zinc-300 p-1 hover:bg-zinc-400">
         <button className="h-full w-full" onClick={onClickProfile}>
           <div className="grid grid-flow-col items-center">
             <img src={isAuthenticated() && imageUrl ? imageUrl : defaultImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
-            <div className="mx-4 text-xl">{isAuthenticated() ? username : 'Login'}</div>
+            <div className="mx-1 truncate hover:text-clip">{isAuthenticated() ? username : 'Login'}</div>
           </div>
         </button>
       </div>
 
+      {/* actions menu */}
       <Transition
         as={Fragment}
         enter="transition ease-out duration-100"
@@ -69,7 +76,7 @@ const Profile = () => {
         leaveTo="transform opacity-0 scale-95"
         show={isAuthenticated() && opened}
       >
-        <div className={`absolute right-0 top-14 mt-2 w-full max-w-[150px] rounded-lg border-2 border-black bg-zinc-300`}>
+        <div className={`absolute right-0 top-14 mt-2 min-w-max rounded-lg border-2 border-black bg-zinc-300`}>
           {menuItems.map((menuItem, index) => {
             return (
               <div
@@ -82,8 +89,8 @@ const Profile = () => {
                 onMouseLeave={() => setActiveIndex(undefined)}
                 onClick={menuItemActions[index]}
               >
-                <img src={`${menuItemIcons[index]}`} className="mx-2 w-[24px] object-fill" alt="icon" />
-                <div className={''}>{menuItem}</div>
+                <img src={`${menuItemIcons[index]}`} className="mx-1 w-[24px] object-fill" alt="icon" />
+                <div className={'item mx-1 text-base'}>{menuItem}</div>
               </div>
             );
           })}

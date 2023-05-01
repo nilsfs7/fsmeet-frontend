@@ -36,7 +36,7 @@ const Home: NextPage = () => {
             </Link>
           </div>
         </div>
-        <div>ver. {shortVer}</div>
+        <div className="m-1">ver. {shortVer}</div>
       </div>
     </>
   );
