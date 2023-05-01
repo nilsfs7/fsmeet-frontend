@@ -11,8 +11,9 @@ const Home: NextPage = () => {
     <>
       <div className="flex h-screen flex-col justify-center">
         {/* profile */}
-        <div className="sm:block">
-          <div className="m-6 flex justify-end">
+        <div className="bg-zinc-300 sm:block">
+          <div className="m-6 flex items-center justify-between">
+            <h1 className="text-xl">FSJudge</h1>
             <Profile />
           </div>
         </div>
