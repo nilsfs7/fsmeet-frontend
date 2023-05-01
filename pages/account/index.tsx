@@ -44,7 +44,7 @@ const Account = ({ session }: any) => {
     if (response.status === 200) {
       const resBody = await response.json();
       setImageUrl(resBody.imageUrl);
-      localStorage.setItem('imageUrl', imageUrl);
+      localStorage.setItem('imageUrl', resBody.imageUrl);
       console.log(imageUrl);
       // TODO: feedback
     } else {
