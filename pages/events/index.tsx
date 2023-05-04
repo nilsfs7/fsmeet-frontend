@@ -3,22 +3,41 @@ import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
 import { IEvent } from '@/interface/event';
 import Link from 'next/link';
+import Button from '@/components/common/Button';
 
 const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
   const events: IEvent[] = data;
 
   return (
-    <div className="flex h-screen columns-2 flex-col justify-center">
-      <div>
-        {events.map((item: any, i: number) => {
-          return (
-            <div key={i.toString()}>
-              <Link href={`/events/${item.id}`}>
-                <EventCard event={item} />
-              </Link>
+    <div className="flex h-screen flex-col justify-center">
+      {/* Banner */}
+      <div className="bg-zinc-300 sm:block">
+        <div className="m-6 flex items-center justify-between">
+          <h1 className="text-xl">My Events</h1>
+          <Link href="/events/create">
+            <Button text="Create Event"></Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Event Subscriptions */}
+      <div className="flex-grow flex-col justify-center">
+        <div className="m-4 flex justify-center">
+          <div className="">
+            <h1 className="text-center text-xl">Event Subscriptions</h1>
+            <div>
+              {events.map((item: any, i: number) => {
+                return (
+                  <div key={i.toString()}>
+                    <Link href={`/events/${item.id}`}>
+                      <EventCard event={item} />
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        </div>
       </div>
     </div>
   );
