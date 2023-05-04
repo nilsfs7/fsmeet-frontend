@@ -3,6 +3,7 @@ import TextInput from '@/components/common/TextInput';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
+import router from 'next/router';
 import { useState } from 'react';
 
 export type CreateEvent = {
@@ -18,6 +19,10 @@ export type CreateEvent = {
 
 const EventCreation = (props: any) => {
   const session = props.session;
+
+  if (!session) {
+    router.push('/login');
+  }
 
   const [eventName, setEventName] = useState('GFFC 2023');
   const [startDate, setDateFrom] = useState('1665828000');
