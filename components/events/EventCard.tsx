@@ -19,7 +19,7 @@ const EventCard = ({ event }: IEventProps) => {
   return (
     <div className={'m-4 rounded-lg border-2 border-black bg-zinc-300 p-2 hover:bg-zinc-400'}>
       {/* top */}
-      <div className={'max-h-20  p-2'}>
+      <div className={'max-h-20 p-2'}>
         <div className="28 flex justify-end">
           <div className="w-1/3 text-left">{event.name}</div>
           <div className="w-1/3 text-left">{event.location}</div>
@@ -31,7 +31,7 @@ const EventCard = ({ event }: IEventProps) => {
       </div>
 
       {/* line */}
-      <div className="flex h-1 ">
+      <div className="flex h-1">
         <div className="w-1/3 bg-gray-400"></div>
         <div className="w-1/3 bg-gray-500"></div>
         <div className="w-1/3 bg-gray-400"></div>
@@ -41,7 +41,7 @@ const EventCard = ({ event }: IEventProps) => {
       <div className="flex h-20 p-2">
         <p className="h-full w-2/3 overflow-clip text-ellipsis text-left">{event.description}</p>
         <div className="flex h-full w-1/3 items-center justify-end">
-          <img className="h-full " src={'https://whitesw6.elbenwald.de/media/23/f7/cd/1629854154/E1063427_1.jpg'} alt={'event image'}></img>
+          <img className="h-full" src={'https://whitesw6.elbenwald.de/media/23/f7/cd/1629854154/E1063427_1.jpg'} alt={'event image'}></img>
         </div>
       </div>
     </div>
