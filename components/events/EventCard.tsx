@@ -6,30 +6,43 @@ interface IEventProps {
 }
 
 const EventCard = ({ event }: IEventProps) => {
-  const [dateFrom, setDateFrom] = useState<string>('');
-  const [dateTo, setDateTo] = useState<string>('');
-  const [dateRegistartionDeadline, setDateRegistartionDeadline] = useState<string>('');
+  const [dateFrom, setDateFrom] = useState<Date>();
+  const [dateTo, setDateTo] = useState<Date>();
+  const [dateRegistartionDeadline, setDateRegistartionDeadline] = useState<Date>();
 
   useEffect(() => {
-    setDateFrom(new Date(event.dateFrom * 1000).toLocaleDateString());
-    setDateTo(new Date(event.dateTo * 1000).toLocaleDateString());
-    setDateRegistartionDeadline(new Date(event.registrationDeadline * 1000).toLocaleDateString());
+    setDateFrom(new Date(event.dateFrom * 1000));
+    setDateTo(new Date(event.dateTo * 1000));
+    setDateRegistartionDeadline(new Date(event.registrationDeadline * 1000));
   }, [dateFrom, dateTo]);
+
+  const shortDateString = (date: Date, yearLength: number = 2): string => {
+    const day = date.getDay().toString().padStart(2, '0');
+    const month = date.getMonth().toString().padStart(2, '0');
+    const year = date
+      .getFullYear()
+      .toString()
+      .substring(date.getFullYear().toString().length - yearLength);
+
+    return `${day}.${month}.${year}`;
+  };
 
   return (
     <div className={'m-4 rounded-lg border-2 border-black bg-zinc-300 p-2 text-sm hover:bg-zinc-400'}>
       {/* top */}
-      <div className={'max-h-20 p-2'}>
+      <div className={'max-h-24 p-2'}>
         <div className="28 flex ">
-          <div className="w-full  text-base font-bold">{event.name}</div>
+          <div className="w-full text-base font-bold">{event.name}</div>
         </div>
         <div className="flex justify-between">
           <div className="w-1/3 ">{event.location}</div>
-          <div className="w-2/3 text-right">{dateFrom === dateTo ? `${dateFrom}` : `${dateFrom} - ${dateTo}`}</div>
+          {dateFrom && dateTo && (
+            <div className="w-2/3 text-right">
+              {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, 0)} - ${shortDateString(dateTo)}`}
+            </div>
+          )}
         </div>
-        <div className="flex justify-end">
-          <div className="w-2/3 text-right">Deadline: {dateRegistartionDeadline}</div>
-        </div>
+        <div className="flex justify-end">{dateRegistartionDeadline && <div className="w-2/3 text-right">Deadline: {shortDateString(dateRegistartionDeadline, 2)}</div>}</div>
       </div>
 
       {/* line */}
