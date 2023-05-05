@@ -33,7 +33,7 @@ const EventCreation = (props: any) => {
   const [location, setLocation] = useState('Heilbronn');
   const [type, setType] = useState('Competition');
 
-  const handleClick = async () => {
+  const handleCreateClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'POST',
       body: JSON.stringify({
@@ -131,7 +131,7 @@ const EventCreation = (props: any) => {
           <Button text={'Cancel'} />
         </Link>
 
-        <Button text={'Create Event'} onClick={handleClick} />
+        <Button text={'Create Event'} onClick={handleCreateClicked} />
       </div>
     </div>
   );
