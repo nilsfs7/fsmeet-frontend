@@ -52,7 +52,9 @@ const EventCreation = (props: any) => {
       },
     });
 
-    console.log(response.status);
+    if (response.status == 201) {
+      router.replace('/events');
+    }
   };
 
   return (
