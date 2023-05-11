@@ -14,7 +14,7 @@ const EventCard = ({ event }: IEventProps) => {
     setDateFrom(new Date(event.dateFrom * 1000));
     setDateTo(new Date(event.dateTo * 1000));
     setDateRegistartionDeadline(new Date(event.registrationDeadline * 1000));
-  }, [dateFrom, dateTo]);
+  }, []);
 
   const shortDateString = (date: Date, yearLength: number = 2): string => {
     const day = date.getDay().toString().padStart(2, '0');
