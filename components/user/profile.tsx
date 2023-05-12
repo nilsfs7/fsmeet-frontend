@@ -7,7 +7,7 @@ import { Transition } from '@headlessui/react';
 const defaultImg = '/profile/user.png';
 const routeLogin = '/login';
 const routeAccount = '/account';
-const routeEvents = '/events';
+const routeEvents = '/events/subs';
 
 const Profile = () => {
   const { data: session, status } = useSession();
