@@ -6,8 +6,9 @@ import { Transition } from '@headlessui/react';
 
 const defaultImg = '/profile/user.png';
 const routeLogin = '/login';
-const routeAccount = '/account';
 const routeEvents = '/events/subs';
+const routeAccount = '/account';
+const routeAbout = '/about';
 
 const Profile = () => {
   const { data: session, status } = useSession();
@@ -17,8 +18,8 @@ const Profile = () => {
 
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-  const menuItems = ['My Events', 'Settings', 'Logout'];
-  const menuItemIcons = ['/profile/events.png', '/profile/settings.webp', '/profile/logout.png'];
+  const menuItems = ['My Events', 'Settings', 'About', 'Logout'];
+  const menuItemIcons = ['/profile/events.png', '/profile/settings.webp', '/profile/info.png', '/profile/logout.png'];
 
   useEffect(() => {
     const name = localStorage.getItem('username');
@@ -40,6 +41,10 @@ const Profile = () => {
     router.push(routeAccount);
   };
 
+  const onAboutClicked = () => {
+    router.push(routeAbout);
+  };
+
   const onLogoutClicked = async () => {
     await signOut({ redirect: false });
     localStorage.removeItem('username');
@@ -47,7 +52,7 @@ const Profile = () => {
     router.push('/');
   };
 
-  const menuItemActions = [onEventsClicked, onAccountClicked, onLogoutClicked];
+  const menuItemActions = [onEventsClicked, onAccountClicked, onAboutClicked, onLogoutClicked];
 
   const isAuthenticated = () => {
     return status === 'authenticated';
