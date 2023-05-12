@@ -9,7 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.14",
+    "@mui/base": "^5.0.0-beta.0",
+    "@mui/material": "^5.13.0",
+    "@mui/system": "^5.12.3",
+    "@mui/x-date-pickers": "^6.3.1",
     "@next/font": "^13.2.4",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
@@ -17,6 +23,7 @@
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.4",
     "next": "13.2.4",
     "next-auth": "^4.22.1",
     "react": "18.2.0",

@@ -27,7 +27,7 @@ const Event = (props: any) => {
     });
 
     if (response.status == 200) {
-      router.replace('/events');
+      router.back();
     }
   };
 

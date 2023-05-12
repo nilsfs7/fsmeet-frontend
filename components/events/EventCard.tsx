@@ -1,30 +1,30 @@
 import { IEvent } from '@/interface/event';
 import { useEffect, useState } from 'react';
+import moment from 'moment';
 
 interface IEventProps {
   event: IEvent;
 }
 
 const EventCard = ({ event }: IEventProps) => {
-  const [dateFrom, setDateFrom] = useState<Date>();
-  const [dateTo, setDateTo] = useState<Date>();
-  const [dateRegistartionDeadline, setDateRegistartionDeadline] = useState<Date>();
+  const [dateFrom, setDateFrom] = useState<number>();
+  const [dateTo, setDateTo] = useState<number>();
+  const [dateRegistartionDeadline, setDateRegistartionDeadline] = useState<number>();
 
   useEffect(() => {
-    setDateFrom(new Date(event.dateFrom * 1000));
-    setDateTo(new Date(event.dateTo * 1000));
-    setDateRegistartionDeadline(new Date(event.registrationDeadline * 1000));
+    setDateFrom(event.dateFrom);
+    setDateTo(event.dateTo);
+    setDateRegistartionDeadline(event.registrationDeadline);
   }, []);
 
-  const shortDateString = (date: Date, yearLength: number = 2): string => {
-    const day = date.getDay().toString().padStart(2, '0');
-    const month = date.getMonth().toString().padStart(2, '0');
-    const year = date
-      .getFullYear()
-      .toString()
-      .substring(date.getFullYear().toString().length - yearLength);
+  const shortDateString = (unixTs: number, appendYear: boolean = true): string => {
+    const date = moment.unix(unixTs);
 
-    return `${day}.${month}.${year}`;
+    if (appendYear) {
+      return moment(date).format('DD.MM.YY');
+    } else {
+      return moment(date).format('DD.MM.');
+    }
   };
 
   return (
@@ -38,13 +38,13 @@ const EventCard = ({ event }: IEventProps) => {
           <div className="w-1/3 ">{event.location}</div>
           {dateFrom && dateTo && (
             <div className="w-2/3 text-right">
-              {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, 0)} - ${shortDateString(dateTo)}`}
+              {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, false)} - ${shortDateString(dateTo)}`}
             </div>
           )}
         </div>
         <div className="flex justify-between">
           <div className="text-xs">by {event.owner}</div>
-          <div>{dateRegistartionDeadline && <div className="text-right">Deadline: {shortDateString(dateRegistartionDeadline, 2)}</div>}</div>
+          <div>{dateRegistartionDeadline && <div className="text-right">Deadline: {shortDateString(dateRegistartionDeadline)}</div>}</div>
         </div>
       </div>
 
