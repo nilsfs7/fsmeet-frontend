@@ -57,7 +57,7 @@ const Event = (props: any) => {
         <div className="m-4 flex justify-start">
           <Button text={'Back'} onClick={() => router.back()} />
         </div>
-        {event.owner === session.user.username && (
+        {event.owner === session?.user?.username && (
           <div className="m-4 flex justify-end">
             <div className="mr-2">
               <Button text={'Edit'} onClick={() => console.log('edit clicked')} />
