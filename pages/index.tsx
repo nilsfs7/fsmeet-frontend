@@ -21,11 +21,11 @@ const Home: NextPage = () => {
         {/* menu */}
         <div className="flex flex-grow flex-col justify-center">
           <div className="flex justify-center py-2">
-            <Link href={'/results/'}>
-              <Button text="Show Results" />
+            <Link href={'/events/'}>
+              <Button text="Show Events" />
             </Link>
           </div>
-          <div className="flex justify-center py-2">
+          {/* <div className="flex justify-center py-2">
             <Link href={'/jury/create'}>
               <Button text="Create Jury" />
             </Link>
@@ -34,7 +34,7 @@ const Home: NextPage = () => {
             <Link href={'/'}>
               <Button text="Join Jury" />
             </Link>
-          </div>
+          </div> */}
         </div>
         <div className="m-1">ver. {shortVer}</div>
       </div>

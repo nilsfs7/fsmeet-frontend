@@ -127,10 +127,7 @@ const EventCreation = (props: any) => {
         />
       </div>
       <div className="m-2 flex">
-        <Link href="/events">
-          <Button text={'Cancel'} />
-        </Link>
-
+        <Button text={'Cancel'} onClick={() => router.back()} />
         <Button text={'Create Event'} onClick={handleCreateClicked} />
       </div>
     </div>
