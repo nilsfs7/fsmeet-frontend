@@ -33,9 +33,11 @@ const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
               {events.map((item: any, i: number) => {
                 return (
                   <div key={i.toString()}>
-                    <Link href={`/events/${item.id}`}>
-                      <EventCard event={item} />
-                    </Link>
+                    <div className="m-2">
+                      <Link href={`/events/${item.id}`}>
+                        <EventCard event={item} />
+                      </Link>
+                    </div>
                   </div>
                 );
               })}

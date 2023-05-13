@@ -28,7 +28,7 @@ const EventCard = ({ event }: IEventProps) => {
   };
 
   return (
-    <div className={'m-4 rounded-lg border-2 border-black bg-zinc-300 p-2 text-sm hover:bg-zinc-400'}>
+    <div className={'rounded-lg border-2 border-black bg-zinc-300 p-2 text-sm hover:bg-zinc-400'}>
       {/* top */}
       <div className={'max-h-24 p-2'}>
         <div className="28 flex ">
