@@ -14,11 +14,27 @@ const Event = (props: any) => {
 
   const [event, setEvent] = useState<IEvent>();
 
-  const handleEnrollClicked = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/enroll`, {
-      method: 'POST',
+  const isRegistered = () => {
+    if (event) {
+      if (event.eventRegistrations.includes(session.user.username)) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const handleRegistrationClicked = async () => {
+    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/register`;
+    let method: string = 'POST';
+    if (isRegistered()) {
+      url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/unregister`;
+      method = 'DELETE';
+    }
+
+    const response = await fetch(url, {
+      method: method,
       body: JSON.stringify({
-        id: `${eventId}`,
+        eventId: `${eventId}`,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +42,7 @@ const Event = (props: any) => {
       },
     });
 
-    if (response.status == 200) {
+    if (response.status == 200 || response.status == 201) {
       router.back();
     }
   };
@@ -39,6 +55,7 @@ const Event = (props: any) => {
     async function fetchEvent() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
       const event = await response.json();
+      console.log(event);
       setEvent(event);
     }
 
@@ -63,10 +80,10 @@ const Event = (props: any) => {
           </div>
         </div>
 
-        <div className="flex justify-end ">
+        <div className="flex justify-end">
           <div className="ml-1">
             {event.owner === session?.user?.username && <Button text={'Edit'} onClick={handleEditClicked} />}
-            {event.owner !== session?.user?.username && <Button text="Enroll" onClick={handleEnrollClicked} />}
+            {event.owner !== session?.user?.username && <Button text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />}
           </div>
         </div>
       </div>
