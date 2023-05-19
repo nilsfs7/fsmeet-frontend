@@ -6,6 +6,9 @@ interface IEventProps {
   event: IEvent;
 }
 
+const imgMeeting = '/event/meeting.png';
+const imgCompetition = '/event/competition.png';
+
 const EventCard = ({ event }: IEventProps) => {
   const [dateFrom, setDateFrom] = useState<number>();
   const [dateTo, setDateTo] = useState<number>();
@@ -59,7 +62,7 @@ const EventCard = ({ event }: IEventProps) => {
       <div className="flex h-20 p-2">
         <p className="h-full w-2/3 overflow-clip text-ellipsis ">{event.description}</p>
         <div className="flex h-full w-1/3 items-center justify-end">
-          <img className="h-full" src={'https://whitesw6.elbenwald.de/media/23/f7/cd/1629854154/E1063427_1.jpg'} alt={'event image'}></img>
+          <img className="h-full" src={event.type === 'comp' ? imgCompetition : imgMeeting} alt={'event image'}></img>
         </div>
       </div>
     </div>
