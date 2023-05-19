@@ -12,7 +12,7 @@ const ParticipantList = ({ participants }: IParticipantListProps) => {
       <div className="flex flex-wrap">
         {participants.map((participant, i) => {
           return (
-            <div key={i} className="m-1">
+            <div key={i} className="m-1 h-16 w-36">
               <Participant participant={participant} />
             </div>
           );
