@@ -9,5 +9,5 @@ export interface IEvent {
   description: string;
   location: string;
   type: string;
-  eventRegistrations: string[];
+  eventRegistrations: string[]; // change to IParticipant
 }

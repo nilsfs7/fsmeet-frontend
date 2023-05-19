@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Button from '@/components/common/Button';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
+import ParticipantList from '@/components/events/ParticipantList';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -71,6 +72,17 @@ const Event = (props: any) => {
       {/* replace by event page with register option */}
       <div className="m-2">
         <EventCard event={event} />
+      </div>
+
+      <div className="m-2">
+        <ParticipantList
+          participants={event.eventRegistrations.map(registration => {
+            return {
+              name: registration,
+              instagramHandle: '@handle',
+            };
+          })}
+        />
       </div>
 
       <div className="m-2 flex justify-between">
