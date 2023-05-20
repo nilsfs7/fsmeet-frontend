@@ -11,45 +11,43 @@ const Home = ({ data }: { data: any[] }) => {
   let events: IEvent[] = data;
 
   return (
-    <>
-      <div className="flex h-screen flex-col overflow-hidden">
-        {/* Banner */}
-        <div className="bg-zinc-300 sm:block">
-          <div className="m-6 flex items-center justify-between">
-            <h1 className="text-xl">FSJudge</h1>
-            <Profile />
-          </div>
-        </div>
-
-        {/* Menu & Featured Events */}
-        <div className="overflow-hidden">
-          <div className="flex max-h-full justify-center overflow-y-auto">
-            <div className="m-4">
-              <h1 className="text-center text-xl">Upcoming Events</h1>
-
-              {events.map((item: any, i: number) => {
-                return (
-                  <div key={i.toString()}>
-                    <div className="m-1">
-                      <Link href={`/events/${item.id}`}>
-                        <EventCard event={item} />
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Actions */}
-        <div className="m-4 flex flex-shrink-0 justify-center">
-          <Link href={'/events/'}>
-            <Button text="Show All" />
-          </Link>
+    <div className="flex h-screen flex-col overflow-hidden">
+      {/* Banner */}
+      <div className="bg-zinc-300 sm:block">
+        <div className="m-6 flex items-center justify-between">
+          <h1 className="text-xl">FSJudge</h1>
+          <Profile />
         </div>
       </div>
-    </>
+
+      {/* Menu & Featured Events */}
+      <div className="overflow-hidden">
+        <div className="flex max-h-full justify-center overflow-y-auto">
+          <div className="m-4">
+            <h1 className="text-center text-xl">Upcoming Events</h1>
+
+            {events.map((item: any, i: number) => {
+              return (
+                <div key={i.toString()}>
+                  <div className="m-1">
+                    <Link href={`/events/${item.id}`}>
+                      <EventCard event={item} />
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="m-4 flex flex-shrink-0 justify-center">
+        <Link href={'/events/'}>
+          <Button text="Show All" />
+        </Link>
+      </div>
+    </div>
   );
 };
 
