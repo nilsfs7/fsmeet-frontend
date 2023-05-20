@@ -19,7 +19,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [registrationDeadline, setRegistrationDeadline] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment().add(7, 'day'));
   const [description, setDescription] = useState(event?.description);
   const [location, setLocation] = useState(event?.location);
-  const [eventType, setEventType] = useState(event?.type);
+  const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
 
   const updateEvent = () => {
     onEventUpdate({

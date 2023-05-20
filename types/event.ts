@@ -10,5 +10,5 @@ export type Event = {
   registrationDeadline: Moment;
   description: string | undefined;
   location: string | undefined;
-  type: EventType | undefined;
+  type: EventType;
 };
