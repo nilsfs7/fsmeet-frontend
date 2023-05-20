@@ -10,13 +10,10 @@ import Link from 'next/link';
 const Home = ({ data }: { data: any[] }) => {
   let events: IEvent[] = data;
 
-  console.log(`version: ${process.env.NEXT_PUBLIC_COMMIT_SHA}`);
-  const shortVer = process.env.NEXT_PUBLIC_COMMIT_SHA && process.env.NEXT_PUBLIC_COMMIT_SHA?.length > 7 ? process.env.NEXT_PUBLIC_COMMIT_SHA?.substring(0, 7) : process.env.NEXT_PUBLIC_COMMIT_SHA;
-
   return (
     <>
-      <div className="flex h-screen flex-col justify-center">
-        {/* banner */}
+      <div className="flex h-screen flex-col overflow-hidden">
+        {/* Banner */}
         <div className="bg-zinc-300 sm:block">
           <div className="m-6 flex items-center justify-between">
             <h1 className="text-xl">FSJudge</h1>
@@ -24,29 +21,33 @@ const Home = ({ data }: { data: any[] }) => {
           </div>
         </div>
 
-        {/* menu */}
-        <div className="flex flex-grow flex-col justify-center">
-          <h1 className="text-center text-xl">Upcoming Events</h1>
-          <div>
-            {events.map((item: any, i: number) => {
-              return (
-                <div key={i.toString()}>
-                  <div className="m-2">
-                    <Link href={`/events/${item.id}`}>
-                      <EventCard event={item} />
-                    </Link>
+        {/* Menu & Featured Events */}
+        <div className="overflow-hidden">
+          <div className="flex max-h-full justify-center overflow-y-auto">
+            <div className="m-4">
+              <h1 className="text-center text-xl">Upcoming Events</h1>
+
+              {events.map((item: any, i: number) => {
+                return (
+                  <div key={i.toString()}>
+                    <div className="m-2">
+                      <Link href={`/events/${item.id}`}>
+                        <EventCard event={item} />
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="flex justify-center py-2">
-            <Link href={'/events/'}>
-              <Button text="Show All" />
-            </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
-        <div className="m-1">ver. {shortVer}</div>
+
+        {/* Actions */}
+        <div className="m-4 flex flex-shrink-0 justify-center">
+          <Link href={'/events/'}>
+            <Button text="Show All" />
+          </Link>
+        </div>
       </div>
     </>
   );
