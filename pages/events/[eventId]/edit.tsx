@@ -4,19 +4,8 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import moment, { Moment } from 'moment';
-
-export type Event = {
-  id: string | undefined;
-  name: string | undefined;
-  dateFrom: Moment;
-  dateTo: Moment;
-  registrationCosts: number | undefined;
-  registrationDeadline: Moment;
-  description: string | undefined;
-  location: string | undefined;
-  type: string | undefined;
-};
+import moment from 'moment';
+import { Event } from '@/types/event';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -55,7 +44,7 @@ const EventEditing = (props: any) => {
       },
     });
 
-    if (response.status == 201) {
+    if (response.status == 200) {
       router.replace('/events/subs');
     }
   };

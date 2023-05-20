@@ -2,18 +2,9 @@ import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment, { Moment } from 'moment';
-
-export type Event = {
-  id: string | undefined;
-  name: string | undefined;
-  dateFrom: Moment;
-  dateTo: Moment;
-  registrationCosts: number | undefined;
-  registrationDeadline: Moment;
-  description: string | undefined;
-  location: string | undefined;
-  type: string | undefined;
-};
+import { Event } from '@/types/event';
+import { EventType } from '@/types/enums/event-type';
+import Dropdown from './Dropdown';
 
 interface IEventEditorProps {
   event?: Event;
@@ -28,7 +19,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [registrationDeadline, setRegistrationDeadline] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment().add(7, 'day'));
   const [description, setDescription] = useState(event?.description);
   const [location, setLocation] = useState(event?.location);
-  const [type, setType] = useState(event?.type);
+  const [eventType, setEventType] = useState(event?.type);
 
   const updateEvent = () => {
     onEventUpdate({
@@ -40,7 +31,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       registrationDeadline: registrationDeadline,
       description: description,
       location: location,
-      type: type,
+      type: eventType,
     });
   };
 
@@ -54,14 +45,14 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setRegistrationDeadline(event.registrationDeadline);
       setDescription(event.description);
       setLocation(event.location);
-      setType(event.type);
+      setEventType(event.type);
     }
   }, [event]);
 
   // fires event back
   useEffect(() => {
     updateEvent();
-  }, [name, dateFrom, dateTo, registrationCosts, registrationDeadline, description, location, type]);
+  }, [name, dateFrom, dateTo, registrationCosts, registrationDeadline, description, location, eventType]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
@@ -141,15 +132,15 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         }}
       />
 
-      <TextInput
-        id={'type'}
-        label={'type'}
-        placeholder="Competition"
-        defValue={type}
-        onChanged={e => {
-          setType(e.currentTarget.value);
-        }}
-      />
+      <div className="m-2 grid grid-cols-2">
+        <div className="p-2">Date From</div>
+        <Dropdown
+          defaultValue={event?.type || EventType.COMPETITION}
+          onChanged={(value: EventType) => {
+            setEventType(value);
+          }}
+        />
+      </div>
     </div>
   );
 };

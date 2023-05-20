@@ -61,7 +61,7 @@ const Register: NextPage = () => {
           <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} onKeyDown={handleInputKeypressPassword} />
         </div>
         <div className="flex justify-center py-2">
-          <Button text="Create Account" onClick={handleCreateClicked} />
+          <Button text="Sign Up" onClick={handleCreateClicked} />
         </div>
       </div>
     </>

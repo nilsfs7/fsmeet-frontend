@@ -4,19 +4,7 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import router from 'next/router';
 import { useState } from 'react';
-import { Moment } from 'moment';
-
-export type Event = {
-  id: string | undefined;
-  name: string | undefined;
-  dateFrom: Moment;
-  dateTo: Moment;
-  registrationCosts: number | undefined;
-  registrationDeadline: Moment;
-  description: string | undefined;
-  location: string | undefined;
-  type: string | undefined;
-};
+import { Event } from '@/types/event';
 
 const EventCreation = (props: any) => {
   const session = props.session;
