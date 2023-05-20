@@ -30,7 +30,7 @@ const Home = ({ data }: { data: any[] }) => {
               {events.map((item: any, i: number) => {
                 return (
                   <div key={i.toString()}>
-                    <div className="m-2">
+                    <div className="m-1">
                       <Link href={`/events/${item.id}`}>
                         <EventCard event={item} />
                       </Link>
@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
   const dateNow = moment(moment().year().toString()).startOf('year');
-  const dateTo = moment(moment().year().toString()).add(7, 'day').endOf('year');
+  const dateTo = moment(moment().year().toString()).add(2, 'year').endOf('year');
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?dateFrom=${dateNow.unix()}&dateTo=${dateTo.unix()}`;
   const response = await fetch(url);
   let data = await response.json();
