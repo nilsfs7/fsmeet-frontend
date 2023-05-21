@@ -57,7 +57,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
       </div>
 
       {/* Filters */}
-      <div className="m-4 flex justify-center">
+      <div className="my-2 flex justify-center">
         <DatePicker className="mx-1" label="From" value={dateFrom} onChange={newDate => hanldeDateFromChanged(newDate)} />
         <DatePicker className="mx-1" label="To" value={dateTo} onChange={newDate => hanldeDateToChanged(newDate)} />
       </div>
@@ -65,24 +65,22 @@ const MyEventsOverview = ({ session }: { session: any }) => {
       {/* Events */}
       <div className="overflow-hidden">
         <div className="flex max-h-full justify-center overflow-y-auto">
-          <div className="mx-4">
+          <div className="mx-2">
             {events.map((item: any, i: number) => {
               return (
-                <div key={i.toString()}>
-                  <div className="m-1">
-                    <Link href={`/events/${item.id}`}>
-                      <EventCard event={item} />
-                    </Link>
-                  </div>
+                <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                  <Link href={`/events/${item.id}`}>
+                    <EventCard event={item} />
+                  </Link>
                 </div>
               );
             })}
           </div>
         </div>
       </div>
-
+      {/* || i == events.length - 1 ? */}
       {/* Actions */}
-      <div className="m-4 flex flex-shrink-0 justify-between">
+      <div className="m-2 flex flex-shrink-0 justify-between">
         <Link href="/">
           <Button text="Back" />
         </Link>

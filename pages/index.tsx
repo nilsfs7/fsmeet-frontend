@@ -21,19 +21,16 @@ const Home = ({ data }: { data: any[] }) => {
       </div>
 
       {/* Menu & Featured Events */}
+      <h1 className="my-2 text-center text-xl ">Upcoming Events</h1>
       <div className="overflow-hidden">
         <div className="flex max-h-full justify-center overflow-y-auto">
-          <div className="mx-4">
-            <h1 className="text-center text-xl">Upcoming Events</h1>
-
+          <div className="mx-2">
             {events.map((item: any, i: number) => {
               return (
-                <div key={i.toString()}>
-                  <div className="m-1">
-                    <Link href={`/events/${item.id}`}>
-                      <EventCard event={item} />
-                    </Link>
-                  </div>
+                <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                  <Link href={`/events/${item.id}`}>
+                    <EventCard event={item} />
+                  </Link>
                 </div>
               );
             })}
@@ -42,7 +39,7 @@ const Home = ({ data }: { data: any[] }) => {
       </div>
 
       {/* Actions */}
-      <div className="m-4 flex flex-shrink-0 justify-center">
+      <div className="m-2 flex flex-shrink-0 justify-center">
         <Link href={'/events/'}>
           <Button text="Show All" />
         </Link>
