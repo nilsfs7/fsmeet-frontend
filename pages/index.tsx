@@ -11,7 +11,7 @@ const Home = ({ data }: { data: any[] }) => {
   let events: IEvent[] = data;
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="absolute inset-0 flex h-screen flex-col overflow-hidden">
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
         <div className="m-6 flex items-center justify-between">
@@ -21,7 +21,7 @@ const Home = ({ data }: { data: any[] }) => {
       </div>
 
       {/* Menu & Featured Events */}
-      <h1 className="my-2 text-center text-xl ">Upcoming Events</h1>
+      <h1 className="my-2 text-center text-xl">Upcoming Events</h1>
       <div className="overflow-hidden">
         <div className="flex max-h-full justify-center overflow-y-auto">
           <div className="mx-2">

@@ -9,7 +9,7 @@ const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
   const events: IEvent[] = data;
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="absolute inset-0 flex h-screen flex-col overflow-hidden">
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
         <div className="m-6 flex items-center justify-start">
