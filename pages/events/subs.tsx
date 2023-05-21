@@ -20,7 +20,7 @@ const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
       {/* Event Subscriptions */}
       <div className="overflow-hidden">
         <div className="flex max-h-full justify-center overflow-y-auto">
-          <div className="m-4">
+          <div className="mx-4">
             <h1 className="text-center text-xl">Event Subscriptions</h1>
 
             {events.map((item: any, i: number) => {
