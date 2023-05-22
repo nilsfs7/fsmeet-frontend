@@ -51,7 +51,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
     <div className="flex h-screen flex-col overflow-hidden">
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
-        <div className="m-6 flex items-center justify-between">
+        <div className="mx-2 flex h-20 items-center justify-between">
           <h1 className="text-xl">FSEvent</h1>
         </div>
       </div>
