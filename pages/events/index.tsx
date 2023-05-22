@@ -58,8 +58,12 @@ const MyEventsOverview = ({ session }: { session: any }) => {
 
       {/* Filters */}
       <div className="my-2 flex justify-center">
-        <DatePicker className="mx-1 w-40" label="From" value={dateFrom} onChange={newDate => hanldeDateFromChanged(newDate)} />
-        <DatePicker className="mx-1 w-40" label="To" value={dateTo} onChange={newDate => hanldeDateToChanged(newDate)} />
+        <div className="mx-1 w-40">
+          <DatePicker label="From" value={dateFrom} onChange={newDate => hanldeDateFromChanged(newDate)} />
+        </div>
+        <div className="mx-1 w-40">
+          <DatePicker label="To" value={dateTo} onChange={newDate => hanldeDateToChanged(newDate)} />
+        </div>
       </div>
 
       {/* Events */}
