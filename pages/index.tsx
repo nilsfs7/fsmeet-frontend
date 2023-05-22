@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const response = await fetch(url);
   let data = await response.json();
   if (data.length > 2) {
-    data = data.splice(0, 4); // only take next 2 events (better create new backend function)
+    data = data.splice(0, 2); // only take next 2 events (better create new backend function)
   }
 
   return {
