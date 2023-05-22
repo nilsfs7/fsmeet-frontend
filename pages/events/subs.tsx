@@ -13,7 +13,9 @@ const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-start">
-          <h1 className="text-xl">FSEvent</h1>
+          <Link href="/">
+            <h1 className="text-xl">FSEvent</h1>
+          </Link>
         </div>
       </div>
 

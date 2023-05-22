@@ -15,10 +15,11 @@ const Home = ({ data }: { data: any[] }) => {
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
-          <h1 className="text-xl">FSEvent</h1>
-          {/* <div className="m-2"> */}
+          <Link href="/">
+            <h1 className="text-xl">FSEvent</h1>
+          </Link>
+
           <Profile />
-          {/* </div> */}
         </div>
       </div>
 
