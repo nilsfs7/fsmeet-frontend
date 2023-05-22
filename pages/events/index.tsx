@@ -57,7 +57,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
       </div>
 
       {/* Filters */}
-      <div className="my-2 flex justify-center">
+      <div className="mt-2 flex justify-center">
         <div className="mx-1 w-40">
           <DatePicker label="From" value={dateFrom} onChange={newDate => hanldeDateFromChanged(newDate)} />
         </div>
@@ -69,7 +69,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
       {/* Events */}
       <div className="overflow-hidden">
         <div className="flex max-h-full justify-center overflow-y-auto">
-          <div className="mx-2">
+          <div className="mx-2 mt-2">
             {events.map((item: any, i: number) => {
               return (
                 <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>

@@ -21,10 +21,10 @@ const Home = ({ data }: { data: any[] }) => {
       </div>
 
       {/* Menu & Featured Events */}
-      <h1 className="my-2 text-center text-xl">Upcoming Events</h1>
+      <h1 className="mt-2 text-center text-xl">Upcoming Events</h1>
       <div className="overflow-hidden">
         <div className="flex max-h-full justify-center overflow-y-auto">
-          <div className="mx-2">
+          <div className="mx-2 mt-2">
             {events.map((item: any, i: number) => {
               return (
                 <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
