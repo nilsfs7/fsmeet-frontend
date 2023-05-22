@@ -13,15 +13,15 @@ const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
         <div className="m-6 flex items-center justify-start">
-          <h1 className="text-xl">My Events</h1>
+          <h1 className="text-xl">FSJudge</h1>
         </div>
       </div>
 
       {/* Event Subscriptions */}
-      <h1 className="mt-2 text-center text-xl">Event Subscriptions</h1>
+      <h1 className="mt-2 text-center text-xl">My Events</h1>
       <div className="overflow-hidden">
-        <div className="flex max-h-full justify-center overflow-y-auto">
-          <div className="mx-2 mt-2">
+        <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
+          <div className="mx-2">
             {events.map((item: any, i: number) => {
               return (
                 <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>

@@ -23,8 +23,8 @@ const Home = ({ data }: { data: any[] }) => {
       {/* Menu & Featured Events */}
       <h1 className="mt-2 text-center text-xl">Upcoming Events</h1>
       <div className="overflow-hidden">
-        <div className="flex max-h-full justify-center overflow-y-auto">
-          <div className="mx-2 mt-2">
+        <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
+          <div className="mx-2 ">
             {events.map((item: any, i: number) => {
               return (
                 <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const response = await fetch(url);
   let data = await response.json();
   if (data.length > 2) {
-    data = data.splice(0, 2); // only take next 2 events (better create new backend function)
+    data = data.splice(0, 4); // only take next 2 events (better create new backend function)
   }
 
   return {
