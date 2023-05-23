@@ -10,7 +10,8 @@ const Login: NextPage = () => {
   const [password, setPassword] = useState('');
 
   const handleInputChangeUsername = (event: any) => {
-    setUsername(event.target.value);
+    const uname: string = event.target.value;
+    setUsername(uname.toLowerCase());
   };
 
   const handleInputChangePassword = (event: any) => {
