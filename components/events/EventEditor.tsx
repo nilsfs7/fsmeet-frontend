@@ -60,8 +60,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         id={'name'}
         label={'Event Name'}
         placeholder="GFFC 2023"
-        defValue={name}
-        onChanged={e => {
+        value={name}
+        onChange={e => {
           setEventName(e.currentTarget.value);
         }}
       />
@@ -106,8 +106,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         id={'registrationCosts'}
         label={'Participation Fee'}
         placeholder="25"
-        defValue={registrationCosts ? registrationCosts.toString() : undefined}
-        onChanged={e => {
+        value={registrationCosts ? registrationCosts.toString() : undefined}
+        onChange={e => {
           setRegistrationCosts(e.currentTarget.value);
         }}
       />
@@ -116,8 +116,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         id={'description'}
         label={'Event Description'}
         placeholder="German Championship"
-        defValue={description}
-        onChanged={e => {
+        value={description}
+        onChange={e => {
           setDescription(e.currentTarget.value);
         }}
       />
@@ -126,8 +126,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         id={'location'}
         label={'Location / City'}
         placeholder="Heilbronn"
-        defValue={location}
-        onChanged={e => {
+        value={location}
+        onChange={e => {
           setLocation(e.currentTarget.value);
         }}
       />
@@ -136,7 +136,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         <div className="p-2">Type</div>
         <Dropdown
           defaultValue={event?.type || EventType.COMPETITION}
-          onChanged={(value: EventType) => {
+          onChange={(value: EventType) => {
             setEventType(value);
           }}
         />

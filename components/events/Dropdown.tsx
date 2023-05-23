@@ -7,15 +7,15 @@ import { EventType } from '@/types/enums/event-type';
 
 interface IDropdownProps {
   defaultValue: EventType;
-  onChanged: (value: EventType) => void;
+  onChange: (value: EventType) => void;
 }
 
-const Dropdown = ({ defaultValue, onChanged }: IDropdownProps) => {
+const Dropdown = ({ defaultValue, onChange }: IDropdownProps) => {
   const [eventType, setEventType] = useState<EventType>(EventType.COMPETITION);
 
   const handleChange = (event: SelectChangeEvent) => {
     setEventType(event.target.value as EventType);
-    onChanged(event.target.value as EventType);
+    onChange(event.target.value as EventType);
   };
 
   return (

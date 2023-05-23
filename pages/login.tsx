@@ -4,6 +4,7 @@ import Button from '@/components/common/Button';
 import Link from 'next/link';
 import { getSession, signIn } from 'next-auth/react';
 import router from 'next/router';
+import TextInput from '@/components/common/TextInput';
 
 const Login: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -35,29 +36,43 @@ const Login: NextPage = () => {
 
         router.replace('/');
       } else {
-        console.log('user info not set');
+        console.error('user info not set');
       }
     });
   };
 
   return (
     <>
-      <div className="flex h-screen columns-2 flex-col justify-center">
-        <div className="flex justify-center py-2">
-          <label className="pr-4">User:</label>
-          <input type="text" autoFocus required minLength={2} value={username} className="" onChange={handleInputChangeUsername} />
+      <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
+        <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
+          <TextInput
+            id={'username'}
+            label={'User'}
+            placeholder="Max"
+            value={username}
+            onChange={e => {
+              handleInputChangeUsername(e);
+            }}
+          />
+          <TextInput
+            id={'password'}
+            label={'Password'}
+            placeholder="123"
+            onChange={e => {
+              handleInputChangePassword(e);
+            }}
+            onKeyDown={handleInputKeypressPassword}
+          />
         </div>
+
         <div className="flex justify-center py-2">
-          <label className="pr-4">Password:</label>
-          <input type="password" required minLength={2} value={password} className="" onChange={handleInputChangePassword} onKeyDown={handleInputKeypressPassword} />
+          <Button text="Login" onClick={handleLoginClicked} />
         </div>
+
         <div className="flex justify-center py-2">
           <Link href={'/register'}>
             <label className="cursor-pointer pr-4 underline">No account yet?</label>
           </Link>
-        </div>
-        <div className="flex justify-center py-2">
-          <Button text="Login" onClick={handleLoginClicked} />
         </div>
       </div>
     </>
