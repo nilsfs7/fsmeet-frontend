@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { IEvent } from '@/interface/event.js';
 import EventCard from '@/components/events/EventCard';
 import { useEffect, useState } from 'react';
-import Button from '@/components/common/Button';
+import Button from '@/components/common/TextButton';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import ParticipantList from '@/components/events/ParticipantList';
@@ -15,8 +15,16 @@ const Event = (props: any) => {
 
   const [event, setEvent] = useState<IEvent>();
 
+  const isLoggedIn = () => {
+    if (session) {
+      return true;
+    }
+
+    return false;
+  };
+
   const isRegistered = () => {
-    if (event) {
+    if (isLoggedIn() && event) {
       if (event.eventRegistrations.includes(session.user.username)) {
         return true;
       }
@@ -25,6 +33,11 @@ const Event = (props: any) => {
   };
 
   const handleRegistrationClicked = async () => {
+    if (!isLoggedIn()) {
+      router.push('/login');
+      return;
+    }
+
     let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/register`;
     let method: string = 'POST';
     if (isRegistered()) {
