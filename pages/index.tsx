@@ -1,4 +1,4 @@
-import Button from '@/components/common/Button';
+import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/profile';
 import { IEvent } from '@/interface/event';
@@ -44,7 +44,7 @@ const Home = ({ data }: { data: any[] }) => {
       {/* Actions */}
       <div className="m-2 flex flex-shrink-0 justify-center">
         <Link href={'/events/'}>
-          <Button text="Show All" />
+          <TextButton text="Show All" />
         </Link>
       </div>
     </div>

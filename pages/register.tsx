@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
-import Button from '@/components/common/Button';
+import TextButton from '@/components/common/TextButton';
 import router from 'next/router';
 import { getSession, signIn } from 'next-auth/react';
 import TextInput from '@/components/common/TextInput';
@@ -75,7 +75,7 @@ const Register: NextPage = () => {
         </div>
 
         <div className="flex justify-center py-2">
-          <Button text="Sign Up" onClick={handleCreateClicked} />
+          <TextButton text="Sign Up" onClick={handleCreateClicked} />
         </div>
       </div>
     </>

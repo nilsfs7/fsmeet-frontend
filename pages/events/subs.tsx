@@ -3,7 +3,7 @@ import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
 import { IEvent } from '@/interface/event';
 import Link from 'next/link';
-import Button from '@/components/common/Button';
+import TextButton from '@/components/common/TextButton';
 
 const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
   const events: IEvent[] = data;
@@ -40,10 +40,10 @@ const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
       {/* Actions */}
       <div className="m-2 flex flex-shrink-0 justify-between">
         <Link href="/">
-          <Button text="Back" />
+          <TextButton text="Back" />
         </Link>
         <Link href="/events/create">
-          <Button text="Create Event" />
+          <TextButton text="Create Event" />
         </Link>
       </div>
     </div>

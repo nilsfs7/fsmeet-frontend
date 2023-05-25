@@ -1,4 +1,3 @@
-import Button from '@/components/common/Button';
 import EventEditor from '@/components/events/EventEditor';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -6,6 +5,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Event } from '@/types/event';
+import ActionButton from '@/components/common/ActionButton';
+import { Action } from '@/types/enums/action';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -94,32 +95,20 @@ const EventEditing = (props: any) => {
       <h1 className="m-2 text-xl">Edit Event</h1>
       <EventEditor
         event={event}
-        onEventUpdate={(res: Event) => {
-          const e: Event = {
-            id: res.id,
-            name: res.name,
-            dateFrom: res.dateFrom,
-            dateTo: res.dateTo,
-            registrationCosts: res.registrationCosts,
-            registrationDeadline: res.registrationDeadline,
-            description: res.description,
-            location: res.location,
-            type: res.type,
-          };
-
-          setEvent(e);
+        onEventUpdate={(event: Event) => {
+          setEvent(event);
         }}
       />
 
       <div className="my-2 flex">
-        <div className="pr-1">
-          <Button text={'Cancel'} onClick={() => router.back()} />{' '}
+        <div className="px-1">
+          <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
         </div>
         <div className="px-1">
-          <Button text={'Delete'} onClick={handleDeleteClicked} />
+          <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
         </div>
-        <div className="pl-1">
-          <Button text={'Save'} onClick={handleSaveClicked} />
+        <div className="px-1">
+          <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
         </div>
       </div>
     </div>

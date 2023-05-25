@@ -1,4 +1,4 @@
-import Button from '@/components/common/Button';
+import TextButton from '@/components/common/TextButton';
 import EventEditor from '@/components/events/EventEditor';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -49,10 +49,10 @@ const EventCreation = (props: any) => {
       />
       <div className="my-2 flex">
         <div className="pr-1">
-          <Button text={'Cancel'} onClick={() => router.back()} />
+          <TextButton text={'Cancel'} onClick={() => router.back()} />
         </div>
         <div className="pl-1">
-          <Button text={'Create Event'} onClick={handleCreateClicked} />
+          <TextButton text={'Create Event'} onClick={handleCreateClicked} />
         </div>
       </div>
     </div>

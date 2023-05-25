@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { IEvent } from '@/interface/event.js';
 import EventCard from '@/components/events/EventCard';
 import { useEffect, useState } from 'react';
-import Button from '@/components/common/TextButton';
+import TextButton from '@/components/common/TextButton';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import ParticipantList from '@/components/events/ParticipantList';
@@ -69,7 +69,6 @@ const Event = (props: any) => {
     async function fetchEvent() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
       const event = await response.json();
-      console.log(event);
       setEvent(event);
     }
 
@@ -101,14 +100,14 @@ const Event = (props: any) => {
       <div className="m-2 flex justify-between">
         <div className="flex justify-start">
           <div className="mr-1">
-            <Button text={'Back'} onClick={() => router.back()} />
+            <TextButton text={'Back'} onClick={() => router.back()} />
           </div>
         </div>
 
         <div className="flex justify-end">
           <div className="ml-1">
-            {event.owner === session?.user?.username && <Button text={'Edit'} onClick={handleEditClicked} />}
-            {event.owner !== session?.user?.username && <Button text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />}
+            {event.owner === session?.user?.username && <TextButton text={'Edit'} onClick={handleEditClicked} />}
+            {event.owner !== session?.user?.username && <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />}
           </div>
         </div>
       </div>

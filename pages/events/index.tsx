@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
-import Button from '@/components/common/Button';
+import TextButton from '@/components/common/TextButton';
 
 const defaultDateFrom = moment(moment().year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
@@ -88,7 +88,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
       {/* Actions */}
       <div className="m-2 flex flex-shrink-0 justify-between">
         <Link href="/">
-          <Button text="Back" />
+          <TextButton text="Back" />
         </Link>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import Button from '@/components/common/Button';
+import TextButton from '@/components/common/TextButton';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { getSession, signOut } from 'next-auth/react';
@@ -74,16 +74,16 @@ const Account = ({ session }: any) => {
             <input type="file" className="" onChange={uploadToClient} />
           </div>
           <div className="flex justify-center py-2">
-            <Button text="Upload image" onClick={handleUploadImageClicked} />
+            <TextButton text="Upload image" onClick={handleUploadImageClicked} />
           </div>
         </div>
 
         <div className="flex justify-center pt-20">
-          <Button text="Back to home" onClick={handleBackToHomeClicked} />
+          <TextButton text="Back to home" onClick={handleBackToHomeClicked} />
         </div>
 
         <div className="flex justify-center py-2">
-          <Button text="Logout" onClick={handleLogoutClicked} />
+          <TextButton text="Logout" onClick={handleLogoutClicked} />
         </div>
       </div>
     </>

@@ -3,7 +3,7 @@ interface IButton {
   onClick?: () => void;
 }
 
-const Button = ({ text, onClick }: IButton) => {
+const TextButton = ({ text, onClick }: IButton) => {
   return (
     <button className="w-36 rounded-lg border-[2px] border-black bg-zinc-300 p-2 font-bold text-black hover:bg-zinc-400" onClick={onClick}>
       {text}
@@ -11,4 +11,4 @@ const Button = ({ text, onClick }: IButton) => {
   );
 };
 
-export default Button;
+export default TextButton;
