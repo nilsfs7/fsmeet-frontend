@@ -135,7 +135,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <div className="m-2 grid grid-cols-2">
         <div className="p-2">Type</div>
         <Dropdown
-          defaultValue={event?.type || EventType.COMPETITION}
+          value={eventType}
           onChange={(value: EventType) => {
             setEventType(value);
           }}
