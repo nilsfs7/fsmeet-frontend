@@ -6,6 +6,7 @@ import TextButton from '@/components/common/TextButton';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import ParticipantList from '@/components/events/ParticipantList';
+import { User } from '@/types/user';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -89,10 +90,13 @@ const Event = (props: any) => {
       <div className="m-2">
         <ParticipantList
           participants={event.eventRegistrations.map(registration => {
-            return {
-              name: registration,
-              instagramHandle: '@handle',
+            const user: User = {
+              username: registration.username,
+              imageUrl: registration.imageUrl,
+              instagramHandle: registration.instagramHandle,
             };
+
+            return user;
           })}
         />
       </div>

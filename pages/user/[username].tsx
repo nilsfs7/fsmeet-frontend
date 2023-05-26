@@ -1,0 +1,39 @@
+import { User } from '@/types/user';
+import { GetServerSideProps } from 'next';
+
+const defaultImage = '/jury/judge-no-img.png';
+
+const Profile = (props: any) => {
+  const user: User = props.data;
+
+  return (
+    <div className="flex h-screen items-center justify-center">
+      <div className="m-2 justify-center">
+        <div className="m-2 grid justify-center text-5xl">{user.username}</div>
+        <div className="relative h-96 w-64">
+          <img className="h-full w-full rounded-lg border-2 border-black object-cover shadow-2xl shadow-black" src={user.imageUrl ? user.imageUrl : defaultImage} alt="user-image" />
+          {user.instagramHandle && (
+            <div className={`absolute bottom-3 right-3 rounded-lg border-2 border-black bg-white p-1`}>
+              <a className="underline" href={`https://www.instagram.com/${user.instagramHandle.replace('@', '')}`}>
+                {user.instagramHandle}
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Profile;
+
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${context.params.username}`);
+  const data = await response.json();
+
+  return {
+    props: {
+      data: data,
+    },
+  };
+};

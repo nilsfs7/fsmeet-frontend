@@ -1,3 +1,5 @@
+import { User } from '@/types/user';
+
 export interface IEvent {
   id: string;
   name: string;
@@ -9,5 +11,5 @@ export interface IEvent {
   description: string;
   location: string;
   type: string;
-  eventRegistrations: string[]; // change to IParticipant
+  eventRegistrations: User[];
 }

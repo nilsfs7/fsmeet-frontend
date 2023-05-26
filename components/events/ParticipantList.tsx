@@ -1,8 +1,9 @@
-import { IParticipant } from '@/interface/participant';
+import { User } from '@/types/user';
 import Participant from './Participant';
+import Link from 'next/link';
 
 interface IParticipantListProps {
-  participants: IParticipant[];
+  participants: User[];
 }
 
 const ParticipantList = ({ participants }: IParticipantListProps) => {
@@ -13,7 +14,9 @@ const ParticipantList = ({ participants }: IParticipantListProps) => {
         {participants.map((participant, i) => {
           return (
             <div key={i} className="m-1 h-16 w-36">
-              <Participant participant={participant} />
+              <Link href={`/user/${participant.username}`}>
+                <Participant participant={participant} />
+              </Link>
             </div>
           );
         })}
