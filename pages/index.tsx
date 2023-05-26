@@ -2,7 +2,6 @@ import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/profile';
 import { IEvent } from '@/interface/event';
-import moment from 'moment';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -56,14 +55,10 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
-  const dateNow = moment(moment().year().toString()).startOf('year');
-  const dateTo = moment(moment().year().toString()).add(2, 'year').endOf('year');
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?dateFrom=${dateNow.unix()}&dateTo=${dateTo.unix()}`;
+  const amount = 2;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/upcoming/${amount.toString()}`;
   const response = await fetch(url);
   let data = await response.json();
-  if (data.length > 2) {
-    data = data.splice(0, 2); // only take next 2 events (better create new backend function)
-  }
 
   return {
     props: {
