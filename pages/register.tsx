@@ -4,6 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import router from 'next/router';
 import { getSession, signIn } from 'next-auth/react';
 import TextInput from '@/components/common/TextInput';
+import bcrypt from 'bcryptjs';
 
 const Register: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -15,7 +16,8 @@ const Register: NextPage = () => {
   };
 
   const handleInputChangePassword = (event: any) => {
-    setPassword(event.target.value);
+    const hashedPassword = bcrypt.hashSync(event.target.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+    setPassword(hashedPassword);
   };
 
   const handleInputKeypressPassword = (e: any) => {
