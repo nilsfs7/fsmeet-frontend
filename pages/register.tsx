@@ -67,6 +67,7 @@ const Register: NextPage = () => {
           />
           <TextInput
             id={'password'}
+            type={'password'}
             label={'Password'}
             placeholder="123"
             onChange={e => {
