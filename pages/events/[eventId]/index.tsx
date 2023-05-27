@@ -26,10 +26,11 @@ const Event = (props: any) => {
 
   const isRegistered = () => {
     if (isLoggedIn() && event) {
-      if (event.eventRegistrations.includes(session.user.username)) {
+      if (event.eventRegistrations.some(user => user.username === session.user.username)) {
         return true;
       }
     }
+
     return false;
   };
 
