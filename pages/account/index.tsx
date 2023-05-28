@@ -45,7 +45,6 @@ const Account = ({ session }: any) => {
       const resBody = await response.json();
       setImageUrl(resBody.imageUrl);
       localStorage.setItem('imageUrl', resBody.imageUrl);
-      console.log(imageUrl);
       // TODO: feedback
     } else {
       console.error('failed to upload image');

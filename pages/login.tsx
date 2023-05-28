@@ -19,7 +19,6 @@ const Login: NextPage = () => {
   const handleInputChangePassword = (event: any) => {
     const hashedPassword = bcrypt.hashSync(event.target.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
     setPassword(hashedPassword);
-    console.log(hashedPassword);
   };
 
   const handleInputKeypressPassword = (e: any) => {
@@ -29,7 +28,6 @@ const Login: NextPage = () => {
   };
 
   const handleLoginClicked = async () => {
-    console.log(password);
     await signIn('credentials', { username: username, password: password, redirect: false }).then(async () => {
       const session = await getSession();
       if (session) {
@@ -72,6 +70,12 @@ const Login: NextPage = () => {
 
         <div className="flex justify-center py-2">
           <TextButton text="Login" onClick={handleLoginClicked} />
+        </div>
+
+        <div className="flex justify-center py-2">
+          <Link href={'/register'}>
+            <label className="cursor-pointer pr-4 underline">Reset password</label>
+          </Link>
         </div>
 
         <div className="flex justify-center py-2">
