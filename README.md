@@ -32,4 +32,10 @@ docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --
 
 ## Fonts
 
-https://fonts.google.com/
+[fonts.google.com](https://fonts.google.com/)
+
+## Images
+
+Icons
+
+[iconfinder.com](https://www.iconfinder.com/)

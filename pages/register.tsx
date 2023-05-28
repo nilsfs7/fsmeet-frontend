@@ -1,19 +1,23 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
-import Button from '@/components/common/Button';
+import TextButton from '@/components/common/TextButton';
 import router from 'next/router';
 import { getSession, signIn } from 'next-auth/react';
+import TextInput from '@/components/common/TextInput';
+import bcrypt from 'bcryptjs';
 
 const Register: NextPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleInputChangeUsername = (event: any) => {
-    setUsername(event.target.value);
+    const uname: string = event.target.value;
+    setUsername(uname.toLowerCase());
   };
 
   const handleInputChangePassword = (event: any) => {
-    setPassword(event.target.value);
+    const hashedPassword = bcrypt.hashSync(event.target.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+    setPassword(hashedPassword);
   };
 
   const handleInputKeypressPassword = (e: any) => {
@@ -30,7 +34,6 @@ const Register: NextPage = () => {
         'Content-Type': 'application/json',
       },
     });
-    console.log(responseCreateUser.status);
 
     if (responseCreateUser.status == 201) {
       await signIn('credentials', { username: username, password: password, redirect: false }).then(async () => {
@@ -43,7 +46,7 @@ const Register: NextPage = () => {
 
           router.replace('/');
         } else {
-          console.log('user info not set');
+          console.error('user info not set');
         }
       });
     }
@@ -51,18 +54,31 @@ const Register: NextPage = () => {
 
   return (
     <>
-      <div className="flex h-screen columns-2 flex-col justify-center">
-        <div className="flex justify-center py-2">
-          <label className="pr-4">User:</label>
-          <input type="text" autoFocus required minLength={2} value={username} className="" onChange={handleInputChangeUsername} />
+      <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
+        <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
+          <TextInput
+            id={'username'}
+            label={'User'}
+            placeholder="Max"
+            value={username}
+            onChange={e => {
+              handleInputChangeUsername(e);
+            }}
+          />
+          <TextInput
+            id={'password'}
+            type={'password'}
+            label={'Password'}
+            placeholder="123"
+            onChange={e => {
+              handleInputChangePassword(e);
+            }}
+            onKeyDown={handleInputKeypressPassword}
+          />
         </div>
 
         <div className="flex justify-center py-2">
-          <label className="pr-4">Password:</label>
-          <input type="text" required minLength={2} value={password} className="" onChange={handleInputChangePassword} onKeyDown={handleInputKeypressPassword} />
-        </div>
-        <div className="flex justify-center py-2">
-          <Button text="Create Account" onClick={handleCreateClicked} />
+          <TextButton text="Sign Up" onClick={handleCreateClicked} />
         </div>
       </div>
     </>

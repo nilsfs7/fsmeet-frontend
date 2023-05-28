@@ -26,6 +26,10 @@ export default NextAuth({
             },
           });
 
+          if (!response.ok) {
+            return null;
+          }
+
           const body = await response.json();
           if (body) {
             return body;

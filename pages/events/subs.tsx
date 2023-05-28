@@ -1,32 +1,29 @@
-import TextButton from '@/components/common/TextButton';
-import EventCard from '@/components/events/EventCard';
-import Profile from '@/components/user/profile';
-import { IEvent } from '@/interface/event';
-import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
+import EventCard from '@/components/events/EventCard';
+import { GetServerSideProps } from 'next';
+import { IEvent } from '@/interface/event';
 import Link from 'next/link';
+import TextButton from '@/components/common/TextButton';
 
-const Home = ({ data }: { data: any[] }) => {
-  let events: IEvent[] = data;
+const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
+  const events: IEvent[] = data;
 
   return (
     <div className="flex h-screen flex-col overflow-hidden">
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
-        <div className="mx-2 flex h-20 items-center justify-between">
+        <div className="mx-2 flex h-20 items-center justify-start">
           <Link href="/">
             <h1 className="text-xl">FSEvent</h1>
           </Link>
-
-          <Profile />
         </div>
       </div>
 
-      {/* Menu & Featured Events */}
-      <h1 className="mt-2 text-center text-xl">Upcoming Events</h1>
+      {/* Event Subscriptions */}
+      <h1 className="mt-2 text-center text-xl">My Events</h1>
       <div className="overflow-hidden">
         <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
-          <div className="mx-2 ">
+          <div className="mx-2">
             {events.map((item: any, i: number) => {
               return (
                 <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
@@ -41,24 +38,25 @@ const Home = ({ data }: { data: any[] }) => {
       </div>
 
       {/* Actions */}
-      <div className="m-2 flex flex-shrink-0 justify-center">
-        <Link href={'/events/'}>
-          <TextButton text="Show All" />
+      <div className="m-2 flex flex-shrink-0 justify-between">
+        <Link href="/">
+          <TextButton text="Back" />
+        </Link>
+        <Link href="/events/create">
+          <TextButton text="Create Event" />
         </Link>
       </div>
     </div>
   );
 };
-
-export default Home;
+export default MyEventsOverview;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
-  const amount = 2;
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/upcoming/${amount.toString()}`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?owner=${session?.user.username}`;
   const response = await fetch(url);
-  let data = await response.json();
+  const data = await response.json();
 
   return {
     props: {
