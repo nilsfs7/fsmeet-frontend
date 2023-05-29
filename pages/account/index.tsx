@@ -14,6 +14,24 @@ const Account = ({ session }: any) => {
     router.replace('/');
   };
 
+  const handleDeleteAccountClicked = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${session?.user?.accessToken}`,
+      },
+    });
+
+    if (response.status === 200) {
+      await signOut({ redirect: false });
+      localStorage.removeItem('username');
+      localStorage.removeItem('imageUrl');
+      router.push('/');
+    } else {
+      console.error('failed to delete account');
+    }
+  };
+
   const handleLogoutClicked = async () => {
     await signOut({ redirect: false });
     localStorage.removeItem('username');
@@ -77,7 +95,11 @@ const Account = ({ session }: any) => {
           </div>
         </div>
 
-        <div className="flex justify-center pt-20">
+        <div className="flex justify-center pt-10">
+          <TextButton text="Delete account" onClick={handleDeleteAccountClicked} />
+        </div>
+
+        <div className="flex justify-center pt-10">
           <TextButton text="Back to home" onClick={handleBackToHomeClicked} />
         </div>
 
