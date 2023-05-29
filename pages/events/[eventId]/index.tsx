@@ -84,23 +84,27 @@ const Event = (props: any) => {
   return (
     <>
       {/* replace by event page with register option */}
+      {/* event overview */}
       <div className="m-2">
         <EventCard event={event} />
       </div>
 
-      <div className="m-2">
-        <ParticipantList
-          participants={event.eventRegistrations.map(registration => {
-            const user: User = {
-              username: registration.username,
-              imageUrl: registration.imageUrl,
-              instagramHandle: registration.instagramHandle,
-            };
+      {/* participants */}
+      {event.eventRegistrations.length > 0 && (
+        <div className="m-2">
+          <ParticipantList
+            participants={event.eventRegistrations.map(registration => {
+              const user: User = {
+                username: registration.username,
+                imageUrl: registration.imageUrl,
+                instagramHandle: registration.instagramHandle,
+              };
 
-            return user;
-          })}
-        />
-      </div>
+              return user;
+            })}
+          />
+        </div>
+      )}
 
       <div className="m-2 flex justify-between">
         <div className="flex justify-start">
