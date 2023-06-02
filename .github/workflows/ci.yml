@@ -45,14 +45,12 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         env:
-          AUTH_ADDR: ${{ env.AUTH_URL }}
-          BACKEND_ADDR: ${{ env.BACKEND_URL }}
           SHA: ${{ github.sha }}
         with:
           push: true
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
           build-args: |
-            AUTH_URL=${{ env.AUTH_ADDR }}
-            BACKEND_URL=${{ env.BACKEND_ADDR }}
+            AUTH_URL=${{ env.AUTH_URL }}
+            BACKEND_URL=${{ env.BACKEND_URL }}
             COMMIT_SHA=${{ env.SHA }}
