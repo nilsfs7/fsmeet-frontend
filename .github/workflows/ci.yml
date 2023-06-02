@@ -53,6 +53,6 @@ jobs:
           file: ./Dockerfile
           tags: ${{ env.TAGS }}
           build-args: |
-            AUTH_URL: ${{ env.AUTH_ADDR }}
-            BACKEND_URL: ${{ env.BACKEND_ADDR }}
+            AUTH_URL=${{ env.AUTH_ADDR }}
+            BACKEND_URL=${{ env.BACKEND_ADDR }}
             COMMIT_SHA=${{ env.SHA }}
