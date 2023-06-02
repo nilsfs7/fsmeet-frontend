@@ -45,8 +45,8 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         env:
-          AUTH_ADDR: 'http://dffb.org:9211'
-          BACKEND_ADDR: 'http://dffb.org:9210'
+          AUTH_ADDR: ${{ env.AUTH_URL }}
+          BACKEND_ADDR: ${{ env.BACKEND_URL }}
           SHA: ${{ github.sha }}
         with:
           push: true
