@@ -42,8 +42,8 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         env:
-          AUTH_URL: ${{ github.AUTH_URL }}
-          BACKEND_URL: ${{ github.BACKEND_URL }}
+          AUTH_URL: ${{ env.AUTH_URL }}
+          BACKEND_URL: ${{ env.BACKEND_URL }}
           SHA: ${{ github.sha }}
         with:
           push: true
