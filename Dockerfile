@@ -32,8 +32,8 @@ FROM node:18.16.0
 
 ## Declare build arguments
 ARG COMMIT_SHA="n/a"
-ARG BACKEND_URL=http://dffb.org:9210
-ARG AUTH_URL=http://dffb.org:9211
+ARG BACKEND_URL="n/a"
+ARG AUTH_URL="n/a"
 ARG AUTH_SECRET=secret
 
 ## Declare environment variables
