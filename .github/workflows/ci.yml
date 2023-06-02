@@ -16,11 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TAGS: luisnaldo7/fsjudge-frontend:dev
+      AUTH_URL: http://dffb.org:9211
+      BACKEND_URL: http://dffb.org:9210
     steps:
       - name: Set environment for branch
         run: |
           if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
-              echo "TAGS=luisnaldo7/fsjudge-frontend:latest,luisnaldo7/fsjudge-frontend:prod" >> "$GITHUB_ENV"  
+              echo "TAGS=luisnaldo7/fsjudge-frontend:latest,luisnaldo7/fsjudge-frontend:prod" >> "$GITHUB_ENV"
+              echo "AUTH_URL=http://dffb.org:9201" >> "$GITHUB_ENV"
+              echo "BACKEND_URL=http://dffb.org:9200" >> "$GITHUB_ENV"
           fi
 
       - name: Set up QEMU
@@ -38,6 +42,8 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v3
         env:
+          AUTH_URL: ${{ github.AUTH_URL }}
+          BACKEND_URL: ${{ github.BACKEND_URL }}
           SHA: ${{ github.sha }}
         with:
           push: true
