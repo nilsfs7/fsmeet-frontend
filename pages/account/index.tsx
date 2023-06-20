@@ -2,13 +2,12 @@ import TextButton from '@/components/common/TextButton';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { getSession, signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 const defaultImg = '/profile/default-pfp.png';
 
 const Account = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
-  const [image, setImage] = useState<any>(null);
-  const [createObjectURL, setCreateObjectURL] = useState('');
 
   const handleBackToHomeClicked = () => {
     router.replace('/');
@@ -39,36 +38,6 @@ const Account = ({ session }: any) => {
     router.push('/');
   };
 
-  const uploadToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-
-      setImage(i);
-      setCreateObjectURL(URL.createObjectURL(i));
-    }
-  };
-
-  const handleUploadImageClicked = async () => {
-    const reqBody = new FormData();
-    reqBody.append('file', image);
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/image`, {
-      method: 'PUT',
-      body: reqBody,
-      headers: {
-        Authorization: `Bearer ${session?.user?.accessToken}`,
-      },
-    });
-
-    if (response.status === 200) {
-      const resBody = await response.json();
-      setImageUrl(resBody.imageUrl);
-      localStorage.setItem('imageUrl', resBody.imageUrl);
-      // TODO: feedback
-    } else {
-      console.error('failed to upload image');
-    }
-  };
-
   useEffect(() => {
     async function fetchUser() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
@@ -81,18 +50,10 @@ const Account = ({ session }: any) => {
   return (
     <>
       <div className="flex h-screen columns-2 flex-col justify-center">
-        <div>
-          <div className="flex justify-center py-2">
-            <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : defaultImg} className="mx-2 flex h-10 w-10 rounded-full object-cover" />
-          </div>
-
-          <div className="flex justify-center py-2">
-            {/* <label className="pr-4">Image:</label> */}
-            <input type="file" className="" onChange={uploadToClient} />
-          </div>
-          <div className="flex justify-center py-2">
-            <TextButton text="Upload image" onClick={handleUploadImageClicked} />
-          </div>
+        <div className="flex justify-center py-2">
+          <Link href="/account/image">
+            <img src={imageUrl ? imageUrl : defaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
+          </Link>
         </div>
 
         <div className="flex justify-center pt-10">
