@@ -55,10 +55,16 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
-  const amount = 2;
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/upcoming/${amount.toString()}`;
-  const response = await fetch(url);
-  let data = await response.json();
+  let data = [];
+
+  const numberOfEventsToFetch = 2;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/upcoming/${numberOfEventsToFetch.toString()}`;
+  try {
+    const response = await fetch(url);
+    data = await response.json();
+  } catch (error: any) {
+    console.error('Error fetching events.');
+  }
 
   return {
     props: {
