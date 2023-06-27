@@ -49,7 +49,7 @@ const Login: NextPage = () => {
         <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
           <TextInput
             id={'username'}
-            label={'User'}
+            label={'Username'}
             placeholder="Max"
             value={username}
             onChange={e => {
@@ -73,13 +73,13 @@ const Login: NextPage = () => {
         </div>
 
         <div className="flex justify-center py-2">
-          <Link href={'/register'}>
+          <Link href={'/registration'}>
             <label className="cursor-pointer pr-4 underline">Reset password</label>
           </Link>
         </div>
 
         <div className="flex justify-center py-2">
-          <Link href={'/register'}>
+          <Link href={'/registration'}>
             <label className="cursor-pointer pr-4 underline">No account yet?</label>
           </Link>
         </div>

@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  // // if (!request.url.includes('/login') && !request.url.includes('/register')) {
+  // // if (!request.url.includes('/login') && !request.url.includes('/registration')) {
   // const jwt = request.cookies.get('next-auth.session-token');
   // if (!jwt) {
   //   return NextResponse.redirect(new URL('/login', request.url));
