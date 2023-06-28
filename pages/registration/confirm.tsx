@@ -18,9 +18,6 @@ const RegistrationConfirmation: NextPage = () => {
       },
     });
 
-    if (responseConfirmUser.status == 201) {
-      setConfirmationSuccessful(true);
-    }
     if (responseConfirmUser.status == 200) {
       setConfirmationSuccessful(true);
     }
@@ -28,13 +25,9 @@ const RegistrationConfirmation: NextPage = () => {
 
   useEffect(() => {
     if (!router.isReady) return;
-    // if (!confirmationSuccessful) {
-
-    console.log(username);
-    console.log(requestToken);
-    confirmUser();
-
-    // }
+    if (!confirmationSuccessful) {
+      confirmUser();
+    }
   }, [[router.isReady]]);
 
   return (
