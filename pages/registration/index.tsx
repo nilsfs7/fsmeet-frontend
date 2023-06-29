@@ -3,11 +3,13 @@ import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
+import router from 'next/router';
 
 const Register: NextPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleInputChangeUsername = (event: any) => {
     const uname: string = event.target.value;
@@ -31,6 +33,8 @@ const Register: NextPage = () => {
   };
 
   const handleCreateClicked = async () => {
+    setError('');
+
     const responseCreateUser = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'POST',
       body: JSON.stringify({ username: username, email: email, password: password }),
@@ -39,8 +43,11 @@ const Register: NextPage = () => {
       },
     });
 
-    if (responseCreateUser.status != 201) {
+    if (responseCreateUser.status == 201) {
+      router.replace(`registration/pending?username=${username}&email=${email}`);
+    } else {
       const error = await responseCreateUser.json();
+      setError(error.message);
       console.log(error.message);
     }
   };
@@ -82,6 +89,12 @@ const Register: NextPage = () => {
         <div className="flex justify-center py-2">
           <TextButton text="Sign Up" onClick={handleCreateClicked} />
         </div>
+
+        {error != '' && (
+          <div className="flex justify-center py-2">
+            <label className="text-dark-red">{error}</label>
+          </div>
+        )}
       </div>
     </>
   );

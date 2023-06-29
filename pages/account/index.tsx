@@ -66,7 +66,7 @@ const Account = ({ session }: any) => {
     async function fetchUser() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
       const user = await res.json();
-      console.log(user);
+
       setImageUrl(user.imageUrl);
       if (user.instagramHandle) {
         setInstagramHandle(user.instagramHandle);
