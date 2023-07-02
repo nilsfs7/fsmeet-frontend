@@ -11,14 +11,14 @@ const RegistrationConfirmation: NextPage = () => {
   const [confirmationSuccessful, setConfirmationSuccessful] = useState(false);
 
   const confirmUser = async () => {
-    const responseConfirmUser = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/confirm/user?username=${username}&requestToken=${requestToken}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/confirm/user?username=${username}&requestToken=${requestToken}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    if (responseConfirmUser.status == 200) {
+    if (response.status == 200) {
       setConfirmationSuccessful(true);
     }
   };

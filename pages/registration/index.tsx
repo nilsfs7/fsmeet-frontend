@@ -35,7 +35,7 @@ const Register: NextPage = () => {
   const handleCreateClicked = async () => {
     setError('');
 
-    const responseCreateUser = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'POST',
       body: JSON.stringify({ username: username, email: email, password: password }),
       headers: {
@@ -43,10 +43,10 @@ const Register: NextPage = () => {
       },
     });
 
-    if (responseCreateUser.status == 201) {
+    if (response.status == 201) {
       router.replace(`registration/pending?username=${username}&email=${email}`);
     } else {
-      const error = await responseCreateUser.json();
+      const error = await response.json();
       setError(error.message);
       console.log(error.message);
     }
