@@ -27,7 +27,7 @@ const EventEditing = (props: any) => {
 
   const handleSaveClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         id: eventId,
         name: event?.name,

@@ -16,7 +16,7 @@ const Account = ({ session }: any) => {
 
   const handleSaveUserInfoClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         instagramHandle: instagramHandle,
       }),

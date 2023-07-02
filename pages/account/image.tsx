@@ -24,7 +24,7 @@ const AccountImage = ({ session }: any) => {
     const reqBody = new FormData();
     reqBody.append('file', image);
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/image`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: reqBody,
       headers: {
         Authorization: `Bearer ${session?.user?.accessToken}`,
