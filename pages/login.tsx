@@ -98,7 +98,7 @@ const Login: NextPage = () => {
         )}
 
         <div className="flex justify-center py-2">
-          <Link href={'/registration'}>
+          <Link href={'/password/forgot'}>
             <label className="cursor-pointer pr-4 underline">Reset password</label>
           </Link>
         </div>

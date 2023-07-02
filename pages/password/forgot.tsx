@@ -1,0 +1,72 @@
+import { NextPage } from 'next';
+import { useState } from 'react';
+import TextButton from '@/components/common/TextButton';
+import TextInput from '@/components/common/TextInput';
+import router from 'next/router';
+
+const ForgotPassword: NextPage = () => {
+  const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
+
+  const handleInputChangeUsername = (event: any) => {
+    const uname: string = event.target.value;
+    setUsername(uname.toLowerCase());
+  };
+
+  const handleInputKeypressUsername = (e: any) => {
+    if (e.keyCode === 13) {
+      handleResetClicked();
+    }
+  };
+
+  const handleResetClicked = async () => {
+    setError('');
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/password/forgot`, {
+      method: 'POST',
+      body: JSON.stringify({ username: username }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status == 201) {
+      router.replace(`/password/pending`);
+    } else {
+      const error = await response.json();
+      setError(error.message);
+      console.log(error.message);
+    }
+  };
+
+  return (
+    <>
+      <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
+        <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
+          <TextInput
+            id={'username'}
+            label={'Username'}
+            placeholder="Max"
+            value={username}
+            onChange={e => {
+              handleInputChangeUsername(e);
+            }}
+            onKeyDown={handleInputKeypressUsername}
+          />
+        </div>
+
+        <div className="flex justify-center py-2">
+          <TextButton text="Reset Password" onClick={handleResetClicked} />
+        </div>
+
+        {error != '' && (
+          <div className="flex justify-center py-2">
+            <label className="text-dark-red">{error}</label>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default ForgotPassword;
