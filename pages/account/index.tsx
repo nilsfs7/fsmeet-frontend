@@ -6,14 +6,23 @@ import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
+import Dropdown, { MenuItem } from '@/components/common/Dropdown';
 
 const defaultImg = '/profile/default-pfp.png';
+
+const countries: MenuItem[] = [
+  { text: 'not specified', value: '--' },
+  { text: 'Austria', value: 'AT' },
+  { text: 'Switzerland', value: 'CH' },
+  { text: 'Germany', value: 'DE' },
+];
 
 const Account = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [instagramHandle, setInstagramHandle] = useState();
+  const [country, setCountry] = useState('');
+  const [instagramHandle, setInstagramHandle] = useState('');
 
   const handleSaveUserInfoClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
@@ -21,6 +30,7 @@ const Account = ({ session }: any) => {
       body: JSON.stringify({
         firstName: firstName,
         lastName: lastName,
+        country: country,
         instagramHandle: instagramHandle,
       }),
       headers: {
@@ -77,6 +87,9 @@ const Account = ({ session }: any) => {
       if (user.lastName) {
         setLastName(user.lastName);
       }
+      if (user.country) {
+        setCountry(user.country);
+      }
       if (user.instagramHandle) {
         setInstagramHandle(user.instagramHandle);
       }
@@ -115,6 +128,16 @@ const Account = ({ session }: any) => {
                 setLastName(e.currentTarget.value);
               }}
             />
+            <div className="m-2 grid grid-cols-2">
+              <div className="p-2">Country</div>
+              <Dropdown
+                menus={countries}
+                value={country !== '' ? country : countries[0].value}
+                onChange={(value: any) => {
+                  setCountry(value);
+                }}
+              />
+            </div>
             <TextInput
               id={'instagramHandle'}
               label={'Instagram Handle'}
