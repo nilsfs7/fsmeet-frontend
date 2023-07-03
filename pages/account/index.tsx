@@ -11,13 +11,16 @@ const defaultImg = '/profile/default-pfp.png';
 
 const Account = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
-
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [instagramHandle, setInstagramHandle] = useState();
 
   const handleSaveUserInfoClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'PATCH',
       body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
         instagramHandle: instagramHandle,
       }),
       headers: {
@@ -68,6 +71,12 @@ const Account = ({ session }: any) => {
       const user = await res.json();
 
       setImageUrl(user.imageUrl);
+      if (user.firstName) {
+        setFirstName(user.firstName);
+      }
+      if (user.lastName) {
+        setLastName(user.lastName);
+      }
       if (user.instagramHandle) {
         setInstagramHandle(user.instagramHandle);
       }
@@ -88,6 +97,24 @@ const Account = ({ session }: any) => {
 
         <div className={'flex columns-1 flex-col items-center'}>
           <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
+            <TextInput
+              id={'firstName'}
+              label={'First Name'}
+              placeholder="Kevin"
+              value={firstName}
+              onChange={e => {
+                setFirstName(e.currentTarget.value);
+              }}
+            />
+            <TextInput
+              id={'lastName'}
+              label={'Last Name'}
+              placeholder="Kück"
+              value={lastName}
+              onChange={e => {
+                setLastName(e.currentTarget.value);
+              }}
+            />
             <TextInput
               id={'instagramHandle'}
               label={'Instagram Handle'}
