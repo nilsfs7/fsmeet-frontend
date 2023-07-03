@@ -6,10 +6,15 @@ const defaultImage = '/jury/judge-no-img.png';
 const Profile = (props: any) => {
   const user: User = props.data;
 
+  let displayName = user.firstName ? user.firstName : user.username;
+  if (user.lastName) {
+    displayName = `${displayName} ${user.lastName}`;
+  }
+
   return (
     <div className="flex h-screen items-center justify-center">
-      <div className="m-2 justify-center">
-        <div className="m-2 grid justify-center text-5xl">{user.username}</div>
+      <div className="m-2 grid place-items-center">
+        <div className="m-2 text-5xl">{displayName}</div>
         <div className="relative h-96 w-64">
           <img className="h-full w-full rounded-lg border-2 border-black object-cover shadow-2xl shadow-black" src={user.imageUrl ? user.imageUrl : defaultImage} alt="user-image" />
           {user.instagramHandle && (
