@@ -7,6 +7,8 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import ParticipantList from '@/components/events/ParticipantList';
 import { User } from '@/types/user';
+import { Action } from '@/types/enums/action';
+import ActionButton from '@/components/common/ActionButton';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -114,9 +116,14 @@ const Event = (props: any) => {
         </div>
 
         <div className="flex justify-end">
+          {event.owner === session?.user?.username && (
+            <div className="ml-1">
+              <ActionButton action={Action.EDIT} onClick={handleEditClicked} />
+            </div>
+          )}
+
           <div className="ml-1">
-            {event.owner === session?.user?.username && <TextButton text={'Edit'} onClick={handleEditClicked} />}
-            {event.owner !== session?.user?.username && <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />}
+            <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />
           </div>
         </div>
       </div>
