@@ -39,3 +39,17 @@ docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --
 Icons
 
 [iconfinder.com](https://www.iconfinder.com/)
+
+### Used Images
+
+[Events](https://www.iconfinder.com/icons/2316003/ball_courts_football_sports_icon)
+
+[Logout](https://www.iconfinder.com/icons/3994382/access_close_exit_logout_sign_out_icon#svg)
+
+[Feedback](https://www.iconfinder.com/icons/8673475/ic_fluent_person_feedback_filled_icon)
+
+[Settings](https://www.iconfinder.com/icons/1564529/mechanism_options_settings_configuration_setting_icon#svg)
+
+[User](https://www.iconfinder.com/icons/1564535/customer_user_userphoto_account_person_icon)
+
+[Info](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)
