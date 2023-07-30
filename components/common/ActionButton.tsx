@@ -1,10 +1,12 @@
 import { Action } from '@/types/enums/action';
 import IconButton from '@mui/material/IconButton';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
 import SaveIcon from '@mui/icons-material/Save';
+import ShareIcon from '@mui/icons-material/Share';
 import EditIcon from '@mui/icons-material/Edit';
-import CancelIcon from '@mui/icons-material/Cancel';
 
 interface IButton {
   action: Action;
@@ -21,6 +23,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
     case Action.CANCEL:
       icon = <CancelIcon />;
       break;
+    case Action.COPY:
+      icon = <CopyIcon />;
+      break;
     case Action.DELETE:
       icon = <DeleteIcon />;
       break;
@@ -29,6 +34,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
       break;
     case Action.SAVE:
       icon = <SaveIcon />;
+      break;
+    case Action.SHARE:
+      icon = <ShareIcon />;
       break;
   }
 

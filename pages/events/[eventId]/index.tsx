@@ -69,6 +69,30 @@ const Event = (props: any) => {
     router.push(`/events/${eventId}/edit`);
   };
 
+  const handleShareClicked = async () => {
+    const eventUrl = window.location.toString();
+
+    if (window.isSecureContext && navigator.clipboard) {
+      navigator.clipboard.writeText(eventUrl);
+    } else {
+      unsecuredCopyToClipboard(eventUrl);
+    }
+  };
+
+  const unsecuredCopyToClipboard = (text: string) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      console.error('Unable to copy to clipboard', err);
+    }
+    document.body.removeChild(textArea);
+  };
+
   useEffect(() => {
     async function fetchEvent() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
@@ -121,6 +145,10 @@ const Event = (props: any) => {
               <ActionButton action={Action.EDIT} onClick={handleEditClicked} />
             </div>
           )}
+
+          <div className="ml-1">
+            <ActionButton action={Action.COPY} onClick={handleShareClicked} />
+          </div>
 
           <div className="ml-1">
             <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />
