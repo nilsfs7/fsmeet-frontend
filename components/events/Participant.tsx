@@ -4,7 +4,7 @@ interface IParticipantProps {
   participant: User;
 }
 
-const defaultImg = '/profile/user.png';
+const defaultImg = '/profile/user.svg';
 
 const Participant = ({ participant }: IParticipantProps) => {
   return (

@@ -8,7 +8,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
 
-const defaultImg = '/profile/default-pfp.png';
+const defaultImg = '/profile/user.svg';
 
 const countries: MenuItem[] = [
   { text: 'not specified', value: '--' },

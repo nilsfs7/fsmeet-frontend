@@ -4,7 +4,7 @@ import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import router from 'next/router';
 
-const defaultImg = '/profile/default-pfp.png';
+const defaultImg = '/profile/user.svg';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
