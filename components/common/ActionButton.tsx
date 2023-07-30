@@ -1,8 +1,8 @@
 import { Action } from '@/types/enums/action';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Save from '@mui/icons-material/Save';
+import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
+import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
 
@@ -28,7 +28,7 @@ const ActionButton = ({ action, onClick }: IButton) => {
       icon = <EditIcon />;
       break;
     case Action.SAVE:
-      icon = <Save />;
+      icon = <SaveIcon />;
       break;
   }
 

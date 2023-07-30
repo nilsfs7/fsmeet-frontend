@@ -111,7 +111,7 @@ const Event = (props: any) => {
       <div className="m-2 flex justify-between">
         <div className="flex justify-start">
           <div className="mr-1">
-            <TextButton text={'Back'} onClick={() => router.back()} />
+            <ActionButton action={Action.BACK} onClick={() => router.back()} />
           </div>
         </div>
 
