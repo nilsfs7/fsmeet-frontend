@@ -6,7 +6,7 @@ export interface IEvent {
   owner: string;
   dateFrom: number;
   dateTo: number;
-  registrationCosts: number;
+  participationFee: number;
   registrationDeadline: number;
   description: string;
   location: string;

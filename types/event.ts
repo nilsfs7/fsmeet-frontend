@@ -6,7 +6,7 @@ export type Event = {
   name: string | undefined;
   dateFrom: Moment;
   dateTo: Moment;
-  registrationCosts: number | undefined;
+  participationFee: number | undefined;
   registrationDeadline: Moment;
   description: string | undefined;
   location: string | undefined;

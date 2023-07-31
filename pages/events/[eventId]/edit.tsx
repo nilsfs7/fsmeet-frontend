@@ -33,7 +33,7 @@ const EventEditing = (props: any) => {
         name: event?.name,
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),
-        registrationCosts: event?.registrationCosts,
+        participationFee: event?.participationFee,
         registrationDeadline: event?.registrationDeadline.unix(),
         description: event?.description,
         location: event?.location,
@@ -77,7 +77,7 @@ const EventEditing = (props: any) => {
           dateFrom: moment.unix(res.dateFrom),
           // @ts-ignore
           dateTo: moment.unix(res.dateTo),
-          registrationCosts: res.registrationCosts,
+          participationFee: res.participationFee,
           // @ts-ignore
           registrationDeadline: moment.unix(res.registrationDeadline),
           description: res.description,

@@ -22,7 +22,7 @@ const EventCreation = (props: any) => {
         name: event?.name,
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),
-        registrationCosts: event?.registrationCosts,
+        participationFee: event?.participationFee,
         registrationDeadline: event?.registrationDeadline.unix(),
         description: event?.description,
         location: event?.location,
