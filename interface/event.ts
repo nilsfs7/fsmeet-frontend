@@ -1,4 +1,4 @@
-import { User } from '@/types/user';
+import { EventRegistration } from '@/types/event-registration';
 
 export interface IEvent {
   id: string;
@@ -11,5 +11,5 @@ export interface IEvent {
   description: string;
   location: string;
   type: string;
-  eventRegistrations: User[];
+  eventRegistrations: EventRegistration[];
 }

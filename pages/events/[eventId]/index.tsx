@@ -9,6 +9,8 @@ import ParticipantList from '@/components/events/ParticipantList';
 import { User } from '@/types/user';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
+import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
+import { EventRegistration } from '@/types/event-registration';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -17,6 +19,7 @@ const Event = (props: any) => {
   const { eventId } = router.query;
 
   const [event, setEvent] = useState<IEvent>();
+  const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
 
   const isLoggedIn = () => {
     if (session) {
@@ -42,10 +45,10 @@ const Event = (props: any) => {
       return;
     }
 
-    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/register`;
+    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
     let method: string = 'POST';
     if (isRegistered()) {
-      url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/unregister`;
+      url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
       method = 'DELETE';
     }
 
@@ -53,6 +56,7 @@ const Event = (props: any) => {
       method: method,
       body: JSON.stringify({
         eventId: `${eventId}`,
+        username: `${session.user.username}`,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -96,14 +100,29 @@ const Event = (props: any) => {
   useEffect(() => {
     async function fetchEvent() {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
-      const event = await response.json();
+      const event: IEvent = await response.json();
       setEvent(event);
+
+      const approvedWithImage = event.eventRegistrations
+        .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && registration.imageUrl)
+        .sort((a, b) => (a.username > b.username ? 1 : -1));
+      const approvedNoImage = event.eventRegistrations
+        .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && !registration.imageUrl)
+        .sort((a, b) => (a.username > b.username ? 1 : -1));
+      const pendingWithImage = event.eventRegistrations
+        .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && registration.imageUrl)
+        .sort((a, b) => (a.username > b.username ? 1 : -1));
+      const pendingNoImage = event.eventRegistrations
+        .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && !registration.imageUrl)
+        .sort((a, b) => (a.username > b.username ? 1 : -1));
+
+      setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
     }
 
     fetchEvent();
   }, [event == undefined]);
 
-  if (!event) {
+  if (!event || !approvedAndPendingRegistrations) {
     return 'loading...';
   }
 
@@ -116,17 +135,19 @@ const Event = (props: any) => {
       </div>
 
       {/* participants */}
-      {event.eventRegistrations.length > 0 && (
+      {approvedAndPendingRegistrations.length > 0 && (
         <div className="m-2">
           <ParticipantList
-            participants={event.eventRegistrations.map(registration => {
+            participants={approvedAndPendingRegistrations.map(registration => {
               const user: User = {
                 username: registration.username,
                 imageUrl: registration.imageUrl,
-                instagramHandle: registration.instagramHandle,
               };
 
               return user;
+            })}
+            registrationStatus={approvedAndPendingRegistrations.map(registration => {
+              return registration.status;
             })}
           />
         </div>
