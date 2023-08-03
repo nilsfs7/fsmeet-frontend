@@ -1,10 +1,13 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
+import { getSession } from 'next-auth/react';
 
-const GeneralFeedback: NextPage = () => {
+const GeneralFeedback: NextPage = (props: any) => {
+  const session = props.session;
+
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
@@ -20,6 +23,7 @@ const GeneralFeedback: NextPage = () => {
       body: JSON.stringify({ message: message }),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.user.accessToken}`,
       },
     });
 
@@ -62,3 +66,13 @@ const GeneralFeedback: NextPage = () => {
 };
 
 export default GeneralFeedback;
+
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session: session,
+    },
+  };
+};
