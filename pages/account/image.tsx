@@ -51,30 +51,26 @@ const AccountImage = ({ session }: any) => {
   }, []);
 
   return (
-    <>
-      <div className="flex h-screen columns-2 flex-col justify-center">
-        <div className="">
-          <div className="flex justify-center py-2">
-            <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : defaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
-          </div>
+    <div className="absolute inset-0 flex flex-col justify-center">
+      <div className="flex justify-center py-2">
+        <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : defaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
+      </div>
 
-          <div className="flex justify-center py-2">
-            <input type="file" className="" onChange={uploadToClient} />
-          </div>
+      <div className="flex justify-center py-2">
+        <input type="file" className="" onChange={uploadToClient} />
+      </div>
 
-          <div className="flex justify-center py-2">
-            <div className="mx-1">
-              <TextButton text="Upload image" onClick={handleUploadImageClicked} />
-            </div>
-          </div>
-          <div className="flex justify-center py-2">
-            <Link href="/account">
-              <TextButton text="Back" />
-            </Link>
-          </div>
+      <div className="flex justify-center py-2">
+        <div className="mx-1">
+          <TextButton text="Upload image" onClick={handleUploadImageClicked} />
         </div>
       </div>
-    </>
+      <div className="flex justify-center py-2">
+        <Link href="/account">
+          <TextButton text="Back" />
+        </Link>
+      </div>
+    </div>
   );
 };
 export default AccountImage;
