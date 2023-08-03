@@ -4,7 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
 
-const GeneralFeedback: NextPage = () => {
+const ReportBug: NextPage = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
@@ -15,7 +15,7 @@ const GeneralFeedback: NextPage = () => {
   const handleSubmitClicked = async () => {
     setError('');
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/feedback/general`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/feedback/bugs`, {
       method: 'POST',
       body: JSON.stringify({ message: message }),
       headers: {
@@ -35,12 +35,12 @@ const GeneralFeedback: NextPage = () => {
   return (
     <>
       <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
-        <h1 className="mb-2 text-center text-xl">Send Feedback</h1>
+        <h1 className="mb-2 text-center text-xl">Report Bug</h1>
         <div className="m-2 h-1/2 w-[95%] rounded-lg bg-zinc-300">
           <TextInputLarge
             id={'message'}
             label={'Message'}
-            placeholder="Any feedback is highly appriciented!"
+            placeholder="Describe any misbehavior you noticed."
             onChange={e => {
               handleInputChangeMessage(e);
             }}
@@ -61,4 +61,4 @@ const GeneralFeedback: NextPage = () => {
   );
 };
 
-export default GeneralFeedback;
+export default ReportBug;
