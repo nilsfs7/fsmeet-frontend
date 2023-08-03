@@ -48,6 +48,10 @@ Icons
 
 [Feedback](https://www.iconfinder.com/icons/8673475/ic_fluent_person_feedback_filled_icon)
 
+- [Bug](https://www.iconfinder.com/icons/1608588/bug_icon)
+- [Feature](https://www.iconfinder.com/icons/3018516/availability_component_element_feature_items_list_settings_icon)
+- [General Feedback](https://www.iconfinder.com/icons/6843045/customer_feedback_happy_performance_satisfaction_satisfied_satisfy_icon)
+
 [Settings](https://www.iconfinder.com/icons/1564529/mechanism_options_settings_configuration_setting_icon#svg)
 
 [User](https://www.iconfinder.com/icons/1564535/customer_user_userphoto_account_person_icon)
