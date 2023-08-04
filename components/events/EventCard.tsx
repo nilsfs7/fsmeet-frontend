@@ -6,8 +6,8 @@ interface IEventProps {
   event: IEvent;
 }
 
-const imgMeeting = '/event/meeting.png';
-const imgCompetition = '/event/competition.png';
+const imgMeeting = '/event/meeting.svg';
+const imgCompetition = '/event/competition.svg';
 
 const EventCard = ({ event }: IEventProps) => {
   const [dateFrom, setDateFrom] = useState<number>();
