@@ -15,7 +15,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [name, setEventName] = useState(event?.name);
   const [dateFrom, setDateFrom] = useState<Moment>(event?.dateFrom ? event?.dateFrom : moment().add(7, 'day'));
   const [dateTo, setDateTo] = useState<Moment>(event?.dateTo ? event?.dateTo : moment().add(7, 'day'));
-  const [registrationCosts, setRegistrationCosts] = useState(event?.registrationCosts);
+  const [participationFee, setParticipationFee] = useState(event?.participationFee);
   const [registrationDeadline, setRegistrationDeadline] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment().add(7, 'day'));
   const [description, setDescription] = useState(event?.description);
   const [location, setLocation] = useState(event?.location);
@@ -27,11 +27,12 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       name: name,
       dateFrom: dateFrom,
       dateTo: dateTo,
-      registrationCosts: registrationCosts,
+      participationFee: participationFee,
       registrationDeadline: registrationDeadline,
       description: description,
       location: location,
       type: eventType,
+      autoApproveRegistrations: false, // ##### get from input
     });
   };
 
@@ -41,7 +42,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setEventName(event.name);
       setDateFrom(event.dateFrom);
       setDateTo(event.dateTo);
-      setRegistrationCosts(event.registrationCosts);
+      setParticipationFee(event.participationFee);
       setRegistrationDeadline(event.registrationDeadline);
       setDescription(event.description);
       setLocation(event.location);
@@ -52,7 +53,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   // fires event back
   useEffect(() => {
     updateEvent();
-  }, [name, dateFrom, dateTo, registrationCosts, registrationDeadline, description, location, eventType]);
+  }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, location, eventType]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
@@ -103,12 +104,12 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       </div>
 
       <TextInput
-        id={'registrationCosts'}
+        id={'participationFee'}
         label={'Participation Fee'}
         placeholder="25"
-        value={registrationCosts ? registrationCosts.toString() : undefined}
+        value={participationFee ? participationFee.toString() : undefined}
         onChange={e => {
-          setRegistrationCosts(e.currentTarget.value);
+          setParticipationFee(e.currentTarget.value);
         }}
       />
 

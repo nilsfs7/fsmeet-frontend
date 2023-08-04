@@ -27,17 +27,18 @@ const EventEditing = (props: any) => {
 
   const handleSaveClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         id: eventId,
         name: event?.name,
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),
-        registrationCosts: event?.registrationCosts,
+        participationFee: event?.participationFee,
         registrationDeadline: event?.registrationDeadline.unix(),
         description: event?.description,
         location: event?.location,
         type: event?.type,
+        autoApproveRegistrations: false, // ##### get from input
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -77,12 +78,13 @@ const EventEditing = (props: any) => {
           dateFrom: moment.unix(res.dateFrom),
           // @ts-ignore
           dateTo: moment.unix(res.dateTo),
-          registrationCosts: res.registrationCosts,
+          participationFee: res.participationFee,
           // @ts-ignore
           registrationDeadline: moment.unix(res.registrationDeadline),
           description: res.description,
           location: res.location,
           type: res.type,
+          autoApproveRegistrations: false, // ##### get from input
         };
 
         setEvent(e);

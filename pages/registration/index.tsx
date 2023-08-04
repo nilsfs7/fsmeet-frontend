@@ -1,18 +1,24 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
-import router from 'next/router';
-import { getSession, signIn } from 'next-auth/react';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
+import router from 'next/router';
 
 const Register: NextPage = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleInputChangeUsername = (event: any) => {
     const uname: string = event.target.value;
     setUsername(uname.toLowerCase());
+  };
+
+  const handleInputChangeEmail = (event: any) => {
+    const email: string = event.target.value;
+    setEmail(email.toLowerCase());
   };
 
   const handleInputChangePassword = (event: any) => {
@@ -27,28 +33,22 @@ const Register: NextPage = () => {
   };
 
   const handleCreateClicked = async () => {
-    const responseCreateUser = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
+    setError('');
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'POST',
-      body: JSON.stringify({ username: username, password: password }),
+      body: JSON.stringify({ username: username, email: email, password: password }),
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    if (responseCreateUser.status == 201) {
-      await signIn('credentials', { username: username, password: password, redirect: false }).then(async () => {
-        const session = await getSession();
-        if (session) {
-          localStorage.setItem('username', session.user.username);
-          if (session.user.imageUrl) {
-            localStorage.setItem('imageUrl', session.user.imageUrl);
-          }
-
-          router.replace('/');
-        } else {
-          console.error('user info not set');
-        }
-      });
+    if (response.status == 201) {
+      router.replace(`registration/pending?username=${username}&email=${email}`);
+    } else {
+      const error = await response.json();
+      setError(error.message);
+      console.log(error.message);
     }
   };
 
@@ -58,11 +58,20 @@ const Register: NextPage = () => {
         <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
           <TextInput
             id={'username'}
-            label={'User'}
+            label={'Username'}
             placeholder="Max"
             value={username}
             onChange={e => {
               handleInputChangeUsername(e);
+            }}
+          />
+          <TextInput
+            id={'mail'}
+            label={'E-Mail'}
+            placeholder="max@gmail.com"
+            value={email}
+            onChange={e => {
+              handleInputChangeEmail(e);
             }}
           />
           <TextInput
@@ -80,6 +89,12 @@ const Register: NextPage = () => {
         <div className="flex justify-center py-2">
           <TextButton text="Sign Up" onClick={handleCreateClicked} />
         </div>
+
+        {error != '' && (
+          <div className="flex justify-center py-2">
+            <label className="text-dark-red">{error}</label>
+          </div>
+        )}
       </div>
     </>
   );

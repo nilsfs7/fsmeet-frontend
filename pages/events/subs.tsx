@@ -9,12 +9,12 @@ const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
   const events: IEvent[] = data;
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="absolute inset-0 flex flex-col overflow-hidden">
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-start">
           <Link href="/">
-            <h1 className="text-xl">FSEvent</h1>
+            <h1 className="text-xl">FSMeet</h1>
           </Link>
         </div>
       </div>

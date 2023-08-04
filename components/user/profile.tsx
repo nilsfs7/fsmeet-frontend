@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 
-const defaultImg = '/profile/user.png';
+const defaultImg = '/profile/user.svg';
+
 const routeLogin = '/login';
 const routeEvents = '/events/subs';
 const routeAccount = '/account';
-const routeAbout = '/about';
+const routeFeedback = '/feedback';
 
 const Profile = () => {
   const { data: session, status } = useSession();
@@ -18,8 +19,8 @@ const Profile = () => {
 
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-  const menuItems = ['My Events', 'Settings', 'About', 'Logout'];
-  const menuItemIcons = ['/profile/events.png', '/profile/settings.webp', '/profile/info.png', '/profile/logout.png'];
+  const menuItems = ['My Events', 'Settings', 'Feedback', 'Logout'];
+  const menuItemIcons = ['/profile/events.svg', '/profile/settings.svg', '/profile/feedback.svg', '/profile/logout.svg'];
 
   useEffect(() => {
     const name = localStorage.getItem('username');
@@ -41,8 +42,8 @@ const Profile = () => {
     router.push(routeAccount);
   };
 
-  const onAboutClicked = () => {
-    router.push(routeAbout);
+  const onFeedbackClicked = () => {
+    router.push(routeFeedback);
   };
 
   const onLogoutClicked = async () => {
@@ -52,7 +53,7 @@ const Profile = () => {
     router.push('/');
   };
 
-  const menuItemActions = [onEventsClicked, onAccountClicked, onAboutClicked, onLogoutClicked];
+  const menuItemActions = [onEventsClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];
 
   const isAuthenticated = () => {
     return status === 'authenticated';

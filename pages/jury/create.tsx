@@ -90,15 +90,9 @@ const CreateJury: NextPage = (props: any) => {
       </div>
 
       <div className="flex flex-col items-center justify-center sm:flex-row">
-        <div className="m-2">
-          <Dropdown menus={judgesList} defaultMenu={{ text: '', value: '' }} onChange={onChangeJudge1} />
-        </div>
-        <div className="m-2">
-          <Dropdown menus={[{ text: judge2.name, value: judge2.name }]} disabled={true} onChange={() => {}} />
-        </div>
-        <div className="m-2">
-          <Dropdown menus={judgesList} defaultMenu={{ text: '', value: '' }} onChange={onChangeJudge3} />
-        </div>
+        <div className="m-2">{/* <Dropdown menus={judgesList} defaultMenu={{ text: '', value: '' }} onChange={onChangeJudge1} /> */}</div>
+        <div className="m-2">{/* <Dropdown menus={[{ text: judge2.name, value: judge2.name }]} disabled={true} onChange={() => {}} /> */}</div>
+        <div className="m-2">{/* <Dropdown menus={judgesList} defaultMenu={{ text: '', value: '' }} onChange={onChangeJudge3} /> */}</div>
       </div>
 
       <div className="flex justify-center">

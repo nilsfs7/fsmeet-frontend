@@ -10,6 +10,7 @@ import bcrypt from 'bcryptjs';
 const Login: NextPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleInputChangeUsername = (event: any) => {
     const uname: string = event.target.value;
@@ -28,19 +29,37 @@ const Login: NextPage = () => {
   };
 
   const handleLoginClicked = async () => {
-    await signIn('credentials', { username: username, password: password, redirect: false }).then(async () => {
-      const session = await getSession();
-      if (session) {
-        localStorage.setItem('username', session.user.username);
-        if (session.user.imageUrl) {
-          localStorage.setItem('imageUrl', session.user.imageUrl);
-        }
+    setError('');
 
-        router.replace('/');
-      } else {
-        console.error('user info not set');
-      }
-    });
+    const response = await signIn('credentials', { username: username, password: password, redirect: false });
+
+    let err = 'Unknown error.';
+    switch (response?.status) {
+      case 200:
+        const session = await getSession();
+        if (session) {
+          localStorage.setItem('username', session.user.username);
+          if (session.user.imageUrl) {
+            localStorage.setItem('imageUrl', session.user.imageUrl);
+          }
+
+          router.replace('/');
+        } else {
+          console.error('unknown error');
+        }
+        break;
+
+      case 401:
+        err = 'Wrong username or password.';
+        setError(err);
+        console.error(err);
+        break;
+
+      default:
+        setError(err);
+        console.error(err);
+        break;
+    }
   };
 
   return (
@@ -49,7 +68,7 @@ const Login: NextPage = () => {
         <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
           <TextInput
             id={'username'}
-            label={'User'}
+            label={'Username'}
             placeholder="Max"
             value={username}
             onChange={e => {
@@ -72,14 +91,20 @@ const Login: NextPage = () => {
           <TextButton text="Login" onClick={handleLoginClicked} />
         </div>
 
+        {error != '' && (
+          <div className="flex justify-center py-2">
+            <label className="text-dark-red">{error}</label>
+          </div>
+        )}
+
         <div className="flex justify-center py-2">
-          <Link href={'/register'}>
+          <Link href={'/password/forgot'}>
             <label className="cursor-pointer pr-4 underline">Reset password</label>
           </Link>
         </div>
 
         <div className="flex justify-center py-2">
-          <Link href={'/register'}>
+          <Link href={'/registration'}>
             <label className="cursor-pointer pr-4 underline">No account yet?</label>
           </Link>
         </div>
