@@ -27,6 +27,7 @@ const EventCreation = (props: any) => {
         description: event?.description,
         location: event?.location,
         type: event?.type,
+        autoApproveRegistrations: false, // ##### get from input
       }),
       headers: {
         'Content-Type': 'application/json',

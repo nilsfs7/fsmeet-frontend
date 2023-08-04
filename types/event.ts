@@ -11,4 +11,5 @@ export type Event = {
   description: string | undefined;
   location: string | undefined;
   type: EventType;
+  autoApproveRegistrations: boolean;
 };
