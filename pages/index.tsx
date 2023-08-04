@@ -14,7 +14,7 @@ const Home = ({ data }: { data: any[] }) => {
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
-      {/* Banner */}
+      {/* Header */}
       <div className="bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
           <Link href="/">
@@ -50,8 +50,8 @@ const Home = ({ data }: { data: any[] }) => {
         </Link>
       </div>
 
-      {/* Banner */}
-      <div className="bg-zinc-300 sm:block">
+      {/* Footer */}
+      <div className="mt-auto bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-end">
           <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border-2 border-black bg-zinc-300 p-1 hover:bg-zinc-400">
             <Link href="/about">

@@ -6,8 +6,6 @@ const About: NextPage = () => {
   return (
     <div className="flex flex-col items-center">
       <div>about text</div>
-      <div>feedback</div>
-      <div>report bug</div>
 
       {/* Version */}
       <div className="m-1">Version SHA: {shortSha}</div>
