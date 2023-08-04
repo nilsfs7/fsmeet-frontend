@@ -46,10 +46,6 @@ const Account = ({ session }: any) => {
     }
   };
 
-  const handleBackToHomeClicked = () => {
-    router.replace('/');
-  };
-
   const handleDeleteAccountClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'DELETE',
@@ -162,7 +158,9 @@ const Account = ({ session }: any) => {
       </div>
 
       <div className="flex justify-center pt-10">
-        <TextButton text="Back to home" onClick={handleBackToHomeClicked} />
+        <Link href="/">
+          <TextButton text="Back to home" />
+        </Link>
       </div>
 
       <div className="flex justify-center py-2">

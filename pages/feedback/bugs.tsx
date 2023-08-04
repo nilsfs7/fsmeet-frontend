@@ -28,7 +28,7 @@ const ReportBug: NextPage = (props: any) => {
     });
 
     if (response.status == 201) {
-      router.push(`feedback/thankyou`);
+      router.push(`/feedback/thankyou`);
     } else {
       const error = await response.json();
       setError(error.message);

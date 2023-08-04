@@ -51,6 +51,7 @@ Icons
 - [Bug](https://www.iconfinder.com/icons/1608588/bug_icon)
 - [Feature](https://www.iconfinder.com/icons/3018516/availability_component_element_feature_items_list_settings_icon)
 - [General Feedback](https://www.iconfinder.com/icons/6843045/customer_feedback_happy_performance_satisfaction_satisfied_satisfy_icon)
+- [Thumbs up](https://www.iconfinder.com/icons/8665808/thumbs_up_icon)
 
 [Settings](https://www.iconfinder.com/icons/1564529/mechanism_options_settings_configuration_setting_icon#svg)
 
