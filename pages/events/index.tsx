@@ -53,7 +53,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
       <div className="bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
           <Link href="/">
-            <h1 className="text-xl">FSEvent</h1>
+            <h1 className="text-xl">FSMeet</h1>
           </Link>
         </div>
       </div>

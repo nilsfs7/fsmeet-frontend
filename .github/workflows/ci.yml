@@ -15,7 +15,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     env:
-      TAGS: luisnaldo7/fsjudge-frontend:dev
+      TAGS: luisnaldo7/fsmeet-frontend:dev
       AUTH_URL: http://dffb.org:9211
       BACKEND_URL: http://dffb.org:9210
     steps:
@@ -25,7 +25,7 @@ jobs:
           if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
               echo "set values for production image"
               
-              echo "TAGS=luisnaldo7/fsjudge-frontend:latest,luisnaldo7/fsjudge-frontend:prod" >> "$GITHUB_ENV"
+              echo "TAGS=luisnaldo7/fsmeet-frontend:latest,luisnaldo7/fsmeet-frontend:prod" >> "$GITHUB_ENV"
               echo "AUTH_URL=http://dffb.org:9201" >> "$GITHUB_ENV"
               echo "BACKEND_URL=http://dffb.org:9200" >> "$GITHUB_ENV"
           fi

@@ -6,6 +6,9 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 
+const imageAbout = '/info.svg';
+const routeAbout = '/about';
+
 const Home = ({ data }: { data: any[] }) => {
   let events: IEvent[] = data;
 
@@ -15,14 +18,14 @@ const Home = ({ data }: { data: any[] }) => {
       <div className="bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
           <Link href="/">
-            <h1 className="text-xl">FSEvent</h1>
+            <h1 className="text-xl">FSMeet</h1>
           </Link>
 
           <Profile />
         </div>
       </div>
 
-      {/* Menu & Featured Events */}
+      {/* Upcoming Events */}
       <h1 className="mt-2 text-center text-xl">Upcoming Events</h1>
       <div className="overflow-hidden">
         <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
@@ -45,6 +48,20 @@ const Home = ({ data }: { data: any[] }) => {
         <Link href={'/events/'}>
           <TextButton text="Show All" />
         </Link>
+      </div>
+
+      {/* Banner */}
+      <div className="bg-zinc-300 sm:block">
+        <div className="mx-2 flex h-20 items-center justify-end">
+          <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border-2 border-black bg-zinc-300 p-1 hover:bg-zinc-400">
+            <Link href="/about">
+              <div className="grid grid-flow-col items-center">
+                <img src={imageAbout} className="mx-2 h-10 w-10 rounded-full object-cover" />
+                <div className="mx-1 truncate hover:text-clip">{'About'}</div>
+              </div>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
