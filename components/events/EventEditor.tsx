@@ -32,6 +32,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       description: description,
       location: location,
       type: eventType,
+      autoApproveRegistrations: false, // ##### get from input
     });
   };
 
