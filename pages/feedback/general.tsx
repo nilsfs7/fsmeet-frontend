@@ -37,31 +37,29 @@ const GeneralFeedback: NextPage = (props: any) => {
   };
 
   return (
-    <>
-      <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
-        <h1 className="mb-2 text-center text-xl">Send Feedback</h1>
-        <div className="m-2 h-1/2 w-[95%] rounded-lg bg-zinc-300">
-          <TextInputLarge
-            id={'message'}
-            label={'Message'}
-            placeholder="Any feedback is highly appriciented!"
-            onChange={e => {
-              handleInputChangeMessage(e);
-            }}
-          />
-        </div>
-
-        <div className="flex justify-center py-2">
-          <TextButton text="Submit" onClick={handleSubmitClicked} />
-        </div>
-
-        {error != '' && (
-          <div className="flex justify-center py-2">
-            <label className="text-dark-red">{error}</label>
-          </div>
-        )}
+    <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
+      <h1 className="mb-2 text-center text-xl">Send Feedback</h1>
+      <div className="m-2 h-1/2 w-[95%] rounded-lg bg-zinc-300">
+        <TextInputLarge
+          id={'message'}
+          label={'Message'}
+          placeholder="Any feedback is highly appriciented!"
+          onChange={e => {
+            handleInputChangeMessage(e);
+          }}
+        />
       </div>
-    </>
+
+      <div className="flex justify-center py-2">
+        <TextButton text="Submit" onClick={handleSubmitClicked} />
+      </div>
+
+      {error != '' && (
+        <div className="flex justify-center py-2">
+          <label className="text-dark-red">{error}</label>
+        </div>
+      )}
+    </div>
   );
 };
 
