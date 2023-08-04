@@ -4,6 +4,7 @@ export enum Action {
   COPY,
   DELETE,
   EDIT,
+  MANAGE_USERS,
   SAVE,
   SHARE,
 }

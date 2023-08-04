@@ -11,6 +11,7 @@ import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import { EventRegistration } from '@/types/event-registration';
+import Link from 'next/link';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -69,10 +70,6 @@ const Event = (props: any) => {
     }
   };
 
-  const handleEditClicked = async () => {
-    router.push(`/events/${eventId}/edit`);
-  };
-
   const handleShareClicked = async () => {
     const eventUrl = window.location.toString();
 
@@ -128,6 +125,26 @@ const Event = (props: any) => {
 
   return (
     <>
+      <div className="m-2 ">
+        {event.owner === session?.user?.username && (
+          <div className="flex rounded-lg border-2 border-black bg-amber-200 p-2">
+            <div className="mr-8 flex items-center justify-center ">Admin Panel</div>
+            <div className="mr-8 flex">
+              <div className="mr-1 flex items-center justify-center ">Manage Registration</div>
+              <Link href={`/events/${eventId}/participants`}>
+                <ActionButton action={Action.MANAGE_USERS} />
+              </Link>
+            </div>
+            <div className="mr-4 flex ">
+              <div className="mr-1 flex items-center justify-center ">Edit Event</div>
+              <Link href={`/events/${eventId}/edit`}>
+                <ActionButton action={Action.EDIT} />
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* replace by event page with register option */}
       {/* event overview */}
       <div className="m-2">
@@ -161,12 +178,6 @@ const Event = (props: any) => {
         </div>
 
         <div className="flex justify-end">
-          {event.owner === session?.user?.username && (
-            <div className="ml-1">
-              <ActionButton action={Action.EDIT} onClick={handleEditClicked} />
-            </div>
-          )}
-
           <div className="ml-1">
             <ActionButton action={Action.COPY} onClick={handleShareClicked} />
           </div>

@@ -4,9 +4,10 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
+import EditIcon from '@mui/icons-material/Edit';
+import PeopleIcon from '@mui/icons-material/PeopleAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import ShareIcon from '@mui/icons-material/Share';
-import EditIcon from '@mui/icons-material/Edit';
 
 interface IButton {
   action: Action;
@@ -31,6 +32,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
       break;
     case Action.EDIT:
       icon = <EditIcon />;
+      break;
+    case Action.MANAGE_USERS:
+      icon = <PeopleIcon />;
       break;
     case Action.SAVE:
       icon = <SaveIcon />;
