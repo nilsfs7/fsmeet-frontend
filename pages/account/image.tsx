@@ -41,6 +41,23 @@ const AccountImage = ({ session }: any) => {
     }
   };
 
+  const handleDeleteImageClicked = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/image`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${session?.user?.accessToken}`,
+      },
+    });
+
+    if (response.status === 200) {
+      setImageUrl('');
+      localStorage.removeItem('imageUrl');
+      router.replace('/account');
+    } else {
+      console.error('failed to delete image');
+    }
+  };
+
   useEffect(() => {
     async function fetchUser() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
@@ -62,9 +79,13 @@ const AccountImage = ({ session }: any) => {
 
       <div className="flex justify-center py-2">
         <div className="mx-1">
-          <TextButton text="Upload image" onClick={handleUploadImageClicked} />
+          <TextButton text="Delete" onClick={handleDeleteImageClicked} />
+        </div>
+        <div className="mx-1">
+          <TextButton text="Upload" onClick={handleUploadImageClicked} />
         </div>
       </div>
+
       <div className="flex justify-center py-2">
         <Link href="/account">
           <TextButton text="Back" />
