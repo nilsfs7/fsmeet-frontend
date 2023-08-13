@@ -8,7 +8,7 @@ const defaultImg = '/profile/user.svg';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
-  const [image, setImage] = useState<any>(null);
+  const [image, setImage] = useState<any>();
   const [createObjectURL, setCreateObjectURL] = useState('');
 
   const uploadToClient = (event: any) => {

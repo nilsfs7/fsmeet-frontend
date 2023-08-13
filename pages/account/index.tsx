@@ -18,11 +18,11 @@ const countries: MenuItem[] = [
 ];
 
 const Account = ({ session }: any) => {
-  const [imageUrl, setImageUrl] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [country, setCountry] = useState('');
-  const [instagramHandle, setInstagramHandle] = useState('');
+  const [imageUrl, setImageUrl] = useState();
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [country, setCountry] = useState();
+  const [instagramHandle, setInstagramHandle] = useState();
 
   const handleSaveUserInfoClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
@@ -93,6 +93,10 @@ const Account = ({ session }: any) => {
     fetchUser();
   }, []);
 
+  if (firstName === undefined) {
+    return 'loading...';
+  }
+
   return (
     <div className="absolute inset-0 flex flex-col overflow-y-auto">
       <h1 className="mt-2 text-center text-xl">Account Settings</h1>
@@ -129,7 +133,7 @@ const Account = ({ session }: any) => {
             <div className="p-2">Country</div>
             <Dropdown
               menus={countries}
-              value={country !== '' ? country : countries[0].value}
+              value={country ? country : countries[0].value}
               onChange={(value: any) => {
                 setCountry(value);
               }}
