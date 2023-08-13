@@ -53,14 +53,14 @@ const Home = ({ data }: { data: any[] }) => {
       {/* Footer */}
       <div className="mt-auto bg-zinc-300 sm:block">
         <div className="mx-2 flex h-16 items-center justify-end">
-          <div className="static grid max-w-[180px] cursor-pointer rounded-lg bg-zinc-300 p-1 hover:bg-zinc-400">
-            <Link href="/about">
+          <Link href="/about">
+            <div className="cursor-pointer rounded-lg bg-zinc-300 p-1 hover:bg-zinc-400">
               <div className="grid grid-flow-col items-center">
                 <img src={imageAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
                 <div className="mx-1 truncate hover:text-clip">{'About'}</div>
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
