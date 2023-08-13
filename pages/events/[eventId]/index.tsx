@@ -12,6 +12,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
+import { routeLogin } from '@/types/consts/routes';
 
 const Event = (props: any) => {
   const session = props.session;

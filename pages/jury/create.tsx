@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { MenuItem } from '@/components/common/Dropdown';
 import { getSession } from 'next-auth/react';
 import router from 'next/router';
+import { routeLogin } from '@/types/consts/routes';
 
 type Judge = {
   name: string;

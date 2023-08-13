@@ -10,6 +10,7 @@ import Participant from '@/components/events/Participant';
 import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import Link from 'next/link';
+import { routeLogin } from '@/types/consts/routes';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
