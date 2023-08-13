@@ -57,7 +57,7 @@ const Profile = () => {
   return (
     <div className="relative">
       {/* picture and name  */}
-      <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border-2 border-black bg-zinc-300 p-1 hover:bg-zinc-400">
+      <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border border-black bg-zinc-300 p-1 hover:bg-zinc-400">
         <button className="h-full w-full" onClick={onClickProfile}>
           <div className="grid grid-flow-col items-center">
             <img src={isAuthenticated() && imageUrl ? imageUrl : imgUserNoImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
@@ -77,7 +77,7 @@ const Profile = () => {
         leaveTo="transform opacity-0 scale-95"
         show={isAuthenticated() && opened}
       >
-        <div className={`absolute right-0 top-14 mt-2 min-w-max rounded-lg border-2 border-black bg-zinc-300`}>
+        <div className={`absolute right-0 top-14 mt-2 min-w-max rounded-lg border border-black bg-zinc-300`}>
           {menuItems.map((menuItem, index) => {
             return (
               <div

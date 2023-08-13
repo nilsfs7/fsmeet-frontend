@@ -32,7 +32,7 @@ const JudgeSelection = ({ image, isHeadJudge = false }: IJudgeSelection) => {
         }}
         onMouseOver={() => setHovered(true)}
       >
-        <div className="nft-image-container group relative flex w-full justify-center overflow-hidden rounded-lg border-2 border-black text-center">
+        <div className="nft-image-container group relative flex w-full justify-center overflow-hidden rounded-lg border border-black text-center">
           <Image
             src={isValidUrl(image) ? image : imgUserDefaultImg}
             width={0}

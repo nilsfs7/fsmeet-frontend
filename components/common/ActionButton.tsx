@@ -45,7 +45,7 @@ const ActionButton = ({ action, onClick }: IButton) => {
   }
 
   return (
-    <div className="rounded-lg border-2 border-black bg-zinc-300 font-bold text-black hover:bg-zinc-400" onClick={onClick}>
+    <div className="rounded-lg border border-black bg-zinc-300 font-bold text-black hover:bg-zinc-400" onClick={onClick}>
       <IconButton className="text-black hover:bg-transparent">{icon}</IconButton>
     </div>
   );

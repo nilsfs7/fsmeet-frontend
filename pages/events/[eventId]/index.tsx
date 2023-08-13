@@ -128,7 +128,7 @@ const Event = (props: any) => {
     <>
       <div className="m-2 ">
         {event.owner === session?.user?.username && (
-          <div className="flex justify-between rounded-lg border-2 border-black bg-amber-200 p-2">
+          <div className="flex justify-between rounded-lg border border-black bg-amber-200 p-2">
             <div className="mr-8 flex items-center">Admin Panel</div>
             <div className="flex">
               <div className="ml-1">

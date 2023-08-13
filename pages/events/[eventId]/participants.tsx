@@ -100,7 +100,7 @@ const EventParticipants = (props: any) => {
   return (
     <>
       <div className="m-2">
-        <div className={'rounded-lg border-2 border-black bg-zinc-300 p-2 text-sm'}>
+        <div className={'rounded-lg border border-black bg-zinc-300 p-2 text-sm'}>
           <div className="m-2 text-center text-base font-bold">Manage Participants</div>
           <div className="flex flex-col">
             {event.eventRegistrations.map((registration, index) => {
