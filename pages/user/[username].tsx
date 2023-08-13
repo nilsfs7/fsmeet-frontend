@@ -11,7 +11,7 @@ const Profile = (props: any) => {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="absolute inset-0 flex items-center justify-center">
       <div className="m-2 grid place-items-center">
         <div className="m-2 text-5xl">{displayName}</div>
         <div className="relative h-96 w-64">
