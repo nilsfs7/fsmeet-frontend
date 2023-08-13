@@ -18,6 +18,7 @@ const countries: MenuItem[] = [
 ];
 
 const Account = ({ session }: any) => {
+  const [userFetched, setUserFetched] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -75,6 +76,7 @@ const Account = ({ session }: any) => {
     async function fetchUser() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
       const user = await res.json();
+      setUserFetched(true);
 
       setImageUrl(user.imageUrl);
       if (user.firstName) {
@@ -93,7 +95,7 @@ const Account = ({ session }: any) => {
     fetchUser();
   }, []);
 
-  if (firstName === undefined) {
+  if (!userFetched) {
     return 'loading...';
   }
 
