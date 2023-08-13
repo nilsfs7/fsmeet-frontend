@@ -1,4 +1,4 @@
-import { imgUserNoImg } from '@/types/consts/images';
+import { imgUserDefaultImg } from '@/types/consts/images';
 import { User } from '@/types/user';
 import { GetServerSideProps } from 'next';
 
@@ -15,7 +15,7 @@ const Profile = (props: any) => {
       <div className="m-2 grid place-items-center">
         <div className="m-2 text-5xl">{displayName}</div>
         <div className="relative h-96 w-64">
-          <img className="h-full w-full rounded-lg border border-black object-cover shadow-2xl shadow-black" src={user.imageUrl ? user.imageUrl : imgUserNoImg} alt="user-image" />
+          <img className="h-full w-full rounded-lg border border-black object-contain shadow-2xl shadow-black" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
           {user.instagramHandle && (
             <div className={`absolute bottom-3 right-3 rounded-lg border border-black bg-white p-1`}>
               <a className="underline" href={`https://www.instagram.com/${user.instagramHandle.replace('@', '')}`}>
