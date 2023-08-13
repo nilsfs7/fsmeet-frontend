@@ -5,6 +5,7 @@ import { getSession } from 'next-auth/react';
 import router from 'next/router';
 import { useState } from 'react';
 import { Event } from '@/types/event';
+import { routeEventSubs, routeLogin } from '@/types/consts/routes';
 
 const EventCreation = (props: any) => {
   const session = props.session;
@@ -12,7 +13,7 @@ const EventCreation = (props: any) => {
   const [event, setEvent] = useState<Event>();
 
   if (!session) {
-    router.push('/login');
+    router.push(routeLogin);
   }
 
   const handleCreateClicked = async () => {
@@ -36,7 +37,7 @@ const EventCreation = (props: any) => {
     });
 
     if (response.status == 201) {
-      router.replace('/events/subs');
+      router.replace(routeEventSubs);
     }
   };
 

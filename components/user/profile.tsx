@@ -3,13 +3,8 @@ import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
-
-const defaultImg = '/profile/user.svg';
-
-const routeLogin = '/login';
-const routeEvents = '/events/subs';
-const routeAccount = '/account';
-const routeFeedback = '/feedback';
+import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin } from '@/types/consts/routes';
+import { imgUserNoImg } from '@/types/consts/images';
 
 const Profile = () => {
   const { data: session, status } = useSession();
@@ -35,7 +30,7 @@ const Profile = () => {
   };
 
   const onEventsClicked = () => {
-    router.push(routeEvents);
+    router.push(routeEventSubs);
   };
 
   const onAccountClicked = () => {
@@ -50,7 +45,7 @@ const Profile = () => {
     await signOut({ redirect: false });
     localStorage.removeItem('username');
     localStorage.removeItem('imageUrl');
-    router.push('/');
+    router.push(routeHome);
   };
 
   const menuItemActions = [onEventsClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];
@@ -65,7 +60,7 @@ const Profile = () => {
       <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border-2 border-black bg-zinc-300 p-1 hover:bg-zinc-400">
         <button className="h-full w-full" onClick={onClickProfile}>
           <div className="grid grid-flow-col items-center">
-            <img src={isAuthenticated() && imageUrl ? imageUrl : defaultImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
+            <img src={isAuthenticated() && imageUrl ? imageUrl : imgUserNoImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
             <div className="mx-1 truncate hover:text-clip">{isAuthenticated() ? username : 'Login'}</div>
           </div>
         </button>

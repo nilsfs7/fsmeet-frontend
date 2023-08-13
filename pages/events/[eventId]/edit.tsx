@@ -7,6 +7,7 @@ import moment from 'moment';
 import { Event } from '@/types/event';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
+import { routeEventSubs, routeLogin } from '@/types/consts/routes';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -17,7 +18,7 @@ const EventEditing = (props: any) => {
   const [event, setEvent] = useState<Event>();
 
   if (!session) {
-    router.push('/login');
+    router.push(routeLogin);
   }
 
   const fetchEvent = async (id: string) => {
@@ -47,7 +48,7 @@ const EventEditing = (props: any) => {
     });
 
     if (response.status == 200) {
-      router.replace('/events/subs');
+      router.replace(routeEventSubs);
     }
   };
 
@@ -64,7 +65,7 @@ const EventEditing = (props: any) => {
     });
 
     if (response.status == 200) {
-      router.push('/events/subs');
+      router.push(routeEventSubs);
     }
   };
 

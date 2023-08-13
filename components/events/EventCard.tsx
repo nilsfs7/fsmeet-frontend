@@ -1,13 +1,11 @@
 import { IEvent } from '@/interface/event';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
+import { imgCompetition, imgMeeting } from '@/types/consts/images';
 
 interface IEventProps {
   event: IEvent;
 }
-
-const imgMeeting = '/event/meeting.svg';
-const imgCompetition = '/event/competition.svg';
 
 const EventCard = ({ event }: IEventProps) => {
   const [dateFrom, setDateFrom] = useState<number>();

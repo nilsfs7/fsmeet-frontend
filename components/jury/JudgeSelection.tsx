@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import OverlayButton from '../common/OverlayButton';
 import Image from 'next/image';
+import { imgUserDefaultImg } from '@/types/consts/images';
 
 interface IJudgeSelection {
   image: string | null;
@@ -33,7 +34,7 @@ const JudgeSelection = ({ image, isHeadJudge = false }: IJudgeSelection) => {
       >
         <div className="nft-image-container group relative flex w-full justify-center overflow-hidden rounded-lg border-2 border-black text-center">
           <Image
-            src={isValidUrl(image) ? image : '/jury/judge-no-img.png'}
+            src={isValidUrl(image) ? image : imgUserDefaultImg}
             width={0}
             height={0}
             sizes="100vw"

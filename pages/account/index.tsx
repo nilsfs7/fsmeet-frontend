@@ -7,8 +7,8 @@ import TextInput from '@/components/common/TextInput';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
-
-const defaultImg = '/profile/user.svg';
+import { routeHome } from '@/types/consts/routes';
+import { imgUserNoImg } from '@/types/consts/images';
 
 const countries: MenuItem[] = [
   { text: 'not specified', value: '--' },
@@ -58,7 +58,7 @@ const Account = ({ session }: any) => {
       await signOut({ redirect: false });
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
-      router.push('/');
+      router.push(routeHome);
     } else {
       console.error('failed to delete account');
     }
@@ -68,7 +68,7 @@ const Account = ({ session }: any) => {
     await signOut({ redirect: false });
     localStorage.removeItem('username');
     localStorage.removeItem('imageUrl');
-    router.push('/');
+    router.push(routeHome);
   };
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const Account = ({ session }: any) => {
 
       <div className="mt-2 flex justify-center py-2">
         <Link href="/account/image">
-          <img src={imageUrl ? imageUrl : defaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
+          <img src={imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
         </Link>
       </div>
 

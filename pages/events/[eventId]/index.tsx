@@ -42,7 +42,7 @@ const Event = (props: any) => {
 
   const handleRegistrationClicked = async () => {
     if (!isLoggedIn()) {
-      router.push('/login');
+      router.push(routeLogin);
       return;
     }
 

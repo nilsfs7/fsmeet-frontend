@@ -29,7 +29,7 @@ const EventParticipants = (props: any) => {
 
   const handleRemoveParticipant = async (id: string, username: string) => {
     if (!isLoggedIn()) {
-      router.push('/login');
+      router.push(routeLogin);
       return;
     }
 
@@ -56,7 +56,7 @@ const EventParticipants = (props: any) => {
 
   const handleApproveParticipant = async (id: string, username: string, status: EventRegistrationStatus) => {
     if (!isLoggedIn()) {
-      router.push('/login');
+      router.push(routeLogin);
       return;
     }
 

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import router from 'next/router';
+import { routePasswordPending } from '@/types/consts/routes';
 
 const ForgotPassword: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -31,7 +32,7 @@ const ForgotPassword: NextPage = () => {
     });
 
     if (response.status == 201) {
-      router.replace(`/password/pending`);
+      router.replace(routePasswordPending);
     } else {
       const error = await response.json();
       setError(error.message);
