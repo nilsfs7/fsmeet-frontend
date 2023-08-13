@@ -1,6 +1,8 @@
 export enum Action {
+  ACCEPT,
   BACK,
   CANCEL,
+  DENY,
   COPY,
   DELETE,
   EDIT,

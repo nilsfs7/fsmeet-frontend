@@ -120,10 +120,10 @@ const EventParticipants = (props: any) => {
                   <div className="mx-1 flex w-1/2 justify-start">
                     {(participant.status === EventRegistrationStatus.APPROVED || participant.status === EventRegistrationStatus.DENIED) && (
                       <>
-                        <div className="mr-1 flex w-36 items-center justify-center  font-bold text-black">{participant.status.toUpperCase()}</div>
+                        <div className="mr-1 flex w-24 items-center justify-center font-bold text-black">{participant.status.toUpperCase()}</div>
                         <div className="ml-1">
-                          <TextButton
-                            text="Remove"
+                          <ActionButton
+                            action={Action.DELETE}
                             onClick={() => {
                               handleRemoveParticipant(event.id, participant.username);
                             }}
@@ -135,16 +135,16 @@ const EventParticipants = (props: any) => {
                       {participant.status == EventRegistrationStatus.PENDING && (
                         <>
                           <div className="mr-1">
-                            <TextButton
-                              text="Approve"
+                            <ActionButton
+                              action={Action.ACCEPT}
                               onClick={() => {
                                 handleApproveParticipant(event.id, participant.username, EventRegistrationStatus.APPROVED);
                               }}
                             />
                           </div>
                           <div className="ml-1">
-                            <TextButton
-                              text="Deny"
+                            <ActionButton
+                              action={Action.DENY}
                               onClick={() => {
                                 handleApproveParticipant(event.id, participant.username, EventRegistrationStatus.DENIED);
                               }}

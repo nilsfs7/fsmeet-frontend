@@ -1,6 +1,7 @@
 import { Action } from '@/types/enums/action';
 import IconButton from '@mui/material/IconButton';
 import CancelIcon from '@mui/icons-material/Cancel';
+import CheckIcon from '@mui/icons-material/CheckCircle';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
@@ -18,6 +19,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
   let icon = <ArrowBackIcon />;
 
   switch (action) {
+    case Action.ACCEPT:
+      icon = <CheckIcon />;
+      break;
     case Action.BACK:
       icon = <ArrowBackIcon />;
       break;
@@ -29,6 +33,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
       break;
     case Action.DELETE:
       icon = <DeleteIcon />;
+      break;
+    case Action.DENY:
+      icon = <CancelIcon />;
       break;
     case Action.EDIT:
       icon = <EditIcon />;
