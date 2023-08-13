@@ -5,8 +5,9 @@ import { IEvent } from '@/interface/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 
-const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
-  const events: IEvent[] = data;
+const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
+  const eventsOwning: IEvent[] = data.owning;
+  const eventsSubscribed: IEvent[] = data.subs;
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
@@ -20,21 +21,45 @@ const MyEventsOverview = ({ data, session }: { data: any[]; session: any }) => {
       </div>
 
       {/* Event Subscriptions */}
-      <h1 className="mt-2 text-center text-xl">My Events</h1>
-      <div className="overflow-hidden">
-        <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
-          <div className="mx-2">
-            {events.map((item: any, i: number) => {
-              return (
-                <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                  <Link href={`/events/${item.id}`}>
-                    <EventCard event={item} />
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+
+      <div className="overflow-hidden overflow-y-auto">
+        {eventsOwning.length > 0 && (
+          <>
+            <h1 className="mt-2 text-center text-xl">My Events</h1>
+            <div className="mt-2 flex justify-center ">
+              <div className="mx-2">
+                {eventsOwning.map((item: any, i: number) => {
+                  return (
+                    <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                      <Link href={`/events/${item.id}`}>
+                        <EventCard event={item} />
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
+
+        {eventsSubscribed.length > 0 && (
+          <>
+            <h1 className="mt-2 text-center text-xl">Event Subscriptions</h1>
+            <div className="mt-2 flex justify-center">
+              <div className="mx-2">
+                {eventsSubscribed.map((item: any, i: number) => {
+                  return (
+                    <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                      <Link href={`/events/${item.id}`}>
+                        <EventCard event={item} />
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Actions */}
@@ -54,13 +79,17 @@ export default MyEventsOverview;
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?owner=${session?.user.username}`;
-  const response = await fetch(url);
-  const data = await response.json();
+  const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?owner=${session?.user.username}`;
+  const responseMyEvents = await fetch(urlMyEvents);
+  const dataMyEvents = await responseMyEvents.json();
+
+  const urlEventSubs = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?participant=${session?.user.username}`;
+  const responseEventSubs = await fetch(urlEventSubs);
+  const dataEventSubs = await responseEventSubs.json();
 
   return {
     props: {
-      data: data,
+      data: { owning: dataMyEvents, subs: dataEventSubs },
       session: session,
     },
   };
