@@ -5,6 +5,7 @@ import moment, { Moment } from 'moment';
 import { Event } from '@/types/event';
 import { EventType } from '@/types/enums/event-type';
 import Dropdown from './Dropdown';
+import CheckBox from '../common/CheckBox';
 
 interface IEventEditorProps {
   event?: Event;
@@ -20,6 +21,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [description, setDescription] = useState(event?.description);
   const [location, setLocation] = useState(event?.location);
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
+  const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
 
   const updateEvent = () => {
     onEventUpdate({
@@ -32,7 +34,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       description: description,
       location: location,
       type: eventType,
-      autoApproveRegistrations: false, // ##### get from input
+      autoApproveRegistrations: autoApproveRegistrations,
     });
   };
 
@@ -47,13 +49,14 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setDescription(event.description);
       setLocation(event.location);
       setEventType(event.type);
+      setAutoApproveRegistrations(event.autoApproveRegistrations);
     }
   }, [event]);
 
   // fires event back
   useEffect(() => {
     updateEvent();
-  }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, location, eventType]);
+  }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, location, eventType, autoApproveRegistrations]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
@@ -138,10 +141,20 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         <Dropdown
           value={eventType}
           onChange={(value: EventType) => {
+            console.log(autoApproveRegistrations);
             setEventType(value);
           }}
         />
       </div>
+
+      <CheckBox
+        id={'autoApproveRegistrations'}
+        label="Auto Approve Registrations"
+        value={autoApproveRegistrations}
+        onChange={() => {
+          setAutoApproveRegistrations(!autoApproveRegistrations);
+        }}
+      />
     </div>
   );
 };

@@ -39,7 +39,7 @@ const EventEditing = (props: any) => {
         description: event?.description,
         location: event?.location,
         type: event?.type,
-        autoApproveRegistrations: false, // ##### get from input
+        autoApproveRegistrations: event?.autoApproveRegistrations,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const EventEditing = (props: any) => {
           description: res.description,
           location: res.location,
           type: res.type,
-          autoApproveRegistrations: false, // ##### get from input
+          autoApproveRegistrations: res.autoApproveRegistrations,
         };
 
         setEvent(e);
