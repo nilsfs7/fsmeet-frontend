@@ -6,6 +6,7 @@ import { Event } from '@/types/event';
 import { EventType } from '@/types/enums/event-type';
 import Dropdown from './Dropdown';
 import CheckBox from '../common/CheckBox';
+import TextInputLarge from '../common/TextInputLarge';
 
 interface IEventEditorProps {
   event?: Event;
@@ -71,7 +72,28 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       />
 
       <div className="m-2 grid grid-cols-2">
-        <div className="p-2">Date From</div>
+        <div>Type</div>
+        <Dropdown
+          value={eventType}
+          onChange={(value: EventType) => {
+            console.log(autoApproveRegistrations);
+            setEventType(value);
+          }}
+        />
+      </div>
+
+      <TextInputLarge
+        id={'description'}
+        label={'Event Description'}
+        placeholder="German Championship"
+        value={description}
+        onChange={e => {
+          setDescription(e.currentTarget.value);
+        }}
+      />
+
+      <div className="m-2 grid grid-cols-2">
+        <div>Date From</div>
         <DatePicker
           value={dateFrom}
           onChange={value => {
@@ -83,7 +105,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       </div>
 
       <div className="m-2 grid grid-cols-2">
-        <div className="p-2">Date To</div>
+        <div>Date To</div>
         <DatePicker
           value={dateTo}
           onChange={value => {
@@ -95,7 +117,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       </div>
 
       <div className="m-2 grid grid-cols-2">
-        <div className="p-2">Registration Deadline</div>
+        <div>Registration Deadline</div>
         <DatePicker
           value={registrationDeadline}
           onChange={value => {
@@ -117,35 +139,14 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       />
 
       <TextInput
-        id={'description'}
-        label={'Event Description'}
-        placeholder="German Championship"
-        value={description}
-        onChange={e => {
-          setDescription(e.currentTarget.value);
-        }}
-      />
-
-      <TextInput
         id={'location'}
-        label={'Location / City'}
+        label={'City'}
         placeholder="Heilbronn"
         value={location}
         onChange={e => {
           setLocation(e.currentTarget.value);
         }}
       />
-
-      <div className="m-2 grid grid-cols-2">
-        <div className="p-2">Type</div>
-        <Dropdown
-          value={eventType}
-          onChange={(value: EventType) => {
-            console.log(autoApproveRegistrations);
-            setEventType(value);
-          }}
-        />
-      </div>
 
       <CheckBox
         id={'autoApproveRegistrations'}
