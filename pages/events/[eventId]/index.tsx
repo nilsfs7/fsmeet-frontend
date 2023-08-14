@@ -12,7 +12,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
-import { routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/types/consts/routes';
 import moment from 'moment';
 
 const Event = (props: any) => {
@@ -179,7 +179,7 @@ const Event = (props: any) => {
       <div className="m-2 flex justify-between">
         <div className="flex justify-start">
           <div className="mr-1">
-            <ActionButton action={Action.BACK} onClick={() => router.back()} />
+            <ActionButton action={Action.BACK} onClick={() => router.push(routeEvents)} />
           </div>
         </div>
 
