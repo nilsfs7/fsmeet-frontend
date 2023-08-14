@@ -9,7 +9,11 @@ export interface IEvent {
   participationFee: number;
   registrationDeadline: number;
   description: string;
-  location: string;
+  venueHouseNo: string;
+  venueStreet: string;
+  venueCity: string;
+  venuePostCode: string;
+  venueCountry: string;
   type: string;
   eventRegistrations: EventRegistration[];
 }

@@ -9,7 +9,11 @@ export type Event = {
   participationFee: number | undefined;
   registrationDeadline: Moment;
   description: string | undefined;
-  location: string | undefined;
+  venueHouseNo: string | undefined;
+  venueStreet: string | undefined;
+  venueCity: string | undefined;
+  venuePostCode: string | undefined;
+  venueCountry: string | undefined;
   type: EventType;
   autoApproveRegistrations: boolean;
 };

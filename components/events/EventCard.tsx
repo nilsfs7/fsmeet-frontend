@@ -36,7 +36,7 @@ const EventCard = ({ event }: IEventProps) => {
           <div className="w-full text-base font-bold">{event.name}</div>
         </div>
         <div className="flex justify-between">
-          <div className="w-1/3 ">{event.location}</div>
+          <div className="w-1/3 ">{event.venueCity}</div>
           {dateFrom && dateTo && (
             <div className="w-2/3 text-right">
               {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, false)} - ${shortDateString(dateTo)}`}

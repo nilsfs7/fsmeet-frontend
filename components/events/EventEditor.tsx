@@ -20,7 +20,11 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [participationFee, setParticipationFee] = useState(event?.participationFee);
   const [registrationDeadline, setRegistrationDeadline] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment().add(7, 'day'));
   const [description, setDescription] = useState(event?.description);
-  const [location, setLocation] = useState(event?.location);
+  const [venueHouseNo, setVenueHouseNo] = useState(event?.venueCity);
+  const [venueStreet, setVenueStreet] = useState(event?.venueCity);
+  const [venueCity, setVenueCity] = useState(event?.venueCity);
+  const [venuePostCode, setVenuePostCode] = useState(event?.venueCity);
+  const [venueCountry, setVenueCountry] = useState(event?.venueCity);
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
 
@@ -28,13 +32,17 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     onEventUpdate({
       id: event?.id,
       name: name,
+      type: eventType,
+      description: description,
       dateFrom: dateFrom,
       dateTo: dateTo,
-      participationFee: participationFee,
       registrationDeadline: registrationDeadline,
-      description: description,
-      location: location,
-      type: eventType,
+      venueHouseNo: venueHouseNo,
+      venueStreet: venueStreet,
+      venueCity: venueCity,
+      venuePostCode: venuePostCode,
+      venueCountry: venueCountry,
+      participationFee: participationFee,
       autoApproveRegistrations: autoApproveRegistrations,
     });
   };
@@ -48,7 +56,11 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setParticipationFee(event.participationFee);
       setRegistrationDeadline(event.registrationDeadline);
       setDescription(event.description);
-      setLocation(event.location);
+      setVenueHouseNo(event.venueHouseNo);
+      setVenueStreet(event.venueStreet);
+      setVenuePostCode(event.venuePostCode);
+      setVenueCity(event.venueCity);
+      setVenueCountry(event.venueCountry);
       setEventType(event.type);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
     }
@@ -57,7 +69,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   // fires event back
   useEffect(() => {
     updateEvent();
-  }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, location, eventType, autoApproveRegistrations]);
+  }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, venueHouseNo, venueStreet, venueCity, venuePostCode, venueCountry, eventType, autoApproveRegistrations]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
@@ -128,6 +140,58 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         />
       </div>
 
+      {/* venue address */}
+
+      <TextInput
+        id={'venueHouseNo'}
+        label={'House No'}
+        placeholder="40/1"
+        value={venueHouseNo}
+        onChange={e => {
+          setVenueHouseNo(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'venueStreet'}
+        label={'Street'}
+        placeholder="Hofwiesenstraße"
+        value={venueStreet}
+        onChange={e => {
+          setVenueStreet(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'venuePostCode'}
+        label={'Post Code'}
+        placeholder="74081"
+        value={venuePostCode}
+        onChange={e => {
+          setVenuePostCode(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'venueCity'}
+        label={'City'}
+        placeholder="Heilbronn"
+        value={venueCity}
+        onChange={e => {
+          setVenueCity(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'venueCountry'}
+        label={'Country'}
+        placeholder="Germany"
+        value={venueCountry}
+        onChange={e => {
+          setVenueCountry(e.currentTarget.value);
+        }}
+      />
+
       <TextInput
         id={'participationFee'}
         label={'Participation Fee'}
@@ -135,16 +199,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         value={participationFee ? participationFee.toString() : undefined}
         onChange={e => {
           setParticipationFee(e.currentTarget.value);
-        }}
-      />
-
-      <TextInput
-        id={'location'}
-        label={'City'}
-        placeholder="Heilbronn"
-        value={location}
-        onChange={e => {
-          setLocation(e.currentTarget.value);
         }}
       />
 
