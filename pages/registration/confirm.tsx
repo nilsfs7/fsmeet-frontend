@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { routeLogin } from '@/types/consts/routes';
 
 const RegistrationConfirmation: NextPage = () => {
   const router = useRouter();
@@ -36,7 +37,7 @@ const RegistrationConfirmation: NextPage = () => {
         {confirmationSuccessful ? <div>Registration successful</div> : <div>Something went worng :(</div>}
 
         <div className="flex justify-center py-2">
-          <Link href="/login">
+          <Link href={routeLogin}>
             <TextButton text="Proceed" />
           </Link>
         </div>

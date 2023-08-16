@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin } from '@/types/consts/routes';
-import { imgUserNoImg } from '@/types/consts/images';
+import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/types/consts/images';
 
 const Profile = () => {
   const { data: session, status } = useSession();
@@ -15,7 +15,7 @@ const Profile = () => {
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
   const menuItems = ['My Events', 'Settings', 'Feedback', 'Logout'];
-  const menuItemIcons = ['/profile/events.svg', '/profile/settings.svg', '/profile/feedback.svg', '/profile/logout.svg'];
+  const menuItemIcons = [imgProfileEvents, imgProfileSettings, imgProfileFeedback, imgProfileLogout];
 
   useEffect(() => {
     const name = localStorage.getItem('username');

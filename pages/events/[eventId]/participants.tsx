@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { IEvent } from '@/interface/event.js';
 import { useEffect, useState } from 'react';
-import TextButton from '@/components/common/TextButton';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';

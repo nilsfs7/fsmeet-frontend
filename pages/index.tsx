@@ -1,6 +1,6 @@
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
-import Profile from '@/components/user/profile';
+import Profile from '@/components/user/Profile';
 import { IEvent } from '@/interface/event';
 import { imgAbout } from '@/types/consts/images';
 import { routeAbout, routeEvents } from '@/types/consts/routes';
