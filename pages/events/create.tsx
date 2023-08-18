@@ -59,7 +59,7 @@ const EventCreation = (props: any) => {
           <TextButton text={'Cancel'} onClick={() => router.back()} />
         </div>
         <div className="pl-1">
-          <TextButton text={'Create Event'} onClick={handleCreateClicked} />
+          <TextButton text={'Create'} onClick={handleCreateClicked} />
         </div>
       </div>
     </div>

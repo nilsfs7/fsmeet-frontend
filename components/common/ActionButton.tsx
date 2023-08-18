@@ -1,10 +1,12 @@
 import { Action } from '@/types/enums/action';
 import IconButton from '@mui/material/IconButton';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckIcon from '@mui/icons-material/CheckCircle';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
+import TrophyIcon from '@mui/icons-material/EmojiEvents';
 import EditIcon from '@mui/icons-material/Edit';
 import PeopleIcon from '@mui/icons-material/PeopleAlt';
 import SaveIcon from '@mui/icons-material/Save';
@@ -19,6 +21,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
   let icon = <ArrowBackIcon />;
 
   switch (action) {
+    case Action.ADD:
+      icon = <AddCircleIcon />;
+      break;
     case Action.ACCEPT:
       icon = <CheckIcon />;
       break;
@@ -39,6 +44,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
       break;
     case Action.EDIT:
       icon = <EditIcon />;
+      break;
+    case Action.MANAGE_COMPETITIONS:
+      icon = <TrophyIcon />;
       break;
     case Action.MANAGE_USERS:
       icon = <PeopleIcon />;

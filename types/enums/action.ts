@@ -1,4 +1,5 @@
 export enum Action {
+  ADD,
   ACCEPT,
   BACK,
   CANCEL,
@@ -6,6 +7,7 @@ export enum Action {
   COPY,
   DELETE,
   EDIT,
+  MANAGE_COMPETITIONS,
   MANAGE_USERS,
   SAVE,
   SHARE,

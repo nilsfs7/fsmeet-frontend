@@ -94,6 +94,8 @@ const EventEditing = (props: any) => {
           venueCountry: res.venueCountry,
           type: res.type,
           autoApproveRegistrations: res.autoApproveRegistrations,
+          eventRegistrations: [],
+          eventCompetitions: [],
         };
 
         setEvent(e);

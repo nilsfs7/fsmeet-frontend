@@ -1,3 +1,4 @@
+import { EventCompetition } from '@/types/event-competition';
 import { EventRegistration } from '@/types/event-registration';
 
 export interface IEvent {
@@ -16,4 +17,5 @@ export interface IEvent {
   venueCountry: string;
   type: string;
   eventRegistrations: EventRegistration[];
+  eventCompetitions: EventCompetition[];
 }

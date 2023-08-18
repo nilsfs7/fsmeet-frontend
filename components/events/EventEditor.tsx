@@ -44,6 +44,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       venueCountry: venueCountry,
       participationFee: participationFee,
       autoApproveRegistrations: autoApproveRegistrations,
+      eventRegistrations: [],
+      eventCompetitions: [],
     });
   };
 

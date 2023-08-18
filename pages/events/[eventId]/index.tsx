@@ -137,6 +137,11 @@ const Event = (props: any) => {
             <div className="mr-8 flex items-center">Admin Panel</div>
             <div className="flex">
               <div className="ml-1">
+                <Link href={`/events/${eventId}/comps`}>
+                  <ActionButton action={Action.MANAGE_COMPETITIONS} />
+                </Link>
+              </div>
+              <div className="ml-1">
                 <Link href={`/events/${eventId}/participants`}>
                   <ActionButton action={Action.MANAGE_USERS} />
                 </Link>

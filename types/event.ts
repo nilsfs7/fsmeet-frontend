@@ -1,5 +1,7 @@
 import { Moment } from 'moment';
 import { EventType } from './enums/event-type';
+import { EventRegistration } from './event-registration';
+import { EventCompetition } from './event-competition';
 
 export type Event = {
   id: string | undefined;
@@ -16,4 +18,6 @@ export type Event = {
   venueCountry: string | undefined;
   type: EventType;
   autoApproveRegistrations: boolean;
+  eventRegistrations: EventRegistration[];
+  eventCompetitions: EventCompetition[];
 };
