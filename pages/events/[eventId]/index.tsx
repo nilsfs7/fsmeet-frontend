@@ -14,6 +14,7 @@ import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
 import moment from 'moment';
+import CompetitionList from '@/components/events/CompetitionList';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -161,6 +162,13 @@ const Event = (props: any) => {
       <div className="m-2">
         <EventCard event={event} />
       </div>
+
+      {/* competitions */}
+      {event.eventCompetitions.length > 0 && (
+        <div className="m-2">
+          <CompetitionList competitions={event.eventCompetitions} eventId={event.id} />
+        </div>
+      )}
 
       {/* participants */}
       {approvedAndPendingRegistrations.length > 0 && (
