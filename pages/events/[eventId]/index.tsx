@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { IEvent } from '@/interface/event.js';
-import EventCard from '@/components/events/EventCard';
 import { useEffect, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import { GetServerSideProps } from 'next';
@@ -15,6 +14,7 @@ import Link from 'next/link';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
 import moment from 'moment';
 import CompetitionList from '@/components/events/CompetitionList';
+import EventDetails from '@/components/events/EventDetails';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -160,7 +160,7 @@ const Event = (props: any) => {
       {/* replace by event page with register option */}
       {/* event overview */}
       <div className="m-2">
-        <EventCard event={event} />
+        <EventDetails event={event} />
       </div>
 
       {/* competitions */}
