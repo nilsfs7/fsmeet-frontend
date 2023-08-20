@@ -101,6 +101,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         label={'Event Description'}
         placeholder="German Championship"
         value={description}
+        resizable={true}
         onChange={e => {
           setDescription(e.currentTarget.value);
         }}
