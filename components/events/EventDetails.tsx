@@ -30,6 +30,14 @@ const EventDetails = ({ event }: IEventProps) => {
     }
   };
 
+  const line = (
+    <div className="flex h-1">
+      <div className="w-1/3 bg-gray-400"></div>
+      <div className="w-1/3 bg-gray-500"></div>
+      <div className="w-1/3 bg-gray-400"></div>
+    </div>
+  );
+
   return (
     <div className={'h-fit rounded-lg border border-black bg-zinc-300 p-2 text-sm'}>
       {/* top */}
@@ -54,23 +62,30 @@ const EventDetails = ({ event }: IEventProps) => {
       </div>
 
       {/* line */}
-      <div className="flex h-1">
-        <div className="w-1/3 bg-gray-400"></div>
-        <div className="w-1/3 bg-gray-500"></div>
-        <div className="w-1/3 bg-gray-400"></div>
-      </div>
+      {line}
 
-      {/* botton */}
+      {/* description */}
       <div className="flex h-fit flex-col p-2">
         <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-zinc-300 outline-none">
           {event.description}
         </TextareaAutosize>
       </div>
 
+      {/* line */}
+      {line}
+
+      {/* address */}
+      <div className="mt-2 p-2">Venue Address:</div>
+      <div className="select-text p-2">
+        <p>{`${event.venueStreet} ${event.venueHouseNo}`}</p>
+        <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
+        <p>{event.venueCountry}</p>
+      </div>
+
       <div className="mt-2 flex w-full justify-center">
         <div className="w-full max-w-xl rounded-lg border border-black">
           <div className="aspect-square w-full">
-            <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venueCity}`} />
+            <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
           </div>
         </div>
       </div>
