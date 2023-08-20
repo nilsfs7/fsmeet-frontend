@@ -68,7 +68,7 @@ const EventDetails = ({ event }: IEventProps) => {
       </div>
 
       <div className="mt-2 flex w-full justify-center">
-        <div className="w-2/3 max-w-xl rounded-lg border border-black">
+        <div className="w-full max-w-xl rounded-lg border border-black">
           <div className="aspect-square w-full">
             <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venueCity}`} />
           </div>
