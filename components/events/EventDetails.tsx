@@ -4,6 +4,7 @@ import moment from 'moment';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import Map from '../Map';
+import Link from 'next/link';
 
 interface IEventProps {
   event: IEvent;
@@ -47,21 +48,34 @@ const EventDetails = ({ event }: IEventProps) => {
           <div className="row-span-3 flex h-20 justify-end">
             <img className="h-full" src={event.type === 'comp' ? imgCompetition : imgMeeting} alt={'event image'} />
           </div>
+
           <div className="col-span-2">
             {dateFrom && dateTo && (
-              <div className="w-1/3 text-left">
-                {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, false)} - ${shortDateString(dateTo)}`}
-              </div>
+              <div className="">{dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, false)} - ${shortDateString(dateTo)}`}</div>
             )}
           </div>
+
           <div className="col-span-2">{event.venueCity}</div>
-          <div className=""></div>
-          <div className=""></div>
-          <div className=""></div>
         </div>
       </div>
 
-      {/* line */}
+      {line}
+
+      <div className={'p-2'}>
+        <div className={'grid grid-cols-3 justify-end object-right'}>
+          <div className="col-span-1">Participation fee</div>
+          <div className="col-span-2">{event.participationFee} €</div>
+
+          <div className="col-span-1">Registration end</div>
+          <div className="col-span-2">{shortDateString(event.registrationDeadline)}</div>
+
+          <div className="col-span-1">Event host</div>
+          <div className="col-span-2">
+            <Link href={`/user/${event.owner}`}>{event.owner}</Link>
+          </div>
+        </div>
+      </div>
+
       {line}
 
       {/* description */}
@@ -71,11 +85,10 @@ const EventDetails = ({ event }: IEventProps) => {
         </TextareaAutosize>
       </div>
 
-      {/* line */}
       {line}
 
       {/* address */}
-      <div className="mt-2 p-2">Venue Address:</div>
+      <div className="mt-2 p-2">Venue address:</div>
       <div className="select-text p-2">
         <p>{`${event.venueStreet} ${event.venueHouseNo}`}</p>
         <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
