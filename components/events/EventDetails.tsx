@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
 import TextareaAutosize from 'react-textarea-autosize';
+import Map from '../Map';
 
 interface IEventProps {
   event: IEvent;
@@ -64,6 +65,14 @@ const EventDetails = ({ event }: IEventProps) => {
         <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-zinc-300 outline-none">
           {event.description}
         </TextareaAutosize>
+      </div>
+
+      <div className="mt-2 flex w-full justify-center">
+        <div className="w-2/3 max-w-xl rounded-lg border border-black">
+          <div className="aspect-square w-full">
+            <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venueCity}`} />
+          </div>
+        </div>
       </div>
     </div>
   );

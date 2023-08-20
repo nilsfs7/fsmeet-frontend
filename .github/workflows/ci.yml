@@ -46,6 +46,7 @@ jobs:
         uses: docker/build-push-action@v3
         env:
           SHA: ${{ github.sha }}
+          MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
         with:
           push: true
           file: ./Dockerfile
@@ -54,3 +55,4 @@ jobs:
             AUTH_URL=${{ env.AUTH_URL }}
             BACKEND_URL=${{ env.BACKEND_URL }}
             COMMIT_SHA=${{ env.SHA }}
+            GOOGLE_MAPS_API_KEY=${{ env.MAPS_API_KEY }}
