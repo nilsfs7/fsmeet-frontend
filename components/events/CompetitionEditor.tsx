@@ -30,9 +30,9 @@ const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
     updateComp();
   }, [name]);
 
-  if (!name) {
-    return <>loading...</>;
-  }
+  // if (!name) {
+  //   return <>loading...</>;
+  // }
 
   return (
     <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
