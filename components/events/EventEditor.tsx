@@ -73,6 +73,10 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     updateEvent();
   }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, venueHouseNo, venueStreet, venueCity, venuePostCode, venueCountry, eventType, autoApproveRegistrations]);
 
+  if (!name || !description || !venueHouseNo || !venueStreet || !venuePostCode || !venueCity || !venueCountry) {
+    return 'loading...';
+  }
+
   return (
     <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
       <TextInput
