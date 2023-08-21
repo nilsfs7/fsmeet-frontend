@@ -31,7 +31,7 @@ const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
   }, [name]);
 
   if (!name) {
-    return 'loading...';
+    return <>loading...</>;
   }
 
   return (

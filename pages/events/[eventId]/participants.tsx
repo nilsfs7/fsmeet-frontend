@@ -93,7 +93,7 @@ const EventParticipants = (props: any) => {
   }, [event == undefined]);
 
   if (!event) {
-    return 'loading...';
+    return <>loading...</>;
   }
 
   return (

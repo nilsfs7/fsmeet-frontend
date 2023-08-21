@@ -96,7 +96,7 @@ const Account = ({ session }: any) => {
   }, []);
 
   if (!userFetched) {
-    return 'loading...';
+    return <>loading...</>;
   }
 
   return (

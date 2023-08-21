@@ -127,7 +127,7 @@ const Event = (props: any) => {
   }, [event == undefined]);
 
   if (!event || !approvedAndPendingRegistrations) {
-    return 'loading...';
+    return <>loading...</>;
   }
 
   return (

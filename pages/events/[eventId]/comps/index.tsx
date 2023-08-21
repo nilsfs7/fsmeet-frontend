@@ -61,7 +61,7 @@ const EventCompetitions = (props: any) => {
   }, [event == undefined]);
 
   if (!event?.eventCompetitions) {
-    return 'loading...';
+    return <>loading...</>;
   }
 
   return (

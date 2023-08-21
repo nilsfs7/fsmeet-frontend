@@ -74,7 +74,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, venueHouseNo, venueStreet, venueCity, venuePostCode, venueCountry, eventType, autoApproveRegistrations]);
 
   if (!name || !description || !venueHouseNo || !venueStreet || !venuePostCode || !venueCity || !venueCountry) {
-    return 'loading...';
+    return <>loading...</>;
   }
 
   return (
