@@ -39,7 +39,7 @@ const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
       <TextInput
         id={'name'}
         label={'Competition Name'}
-        placeholder="Men Battles"
+        placeholder="Male Battles"
         value={name}
         onChange={e => {
           setCompName(e.currentTarget.value);
