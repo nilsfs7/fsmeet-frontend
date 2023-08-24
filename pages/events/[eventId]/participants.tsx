@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { IEvent } from '@/interface/event.js';
 import { useEffect, useState } from 'react';
-import TextButton from '@/components/common/TextButton';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
@@ -10,6 +9,7 @@ import Participant from '@/components/events/Participant';
 import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import Link from 'next/link';
+import { routeLogin } from '@/types/consts/routes';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -29,7 +29,7 @@ const EventParticipants = (props: any) => {
 
   const handleRemoveParticipant = async (id: string, username: string) => {
     if (!isLoggedIn()) {
-      router.push('/login');
+      router.push(routeLogin);
       return;
     }
 
@@ -50,13 +50,13 @@ const EventParticipants = (props: any) => {
 
     if (response.status == 200) {
       console.log(`${username} removed`);
-      //   router.back();
+      router.reload();
     }
   };
 
   const handleApproveParticipant = async (id: string, username: string, status: EventRegistrationStatus) => {
     if (!isLoggedIn()) {
-      router.push('/login');
+      router.push(routeLogin);
       return;
     }
 
@@ -78,7 +78,7 @@ const EventParticipants = (props: any) => {
 
     if (response.status == 200) {
       console.log(`Status for ${username} updated`);
-      //   router.back();
+      router.reload();
     }
   };
 
@@ -93,13 +93,13 @@ const EventParticipants = (props: any) => {
   }, [event == undefined]);
 
   if (!event) {
-    return 'loading...';
+    return <>loading...</>;
   }
 
   return (
     <>
       <div className="m-2">
-        <div className={'rounded-lg border-2 border-black bg-zinc-300 p-2 text-sm'}>
+        <div className={'rounded-lg border border-black bg-zinc-300 p-2 text-sm'}>
           <div className="m-2 text-center text-base font-bold">Manage Participants</div>
           <div className="flex flex-col">
             {event.eventRegistrations.map((registration, index) => {
@@ -119,10 +119,10 @@ const EventParticipants = (props: any) => {
                   <div className="mx-1 flex w-1/2 justify-start">
                     {(participant.status === EventRegistrationStatus.APPROVED || participant.status === EventRegistrationStatus.DENIED) && (
                       <>
-                        <div className="mr-1 flex w-36 items-center justify-center  font-bold text-black">{participant.status.toUpperCase()}</div>
+                        <div className="mr-1 flex w-24 items-center justify-center font-bold text-black">{participant.status.toUpperCase()}</div>
                         <div className="ml-1">
-                          <TextButton
-                            text="Remove"
+                          <ActionButton
+                            action={Action.DELETE}
                             onClick={() => {
                               handleRemoveParticipant(event.id, participant.username);
                             }}
@@ -134,16 +134,16 @@ const EventParticipants = (props: any) => {
                       {participant.status == EventRegistrationStatus.PENDING && (
                         <>
                           <div className="mr-1">
-                            <TextButton
-                              text="Approve"
+                            <ActionButton
+                              action={Action.ACCEPT}
                               onClick={() => {
                                 handleApproveParticipant(event.id, participant.username, EventRegistrationStatus.APPROVED);
                               }}
                             />
                           </div>
                           <div className="ml-1">
-                            <TextButton
-                              text="Deny"
+                            <ActionButton
+                              action={Action.DENY}
                               onClick={() => {
                                 handleApproveParticipant(event.id, participant.username, EventRegistrationStatus.DENIED);
                               }}

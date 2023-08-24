@@ -7,6 +7,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
 import TextButton from '@/components/common/TextButton';
+import { routeHome } from '@/types/consts/routes';
 
 const defaultDateFrom = moment(moment().year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
@@ -48,11 +49,11 @@ const MyEventsOverview = ({ session }: { session: any }) => {
   }, []);
 
   return (
-    <div className="absolute inset-0 flex  flex-col overflow-hidden">
+    <div className="absolute inset-0 flex flex-col overflow-hidden">
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
-          <Link href="/">
+          <Link href={routeHome}>
             <h1 className="text-xl">FSMeet</h1>
           </Link>
         </div>
@@ -87,7 +88,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
 
       {/* Actions */}
       <div className="m-2 flex flex-shrink-0 justify-between">
-        <Link href="/">
+        <Link href={routeHome}>
           <TextButton text="Back" />
         </Link>
       </div>

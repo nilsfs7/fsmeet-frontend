@@ -7,8 +7,8 @@ import TextInput from '@/components/common/TextInput';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
-
-const defaultImg = '/profile/user.svg';
+import { routeHome } from '@/types/consts/routes';
+import { imgUserNoImg } from '@/types/consts/images';
 
 const countries: MenuItem[] = [
   { text: 'not specified', value: '--' },
@@ -18,11 +18,12 @@ const countries: MenuItem[] = [
 ];
 
 const Account = ({ session }: any) => {
-  const [imageUrl, setImageUrl] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [country, setCountry] = useState('');
-  const [instagramHandle, setInstagramHandle] = useState('');
+  const [userFetched, setUserFetched] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [country, setCountry] = useState();
+  const [instagramHandle, setInstagramHandle] = useState();
 
   const handleSaveUserInfoClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
@@ -58,7 +59,7 @@ const Account = ({ session }: any) => {
       await signOut({ redirect: false });
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
-      router.push('/');
+      router.push(routeHome);
     } else {
       console.error('failed to delete account');
     }
@@ -68,13 +69,14 @@ const Account = ({ session }: any) => {
     await signOut({ redirect: false });
     localStorage.removeItem('username');
     localStorage.removeItem('imageUrl');
-    router.push('/');
+    router.push(routeHome);
   };
 
   useEffect(() => {
     async function fetchUser() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
       const user = await res.json();
+      setUserFetched(true);
 
       setImageUrl(user.imageUrl);
       if (user.firstName) {
@@ -93,13 +95,17 @@ const Account = ({ session }: any) => {
     fetchUser();
   }, []);
 
+  if (!userFetched) {
+    return <>loading...</>;
+  }
+
   return (
     <div className="absolute inset-0 flex flex-col overflow-y-auto">
       <h1 className="mt-2 text-center text-xl">Account Settings</h1>
 
       <div className="mt-2 flex justify-center py-2">
         <Link href="/account/image">
-          <img src={imageUrl ? imageUrl : defaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
+          <img src={imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
         </Link>
       </div>
 
@@ -129,7 +135,7 @@ const Account = ({ session }: any) => {
             <div className="p-2">Country</div>
             <Dropdown
               menus={countries}
-              value={country !== '' ? country : countries[0].value}
+              value={country ? country : countries[0].value}
               onChange={(value: any) => {
                 setCountry(value);
               }}

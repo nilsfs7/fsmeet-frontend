@@ -4,6 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
 import { getSession } from 'next-auth/react';
+import { routeFeedbackThankyou } from '@/types/consts/routes';
 
 const GeneralFeedback: NextPage = (props: any) => {
   const session = props.session;
@@ -28,7 +29,7 @@ const GeneralFeedback: NextPage = (props: any) => {
     });
 
     if (response.status == 201) {
-      router.push(`/feedback/thankyou`);
+      router.push(routeFeedbackThankyou);
     } else {
       const error = await response.json();
       setError(error.message);

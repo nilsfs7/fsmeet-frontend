@@ -5,6 +5,7 @@ import { getSession } from 'next-auth/react';
 import router from 'next/router';
 import { useState } from 'react';
 import { Event } from '@/types/event';
+import { routeEventSubs, routeLogin } from '@/types/consts/routes';
 
 const EventCreation = (props: any) => {
   const session = props.session;
@@ -12,7 +13,7 @@ const EventCreation = (props: any) => {
   const [event, setEvent] = useState<Event>();
 
   if (!session) {
-    router.push('/login');
+    router.push(routeLogin);
   }
 
   const handleCreateClicked = async () => {
@@ -20,15 +21,20 @@ const EventCreation = (props: any) => {
       method: 'POST',
       body: JSON.stringify({
         name: event?.name,
+        type: event?.type,
+        description: event?.description,
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),
-        participationFee: event?.participationFee,
         registrationDeadline: event?.registrationDeadline.unix(),
-        description: event?.description,
-        location: event?.location,
-        type: event?.type,
-        autoApproveRegistrations: false, // ##### get from input
+        venueHouseNo: event?.venueHouseNo,
+        venueStreet: event?.venueStreet,
+        venueCity: event?.venueCity,
+        venuePostCode: event?.venuePostCode,
+        venueCountry: event?.venueCountry,
+        participationFee: event?.participationFee,
+        autoApproveRegistrations: event?.autoApproveRegistrations,
       }),
+
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${session.user.accessToken}`,
@@ -36,7 +42,7 @@ const EventCreation = (props: any) => {
     });
 
     if (response.status == 201) {
-      router.replace('/events/subs');
+      router.replace(routeEventSubs);
     }
   };
 
@@ -53,7 +59,7 @@ const EventCreation = (props: any) => {
           <TextButton text={'Cancel'} onClick={() => router.back()} />
         </div>
         <div className="pl-1">
-          <TextButton text={'Create Event'} onClick={handleCreateClicked} />
+          <TextButton text={'Create'} onClick={handleCreateClicked} />
         </div>
       </div>
     </div>

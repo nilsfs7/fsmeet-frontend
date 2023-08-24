@@ -1,13 +1,11 @@
 import { IEvent } from '@/interface/event';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
+import { imgCompetition, imgMeeting } from '@/types/consts/images';
 
 interface IEventProps {
   event: IEvent;
 }
-
-const imgMeeting = '/event/meeting.svg';
-const imgCompetition = '/event/competition.svg';
 
 const EventCard = ({ event }: IEventProps) => {
   const [dateFrom, setDateFrom] = useState<number>();
@@ -31,14 +29,14 @@ const EventCard = ({ event }: IEventProps) => {
   };
 
   return (
-    <div className={'rounded-lg border-2 border-black bg-zinc-300 p-2 text-sm hover:bg-zinc-400'}>
+    <div className={'rounded-lg border border-black bg-zinc-300 p-2 text-sm hover:bg-zinc-400'}>
       {/* top */}
       <div className={'max-h-24 p-2'}>
         <div className="28 flex ">
           <div className="w-full text-base font-bold">{event.name}</div>
         </div>
         <div className="flex justify-between">
-          <div className="w-1/3 ">{event.location}</div>
+          <div className="w-1/3 ">{event.venueCity}</div>
           {dateFrom && dateTo && (
             <div className="w-2/3 text-right">
               {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, false)} - ${shortDateString(dateTo)}`}

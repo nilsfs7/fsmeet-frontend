@@ -5,6 +5,8 @@ import moment, { Moment } from 'moment';
 import { Event } from '@/types/event';
 import { EventType } from '@/types/enums/event-type';
 import Dropdown from './Dropdown';
+import CheckBox from '../common/CheckBox';
+import TextInputLarge from '../common/TextInputLarge';
 
 interface IEventEditorProps {
   event?: Event;
@@ -18,21 +20,32 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [participationFee, setParticipationFee] = useState(event?.participationFee);
   const [registrationDeadline, setRegistrationDeadline] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment().add(7, 'day'));
   const [description, setDescription] = useState(event?.description);
-  const [location, setLocation] = useState(event?.location);
+  const [venueHouseNo, setVenueHouseNo] = useState(event?.venueCity);
+  const [venueStreet, setVenueStreet] = useState(event?.venueCity);
+  const [venueCity, setVenueCity] = useState(event?.venueCity);
+  const [venuePostCode, setVenuePostCode] = useState(event?.venueCity);
+  const [venueCountry, setVenueCountry] = useState(event?.venueCity);
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
+  const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
 
   const updateEvent = () => {
     onEventUpdate({
       id: event?.id,
       name: name,
+      type: eventType,
+      description: description,
       dateFrom: dateFrom,
       dateTo: dateTo,
-      participationFee: participationFee,
       registrationDeadline: registrationDeadline,
-      description: description,
-      location: location,
-      type: eventType,
-      autoApproveRegistrations: false, // ##### get from input
+      venueHouseNo: venueHouseNo,
+      venueStreet: venueStreet,
+      venueCity: venueCity,
+      venuePostCode: venuePostCode,
+      venueCountry: venueCountry,
+      participationFee: participationFee,
+      autoApproveRegistrations: autoApproveRegistrations,
+      eventRegistrations: [],
+      eventCompetitions: [],
     });
   };
 
@@ -45,15 +58,24 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setParticipationFee(event.participationFee);
       setRegistrationDeadline(event.registrationDeadline);
       setDescription(event.description);
-      setLocation(event.location);
+      setVenueHouseNo(event.venueHouseNo);
+      setVenueStreet(event.venueStreet);
+      setVenuePostCode(event.venuePostCode);
+      setVenueCity(event.venueCity);
+      setVenueCountry(event.venueCountry);
       setEventType(event.type);
+      setAutoApproveRegistrations(event.autoApproveRegistrations);
     }
   }, [event]);
 
   // fires event back
   useEffect(() => {
     updateEvent();
-  }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, location, eventType]);
+  }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, venueHouseNo, venueStreet, venueCity, venuePostCode, venueCountry, eventType, autoApproveRegistrations]);
+
+  // if (!name || !description || !venueHouseNo || !venueStreet || !venuePostCode || !venueCity || !venueCountry) {
+  //   return <>loading...</>;
+  // }
 
   return (
     <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
@@ -68,7 +90,29 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       />
 
       <div className="m-2 grid grid-cols-2">
-        <div className="p-2">Date From</div>
+        <div>Type</div>
+        <Dropdown
+          value={eventType}
+          onChange={(value: EventType) => {
+            console.log(autoApproveRegistrations);
+            setEventType(value);
+          }}
+        />
+      </div>
+
+      <TextInputLarge
+        id={'description'}
+        label={'Event Description'}
+        placeholder="German Championship"
+        value={description}
+        resizable={true}
+        onChange={e => {
+          setDescription(e.currentTarget.value);
+        }}
+      />
+
+      <div className="m-2 grid grid-cols-2">
+        <div>Date From</div>
         <DatePicker
           value={dateFrom}
           onChange={value => {
@@ -80,7 +124,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       </div>
 
       <div className="m-2 grid grid-cols-2">
-        <div className="p-2">Date To</div>
+        <div>Date To</div>
         <DatePicker
           value={dateTo}
           onChange={value => {
@@ -92,7 +136,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       </div>
 
       <div className="m-2 grid grid-cols-2">
-        <div className="p-2">Registration Deadline</div>
+        <div>Registration Deadline</div>
         <DatePicker
           value={registrationDeadline}
           onChange={value => {
@@ -102,6 +146,58 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           }}
         />
       </div>
+
+      {/* venue address */}
+
+      <TextInput
+        id={'venueHouseNo'}
+        label={'House No'}
+        placeholder="40/1"
+        value={venueHouseNo}
+        onChange={e => {
+          setVenueHouseNo(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'venueStreet'}
+        label={'Street'}
+        placeholder="Hofwiesenstraße"
+        value={venueStreet}
+        onChange={e => {
+          setVenueStreet(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'venuePostCode'}
+        label={'Post Code'}
+        placeholder="74081"
+        value={venuePostCode}
+        onChange={e => {
+          setVenuePostCode(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'venueCity'}
+        label={'City'}
+        placeholder="Heilbronn"
+        value={venueCity}
+        onChange={e => {
+          setVenueCity(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'venueCountry'}
+        label={'Country'}
+        placeholder="Germany"
+        value={venueCountry}
+        onChange={e => {
+          setVenueCountry(e.currentTarget.value);
+        }}
+      />
 
       <TextInput
         id={'participationFee'}
@@ -113,35 +209,14 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         }}
       />
 
-      <TextInput
-        id={'description'}
-        label={'Event Description'}
-        placeholder="German Championship"
-        value={description}
-        onChange={e => {
-          setDescription(e.currentTarget.value);
+      <CheckBox
+        id={'autoApproveRegistrations'}
+        label="Auto Approve Registrations"
+        value={autoApproveRegistrations}
+        onChange={() => {
+          setAutoApproveRegistrations(!autoApproveRegistrations);
         }}
       />
-
-      <TextInput
-        id={'location'}
-        label={'Location / City'}
-        placeholder="Heilbronn"
-        value={location}
-        onChange={e => {
-          setLocation(e.currentTarget.value);
-        }}
-      />
-
-      <div className="m-2 grid grid-cols-2">
-        <div className="p-2">Type</div>
-        <Dropdown
-          value={eventType}
-          onChange={(value: EventType) => {
-            setEventType(value);
-          }}
-        />
-      </div>
     </div>
   );
 };

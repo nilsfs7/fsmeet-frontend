@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { IEvent } from '@/interface/event.js';
-import EventCard from '@/components/events/EventCard';
 import { useEffect, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import { GetServerSideProps } from 'next';
@@ -12,6 +11,10 @@ import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
+import { routeEvents, routeLogin } from '@/types/consts/routes';
+import moment from 'moment';
+import CompetitionList from '@/components/events/CompetitionList';
+import EventDetails from '@/components/events/EventDetails';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -42,31 +45,35 @@ const Event = (props: any) => {
 
   const handleRegistrationClicked = async () => {
     if (!isLoggedIn()) {
-      router.push('/login');
+      router.push(routeLogin);
       return;
     }
 
-    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
-    let method: string = 'POST';
-    if (isRegistered()) {
-      url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
-      method = 'DELETE';
-    }
+    if (event && event?.registrationDeadline > moment().unix()) {
+      let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
+      let method: string = 'POST';
+      if (isRegistered()) {
+        url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
+        method = 'DELETE';
+      }
 
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify({
-        eventId: `${eventId}`,
-        username: `${session.user.username}`,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
+      const response = await fetch(url, {
+        method: method,
+        body: JSON.stringify({
+          eventId: `${eventId}`,
+          username: `${session.user.username}`,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.user.accessToken}`,
+        },
+      });
 
-    if (response.status == 200 || response.status == 201) {
-      router.back();
+      if (response.status == 200 || response.status == 201) {
+        router.reload();
+      }
+    } else {
+      console.log('Registration deadline exceeded.');
     }
   };
 
@@ -120,16 +127,21 @@ const Event = (props: any) => {
   }, [event == undefined]);
 
   if (!event || !approvedAndPendingRegistrations) {
-    return 'loading...';
+    return <>loading...</>;
   }
 
   return (
     <>
       <div className="m-2 ">
         {event.owner === session?.user?.username && (
-          <div className="flex justify-between rounded-lg border-2 border-black bg-amber-200 p-2">
+          <div className="flex justify-between rounded-lg border border-black bg-amber-200 p-2">
             <div className="mr-8 flex items-center">Admin Panel</div>
             <div className="flex">
+              <div className="ml-1">
+                <Link href={`/events/${eventId}/comps`}>
+                  <ActionButton action={Action.MANAGE_COMPETITIONS} />
+                </Link>
+              </div>
               <div className="ml-1">
                 <Link href={`/events/${eventId}/participants`}>
                   <ActionButton action={Action.MANAGE_USERS} />
@@ -148,8 +160,15 @@ const Event = (props: any) => {
       {/* replace by event page with register option */}
       {/* event overview */}
       <div className="m-2">
-        <EventCard event={event} />
+        <EventDetails event={event} />
       </div>
+
+      {/* competitions */}
+      {event.eventCompetitions.length > 0 && (
+        <div className="m-2">
+          <CompetitionList competitions={event.eventCompetitions} eventId={event.id} />
+        </div>
+      )}
 
       {/* participants */}
       {approvedAndPendingRegistrations.length > 0 && (
@@ -173,7 +192,7 @@ const Event = (props: any) => {
       <div className="m-2 flex justify-between">
         <div className="flex justify-start">
           <div className="mr-1">
-            <ActionButton action={Action.BACK} onClick={() => router.back()} />
+            <ActionButton action={Action.BACK} onClick={() => router.push(routeEvents)} />
           </div>
         </div>
 
@@ -182,9 +201,11 @@ const Event = (props: any) => {
             <ActionButton action={Action.COPY} onClick={handleShareClicked} />
           </div>
 
-          <div className="ml-1">
-            <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />
-          </div>
+          {event.registrationDeadline > moment().unix() && (
+            <div className="ml-1">
+              <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />
+            </div>
+          )}
         </div>
       </div>
     </>

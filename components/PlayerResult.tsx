@@ -14,7 +14,7 @@ const PlayerResult = ({ name, score, image, imageLeft }: IDropdownProps) => {
             <div className="pl-8">
               <div className="flex justify-center pb-4">{name}</div>
               <div className=" ">
-                <img className="h-96 rounded-lg border-2 border-black object-cover shadow-2xl shadow-black" src={image} alt="player-image" />
+                <img className="h-96 rounded-lg border border-black object-cover shadow-2xl shadow-black" src={image} alt="player-image" />
               </div>
             </div>
 
@@ -39,7 +39,7 @@ const PlayerResult = ({ name, score, image, imageLeft }: IDropdownProps) => {
             </div>
             <div className="pr-8">
               <div className="flex justify-center pb-4">{name}</div>
-              <img className="h-96 rounded-lg border-2 border-black object-cover shadow-2xl shadow-black" src={image} alt="player-image" />
+              <img className="h-96 rounded-lg border border-black object-cover shadow-2xl shadow-black" src={image} alt="player-image" />
             </div>
           </>
         )}

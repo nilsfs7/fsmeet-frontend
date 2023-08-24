@@ -7,6 +7,7 @@ import moment from 'moment';
 import { Event } from '@/types/event';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
+import { routeEventSubs, routeLogin } from '@/types/consts/routes';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -17,7 +18,7 @@ const EventEditing = (props: any) => {
   const [event, setEvent] = useState<Event>();
 
   if (!session) {
-    router.push('/login');
+    router.push(routeLogin);
   }
 
   const fetchEvent = async (id: string) => {
@@ -36,9 +37,13 @@ const EventEditing = (props: any) => {
         participationFee: event?.participationFee,
         registrationDeadline: event?.registrationDeadline.unix(),
         description: event?.description,
-        location: event?.location,
+        venueHouseNo: event?.venueHouseNo,
+        venueStreet: event?.venueStreet,
+        venuePostCode: event?.venuePostCode,
+        venueCity: event?.venueCity,
+        venueCountry: event?.venueCountry,
         type: event?.type,
-        autoApproveRegistrations: false, // ##### get from input
+        autoApproveRegistrations: event?.autoApproveRegistrations,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +52,7 @@ const EventEditing = (props: any) => {
     });
 
     if (response.status == 200) {
-      router.replace('/events/subs');
+      router.replace(routeEventSubs);
     }
   };
 
@@ -64,7 +69,7 @@ const EventEditing = (props: any) => {
     });
 
     if (response.status == 200) {
-      router.push('/events/subs');
+      router.push(routeEventSubs);
     }
   };
 
@@ -82,9 +87,15 @@ const EventEditing = (props: any) => {
           // @ts-ignore
           registrationDeadline: moment.unix(res.registrationDeadline),
           description: res.description,
-          location: res.location,
+          venueHouseNo: res.venueHouseNo,
+          venueStreet: res.venueStreet,
+          venueCity: res.venueCity,
+          venuePostCode: res.venuePostCode,
+          venueCountry: res.venueCountry,
           type: res.type,
-          autoApproveRegistrations: false, // ##### get from input
+          autoApproveRegistrations: res.autoApproveRegistrations,
+          eventRegistrations: [],
+          eventCompetitions: [],
         };
 
         setEvent(e);

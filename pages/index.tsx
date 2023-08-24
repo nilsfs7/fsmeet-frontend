@@ -1,20 +1,19 @@
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
-import Profile from '@/components/user/profile';
+import Profile from '@/components/user/Profile';
 import { IEvent } from '@/interface/event';
+import { imgAbout } from '@/types/consts/images';
+import { routeAbout, routeEvents } from '@/types/consts/routes';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
-
-const imageAbout = '/info.svg';
-const routeAbout = '/about';
 
 const Home = ({ data }: { data: any[] }) => {
   let events: IEvent[] = data;
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
-      {/* Banner */}
+      {/* Header */}
       <div className="bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
           <Link href="/">
@@ -45,22 +44,22 @@ const Home = ({ data }: { data: any[] }) => {
 
       {/* Actions */}
       <div className="m-2 flex flex-shrink-0 justify-center">
-        <Link href={'/events/'}>
+        <Link href={routeEvents}>
           <TextButton text="Show All" />
         </Link>
       </div>
 
-      {/* Banner */}
-      <div className="bg-zinc-300 sm:block">
-        <div className="mx-2 flex h-20 items-center justify-end">
-          <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border-2 border-black bg-zinc-300 p-1 hover:bg-zinc-400">
-            <Link href="/about">
+      {/* Footer */}
+      <div className="mt-auto bg-zinc-300 sm:block">
+        <div className="mx-2 flex h-16 items-center justify-end">
+          <Link href={routeAbout}>
+            <div className="cursor-pointer rounded-lg bg-zinc-300 p-1 hover:bg-zinc-400">
               <div className="grid grid-flow-col items-center">
-                <img src={imageAbout} className="mx-2 h-10 w-10 rounded-full object-cover" />
+                <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
                 <div className="mx-1 truncate hover:text-clip">{'About'}</div>
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

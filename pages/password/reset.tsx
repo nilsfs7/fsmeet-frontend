@@ -4,6 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import { useRouter } from 'next/router';
+import { routeLogin } from '@/types/consts/routes';
 
 const ResetPassword: NextPage = () => {
   const router = useRouter();
@@ -37,7 +38,7 @@ const ResetPassword: NextPage = () => {
     console.log(response.status);
 
     if (response.status == 200) {
-      router.replace(`/login`);
+      router.replace(routeLogin);
     } else {
       const error = await response.json();
       setError(error.message);

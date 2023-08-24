@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import router from 'next/router';
-
-const defaultImg = '/profile/user.svg';
+import { imgUserNoImg } from '@/types/consts/images';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
-  const [image, setImage] = useState<any>(null);
+  const [image, setImage] = useState<any>();
   const [createObjectURL, setCreateObjectURL] = useState('');
 
   const uploadToClient = (event: any) => {
@@ -41,6 +40,23 @@ const AccountImage = ({ session }: any) => {
     }
   };
 
+  const handleDeleteImageClicked = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/image`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${session?.user?.accessToken}`,
+      },
+    });
+
+    if (response.status === 200) {
+      setImageUrl('');
+      localStorage.removeItem('imageUrl');
+      router.replace('/account');
+    } else {
+      console.error('failed to delete image');
+    }
+  };
+
   useEffect(() => {
     async function fetchUser() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
@@ -53,7 +69,7 @@ const AccountImage = ({ session }: any) => {
   return (
     <div className="absolute inset-0 flex flex-col justify-center">
       <div className="flex justify-center py-2">
-        <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : defaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
+        <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
       </div>
 
       <div className="flex justify-center py-2">
@@ -62,9 +78,13 @@ const AccountImage = ({ session }: any) => {
 
       <div className="flex justify-center py-2">
         <div className="mx-1">
-          <TextButton text="Upload image" onClick={handleUploadImageClicked} />
+          <TextButton text="Delete" onClick={handleDeleteImageClicked} />
+        </div>
+        <div className="mx-1">
+          <TextButton text="Upload" onClick={handleUploadImageClicked} />
         </div>
       </div>
+
       <div className="flex justify-center py-2">
         <Link href="/account">
           <TextButton text="Back" />
