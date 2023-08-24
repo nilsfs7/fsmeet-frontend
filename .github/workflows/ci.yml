@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - dev
+      - aws
   pull_request:
     branches:
       - main
@@ -28,6 +29,13 @@ jobs:
               echo "TAGS=luisnaldo7/fsmeet-frontend:latest,luisnaldo7/fsmeet-frontend:prod" >> "$GITHUB_ENV"
               echo "AUTH_URL=http://dffb.org:9201" >> "$GITHUB_ENV"
               echo "BACKEND_URL=http://dffb.org:9200" >> "$GITHUB_ENV"
+          fi
+          if [[ $GITHUB_REF == 'refs/heads/aws' ]]; then
+              echo "set values for aws image"
+              
+              echo "TAGS=luisnaldo7/fsmeet-frontend:aws" >> "$GITHUB_ENV"
+              echo "AUTH_URL=https://fsmeet.com" >> "$GITHUB_ENV"
+              echo "BACKEND_URL=https://backend.fsmeet.com" >> "$GITHUB_ENV"
           fi
 
       - name: Set up QEMU
