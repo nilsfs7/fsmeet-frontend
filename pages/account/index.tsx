@@ -7,8 +7,9 @@ import TextInput from '@/components/common/TextInput';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
-import { routeHome } from '@/types/consts/routes';
+import { routeAccount, routeHome } from '@/types/consts/routes';
 import { imgUserNoImg } from '@/types/consts/images';
+import Dialog from '@/components/Dialog';
 
 const countries: MenuItem[] = [
   { text: 'not specified', value: '--' },
@@ -48,6 +49,10 @@ const Account = ({ session }: any) => {
   };
 
   const handleDeleteAccountClicked = async () => {
+    router.replace(`${routeAccount}?delete=1`, undefined, { shallow: true });
+  };
+
+  const handleConfirmDeleteAccountClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'DELETE',
       headers: {
@@ -64,6 +69,10 @@ const Account = ({ session }: any) => {
       console.error('failed to delete account');
     }
   };
+
+  async function handleCanacelDeleteAccountClicked() {
+    router.replace(`${routeAccount}`, undefined, { shallow: true });
+  }
 
   const handleLogoutClicked = async () => {
     await signOut({ redirect: false });
@@ -100,79 +109,85 @@ const Account = ({ session }: any) => {
   }
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-y-auto">
-      <h1 className="mt-2 text-center text-xl">Account Settings</h1>
+    <>
+      <Dialog title="Delete Account" queryParam="delete" onClose={handleCanacelDeleteAccountClicked} onOk={handleConfirmDeleteAccountClicked}>
+        <p>Do you really want to leave us?</p>
+      </Dialog>
 
-      <div className="mt-2 flex justify-center py-2">
-        <Link href="/account/image">
-          <img src={imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
-        </Link>
-      </div>
+      <div className="absolute inset-0 flex flex-col overflow-y-auto">
+        <h1 className="mt-2 text-center text-xl">Account Settings</h1>
 
-      <div className="my-4" />
+        <div className="mt-2 flex justify-center py-2">
+          <Link href="/account/image">
+            <img src={imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
+          </Link>
+        </div>
 
-      <div className={'flex flex-col items-center'}>
-        <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
-          <TextInput
-            id={'firstName'}
-            label={'First Name'}
-            placeholder="Kevin"
-            value={firstName}
-            onChange={e => {
-              setFirstName(e.currentTarget.value);
-            }}
-          />
-          <TextInput
-            id={'lastName'}
-            label={'Last Name'}
-            placeholder="Kück"
-            value={lastName}
-            onChange={e => {
-              setLastName(e.currentTarget.value);
-            }}
-          />
-          <div className="m-2 grid grid-cols-2">
-            <div className="p-2">Country</div>
-            <Dropdown
-              menus={countries}
-              value={country ? country : countries[0].value}
-              onChange={(value: any) => {
-                setCountry(value);
+        <div className="my-4" />
+
+        <div className={'flex flex-col items-center'}>
+          <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
+            <TextInput
+              id={'firstName'}
+              label={'First Name'}
+              placeholder="Kevin"
+              value={firstName}
+              onChange={e => {
+                setFirstName(e.currentTarget.value);
+              }}
+            />
+            <TextInput
+              id={'lastName'}
+              label={'Last Name'}
+              placeholder="Kück"
+              value={lastName}
+              onChange={e => {
+                setLastName(e.currentTarget.value);
+              }}
+            />
+            <div className="m-2 grid grid-cols-2">
+              <div className="p-2">Country</div>
+              <Dropdown
+                menus={countries}
+                value={country ? country : countries[0].value}
+                onChange={(value: any) => {
+                  setCountry(value);
+                }}
+              />
+            </div>
+            <TextInput
+              id={'instagramHandle'}
+              label={'Instagram Handle'}
+              placeholder="@freestyler.kevin"
+              value={instagramHandle}
+              onChange={e => {
+                setInstagramHandle(e.currentTarget.value);
               }}
             />
           </div>
-          <TextInput
-            id={'instagramHandle'}
-            label={'Instagram Handle'}
-            placeholder="@freestyler.kevin"
-            value={instagramHandle}
-            onChange={e => {
-              setInstagramHandle(e.currentTarget.value);
-            }}
-          />
-        </div>
 
-        <div className="my-2 flex">
-          <div className="px-1">
-            <ActionButton action={Action.SAVE} onClick={handleSaveUserInfoClicked} />
+          <div className="my-2 flex">
+            <div className="px-1">
+              <ActionButton action={Action.SAVE} onClick={handleSaveUserInfoClicked} />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex justify-center pt-10">
-        <TextButton text="Delete account" onClick={handleDeleteAccountClicked} />
-      </div>
+        <div className="flex justify-center pt-10">
+          <TextButton text="Delete account" onClick={handleDeleteAccountClicked} />
+        </div>
 
-      <div className="flex justify-center pt-10">
-        <Link href="/">
-          <TextButton text="Back to home" />
-        </Link>
-      </div>
+        <div className="flex justify-center pt-10">
+          <Link href="/">
+            <TextButton text="Back to home" />
+          </Link>
+        </div>
 
-      <div className="flex justify-center py-2">
-        <TextButton text="Logout" onClick={handleLogoutClicked} />
+        <div className="flex justify-center py-2">
+          <TextButton text="Logout" onClick={handleLogoutClicked} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Account;
