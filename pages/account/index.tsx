@@ -7,7 +7,7 @@ import TextInput from '@/components/common/TextInput';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
-import { routeAccount, routeAccountImage, routeHome } from '@/types/consts/routes';
+import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome } from '@/types/consts/routes';
 import { imgUserNoImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 
@@ -64,7 +64,7 @@ const Account = ({ session }: any) => {
       await signOut({ redirect: false });
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
-      router.push(routeHome);
+      router.push(routeAccountDeleted);
     } else {
       console.error('failed to delete account');
     }
