@@ -7,7 +7,7 @@ import TextInput from '@/components/common/TextInput';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Dropdown, { MenuItem } from '@/components/common/Dropdown';
-import { routeAccount, routeHome } from '@/types/consts/routes';
+import { routeAccount, routeAccountImage, routeHome } from '@/types/consts/routes';
 import { imgUserNoImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 
@@ -118,7 +118,7 @@ const Account = ({ session }: any) => {
         <h1 className="mt-2 text-center text-xl">Account Settings</h1>
 
         <div className="mt-2 flex justify-center py-2">
-          <Link href="/account/image">
+          <Link href={routeAccountImage}>
             <img src={imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
           </Link>
         </div>
