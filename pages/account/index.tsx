@@ -70,7 +70,7 @@ const Account = ({ session }: any) => {
     }
   };
 
-  async function handleCanacelDeleteAccountClicked() {
+  async function handleCancelDeleteAccountClicked() {
     router.replace(`${routeAccount}`, undefined, { shallow: true });
   }
 
@@ -110,7 +110,7 @@ const Account = ({ session }: any) => {
 
   return (
     <>
-      <Dialog title="Delete Account" queryParam="delete" onClose={handleCanacelDeleteAccountClicked} onOk={handleConfirmDeleteAccountClicked}>
+      <Dialog title="Delete Account" queryParam="delete" onClose={handleCancelDeleteAccountClicked} onOk={handleConfirmDeleteAccountClicked}>
         <p>Do you really want to leave us?</p>
       </Dialog>
 

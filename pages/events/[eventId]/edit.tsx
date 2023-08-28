@@ -7,7 +7,8 @@ import moment from 'moment';
 import { Event } from '@/types/event';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
-import { routeEventSubs, routeLogin } from '@/types/consts/routes';
+import { routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
+import Dialog from '@/components/Dialog';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -26,7 +27,7 @@ const EventEditing = (props: any) => {
     return await response.json();
   };
 
-  const handleSaveClicked = async () => {
+  const handleSaveEventClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'PATCH',
       body: JSON.stringify({
@@ -56,7 +57,11 @@ const EventEditing = (props: any) => {
     }
   };
 
-  const handleDeleteClicked = async () => {
+  const handleDeleteEventClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}/edit?delete=1`, undefined, { shallow: true });
+  };
+
+  const handleConfirmDeleteEventClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'DELETE',
       body: JSON.stringify({
@@ -72,6 +77,10 @@ const EventEditing = (props: any) => {
       router.push(routeEventSubs);
     }
   };
+
+  async function handleCancelDeleteEventClicked() {
+    router.replace(`${routeEvents}/${eventId}/edit`, undefined, { shallow: true });
+  }
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string') {
@@ -104,27 +113,33 @@ const EventEditing = (props: any) => {
   }, []);
 
   return (
-    <div className={'flex columns-1 flex-col items-center'}>
-      <h1 className="m-2 text-xl">Edit Event</h1>
-      <EventEditor
-        event={event}
-        onEventUpdate={(event: Event) => {
-          setEvent(event);
-        }}
-      />
+    <>
+      <Dialog title="Delete Account" queryParam="delete" onClose={handleCancelDeleteEventClicked} onOk={handleConfirmDeleteEventClicked}>
+        <p>Do you really want to delete this event?</p>
+      </Dialog>
 
-      <div className="my-2 flex">
-        <div className="px-1">
-          <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
-        </div>
-        <div className="px-1">
-          <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-        </div>
-        <div className="px-1">
-          <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
+      <div className={'flex columns-1 flex-col items-center'}>
+        <h1 className="m-2 text-xl">Edit Event</h1>
+        <EventEditor
+          event={event}
+          onEventUpdate={(event: Event) => {
+            setEvent(event);
+          }}
+        />
+
+        <div className="my-2 flex">
+          <div className="px-1">
+            <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+          </div>
+          <div className="px-1">
+            <ActionButton action={Action.DELETE} onClick={handleDeleteEventClicked} />
+          </div>
+          <div className="px-1">
+            <ActionButton action={Action.SAVE} onClick={handleSaveEventClicked} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
