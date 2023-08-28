@@ -13,13 +13,13 @@ interface Props {
   };
 }
 
-const baseFont = Roboto({ subsets: ['latin'], weight: ['400'] });
+const fontRoboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
 export default function App({ Component, pageProps }: Props) {
   return (
     <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="de">
       <SessionProvider session={pageProps.session}>
-        <main className={baseFont.className}>
+        <main className={fontRoboto.className}>
           <Component {...pageProps} />
         </main>
       </SessionProvider>

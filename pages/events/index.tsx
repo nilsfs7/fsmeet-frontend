@@ -1,3 +1,4 @@
+import Logo from '@/components/Logo';
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
@@ -53,9 +54,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
       {/* Banner */}
       <div className="bg-zinc-300 sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
-          <Link href={routeHome}>
-            <h1 className="text-xl">FSMeet</h1>
-          </Link>
+          <Logo />
         </div>
       </div>
 
