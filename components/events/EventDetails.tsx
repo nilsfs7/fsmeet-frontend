@@ -1,10 +1,10 @@
 import { IEvent } from '@/interface/event';
 import { useEffect, useState } from 'react';
-import moment from 'moment';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import Map from '../Map';
 import Link from 'next/link';
+import { shortDateString } from '@/types/funcs/time';
 
 interface IEventProps {
   event: IEvent;
@@ -20,16 +20,6 @@ const EventDetails = ({ event }: IEventProps) => {
     setDateTo(event.dateTo);
     setDateRegistartionDeadline(event.registrationDeadline);
   }, []);
-
-  const shortDateString = (unixTs: number, appendYear: boolean = true): string => {
-    const date = moment.unix(unixTs);
-
-    if (appendYear) {
-      return moment(date).format('DD.MM.YY');
-    } else {
-      return moment(date).format('DD.MM.');
-    }
-  };
 
   const line = (
     <div className="flex h-1">
@@ -67,8 +57,7 @@ const EventDetails = ({ event }: IEventProps) => {
           <div className="col-span-2">{event.participationFee} €</div>
 
           <div className="col-span-1">Registration end</div>
-          <div className="col-span-2">{shortDateString(event.registrationDeadline)}</div>
-
+          {dateRegistartionDeadline && <div className="col-span-2">{shortDateString(dateRegistartionDeadline)}</div>}
           <div className="col-span-1">Event host</div>
           <div className="col-span-2">
             <Link href={`/user/${event.owner}`}>{event.owner}</Link>

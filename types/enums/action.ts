@@ -11,4 +11,5 @@ export enum Action {
   MANAGE_USERS,
   SAVE,
   SHARE,
+  QUESTION,
 }

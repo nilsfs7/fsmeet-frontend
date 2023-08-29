@@ -15,6 +15,9 @@ import { routeEvents, routeLogin } from '@/types/consts/routes';
 import moment from 'moment';
 import CompetitionList from '@/components/events/CompetitionList';
 import EventDetails from '@/components/events/EventDetails';
+import DialogWithInput from '@/components/DialogWithInput';
+import { EventQuestion } from '@/types/event-question';
+import QuestionSection from '@/components/events/QuestionSection';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -23,6 +26,7 @@ const Event = (props: any) => {
   const { eventId } = router.query;
 
   const [event, setEvent] = useState<IEvent>();
+  const [eventQuestions, setEventQuestions] = useState<EventQuestion[]>();
   const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
 
   const isLoggedIn = () => {
@@ -77,6 +81,37 @@ const Event = (props: any) => {
     }
   };
 
+  const handleAskQuestionClicked = async () => {
+    if (!isLoggedIn()) {
+      router.push(routeLogin);
+      return;
+    }
+
+    router.replace(`${routeEvents}/${eventId}?ask=1`, undefined, { shallow: true });
+  };
+
+  const handleCancelAskQuestionClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}`, undefined, { shallow: true });
+  };
+
+  const handleConfirmAskQuestionClicked = async (question: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/question`, {
+      method: 'POST',
+      body: JSON.stringify({
+        eventId: eventId,
+        question: question,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.user.accessToken}`,
+      },
+    });
+
+    if (response.status == 201) {
+      router.replace(`${routeEvents}/${eventId}`, undefined, { shallow: true });
+    }
+  };
+
   const handleShareClicked = async () => {
     const eventUrl = window.location.toString();
 
@@ -123,6 +158,13 @@ const Event = (props: any) => {
       setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
     }
 
+    async function fetchEventQuestions() {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/questions`);
+      const eventQuestions: any = await response.json();
+      setEventQuestions(eventQuestions);
+    }
+
+    fetchEventQuestions();
     fetchEvent();
   }, [event == undefined]);
 
@@ -132,6 +174,16 @@ const Event = (props: any) => {
 
   return (
     <>
+      <DialogWithInput
+        title="Ask a question"
+        description={`What's your question for ${event.name}?`}
+        queryParam="ask"
+        onClose={handleCancelAskQuestionClicked}
+        onOk={(input: string) => {
+          handleConfirmAskQuestionClicked(input);
+        }}
+      />
+
       <div className="m-2 ">
         {event.owner === session?.user?.username && (
           <div className="flex justify-between rounded-lg border border-black bg-amber-200 p-2">
@@ -189,6 +241,13 @@ const Event = (props: any) => {
         </div>
       )}
 
+      {/* questions */}
+      {eventQuestions && eventQuestions.length > 0 && (
+        <div className="m-2">
+          <QuestionSection eventQuestions={eventQuestions} />
+        </div>
+      )}
+
       <div className="m-2 flex justify-between">
         <div className="flex justify-start">
           <div className="mr-1">
@@ -197,6 +256,12 @@ const Event = (props: any) => {
         </div>
 
         <div className="flex justify-end">
+          {event.dateTo > moment().unix() && (
+            <div className="ml-1">
+              <ActionButton action={Action.QUESTION} onClick={handleAskQuestionClicked} />
+            </div>
+          )}
+
           <div className="ml-1">
             <ActionButton action={Action.COPY} onClick={handleShareClicked} />
           </div>

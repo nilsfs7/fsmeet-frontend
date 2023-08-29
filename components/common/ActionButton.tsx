@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import PeopleIcon from '@mui/icons-material/PeopleAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import ShareIcon from '@mui/icons-material/Share';
+import HelpIcon from '@mui/icons-material/LiveHelpOutlined';
 
 interface IButton {
   action: Action;
@@ -56,6 +57,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
       break;
     case Action.SHARE:
       icon = <ShareIcon />;
+      break;
+    case Action.QUESTION:
+      icon = <HelpIcon />;
       break;
   }
 

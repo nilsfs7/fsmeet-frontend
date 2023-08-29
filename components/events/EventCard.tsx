@@ -1,7 +1,7 @@
 import { IEvent } from '@/interface/event';
 import { useEffect, useState } from 'react';
-import moment from 'moment';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
+import { shortDateString } from '@/types/funcs/time';
 
 interface IEventProps {
   event: IEvent;
@@ -17,16 +17,6 @@ const EventCard = ({ event }: IEventProps) => {
     setDateTo(event.dateTo);
     setDateRegistartionDeadline(event.registrationDeadline);
   }, []);
-
-  const shortDateString = (unixTs: number, appendYear: boolean = true): string => {
-    const date = moment.unix(unixTs);
-
-    if (appendYear) {
-      return moment(date).format('DD.MM.YY');
-    } else {
-      return moment(date).format('DD.MM.');
-    }
-  };
 
   return (
     <div className={'rounded-lg border border-black bg-zinc-300 p-2 text-sm hover:bg-zinc-400'}>

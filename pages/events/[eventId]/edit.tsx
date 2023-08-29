@@ -78,9 +78,9 @@ const EventEditing = (props: any) => {
     }
   };
 
-  async function handleCancelDeleteEventClicked() {
+  const handleCancelDeleteEventClicked = async () => {
     router.replace(`${routeEvents}/${eventId}/edit`, undefined, { shallow: true });
-  }
+  };
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string') {
