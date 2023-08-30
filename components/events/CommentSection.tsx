@@ -7,7 +7,7 @@ interface ICommentSectionProps {
 
 const CommentSection = ({ eventComments }: ICommentSectionProps) => {
   return (
-    <div className={'rounded-lg border border-black bg-zinc-300 p-2 text-sm'}>
+    <div className={'rounded-lg border border-black bg-zinc-300 p-2'}>
       <div className="text-base font-bold">Comments</div>
       <div className="flex flex-col flex-wrap">
         {eventComments.map((comment: EventComment, i) => {

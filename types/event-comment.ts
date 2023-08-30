@@ -1,5 +1,7 @@
+import { User } from './user';
+
 export type EventComment = {
   message: string;
-  username: string;
+  user: User;
   timestamp: number;
 };
