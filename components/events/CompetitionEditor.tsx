@@ -8,7 +8,7 @@ interface ICompetitionEditorProps {
 }
 
 const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
-  const [name, setCompName] = useState(comp?.name);
+  const [name, setCompName] = useState(comp?.name || '');
 
   const updateComp = () => {
     onCompUpdate({

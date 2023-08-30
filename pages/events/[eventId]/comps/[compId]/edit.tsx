@@ -33,7 +33,7 @@ const CompetitionEditing = (props: any) => {
       body: JSON.stringify({
         id: compId,
         eventId: eventId,
-        name: comp?.name,
+        name: comp?.name.trim(),
       }),
 
       headers: {

@@ -24,7 +24,7 @@ const CompetitionCreation = (props: any) => {
       method: 'POST',
       body: JSON.stringify({
         eventId: eventId,
-        name: comp?.name,
+        name: comp?.name.trim(),
       }),
 
       headers: {

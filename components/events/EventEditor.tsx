@@ -14,17 +14,17 @@ interface IEventEditorProps {
 }
 
 const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
-  const [name, setEventName] = useState(event?.name);
+  const [name, setEventName] = useState(event?.name || '');
   const [dateFrom, setDateFrom] = useState<Moment>(event?.dateFrom ? event?.dateFrom : moment().add(7, 'day'));
   const [dateTo, setDateTo] = useState<Moment>(event?.dateTo ? event?.dateTo : moment().add(7, 'day'));
   const [participationFee, setParticipationFee] = useState(event?.participationFee);
   const [registrationDeadline, setRegistrationDeadline] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment().add(7, 'day'));
-  const [description, setDescription] = useState(event?.description);
-  const [venueHouseNo, setVenueHouseNo] = useState(event?.venueCity);
-  const [venueStreet, setVenueStreet] = useState(event?.venueCity);
-  const [venueCity, setVenueCity] = useState(event?.venueCity);
-  const [venuePostCode, setVenuePostCode] = useState(event?.venueCity);
-  const [venueCountry, setVenueCountry] = useState(event?.venueCity);
+  const [description, setDescription] = useState(event?.description || '');
+  const [venueHouseNo, setVenueHouseNo] = useState(event?.venueCity || '');
+  const [venueStreet, setVenueStreet] = useState(event?.venueCity || '');
+  const [venueCity, setVenueCity] = useState(event?.venueCity || '');
+  const [venuePostCode, setVenuePostCode] = useState(event?.venueCity || '');
+  const [venueCountry, setVenueCountry] = useState(event?.venueCity || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
 

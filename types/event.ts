@@ -5,17 +5,17 @@ import { EventCompetition } from './event-competition';
 
 export type Event = {
   id: string | undefined;
-  name: string | undefined;
+  name: string;
   dateFrom: Moment;
   dateTo: Moment;
   participationFee: number | undefined;
   registrationDeadline: Moment;
-  description: string | undefined;
-  venueHouseNo: string | undefined;
-  venueStreet: string | undefined;
-  venueCity: string | undefined;
-  venuePostCode: string | undefined;
-  venueCountry: string | undefined;
+  description: string;
+  venueHouseNo: string;
+  venueStreet: string;
+  venueCity: string;
+  venuePostCode: string;
+  venueCountry: string;
   type: EventType;
   autoApproveRegistrations: boolean;
   eventRegistrations: EventRegistration[];

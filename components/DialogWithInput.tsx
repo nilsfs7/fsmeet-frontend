@@ -53,7 +53,7 @@ const DialogWithInput = ({ title, description, queryParam, onClose, onOk, closeA
               <textarea
                 className={`h-full w-full resize-none rounded-lg p-1`}
                 onChange={e => {
-                  setInput(e.currentTarget.value);
+                  setInput(e.currentTarget.value.trim());
                 }}
               />
             </div>
