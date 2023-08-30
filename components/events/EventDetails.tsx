@@ -54,7 +54,7 @@ const EventDetails = ({ event }: IEventProps) => {
       <div className={'p-2'}>
         <div className={'grid grid-cols-3 justify-end object-right'}>
           <div className="col-span-1">Participation fee</div>
-          <div className="col-span-2">{event.participationFee} €</div>
+          <div className="col-span-2">{event.participationFee.toString().replace('.', ',')} €</div>
 
           <div className="col-span-1">Registration end</div>
           {dateRegistartionDeadline && <div className="col-span-2">{shortDateString(dateRegistartionDeadline)}</div>}
