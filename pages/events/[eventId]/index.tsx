@@ -16,8 +16,8 @@ import moment from 'moment';
 import CompetitionList from '@/components/events/CompetitionList';
 import EventDetails from '@/components/events/EventDetails';
 import DialogWithInput from '@/components/DialogWithInput';
-import { EventQuestion } from '@/types/event-question';
-import QuestionSection from '@/components/events/QuestionSection';
+import CommentSection from '@/components/events/CommentSection';
+import { EventComment } from '@/types/event-comment';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -26,7 +26,7 @@ const Event = (props: any) => {
   const { eventId } = router.query;
 
   const [event, setEvent] = useState<IEvent>();
-  const [eventQuestions, setEventQuestions] = useState<EventQuestion[]>();
+  const [eventComments, setEventComments] = useState<EventComment[]>();
   const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
 
   const isLoggedIn = () => {
@@ -81,25 +81,25 @@ const Event = (props: any) => {
     }
   };
 
-  const handleAskQuestionClicked = async () => {
+  const handlePostCommentClicked = async () => {
     if (!isLoggedIn()) {
       router.push(routeLogin);
       return;
     }
 
-    router.replace(`${routeEvents}/${eventId}?ask=1`, undefined, { shallow: true });
+    router.replace(`${routeEvents}/${eventId}?comment=1`, undefined, { shallow: true });
   };
 
-  const handleCancelAskQuestionClicked = async () => {
+  const handleCancelPostCommentClicked = async () => {
     router.replace(`${routeEvents}/${eventId}`, undefined, { shallow: true });
   };
 
-  const handleConfirmAskQuestionClicked = async (question: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/question`, {
+  const handleConfirmPostCommentClicked = async (message: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/comments`, {
       method: 'POST',
       body: JSON.stringify({
         eventId: eventId,
-        question: question,
+        message: message,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -158,13 +158,13 @@ const Event = (props: any) => {
       setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
     }
 
-    async function fetchEventQuestions() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/questions`);
-      const eventQuestions: any = await response.json();
-      setEventQuestions(eventQuestions);
+    async function fetchEventComments() {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`);
+      const eventComments: EventComment[] = await response.json();
+      setEventComments(eventComments);
     }
 
-    fetchEventQuestions();
+    fetchEventComments();
     fetchEvent();
   }, [event == undefined]);
 
@@ -175,12 +175,12 @@ const Event = (props: any) => {
   return (
     <>
       <DialogWithInput
-        title="Ask a question"
-        description={`What's your question for ${event.name}?`}
-        queryParam="ask"
-        onClose={handleCancelAskQuestionClicked}
+        title="Create Post"
+        description={`Comment on ${event.name}?`}
+        queryParam="comment"
+        onClose={handleCancelPostCommentClicked}
         onOk={(input: string) => {
-          handleConfirmAskQuestionClicked(input);
+          handleConfirmPostCommentClicked(input);
         }}
       />
 
@@ -241,10 +241,10 @@ const Event = (props: any) => {
         </div>
       )}
 
-      {/* questions */}
-      {eventQuestions && eventQuestions.length > 0 && (
+      {/* comments */}
+      {eventComments && eventComments.length > 0 && (
         <div className="m-2">
-          <QuestionSection eventQuestions={eventQuestions} />
+          <CommentSection eventComments={eventComments} />
         </div>
       )}
 
@@ -258,7 +258,7 @@ const Event = (props: any) => {
         <div className="flex justify-end">
           {event.dateTo > moment().unix() && (
             <div className="ml-1">
-              <ActionButton action={Action.QUESTION} onClick={handleAskQuestionClicked} />
+              <ActionButton action={Action.COMMENT} onClick={handlePostCommentClicked} />
             </div>
           )}
 
