@@ -17,6 +17,7 @@ const EventEditing = (props: any) => {
   const { eventId } = router.query;
 
   const [event, setEvent] = useState<Event>();
+  const [error, setError] = useState('');
 
   if (!session) {
     router.push(routeLogin);
@@ -28,6 +29,8 @@ const EventEditing = (props: any) => {
   };
 
   const handleSaveEventClicked = async () => {
+    setError('');
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'PATCH',
       body: JSON.stringify({
@@ -52,8 +55,16 @@ const EventEditing = (props: any) => {
       },
     });
 
-    if (response.status == 200) {
-      router.replace(routeEventSubs);
+    switch (response.status) {
+      case 200:
+        router.replace(routeEventSubs);
+        break;
+
+      default:
+        const error = await response.json();
+        setError(error.message);
+        console.error(response.statusText);
+        break;
     }
   };
 
@@ -126,6 +137,12 @@ const EventEditing = (props: any) => {
             setEvent(event);
           }}
         />
+
+        {error != '' && (
+          <div className="flex justify-center py-2">
+            <label className="text-dark-red">{error}</label>
+          </div>
+        )}
 
         <div className="my-2 flex">
           <div className="px-1">
