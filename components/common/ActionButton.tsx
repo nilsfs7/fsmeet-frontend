@@ -12,6 +12,7 @@ import PeopleIcon from '@mui/icons-material/PeopleAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import ShareIcon from '@mui/icons-material/Share';
 import CommentIcon from '@mui/icons-material/QuestionAnswerOutlined';
+import SendIcon from '@mui/icons-material/Send';
 
 interface IButton {
   action: Action;
@@ -59,6 +60,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
       break;
     case Action.SAVE:
       icon = <SaveIcon className={`${textColor}`} />;
+      break;
+    case Action.SEND:
+      icon = <SendIcon className={`${textColor}`} />;
       break;
     case Action.SHARE:
       icon = <ShareIcon className={`${textColor}`} />;

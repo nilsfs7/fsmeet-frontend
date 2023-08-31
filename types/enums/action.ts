@@ -11,5 +11,6 @@ export enum Action {
   MANAGE_COMPETITIONS,
   MANAGE_USERS,
   SAVE,
+  SEND,
   SHARE,
 }

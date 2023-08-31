@@ -16,7 +16,7 @@ import moment from 'moment';
 import CompetitionList from '@/components/events/CompetitionList';
 import EventDetails from '@/components/events/EventDetails';
 import DialogWithInput from '@/components/DialogWithInput';
-import CommentSection from '@/components/events/CommentSection';
+import CommentSection from '@/components/events/comment/CommentSection';
 import { EventComment } from '@/types/event-comment';
 
 const Event = (props: any) => {
@@ -109,6 +109,25 @@ const Event = (props: any) => {
 
     if (response.status == 201) {
       router.replace(`${routeEvents}/${eventId}`, undefined, { shallow: true });
+      router.reload();
+    }
+  };
+
+  const handlePostSubCommentClicked = async (commentId: string, message: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/comments/subs`, {
+      method: 'POST',
+      body: JSON.stringify({
+        rootCommentId: commentId,
+        message: message,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.user.accessToken}`,
+      },
+    });
+
+    if (response.status == 201) {
+      router.reload();
     }
   };
 
@@ -241,13 +260,7 @@ const Event = (props: any) => {
         </div>
       )}
 
-      {/* comments */}
-      {eventComments && eventComments.length > 0 && (
-        <div className="m-2">
-          <CommentSection eventComments={eventComments} />
-        </div>
-      )}
-
+      {/* actions */}
       <div className="m-2 flex justify-between">
         <div className="flex justify-start">
           <div className="mr-1">
@@ -273,6 +286,18 @@ const Event = (props: any) => {
           )}
         </div>
       </div>
+
+      {/* comments */}
+      {eventComments && eventComments.length > 0 && (
+        <div className="m-2">
+          <CommentSection
+            eventComments={eventComments}
+            onSendReply={(commentId: string, message: string) => {
+              handlePostSubCommentClicked(commentId, message);
+            }}
+          />
+        </div>
+      )}
     </>
   );
 };
