@@ -16,7 +16,7 @@ const ReplyContext = ({ onMessageChange, onSendReplyClick }: IReplyConextProps) 
       {/* keep same space as image of root comment */}
       <div className="mx-1 mt-1 h-8 w-8" />
 
-      <input className="w-full rounded-lg bg-zinc-100 p-1 text-sm" onChange={handleChange} />
+      <input id="replyInput" className="w-full rounded-lg bg-zinc-100 p-1 text-sm " onChange={handleChange} />
       <div className="mx-2 ">
         <ActionButton action={Action.SEND} onClick={onSendReplyClick} />
       </div>

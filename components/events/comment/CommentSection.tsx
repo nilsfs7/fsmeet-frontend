@@ -1,7 +1,7 @@
 import { EventComment } from '@/types/event-comment';
 import UserComment from './EventComment';
 import { EventSubComment } from '@/types/event-sub-comment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReplyContext from './ReplyInput';
 
 interface ICommentSectionProps {
@@ -26,6 +26,17 @@ const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) =>
     }
   };
 
+  const focusInput = async () => {
+    const replyInput = document.getElementById('replyInput');
+    if (replyInput) {
+      replyInput.focus();
+    }
+  };
+
+  useEffect(() => {
+    focusInput();
+  }, [replyTo]);
+
   return (
     <div className={'rounded-lg border border-black bg-zinc-300 p-2'}>
       <div className="text-base font-bold">Comments</div>
@@ -37,8 +48,30 @@ const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) =>
                 comment={comment}
                 onClickReply={(commentId: string) => {
                   setReplyTo(commentId);
+                  focusInput();
                 }}
               />
+
+              {comment.subComments &&
+                comment.subComments.length > 0 &&
+                comment.subComments.map((subComment: EventSubComment, j) => {
+                  return (
+                    <div key={j} className={`mt-1 flex`}>
+                      {/* keep same space as image of root comment */}
+                      <div className="mx-1 mt-1 h-8 w-8" />
+
+                      <div className={`grid w-3/4`}>
+                        <UserComment
+                          comment={{ id: subComment.id, message: subComment.message, user: subComment.user, timestamp: subComment.timestamp, subComments: [] }}
+                          onClickReply={(commentId: string) => {
+                            setReplyTo(subComment.rootCommentId);
+                            focusInput();
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
 
               {/* reply context */}
               {replyTo === comment.id && (
@@ -56,36 +89,6 @@ const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) =>
                   </div>
                 </div>
               )}
-
-              {comment.subComments &&
-                comment.subComments.length > 0 &&
-                comment.subComments.map((subComment: EventSubComment, j) => {
-                  return (
-                    <div key={j} className={`mt-1 flex`}>
-                      {/* keep same space as image of root comment */}
-                      <div className="mx-1 mt-1 h-8 w-8" />
-
-                      <div className={`grid w-3/4`}>
-                        <UserComment
-                          comment={{ id: subComment.id, message: subComment.message, user: subComment.user, timestamp: subComment.timestamp, subComments: [] }}
-                          onClickReply={(commentId: string) => {
-                            setReplyTo(subComment.rootCommentId);
-                          }}
-                        />
-
-                        {/* reply context */}
-                        {replyTo === subComment.id && (
-                          <ReplyContext
-                            onMessageChange={(message: string) => {
-                              handleReplyMessageChanged(message);
-                            }}
-                            onSendReplyClick={handleSendReplyClicked}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
             </div>
           );
         })}
