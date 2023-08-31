@@ -42,13 +42,18 @@ const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) =>
 
               {/* reply context */}
               {replyTo === comment.id && (
-                <div className={`grid w-3/4`}>
-                  <ReplyContext
-                    onMessageChange={(message: string) => {
-                      handleReplyMessageChanged(message);
-                    }}
-                    onSendReplyClick={handleSendReplyClicked}
-                  />
+                <div className={`mt-1 flex`}>
+                  {/* keep same space as image of root comment */}
+                  <div className="mx-1 mt-1 h-8 w-8" />
+
+                  <div className={`grid w-3/4`}>
+                    <ReplyContext
+                      onMessageChange={(message: string) => {
+                        handleReplyMessageChanged(message);
+                      }}
+                      onSendReplyClick={handleSendReplyClicked}
+                    />
+                  </div>
                 </div>
               )}
 
