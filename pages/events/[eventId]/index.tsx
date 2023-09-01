@@ -284,7 +284,7 @@ const Event = (props: any) => {
               <ActionButton action={Action.COPY} onClick={handleShareClicked} />
             </div>
 
-            {event.registrationDeadline > moment().unix() && (
+            {event.registrationOpen < moment().unix() && event.registrationDeadline > moment().unix() && (
               <div className="ml-1">
                 <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />
               </div>
