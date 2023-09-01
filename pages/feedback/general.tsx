@@ -5,6 +5,7 @@ import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
 import { getSession } from 'next-auth/react';
 import { routeFeedbackThankyou } from '@/types/consts/routes';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const GeneralFeedback: NextPage = (props: any) => {
   const session = props.session;
@@ -55,11 +56,7 @@ const GeneralFeedback: NextPage = (props: any) => {
         <TextButton text="Submit" onClick={handleSubmitClicked} />
       </div>
 
-      {error != '' && (
-        <div className="flex justify-center py-2">
-          <label className="text-dark-red">{error}</label>
-        </div>
-      )}
+      <ErrorMessage message={error} />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { EventCompetition } from '@/types/event-competition';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const CompetitionCreation = (props: any) => {
   const session = props.session;
@@ -63,11 +64,7 @@ const CompetitionCreation = (props: any) => {
         </div>
       </div>
 
-      {error != '' && (
-        <div className="flex justify-center py-2">
-          <label className="text-dark-red">{error}</label>
-        </div>
-      )}
+      <ErrorMessage message={error} />
     </div>
   );
 };

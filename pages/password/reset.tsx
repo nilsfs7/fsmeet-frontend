@@ -5,6 +5,7 @@ import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import { useRouter } from 'next/router';
 import { routeLogin } from '@/types/consts/routes';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const ResetPassword: NextPage = () => {
   const router = useRouter();
@@ -66,11 +67,7 @@ const ResetPassword: NextPage = () => {
           <TextButton text="Save" onClick={handleSaveClicked} />
         </div>
 
-        {error != '' && (
-          <div className="flex justify-center py-2">
-            <label className="text-dark-red">{error}</label>
-          </div>
-        )}
+        <ErrorMessage message={error} />
       </div>
     </>
   );

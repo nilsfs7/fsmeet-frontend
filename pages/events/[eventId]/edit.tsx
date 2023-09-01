@@ -9,6 +9,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -138,11 +139,7 @@ const EventEditing = (props: any) => {
           }}
         />
 
-        {error != '' && (
-          <div className="flex justify-center py-2">
-            <label className="text-dark-red">{error}</label>
-          </div>
-        )}
+        <ErrorMessage message={error} />
 
         <div className="my-2 flex">
           <div className="px-1">

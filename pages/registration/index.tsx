@@ -4,6 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import router from 'next/router';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const Register: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -90,11 +91,7 @@ const Register: NextPage = () => {
           <TextButton text="Sign Up" onClick={handleCreateClicked} />
         </div>
 
-        {error != '' && (
-          <div className="flex justify-center py-2">
-            <label className="text-dark-red">{error}</label>
-          </div>
-        )}
+        <ErrorMessage message={error} />
       </div>
     </>
   );

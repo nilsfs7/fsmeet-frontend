@@ -4,6 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import router from 'next/router';
 import { routePasswordPending } from '@/types/consts/routes';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const ForgotPassword: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -60,11 +61,7 @@ const ForgotPassword: NextPage = () => {
           <TextButton text="Reset Password" onClick={handleResetClicked} />
         </div>
 
-        {error != '' && (
-          <div className="flex justify-center py-2">
-            <label className="text-dark-red">{error}</label>
-          </div>
-        )}
+        <ErrorMessage message={error} />
       </div>
     </>
   );
