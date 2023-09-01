@@ -6,6 +6,7 @@ on:
       - main
       - dev
       - aws
+      - feat/color-scheme
   pull_request:
     branches:
       - main
@@ -23,10 +24,10 @@ jobs:
       - name: Set environment by branch
         id: build-args
         run: |
-          if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
+          if [[ $GITHUB_REF == 'refs/heads/feat/color-scheme' ]]; then
               echo "set values for production image"
               
-              echo "TAGS=luisnaldo7/fsmeet-frontend:latest,luisnaldo7/fsmeet-frontend:prod" >> "$GITHUB_ENV"
+              echo "TAGS=luisnaldo7/fsmeet-frontend:latest,luisnaldo7/fsmeet-frontend:color-scheme" >> "$GITHUB_ENV"
               echo "AUTH_URL=http://dffb.org:9201" >> "$GITHUB_ENV"
               echo "BACKEND_URL=http://dffb.org:9200" >> "$GITHUB_ENV"
           fi

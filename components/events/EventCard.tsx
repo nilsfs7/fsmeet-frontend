@@ -19,14 +19,14 @@ const EventCard = ({ event }: IEventProps) => {
   }, []);
 
   return (
-    <div className={'rounded-lg border border-black bg-primary-light p-2 text-sm hover:bg-primary'}>
+    <div className={'text-body  rounded-lg border border-primary-light bg-[#abb3c0] p-2 text-sm  hover:border-primary'}>
       {/* top */}
       <div className={'max-h-24 p-2'}>
         <div className="28 flex ">
-          <div className="w-full text-base font-bold">{event.name}</div>
+          <div className="w-full text-base  font-bold">{event.name}</div>
         </div>
         <div className="flex justify-between">
-          <div className="w-1/3 ">{event.venueCity}</div>
+          <div className="w-1/3">{event.venueCity}</div>
           {dateFrom && dateTo && (
             <div className="w-2/3 text-right">
               {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, false)} - ${shortDateString(dateTo)}`}
@@ -40,10 +40,8 @@ const EventCard = ({ event }: IEventProps) => {
       </div>
 
       {/* line */}
-      <div className="flex h-1">
-        <div className="w-1/3 bg-gray-400"></div>
-        <div className="w-1/3 bg-gray-500"></div>
-        <div className="w-1/3 bg-gray-400"></div>
+      <div className="flex h-0.5 justify-center">
+        <div className="w-11/12  bg-background"/>
       </div>
 
       {/* botton */}
