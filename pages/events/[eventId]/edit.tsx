@@ -40,6 +40,7 @@ const EventEditing = (props: any) => {
         description: event?.description.trim(),
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),
+        registrationOpen: event?.registrationOpen.unix(),
         registrationDeadline: event?.registrationDeadline.unix(),
         venueHouseNo: event?.venueHouseNo.trim(),
         venueStreet: event?.venueStreet.trim(),
@@ -105,6 +106,8 @@ const EventEditing = (props: any) => {
           // @ts-ignore
           dateTo: moment.unix(res.dateTo),
           participationFee: res.participationFee,
+          // @ts-ignore
+          registrationOpen: moment.unix(res.registrationOpen),
           // @ts-ignore
           registrationDeadline: moment.unix(res.registrationDeadline),
           description: res.description,

@@ -204,7 +204,7 @@ const Event = (props: any) => {
         }}
       />
 
-      <div className="overflow-hidden  overflow-y-auto">
+      <div className="overflow-hidden overflow-y-auto">
         {/* admin panel */}
         <div className="m-2 ">
           {event.owner === session?.user?.username && (

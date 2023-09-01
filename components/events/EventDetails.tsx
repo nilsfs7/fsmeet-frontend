@@ -13,12 +13,14 @@ interface IEventProps {
 const EventDetails = ({ event }: IEventProps) => {
   const [dateFrom, setDateFrom] = useState<number>();
   const [dateTo, setDateTo] = useState<number>();
-  const [dateRegistartionDeadline, setDateRegistartionDeadline] = useState<number>();
+  const [dateRegistrationOpen, setDateRegistrationOpen] = useState<number>();
+  const [dateRegistrationDeadline, setDateRegistrationDeadline] = useState<number>();
 
   useEffect(() => {
     setDateFrom(event.dateFrom);
     setDateTo(event.dateTo);
-    setDateRegistartionDeadline(event.registrationDeadline);
+    setDateRegistrationOpen(event.registrationOpen);
+    setDateRegistrationDeadline(event.registrationDeadline);
   }, []);
 
   const line = (
@@ -56,10 +58,14 @@ const EventDetails = ({ event }: IEventProps) => {
           <div className="col-span-1">Participation fee</div>
           <div className="col-span-2">{event.participationFee.toString().replace('.', ',')} €</div>
 
+          <div className="col-span-1">Registration open</div>
+          {dateRegistrationOpen && <div className="col-span-2">{shortDateString(dateRegistrationOpen)}</div>}
+
           <div className="col-span-1">Registration end</div>
-          {dateRegistartionDeadline && <div className="col-span-2">{shortDateString(dateRegistartionDeadline)}</div>}
+          {dateRegistrationDeadline && <div className="col-span-2">{shortDateString(dateRegistrationDeadline)}</div>}
+
           <div className="col-span-1">Event host</div>
-          <div className="col-span-2">
+          <div className="col-span-2 hover:underline">
             <Link href={`/user/${event.owner}`}>{event.owner}</Link>
           </div>
         </div>

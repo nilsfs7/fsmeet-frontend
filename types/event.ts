@@ -8,7 +8,8 @@ export type Event = {
   name: string;
   dateFrom: Moment;
   dateTo: Moment;
-  participationFee: number | undefined;
+  participationFee: number | undefined; // TODO remove unfdefined
+  registrationOpen: Moment;
   registrationDeadline: Moment;
   description: string;
   venueHouseNo: string;

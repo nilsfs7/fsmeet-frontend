@@ -18,6 +18,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [dateFrom, setDateFrom] = useState<Moment>(event?.dateFrom ? event?.dateFrom : moment().add(7, 'day'));
   const [dateTo, setDateTo] = useState<Moment>(event?.dateTo ? event?.dateTo : moment().add(7, 'day'));
   const [participationFee, setParticipationFee] = useState(event?.participationFee);
+  const [registrationOpen, setRegistrationOpen] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment());
   const [registrationDeadline, setRegistrationDeadline] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment().add(7, 'day'));
   const [description, setDescription] = useState(event?.description || '');
   const [venueHouseNo, setVenueHouseNo] = useState(event?.venueCity || '');
@@ -36,6 +37,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       description: description,
       dateFrom: dateFrom,
       dateTo: dateTo,
+      registrationOpen: registrationOpen,
       registrationDeadline: registrationDeadline,
       venueHouseNo: venueHouseNo,
       venueStreet: venueStreet,
@@ -56,6 +58,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setDateFrom(event.dateFrom);
       setDateTo(event.dateTo);
       setParticipationFee(event.participationFee);
+      setRegistrationOpen(event.registrationOpen);
       setRegistrationDeadline(event.registrationDeadline);
       setDescription(event.description);
       setVenueHouseNo(event.venueHouseNo);
@@ -71,7 +74,22 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   // fires event back
   useEffect(() => {
     updateEvent();
-  }, [name, dateFrom, dateTo, participationFee, registrationDeadline, description, venueHouseNo, venueStreet, venueCity, venuePostCode, venueCountry, eventType, autoApproveRegistrations]);
+  }, [
+    name,
+    dateFrom,
+    dateTo,
+    participationFee,
+    registrationOpen,
+    registrationDeadline,
+    description,
+    venueHouseNo,
+    venueStreet,
+    venueCity,
+    venuePostCode,
+    venueCountry,
+    eventType,
+    autoApproveRegistrations,
+  ]);
 
   // if (!name || !description || !venueHouseNo || !venueStreet || !venuePostCode || !venueCity || !venueCountry) {
   //   return <>loading...</>;
@@ -130,6 +148,18 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           onChange={value => {
             if (value) {
               setDateTo(value);
+            }
+          }}
+        />
+      </div>
+
+      <div className="m-2 grid grid-cols-2">
+        <div>Registration Open</div>
+        <DatePicker
+          value={registrationOpen}
+          onChange={value => {
+            if (value) {
+              setRegistrationOpen(value);
             }
           }}
         />

@@ -8,6 +8,7 @@ export interface IEvent {
   dateFrom: number;
   dateTo: number;
   participationFee: number;
+  registrationOpen: number;
   registrationDeadline: number;
   description: string;
   venueHouseNo: string;

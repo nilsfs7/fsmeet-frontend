@@ -10,12 +10,12 @@ interface IEventProps {
 const EventCard = ({ event }: IEventProps) => {
   const [dateFrom, setDateFrom] = useState<number>();
   const [dateTo, setDateTo] = useState<number>();
-  const [dateRegistartionDeadline, setDateRegistartionDeadline] = useState<number>();
+  const [dateRegistrationDeadline, setDateRegistrationDeadline] = useState<number>();
 
   useEffect(() => {
     setDateFrom(event.dateFrom);
     setDateTo(event.dateTo);
-    setDateRegistartionDeadline(event.registrationDeadline);
+    setDateRegistrationDeadline(event.registrationDeadline);
   }, []);
 
   return (
@@ -35,7 +35,7 @@ const EventCard = ({ event }: IEventProps) => {
         </div>
         <div className="flex justify-between">
           <div className="text-xs">by {event.owner}</div>
-          <div>{dateRegistartionDeadline && <div className="text-right">Deadline: {shortDateString(dateRegistartionDeadline)}</div>}</div>
+          <div>{dateRegistrationDeadline && <div className="text-right">Deadline: {shortDateString(dateRegistrationDeadline)}</div>}</div>
         </div>
       </div>
 

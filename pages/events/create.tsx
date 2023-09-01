@@ -24,6 +24,7 @@ const EventCreation = (props: any) => {
         description: event?.description.trim(),
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),
+        registrationOpen: event?.registrationOpen.unix(),
         registrationDeadline: event?.registrationDeadline.unix(),
         venueHouseNo: event?.venueHouseNo.trim(),
         venueStreet: event?.venueStreet.trim(),
