@@ -18,6 +18,7 @@ import EventDetails from '@/components/events/EventDetails';
 import DialogWithInput from '@/components/DialogWithInput';
 import CommentSection from '@/components/events/comment/CommentSection';
 import { EventComment } from '@/types/event-comment';
+import { EventType } from '@/types/enums/event-type';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -210,11 +211,14 @@ const Event = (props: any) => {
             <div className="flex justify-between rounded-lg border border-black bg-amber-200 p-2">
               <div className="mr-8 flex items-center">Admin Panel</div>
               <div className="flex">
-                <div className="ml-1">
-                  <Link href={`/events/${eventId}/comps`}>
-                    <ActionButton action={Action.MANAGE_COMPETITIONS} />
-                  </Link>
-                </div>
+                {event.type === EventType.COMPETITION && (
+                  <div className="ml-1">
+                    <Link href={`/events/${eventId}/comps`}>
+                      <ActionButton action={Action.MANAGE_COMPETITIONS} />
+                    </Link>
+                  </div>
+                )}
+
                 <div className="ml-1">
                   <Link href={`/events/${eventId}/participants`}>
                     <ActionButton action={Action.MANAGE_USERS} />
