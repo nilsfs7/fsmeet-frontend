@@ -41,7 +41,7 @@ const ReportBug: NextPage = (props: any) => {
   return (
     <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
       <h1 className="mb-2 text-center text-xl">Report Bug</h1>
-      <div className="m-2 h-1/2 w-[95%] rounded-lg bg-zinc-300">
+      <div className="m-2 h-1/2 w-[95%] rounded-lg bg-primary-light">
         <TextInputLarge
           id={'message'}
           label={'Message'}

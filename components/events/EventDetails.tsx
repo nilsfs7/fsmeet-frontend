@@ -32,7 +32,7 @@ const EventDetails = ({ event }: IEventProps) => {
   );
 
   return (
-    <div className={'h-fit rounded-lg border border-black bg-zinc-300 p-2 text-sm'}>
+    <div className={'h-fit rounded-lg border border-black bg-primary-light p-2 text-sm'}>
       {/* top */}
       <div className={'p-2'}>
         <div className={'grid grid-cols-3 justify-end object-right'}>
@@ -75,7 +75,7 @@ const EventDetails = ({ event }: IEventProps) => {
 
       {/* description */}
       <div className="flex h-fit flex-col p-2">
-        <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-zinc-300 outline-none" value={event.description}></TextareaAutosize>
+        <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-primary-light outline-none" value={event.description}></TextareaAutosize>
       </div>
 
       {line}

@@ -41,7 +41,7 @@ const Dialog = ({ title, queryParam, onClose, onOk, children, closeAction = Acti
     <dialog ref={dialogRef}>
       <div className="white fixed inset-0 flex flex-col items-center justify-center bg-gray-900 bg-opacity-50">
         <div className="rounded-lg bg-white">
-          <div className="rounded-t-lg bg-zinc-300 p-2 text-center">
+          <div className="rounded-t-lg bg-primary-light p-2 text-center">
             <h1 className="text-2xl">{title}</h1>
           </div>
           <div className="rounded-b-lg bg-white p-2">

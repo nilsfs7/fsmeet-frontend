@@ -15,7 +15,7 @@ const Home = ({ data }: { data: any[] }) => {
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-zinc-300 sm:block">
+      <div className="bg-primary-light sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
           <Logo />
 
@@ -49,10 +49,10 @@ const Home = ({ data }: { data: any[] }) => {
       </div>
 
       {/* Footer */}
-      <div className="mt-auto bg-zinc-300 sm:block">
+      <div className="mt-auto bg-primary-light sm:block">
         <div className="mx-2 flex h-16 items-center justify-end">
           <Link href={routeAbout}>
-            <div className="cursor-pointer rounded-lg bg-zinc-300 p-1 hover:bg-zinc-400">
+            <div className="cursor-pointer rounded-lg bg-primary-light p-1 hover:bg-primary">
               <div className="grid grid-flow-col items-center">
                 <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
                 <div className="mx-1 truncate hover:text-clip">{'About'}</div>

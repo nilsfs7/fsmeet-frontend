@@ -126,7 +126,7 @@ const Account = ({ session }: any) => {
         <div className="my-4" />
 
         <div className={'flex flex-col items-center'}>
-          <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
+          <div className="m-2 flex flex-col rounded-lg bg-primary-light p-1">
             <TextInput
               id={'firstName'}
               label={'First Name'}

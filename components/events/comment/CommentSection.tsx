@@ -38,7 +38,7 @@ const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) =>
   }, [replyTo]);
 
   return (
-    <div className={'rounded-lg border border-black bg-zinc-300 p-2'}>
+    <div className={'rounded-lg border border-black bg-primary-light p-2'}>
       <div className="text-base font-bold">Comments</div>
       <div className="flex flex-col flex-wrap">
         {eventComments.map((comment: EventComment, i) => {

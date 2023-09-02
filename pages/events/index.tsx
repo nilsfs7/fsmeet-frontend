@@ -52,7 +52,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       {/* Banner */}
-      <div className="bg-zinc-300 sm:block">
+      <div className="bg-primary-light sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
           <Logo />
         </div>

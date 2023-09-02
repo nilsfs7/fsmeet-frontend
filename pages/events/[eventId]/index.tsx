@@ -196,7 +196,7 @@ const Event = (props: any) => {
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       <DialogWithInput
         title="Create Post"
-        description={`Comment on ${event.name}?`}
+        description={`Comment on ${event.name}`}
         queryParam="comment"
         onClose={handleCancelPostCommentClicked}
         onOk={(input: string) => {

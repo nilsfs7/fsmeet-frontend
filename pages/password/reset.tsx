@@ -50,7 +50,7 @@ const ResetPassword: NextPage = () => {
   return (
     <>
       <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
-        <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
+        <div className="m-2 flex flex-col rounded-lg bg-primary-light p-1">
           <TextInput
             id={'password'}
             type={'password'}

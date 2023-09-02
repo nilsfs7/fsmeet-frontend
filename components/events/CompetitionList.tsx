@@ -9,7 +9,7 @@ interface ICompetitionListListProps {
 
 const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) => {
   return (
-    <div className={'rounded-lg border border-black bg-zinc-300 p-2 text-sm'}>
+    <div className={'rounded-lg border border-black bg-primary-light p-2 text-sm'}>
       <div className="text-base font-bold">Competitions</div>
       <div className="flex flex-wrap">
         {competitions.map((competition, i) => {
