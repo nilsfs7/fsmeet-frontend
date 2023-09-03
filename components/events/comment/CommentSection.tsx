@@ -2,24 +2,40 @@ import { EventComment } from '@/types/event-comment';
 import UserComment from './EventComment';
 import { EventSubComment } from '@/types/event-sub-comment';
 import { useEffect, useState } from 'react';
-import ReplyContext from './ReplyInput';
+import PostInput from './PostInput';
 
 interface ICommentSectionProps {
   eventComments: EventComment[];
-  onSendReply: (commentId: string, message: string) => void;
+  username: string;
+  userProfileImageUrl?: string;
+  onPostComment: (message: string) => void;
+  onPostReply: (commentId: string, message: string) => void;
 }
 
-const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) => {
+const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostComment, onPostReply }: ICommentSectionProps) => {
+  const [newComment, setNewComment] = useState<string>();
   const [replyTo, setReplyTo] = useState<string>();
   const [replyMessage, setReplyMessage] = useState<string>();
 
-  const handleReplyMessageChanged = async (replyMessage: string) => {
-    setReplyMessage(replyMessage.trim());
+  const handleNewCommentMessageChanged = async (message: string) => {
+    setNewComment(message.trim());
   };
 
-  const handleSendReplyClicked = async () => {
+  const handleReplyMessageChanged = async (message: string) => {
+    setReplyMessage(message.trim());
+  };
+
+  const handlePostCommentClicked = async () => {
+    if (newComment) {
+      onPostComment(newComment);
+
+      setNewComment('');
+    }
+  };
+
+  const handlePostReplyClicked = async () => {
     if (replyTo && replyMessage) {
-      onSendReply(replyTo, replyMessage);
+      onPostReply(replyTo, replyMessage);
 
       setReplyTo('');
       setReplyMessage('');
@@ -27,7 +43,7 @@ const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) =>
   };
 
   const focusInput = async () => {
-    const replyInput = document.getElementById('replyInput');
+    const replyInput = document.getElementById('reply');
     if (replyInput) {
       replyInput.focus();
     }
@@ -40,10 +56,27 @@ const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) =>
   return (
     <div className={'rounded-lg border border-black bg-primary-light p-2'}>
       <div className="text-base font-bold">Comments</div>
-      <div className="flex flex-col flex-wrap">
+
+      {/* new comment */}
+      {username && (
+        <div className={`mt-2 flex w-3/4 flex-col`}>
+          <PostInput
+            elementId="newComment"
+            username={username}
+            userProfileImageUrl={userProfileImageUrl}
+            onMessageChange={(message: string) => {
+              handleNewCommentMessageChanged(message);
+            }}
+            onSendReplyClick={handlePostCommentClicked}
+          />
+        </div>
+      )}
+
+      {/* posted comments */}
+      <div className="mt-2 flex flex-col">
         {eventComments.map((comment: EventComment, i) => {
           return (
-            <div key={i} className={`mt-1 grid grid-cols-1`}>
+            <div key={i} className={`mt-2 grid grid-cols-1`}>
               <UserComment
                 comment={comment}
                 onClickReply={(commentId: string) => {
@@ -56,11 +89,11 @@ const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) =>
                 comment.subComments.length > 0 &&
                 comment.subComments.map((subComment: EventSubComment, j) => {
                   return (
-                    <div key={j} className={`mt-1 flex`}>
-                      {/* keep same space as image of root comment */}
-                      <div className="mx-1 mt-1 h-8 w-8" />
+                    <div key={j} className={` flex`}>
+                      {/* keep same width as image of root comment */}
+                      <div className="ml-1 mt-1 w-8" />
 
-                      <div className={`grid w-3/4`}>
+                      <div className={`mt-1 grid w-3/4`}>
                         <UserComment
                           comment={{ id: subComment.id, message: subComment.message, user: subComment.user, timestamp: subComment.timestamp, subComments: [] }}
                           onClickReply={(commentId: string) => {
@@ -77,14 +110,17 @@ const CommentSection = ({ eventComments, onSendReply }: ICommentSectionProps) =>
               {replyTo === comment.id && (
                 <div className={`mt-1 flex`}>
                   {/* keep same space as image of root comment */}
-                  <div className="mx-1 mt-1 h-8 w-8" />
+                  <div className="ml-1 mt-1 h-8 w-8" />
 
                   <div className={`grid w-3/4`}>
-                    <ReplyContext
+                    <PostInput
+                      elementId="reply"
+                      username={username}
+                      userProfileImageUrl={userProfileImageUrl}
                       onMessageChange={(message: string) => {
                         handleReplyMessageChanged(message);
                       }}
-                      onSendReplyClick={handleSendReplyClicked}
+                      onSendReplyClick={handlePostReplyClicked}
                     />
                   </div>
                 </div>

@@ -15,7 +15,6 @@ import { routeEvents, routeLogin } from '@/types/consts/routes';
 import moment from 'moment';
 import CompetitionList from '@/components/events/CompetitionList';
 import EventDetails from '@/components/events/EventDetails';
-import DialogWithInput from '@/components/DialogWithInput';
 import CommentSection from '@/components/events/comment/CommentSection';
 import { EventComment } from '@/types/event-comment';
 import { EventType } from '@/types/enums/event-type';
@@ -82,20 +81,12 @@ const Event = (props: any) => {
     }
   };
 
-  const handlePostCommentClicked = async () => {
+  const handlePostCommentClicked = async (message: string) => {
     if (!isLoggedIn()) {
       router.push(routeLogin);
       return;
     }
 
-    router.replace(`${routeEvents}/${eventId}?comment=1`, undefined, { shallow: true });
-  };
-
-  const handleCancelPostCommentClicked = async () => {
-    router.replace(`${routeEvents}/${eventId}`, undefined, { shallow: true });
-  };
-
-  const handleConfirmPostCommentClicked = async (message: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`, {
       method: 'POST',
       body: JSON.stringify({
@@ -115,6 +106,11 @@ const Event = (props: any) => {
   };
 
   const handlePostSubCommentClicked = async (commentId: string, message: string) => {
+    if (!isLoggedIn()) {
+      router.push(routeLogin);
+      return;
+    }
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments/subs`, {
       method: 'POST',
       body: JSON.stringify({
@@ -194,16 +190,6 @@ const Event = (props: any) => {
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <DialogWithInput
-        title="Create Post"
-        description={`Comment on ${event.name}`}
-        queryParam="comment"
-        onClose={handleCancelPostCommentClicked}
-        onOk={(input: string) => {
-          handleConfirmPostCommentClicked(input);
-        }}
-      />
-
       <div className="overflow-hidden overflow-y-auto">
         {/* admin panel */}
         <div className="m-2 ">
@@ -274,12 +260,6 @@ const Event = (props: any) => {
           </div>
 
           <div className="flex justify-end">
-            {event.dateTo > moment().unix() && (
-              <div className="ml-1">
-                <ActionButton action={Action.COMMENT} onClick={handlePostCommentClicked} />
-              </div>
-            )}
-
             <div className="ml-1">
               <ActionButton action={Action.COPY} onClick={handleShareClicked} />
             </div>
@@ -293,16 +273,19 @@ const Event = (props: any) => {
         </div>
 
         {/* comments */}
-        {eventComments && eventComments.length > 0 && (
-          <div className="m-2">
-            <CommentSection
-              eventComments={eventComments}
-              onSendReply={(commentId: string, message: string) => {
-                handlePostSubCommentClicked(commentId, message);
-              }}
-            />
-          </div>
-        )}
+        <div className="m-2">
+          <CommentSection
+            username={session?.user.username}
+            userProfileImageUrl={session?.user.imageUrl}
+            eventComments={eventComments || []}
+            onPostComment={(message: string) => {
+              handlePostCommentClicked(message);
+            }}
+            onPostReply={(commentId: string, message: string) => {
+              handlePostSubCommentClicked(commentId, message);
+            }}
+          />
+        </div>
       </div>
     </div>
   );

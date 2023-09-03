@@ -15,12 +15,16 @@ const UserComment = ({ comment, onClickReply }: ICommentProps) => {
 
   return (
     <>
-      <div className="mt-1 grid grid-flow-col justify-start">
-        <Link href={`/user/${comment.user.username}`}>
-          <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="mx-1 h-8 w-8 rounded-full bg-zinc-200 object-cover" />
-        </Link>
+      <div className="grid grid-flow-col justify-start">
+        <div className="ml-1">
+          <div className="h-8 w-8">
+            <Link href={`/user/${comment.user.username}`}>
+              <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="rounded-full bg-zinc-200 object-cover" />
+            </Link>
+          </div>
+        </div>
 
-        <div>
+        <div className="mx-1">
           <div className="rounded-lg bg-zinc-200 px-2 py-1">
             <Link href={`/user/${comment.user.username}`}>
               <div className="w-max text-base font-bold">{comment.user.username}</div>
