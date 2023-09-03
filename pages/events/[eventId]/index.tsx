@@ -190,51 +190,51 @@ const Event = (props: any) => {
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <div className="overflow-hidden overflow-y-auto">
-        {/* admin panel */}
-        <div className="m-2 ">
-          {event.owner === session?.user?.username && (
-            <div className="flex justify-between rounded-lg border border-black bg-amber-200 p-2">
-              <div className="mr-8 flex items-center">Admin Panel</div>
-              <div className="flex">
-                {event.type === EventType.COMPETITION && (
-                  <div className="ml-1">
-                    <Link href={`/events/${eventId}/comps`}>
-                      <ActionButton action={Action.MANAGE_COMPETITIONS} />
-                    </Link>
-                  </div>
-                )}
+      {/* admin panel */}
+      <div className="mx-2 mt-2">
+        {event.owner === session?.user?.username && (
+          <div className="flex justify-between rounded-lg border border-black bg-amber-200 p-2">
+            <div className="mr-8 flex items-center">Admin Panel</div>
+            <div className="flex">
+              {event.type === EventType.COMPETITION && (
+                <div className="ml-1">
+                  <Link href={`/events/${eventId}/comps`}>
+                    <ActionButton action={Action.MANAGE_COMPETITIONS} />
+                  </Link>
+                </div>
+              )}
 
-                <div className="ml-1">
-                  <Link href={`/events/${eventId}/participants`}>
-                    <ActionButton action={Action.MANAGE_USERS} />
-                  </Link>
-                </div>
-                <div className="ml-1">
-                  <Link href={`/events/${eventId}/edit`}>
-                    <ActionButton action={Action.EDIT} />
-                  </Link>
-                </div>
+              <div className="ml-1">
+                <Link href={`/events/${eventId}/participants`}>
+                  <ActionButton action={Action.MANAGE_USERS} />
+                </Link>
+              </div>
+              <div className="ml-1">
+                <Link href={`/events/${eventId}/edit`}>
+                  <ActionButton action={Action.EDIT} />
+                </Link>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+      </div>
 
+      <div className="mx-2 mt-2 flex max-h-full flex-col overflow-y-auto">
         {/* event overview */}
-        <div className="m-2">
+        <div className="">
           <EventDetails event={event} />
         </div>
 
         {/* competitions */}
         {event.eventCompetitions.length > 0 && (
-          <div className="m-2">
+          <div className="mt-2">
             <CompetitionList competitions={event.eventCompetitions} eventId={event.id} />
           </div>
         )}
 
         {/* participants */}
         {approvedAndPendingRegistrations.length > 0 && (
-          <div className="m-2">
+          <div className="mt-2">
             <ParticipantList
               participants={approvedAndPendingRegistrations.map(registration => {
                 const user: User = {
@@ -251,29 +251,8 @@ const Event = (props: any) => {
           </div>
         )}
 
-        {/* actions */}
-        <div className="m-2 flex justify-between">
-          <div className="flex justify-start">
-            <div className="mr-1">
-              <ActionButton action={Action.BACK} onClick={() => router.push(routeEvents)} />
-            </div>
-          </div>
-
-          <div className="flex justify-end">
-            <div className="ml-1">
-              <ActionButton action={Action.COPY} onClick={handleShareClicked} />
-            </div>
-
-            {event.registrationOpen < moment().unix() && event.registrationDeadline > moment().unix() && (
-              <div className="ml-1">
-                <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />
-              </div>
-            )}
-          </div>
-        </div>
-
         {/* comments */}
-        <div className="m-2">
+        <div className="mt-2">
           <CommentSection
             username={session?.user.username}
             userProfileImageUrl={session?.user.imageUrl}
@@ -285,6 +264,27 @@ const Event = (props: any) => {
               handlePostSubCommentClicked(commentId, message);
             }}
           />
+        </div>
+      </div>
+
+      {/* actions */}
+      <div className="m-2 flex justify-between">
+        <div className="flex justify-start">
+          <div className="mr-1">
+            <ActionButton action={Action.BACK} onClick={() => router.push(routeEvents)} />
+          </div>
+        </div>
+
+        <div className="flex justify-end">
+          <div className="ml-1">
+            <ActionButton action={Action.COPY} onClick={handleShareClicked} />
+          </div>
+
+          {event.registrationOpen < moment().unix() && event.registrationDeadline > moment().unix() && (
+            <div className="ml-1">
+              <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={handleRegistrationClicked} />
+            </div>
+          )}
         </div>
       </div>
     </div>
