@@ -96,7 +96,7 @@ const Event = (props: any) => {
   };
 
   const handleConfirmPostCommentClicked = async (message: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/comments`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`, {
       method: 'POST',
       body: JSON.stringify({
         eventId: eventId,
@@ -115,7 +115,7 @@ const Event = (props: any) => {
   };
 
   const handlePostSubCommentClicked = async (commentId: string, message: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/comments/subs`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments/subs`, {
       method: 'POST',
       body: JSON.stringify({
         rootCommentId: commentId,
