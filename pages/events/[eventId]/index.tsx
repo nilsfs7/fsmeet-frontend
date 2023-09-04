@@ -18,6 +18,7 @@ import EventDetails from '@/components/events/EventDetails';
 import CommentSection from '@/components/events/comment/CommentSection';
 import { EventComment } from '@/types/event-comment';
 import { EventType } from '@/types/enums/event-type';
+import Navigation from '@/components/Navigation';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -267,11 +268,12 @@ const Event = (props: any) => {
         </div>
       </div>
 
-      {/* actions */}
-      <div className="m-2 flex justify-between">
+      <Navigation>
         <div className="flex justify-start">
           <div className="mr-1">
-            <ActionButton action={Action.BACK} onClick={() => router.push(routeEvents)} />
+            <Link href={routeEvents}>
+              <ActionButton action={Action.BACK} />
+            </Link>
           </div>
         </div>
 
@@ -286,7 +288,7 @@ const Event = (props: any) => {
             </div>
           )}
         </div>
-      </div>
+      </Navigation>
     </div>
   );
 };

@@ -10,6 +10,7 @@ import Dropdown, { MenuItem } from '@/components/common/Dropdown';
 import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome } from '@/types/consts/routes';
 import { imgUserNoImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
+import Navigation from '@/components/Navigation';
 
 const countries: MenuItem[] = [
   { text: 'not specified', value: '--' },
@@ -109,12 +110,12 @@ const Account = ({ session }: any) => {
   }
 
   return (
-    <>
+    <div className="absolute inset-0 flex flex-col overflow-hidden">
       <Dialog title="Delete Account" queryParam="delete" onClose={handleCancelDeleteAccountClicked} onOk={handleConfirmDeleteAccountClicked}>
         <p>Do you really want to leave us?</p>
       </Dialog>
 
-      <div className="absolute inset-0 flex flex-col overflow-y-auto">
+      <div className="flex flex-col overflow-y-auto">
         <h1 className="mt-2 text-center text-xl">Account Settings</h1>
 
         <div className="mt-2 flex justify-center py-2">
@@ -177,17 +178,17 @@ const Account = ({ session }: any) => {
           <TextButton text="Delete account" onClick={handleDeleteAccountClicked} />
         </div>
 
-        <div className="flex justify-center pt-10">
-          <Link href="/">
-            <TextButton text="Back to home" />
-          </Link>
-        </div>
-
         <div className="flex justify-center py-2">
           <TextButton text="Logout" onClick={handleLogoutClicked} />
         </div>
       </div>
-    </>
+
+      <Navigation>
+        <Link href={routeHome}>
+          <TextButton text="Back" />
+        </Link>
+      </Navigation>
+    </div>
   );
 };
 export default Account;

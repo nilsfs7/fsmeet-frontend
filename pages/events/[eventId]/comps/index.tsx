@@ -7,6 +7,7 @@ import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
 import { routeLogin } from '@/types/consts/routes';
 import { IEvent } from '@/interface/event';
+import Navigation from '@/components/Navigation';
 
 const EventCompetitions = (props: any) => {
   const session = props.session;
@@ -113,13 +114,9 @@ const EventCompetitions = (props: any) => {
         </div>
       </div>
 
-      <div className="m-2 flex justify-between">
-        <div className="flex justify-start">
-          <div className="mr-1">
-            <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}`)} />
-          </div>
-        </div>
-      </div>
+      <Navigation>
+        <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}`)} />
+      </Navigation>
     </>
   );
 };

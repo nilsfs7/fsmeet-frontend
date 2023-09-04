@@ -6,6 +6,7 @@ import router from 'next/router';
 import { getSession } from 'next-auth/react';
 import { routeFeedbackThankyou } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
+import Navigation from '@/components/Navigation';
 
 const ReportBug: NextPage = (props: any) => {
   const session = props.session;
@@ -39,24 +40,31 @@ const ReportBug: NextPage = (props: any) => {
   };
 
   return (
-    <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
-      <h1 className="mb-2 text-center text-xl">Report Bug</h1>
-      <div className="m-2 h-1/2 w-[95%] rounded-lg bg-primary-light">
-        <TextInputLarge
-          id={'message'}
-          label={'Message'}
-          placeholder="Describe any misbehavior you noticed."
-          onChange={e => {
-            handleInputChangeMessage(e);
-          }}
-        />
-      </div>
-
-      <div className="flex justify-center py-2">
-        <TextButton text="Submit" onClick={handleSubmitClicked} />
+    <div className={'absolute inset-0 flex flex-col'}>
+      <div className={'flex h-full flex-col items-center justify-center'}>
+        <h1 className="mb-2 text-center text-xl">Report Bug</h1>
+        <div className="m-2 h-1/2 w-[95%] rounded-lg bg-primary-light">
+          <TextInputLarge
+            id={'message'}
+            label={'Message'}
+            placeholder="Describe any misbehavior you noticed."
+            onChange={e => {
+              handleInputChangeMessage(e);
+            }}
+          />
+        </div>
       </div>
 
       <ErrorMessage message={error} />
+      <Navigation>
+        <TextButton
+          text="Back"
+          onClick={() => {
+            router.back();
+          }}
+        />
+        <TextButton text="Submit" onClick={handleSubmitClicked} />
+      </Navigation>
     </div>
   );
 };

@@ -5,6 +5,8 @@ import { GetServerSideProps } from 'next';
 import { IEvent } from '@/interface/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
+import Navigation from '@/components/Navigation';
+import { routeEventsCreate, routeHome } from '@/types/consts/routes';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const eventsOwning: IEvent[] = data.owning;
@@ -61,15 +63,14 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
         )}
       </div>
 
-      {/* Actions */}
-      <div className="m-2 flex flex-shrink-0 justify-between">
-        <Link href="/">
+      <Navigation>
+        <Link href={routeHome}>
           <TextButton text="Back" />
         </Link>
-        <Link href="/events/create">
+        <Link href={routeEventsCreate}>
           <TextButton text="Create Event" />
         </Link>
-      </div>
+      </Navigation>
     </div>
   );
 };

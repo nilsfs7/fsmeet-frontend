@@ -1,4 +1,5 @@
 import Logo from '@/components/Logo';
+import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/Profile';
@@ -41,26 +42,25 @@ const Home = ({ data }: { data: any[] }) => {
         </div>
       </div>
 
-      {/* Actions */}
+      {/* Show all */}
       <div className="m-2 flex flex-shrink-0 justify-center">
         <Link href={routeEvents}>
           <TextButton text="Show All" />
         </Link>
       </div>
 
-      {/* Footer */}
-      <div className="mt-auto bg-primary-light sm:block">
-        <div className="mx-2 flex h-16 items-center justify-end">
+      <Navigation reverse={true}>
+        <div className="mx-2">
           <Link href={routeAbout}>
-            <div className="cursor-pointer rounded-lg bg-primary-light p-1 hover:bg-primary">
+            <div className="rounded-lg p-1 hover:bg-primary">
               <div className="grid grid-flow-col items-center">
                 <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
-                <div className="mx-1 truncate hover:text-clip">{'About'}</div>
+                <div className="mx-1">About</div>
               </div>
             </div>
           </Link>
         </div>
-      </div>
+      </Navigation>
     </div>
   );
 };

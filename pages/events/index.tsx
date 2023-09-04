@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
 import TextButton from '@/components/common/TextButton';
 import { routeHome } from '@/types/consts/routes';
+import Navigation from '@/components/Navigation';
 
 const defaultDateFrom = moment(moment().year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
@@ -83,12 +84,11 @@ const MyEventsOverview = ({ session }: { session: any }) => {
         </div>
       </div>
 
-      {/* Actions */}
-      <div className="m-2 flex flex-shrink-0 justify-between">
+      <Navigation>
         <Link href={routeHome}>
           <TextButton text="Back" />
         </Link>
-      </div>
+      </Navigation>
     </div>
   );
 };
