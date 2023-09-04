@@ -19,7 +19,7 @@ const UserComment = ({ comment, onClickReply }: ICommentProps) => {
         <div className="ml-1">
           <div className="h-8 w-8">
             <Link href={`/user/${comment.user.username}`}>
-              <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="rounded-full bg-zinc-200 object-cover" />
+              <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
             </Link>
           </div>
         </div>

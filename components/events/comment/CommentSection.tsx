@@ -89,7 +89,7 @@ const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostCo
                 comment.subComments.length > 0 &&
                 comment.subComments.map((subComment: EventSubComment, j) => {
                   return (
-                    <div key={j} className={` flex`}>
+                    <div key={j} className={`flex`}>
                       {/* keep same width as image of root comment */}
                       <div className="ml-1 mt-1 w-8" />
 
