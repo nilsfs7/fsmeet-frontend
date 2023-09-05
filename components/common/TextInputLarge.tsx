@@ -14,7 +14,7 @@ const TextInputLarge = ({ id, label, labelOnTop = true, placeholder, defValue, v
   return (
     <>
       {labelOnTop && (
-        <div className="m-2 flex h-[100%] flex-col">
+        <div className="flex h-[100%] flex-col p-2">
           <div>{label}</div>
 
           <div className="flex h-full">
@@ -32,8 +32,9 @@ const TextInputLarge = ({ id, label, labelOnTop = true, placeholder, defValue, v
       )}
 
       {!labelOnTop && (
-        <div className="m-2 grid h-[100%] grid-cols-2">
+        <div className="grid h-[100%] grid-cols-2 p-2">
           <div>{label}</div>
+
           <textarea
             id={id}
             className={`h-full w-full resize-none rounded-lg p-1 ${resizable ? 'resize-y' : 'resize-none'}`}
