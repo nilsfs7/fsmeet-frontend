@@ -6,26 +6,26 @@ import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
-import Dropdown, { MenuItem } from '@/components/common/Dropdown';
+import Dropdown from '@/components/common/Dropdown';
 import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome } from '@/types/consts/routes';
 import { imgUserNoImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
-
-const countries: MenuItem[] = [
-  { text: 'not specified', value: '--' },
-  { text: 'Austria', value: 'AT' },
-  { text: 'Switzerland', value: 'CH' },
-  { text: 'Germany', value: 'DE' },
-];
+import { countries } from '@/types/consts/countries';
+import { tShirtSizes } from '@/types/consts/t-shirt-sizes';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
+
+  // public user info
   const [imageUrl, setImageUrl] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [country, setCountry] = useState();
   const [instagramHandle, setInstagramHandle] = useState();
+
+  // private user info
+  const [tShirtSize, setTShirtSize] = useState();
 
   const handleSaveUserInfoClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
@@ -35,6 +35,9 @@ const Account = ({ session }: any) => {
         lastName: lastName,
         country: country,
         instagramHandle: instagramHandle,
+        private: {
+          tShirtSize: tShirtSize,
+        },
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +87,12 @@ const Account = ({ session }: any) => {
 
   useEffect(() => {
     async function fetchUser() {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}/private`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${session?.user?.accessToken}`,
+        },
+      });
       const user = await res.json();
       setUserFetched(true);
 
@@ -100,6 +108,9 @@ const Account = ({ session }: any) => {
       }
       if (user.instagramHandle) {
         setInstagramHandle(user.instagramHandle);
+      }
+      if (user.private?.tShirtSize) {
+        setTShirtSize(user.private.tShirtSize);
       }
     }
     fetchUser();
@@ -128,6 +139,7 @@ const Account = ({ session }: any) => {
 
         <div className={'flex flex-col items-center'}>
           <div className="m-2 flex flex-col rounded-lg bg-primary-light p-1">
+            <div className="text-center">Public Info</div>
             <TextInput
               id={'firstName'}
               label={'First Name'}
@@ -165,6 +177,20 @@ const Account = ({ session }: any) => {
                 setInstagramHandle(e.currentTarget.value);
               }}
             />
+          </div>
+
+          <div className="m-2 flex flex-col rounded-lg bg-primary-light p-1">
+            <div className="text-center">Private Info</div>
+            <div className="m-2 grid grid-cols-2">
+              <div className="p-2">T-Shirt Size</div>
+              <Dropdown
+                menus={tShirtSizes}
+                value={tShirtSize ? tShirtSize : tShirtSizes[0].value}
+                onChange={(value: any) => {
+                  setTShirtSize(value);
+                }}
+              />
+            </div>
           </div>
 
           <div className="my-2 flex">

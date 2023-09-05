@@ -2,10 +2,10 @@ import TextButton from '@/components/common/TextButton';
 import JudgeSelection from '@/components/jury/JudgeSelection';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { MenuItem } from '@/components/common/Dropdown';
 import { getSession } from 'next-auth/react';
 import router from 'next/router';
 import { routeLogin } from '@/types/consts/routes';
+import { MenuItem } from '@/types/menu-item';
 
 type Judge = {
   name: string;
