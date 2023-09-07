@@ -72,6 +72,16 @@ const CompetitionEditing = (props: any) => {
           setComp(comp);
         }}
       />
+
+      <div className="my-2 flex">
+        <div className="pr-1">
+          <div className="flex h-full items-center">Game Mode</div>
+        </div>
+        <div className="pl-1">
+          <ActionButton action={Action.MANAGE_COMPETITIONS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/mode`)} />
+        </div>
+      </div>
+
       <div className="my-2 flex">
         <div className="pr-1">
           <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
