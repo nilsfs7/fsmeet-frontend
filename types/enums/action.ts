@@ -10,6 +10,7 @@ export enum Action {
   EDIT,
   MANAGE_COMPETITIONS,
   MANAGE_USERS,
+  REMOVE,
   SAVE,
   SEND,
   SHARE,

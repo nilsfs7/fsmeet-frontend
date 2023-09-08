@@ -161,15 +161,19 @@ const ModeEditing = (props: any) => {
 
     const lastRound = getLastRound();
 
-    const newRound = new Round(`Round ${rounds.length + 1}`, lastRound.advancingTotal);
-    rnds.push(newRound);
-    setRounds(rnds);
+    if (lastRound.advancingTotal > 1) {
+      const newRound = new Round(`Round ${rounds.length + 1}`, lastRound.advancingTotal);
+      rnds.push(newRound);
+      setRounds(rnds);
+    }
   };
 
   const removeLastRound = () => {
     const rnds = Array.from(rounds);
-    rnds.pop();
-    setRounds(rnds);
+    if (rnds.length > 1) {
+      rnds.pop();
+      setRounds(rnds);
+    }
   };
 
   const getParentRound = (roundId: number): Round => {
@@ -216,21 +220,13 @@ const ModeEditing = (props: any) => {
       <div className={'flex flex-col items-center'}>
         <h1 className="m-2 text-xl">Edit Mode</h1>
 
-        <div className="my-2 flex">
-          <div className="pr-1">
-            <div className="flex h-full items-center">Add round</div>
-          </div>
-          <div className="pl-1">
+        <div className="mt-2 flex gap-2">
+          <div className="flex gap-1">
             <ActionButton action={Action.ADD} onClick={addRound} />
           </div>
-        </div>
 
-        <div className="my-2 flex">
-          <div className="pr-1">
-            <div className="flex h-full items-center">Remove round</div>
-          </div>
-          <div className="pl-1">
-            <ActionButton action={Action.CANCEL} onClick={removeLastRound} />
+          <div className="flex gap-1">
+            <ActionButton action={Action.REMOVE} onClick={removeLastRound} />
           </div>
         </div>
       </div>

@@ -4,15 +4,16 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckIcon from '@mui/icons-material/CheckCircle';
+import CommentIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TrophyIcon from '@mui/icons-material/EmojiEvents';
 import EditIcon from '@mui/icons-material/Edit';
 import PeopleIcon from '@mui/icons-material/PeopleAlt';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import SaveIcon from '@mui/icons-material/Save';
-import ShareIcon from '@mui/icons-material/Share';
-import CommentIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import SendIcon from '@mui/icons-material/Send';
+import ShareIcon from '@mui/icons-material/Share';
 
 interface IButton {
   action: Action;
@@ -57,6 +58,9 @@ const ActionButton = ({ action, onClick }: IButton) => {
       break;
     case Action.MANAGE_USERS:
       icon = <PeopleIcon className={`${textColor}`} />;
+      break;
+    case Action.REMOVE:
+      icon = <RemoveCircleIcon className={`${textColor}`} />;
       break;
     case Action.SAVE:
       icon = <SaveIcon className={`${textColor}`} />;
