@@ -166,6 +166,12 @@ const ModeEditing = (props: any) => {
     setRounds(rnds);
   };
 
+  const removeLastRound = () => {
+    const rnds = Array.from(rounds);
+    rnds.pop();
+    setRounds(rnds);
+  };
+
   const getParentRound = (roundId: number): Round => {
     return rounds[roundId - 1];
   };
@@ -218,6 +224,15 @@ const ModeEditing = (props: any) => {
             <ActionButton action={Action.ADD} onClick={addRound} />
           </div>
         </div>
+
+        <div className="my-2 flex">
+          <div className="pr-1">
+            <div className="flex h-full items-center">Remove round</div>
+          </div>
+          <div className="pl-1">
+            <ActionButton action={Action.CANCEL} onClick={removeLastRound} />
+          </div>
+        </div>
       </div>
 
       <div className={`m-2 flex justify-center overflow-y-auto `}>
@@ -226,68 +241,67 @@ const ModeEditing = (props: any) => {
             return (
               <div key={`rnd-${i}`} className="m-1 rounded-lg border border-black bg-primary-light p-1">
                 <div className="my-1 text-center">{round.name}</div>
+
                 <hr />
-                <div className="my-1 flex justify-between">
-                  <div className="mx-1">Num Players</div>
-                  <div className="mx-1">{round.numberPlayers}</div>
-                </div>
 
-                <div className="my-1 flex justify-between">
-                  <div className="mx-1">Max Match Size</div>
-                  <input
-                    id={`input-max-match-size-${i}`}
-                    className="mx-1"
-                    type="number"
-                    min={minMatchSize}
-                    max={numParticipants}
-                    defaultValue={minMatchSize}
-                    onChange={e => {
-                      changeMatchSize(i, e.currentTarget.value);
-                    }}
-                  />
-                </div>
+                <div className="flex gap-2 p-1">
+                  <div>
+                    <div className="">Num Players</div>
+                    <div className="">Max Match Size</div>
+                    <div className="">Num Matches</div>
+                    <div className="">Passing Per Match</div>
+                    <div className="">Num Passing Round</div>
+                    <div className="">Passing Extra</div>
+                    <div className="">Num Passing Total</div>
+                  </div>
 
-                <div className="my-1 flex justify-between">
-                  <div className="mx-1">Num Matches</div>
-                  <div className="mx-1">{round.matches.length}</div>
-                </div>
+                  <div>
+                    <div className="text-end">{round.numberPlayers}</div>
 
-                <div className="my-1 flex justify-between">
-                  <div className="mx-1">Passing Per Match</div>
-                  <input
-                    id={`input-max-passing-${i}`}
-                    className="mx-1"
-                    type="number"
-                    min={minPassingPerMatch}
-                    defaultValue={minPassingPerMatch}
-                    onChange={e => {
-                      changePassingPerMatch(i, e.currentTarget.value);
-                    }}
-                  />
-                </div>
+                    <div className="text-end">
+                      <input
+                        id={`input-max-match-size-${i}`}
+                        type="number"
+                        min={minMatchSize}
+                        max={numParticipants}
+                        defaultValue={minMatchSize}
+                        onChange={e => {
+                          changeMatchSize(i, e.currentTarget.value);
+                        }}
+                      />
+                    </div>
 
-                <div className="my-1 flex justify-between">
-                  <div className="mx-1">Num Passing Round</div>
-                  <div className="mx-1">{round.matches.length * round.passingPerMatch}</div>
-                </div>
+                    <div className="text-end">{round.matches.length}</div>
 
-                <div className="my-1 flex justify-between">
-                  <div className="mx-1">Passing Extra</div>
-                  <input
-                    id={`input-passing-extra-${i}`}
-                    className="mx-1"
-                    type="number"
-                    min={minPassingExtra}
-                    defaultValue={minPassingExtra}
-                    onChange={e => {
-                      changePassingExtra(i, e.currentTarget.value);
-                    }}
-                  />
-                </div>
+                    <div className="text-end">
+                      <input
+                        id={`input-max-passing-${i}`}
+                        type="number"
+                        min={minPassingPerMatch}
+                        defaultValue={minPassingPerMatch}
+                        onChange={e => {
+                          changePassingPerMatch(i, e.currentTarget.value);
+                        }}
+                      />
+                    </div>
 
-                <div className="my-1 flex justify-between">
-                  <div className="mx-1">Num Passing Total</div>
-                  <div className="mx-1">{round.advancingTotal}</div>
+                    <div className="text-end">{round.matches.length * round.passingPerMatch}</div>
+
+                    <div className="text-end">
+                      <input
+                        id={`input-passing-extra-${i}`}
+                        className="text-end"
+                        type="number"
+                        min={minPassingExtra}
+                        defaultValue={minPassingExtra}
+                        onChange={e => {
+                          changePassingExtra(i, e.currentTarget.value);
+                        }}
+                      />
+                    </div>
+
+                    <div className="text-end">{round.advancingTotal}</div>
+                  </div>
                 </div>
 
                 <div className="mt-4">
