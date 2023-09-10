@@ -7,7 +7,7 @@ const fontImpact = localFont({ src: '../fonts/impact.ttf' });
 const Logo = () => {
   return (
     <Link href={routeHome}>
-      <div className={`${fontImpact.className} text-3xl`}>FSMeet</div>
+      <div className={`${fontImpact.className} text-3xl text-title`}>FSMeet</div>
     </Link>
   );
 };
