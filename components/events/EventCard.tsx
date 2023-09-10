@@ -2,6 +2,7 @@ import { IEvent } from '@/interface/event';
 import { useEffect, useState } from 'react';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
 import { shortDateString } from '@/types/funcs/time';
+import Separator from '../Seperator';
 
 interface IEventProps {
   event: IEvent;
@@ -39,12 +40,7 @@ const EventCard = ({ event }: IEventProps) => {
         </div>
       </div>
 
-      {/* line */}
-      <div className="flex h-1">
-        <div className="w-1/3 bg-gray-400"></div>
-        <div className="w-1/3 bg-gray-500"></div>
-        <div className="w-1/3 bg-gray-400"></div>
-      </div>
+      <Separator />
 
       {/* botton */}
       <div className="flex h-20 p-2">

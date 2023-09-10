@@ -5,6 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import Map from '../Map';
 import Link from 'next/link';
 import { shortDateString } from '@/types/funcs/time';
+import Separator from '../Seperator';
 
 interface IEventProps {
   event: IEvent;
@@ -22,14 +23,6 @@ const EventDetails = ({ event }: IEventProps) => {
     setDateRegistrationOpen(event.registrationOpen);
     setDateRegistrationDeadline(event.registrationDeadline);
   }, []);
-
-  const line = (
-    <div className="flex h-1">
-      <div className="w-1/3 bg-gray-400"></div>
-      <div className="w-1/3 bg-gray-500"></div>
-      <div className="w-1/3 bg-gray-400"></div>
-    </div>
-  );
 
   return (
     <div className={'h-fit rounded-lg border border-black bg-primary-light p-2 text-sm'}>
@@ -51,7 +44,7 @@ const EventDetails = ({ event }: IEventProps) => {
         </div>
       </div>
 
-      {line}
+      <Separator />
 
       <div className={'p-2'}>
         <div className={'grid grid-cols-3 justify-end object-right'}>
@@ -71,14 +64,14 @@ const EventDetails = ({ event }: IEventProps) => {
         </div>
       </div>
 
-      {line}
+      <Separator />
 
       {/* description */}
       <div className="flex h-fit flex-col p-2">
         <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-primary-light outline-none" value={event.description}></TextareaAutosize>
       </div>
 
-      {line}
+      <Separator />
 
       {/* address */}
       <div className="mt-2 p-2">Venue address:</div>
