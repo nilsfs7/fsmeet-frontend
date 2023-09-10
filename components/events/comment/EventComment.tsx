@@ -19,13 +19,13 @@ const UserComment = ({ comment, onClickReply }: ICommentProps) => {
         <div className="ml-1">
           <div className="h-8 w-8">
             <Link href={`/user/${comment.user.username}`}>
-              <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
+              <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-background object-cover" />
             </Link>
           </div>
         </div>
 
         <div className="mx-1">
-          <div className="rounded-lg bg-zinc-200 px-2 py-1">
+          <div className="rounded-lg bg-background px-2 py-1">
             <Link href={`/user/${comment.user.username}`}>
               <div className="w-max text-base font-bold">{comment.user.username}</div>
             </Link>
@@ -51,7 +51,7 @@ const UserComment = ({ comment, onClickReply }: ICommentProps) => {
             {/* <div className="mx-1 flex items-center">
               <div className="">6</div>
               <IconButton size="small" className="sm hover:bg-transparent">
-                <ThumbUpIcon fontSize="inherit" className="text-black" />
+                <ThumbUpIcon fontSize="inherit" className="" />
               </IconButton>
             </div> */}
           </div>

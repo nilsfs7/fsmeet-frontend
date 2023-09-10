@@ -25,7 +25,7 @@ const EventDetails = ({ event }: IEventProps) => {
   }, []);
 
   return (
-    <div className={'h-fit rounded-lg border border-black bg-primary-light p-2 text-sm'}>
+    <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
       {/* top */}
       <div className={'p-2'}>
         <div className={'grid grid-cols-3 justify-end object-right'}>
@@ -68,7 +68,7 @@ const EventDetails = ({ event }: IEventProps) => {
 
       {/* description */}
       <div className="flex h-fit flex-col p-2">
-        <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-primary-light outline-none" value={event.description}></TextareaAutosize>
+        <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-secondary-light outline-none" value={event.description} />
       </div>
 
       <Separator />
@@ -82,7 +82,7 @@ const EventDetails = ({ event }: IEventProps) => {
       </div>
 
       <div className="mt-2 flex w-full justify-center">
-        <div className="w-full max-w-xl rounded-lg border border-black">
+        <div className="w-full max-w-xl rounded-lg border border-secondary-dark hover:border-primary">
           <div className="aspect-square w-full">
             <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
           </div>

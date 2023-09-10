@@ -68,7 +68,7 @@ const EventCompetitions = (props: any) => {
   return (
     <>
       <div className="m-2">
-        <div className={'rounded-lg border border-black bg-primary-light p-2 text-sm'}>
+        <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <div className="m-2 text-center text-base font-bold">Manage Competitions</div>
           <div className="flex flex-col">
             <>

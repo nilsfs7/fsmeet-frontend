@@ -138,7 +138,7 @@ const Account = ({ session }: any) => {
         <div className="my-4" />
 
         <div className={'flex flex-col items-center'}>
-          <div className="m-2 flex flex-col rounded-lg bg-primary-light p-1">
+          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
             <div className="text-center">Public Info</div>
             <TextInput
               id={'firstName'}
@@ -179,7 +179,7 @@ const Account = ({ session }: any) => {
             />
           </div>
 
-          <div className="m-2 flex flex-col rounded-lg bg-primary-light p-1">
+          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
             <div className="text-center">Private Info</div>
             <div className="m-2 grid grid-cols-2">
               <div className="p-2">T-Shirt Size</div>

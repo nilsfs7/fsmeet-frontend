@@ -42,12 +42,12 @@ const DialogWithInput = ({ title, description, queryParam, onClose, onOk, closeA
 
   return showDialog === '1' ? (
     <dialog ref={dialogRef}>
-      <div className="white fixed inset-0 flex flex-col items-center justify-center bg-gray-900 bg-opacity-50">
-        <div className="rounded-lg bg-white">
-          <div className="rounded-t-lg bg-primary-light p-2 text-center">
+      <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-900 bg-opacity-50">
+        <div className="bg-backgound rounded-lg">
+          <div className="rounded-t-lg bg-secondary-light p-2 text-center">
             <h1 className="text-2xl">{title}</h1>
           </div>
-          <div className="rounded-b-lg bg-white p-2">
+          <div className="rounded-b-lg bg-background p-2">
             <div className="p-2">{description}</div>
             <div className="flex h-full p-2">
               <textarea

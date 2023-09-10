@@ -43,7 +43,7 @@ const ReportBug: NextPage = (props: any) => {
     <div className={'absolute inset-0 flex flex-col'}>
       <div className={'flex h-full flex-col items-center justify-center'}>
         <h1 className="mb-2 text-center text-xl">Report Bug</h1>
-        <div className="m-2 h-1/2 w-[95%] rounded-lg bg-primary-light">
+        <div className="m-2 h-1/2 w-[95%] rounded-lg bg-secondary-light">
           <TextInputLarge
             id={'message'}
             label={'Message'}

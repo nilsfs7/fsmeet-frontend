@@ -54,7 +54,7 @@ const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostCo
   }, [replyTo]);
 
   return (
-    <div className={'rounded-lg border border-black bg-primary-light p-2'}>
+    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2'}>
       <div className="text-base font-bold">Comments</div>
 
       {/* new comment */}

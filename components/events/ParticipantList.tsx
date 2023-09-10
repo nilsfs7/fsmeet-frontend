@@ -10,7 +10,7 @@ interface IParticipantListProps {
 
 const ParticipantList = ({ participants, registrationStatus }: IParticipantListProps) => {
   return (
-    <div className={'rounded-lg border border-black bg-primary-light p-2 text-sm'}>
+    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
       <div className="text-base font-bold">Participants</div>
       <div className="flex flex-wrap">
         {participants.map((participant, i) => {
