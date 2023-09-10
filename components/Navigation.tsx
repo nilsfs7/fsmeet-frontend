@@ -6,7 +6,7 @@ interface INavigationProps {
 const Navigation = ({ reverse = false, children }: INavigationProps) => {
   return (
     <div className="mt-auto">
-      <div className={`m-2 flex flex-shrink-0 ${reverse ? 'justify-end' : 'justify-between'}`}>{children}</div>
+      <div className={`flex flex-shrink-0 p-2 ${reverse ? 'justify-end' : 'justify-between'}`}>{children}</div>
     </div>
   );
 };
