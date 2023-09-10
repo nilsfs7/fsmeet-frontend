@@ -75,7 +75,7 @@ const ActionButton = ({ action, onClick }: IButton) => {
 
   return (
     <div className="rounded-lg border border-black bg-primary-light font-bold text-black hover:bg-primary" onClick={onClick}>
-      <IconButton className="hover:bg-transparent">{icon}</IconButton>
+      <IconButton>{icon}</IconButton>
     </div>
   );
 };
