@@ -13,85 +13,8 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
 import MatchCard from '@/components/comp/MatchCard';
-
-export type Match = {
-  name: string;
-  slots: number;
-};
-
-export class Round {
-  public name: string;
-  public numberPlayers: number;
-  public maxMatchSize: number = 2;
-  public matches: Match[] = [];
-  public passingPerMatch: number = 1;
-  public passingExtra: number = 0;
-
-  constructor(name: string, numberPlayers: number) {
-    this.name = name;
-    this.numberPlayers = numberPlayers;
-
-    this.matches = this.createMatches();
-  }
-
-  public get advancingTotal(): number {
-    const advancing = this.matches.length * this.passingPerMatch + this.passingExtra;
-
-    if (advancing > this.numberPlayers) {
-      return this.numberPlayers;
-    }
-
-    return advancing;
-  }
-
-  public get maxPossibleAdvancingExtra(): number {
-    const maxAdvancingExtra = this.numberPlayers - this.matches.length * this.passingPerMatch;
-
-    if (maxAdvancingExtra < 0) {
-      return 0;
-    }
-
-    return maxAdvancingExtra;
-  }
-
-  public createMatches = (): Match[] => {
-    const getInitialMatchSize = (numPlayers: number, numMatches: number, maxMatchSize: number): number => {
-      while (numMatches * maxMatchSize > numPlayers) {
-        maxMatchSize -= 1;
-      }
-
-      return maxMatchSize;
-    };
-
-    let matches: Match[] = [];
-
-    const numMatches: number = Math.ceil(this.numberPlayers / this.maxMatchSize);
-
-    const modulo = this.numberPlayers % this.maxMatchSize;
-    if (modulo === 0) {
-      for (let i = 0; i < numMatches; i++) {
-        matches.push({ name: `match ${i}`, slots: this.maxMatchSize });
-      }
-    } else {
-      let initialSlots = getInitialMatchSize(this.numberPlayers, numMatches, this.maxMatchSize);
-      let distributedSlots = 0;
-
-      // distribute save (initial) slots
-      for (let i = 0; i < numMatches; i++) {
-        matches.push({ name: `match ${i}`, slots: initialSlots });
-        distributedSlots += initialSlots;
-      }
-
-      // distribute leftover slots
-      const slotsLeft = this.numberPlayers - distributedSlots;
-      for (let i = 0; i < slotsLeft; i++) {
-        matches[i].slots += 1;
-      }
-    }
-
-    return matches;
-  };
-}
+import RoundOptions from '@/components/comp/RoundOptions';
+import { Round } from '@/types/round';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -184,7 +107,7 @@ const ModeEditing = (props: any) => {
     return rounds[rounds.length - 1];
   };
 
-  const changeMatchSize = (roundId: number, maxMatchSize: string) => {
+  const changeMaxMatchSize = (roundId: number, maxMatchSize: number) => {
     const rnds = Array.from(rounds);
 
     const parentRound = getParentRound(roundId);
@@ -197,7 +120,7 @@ const ModeEditing = (props: any) => {
     }
   };
 
-  const changePassingPerMatch = (roundId: number, passingPerMatch: string) => {
+  const changePassingPerMatch = (roundId: number, passingPerMatch: number) => {
     const rnds = Array.from(rounds);
 
     if (+passingPerMatch >= minPassingPerMatch && +passingPerMatch <= rnds[roundId].maxMatchSize) {
@@ -206,7 +129,7 @@ const ModeEditing = (props: any) => {
     }
   };
 
-  const changePassingExtra = (roundId: number, passingExtra: string) => {
+  const changePassingExtra = (roundId: number, passingExtra: number) => {
     const rnds = Array.from(rounds);
 
     if (+passingExtra >= minPassingExtra && +passingExtra <= rnds[roundId].maxPossibleAdvancingExtra) {
@@ -240,65 +163,23 @@ const ModeEditing = (props: any) => {
 
                 <hr />
 
-                <div className="flex gap-2 p-1">
-                  <div>
-                    <div className="">Num Players</div>
-                    <div className="">Max Match Size</div>
-                    <div className="">Num Matches</div>
-                    <div className="">Passing Per Match</div>
-                    <div className="">Num Passing Round</div>
-                    <div className="">Passing Extra</div>
-                    <div className="">Num Passing Total</div>
-                  </div>
-
-                  <div>
-                    <div className="text-end">{round.numberPlayers}</div>
-
-                    <div className="text-end">
-                      <input
-                        id={`input-max-match-size-${i}`}
-                        type="number"
-                        min={minMatchSize}
-                        max={numParticipants}
-                        defaultValue={minMatchSize}
-                        onChange={e => {
-                          changeMatchSize(i, e.currentTarget.value);
-                        }}
-                      />
-                    </div>
-
-                    <div className="text-end">{round.matches.length}</div>
-
-                    <div className="text-end">
-                      <input
-                        id={`input-max-passing-${i}`}
-                        type="number"
-                        min={minPassingPerMatch}
-                        defaultValue={minPassingPerMatch}
-                        onChange={e => {
-                          changePassingPerMatch(i, e.currentTarget.value);
-                        }}
-                      />
-                    </div>
-
-                    <div className="text-end">{round.matches.length * round.passingPerMatch}</div>
-
-                    <div className="text-end">
-                      <input
-                        id={`input-passing-extra-${i}`}
-                        className="text-end"
-                        type="number"
-                        min={minPassingExtra}
-                        defaultValue={minPassingExtra}
-                        onChange={e => {
-                          changePassingExtra(i, e.currentTarget.value);
-                        }}
-                      />
-                    </div>
-
-                    <div className="text-end">{round.advancingTotal}</div>
-                  </div>
-                </div>
+                <RoundOptions
+                  round={round}
+                  roundIndex={i}
+                  minMatchSize={minMatchSize}
+                  numParticipants={numParticipants}
+                  minPassingPerMatch={minPassingPerMatch}
+                  minPassingExtra={minPassingExtra}
+                  onChangeMaxMatchSize={(val: number): void => {
+                    changeMaxMatchSize(i, val);
+                  }}
+                  onChangePassingPerMatch={(val: number): void => {
+                    changePassingPerMatch(i, val);
+                  }}
+                  onChangePassingExtra={(val: number): void => {
+                    changePassingExtra(i, val);
+                  }}
+                />
 
                 <div className="mt-4">
                   {round.matches.map((match, j) => {
