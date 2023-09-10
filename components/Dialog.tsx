@@ -39,12 +39,12 @@ const Dialog = ({ title, queryParam, onClose, onOk, children, closeAction = Acti
 
   return showDialog === '1' ? (
     <dialog ref={dialogRef}>
-      <div className="white fixed inset-0 flex flex-col items-center justify-center bg-gray-900 bg-opacity-50">
-        <div className="rounded-lg bg-white">
-          <div className="rounded-t-lg bg-primary-light p-2 text-center">
+      <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-900 bg-opacity-50">
+        <div className="rounded-lg bg-background">
+          <div className="rounded-t-lg bg-secondary-light p-2 text-center">
             <h1 className="text-2xl">{title}</h1>
           </div>
-          <div className="rounded-b-lg bg-white p-2">
+          <div className="rounded-b-lg bg-background p-2">
             <div className="p-2">{children}</div>
             <div className="flex flex-row justify-between p-2">
               <ActionButton action={closeAction} onClick={clickCancel} />

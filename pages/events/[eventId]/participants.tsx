@@ -125,7 +125,7 @@ const EventParticipants = (props: any) => {
       </Dialog>
 
       <div className="m-2">
-        <div className={'rounded-lg border border-black bg-primary-light p-2 text-sm'}>
+        <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <div className="m-2 text-center text-base font-bold">Manage Participants</div>
           <div className="flex flex-col">
             {event.eventRegistrations.map((registration, index) => {
@@ -145,7 +145,7 @@ const EventParticipants = (props: any) => {
                   <div className="mx-1 flex w-1/2 justify-start">
                     {(participant.status === EventRegistrationStatus.APPROVED || participant.status === EventRegistrationStatus.DENIED) && (
                       <>
-                        <div className="mr-1 flex w-24 items-center justify-center font-bold text-black">{participant.status.toUpperCase()}</div>
+                        <div className="mr-1 flex w-24 items-center justify-center font-bold ">{participant.status.toUpperCase()}</div>
                         <div className="ml-1">
                           <ActionButton
                             action={Action.DELETE}

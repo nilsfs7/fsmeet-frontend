@@ -10,7 +10,7 @@ const ThankYou: NextPage = () => {
     <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
       <div className="py-2 ">
         <Image src={imgGoodBye} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={'image'} />
-        <div className="m-1 text-center text-lg font-bold text-black">
+        <div className="m-1 text-center text-lg font-bold">
           <div>Goodbye!</div>
           <div>Your account was successfully deleted.</div>
         </div>

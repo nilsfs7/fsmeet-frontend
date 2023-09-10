@@ -20,7 +20,7 @@ const EventCard = ({ event }: IEventProps) => {
   }, []);
 
   return (
-    <div className={'rounded-lg border border-black bg-primary-light p-2 text-sm hover:bg-primary'}>
+    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary '}>
       {/* top */}
       <div className={'max-h-24 p-2'}>
         <div className="28 flex ">

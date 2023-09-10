@@ -21,7 +21,7 @@ interface IButton {
 }
 
 const ActionButton = ({ action, onClick }: IButton) => {
-  const textColor = 'text-black';
+  const textColor = 'text-primary';
 
   let icon = <ArrowBackIcon className={`${textColor}`} />;
 
@@ -74,7 +74,7 @@ const ActionButton = ({ action, onClick }: IButton) => {
   }
 
   return (
-    <div className="rounded-lg border border-black bg-primary-light font-bold text-black hover:bg-primary" onClick={onClick}>
+    <div className="rounded-lg border border-primary" onClick={onClick}>
       <IconButton>{icon}</IconButton>
     </div>
   );

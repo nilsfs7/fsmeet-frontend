@@ -17,7 +17,7 @@ const PostInput = ({ elementId, username, userProfileImageUrl, onMessageChange, 
   };
 
   return (
-    <div className="mt-1 flex">
+    <div className="mt-1 flex ">
       <div className="ml-1">
         <div className="h-8 w-8">
           <Link href={`/user/${username}`}>
@@ -27,7 +27,7 @@ const PostInput = ({ elementId, username, userProfileImageUrl, onMessageChange, 
       </div>
 
       <div className="mx-1 w-full">
-        <input id={elementId} className="h-full w-full rounded-lg bg-zinc-100 p-1 text-sm " onChange={handleChange} />
+        <input id={elementId} className="h-full w-full rounded-lg border border-secondary-dark bg-background p-1 text-sm hover:border-primary " onChange={handleChange} />
       </div>
 
       <div className="mx-1">

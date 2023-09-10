@@ -158,7 +158,7 @@ const ModeEditing = (props: any) => {
         <div className={'grid grid-flow-col overflow-x-auto'}>
           {rounds.map((round: Round, i: number) => {
             return (
-              <div key={`rnd-${i}`} className="m-1 rounded-lg border border-black bg-primary-light p-1">
+              <div key={`rnd-${i}`} className="m-1 rounded-lg border border-primary bg-secondary-light p-1">
                 <div className="my-1 text-center">{round.name}</div>
 
                 <hr />

@@ -16,7 +16,7 @@ const Home = ({ data }: { data: any[] }) => {
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-primary-light sm:block">
+      <div className="bg-secondary-light sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
           <Logo />
 
@@ -52,7 +52,7 @@ const Home = ({ data }: { data: any[] }) => {
       <Navigation reverse={true}>
         <div className="mx-2">
           <Link href={routeAbout}>
-            <div className="rounded-lg p-1 hover:bg-primary">
+            <div className="rounded-lg p-1">
               <div className="grid grid-flow-col items-center">
                 <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
                 <div className="mx-1">About</div>

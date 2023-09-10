@@ -57,7 +57,7 @@ const Profile = () => {
   return (
     <div className="relative">
       {/* picture and name  */}
-      <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border border-black bg-primary-light p-1 hover:bg-primary">
+      <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light p-1 hover:border-primary">
         <button className="h-full w-full" onClick={onClickProfile}>
           <div className="grid grid-flow-col items-center">
             <img src={isAuthenticated() && imageUrl ? imageUrl : imgUserNoImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
@@ -77,13 +77,13 @@ const Profile = () => {
         leaveTo="transform opacity-0 scale-95"
         show={isAuthenticated() && opened}
       >
-        <div className={`absolute right-0 top-14 mt-2 min-w-max rounded-lg border border-black bg-primary-light`}>
+        <div className={`absolute right-0 top-14 mt-2 min-w-max rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary`}>
           {menuItems.map((menuItem, index) => {
             return (
               <div
                 key={index}
                 className={`flex h-[48px] cursor-pointer items-center pl-2 pr-2 
-                ${activeIndex === index ? 'bg-primary' : ''} 
+                ${activeIndex === index ? 'bg-secondary' : ''} 
                 ${index === 0 ? 'rounded-t-[8px]' : ''} 
                 ${index === menuItems.length - 1 ? 'rounded-b-[8px]' : ''}`}
                 onMouseEnter={() => setActiveIndex(index)}
