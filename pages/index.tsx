@@ -1,4 +1,4 @@
-import Logo from '@/components/Logo';
+import { Logo } from '@/components/Logo';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';

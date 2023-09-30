@@ -1,4 +1,3 @@
-import Logo from '@/components/Logo';
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
@@ -7,6 +6,7 @@ import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
 import { routeEventsCreate, routeHome } from '@/types/consts/routes';
+import { Logo } from '@/components/Logo';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const eventsOwning: IEvent[] = data.owning;

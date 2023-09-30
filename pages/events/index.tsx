@@ -1,4 +1,4 @@
-import Logo from '@/components/Logo';
+import { Logo } from '@/components/Logo';
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
