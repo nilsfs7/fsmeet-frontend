@@ -138,58 +138,60 @@ const Account = ({ session }: any) => {
         <div className="my-4" />
 
         <div className={'flex flex-col items-center'}>
-          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
-            <div className="text-center">Public Info</div>
-            <TextInput
-              id={'firstName'}
-              label={'First Name'}
-              placeholder="Kevin"
-              value={firstName}
-              onChange={e => {
-                setFirstName(e.currentTarget.value);
-              }}
-            />
-            <TextInput
-              id={'lastName'}
-              label={'Last Name'}
-              placeholder="Kück"
-              value={lastName}
-              onChange={e => {
-                setLastName(e.currentTarget.value);
-              }}
-            />
-            <div className="m-2 grid grid-cols-2">
-              <div className="p-2">Country</div>
-              <Dropdown
-                menus={countries}
-                value={country ? country : countries[0].value}
-                onChange={(value: any) => {
-                  setCountry(value);
+          <div className="m-2 flex flex-col">
+            <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+              <div className="text-center">Public Info</div>
+              <TextInput
+                id={'firstName'}
+                label={'First Name'}
+                placeholder="Kevin"
+                value={firstName}
+                onChange={e => {
+                  setFirstName(e.currentTarget.value);
+                }}
+              />
+              <TextInput
+                id={'lastName'}
+                label={'Last Name'}
+                placeholder="Kück"
+                value={lastName}
+                onChange={e => {
+                  setLastName(e.currentTarget.value);
+                }}
+              />
+              <div className="m-2 grid grid-cols-2">
+                <div className="p-2">Country</div>
+                <Dropdown
+                  menus={countries}
+                  value={country ? country : countries[0].value}
+                  onChange={(value: any) => {
+                    setCountry(value);
+                  }}
+                />
+              </div>
+              <TextInput
+                id={'instagramHandle'}
+                label={'Instagram Handle'}
+                placeholder="@freestyler.kevin"
+                value={instagramHandle}
+                onChange={e => {
+                  setInstagramHandle(e.currentTarget.value);
                 }}
               />
             </div>
-            <TextInput
-              id={'instagramHandle'}
-              label={'Instagram Handle'}
-              placeholder="@freestyler.kevin"
-              value={instagramHandle}
-              onChange={e => {
-                setInstagramHandle(e.currentTarget.value);
-              }}
-            />
-          </div>
 
-          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
-            <div className="text-center">Private Info</div>
-            <div className="m-2 grid grid-cols-2">
-              <div className="p-2">T-Shirt Size</div>
-              <Dropdown
-                menus={tShirtSizes}
-                value={tShirtSize ? tShirtSize : tShirtSizes[0].value}
-                onChange={(value: any) => {
-                  setTShirtSize(value);
-                }}
-              />
+            <div className="flex flex-col rounded-lg  border border-primary bg-secondary-light p-1">
+              <div className="text-center">Private Info</div>
+              <div className="m-2 grid grid-cols-2">
+                <div className="p-2">T-Shirt Size</div>
+                <Dropdown
+                  menus={tShirtSizes}
+                  value={tShirtSize ? tShirtSize : tShirtSizes[0].value}
+                  onChange={(value: any) => {
+                    setTShirtSize(value);
+                  }}
+                />
+              </div>
             </div>
           </div>
 

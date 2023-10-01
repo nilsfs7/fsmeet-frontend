@@ -5,7 +5,7 @@ interface IMatchProps {
 
 const MatchCard = ({ name, slots }: IMatchProps) => {
   return (
-    <div className={`rounded-lg border border-primary ${slots > 1 ? 'bg-secondary-light' : 'bg-attention'}  p-2 hover:bg-primary`}>
+    <div className={`rounded-lg border border-primary ${slots > 1 ? 'bg-secondary-light' : 'bg-attention'} p-2`}>
       <div className="text-center">{name}</div>
       <hr />
       {[...Array(slots)].map((val: any, i: number) => {

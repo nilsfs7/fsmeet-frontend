@@ -18,7 +18,16 @@ const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value,
           <div>{label}</div>
 
           <div className="flex h-full">
-            <input id={id} className="h-full w-full rounded-lg p-1" type={type} placeholder={placeholder} defaultValue={defValue} value={value} onChange={onChange} onKeyDown={onKeyDown} />
+            <input
+              id={id}
+              className="h-full w-full rounded-lg border border-secondary-dark p-1"
+              type={type}
+              placeholder={placeholder}
+              defaultValue={defValue}
+              value={value}
+              onChange={onChange}
+              onKeyDown={onKeyDown}
+            />
           </div>
         </div>
       )}

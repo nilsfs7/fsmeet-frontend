@@ -20,7 +20,7 @@ const TextInputLarge = ({ id, label, labelOnTop = true, placeholder, defValue, v
           <div className="flex h-full">
             <textarea
               id={id}
-              className={`h-full w-full rounded-lg p-1 ${resizable ? 'resize-y' : 'resize-none'}`}
+              className={`h-full w-full rounded-lg border border-secondary-dark p-1 ${resizable ? 'resize-y' : 'resize-none'}`}
               placeholder={placeholder}
               defaultValue={defValue}
               value={value}
@@ -37,7 +37,7 @@ const TextInputLarge = ({ id, label, labelOnTop = true, placeholder, defValue, v
 
           <textarea
             id={id}
-            className={`h-full w-full resize-none rounded-lg p-1 ${resizable ? 'resize-y' : 'resize-none'}`}
+            className={`h-full w-full resize-none rounded-lg border border-secondary-dark p-1 ${resizable ? 'resize-y' : 'resize-none'}`}
             placeholder={placeholder}
             defaultValue={defValue}
             value={value}

@@ -35,7 +35,7 @@ const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
   // }
 
   return (
-    <div className="m-2 flex flex-col rounded-lg bg-background p-1">
+    <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
       <TextInput
         id={'name'}
         label={'Competition Name'}
