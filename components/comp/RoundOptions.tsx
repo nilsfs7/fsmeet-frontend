@@ -69,6 +69,7 @@ const RoundOptions = ({
             min={minMatchSize}
             max={numParticipants}
             defaultValue={minMatchSize}
+            disabled={round.numberPlayers === 2 ? true : false}
             onChange={e => {
               changeMaxMatchSize(e.currentTarget.value);
             }}
@@ -83,6 +84,7 @@ const RoundOptions = ({
             type="number"
             min={minPassingPerMatch}
             defaultValue={minPassingPerMatch}
+            disabled={round.numberPlayers === 2 ? true : false}
             onChange={e => {
               changePassingPerMatch(e.currentTarget.value);
             }}
@@ -98,6 +100,7 @@ const RoundOptions = ({
             type="number"
             min={minPassingExtra}
             defaultValue={minPassingExtra}
+            disabled={round.numberPlayers === 2 ? true : false}
             onChange={e => {
               changePassingExtra(e.currentTarget.value);
             }}
