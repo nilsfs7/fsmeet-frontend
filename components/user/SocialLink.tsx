@@ -19,18 +19,22 @@ const SocialLink = ({ platform, path }: ISocialLink) => {
 
   switch (platform) {
     case Platform.INSTAGRAM:
-      icon = <InstagramIcon fontSize="large" className={`${textColor}`} />;
+      icon = (
+        <div className="m-0 p-0">
+          <InstagramIcon fontSize="large" className={`${textColor}`} />
+        </div>
+      );
       url = `https://www.instagram.com/${path.replace('@', '')}`;
       break;
   }
 
   return (
-    <div className="flex flex-col">
-      <a className="items-center text-center" href={url}>
-        <div className="h-9">{icon}</div>
-        <div>{path}</div>
-      </a>
-    </div>
+    <a href={url}>
+      <div className="flex items-center gap-1">
+        {icon}
+        {path}
+      </div>
+    </a>
   );
 };
 

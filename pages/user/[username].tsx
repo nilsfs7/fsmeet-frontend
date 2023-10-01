@@ -13,21 +13,21 @@ const Profile = (props: any) => {
   }
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="flex flex-col items-center">
-        <div className="m-4 text-center text-3xl">{displayName}</div>
-        <div className="relative h-96 w-64">
-          <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
-        </div>
+    <div className="absolute inset-0 flex justify-center">
+      <div className="flex flex-col items-center justify-center">
+        <div className="m-2 text-3xl">{user.username}</div>
 
-        <div className="mx-2 mt-6">
-          {/* <div className="mb-2 flex">{user.firstName && user.lastName && <>{`${user.firstName} ${user.lastName}`}</>}</div> */}
-          <div className="flex">
-            <div className="mr-2">
-              <SocialLink platform={Platform.FSMEET} path={user.username} />
-            </div>
+        <div>
+          <div className="flex h-96 w-64">
+            <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
+          </div>
+
+          <div className="mx-1 mt-6">
+            {user.firstName && user.lastName && <div className="mx-1 mb-2">{`${user.firstName} ${user.lastName}`}</div>}
+            {user.firstName && !user.lastName && <div className="mx-1 mb-2">{`${user.firstName}`}</div>}
+
             {user.instagramHandle && (
-              <div className="">
+              <div className="w-fit">
                 <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
               </div>
             )}
