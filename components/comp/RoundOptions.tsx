@@ -7,6 +7,7 @@ interface IRoundOptionsProps {
   numParticipants: number;
   minPassingPerMatch: number;
   minPassingExtra: number;
+  lockUi: boolean;
   onChangeMaxMatchSize: (val: number) => void;
   onChangePassingPerMatch: (val: number) => void;
   onChangePassingExtra: (val: number) => void;
@@ -19,6 +20,7 @@ const RoundOptions = ({
   numParticipants,
   minPassingPerMatch,
   minPassingExtra,
+  lockUi,
   onChangeMaxMatchSize,
   onChangePassingPerMatch,
   onChangePassingExtra,
@@ -69,7 +71,7 @@ const RoundOptions = ({
             min={minMatchSize}
             max={numParticipants}
             defaultValue={minMatchSize}
-            disabled={round.numberPlayers === 2 ? true : false}
+            disabled={lockUi}
             onChange={e => {
               changeMaxMatchSize(e.currentTarget.value);
             }}
@@ -84,7 +86,7 @@ const RoundOptions = ({
             type="number"
             min={minPassingPerMatch}
             defaultValue={minPassingPerMatch}
-            disabled={round.numberPlayers === 2 ? true : false}
+            disabled={lockUi}
             onChange={e => {
               changePassingPerMatch(e.currentTarget.value);
             }}
@@ -100,7 +102,7 @@ const RoundOptions = ({
             type="number"
             min={minPassingExtra}
             defaultValue={minPassingExtra}
-            disabled={round.numberPlayers === 2 ? true : false}
+            disabled={lockUi}
             onChange={e => {
               changePassingExtra(e.currentTarget.value);
             }}

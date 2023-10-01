@@ -32,6 +32,7 @@ const ModeEditing = (props: any) => {
   const initRound = new Round('Round 1', numParticipants);
 
   const [rounds, setRounds] = useState<Round[]>([initRound]);
+  const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
 
   if (!session) {
     router.push(routeLogin);
@@ -81,6 +82,7 @@ const ModeEditing = (props: any) => {
 
   const addRound = () => {
     const rnds = Array.from(rounds);
+    let optionLocks = Array.from(roundOptionsLocked);
 
     const lastRound = getLastRound();
 
@@ -88,14 +90,26 @@ const ModeEditing = (props: any) => {
       const newRound = new Round(`Round ${rounds.length + 1}`, lastRound.advancingTotal);
       rnds.push(newRound);
       setRounds(rnds);
+
+      // manage UI locking
+      optionLocks = optionLocks.map(() => true);
+      optionLocks.push(newRound.numberPlayers === 2 ? true : false);
+      setRoundOptionsLocked(optionLocks);
     }
   };
 
   const removeLastRound = () => {
     const rnds = Array.from(rounds);
+    const optionLocks = Array.from(roundOptionsLocked);
+
     if (rnds.length > 1) {
       rnds.pop();
       setRounds(rnds);
+
+      // manage UI locking
+      optionLocks.pop();
+      optionLocks[optionLocks.length - 1] = false;
+      setRoundOptionsLocked(optionLocks);
     }
   };
 
@@ -170,6 +184,7 @@ const ModeEditing = (props: any) => {
                   numParticipants={numParticipants}
                   minPassingPerMatch={minPassingPerMatch}
                   minPassingExtra={minPassingExtra}
+                  lockUi={roundOptionsLocked[i]}
                   onChangeMaxMatchSize={(val: number): void => {
                     changeMaxMatchSize(i, val);
                   }}
