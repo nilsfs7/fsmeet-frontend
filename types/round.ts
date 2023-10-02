@@ -51,7 +51,7 @@ export class Round {
     const modulo = this.numberPlayers % this.maxMatchSize;
     if (modulo === 0) {
       for (let i = 0; i < numMatches; i++) {
-        matches.push({ name: `match ${i}`, slots: this.maxMatchSize });
+        matches.push({ name: `Match ${i + 1}`, slots: this.maxMatchSize });
       }
     } else {
       let initialSlots = getInitialMatchSize(this.numberPlayers, numMatches, this.maxMatchSize);
@@ -59,7 +59,7 @@ export class Round {
 
       // distribute save (initial) slots
       for (let i = 0; i < numMatches; i++) {
-        matches.push({ name: `match ${i}`, slots: initialSlots });
+        matches.push({ name: `Match ${i + 1}`, slots: initialSlots });
         distributedSlots += initialSlots;
       }
 

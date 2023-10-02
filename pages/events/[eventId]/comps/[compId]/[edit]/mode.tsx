@@ -39,8 +39,10 @@ const ModeEditing = (props: any) => {
   }
 
   const handleSaveClicked = async () => {
+    console.log(rounds);
+
     // const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition`, {
-    //   method: 'PATCH',
+    //   method: 'POST',
     //   body: JSON.stringify({
     //     id: compId,
     //     eventId: eventId,
@@ -51,9 +53,11 @@ const ModeEditing = (props: any) => {
     //     Authorization: `Bearer ${session.user.accessToken}`,
     //   },
     // });
-    // if (response.status == 200) {
+    // if (response.status == 201) {
     //   router.replace(`/events/${eventId}/comps`);
     // }
+
+    // console.log(response.status);
   };
 
   useEffect(() => {
@@ -198,9 +202,11 @@ const ModeEditing = (props: any) => {
 
                 <div className="mt-4">
                   {round.matches.map((match, j) => {
+                    console.log(round.matches.length);
+
                     return (
                       <div key={`match-${j}`} className="my-1">
-                        <MatchCard name={`Match ${j + 1}`} slots={match.slots} />
+                        <MatchCard match={match} />
                       </div>
                     );
                   })}

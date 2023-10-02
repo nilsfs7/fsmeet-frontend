@@ -1,14 +1,15 @@
+import { Match } from '@/types/match';
+
 interface IMatchProps {
-  name: string;
-  slots: number;
+  match: Match;
 }
 
-const MatchCard = ({ name, slots }: IMatchProps) => {
+const MatchCard = ({ match }: IMatchProps) => {
   return (
-    <div className={`rounded-lg border border-primary ${slots > 1 ? 'bg-secondary-light' : 'bg-attention'} p-2`}>
-      <div className="text-center">{name}</div>
+    <div className={`rounded-lg border border-primary ${match.slots > 1 ? 'bg-secondary-light' : 'bg-attention'} p-2`}>
+      <div className="text-center">{match.name}</div>
       <hr />
-      {[...Array(slots)].map((val: any, i: number) => {
+      {[...Array(match.slots)].map((val: any, i: number) => {
         val = i + 1;
         return <div key={`slot-${i}`}>{`slot ${val}`}</div>;
       })}
