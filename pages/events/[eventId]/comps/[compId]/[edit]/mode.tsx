@@ -15,6 +15,7 @@ import Navigation from '@/components/Navigation';
 import MatchCard from '@/components/comp/MatchCard';
 import RoundOptions from '@/components/comp/RoundOptions';
 import { Round } from '@/types/round';
+import { Match } from '@/types/match';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -29,7 +30,7 @@ const ModeEditing = (props: any) => {
   const minPassingPerMatch = 1;
   const minPassingExtra = 0;
 
-  const initRound = new Round('Round 1', numParticipants);
+  const initRound = new Round(0, 'Round 1', numParticipants);
 
   const [rounds, setRounds] = useState<Round[]>([initRound]);
   const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
@@ -38,26 +39,51 @@ const ModeEditing = (props: any) => {
     router.push(routeLogin);
   }
 
+  const getMatchesFromRounds = (rnds: Round[]): Match[] => {
+    const matches: Match[] = [];
+
+    rnds.map((rnd: Round, i: number) => {
+      rnd.matches.map((match: Match) => {
+        matches.push(match);
+      });
+    });
+
+    return matches;
+  };
+
   const handleSaveClicked = async () => {
-    console.log(rounds);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/matches`, {
+      method: 'POST',
+      body: JSON.stringify({
+        compId: compId,
+        matches: getMatchesFromRounds(rounds),
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.user.accessToken}`,
+      },
+    });
+    if (response.status == 201) {
+      // router.replace(`/events/${eventId}/comps`);
+      // TODO
+    }
+  };
 
-    // const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition`, {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     id: compId,
-    //     eventId: eventId,
-    //     name: comp?.name.trim(),
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${session.user.accessToken}`,
-    //   },
-    // });
-    // if (response.status == 201) {
-    //   router.replace(`/events/${eventId}/comps`);
-    // }
-
-    // console.log(response.status);
+  const handleDeleteClicked = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/matches`, {
+      method: 'DELETE',
+      body: JSON.stringify({
+        compId: compId,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.user.accessToken}`,
+      },
+    });
+    if (response.status == 200) {
+      // router.replace(`/events/${eventId}/comps`);
+      // TODO
+    }
   };
 
   useEffect(() => {
@@ -91,7 +117,7 @@ const ModeEditing = (props: any) => {
     const lastRound = getLastRound();
 
     if (lastRound.advancingTotal > 1) {
-      const newRound = new Round(`Round ${rounds.length + 1}`, lastRound.advancingTotal);
+      const newRound = new Round(rnds.length, `Round ${rounds.length + 1}`, lastRound.advancingTotal);
       rnds.push(newRound);
       setRounds(rnds);
 
@@ -133,7 +159,7 @@ const ModeEditing = (props: any) => {
 
     if (+maxMatchSize >= minMatchSize && +maxMatchSize <= maxVal) {
       rnds[roundId].maxMatchSize = +maxMatchSize;
-      rnds[roundId].matches = rnds[roundId].createMatches();
+      rnds[roundId].matches = rnds[roundId].createMatches(roundId);
       setRounds(rnds);
     }
   };
@@ -219,6 +245,7 @@ const ModeEditing = (props: any) => {
 
       <Navigation>
         <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+        <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
         <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
       </Navigation>
     </div>
