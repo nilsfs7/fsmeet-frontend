@@ -2,7 +2,6 @@ import { Round } from '@/types/round';
 
 interface IRoundOptionsProps {
   round: Round;
-  roundIndex: number;
   minMatchSize: number;
   numParticipants: number;
   minPassingPerMatch: number;
@@ -15,7 +14,6 @@ interface IRoundOptionsProps {
 
 const RoundOptions = ({
   round,
-  roundIndex,
   minMatchSize,
   numParticipants,
   minPassingPerMatch,
@@ -66,7 +64,7 @@ const RoundOptions = ({
                       <> */}
         <div className="text-end">
           <input
-            id={`input-max-match-size-${roundIndex}`}
+            id={`input-max-match-size-${round.roundIndex}`}
             type="number"
             min={minMatchSize}
             max={numParticipants}
@@ -82,7 +80,7 @@ const RoundOptions = ({
 
         <div className="text-end">
           <input
-            id={`input-max-passing-${roundIndex}`}
+            id={`input-max-passing-${round.roundIndex}`}
             type="number"
             min={minPassingPerMatch}
             defaultValue={minPassingPerMatch}
@@ -97,11 +95,11 @@ const RoundOptions = ({
 
         <div className="text-end">
           <input
-            id={`input-passing-extra-${roundIndex}`}
+            id={`input-passing-extra-${round.roundIndex}`}
             className="text-end"
             type="number"
             min={minPassingExtra}
-            defaultValue={minPassingExtra}
+            defaultValue={round.passingExtra}
             disabled={lockUi}
             onChange={e => {
               changePassingExtra(e.currentTarget.value);

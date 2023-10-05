@@ -1,6 +1,7 @@
 import { Match } from './match';
 
 export class Round {
+  public roundIndex: number;
   public name: string;
   public numberPlayers: number;
   public maxMatchSize: number = 2;
@@ -9,10 +10,11 @@ export class Round {
   public passingExtra: number = 0;
 
   constructor(roundIndex: number, name: string, numberPlayers: number) {
+    this.roundIndex = roundIndex;
     this.name = name;
     this.numberPlayers = numberPlayers;
 
-    this.matches = this.createMatches(roundIndex);
+    this.matches = this.createMatches();
   }
 
   public get advancingTotal(): number {
@@ -35,7 +37,7 @@ export class Round {
     return maxAdvancingExtra;
   }
 
-  public createMatches = (roundIndex: number): Match[] => {
+  public createMatches = (): Match[] => {
     const getInitialMatchSize = (numPlayers: number, numMatches: number, maxMatchSize: number): number => {
       while (numMatches * maxMatchSize > numPlayers) {
         maxMatchSize -= 1;
@@ -51,7 +53,7 @@ export class Round {
     const modulo = this.numberPlayers % this.maxMatchSize;
     if (modulo === 0) {
       for (let i = 0; i < numMatches; i++) {
-        matches.push({ name: `Match ${i + 1}`, roundIndex: roundIndex, slots: this.maxMatchSize });
+        matches.push({ matchIndex: i, name: `Match ${i + 1}`, slots: this.maxMatchSize });
       }
     } else {
       let initialSlots = getInitialMatchSize(this.numberPlayers, numMatches, this.maxMatchSize);
@@ -59,7 +61,7 @@ export class Round {
 
       // distribute save (initial) slots
       for (let i = 0; i < numMatches; i++) {
-        matches.push({ name: `Match ${i + 1}`, roundIndex: roundIndex, slots: initialSlots });
+        matches.push({ matchIndex: i, name: `Match ${i + 1}`, slots: initialSlots });
         distributedSlots += initialSlots;
       }
 

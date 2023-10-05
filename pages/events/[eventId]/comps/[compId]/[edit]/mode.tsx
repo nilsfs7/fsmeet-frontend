@@ -30,33 +30,35 @@ const ModeEditing = (props: any) => {
   const minPassingPerMatch = 1;
   const minPassingExtra = 0;
 
-  const initRound = new Round(0, 'Round 1', numParticipants);
-
-  const [rounds, setRounds] = useState<Round[]>([initRound]);
+  const [rounds, setRounds] = useState<Round[]>([]);
   const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
 
   if (!session) {
     router.push(routeLogin);
   }
 
-  const getMatchesFromRounds = (rnds: Round[]): Match[] => {
-    const matches: Match[] = [];
+  const fetchRounds = async (compId: string): Promise<Round[]> => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/${compId}/rounds`);
+    const rnds: Round[] = await response.json();
 
-    rnds.map((rnd: Round, i: number) => {
-      rnd.matches.map((match: Match) => {
-        matches.push(match);
-      });
+    const rounds: Round[] = rnds.map(rnd => {
+      const round = new Round(rnd.roundIndex, rnd.name, rnd.numberPlayers);
+      round.passingExtra = rnd.passingExtra;
+      round.passingPerMatch = rnd.passingPerMatch;
+      console.log(`${rnd.roundIndex} ${rnd.passingExtra}`);
+      round.matches = rnd.matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser)
+      return round;
     });
 
-    return matches;
+    return rounds;
   };
 
   const handleSaveClicked = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/matches`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/rounds`, {
       method: 'POST',
       body: JSON.stringify({
-        compId: compId,
-        matches: getMatchesFromRounds(rounds),
+        competitionId: compId,
+        rounds: rounds,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -70,10 +72,10 @@ const ModeEditing = (props: any) => {
   };
 
   const handleDeleteClicked = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/matches`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/rounds`, {
       method: 'DELETE',
       body: JSON.stringify({
-        compId: compId,
+        competitionId: compId,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -85,6 +87,20 @@ const ModeEditing = (props: any) => {
       // TODO
     }
   };
+
+  useEffect(() => {
+    if (compId) {
+      // @ts-ignore: next-line
+      fetchRounds(compId).then(rounds => {
+        if (rounds.length === 0) {
+          const initRound = new Round(0, 'Round 1', numParticipants);
+          setRounds([initRound]);
+        } else {
+          setRounds(rounds);
+        }
+      });
+    }
+  }, []);
 
   useEffect(() => {
     rounds.map((rnd, i) => {
@@ -159,7 +175,7 @@ const ModeEditing = (props: any) => {
 
     if (+maxMatchSize >= minMatchSize && +maxMatchSize <= maxVal) {
       rnds[roundId].maxMatchSize = +maxMatchSize;
-      rnds[roundId].matches = rnds[roundId].createMatches(roundId);
+      rnds[roundId].matches = rnds[roundId].createMatches();
       setRounds(rnds);
     }
   };
@@ -209,7 +225,6 @@ const ModeEditing = (props: any) => {
 
                 <RoundOptions
                   round={round}
-                  roundIndex={i}
                   minMatchSize={minMatchSize}
                   numParticipants={numParticipants}
                   minPassingPerMatch={minPassingPerMatch}
@@ -228,8 +243,6 @@ const ModeEditing = (props: any) => {
 
                 <div className="mt-4">
                   {round.matches.map((match, j) => {
-                    console.log(round.matches.length);
-
                     return (
                       <div key={`match-${j}`} className="my-1">
                         <MatchCard match={match} />

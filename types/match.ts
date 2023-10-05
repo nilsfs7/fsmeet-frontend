@@ -1,6 +1,6 @@
 export type Match = {
   id?: string;
-  roundIndex: number;
+  matchIndex: number;
   name: string;
   slots: number;
 };
