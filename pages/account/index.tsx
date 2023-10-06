@@ -4,15 +4,14 @@ import { useEffect, useState } from 'react';
 import { getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
-import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
 import Dropdown from '@/components/common/Dropdown';
-import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome } from '@/types/consts/routes';
+import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin } from '@/types/consts/routes';
 import { imgUserNoImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
 import { countries } from '@/types/consts/countries';
 import { tShirtSizes } from '@/types/consts/t-shirt-sizes';
+import { ButtonStyle } from '@/types/enums/button-style';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -47,6 +46,8 @@ const Account = ({ session }: any) => {
 
     if (response.status == 200) {
       console.log('updating user info successful');
+
+      router.push(`${routeHome}`);
     } else {
       console.log('updating user info failed');
     }
@@ -138,7 +139,7 @@ const Account = ({ session }: any) => {
         <div className="my-4" />
 
         <div className={'flex flex-col items-center'}>
-          <div className="m-2 flex flex-col">
+          <div className="flex flex-col">
             <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
               <div className="text-center">Public Info</div>
               <TextInput
@@ -196,12 +197,12 @@ const Account = ({ session }: any) => {
           </div>
         </div>
 
-        <div className="flex justify-center pt-6">
-          <TextButton text="Delete account" onClick={handleDeleteAccountClicked} />
+        <div className="flex justify-center pt-4">
+          <TextButton text="Logout" onClick={handleLogoutClicked} />
         </div>
 
-        <div className="flex justify-center py-2">
-          <TextButton text="Logout" onClick={handleLogoutClicked} />
+        <div className="flex justify-center pt-4">
+          <TextButton text="Delete account" style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
         </div>
       </div>
 
