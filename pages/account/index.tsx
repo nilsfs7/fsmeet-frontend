@@ -194,15 +194,9 @@ const Account = ({ session }: any) => {
               </div>
             </div>
           </div>
-
-          <div className="my-2 flex">
-            <div className="px-1">
-              <ActionButton action={Action.SAVE} onClick={handleSaveUserInfoClicked} />
-            </div>
-          </div>
         </div>
 
-        <div className="flex justify-center pt-10">
+        <div className="flex justify-center pt-6">
           <TextButton text="Delete account" onClick={handleDeleteAccountClicked} />
         </div>
 
@@ -215,6 +209,7 @@ const Account = ({ session }: any) => {
         <Link href={routeHome}>
           <TextButton text="Back" />
         </Link>
+        <TextButton text="Save" onClick={handleSaveUserInfoClicked} />
       </Navigation>
     </div>
   );
