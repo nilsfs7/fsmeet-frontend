@@ -42,26 +42,13 @@ const RoundOptions = ({
   };
 
   return (
-    <div className="flex gap-2 p-1">
-      <div>
+    <div className="flex flex-col p-1">
+      <div className="flex items-end justify-between gap-2">
         <div className="">Num Players</div>
-        {/* {round.numberPlayers > 2 && (
-                      <> */}
-        <div className="">Max Match Size</div>
-        <div className="">Num Matches</div>
-        <div className="">Passing Per Match</div>
-        <div className="">Num Passing Round</div>
-        <div className="">Passing Extra</div>
-        <div className="">Num Passing Total</div>
-        {/* </>
-                    )} */}
-      </div>
-
-      <div>
         <div className="text-end">{round.numberPlayers}</div>
-
-        {/* {round.numberPlayers > 2 && (
-                      <> */}
+      </div>
+      <div className="mt-2 flex items-end justify-between gap-2">
+        <div className="">Max Match Size</div>
         <div className="text-end">
           <input
             id={`input-max-match-size-${round.roundIndex}`}
@@ -75,9 +62,13 @@ const RoundOptions = ({
             }}
           />
         </div>
-
+      </div>
+      <div className="mt-2 flex items-end justify-between gap-2">
+        <div className="">Num Matches</div>
         <div className="text-end">{round.matches.length}</div>
-
+      </div>
+      <div className="mt-2 flex items-end justify-between gap-2">
+        <div className="">Passing Per Match</div>
         <div className="text-end">
           <input
             id={`input-max-passing-${round.roundIndex}`}
@@ -90,9 +81,13 @@ const RoundOptions = ({
             }}
           />
         </div>
-
+      </div>
+      <div className="mt-2 flex items-end justify-between gap-2">
+        <div className="">Num Passing Round</div>
         <div className="text-end">{round.matches.length * round.passingPerMatch}</div>
-
+      </div>
+      <div className="mt-2 flex items-end justify-between gap-2">
+        <div className="">Passing Extra</div>
         <div className="text-end">
           <input
             id={`input-passing-extra-${round.roundIndex}`}
@@ -106,10 +101,10 @@ const RoundOptions = ({
             }}
           />
         </div>
-
+      </div>
+      <div className="mt-2 flex items-end justify-between gap-2">
+        <div className="">Num Passing Total</div>
         <div className="text-end">{round.advancingTotal}</div>
-        {/* </>
-                    )} */}
       </div>
     </div>
   );

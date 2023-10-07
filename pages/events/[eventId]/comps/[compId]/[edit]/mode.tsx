@@ -199,51 +199,64 @@ const ModeEditing = (props: any) => {
   };
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <div className={'flex flex-col items-center'}>
-        <h1 className="m-2 text-xl">Edit Mode</h1>
+    <div className="absolute inset-0 flex flex-col">
+      <div className={`m-2 justify-center overflow-hidden overflow-y-auto`}>
+        <div className={'flex flex-col items-center'}>
+          <h1 className="mt-2 text-xl">Edit Mode</h1>
 
-        <div className="mt-2 flex gap-2">
-          <div className="flex gap-1">
+          <div className="mt-2 flex gap-2">
             <ActionButton action={Action.ADD} onClick={addRound} />
-          </div>
-
-          <div className="flex gap-1">
             <ActionButton action={Action.REMOVE} onClick={removeLastRound} />
           </div>
         </div>
-      </div>
 
-      <div className={`m-2 flex justify-center overflow-y-auto `}>
-        <div className={'grid grid-flow-col overflow-x-auto'}>
+        <div className={'mt-2 flex justify-center '}>
           {rounds.map((round: Round, i: number) => {
             return (
-              <div key={`rnd-${i}`} className="m-1 rounded-lg border border-primary bg-secondary-light p-1">
-                <div className="my-1 text-center">{round.name}</div>
+              <div className="mx-1">
+                <div key={`rnd-${i}`} className="w-52 rounded-lg border border-primary bg-secondary-light p-1">
+                  <div className="my-1 text-center">{round.name}</div>
 
-                <hr />
+                  <hr />
 
-                <RoundOptions
-                  round={round}
-                  minMatchSize={minMatchSize}
-                  numParticipants={numParticipants}
-                  minPassingPerMatch={minPassingPerMatch}
-                  minPassingExtra={minPassingExtra}
-                  lockUi={roundOptionsLocked[i]}
-                  onChangeMaxMatchSize={(val: number): void => {
-                    changeMaxMatchSize(i, val);
-                  }}
-                  onChangePassingPerMatch={(val: number): void => {
-                    changePassingPerMatch(i, val);
-                  }}
-                  onChangePassingExtra={(val: number): void => {
-                    changePassingExtra(i, val);
-                  }}
-                />
+                  <RoundOptions
+                    round={round}
+                    minMatchSize={minMatchSize}
+                    numParticipants={numParticipants}
+                    minPassingPerMatch={minPassingPerMatch}
+                    minPassingExtra={minPassingExtra}
+                    lockUi={roundOptionsLocked[i]}
+                    onChangeMaxMatchSize={(val: number): void => {
+                      changeMaxMatchSize(i, val);
+                    }}
+                    onChangePassingPerMatch={(val: number): void => {
+                      changePassingPerMatch(i, val);
+                    }}
+                    onChangePassingExtra={(val: number): void => {
+                      changePassingExtra(i, val);
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
-                <div className="mt-4">
+        <div className={'mt-2 flex flex-col items-center'}>
+          <div className="flex gap-2">
+            <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
+            <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
+          </div>
+        </div>
+
+        <div className={'mt-2 flex justify-center'}>
+          {rounds.map((round: Round, i: number) => {
+            return (
+              <div className="mx-1">
+                <div key={`rnd-${i}`} className="w-52">
                   {round.matches.map((match, j) => {
                     return (
+                      /* TODO: my-1 nicht bei top und bottom */
                       <div key={`match-${j}`} className="my-1">
                         <MatchCard match={match} />
                       </div>
@@ -258,8 +271,6 @@ const ModeEditing = (props: any) => {
 
       <Navigation>
         <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
-        <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-        <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
       </Navigation>
     </div>
   );

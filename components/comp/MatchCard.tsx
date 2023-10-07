@@ -11,7 +11,7 @@ const MatchCard = ({ match }: IMatchProps) => {
       <hr />
       {[...Array(match.slots)].map((val: any, i: number) => {
         val = i + 1;
-        return <div key={`slot-${i}`}>{`slot ${val}`}</div>;
+        return <div key={`slot-${i}`}>{`Slot ${val}`}</div>;
       })}
     </div>
   );
