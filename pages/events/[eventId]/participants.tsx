@@ -111,7 +111,7 @@ const EventParticipants = (props: any) => {
   return (
     <>
       <Dialog
-        title="Delete Account"
+        title="Remove Participant"
         queryParam="delete"
         onClose={handleCancelRemoveParticipantClicked}
         onOk={() => {
