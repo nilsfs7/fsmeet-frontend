@@ -213,8 +213,8 @@ const ModeEditing = (props: any) => {
         <div className={'mt-2 flex justify-center '}>
           {rounds.map((round: Round, i: number) => {
             return (
-              <div className="mx-1">
-                <div key={`rnd-${i}`} className="w-52 rounded-lg border border-primary bg-secondary-light p-1">
+              <div key={`rnd-${i}`} className="mx-1">
+                <div className="w-52 rounded-lg border border-primary bg-secondary-light p-1">
                   <div className="my-1 text-center">{round.name}</div>
 
                   <hr />
@@ -252,8 +252,8 @@ const ModeEditing = (props: any) => {
         <div className={'mt-2 flex justify-center'}>
           {rounds.map((round: Round, i: number) => {
             return (
-              <div className="mx-1">
-                <div key={`rnd-${i}`} className="w-52">
+              <div key={`rnd-${i}`} className="mx-1">
+                <div className="w-52">
                   {round.matches.map((match, j) => {
                     return (
                       /* TODO: my-1 nicht bei top und bottom */
