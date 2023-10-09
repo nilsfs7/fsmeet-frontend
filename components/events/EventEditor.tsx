@@ -7,6 +7,8 @@ import { EventType } from '@/types/enums/event-type';
 import Dropdown from './Dropdown';
 import CheckBox from '../common/CheckBox';
 import TextInputLarge from '../common/TextInputLarge';
+import { PaymentMethodCash } from '@/types/payment-method-cash';
+import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 
 interface IEventEditorProps {
   event?: Event;
@@ -17,7 +19,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [name, setEventName] = useState(event?.name || '');
   const [dateFrom, setDateFrom] = useState<Moment>(event?.dateFrom ? event?.dateFrom : moment().add(7, 'day'));
   const [dateTo, setDateTo] = useState<Moment>(event?.dateTo ? event?.dateTo : moment().add(7, 'day'));
-  const [participationFee, setParticipationFee] = useState(event?.participationFee);
   const [registrationOpen, setRegistrationOpen] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment());
   const [registrationDeadline, setRegistrationDeadline] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment().add(7, 'day'));
   const [description, setDescription] = useState(event?.description || '');
@@ -27,9 +28,25 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [venuePostCode, setVenuePostCode] = useState(event?.venueCity || '');
   const [venueCountry, setVenueCountry] = useState(event?.venueCity || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
+  const [participationFee, setParticipationFee] = useState(event?.participationFee);
+  const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
+  const [paymentMethodSepaEnabled, setPaymentMethodSepaEnabled] = useState<boolean>(event?.paymentMethodSepa?.enabled || false);
+  const [paymentMethodSepaBank, setPaymentMethodSepaBank] = useState<string>(event?.paymentMethodSepa?.bank || '');
+  const [paymentMethodSepaRecipient, setPaymentMethodSepaRecipient] = useState<string>(event?.paymentMethodSepa?.recipient || '');
+  const [paymentMethodSepaIban, setPaymentMethodSepaIban] = useState<string>(event?.paymentMethodSepa?.iban || '');
+  const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
 
   const updateEvent = () => {
+    const paymentMethodCash: PaymentMethodCash = { enabled: paymentMethodCashEnabled };
+    const paymentMethodSepa: PaymentMethodSepa = {
+      enabled: paymentMethodSepaEnabled,
+      bank: paymentMethodSepaBank,
+      recipient: paymentMethodSepaRecipient,
+      iban: paymentMethodSepaIban,
+      reference: paymentMethodSepaReference,
+    };
+
     onEventUpdate({
       id: event?.id,
       name: name,
@@ -45,6 +62,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       venuePostCode: venuePostCode,
       venueCountry: venueCountry,
       participationFee: participationFee,
+      paymentMethodCash: paymentMethodCash,
+      paymentMethodSepa: paymentMethodSepa,
       autoApproveRegistrations: autoApproveRegistrations,
       eventRegistrations: [],
       eventCompetitions: [],
@@ -67,18 +86,23 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setVenueCity(event.venueCity);
       setVenueCountry(event.venueCountry);
       setEventType(event.type);
+      setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
+      setPaymentMethodSepaEnabled(event.paymentMethodSepa.enabled);
+      setPaymentMethodSepaBank(event.paymentMethodSepa.bank);
+      setPaymentMethodSepaRecipient(event.paymentMethodSepa.recipient);
+      setPaymentMethodSepaIban(event.paymentMethodSepa.iban);
+      setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
     }
   }, [event]);
 
-  // fires event back
+  // fires back event
   useEffect(() => {
     updateEvent();
   }, [
     name,
     dateFrom,
     dateTo,
-    participationFee,
     registrationOpen,
     registrationDeadline,
     description,
@@ -88,12 +112,15 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     venuePostCode,
     venueCountry,
     eventType,
+    participationFee,
+    paymentMethodCashEnabled,
+    paymentMethodSepaEnabled,
+    paymentMethodSepaBank,
+    paymentMethodSepaRecipient,
+    paymentMethodSepaIban,
+    paymentMethodSepaReference,
     autoApproveRegistrations,
   ]);
-
-  // if (!name || !description || !venueHouseNo || !venueStreet || !venuePostCode || !venueCity || !venueCountry) {
-  //   return <>loading...</>;
-  // }
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
@@ -236,6 +263,64 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         value={participationFee ? participationFee.toString() : undefined}
         onChange={e => {
           setParticipationFee(e.currentTarget.value);
+        }}
+      />
+
+      <CheckBox
+        id={'paymentMethodCashEnabled'}
+        label="Accept Cash"
+        value={paymentMethodCashEnabled}
+        onChange={() => {
+          setPaymentMethodCashEnabled(!paymentMethodCashEnabled);
+        }}
+      />
+
+      <CheckBox
+        id={'paymentMethodSepaEnabled'}
+        label="Accept SEPA"
+        value={paymentMethodSepaEnabled}
+        onChange={() => {
+          setPaymentMethodSepaEnabled(!paymentMethodSepaEnabled);
+        }}
+      />
+
+      <TextInput
+        id={'paymentMethodSepaBank'}
+        label={'SEPA Bank'}
+        placeholder="DKB"
+        value={paymentMethodSepaBank}
+        onChange={e => {
+          setPaymentMethodSepaBank(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'paymentMethodSepaRecipient'}
+        label={'SEPA Recipient'}
+        placeholder="DFFB e.V."
+        value={paymentMethodSepaRecipient}
+        onChange={e => {
+          setPaymentMethodSepaRecipient(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'paymentMethodSepaIban'}
+        label={'SEPA IBAN'}
+        placeholder="DE123"
+        value={paymentMethodSepaIban}
+        onChange={e => {
+          setPaymentMethodSepaIban(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'paymentMethodSepaReference'}
+        label={'SEPA Reference'}
+        placeholder="gffc-2023"
+        value={paymentMethodSepaReference}
+        onChange={e => {
+          setPaymentMethodSepaReference(e.currentTarget.value);
         }}
       />
 

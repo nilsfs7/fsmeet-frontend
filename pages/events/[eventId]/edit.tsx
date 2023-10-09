@@ -10,6 +10,8 @@ import { Action } from '@/types/enums/action';
 import { routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
 import ErrorMessage from '@/components/ErrorMessage';
+import { PaymentMethodCash } from '@/types/payment-method-cash';
+import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -49,6 +51,14 @@ const EventEditing = (props: any) => {
         venueCountry: event?.venueCountry.trim(),
         participationFee: event?.participationFee,
         type: event?.type,
+        paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
+        paymentMethodSepa: {
+          enabled: event?.paymentMethodSepa.enabled,
+          bank: event?.paymentMethodSepa.bank,
+          recipient: event?.paymentMethodSepa.recipient,
+          iban: event?.paymentMethodSepa.iban,
+          reference: event?.paymentMethodSepa.reference,
+        },
         autoApproveRegistrations: event?.autoApproveRegistrations,
       }),
       headers: {
@@ -59,7 +69,7 @@ const EventEditing = (props: any) => {
 
     switch (response.status) {
       case 200:
-        router.replace(routeEventSubs);
+        router.replace(`/events/${eventId}`);
         break;
 
       default:
@@ -98,6 +108,15 @@ const EventEditing = (props: any) => {
   useEffect(() => {
     if (eventId && typeof eventId === 'string') {
       fetchEvent(eventId).then((res: Event) => {
+        const paymentMehodCash: PaymentMethodCash = { enabled: res.paymentMethodCash.enabled };
+        const paymentMehodSepa: PaymentMethodSepa = {
+          enabled: res.paymentMethodSepa.enabled,
+          bank: res.paymentMethodSepa.bank,
+          recipient: res.paymentMethodSepa.recipient,
+          iban: res.paymentMethodSepa.iban,
+          reference: res.paymentMethodSepa.reference,
+        };
+
         const e: Event = {
           id: res.id,
           name: res.name,
@@ -117,6 +136,8 @@ const EventEditing = (props: any) => {
           venuePostCode: res.venuePostCode,
           venueCountry: res.venueCountry,
           type: res.type,
+          paymentMethodCash: paymentMehodCash,
+          paymentMethodSepa: paymentMehodSepa,
           autoApproveRegistrations: res.autoApproveRegistrations,
           eventRegistrations: [],
           eventCompetitions: [],

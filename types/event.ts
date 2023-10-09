@@ -2,6 +2,8 @@ import { Moment } from 'moment';
 import { EventType } from './enums/event-type';
 import { EventRegistration } from './event-registration';
 import { EventCompetition } from './event-competition';
+import { PaymentMethodCash } from './payment-method-cash';
+import { PaymentMethodSepa } from './payment-method-sepa';
 
 export type Event = {
   id: string | undefined;
@@ -18,6 +20,8 @@ export type Event = {
   venuePostCode: string;
   venueCountry: string;
   type: EventType;
+  paymentMethodCash: PaymentMethodCash;
+  paymentMethodSepa: PaymentMethodSepa;
   autoApproveRegistrations: boolean;
   eventRegistrations: EventRegistration[];
   eventCompetitions: EventCompetition[];

@@ -33,6 +33,14 @@ const EventCreation = (props: any) => {
         venueCountry: event?.venueCountry.trim(),
         participationFee: event?.participationFee,
         type: event?.type,
+        paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
+        paymentMethodSepa: {
+          enabled: event?.paymentMethodSepa.enabled,
+          bank: event?.paymentMethodSepa.bank,
+          recipient: event?.paymentMethodSepa.recipient,
+          iban: event?.paymentMethodSepa.iban,
+          reference: event?.paymentMethodSepa.reference,
+        },
         autoApproveRegistrations: event?.autoApproveRegistrations,
       }),
 
