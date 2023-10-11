@@ -9,7 +9,8 @@ import Participant from '@/components/events/Participant';
 import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import Link from 'next/link';
-import { routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/types/consts/routes';
+import Dialog from '@/components/Dialog';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -19,6 +20,8 @@ const EventParticipants = (props: any) => {
 
   const [event, setEvent] = useState<IEvent>();
 
+  const [userToRemove, setUserToRemove] = useState('');
+
   const isLoggedIn = () => {
     if (session) {
       return true;
@@ -27,7 +30,16 @@ const EventParticipants = (props: any) => {
     return false;
   };
 
-  const handleRemoveParticipant = async (id: string, username: string) => {
+  const handleRemoveParticipantClicked = async (username: string) => {
+    setUserToRemove(username);
+    router.replace(`${routeEvents}/${eventId}/participants?delete=1`, undefined, { shallow: true });
+  };
+
+  const handleCancelRemoveParticipantClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}/participants`, undefined, { shallow: true });
+  };
+
+  const handleConfirmRemoveParticipantClicked = async (id: string, username: string) => {
     if (!isLoggedIn()) {
       router.push(routeLogin);
       return;
@@ -54,7 +66,7 @@ const EventParticipants = (props: any) => {
     }
   };
 
-  const handleApproveParticipant = async (id: string, username: string, status: EventRegistrationStatus) => {
+  const handleApproveParticipantClicked = async (id: string, username: string, status: EventRegistrationStatus) => {
     if (!isLoggedIn()) {
       router.push(routeLogin);
       return;
@@ -98,8 +110,22 @@ const EventParticipants = (props: any) => {
 
   return (
     <>
+      <Dialog
+        title="Remove Participant"
+        queryParam="delete"
+        onClose={handleCancelRemoveParticipantClicked}
+        onOk={() => {
+          if (eventId) {
+            handleConfirmRemoveParticipantClicked(eventId.toString(), userToRemove);
+            setUserToRemove('');
+          }
+        }}
+      >
+        <p>Do you really want to remove {userToRemove}?</p>
+      </Dialog>
+
       <div className="m-2">
-        <div className={'rounded-lg border border-black bg-zinc-300 p-2 text-sm'}>
+        <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <div className="m-2 text-center text-base font-bold">Manage Participants</div>
           <div className="flex flex-col">
             {event.eventRegistrations.map((registration, index) => {
@@ -119,12 +145,12 @@ const EventParticipants = (props: any) => {
                   <div className="mx-1 flex w-1/2 justify-start">
                     {(participant.status === EventRegistrationStatus.APPROVED || participant.status === EventRegistrationStatus.DENIED) && (
                       <>
-                        <div className="mr-1 flex w-24 items-center justify-center font-bold text-black">{participant.status.toUpperCase()}</div>
+                        <div className="mr-1 flex w-24 items-center justify-center font-bold ">{participant.status.toUpperCase()}</div>
                         <div className="ml-1">
                           <ActionButton
                             action={Action.DELETE}
                             onClick={() => {
-                              handleRemoveParticipant(event.id, participant.username);
+                              handleRemoveParticipantClicked(participant.username);
                             }}
                           />
                         </div>
@@ -137,7 +163,7 @@ const EventParticipants = (props: any) => {
                             <ActionButton
                               action={Action.ACCEPT}
                               onClick={() => {
-                                handleApproveParticipant(event.id, participant.username, EventRegistrationStatus.APPROVED);
+                                handleApproveParticipantClicked(event.id, participant.username, EventRegistrationStatus.APPROVED);
                               }}
                             />
                           </div>
@@ -145,7 +171,7 @@ const EventParticipants = (props: any) => {
                             <ActionButton
                               action={Action.DENY}
                               onClick={() => {
-                                handleApproveParticipant(event.id, participant.username, EventRegistrationStatus.DENIED);
+                                handleApproveParticipantClicked(event.id, participant.username, EventRegistrationStatus.DENIED);
                               }}
                             />
                           </div>

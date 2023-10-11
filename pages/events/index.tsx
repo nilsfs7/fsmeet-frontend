@@ -1,3 +1,4 @@
+import { Logo } from '@/components/Logo';
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
@@ -8,6 +9,7 @@ import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
 import TextButton from '@/components/common/TextButton';
 import { routeHome } from '@/types/consts/routes';
+import Navigation from '@/components/Navigation';
 
 const defaultDateFrom = moment(moment().year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
@@ -51,11 +53,9 @@ const MyEventsOverview = ({ session }: { session: any }) => {
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       {/* Banner */}
-      <div className="bg-zinc-300 sm:block">
+      <div className="sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
-          <Link href={routeHome}>
-            <h1 className="text-xl">FSMeet</h1>
-          </Link>
+          <Logo />
         </div>
       </div>
 
@@ -70,28 +70,25 @@ const MyEventsOverview = ({ session }: { session: any }) => {
       </div>
 
       {/* Events */}
-      <div className="overflow-hidden">
-        <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
-          <div className="mx-2">
-            {events.map((item: any, i: number) => {
-              return (
-                <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                  <Link href={`/events/${item.id}`}>
-                    <EventCard event={item} />
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
+      <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
+        <div className="mx-2">
+          {events.map((item: any, i: number) => {
+            return (
+              <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                <Link href={`/events/${item.id}`}>
+                  <EventCard event={item} />
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Actions */}
-      <div className="m-2 flex flex-shrink-0 justify-between">
+      <Navigation>
         <Link href={routeHome}>
           <TextButton text="Back" />
         </Link>
-      </div>
+      </Navigation>
     </div>
   );
 };

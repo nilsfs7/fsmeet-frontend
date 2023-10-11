@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { EventCompetition } from '@/types/event-competition';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const CompetitionCreation = (props: any) => {
   const session = props.session;
@@ -14,17 +15,20 @@ const CompetitionCreation = (props: any) => {
   const { eventId } = router.query;
 
   const [comp, setComp] = useState<EventCompetition>();
+  const [error, setError] = useState('');
 
   if (!session) {
     router.push(routeLogin);
   }
 
   const handleCreateClicked = async () => {
+    setError('');
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition`, {
       method: 'POST',
       body: JSON.stringify({
         eventId: eventId,
-        name: comp?.name,
+        name: comp?.name.trim(),
       }),
 
       headers: {
@@ -35,6 +39,10 @@ const CompetitionCreation = (props: any) => {
 
     if (response.status == 201) {
       router.replace(`/events/${eventId}/comps`);
+    } else {
+      const error = await response.json();
+      setError(error.message);
+      console.log(error.message);
     }
   };
 
@@ -46,6 +54,7 @@ const CompetitionCreation = (props: any) => {
           setComp(comp);
         }}
       />
+
       <div className="my-2 flex">
         <div className="pr-1">
           <TextButton text={'Cancel'} onClick={() => router.back()} />
@@ -54,6 +63,8 @@ const CompetitionCreation = (props: any) => {
           <TextButton text={'Create'} onClick={handleCreateClicked} />
         </div>
       </div>
+
+      <ErrorMessage message={error} />
     </div>
   );
 };

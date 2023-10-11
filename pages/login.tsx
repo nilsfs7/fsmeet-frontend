@@ -6,6 +6,7 @@ import { getSession, signIn } from 'next-auth/react';
 import router from 'next/router';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const Login: NextPage = () => {
   const [username, setUsername] = useState('');
@@ -65,7 +66,7 @@ const Login: NextPage = () => {
   return (
     <>
       <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
-        <div className="m-2 flex flex-col rounded-lg bg-zinc-300 p-1">
+        <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
           <TextInput
             id={'username'}
             label={'Username'}
@@ -91,11 +92,7 @@ const Login: NextPage = () => {
           <TextButton text="Login" onClick={handleLoginClicked} />
         </div>
 
-        {error != '' && (
-          <div className="flex justify-center py-2">
-            <label className="text-dark-red">{error}</label>
-          </div>
-        )}
+        <ErrorMessage message={error} />
 
         <div className="flex justify-center py-2">
           <Link href={'/password/forgot'}>

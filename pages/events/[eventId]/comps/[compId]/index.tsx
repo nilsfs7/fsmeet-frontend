@@ -7,6 +7,7 @@ import { EventCompetition } from '@/types/event-competition';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
+import Navigation from '@/components/Navigation';
 
 const Competition = (props: any) => {
   const session = props.session;
@@ -43,21 +44,17 @@ const Competition = (props: any) => {
   }, []);
 
   return (
-    <>
-      <div className={'flex columns-1 flex-col items-center'}>
+    <div className="absolute inset-0 flex flex-col overflow-hidden">
+      <div className="mt-2 flex max-h-full flex-col items-center justify-center overflow-y-auto">
         <h1 className="m-2 text-xl">{comp?.name}</h1>
 
         <div>some infos...</div>
       </div>
 
-      <div className="m-2 flex justify-between">
-        <div className="flex justify-start">
-          <div className="mr-1">
-            <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}`)} />
-          </div>
-        </div>
-      </div>
-    </>
+      <Navigation>
+        <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}`)} />
+      </Navigation>
+    </div>
   );
 };
 

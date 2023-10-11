@@ -1,28 +1,37 @@
+import SocialLink from '@/components/user/SocialLink';
 import { imgUserDefaultImg } from '@/types/consts/images';
+import { Platform } from '@/types/enums/platform';
 import { User } from '@/types/user';
 import { GetServerSideProps } from 'next';
 
 const Profile = (props: any) => {
   const user: User = props.data;
 
-  let displayName = user.firstName ? user.firstName : user.username;
+  let displayName = user.firstName ? `${user.firstName}` : `${user.username}`;
   if (user.lastName) {
-    displayName = `${displayName} ${user.lastName}`;
+    displayName = `${displayName}`;
   }
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="m-2 grid place-items-center">
-        <div className="m-2 text-5xl">{displayName}</div>
-        <div className="relative h-96 w-64">
-          <img className="h-full w-full rounded-lg border border-black object-cover shadow-2xl shadow-black" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
-          {user.instagramHandle && (
-            <div className={`absolute bottom-3 right-3 rounded-lg border border-black bg-white p-1`}>
-              <a className="underline" href={`https://www.instagram.com/${user.instagramHandle.replace('@', '')}`}>
-                {user.instagramHandle}
-              </a>
-            </div>
-          )}
+    <div className="absolute inset-0 flex justify-center">
+      <div className="flex flex-col items-center justify-center">
+        <div className="m-2 text-3xl">{user.username}</div>
+
+        <div>
+          <div className="flex h-96 w-64">
+            <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
+          </div>
+
+          <div className="mx-1 mt-6">
+            {user.firstName && user.lastName && <div className="mx-1 mb-2">{`${user.firstName} ${user.lastName}`}</div>}
+            {user.firstName && !user.lastName && <div className="mx-1 mb-2">{`${user.firstName}`}</div>}
+
+            {user.instagramHandle && (
+              <div className="w-fit">
+                <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

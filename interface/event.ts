@@ -1,5 +1,7 @@
 import { EventCompetition } from '@/types/event-competition';
 import { EventRegistration } from '@/types/event-registration';
+import { PaymentMethodCash } from '@/types/payment-method-cash';
+import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 
 export interface IEvent {
   id: string;
@@ -8,6 +10,7 @@ export interface IEvent {
   dateFrom: number;
   dateTo: number;
   participationFee: number;
+  registrationOpen: number;
   registrationDeadline: number;
   description: string;
   venueHouseNo: string;
@@ -16,6 +19,9 @@ export interface IEvent {
   venuePostCode: string;
   venueCountry: string;
   type: string;
+  paymentMethodCash: PaymentMethodCash;
+  paymentMethodSepa: PaymentMethodSepa;
+  autoApproveRegistrations: boolean;
   eventRegistrations: EventRegistration[];
   eventCompetitions: EventCompetition[];
 }

@@ -1,5 +1,5 @@
 export type EventCompetition = {
   id: string | undefined;
   eventId: string | undefined;
-  name: string | undefined;
+  name: string;
 };
