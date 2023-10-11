@@ -56,6 +56,19 @@ const Event = (props: any) => {
     }
 
     if (event && event?.registrationDeadline > moment().unix()) {
+      router.replace(`${routeEvents}/${eventId}?register=1`, undefined, { shallow: true });
+    } else {
+      console.log('Registration deadline exceeded.');
+    }
+  };
+
+  const handleConfirmRegisterClicked = async () => {
+    if (!isLoggedIn()) {
+      router.push(routeLogin);
+      return;
+    }
+
+    if (event && event?.registrationDeadline > moment().unix()) {
       const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
       const method: string = 'POST';
 
@@ -92,7 +105,7 @@ const Event = (props: any) => {
     }
   };
 
-  const handleCancelUnregisterClicked = async () => {
+  const handleCancelDialogClicked = async () => {
     router.replace(`${routeEvents}/${eventId}`, undefined, { shallow: true });
   };
 
@@ -235,8 +248,49 @@ const Event = (props: any) => {
 
   return (
     <>
-      <Dialog title="Unregister From Event" queryParam="unregister" onClose={handleCancelUnregisterClicked} onOk={handleConfirmUnregisterClicked}>
+      <Dialog title="Unregister From Event" queryParam="unregister" onClose={handleCancelDialogClicked} onOk={handleConfirmUnregisterClicked}>
         <p>Do you really want to unregister from this event?</p>
+      </Dialog>
+
+      <Dialog title="Register" queryParam="register" onClose={handleCancelDialogClicked} onOk={handleConfirmRegisterClicked}>
+        <div>{`Do you want to register for ${event.name}`}?</div>
+
+        <div>Please take note of the participation fee ({event.participationFee.toString().replace('.', ',')} €). We will confirm your registration once we received your payment.</div>
+
+        <div className="">
+          <div className="mt-4 grid grid-cols-1 justify-between">
+            <div>Bank transfer (SEPA)</div>
+
+            <div className="grid grid-cols-2 justify-between">
+              <div>Bank</div>
+              <div>{event.paymentMethodSepa.bank}</div>
+            </div>
+
+            <div className="grid grid-cols-2 justify-between">
+              <div>Recipient</div>
+              <div>{event.paymentMethodSepa.recipient}</div>
+            </div>
+
+            <div className="grid grid-cols-2 justify-between">
+              <div>IBAN</div>
+              <div>{event.paymentMethodSepa.iban}</div>
+            </div>
+
+            <div className="grid grid-cols-2 justify-between">
+              <div>Amount</div>
+              <div>{event.participationFee.toString().replace('.', ',')} €</div>
+            </div>
+
+            <div className="grid grid-cols-2 justify-between">
+              <div>Reference</div>
+              <div>
+                {event.paymentMethodSepa.reference}-{session?.user?.username}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4">By confirming your registration we will also mail you the payment details.</div>
       </Dialog>
 
       <div className="absolute inset-0 flex flex-col overflow-hidden">
