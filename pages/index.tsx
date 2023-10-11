@@ -1,3 +1,5 @@
+import { Logo } from '@/components/Logo';
+import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/Profile';
@@ -14,11 +16,9 @@ const Home = ({ data }: { data: any[] }) => {
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-zinc-300 sm:block">
+      <div className="bg-secondary-light sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
-          <Link href="/">
-            <h1 className="text-xl">FSMeet</h1>
-          </Link>
+          <Logo />
 
           <Profile />
         </div>
@@ -42,26 +42,25 @@ const Home = ({ data }: { data: any[] }) => {
         </div>
       </div>
 
-      {/* Actions */}
+      {/* Show all */}
       <div className="m-2 flex flex-shrink-0 justify-center">
         <Link href={routeEvents}>
           <TextButton text="Show All" />
         </Link>
       </div>
 
-      {/* Footer */}
-      <div className="mt-auto bg-zinc-300 sm:block">
-        <div className="mx-2 flex h-16 items-center justify-end">
+      <Navigation reverse={true}>
+        <div className="mx-2">
           <Link href={routeAbout}>
-            <div className="cursor-pointer rounded-lg bg-zinc-300 p-1 hover:bg-zinc-400">
+            <div className="rounded-lg p-1">
               <div className="grid grid-flow-col items-center">
                 <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
-                <div className="mx-1 truncate hover:text-clip">{'About'}</div>
+                <div className="mx-1">About</div>
               </div>
             </div>
           </Link>
         </div>
-      </div>
+      </Navigation>
     </div>
   );
 };

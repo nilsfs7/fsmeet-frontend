@@ -1,12 +1,8 @@
+import { MenuItem } from '@/types/menu-item';
 import Box from '@mui/material/Box';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import MenuItemMaterial from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-
-export type MenuItem = {
-  text: string;
-  value: string;
-};
 
 interface IDropdownProps {
   menus: MenuItem[];
@@ -25,9 +21,9 @@ const Dropdown = ({ menus, value, onChange }: IDropdownProps) => {
         <Select id="select" value={value} onChange={handleChange}>
           {menus.map(item => {
             return (
-              <MenuItem key={item.value} value={item.value}>
+              <MenuItemMaterial key={item.value} value={item.value}>
                 {item.text}
-              </MenuItem>
+              </MenuItemMaterial>
             );
           })}
         </Select>

@@ -5,6 +5,8 @@ import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
 import { getSession } from 'next-auth/react';
 import { routeFeedbackThankyou } from '@/types/consts/routes';
+import ErrorMessage from '@/components/ErrorMessage';
+import Navigation from '@/components/Navigation';
 
 const GeneralFeedback: NextPage = (props: any) => {
   const session = props.session;
@@ -38,28 +40,31 @@ const GeneralFeedback: NextPage = (props: any) => {
   };
 
   return (
-    <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
-      <h1 className="mb-2 text-center text-xl">Send Feedback</h1>
-      <div className="m-2 h-1/2 w-[95%] rounded-lg bg-zinc-300">
-        <TextInputLarge
-          id={'message'}
-          label={'Message'}
-          placeholder="Any feedback is highly appriciented!"
-          onChange={e => {
-            handleInputChangeMessage(e);
+    <div className={'absolute inset-0 flex flex-col'}>
+      <div className={'flex h-full flex-col items-center justify-center'}>
+        <h1 className="mb-2 text-center text-xl">Send Feedback</h1>
+        <div className="m-2 h-1/2 w-[95%] rounded-lg border border-primary bg-secondary-light">
+          <TextInputLarge
+            id={'message'}
+            label={'Message'}
+            placeholder="Any feedback is highly appriciented!"
+            onChange={e => {
+              handleInputChangeMessage(e);
+            }}
+          />
+        </div>
+      </div>
+
+      <ErrorMessage message={error} />
+      <Navigation>
+        <TextButton
+          text="Back"
+          onClick={() => {
+            router.back();
           }}
         />
-      </div>
-
-      <div className="flex justify-center py-2">
         <TextButton text="Submit" onClick={handleSubmitClicked} />
-      </div>
-
-      {error != '' && (
-        <div className="flex justify-center py-2">
-          <label className="text-dark-red">{error}</label>
-        </div>
-      )}
+      </Navigation>
     </div>
   );
 };

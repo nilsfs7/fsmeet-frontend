@@ -4,74 +4,93 @@ import { GetServerSideProps } from 'next';
 import { IEvent } from '@/interface/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
+import Navigation from '@/components/Navigation';
+import { routeEventSubs, routeHome } from '@/types/consts/routes';
+import { Logo } from '@/components/Logo';
+import { useRouter } from 'next/router';
+import Dialog from '@/components/Dialog';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const eventsOwning: IEvent[] = data.owning;
   const eventsSubscribed: IEvent[] = data.subs;
 
+  const router = useRouter();
+
+  const handlCreateEventClicked = async () => {
+    router.replace(`${routeEventSubs}?create=1`, undefined, { shallow: true });
+  };
+
+  const handleCancelDialogClicked = async () => {
+    router.replace(`${routeEventSubs}`, undefined, { shallow: true });
+  };
+
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
-      {/* Banner */}
-      <div className="bg-zinc-300 sm:block">
-        <div className="mx-2 flex h-20 items-center justify-start">
-          <Link href="/">
-            <h1 className="text-xl">FSMeet</h1>
-          </Link>
+    <>
+      <Dialog title="Create New Event" queryParam="create" onClose={handleCancelDialogClicked} onOk={handleCancelDialogClicked}>
+        <p>{`Free event service coming soon! :)`}</p>
+      </Dialog>
+
+      <div className="absolute inset-0 flex flex-col overflow-hidden">
+        {/* Banner */}
+        <div className="bg-secondary-light sm:block">
+          <div className="mx-2 flex h-20 items-center justify-start">
+            <Logo />
+          </div>
         </div>
-      </div>
 
-      {/* Event Subscriptions */}
+        {/* Event Subscriptions */}
 
-      <div className="overflow-hidden overflow-y-auto">
-        {eventsOwning.length > 0 && (
-          <>
-            <h1 className="mt-2 text-center text-xl">My Events</h1>
-            <div className="mt-2 flex justify-center ">
-              <div className="mx-2">
-                {eventsOwning.map((item: any, i: number) => {
-                  return (
-                    <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                      <Link href={`/events/${item.id}`}>
-                        <EventCard event={item} />
-                      </Link>
-                    </div>
-                  );
-                })}
+        <div className="overflow-hidden overflow-y-auto">
+          {eventsOwning.length > 0 && (
+            <>
+              <h1 className="mt-2 text-center text-xl">My Events</h1>
+              <div className="mt-2 flex justify-center ">
+                <div className="mx-2">
+                  {eventsOwning.map((item: any, i: number) => {
+                    return (
+                      <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                        <Link href={`/events/${item.id}`}>
+                          <EventCard event={item} />
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
 
-        {eventsSubscribed.length > 0 && (
-          <>
-            <h1 className="mt-2 text-center text-xl">Event Subscriptions</h1>
-            <div className="mt-2 flex justify-center">
-              <div className="mx-2">
-                {eventsSubscribed.map((item: any, i: number) => {
-                  return (
-                    <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                      <Link href={`/events/${item.id}`}>
-                        <EventCard event={item} />
-                      </Link>
-                    </div>
-                  );
-                })}
+          {eventsSubscribed.length > 0 && (
+            <>
+              <h1 className="mt-2 text-center text-xl">Event Subscriptions</h1>
+              <div className="mt-2 flex justify-center">
+                <div className="mx-2">
+                  {eventsSubscribed.map((item: any, i: number) => {
+                    return (
+                      <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                        <Link href={`/events/${item.id}`}>
+                          <EventCard event={item} />
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </>
-        )}
-      </div>
+            </>
+          )}
+        </div>
 
-      {/* Actions */}
-      <div className="m-2 flex flex-shrink-0 justify-between">
-        <Link href="/">
-          <TextButton text="Back" />
-        </Link>
-        <Link href="/events/create">
-          <TextButton text="Create Event" />
-        </Link>
+        <Navigation>
+          <Link href={routeHome}>
+            <TextButton text="Back" />
+          </Link>
+          {/* TODO: enable and remove dialog */}
+          {/* <Link href={routeEventsCreate}> */}
+          <TextButton text="Create Event" onClick={handlCreateEventClicked} />
+          {/* </Link> */}
+        </Navigation>
       </div>
-    </div>
+    </>
   );
 };
 export default MyEventsOverview;

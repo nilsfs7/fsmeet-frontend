@@ -7,7 +7,11 @@ import moment from 'moment';
 import { Event } from '@/types/event';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
-import { routeEventSubs, routeLogin } from '@/types/consts/routes';
+import { routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
+import Dialog from '@/components/Dialog';
+import ErrorMessage from '@/components/ErrorMessage';
+import { PaymentMethodCash } from '@/types/payment-method-cash';
+import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -16,6 +20,7 @@ const EventEditing = (props: any) => {
   const { eventId } = router.query;
 
   const [event, setEvent] = useState<Event>();
+  const [error, setError] = useState('');
 
   if (!session) {
     router.push(routeLogin);
@@ -26,23 +31,34 @@ const EventEditing = (props: any) => {
     return await response.json();
   };
 
-  const handleSaveClicked = async () => {
+  const handleSaveEventClicked = async () => {
+    setError('');
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'PATCH',
       body: JSON.stringify({
         id: eventId,
-        name: event?.name,
+        name: event?.name.trim(),
+        description: event?.description.trim(),
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),
-        participationFee: event?.participationFee,
+        registrationOpen: event?.registrationOpen.unix(),
         registrationDeadline: event?.registrationDeadline.unix(),
-        description: event?.description,
-        venueHouseNo: event?.venueHouseNo,
-        venueStreet: event?.venueStreet,
-        venuePostCode: event?.venuePostCode,
-        venueCity: event?.venueCity,
-        venueCountry: event?.venueCountry,
+        venueHouseNo: event?.venueHouseNo.trim(),
+        venueStreet: event?.venueStreet.trim(),
+        venuePostCode: event?.venuePostCode.trim(),
+        venueCity: event?.venueCity.trim(),
+        venueCountry: event?.venueCountry.trim(),
+        participationFee: event?.participationFee,
         type: event?.type,
+        paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
+        paymentMethodSepa: {
+          enabled: event?.paymentMethodSepa.enabled,
+          bank: event?.paymentMethodSepa.bank,
+          recipient: event?.paymentMethodSepa.recipient,
+          iban: event?.paymentMethodSepa.iban,
+          reference: event?.paymentMethodSepa.reference,
+        },
         autoApproveRegistrations: event?.autoApproveRegistrations,
       }),
       headers: {
@@ -51,12 +67,24 @@ const EventEditing = (props: any) => {
       },
     });
 
-    if (response.status == 200) {
-      router.replace(routeEventSubs);
+    switch (response.status) {
+      case 200:
+        router.replace(`/events/${eventId}`);
+        break;
+
+      default:
+        const error = await response.json();
+        setError(error.message);
+        console.error(response.statusText);
+        break;
     }
   };
 
-  const handleDeleteClicked = async () => {
+  const handleDeleteEventClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}/edit?delete=1`, undefined, { shallow: true });
+  };
+
+  const handleConfirmDeleteEventClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'DELETE',
       body: JSON.stringify({
@@ -73,9 +101,22 @@ const EventEditing = (props: any) => {
     }
   };
 
+  const handleCancelDeleteEventClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}/edit`, undefined, { shallow: true });
+  };
+
   useEffect(() => {
     if (eventId && typeof eventId === 'string') {
       fetchEvent(eventId).then((res: Event) => {
+        const paymentMehodCash: PaymentMethodCash = { enabled: res.paymentMethodCash.enabled };
+        const paymentMehodSepa: PaymentMethodSepa = {
+          enabled: res.paymentMethodSepa.enabled,
+          bank: res.paymentMethodSepa.bank,
+          recipient: res.paymentMethodSepa.recipient,
+          iban: res.paymentMethodSepa.iban,
+          reference: res.paymentMethodSepa.reference,
+        };
+
         const e: Event = {
           id: res.id,
           name: res.name,
@@ -85,6 +126,8 @@ const EventEditing = (props: any) => {
           dateTo: moment.unix(res.dateTo),
           participationFee: res.participationFee,
           // @ts-ignore
+          registrationOpen: moment.unix(res.registrationOpen),
+          // @ts-ignore
           registrationDeadline: moment.unix(res.registrationDeadline),
           description: res.description,
           venueHouseNo: res.venueHouseNo,
@@ -93,6 +136,8 @@ const EventEditing = (props: any) => {
           venuePostCode: res.venuePostCode,
           venueCountry: res.venueCountry,
           type: res.type,
+          paymentMethodCash: paymentMehodCash,
+          paymentMethodSepa: paymentMehodSepa,
           autoApproveRegistrations: res.autoApproveRegistrations,
           eventRegistrations: [],
           eventCompetitions: [],
@@ -104,27 +149,35 @@ const EventEditing = (props: any) => {
   }, []);
 
   return (
-    <div className={'flex columns-1 flex-col items-center'}>
-      <h1 className="m-2 text-xl">Edit Event</h1>
-      <EventEditor
-        event={event}
-        onEventUpdate={(event: Event) => {
-          setEvent(event);
-        }}
-      />
+    <>
+      <Dialog title="Delete Account" queryParam="delete" onClose={handleCancelDeleteEventClicked} onOk={handleConfirmDeleteEventClicked}>
+        <p>Do you really want to delete this event?</p>
+      </Dialog>
 
-      <div className="my-2 flex">
-        <div className="px-1">
-          <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
-        </div>
-        <div className="px-1">
-          <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-        </div>
-        <div className="px-1">
-          <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
+      <div className={'flex columns-1 flex-col items-center'}>
+        <h1 className="m-2 text-xl">Edit Event</h1>
+        <EventEditor
+          event={event}
+          onEventUpdate={(event: Event) => {
+            setEvent(event);
+          }}
+        />
+
+        <ErrorMessage message={error} />
+
+        <div className="my-2 flex">
+          <div className="px-1">
+            <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+          </div>
+          <div className="px-1">
+            <ActionButton action={Action.DELETE} onClick={handleDeleteEventClicked} />
+          </div>
+          <div className="px-1">
+            <ActionButton action={Action.SAVE} onClick={handleSaveEventClicked} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

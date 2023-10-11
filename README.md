@@ -64,6 +64,8 @@ Feedback
 
 - [Thumbs up](https://www.iconfinder.com/icons/8665808/thumbs_up_icon)
 
+- [Bye](https://www.iconfinder.com/icons/9070043/bye_icon)
+
 Event
 
 - [Competition](https://www.iconfinder.com/icons/6843056/achievement_award_competition_reward_success_trophy_winner_icon)

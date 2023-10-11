@@ -1,7 +1,8 @@
 import { IEvent } from '@/interface/event';
 import { useEffect, useState } from 'react';
-import moment from 'moment';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
+import { shortDateString } from '@/types/funcs/time';
+import Separator from '../Seperator';
 
 interface IEventProps {
   event: IEvent;
@@ -10,26 +11,16 @@ interface IEventProps {
 const EventCard = ({ event }: IEventProps) => {
   const [dateFrom, setDateFrom] = useState<number>();
   const [dateTo, setDateTo] = useState<number>();
-  const [dateRegistartionDeadline, setDateRegistartionDeadline] = useState<number>();
+  const [dateRegistrationDeadline, setDateRegistrationDeadline] = useState<number>();
 
   useEffect(() => {
     setDateFrom(event.dateFrom);
     setDateTo(event.dateTo);
-    setDateRegistartionDeadline(event.registrationDeadline);
+    setDateRegistrationDeadline(event.registrationDeadline);
   }, []);
 
-  const shortDateString = (unixTs: number, appendYear: boolean = true): string => {
-    const date = moment.unix(unixTs);
-
-    if (appendYear) {
-      return moment(date).format('DD.MM.YY');
-    } else {
-      return moment(date).format('DD.MM.');
-    }
-  };
-
   return (
-    <div className={'rounded-lg border border-black bg-zinc-300 p-2 text-sm hover:bg-zinc-400'}>
+    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary '}>
       {/* top */}
       <div className={'max-h-24 p-2'}>
         <div className="28 flex ">
@@ -45,16 +36,11 @@ const EventCard = ({ event }: IEventProps) => {
         </div>
         <div className="flex justify-between">
           <div className="text-xs">by {event.owner}</div>
-          <div>{dateRegistartionDeadline && <div className="text-right">Deadline: {shortDateString(dateRegistartionDeadline)}</div>}</div>
+          <div>{dateRegistrationDeadline && <div className="text-right">Deadline: {shortDateString(dateRegistrationDeadline)}</div>}</div>
         </div>
       </div>
 
-      {/* line */}
-      <div className="flex h-1">
-        <div className="w-1/3 bg-gray-400"></div>
-        <div className="w-1/3 bg-gray-500"></div>
-        <div className="w-1/3 bg-gray-400"></div>
-      </div>
+      <Separator />
 
       {/* botton */}
       <div className="flex h-20 p-2">

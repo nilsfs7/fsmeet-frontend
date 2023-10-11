@@ -9,7 +9,7 @@ interface ICompetitionListListProps {
 
 const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) => {
   return (
-    <div className={'rounded-lg border border-black bg-zinc-300 p-2 text-sm'}>
+    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
       <div className="text-base font-bold">Competitions</div>
       <div className="flex flex-wrap">
         {competitions.map((competition, i) => {
@@ -19,9 +19,10 @@ const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) =
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              <Link href={`/events/${eventId}/comps/${competition.id}`}>
-                <Competition competition={competition} />
-              </Link>
+              {/* TODO: enable link once useful information in comp*/}
+              {/* <Link href={`/events/${eventId}/comps/${competition.id}`}> */}
+              <Competition competition={competition} />
+              {/* </Link> */}
             </div>
           );
         })}
