@@ -5,4 +5,5 @@ export type User = {
   lastName?: string;
   country?: string;
   instagramHandle?: string;
+  youTubeHandle?: string;
 };
