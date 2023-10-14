@@ -31,6 +31,12 @@ const Profile = (props: any) => {
                 <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
               </div>
             )}
+
+            {user.youTubeHandle && (
+              <div className="mt-2 w-fit">
+                <SocialLink platform={Platform.YOUTUBE} path={user.youTubeHandle} />
+              </div>
+            )}
           </div>
         </div>
       </div>

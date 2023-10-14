@@ -1,4 +1,5 @@
 import InstagramIcon from '@mui/icons-material/Instagram';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import { Platform } from '@/types/enums/platform';
 import { LogoIcon } from '../Logo';
 
@@ -25,6 +26,14 @@ const SocialLink = ({ platform, path }: ISocialLink) => {
         </div>
       );
       url = `https://www.instagram.com/${path.replace('@', '')}`;
+      break;
+    case Platform.YOUTUBE:
+      icon = (
+        <div className="m-0 p-0">
+          <YouTubeIcon fontSize="large" className={`${textColor}`} />
+        </div>
+      );
+      url = `https://www.youtube.com/${path}`;
       break;
   }
 
