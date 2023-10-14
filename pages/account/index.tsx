@@ -22,6 +22,7 @@ const Account = ({ session }: any) => {
   const [lastName, setLastName] = useState();
   const [country, setCountry] = useState();
   const [instagramHandle, setInstagramHandle] = useState();
+  const [youTubeHandle, setYouTubeHandle] = useState();
 
   // private user info
   const [tShirtSize, setTShirtSize] = useState();
@@ -34,6 +35,7 @@ const Account = ({ session }: any) => {
         lastName: lastName,
         country: country,
         instagramHandle: instagramHandle,
+        youTubeHandle: youTubeHandle,
         private: {
           tShirtSize: tShirtSize,
         },
@@ -110,6 +112,9 @@ const Account = ({ session }: any) => {
       if (user.instagramHandle) {
         setInstagramHandle(user.instagramHandle);
       }
+      if (user.youTubeHandle) {
+        setYouTubeHandle(user.youTubeHandle);
+      }
       if (user.private?.tShirtSize) {
         setTShirtSize(user.private.tShirtSize);
       }
@@ -177,6 +182,15 @@ const Account = ({ session }: any) => {
                 value={instagramHandle}
                 onChange={e => {
                   setInstagramHandle(e.currentTarget.value);
+                }}
+              />
+              <TextInput
+                id={'youTubeHandle'}
+                label={'YouTube Handle'}
+                placeholder="@freestyler.kevin"
+                value={youTubeHandle}
+                onChange={e => {
+                  setYouTubeHandle(e.currentTarget.value);
                 }}
               />
             </div>
