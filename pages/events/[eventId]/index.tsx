@@ -263,27 +263,27 @@ const Event = (props: any) => {
 
             <div className="grid grid-cols-2 justify-between">
               <div>Bank</div>
-              <div>{event.paymentMethodSepa.bank}</div>
+              <div className="select-text">{event.paymentMethodSepa.bank}</div>
             </div>
 
             <div className="grid grid-cols-2 justify-between">
               <div>Recipient</div>
-              <div>{event.paymentMethodSepa.recipient}</div>
+              <div className="select-text">{event.paymentMethodSepa.recipient}</div>
             </div>
 
             <div className="grid grid-cols-2 justify-between">
               <div>IBAN</div>
-              <div>{event.paymentMethodSepa.iban}</div>
+              <div className="select-text">{event.paymentMethodSepa.iban}</div>
             </div>
 
             <div className="grid grid-cols-2 justify-between">
               <div>Amount</div>
-              <div>{event.participationFee.toString().replace('.', ',')} €</div>
+              <div className="select-text">{event.participationFee.toString().replace('.', ',')} €</div>
             </div>
 
             <div className="grid grid-cols-2 justify-between">
               <div>Reference</div>
-              <div>
+              <div className="select-text">
                 {event.paymentMethodSepa.reference}-{session?.user?.username}
               </div>
             </div>
