@@ -12,9 +12,11 @@ import Navigation from '@/components/Navigation';
 import { countries } from '@/types/consts/countries';
 import { tShirtSizes } from '@/types/consts/t-shirt-sizes';
 import { ButtonStyle } from '@/types/enums/button-style';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
+  const [error, setError] = useState('');
 
   // public user info
   const [imageUrl, setImageUrl] = useState();
@@ -28,6 +30,8 @@ const Account = ({ session }: any) => {
   const [tShirtSize, setTShirtSize] = useState();
 
   const handleSaveUserInfoClicked = async () => {
+    setError('');
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'PATCH',
       body: JSON.stringify({
@@ -51,7 +55,9 @@ const Account = ({ session }: any) => {
 
       router.push(`${routeHome}`);
     } else {
-      console.log('updating user info failed');
+      const error = await response.json();
+      setError(error.message);
+      console.log(error.message);
     }
   };
 
@@ -60,6 +66,8 @@ const Account = ({ session }: any) => {
   };
 
   const handleConfirmDeleteAccountClicked = async () => {
+    setError('');
+    
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'DELETE',
       headers: {
@@ -73,7 +81,9 @@ const Account = ({ session }: any) => {
       localStorage.removeItem('imageUrl');
       router.push(routeAccountDeleted);
     } else {
-      console.error('failed to delete account');
+      const error = await response.json();
+      setError(error.message);
+      console.log(error.message);
     }
   };
 
@@ -219,6 +229,8 @@ const Account = ({ session }: any) => {
           <TextButton text="Delete account" style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
         </div>
       </div>
+
+      <ErrorMessage message={error} />
 
       <Navigation>
         <Link href={routeHome}>
