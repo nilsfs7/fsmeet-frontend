@@ -45,13 +45,12 @@ const EventParticipants = (props: any) => {
       return;
     }
 
-    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
+    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
     let method: string = 'DELETE';
 
     const response = await fetch(url, {
       method: method,
       body: JSON.stringify({
-        eventId: `${eventId}`,
         username: `${username}`,
       }),
       headers: {
@@ -72,13 +71,12 @@ const EventParticipants = (props: any) => {
       return;
     }
 
-    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration/status`;
+    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations/status`;
     let method: string = 'PATCH';
 
     const response = await fetch(url, {
       method: method,
       body: JSON.stringify({
-        eventId: `${eventId}`,
         username: `${username}`,
         status: status,
       }),
