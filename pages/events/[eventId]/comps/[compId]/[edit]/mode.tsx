@@ -270,7 +270,7 @@ const ModeEditing = (props: any) => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+        <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps/${compId}/edit`)} />
       </Navigation>
     </div>
   );
