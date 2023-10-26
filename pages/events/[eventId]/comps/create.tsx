@@ -42,7 +42,7 @@ const CompetitionCreation = (props: any) => {
     } else {
       const error = await response.json();
       setError(error.message);
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 
@@ -55,6 +55,8 @@ const CompetitionCreation = (props: any) => {
         }}
       />
 
+      <ErrorMessage message={error} />
+
       <div className="my-2 flex">
         <div className="pr-1">
           <TextButton text={'Cancel'} onClick={() => router.back()} />
@@ -63,8 +65,6 @@ const CompetitionCreation = (props: any) => {
           <TextButton text={'Create'} onClick={handleCreateClicked} />
         </div>
       </div>
-
-      <ErrorMessage message={error} />
     </div>
   );
 };
