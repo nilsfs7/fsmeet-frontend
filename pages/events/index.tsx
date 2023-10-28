@@ -14,7 +14,7 @@ import Navigation from '@/components/Navigation';
 const defaultDateFrom = moment(moment().year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
 
-const MyEventsOverview = ({ session }: { session: any }) => {
+const EventsOverview = ({ session }: { session: any }) => {
   const [events, setEvents] = useState<IEvent[]>([]);
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
@@ -92,7 +92,7 @@ const MyEventsOverview = ({ session }: { session: any }) => {
     </div>
   );
 };
-export default MyEventsOverview;
+export default EventsOverview;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);

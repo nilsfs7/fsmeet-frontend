@@ -8,6 +8,7 @@ import { EventCompetition } from '@/types/event-competition';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -17,6 +18,7 @@ const CompetitionEditing = (props: any) => {
   const { compId } = router.query;
 
   const [comp, setComp] = useState<EventCompetition>();
+  const [error, setError] = useState('');
 
   if (!session) {
     router.push(routeLogin);
@@ -28,12 +30,16 @@ const CompetitionEditing = (props: any) => {
   };
 
   const handleSaveClicked = async () => {
+    setError('');
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition`, {
       method: 'PATCH',
       body: JSON.stringify({
         id: compId,
         eventId: eventId,
         name: comp?.name.trim(),
+        description: comp?.description.trim(),
+        rules: comp?.rules.trim(),
       }),
 
       headers: {
@@ -44,6 +50,10 @@ const CompetitionEditing = (props: any) => {
 
     if (response.status == 200) {
       router.replace(`/events/${eventId}/comps`);
+    } else {
+      const error = await response.json();
+      setError(error.message);
+      console.error(error.message);
     }
   };
 
@@ -56,6 +66,8 @@ const CompetitionEditing = (props: any) => {
           id: comp.id,
           eventId: eventId,
           name: comp.name,
+          description: comp.description,
+          rules: comp.rules,
         };
 
         setComp(c);
@@ -75,12 +87,23 @@ const CompetitionEditing = (props: any) => {
 
       <div className="my-2 flex">
         <div className="pr-1">
+          <div className="flex h-full items-center">Player Pool</div>
+        </div>
+        <div className="pl-1">
+          <ActionButton action={Action.MANAGE_USERS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/pool`)} />
+        </div>
+      </div>
+
+      <div className="my-2 flex">
+        <div className="pr-1">
           <div className="flex h-full items-center">Game Mode</div>
         </div>
         <div className="pl-1">
           <ActionButton action={Action.MANAGE_COMPETITIONS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/mode`)} />
         </div>
       </div>
+
+      <ErrorMessage message={error} />
 
       <div className="my-2 flex">
         <div className="pr-1">

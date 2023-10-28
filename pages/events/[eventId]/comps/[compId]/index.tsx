@@ -36,6 +36,8 @@ const Competition = (props: any) => {
           id: comp.id,
           eventId: eventId,
           name: comp.name,
+          description: comp.description,
+          rules: comp.rules,
         };
 
         setComp(c);
