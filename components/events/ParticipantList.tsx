@@ -5,7 +5,7 @@ import { EventRegistrationStatus } from '@/types/enums/event-registration-status
 
 interface IParticipantListProps {
   participants: User[];
-  registrationStatus: EventRegistrationStatus[];
+  registrationStatus?: EventRegistrationStatus[];
 }
 
 const ParticipantList = ({ participants, registrationStatus }: IParticipantListProps) => {
@@ -21,7 +21,8 @@ const ParticipantList = ({ participants, registrationStatus }: IParticipantListP
           return (
             <div key={i} className={`my-1 ${margin}`}>
               <Link href={`/user/${participant.username}`}>
-                <Participant participant={participant} registrationStatus={registrationStatus[i]} />
+                {registrationStatus && <Participant participant={participant} registrationStatus={registrationStatus[i]} />}
+                {!registrationStatus && <Participant participant={participant} />}
               </Link>
             </div>
           );
