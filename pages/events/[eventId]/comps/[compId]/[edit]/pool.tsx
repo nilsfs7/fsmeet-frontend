@@ -17,7 +17,7 @@ const CompetitionPool = (props: any) => {
   const { compId } = router.query;
 
   const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>([]);
-  const [eventCompetitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
+  const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
 
   const isLoggedIn = () => {
     if (session) {
@@ -48,7 +48,7 @@ const CompetitionPool = (props: any) => {
     });
 
     if (response.status == 200) {
-      let newArray = Array.from(eventCompetitionParticipants);
+      let newArray = Array.from(competitionParticipants);
       newArray = newArray.filter(registration => {
         return registration.username != username;
       });
@@ -79,7 +79,7 @@ const CompetitionPool = (props: any) => {
     });
 
     if (response.status == 201) {
-      const newArray = Array.from(eventCompetitionParticipants);
+      const newArray = Array.from(competitionParticipants);
       newArray.push({ username: username });
       setCompetitionParticipants(newArray);
 
@@ -104,9 +104,9 @@ const CompetitionPool = (props: any) => {
 
     fetchEventRegistrations();
     fetchCompetitionParticipants();
-  }, [eventRegistrations == undefined, eventCompetitionParticipants == undefined]);
+  }, [eventRegistrations == undefined, competitionParticipants == undefined]);
 
-  if (!eventRegistrations || !eventCompetitionParticipants) {
+  if (!eventRegistrations || !competitionParticipants) {
     return <>loading...</>;
   }
 
@@ -116,7 +116,7 @@ const CompetitionPool = (props: any) => {
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <h1 className="m-2 text-center text-xl font-bold">Manage Player Pool</h1>
           <div className="flex flex-col">
-            <div className="m-2 text-center text-sm">Number of players in pool: {eventCompetitionParticipants.length}</div>
+            <div className="m-2 text-center text-sm">Number of players in pool: {competitionParticipants.length}</div>
             {eventRegistrations.map((registration, index) => {
               const participant: EventRegistration = {
                 username: registration.username,
@@ -133,7 +133,7 @@ const CompetitionPool = (props: any) => {
                   </div>
                   <div className="mx-1 flex w-1/2 justify-start">
                     <div className="flex">
-                      {eventCompetitionParticipants.some(e => e.username === participant.username) && (
+                      {competitionParticipants.some(e => e.username === participant.username) && (
                         <>
                           <div className="flex h-full w-16 items-center justify-center">assigned</div>
                           <div className="ml-1">
@@ -147,7 +147,7 @@ const CompetitionPool = (props: any) => {
                           </div>
                         </>
                       )}
-                      {!eventCompetitionParticipants.some(e => e.username === participant.username) && (
+                      {!competitionParticipants.some(e => e.username === participant.username) && (
                         <>
                           <div className="flex h-full w-16 items-center justify-center">free</div>
                           <div className="mx-1">
