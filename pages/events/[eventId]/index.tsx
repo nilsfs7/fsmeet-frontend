@@ -69,13 +69,12 @@ const Event = (props: any) => {
     }
 
     if (event && event?.registrationDeadline > moment().unix()) {
-      const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
+      const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
       const method: string = 'POST';
 
       const response = await fetch(url, {
         method: method,
         body: JSON.stringify({
-          eventId: `${eventId}`,
           username: `${session.user.username}`,
         }),
         headers: {
@@ -116,13 +115,12 @@ const Event = (props: any) => {
     }
 
     if (event && event?.registrationDeadline > moment().unix()) {
-      const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/registration`;
+      const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
       const method: string = 'DELETE';
 
       const response = await fetch(url, {
         method: method,
         body: JSON.stringify({
-          eventId: `${eventId}`,
           username: `${session.user.username}`,
         }),
         headers: {

@@ -6,17 +6,21 @@ import router from 'next/router';
 import { useState } from 'react';
 import { Event } from '@/types/event';
 import { routeEventSubs, routeLogin } from '@/types/consts/routes';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const EventCreation = (props: any) => {
   const session = props.session;
 
   const [event, setEvent] = useState<Event>();
+  const [error, setError] = useState('');
 
   if (!session) {
     router.push(routeLogin);
   }
 
   const handleCreateClicked = async () => {
+    setError('');
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'POST',
       body: JSON.stringify({
@@ -52,6 +56,10 @@ const EventCreation = (props: any) => {
 
     if (response.status == 201) {
       router.replace(routeEventSubs);
+    } else {
+      const error = await response.json();
+      setError(error.message);
+      console.error(error.message);
     }
   };
 
@@ -63,6 +71,9 @@ const EventCreation = (props: any) => {
           setEvent(event);
         }}
       />
+
+      <ErrorMessage message={error} />
+
       <div className="my-2 flex">
         <div className="pr-1">
           <TextButton text={'Cancel'} onClick={() => router.back()} />

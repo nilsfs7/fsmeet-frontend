@@ -7,7 +7,7 @@ import { imgUserDefaultImg } from '@/types/consts/images';
 
 interface IParticipantProps {
   participant: User;
-  registrationStatus: EventRegistrationStatus;
+  registrationStatus?: EventRegistrationStatus;
 }
 
 const Participant = ({ participant, registrationStatus }: IParticipantProps) => {
@@ -16,11 +16,13 @@ const Participant = ({ participant, registrationStatus }: IParticipantProps) => 
       <div className="grid grid-flow-col items-center justify-between">
         <img src={participant.imageUrl ? participant.imageUrl : imgUserDefaultImg} className="mx-1 h-6 w-6 rounded-full object-cover" />
         <div className="mx-1">{participant.username}</div>
-        <>
-          {registrationStatus == EventRegistrationStatus.APPROVED && <CheckIcon />}
-          {registrationStatus == EventRegistrationStatus.PENDING && <HourglassTopIcon />}
-          {registrationStatus == EventRegistrationStatus.DENIED && <BlockIcon />}
-        </>
+        {registrationStatus && (
+          <>
+            {registrationStatus == EventRegistrationStatus.APPROVED && <CheckIcon />}
+            {registrationStatus == EventRegistrationStatus.PENDING && <HourglassTopIcon />}
+            {registrationStatus == EventRegistrationStatus.DENIED && <BlockIcon />}
+          </>
+        )}
       </div>
     </div>
   );

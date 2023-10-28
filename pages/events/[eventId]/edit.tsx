@@ -67,16 +67,12 @@ const EventEditing = (props: any) => {
       },
     });
 
-    switch (response.status) {
-      case 200:
-        router.replace(`/events/${eventId}`);
-        break;
-
-      default:
-        const error = await response.json();
-        setError(error.message);
-        console.error(response.statusText);
-        break;
+    if (response.status == 200) {
+      router.replace(`/events/${eventId}`);
+    } else {
+      const error = await response.json();
+      setError(error.message);
+      console.error(error.message);
     }
   };
 
