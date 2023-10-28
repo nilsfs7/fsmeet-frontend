@@ -29,6 +29,8 @@ const CompetitionCreation = (props: any) => {
       body: JSON.stringify({
         eventId: eventId,
         name: comp?.name.trim(),
+        description: comp?.description.trim(),
+        rules: comp?.rules.trim(),
       }),
 
       headers: {
