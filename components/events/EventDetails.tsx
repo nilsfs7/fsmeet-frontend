@@ -6,12 +6,15 @@ import Map from '../Map';
 import Link from 'next/link';
 import { shortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';
+import TextButton from '../common/TextButton';
 
 interface IEventProps {
   event: IEvent;
 }
 
 const EventDetails = ({ event }: IEventProps) => {
+  const [showMap, setShowMap] = useState<boolean>(false);
+
   const [dateFrom, setDateFrom] = useState<number>();
   const [dateTo, setDateTo] = useState<number>();
   const [dateRegistrationOpen, setDateRegistrationOpen] = useState<number>();
@@ -81,13 +84,21 @@ const EventDetails = ({ event }: IEventProps) => {
         <p>{event.venueCountry}</p>
       </div>
 
-      <div className="mt-2 flex w-full justify-center">
-        <div className="w-full max-w-xl rounded-lg border border-secondary-dark hover:border-primary">
-          <div className="aspect-square w-full">
-            <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
+      <TextButton
+        text={showMap ? 'Hide Map' : 'Show Map'}
+        onClick={() => {
+          setShowMap(showMap ? false : true);
+        }}
+      />
+      {showMap && (
+        <div className="mt-2 flex w-full justify-center">
+          <div className="w-full max-w-xl rounded-lg border border-secondary-dark hover:border-primary">
+            <div className="aspect-square w-full">
+              <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
