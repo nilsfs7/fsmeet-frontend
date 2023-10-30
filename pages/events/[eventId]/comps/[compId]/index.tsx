@@ -8,9 +8,9 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
-import ParticipantList from '@/components/events/ParticipantList';
+import TabbedCompetitionDetailsMenu from '@/components/comp/TabbedCompetitionDetailsMenu';
+import 'react-tabs/style/react-tabs.css'; // TODO: migrate to tailwind
 import { User } from '@/types/user';
-import { EventRegistration } from '@/types/event-registration';
 
 const Competition = (props: any) => {
   const session = props.session;
@@ -19,8 +19,7 @@ const Competition = (props: any) => {
   const { eventId } = router.query;
   const { compId } = router.query;
 
-  const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>([]);
-  const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
+  const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
   const [comp, setComp] = useState<EventCompetition>();
 
   if (!session) {
@@ -40,9 +39,7 @@ const Competition = (props: any) => {
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
-      fetchEvent(eventId).then((res: Event) => {
-        setEventRegistrations(res.eventRegistrations);
-
+      fetchEvent(eventId).then(async (res: Event) => {
         const comp = res.eventCompetitions.filter(c => c.id === compId)[0];
         const c: EventCompetition = {
           id: comp.id,
@@ -52,10 +49,27 @@ const Competition = (props: any) => {
           rules: comp.rules,
         };
         setComp(c);
-      });
 
-      fetchCompetitionParticipants(compId).then(participants => {
-        setCompetitionParticipants(participants);
+        const participants = await fetchCompetitionParticipants(compId);
+        const competitionParticipants = participants.map(participant => {
+          const participantRegistrationPair = res.eventRegistrations.filter(registration => {
+            if (registration.username === participant.username) {
+              return registration.imageUrl;
+            }
+          });
+
+          let profileImageUrl;
+          participantRegistrationPair.length === 1 ? (profileImageUrl = participantRegistrationPair[0].imageUrl) : null;
+
+          const user: User = {
+            username: participant.username,
+            imageUrl: profileImageUrl,
+          };
+
+          return user;
+        });
+
+        setCompetitionParticipants(competitionParticipants);
       });
     }
   }, []);
@@ -65,30 +79,9 @@ const Competition = (props: any) => {
       <div className="mx-2 flex max-h-full flex-col overflow-y-auto">
         <h1 className="mt-2 flex items-center justify-center text-xl">{comp?.name}</h1>
 
-        {/* participants */}
-        {competitionParticipants.length > 0 && (
-          <div className="mt-2">
-            <ParticipantList
-              participants={competitionParticipants.map(participant => {
-                const participantRegistrationPair = eventRegistrations.filter(registration => {
-                  if (registration.username === participant.username) {
-                    return registration.imageUrl;
-                  }
-                });
-
-                let profileImageUrl;
-                participantRegistrationPair.length === 1 ? (profileImageUrl = participantRegistrationPair[0].imageUrl) : null;
-
-                const user: User = {
-                  username: participant.username,
-                  imageUrl: profileImageUrl,
-                };
-
-                return user;
-              })}
-            />
-          </div>
-        )}
+        <div className="mt-2">
+          <TabbedCompetitionDetailsMenu competitionParticipants={competitionParticipants} description={comp?.description} rules={comp?.rules} />
+        </div>
       </div>
 
       <Navigation>
