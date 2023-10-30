@@ -19,10 +19,9 @@ const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) =
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              {/* TODO: enable link once useful information in comp*/}
-              {/* <Link href={`/events/${eventId}/comps/${competition.id}`}> */}
-              <Competition competition={competition} />
-              {/* </Link> */}
+              <Link href={`/events/${eventId}/comps/${competition.id}`}>
+                <Competition competition={competition} />
+              </Link>
             </div>
           );
         })}
