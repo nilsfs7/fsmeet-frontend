@@ -14,62 +14,85 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import SaveIcon from '@mui/icons-material/Save';
 import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
+import { Size } from '@/types/enums/size';
 
 interface IButton {
   action: Action;
+  size?: Size;
   onClick?: () => void;
 }
 
-const ActionButton = ({ action, onClick }: IButton) => {
+enum ActionButtonSize {
+  S = 'h-4 w-4',
+  M = 'h-6 w-6',
+  L = 'h-8 w-8',
+}
+
+const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
   const textColor = 'text-primary';
 
-  let icon = <ArrowBackIcon className={`${textColor}`} />;
+  let buttonSize = '';
+  switch (size) {
+    case Size.S:
+      buttonSize = ActionButtonSize.S;
+      break;
+    case Size.M:
+      buttonSize = ActionButtonSize.M;
+      break;
+    case Size.L:
+      buttonSize = ActionButtonSize.L;
+      break;
+  }
+
+  const className = `${textColor} ${buttonSize}`;
+
+  let icon = <ArrowBackIcon className={`${className}`} />;
 
   switch (action) {
     case Action.ADD:
-      icon = <AddCircleIcon className={`${textColor}`} />;
+      icon = <AddCircleIcon className={className} />;
       break;
     case Action.ACCEPT:
-      icon = <CheckIcon className={`${textColor}`} />;
+      icon = <CheckIcon className={className} />;
       break;
     case Action.BACK:
-      icon = <ArrowBackIcon className={`${textColor}`} />;
+      icon = <ArrowBackIcon className={className} />;
       break;
     case Action.CANCEL:
-      icon = <CancelIcon className={`${textColor}`} />;
+      icon = <CancelIcon className={className} />;
       break;
     case Action.COMMENT:
-      icon = <CommentIcon className={`${textColor}`} />;
+      icon = <CommentIcon className={className} />;
       break;
     case Action.COPY:
-      icon = <CopyIcon className={`${textColor}`} />;
+      icon = <CopyIcon className={className} />;
       break;
     case Action.DELETE:
-      icon = <DeleteIcon className={`${textColor}`} />;
+      icon = <DeleteIcon className={className} />;
       break;
     case Action.DENY:
-      icon = <CancelIcon className={`${textColor}`} />;
+      icon = <CancelIcon className={className} />;
       break;
     case Action.EDIT:
-      icon = <EditIcon className={`${textColor}`} />;
+      icon = <EditIcon className={className} />;
       break;
     case Action.MANAGE_COMPETITIONS:
-      icon = <TrophyIcon className={`${textColor}`} />;
+      icon = <TrophyIcon className={className} />;
       break;
     case Action.MANAGE_USERS:
-      icon = <PeopleIcon className={`${textColor}`} />;
+      icon = <PeopleIcon className={className} />;
       break;
     case Action.REMOVE:
-      icon = <RemoveCircleIcon className={`${textColor}`} />;
+      icon = <RemoveCircleIcon className={className} />;
       break;
     case Action.SAVE:
-      icon = <SaveIcon className={`${textColor}`} />;
+      icon = <SaveIcon className={className} />;
       break;
     case Action.SEND:
-      icon = <SendIcon className={`${textColor}`} />;
+      icon = <SendIcon className={className} />;
       break;
     case Action.SHARE:
-      icon = <ShareIcon className={`${textColor}`} />;
+      icon = <ShareIcon className={className} />;
       break;
   }
 
