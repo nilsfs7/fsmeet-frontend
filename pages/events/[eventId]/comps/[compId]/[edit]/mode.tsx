@@ -12,10 +12,9 @@ import { routeLogin } from '@/types/consts/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
-import MatchCard from '@/components/comp/MatchCard';
 import RoundOptions from '@/components/comp/RoundOptions';
 import { Round } from '@/types/round';
-import { Match } from '@/types/match';
+import BattleTree from '@/components/comp/BattleTree';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -24,7 +23,7 @@ const ModeEditing = (props: any) => {
   const { eventId } = router.query;
   const { compId } = router.query;
 
-  const [numParticipants, setParticipants] = useState<number>(25);
+  const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
 
   const minMatchSize = 2;
   const minPassingPerMatch = 1;
@@ -37,15 +36,22 @@ const ModeEditing = (props: any) => {
     router.push(routeLogin);
   }
 
+  const fetchCompetitionParticipants = async (compId: string): Promise<number> => {
+    const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
+    const response = await fetch(url);
+    const participants = await response.json();
+    setCompetitionParticipants(participants);
+    return participants.length;
+  };
+
   const fetchRounds = async (compId: string): Promise<Round[]> => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/${compId}/rounds`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`);
     const rnds: Round[] = await response.json();
 
     const rounds: Round[] = rnds.map(rnd => {
       const round = new Round(rnd.roundIndex, rnd.name, rnd.numberPlayers);
       round.passingExtra = rnd.passingExtra;
       round.passingPerMatch = rnd.passingPerMatch;
-      console.log(`${rnd.roundIndex} ${rnd.passingExtra}`);
       round.matches = rnd.matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser)
       return round;
     });
@@ -54,10 +60,9 @@ const ModeEditing = (props: any) => {
   };
 
   const handleSaveClicked = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/rounds`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`, {
       method: 'POST',
       body: JSON.stringify({
-        competitionId: compId,
         rounds: rounds,
       }),
       headers: {
@@ -72,11 +77,8 @@ const ModeEditing = (props: any) => {
   };
 
   const handleDeleteClicked = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition/rounds`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`, {
       method: 'DELETE',
-      body: JSON.stringify({
-        competitionId: compId,
-      }),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${session.user.accessToken}`,
@@ -88,42 +90,73 @@ const ModeEditing = (props: any) => {
     }
   };
 
+  const handleMatchRenamed = async (roundIndex: number, matchIndex: number, matchId: string, name: string) => {
+    const rnds = Array.from(rounds);
+    rnds[roundIndex].matches[matchIndex].name = name;
+    setRounds(rnds);
+
+    if (name) {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          matchId: matchId,
+          name: name,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.user.accessToken}`,
+        },
+      });
+
+      if (response.status == 200) {
+        console.info(`match ${matchId} updated. new name: ${name}`);
+      }
+    } else {
+      console.warn('empty match name');
+    }
+  };
+
   useEffect(() => {
     if (compId) {
       // @ts-ignore: next-line
-      fetchRounds(compId).then(rounds => {
-        if (rounds.length === 0) {
-          const initRound = new Round(0, 'Round 1', numParticipants);
-          setRounds([initRound]);
-        } else {
-          setRounds(rounds);
-        }
+      fetchCompetitionParticipants(compId).then(numParticipants => {
+        // @ts-ignore: next-line
+        fetchRounds(compId).then(rounds => {
+          if (rounds.length === 0) {
+            const initRound = new Round(0, 'Round 1', numParticipants);
+            setRounds([initRound]);
+          } else {
+            setRounds(rounds);
+          }
+        });
       });
     }
   }, []);
 
   useEffect(() => {
-    rounds.map((rnd, i) => {
-      // update input "max-match-size"
-      const inputMaxMatchSize = document.getElementById(`input-max-match-size-${i}`);
-      if (inputMaxMatchSize) {
-        const maxMatchSize = i === 0 ? numParticipants : getParentRound(i).advancingTotal;
-        inputMaxMatchSize.setAttribute('max', maxMatchSize.toString());
-      }
+    if (compId) {
+      rounds.map((rnd, i) => {
+        // update input "max-match-size"
+        const inputMaxMatchSize = document.getElementById(`input-max-match-size-${i}`);
+        if (inputMaxMatchSize) {
+          const maxMatchSize = i === 0 ? competitionParticipants.length : getParentRound(i).advancingTotal;
+          inputMaxMatchSize.setAttribute('max', maxMatchSize.toString());
+        }
 
-      // update input "max-passing"
-      const inputMaxPassing = document.getElementById(`input-max-passing-${i}`);
-      if (inputMaxPassing) {
-        const maxPassing = rnd.maxMatchSize;
-        inputMaxPassing.setAttribute('max', maxPassing.toString());
-      }
+        // update input "max-passing"
+        const inputMaxPassing = document.getElementById(`input-max-passing-${i}`);
+        if (inputMaxPassing) {
+          const maxPassing = rnd.maxMatchSize;
+          inputMaxPassing.setAttribute('max', maxPassing.toString());
+        }
 
-      // update input "passing-extra"
-      const inputPassingExtra = document.getElementById(`input-passing-extra-${i}`);
-      if (inputPassingExtra) {
-        inputPassingExtra.setAttribute('max', rnd.maxPossibleAdvancingExtra.toString());
-      }
-    });
+        // update input "passing-extra"
+        const inputPassingExtra = document.getElementById(`input-passing-extra-${i}`);
+        if (inputPassingExtra) {
+          inputPassingExtra.setAttribute('max', rnd.maxPossibleAdvancingExtra.toString());
+        }
+      });
+    }
   }, [rounds]);
 
   const addRound = () => {
@@ -133,7 +166,7 @@ const ModeEditing = (props: any) => {
     const lastRound = getLastRound();
 
     if (lastRound.advancingTotal > 1) {
-      const newRound = new Round(rnds.length, `Round ${rounds.length + 1}`, lastRound.advancingTotal);
+      const newRound = new Round(rnds.length, `Round ${rounds.length + 1}`, lastRound.advancingTotal, lastRound.cumulatedMatchStartingIndex);
       rnds.push(newRound);
       setRounds(rnds);
 
@@ -171,8 +204,7 @@ const ModeEditing = (props: any) => {
     const rnds = Array.from(rounds);
 
     const parentRound = getParentRound(roundId);
-    const maxVal = roundId === 0 ? numParticipants : parentRound.matches.length * parentRound.passingPerMatch + parentRound.passingExtra;
-
+    const maxVal = roundId === 0 ? competitionParticipants.length : parentRound.matches.length * parentRound.passingPerMatch + parentRound.passingExtra;
     if (+maxMatchSize >= minMatchSize && +maxMatchSize <= maxVal) {
       rnds[roundId].maxMatchSize = +maxMatchSize;
       rnds[roundId].matches = rnds[roundId].createMatches();
@@ -222,7 +254,7 @@ const ModeEditing = (props: any) => {
                   <RoundOptions
                     round={round}
                     minMatchSize={minMatchSize}
-                    numParticipants={numParticipants}
+                    numParticipants={competitionParticipants.length}
                     minPassingPerMatch={minPassingPerMatch}
                     minPassingExtra={minPassingExtra}
                     lockUi={roundOptionsLocked[i]}
@@ -247,26 +279,17 @@ const ModeEditing = (props: any) => {
             <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
             <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
           </div>
+
+          <h1 className="mt-8 text-xl">Preview</h1>
         </div>
 
-        <div className={'mt-2 flex justify-center'}>
-          {rounds.map((round: Round, i: number) => {
-            return (
-              <div key={`rnd-${i}`} className="mx-1">
-                <div className="w-52">
-                  {round.matches.map((match, j) => {
-                    return (
-                      /* TODO: my-1 nicht bei top und bottom */
-                      <div key={`match-${j}`} className="my-1">
-                        <MatchCard match={match} />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <BattleTree
+          rounds={rounds}
+          editingEnabled={true}
+          onRenameMatch={(roundIndex, matchIndex, matchId, name) => {
+            handleMatchRenamed(roundIndex, matchIndex, matchId, name);
+          }}
+        />
       </div>
 
       <Navigation>

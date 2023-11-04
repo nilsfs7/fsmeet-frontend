@@ -139,7 +139,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         <Dropdown
           value={eventType}
           onChange={(value: EventType) => {
-            console.log(autoApproveRegistrations);
             setEventType(value);
           }}
         />

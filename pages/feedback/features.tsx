@@ -35,7 +35,7 @@ const ReportBug: NextPage = (props: any) => {
     } else {
       const error = await response.json();
       setError(error.message);
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 
