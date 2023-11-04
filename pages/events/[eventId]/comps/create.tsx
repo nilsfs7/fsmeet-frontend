@@ -24,7 +24,7 @@ const CompetitionCreation = (props: any) => {
   const handleCreateClicked = async () => {
     setError('');
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`, {
       method: 'POST',
       body: JSON.stringify({
         eventId: eventId,

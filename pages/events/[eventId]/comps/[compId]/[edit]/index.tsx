@@ -32,7 +32,7 @@ const CompetitionEditing = (props: any) => {
   const handleSaveClicked = async () => {
     setError('');
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`, {
       method: 'PATCH',
       body: JSON.stringify({
         id: compId,
@@ -100,6 +100,15 @@ const CompetitionEditing = (props: any) => {
         </div>
         <div className="pl-1">
           <ActionButton action={Action.MANAGE_COMPETITIONS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/mode`)} />
+        </div>
+      </div>
+
+      <div className="my-2 flex">
+        <div className="pr-1">
+          <div className="flex h-full items-center">Seeding</div>
+        </div>
+        <div className="pl-1">
+          <ActionButton action={Action.MANAGE_USERS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/seeding`)} />
         </div>
       </div>
 

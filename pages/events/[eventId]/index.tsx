@@ -58,7 +58,7 @@ const Event = (props: any) => {
     if (event && event?.registrationDeadline > moment().unix()) {
       router.replace(`${routeEvents}/${eventId}?register=1`, undefined, { shallow: true });
     } else {
-      console.log('Registration deadline exceeded.');
+      console.error('Registration deadline exceeded.');
     }
   };
 
@@ -87,7 +87,7 @@ const Event = (props: any) => {
         router.reload();
       }
     } else {
-      console.log('Registration deadline exceeded.');
+      console.error('Registration deadline exceeded.');
     }
   };
 
@@ -100,7 +100,7 @@ const Event = (props: any) => {
     if (event && event?.registrationDeadline > moment().unix()) {
       router.replace(`${routeEvents}/${eventId}?unregister=1`, undefined, { shallow: true });
     } else {
-      console.log('Registration deadline exceeded.');
+      console.error('Registration deadline exceeded.');
     }
   };
 
@@ -133,7 +133,7 @@ const Event = (props: any) => {
         router.reload();
       }
     } else {
-      console.log('Registration deadline exceeded.');
+      console.error('Registration deadline exceeded.');
     }
   };
 

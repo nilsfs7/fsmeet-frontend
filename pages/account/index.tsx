@@ -51,13 +51,12 @@ const Account = ({ session }: any) => {
     });
 
     if (response.status == 200) {
-      console.log('updating user info successful');
-
+      console.info('updating user info successful');
       router.push(`${routeHome}`);
     } else {
       const error = await response.json();
       setError(error.message);
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 
@@ -67,7 +66,7 @@ const Account = ({ session }: any) => {
 
   const handleConfirmDeleteAccountClicked = async () => {
     setError('');
-    
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'DELETE',
       headers: {
@@ -83,7 +82,7 @@ const Account = ({ session }: any) => {
     } else {
       const error = await response.json();
       setError(error.message);
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 

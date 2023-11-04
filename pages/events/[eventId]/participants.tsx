@@ -60,7 +60,7 @@ const EventParticipants = (props: any) => {
     });
 
     if (response.status == 200) {
-      console.log(`${username} removed`);
+      console.info(`${username} removed`);
       router.reload();
     }
   };
@@ -87,7 +87,7 @@ const EventParticipants = (props: any) => {
     });
 
     if (response.status == 200) {
-      console.log(`Status for ${username} updated`);
+      console.info(`Status for ${username} updated`);
       router.reload();
     }
   };

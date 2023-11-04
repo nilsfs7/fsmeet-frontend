@@ -8,11 +8,13 @@ export class Round {
   public matches: Match[] = [];
   public passingPerMatch: number = 1;
   public passingExtra: number = 0;
+  public matchStartingIndex: number = 0;
 
-  constructor(roundIndex: number, name: string, numberPlayers: number) {
+  constructor(roundIndex: number, name: string, numberPlayers: number, matchStartingIndex: number = 0) {
     this.roundIndex = roundIndex;
     this.name = name;
     this.numberPlayers = numberPlayers;
+    this.matchStartingIndex = matchStartingIndex;
 
     this.matches = this.createMatches();
   }
@@ -37,6 +39,14 @@ export class Round {
     return maxAdvancingExtra;
   }
 
+  public get matchesAscending(): Match[] {
+    return this.matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1));
+  }
+
+  public get cumulatedMatchStartingIndex(): number {
+    return this.matchStartingIndex + this.matches.length;
+  }
+
   public createMatches = (): Match[] => {
     const getInitialMatchSize = (numPlayers: number, numMatches: number, maxMatchSize: number): number => {
       while (numMatches * maxMatchSize > numPlayers) {
@@ -53,7 +63,7 @@ export class Round {
     const modulo = this.numberPlayers % this.maxMatchSize;
     if (modulo === 0) {
       for (let i = 0; i < numMatches; i++) {
-        matches.push({ matchIndex: i, name: `Match ${i + 1}`, slots: this.maxMatchSize });
+        matches.push({ matchIndex: i, name: `Match ${i + this.matchStartingIndex + 1}`, slots: this.maxMatchSize, matchSlots: [] });
       }
     } else {
       let initialSlots = getInitialMatchSize(this.numberPlayers, numMatches, this.maxMatchSize);
@@ -61,7 +71,7 @@ export class Round {
 
       // distribute save (initial) slots
       for (let i = 0; i < numMatches; i++) {
-        matches.push({ matchIndex: i, name: `Match ${i + 1}`, slots: initialSlots });
+        matches.push({ matchIndex: i, name: `Match ${i + this.matchStartingIndex + 1}`, slots: initialSlots, matchSlots: [] });
         distributedSlots += initialSlots;
       }
 
