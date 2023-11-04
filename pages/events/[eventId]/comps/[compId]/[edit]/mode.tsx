@@ -71,8 +71,10 @@ const ModeEditing = (props: any) => {
       },
     });
     if (response.status == 201) {
-      // router.replace(`/events/${eventId}/comps`);
-      // TODO
+      router.reload();
+    } else {
+      const error = await response.json();
+      console.error(error.message);
     }
   };
 
