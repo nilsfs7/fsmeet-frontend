@@ -36,14 +36,12 @@ const ResetPassword: NextPage = () => {
       },
     });
 
-    console.log(response.status);
-
     if (response.status == 200) {
       router.replace(routeLogin);
     } else {
       const error = await response.json();
       setError(error.message);
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 

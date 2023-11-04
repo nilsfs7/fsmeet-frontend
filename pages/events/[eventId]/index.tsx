@@ -58,7 +58,7 @@ const Event = (props: any) => {
     if (event && event?.registrationDeadline > moment().unix()) {
       router.replace(`${routeEvents}/${eventId}?register=1`, undefined, { shallow: true });
     } else {
-      console.log('Registration deadline exceeded.');
+      console.error('Registration deadline exceeded.');
     }
   };
 
@@ -87,7 +87,7 @@ const Event = (props: any) => {
         router.reload();
       }
     } else {
-      console.log('Registration deadline exceeded.');
+      console.error('Registration deadline exceeded.');
     }
   };
 
@@ -100,7 +100,7 @@ const Event = (props: any) => {
     if (event && event?.registrationDeadline > moment().unix()) {
       router.replace(`${routeEvents}/${eventId}?unregister=1`, undefined, { shallow: true });
     } else {
-      console.log('Registration deadline exceeded.');
+      console.error('Registration deadline exceeded.');
     }
   };
 
@@ -133,7 +133,7 @@ const Event = (props: any) => {
         router.reload();
       }
     } else {
-      console.log('Registration deadline exceeded.');
+      console.error('Registration deadline exceeded.');
     }
   };
 
@@ -250,7 +250,7 @@ const Event = (props: any) => {
         <p>Do you really want to unregister from this event?</p>
       </Dialog>
 
-      <Dialog title="Register" queryParam="register" onClose={handleCancelDialogClicked} onOk={handleConfirmRegisterClicked}>
+      <Dialog title="Confirm Registration" queryParam="register" onClose={handleCancelDialogClicked} onOk={handleConfirmRegisterClicked}>
         <div>{`Do you want to register for ${event.name}`}?</div>
 
         <div>Please take note of the participation fee ({event.participationFee.toString().replace('.', ',')} €). We will confirm your registration once we received your payment.</div>

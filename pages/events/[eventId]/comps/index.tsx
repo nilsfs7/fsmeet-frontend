@@ -31,7 +31,7 @@ const EventCompetitions = (props: any) => {
       return;
     }
 
-    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/competition`;
+    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`;
     let method: string = 'DELETE';
 
     const response = await fetch(url, {
@@ -46,7 +46,7 @@ const EventCompetitions = (props: any) => {
     });
 
     if (response.status == 200) {
-      console.log(`${id} removed`);
+      console.info(`${id} removed`);
       router.reload();
     }
   };
