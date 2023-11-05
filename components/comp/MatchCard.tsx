@@ -9,7 +9,7 @@ interface IMatchProps {
   seedingEnabled?: boolean;
   seedingList?: User[];
   onRename?: (matchIndex: number, matchId: string, name: string) => void;
-  onUpdateSlot?: (matchId: string, slotIndex: number, username: string) => void;
+  onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result?: number) => void;
 }
 
 const MatchCard = ({ match, editingEnabled = false, seedingEnabled = false, seedingList = [], onRename, onUpdateSlot }: IMatchProps) => {
@@ -27,9 +27,21 @@ const MatchCard = ({ match, editingEnabled = false, seedingEnabled = false, seed
     }
   };
 
-  const handleSlotUpdate = (slotIndex: number, username: string) => {
+  const handleSlotUpdateName = (slotIndex: number, username: string) => {
     if (match.id) {
       onUpdateSlot && onUpdateSlot(match.id, slotIndex, username);
+    } else {
+      console.error('unknown match id');
+    }
+  };
+
+  const handleSlotUpdateResult = (slotIndex: number, username: string, result: number) => {
+    if (match.id) {
+      if (username) {
+        onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, result);
+      } else {
+        console.error('cannot set result for unknown player');
+      }
     } else {
       console.error('unknown match id');
     }
@@ -53,16 +65,34 @@ const MatchCard = ({ match, editingEnabled = false, seedingEnabled = false, seed
 
         return (
           <div key={`slot-${i}`} className="flex items-center justify-between">
-            {!seedingEnabled && <div>{matchSlot && matchSlot.name !== playerMenu[0].value ? matchSlot.name : `Slot ${i + 1}`}</div>}
+            {!seedingEnabled && (
+              <div className="flex w-full justify-between">
+                <div>{matchSlot && matchSlot.name !== playerMenu[0].value ? matchSlot.name : `Slot ${i + 1}`}</div>
+                <div>{matchSlot && matchSlot.result ? matchSlot.result : '--'}</div>
+              </div>
+            )}
 
             {seedingEnabled && (
-              <Dropdown
-                menus={playerMenu}
-                value={matchSlot ? matchSlot.name : 'not set'}
-                onChange={(value: any) => {
-                  handleSlotUpdate(i, value);
-                }}
-              />
+              <div className="flex w-full justify-between">
+                <Dropdown
+                  menus={playerMenu}
+                  value={matchSlot && matchSlot.name ? matchSlot.name : 'not set'}
+                  onChange={(value: any) => {
+                    handleSlotUpdateName(i, value);
+                  }}
+                />
+
+                <input
+                  className="flex w-full bg-transparent text-right"
+                  id={`input-max-passing-${i}`}
+                  type="number"
+                  min={0}
+                  value={matchSlot && matchSlot.result ? matchSlot.result : 0}
+                  onChange={e => {
+                    handleSlotUpdateResult(i, matchSlot?.name, e.currentTarget.valueAsNumber);
+                  }}
+                />
+              </div>
             )}
           </div>
         );
