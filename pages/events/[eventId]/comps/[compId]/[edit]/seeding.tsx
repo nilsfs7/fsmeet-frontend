@@ -147,14 +147,18 @@ const Seeding = (props: any) => {
           <h1 className="mt-2 text-xl">Seeding</h1>
         </div>
 
-        <BattleGrid
-          rounds={rounds}
-          seedingEnabled={true}
-          seedingList={competitionParticipants}
-          onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string) => {
-            handleSlotUpdated(roundIndex, matchId, slotIndex, username);
-          }}
-        />
+        <div className={'mt-2 flex justify-center'}>
+          <div className="flex overflow-x-auto">
+            <BattleGrid
+              rounds={rounds}
+              seedingEnabled={true}
+              seedingList={competitionParticipants}
+              onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string) => {
+                handleSlotUpdated(roundIndex, matchId, slotIndex, username);
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <Navigation>

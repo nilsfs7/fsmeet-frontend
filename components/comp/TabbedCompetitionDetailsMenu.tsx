@@ -88,16 +88,24 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
 
       {/* Schedule */}
       {rounds.length > 0 && (
-        <TabPanel>
-          <BattleList rounds={rounds} />
-        </TabPanel>
+        <div className={'mt-2 flex justify-center'}>
+          <div className={'flex overflow-x-auto'}>
+            <TabPanel>
+              <BattleList rounds={rounds} />
+            </TabPanel>
+          </div>
+        </div>
       )}
 
       {/* Battle Grid */}
       {rounds.length > 0 && (
-        <TabPanel>
-          <BattleGrid rounds={rounds} />
-        </TabPanel>
+        <div className={'mt-2 flex justify-center'}>
+          <div className={'flex overflow-x-auto'}>
+            <TabPanel>
+              <BattleGrid rounds={rounds} />
+            </TabPanel>
+          </div>
+        </div>
       )}
 
       {/* Participants */}

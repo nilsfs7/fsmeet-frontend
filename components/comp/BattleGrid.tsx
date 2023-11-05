@@ -13,10 +13,10 @@ interface IBattleGridProps {
 
 const BattleGrid = ({ rounds, editingEnabled = false, seedingEnabled = false, seedingList = [], onRenameMatch, onUpdateSlot }: IBattleGridProps) => {
   return (
-    <div className={'mt-2 flex justify-center'}>
+    <div className="flex">
       {rounds.map((round: Round, i: number) => {
         return (
-          <div key={`rnd-${i}`} className="mx-1 flex justify-center">
+          <div key={`rnd-${i}`} className={`${i > 0 ? 'ml-1' : ''} ${i < rounds.length - 1 ? 'mr-1' : ''}`}>
             <div className="flex h-full w-52 flex-col justify-center">
               {round.matches.map((match, j) => {
                 return (
