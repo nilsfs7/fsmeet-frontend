@@ -5,8 +5,8 @@ import { User } from '@/types/user';
 import Separator from '../Seperator';
 import { Round } from '@/types/round';
 import { useRouter } from 'next/router';
-import BattlePlan from './BattleTree';
 import BattleList from './BattleList';
+import BattleGrid from './BattleGrid';
 
 interface ITabbedCompetitionDetailsMenuProps {
   competitionParticipants: User[];
@@ -81,23 +81,31 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
     <Tabs>
       <TabList>
         {rounds.length > 0 && <Tab>Schedule</Tab>}
-        {rounds.length > 0 && <Tab>Tournament Overview</Tab>}
+        {rounds.length > 0 && <Tab>Battle Grid</Tab>}
         {competitionParticipants.length > 0 && <Tab>Participants</Tab>}
         {(description || rules) && <Tab>Rules</Tab>}
       </TabList>
 
       {/* Schedule */}
       {rounds.length > 0 && (
-        <TabPanel>
-          <BattleList rounds={rounds} />
-        </TabPanel>
+        <div className={'mt-2 flex justify-center'}>
+          <div className={'flex overflow-x-auto'}>
+            <TabPanel>
+              <BattleList rounds={rounds} />
+            </TabPanel>
+          </div>
+        </div>
       )}
 
-      {/* Tournament Overview */}
+      {/* Battle Grid */}
       {rounds.length > 0 && (
-        <TabPanel>
-          <BattlePlan rounds={rounds} />
-        </TabPanel>
+        <div className={'mt-2 flex justify-center'}>
+          <div className={'flex overflow-x-auto'}>
+            <TabPanel>
+              <BattleGrid rounds={rounds} />
+            </TabPanel>
+          </div>
+        </div>
       )}
 
       {/* Participants */}
