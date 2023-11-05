@@ -8,7 +8,7 @@ interface IBattleGridProps {
   seedingEnabled?: boolean;
   seedingList?: User[];
   onRenameMatch?: (roundIndex: number, matchIndex: number, matchId: string, name: string) => void;
-  onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string) => void;
+  onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => void;
 }
 
 const BattleGrid = ({ rounds, editingEnabled = false, seedingEnabled = false, seedingList = [], onRenameMatch, onUpdateSlot }: IBattleGridProps) => {
@@ -29,8 +29,8 @@ const BattleGrid = ({ rounds, editingEnabled = false, seedingEnabled = false, se
                       onRename={(matchIndex: number, matchId: string, name: string) => {
                         onRenameMatch && onRenameMatch(rounds[i].roundIndex, matchIndex, matchId, name);
                       }}
-                      onUpdateSlot={(matchId: string, slotIndex: number, username: string) => {
-                        onUpdateSlot && onUpdateSlot(rounds[i].roundIndex, matchId, slotIndex, username);
+                      onUpdateSlot={(matchId: string, slotIndex: number, username: string, result?: number) => {
+                        onUpdateSlot && onUpdateSlot(rounds[i].roundIndex, matchId, slotIndex, username, result);
                       }}
                     />
                   </div>
