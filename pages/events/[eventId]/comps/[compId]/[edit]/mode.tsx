@@ -14,7 +14,7 @@ import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
 import RoundOptions from '@/components/comp/RoundOptions';
 import { Round } from '@/types/round';
-import BattleTree from '@/components/comp/BattleTree';
+import BattleGrid from '@/components/comp/BattleGrid';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -71,8 +71,10 @@ const ModeEditing = (props: any) => {
       },
     });
     if (response.status == 201) {
-      // router.replace(`/events/${eventId}/comps`);
-      // TODO
+      router.reload();
+    } else {
+      const error = await response.json();
+      console.error(error.message);
     }
   };
 
@@ -242,36 +244,38 @@ const ModeEditing = (props: any) => {
           </div>
         </div>
 
-        <div className={'mt-2 flex justify-center '}>
-          {rounds.map((round: Round, i: number) => {
-            return (
-              <div key={`rnd-${i}`} className="mx-1">
-                <div className="w-52 rounded-lg border border-primary bg-secondary-light p-1">
-                  <div className="my-1 text-center">{round.name}</div>
+        <div className={'mt-2 flex justify-center'}>
+          <div className={'flex overflow-x-auto'}>
+            {rounds.map((round: Round, i: number) => {
+              return (
+                <div key={`rnd-${i}`} className="mx-1">
+                  <div className="w-52 rounded-lg border border-primary bg-secondary-light p-1">
+                    <div className="my-1 text-center">{round.name}</div>
 
-                  <hr />
+                    <hr />
 
-                  <RoundOptions
-                    round={round}
-                    minMatchSize={minMatchSize}
-                    numParticipants={competitionParticipants.length}
-                    minPassingPerMatch={minPassingPerMatch}
-                    minPassingExtra={minPassingExtra}
-                    lockUi={roundOptionsLocked[i]}
-                    onChangeMaxMatchSize={(val: number): void => {
-                      changeMaxMatchSize(i, val);
-                    }}
-                    onChangePassingPerMatch={(val: number): void => {
-                      changePassingPerMatch(i, val);
-                    }}
-                    onChangePassingExtra={(val: number): void => {
-                      changePassingExtra(i, val);
-                    }}
-                  />
+                    <RoundOptions
+                      round={round}
+                      minMatchSize={minMatchSize}
+                      numParticipants={competitionParticipants.length}
+                      minPassingPerMatch={minPassingPerMatch}
+                      minPassingExtra={minPassingExtra}
+                      lockUi={roundOptionsLocked[i]}
+                      onChangeMaxMatchSize={(val: number): void => {
+                        changeMaxMatchSize(i, val);
+                      }}
+                      onChangePassingPerMatch={(val: number): void => {
+                        changePassingPerMatch(i, val);
+                      }}
+                      onChangePassingExtra={(val: number): void => {
+                        changePassingExtra(i, val);
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
         <div className={'mt-2 flex flex-col items-center'}>
@@ -283,13 +287,17 @@ const ModeEditing = (props: any) => {
           <h1 className="mt-8 text-xl">Preview</h1>
         </div>
 
-        <BattleTree
-          rounds={rounds}
-          editingEnabled={true}
-          onRenameMatch={(roundIndex, matchIndex, matchId, name) => {
-            handleMatchRenamed(roundIndex, matchIndex, matchId, name);
-          }}
-        />
+        <div className={'mt-2 flex justify-center'}>
+          <div className="flex overflow-x-auto">
+            <BattleGrid
+              rounds={rounds}
+              editingEnabled={true}
+              onRenameMatch={(roundIndex, matchIndex, matchId, name) => {
+                handleMatchRenamed(roundIndex, matchIndex, matchId, name);
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <Navigation>

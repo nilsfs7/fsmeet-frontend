@@ -13,7 +13,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
 import { Round } from '@/types/round';
-import BattleTree from '@/components/comp/BattleTree';
+import BattleGrid from '@/components/comp/BattleGrid';
 
 const Seeding = (props: any) => {
   const session = props.session;
@@ -147,14 +147,18 @@ const Seeding = (props: any) => {
           <h1 className="mt-2 text-xl">Seeding</h1>
         </div>
 
-        <BattleTree
-          rounds={rounds}
-          seedingEnabled={true}
-          seedingList={competitionParticipants}
-          onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string) => {
-            handleSlotUpdated(roundIndex, matchId, slotIndex, username);
-          }}
-        />
+        <div className={'mt-2 flex justify-center'}>
+          <div className="flex overflow-x-auto">
+            <BattleGrid
+              rounds={rounds}
+              seedingEnabled={true}
+              seedingList={competitionParticipants}
+              onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string) => {
+                handleSlotUpdated(roundIndex, matchId, slotIndex, username);
+              }}
+            />
+          </div>
+        </div>
       </div>
 
       <Navigation>

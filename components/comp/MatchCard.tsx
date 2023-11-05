@@ -36,7 +36,7 @@ const MatchCard = ({ match, editingEnabled = false, seedingEnabled = false, seed
   };
 
   return (
-    <div className={`rounded-lg border border-primary ${!editingEnabled || match.slots > 1 ? 'bg-secondary-light' : 'bg-warning'} p-2`}>
+    <div className={`rounded-lg border border-secondary-dark ${!editingEnabled || match.slots > 1 ? 'bg-secondary-light' : 'bg-warning'} p-2`}>
       <input
         className={`w-full rounded-lg text-center ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}
         defaultValue={match.name}
