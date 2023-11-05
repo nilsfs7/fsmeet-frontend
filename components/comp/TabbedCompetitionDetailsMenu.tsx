@@ -5,8 +5,8 @@ import { User } from '@/types/user';
 import Separator from '../Seperator';
 import { Round } from '@/types/round';
 import { useRouter } from 'next/router';
-import BattlePlan from './BattleTree';
 import BattleList from './BattleList';
+import BattleGrid from './BattleGrid';
 
 interface ITabbedCompetitionDetailsMenuProps {
   competitionParticipants: User[];
@@ -81,7 +81,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
     <Tabs>
       <TabList>
         {rounds.length > 0 && <Tab>Schedule</Tab>}
-        {rounds.length > 0 && <Tab>Tournament Overview</Tab>}
+        {rounds.length > 0 && <Tab>Battle Grid</Tab>}
         {competitionParticipants.length > 0 && <Tab>Participants</Tab>}
         {(description || rules) && <Tab>Rules</Tab>}
       </TabList>
@@ -93,10 +93,10 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
         </TabPanel>
       )}
 
-      {/* Tournament Overview */}
+      {/* Battle Grid */}
       {rounds.length > 0 && (
         <TabPanel>
-          <BattlePlan rounds={rounds} />
+          <BattleGrid rounds={rounds} />
         </TabPanel>
       )}
 

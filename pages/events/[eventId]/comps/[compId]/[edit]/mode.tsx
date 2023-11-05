@@ -14,7 +14,7 @@ import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
 import RoundOptions from '@/components/comp/RoundOptions';
 import { Round } from '@/types/round';
-import BattleTree from '@/components/comp/BattleTree';
+import BattleGrid from '@/components/comp/BattleGrid';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -285,7 +285,7 @@ const ModeEditing = (props: any) => {
           <h1 className="mt-8 text-xl">Preview</h1>
         </div>
 
-        <BattleTree
+        <BattleGrid
           rounds={rounds}
           editingEnabled={true}
           onRenameMatch={(roundIndex, matchIndex, matchId, name) => {

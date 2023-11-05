@@ -2,7 +2,7 @@ import { Round } from '@/types/round';
 import MatchCard from './MatchCard';
 import { User } from '@/types/user';
 
-interface IBattleTreeProps {
+interface IBattleGridProps {
   rounds: Round[];
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
@@ -11,7 +11,7 @@ interface IBattleTreeProps {
   onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string) => void;
 }
 
-const BattleTree = ({ rounds, editingEnabled = false, seedingEnabled = false, seedingList = [], onRenameMatch, onUpdateSlot }: IBattleTreeProps) => {
+const BattleGrid = ({ rounds, editingEnabled = false, seedingEnabled = false, seedingList = [], onRenameMatch, onUpdateSlot }: IBattleGridProps) => {
   return (
     <div className={'mt-2 flex justify-center'}>
       {rounds.map((round: Round, i: number) => {
@@ -44,4 +44,4 @@ const BattleTree = ({ rounds, editingEnabled = false, seedingEnabled = false, se
   );
 };
 
-export default BattleTree;
+export default BattleGrid;
