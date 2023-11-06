@@ -19,6 +19,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
   const { compId } = router.query;
 
   const [rounds, setRounds] = useState<Round[]>([]);
+  const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
 
   const fetchRounds = async (compId: string): Promise<Round[]> => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`);
@@ -50,6 +51,35 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
       });
     }
   }, []);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const fetchUsers = async (username: string): Promise<User> => {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`);
+        return await response.json();
+      };
+
+      const usersMap = new Map();
+      const requests: Promise<void>[] = [];
+      rounds.map(round => {
+        round.matches.map(match => {
+          match.matchSlots.map(slot => {
+            if (!usersMap.get(slot.name)) {
+              const req = fetchUsers(slot.name).then(user => {
+                usersMap.set(slot.name, user);
+              });
+              requests.push(req);
+            }
+          });
+        });
+      });
+
+      await Promise.all(requests);
+      setUsersMap(usersMap);
+    };
+
+    getUsers();
+  }, [rounds]);
 
   useEffect(() => {
     if (compId) {
@@ -91,7 +121,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
         <div className={'mt-2 flex justify-center'}>
           <div className={'flex overflow-x-auto'}>
             <TabPanel>
-              <BattleList rounds={rounds} />
+              <BattleList rounds={rounds} usersMap={usersMap} />
             </TabPanel>
           </div>
         </div>
@@ -102,7 +132,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
         <div className={'mt-2 flex justify-center'}>
           <div className={'flex overflow-x-auto'}>
             <TabPanel>
-              <BattleGrid rounds={rounds} />
+              <BattleGrid rounds={rounds} usersMap={usersMap} />
             </TabPanel>
           </div>
         </div>
