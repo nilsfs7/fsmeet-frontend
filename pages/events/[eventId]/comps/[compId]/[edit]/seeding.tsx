@@ -101,11 +101,10 @@ const Seeding = (props: any) => {
       fetchCompetitionParticipants(compId).then(numParticipants => {
         // @ts-ignore: next-line
         fetchRounds(compId).then(rounds => {
-          if (rounds.length === 0) {
-            const initRound = new Round(0, 'Round 1', numParticipants);
-            setRounds([initRound]);
-          } else {
+          if (rounds.length > 0) {
             setRounds(rounds);
+          } else {
+            // TODO: error message: no game mode set
           }
         });
       });
