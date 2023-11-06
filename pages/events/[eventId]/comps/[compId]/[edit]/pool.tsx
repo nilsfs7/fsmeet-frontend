@@ -8,6 +8,7 @@ import Participant from '@/components/events/Participant';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
 import { routeLogin } from '@/types/consts/routes';
+import Navigation from '@/components/Navigation';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -112,7 +113,7 @@ const CompetitionPool = (props: any) => {
 
   return (
     <>
-      <div className="m-2">
+      <div className="mx-2 mt-2">
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <h1 className="m-2 text-center text-xl font-bold">Manage Player Pool</h1>
           <div className="flex flex-col">
@@ -170,13 +171,9 @@ const CompetitionPool = (props: any) => {
         </div>
       </div>
 
-      <div className="m-2 flex justify-between">
-        <div className="flex justify-start">
-          <div className="mr-1">
-            <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps/${compId}/edit`)} />
-          </div>
-        </div>
-      </div>
+      <Navigation>
+        <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps/${compId}/edit`)} />
+      </Navigation>
     </>
   );
 };
