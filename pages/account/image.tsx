@@ -4,6 +4,11 @@ import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import router from 'next/router';
 import { imgUserNoImg } from '@/types/consts/images';
+import Navigation from '@/components/Navigation';
+import ActionButton from '@/components/common/ActionButton';
+import { routeAccount } from '@/types/consts/routes';
+import { Action } from '@/types/enums/action';
+import { ButtonStyle } from '@/types/enums/button-style';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -77,19 +82,24 @@ const AccountImage = ({ session }: any) => {
       </div>
 
       <div className="flex justify-center py-2">
-        <div className="mx-1">
-          <TextButton text="Delete" onClick={handleDeleteImageClicked} />
-        </div>
-        <div className="mx-1">
-          <TextButton text="Upload" onClick={handleUploadImageClicked} />
-        </div>
+        {imageUrl && imageUrl.length > 0 && (
+          <div className="mx-1">
+            <TextButton text="Delete" onClick={handleDeleteImageClicked} style={ButtonStyle.CRITICAL} />
+          </div>
+        )}
+
+        {createObjectURL && createObjectURL.length > 0 && (
+          <div className="mx-1">
+            <TextButton text="Upload" onClick={handleUploadImageClicked} />
+          </div>
+        )}
       </div>
 
-      <div className="flex justify-center py-2">
-        <Link href="/account">
-          <TextButton text="Back" />
+      <Navigation>
+        <Link href={routeAccount}>
+          <ActionButton action={Action.BACK} />
         </Link>
-      </div>
+      </Navigation>
     </div>
   );
 };

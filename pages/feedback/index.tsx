@@ -3,9 +3,9 @@ import TextAndImageButton from '@/components/common/TextAndImageButton';
 import Link from 'next/link';
 import { imgBug, imgFeature, imgFeedback } from '@/types/consts/images';
 import Navigation from '@/components/Navigation';
-import TextButton from '@/components/common/TextButton';
 import { routeHome } from '@/types/consts/routes';
-import router from 'next/router';
+import ActionButton from '@/components/common/ActionButton';
+import { Action } from '@/types/enums/action';
 
 const Feedback: NextPage = () => {
   return (
@@ -29,12 +29,9 @@ const Feedback: NextPage = () => {
       </div>
 
       <Navigation>
-        <TextButton
-          text="Back"
-          onClick={() => {
-            router.back();
-          }}
-        />
+        <Link href={routeHome}>
+          <ActionButton action={Action.BACK} />
+        </Link>
       </Navigation>
     </div>
   );

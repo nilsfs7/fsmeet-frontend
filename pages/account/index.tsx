@@ -13,6 +13,8 @@ import { countries } from '@/types/consts/countries';
 import { tShirtSizes } from '@/types/consts/t-shirt-sizes';
 import { ButtonStyle } from '@/types/enums/button-style';
 import ErrorMessage from '@/components/ErrorMessage';
+import { Action } from '@/types/enums/action';
+import ActionButton from '@/components/common/ActionButton';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -233,8 +235,9 @@ const Account = ({ session }: any) => {
 
       <Navigation>
         <Link href={routeHome}>
-          <TextButton text="Back" />
+          <ActionButton action={Action.BACK} />
         </Link>
+
         <TextButton text="Save" onClick={handleSaveUserInfoClicked} />
       </Navigation>
     </div>
