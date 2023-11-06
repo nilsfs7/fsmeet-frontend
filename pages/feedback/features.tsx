@@ -4,9 +4,12 @@ import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
 import { getSession } from 'next-auth/react';
-import { routeFeedbackThankyou } from '@/types/consts/routes';
+import { routeFeedback, routeFeedbackThankyou } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
 import Navigation from '@/components/Navigation';
+import Link from 'next/link';
+import { Action } from '@/types/enums/action';
+import ActionButton from '@/components/common/ActionButton';
 
 const ReportBug: NextPage = (props: any) => {
   const session = props.session;
@@ -53,16 +56,15 @@ const ReportBug: NextPage = (props: any) => {
             }}
           />
         </div>
+
         <ErrorMessage message={error} />
       </div>
 
       <Navigation>
-        <TextButton
-          text="Back"
-          onClick={() => {
-            router.back();
-          }}
-        />
+        <Link href={routeFeedback}>
+          <ActionButton action={Action.BACK} />
+        </Link>
+
         <TextButton text="Submit" onClick={handleSubmitClicked} />
       </Navigation>
     </div>

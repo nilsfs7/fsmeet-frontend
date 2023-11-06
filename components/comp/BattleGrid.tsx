@@ -4,6 +4,7 @@ import { User } from '@/types/user';
 
 interface IBattleGridProps {
   rounds: Round[];
+  usersMap?: Map<string, User>;
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
   seedingList?: User[];
@@ -11,7 +12,7 @@ interface IBattleGridProps {
   onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => void;
 }
 
-const BattleGrid = ({ rounds, editingEnabled = false, seedingEnabled = false, seedingList = [], onRenameMatch, onUpdateSlot }: IBattleGridProps) => {
+const BattleGrid = ({ rounds, usersMap = new Map(), editingEnabled = false, seedingEnabled = false, seedingList = [], onRenameMatch, onUpdateSlot }: IBattleGridProps) => {
   return (
     <div className="flex">
       {rounds.map((round: Round, i: number) => {
@@ -23,6 +24,7 @@ const BattleGrid = ({ rounds, editingEnabled = false, seedingEnabled = false, se
                   <div key={`match-${j}`} className={`${j > 0 ? 'mt-1' : ''} ${j < round.matches.length - 1 ? 'mb-1' : ''}`}>
                     <MatchCard
                       match={match}
+                      usersMap={usersMap}
                       editingEnabled={editingEnabled}
                       seedingEnabled={seedingEnabled}
                       seedingList={seedingList}

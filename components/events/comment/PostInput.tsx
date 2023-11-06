@@ -17,7 +17,7 @@ const PostInput = ({ elementId, username, userProfileImageUrl, onMessageChange, 
   };
 
   return (
-    <div className="mt-1 flex ">
+    <div className="mt-1 flex">
       <div className="ml-1">
         <div className="h-8 w-8">
           <Link href={`/user/${username}`}>

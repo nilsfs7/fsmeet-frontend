@@ -9,6 +9,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
 import ErrorMessage from '@/components/ErrorMessage';
+import Navigation from '@/components/Navigation';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -114,14 +115,14 @@ const CompetitionEditing = (props: any) => {
 
       <ErrorMessage message={error} />
 
-      <div className="my-2 flex">
-        <div className="pr-1">
-          <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+      <Navigation>
+        <div className="px-1">
+          <ActionButton action={Action.CANCEL} onClick={() => router.replace(`/events/${eventId}/comps`)} />
         </div>
-        <div className="pl-1">
+        <div className="px-1">
           <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
         </div>
-      </div>
+      </Navigation>
     </div>
   );
 };

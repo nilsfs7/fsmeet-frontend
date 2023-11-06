@@ -2,9 +2,13 @@ import { Match } from '@/types/match';
 import Dropdown from '../common/Dropdown';
 import { MenuItem } from '@/types/menu-item';
 import { User } from '@/types/user';
+import Link from 'next/link';
+import { imgUserDefaultImg } from '@/types/consts/images';
+import { useRouter } from 'next/router';
 
 interface IMatchProps {
   match: Match;
+  usersMap: Map<string, User>;
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
   seedingList?: User[];
@@ -12,7 +16,10 @@ interface IMatchProps {
   onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result?: number) => void;
 }
 
-const MatchCard = ({ match, editingEnabled = false, seedingEnabled = false, seedingList = [], onRename, onUpdateSlot }: IMatchProps) => {
+const MatchCard = ({ match, usersMap, editingEnabled = false, seedingEnabled = false, seedingList = [], onRename, onUpdateSlot }: IMatchProps) => {
+  const router = useRouter();
+  const self = `${router.asPath}`;
+
   const playerMenu: MenuItem[] = [];
   playerMenu.push({ text: 'not set', value: '' });
   seedingList.map(user => {
@@ -57,46 +64,66 @@ const MatchCard = ({ match, editingEnabled = false, seedingEnabled = false, seed
           handleRename(e.currentTarget.value);
         }}
       />
+
       <hr />
-      {[...Array(match.slots)].map((val: number, i: number) => {
-        const matchSlot = match.matchSlots.filter(slot => {
-          if (slot.slotIndex === i) return slot;
-        })[0];
 
-        return (
-          <div key={`slot-${i}`} className="flex items-center justify-between">
-            {!seedingEnabled && (
-              <div className="flex w-full justify-between">
-                <div>{matchSlot && matchSlot.name !== playerMenu[0].value ? matchSlot.name : `Slot ${i + 1}`}</div>
-                <div>{matchSlot && matchSlot.result ? matchSlot.result : '--'}</div>
-              </div>
-            )}
+      <div className="mt-2">
+        {[...Array(match.slots)].map((val: number, i: number) => {
+          const matchSlot = match.matchSlots.filter(slot => {
+            if (slot.slotIndex === i) return slot;
+          })[0];
 
-            {seedingEnabled && (
-              <div className="flex w-full justify-between">
-                <Dropdown
-                  menus={playerMenu}
-                  value={matchSlot && matchSlot.name ? matchSlot.name : 'not set'}
-                  onChange={(value: any) => {
-                    handleSlotUpdateName(i, value);
-                  }}
-                />
+          return (
+            <div key={`slot-${i}`} className="flex items-center justify-between">
+              {!seedingEnabled && (
+                <div className="border-red flex w-full justify-between">
+                  <div className="flex w-full items-center">
+                    <div className="h-8 w-8 p-1">
+                      <Link href={matchSlot?.name ? `/user/${matchSlot.name}` : self}>
+                        <img
+                          src={matchSlot?.name && usersMap?.get(matchSlot.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg}
+                          className="h-full w-full rounded-full bg-zinc-200 object-cover"
+                        />
+                      </Link>
+                    </div>
 
-                <input
-                  className="flex w-full bg-transparent text-right"
-                  id={`input-max-passing-${i}`}
-                  type="number"
-                  min={0}
-                  value={matchSlot && matchSlot.result ? matchSlot.result : 0}
-                  onChange={e => {
-                    handleSlotUpdateResult(i, matchSlot?.name, e.currentTarget.valueAsNumber);
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        );
-      })}
+                    <div className="flex h-full w-32 items-center overflow-hidden text-ellipsis px-1">
+                      <Link href={matchSlot?.name ? `/user/${matchSlot.name}` : self}>
+                        <div className="text-sm">{`${matchSlot?.name ? matchSlot.name : ''}`}</div>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="flex w-4 items-center justify-end text-base font-bold">{matchSlot && matchSlot.result ? matchSlot.result : '--'}</div>
+                </div>
+              )}
+
+              {seedingEnabled && (
+                <div className="flex w-full justify-between">
+                  <Dropdown
+                    menus={playerMenu}
+                    value={matchSlot && matchSlot?.name ? matchSlot.name : 'not set'}
+                    onChange={(value: any) => {
+                      handleSlotUpdateName(i, value);
+                    }}
+                  />
+
+                  <input
+                    className="flex w-full bg-transparent text-right"
+                    id={`input-max-passing-${i}`}
+                    type="number"
+                    min={0}
+                    value={matchSlot && matchSlot.result ? matchSlot.result : 0}
+                    onChange={e => {
+                      handleSlotUpdateResult(i, matchSlot?.name, e.currentTarget.valueAsNumber);
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -7,9 +7,10 @@ import Link from 'next/link';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
-import TextButton from '@/components/common/TextButton';
 import { routeHome } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
+import ActionButton from '@/components/common/ActionButton';
+import { Action } from '@/types/enums/action';
 
 const defaultDateFrom = moment(moment().year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
@@ -86,7 +87,7 @@ const EventsOverview = ({ session }: { session: any }) => {
 
       <Navigation>
         <Link href={routeHome}>
-          <TextButton text="Back" />
+          <ActionButton action={Action.BACK} />
         </Link>
       </Navigation>
     </div>

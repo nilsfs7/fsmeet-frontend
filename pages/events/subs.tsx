@@ -5,10 +5,12 @@ import { IEvent } from '@/interface/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
-import { routeEventSubs, routeHome } from '@/types/consts/routes';
+import { routeEventSubs, routeEventsCreate, routeHome } from '@/types/consts/routes';
 import { Logo } from '@/components/Logo';
 import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
+import { Action } from '@/types/enums/action';
+import ActionButton from '@/components/common/ActionButton';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const eventsOwning: IEvent[] = data.owning;
@@ -27,7 +29,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   return (
     <>
       <Dialog title="Create New Event" queryParam="create" onClose={handleCancelDialogClicked} onOk={handleCancelDialogClicked}>
-        <p>{`Free event service coming soon! :)`}</p>
+        <p>{`Coming soon! :)`}</p>
       </Dialog>
 
       <div className="absolute inset-0 flex flex-col overflow-hidden">
@@ -82,8 +84,9 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
 
         <Navigation>
           <Link href={routeHome}>
-            <TextButton text="Back" />
+            <ActionButton action={Action.BACK} />
           </Link>
+
           {/* TODO: enable and remove dialog */}
           {/* <Link href={routeEventsCreate}> */}
           <TextButton text="Create Event" onClick={handlCreateEventClicked} />

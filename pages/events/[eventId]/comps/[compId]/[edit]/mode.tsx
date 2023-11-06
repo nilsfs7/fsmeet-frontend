@@ -29,6 +29,7 @@ const ModeEditing = (props: any) => {
   const minPassingPerMatch = 1;
   const minPassingExtra = 0;
 
+  const [gameModeApplied, setGameModeApplied] = useState<boolean>(false);
   const [rounds, setRounds] = useState<Round[]>([]);
   const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
 
@@ -87,8 +88,10 @@ const ModeEditing = (props: any) => {
       },
     });
     if (response.status == 200) {
-      // router.replace(`/events/${eventId}/comps`);
-      // TODO
+      router.reload();
+    } else {
+      const error = await response.json();
+      console.error(error.message);
     }
   };
 
@@ -127,8 +130,10 @@ const ModeEditing = (props: any) => {
           if (rounds.length === 0) {
             const initRound = new Round(0, 'Round 1', numParticipants);
             setRounds([initRound]);
+            setGameModeApplied(false);
           } else {
             setRounds(rounds);
+            setGameModeApplied(true);
           }
         });
       });
@@ -237,11 +242,6 @@ const ModeEditing = (props: any) => {
       <div className={`m-2 justify-center overflow-hidden overflow-y-auto`}>
         <div className={'flex flex-col items-center'}>
           <h1 className="mt-2 text-xl">Edit Mode</h1>
-
-          <div className="mt-2 flex gap-2">
-            <ActionButton action={Action.ADD} onClick={addRound} />
-            <ActionButton action={Action.REMOVE} onClick={removeLastRound} />
-          </div>
         </div>
 
         <div className={'mt-2 flex justify-center'}>
@@ -279,9 +279,18 @@ const ModeEditing = (props: any) => {
         </div>
 
         <div className={'mt-2 flex flex-col items-center'}>
-          <div className="flex gap-2">
-            <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-            <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
+          {!gameModeApplied && (
+            <div className="mt-2 flex gap-2">
+              <>
+                <ActionButton action={Action.ADD} onClick={addRound} />
+                <ActionButton action={Action.REMOVE} onClick={removeLastRound} />
+              </>
+            </div>
+          )}
+
+          <div className="mt-2 flex gap-2">
+            {gameModeApplied && <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />}
+            {!gameModeApplied && <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />}
           </div>
 
           <h1 className="mt-8 text-xl">Preview</h1>
