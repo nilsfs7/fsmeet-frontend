@@ -13,18 +13,12 @@ import 'react-tabs/style/react-tabs.css'; // TODO: migrate to tailwind
 import { User } from '@/types/user';
 
 const Competition = (props: any) => {
-  const session = props.session;
-
   const router = useRouter();
   const { eventId } = router.query;
   const { compId } = router.query;
 
   const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
   const [comp, setComp] = useState<EventCompetition>();
-
-  if (!session) {
-    router.push(routeLogin);
-  }
 
   const fetchEvent = async (eventId: string): Promise<Event> => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
