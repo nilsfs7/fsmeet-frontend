@@ -28,7 +28,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
 
   return (
     <>
-      <Dialog title="Create New Event" queryParam="create" onClose={handleCancelDialogClicked} onOk={handleCancelDialogClicked}>
+      <Dialog title="Create New Event" queryParam="create" onCancel={handleCancelDialogClicked} onConfirm={handleCancelDialogClicked}>
         <p>{`Coming soon! :)`}</p>
       </Dialog>
 

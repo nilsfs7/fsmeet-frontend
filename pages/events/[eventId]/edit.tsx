@@ -146,7 +146,7 @@ const EventEditing = (props: any) => {
 
   return (
     <>
-      <Dialog title="Delete Account" queryParam="delete" onClose={handleCancelDeleteEventClicked} onOk={handleConfirmDeleteEventClicked}>
+      <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDeleteEventClicked} onConfirm={handleConfirmDeleteEventClicked}>
         <p>Do you really want to delete this event?</p>
       </Dialog>
 
