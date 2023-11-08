@@ -139,7 +139,7 @@ const Account = ({ session }: any) => {
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <Dialog title="Delete Account" queryParam="delete" onClose={handleCancelDeleteAccountClicked} onOk={handleConfirmDeleteAccountClicked}>
+      <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDeleteAccountClicked} onConfirm={handleConfirmDeleteAccountClicked}>
         <p>Do you really want to leave us?</p>
       </Dialog>
 
