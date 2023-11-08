@@ -246,11 +246,11 @@ const Event = (props: any) => {
 
   return (
     <>
-      <Dialog title="Unregister From Event" queryParam="unregister" onClose={handleCancelDialogClicked} onOk={handleConfirmUnregisterClicked}>
+      <Dialog title="Unregister From Event" queryParam="unregister" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmUnregisterClicked} confirmText="Confirm">
         <p>Do you really want to unregister from this event?</p>
       </Dialog>
 
-      <Dialog title="Confirm Registration" queryParam="register" onClose={handleCancelDialogClicked} onOk={handleConfirmRegisterClicked}>
+      <Dialog title="Confirm Registration" queryParam="register" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmRegisterClicked} confirmText="Register now">
         <div>{`Do you want to register for ${event.name}`}?</div>
 
         <div>Please take note of the participation fee ({event.participationFee.toString().replace('.', ',')} €). We will confirm your registration once we received your payment.</div>

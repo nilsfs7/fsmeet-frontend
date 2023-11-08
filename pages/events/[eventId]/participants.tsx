@@ -111,8 +111,8 @@ const EventParticipants = (props: any) => {
       <Dialog
         title="Remove Participant"
         queryParam="delete"
-        onClose={handleCancelRemoveParticipantClicked}
-        onOk={() => {
+        onCancel={handleCancelRemoveParticipantClicked}
+        onConfirm={() => {
           if (eventId) {
             handleConfirmRemoveParticipantClicked(eventId.toString(), userToRemove);
             setUserToRemove('');
