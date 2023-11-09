@@ -7,6 +7,7 @@ import { Round } from '@/types/round';
 import { useRouter } from 'next/router';
 import BattleList from './BattleList';
 import BattleGrid from './BattleGrid';
+import 'react-tabs/style/react-tabs.css'; // TODO: migrate to tailwind
 
 interface ITabbedCompetitionDetailsMenuProps {
   competitionParticipants: User[];

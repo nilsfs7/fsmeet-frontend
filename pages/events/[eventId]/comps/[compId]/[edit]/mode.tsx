@@ -1,7 +1,6 @@
 /*
-- runden erst erstellen lassen nachdem registrierung zuende
+  - runden erst erstellen lassen nachdem registrierung zuende
   - dadurch ist die teilnehmeranzahl bekannt
-
 */
 
 import { GetServerSideProps } from 'next';

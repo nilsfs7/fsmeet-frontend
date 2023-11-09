@@ -2,14 +2,12 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { routeLogin } from '@/types/consts/routes';
 import { EventCompetition } from '@/types/event-competition';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import TabbedCompetitionDetailsMenu from '@/components/comp/TabbedCompetitionDetailsMenu';
-import 'react-tabs/style/react-tabs.css'; // TODO: migrate to tailwind
 import { User } from '@/types/user';
 
 const Competition = (props: any) => {
