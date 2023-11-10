@@ -30,6 +30,10 @@ execute container on boot
 docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --restart always --name fsmeet-frontend luisnaldo7/fsmeet-frontend:latest
 ```
 
+## Component Library
+
+[shadcn](https://ui.shadcn.com/docs/components/tabs)
+
 ## Fonts
 
 [fonts.google.com](https://fonts.google.com/)
