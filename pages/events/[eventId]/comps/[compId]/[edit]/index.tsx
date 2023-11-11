@@ -86,29 +86,23 @@ const CompetitionEditing = (props: any) => {
         }}
       />
 
-      <div className="my-2 flex">
-        <div className="pr-1">
-          <div className="flex h-full items-center">Player Pool</div>
-        </div>
-        <div className="pl-1">
+      <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
+        <div className="flex justify-end items-center h-full">Player Pool</div>
+        <div className="flex">
           <ActionButton action={Action.MANAGE_USERS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/pool`)} />
         </div>
       </div>
 
-      <div className="my-2 flex">
-        <div className="pr-1">
-          <div className="flex h-full items-center">Game Mode</div>
-        </div>
-        <div className="pl-1">
+      <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
+        <div className="flex justify-end items-center h-full">Game Mode</div>
+        <div className="flex">
           <ActionButton action={Action.MANAGE_COMPETITIONS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/mode`)} />
         </div>
       </div>
 
-      <div className="my-2 flex">
-        <div className="pr-1">
-          <div className="flex h-full items-center">Seeding</div>
-        </div>
-        <div className="pl-1">
+      <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
+        <div className="flex justify-end items-center h-full">Seeding</div>
+        <div className="flex">
           <ActionButton action={Action.MANAGE_USERS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/seeding`)} />
         </div>
       </div>
