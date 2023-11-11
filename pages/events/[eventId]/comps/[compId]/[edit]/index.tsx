@@ -10,6 +10,7 @@ import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
 import ErrorMessage from '@/components/ErrorMessage';
 import Navigation from '@/components/Navigation';
+import Link from 'next/link';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -89,21 +90,27 @@ const CompetitionEditing = (props: any) => {
       <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
         <div className="flex justify-end items-center h-full">Player Pool</div>
         <div className="flex">
-          <ActionButton action={Action.MANAGE_USERS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/pool`)} />
+          <Link href={`/events/${eventId}/comps/${compId}/edit/pool`}>
+            <ActionButton action={Action.MANAGE_USERS} />
+          </Link>
         </div>
       </div>
 
       <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
         <div className="flex justify-end items-center h-full">Game Mode</div>
         <div className="flex">
-          <ActionButton action={Action.MANAGE_COMPETITIONS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/mode`)} />
+          <Link href={`/events/${eventId}/comps/${compId}/edit/pool`}>
+            <ActionButton action={Action.MANAGE_COMPETITIONS} />
+          </Link>
         </div>
       </div>
 
       <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
         <div className="flex justify-end items-center h-full">Seeding</div>
         <div className="flex">
-          <ActionButton action={Action.MANAGE_USERS} onClick={() => router.push(`/events/${eventId}/comps/${compId}/edit/seeding`)} />
+          <Link href={`/events/${eventId}/comps/${compId}/edit/seeding`}>
+            <ActionButton action={Action.MANAGE_USERS} />
+          </Link>
         </div>
       </div>
 
