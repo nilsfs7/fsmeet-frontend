@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import BattleList from './BattleList';
 import BattleGrid from './BattleGrid';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import TextareaAutosize from 'react-textarea-autosize';
 
 interface ITabbedCompetitionDetailsMenuProps {
   competitionParticipants: User[];
@@ -108,7 +109,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
   }, [rounds]);
 
   return (
-    <Tabs defaultValue="schedule" className="">
+    <Tabs defaultValue={`schedule`}>
       <TabsList>
         {rounds.length > 0 && <TabsTrigger value="schedule">Schedule</TabsTrigger>}
         {rounds.length > 0 && <TabsTrigger value="grid">Battle Grid</TabsTrigger>}
@@ -143,7 +144,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
             {description && (
               <div>
                 <div className="text-base font-bold">Description</div>
-                <div className={'p-2'}>{description && <div>{description}</div>}</div>
+                <TextareaAutosize readOnly className="p-2 resize-none bg-transparent outline-none" value={description} />
               </div>
             )}
 
@@ -152,7 +153,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
             {rules && (
               <div className={`${description ? 'mt-2' : ''}`}>
                 <div className="text-base font-bold">Rules</div>
-                <div className={'p-2'}>{rules && <div>{rules}</div>}</div>
+                <TextareaAutosize readOnly className="p-2 resize-none bg-transparent outline-none" value={rules} />
               </div>
             )}
           </div>
