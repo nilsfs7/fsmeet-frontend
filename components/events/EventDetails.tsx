@@ -71,7 +71,7 @@ const EventDetails = ({ event }: IEventProps) => {
 
       {/* description */}
       <div className="flex h-fit flex-col p-2">
-        <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-secondary-light outline-none" value={event.description} />
+        <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-transparent outline-none" value={event.description} />
       </div>
 
       <Separator />
