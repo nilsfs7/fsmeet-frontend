@@ -14,6 +14,7 @@ import Navigation from '@/components/Navigation';
 import RoundOptions from '@/components/comp/RoundOptions';
 import { Round } from '@/types/round';
 import BattleGrid from '@/components/comp/BattleGrid';
+import Link from 'next/link';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -309,7 +310,9 @@ const ModeEditing = (props: any) => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps/${compId}/edit`)} />
+        <Link href={`/events/${eventId}/comps`}>
+          <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps`)} />
+        </Link>
       </Navigation>
     </div>
   );

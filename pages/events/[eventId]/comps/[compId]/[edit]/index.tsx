@@ -2,15 +2,14 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { EventCompetition } from '@/types/event-competition';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
 import ErrorMessage from '@/components/ErrorMessage';
-import Navigation from '@/components/Navigation';
-import Link from 'next/link';
+import Dialog from '@/components/Dialog';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -59,6 +58,41 @@ const CompetitionEditing = (props: any) => {
     }
   };
 
+  const handleDeleteClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}/comps/${compId}/edit?delete=1`, undefined, { shallow: true });
+  };
+
+  const handleCancelDeleteClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}/comps/${compId}/edit`, undefined, { shallow: true });
+  };
+
+  const handleConfirmDeleteClicked = async () => {
+    setError('');
+
+    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`;
+    let method: string = 'DELETE';
+
+    const response = await fetch(url, {
+      method: method,
+      body: JSON.stringify({
+        id: `${compId}`,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.user.accessToken}`,
+      },
+    });
+
+    if (response.status == 200) {
+      console.info(`${compId} removed`);
+      router.push(`${routeEvents}/${eventId}/comps`);
+    } else {
+      const error = await response.json();
+      setError(error.message);
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
       fetchEvent(eventId).then((res: Event) => {
@@ -78,53 +112,62 @@ const CompetitionEditing = (props: any) => {
   }, []);
 
   return (
-    <div className={'flex columns-1 flex-col items-center'}>
-      <h1 className="m-2 text-xl">Edit Competition</h1>
-      <CompetitionEditor
-        comp={comp}
-        onCompUpdate={(comp: EventCompetition) => {
-          setComp(comp);
-        }}
-      />
+    <>
+      <Dialog title="Delete Competition" queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
+        <p>Do you really want to delete this event?</p>
+      </Dialog>
 
-      <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
-        <div className="flex justify-end items-center h-full">Player Pool</div>
-        <div className="flex">
-          <Link href={`/events/${eventId}/comps/${compId}/edit/pool`}>
-            <ActionButton action={Action.MANAGE_USERS} />
-          </Link>
+      <div className={'flex columns-1 flex-col items-center'}>
+        <h1 className="m-2 text-xl">Edit Competition</h1>
+        <CompetitionEditor
+          comp={comp}
+          onCompUpdate={(comp: EventCompetition) => {
+            setComp(comp);
+          }}
+        />
+
+        {/* <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
+          <div className="flex justify-end items-center h-full">Player Pool</div>
+          <div className="flex">
+            <Link href={`/events/${eventId}/comps/${compId}/edit/pool`}>
+              <ActionButton action={Action.MANAGE_USERS} />
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
+          <div className="flex justify-end items-center h-full">Game Mode</div>
+          <div className="flex">
+            <Link href={`/events/${eventId}/comps/${compId}/edit/mode`}>
+              <ActionButton action={Action.MANAGE_COMPETITIONS} />
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
+          <div className="flex justify-end items-center h-full">Seeding</div>
+          <div className="flex">
+            <Link href={`/events/${eventId}/comps/${compId}/edit/seeding`}>
+              <ActionButton action={Action.MANAGE_USERS} />
+            </Link>
+          </div>
+        </div> */}
+
+        <ErrorMessage message={error} />
+
+        <div className="my-2 flex">
+          <div className="px-1">
+            <ActionButton action={Action.CANCEL} onClick={() => router.replace(`/events/${eventId}/comps`)} />
+          </div>
+          <div className="px-1">
+            <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
+          </div>
+          <div className="px-1">
+            <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
+          </div>
         </div>
       </div>
-
-      <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
-        <div className="flex justify-end items-center h-full">Game Mode</div>
-        <div className="flex">
-          <Link href={`/events/${eventId}/comps/${compId}/edit/pool`}>
-            <ActionButton action={Action.MANAGE_COMPETITIONS} />
-          </Link>
-        </div>
-      </div>
-
-      <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
-        <div className="flex justify-end items-center h-full">Seeding</div>
-        <div className="flex">
-          <Link href={`/events/${eventId}/comps/${compId}/edit/seeding`}>
-            <ActionButton action={Action.MANAGE_USERS} />
-          </Link>
-        </div>
-      </div>
-
-      <ErrorMessage message={error} />
-
-      <Navigation>
-        <div className="px-1">
-          <ActionButton action={Action.CANCEL} onClick={() => router.replace(`/events/${eventId}/comps`)} />
-        </div>
-        <div className="px-1">
-          <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
-        </div>
-      </Navigation>
-    </div>
+    </>
   );
 };
 
