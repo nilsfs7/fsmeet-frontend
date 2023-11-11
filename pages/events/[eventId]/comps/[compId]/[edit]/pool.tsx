@@ -172,7 +172,9 @@ const CompetitionPool = (props: any) => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps/${compId}/edit`)} />
+        <Link href={`/events/${eventId}/comps`}>
+          <ActionButton action={Action.BACK} />
+        </Link>
       </Navigation>
     </>
   );

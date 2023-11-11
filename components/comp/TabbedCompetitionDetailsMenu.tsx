@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ParticipantList from '../events/ParticipantList';
 import { User } from '@/types/user';
 import Separator from '../Seperator';
@@ -7,6 +6,8 @@ import { Round } from '@/types/round';
 import { useRouter } from 'next/router';
 import BattleList from './BattleList';
 import BattleGrid from './BattleGrid';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import TextareaAutosize from 'react-textarea-autosize';
 
 interface ITabbedCompetitionDetailsMenuProps {
   competitionParticipants: User[];
@@ -108,51 +109,42 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
   }, [rounds]);
 
   return (
-    <Tabs>
-      <TabList>
-        {rounds.length > 0 && <Tab>Schedule</Tab>}
-        {rounds.length > 0 && <Tab>Battle Grid</Tab>}
-        {competitionParticipants.length > 0 && <Tab>Participants</Tab>}
-        {(description || rules) && <Tab>Rules</Tab>}
-      </TabList>
-
+    <Tabs defaultValue="schedule" className="">
+      <TabsList>
+        {rounds.length > 0 && <TabsTrigger value="schedule">Schedule</TabsTrigger>}
+        {rounds.length > 0 && <TabsTrigger value="grid">Battle Grid</TabsTrigger>}
+        {competitionParticipants.length > 0 && <TabsTrigger value="participants">Participants</TabsTrigger>}
+        {(description || rules) && <TabsTrigger value="rules">Rules</TabsTrigger>}
+      </TabsList>
       {/* Schedule */}
       {rounds.length > 0 && (
-        <div className={'mt-2 flex justify-center'}>
-          <div className={'flex overflow-x-auto'}>
-            <TabPanel>
-              <BattleList rounds={rounds} usersMap={usersMap} />
-            </TabPanel>
-          </div>
-        </div>
+        <TabsContent value="schedule">
+          <BattleList rounds={rounds} usersMap={usersMap} />
+        </TabsContent>
       )}
 
       {/* Battle Grid */}
       {rounds.length > 0 && (
-        <div className={'mt-2 flex justify-center'}>
-          <div className={'flex overflow-x-auto'}>
-            <TabPanel>
-              <BattleGrid rounds={rounds} usersMap={usersMap} />
-            </TabPanel>
-          </div>
-        </div>
+        <TabsContent value="grid">
+          <BattleGrid rounds={rounds} usersMap={usersMap} />
+        </TabsContent>
       )}
 
       {/* Participants */}
       {competitionParticipants.length > 0 && (
-        <TabPanel>
+        <TabsContent value="participants">
           <ParticipantList participants={competitionParticipants} />
-        </TabPanel>
+        </TabsContent>
       )}
 
       {/* Rules */}
       {(description || rules) && (
-        <TabPanel>
+        <TabsContent value="rules">
           <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
             {description && (
               <div>
                 <div className="text-base font-bold">Description</div>
-                <div className={'p-2'}>{description && <div>{description}</div>}</div>
+                <TextareaAutosize readOnly className="p-2 resize-none bg-transparent outline-none" value={rules} />
               </div>
             )}
 
@@ -161,11 +153,11 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
             {rules && (
               <div className={`${description ? 'mt-2' : ''}`}>
                 <div className="text-base font-bold">Rules</div>
-                <div className={'p-2'}>{rules && <div>{rules}</div>}</div>
+                <TextareaAutosize readOnly className="p-2 resize-none bg-transparent outline-none" value={rules} />
               </div>
             )}
           </div>
-        </TabPanel>
+        </TabsContent>
       )}
     </Tabs>
   );

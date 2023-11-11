@@ -71,7 +71,7 @@ const EventDetails = ({ event }: IEventProps) => {
 
       {/* description */}
       <div className="flex h-fit flex-col p-2">
-        <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-secondary-light outline-none" value={event.description} />
+        <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-transparent outline-none" value={event.description} />
       </div>
 
       <Separator />
@@ -104,3 +104,23 @@ const EventDetails = ({ event }: IEventProps) => {
 };
 
 export default EventDetails;
+
+function createAnchors(): string {
+  // used with:  <div dangerouslySetInnerHTML={{ __html: content }} />
+
+  let content = 'Click on *ls*https://google.de*le* to get to the site.';
+
+  const linkStart = content.indexOf('*ls*');
+  const linkEnd = content.indexOf('*le*');
+
+  if (linkStart != -1 && linkEnd != -1) {
+    const begin = content.substring(0, linkStart);
+    const anchorStart = '<a target="_blank" rel="noopener noreferrer" href="';
+    const middle = content.substring(linkStart + 4, linkEnd);
+    const anchorEnd = `">${middle}</a>`;
+    const end = content.substring(linkEnd + 4);
+
+    content = `${begin}${anchorStart}${middle}${anchorEnd}${end}`;
+  }
+  return content;
+}
