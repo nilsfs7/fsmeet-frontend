@@ -1,7 +1,6 @@
 /*
-- runden erst erstellen lassen nachdem registrierung zuende
+  - runden erst erstellen lassen nachdem registrierung zuende
   - dadurch ist die teilnehmeranzahl bekannt
-
 */
 
 import { GetServerSideProps } from 'next';
@@ -15,6 +14,7 @@ import Navigation from '@/components/Navigation';
 import RoundOptions from '@/components/comp/RoundOptions';
 import { Round } from '@/types/round';
 import BattleGrid from '@/components/comp/BattleGrid';
+import Link from 'next/link';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -310,7 +310,9 @@ const ModeEditing = (props: any) => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps/${compId}/edit`)} />
+        <Link href={`/events/${eventId}/comps`}>
+          <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps`)} />
+        </Link>
       </Navigation>
     </div>
   );

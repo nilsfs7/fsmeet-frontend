@@ -14,6 +14,7 @@ import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
 import { Round } from '@/types/round';
 import BattleGrid from '@/components/comp/BattleGrid';
+import Link from 'next/link';
 
 const Seeding = (props: any) => {
   const session = props.session;
@@ -163,7 +164,9 @@ const Seeding = (props: any) => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps/${compId}/edit`)} />
+        <Link href={`/events/${eventId}/comps`}>
+          <ActionButton action={Action.BACK} />
+        </Link>
       </Navigation>
     </div>
   );

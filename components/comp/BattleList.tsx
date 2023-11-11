@@ -25,7 +25,7 @@ const BattleList = ({ rounds, usersMap }: IBattleListProps) => {
               })}
 
               {i < rounds.length - 1 ? (
-                <div className="mt-2">
+                <div className="my-2">
                   <Separator />
                 </div>
               ) : null}
