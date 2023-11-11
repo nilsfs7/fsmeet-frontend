@@ -31,7 +31,7 @@ const EventEditing = (props: any) => {
     return await response.json();
   };
 
-  const handleSaveEventClicked = async () => {
+  const handleSaveClicked = async () => {
     setError('');
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
@@ -76,11 +76,11 @@ const EventEditing = (props: any) => {
     }
   };
 
-  const handleDeleteEventClicked = async () => {
+  const handleDeleteClicked = async () => {
     router.replace(`${routeEvents}/${eventId}/edit?delete=1`, undefined, { shallow: true });
   };
 
-  const handleConfirmDeleteEventClicked = async () => {
+  const handleConfirmDeleteClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'DELETE',
       body: JSON.stringify({
@@ -97,7 +97,7 @@ const EventEditing = (props: any) => {
     }
   };
 
-  const handleCancelDeleteEventClicked = async () => {
+  const handleCancelDeleteClicked = async () => {
     router.replace(`${routeEvents}/${eventId}/edit`, undefined, { shallow: true });
   };
 
@@ -146,7 +146,7 @@ const EventEditing = (props: any) => {
 
   return (
     <>
-      <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDeleteEventClicked} onConfirm={handleConfirmDeleteEventClicked}>
+      <Dialog title="Delete Event" queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
         <p>Do you really want to delete this event?</p>
       </Dialog>
 
@@ -166,10 +166,10 @@ const EventEditing = (props: any) => {
             <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
           </div>
           <div className="px-1">
-            <ActionButton action={Action.DELETE} onClick={handleDeleteEventClicked} />
+            <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
           </div>
           <div className="px-1">
-            <ActionButton action={Action.SAVE} onClick={handleSaveEventClicked} />
+            <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
           </div>
         </div>
       </div>
