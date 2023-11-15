@@ -144,7 +144,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
             {description && (
               <div>
                 <div className="text-base font-bold">Description</div>
-                <TextareaAutosize readOnly className="p-2 resize-none bg-transparent outline-none" value={description} />
+                <TextareaAutosize readOnly className="w-full p-2 resize-none bg-transparent outline-none" value={description} />
               </div>
             )}
 
@@ -153,7 +153,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
             {rules && (
               <div className={`${description ? 'mt-2' : ''}`}>
                 <div className="text-base font-bold">Rules</div>
-                <TextareaAutosize readOnly className="p-2 resize-none bg-transparent outline-none" value={rules} />
+                <TextareaAutosize readOnly className="w-full p-2 resize-none bg-transparent outline-none" value={rules} />
               </div>
             )}
           </div>
