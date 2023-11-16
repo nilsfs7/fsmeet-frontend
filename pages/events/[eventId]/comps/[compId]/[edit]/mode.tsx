@@ -15,6 +15,7 @@ import RoundOptions from '@/components/comp/RoundOptions';
 import { Round } from '@/types/round';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
+import { Moment } from 'moment';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -118,6 +119,32 @@ const ModeEditing = (props: any) => {
       }
     } else {
       console.warn('empty match name');
+    }
+  };
+
+  const handleTimeUpdated = async (roundIndex: number, matchIndex: number, matchId: string, time: Moment) => {
+    const rnds = Array.from(rounds);
+    rnds[roundIndex].matches[matchIndex].time = time.unix();
+    setRounds(rnds);
+
+    if (time) {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          matchId: matchId,
+          time: time.unix(),
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.user.accessToken}`,
+        },
+      });
+
+      if (response.status == 200) {
+        console.info(`match ${matchId} updated. new time: ${time}`);
+      }
+    } else {
+      console.warn('empty match time');
     }
   };
 
@@ -303,6 +330,9 @@ const ModeEditing = (props: any) => {
               editingEnabled={true}
               onRenameMatch={(roundIndex, matchIndex, matchId, name) => {
                 handleMatchRenamed(roundIndex, matchIndex, matchId, name);
+              }}
+              onUpdateTime={(roundIndex, matchIndex, matchId, time) => {
+                handleTimeUpdated(roundIndex, matchIndex, matchId, time);
               }}
             />
           </div>
