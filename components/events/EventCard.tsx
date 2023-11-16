@@ -1,7 +1,7 @@
 import { IEvent } from '@/interface/event';
 import { useEffect, useState } from 'react';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
-import { shortDateString } from '@/types/funcs/time';
+import { getShortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';
 
 interface IEventProps {
@@ -30,13 +30,13 @@ const EventCard = ({ event }: IEventProps) => {
           <div className="w-1/3 ">{event.venueCity}</div>
           {dateFrom && dateTo && (
             <div className="w-2/3 text-right">
-              {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, false)} - ${shortDateString(dateTo)}`}
+              {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${getShortDateString(dateFrom)}` : `${getShortDateString(dateFrom, false)} - ${getShortDateString(dateTo)}`}
             </div>
           )}
         </div>
         <div className="flex justify-between">
           <div className="text-xs">by {event.owner}</div>
-          <div>{dateRegistrationDeadline && <div className="text-right">Deadline: {shortDateString(dateRegistrationDeadline)}</div>}</div>
+          <div>{dateRegistrationDeadline && <div className="text-right">Deadline: {getShortDateString(dateRegistrationDeadline)}</div>}</div>
         </div>
       </div>
 

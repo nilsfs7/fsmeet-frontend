@@ -6,4 +6,5 @@ export type Match = {
   name: string;
   slots: number;
   matchSlots: MatchSlot[];
+  time?: number;
 };
