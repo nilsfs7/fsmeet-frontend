@@ -39,9 +39,7 @@ const EventDetails = ({ event }: IEventProps) => {
 
           <div className="col-span-2">
             {dateFrom && dateTo && (
-              <div className="">
-                {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${getShortDateString(dateFrom)}` : `${getShortDateString(dateFrom, false)} - ${getShortDateString(dateTo)}`}
-              </div>
+              <div>{dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${getShortDateString(dateFrom)}` : `${getShortDateString(dateFrom, false)} - ${getShortDateString(dateTo)}`}</div>
             )}
           </div>
 
