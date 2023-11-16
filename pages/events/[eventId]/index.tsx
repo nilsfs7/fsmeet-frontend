@@ -20,6 +20,8 @@ import { EventComment } from '@/types/event-comment';
 import { EventType } from '@/types/enums/event-type';
 import Navigation from '@/components/Navigation';
 import Dialog from '@/components/Dialog';
+import SepaInfo from '@/components/payment/sepa-info';
+import CashInfo from '@/components/payment/cash-info';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -253,42 +255,27 @@ const Event = (props: any) => {
       <Dialog title="Confirm Registration" queryParam="register" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmRegisterClicked} confirmText="Register now">
         <div>{`Do you want to register for ${event.name}`}?</div>
 
-        <div>Please take note of the participation fee ({event.participationFee.toString().replace('.', ',')} €). We will confirm your registration once we received your payment.</div>
-
-        <div className="">
-          <div className="mt-4 grid grid-cols-1 justify-between">
-            <div>Bank transfer (SEPA)</div>
-
-            <div className="grid grid-cols-2 justify-between">
-              <div>Bank</div>
-              <div className="select-text">{event.paymentMethodSepa.bank}</div>
+        {event.participationFee > 0 && (
+          <>
+            <div className="mt-4">
+              Please take note of the participation fee of {event.participationFee.toString().replace('.', ',')}€. Your registration will be confirmed once your payment completed.
             </div>
 
-            <div className="grid grid-cols-2 justify-between">
-              <div>Recipient</div>
-              <div className="select-text">{event.paymentMethodSepa.recipient}</div>
-            </div>
-
-            <div className="grid grid-cols-2 justify-between">
-              <div>IBAN</div>
-              <div className="select-text">{event.paymentMethodSepa.iban}</div>
-            </div>
-
-            <div className="grid grid-cols-2 justify-between">
-              <div>Amount</div>
-              <div className="select-text">{event.participationFee.toString().replace('.', ',')} €</div>
-            </div>
-
-            <div className="grid grid-cols-2 justify-between">
-              <div>Reference</div>
-              <div className="select-text">
-                {event.paymentMethodSepa.reference}-{session?.user?.username}
+            {event.paymentMethodCash.enabled && (
+              <div className="mt-4">
+                <CashInfo participationFee={event.participationFee} />
               </div>
-            </div>
-          </div>
-        </div>
+            )}
 
-        <div className="mt-4">By confirming your registration we will also mail you the payment details.</div>
+            {event.paymentMethodSepa.enabled && (
+              <div className="mt-4">
+                <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user?.username}></SepaInfo>
+              </div>
+            )}
+
+            <div className="mt-4">By confirming your registration we will also mail you the payment details.</div>
+          </>
+        )}
       </Dialog>
 
       <div className="absolute inset-0 flex flex-col overflow-hidden">
