@@ -120,7 +120,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                     </div>
                   </div>
 
-                  <div className="flex w-4 items-center justify-end text-base font-bold">{matchSlot && matchSlot.result ? matchSlot.result : '--'}</div>
+                  <div className="flex w-4 items-center justify-end text-base font-bold">{matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : '--'}</div>
                 </div>
               )}
 
@@ -136,10 +136,11 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
 
                   <input
                     className="flex w-full bg-transparent text-right"
-                    id={`input-max-passing-${i}`}
+                    id={`input-max-passing-${match.id}-${i}`}
                     type="number"
-                    min={0}
-                    value={matchSlot && matchSlot.result ? matchSlot.result : 0}
+                    min={-1}
+                    max={99}
+                    value={matchSlot && matchSlot.result != undefined ? matchSlot.result : -1}
                     onChange={e => {
                       handleSlotUpdateResult(i, matchSlot?.name, e.currentTarget.valueAsNumber);
                     }}
