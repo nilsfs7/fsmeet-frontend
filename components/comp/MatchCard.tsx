@@ -81,7 +81,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
 
         {editingEnabled && (
           <TimePicker
-            value={moment(match.time)}
+            defaultValue={moment(match.time)}
             onChange={value => {
               if (value && moment.isMoment(value)) handleUpdateTime(value);
             }}
