@@ -5,18 +5,23 @@ import { User } from '@/types/user';
 import Link from 'next/link';
 import { imgUserDefaultImg } from '@/types/consts/images';
 import { useRouter } from 'next/router';
+import { TimePicker } from '@mui/x-date-pickers';
+import moment, { Moment } from 'moment';
+import { getTimeString } from '@/types/funcs/time';
 
 interface IMatchProps {
   match: Match;
   usersMap: Map<string, User>;
+  showTime?: boolean;
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
   seedingList?: User[];
   onRename?: (matchIndex: number, matchId: string, name: string) => void;
+  onUpdateTime?: (matchIndex: number, matchId: string, time: Moment) => void;
   onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result?: number) => void;
 }
 
-const MatchCard = ({ match, usersMap, editingEnabled = false, seedingEnabled = false, seedingList = [], onRename, onUpdateSlot }: IMatchProps) => {
+const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, seedingList = [], onRename, onUpdateTime, onUpdateSlot }: IMatchProps) => {
   const router = useRouter();
   const self = `${router.asPath}`;
 
@@ -29,6 +34,14 @@ const MatchCard = ({ match, usersMap, editingEnabled = false, seedingEnabled = f
   const handleRename = (name: string) => {
     if (match.id) {
       onRename && onRename(match.matchIndex, match.id, name);
+    } else {
+      console.error('unknown match id');
+    }
+  };
+
+  const handleUpdateTime = (time: Moment) => {
+    if (match.id) {
+      onUpdateTime && onUpdateTime(match.matchIndex, match.id, time);
     } else {
       console.error('unknown match id');
     }
@@ -56,14 +69,27 @@ const MatchCard = ({ match, usersMap, editingEnabled = false, seedingEnabled = f
 
   return (
     <div className={`rounded-lg border border-secondary-dark ${!editingEnabled || match.slots > 1 ? 'bg-secondary-light' : 'bg-warning'} p-2`}>
-      <input
-        className={`w-full rounded-lg text-center ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}
-        defaultValue={match.name}
-        disabled={!editingEnabled}
-        onChange={e => {
-          handleRename(e.currentTarget.value);
-        }}
-      />
+      <div className="flex justify-between">
+        <input
+          className={`w-full flex items-center ${!showTime && 'text-center'} ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}
+          defaultValue={match.name}
+          disabled={!editingEnabled}
+          onChange={e => {
+            handleRename(e.currentTarget.value);
+          }}
+        />
+
+        {editingEnabled && (
+          <TimePicker
+            value={moment(match.time)}
+            onChange={value => {
+              if (value && moment.isMoment(value)) handleUpdateTime(value);
+            }}
+          />
+        )}
+
+        {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(match.time)}</div>}
+      </div>
 
       <hr />
 

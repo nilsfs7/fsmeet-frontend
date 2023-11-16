@@ -19,7 +19,7 @@ const BattleList = ({ rounds, usersMap }: IBattleListProps) => {
               {round.matchesAscending.map((match, j) => {
                 return (
                   <div key={`match-${j}`} className={`${i > 0 || j > 0 ? 'mt-1' : ''} ${i < rounds.length - 1 ? 'mb-1' : ''} `}>
-                    <MatchCard match={match} usersMap={usersMap} />
+                    <MatchCard match={match} usersMap={usersMap} showTime={true} />
                   </div>
                 );
               })}

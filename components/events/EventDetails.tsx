@@ -4,7 +4,7 @@ import { imgCompetition, imgMeeting } from '@/types/consts/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import Map from '../Map';
 import Link from 'next/link';
-import { shortDateString } from '@/types/funcs/time';
+import { getShortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';
 import TextButton from '../common/TextButton';
 
@@ -39,7 +39,9 @@ const EventDetails = ({ event }: IEventProps) => {
 
           <div className="col-span-2">
             {dateFrom && dateTo && (
-              <div className="">{dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${shortDateString(dateFrom)}` : `${shortDateString(dateFrom, false)} - ${shortDateString(dateTo)}`}</div>
+              <div className="">
+                {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${getShortDateString(dateFrom)}` : `${getShortDateString(dateFrom, false)} - ${getShortDateString(dateTo)}`}
+              </div>
             )}
           </div>
 
@@ -55,10 +57,10 @@ const EventDetails = ({ event }: IEventProps) => {
           <div className="col-span-2">{event.participationFee.toString().replace('.', ',')} €</div>
 
           <div className="col-span-1">Registration open</div>
-          {dateRegistrationOpen && <div className="col-span-2">{shortDateString(dateRegistrationOpen)}</div>}
+          {dateRegistrationOpen && <div className="col-span-2">{getShortDateString(dateRegistrationOpen)}</div>}
 
           <div className="col-span-1">Registration end</div>
-          {dateRegistrationDeadline && <div className="col-span-2">{shortDateString(dateRegistrationDeadline)}</div>}
+          {dateRegistrationDeadline && <div className="col-span-2">{getShortDateString(dateRegistrationDeadline)}</div>}
 
           <div className="col-span-1">Event host</div>
           <div className="col-span-2 hover:underline">

@@ -1,6 +1,7 @@
 import { Round } from '@/types/round';
 import MatchCard from './MatchCard';
 import { User } from '@/types/user';
+import { Moment } from 'moment';
 
 interface IBattleGridProps {
   rounds: Round[];
@@ -9,10 +10,11 @@ interface IBattleGridProps {
   seedingEnabled?: boolean;
   seedingList?: User[];
   onRenameMatch?: (roundIndex: number, matchIndex: number, matchId: string, name: string) => void;
+  onUpdateTime?: (roundIndex: number, matchIndex: number, matchId: string, time: Moment) => void;
   onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => void;
 }
 
-const BattleGrid = ({ rounds, usersMap = new Map(), editingEnabled = false, seedingEnabled = false, seedingList = [], onRenameMatch, onUpdateSlot }: IBattleGridProps) => {
+const BattleGrid = ({ rounds, usersMap = new Map(), editingEnabled = false, seedingEnabled = false, seedingList = [], onRenameMatch, onUpdateTime, onUpdateSlot }: IBattleGridProps) => {
   return (
     <div className="flex">
       {rounds.map((round: Round, i: number) => {
@@ -30,6 +32,9 @@ const BattleGrid = ({ rounds, usersMap = new Map(), editingEnabled = false, seed
                       seedingList={seedingList}
                       onRename={(matchIndex: number, matchId: string, name: string) => {
                         onRenameMatch && onRenameMatch(rounds[i].roundIndex, matchIndex, matchId, name);
+                      }}
+                      onUpdateTime={(matchIndex: number, matchId: string, time: Moment) => {
+                        onUpdateTime && onUpdateTime(rounds[i].roundIndex, matchIndex, matchId, time);
                       }}
                       onUpdateSlot={(matchId: string, slotIndex: number, username: string, result?: number) => {
                         onUpdateSlot && onUpdateSlot(rounds[i].roundIndex, matchId, slotIndex, username, result);
