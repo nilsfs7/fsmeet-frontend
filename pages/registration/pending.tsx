@@ -10,9 +10,10 @@ const RegistrationPending: NextPage = () => {
   return (
     <>
       <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
-        <div className="mx-2 text-center">Check your mail</div>
-        <div className="mx-2 text-center">A confirmation link for {username} was sent to</div>
-        <div className="mx-2 text-center">{email}</div>
+        <div className="mx-2 text-center">
+          A confirmation link for {username} was sent to {email}.
+        </div>
+        <div className="mx-2 text-center">{`It may take some minutes until your mail is delivered. Also check your spam if you didn't receive anything.`}</div>
 
         <div className="m-2 flex justify-center py-2">
           <Link href="/">
