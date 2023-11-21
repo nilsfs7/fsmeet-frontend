@@ -22,12 +22,16 @@ import Navigation from '@/components/Navigation';
 import Dialog from '@/components/Dialog';
 import SepaInfo from '@/components/payment/sepa-info';
 import CashInfo from '@/components/payment/cash-info';
+import { useSearchParams } from 'next/navigation';
 
 const Event = (props: any) => {
   const session = props.session;
 
   const router = useRouter();
   const { eventId } = router.query;
+
+  const searchParams = useSearchParams();
+  const needsAuthorization = searchParams.get('auth');
 
   const [event, setEvent] = useState<IEvent>();
   const [eventComments, setEventComments] = useState<EventComment[]>();
@@ -212,7 +216,19 @@ const Event = (props: any) => {
 
   useEffect(() => {
     async function fetchEvent() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
+      let response;
+
+      if (!needsAuthorization) {
+        response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
+      } else {
+        response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${session?.user?.accessToken}`,
+          },
+        });
+      }
+
       const event: IEvent = await response.json();
       setEvent(event);
 
@@ -317,7 +333,7 @@ const Event = (props: any) => {
           {/* competitions */}
           {event.eventCompetitions.length > 0 && (
             <div className="mt-2">
-              <CompetitionList competitions={event.eventCompetitions} eventId={event.id} />
+              <CompetitionList competitions={event.eventCompetitions} eventId={event.id} auth={needsAuthorization ? true : false} />
             </div>
           )}
 

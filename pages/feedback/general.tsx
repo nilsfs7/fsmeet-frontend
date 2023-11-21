@@ -50,7 +50,7 @@ const GeneralFeedback: NextPage = (props: any) => {
           <TextInputLarge
             id={'message'}
             label={'Message'}
-            placeholder="Any feedback is highly appriciented!"
+            placeholder="Any feedback is highly appreciated!"
             onChange={e => {
               handleInputChangeMessage(e);
             }}

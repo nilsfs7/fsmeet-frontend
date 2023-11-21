@@ -6,16 +6,30 @@ import Link from 'next/link';
 import { IEvent } from '@/interface/event';
 import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
+import { routeLogin } from '@/types/consts/routes';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 
-const EventCompetitions = () => {
+const EventCompetitions = (props: any) => {
+  const session = props.session;
+
   const router = useRouter();
   const { eventId } = router.query;
 
   const [event, setEvent] = useState<IEvent>();
 
+  if (!session) {
+    router.push(routeLogin);
+  }
+
   useEffect(() => {
     async function fetchEvent() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${session?.user?.accessToken}`,
+        },
+      });
       const event: IEvent = await response.json();
       setEvent(event);
     }
@@ -108,10 +122,20 @@ const EventCompetitions = () => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}`)} />
+        <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}?auth=1`)} />
       </Navigation>
     </>
   );
 };
 
 export default EventCompetitions;
+
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session: session,
+    },
+  };
+};

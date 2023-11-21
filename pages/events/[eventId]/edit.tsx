@@ -27,7 +27,12 @@ const EventEditing = (props: any) => {
   }
 
   const fetchEvent = async (id: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${session?.user?.accessToken}`,
+      },
+    });
     return await response.json();
   };
 
@@ -60,6 +65,7 @@ const EventEditing = (props: any) => {
           reference: event?.paymentMethodSepa.reference,
         },
         autoApproveRegistrations: event?.autoApproveRegistrations,
+        published: event?.published,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -68,7 +74,7 @@ const EventEditing = (props: any) => {
     });
 
     if (response.status == 200) {
-      router.replace(`/events/${eventId}`);
+      router.replace(`/events/${eventId}?auth=1`);
     } else {
       const error = await response.json();
       setError(error.message);
@@ -137,6 +143,7 @@ const EventEditing = (props: any) => {
           autoApproveRegistrations: res.autoApproveRegistrations,
           eventRegistrations: [],
           eventCompetitions: [],
+          published: res.published,
         };
 
         setEvent(e);

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { TimePicker } from '@mui/x-date-pickers';
 import moment, { Moment } from 'moment';
 import { getTimeString } from '@/types/funcs/time';
+import ComboBox from '../common/ComboBox';
 
 interface IMatchProps {
   match: Match;
@@ -26,7 +27,6 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
   const self = `${router.asPath}`;
 
   const playerMenu: MenuItem[] = [];
-  playerMenu.push({ text: 'not set', value: '' });
   seedingList.map(user => {
     playerMenu.push({ text: user.username, value: user.username });
   });
@@ -60,6 +60,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
       if (username) {
         onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, result);
       } else {
+        onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, -1);
         console.error('cannot set result for unknown player');
       }
     } else {
@@ -125,22 +126,23 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
               )}
 
               {seedingEnabled && (
-                <div className="flex w-full justify-between">
-                  <Dropdown
+                <div className={`flex w-full justify-between ${i > 0 ? 'mt-1' : ''} gap-1`}>
+                  <ComboBox
                     menus={playerMenu}
-                    value={matchSlot && matchSlot?.name ? matchSlot.name : 'not set'}
+                    value={matchSlot && matchSlot?.name ? matchSlot.name : ''}
+                    label={'Assign slot'}
                     onChange={(value: any) => {
                       handleSlotUpdateName(i, value);
                     }}
                   />
 
                   <input
-                    className="flex w-full bg-transparent text-right"
+                    className="flex bg-transparent text-right border-secondary-dark border rounded-md hover:border-primary"
                     id={`input-max-passing-${match.id}-${i}`}
                     type="number"
                     min={-1}
                     max={99}
-                    value={matchSlot && matchSlot.result != undefined ? matchSlot.result : -1}
+                    value={matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : undefined}
                     onChange={e => {
                       handleSlotUpdateResult(i, matchSlot?.name, e.currentTarget.valueAsNumber);
                     }}

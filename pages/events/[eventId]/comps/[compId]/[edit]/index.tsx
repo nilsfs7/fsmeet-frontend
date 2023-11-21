@@ -26,7 +26,12 @@ const CompetitionEditing = (props: any) => {
   }
 
   const fetchEvent = async (id: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${id}/manage`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${session?.user?.accessToken}`,
+      },
+    });
     return await response.json();
   };
 

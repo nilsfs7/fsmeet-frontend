@@ -24,7 +24,7 @@ const EventCard = ({ event }: IEventProps) => {
       {/* top */}
       <div className={'max-h-24 p-2'}>
         <div className="28 flex ">
-          <div className="w-full text-base font-bold">{event.name}</div>
+          <div className="w-full text-base font-bold">{`${!event.published ? '[NOT LISTED] ' : ''}${event.name}`}</div>
         </div>
         <div className="flex justify-between">
           <div className="w-1/3 ">{event.venueCity}</div>
