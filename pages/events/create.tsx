@@ -37,6 +37,7 @@ const EventCreation = (props: any) => {
         venueCountry: event?.venueCountry.trim(),
         participationFee: event?.participationFee,
         type: event?.type,
+        livestreamUrl: event?.livestreamUrl,
         paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
         paymentMethodSepa: {
           enabled: event?.paymentMethodSepa.enabled,

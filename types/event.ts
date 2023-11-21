@@ -20,6 +20,7 @@ export type Event = {
   venuePostCode: string;
   venueCountry: string;
   type: EventType;
+  livestreamUrl: string;
   paymentMethodCash: PaymentMethodCash;
   paymentMethodSepa: PaymentMethodSepa;
   autoApproveRegistrations: boolean;

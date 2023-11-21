@@ -19,6 +19,7 @@ export interface IEvent {
   venuePostCode: string;
   venueCountry: string;
   type: string;
+  livestreamUrl: string;
   paymentMethodCash: PaymentMethodCash;
   paymentMethodSepa: PaymentMethodSepa;
   autoApproveRegistrations: boolean;
