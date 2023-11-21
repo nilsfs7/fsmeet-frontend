@@ -24,4 +24,5 @@ export interface IEvent {
   autoApproveRegistrations: boolean;
   eventRegistrations: EventRegistration[];
   eventCompetitions: EventCompetition[];
+  published: boolean;
 }

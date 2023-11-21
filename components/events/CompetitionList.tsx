@@ -5,9 +5,10 @@ import Link from 'next/link';
 interface ICompetitionListListProps {
   competitions: EventCompetition[];
   eventId: string;
+  auth?: boolean;
 }
 
-const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) => {
+const CompetitionList = ({ competitions, eventId, auth = false }: ICompetitionListListProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
       <div className="text-base font-bold">Competitions</div>
@@ -19,7 +20,7 @@ const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) =
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              <Link href={`/events/${eventId}/comps/${competition.id}`}>
+              <Link href={`/events/${eventId}/comps/${competition.id}${auth ? '?auth=1' : ''}`}>
                 <Competition competition={competition} />
               </Link>
             </div>
