@@ -94,7 +94,12 @@ const EventParticipants = (props: any) => {
 
   useEffect(() => {
     async function fetchEvent() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${session?.user?.accessToken}`,
+        },
+      });
       const event = await response.json();
       setEvent(event);
     }
@@ -187,7 +192,7 @@ const EventParticipants = (props: any) => {
       <div className="m-2 flex justify-between">
         <div className="flex justify-start">
           <div className="mr-1">
-            <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}`)} />
+            <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}?auth=1`)} />
           </div>
         </div>
       </div>

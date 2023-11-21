@@ -46,12 +46,12 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
           {eventsOwning.length > 0 && (
             <>
               <h1 className="mt-2 text-center text-xl">My Events</h1>
-              <div className="mt-2 flex justify-center ">
+              <div className="mt-2 flex justify-center">
                 <div className="mx-2">
                   {eventsOwning.map((item: any, i: number) => {
                     return (
                       <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                        <Link href={`/events/${item.id}`}>
+                        <Link href={`/events/${item.id}?auth=1`}>
                           <EventCard event={item} />
                         </Link>
                       </div>
@@ -101,8 +101,14 @@ export default MyEventsOverview;
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
-  const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?owner=${session?.user.username}`;
-  const responseMyEvents = await fetch(urlMyEvents);
+  const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/manage?owner=${session?.user.username}`;
+  const responseMyEvents = await fetch(urlMyEvents, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user.accessToken}`,
+    },
+  });
   const dataMyEvents = await responseMyEvents.json();
 
   const urlEventSubs = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?participant=${session?.user.username}`;

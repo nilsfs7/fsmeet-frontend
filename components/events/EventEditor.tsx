@@ -36,6 +36,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [paymentMethodSepaIban, setPaymentMethodSepaIban] = useState<string>(event?.paymentMethodSepa?.iban || '');
   const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
+  const [published, setPublished] = useState<boolean>(event?.published || false);
 
   const updateEvent = () => {
     const paymentMethodCash: PaymentMethodCash = { enabled: paymentMethodCashEnabled };
@@ -67,6 +68,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       autoApproveRegistrations: autoApproveRegistrations,
       eventRegistrations: [],
       eventCompetitions: [],
+      published: published,
     });
   };
 
@@ -93,6 +95,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setPaymentMethodSepaIban(event.paymentMethodSepa.iban);
       setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
+      setPublished(event.published);
     }
   }, [event]);
 
@@ -120,6 +123,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     paymentMethodSepaIban,
     paymentMethodSepaReference,
     autoApproveRegistrations,
+    published,
   ]);
 
   return (
@@ -329,6 +333,15 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         value={autoApproveRegistrations}
         onChange={() => {
           setAutoApproveRegistrations(!autoApproveRegistrations);
+        }}
+      />
+
+      <CheckBox
+        id={'published'}
+        label="Publish Event"
+        value={published}
+        onChange={() => {
+          setPublished(!published);
         }}
       />
     </div>

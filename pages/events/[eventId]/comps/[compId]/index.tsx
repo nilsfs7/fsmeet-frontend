@@ -9,17 +9,35 @@ import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import TabbedCompetitionDetailsMenu from '@/components/comp/TabbedCompetitionDetailsMenu';
 import { User } from '@/types/user';
+import { useSearchParams } from 'next/navigation';
 
 const Competition = (props: any) => {
+  const session = props.session;
+
   const router = useRouter();
   const { eventId } = router.query;
   const { compId } = router.query;
+
+  const searchParams = useSearchParams();
+  const needsAuthorization = searchParams.get('auth');
 
   const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
   const [comp, setComp] = useState<EventCompetition>();
 
   const fetchEvent = async (eventId: string): Promise<Event> => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
+    let response;
+
+    if (!needsAuthorization) {
+      response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
+    } else {
+      response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${session?.user?.accessToken}`,
+        },
+      });
+    }
+
     return await response.json();
   };
 

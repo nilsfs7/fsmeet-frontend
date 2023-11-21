@@ -10,5 +10,5 @@ export const routeFeedback = '/feedback';
 export const routeFeedbackThankyou = '/feedback/thankyou';
 
 export const routeEvents = '/events';
-export const routeEventSubs = '/events/subs';
+export const routeEventSubs = '/events/manage';
 export const routeEventsCreate = '/events/create';

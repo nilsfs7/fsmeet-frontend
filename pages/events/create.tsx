@@ -46,6 +46,7 @@ const EventCreation = (props: any) => {
           reference: event?.paymentMethodSepa.reference,
         },
         autoApproveRegistrations: event?.autoApproveRegistrations,
+        published: event?.published,
       }),
 
       headers: {

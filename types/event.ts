@@ -25,4 +25,5 @@ export type Event = {
   autoApproveRegistrations: boolean;
   eventRegistrations: EventRegistration[];
   eventCompetitions: EventCompetition[];
+  published: boolean;
 };
