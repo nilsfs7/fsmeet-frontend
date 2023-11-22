@@ -56,6 +56,7 @@ const EventEditing = (props: any) => {
         venueCountry: event?.venueCountry.trim(),
         participationFee: event?.participationFee,
         type: event?.type,
+        livestreamUrl: event?.livestreamUrl,
         paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
         paymentMethodSepa: {
           enabled: event?.paymentMethodSepa.enabled,
@@ -138,6 +139,7 @@ const EventEditing = (props: any) => {
           venuePostCode: res.venuePostCode,
           venueCountry: res.venueCountry,
           type: res.type,
+          livestreamUrl: res.livestreamUrl,
           paymentMethodCash: paymentMehodCash,
           paymentMethodSepa: paymentMehodSepa,
           autoApproveRegistrations: res.autoApproveRegistrations,

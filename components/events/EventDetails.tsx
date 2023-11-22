@@ -30,74 +30,96 @@ const EventDetails = ({ event }: IEventProps) => {
   return (
     <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
       {/* top */}
-      <div className={'p-2'}>
-        <div className={'grid grid-cols-3 justify-end object-right'}>
-          <div className="col-span-2 text-base font-bold">{event.name}</div>
-          <div className="row-span-3 flex h-20 justify-end">
-            <img className="h-full" src={event.type === 'comp' ? imgCompetition : imgMeeting} alt={'event image'} />
-          </div>
-
-          <div className="col-span-2">
-            {dateFrom && dateTo && (
-              <div>{dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${getShortDateString(dateFrom)}` : `${getShortDateString(dateFrom, false)} - ${getShortDateString(dateTo)}`}</div>
-            )}
-          </div>
-
-          <div className="col-span-2">{event.venueCity}</div>
+      <div className={'grid grid-cols-3 justify-end object-right p-2'}>
+        <div className="col-span-2 text-base font-bold">{event.name}</div>
+        <div className="row-span-3 flex h-20 justify-end">
+          <img className="h-full" src={event.type === 'comp' ? imgCompetition : imgMeeting} alt={'event image'} />
         </div>
+
+        <div className="col-span-2">
+          {dateFrom && dateTo && (
+            <div>{dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${getShortDateString(dateFrom)}` : `${getShortDateString(dateFrom, false)} - ${getShortDateString(dateTo)}`}</div>
+          )}
+        </div>
+
+        <div className="col-span-2">{event.venueCity}</div>
       </div>
 
       <Separator />
 
-      <div className={'p-2'}>
-        <div className={'grid grid-cols-3 justify-end object-right'}>
-          <div className="col-span-1">Participation fee</div>
-          <div className="col-span-2">{event.participationFee.toString().replace('.', ',')} €</div>
+      <div className={'grid grid-cols-3 justify-end object-right p-2'}>
+        <div className="col-span-1">Participation fee</div>
+        <div className="col-span-2">{event.participationFee.toString().replace('.', ',')} €</div>
 
-          <div className="col-span-1">Registration open</div>
-          {dateRegistrationOpen && <div className="col-span-2">{getShortDateString(dateRegistrationOpen)}</div>}
+        <div className="col-span-1">Registration open</div>
+        {dateRegistrationOpen && <div className="col-span-2">{getShortDateString(dateRegistrationOpen)}</div>}
 
-          <div className="col-span-1">Registration end</div>
-          {dateRegistrationDeadline && <div className="col-span-2">{getShortDateString(dateRegistrationDeadline)}</div>}
+        <div className="col-span-1">Registration end</div>
+        {dateRegistrationDeadline && <div className="col-span-2">{getShortDateString(dateRegistrationDeadline)}</div>}
 
-          <div className="col-span-1">Event host</div>
-          <div className="col-span-2 hover:underline">
-            <Link href={`/user/${event.owner}`}>{event.owner}</Link>
-          </div>
+        <div className="col-span-1">Event host</div>
+        <div className="col-span-2 hover:underline">
+          <Link href={`/user/${event.owner}`}>{event.owner}</Link>
         </div>
       </div>
-
-      <Separator />
 
       {/* description */}
-      <div className="flex h-fit flex-col p-2">
-        <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-transparent outline-none" value={event.description} />
-      </div>
+      {event.description && (
+        <>
+          <Separator />
 
-      <Separator />
+          <div className="flex h-fit flex-col p-2">
+            <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-transparent outline-none" value={event.description} />
+          </div>
+        </>
+      )}
 
-      {/* address */}
-      <div className="mt-2 p-2">Venue address:</div>
-      <div className="select-text p-2">
-        <p>{`${event.venueStreet} ${event.venueHouseNo}`}</p>
-        <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
-        <p>{event.venueCountry}</p>
-      </div>
+      {/* livestream */}
+      {event.livestreamUrl && (
+        <>
+          <Separator />
 
-      <TextButton
-        text={showMap ? 'Hide Map' : 'Show Map'}
-        onClick={() => {
-          setShowMap(showMap ? false : true);
-        }}
-      />
-      {showMap && (
-        <div className="mt-2 flex w-full justify-center">
-          <div className="w-full max-w-xl rounded-lg border border-secondary-dark hover:border-primary">
-            <div className="aspect-square w-full">
-              <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
+          <div className={'p-2'}>
+            <div className={'grid grid-cols-3'}>
+              <div className="col-span-1">{`Livestream`}</div>
+              <div className="col-span-2 hover:underline select-text">
+                <a target="_blank" rel="noopener noreferrer" href={event.livestreamUrl}>
+                  {event.livestreamUrl}
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        </>
+      )}
+
+      {/* address */}
+      {event.venueCity && (
+        <>
+          <Separator />
+
+          <div className="p-2">Venue address:</div>
+          <div className="select-text p-2">
+            <p>{`${event.venueStreet} ${event.venueHouseNo}`}</p>
+            <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
+            <p>{event.venueCountry}</p>
+          </div>
+
+          <TextButton
+            text={showMap ? 'Hide Map' : 'Show Map'}
+            onClick={() => {
+              setShowMap(showMap ? false : true);
+            }}
+          />
+          {showMap && (
+            <div className="mt-2 flex w-full justify-center">
+              <div className="w-full max-w-xl rounded-lg border border-secondary-dark hover:border-primary">
+                <div className="aspect-square w-full">
+                  <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
