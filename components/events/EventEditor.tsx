@@ -28,6 +28,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [venuePostCode, setVenuePostCode] = useState(event?.venueCity || '');
   const [venueCountry, setVenueCountry] = useState(event?.venueCity || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
+  const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
   const [participationFee, setParticipationFee] = useState(event?.participationFee);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
   const [paymentMethodSepaEnabled, setPaymentMethodSepaEnabled] = useState<boolean>(event?.paymentMethodSepa?.enabled || false);
@@ -62,6 +63,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       venueCity: venueCity,
       venuePostCode: venuePostCode,
       venueCountry: venueCountry,
+      livestreamUrl: livestreamUrl,
       participationFee: participationFee,
       paymentMethodCash: paymentMethodCash,
       paymentMethodSepa: paymentMethodSepa,
@@ -88,6 +90,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setVenueCity(event.venueCity);
       setVenueCountry(event.venueCountry);
       setEventType(event.type);
+      setLivestreamUrl(event.livestreamUrl);
       setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
       setPaymentMethodSepaEnabled(event.paymentMethodSepa.enabled);
       setPaymentMethodSepaBank(event.paymentMethodSepa.bank);
@@ -115,6 +118,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     venuePostCode,
     venueCountry,
     eventType,
+    livestreamUrl,
     participationFee,
     paymentMethodCashEnabled,
     paymentMethodSepaEnabled,
@@ -256,6 +260,16 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         value={venueCountry}
         onChange={e => {
           setVenueCountry(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'livestreamUrl'}
+        label={'Livestream URL'}
+        placeholder="https://www.youtube.com/watch?v=gwiE0fXnByg"
+        value={livestreamUrl}
+        onChange={e => {
+          setLivestreamUrl(e.currentTarget.value);
         }}
       />
 

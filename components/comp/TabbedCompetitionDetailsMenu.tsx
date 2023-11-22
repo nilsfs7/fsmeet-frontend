@@ -112,7 +112,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
     <Tabs defaultValue={`schedule`}>
       <TabsList>
         {rounds.length > 0 && <TabsTrigger value="schedule">Schedule</TabsTrigger>}
-        {rounds.length > 0 && <TabsTrigger value="grid">Battle Grid</TabsTrigger>}
+        {rounds.length > 1 && <TabsTrigger value="grid">Battle Grid</TabsTrigger>}
         {competitionParticipants.length > 0 && <TabsTrigger value="participants">Participants</TabsTrigger>}
         {(description || rules) && <TabsTrigger value="rules">Rules</TabsTrigger>}
       </TabsList>
@@ -124,7 +124,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
       )}
 
       {/* Battle Grid */}
-      {rounds.length > 0 && (
+      {rounds.length > 1 && (
         <TabsContent value="grid">
           <BattleGrid rounds={rounds} usersMap={usersMap} />
         </TabsContent>
