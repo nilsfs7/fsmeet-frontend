@@ -1,5 +1,4 @@
 import { Match } from '@/types/match';
-import Dropdown from '../common/Dropdown';
 import { MenuItem } from '@/types/menu-item';
 import { User } from '@/types/user';
 import Link from 'next/link';

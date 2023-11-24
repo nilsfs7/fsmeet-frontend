@@ -15,6 +15,7 @@ import { ButtonStyle } from '@/types/enums/button-style';
 import ErrorMessage from '@/components/ErrorMessage';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
+import ComboBox from '@/components/common/ComboBox';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -143,7 +144,7 @@ const Account = ({ session }: any) => {
         <p>Do you really want to leave us?</p>
       </Dialog>
 
-      <div className="flex flex-col overflow-y-auto">
+      <div className="mx-2 flex flex-col overflow-y-auto">
         <h1 className="mt-2 text-center text-xl">Account Settings</h1>
 
         <div className="mt-2 flex justify-center py-2">
@@ -155,30 +156,30 @@ const Account = ({ session }: any) => {
         <div className="my-4" />
 
         <div className={'flex flex-col items-center'}>
-          <div className="flex flex-col">
-            <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-              <div className="text-center">Public Info</div>
-              <TextInput
-                id={'firstName'}
-                label={'First Name'}
-                placeholder="Kevin"
-                value={firstName}
-                onChange={e => {
-                  setFirstName(e.currentTarget.value);
-                }}
-              />
-              <TextInput
-                id={'lastName'}
-                label={'Last Name'}
-                placeholder="Kück"
-                value={lastName}
-                onChange={e => {
-                  setLastName(e.currentTarget.value);
-                }}
-              />
-              <div className="m-2 grid grid-cols-2">
-                <div className="p-2">Country</div>
-                <Dropdown
+          <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <div className="text-center">Public Info</div>
+            <TextInput
+              id={'firstName'}
+              label={'First Name'}
+              placeholder="Kevin"
+              value={firstName}
+              onChange={e => {
+                setFirstName(e.currentTarget.value);
+              }}
+            />
+            <TextInput
+              id={'lastName'}
+              label={'Last Name'}
+              placeholder="Kück"
+              value={lastName}
+              onChange={e => {
+                setLastName(e.currentTarget.value);
+              }}
+            />
+            <div className="m-2 grid grid-cols-2">
+              <div className="p-2">Country</div>
+              <div className="flex w-full">
+                <ComboBox
                   menus={countries}
                   value={country ? country : countries[0].value}
                   onChange={(value: any) => {
@@ -186,31 +187,33 @@ const Account = ({ session }: any) => {
                   }}
                 />
               </div>
-              <TextInput
-                id={'instagramHandle'}
-                label={'Instagram Handle'}
-                placeholder="@freestyler.kevin"
-                value={instagramHandle}
-                onChange={e => {
-                  setInstagramHandle(e.currentTarget.value);
-                }}
-              />
-              <TextInput
-                id={'youTubeHandle'}
-                label={'YouTube Handle'}
-                placeholder="@freestyler.kevin"
-                value={youTubeHandle}
-                onChange={e => {
-                  setYouTubeHandle(e.currentTarget.value);
-                }}
-              />
             </div>
+            <TextInput
+              id={'instagramHandle'}
+              label={'Instagram Handle'}
+              placeholder="@freestyler.kevin"
+              value={instagramHandle}
+              onChange={e => {
+                setInstagramHandle(e.currentTarget.value);
+              }}
+            />
+            <TextInput
+              id={'youTubeHandle'}
+              label={'YouTube Handle'}
+              placeholder="@freestyler.kevin"
+              value={youTubeHandle}
+              onChange={e => {
+                setYouTubeHandle(e.currentTarget.value);
+              }}
+            />
+          </div>
 
-            <div className="flex flex-col rounded-lg  border border-primary bg-secondary-light p-1">
-              <div className="text-center">Private Info</div>
-              <div className="m-2 grid grid-cols-2">
-                <div className="p-2">T-Shirt Size</div>
-                <Dropdown
+          <div className="flex flex-col rounded-lg  border border-primary bg-secondary-light p-1">
+            <div className="text-center">Private Info</div>
+            <div className="m-2 grid grid-cols-2">
+              <div className="p-2">T-Shirt Size</div>
+              <div className="flex w-full">
+                <ComboBox
                   menus={tShirtSizes}
                   value={tShirtSize ? tShirtSize : tShirtSizes[0].value}
                   onChange={(value: any) => {
