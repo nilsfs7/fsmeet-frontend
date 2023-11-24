@@ -181,6 +181,7 @@ const Account = ({ session }: any) => {
                 <ComboBox
                   menus={menuCountries}
                   value={country ? country : menuCountries[0].value}
+                  searchEnabled={true}
                   onChange={(value: any) => {
                     setCountry(value);
                   }}

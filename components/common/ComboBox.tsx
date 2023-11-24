@@ -11,11 +11,12 @@ import { MenuItem } from '@/types/menu-item';
 interface IComboboxProps {
   menus: MenuItem[];
   value: string;
+  searchEnabled?: boolean;
   label?: string;
   onChange: (value: any) => void;
 }
 
-const ComboBox = ({ menus, value, label = 'Select', onChange }: IComboboxProps) => {
+const ComboBox = ({ menus, value, searchEnabled = false, label = 'Select', onChange }: IComboboxProps) => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -28,7 +29,7 @@ const ComboBox = ({ menus, value, label = 'Select', onChange }: IComboboxProps) 
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search ..." />
+          {searchEnabled && <CommandInput placeholder="Search ..." />}
           <CommandEmpty>No data found.</CommandEmpty>
           <CommandGroup>
             {menus.map(menu => (
