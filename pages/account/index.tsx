@@ -4,13 +4,12 @@ import { useEffect, useState } from 'react';
 import { getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
-import Dropdown from '@/components/common/Dropdown';
-import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin } from '@/types/consts/routes';
+import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome } from '@/types/consts/routes';
 import { imgUserNoImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
-import { countries } from '@/types/consts/countries';
-import { tShirtSizes } from '@/types/consts/t-shirt-sizes';
+import { menuCountries } from '@/types/consts/menus/menu-countries';
+import { menuTShirtSizes } from '@/types/consts/menus/menu-t-shirt-sizes';
 import { ButtonStyle } from '@/types/enums/button-style';
 import ErrorMessage from '@/components/ErrorMessage';
 import { Action } from '@/types/enums/action';
@@ -180,8 +179,8 @@ const Account = ({ session }: any) => {
               <div className="p-2">Country</div>
               <div className="flex w-full">
                 <ComboBox
-                  menus={countries}
-                  value={country ? country : countries[0].value}
+                  menus={menuCountries}
+                  value={country ? country : menuCountries[0].value}
                   onChange={(value: any) => {
                     setCountry(value);
                   }}
@@ -214,8 +213,8 @@ const Account = ({ session }: any) => {
               <div className="p-2">T-Shirt Size</div>
               <div className="flex w-full">
                 <ComboBox
-                  menus={tShirtSizes}
-                  value={tShirtSize ? tShirtSize : tShirtSizes[0].value}
+                  menus={menuTShirtSizes}
+                  value={tShirtSize ? tShirtSize : menuTShirtSizes[0].value}
                   onChange={(value: any) => {
                     setTShirtSize(value);
                   }}

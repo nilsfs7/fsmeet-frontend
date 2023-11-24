@@ -4,11 +4,12 @@ import { DatePicker } from '@mui/x-date-pickers';
 import moment, { Moment } from 'moment';
 import { Event } from '@/types/event';
 import { EventType } from '@/types/enums/event-type';
-import Dropdown from './Dropdown';
 import CheckBox from '../common/CheckBox';
 import TextInputLarge from '../common/TextInputLarge';
 import { PaymentMethodCash } from '@/types/payment-method-cash';
 import { PaymentMethodSepa } from '@/types/payment-method-sepa';
+import ComboBox from '../common/ComboBox';
+import { menuEventTypes } from '@/types/consts/menus/menu-event-types';
 
 interface IEventEditorProps {
   event?: Event;
@@ -144,12 +145,15 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
 
       <div className="m-2 grid grid-cols-2">
         <div>Type</div>
-        <Dropdown
-          value={eventType}
-          onChange={(value: EventType) => {
-            setEventType(value);
-          }}
-        />
+        <div className="flex w-full">
+          <ComboBox
+            menus={menuEventTypes}
+            value={eventType}
+            onChange={(value: EventType) => {
+              setEventType(value);
+            }}
+          />
+        </div>
       </div>
 
       <TextInputLarge
