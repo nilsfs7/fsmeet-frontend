@@ -4,17 +4,17 @@ import { useEffect, useState } from 'react';
 import { getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
-import Dropdown from '@/components/common/Dropdown';
-import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin } from '@/types/consts/routes';
+import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome } from '@/types/consts/routes';
 import { imgUserNoImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
-import { countries } from '@/types/consts/countries';
-import { tShirtSizes } from '@/types/consts/t-shirt-sizes';
+import { menuCountries } from '@/types/consts/menus/menu-countries';
+import { menuTShirtSizes } from '@/types/consts/menus/menu-t-shirt-sizes';
 import { ButtonStyle } from '@/types/enums/button-style';
 import ErrorMessage from '@/components/ErrorMessage';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
+import ComboBox from '@/components/common/ComboBox';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -143,7 +143,7 @@ const Account = ({ session }: any) => {
         <p>Do you really want to leave us?</p>
       </Dialog>
 
-      <div className="flex flex-col overflow-y-auto">
+      <div className="mx-2 flex flex-col overflow-y-auto">
         <h1 className="mt-2 text-center text-xl">Account Settings</h1>
 
         <div className="mt-2 flex justify-center py-2">
@@ -155,64 +155,67 @@ const Account = ({ session }: any) => {
         <div className="my-4" />
 
         <div className={'flex flex-col items-center'}>
-          <div className="flex flex-col">
-            <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-              <div className="text-center">Public Info</div>
-              <TextInput
-                id={'firstName'}
-                label={'First Name'}
-                placeholder="Kevin"
-                value={firstName}
-                onChange={e => {
-                  setFirstName(e.currentTarget.value);
-                }}
-              />
-              <TextInput
-                id={'lastName'}
-                label={'Last Name'}
-                placeholder="Kück"
-                value={lastName}
-                onChange={e => {
-                  setLastName(e.currentTarget.value);
-                }}
-              />
-              <div className="m-2 grid grid-cols-2">
-                <div className="p-2">Country</div>
-                <Dropdown
-                  menus={countries}
-                  value={country ? country : countries[0].value}
+          <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <div className="text-center">Public Info</div>
+            <TextInput
+              id={'firstName'}
+              label={'First Name'}
+              placeholder="Kevin"
+              value={firstName}
+              onChange={e => {
+                setFirstName(e.currentTarget.value);
+              }}
+            />
+            <TextInput
+              id={'lastName'}
+              label={'Last Name'}
+              placeholder="Kück"
+              value={lastName}
+              onChange={e => {
+                setLastName(e.currentTarget.value);
+              }}
+            />
+            <div className="m-2 grid grid-cols-2">
+              <div className="p-2">Country</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuCountries}
+                  value={country ? country : menuCountries[0].value}
+                  searchEnabled={true}
                   onChange={(value: any) => {
                     setCountry(value);
                   }}
                 />
               </div>
-              <TextInput
-                id={'instagramHandle'}
-                label={'Instagram Handle'}
-                placeholder="@freestyler.kevin"
-                value={instagramHandle}
-                onChange={e => {
-                  setInstagramHandle(e.currentTarget.value);
-                }}
-              />
-              <TextInput
-                id={'youTubeHandle'}
-                label={'YouTube Handle'}
-                placeholder="@freestyler.kevin"
-                value={youTubeHandle}
-                onChange={e => {
-                  setYouTubeHandle(e.currentTarget.value);
-                }}
-              />
             </div>
+            <TextInput
+              id={'instagramHandle'}
+              label={'Instagram Handle'}
+              placeholder="@freestyler.kevin"
+              value={instagramHandle}
+              onChange={e => {
+                setInstagramHandle(e.currentTarget.value);
+              }}
+            />
+            <TextInput
+              id={'youTubeHandle'}
+              label={'YouTube Handle'}
+              placeholder="@freestyler.kevin"
+              value={youTubeHandle}
+              onChange={e => {
+                setYouTubeHandle(e.currentTarget.value);
+              }}
+            />
+          </div>
 
-            <div className="flex flex-col rounded-lg  border border-primary bg-secondary-light p-1">
-              <div className="text-center">Private Info</div>
-              <div className="m-2 grid grid-cols-2">
-                <div className="p-2">T-Shirt Size</div>
-                <Dropdown
-                  menus={tShirtSizes}
-                  value={tShirtSize ? tShirtSize : tShirtSizes[0].value}
+          <div className="flex flex-col rounded-lg  border border-primary bg-secondary-light p-1">
+            <div className="text-center">Private Info</div>
+            <div className="m-2 grid grid-cols-2">
+              <div className="p-2">T-Shirt Size</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuTShirtSizes}
+                  value={tShirtSize ? tShirtSize : menuTShirtSizes[0].value}
                   onChange={(value: any) => {
                     setTShirtSize(value);
                   }}

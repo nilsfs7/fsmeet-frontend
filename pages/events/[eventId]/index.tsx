@@ -391,6 +391,14 @@ const Event = (props: any) => {
                 <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={isRegistered() ? handleUnregisterClicked : handleRegisterClicked} />
               </div>
             )}
+
+            {isRegistered() && event.dateTo < moment().unix() && (
+              <div className="ml-1">
+                <Link href={`/events/${eventId}/feedback`}>
+                  <TextButton text={'Feedback'} />
+                </Link>
+              </div>
+            )}
           </div>
         </Navigation>
       </div>

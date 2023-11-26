@@ -2,17 +2,20 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
 import { routeFeedback, routeFeedbackThankyou } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
 import Navigation from '@/components/Navigation';
+import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
 import { Action } from '@/types/enums/action';
-import ActionButton from '@/components/common/ActionButton';
 
-const ReportBug: NextPage = (props: any) => {
+const GeneralFeedback: NextPage = (props: any) => {
   const session = props.session;
+
+  const router = useRouter();
+  const { eventId } = router.query;
 
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -24,7 +27,7 @@ const ReportBug: NextPage = (props: any) => {
   const handleSubmitClicked = async () => {
     setError('');
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/feedback/features`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/feedback`, {
       method: 'POST',
       body: JSON.stringify({ message: message }),
       headers: {
@@ -45,13 +48,13 @@ const ReportBug: NextPage = (props: any) => {
   return (
     <div className={'absolute inset-0 flex flex-col'}>
       <div className="mx-2 flex flex-col overflow-y-auto">
-        <h1 className="mt-2 text-center text-xl">Feature Request</h1>
+        <h1 className="mt-2 text-center text-xl">Send Event Feedback</h1>
 
         <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
           <TextInputLarge
             id={'message'}
             label={'Message'}
-            placeholder="Does the app lack some feature or do you have any wishes?"
+            placeholder="Any feedback is highly appreciated!"
             onChange={e => {
               handleInputChangeMessage(e);
             }}
@@ -72,7 +75,7 @@ const ReportBug: NextPage = (props: any) => {
   );
 };
 
-export default ReportBug;
+export default GeneralFeedback;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);

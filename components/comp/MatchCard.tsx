@@ -1,5 +1,4 @@
 import { Match } from '@/types/match';
-import Dropdown from '../common/Dropdown';
 import { MenuItem } from '@/types/menu-item';
 import { User } from '@/types/user';
 import Link from 'next/link';
@@ -130,6 +129,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                   <ComboBox
                     menus={playerMenu}
                     value={matchSlot && matchSlot?.name ? matchSlot.name : ''}
+                    searchEnabled={true}
                     label={'Assign slot'}
                     onChange={(value: any) => {
                       handleSlotUpdateName(i, value);
