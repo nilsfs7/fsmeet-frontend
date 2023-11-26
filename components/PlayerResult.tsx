@@ -1,11 +1,11 @@
-interface IDropdownProps {
+interface IPlayerResultProps {
   name: string;
   score: number[];
   image: string;
   imageLeft: boolean;
 }
 
-const PlayerResult = ({ name, score, image, imageLeft }: IDropdownProps) => {
+const PlayerResult = ({ name, score, image, imageLeft }: IPlayerResultProps) => {
   return (
     <>
       <div className="grid grid-cols-2 text-5xl">

@@ -44,9 +44,10 @@ const GeneralFeedback: NextPage = (props: any) => {
 
   return (
     <div className={'absolute inset-0 flex flex-col'}>
-      <div className={'flex h-full flex-col items-center justify-center'}>
-        <h1 className="mb-2 text-center text-xl">Send Feedback</h1>
-        <div className="m-2 h-1/2 w-[95%] rounded-lg border border-primary bg-secondary-light">
+      <div className="mx-2 flex flex-col overflow-y-auto">
+        <h1 className="mt-2 text-center text-xl">Send Feedback</h1>
+
+        <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
           <TextInputLarge
             id={'message'}
             label={'Message'}
