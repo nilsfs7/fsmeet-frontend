@@ -191,7 +191,13 @@ const Event = (props: any) => {
   };
 
   const handleShareClicked = async () => {
-    const eventUrl = window.location.toString();
+    let eventUrl: string;
+
+    if (event?.alias) {
+      eventUrl = `${window.location.host.toString()}/e/${event?.alias}`;
+    } else {
+      eventUrl = window.location.toString();
+    }
 
     if (window.isSecureContext && navigator.clipboard) {
       navigator.clipboard.writeText(eventUrl);

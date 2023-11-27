@@ -8,6 +8,7 @@ import { PaymentMethodSepa } from './payment-method-sepa';
 export type Event = {
   id: string | undefined;
   name: string;
+  alias: string;
   dateFrom: Moment;
   dateTo: Moment;
   participationFee: number | undefined; // TODO remove unfdefined

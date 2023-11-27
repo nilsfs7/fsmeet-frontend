@@ -44,6 +44,7 @@ const EventEditing = (props: any) => {
       body: JSON.stringify({
         id: eventId,
         name: event?.name.trim(),
+        alias: event?.alias.trim(),
         description: event?.description.trim(),
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),
@@ -123,6 +124,7 @@ const EventEditing = (props: any) => {
         const e: Event = {
           id: res.id,
           name: res.name,
+          alias: res.alias,
           // @ts-ignore
           dateFrom: moment.unix(res.dateFrom),
           // @ts-ignore
