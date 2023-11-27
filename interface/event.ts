@@ -6,6 +6,7 @@ import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 export interface IEvent {
   id: string;
   name: string;
+  alias: string;
   owner: string;
   dateFrom: number;
   dateTo: number;

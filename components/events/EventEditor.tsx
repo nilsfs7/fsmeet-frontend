@@ -18,6 +18,7 @@ interface IEventEditorProps {
 
 const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [name, setEventName] = useState(event?.name || '');
+  const [alias, setEventAlias] = useState(event?.alias || '');
   const [dateFrom, setDateFrom] = useState<Moment>(event?.dateFrom ? event?.dateFrom : moment().add(7, 'day'));
   const [dateTo, setDateTo] = useState<Moment>(event?.dateTo ? event?.dateTo : moment().add(7, 'day'));
   const [registrationOpen, setRegistrationOpen] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment());
@@ -53,6 +54,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     onEventUpdate({
       id: event?.id,
       name: name,
+      alias: alias,
       type: eventType,
       description: description,
       dateFrom: dateFrom,
@@ -79,6 +81,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   useEffect(() => {
     if (event) {
       setEventName(event.name);
+      setEventAlias(event.alias);
       setDateFrom(event.dateFrom);
       setDateTo(event.dateTo);
       setParticipationFee(event.participationFee);
@@ -108,6 +111,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     updateEvent();
   }, [
     name,
+    alias,
     dateFrom,
     dateTo,
     registrationOpen,
@@ -140,6 +144,16 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         value={name}
         onChange={e => {
           setEventName(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'alias'}
+        label={'Event Alias'}
+        placeholder="gffc23"
+        value={alias}
+        onChange={e => {
+          setEventAlias(e.currentTarget.value);
         }}
       />
 
