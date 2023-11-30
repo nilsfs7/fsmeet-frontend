@@ -41,6 +41,16 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [published, setPublished] = useState<boolean>(event?.published || false);
 
+  const checkAndSetAlias = (alias: string) => {
+    alias = alias.toLowerCase();
+    if (alias.length <= 16) {
+      const regexAlphaNumLowerOnly: RegExp = /^[a-z0-9]+$/;
+      if (alias.length === 0 || regexAlphaNumLowerOnly.test(alias)) {
+        setEventAlias(alias.toLowerCase());
+      }
+    }
+  };
+
   const updateEvent = () => {
     const paymentMethodCash: PaymentMethodCash = { enabled: paymentMethodCashEnabled };
     const paymentMethodSepa: PaymentMethodSepa = {
@@ -140,7 +150,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <TextInput
         id={'name'}
         label={'Event Name'}
-        placeholder="GFFC 2023"
+        placeholder="Superball 2023"
         value={name}
         onChange={e => {
           setEventName(e.currentTarget.value);
@@ -150,10 +160,10 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <TextInput
         id={'alias'}
         label={'Event Alias'}
-        placeholder="gffc23"
+        placeholder="superball2023"
         value={alias}
         onChange={e => {
-          setEventAlias(e.currentTarget.value);
+          checkAndSetAlias(e.currentTarget.value);
         }}
       />
 
@@ -352,7 +362,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <TextInput
         id={'paymentMethodSepaReference'}
         label={'SEPA Reference'}
-        placeholder="gffc-2023"
+        placeholder="superball-2023"
         value={paymentMethodSepaReference}
         onChange={e => {
           setPaymentMethodSepaReference(e.currentTarget.value);

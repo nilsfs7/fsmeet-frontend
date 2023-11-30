@@ -25,7 +25,7 @@ const EventCreation = (props: any) => {
       method: 'POST',
       body: JSON.stringify({
         name: event?.name.trim(),
-        alias: event?.alias.trim(),
+        alias: event?.alias,
         description: event?.description.trim(),
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),

@@ -44,7 +44,7 @@ const EventEditing = (props: any) => {
       body: JSON.stringify({
         id: eventId,
         name: event?.name.trim(),
-        alias: event?.alias.trim(),
+        alias: event?.alias,
         description: event?.description.trim(),
         dateFrom: event?.dateFrom.unix(),
         dateTo: event?.dateTo.unix(),
