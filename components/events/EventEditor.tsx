@@ -10,6 +10,7 @@ import { PaymentMethodCash } from '@/types/payment-method-cash';
 import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 import ComboBox from '../common/ComboBox';
 import { menuEventTypes } from '@/types/consts/menus/menu-event-types';
+import { validateAlias } from '@/types/funcs/validation/validation-event';
 
 interface IEventEditorProps {
   event?: Event;
@@ -40,6 +41,15 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [published, setPublished] = useState<boolean>(event?.published || false);
+
+  const handleInputChangeAlias = (event: any) => {
+    let alias: string = event.currentTarget.value;
+    alias = alias.toLowerCase();
+
+    if (validateAlias(alias)) {
+      setEventAlias(alias.toLowerCase());
+    }
+  };
 
   const updateEvent = () => {
     const paymentMethodCash: PaymentMethodCash = { enabled: paymentMethodCashEnabled };
@@ -140,7 +150,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <TextInput
         id={'name'}
         label={'Event Name'}
-        placeholder="GFFC 2023"
+        placeholder="Superball 2023"
         value={name}
         onChange={e => {
           setEventName(e.currentTarget.value);
@@ -150,10 +160,10 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <TextInput
         id={'alias'}
         label={'Event Alias'}
-        placeholder="gffc23"
+        placeholder="superball2023"
         value={alias}
         onChange={e => {
-          setEventAlias(e.currentTarget.value);
+          handleInputChangeAlias(e);
         }}
       />
 
@@ -352,7 +362,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <TextInput
         id={'paymentMethodSepaReference'}
         label={'SEPA Reference'}
-        placeholder="gffc-2023"
+        placeholder="superball-2023"
         value={paymentMethodSepaReference}
         onChange={e => {
           setPaymentMethodSepaReference(e.currentTarget.value);
