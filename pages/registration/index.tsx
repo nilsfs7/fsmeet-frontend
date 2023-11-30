@@ -5,25 +5,46 @@ import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import router from 'next/router';
 import ErrorMessage from '@/components/ErrorMessage';
+import { validateFirstName } from '@/types/funcs/validation/validation-user';
 
 const Register: NextPage = () => {
+  const [firstName, setFirstName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const handleInputChangeFirstName = (event: any) => {
+    let firstName: string = event.currentTarget.value;
+    firstName = firstName.trimStart();
+    firstName = firstName.replaceAll('  ', ' ');
+
+    if (firstName.length > 0) {
+      const firstChar = firstName.charAt(0).toUpperCase();
+      if (firstName.length === 1) {
+        firstName = firstChar;
+      } else {
+        firstName = firstChar + firstName.slice(1).toLowerCase();
+      }
+    }
+
+    if (validateFirstName(firstName)) {
+      setFirstName(firstName);
+    }
+  };
+
   const handleInputChangeUsername = (event: any) => {
-    const uname: string = event.target.value;
+    const uname: string = event.currentTarget.value;
     setUsername(uname.toLowerCase());
   };
 
   const handleInputChangeEmail = (event: any) => {
-    const email: string = event.target.value;
+    const email: string = event.currentTarget.value;
     setEmail(email.toLowerCase());
   };
 
   const handleInputChangePassword = (event: any) => {
-    const hashedPassword = bcrypt.hashSync(event.target.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
+    const hashedPassword = bcrypt.hashSync(event.currentTarget.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
     setPassword(hashedPassword);
   };
 
@@ -38,7 +59,7 @@ const Register: NextPage = () => {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'POST',
-      body: JSON.stringify({ username: username, email: email, password: password }),
+      body: JSON.stringify({ username: username, email: email, password: password, firstName: firstName.trim() }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -58,16 +79,26 @@ const Register: NextPage = () => {
       <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
         <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
           <TextInput
+            id={'firstName'}
+            label={'First name'}
+            placeholder="Max"
+            value={firstName}
+            onChange={e => {
+              handleInputChangeFirstName(e);
+            }}
+          />
+
+          <TextInput
             id={'username'}
             label={'Username'}
-            placeholder="Max"
+            placeholder="max"
             value={username}
             onChange={e => {
               handleInputChangeUsername(e);
             }}
           />
           <TextInput
-            id={'mail'}
+            id={'email'}
             label={'E-Mail'}
             placeholder="max@gmail.com"
             value={email}

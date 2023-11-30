@@ -10,6 +10,7 @@ import { PaymentMethodCash } from '@/types/payment-method-cash';
 import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 import ComboBox from '../common/ComboBox';
 import { menuEventTypes } from '@/types/consts/menus/menu-event-types';
+import { validateAlias } from '@/types/funcs/validation/validation-event';
 
 interface IEventEditorProps {
   event?: Event;
@@ -41,13 +42,12 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [published, setPublished] = useState<boolean>(event?.published || false);
 
-  const checkAndSetAlias = (alias: string) => {
+  const handleInputChangeAlias = (event: any) => {
+    let alias: string = event.currentTarget.value;
     alias = alias.toLowerCase();
-    if (alias.length <= 16) {
-      const regexAlphaNumLowerOnly: RegExp = /^[a-z0-9]+$/;
-      if (alias.length === 0 || regexAlphaNumLowerOnly.test(alias)) {
-        setEventAlias(alias.toLowerCase());
-      }
+
+    if (validateAlias(alias)) {
+      setEventAlias(alias.toLowerCase());
     }
   };
 
@@ -163,7 +163,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         placeholder="superball2023"
         value={alias}
         onChange={e => {
-          checkAndSetAlias(e.currentTarget.value);
+          handleInputChangeAlias(e);
         }}
       />
 
