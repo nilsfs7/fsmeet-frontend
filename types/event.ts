@@ -11,7 +11,7 @@ export type Event = {
   alias: string;
   dateFrom: Moment;
   dateTo: Moment;
-  participationFee: number | undefined; // TODO remove unfdefined
+  participationFee: number;
   registrationOpen: Moment;
   registrationDeadline: Moment;
   description: string;

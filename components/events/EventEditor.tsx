@@ -32,7 +32,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [venueCountry, setVenueCountry] = useState(event?.venueCity || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
-  const [participationFee, setParticipationFee] = useState(event?.participationFee);
+  const [participationFee, setParticipationFee] = useState(event?.participationFee || 0);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
   const [paymentMethodSepaEnabled, setPaymentMethodSepaEnabled] = useState<boolean>(event?.paymentMethodSepa?.enabled || false);
   const [paymentMethodSepaBank, setPaymentMethodSepaBank] = useState<string>(event?.paymentMethodSepa?.bank || '');
@@ -305,9 +305,9 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         id={'participationFee'}
         label={'Participation Fee'}
         placeholder="25"
-        value={participationFee ? participationFee.toString() : undefined}
+        value={participationFee ? participationFee.toString() : '0'}
         onChange={e => {
-          setParticipationFee(e.currentTarget.value);
+          setParticipationFee(+e.currentTarget.value);
         }}
       />
 

@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TAGS: luisnaldo7/fsmeet-frontend:dev
-      AUTH_URL: http://dffb.org:9211
-      BACKEND_URL: http://dffb.org:9210
+      AUTH_URL: https://dev.fsmeet.dffb.org
+      BACKEND_URL: https://api.dev.fsmeet.dffb.org
     steps:
       - name: Set environment by branch
         id: build-args
@@ -27,8 +27,8 @@ jobs:
               echo "set values for production image"
               
               echo "TAGS=luisnaldo7/fsmeet-frontend:latest,luisnaldo7/fsmeet-frontend:prod" >> "$GITHUB_ENV"
-              echo "AUTH_URL=http://dffb.org:9201" >> "$GITHUB_ENV"
-              echo "BACKEND_URL=http://dffb.org:9200" >> "$GITHUB_ENV"
+              echo "AUTH_URL=https://fsmeet.dffb.org" >> "$GITHUB_ENV"
+              echo "BACKEND_URL=https://api.fsmeet.dffb.org" >> "$GITHUB_ENV"
           fi
           if [[ $GITHUB_REF == 'refs/heads/aws' ]]; then
               echo "set values for aws image"
