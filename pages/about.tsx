@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 
 const About: NextPage = () => {
+  const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME;
   const shortSha = process.env.NEXT_PUBLIC_COMMIT_SHA && process.env.NEXT_PUBLIC_COMMIT_SHA?.length > 7 ? process.env.NEXT_PUBLIC_COMMIT_SHA?.substring(0, 7) : process.env.NEXT_PUBLIC_COMMIT_SHA;
 
   return (
@@ -12,7 +13,8 @@ const About: NextPage = () => {
       <div>Stay tuned! ⚽</div>
 
       {/* Version */}
-      <div className="mt-10">Version SHA: {shortSha}</div>
+      <div className="mt-10">Build time: {buildTime}</div>
+      <div className="">Version SHA: {shortSha}</div>
     </div>
   );
 };
