@@ -119,7 +119,7 @@ const CompetitionEditing = (props: any) => {
   return (
     <>
       <Dialog title="Delete Competition" queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
-        <p>Do you really want to delete this event?</p>
+        <p>Do you really want to delete this competition?</p>
       </Dialog>
 
       <div className={'flex columns-1 flex-col items-center'}>
