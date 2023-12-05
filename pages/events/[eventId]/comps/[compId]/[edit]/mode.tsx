@@ -309,15 +309,15 @@ const ModeEditing = (props: any) => {
           {!gameModeApplied && (
             <div className="mt-2 flex gap-2">
               <>
-                <ActionButton action={Action.ADD} onClick={addRound} />
-                <ActionButton action={Action.REMOVE} onClick={removeLastRound} />
+                {getLastRound() && getLastRound().numberPlayers > 2 && <ActionButton action={Action.ADD} onClick={addRound} />}
+                {rounds.length > 1 && <ActionButton action={Action.REMOVE} onClick={removeLastRound} />}
               </>
             </div>
           )}
 
           <div className="mt-2 flex gap-2">
             {gameModeApplied && <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />}
-            {!gameModeApplied && <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />}
+            {!gameModeApplied && getLastRound() && (getLastRound().numberPlayers < 3 || getLastRound().advancingTotal === 1) && <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />}
           </div>
 
           <h1 className="mt-8 text-xl">Preview</h1>
