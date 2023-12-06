@@ -101,7 +101,7 @@ export default MyEventsOverview;
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
-  const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/manage?owner=${session?.user.username}`;
+  const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/manage?admin=${session?.user.username}`;
   const responseMyEvents = await fetch(urlMyEvents, {
     method: 'GET',
     headers: {

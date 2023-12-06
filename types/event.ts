@@ -10,6 +10,7 @@ export type Event = {
   name: string;
   alias: string;
   dateFrom: Moment;
+  // admin: string;
   dateTo: Moment;
   participationFee: number;
   registrationOpen: Moment;

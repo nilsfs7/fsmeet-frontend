@@ -21,12 +21,12 @@ const Account = ({ session }: any) => {
   const [error, setError] = useState('');
 
   // public user info
-  const [imageUrl, setImageUrl] = useState();
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [country, setCountry] = useState();
-  const [instagramHandle, setInstagramHandle] = useState();
-  const [youTubeHandle, setYouTubeHandle] = useState();
+  const [imageUrl, setImageUrl] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [country, setCountry] = useState('');
+  const [instagramHandle, setInstagramHandle] = useState('');
+  const [youTubeHandle, setYouTubeHandle] = useState('');
 
   // private user info
   const [tShirtSize, setTShirtSize] = useState();
@@ -37,8 +37,8 @@ const Account = ({ session }: any) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'PATCH',
       body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
         country: country,
         instagramHandle: instagramHandle,
         youTubeHandle: youTubeHandle,
