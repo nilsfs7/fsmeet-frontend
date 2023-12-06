@@ -9,6 +9,7 @@ import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
 import { routeLogin } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
+import ErrorMessage from '@/components/ErrorMessage';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -19,6 +20,7 @@ const CompetitionPool = (props: any) => {
 
   const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>([]);
   const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
+  const [error, setError] = useState('');
 
   const isLoggedIn = () => {
     if (session) {
@@ -29,6 +31,8 @@ const CompetitionPool = (props: any) => {
   };
 
   const handleRemoveParticipantClicked = async (compId: string, username: string) => {
+    setError('');
+
     if (!isLoggedIn()) {
       router.push(routeLogin);
       return;
@@ -56,10 +60,16 @@ const CompetitionPool = (props: any) => {
       setCompetitionParticipants(newArray);
 
       console.info(`${username} removed`);
+    } else {
+      const error = await response.json();
+      setError(error.message);
+      console.error(error.message);
     }
   };
 
   const handleAddParticipantClicked = async (compId: string, username: string) => {
+    setError('');
+
     if (!isLoggedIn()) {
       router.push(routeLogin);
       return;
@@ -85,6 +95,10 @@ const CompetitionPool = (props: any) => {
       setCompetitionParticipants(newArray);
 
       console.info(`${username} added`);
+    } else {
+      const error = await response.json();
+      setError(error.message);
+      console.error(error.message);
     }
   };
 
@@ -170,6 +184,8 @@ const CompetitionPool = (props: any) => {
           </div>
         </div>
       </div>
+
+      <ErrorMessage message={error} />
 
       <Navigation>
         <Link href={`/events/${eventId}/comps`}>
