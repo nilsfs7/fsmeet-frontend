@@ -59,7 +59,7 @@ const EventDetails = ({ event }: IEventProps) => {
 
         <div className="col-span-1">Event host</div>
         <div className="col-span-2 hover:underline">
-          <Link href={`/user/${event.owner}`}>{event.owner}</Link>
+          <Link href={`/user/${event.admin}`}>{event.admin}</Link>
         </div>
       </div>
 

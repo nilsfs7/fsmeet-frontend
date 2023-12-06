@@ -35,7 +35,7 @@ const EventCard = ({ event }: IEventProps) => {
           )}
         </div>
         <div className="flex justify-between">
-          <div className="text-xs">by {event.owner}</div>
+          <div className="text-xs">by {event.admin}</div>
           <div>{dateRegistrationDeadline && <div className="text-right">Deadline: {getShortDateString(dateRegistrationDeadline)}</div>}</div>
         </div>
       </div>

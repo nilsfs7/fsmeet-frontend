@@ -7,7 +7,7 @@ export interface IEvent {
   id: string;
   name: string;
   alias: string;
-  owner: string;
+  admin: string;
   dateFrom: number;
   dateTo: number;
   participationFee: number;
