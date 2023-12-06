@@ -131,33 +131,6 @@ const CompetitionEditing = (props: any) => {
           }}
         />
 
-        {/* <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
-          <div className="flex justify-end items-center h-full">Player Pool</div>
-          <div className="flex">
-            <Link href={`/events/${eventId}/comps/${compId}/edit/pool`}>
-              <ActionButton action={Action.MANAGE_USERS} />
-            </Link>
-          </div>
-        </div>
-
-        <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
-          <div className="flex justify-end items-center h-full">Game Mode</div>
-          <div className="flex">
-            <Link href={`/events/${eventId}/comps/${compId}/edit/mode`}>
-              <ActionButton action={Action.MANAGE_COMPETITIONS} />
-            </Link>
-          </div>
-        </div>
-
-        <div className="mt-2 grid grid-cols-2 w-full justify-center gap-2">
-          <div className="flex justify-end items-center h-full">Seeding</div>
-          <div className="flex">
-            <Link href={`/events/${eventId}/comps/${compId}/edit/seeding`}>
-              <ActionButton action={Action.MANAGE_USERS} />
-            </Link>
-          </div>
-        </div> */}
-
         <ErrorMessage message={error} />
 
         <div className="my-2 flex">
