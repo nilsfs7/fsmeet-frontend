@@ -2,7 +2,6 @@ import { Logo } from '@/components/Logo';
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
-import { IEvent } from '@/interface/event';
 import Link from 'next/link';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useEffect, useState } from 'react';
@@ -16,7 +15,7 @@ const defaultDateFrom = moment(moment().year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
 
 const EventsOverview = ({ session }: { session: any }) => {
-  const [events, setEvents] = useState<IEvent[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
 

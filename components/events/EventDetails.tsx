@@ -1,5 +1,4 @@
-import { IEvent } from '@/interface/event';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import Map from '../Map';
@@ -7,25 +6,14 @@ import Link from 'next/link';
 import { getShortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';
 import TextButton from '../common/TextButton';
+import { Event } from '@/types/event';
 
 interface IEventProps {
-  event: IEvent;
+  event: Event;
 }
 
 const EventDetails = ({ event }: IEventProps) => {
   const [showMap, setShowMap] = useState<boolean>(false);
-
-  const [dateFrom, setDateFrom] = useState<number>();
-  const [dateTo, setDateTo] = useState<number>();
-  const [dateRegistrationOpen, setDateRegistrationOpen] = useState<number>();
-  const [dateRegistrationDeadline, setDateRegistrationDeadline] = useState<number>();
-
-  useEffect(() => {
-    setDateFrom(event.dateFrom);
-    setDateTo(event.dateTo);
-    setDateRegistrationOpen(event.registrationOpen);
-    setDateRegistrationDeadline(event.registrationDeadline);
-  }, []);
 
   return (
     <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
@@ -37,8 +25,12 @@ const EventDetails = ({ event }: IEventProps) => {
         </div>
 
         <div className="col-span-2">
-          {dateFrom && dateTo && (
-            <div>{dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${getShortDateString(dateFrom)}` : `${getShortDateString(dateFrom, false)} - ${getShortDateString(dateTo)}`}</div>
+          {event.dateFrom && event.dateTo && (
+            <div>
+              {event.dateFrom.toLocaleString() === event.dateTo.toLocaleString()
+                ? `${getShortDateString(event.dateFrom)}`
+                : `${getShortDateString(event.dateFrom, false)} - ${getShortDateString(event.dateTo)}`}
+            </div>
           )}
         </div>
 
@@ -52,10 +44,10 @@ const EventDetails = ({ event }: IEventProps) => {
         <div className="col-span-2">{event.participationFee.toString().replace('.', ',')} €</div>
 
         <div className="col-span-1">Registration open</div>
-        {dateRegistrationOpen && <div className="col-span-2">{getShortDateString(dateRegistrationOpen)}</div>}
+        {event.registrationOpen && <div className="col-span-2">{getShortDateString(event.registrationOpen)}</div>}
 
         <div className="col-span-1">Registration end</div>
-        {dateRegistrationDeadline && <div className="col-span-2">{getShortDateString(dateRegistrationDeadline)}</div>}
+        {event.registrationDeadline && <div className="col-span-2">{getShortDateString(event.registrationDeadline)}</div>}
 
         <div className="col-span-1">Event host</div>
         <div className="col-span-2 hover:underline">

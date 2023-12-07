@@ -1,4 +1,3 @@
-import { Moment } from 'moment';
 import { EventType } from './enums/event-type';
 import { EventRegistration } from './event-registration';
 import { EventCompetition } from './event-competition';
@@ -9,12 +8,12 @@ export type Event = {
   id: string | undefined;
   name: string;
   alias: string;
-  dateFrom: Moment;
-  // admin: string;
-  dateTo: Moment;
+  admin: string;
+  dateFrom: number;
+  dateTo: number;
   participationFee: number;
-  registrationOpen: Moment;
-  registrationDeadline: Moment;
+  registrationOpen: number;
+  registrationDeadline: number;
   description: string;
   venueHouseNo: string;
   venueStreet: string;
