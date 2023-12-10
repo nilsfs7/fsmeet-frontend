@@ -3,17 +3,18 @@ import { EventRegistration } from './event-registration';
 import { EventCompetition } from './event-competition';
 import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodSepa } from './payment-method-sepa';
+import { Moment } from 'moment';
 
 export type Event = {
-  id: string | undefined;
+  id?: string;
   name: string;
   alias: string;
-  admin: string;
-  dateFrom: number;
-  dateTo: number;
+  admin?: string;
+  dateFrom: string;
+  dateTo: string;
+  registrationOpen: string;
+  registrationDeadline: string;
   participationFee: number;
-  registrationOpen: number;
-  registrationDeadline: number;
   description: string;
   venueHouseNo: string;
   venueStreet: string;

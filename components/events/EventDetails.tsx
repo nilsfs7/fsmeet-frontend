@@ -7,6 +7,7 @@ import { getShortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';
 import TextButton from '../common/TextButton';
 import { Event } from '@/types/event';
+import moment from 'moment';
 
 interface IEventProps {
   event: Event;
@@ -28,8 +29,8 @@ const EventDetails = ({ event }: IEventProps) => {
           {event.dateFrom && event.dateTo && (
             <div>
               {event.dateFrom.toLocaleString() === event.dateTo.toLocaleString()
-                ? `${getShortDateString(event.dateFrom)}`
-                : `${getShortDateString(event.dateFrom, false)} - ${getShortDateString(event.dateTo)}`}
+                ? `${getShortDateString(moment(event.dateFrom))}`
+                : `${getShortDateString(moment(event.dateFrom), false)} - ${getShortDateString(moment(event.dateTo))}`}
             </div>
           )}
         </div>
@@ -41,13 +42,13 @@ const EventDetails = ({ event }: IEventProps) => {
 
       <div className={'grid grid-cols-3 justify-end object-right p-2'}>
         <div className="col-span-1">Participation fee</div>
-        <div className="col-span-2">{event.participationFee.toString().replace('.', ',')} €</div>
+        <div className="col-span-2">{event.participationFee > 0 ? `${event.participationFee.toString().replace('.', ',')}  €` : 'free'}</div>
 
         <div className="col-span-1">Registration open</div>
-        {event.registrationOpen && <div className="col-span-2">{getShortDateString(event.registrationOpen)}</div>}
+        {event.registrationOpen && <div className="col-span-2">{getShortDateString(moment(event.registrationOpen))}</div>}
 
         <div className="col-span-1">Registration end</div>
-        {event.registrationDeadline && <div className="col-span-2">{getShortDateString(event.registrationDeadline)}</div>}
+        {event.registrationDeadline && <div className="col-span-2">{getShortDateString(moment(event.registrationDeadline))}</div>}
 
         <div className="col-span-1">Event host</div>
         <div className="col-span-2 hover:underline">

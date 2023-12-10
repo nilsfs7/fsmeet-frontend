@@ -16,6 +16,7 @@ import { Round } from '@/types/round';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
 import { Moment } from 'moment';
+import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -46,27 +47,14 @@ const ModeEditing = (props: any) => {
     return participants.length;
   };
 
-  const fetchRounds = async (compId: string): Promise<Round[]> => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`);
-    const rnds: Round[] = await response.json();
-
-    const rounds: Round[] = rnds.map(rnd => {
-      const round = new Round(rnd.roundIndex, rnd.name, rnd.numberPlayers);
-      round.passingExtra = rnd.passingExtra;
-      round.passingPerMatch = rnd.passingPerMatch;
-      round.matches = rnd.matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser)
-      return round;
+  const handleSaveClicked = async () => {
+    const body = JSON.stringify({
+      rounds: rounds,
     });
 
-    return rounds;
-  };
-
-  const handleSaveClicked = async () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`, {
       method: 'POST',
-      body: JSON.stringify({
-        rounds: rounds,
-      }),
+      body: body,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${session.user.accessToken}`,
@@ -102,12 +90,14 @@ const ModeEditing = (props: any) => {
     setRounds(rnds);
 
     if (name) {
+      const body = JSON.stringify({
+        matchId: matchId,
+        name: name,
+      });
+
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
         method: 'PATCH',
-        body: JSON.stringify({
-          matchId: matchId,
-          name: name,
-        }),
+        body: body,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${session.user.accessToken}`,
@@ -124,16 +114,18 @@ const ModeEditing = (props: any) => {
 
   const handleTimeUpdated = async (roundIndex: number, matchIndex: number, matchId: string, time: Moment) => {
     const rnds = Array.from(rounds);
-    rnds[roundIndex].matches[matchIndex].time = time.unix();
+    rnds[roundIndex].matches[matchIndex].time = time.format();
     setRounds(rnds);
 
     if (time) {
+      const body = JSON.stringify({
+        matchId: matchId,
+        time: time,
+      });
+
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
         method: 'PATCH',
-        body: JSON.stringify({
-          matchId: matchId,
-          time: time.unix(),
-        }),
+        body: body,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${session.user.accessToken}`,
@@ -153,7 +145,7 @@ const ModeEditing = (props: any) => {
       // @ts-ignore: next-line
       fetchCompetitionParticipants(compId).then(numParticipants => {
         // @ts-ignore: next-line
-        fetchRounds(compId).then(rounds => {
+        getRounds(compId).then(rounds => {
           if (rounds.length === 0) {
             const initRound = new Round(0, 'Round 1', numParticipants);
             setRounds([initRound]);

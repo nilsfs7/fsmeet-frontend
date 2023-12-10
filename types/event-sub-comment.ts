@@ -5,5 +5,5 @@ export type EventSubComment = {
   rootCommentId: string;
   message: string;
   user: User;
-  timestamp: number;
+  timestamp: string;
 };

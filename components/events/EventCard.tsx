@@ -1,24 +1,15 @@
-import { IEvent } from '@/interface/event';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
 import { getShortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';
+import { Event } from '@/types/event';
+import moment from 'moment';
 
 interface IEventProps {
-  event: IEvent;
+  event: Event;
 }
 
 const EventCard = ({ event }: IEventProps) => {
-  const [dateFrom, setDateFrom] = useState<number>();
-  const [dateTo, setDateTo] = useState<number>();
-  const [dateRegistrationDeadline, setDateRegistrationDeadline] = useState<number>();
-
-  useEffect(() => {
-    setDateFrom(event.dateFrom);
-    setDateTo(event.dateTo);
-    setDateRegistrationDeadline(event.registrationDeadline);
-  }, []);
-
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary '}>
       {/* top */}
@@ -28,15 +19,17 @@ const EventCard = ({ event }: IEventProps) => {
         </div>
         <div className="flex justify-between">
           <div className="w-1/3 ">{event.venueCity}</div>
-          {dateFrom && dateTo && (
+          {event.dateFrom && event.dateTo && (
             <div className="w-2/3 text-right">
-              {dateFrom.toLocaleString() === dateTo.toLocaleString() ? `${getShortDateString(dateFrom)}` : `${getShortDateString(dateFrom, false)} - ${getShortDateString(dateTo)}`}
+              {event.dateFrom.toLocaleString() === event.dateTo.toLocaleString()
+                ? `${getShortDateString(moment(event.dateFrom))}`
+                : `${getShortDateString(moment(event.dateFrom), false)} - ${getShortDateString(moment(event.dateTo))}`}
             </div>
           )}
         </div>
         <div className="flex justify-between">
           <div className="text-xs">by {event.admin}</div>
-          <div>{dateRegistrationDeadline && <div className="text-right">Deadline: {getShortDateString(dateRegistrationDeadline)}</div>}</div>
+          <div>{event.registrationDeadline && <div className="text-right">Deadline: {getShortDateString(moment(event.registrationDeadline))}</div>}</div>
         </div>
       </div>
 

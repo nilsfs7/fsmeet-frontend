@@ -49,8 +49,8 @@ const Competition = (props: any) => {
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
-      fetchEvent(eventId).then(async (res: Event) => {
-        const comp = res.eventCompetitions.filter(c => c.id === compId)[0];
+      fetchEvent(eventId).then(async (e: Event) => {
+        const comp = e.eventCompetitions.filter(c => c.id === compId)[0];
         const c: EventCompetition = {
           id: comp.id,
           eventId: eventId,
@@ -62,7 +62,7 @@ const Competition = (props: any) => {
 
         const participants = await fetchCompetitionParticipants(compId);
         const competitionParticipants = participants.map(participant => {
-          const participantRegistrationPair = res.eventRegistrations.filter(registration => {
+          const participantRegistrationPair = e.eventRegistrations.filter(registration => {
             if (registration.username === participant.username) {
               return registration.imageUrl;
             }

@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { MatchSlot } from './match-slot';
 
 export type Match = {
@@ -6,5 +7,5 @@ export type Match = {
   name: string;
   slots: number;
   matchSlots: MatchSlot[];
-  time?: number;
+  time?: string;
 };

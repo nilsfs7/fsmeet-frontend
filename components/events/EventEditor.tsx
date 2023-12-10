@@ -20,10 +20,10 @@ interface IEventEditorProps {
 const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [name, setEventName] = useState(event?.name || '');
   const [alias, setEventAlias] = useState(event?.alias || '');
-  const [dateFrom, setDateFrom] = useState<Moment>(event?.dateFrom ? event?.dateFrom : moment().add(7, 'day'));
-  const [dateTo, setDateTo] = useState<Moment>(event?.dateTo ? event?.dateTo : moment().add(7, 'day'));
-  const [registrationOpen, setRegistrationOpen] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment());
-  const [registrationDeadline, setRegistrationDeadline] = useState(event?.registrationDeadline ? event?.registrationDeadline : moment().add(7, 'day'));
+  const [dateFrom, setDateFrom] = useState<string>(event?.dateFrom ? event.dateFrom : moment().add(7, 'day').format());
+  const [dateTo, setDateTo] = useState<string>(event?.dateTo ? event.dateTo : moment().add(7, 'day').format());
+  const [registrationOpen, setRegistrationOpen] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : moment().format());
+  const [registrationDeadline, setRegistrationDeadline] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : moment().add(7, 'day').format());
   const [description, setDescription] = useState(event?.description || '');
   const [venueHouseNo, setVenueHouseNo] = useState(event?.venueCity || '');
   const [venueStreet, setVenueStreet] = useState(event?.venueCity || '');
@@ -65,6 +65,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       id: event?.id,
       name: name,
       alias: alias,
+      admin: event?.admin,
       type: eventType,
       description: description,
       dateFrom: dateFrom,
@@ -194,10 +195,10 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <div className="m-2 grid grid-cols-2">
         <div>Date From</div>
         <DatePicker
-          value={dateFrom}
+          value={moment(dateFrom)}
           onChange={value => {
             if (value) {
-              setDateFrom(value);
+              setDateFrom(value.format());
             }
           }}
         />
@@ -206,10 +207,10 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <div className="m-2 grid grid-cols-2">
         <div>Date To</div>
         <DatePicker
-          value={dateTo}
+          value={moment(dateTo)}
           onChange={value => {
             if (value) {
-              setDateTo(value);
+              setDateTo(value.format());
             }
           }}
         />
@@ -218,10 +219,10 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <div className="m-2 grid grid-cols-2">
         <div>Registration Open</div>
         <DatePicker
-          value={registrationOpen}
+          value={moment(registrationOpen)}
           onChange={value => {
             if (value) {
-              setRegistrationOpen(value);
+              setRegistrationOpen(value.format());
             }
           }}
         />
@@ -230,10 +231,10 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <div className="m-2 grid grid-cols-2">
         <div>Registration Deadline</div>
         <DatePicker
-          value={registrationDeadline}
+          value={moment(registrationDeadline)}
           onChange={value => {
             if (value) {
-              setRegistrationDeadline(value);
+              setRegistrationDeadline(value.format());
             }
           }}
         />

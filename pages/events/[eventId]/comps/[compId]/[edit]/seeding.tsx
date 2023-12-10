@@ -77,22 +77,24 @@ const Seeding = (props: any) => {
 
     setRounds(rnds);
 
+    const body = JSON.stringify({
+      eventId: eventId,
+      slotIndex: slotIndex,
+      name: username,
+      result: result,
+    });
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches/${matchId}/slots`, {
       method: 'PUT',
-      body: JSON.stringify({
-        eventId: eventId,
-        slotIndex: slotIndex,
-        name: username,
-        result: result,
-      }),
+      body: body,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${session.user.accessToken}`,
       },
     });
 
-    if (response.status == 201) {
-      console.info(`match ${matchId} updated. new name: ${name}`);
+    if (response.status == 200) {
+      console.info(`match ${matchId} updated.`);
     }
   };
 

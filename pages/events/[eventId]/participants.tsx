@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { IEvent } from '@/interface/event.js';
+import { Event } from '@/types/event';
 import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -11,6 +11,7 @@ import { EventRegistrationStatus } from '@/types/enums/event-registration-status
 import Link from 'next/link';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
+import { getEvent } from '@/services/fsmeet-backend/get-event';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -18,7 +19,7 @@ const EventParticipants = (props: any) => {
   const router = useRouter();
   const { eventId } = router.query;
 
-  const [event, setEvent] = useState<IEvent>();
+  const [event, setEvent] = useState<Event>();
 
   const [userToRemove, setUserToRemove] = useState('');
 
@@ -39,7 +40,7 @@ const EventParticipants = (props: any) => {
     router.replace(`${routeEvents}/${eventId}/participants`, undefined, { shallow: true });
   };
 
-  const handleConfirmRemoveParticipantClicked = async (id: string, username: string) => {
+  const handleConfirmRemoveParticipantClicked = async (username: string) => {
     if (!isLoggedIn()) {
       router.push(routeLogin);
       return;
@@ -65,7 +66,7 @@ const EventParticipants = (props: any) => {
     }
   };
 
-  const handleApproveParticipantClicked = async (id: string, username: string, status: EventRegistrationStatus) => {
+  const handleApproveParticipantClicked = async (username: string, status: EventRegistrationStatus) => {
     if (!isLoggedIn()) {
       router.push(routeLogin);
       return;
@@ -93,18 +94,11 @@ const EventParticipants = (props: any) => {
   };
 
   useEffect(() => {
-    async function fetchEvent() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${session?.user?.accessToken}`,
-        },
+    if (eventId) {
+      getEvent(eventId?.toString(), true, session).then((event: Event) => {
+        setEvent(event);
       });
-      const event = await response.json();
-      setEvent(event);
     }
-
-    fetchEvent();
   }, [event == undefined]);
 
   if (!event) {
@@ -119,7 +113,7 @@ const EventParticipants = (props: any) => {
         onCancel={handleCancelRemoveParticipantClicked}
         onConfirm={() => {
           if (eventId) {
-            handleConfirmRemoveParticipantClicked(eventId.toString(), userToRemove);
+            handleConfirmRemoveParticipantClicked(userToRemove);
             setUserToRemove('');
           }
         }}
@@ -159,6 +153,7 @@ const EventParticipants = (props: any) => {
                         </div>
                       </>
                     )}
+
                     <div className="flex">
                       {participant.status == EventRegistrationStatus.PENDING && (
                         <>
@@ -166,7 +161,7 @@ const EventParticipants = (props: any) => {
                             <ActionButton
                               action={Action.ACCEPT}
                               onClick={() => {
-                                handleApproveParticipantClicked(event.id, participant.username, EventRegistrationStatus.APPROVED);
+                                handleApproveParticipantClicked(participant.username, EventRegistrationStatus.APPROVED);
                               }}
                             />
                           </div>
@@ -174,7 +169,7 @@ const EventParticipants = (props: any) => {
                             <ActionButton
                               action={Action.DENY}
                               onClick={() => {
-                                handleApproveParticipantClicked(event.id, participant.username, EventRegistrationStatus.DENIED);
+                                handleApproveParticipantClicked(participant.username, EventRegistrationStatus.DENIED);
                               }}
                             />
                           </div>
