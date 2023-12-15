@@ -324,7 +324,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
 
       <CheckBox
         id={'paymentMethodSepaEnabled'}
-        label="Accept SEPA"
+        label="Accept Bank Transfer (SEPA)"
         value={paymentMethodSepaEnabled}
         onChange={() => {
           setPaymentMethodSepaEnabled(!paymentMethodSepaEnabled);
