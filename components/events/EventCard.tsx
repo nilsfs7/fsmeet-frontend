@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { imgCompetition, imgMeeting } from '@/types/consts/images';
 import { getShortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';

@@ -15,3 +15,11 @@ export const getTimeString = (timestamp: Moment): string => {
 export const formatTs = (timestamp: Moment, format: string): string => {
   return moment(timestamp).format(format);
 };
+
+export const timeMin = (timestamp: Moment): Moment => {
+  return timestamp.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
+};
+
+export const timeMax = (timestamp: Moment): Moment => {
+  return timestamp.set({ hour: 23, minute: 59, second: 59, millisecond: 999 });
+};

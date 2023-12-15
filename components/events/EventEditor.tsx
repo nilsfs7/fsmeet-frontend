@@ -11,6 +11,7 @@ import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 import ComboBox from '../common/ComboBox';
 import { menuEventTypes } from '@/types/consts/menus/menu-event-types';
 import { validateAlias } from '@/types/funcs/validation/validation-event';
+import { timeMin } from '@/types/funcs/time';
 
 interface IEventEditorProps {
   event?: Event;
@@ -20,10 +21,10 @@ interface IEventEditorProps {
 const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [name, setEventName] = useState(event?.name || '');
   const [alias, setEventAlias] = useState(event?.alias || '');
-  const [dateFrom, setDateFrom] = useState<string>(event?.dateFrom ? event.dateFrom : moment().add(7, 'day').format());
-  const [dateTo, setDateTo] = useState<string>(event?.dateTo ? event.dateTo : moment().add(7, 'day').format());
-  const [registrationOpen, setRegistrationOpen] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : moment().format());
-  const [registrationDeadline, setRegistrationDeadline] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : moment().add(7, 'day').format());
+  const [dateFrom, setDateFrom] = useState<string>(event?.dateFrom ? event.dateFrom : timeMin(moment().add(7, 'day')).utc().format());
+  const [dateTo, setDateTo] = useState<string>(event?.dateTo ? event.dateTo : timeMin(moment().add(7, 'day')).utc().format());
+  const [registrationOpen, setRegistrationOpen] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : timeMin(moment()).utc().format());
+  const [registrationDeadline, setRegistrationDeadline] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : timeMin(moment().add(6, 'day')).utc().format());
   const [description, setDescription] = useState(event?.description || '');
   const [venueHouseNo, setVenueHouseNo] = useState(event?.venueCity || '');
   const [venueStreet, setVenueStreet] = useState(event?.venueCity || '');
@@ -198,7 +199,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           value={moment(dateFrom)}
           onChange={value => {
             if (value) {
-              setDateFrom(value.format());
+              setDateFrom(value.utc().format());
             }
           }}
         />
@@ -210,7 +211,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           value={moment(dateTo)}
           onChange={value => {
             if (value) {
-              setDateTo(value.format());
+              setDateTo(value.utc().format());
             }
           }}
         />
@@ -222,7 +223,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           value={moment(registrationOpen)}
           onChange={value => {
             if (value) {
-              setRegistrationOpen(value.format());
+              setRegistrationOpen(value.utc().format());
             }
           }}
         />
@@ -234,7 +235,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           value={moment(registrationDeadline)}
           onChange={value => {
             if (value) {
-              setRegistrationDeadline(value.format());
+              setRegistrationDeadline(value.utc().format());
             }
           }}
         />
