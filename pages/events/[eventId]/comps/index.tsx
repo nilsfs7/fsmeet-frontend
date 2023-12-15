@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
-import { IEvent } from '@/interface/event';
+import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
 import { routeLogin } from '@/types/consts/routes';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
+import { getEvent } from '@/services/fsmeet-backend/get-event';
 
 const EventCompetitions = (props: any) => {
   const session = props.session;
@@ -16,25 +17,18 @@ const EventCompetitions = (props: any) => {
   const router = useRouter();
   const { eventId } = router.query;
 
-  const [event, setEvent] = useState<IEvent>();
+  const [event, setEvent] = useState<Event>();
 
   if (!session) {
     router.push(routeLogin);
   }
 
   useEffect(() => {
-    async function fetchEvent() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${session?.user?.accessToken}`,
-        },
+    if (eventId) {
+      getEvent(eventId?.toString(), true, session).then((event: Event) => {
+        setEvent(event);
       });
-      const event: IEvent = await response.json();
-      setEvent(event);
     }
-
-    fetchEvent();
   }, [event == undefined]);
 
   if (!event?.eventCompetitions) {

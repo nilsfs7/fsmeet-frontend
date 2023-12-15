@@ -81,14 +81,14 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
 
         {editingEnabled && (
           <TimePicker
-            defaultValue={match.time && moment.unix(match.time)}
+            defaultValue={match.time ? moment(match.time) : null}
             onChange={value => {
               if (value && moment.isMoment(value)) handleUpdateTime(value);
             }}
           />
         )}
 
-        {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(match.time)}</div>}
+        {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(moment(match.time))}</div>}
       </div>
 
       <hr />

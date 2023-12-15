@@ -10,6 +10,7 @@ import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
 import ErrorMessage from '@/components/ErrorMessage';
 import Dialog from '@/components/Dialog';
+import { getEvent } from '@/services/fsmeet-backend/get-event';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -25,29 +26,20 @@ const CompetitionEditing = (props: any) => {
     router.push(routeLogin);
   }
 
-  const fetchEvent = async (id: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${id}/manage`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${session?.user?.accessToken}`,
-      },
-    });
-    return await response.json();
-  };
-
   const handleSaveClicked = async () => {
     setError('');
 
+    const body = JSON.stringify({
+      id: compId,
+      eventId: eventId,
+      name: comp?.name.trim(),
+      description: comp?.description.trim(),
+      rules: comp?.rules.trim(),
+    });
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`, {
       method: 'PATCH',
-      body: JSON.stringify({
-        id: compId,
-        eventId: eventId,
-        name: comp?.name.trim(),
-        description: comp?.description.trim(),
-        rules: comp?.rules.trim(),
-      }),
-
+      body: body,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${session.user.accessToken}`,
@@ -100,7 +92,7 @@ const CompetitionEditing = (props: any) => {
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
-      fetchEvent(eventId).then((res: Event) => {
+      getEvent(eventId).then((res: Event) => {
         const comp = res.eventCompetitions.filter(c => c.id === compId)[0];
 
         const c: EventCompetition = {

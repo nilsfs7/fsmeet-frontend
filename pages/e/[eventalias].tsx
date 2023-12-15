@@ -1,4 +1,4 @@
-import { IEvent } from '@/interface/event.js';
+import { Event } from '@/types/event';
 import { GetServerSideProps } from 'next';
 
 const EventAlias = () => {
@@ -10,7 +10,7 @@ export default EventAlias;
 export const getServerSideProps: GetServerSideProps = async context => {
   const alias = context.params?.eventalias;
 
-  let event: IEvent;
+  let event: Event;
 
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/alias/${alias}`;
   try {

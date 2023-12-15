@@ -3,16 +3,18 @@ import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/Profile';
-import { IEvent } from '@/interface/event';
 import { imgAbout } from '@/types/consts/images';
 import { routeAbout, routeEvents } from '@/types/consts/routes';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
+import { Event } from '@/types/event';
+import { getEventsUpcoming } from '@/services/fsmeet-backend/get-events-upcoming';
+import { getEventsRecent } from '@/services/fsmeet-backend/get-events-recent';
 
 const Home = ({ data }: { data: any }) => {
-  let upcomingEvents: IEvent[] = data.upcoming;
-  let recentEvents: IEvent[] = data.recent;
+  let upcomingEvents: Event[] = data.upcoming;
+  let recentEvents: Event[] = data.recent;
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
@@ -28,7 +30,7 @@ const Home = ({ data }: { data: any }) => {
       {/* Upcoming Events */}
       {upcomingEvents.length > 0 && (
         <>
-          <h1 className="mt-2 text-center text-xl">Upcoming Events</h1>
+          <h1 className="mt-2 text-center text-xl">Upcoming</h1>
           <div className="overflow-hidden">
             <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
               <div className="mx-2 ">
@@ -50,7 +52,7 @@ const Home = ({ data }: { data: any }) => {
       {/* Recent Events */}
       {recentEvents.length > 0 && (
         <>
-          <h1 className="mt-2 text-center text-xl">Recent Events</h1>
+          <h1 className="mt-2 text-center text-xl">Recent</h1>
           <div className="overflow-hidden">
             <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
               <div className="mx-2 ">
@@ -99,21 +101,16 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
   let data: { upcoming: any[]; recent: any[] } = { upcoming: [], recent: [] };
 
-  const numberOfUpcomingEventsToFetch = 2;
-
-  const urlUpcoming = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/upcoming/${numberOfUpcomingEventsToFetch.toString()}`;
+  const numberOfUpcomingEventsToFetch = 1;
   try {
-    const response = await fetch(urlUpcoming);
-    data.upcoming = await response.json();
+    data.upcoming = await getEventsUpcoming(numberOfUpcomingEventsToFetch);
   } catch (error: any) {
     console.error('Error fetching upcoming events.');
   }
 
   const numberOfRecentEventsToFetch = 1;
-  const urlRecent = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/recent/${numberOfRecentEventsToFetch.toString()}`;
   try {
-    const response = await fetch(urlRecent);
-    data.recent = await response.json();
+    data.recent = await getEventsRecent(numberOfRecentEventsToFetch);
   } catch (error: any) {
     console.error('Error fetching recent events.');
   }

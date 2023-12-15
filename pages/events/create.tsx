@@ -21,36 +21,37 @@ const EventCreation = (props: any) => {
   const handleCreateClicked = async () => {
     setError('');
 
+    const body = JSON.stringify({
+      name: event?.name.trim(),
+      alias: event?.alias,
+      description: event?.description.trim(),
+      dateFrom: event?.dateFrom,
+      dateTo: event?.dateTo,
+      registrationOpen: event?.registrationOpen,
+      registrationDeadline: event?.registrationDeadline,
+      venueHouseNo: event?.venueHouseNo.trim(),
+      venueStreet: event?.venueStreet.trim(),
+      venueCity: event?.venueCity.trim(),
+      venuePostCode: event?.venuePostCode.trim(),
+      venueCountry: event?.venueCountry.trim(),
+      participationFee: event?.participationFee,
+      type: event?.type,
+      livestreamUrl: event?.livestreamUrl,
+      paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
+      paymentMethodSepa: {
+        enabled: event?.paymentMethodSepa.enabled,
+        bank: event?.paymentMethodSepa.bank,
+        recipient: event?.paymentMethodSepa.recipient,
+        iban: event?.paymentMethodSepa.iban,
+        reference: event?.paymentMethodSepa.reference,
+      },
+      autoApproveRegistrations: event?.autoApproveRegistrations,
+      published: event?.published,
+    });
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'POST',
-      body: JSON.stringify({
-        name: event?.name.trim(),
-        alias: event?.alias,
-        description: event?.description.trim(),
-        dateFrom: event?.dateFrom.unix(),
-        dateTo: event?.dateTo.unix(),
-        registrationOpen: event?.registrationOpen.unix(),
-        registrationDeadline: event?.registrationDeadline.unix(),
-        venueHouseNo: event?.venueHouseNo.trim(),
-        venueStreet: event?.venueStreet.trim(),
-        venueCity: event?.venueCity.trim(),
-        venuePostCode: event?.venuePostCode.trim(),
-        venueCountry: event?.venueCountry.trim(),
-        participationFee: event?.participationFee,
-        type: event?.type,
-        livestreamUrl: event?.livestreamUrl,
-        paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
-        paymentMethodSepa: {
-          enabled: event?.paymentMethodSepa.enabled,
-          bank: event?.paymentMethodSepa.bank,
-          recipient: event?.paymentMethodSepa.recipient,
-          iban: event?.paymentMethodSepa.iban,
-          reference: event?.paymentMethodSepa.reference,
-        },
-        autoApproveRegistrations: event?.autoApproveRegistrations,
-        published: event?.published,
-      }),
-
+      body: body,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${session.user.accessToken}`,

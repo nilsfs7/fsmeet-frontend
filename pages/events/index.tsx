@@ -2,7 +2,6 @@ import { Logo } from '@/components/Logo';
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
-import { IEvent } from '@/interface/event';
 import Link from 'next/link';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useEffect, useState } from 'react';
@@ -11,25 +10,22 @@ import { routeHome } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
+import { getEvents } from '@/services/fsmeet-backend/get-events';
+import { Event } from '@/types/event';
 
 const defaultDateFrom = moment(moment().year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
 
 const EventsOverview = ({ session }: { session: any }) => {
-  const [events, setEvents] = useState<IEvent[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
-
-  const fetchEvents = async (from: number, to: number) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?dateFrom=${from}&dateTo=${to}`);
-    return await response.json();
-  };
 
   const hanldeDateFromChanged = (moment: Moment | null) => {
     if (moment) {
       setDateFrom(moment);
 
-      fetchEvents(moment.unix(), dateTo.unix()).then(events => {
+      getEvents(moment, dateTo).then(events => {
         setEvents(events);
       });
     }
@@ -39,14 +35,14 @@ const EventsOverview = ({ session }: { session: any }) => {
     if (moment) {
       setDateTo(moment);
 
-      fetchEvents(dateFrom.unix(), moment.unix()).then(events => {
+      getEvents(dateFrom, moment).then(events => {
         setEvents(events);
       });
     }
   };
 
   useEffect(() => {
-    fetchEvents(dateFrom.unix(), dateTo.unix()).then(events => {
+    getEvents(dateFrom, dateTo).then(events => {
       setEvents(events);
     });
   }, []);

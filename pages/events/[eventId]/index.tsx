@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { IEvent } from '@/interface/event.js';
 import { useEffect, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import { GetServerSideProps } from 'next';
@@ -23,6 +22,8 @@ import Dialog from '@/components/Dialog';
 import SepaInfo from '@/components/payment/sepa-info';
 import CashInfo from '@/components/payment/cash-info';
 import { useSearchParams } from 'next/navigation';
+import { Event } from '@/types/event';
+import { getEvent } from '@/services/fsmeet-backend/get-event';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -33,7 +34,7 @@ const Event = (props: any) => {
   const searchParams = useSearchParams();
   const needsAuthorization = searchParams.get('auth');
 
-  const [event, setEvent] = useState<IEvent>();
+  const [event, setEvent] = useState<Event>();
   const [eventComments, setEventComments] = useState<EventComment[]>();
   const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
 
@@ -61,7 +62,7 @@ const Event = (props: any) => {
       return;
     }
 
-    if (event && event?.registrationDeadline > moment().unix()) {
+    if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
       router.replace(`${routeEvents}/${eventId}?register=1`, undefined, { shallow: true });
     } else {
       console.error('Registration deadline exceeded.');
@@ -74,7 +75,7 @@ const Event = (props: any) => {
       return;
     }
 
-    if (event && event?.registrationDeadline > moment().unix()) {
+    if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
       const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
       const method: string = 'POST';
 
@@ -103,7 +104,7 @@ const Event = (props: any) => {
       return;
     }
 
-    if (event && event?.registrationDeadline > moment().unix()) {
+    if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
       router.replace(`${routeEvents}/${eventId}?unregister=1`, undefined, { shallow: true });
     } else {
       console.error('Registration deadline exceeded.');
@@ -120,7 +121,7 @@ const Event = (props: any) => {
       return;
     }
 
-    if (event && event?.registrationDeadline > moment().unix()) {
+    if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
       const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
       const method: string = 'DELETE';
 
@@ -221,37 +222,32 @@ const Event = (props: any) => {
   };
 
   useEffect(() => {
-    async function fetchEvent() {
-      let response;
+    async function loadEventInfos() {
+      let event: Event;
+      if (eventId) {
+        if (needsAuthorization) {
+          event = await getEvent(eventId?.toString(), JSON.parse(needsAuthorization), session);
+          setEvent(event);
+        } else {
+          event = await getEvent(eventId?.toString());
+          setEvent(event);
+        }
 
-      if (!needsAuthorization) {
-        response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
-      } else {
-        response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${session?.user?.accessToken}`,
-          },
-        });
+        const approvedWithImage = event.eventRegistrations
+          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && registration.imageUrl)
+          .sort((a, b) => (a.username > b.username ? 1 : -1));
+        const approvedNoImage = event.eventRegistrations
+          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && !registration.imageUrl)
+          .sort((a, b) => (a.username > b.username ? 1 : -1));
+        const pendingWithImage = event.eventRegistrations
+          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && registration.imageUrl)
+          .sort((a, b) => (a.username > b.username ? 1 : -1));
+        const pendingNoImage = event.eventRegistrations
+          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && !registration.imageUrl)
+          .sort((a, b) => (a.username > b.username ? 1 : -1));
+
+        setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
       }
-
-      const event: IEvent = await response.json();
-      setEvent(event);
-
-      const approvedWithImage = event.eventRegistrations
-        .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && registration.imageUrl)
-        .sort((a, b) => (a.username > b.username ? 1 : -1));
-      const approvedNoImage = event.eventRegistrations
-        .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && !registration.imageUrl)
-        .sort((a, b) => (a.username > b.username ? 1 : -1));
-      const pendingWithImage = event.eventRegistrations
-        .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && registration.imageUrl)
-        .sort((a, b) => (a.username > b.username ? 1 : -1));
-      const pendingNoImage = event.eventRegistrations
-        .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && !registration.imageUrl)
-        .sort((a, b) => (a.username > b.username ? 1 : -1));
-
-      setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
     }
 
     async function fetchEventComments() {
@@ -261,7 +257,7 @@ const Event = (props: any) => {
     }
 
     fetchEventComments();
-    fetchEvent();
+    loadEventInfos();
   }, [event == undefined]);
 
   if (!event || !approvedAndPendingRegistrations) {
@@ -337,7 +333,7 @@ const Event = (props: any) => {
           </div>
 
           {/* competitions */}
-          {event.eventCompetitions.length > 0 && (
+          {event.id && event.eventCompetitions.length > 0 && (
             <div className="mt-2">
               <CompetitionList competitions={event.eventCompetitions} eventId={event.id} auth={needsAuthorization ? true : false} />
             </div>
@@ -392,13 +388,13 @@ const Event = (props: any) => {
               <ActionButton action={Action.COPY} onClick={handleShareClicked} />
             </div>
 
-            {event.registrationOpen < moment().unix() && event.registrationDeadline > moment().unix() && (
+            {moment(event.registrationOpen).unix() < moment().unix() && moment(event.registrationDeadline).unix() > moment().unix() && (
               <div className="ml-1">
                 <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={isRegistered() ? handleUnregisterClicked : handleRegisterClicked} />
               </div>
             )}
 
-            {isRegistered() && event.dateTo < moment().unix() && (
+            {isRegistered() && moment(event.dateTo).unix() < moment().unix() && (
               <div className="ml-1">
                 <Link href={`/events/${eventId}/feedback`}>
                   <TextButton text={'Feedback'} />

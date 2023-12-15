@@ -8,6 +8,7 @@ import BattleList from './BattleList';
 import BattleGrid from './BattleGrid';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TextareaAutosize from 'react-textarea-autosize';
+import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 
 interface ITabbedCompetitionDetailsMenuProps {
   competitionParticipants: User[];
@@ -22,21 +23,6 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
   const [rounds, setRounds] = useState<Round[]>([]);
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
 
-  const fetchRounds = async (compId: string): Promise<Round[]> => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`);
-    const rnds: Round[] = await response.json();
-
-    const rounds: Round[] = rnds.map(rnd => {
-      const round = new Round(rnd.roundIndex, rnd.name, rnd.numberPlayers);
-      round.passingExtra = rnd.passingExtra;
-      round.passingPerMatch = rnd.passingPerMatch;
-      round.matches = rnd.matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser)
-      return round;
-    });
-
-    return rounds;
-  };
-
   const getParentRound = (roundId: number): Round => {
     return rounds[roundId - 1];
   };
@@ -44,7 +30,7 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
   useEffect(() => {
     if (compId) {
       // @ts-ignore: next-line
-      fetchRounds(compId).then(rounds => {
+      getRounds(compId).then(rounds => {
         if (rounds.length === 0) {
         } else {
           setRounds(rounds);

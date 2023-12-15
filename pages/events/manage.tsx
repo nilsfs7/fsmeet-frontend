@@ -1,7 +1,7 @@
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
-import { IEvent } from '@/interface/event';
+import { Event } from '@/types/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
@@ -13,8 +13,8 @@ import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
-  const eventsOwning: IEvent[] = data.owning;
-  const eventsSubscribed: IEvent[] = data.subs;
+  const eventsOwning: Event[] = data.owning;
+  const eventsSubscribed: Event[] = data.subs;
 
   const router = useRouter();
 

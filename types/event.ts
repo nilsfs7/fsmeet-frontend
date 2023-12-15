@@ -1,20 +1,20 @@
-import { Moment } from 'moment';
 import { EventType } from './enums/event-type';
 import { EventRegistration } from './event-registration';
 import { EventCompetition } from './event-competition';
 import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodSepa } from './payment-method-sepa';
+import { Moment } from 'moment';
 
 export type Event = {
-  id: string | undefined;
+  id?: string;
   name: string;
   alias: string;
-  dateFrom: Moment;
-  // admin: string;
-  dateTo: Moment;
+  admin?: string;
+  dateFrom: string;
+  dateTo: string;
+  registrationOpen: string;
+  registrationDeadline: string;
   participationFee: number;
-  registrationOpen: Moment;
-  registrationDeadline: Moment;
   description: string;
   venueHouseNo: string;
   venueStreet: string;

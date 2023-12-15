@@ -5,6 +5,6 @@ export type EventComment = {
   id: string;
   message: string;
   user: User;
-  timestamp: number;
+  timestamp: string;
   subComments: EventSubComment[];
 };

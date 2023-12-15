@@ -10,8 +10,7 @@ import { Action } from '@/types/enums/action';
 import { routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
 import ErrorMessage from '@/components/ErrorMessage';
-import { PaymentMethodCash } from '@/types/payment-method-cash';
-import { PaymentMethodSepa } from '@/types/payment-method-sepa';
+import { getEvent } from '@/services/fsmeet-backend/get-event';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -26,49 +25,41 @@ const EventEditing = (props: any) => {
     router.push(routeLogin);
   }
 
-  const fetchEvent = async (id: string) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${session?.user?.accessToken}`,
-      },
-    });
-    return await response.json();
-  };
-
   const handleSaveClicked = async () => {
     setError('');
 
+    const body = JSON.stringify({
+      id: eventId,
+      name: event?.name.trim(),
+      alias: event?.alias,
+      description: event?.description.trim(),
+      dateFrom: event?.dateFrom,
+      dateTo: event?.dateTo,
+      registrationOpen: event?.registrationOpen,
+      registrationDeadline: event?.registrationDeadline,
+      venueHouseNo: event?.venueHouseNo.trim(),
+      venueStreet: event?.venueStreet.trim(),
+      venuePostCode: event?.venuePostCode.trim(),
+      venueCity: event?.venueCity.trim(),
+      venueCountry: event?.venueCountry.trim(),
+      participationFee: event?.participationFee,
+      type: event?.type,
+      livestreamUrl: event?.livestreamUrl,
+      paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
+      paymentMethodSepa: {
+        enabled: event?.paymentMethodSepa.enabled,
+        bank: event?.paymentMethodSepa.bank,
+        recipient: event?.paymentMethodSepa.recipient,
+        iban: event?.paymentMethodSepa.iban,
+        reference: event?.paymentMethodSepa.reference,
+      },
+      autoApproveRegistrations: event?.autoApproveRegistrations,
+      published: event?.published,
+    });
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'PATCH',
-      body: JSON.stringify({
-        id: eventId,
-        name: event?.name.trim(),
-        alias: event?.alias,
-        description: event?.description.trim(),
-        dateFrom: event?.dateFrom.unix(),
-        dateTo: event?.dateTo.unix(),
-        registrationOpen: event?.registrationOpen.unix(),
-        registrationDeadline: event?.registrationDeadline.unix(),
-        venueHouseNo: event?.venueHouseNo.trim(),
-        venueStreet: event?.venueStreet.trim(),
-        venuePostCode: event?.venuePostCode.trim(),
-        venueCity: event?.venueCity.trim(),
-        venueCountry: event?.venueCountry.trim(),
-        participationFee: event?.participationFee,
-        type: event?.type,
-        livestreamUrl: event?.livestreamUrl,
-        paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
-        paymentMethodSepa: {
-          enabled: event?.paymentMethodSepa.enabled,
-          bank: event?.paymentMethodSepa.bank,
-          recipient: event?.paymentMethodSepa.recipient,
-          iban: event?.paymentMethodSepa.iban,
-          reference: event?.paymentMethodSepa.reference,
-        },
-        autoApproveRegistrations: event?.autoApproveRegistrations,
-        published: event?.published,
-      }),
+      body: body,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${session.user.accessToken}`,
@@ -111,46 +102,8 @@ const EventEditing = (props: any) => {
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string') {
-      fetchEvent(eventId).then((res: Event) => {
-        const paymentMehodCash: PaymentMethodCash = { enabled: res.paymentMethodCash.enabled };
-        const paymentMehodSepa: PaymentMethodSepa = {
-          enabled: res.paymentMethodSepa.enabled,
-          bank: res.paymentMethodSepa.bank,
-          recipient: res.paymentMethodSepa.recipient,
-          iban: res.paymentMethodSepa.iban,
-          reference: res.paymentMethodSepa.reference,
-        };
-
-        const e: Event = {
-          id: res.id,
-          name: res.name,
-          alias: res.alias,
-          // @ts-ignore
-          dateFrom: moment.unix(res.dateFrom),
-          // @ts-ignore
-          dateTo: moment.unix(res.dateTo),
-          participationFee: res.participationFee,
-          // @ts-ignore
-          registrationOpen: moment.unix(res.registrationOpen),
-          // @ts-ignore
-          registrationDeadline: moment.unix(res.registrationDeadline),
-          description: res.description,
-          venueHouseNo: res.venueHouseNo,
-          venueStreet: res.venueStreet,
-          venueCity: res.venueCity,
-          venuePostCode: res.venuePostCode,
-          venueCountry: res.venueCountry,
-          type: res.type,
-          livestreamUrl: res.livestreamUrl,
-          paymentMethodCash: paymentMehodCash,
-          paymentMethodSepa: paymentMehodSepa,
-          autoApproveRegistrations: res.autoApproveRegistrations,
-          eventRegistrations: [],
-          eventCompetitions: [],
-          published: res.published,
-        };
-
-        setEvent(e);
+      getEvent(eventId, true, session).then((event: Event) => {
+        setEvent(event);
       });
     }
   }, []);
