@@ -36,7 +36,7 @@ const UserComment = ({ comment, onClickReply }: ICommentProps) => {
 
           <div className="mt-1 flex items-center text-xs">
             {/* timestamp */}
-            <div className="mx-1 ">{`${formatTs(moment(comment.timestamp), 'DD.MM HH:mm')}`}</div>
+            <div className="mx-1">{`${formatTs(moment(comment.timestamp), 'DD.MM HH:mm')}`}</div>
 
             {/* reply */}
             <button
