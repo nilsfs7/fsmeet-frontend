@@ -10,6 +10,7 @@ import { routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
 import ErrorMessage from '@/components/ErrorMessage';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -19,10 +20,6 @@ const EventEditing = (props: any) => {
 
   const [event, setEvent] = useState<Event>();
   const [error, setError] = useState('');
-
-  if (!session) {
-    router.push(routeLogin);
-  }
 
   const handleSaveClicked = async () => {
     setError('');
@@ -144,6 +141,15 @@ export default EventEditing;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {

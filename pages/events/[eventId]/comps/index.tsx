@@ -10,6 +10,7 @@ import { routeLogin } from '@/types/consts/routes';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const EventCompetitions = (props: any) => {
   const session = props.session;
@@ -18,10 +19,6 @@ const EventCompetitions = (props: any) => {
   const { eventId } = router.query;
 
   const [event, setEvent] = useState<Event>();
-
-  if (!session) {
-    router.push(routeLogin);
-  }
 
   useEffect(() => {
     if (eventId) {
@@ -126,6 +123,15 @@ export default EventCompetitions;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {

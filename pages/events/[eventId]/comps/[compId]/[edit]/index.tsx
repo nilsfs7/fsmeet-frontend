@@ -11,6 +11,7 @@ import { Event } from '@/types/event';
 import ErrorMessage from '@/components/ErrorMessage';
 import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -21,10 +22,6 @@ const CompetitionEditing = (props: any) => {
 
   const [comp, setComp] = useState<EventCompetition>();
   const [error, setError] = useState('');
-
-  if (!session) {
-    router.push(routeLogin);
-  }
 
   const handleSaveClicked = async () => {
     setError('');
@@ -145,6 +142,15 @@ export default CompetitionEditing;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {
