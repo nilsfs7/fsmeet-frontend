@@ -10,6 +10,7 @@ import Navigation from '@/components/Navigation';
 import TabbedCompetitionDetailsMenu from '@/components/comp/TabbedCompetitionDetailsMenu';
 import { User } from '@/types/user';
 import { useSearchParams } from 'next/navigation';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const Competition = (props: any) => {
   const session = props.session;
@@ -105,6 +106,15 @@ export default Competition;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {

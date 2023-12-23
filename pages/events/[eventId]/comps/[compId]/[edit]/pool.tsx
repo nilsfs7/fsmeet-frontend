@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { routeLogin } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ErrorMessage from '@/components/ErrorMessage';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -22,18 +23,10 @@ const CompetitionPool = (props: any) => {
   const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
   const [error, setError] = useState('');
 
-  const isLoggedIn = () => {
-    if (session) {
-      return true;
-    }
-
-    return false;
-  };
-
   const handleRemoveParticipantClicked = async (compId: string, username: string) => {
     setError('');
 
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -70,7 +63,7 @@ const CompetitionPool = (props: any) => {
   const handleAddParticipantClicked = async (compId: string, username: string) => {
     setError('');
 
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -200,6 +193,15 @@ export default CompetitionPool;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {

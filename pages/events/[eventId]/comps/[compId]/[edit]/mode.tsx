@@ -17,6 +17,7 @@ import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
 import { Moment } from 'moment';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -34,10 +35,6 @@ const ModeEditing = (props: any) => {
   const [gameModeApplied, setGameModeApplied] = useState<boolean>(false);
   const [rounds, setRounds] = useState<Round[]>([]);
   const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
-
-  if (!session) {
-    router.push(routeLogin);
-  }
 
   const fetchCompetitionParticipants = async (compId: string): Promise<number> => {
     const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
@@ -344,6 +341,15 @@ export default ModeEditing;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {

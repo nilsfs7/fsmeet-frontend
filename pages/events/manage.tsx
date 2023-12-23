@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const eventsOwning: Event[] = data.owning;
@@ -100,6 +101,15 @@ export default MyEventsOverview;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/manage?admin=${session?.user.username}`;
   const responseMyEvents = await fetch(urlMyEvents, {

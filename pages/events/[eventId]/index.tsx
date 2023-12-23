@@ -24,6 +24,7 @@ import CashInfo from '@/components/payment/cash-info';
 import { useSearchParams } from 'next/navigation';
 import { Event } from '@/types/event';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -38,17 +39,9 @@ const Event = (props: any) => {
   const [eventComments, setEventComments] = useState<EventComment[]>();
   const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
 
-  const isLoggedIn = () => {
-    if (session) {
-      return true;
-    }
-
-    return false;
-  };
-
   const isRegistered = () => {
-    if (isLoggedIn() && event) {
-      if (event.eventRegistrations.some(user => user.username === session.user.username)) {
+    if (!validateSession(session)) {
+      if (event && event.eventRegistrations.some(user => user.username === session.user.username)) {
         return true;
       }
     }
@@ -57,7 +50,7 @@ const Event = (props: any) => {
   };
 
   const handleRegisterClicked = async () => {
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -70,7 +63,7 @@ const Event = (props: any) => {
   };
 
   const handleConfirmRegisterClicked = async () => {
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -99,7 +92,7 @@ const Event = (props: any) => {
   };
 
   const handleUnregisterClicked = async () => {
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -116,7 +109,7 @@ const Event = (props: any) => {
   };
 
   const handleConfirmUnregisterClicked = async () => {
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -145,7 +138,7 @@ const Event = (props: any) => {
   };
 
   const handlePostCommentClicked = async (message: string) => {
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -169,7 +162,7 @@ const Event = (props: any) => {
   };
 
   const handlePostSubCommentClicked = async (commentId: string, message: string) => {
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -303,7 +296,7 @@ const Event = (props: any) => {
             <div className="flex justify-between rounded-lg border border-primary bg-warning p-2">
               <div className="mr-8 flex items-center">Admin Panel</div>
               <div className="flex">
-                {event.type === EventType.COMPETITION && (
+                {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
                   <div className="ml-1">
                     <Link href={`/events/${eventId}/comps`}>
                       <ActionButton action={Action.MANAGE_COMPETITIONS} />
@@ -412,6 +405,15 @@ export default Event;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {

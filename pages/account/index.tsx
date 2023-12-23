@@ -15,6 +15,7 @@ import ErrorMessage from '@/components/ErrorMessage';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import ComboBox from '@/components/common/ComboBox';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -250,6 +251,16 @@ export default Account;
 
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
+
   return {
     props: {
       session,

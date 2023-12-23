@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -23,14 +24,6 @@ const EventParticipants = (props: any) => {
 
   const [userToRemove, setUserToRemove] = useState('');
 
-  const isLoggedIn = () => {
-    if (session) {
-      return true;
-    }
-
-    return false;
-  };
-
   const handleRemoveParticipantClicked = async (username: string) => {
     setUserToRemove(username);
     router.replace(`${routeEvents}/${eventId}/participants?delete=1`, undefined, { shallow: true });
@@ -41,7 +34,7 @@ const EventParticipants = (props: any) => {
   };
 
   const handleConfirmRemoveParticipantClicked = async (username: string) => {
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -67,7 +60,7 @@ const EventParticipants = (props: any) => {
   };
 
   const handleApproveParticipantClicked = async (username: string, status: EventRegistrationStatus) => {
-    if (!isLoggedIn()) {
+    if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
@@ -199,6 +192,15 @@ export default EventParticipants;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {

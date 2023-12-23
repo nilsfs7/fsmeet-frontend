@@ -9,6 +9,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { routeAccount } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { ButtonStyle } from '@/types/enums/button-style';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -107,6 +108,16 @@ export default AccountImage;
 
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
+
   return {
     props: {
       session,

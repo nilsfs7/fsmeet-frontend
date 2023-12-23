@@ -7,6 +7,7 @@ import { routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { EventCompetition } from '@/types/event-competition';
 import ErrorMessage from '@/components/ErrorMessage';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const CompetitionCreation = (props: any) => {
   const session = props.session;
@@ -16,10 +17,6 @@ const CompetitionCreation = (props: any) => {
 
   const [comp, setComp] = useState<EventCompetition>();
   const [error, setError] = useState('');
-
-  if (!session) {
-    router.push(routeLogin);
-  }
 
   const handleCreateClicked = async () => {
     setError('');
@@ -75,6 +72,15 @@ export default CompetitionCreation;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {

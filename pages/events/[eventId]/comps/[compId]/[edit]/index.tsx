@@ -11,6 +11,7 @@ import { Event } from '@/types/event';
 import ErrorMessage from '@/components/ErrorMessage';
 import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -21,10 +22,6 @@ const CompetitionEditing = (props: any) => {
 
   const [comp, setComp] = useState<EventCompetition>();
   const [error, setError] = useState('');
-
-  if (!session) {
-    router.push(routeLogin);
-  }
 
   const handleSaveClicked = async () => {
     setError('');
@@ -81,7 +78,7 @@ const CompetitionEditing = (props: any) => {
     });
 
     if (response.status == 200) {
-      console.info(`${compId} removed`);
+      console.info(`competition ${compId} removed`);
       router.push(`${routeEvents}/${eventId}/comps`);
     } else {
       const error = await response.json();
@@ -145,6 +142,15 @@ export default CompetitionEditing;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {

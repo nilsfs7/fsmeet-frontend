@@ -1,12 +1,34 @@
 # fsmeet-frontend
 
-## Prerequisites
+## Getting started for development
+
+### Prerequisites
 
 [yarn](https://yarnpkg.com/)
 
+### Run app
+
+Create environment
+
+```bash
+cp .env.example .env
+```
+
+Install dependencies
+
+```bash
+yarn install
+```
+
+Start app
+
+```bash
+yarn dev
+```
+
 ## Run in Docker
 
-pull image
+Pull image
 
 ```
 docker pull luisnaldo7/fsmeet-frontend:latest
@@ -18,13 +40,13 @@ or build image
 docker build --build-arg COMMIT_SHA=456 -t luisnaldo7/fsmeet-frontend:latest .
 ```
 
-execute container
+Execute container
 
 ```
 docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --rm --name fsmeet-frontend luisnaldo7/fsmeet-frontend:latest
 ```
 
-execute container on boot
+or execute container on boot
 
 ```
 docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --restart always --name fsmeet-frontend luisnaldo7/fsmeet-frontend:latest
@@ -32,19 +54,19 @@ docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --
 
 ## Component Library
 
-[shadcn](https://ui.shadcn.com/docs/components/tabs)
+- [shadcn](https://ui.shadcn.com/docs/components/tabs)
 
-## Fonts
+## Content
 
-[fonts.google.com](https://fonts.google.com/)
+### Fonts
 
-## Images
+- [fonts.google.com](https://fonts.google.com/)
 
-Icons
+### Icons
 
-[iconfinder.com](https://www.iconfinder.com/)
+- [iconfinder.com](https://www.iconfinder.com/)
 
-### Used Images
+### Images
 
 Profile
 
@@ -76,4 +98,6 @@ Event
 
 - [Meeting](https://www.iconfinder.com/icons/7055165/meeting_consultation_partnership_communication_brainstorm_icon)
 
-[About](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)
+About
+
+- [About](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)

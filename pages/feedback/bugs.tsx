@@ -10,6 +10,7 @@ import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const ReportBug: NextPage = (props: any) => {
   const session = props.session;
@@ -76,6 +77,15 @@ export default ReportBug;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
+  }
 
   return {
     props: {
