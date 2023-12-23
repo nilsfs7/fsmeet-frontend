@@ -78,7 +78,7 @@ const CompetitionEditing = (props: any) => {
     });
 
     if (response.status == 200) {
-      console.info(`${compId} removed`);
+      console.info(`competition ${compId} removed`);
       router.push(`${routeEvents}/${eventId}/comps`);
     } else {
       const error = await response.json();

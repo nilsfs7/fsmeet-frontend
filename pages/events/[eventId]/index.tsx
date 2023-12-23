@@ -296,7 +296,7 @@ const Event = (props: any) => {
             <div className="flex justify-between rounded-lg border border-primary bg-warning p-2">
               <div className="mr-8 flex items-center">Admin Panel</div>
               <div className="flex">
-                {event.type === EventType.COMPETITION && (
+                {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
                   <div className="ml-1">
                     <Link href={`/events/${eventId}/comps`}>
                       <ActionButton action={Action.MANAGE_COMPETITIONS} />

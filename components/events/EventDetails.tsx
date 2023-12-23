@@ -8,6 +8,7 @@ import Separator from '../Seperator';
 import TextButton from '../common/TextButton';
 import { Event } from '@/types/event';
 import moment from 'moment';
+import { EventType } from '@/types/enums/event-type';
 
 interface IEventProps {
   event: Event;
@@ -35,7 +36,7 @@ const EventDetails = ({ event }: IEventProps) => {
           )}
         </div>
 
-        <div className="col-span-2">{event.venueCity}</div>
+        <div className="col-span-2">{event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}</div>
       </div>
 
       <Separator />
@@ -86,7 +87,7 @@ const EventDetails = ({ event }: IEventProps) => {
       )}
 
       {/* address */}
-      {event.venueCity && (
+      {event.type !== EventType.COMPETITION_ONLINE && event.venueCity && (
         <>
           <Separator />
 
