@@ -3,6 +3,7 @@ import { getShortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';
 import { Event } from '@/types/event';
 import moment from 'moment';
+import { EventType } from '@/types/enums/event-type';
 
 interface IEventProps {
   event: Event;
@@ -17,7 +18,7 @@ const EventCard = ({ event }: IEventProps) => {
           <div className="w-full text-base font-bold">{`${!event.published ? '[NOT LISTED] ' : ''}${event.name}`}</div>
         </div>
         <div className="flex justify-between">
-          <div className="w-1/3 ">{event.venueCity}</div>
+          <div className="w-1/3 ">{event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}</div>
           {event.dateFrom && event.dateTo && (
             <div className="w-2/3 text-right">
               {event.dateFrom.toLocaleString() === event.dateTo.toLocaleString()
@@ -38,7 +39,7 @@ const EventCard = ({ event }: IEventProps) => {
       <div className="flex h-20 p-2">
         <p className="h-full w-2/3 overflow-hidden text-ellipsis">{event.description}</p>
         <div className="flex h-full w-1/3 items-center justify-end">
-          <img className="h-full" src={event.type === 'comp' ? imgCompetition : imgMeeting} alt={'event image'}></img>
+          <img className="h-full" src={event.type === 'meet' ? imgMeeting : imgCompetition} alt={'event image'}></img>
         </div>
       </div>
     </div>

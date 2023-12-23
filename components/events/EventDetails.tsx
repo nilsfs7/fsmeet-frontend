@@ -23,7 +23,7 @@ const EventDetails = ({ event }: IEventProps) => {
       <div className={'grid grid-cols-3 justify-end object-right p-2'}>
         <div className="col-span-2 text-base font-bold">{event.name}</div>
         <div className="row-span-3 flex h-20 justify-end">
-          <img className="h-full" src={event.type === 'comp' ? imgCompetition : imgMeeting} alt={'event image'} />
+          <img className="h-full" src={event.type === 'meet' ? imgMeeting : imgCompetition} alt={'event image'} />
         </div>
 
         <div className="col-span-2">
