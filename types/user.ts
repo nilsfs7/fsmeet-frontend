@@ -6,4 +6,8 @@ export type User = {
   country?: string;
   instagramHandle?: string;
   youTubeHandle?: string;
+  city?: string;
+  exposeLocation?: string;
+  locLatitude?: number;
+  locLongitude?: number;
 };
