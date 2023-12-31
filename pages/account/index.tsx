@@ -16,6 +16,7 @@ import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import ComboBox from '@/components/common/ComboBox';
 import { validateSession } from '@/types/funcs/validate-session';
+import CheckBox from '@/components/common/CheckBox';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -31,22 +32,28 @@ const Account = ({ session }: any) => {
 
   // private user info
   const [tShirtSize, setTShirtSize] = useState();
+  const [city, setCity] = useState('');
+  const [exposeLocation, setExposeLocation] = useState(false);
 
   const handleSaveUserInfoClicked = async () => {
     setError('');
 
+    const body = JSON.stringify({
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      country: country,
+      instagramHandle: instagramHandle,
+      youTubeHandle: youTubeHandle,
+      private: {
+        tShirtSize: tShirtSize,
+        city: city,
+        exposeLocation: exposeLocation,
+      },
+    });
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'PATCH',
-      body: JSON.stringify({
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        country: country,
-        instagramHandle: instagramHandle,
-        youTubeHandle: youTubeHandle,
-        private: {
-          tShirtSize: tShirtSize,
-        },
-      }),
+      body: body,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${session.user.accessToken}`,
@@ -130,6 +137,12 @@ const Account = ({ session }: any) => {
       if (user.private?.tShirtSize) {
         setTShirtSize(user.private.tShirtSize);
       }
+      if (user.private?.city) {
+        setCity(user.private.city);
+      }
+      if (user.private?.exposeLocation) {
+        setExposeLocation(user.private.exposeLocation);
+      }
     }
     fetchUser();
   }, []);
@@ -167,6 +180,7 @@ const Account = ({ session }: any) => {
                 setFirstName(e.currentTarget.value);
               }}
             />
+
             <TextInput
               id={'lastName'}
               label={'Last Name'}
@@ -176,6 +190,7 @@ const Account = ({ session }: any) => {
                 setLastName(e.currentTarget.value);
               }}
             />
+
             <div className="m-2 grid grid-cols-2">
               <div className="p-2">Country</div>
               <div className="flex w-full">
@@ -189,6 +204,7 @@ const Account = ({ session }: any) => {
                 />
               </div>
             </div>
+
             <TextInput
               id={'instagramHandle'}
               label={'Instagram Handle'}
@@ -198,6 +214,7 @@ const Account = ({ session }: any) => {
                 setInstagramHandle(e.currentTarget.value);
               }}
             />
+
             <TextInput
               id={'youTubeHandle'}
               label={'YouTube Handle'}
@@ -223,6 +240,25 @@ const Account = ({ session }: any) => {
                 />
               </div>
             </div>
+
+            <TextInput
+              id={'city'}
+              label={'City'}
+              placeholder="Munich"
+              value={city}
+              onChange={e => {
+                setCity(e.currentTarget.value);
+              }}
+            />
+
+            <CheckBox
+              id={'exposeLocation'}
+              label="Publish city on Freestyler's Map"
+              value={exposeLocation}
+              onChange={() => {
+                setExposeLocation(!exposeLocation);
+              }}
+            />
           </div>
         </div>
 

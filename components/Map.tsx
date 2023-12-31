@@ -42,4 +42,5 @@ const Map = ({ address }: IMapsProps) => {
   }, [address]);
   return <div id="map" className="h-full w-full rounded-lg" ref={mapRef} />;
 };
+
 export default Map;

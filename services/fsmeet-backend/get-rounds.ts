@@ -1,6 +1,4 @@
-import moment from 'moment';
 import { Round } from '@/types/round';
-import { Match } from '@/types/match';
 
 export async function getRounds(compId: string): Promise<Round[]> {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`);
