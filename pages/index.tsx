@@ -32,8 +32,8 @@ const Home = ({ data }: { data: any }) => {
         <>
           <h1 className="mt-2 text-center text-xl">Upcoming</h1>
           <div className="overflow-hidden">
-            <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
-              <div className="mx-2 ">
+            <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
+              <div className="w-full">
                 {upcomingEvents.map((item: any, i: number) => {
                   return (
                     <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
@@ -54,8 +54,8 @@ const Home = ({ data }: { data: any }) => {
         <>
           <h1 className="mt-2 text-center text-xl">Recent</h1>
           <div className="overflow-hidden">
-            <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
-              <div className="mx-2 ">
+            <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
+              <div className="w-full">
                 {recentEvents.map((item: any, i: number) => {
                   return (
                     <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>

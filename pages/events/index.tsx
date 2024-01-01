@@ -67,8 +67,8 @@ const EventsOverview = ({ session }: { session: any }) => {
       </div>
 
       {/* Events */}
-      <div className="mt-2 flex max-h-full justify-center overflow-y-auto">
-        <div className="mx-2">
+      <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
+        <div className="w-full">
           {events.map((item: any, i: number) => {
             return (
               <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
