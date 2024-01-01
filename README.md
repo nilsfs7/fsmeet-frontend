@@ -98,6 +98,10 @@ Event
 
 - [Meeting](https://www.iconfinder.com/icons/7055165/meeting_consultation_partnership_communication_brainstorm_icon)
 
+Map
+
+- [Freestyler (purchased)](https://www.iconfinder.com/icons/8176401/sport_freestyle_football_soccer_trick_juggling_juggle_icon?coming-from=related-results)
+
 About
 
 - [About](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)

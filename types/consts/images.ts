@@ -15,3 +15,5 @@ export const imgProfileEvents = '/profile/events.svg';
 export const imgProfileSettings = '/profile/settings.svg';
 export const imgProfileFeedback = '/profile/feedback.svg';
 export const imgProfileLogout = '/profile/logout.svg';
+
+export const imgFreestyler = '/map/freestyler.svg';
