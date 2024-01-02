@@ -84,7 +84,7 @@ const Home = ({ data }: { data: any }) => {
             <div className="rounded-lg p-1">
               <div className="grid grid-flow-col items-center">
                 <img src={imgWorld} className="mx-1 h-8 w-8 rounded-full object-cover" />
-                <div className="mx-1">{`Freestyler's Map`}</div>
+                <div className="mx-1">{`Freestyler Map`}</div>
               </div>
             </div>
           </Link>
@@ -143,7 +143,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
 <div className="m-2 flex flex-shrink-0 justify-center">
 <Link href={routeMap}>
-  <TextAndImageButton text="Freestyler's Map" image={imgWorld} />
+  <TextAndImageButton text="Freestyler Map" image={imgWorld} />
 </Link>
 </div> */
 }
