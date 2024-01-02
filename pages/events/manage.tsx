@@ -47,8 +47,8 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
           {eventsOwning.length > 0 && (
             <>
               <h1 className="mt-2 text-center text-xl">My Events</h1>
-              <div className="mt-2 flex justify-center">
-                <div className="mx-2">
+              <div className="mt-2 flex justify-center overflow-y-auto px-2">
+                <div className="w-full">
                   {eventsOwning.map((item: any, i: number) => {
                     return (
                       <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
@@ -66,8 +66,8 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
           {eventsSubscribed.length > 0 && (
             <>
               <h1 className="mt-2 text-center text-xl">Event Subscriptions</h1>
-              <div className="mt-2 flex justify-center">
-                <div className="mx-2">
+              <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
+                <div className="w-full">
                   {eventsSubscribed.map((item: any, i: number) => {
                     return (
                       <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>

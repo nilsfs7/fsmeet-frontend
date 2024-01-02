@@ -40,7 +40,7 @@ const Event = (props: any) => {
   const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
 
   const isRegistered = () => {
-    if (!validateSession(session)) {
+    if (validateSession(session)) {
       if (event && event.eventRegistrations.some(user => user.username === session.user.username)) {
         return true;
       }
