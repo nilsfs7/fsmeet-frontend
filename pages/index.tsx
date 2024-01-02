@@ -3,8 +3,8 @@ import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/Profile';
-import { imgAbout } from '@/types/consts/images';
-import { routeAbout, routeEvents } from '@/types/consts/routes';
+import { imgAbout, imgWorld } from '@/types/consts/images';
+import { routeAbout, routeEvents, routeMap } from '@/types/consts/routes';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -78,7 +78,18 @@ const Home = ({ data }: { data: any }) => {
         </Link>
       </div>
 
-      <Navigation reverse={true}>
+      <Navigation>
+        <div className="mx-2">
+          <Link href={routeMap}>
+            <div className="rounded-lg p-1">
+              <div className="grid grid-flow-col items-center">
+                <img src={imgWorld} className="mx-1 h-8 w-8 rounded-full object-cover" />
+                <div className="mx-1">{`Freestyler's Map`}</div>
+              </div>
+            </div>
+          </Link>
+        </div>
+
         <div className="mx-2">
           <Link href={routeAbout}>
             <div className="rounded-lg p-1">
@@ -122,3 +133,17 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     },
   };
 };
+
+{
+  /* <div className="m-2 flex flex-shrink-0 justify-center">
+<Link href={routeEvents}>
+  <TextAndImageButton text="Events" image={imgCompetition} />
+</Link>
+</div>
+
+<div className="m-2 flex flex-shrink-0 justify-center">
+<Link href={routeMap}>
+  <TextAndImageButton text="Freestyler's Map" image={imgWorld} />
+</Link>
+</div> */
+}

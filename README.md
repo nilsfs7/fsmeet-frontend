@@ -102,6 +102,8 @@ Map
 
 - [Freestyler (purchased)](https://www.iconfinder.com/icons/8176401/sport_freestyle_football_soccer_trick_juggling_juggle_icon?coming-from=related-results)
 
+- [World](https://www.iconfinder.com/icons/7030157/navigation_map_gps_ui_basic_location_app_icon)
+
 About
 
 - [About](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)

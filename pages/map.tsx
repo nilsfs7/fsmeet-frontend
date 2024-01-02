@@ -1,16 +1,59 @@
+import { Logo } from '@/components/Logo';
 import MapOfFreestylers from '@/components/MapOfFreestylers';
+import Navigation from '@/components/Navigation';
+import ActionButton from '@/components/common/ActionButton';
 import { getUsers } from '@/services/fsmeet-backend/get-users';
+import { routeHome } from '@/types/consts/routes';
+import { Action } from '@/types/enums/action';
 import { User } from '@/types/user';
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 
 const FreestylersMap = ({ data }: { data: any }) => {
   const users: User[] = data;
 
+  const unsecuredCopyToClipboard = (text: string) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      console.error('Unable to copy to clipboard', err);
+    }
+    document.body.removeChild(textArea);
+  };
+
+  const handleShareClicked = async () => {
+    if (window.isSecureContext && navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.toString());
+    } else {
+      unsecuredCopyToClipboard(window.location.toString());
+    }
+  };
+
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="bg-secondary-light sm:block">
+        <div className="mx-2 flex h-20 items-center justify-between">
+          <Logo />
+        </div>
+      </div>
+
       <div className="h-full">
         <MapOfFreestylers address={'Europe'} zoom={4} users={users} />
       </div>
+
+      <Navigation>
+        <Link href={routeHome}>
+          <ActionButton action={Action.BACK} />
+        </Link>
+
+        <ActionButton action={Action.COPY} onClick={handleShareClicked} />
+      </Navigation>
     </div>
   );
 };
