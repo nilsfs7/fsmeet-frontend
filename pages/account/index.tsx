@@ -174,7 +174,7 @@ const Account = ({ session }: any) => {
             <TextInput
               id={'firstName'}
               label={'First Name'}
-              placeholder="Kevin"
+              placeholder=""
               value={firstName}
               onChange={e => {
                 setFirstName(e.currentTarget.value);
@@ -184,7 +184,7 @@ const Account = ({ session }: any) => {
             <TextInput
               id={'lastName'}
               label={'Last Name'}
-              placeholder="Kück"
+              placeholder=""
               value={lastName}
               onChange={e => {
                 setLastName(e.currentTarget.value);
@@ -208,7 +208,7 @@ const Account = ({ session }: any) => {
             <TextInput
               id={'instagramHandle'}
               label={'Instagram Handle'}
-              placeholder="@freestyler.kevin"
+              placeholder="@dffb_org"
               value={instagramHandle}
               onChange={e => {
                 setInstagramHandle(e.currentTarget.value);
@@ -218,7 +218,7 @@ const Account = ({ session }: any) => {
             <TextInput
               id={'youTubeHandle'}
               label={'YouTube Handle'}
-              placeholder="@freestyler.kevin"
+              placeholder="@dffb_org"
               value={youTubeHandle}
               onChange={e => {
                 setYouTubeHandle(e.currentTarget.value);
