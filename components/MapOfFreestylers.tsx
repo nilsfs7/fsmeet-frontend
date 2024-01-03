@@ -81,7 +81,7 @@ const MapOfFreestylers = ({ address = 'Europe', zoom = 6, users = [] }: IMapsPro
       });
     });
   }, [address]);
-  return <div id="map" className="h-full w-full rounded-lg" ref={mapRef} />;
+  return <div id="map" className="h-full w-full" ref={mapRef} />;
 };
 
 export default MapOfFreestylers;
