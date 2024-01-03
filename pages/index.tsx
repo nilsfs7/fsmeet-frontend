@@ -27,17 +27,26 @@ const Home = ({ data }: { data: any }) => {
         </div>
       </div>
 
-      <div className="flex flex-col p-6 justify-center">
-        <div className="text-center text-3xl ">Hosting events made easy</div>
+      <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
+        <div className="text-center text-3xl">Hosting events made easy</div>
         <img className="h-12 mt-2" src={imgFreestyler}></img>
       </div>
 
-      {/* Upcoming Events */}
-      {upcomingEvents.length > 0 && (
-        <>
-          <h1 className="mt-2 text-center text-2xl">Upcoming</h1>
-          <div className="overflow-hidden">
-            <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
+      <div className="flex max-h-full flex-col overflow-y-auto">
+        {/* Show all */}
+        <div className="m-2 mt-4 flex flex-shrink-0 justify-center">
+          <Link href={routeEvents}>
+            <TextButton text="Show Events" />
+          </Link>
+        </div>
+
+        {/* Upcoming Events */}
+        {upcomingEvents.length > 0 && (
+          <>
+            <h1 className="mt-2 text-center text-2xl">Upcoming</h1>
+            {/* <div className="overflow-hidden"> */}
+            {/* overflow-y-auto */}
+            <div className="mt-2 flex max-h-full justify-center px-2">
               <div className="w-full">
                 {upcomingEvents.map((item: any, i: number) => {
                   return (
@@ -50,16 +59,17 @@ const Home = ({ data }: { data: any }) => {
                 })}
               </div>
             </div>
-          </div>
-        </>
-      )}
+            {/* </div> */}
+          </>
+        )}
 
-      {/* Recent Events */}
-      {recentEvents.length > 0 && (
-        <>
-          <h1 className="mt-2 text-center text-2xl">Recent</h1>
-          <div className="overflow-hidden">
-            <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
+        {/* Recent Events */}
+        {recentEvents.length > 0 && (
+          <>
+            <h1 className="mt-2 text-center text-2xl">Recent</h1>
+            {/* <div className="overflow-hidden"> */}
+            {/* overflow-y-auto */}
+            <div className="mt-2 flex max-h-full justify-center  px-2">
               <div className="w-full">
                 {recentEvents.map((item: any, i: number) => {
                   return (
@@ -71,16 +81,10 @@ const Home = ({ data }: { data: any }) => {
                   );
                 })}
               </div>
+              {/* </div> */}
             </div>
-          </div>
-        </>
-      )}
-
-      {/* Show all */}
-      <div className="m-2 flex flex-shrink-0 justify-center">
-        <Link href={routeEvents}>
-          <TextButton text="Show All" />
-        </Link>
+          </>
+        )}
       </div>
 
       <Navigation>
