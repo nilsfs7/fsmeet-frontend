@@ -3,7 +3,7 @@ import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/Profile';
-import { imgAbout, imgWorld } from '@/types/consts/images';
+import { imgAbout, imgFreestyler, imgWorld } from '@/types/consts/images';
 import { routeAbout, routeEvents, routeMap } from '@/types/consts/routes';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
@@ -27,10 +27,15 @@ const Home = ({ data }: { data: any }) => {
         </div>
       </div>
 
+      <div className="flex flex-col p-6 justify-center">
+        <div className="text-center text-3xl ">Hosting events made easy</div>
+        <img className="h-12 mt-2" src={imgFreestyler}></img>
+      </div>
+
       {/* Upcoming Events */}
       {upcomingEvents.length > 0 && (
         <>
-          <h1 className="mt-2 text-center text-xl">Upcoming</h1>
+          <h1 className="mt-2 text-center text-2xl">Upcoming</h1>
           <div className="overflow-hidden">
             <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
               <div className="w-full">
@@ -52,7 +57,7 @@ const Home = ({ data }: { data: any }) => {
       {/* Recent Events */}
       {recentEvents.length > 0 && (
         <>
-          <h1 className="mt-2 text-center text-xl">Recent</h1>
+          <h1 className="mt-2 text-center text-2xl">Recent</h1>
           <div className="overflow-hidden">
             <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
               <div className="w-full">
