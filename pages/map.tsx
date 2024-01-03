@@ -2,15 +2,20 @@ import { Logo } from '@/components/Logo';
 import MapOfFreestylers from '@/components/MapOfFreestylers';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
+import TextButton from '@/components/common/TextButton';
+import { getUser } from '@/services/fsmeet-backend/get-user';
 import { getUsers } from '@/services/fsmeet-backend/get-users';
 import { routeHome } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
+import { validateSession } from '@/types/funcs/validate-session';
 import { User } from '@/types/user';
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 
-const FreestylersMap = ({ data }: { data: any }) => {
+const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) => {
   const users: User[] = data;
+  const user: User = actingUser;
 
   const unsecuredCopyToClipboard = (text: string) => {
     const textArea = document.createElement('textarea');
@@ -52,7 +57,19 @@ const FreestylersMap = ({ data }: { data: any }) => {
           <ActionButton action={Action.BACK} />
         </Link>
 
-        <ActionButton action={Action.COPY} onClick={handleShareClicked} />
+        <div className="flex justify-end">
+          <div className="ml-1">
+            <ActionButton action={Action.COPY} onClick={handleShareClicked} />
+          </div>
+
+          {user && !user.locLatitude && (
+            <div className="ml-1">
+              <Link href={`/account`}>
+                <TextButton text={'Add Your Pin'} />
+              </Link>
+            </div>
+          )}
+        </div>
       </Navigation>
     </div>
   );
@@ -61,6 +78,17 @@ const FreestylersMap = ({ data }: { data: any }) => {
 export default FreestylersMap;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getSession(context);
+
+  // if (!validateSession(session)) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: '/login',
+  //     },
+  //   };
+  // }
+
   let data: User[] = [];
   try {
     data = await getUsers();
@@ -68,9 +96,19 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     console.error('Error fetching users.');
   }
 
+  let actingUser = null;
+  if (session?.user.username) {
+    try {
+      actingUser = await getUser(session?.user.username);
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
+
   return {
     props: {
       data: data,
+      actingUser: actingUser,
     },
   };
 };
