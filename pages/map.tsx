@@ -62,7 +62,7 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
             <ActionButton action={Action.COPY} onClick={handleShareClicked} />
           </div>
 
-          {user && !user.locLatitude && (
+          {(!user || (user && !user.locLatitude)) && (
             <div className="ml-1">
               <Link href={`/account`}>
                 <TextButton text={'Add Your Pin'} />
