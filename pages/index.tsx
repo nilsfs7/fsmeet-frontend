@@ -27,14 +27,14 @@ const Home = ({ data }: { data: any }) => {
         </div>
       </div>
 
-      <div className="flex flex-col p-6 justify-center">
+      <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
         <div className="text-center text-3xl">Hosting events made easy</div>
         <img className="h-12 mt-2" src={imgFreestyler}></img>
       </div>
 
       <div className="flex max-h-full flex-col overflow-y-auto">
         {/* Show all */}
-        <div className="m-2 flex flex-shrink-0 justify-center">
+        <div className="m-2 mt-4 flex flex-shrink-0 justify-center">
           <Link href={routeEvents}>
             <TextButton text="Show Events" />
           </Link>
