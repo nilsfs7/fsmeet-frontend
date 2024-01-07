@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import router from 'next/router';
+// import router from 'next/router';
 import { User } from '@/types/user';
 import { imgFreestyler } from '@/types/consts/images';
 
@@ -57,20 +57,31 @@ const MapOfFreestylers = ({ address = 'Europe', zoom = 6, users = [] }: IMapsPro
                 icon,
               });
 
+              const content = `
+              <div style="line-height:1.35;overflow:hidden;white-space:nowrap;";>
+                <div>${user.firstName ? `${user.firstName} ${user.lastName} (${user.username})` : `${user.username}`}</div>
+                <div>  
+                  <a href=user/${user.username}>
+                    <u>Click for profile</u>
+                  </a>
+                </div>
+              </div>`;
+
               var infowindow = new google.maps.InfoWindow({
-                content: `<div style="line-height:1.35;overflow:hidden;white-space:nowrap";>${user.username}</div>`,
+                content: content,
               });
 
               marker.addListener('mouseover', () => {
-                infowindow.open(map, marker);
+                // infowindow.open(map, marker);
               });
 
               marker.addListener('mouseout', () => {
-                infowindow.close();
+                // infowindow.close();
               });
 
               marker.addListener('click', () => {
-                router.push(`user/${user.username}`);
+                // router.push(`user/${user.username}`);
+                infowindow.open(map, marker);
               });
             }
           });
