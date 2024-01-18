@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - dev
-      - aws
   pull_request:
     branches:
       - main
@@ -28,13 +27,6 @@ jobs:
               echo "set values for production image"
               
               echo "TAGS=luisnaldo7/fsmeet-frontend:latest,luisnaldo7/fsmeet-frontend:prod" >> "$GITHUB_ENV"
-              echo "AUTH_URL=https://fsmeet.dffb.org" >> "$GITHUB_ENV"
-              echo "BACKEND_URL=https://api.fsmeet.dffb.org" >> "$GITHUB_ENV"
-          fi
-          if [[ $GITHUB_REF == 'refs/heads/aws' ]]; then
-              echo "set values for aws image"
-              
-              echo "TAGS=luisnaldo7/fsmeet-frontend:aws" >> "$GITHUB_ENV"
               echo "AUTH_URL=https://fsmeet.com" >> "$GITHUB_ENV"
               echo "BACKEND_URL=https://api.fsmeet.dffb.org" >> "$GITHUB_ENV"
           fi
