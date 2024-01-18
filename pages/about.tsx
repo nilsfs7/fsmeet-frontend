@@ -1,20 +1,37 @@
+import { Logo } from '@/components/Logo';
+import Navigation from '@/components/Navigation';
+import ActionButton from '@/components/common/ActionButton';
+import { routeHome } from '@/types/consts/routes';
+import { Action } from '@/types/enums/action';
 import { NextPage } from 'next';
+import Link from 'next/link';
 
 const About: NextPage = () => {
   const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME;
   const shortSha = process.env.NEXT_PUBLIC_COMMIT_SHA && process.env.NEXT_PUBLIC_COMMIT_SHA?.length > 7 ? process.env.NEXT_PUBLIC_COMMIT_SHA?.substring(0, 7) : process.env.NEXT_PUBLIC_COMMIT_SHA;
 
   return (
-    <div className="mx-2 mt-10 flex flex-col items-center text-center">
-      <div>
-        FSMeet is a free tool to easily organize and manage freestyle football meetings and competitions. Its development process is still ongoing, but we are happy to have reached a feasible state to
-        run as a pilot for the German Championships 2023.
+    <div className="absolute inset-0 flex flex-col overflow-hidden">
+      {/* Banner */}
+      <div className="sm:block">
+        <div className="mx-2 flex h-20 items-center justify-between">
+          <Logo />
+        </div>
       </div>
-      <div>Stay tuned! ⚽</div>
 
-      {/* Version */}
-      <div className="mt-10">Build time: {buildTime}</div>
-      <div className="">Version SHA: {shortSha}</div>
+      <div className="mx-2 mt-2 flex flex-col items-center text-center">
+        <div>FSMeet is a free tool to easily organize and manage freestyle football meetings and competitions. Event creation will soon be available for everyone.</div>
+        <div>Stay tuned! ⚽</div>
+
+        <div className="mt-10">{`Build: ${shortSha}`}</div>
+        <div>{buildTime}</div>
+      </div>
+
+      <Navigation>
+        <Link href={routeHome}>
+          <ActionButton action={Action.BACK} />
+        </Link>
+      </Navigation>
     </div>
   );
 };
