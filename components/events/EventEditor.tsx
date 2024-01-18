@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import { DatePicker } from '@mui/x-date-pickers';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { Event } from '@/types/event';
 import { EventType } from '@/types/enums/event-type';
 import CheckBox from '../common/CheckBox';

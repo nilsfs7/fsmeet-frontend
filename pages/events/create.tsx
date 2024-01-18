@@ -7,16 +7,13 @@ import { useState } from 'react';
 import { Event } from '@/types/event';
 import { routeEventSubs, routeLogin } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const EventCreation = (props: any) => {
   const session = props.session;
 
   const [event, setEvent] = useState<Event>();
   const [error, setError] = useState('');
-
-  if (!session) {
-    router.push(routeLogin);
-  }
 
   const handleCreateClicked = async () => {
     setError('');
@@ -94,6 +91,15 @@ export default EventCreation;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
+
+  if (!validateSession(session)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: routeLogin,
+      },
+    };
+  }
 
   return {
     props: {
