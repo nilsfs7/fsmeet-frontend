@@ -219,6 +219,11 @@ const Event = (props: any) => {
       let event: Event;
       if (eventId) {
         if (needsAuthorization) {
+          if (!validateSession(session)) {
+            router.push(routeLogin);
+            return;
+          }
+
           event = await getEvent(eventId?.toString(), JSON.parse(needsAuthorization), session);
           setEvent(event);
         } else {
@@ -405,15 +410,6 @@ export default Event;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
-
-  if (!validateSession(session)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/login',
-      },
-    };
-  }
 
   return {
     props: {
