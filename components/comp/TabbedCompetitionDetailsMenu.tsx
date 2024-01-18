@@ -112,7 +112,9 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
       {/* Battle Grid */}
       {rounds.length > 1 && (
         <TabsContent value="grid">
-          <BattleGrid rounds={rounds} usersMap={usersMap} />
+          <div className="overflow-x-auto">
+            <BattleGrid rounds={rounds} usersMap={usersMap} />
+          </div>
         </TabsContent>
       )}
 
