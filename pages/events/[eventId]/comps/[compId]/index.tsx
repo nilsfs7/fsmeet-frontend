@@ -94,7 +94,7 @@ const Competition = (props: any) => {
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       <h1 className="mt-2 flex items-center justify-center text-xl">{comp?.name}</h1>
 
-      <div className="mt-2">
+      <div className="mt-2 overflow-y-auto">
         <TabbedCompetitionDetailsMenu competitionParticipants={competitionParticipants} description={comp?.description} rules={comp?.rules} />
       </div>
 
