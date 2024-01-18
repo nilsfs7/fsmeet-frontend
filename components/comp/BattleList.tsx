@@ -10,7 +10,7 @@ interface IBattleListProps {
 
 const BattleList = ({ rounds, usersMap }: IBattleListProps) => {
   return (
-    <div className={'mt-2 flex w-full flex-col justify-center'}>
+    <div className={'flex w-full flex-col justify-center'}>
       {rounds.map((round: Round, i: number) => {
         return (
           <div key={`rnd-${i}`} className="mx-1 flex justify-center">

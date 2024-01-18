@@ -95,23 +95,24 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
   }, [rounds]);
 
   return (
-    <Tabs defaultValue={`schedule`}>
-      <TabsList>
+    <Tabs defaultValue={`schedule`} className="flex flex-col h-full">
+      <TabsList className="mb-2">
         {rounds.length > 0 && <TabsTrigger value="schedule">Schedule</TabsTrigger>}
         {rounds.length > 1 && <TabsTrigger value="grid">Battle Grid</TabsTrigger>}
         {competitionParticipants.length > 0 && <TabsTrigger value="participants">Participants</TabsTrigger>}
         {(description || rules) && <TabsTrigger value="rules">Rules</TabsTrigger>}
       </TabsList>
+
       {/* Schedule */}
       {rounds.length > 0 && (
-        <TabsContent value="schedule">
+        <TabsContent value="schedule" className="overflow-hidden overflow-y-auto">
           <BattleList rounds={rounds} usersMap={usersMap} />
         </TabsContent>
       )}
 
       {/* Battle Grid */}
       {rounds.length > 1 && (
-        <TabsContent value="grid">
+        <TabsContent value="grid" className="overflow-hidden overflow-y-auto">
           <div className="overflow-x-auto">
             <BattleGrid rounds={rounds} usersMap={usersMap} />
           </div>
@@ -120,14 +121,14 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
 
       {/* Participants */}
       {competitionParticipants.length > 0 && (
-        <TabsContent value="participants">
+        <TabsContent value="participants" className="overflow-hidden overflow-y-auto">
           <ParticipantList participants={competitionParticipants} />
         </TabsContent>
       )}
 
       {/* Rules */}
       {(description || rules) && (
-        <TabsContent value="rules">
+        <TabsContent value="rules" className="overflow-hidden overflow-y-auto">
           <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
             {description && (
               <div>
