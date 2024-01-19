@@ -99,7 +99,17 @@ const Competition = (props: any) => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}`)} />
+        <ActionButton
+          action={Action.BACK}
+          onClick={() => {
+            let path = `/events/${eventId}`;
+            if (needsAuthorization) {
+              path = `${path}?auth=1`;
+            }
+
+            router.push(path);
+          }}
+        />
       </Navigation>
     </div>
   );
