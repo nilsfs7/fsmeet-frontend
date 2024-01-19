@@ -11,6 +11,7 @@ import TabbedCompetitionDetailsMenu from '@/components/comp/TabbedCompetitionDet
 import { User } from '@/types/user';
 import { useSearchParams } from 'next/navigation';
 import { validateSession } from '@/types/funcs/validate-session';
+import { routeLogin } from '@/types/consts/routes';
 
 const Competition = (props: any) => {
   const session = props.session;
@@ -31,6 +32,10 @@ const Competition = (props: any) => {
     if (!needsAuthorization) {
       response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
     } else {
+      if (!validateSession(session)) {
+        router.push(routeLogin);
+      }
+
       response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
         method: 'GET',
         headers: {
@@ -87,16 +92,24 @@ const Competition = (props: any) => {
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <div className="mx-2 flex max-h-full flex-col overflow-y-auto">
-        <h1 className="mt-2 flex items-center justify-center text-xl">{comp?.name}</h1>
+      <h1 className="my-2 flex items-center justify-center text-xl">{comp?.name}</h1>
 
-        <div className="mt-2">
-          <TabbedCompetitionDetailsMenu competitionParticipants={competitionParticipants} description={comp?.description} rules={comp?.rules} />
-        </div>
+      <div className="mx-2 overflow-hidden">
+        <TabbedCompetitionDetailsMenu competitionParticipants={competitionParticipants} description={comp?.description} rules={comp?.rules} />
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}`)} />
+        <ActionButton
+          action={Action.BACK}
+          onClick={() => {
+            let path = `/events/${eventId}`;
+            if (needsAuthorization) {
+              path = `${path}?auth=1`;
+            }
+
+            router.push(path);
+          }}
+        />
       </Navigation>
     </div>
   );
@@ -106,15 +119,6 @@ export default Competition;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
-
-  if (!validateSession(session)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/login',
-      },
-    };
-  }
 
   return {
     props: {
