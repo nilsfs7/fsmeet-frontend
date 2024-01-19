@@ -25,6 +25,7 @@ import { useSearchParams } from 'next/navigation';
 import { Event } from '@/types/event';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -296,7 +297,7 @@ const Event = (props: any) => {
 
       <div className="absolute inset-0 flex flex-col overflow-hidden">
         {/* admin panel */}
-        <div className="mx-2 mt-2">
+        <div className="mx-2 my-2">
           {event.admin === session?.user?.username && (
             <div className="flex justify-between rounded-lg border border-primary bg-warning p-2">
               <div className="mr-8 flex items-center">Admin Panel</div>
@@ -324,52 +325,58 @@ const Event = (props: any) => {
           )}
         </div>
 
-        <div className="mx-2 mt-2 flex max-h-full flex-col overflow-y-auto">
-          {/* event overview */}
-          <div className="">
-            <EventDetails event={event} />
-          </div>
+        <div className="mx-2 overflow-hidden">
+          <Tabs defaultValue={`overview`} className="flex flex-col h-full">
+            <TabsList className="mb-2">
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              {event.eventCompetitions.length > 0 && <TabsTrigger value="competitions">Competitions</TabsTrigger>}
+              {approvedAndPendingRegistrations.length > 1 && <TabsTrigger value="registrations">Registrations</TabsTrigger>}
+            </TabsList>
 
-          {/* competitions */}
-          {event.id && event.eventCompetitions.length > 0 && (
-            <div className="mt-2">
-              <CompetitionList competitions={event.eventCompetitions} eventId={event.id} auth={needsAuthorization ? true : false} />
-            </div>
-          )}
+            {/* Details */}
+            <TabsContent value="overview" className="overflow-hidden overflow-y-auto">
+              <EventDetails event={event} />
 
-          {/* participants */}
-          {approvedAndPendingRegistrations.length > 0 && (
-            <div className="mt-2">
-              <ParticipantList
-                participants={approvedAndPendingRegistrations.map(registration => {
-                  const user: User = {
-                    username: registration.username,
-                    imageUrl: registration.imageUrl,
-                  };
+              <div className="mt-2">
+                <CommentSection
+                  username={session?.user.username}
+                  userProfileImageUrl={session?.user.imageUrl}
+                  eventComments={eventComments || []}
+                  onPostComment={(message: string) => {
+                    handlePostCommentClicked(message);
+                  }}
+                  onPostReply={(commentId: string, message: string) => {
+                    handlePostSubCommentClicked(commentId, message);
+                  }}
+                />
+              </div>
+            </TabsContent>
 
-                  return user;
-                })}
-                registrationStatus={approvedAndPendingRegistrations.map(registration => {
-                  return registration.status;
-                })}
-              />
-            </div>
-          )}
+            {event.id && event.eventCompetitions.length > 0 && (
+              <TabsContent value="competitions" className="overflow-hidden overflow-y-auto">
+                <CompetitionList competitions={event.eventCompetitions} eventId={event.id} auth={needsAuthorization ? true : false} />
+              </TabsContent>
+            )}
 
-          {/* comments */}
-          <div className="mt-2">
-            <CommentSection
-              username={session?.user.username}
-              userProfileImageUrl={session?.user.imageUrl}
-              eventComments={eventComments || []}
-              onPostComment={(message: string) => {
-                handlePostCommentClicked(message);
-              }}
-              onPostReply={(commentId: string, message: string) => {
-                handlePostSubCommentClicked(commentId, message);
-              }}
-            />
-          </div>
+            {/* Registrations */}
+            {approvedAndPendingRegistrations.length > 1 && (
+              <TabsContent value="registrations" className="overflow-hidden overflow-y-auto">
+                <ParticipantList
+                  participants={approvedAndPendingRegistrations.map(registration => {
+                    const user: User = {
+                      username: registration.username,
+                      imageUrl: registration.imageUrl,
+                    };
+
+                    return user;
+                  })}
+                  registrationStatus={approvedAndPendingRegistrations.map(registration => {
+                    return registration.status;
+                  })}
+                />
+              </TabsContent>
+            )}
+          </Tabs>
         </div>
 
         <Navigation>
