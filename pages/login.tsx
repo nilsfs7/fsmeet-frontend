@@ -7,11 +7,16 @@ import router from 'next/router';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import ErrorMessage from '@/components/ErrorMessage';
+import { useSearchParams } from 'next/navigation';
+import { routeHome } from '@/types/consts/routes';
 
 const Login: NextPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get('redir');
 
   const handleInputChangeUsername = (event: any) => {
     const uname: string = event.target.value;
@@ -44,7 +49,11 @@ const Login: NextPage = () => {
             localStorage.setItem('imageUrl', session.user.imageUrl);
           }
 
-          router.replace('/');
+          if (redirectUrl) {
+            router.replace(redirectUrl);
+          } else {
+            router.replace(routeHome);
+          }
         } else {
           console.error('unknown error');
         }

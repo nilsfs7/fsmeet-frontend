@@ -4,7 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
 import { getSession } from 'next-auth/react';
-import { routeFeedback, routeFeedbackThankyou } from '@/types/consts/routes';
+import { routeFeedback, routeFeedbackThankyou, routeLogin } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
@@ -82,7 +82,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     return {
       redirect: {
         permanent: false,
-        destination: '/login',
+        destination: routeLogin,
       },
     };
   }

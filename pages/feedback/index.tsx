@@ -3,7 +3,7 @@ import TextAndImageButton from '@/components/common/TextAndImageButton';
 import Link from 'next/link';
 import { imgBug, imgFeature, imgFeedback } from '@/types/consts/images';
 import Navigation from '@/components/Navigation';
-import { routeHome } from '@/types/consts/routes';
+import { routeHome, routeLogin } from '@/types/consts/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { getSession } from 'next-auth/react';
@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     return {
       redirect: {
         permanent: false,
-        destination: '/login',
+        destination: routeLogin,
       },
     };
   }
