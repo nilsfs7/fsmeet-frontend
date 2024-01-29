@@ -5,7 +5,7 @@ import { Event } from '@/types/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
-import { routeEventSubs, routeEventsCreate, routeHome } from '@/types/consts/routes';
+import { routeEventSubs, routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
 import { Logo } from '@/components/Logo';
 import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
@@ -106,7 +106,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     return {
       redirect: {
         permanent: false,
-        destination: '/login',
+        destination: routeLogin,
       },
     };
   }

@@ -6,7 +6,7 @@ import router from 'next/router';
 import { imgUserNoImg } from '@/types/consts/images';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
-import { routeAccount } from '@/types/consts/routes';
+import { routeAccount, routeLogin } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { ButtonStyle } from '@/types/enums/button-style';
 import { validateSession } from '@/types/funcs/validate-session';
@@ -113,7 +113,7 @@ export async function getServerSideProps(context: any) {
     return {
       redirect: {
         permanent: false,
-        destination: '/login',
+        destination: routeLogin,
       },
     };
   }
