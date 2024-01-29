@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
-import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome } from '@/types/consts/routes';
+import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin } from '@/types/consts/routes';
 import { imgUserNoImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
@@ -292,7 +292,7 @@ export async function getServerSideProps(context: any) {
     return {
       redirect: {
         permanent: false,
-        destination: '/login',
+        destination: `${routeLogin}?redir=${routeAccount}`,
       },
     };
   }
