@@ -9,6 +9,8 @@ import BattleGrid from './BattleGrid';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
+import { switchTab } from '@/types/funcs/switch-tab';
+import { useSearchParams } from 'next/navigation';
 
 interface ITabbedCompetitionDetailsMenuProps {
   competitionParticipants: User[];
@@ -19,6 +21,9 @@ interface ITabbedCompetitionDetailsMenuProps {
 const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], description, rules }: ITabbedCompetitionDetailsMenuProps) => {
   const router = useRouter();
   const { compId } = router.query;
+
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
 
   const [rounds, setRounds] = useState<Round[]>([]);
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
@@ -95,12 +100,48 @@ const TabbedCompetitionDetailsMenu = ({ competitionParticipants = [], descriptio
   }, [rounds]);
 
   return (
-    <Tabs defaultValue={`schedule`} className="flex flex-col h-full">
+    <Tabs defaultValue={tab || `schedule`} className="flex flex-col h-full">
       <TabsList className="mb-2">
-        {rounds.length > 0 && <TabsTrigger value="schedule">Schedule</TabsTrigger>}
-        {rounds.length > 1 && <TabsTrigger value="grid">Battle Grid</TabsTrigger>}
-        {competitionParticipants.length > 0 && <TabsTrigger value="participants">Participants</TabsTrigger>}
-        {(description || rules) && <TabsTrigger value="rules">Rules</TabsTrigger>}
+        {rounds.length > 0 && (
+          <TabsTrigger
+            value="schedule"
+            onClick={() => {
+              switchTab(router, 'schedule');
+            }}
+          >
+            Schedule
+          </TabsTrigger>
+        )}
+        {rounds.length > 1 && (
+          <TabsTrigger
+            value="grid"
+            onClick={() => {
+              switchTab(router, 'grid');
+            }}
+          >
+            Battle Grid
+          </TabsTrigger>
+        )}
+        {competitionParticipants.length > 0 && (
+          <TabsTrigger
+            value="participants"
+            onClick={() => {
+              switchTab(router, 'participants');
+            }}
+          >
+            Participants
+          </TabsTrigger>
+        )}
+        {(description || rules) && (
+          <TabsTrigger
+            value="rules"
+            onClick={() => {
+              switchTab(router, 'rules');
+            }}
+          >
+            Rules
+          </TabsTrigger>
+        )}
       </TabsList>
 
       {/* Schedule */}

@@ -26,6 +26,7 @@ import { Event } from '@/types/event';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { switchTab } from '@/types/funcs/switch-tab';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -35,6 +36,7 @@ const Event = (props: any) => {
 
   const searchParams = useSearchParams();
   const needsAuthorization = searchParams.get('auth');
+  const tab = searchParams.get('tab');
 
   const [event, setEvent] = useState<Event>();
   const [eventComments, setEventComments] = useState<EventComment[]>();
@@ -326,11 +328,36 @@ const Event = (props: any) => {
         </div>
 
         <div className="mx-2 overflow-hidden">
-          <Tabs defaultValue={`overview`} className="flex flex-col h-full">
+          <Tabs defaultValue={tab || `overview`} className="flex flex-col h-full">
             <TabsList className="mb-2">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              {event.eventCompetitions.length > 0 && <TabsTrigger value="competitions">Competitions</TabsTrigger>}
-              {approvedAndPendingRegistrations.length > 1 && <TabsTrigger value="registrations">Registrations</TabsTrigger>}
+              <TabsTrigger
+                value="overview"
+                onClick={() => {
+                  switchTab(router, 'overview');
+                }}
+              >
+                Overview
+              </TabsTrigger>
+              {event.eventCompetitions.length > 0 && (
+                <TabsTrigger
+                  value="competitions"
+                  onClick={() => {
+                    switchTab(router, 'competitions');
+                  }}
+                >
+                  Competitions
+                </TabsTrigger>
+              )}
+              {approvedAndPendingRegistrations.length > 1 && (
+                <TabsTrigger
+                  value="registrations"
+                  onClick={() => {
+                    switchTab(router, 'registrations');
+                  }}
+                >
+                  Registrations
+                </TabsTrigger>
+              )}
             </TabsList>
 
             {/* Details */}
