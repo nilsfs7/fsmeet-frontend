@@ -28,6 +28,7 @@ const Account = ({ session }: any) => {
   const [lastName, setLastName] = useState('');
   const [country, setCountry] = useState('');
   const [instagramHandle, setInstagramHandle] = useState('');
+  const [tikTokHandle, setTikTokHandle] = useState('');
   const [youTubeHandle, setYouTubeHandle] = useState('');
 
   // private user info
@@ -43,6 +44,7 @@ const Account = ({ session }: any) => {
       lastName: lastName.trim(),
       country: country,
       instagramHandle: instagramHandle,
+      tikTokHandle: tikTokHandle,
       youTubeHandle: youTubeHandle,
       private: {
         tShirtSize: tShirtSize,
@@ -131,6 +133,9 @@ const Account = ({ session }: any) => {
       if (user.instagramHandle) {
         setInstagramHandle(user.instagramHandle);
       }
+      if (user.tikTokHandle) {
+        setTikTokHandle(user.tikTokHandle);
+      }
       if (user.youTubeHandle) {
         setYouTubeHandle(user.youTubeHandle);
       }
@@ -212,6 +217,16 @@ const Account = ({ session }: any) => {
               value={instagramHandle}
               onChange={e => {
                 setInstagramHandle(e.currentTarget.value);
+              }}
+            />
+
+            <TextInput
+              id={'tikTokHandle'}
+              label={'TikTok Handle'}
+              placeholder="@dffb_org"
+              value={tikTokHandle}
+              onChange={e => {
+                setTikTokHandle(e.currentTarget.value);
               }}
             />
 

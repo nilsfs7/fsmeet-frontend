@@ -4,7 +4,7 @@ import localFont from 'next/font/local';
 
 const fontImpact = localFont({ src: '../fonts/impact.ttf' });
 
-export const Logo = () => {
+export const LogoFSMeet = () => {
   return (
     <Link href={routeHome}>
       <div className={`${fontImpact.className} text-3xl text-primary`}>FSMeet</div>
@@ -12,6 +12,6 @@ export const Logo = () => {
   );
 };
 
-export const LogoIcon = () => {
+export const LogoFSM = () => {
   return <div className={`${fontImpact.className} text-2xl text-primary`}>FSM</div>;
 };

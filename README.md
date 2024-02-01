@@ -68,6 +68,14 @@ docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --
 
 ### Images
 
+Account
+
+- [Instagram Logo](https://www.iconfinder.com/icons/6929237/instagram_icon)
+
+- [TikTok Logo](https://www.iconfinder.com/icons/7024782/tiktok_social_media_icon)
+
+- [YouTube Logo](https://www.iconfinder.com/icons/4375133/logo_youtube_icon)
+
 Profile
 
 - [Events](https://www.iconfinder.com/icons/2316003/ball_courts_football_sports_icon)
