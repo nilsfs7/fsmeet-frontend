@@ -41,6 +41,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [paymentMethodSepaIban, setPaymentMethodSepaIban] = useState<string>(event?.paymentMethodSepa?.iban || '');
   const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
+  const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
+  const [notifyOnComment, setNotifyOnComment] = useState<boolean>(event?.notifyOnComment || true);
   const [published, setPublished] = useState<boolean>(event?.published || false);
 
   const handleInputChangeAlias = (event: any) => {
@@ -83,6 +85,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       paymentMethodCash: paymentMethodCash,
       paymentMethodSepa: paymentMethodSepa,
       autoApproveRegistrations: autoApproveRegistrations,
+      notifyOnRegistration: notifyOnRegistration,
+      notifyOnComment: notifyOnComment,
       eventRegistrations: [],
       eventCompetitions: [],
       published: published,
@@ -114,6 +118,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setPaymentMethodSepaIban(event.paymentMethodSepa.iban);
       setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
+      setNotifyOnRegistration(event.notifyOnRegistration);
+      setNotifyOnComment(event.notifyOnComment);
       setPublished(event.published);
     }
   }, [event]);
@@ -144,6 +150,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     paymentMethodSepaIban,
     paymentMethodSepaReference,
     autoApproveRegistrations,
+    notifyOnRegistration,
+    notifyOnComment,
     published,
   ]);
 
@@ -381,6 +389,24 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         value={autoApproveRegistrations}
         onChange={() => {
           setAutoApproveRegistrations(!autoApproveRegistrations);
+        }}
+      />
+
+      <CheckBox
+        id={'notifyOnRegistration'}
+        label="Notify On Registration"
+        value={notifyOnRegistration}
+        onChange={() => {
+          setNotifyOnRegistration(!notifyOnRegistration);
+        }}
+      />
+
+      <CheckBox
+        id={'notifyOnComment'}
+        label="Notify On Comment"
+        value={notifyOnComment}
+        onChange={() => {
+          setNotifyOnComment(!notifyOnComment);
         }}
       />
 
