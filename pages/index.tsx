@@ -1,4 +1,4 @@
-import { Logo } from '@/components/Logo';
+import { LogoFSMeet } from '@/components/Logo';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
@@ -21,7 +21,7 @@ const Home = ({ data }: { data: any }) => {
       {/* Header */}
       <div className="bg-secondary-light sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
-          <Logo />
+          <LogoFSMeet />
 
           <Profile />
         </div>

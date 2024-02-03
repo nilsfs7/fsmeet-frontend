@@ -1,4 +1,4 @@
-import { Logo } from '@/components/Logo';
+import { LogoFSMeet } from '@/components/Logo';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { routeHome } from '@/types/consts/routes';
@@ -15,7 +15,7 @@ const About: NextPage = () => {
       {/* Banner */}
       <div className="sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
-          <Logo />
+          <LogoFSMeet />
         </div>
       </div>
 

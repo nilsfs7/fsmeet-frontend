@@ -1,4 +1,4 @@
-import { Logo } from '@/components/Logo';
+import { LogoFSMeet } from '@/components/Logo';
 import MapOfFreestylers from '@/components/MapOfFreestylers';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
@@ -44,7 +44,7 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
       {/* Header */}
       <div className="bg-secondary-light sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
-          <Logo />
+          <LogoFSMeet />
         </div>
       </div>
 

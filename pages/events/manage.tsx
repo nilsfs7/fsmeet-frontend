@@ -6,7 +6,7 @@ import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
 import { routeEventSubs, routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
-import { Logo } from '@/components/Logo';
+import { LogoFSMeet } from '@/components/Logo';
 import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
 import { Action } from '@/types/enums/action';
@@ -37,7 +37,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
         {/* Banner */}
         <div className="bg-secondary-light sm:block">
           <div className="mx-2 flex h-20 items-center justify-start">
-            <Logo />
+            <LogoFSMeet />
           </div>
         </div>
 

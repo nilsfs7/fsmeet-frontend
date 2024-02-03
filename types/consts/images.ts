@@ -5,6 +5,9 @@ export const imgMeeting = '/event/meeting.svg';
 export const imgCompetition = '/event/competition.svg';
 
 export const imgGoodBye = '/account/bye.svg';
+export const imgInstagramLogo = '/account/logo_instagram.svg';
+export const imgTikTokLogo = '/account/logo_tiktok.svg';
+export const imgYouTubeLogo = '/account/logo_youtube.svg';
 
 export const imgBug = '/feedback/bug.svg';
 export const imgFeature = '/feedback/feature.svg';

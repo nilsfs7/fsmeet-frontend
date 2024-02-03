@@ -50,6 +50,8 @@ const EventEditing = (props: any) => {
         reference: event?.paymentMethodSepa.reference,
       },
       autoApproveRegistrations: event?.autoApproveRegistrations,
+      notifyOnRegistration: event?.notifyOnRegistration,
+      notifyOnComment: event?.notifyOnComment,
       published: event?.published,
     });
 

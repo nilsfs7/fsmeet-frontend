@@ -26,6 +26,8 @@ export type Event = {
   paymentMethodCash: PaymentMethodCash;
   paymentMethodSepa: PaymentMethodSepa;
   autoApproveRegistrations: boolean;
+  notifyOnRegistration: boolean;
+  notifyOnComment: boolean;
   eventRegistrations: EventRegistration[];
   eventCompetitions: EventCompetition[];
   published: boolean;

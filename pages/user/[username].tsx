@@ -27,13 +27,19 @@ const Profile = (props: any) => {
             {user.firstName && !user.lastName && <div className="mx-1 mb-2">{`${user.firstName}`}</div>}
 
             {user.instagramHandle && (
-              <div className="w-fit">
+              <div className="mt-1">
                 <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
               </div>
             )}
 
+            {user.tikTokHandle && (
+              <div className="mt-1">
+                <SocialLink platform={Platform.TIKTOK} path={user.tikTokHandle} />
+              </div>
+            )}
+
             {user.youTubeHandle && (
-              <div className="mt-2 w-fit">
+              <div className="mt-1">
                 <SocialLink platform={Platform.YOUTUBE} path={user.youTubeHandle} />
               </div>
             )}

@@ -1,7 +1,6 @@
-import InstagramIcon from '@mui/icons-material/Instagram';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import { Platform } from '@/types/enums/platform';
-import { LogoIcon } from '../Logo';
+import { LogoFSM } from '../Logo';
+import { imgInstagramLogo, imgTikTokLogo, imgYouTubeLogo } from '@/types/consts/images';
 
 interface ISocialLink {
   platform: Platform;
@@ -13,26 +12,24 @@ const SocialLink = ({ platform, path }: ISocialLink) => {
 
   let icon = (
     <div className="flex h-8 w-10 items-center justify-center text-center">
-      <LogoIcon />
+      <LogoFSM />
     </div>
   );
   let url = `/user/${path}`;
 
   switch (platform) {
     case Platform.INSTAGRAM:
-      icon = (
-        <div className="m-0 p-0">
-          <InstagramIcon fontSize="large" className={`${textColor}`} />
-        </div>
-      );
+      icon = <img className="h-8" src={imgInstagramLogo} alt="instagram icon" />;
       url = `https://www.instagram.com/${path.replace('@', '')}`;
       break;
+
+    case Platform.TIKTOK:
+      icon = <img className="h-8" src={imgTikTokLogo} alt="tiktok icon" />;
+      url = `https://www.tiktok.com/${path}`;
+      break;
+
     case Platform.YOUTUBE:
-      icon = (
-        <div className="m-0 p-0">
-          <YouTubeIcon fontSize="large" className={`${textColor}`} />
-        </div>
-      );
+      icon = <img className="h-8" src={imgYouTubeLogo} alt="youtube icon" />;
       url = `https://www.youtube.com/${path}`;
       break;
   }
