@@ -19,8 +19,9 @@ import { EventComment } from '@/types/event-comment';
 import { EventType } from '@/types/enums/event-type';
 import Navigation from '@/components/Navigation';
 import Dialog from '@/components/Dialog';
-import SepaInfo from '@/components/payment/sepa-info';
 import CashInfo from '@/components/payment/cash-info';
+import PayPalInfo from '@/components/payment/paypal-info';
+import SepaInfo from '@/components/payment/sepa-info';
 import { useSearchParams } from 'next/navigation';
 import { Event } from '@/types/event';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
@@ -286,9 +287,15 @@ const Event = (props: any) => {
               </div>
             )}
 
+            {event.paymentMethodPayPal.enabled && (
+              <div className="mt-4">
+                <PayPalInfo participationFee={event.participationFee} payPalInfo={event.paymentMethodPayPal} usernameForReference={session?.user?.username} />
+              </div>
+            )}
+
             {event.paymentMethodSepa.enabled && (
               <div className="mt-4">
-                <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user?.username}></SepaInfo>
+                <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user?.username} />
               </div>
             )}
 

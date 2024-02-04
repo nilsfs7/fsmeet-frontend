@@ -9,7 +9,7 @@ interface ISepaInfo {
 const SepaInfo = ({ participationFee, sepaInfo, usernameForReference }: ISepaInfo) => {
   return (
     <div className="grid grid-cols-1 justify-between">
-      <div>Bank transfer (SEPA)</div>
+      <div className="underline">Bank transfer (SEPA)</div>
 
       <div className="grid grid-cols-2 justify-between">
         <div>Bank</div>

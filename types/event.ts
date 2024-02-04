@@ -2,6 +2,7 @@ import { EventType } from './enums/event-type';
 import { EventRegistration } from './event-registration';
 import { EventCompetition } from './event-competition';
 import { PaymentMethodCash } from './payment-method-cash';
+import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
 import { Moment } from 'moment';
 
@@ -24,6 +25,7 @@ export type Event = {
   type: EventType;
   livestreamUrl: string;
   paymentMethodCash: PaymentMethodCash;
+  paymentMethodPayPal: PaymentMethodPayPal;
   paymentMethodSepa: PaymentMethodSepa;
   autoApproveRegistrations: boolean;
   notifyOnRegistration: boolean;

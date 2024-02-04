@@ -5,7 +5,7 @@ interface ISepaInfo {
 const CashInfo = ({ participationFee }: ISepaInfo) => {
   return (
     <div className="grid grid-cols-1 justify-between">
-      <div className="">Cash (pay on arrival)</div>
+      <div className="underline">Cash (pay on arrival)</div>
 
       <div className="grid grid-cols-2 justify-between">
         <div>Amount</div>

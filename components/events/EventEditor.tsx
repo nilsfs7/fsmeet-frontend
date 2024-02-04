@@ -7,6 +7,7 @@ import { EventType } from '@/types/enums/event-type';
 import CheckBox from '../common/CheckBox';
 import TextInputLarge from '../common/TextInputLarge';
 import { PaymentMethodCash } from '@/types/payment-method-cash';
+import { PaymentMethodPayPal } from '@/types/payment-method-paypal';
 import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 import ComboBox from '../common/ComboBox';
 import { menuEventTypes } from '@/types/consts/menus/menu-event-types';
@@ -35,6 +36,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
   const [participationFee, setParticipationFee] = useState(event?.participationFee || 0);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
+  const [paymentMethodPayPalEnabled, setPaymentMethodPayPalEnabled] = useState<boolean>(event?.paymentMethodPayPal?.enabled || false);
+  const [paymentMethodPayPalHandle, setPaymentMethodPayPalHandle] = useState<string>(event?.paymentMethodPayPal?.payPalHandle || '');
   const [paymentMethodSepaEnabled, setPaymentMethodSepaEnabled] = useState<boolean>(event?.paymentMethodSepa?.enabled || false);
   const [paymentMethodSepaBank, setPaymentMethodSepaBank] = useState<string>(event?.paymentMethodSepa?.bank || '');
   const [paymentMethodSepaRecipient, setPaymentMethodSepaRecipient] = useState<string>(event?.paymentMethodSepa?.recipient || '');
@@ -56,6 +59,10 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
 
   const updateEvent = () => {
     const paymentMethodCash: PaymentMethodCash = { enabled: paymentMethodCashEnabled };
+    const paymentMethodPayPal: PaymentMethodPayPal = {
+      enabled: paymentMethodPayPalEnabled,
+      payPalHandle: paymentMethodPayPalHandle,
+    };
     const paymentMethodSepa: PaymentMethodSepa = {
       enabled: paymentMethodSepaEnabled,
       bank: paymentMethodSepaBank,
@@ -83,6 +90,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       livestreamUrl: livestreamUrl,
       participationFee: participationFee,
       paymentMethodCash: paymentMethodCash,
+      paymentMethodPayPal: paymentMethodPayPal,
       paymentMethodSepa: paymentMethodSepa,
       autoApproveRegistrations: autoApproveRegistrations,
       notifyOnRegistration: notifyOnRegistration,
@@ -112,6 +120,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setEventType(event.type);
       setLivestreamUrl(event.livestreamUrl);
       setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
+      setPaymentMethodPayPalEnabled(event.paymentMethodPayPal.enabled);
+      setPaymentMethodPayPalHandle(event.paymentMethodPayPal.payPalHandle);
       setPaymentMethodSepaEnabled(event.paymentMethodSepa.enabled);
       setPaymentMethodSepaBank(event.paymentMethodSepa.bank);
       setPaymentMethodSepaRecipient(event.paymentMethodSepa.recipient);
@@ -144,6 +154,8 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     livestreamUrl,
     participationFee,
     paymentMethodCashEnabled,
+    paymentMethodPayPalEnabled,
+    paymentMethodPayPalHandle,
     paymentMethodSepaEnabled,
     paymentMethodSepaBank,
     paymentMethodSepaRecipient,
@@ -254,56 +266,59 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       </div>
 
       {/* venue address */}
+      {eventType != EventType.COMPETITION_ONLINE && (
+        <>
+          <TextInput
+            id={'venueHouseNo'}
+            label={'House No'}
+            placeholder="40/1"
+            value={venueHouseNo}
+            onChange={e => {
+              setVenueHouseNo(e.currentTarget.value);
+            }}
+          />
 
-      <TextInput
-        id={'venueHouseNo'}
-        label={'House No'}
-        placeholder="40/1"
-        value={venueHouseNo}
-        onChange={e => {
-          setVenueHouseNo(e.currentTarget.value);
-        }}
-      />
+          <TextInput
+            id={'venueStreet'}
+            label={'Street'}
+            placeholder="Hofwiesenstraße"
+            value={venueStreet}
+            onChange={e => {
+              setVenueStreet(e.currentTarget.value);
+            }}
+          />
 
-      <TextInput
-        id={'venueStreet'}
-        label={'Street'}
-        placeholder="Hofwiesenstraße"
-        value={venueStreet}
-        onChange={e => {
-          setVenueStreet(e.currentTarget.value);
-        }}
-      />
+          <TextInput
+            id={'venuePostCode'}
+            label={'Post Code'}
+            placeholder="74081"
+            value={venuePostCode}
+            onChange={e => {
+              setVenuePostCode(e.currentTarget.value);
+            }}
+          />
 
-      <TextInput
-        id={'venuePostCode'}
-        label={'Post Code'}
-        placeholder="74081"
-        value={venuePostCode}
-        onChange={e => {
-          setVenuePostCode(e.currentTarget.value);
-        }}
-      />
+          <TextInput
+            id={'venueCity'}
+            label={'City'}
+            placeholder="Heilbronn"
+            value={venueCity}
+            onChange={e => {
+              setVenueCity(e.currentTarget.value);
+            }}
+          />
 
-      <TextInput
-        id={'venueCity'}
-        label={'City'}
-        placeholder="Heilbronn"
-        value={venueCity}
-        onChange={e => {
-          setVenueCity(e.currentTarget.value);
-        }}
-      />
-
-      <TextInput
-        id={'venueCountry'}
-        label={'Country'}
-        placeholder="Germany"
-        value={venueCountry}
-        onChange={e => {
-          setVenueCountry(e.currentTarget.value);
-        }}
-      />
+          <TextInput
+            id={'venueCountry'}
+            label={'Country'}
+            placeholder="Germany"
+            value={venueCountry}
+            onChange={e => {
+              setVenueCountry(e.currentTarget.value);
+            }}
+          />
+        </>
+      )}
 
       <TextInput
         id={'livestreamUrl'}
@@ -325,63 +340,107 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         }}
       />
 
-      <CheckBox
-        id={'paymentMethodCashEnabled'}
-        label="Accept Cash"
-        value={paymentMethodCashEnabled}
-        onChange={() => {
-          setPaymentMethodCashEnabled(!paymentMethodCashEnabled);
-        }}
-      />
+      {participationFee > 0 && (
+        <>
+          <CheckBox
+            id={'paymentMethodCashEnabled'}
+            label="Accept Cash"
+            value={paymentMethodCashEnabled}
+            onChange={() => {
+              setPaymentMethodCashEnabled(!paymentMethodCashEnabled);
+            }}
+          />
 
-      <CheckBox
-        id={'paymentMethodSepaEnabled'}
-        label="Accept Bank Transfer (SEPA)"
-        value={paymentMethodSepaEnabled}
-        onChange={() => {
-          setPaymentMethodSepaEnabled(!paymentMethodSepaEnabled);
-        }}
-      />
+          <CheckBox
+            id={'paymentMethodPayPalEnabled'}
+            label="Accept PayPal"
+            value={paymentMethodPayPalEnabled}
+            onChange={() => {
+              setPaymentMethodPayPalEnabled(!paymentMethodPayPalEnabled);
+            }}
+          />
 
-      <TextInput
-        id={'paymentMethodSepaBank'}
-        label={'SEPA Bank'}
-        placeholder="DKB"
-        value={paymentMethodSepaBank}
-        onChange={e => {
-          setPaymentMethodSepaBank(e.currentTarget.value);
-        }}
-      />
+          {paymentMethodPayPalEnabled && (
+            <>
+              <TextInput
+                id={'paymentMethodPayPal'}
+                label={'PayPal User Handle'}
+                placeholder="username"
+                value={paymentMethodPayPalHandle}
+                onChange={e => {
+                  setPaymentMethodPayPalHandle(e.currentTarget.value);
+                }}
+              />
 
-      <TextInput
-        id={'paymentMethodSepaRecipient'}
-        label={'SEPA Recipient'}
-        placeholder="DFFB e.V."
-        value={paymentMethodSepaRecipient}
-        onChange={e => {
-          setPaymentMethodSepaRecipient(e.currentTarget.value);
-        }}
-      />
+              {paymentMethodPayPalHandle && (
+                <div className="m-2 grid h-[100%] grid-cols-2">
+                  <div>{`Verify PayPal Profile`}</div>
 
-      <TextInput
-        id={'paymentMethodSepaIban'}
-        label={'SEPA IBAN'}
-        placeholder="DE123"
-        value={paymentMethodSepaIban}
-        onChange={e => {
-          setPaymentMethodSepaIban(e.currentTarget.value);
-        }}
-      />
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`https://paypal.me/${paymentMethodPayPalHandle}`}
+                    className="h-full w-full hover:underline break-all"
+                  >{`https://paypal.me/${paymentMethodPayPalHandle}`}</a>
+                </div>
+              )}
+            </>
+          )}
 
-      <TextInput
-        id={'paymentMethodSepaReference'}
-        label={'SEPA Reference'}
-        placeholder="superball-2023"
-        value={paymentMethodSepaReference}
-        onChange={e => {
-          setPaymentMethodSepaReference(e.currentTarget.value);
-        }}
-      />
+          <CheckBox
+            id={'paymentMethodSepaEnabled'}
+            label="Accept Bank Transfer (SEPA)"
+            value={paymentMethodSepaEnabled}
+            onChange={() => {
+              setPaymentMethodSepaEnabled(!paymentMethodSepaEnabled);
+            }}
+          />
+
+          {paymentMethodSepaEnabled && (
+            <>
+              <TextInput
+                id={'paymentMethodSepaBank'}
+                label={'SEPA Bank'}
+                placeholder="DKB"
+                value={paymentMethodSepaBank}
+                onChange={e => {
+                  setPaymentMethodSepaBank(e.currentTarget.value);
+                }}
+              />
+
+              <TextInput
+                id={'paymentMethodSepaRecipient'}
+                label={'SEPA Recipient'}
+                placeholder="DFFB e.V."
+                value={paymentMethodSepaRecipient}
+                onChange={e => {
+                  setPaymentMethodSepaRecipient(e.currentTarget.value);
+                }}
+              />
+
+              <TextInput
+                id={'paymentMethodSepaIban'}
+                label={'SEPA IBAN'}
+                placeholder="DE123"
+                value={paymentMethodSepaIban}
+                onChange={e => {
+                  setPaymentMethodSepaIban(e.currentTarget.value);
+                }}
+              />
+
+              <TextInput
+                id={'paymentMethodSepaReference'}
+                label={'SEPA Reference'}
+                placeholder="superball-2023"
+                value={paymentMethodSepaReference}
+                onChange={e => {
+                  setPaymentMethodSepaReference(e.currentTarget.value);
+                }}
+              />
+            </>
+          )}
+        </>
+      )}
 
       <CheckBox
         id={'autoApproveRegistrations'}
