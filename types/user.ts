@@ -7,6 +7,7 @@ export type User = {
   instagramHandle?: string;
   tikTokHandle?: string;
   youTubeHandle?: string;
+  website?: string;
   city?: string;
   exposeLocation?: string;
   locLatitude?: number;
