@@ -17,6 +17,7 @@ import ActionButton from '@/components/common/ActionButton';
 import ComboBox from '@/components/common/ComboBox';
 import { validateSession } from '@/types/funcs/validate-session';
 import CheckBox from '@/components/common/CheckBox';
+import { prefixRequired } from '@/types/funcs/prefix-required';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -29,6 +30,7 @@ const Account = ({ session }: any) => {
   const [country, setCountry] = useState('');
   const [instagramHandle, setInstagramHandle] = useState('');
   const [tikTokHandle, setTikTokHandle] = useState('');
+  const [website, setWebsite] = useState('');
   const [youTubeHandle, setYouTubeHandle] = useState('');
 
   // private user info
@@ -39,13 +41,21 @@ const Account = ({ session }: any) => {
   const handleSaveUserInfoClicked = async () => {
     setError('');
 
+    let firstNameAdjusted = firstName.trim();
+    let lastNameAdjusted = lastName.trim();
+    let websiteAdjusted = website.trim();
+    if (websiteAdjusted.endsWith('/')) {
+      websiteAdjusted = websiteAdjusted.substring(0, websiteAdjusted.length - 1);
+    }
+
     const body = JSON.stringify({
-      firstName: firstName.trim(),
-      lastName: lastName.trim(),
+      firstName: firstNameAdjusted,
+      lastName: lastNameAdjusted,
       country: country,
       instagramHandle: instagramHandle,
       tikTokHandle: tikTokHandle,
       youTubeHandle: youTubeHandle,
+      website: websiteAdjusted,
       private: {
         tShirtSize: tShirtSize,
         city: city,
@@ -98,9 +108,9 @@ const Account = ({ session }: any) => {
     }
   };
 
-  async function handleCancelDeleteAccountClicked() {
+  const handleCancelDeleteAccountClicked = async () => {
     router.replace(`${routeAccount}`, undefined, { shallow: true });
-  }
+  };
 
   const handleLogoutClicked = async () => {
     await signOut({ redirect: false });
@@ -138,6 +148,9 @@ const Account = ({ session }: any) => {
       }
       if (user.youTubeHandle) {
         setYouTubeHandle(user.youTubeHandle);
+      }
+      if (user.website) {
+        setWebsite(user.website);
       }
       if (user.private?.tShirtSize) {
         setTShirtSize(user.private.tShirtSize);
@@ -216,7 +229,7 @@ const Account = ({ session }: any) => {
               placeholder="@dffb_org"
               value={instagramHandle}
               onChange={e => {
-                setInstagramHandle(e.currentTarget.value);
+                setInstagramHandle(prefixRequired(e.currentTarget.value, '@'));
               }}
             />
 
@@ -226,7 +239,7 @@ const Account = ({ session }: any) => {
               placeholder="@dffb_org"
               value={tikTokHandle}
               onChange={e => {
-                setTikTokHandle(e.currentTarget.value);
+                setTikTokHandle(prefixRequired(e.currentTarget.value, '@'));
               }}
             />
 
@@ -236,7 +249,20 @@ const Account = ({ session }: any) => {
               placeholder="@dffb_org"
               value={youTubeHandle}
               onChange={e => {
-                setYouTubeHandle(e.currentTarget.value);
+                setYouTubeHandle(prefixRequired(e.currentTarget.value, '@'));
+              }}
+            />
+
+            <TextInput
+              id={'website'}
+              label={'Website'}
+              placeholder="https://dffb.org"
+              value={website}
+              onChange={e => {
+                let url: string = e.currentTarget.value;
+                url = url.toLowerCase();
+
+                setWebsite(url);
               }}
             />
           </div>

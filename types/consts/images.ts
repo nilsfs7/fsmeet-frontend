@@ -8,6 +8,7 @@ export const imgGoodBye = '/account/bye.svg';
 export const imgInstagramLogo = '/account/logo_instagram.svg';
 export const imgTikTokLogo = '/account/logo_tiktok.svg';
 export const imgYouTubeLogo = '/account/logo_youtube.svg';
+export const imgWebsiteLogo = '/account/website.svg';
 
 export const imgBug = '/feedback/bug.svg';
 export const imgFeature = '/feedback/feature.svg';

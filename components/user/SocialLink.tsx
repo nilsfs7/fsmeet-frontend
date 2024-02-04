@@ -1,6 +1,6 @@
 import { Platform } from '@/types/enums/platform';
 import { LogoFSM } from '../Logo';
-import { imgInstagramLogo, imgTikTokLogo, imgYouTubeLogo } from '@/types/consts/images';
+import { imgInstagramLogo, imgTikTokLogo, imgWebsiteLogo, imgYouTubeLogo } from '@/types/consts/images';
 
 interface ISocialLink {
   platform: Platform;
@@ -8,8 +8,6 @@ interface ISocialLink {
 }
 
 const SocialLink = ({ platform, path }: ISocialLink) => {
-  const textColor = 'text-primary';
-
   let icon = (
     <div className="flex h-8 w-10 items-center justify-center text-center">
       <LogoFSM />
@@ -32,11 +30,17 @@ const SocialLink = ({ platform, path }: ISocialLink) => {
       icon = <img className="h-8" src={imgYouTubeLogo} alt="youtube icon" />;
       url = `https://www.youtube.com/${path}`;
       break;
+
+    case Platform.WEBSITE:
+      icon = <img className="h-8" src={imgWebsiteLogo} alt="website icon" />;
+      url = path;
+      path = path.replace('https://', '').replace('http://', '');
+      break;
   }
 
   return (
-    <a href={url}>
-      <div className="flex items-center gap-1">
+    <a target="_blank" rel="noopener noreferrer" href={url}>
+      <div className="flex items-center gap-1 hover:underline">
         {icon}
         {path}
       </div>
