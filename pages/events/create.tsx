@@ -35,6 +35,10 @@ const EventCreation = (props: any) => {
       type: event?.type,
       livestreamUrl: event?.livestreamUrl,
       paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
+      paymentMethodPayPal: {
+        enabled: event?.paymentMethodPayPal.enabled,
+        payPalHandle: event?.paymentMethodPayPal.payPalHandle,
+      },
       paymentMethodSepa: {
         enabled: event?.paymentMethodSepa.enabled,
         bank: event?.paymentMethodSepa.bank,
