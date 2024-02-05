@@ -1,15 +1,16 @@
-interface ITextInput {
+interface INumberInput {
   id: string;
   label: string;
   labelOnTop?: boolean;
   placeholder?: string;
-  defValue?: string;
+  defValue?: number;
   value?: number;
+  step?: string;
   onChange?: (event: any) => void;
   onKeyDown?: (event: any) => void;
 }
 
-const NumberInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, onChange, onKeyDown }: ITextInput) => {
+const NumberInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, step, onChange, onKeyDown }: INumberInput) => {
   return (
     <>
       {labelOnTop && (
@@ -24,6 +25,7 @@ const NumberInput = ({ id, label, labelOnTop = true, placeholder, defValue, valu
               placeholder={placeholder}
               defaultValue={defValue}
               value={value}
+              step={step}
               onChange={onChange}
               onKeyDown={onKeyDown}
             />
@@ -34,7 +36,7 @@ const NumberInput = ({ id, label, labelOnTop = true, placeholder, defValue, valu
       {!labelOnTop && (
         <div className="m-2 grid h-[100%] grid-cols-2">
           <div>{label}</div>
-          <input id={id} className="h-full w-full rounded-lg p-1" type="number" placeholder={placeholder} defaultValue={defValue} value={value} onChange={onChange} onKeyDown={onKeyDown} />
+          <input id={id} className="h-full w-full rounded-lg p-1" type="number" placeholder={placeholder} defaultValue={defValue} value={value} step={step} onChange={onChange} onKeyDown={onKeyDown} />
         </div>
       )}
     </>
