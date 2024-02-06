@@ -23,7 +23,7 @@ const ComboBox = ({ menus, value, searchEnabled = false, label = 'Select', onCha
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" role="combobox" aria-expanded={open} className="w-[340px] justify-between bg-transparent hover:border-primary truncate">
-          <div className="truncate">{value ? menus.find(menu => menu.value.toLocaleLowerCase() === value.toLocaleLowerCase())?.value : label}</div>
+          <div className="truncate">{value ? menus.find(menu => menu.value === value)?.text : label}</div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -31,21 +31,22 @@ const ComboBox = ({ menus, value, searchEnabled = false, label = 'Select', onCha
         <Command>
           {searchEnabled && <CommandInput placeholder="Search ..." />}
           <CommandEmpty>No data found.</CommandEmpty>
-          <CommandGroup>
+          <CommandGroup className="max-h-[300px] overflow-y-auto">
             {menus.map(menu => (
               <CommandItem
-                key={menu.value}
-                value={menu.value}
+                key={menu.text}
+                value={menu.text}
                 onSelect={currentValue => {
-                  const val = currentValue === value ? '' : currentValue;
+                  const menuItem = menus.find(item => {
+                    return item.text.toLowerCase() === currentValue.toLowerCase();
+                  });
 
-                  // setValue(val);
                   setOpen(false);
-                  onChange(val);
+                  onChange(menuItem?.value);
                 }}
               >
                 <Check className={cn('mr-2 h-4 w-4', value === menu.value ? 'opacity-100' : 'opacity-0')} />
-                {menu.value}
+                {menu.text}
               </CommandItem>
             ))}
           </CommandGroup>
