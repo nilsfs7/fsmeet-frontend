@@ -13,6 +13,7 @@ import ComboBox from '../common/ComboBox';
 import { menuEventTypes } from '@/types/consts/menus/menu-event-types';
 import { validateAlias } from '@/types/funcs/validation/validation-event';
 import { timeMid } from '@/types/funcs/time';
+import CurInput from '../common/CurrencyInput';
 
 interface IEventEditorProps {
   event?: Event;
@@ -34,7 +35,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [venueCountry, setVenueCountry] = useState(event?.venueCity || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
-  const [participationFee, setParticipationFee] = useState(event?.participationFee || 0);
+  const [participationFee, setParticipationFee] = useState(event?.participationFee || 0.0);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
   const [paymentMethodPayPalEnabled, setPaymentMethodPayPalEnabled] = useState<boolean>(event?.paymentMethodPayPal?.enabled || false);
   const [paymentMethodPayPalHandle, setPaymentMethodPayPalHandle] = useState<string>(event?.paymentMethodPayPal?.payPalHandle || '');
@@ -45,6 +46,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
+  const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
   const [notifyOnComment, setNotifyOnComment] = useState<boolean>(event?.notifyOnComment || true);
   const [published, setPublished] = useState<boolean>(event?.published || false);
 
@@ -94,6 +96,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       paymentMethodSepa: paymentMethodSepa,
       autoApproveRegistrations: autoApproveRegistrations,
       notifyOnRegistration: notifyOnRegistration,
+      allowComments: allowComments,
       notifyOnComment: notifyOnComment,
       eventRegistrations: [],
       eventCompetitions: [],
@@ -129,6 +132,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
       setNotifyOnRegistration(event.notifyOnRegistration);
+      setAllowComments(event.allowComments);
       setNotifyOnComment(event.notifyOnComment);
       setPublished(event.published);
     }
@@ -163,6 +167,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     paymentMethodSepaReference,
     autoApproveRegistrations,
     notifyOnRegistration,
+    allowComments,
     notifyOnComment,
     published,
   ]);
@@ -178,7 +183,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           setEventName(e.currentTarget.value);
         }}
       />
-
       <TextInput
         id={'alias'}
         label={'Event Alias'}
@@ -188,7 +192,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           handleInputChangeAlias(e);
         }}
       />
-
       <div className="m-2 grid grid-cols-2">
         <div>Type</div>
         <div className="flex w-full">
@@ -201,7 +204,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           />
         </div>
       </div>
-
       <TextInputLarge
         id={'description'}
         label={'Event Description'}
@@ -212,7 +214,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           setDescription(e.currentTarget.value);
         }}
       />
-
       <div className="m-2 grid grid-cols-2">
         <div>Date From</div>
         <DatePicker
@@ -225,7 +226,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           timezone="system"
         />
       </div>
-
       <div className="m-2 grid grid-cols-2">
         <div>Date To</div>
         <DatePicker
@@ -238,7 +238,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           timezone="system"
         />
       </div>
-
       <div className="m-2 grid grid-cols-2">
         <div>Registration Open</div>
         <DatePicker
@@ -251,7 +250,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           timezone="system"
         />
       </div>
-
       <div className="m-2 grid grid-cols-2">
         <div>Registration Deadline</div>
         <DatePicker
@@ -264,7 +262,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           timezone="system"
         />
       </div>
-
       {/* venue address */}
       {eventType != EventType.COMPETITION_ONLINE && (
         <>
@@ -319,7 +316,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           />
         </>
       )}
-
       <TextInput
         id={'livestreamUrl'}
         label={'Livestream URL'}
@@ -330,13 +326,16 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         }}
       />
 
-      <TextInput
+      <CurInput
         id={'participationFee'}
         label={'Participation Fee'}
-        placeholder="25"
-        value={participationFee ? participationFee.toString() : '0'}
-        onChange={e => {
-          setParticipationFee(+e.currentTarget.value);
+        placeholder="25,00"
+        value={participationFee}
+        onValueChange={(value, name, values) => {
+          console.log(values?.float);
+          if (values?.float || values?.float == 0) {
+            setParticipationFee(values?.float);
+          }
         }}
       />
 
@@ -441,7 +440,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           )}
         </>
       )}
-
       <CheckBox
         id={'autoApproveRegistrations'}
         label="Auto Approve Registrations"
@@ -450,7 +448,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           setAutoApproveRegistrations(!autoApproveRegistrations);
         }}
       />
-
       <CheckBox
         id={'notifyOnRegistration'}
         label="Notify On Registration"
@@ -459,16 +456,24 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           setNotifyOnRegistration(!notifyOnRegistration);
         }}
       />
-
       <CheckBox
-        id={'notifyOnComment'}
-        label="Notify On Comment"
-        value={notifyOnComment}
+        id={'allowComments'}
+        label="Allow Comments And Questions"
+        value={allowComments}
         onChange={() => {
-          setNotifyOnComment(!notifyOnComment);
+          setAllowComments(!allowComments);
         }}
       />
-
+      {allowComments && (
+        <CheckBox
+          id={'notifyOnComment'}
+          label="Notify On Comment"
+          value={notifyOnComment}
+          onChange={() => {
+            setNotifyOnComment(!notifyOnComment);
+          }}
+        />
+      )}
       <CheckBox
         id={'published'}
         label="Publish Event"

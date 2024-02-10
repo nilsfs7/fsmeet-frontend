@@ -41,6 +41,7 @@
     "next": "13.2.4",
     "next-auth": "^4.22.1",
     "react": "18.2.0",
+    "react-currency-input-field": "^3.6.14",
     "react-dom": "18.2.0",
     "react-tabs": "^6.0.2",
     "react-textarea-autosize": "^8.5.2",
