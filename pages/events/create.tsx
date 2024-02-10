@@ -48,6 +48,7 @@ const EventCreation = (props: any) => {
       },
       autoApproveRegistrations: event?.autoApproveRegistrations,
       notifyOnRegistration: event?.notifyOnRegistration,
+      allowComments: event?.allowComments,
       notifyOnComment: event?.notifyOnComment,
       published: event?.published,
     });

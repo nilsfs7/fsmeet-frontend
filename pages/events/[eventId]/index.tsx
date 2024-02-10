@@ -371,19 +371,21 @@ const Event = (props: any) => {
             <TabsContent value="overview" className="overflow-hidden overflow-y-auto">
               <EventDetails event={event} />
 
-              <div className="mt-2">
-                <CommentSection
-                  username={session?.user.username}
-                  userProfileImageUrl={session?.user.imageUrl}
-                  eventComments={eventComments || []}
-                  onPostComment={(message: string) => {
-                    handlePostCommentClicked(message);
-                  }}
-                  onPostReply={(commentId: string, message: string) => {
-                    handlePostSubCommentClicked(commentId, message);
-                  }}
-                />
-              </div>
+              {event.allowComments && (
+                <div className="mt-2">
+                  <CommentSection
+                    username={session?.user.username}
+                    userProfileImageUrl={session?.user.imageUrl}
+                    eventComments={eventComments || []}
+                    onPostComment={(message: string) => {
+                      handlePostCommentClicked(message);
+                    }}
+                    onPostReply={(commentId: string, message: string) => {
+                      handlePostSubCommentClicked(commentId, message);
+                    }}
+                  />
+                </div>
+              )}
             </TabsContent>
 
             {event.id && event.eventCompetitions.length > 0 && (

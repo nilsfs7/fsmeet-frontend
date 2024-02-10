@@ -46,6 +46,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
+  const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
   const [notifyOnComment, setNotifyOnComment] = useState<boolean>(event?.notifyOnComment || true);
   const [published, setPublished] = useState<boolean>(event?.published || false);
 
@@ -95,6 +96,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       paymentMethodSepa: paymentMethodSepa,
       autoApproveRegistrations: autoApproveRegistrations,
       notifyOnRegistration: notifyOnRegistration,
+      allowComments: allowComments,
       notifyOnComment: notifyOnComment,
       eventRegistrations: [],
       eventCompetitions: [],
@@ -130,6 +132,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
       setNotifyOnRegistration(event.notifyOnRegistration);
+      setAllowComments(event.allowComments);
       setNotifyOnComment(event.notifyOnComment);
       setPublished(event.published);
     }
@@ -164,6 +167,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     paymentMethodSepaReference,
     autoApproveRegistrations,
     notifyOnRegistration,
+    allowComments,
     notifyOnComment,
     published,
   ]);
@@ -453,13 +457,23 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         }}
       />
       <CheckBox
-        id={'notifyOnComment'}
-        label="Notify On Comment"
-        value={notifyOnComment}
+        id={'allowComments'}
+        label="Allow Comments And Questions"
+        value={allowComments}
         onChange={() => {
-          setNotifyOnComment(!notifyOnComment);
+          setAllowComments(!allowComments);
         }}
       />
+      {allowComments && (
+        <CheckBox
+          id={'notifyOnComment'}
+          label="Notify On Comment"
+          value={notifyOnComment}
+          onChange={() => {
+            setNotifyOnComment(!notifyOnComment);
+          }}
+        />
+      )}
       <CheckBox
         id={'published'}
         label="Publish Event"
