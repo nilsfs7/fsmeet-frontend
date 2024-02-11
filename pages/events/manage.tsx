@@ -5,10 +5,9 @@ import { Event } from '@/types/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
-import { routeEventSubs, routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
+import { routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
 import { LogoFSMeet } from '@/components/Logo';
 import { useRouter } from 'next/router';
-import Dialog from '@/components/Dialog';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';
@@ -19,20 +18,8 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
 
   const router = useRouter();
 
-  const handlCreateEventClicked = async () => {
-    router.replace(`${routeEventSubs}?create=1`, undefined, { shallow: true });
-  };
-
-  const handleCancelDialogClicked = async () => {
-    router.replace(`${routeEventSubs}`, undefined, { shallow: true });
-  };
-
   return (
     <>
-      <Dialog title="Create New Event" queryParam="create" onCancel={handleCancelDialogClicked} onConfirm={handleCancelDialogClicked}>
-        <p>{`Coming soon! :)`}</p>
-      </Dialog>
-
       <div className="absolute inset-0 flex flex-col overflow-hidden">
         {/* Banner */}
         <div className="bg-secondary-light sm:block">
@@ -88,10 +75,9 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
             <ActionButton action={Action.BACK} />
           </Link>
 
-          {/* TODO: enable and remove dialog */}
-          {/* <Link href={routeEventsCreate}> */}
-          <TextButton text="Create Event" onClick={handlCreateEventClicked} />
-          {/* </Link> */}
+          <Link href={routeEventsCreate}>
+            <TextButton text="Create Event" />
+          </Link>
         </Navigation>
       </div>
     </>
