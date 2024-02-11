@@ -50,7 +50,7 @@ const EventCreation = (props: any) => {
       notifyOnRegistration: event?.notifyOnRegistration,
       allowComments: event?.allowComments,
       notifyOnComment: event?.notifyOnComment,
-      published: event?.published,
+      state: event?.state,
     });
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {

@@ -14,6 +14,7 @@ import { menuEventTypes } from '@/types/consts/menus/menu-event-types';
 import { validateAlias } from '@/types/funcs/validation/validation-event';
 import { timeMid } from '@/types/funcs/time';
 import CurInput from '../common/CurrencyInput';
+import { EventState } from '@/types/enums/event-state';
 
 interface IEventEditorProps {
   event?: Event;
@@ -48,7 +49,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
   const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
   const [notifyOnComment, setNotifyOnComment] = useState<boolean>(event?.notifyOnComment || true);
-  const [published, setPublished] = useState<boolean>(event?.published || false);
 
   const handleInputChangeAlias = (event: any) => {
     let alias: string = event.currentTarget.value;
@@ -100,7 +100,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       notifyOnComment: notifyOnComment,
       eventRegistrations: [],
       eventCompetitions: [],
-      published: published,
+      state: event?.state || EventState.CREATED,
     });
   };
 
@@ -134,7 +134,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       setNotifyOnRegistration(event.notifyOnRegistration);
       setAllowComments(event.allowComments);
       setNotifyOnComment(event.notifyOnComment);
-      setPublished(event.published);
     }
   }, [event]);
 
@@ -169,7 +168,6 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
     notifyOnRegistration,
     allowComments,
     notifyOnComment,
-    published,
   ]);
 
   return (
@@ -474,14 +472,15 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           }}
         />
       )}
-      <CheckBox
-        id={'published'}
-        label="Publish Event"
-        value={published}
-        onChange={() => {
-          setPublished(!published);
-        }}
-      />
+
+      {event?.state && (
+        <div className="m-2 grid grid-cols-2 place-items-start items-center">
+          <div className="p-2">{'Event State'}</div>
+          <label id={'eventState'} className="w-full">
+            {(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}
+          </label>
+        </div>
+      )}
     </div>
   );
 };
