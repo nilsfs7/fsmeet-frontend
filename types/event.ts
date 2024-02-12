@@ -5,6 +5,7 @@ import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
 import { Moment } from 'moment';
+import { EventState } from './enums/event-state';
 
 export type Event = {
   id?: string;
@@ -33,5 +34,5 @@ export type Event = {
   notifyOnComment: boolean;
   eventRegistrations: EventRegistration[];
   eventCompetitions: EventCompetition[];
-  published: boolean;
+  state: EventState;
 };

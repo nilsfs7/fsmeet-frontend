@@ -294,7 +294,7 @@ const Account = ({ session }: any) => {
 
             <CheckBox
               id={'exposeLocation'}
-              label="Publish city on Freestyler's Map"
+              label="Publish city on Freestyler Map"
               value={exposeLocation}
               onChange={() => {
                 setExposeLocation(!exposeLocation);

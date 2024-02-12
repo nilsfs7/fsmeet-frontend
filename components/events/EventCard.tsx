@@ -4,6 +4,7 @@ import Separator from '../Seperator';
 import { Event } from '@/types/event';
 import moment from 'moment';
 import { EventType } from '@/types/enums/event-type';
+import { isPublicEventState } from '@/types/funcs/is-public-event-state';
 
 interface IEventProps {
   event: Event;
@@ -11,11 +12,11 @@ interface IEventProps {
 
 const EventCard = ({ event }: IEventProps) => {
   return (
-    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary '}>
+    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
       {/* top */}
       <div className={'max-h-24 p-2'}>
         <div className="28 flex ">
-          <div className="w-full text-base font-bold">{`${!event.published ? '[NOT LISTED] ' : ''}${event.name}`}</div>
+          <div className="w-full text-base font-bold">{`${!isPublicEventState(event.state) ? '[NOT LISTED] ' : ''}${event.name}`}</div>
         </div>
         <div className="flex justify-between">
           <div className="w-1/3 ">{event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}</div>
