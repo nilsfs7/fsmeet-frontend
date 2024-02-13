@@ -14,7 +14,7 @@ export async function getEvent(eventId: string, needsAuthorization?: boolean, se
     });
   }
 
-  const event: Event = await response.json();
+  return await response.json();
 
   // convert moment string into moment object
   // event.registrationOpen = moment(event.registrationOpen);
@@ -30,6 +30,4 @@ export async function getEvent(eventId: string, needsAuthorization?: boolean, se
   //           iban: res.paymentMethodSepa.iban,
   //           reference: res.paymentMethodSepa.reference,
   //         };
-
-  return event;
 }

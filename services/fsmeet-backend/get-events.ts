@@ -17,8 +17,7 @@ export async function getEvents(from: moment.Moment, to: moment.Moment): Promise
   }
 
   const response = await fetch(url);
-
-  let events: Event[] = await response.json();
+  return await response.json();
 
   // events = events.map((e: Event) => {
   // convert moment string into moment object
@@ -38,6 +37,4 @@ export async function getEvents(from: moment.Moment, to: moment.Moment): Promise
 
   // return e;
   // });
-
-  return events;
 }

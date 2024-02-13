@@ -4,9 +4,7 @@ export async function getEventsUpcoming(numberOfEventsToFetch: number): Promise<
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/upcoming/${numberOfEventsToFetch.toString()}`;
 
   const response = await fetch(url);
-  // let events: any = await response.json();
-
-  let events: Event[] = await response.json();
+  return await response.json();
 
   // events = events.map((e: Event) => {
   // convert moment string into moment object
@@ -26,6 +24,4 @@ export async function getEventsUpcoming(numberOfEventsToFetch: number): Promise<
 
   //   return e;
   // });
-
-  return events;
 }
