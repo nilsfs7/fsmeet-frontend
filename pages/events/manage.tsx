@@ -5,21 +5,45 @@ import { Event } from '@/types/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
-import { routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
+import { routeEventSubs, routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
 import { LogoFSMeet } from '@/components/Logo';
-import { useRouter } from 'next/router';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';
+import { getLicense } from '@/services/fsmeet-backend/get-license';
+import { License } from '@/types/license';
+import { useRouter } from 'next/router';
+import Dialog from '@/components/Dialog';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const eventsOwning: Event[] = data.owning;
   const eventsSubscribed: Event[] = data.subs;
+  const license: License = data.license;
 
   const router = useRouter();
 
+  const handleCreateEventClicked = async () => {
+    if (license.amountEventLicenses > 0) {
+      router.push(routeEventsCreate);
+    } else {
+      router.replace(`${routeEventSubs}/?license=1`, undefined, { shallow: true });
+    }
+  };
+
+  const handleConfirmDialogClicked = async () => {
+    router.replace(`${routeEventSubs}`, undefined, { shallow: true });
+  };
+
+  const handleCancelDialogClicked = async () => {
+    router.replace(`${routeEventSubs}`, undefined, { shallow: true });
+  };
+
   return (
     <>
+      <Dialog title="License Warning" queryParam="license" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmDialogClicked}>
+        <p>Out of licenses to create new events.</p>
+      </Dialog>
+
       <div className="absolute inset-0 flex flex-col overflow-hidden">
         {/* Banner */}
         <div className="bg-secondary-light sm:block">
@@ -75,9 +99,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
             <ActionButton action={Action.BACK} />
           </Link>
 
-          <Link href={routeEventsCreate}>
-            <TextButton text="Create Event" />
-          </Link>
+          <TextButton text="Create Event" onClick={handleCreateEventClicked} />
         </Navigation>
       </div>
     </>
@@ -97,6 +119,10 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     };
   }
 
+  if (!session) {
+    throw new Error('Validating session failed');
+  }
+
   const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/manage?admin=${session?.user.username}`;
   const responseMyEvents = await fetch(urlMyEvents, {
     method: 'GET',
@@ -111,9 +137,11 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const responseEventSubs = await fetch(urlEventSubs);
   const dataEventSubs = await responseEventSubs.json();
 
+  const dataLicense = await getLicense(session, session.user.username);
+
   return {
     props: {
-      data: { owning: dataMyEvents, subs: dataEventSubs },
+      data: { owning: dataMyEvents, subs: dataEventSubs, license: dataLicense },
       session: session,
     },
   };
