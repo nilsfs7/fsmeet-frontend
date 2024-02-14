@@ -1,5 +1,7 @@
 export const routeHome = '/';
 
+export const routeAdminLicenses = '/admin/licenses';
+
 export const routeAbout = '/about';
 export const routeLogin = '/login';
 export const routePasswordPending = '/password/pending';
