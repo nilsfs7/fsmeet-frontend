@@ -1,5 +1,7 @@
 export const routeHome = '/';
 
+export const routeAdminOverview = '/admin';
+export const routeAdminEvents = '/admin/events';
 export const routeAdminLicenses = '/admin/licenses';
 
 export const routeAbout = '/about';

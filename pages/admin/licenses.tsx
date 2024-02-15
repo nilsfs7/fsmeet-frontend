@@ -1,11 +1,9 @@
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
-import { routeHome, routeLogin } from '@/types/consts/routes';
-
+import { routeAdminOverview, routeLogin } from '@/types/consts/routes';
 import { validateSession } from '@/types/funcs/validate-session';
 import ActionButton from '@/components/common/ActionButton';
 import { getLicenses } from '@/services/fsmeet-backend/get-licenses';
@@ -16,16 +14,9 @@ import Navigation from '@/components/Navigation';
 const Licenses = (props: any) => {
   const session = props.session;
 
-  const router = useRouter();
-
   const [licenses, setLicenses] = useState<License[]>([]);
 
   const handleUpdateLicenseClicked = async (license: License, diff: number) => {
-    if (!validateSession(session)) {
-      router.push(routeLogin);
-      return;
-    }
-
     const newAmount = license.amountEventLicenses + diff;
     if (newAmount >= 0 && newAmount < 100) {
       let lics = Array.from(licenses);
@@ -98,7 +89,7 @@ const Licenses = (props: any) => {
       </div>
 
       <Navigation>
-        <Link href={routeHome}>
+        <Link href={routeAdminOverview}>
           <ActionButton action={Action.BACK} />
         </Link>
       </Navigation>
