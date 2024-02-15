@@ -5,6 +5,8 @@ export const routeAdminEvents = '/admin/events';
 export const routeAdminLicenses = '/admin/licenses';
 
 export const routeAbout = '/about';
+export const routeImprint = '/imprint';
+export const routeDataProtection = '/dataprotection';
 export const routeLogin = '/login';
 export const routePasswordPending = '/password/pending';
 export const routeAccount = '/account';
