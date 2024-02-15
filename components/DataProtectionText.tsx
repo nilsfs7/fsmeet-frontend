@@ -1,6 +1,6 @@
 export const DataProtectionText = () => {
   return (
-    <div className="select-text">
+    <div className="select-text break-words w-full">
       <h1 className="text-3xl">Datenschutz&shy;erkl&auml;rung</h1>
       <h2 className="mt-6 text-2xl">1. Datenschutz auf einen Blick</h2>
       <h3 className="mt-4 text-xl">Allgemeine Hinweise</h3>

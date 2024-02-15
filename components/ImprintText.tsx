@@ -1,6 +1,6 @@
 export const ImprintText = () => {
   return (
-    <div className="select-text">
+    <div className="select-text break-words w-full">
       <h1 className="text-3xl">Impressum</h1>
 
       <h2 className="mt-6 text-2xl">Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
@@ -47,7 +47,7 @@ export const ImprintText = () => {
         .<br /> Unsere E-Mail-Adresse finden Sie oben im Impressum.
       </p>
 
-      <h2 className="mt-6 text-2xl">Verbraucher&shy;streit&shy;beilegung/Universal&shy;schlichtungs&shy;stelle</h2>
+      <h2 className="mt-6 text-2xl">Verbraucher&shy;streit&shy;beilegung / Universal&shy;schlichtungs&shy;stelle</h2>
       <p className="mt-4">Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
 
       <p className="mt-4">
