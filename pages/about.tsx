@@ -1,7 +1,7 @@
 import { LogoFSMeet } from '@/components/Logo';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
-import { routeHome, routeImprint } from '@/types/consts/routes';
+import { routeDataProtection, routeHome, routeImprint } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { NextPage } from 'next';
 import Link from 'next/link';
@@ -29,6 +29,11 @@ const About: NextPage = () => {
         <div className="mt-20">
           <Link className="underline" href={routeImprint}>
             Impressum
+          </Link>
+        </div>
+        <div>
+          <Link className="underline" href={routeDataProtection}>
+            Datenschutzerklärung
           </Link>
         </div>
       </div>
