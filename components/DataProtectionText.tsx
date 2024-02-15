@@ -30,7 +30,7 @@ export const DataProtectionText = () => {
         Beschwerderecht bei der zust&auml;ndigen Aufsichtsbeh&ouml;rde zu.
       </p>
       <p>Hierzu sowie zu weiteren Fragen zum Thema Datenschutz k&ouml;nnen Sie sich jederzeit an uns wenden.</p>
-      <h2 className="mt-6 text-xl">2. Hosting</h2>
+      <h2 className="mt-6 text-2xl">2. Hosting</h2>
       <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
       <h3 className="mt-4 text-xl">Amazon Web Services (AWS)</h3> <p>Anbieter ist die Amazon Web Services EMEA SARL, 38 Avenue John F. Kennedy, 1855 Luxemburg (nachfolgend AWS).</p>
       <p>
@@ -62,7 +62,7 @@ export const DataProtectionText = () => {
           https://www.dataprivacyframework.gov/s/participant-search/participant-detail?contact=true&id=a2zt0000000TOWQAA4&status=Active
         </a>
       </p>
-      <h2 className="mt-6 text-xl">3. Allgemeine Hinweise und Pflicht&shy;informationen</h2>
+      <h2 className="mt-6 text-2xl">3. Allgemeine Hinweise und Pflicht&shy;informationen</h2>
       <h3 className="mt-4 text-xl">Datenschutz</h3>
       <p>
         Die Betreiber dieser Seiten nehmen den Schutz Ihrer pers&ouml;nlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen
@@ -194,7 +194,7 @@ export const DataProtectionText = () => {
         Der Nutzung von im Rahmen der Impressumspflicht ver&ouml;ffentlichten Kontaktdaten zur &Uuml;bersendung von nicht ausdr&uuml;cklich angeforderter Werbung und Informationsmaterialien wird
         hiermit widersprochen. Die Betreiber der Seiten behalten sich ausdr&uuml;cklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor.
       </p>
-      <h2 className="mt-6 text-xl">4. Datenerfassung auf dieser Website</h2>
+      <h2 className="mt-6 text-2xl">4. Datenerfassung auf dieser Website</h2>
       <h3 className="mt-4 text-xl">Cookies</h3>
       <p>
         Unsere Internetseiten verwenden so genannte &bdquo;Cookies&ldquo;. Cookies sind kleine Datenpakete und richten auf Ihrem Endger&auml;t keinen Schaden an. Sie werden entweder vor&uuml;bergehend
@@ -237,7 +237,7 @@ export const DataProtectionText = () => {
         Datenspeicherung entf&auml;llt (z.&nbsp;B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen &ndash; insbesondere Aufbewahrungsfristen &ndash; bleiben
         unber&uuml;hrt.
       </p>
-      <h2 className="mt-6 text-xl">5. Newsletter</h2>
+      <h2 className="mt-6 text-2xl">5. Newsletter</h2>
       <h3 className="mt-4 text-xl">Newsletter&shy;daten</h3>
       <p>
         Wenn Sie den auf der Website angebotenen Newsletter beziehen m&ouml;chten, ben&ouml;tigen wir von Ihnen eine E-Mail-Adresse sowie Informationen, welche uns die &Uuml;berpr&uuml;fung gestatten,
@@ -261,7 +261,7 @@ export const DataProtectionText = () => {
         Interesse als auch unserem Interesse an der Einhaltung der gesetzlichen Vorgaben beim Versand von Newslettern (berechtigtes Interesse im Sinne des Art. 6 Abs. 1 lit. f DSGVO). Die Speicherung
         in der Blacklist ist zeitlich nicht befristet. <strong>Sie k&ouml;nnen der Speicherung widersprechen, sofern Ihre Interessen unser berechtigtes Interesse &uuml;berwiegen.</strong>
       </p>
-      <h2 className="mt-6 text-xl">6. Plugins und Tools</h2>
+      <h2 className="mt-6 text-2xl">6. Plugins und Tools</h2>
       <h3 className="mt-4 text-xl">Google Fonts (lokales Hosting)</h3>
       <p>
         Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten so genannte Google Fonts, die von Google bereitgestellt werden. Die Google Fonts sind lokal installiert. Eine Verbindung zu
