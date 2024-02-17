@@ -28,6 +28,7 @@ import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab } from '@/types/funcs/switch-tab';
+import { isPublicEventState } from '@/types/funcs/is-public-event-state';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -324,6 +325,13 @@ const Event = (props: any) => {
                     <ActionButton action={Action.MANAGE_USERS} />
                   </Link>
                 </div>
+
+                <div className="ml-1">
+                  <Link href={`/events/${eventId}/state`}>
+                    <ActionButton action={isPublicEventState(event.state) ? Action.SHOW : Action.HIDE} />
+                  </Link>
+                </div>
+
                 <div className="ml-1">
                   <Link href={`/events/${eventId}/edit`}>
                     <ActionButton action={Action.EDIT} />
