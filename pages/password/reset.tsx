@@ -53,7 +53,7 @@ const ResetPassword: NextPage = () => {
             id={'password'}
             type={'password'}
             label={'New password'}
-            placeholder="123"
+            placeholder="Ball&Chill2021"
             onChange={e => {
               handleInputChangePassword(e);
             }}

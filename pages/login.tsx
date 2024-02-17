@@ -89,7 +89,7 @@ const Login: NextPage = () => {
             id={'password'}
             type={'password'}
             label={'Password'}
-            placeholder="123"
+            placeholder="Ball&Chill2021"
             onChange={e => {
               handleInputChangePassword(e);
             }}

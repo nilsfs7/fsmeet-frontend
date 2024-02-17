@@ -30,8 +30,8 @@ const Account = ({ session }: any) => {
   const [country, setCountry] = useState('');
   const [instagramHandle, setInstagramHandle] = useState('');
   const [tikTokHandle, setTikTokHandle] = useState('');
-  const [website, setWebsite] = useState('');
   const [youTubeHandle, setYouTubeHandle] = useState('');
+  const [website, setWebsite] = useState('');
 
   // private user info
   const [tShirtSize, setTShirtSize] = useState();

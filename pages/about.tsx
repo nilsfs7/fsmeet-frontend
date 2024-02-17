@@ -1,8 +1,10 @@
 import { LogoFSMeet } from '@/components/Logo';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
+import SocialLink from '@/components/user/SocialLink';
 import { routeDataProtection, routeHome, routeImprint } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
+import { Platform } from '@/types/enums/platform';
 import { NextPage } from 'next';
 import Link from 'next/link';
 
@@ -23,7 +25,11 @@ const About: NextPage = () => {
         <div>FSMeet is a free tool to easily organize and manage freestyle football meetings and competitions. Event creation will soon be available for everyone.</div>
         <div>Stay tuned! ⚽</div>
 
-        <div className="mt-10">{`Build: ${shortSha}`}</div>
+        <div className="mt-6">
+          <SocialLink platform={Platform.INSTAGRAM} path={'@fsmeet_com'}></SocialLink>
+        </div>
+
+        <div className="mt-20">{`Build: ${shortSha}`}</div>
         <div>{buildTime}</div>
 
         <div className="mt-20">
