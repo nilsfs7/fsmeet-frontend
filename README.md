@@ -70,6 +70,8 @@ docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --
 
 Account
 
+- [Verified User Checkmark](https://www.iconfinder.com/icons/9554694/store_verified_shopping_ecommerce_cart_icon)
+
 - [Instagram Logo](https://www.iconfinder.com/icons/6929237/instagram_icon)
 
 - [TikTok Logo](https://www.iconfinder.com/icons/7024782/tiktok_social_media_icon)

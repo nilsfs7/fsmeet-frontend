@@ -8,6 +8,7 @@ export type User = {
   tikTokHandle?: string;
   youTubeHandle?: string;
   website?: string;
+  isVerifiedAccount?: boolean;
   city?: string;
   exposeLocation?: string;
   locLatitude?: number;

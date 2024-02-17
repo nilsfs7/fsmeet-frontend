@@ -1,7 +1,7 @@
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import SocialLink from '@/components/user/SocialLink';
-import { imgUserDefaultImg } from '@/types/consts/images';
+import { imgUserDefaultImg, imgVerifiedCheckmark } from '@/types/consts/images';
 import { routeHome } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
@@ -29,8 +29,11 @@ const Profile = (props: any) => {
             </div>
 
             <div className="mx-1 mt-6">
-              {user.firstName && user.lastName && <div className="mx-1 mb-2">{`${user.firstName} ${user.lastName}`}</div>}
-              {user.firstName && !user.lastName && <div className="mx-1 mb-2">{`${user.firstName}`}</div>}
+              <div className="h-8 flex items-center">
+                {user.firstName && user.lastName && <div className="mx-1">{`${user.firstName} ${user.lastName}`}</div>}
+                {user.firstName && !user.lastName && <div className="mx-1">{`${user.firstName}`}</div>}
+                {user.isVerifiedAccount && <img className="h-8 p-1 hover:p-0" src={imgVerifiedCheckmark} alt="user verified checkmark" />}
+              </div>
 
               {user.instagramHandle && (
                 <div className="mt-1">
