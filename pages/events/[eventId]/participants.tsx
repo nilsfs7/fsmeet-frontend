@@ -118,6 +118,7 @@ const EventParticipants = (props: any) => {
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <div className="m-2 text-center text-base font-bold">Manage Participants</div>
           <div className="flex flex-col">
+            {event.eventRegistrations.length === 0 && <div className="m-1 flex justify-center">No registrations yet</div>}
             {event.eventRegistrations.map((registration, index) => {
               const participant: EventRegistration = {
                 username: registration.username,
