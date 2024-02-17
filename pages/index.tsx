@@ -28,7 +28,7 @@ const Home = ({ data }: { data: any }) => {
       </div>
 
       <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
-        <div className="text-center text-3xl">Your Freestyle Football Events</div>
+        <div className="text-center text-3xl">Your Freestyle Events</div>
         <div className="text-center text-xl">Plan | Compete | Connect</div>
         <img className="h-12 mt-2" src={imgFreestyler}></img>
       </div>
