@@ -44,11 +44,11 @@ const RoundOptions = ({
   return (
     <div className="flex flex-col p-1">
       <div className="flex items-end justify-between gap-2">
-        <div className="">Num Players</div>
+        <div className="">Available player pool</div>
         <div className="text-end">{round.numberPlayers}</div>
       </div>
       <div className="mt-2 flex items-end justify-between gap-2">
-        <div className="">Max Match Size</div>
+        <div className="">Players per match</div>
         <div className="text-end">
           <input
             id={`input-max-match-size-${round.roundIndex}`}
@@ -64,11 +64,11 @@ const RoundOptions = ({
         </div>
       </div>
       <div className="mt-2 flex items-end justify-between gap-2">
-        <div className="">Num Matches</div>
+        <div className="">Number of matches</div>
         <div className="text-end">{round.matches.length}</div>
       </div>
       <div className="mt-2 flex items-end justify-between gap-2">
-        <div className="">Passing Per Match</div>
+        <div className="">Advancing per match</div>
         <div className="text-end">
           <input
             id={`input-max-passing-${round.roundIndex}`}
@@ -83,11 +83,7 @@ const RoundOptions = ({
         </div>
       </div>
       <div className="mt-2 flex items-end justify-between gap-2">
-        <div className="">Num Passing Round</div>
-        <div className="text-end">{round.matches.length * round.passingPerMatch}</div>
-      </div>
-      <div className="mt-2 flex items-end justify-between gap-2">
-        <div className="">Passing Extra</div>
+        <div className="">Advancing extra</div>
         <div className="text-end">
           <input
             id={`input-passing-extra-${round.roundIndex}`}
@@ -103,7 +99,7 @@ const RoundOptions = ({
         </div>
       </div>
       <div className="mt-2 flex items-end justify-between gap-2">
-        <div className="">Num Passing Total</div>
+        <div className="">Advancing in total</div>
         <div className="text-end">{round.advancingTotal}</div>
       </div>
     </div>
