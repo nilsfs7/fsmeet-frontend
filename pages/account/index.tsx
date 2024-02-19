@@ -187,89 +187,90 @@ const Account = ({ session }: any) => {
         <div className="my-4" />
 
         <div className={'flex flex-col items-center'}>
-          <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-            <div className="text-center">Public Info</div>
-            <TextInput
-              id={'firstName'}
-              label={'First Name'}
-              placeholder=""
-              value={firstName}
-              onChange={e => {
-                setFirstName(e.currentTarget.value);
-              }}
-            />
+          <div>
+            <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+              <div className="text-center">Public Info</div>
+              <TextInput
+                id={'firstName'}
+                label={'First Name'}
+                placeholder=""
+                value={firstName}
+                onChange={e => {
+                  setFirstName(e.currentTarget.value);
+                }}
+              />
 
-            <TextInput
-              id={'lastName'}
-              label={'Last Name'}
-              placeholder=""
-              value={lastName}
-              onChange={e => {
-                setLastName(e.currentTarget.value);
-              }}
-            />
+              <TextInput
+                id={'lastName'}
+                label={'Last Name'}
+                placeholder=""
+                value={lastName}
+                onChange={e => {
+                  setLastName(e.currentTarget.value);
+                }}
+              />
 
-            <div className="m-2 grid grid-cols-2">
-              <div className="p-2">Country</div>
-              <div className="flex w-full">
-                <ComboBox
-                  menus={menuCountries}
-                  value={country ? country : menuCountries[0].value}
-                  searchEnabled={true}
-                  onChange={(value: any) => {
-                    setCountry(value);
-                  }}
-                />
+              <div className="m-2 grid grid-cols-2">
+                <div className="p-2">Country</div>
+                <div className="flex w-full">
+                  <ComboBox
+                    menus={menuCountries}
+                    value={country ? country : menuCountries[0].value}
+                    searchEnabled={true}
+                    onChange={(value: any) => {
+                      setCountry(value);
+                    }}
+                  />
+                </div>
               </div>
+
+              <TextInput
+                id={'instagramHandle'}
+                label={'Instagram Handle'}
+                placeholder="@dffb_org"
+                value={instagramHandle}
+                onChange={e => {
+                  setInstagramHandle(prefixRequired(e.currentTarget.value, '@'));
+                }}
+              />
+
+              <TextInput
+                id={'tikTokHandle'}
+                label={'TikTok Handle'}
+                placeholder="@dffb_org"
+                value={tikTokHandle}
+                onChange={e => {
+                  setTikTokHandle(prefixRequired(e.currentTarget.value, '@'));
+                }}
+              />
+
+              <TextInput
+                id={'youTubeHandle'}
+                label={'YouTube Handle'}
+                placeholder="@dffb_org"
+                value={youTubeHandle}
+                onChange={e => {
+                  setYouTubeHandle(prefixRequired(e.currentTarget.value, '@'));
+                }}
+              />
+
+              <TextInput
+                id={'website'}
+                label={'Website'}
+                placeholder="https://dffb.org"
+                value={website}
+                onChange={e => {
+                  let url: string = e.currentTarget.value;
+                  url = url.toLowerCase();
+
+                  setWebsite(url);
+                }}
+              />
             </div>
 
-            <TextInput
-              id={'instagramHandle'}
-              label={'Instagram Handle'}
-              placeholder="@dffb_org"
-              value={instagramHandle}
-              onChange={e => {
-                setInstagramHandle(prefixRequired(e.currentTarget.value, '@'));
-              }}
-            />
-
-            <TextInput
-              id={'tikTokHandle'}
-              label={'TikTok Handle'}
-              placeholder="@dffb_org"
-              value={tikTokHandle}
-              onChange={e => {
-                setTikTokHandle(prefixRequired(e.currentTarget.value, '@'));
-              }}
-            />
-
-            <TextInput
-              id={'youTubeHandle'}
-              label={'YouTube Handle'}
-              placeholder="@dffb_org"
-              value={youTubeHandle}
-              onChange={e => {
-                setYouTubeHandle(prefixRequired(e.currentTarget.value, '@'));
-              }}
-            />
-
-            <TextInput
-              id={'website'}
-              label={'Website'}
-              placeholder="https://dffb.org"
-              value={website}
-              onChange={e => {
-                let url: string = e.currentTarget.value;
-                url = url.toLowerCase();
-
-                setWebsite(url);
-              }}
-            />
-          </div>
-
-          <div className="flex flex-col rounded-lg  border border-primary bg-secondary-light p-1">
-            <div className="text-center">Private Info</div>
-            <div className="m-2 grid grid-cols-2">
+            <div className="flex flex-col rounded-lg  border border-primary bg-secondary-light p-1">
+              <div className="text-center">Private Info</div>
+              {/* <div className="m-2 grid grid-cols-2">
               <div className="p-2">T-Shirt Size</div>
               <div className="flex w-full">
                 <ComboBox
@@ -280,26 +281,27 @@ const Account = ({ session }: any) => {
                   }}
                 />
               </div>
+            </div> */}
+
+              <TextInput
+                id={'city'}
+                label={'City'}
+                placeholder="Munich"
+                value={city}
+                onChange={e => {
+                  setCity(e.currentTarget.value);
+                }}
+              />
+
+              <CheckBox
+                id={'exposeLocation'}
+                label="Publish city on Freestyler Map"
+                value={exposeLocation}
+                onChange={() => {
+                  setExposeLocation(!exposeLocation);
+                }}
+              />
             </div>
-
-            <TextInput
-              id={'city'}
-              label={'City'}
-              placeholder="Munich"
-              value={city}
-              onChange={e => {
-                setCity(e.currentTarget.value);
-              }}
-            />
-
-            <CheckBox
-              id={'exposeLocation'}
-              label="Publish city on Freestyler Map"
-              value={exposeLocation}
-              onChange={() => {
-                setExposeLocation(!exposeLocation);
-              }}
-            />
           </div>
         </div>
 
