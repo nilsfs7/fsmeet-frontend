@@ -367,7 +367,7 @@ const Event = (props: any) => {
               {event.state === EventState.WAITING_FOR_APPROVAL && (
                 <>
                   <p className="mt-2">Your event is not listed publicly but currently being reviewed.</p>
-                  <p>In case of any updates to your event you can still edit your event info.</p>
+                  <p>In case you have any updates for your event you can still adapt the event info.</p>
                   <div className="mt-2 flex justify-between">
                     <Link href={`${routeEvents}/${eventId}/edit`}>
                       <TextButton text="Edit Event" />
@@ -382,7 +382,7 @@ const Event = (props: any) => {
           {isPublicEventState(event.state) && (
             <>
               <p className="mt-2">Your event is listed publicly. Nothing to do here.</p>
-              <p>In case of any updates to your event you can still edit your event info.</p>
+              <p>In case you have any updates for your event you can still adapt the event info.</p>
               <div className="mt-2 flex justify-between">
                 <Link href={`${routeEvents}/${eventId}/edit`}>
                   <TextButton text="Edit Event" />
