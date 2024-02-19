@@ -270,18 +270,19 @@ const Account = ({ session }: any) => {
 
             <div className="flex flex-col rounded-lg  border border-primary bg-secondary-light p-1">
               <div className="text-center">Private Info</div>
-              {/* <div className="m-2 grid grid-cols-2">
-              <div className="p-2">T-Shirt Size</div>
-              <div className="flex w-full">
-                <ComboBox
-                  menus={menuTShirtSizes}
-                  value={tShirtSize ? tShirtSize : menuTShirtSizes[0].value}
-                  onChange={(value: any) => {
-                    setTShirtSize(value);
-                  }}
-                />
+
+              <div className="m-2 grid grid-cols-2">
+                <div className="p-2">T-Shirt Size</div>
+                <div className="flex w-full">
+                  <ComboBox
+                    menus={menuTShirtSizes}
+                    value={tShirtSize ? tShirtSize : menuTShirtSizes[0].value}
+                    onChange={(value: any) => {
+                      setTShirtSize(value);
+                    }}
+                  />
+                </div>
               </div>
-            </div> */}
 
               <TextInput
                 id={'city'}
