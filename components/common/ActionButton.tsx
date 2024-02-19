@@ -14,6 +14,8 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import SaveIcon from '@mui/icons-material/Save';
 import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/types/enums/size';
 
 interface IButton {
@@ -76,6 +78,9 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
     case Action.EDIT:
       icon = <EditIcon className={className} />;
       break;
+    case Action.HIDE:
+      icon = <VisibilityOffIcon className={className} />;
+      break;
     case Action.MANAGE_COMPETITIONS:
       icon = <TrophyIcon className={className} />;
       break;
@@ -93,6 +98,9 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
       break;
     case Action.SHARE:
       icon = <ShareIcon className={className} />;
+      break;
+    case Action.SHOW:
+      icon = <VisibilityIcon className={className} />;
       break;
   }
 

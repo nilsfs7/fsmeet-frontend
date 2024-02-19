@@ -7,8 +7,8 @@ import TextButton from './common/TextButton';
 interface IDialogProps {
   title: string;
   queryParam: string;
-  onCancel: () => void;
-  onConfirm: () => void;
+  onCancel?: () => void;
+  onConfirm?: () => void;
   cancelText?: string;
   confirmText?: string;
   children: React.ReactNode;
@@ -29,13 +29,13 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
 
   const clickCancel = () => {
     dialogRef.current?.close();
-    onCancel();
+    onCancel && onCancel();
   };
 
   const clickConfirm = () => {
-    onConfirm();
+    onConfirm && onConfirm();
     dialogRef.current?.close();
-    onCancel();
+    onCancel && onCancel();
   };
 
   return showDialog === '1' ? (
@@ -48,11 +48,20 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
           <div className="rounded-b-lg bg-background p-2">
             <div className="p-2">{children}</div>
             <div className="flex flex-row justify-between p-2">
-              {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
-              {cancelText && <TextButton text={cancelText} onClick={clickCancel} />}
+              {onCancel && (
+                <>
+                  {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
+                  {cancelText && <TextButton text={cancelText} onClick={clickCancel} />}
+                </>
+              )}
+              {!onCancel && <div />}
 
-              {!confirmText && <ActionButton action={Action.ACCEPT} onClick={clickConfirm} />}
-              {confirmText && <TextButton text={confirmText} onClick={clickConfirm} />}
+              {onConfirm && (
+                <>
+                  {!confirmText && <ActionButton action={Action.ACCEPT} onClick={clickConfirm} />}
+                  {confirmText && <TextButton text={confirmText} onClick={clickConfirm} />}
+                </>
+              )}
             </div>
           </div>
         </div>

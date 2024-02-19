@@ -8,10 +8,12 @@ export enum Action {
   DENY,
   DELETE,
   EDIT,
+  HIDE,
   MANAGE_COMPETITIONS,
   MANAGE_USERS,
   REMOVE,
   SAVE,
   SEND,
   SHARE,
+  SHOW,
 }

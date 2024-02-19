@@ -28,6 +28,9 @@ import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab } from '@/types/funcs/switch-tab';
+import { isPublicEventState } from '@/types/funcs/is-public-event-state';
+import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
+import { EventState } from '@/types/enums/event-state';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -63,6 +66,33 @@ const Event = (props: any) => {
       router.replace(`${routeEvents}/${eventId}?register=1`, undefined, { shallow: true });
     } else {
       console.error('Registration deadline exceeded.');
+    }
+  };
+
+  const handleStateActionClicked = async () => {
+    if (!validateSession(session)) {
+      router.push(routeLogin);
+      return;
+    }
+
+    router.replace(`${routeEvents}/${eventId}?state=1&auth=1`, undefined, { shallow: true });
+  };
+
+  const handleSendToReviewClicked = async () => {
+    if (!validateSession(session)) {
+      router.push(routeLogin);
+      return;
+    }
+
+    if (event?.id) {
+      const response = await updateEventState(session, event?.id, EventState.WAITING_FOR_APPROVAL);
+
+      if (response.status == 200) {
+        console.info('Successfully sent to review. Waiting for approval');
+        router.reload();
+      } else {
+        console.error('Send to review failed.');
+      }
     }
   };
 
@@ -109,7 +139,13 @@ const Event = (props: any) => {
   };
 
   const handleCancelDialogClicked = async () => {
-    router.replace(`${routeEvents}/${eventId}`, undefined, { shallow: true });
+    let url = `${routeEvents}/${eventId}`;
+
+    if (event && !isPublicEventState(event?.state)) {
+      url = `${url}?auth=1`;
+    }
+
+    router.replace(url, undefined, { shallow: true });
   };
 
   const handleConfirmUnregisterClicked = async () => {
@@ -304,6 +340,59 @@ const Event = (props: any) => {
         )}
       </Dialog>
 
+      <Dialog title="Event Visibility" queryParam="state" onCancel={handleCancelDialogClicked}>
+        <>
+          <p className="flex gap-2 items-center">
+            <div> Event state: </div>
+            <div className="font-extrabold p-2 rounded-lg bg-secondary">{(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}</div>
+          </p>
+
+          {!isPublicEventState(event.state) && (
+            <>
+              {event.state !== EventState.WAITING_FOR_APPROVAL && (
+                <>
+                  <p className="mt-2">Your event is not listed publicly, yet.</p>
+                  <p>Do you want to publish your event? Please complete your event info with as many details as possible before sending for review.</p>
+                  <div className="mt-2 flex justify-between">
+                    <Link href={`${routeEvents}/${eventId}/edit?auth=1`}>
+                      <TextButton text="Edit Event" />
+                    </Link>
+
+                    <TextButton text="Send to review" onClick={handleSendToReviewClicked} />
+                  </div>
+
+                  {/* <p>why is a review necessary? todo</p> */}
+                </>
+              )}
+              {event.state === EventState.WAITING_FOR_APPROVAL && (
+                <>
+                  <p className="mt-2">Your event is not listed publicly but currently being reviewed.</p>
+                  <p>In case of any updates to your event you can still edit your event info.</p>
+                  <div className="mt-2 flex justify-between">
+                    <Link href={`${routeEvents}/${eventId}/edit`}>
+                      <TextButton text="Edit Event" />
+                    </Link>
+                  </div>
+
+                  {/* <p>why is a review necessary? todo</p> */}
+                </>
+              )}
+            </>
+          )}
+          {isPublicEventState(event.state) && (
+            <>
+              <p className="mt-2">Your event is listed publicly. Nothing to do here.</p>
+              <p>In case of any updates to your event you can still edit your event info.</p>
+              <div className="mt-2 flex justify-between">
+                <Link href={`${routeEvents}/${eventId}/edit`}>
+                  <TextButton text="Edit Event" />
+                </Link>
+              </div>
+            </>
+          )}
+        </>
+      </Dialog>
+
       <div className="absolute inset-0 flex flex-col overflow-hidden">
         {/* admin panel */}
         <div className="mx-2 my-2">
@@ -311,6 +400,18 @@ const Event = (props: any) => {
             <div className="flex justify-between rounded-lg border border-primary bg-warning p-2">
               <div className="mr-8 flex items-center">Admin Panel</div>
               <div className="flex">
+                <div className="ml-1">
+                  <Link href={`/events/${eventId}/edit`}>
+                    <ActionButton action={Action.EDIT} />
+                  </Link>
+                </div>
+
+                <div className="ml-1">
+                  <Link href={`/events/${eventId}/participants`}>
+                    <ActionButton action={Action.MANAGE_USERS} />
+                  </Link>
+                </div>
+
                 {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
                   <div className="ml-1">
                     <Link href={`/events/${eventId}/comps`}>
@@ -320,14 +421,7 @@ const Event = (props: any) => {
                 )}
 
                 <div className="ml-1">
-                  <Link href={`/events/${eventId}/participants`}>
-                    <ActionButton action={Action.MANAGE_USERS} />
-                  </Link>
-                </div>
-                <div className="ml-1">
-                  <Link href={`/events/${eventId}/edit`}>
-                    <ActionButton action={Action.EDIT} />
-                  </Link>
+                  <ActionButton action={isPublicEventState(event.state) ? Action.SHOW : Action.HIDE} onClick={handleStateActionClicked} />
                 </div>
               </div>
             </div>
