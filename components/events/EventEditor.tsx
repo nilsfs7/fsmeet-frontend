@@ -472,14 +472,14 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         />
       )}
 
-      {event?.state && (
+      {/* {event?.state && (
         <div className="m-2 grid grid-cols-2 place-items-start items-center">
           <div className="p-2">{'Event State'}</div>
           <label id={'eventState'} className="w-full">
             {(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}
           </label>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
