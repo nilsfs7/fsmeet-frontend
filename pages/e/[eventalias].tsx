@@ -12,6 +12,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   let event: Event;
 
+  // TODO: bug -> url funktioniert nicht für events ohne public state
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/alias/${alias}`;
   try {
     const response = await fetch(url);
