@@ -78,7 +78,7 @@ const Home = ({ data }: { data: any }) => {
                       </div>
                     </div>
 
-                    {/* Todo: dirty workaround to get buttons to mid */}
+                    {/* TODO: dirty workaround to get buttons to mid */}
                     <h1 className="mt-12" />
                   </>
                 </CarouselItem>
@@ -104,7 +104,7 @@ const Home = ({ data }: { data: any }) => {
                       </div>
                     </div>
 
-                    {/* Todo: dirty workaround to get buttons to mid */}
+                    {/* TODO: dirty workaround to get buttons to mid */}
                     <h1 className="mt-12" />
                   </>
                 </CarouselItem>
@@ -130,7 +130,7 @@ const Home = ({ data }: { data: any }) => {
                       </div>
                     </div>
 
-                    {/* Todo: dirty workaround to get buttons to mid */}
+                    {/* TODO: dirty workaround to get buttons to mid */}
                     <h1 className="mt-12" />
                   </>
                 </CarouselItem>

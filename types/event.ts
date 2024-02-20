@@ -4,7 +4,6 @@ import { EventCompetition } from './event-competition';
 import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
-import { Moment } from 'moment';
 import { EventState } from './enums/event-state';
 
 export type Event = {
