@@ -47,6 +47,9 @@ const Home = ({ data }: { data: any }) => {
 
         <div className="mt-6 flex justify-center">
           <Carousel
+            opts={{
+              loop: true,
+            }}
             plugins={[
               Autoplay({
                 delay: 6000,
@@ -133,8 +136,8 @@ const Home = ({ data }: { data: any }) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            {/* <CarouselPrevious />
+            <CarouselNext /> */}
           </Carousel>
         </div>
       </div>
