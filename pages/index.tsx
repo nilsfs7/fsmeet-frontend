@@ -12,6 +12,8 @@ import { Event } from '@/types/event';
 import { getEventsUpcoming } from '@/services/fsmeet-backend/get-events-upcoming';
 import { getEventsRecent } from '@/services/fsmeet-backend/get-events-recent';
 import { getEventsOngoing } from '@/services/fsmeet-backend/get-events-ongoing';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
 const Home = ({ data }: { data: any }) => {
   let upcomingEvents: Event[] = data.upcoming;
@@ -37,80 +39,104 @@ const Home = ({ data }: { data: any }) => {
 
       <div className="flex max-h-full flex-col overflow-y-auto">
         {/* Show all */}
-        <div className="m-2 mt-4 flex flex-shrink-0 justify-center">
+        <div className="m-2 mt-6 flex flex-shrink-0 justify-center">
           <Link href={routeEvents}>
-            <TextButton text="Show Events" />
+            <TextButton text="Show All" />
           </Link>
         </div>
 
-        {/* Ongoing Events */}
-        {ongoingEvents.length > 0 && (
-          <>
-            <h1 className="mt-2 text-center text-2xl">Ongoing</h1>
-            {/* <div className="overflow-hidden"> */}
-            {/* overflow-y-auto */}
-            <div className="mt-2 flex max-h-full justify-center px-2">
-              <div className="w-full">
-                {ongoingEvents.map((item: any, i: number) => {
-                  return (
-                    <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                      <Link href={`/events/${item.id}`}>
-                        <EventCard event={item} />
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            {/* </div> */}
-          </>
-        )}
+        <div className="mt-6 flex justify-center">
+          <Carousel
+            plugins={[
+              Autoplay({
+                delay: 6000,
+              }),
+            ]}
+            // className="w-full max-w-xs"
+          >
+            <CarouselContent>
+              {/* Upcoming Events */}
+              {Array.from({ length: ongoingEvents.length }).map((_, index) => (
+                <CarouselItem key={index}>
+                  <>
+                    <h1 className="mt-2 text-center text-2xl">Current Events</h1>
 
-        {/* Upcoming Events */}
-        {upcomingEvents.length > 0 && (
-          <>
-            <h1 className="mt-2 text-center text-2xl">Upcoming</h1>
-            {/* <div className="overflow-hidden"> */}
-            {/* overflow-y-auto */}
-            <div className="mt-2 flex max-h-full justify-center px-2">
-              <div className="w-full">
-                {upcomingEvents.map((item: any, i: number) => {
-                  return (
-                    <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                      <Link href={`/events/${item.id}`}>
-                        <EventCard event={item} />
-                      </Link>
+                    <div className="mt-2 flex max-h-full justify-center px-2">
+                      <div className="w-full">
+                        {upcomingEvents.map((item: any, i: number) => {
+                          return (
+                            <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                              <Link href={`/events/${item.id}`}>
+                                <EventCard event={item} />
+                              </Link>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  );
-                })}
-              </div>
-            </div>
-            {/* </div> */}
-          </>
-        )}
 
-        {/* Recent Events */}
-        {recentEvents.length > 0 && (
-          <>
-            <h1 className="mt-2 text-center text-2xl">Recent</h1>
-            {/* <div className="overflow-hidden"> */}
-            {/* overflow-y-auto */}
-            <div className="mt-2 flex max-h-full justify-center  px-2">
-              <div className="w-full">
-                {recentEvents.map((item: any, i: number) => {
-                  return (
-                    <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                      <Link href={`/events/${item.id}`}>
-                        <EventCard event={item} />
-                      </Link>
+                    {/* Todo: dirty workaround to get buttons to mid */}
+                    <h1 className="mt-12" />
+                  </>
+                </CarouselItem>
+              ))}
+
+              {/* Upcoming Events */}
+              {Array.from({ length: upcomingEvents.length }).map((_, index) => (
+                <CarouselItem key={index}>
+                  <>
+                    <h1 className="mt-2 text-center text-2xl">Upcoming Events</h1>
+
+                    <div className="mt-2 flex max-h-full justify-center px-2">
+                      <div className="w-full">
+                        {upcomingEvents.map((item: any, i: number) => {
+                          return (
+                            <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                              <Link href={`/events/${item.id}`}>
+                                <EventCard event={item} />
+                              </Link>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  );
-                })}
-              </div>
-              {/* </div> */}
-            </div>
-          </>
-        )}
+
+                    {/* Todo: dirty workaround to get buttons to mid */}
+                    <h1 className="mt-12" />
+                  </>
+                </CarouselItem>
+              ))}
+
+              {/* Recent Events */}
+              {Array.from({ length: recentEvents.length }).map((_, index) => (
+                <CarouselItem key={index}>
+                  <>
+                    <h1 className="mt-2 text-center text-2xl">Recent Events</h1>
+
+                    <div className="mt-2 flex max-h-full justify-center  px-2">
+                      <div className="w-full">
+                        {recentEvents.map((item: any, i: number) => {
+                          return (
+                            <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                              <Link href={`/events/${item.id}`}>
+                                <EventCard event={item} />
+                              </Link>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Todo: dirty workaround to get buttons to mid */}
+                    <h1 className="mt-12" />
+                  </>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
       </div>
 
       <Navigation>
