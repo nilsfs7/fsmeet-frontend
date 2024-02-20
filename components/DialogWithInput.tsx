@@ -43,7 +43,7 @@ const DialogWithInput = ({ title, description, queryParam, onCancel, onConfirm, 
 
   return showDialog === '1' ? (
     <dialog ref={dialogRef}>
-      <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-900 bg-opacity-50">
+      <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-gray-900 bg-opacity-50">
         <div className="bg-backgound rounded-lg">
           <div className="rounded-t-lg bg-secondary-light p-2 text-center">
             <h1 className="text-2xl">{title}</h1>
