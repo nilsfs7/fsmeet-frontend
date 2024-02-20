@@ -136,8 +136,8 @@ const Home = ({ data }: { data: any }) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            {/* <CarouselPrevious />
+            <CarouselNext /> */}
           </Carousel>
         </div>
       </div>
