@@ -1,4 +1,3 @@
-import { Moment } from 'moment';
 import { MatchSlot } from './match-slot';
 
 export type Match = {
