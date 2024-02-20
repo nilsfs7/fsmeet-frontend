@@ -1,0 +1,4 @@
+implementierung hier: 
+https://tailwindcss.com/docs/position
+
+- sticky top (Buchstabe bleibt beim scrollen oben bis nächster kommt) 
