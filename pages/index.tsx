@@ -55,7 +55,7 @@ const Home = ({ data }: { data: any }) => {
                 delay: 6000,
               }),
             ]}
-            // className="w-full max-w-xs"
+            className="w-full max-w-lg"
           >
             <CarouselContent>
               {/* Ongoing Events */}
