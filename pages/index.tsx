@@ -63,7 +63,7 @@ const Home = ({ data }: { data: any }) => {
 
                     <div className="mt-2 flex max-h-full justify-center px-2">
                       <div className="w-full">
-                        {upcomingEvents.map((item: any, i: number) => {
+                        {ongoingEvents.map((item: any, i: number) => {
                           return (
                             <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
                               <Link href={`/events/${item.id}`}>
