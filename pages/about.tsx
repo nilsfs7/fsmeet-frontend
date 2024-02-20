@@ -2,7 +2,7 @@ import { LogoFSMeet } from '@/components/Logo';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import SocialLink from '@/components/user/SocialLink';
-import { routeDataProtection, routeHome, routeImprint } from '@/types/consts/routes';
+import { routeDataProtection, routeFeedback, routeHome, routeImprint } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
 import { NextPage } from 'next';
@@ -22,10 +22,17 @@ const About: NextPage = () => {
       </div>
 
       <div className="mx-2 mt-2 flex flex-col items-center text-center">
-        <div>FSMeet is a free tool to easily organize and manage freestyle football meetings and competitions. Event creation will soon be available for everyone.</div>
-        <div>Stay tuned! ⚽</div>
+        <div>FSMeet is a free tool to easily organize and manage freestyle football meetings and competitions.</div>
+        <div className="mt-2">
+          This is a community driven project. If you love freestyle as much as we do, we encourage you to send any feedback or ideas to further improve our service. You can reach out to us either
+          using the{' '}
+          <Link href={routeFeedback} className="underline">
+            feedback function
+          </Link>{' '}
+          or drop us a DM on Instagram.
+        </div>
 
-        <div className="mt-6">
+        <div className="mt-4">
           <SocialLink platform={Platform.INSTAGRAM} path={'@fsmeet_com'}></SocialLink>
         </div>
 
