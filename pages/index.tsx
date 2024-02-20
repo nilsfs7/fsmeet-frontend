@@ -11,9 +11,11 @@ import Link from 'next/link';
 import { Event } from '@/types/event';
 import { getEventsUpcoming } from '@/services/fsmeet-backend/get-events-upcoming';
 import { getEventsRecent } from '@/services/fsmeet-backend/get-events-recent';
+import { getEventsOngoing } from '@/services/fsmeet-backend/get-events-ongoing';
 
 const Home = ({ data }: { data: any }) => {
   let upcomingEvents: Event[] = data.upcoming;
+  let ongoingEvents: Event[] = data.ongoing;
   let recentEvents: Event[] = data.recent;
 
   return (
@@ -40,6 +42,29 @@ const Home = ({ data }: { data: any }) => {
             <TextButton text="Show Events" />
           </Link>
         </div>
+
+        {/* Ongoing Events */}
+        {ongoingEvents.length > 0 && (
+          <>
+            <h1 className="mt-2 text-center text-2xl">Ongoing</h1>
+            {/* <div className="overflow-hidden"> */}
+            {/* overflow-y-auto */}
+            <div className="mt-2 flex max-h-full justify-center px-2">
+              <div className="w-full">
+                {ongoingEvents.map((item: any, i: number) => {
+                  return (
+                    <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                      <Link href={`/events/${item.id}`}>
+                        <EventCard event={item} />
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            {/* </div> */}
+          </>
+        )}
 
         {/* Upcoming Events */}
         {upcomingEvents.length > 0 && (
@@ -120,13 +145,20 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
 
-  let data: { upcoming: any[]; recent: any[] } = { upcoming: [], recent: [] };
+  let data: { upcoming: any[]; ongoing: any[]; recent: any[] } = { upcoming: [], ongoing: [], recent: [] };
 
   const numberOfUpcomingEventsToFetch = 1;
   try {
     data.upcoming = await getEventsUpcoming(numberOfUpcomingEventsToFetch);
   } catch (error: any) {
     console.error('Error fetching upcoming events.');
+  }
+
+  const numberOfOngoingEventsToFetch = 1;
+  try {
+    data.ongoing = await getEventsOngoing(numberOfOngoingEventsToFetch);
+  } catch (error: any) {
+    console.error('Error fetching ongoing events.');
   }
 
   const numberOfRecentEventsToFetch = 1;
