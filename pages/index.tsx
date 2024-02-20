@@ -58,9 +58,9 @@ const Home = ({ data }: { data: any }) => {
             // className="w-full max-w-xs"
           >
             <CarouselContent>
-              {/* Upcoming Events */}
+              {/* Ongoing Events */}
               {Array.from({ length: ongoingEvents.length }).map((_, index) => (
-                <CarouselItem key={index}>
+                <CarouselItem key={`ongoing-${index}`}>
                   <>
                     <h1 className="mt-2 text-center text-2xl">Current Events</h1>
 
@@ -86,7 +86,7 @@ const Home = ({ data }: { data: any }) => {
 
               {/* Upcoming Events */}
               {Array.from({ length: upcomingEvents.length }).map((_, index) => (
-                <CarouselItem key={index}>
+                <CarouselItem key={`upcoming-${index}`}>
                   <>
                     <h1 className="mt-2 text-center text-2xl">Upcoming Events</h1>
 
@@ -112,7 +112,7 @@ const Home = ({ data }: { data: any }) => {
 
               {/* Recent Events */}
               {Array.from({ length: recentEvents.length }).map((_, index) => (
-                <CarouselItem key={index}>
+                <CarouselItem key={`recent-${index}`}>
                   <>
                     <h1 className="mt-2 text-center text-2xl">Recent Events</h1>
 
