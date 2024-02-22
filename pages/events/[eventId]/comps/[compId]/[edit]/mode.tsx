@@ -109,31 +109,27 @@ const ModeEditing = (props: any) => {
     }
   };
 
-  const handleTimeUpdated = async (roundIndex: number, matchIndex: number, matchId: string, time: Moment) => {
+  const handleTimeUpdated = async (roundIndex: number, matchIndex: number, matchId: string, time: Moment | null) => {
     const rnds = Array.from(rounds);
-    rnds[roundIndex].matches[matchIndex].time = time.format();
+    rnds[roundIndex].matches[matchIndex].time = time ? time.format() : undefined;
     setRounds(rnds);
 
-    if (time) {
-      const body = JSON.stringify({
-        matchId: matchId,
-        time: time,
-      });
+    const body = JSON.stringify({
+      matchId: matchId,
+      time: time,
+    });
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
-        method: 'PATCH',
-        body: body,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.user.accessToken}`,
-        },
-      });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
+      method: 'PATCH',
+      body: body,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.user.accessToken}`,
+      },
+    });
 
-      if (response.status == 200) {
-        console.info(`match ${matchId} updated. new time: ${time}`);
-      }
-    } else {
-      console.warn('empty match time');
+    if (response.status == 200) {
+      console.info(`match ${matchId} updated. new time: ${time}`);
     }
   };
 
