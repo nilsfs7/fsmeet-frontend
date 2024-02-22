@@ -12,7 +12,7 @@ import { Event } from '@/types/event';
 import { getEventsUpcoming } from '@/services/fsmeet-backend/get-events-upcoming';
 import { getEventsRecent } from '@/services/fsmeet-backend/get-events-recent';
 import { getEventsOngoing } from '@/services/fsmeet-backend/get-events-ongoing';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
 const Home = ({ data }: { data: any }) => {
@@ -77,9 +77,6 @@ const Home = ({ data }: { data: any }) => {
                         })}
                       </div>
                     </div>
-
-                    {/* TODO: dirty workaround to get buttons to mid */}
-                    <h1 className="mt-12" />
                   </>
                 </CarouselItem>
               ))}
@@ -103,9 +100,6 @@ const Home = ({ data }: { data: any }) => {
                         })}
                       </div>
                     </div>
-
-                    {/* TODO: dirty workaround to get buttons to mid */}
-                    <h1 className="mt-12" />
                   </>
                 </CarouselItem>
               ))}
@@ -129,15 +123,10 @@ const Home = ({ data }: { data: any }) => {
                         })}
                       </div>
                     </div>
-
-                    {/* TODO: dirty workaround to get buttons to mid */}
-                    <h1 className="mt-12" />
                   </>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            {/* <CarouselPrevious />
-            <CarouselNext /> */}
           </Carousel>
         </div>
       </div>
