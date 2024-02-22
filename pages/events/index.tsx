@@ -3,7 +3,6 @@ import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
-import { DatePicker } from '@mui/x-date-pickers';
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
 import { routeHome } from '@/types/consts/routes';
@@ -12,6 +11,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Event } from '@/types/event';
+import { DatePicker } from '@/components/common/DatePicker';
 
 const defaultDateFrom = moment(moment().year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
@@ -57,12 +57,27 @@ const EventsOverview = ({ session }: { session: any }) => {
       </div>
 
       {/* Filters */}
-      <div className="mt-2 flex justify-center">
-        <div className="mx-1 w-40">
-          <DatePicker label="From" value={dateFrom} onChange={newDate => hanldeDateFromChanged(newDate)} />
+      <div className="mt-2 flex justify-center gap-2">
+        <div>
+          <div className="mx-2">From</div>
+          <DatePicker
+            date={dateFrom}
+            onChange={newDate => {
+              console.log(newDate);
+              hanldeDateFromChanged(newDate);
+            }}
+          />
         </div>
-        <div className="mx-1 w-40">
-          <DatePicker label="To" value={dateTo} onChange={newDate => hanldeDateToChanged(newDate)} />
+
+        <div>
+          <div className="mx-2">To</div>
+          <DatePicker
+            date={dateTo}
+            onChange={newDate => {
+              console.log(newDate);
+              hanldeDateToChanged(newDate);
+            }}
+          />
         </div>
       </div>
 

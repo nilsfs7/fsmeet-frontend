@@ -1,5 +1,4 @@
 import { Action } from '@/types/enums/action';
-import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -105,8 +104,8 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
   }
 
   return (
-    <div className="rounded-lg border border-primary" onClick={onClick}>
-      <IconButton>{icon}</IconButton>
+    <div className="rounded-lg border border-primary h-10 w-10 flex justify-center items-center hover:bg-secondary" onClick={onClick}>
+      {icon}
     </div>
   );
 };

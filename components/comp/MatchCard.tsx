@@ -4,10 +4,11 @@ import { User } from '@/types/user';
 import Link from 'next/link';
 import { imgUserDefaultImg } from '@/types/consts/images';
 import { useRouter } from 'next/router';
-import { TimePicker } from '@mui/x-date-pickers';
 import moment, { Moment } from 'moment';
 import { getTimeString } from '@/types/funcs/time';
 import ComboBox from '../common/ComboBox';
+import dayjs from 'dayjs';
+import { TimePicker } from 'antd';
 
 interface IMatchProps {
   match: Match;
@@ -17,7 +18,7 @@ interface IMatchProps {
   seedingEnabled?: boolean;
   seedingList?: User[];
   onRename?: (matchIndex: number, matchId: string, name: string) => void;
-  onUpdateTime?: (matchIndex: number, matchId: string, time: Moment) => void;
+  onUpdateTime?: (matchIndex: number, matchId: string, time: Moment | null) => void;
   onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result?: number) => void;
 }
 
@@ -38,7 +39,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
     }
   };
 
-  const handleUpdateTime = (time: Moment) => {
+  const handleUpdateTime = (time: Moment | null) => {
     if (match.id) {
       onUpdateTime && onUpdateTime(match.matchIndex, match.id, time);
     } else {
@@ -80,12 +81,22 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
         />
 
         {editingEnabled && (
-          <TimePicker
-            defaultValue={match.time ? moment(match.time) : null}
-            onChange={value => {
-              if (value && moment.isMoment(value)) handleUpdateTime(value);
-            }}
-          />
+          <div className="w-full flex items-center py-1">
+            <TimePicker
+              value={match.time !== undefined ? dayjs(match.time) : undefined}
+              format={'HH:mm'}
+              onChange={value => {
+                if (value) {
+                  const date = moment(value.toDate());
+                  if (date && moment.isMoment(date)) {
+                    handleUpdateTime(date);
+                  }
+                } else {
+                  handleUpdateTime(null);
+                }
+              }}
+            />
+          </div>
         )}
 
         {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(moment(match.time))}</div>}
