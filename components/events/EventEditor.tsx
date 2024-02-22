@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
-import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 import { Event } from '@/types/event';
 import { EventType } from '@/types/enums/event-type';
@@ -15,6 +14,7 @@ import { validateAlias } from '@/types/funcs/validation/validation-event';
 import { timeMid } from '@/types/funcs/time';
 import CurInput from '../common/CurrencyInput';
 import { EventState } from '@/types/enums/event-state';
+import { DatePicker } from '../common/DatePicker';
 
 interface IEventEditorProps {
   event?: Event;
@@ -215,49 +215,45 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
       <div className="m-2 grid grid-cols-2">
         <div>Date From</div>
         <DatePicker
-          value={moment(dateFrom)}
+          date={moment(dateFrom)}
           onChange={value => {
             if (value) {
               setDateFrom(timeMid(value).utc().format());
             }
           }}
-          timezone="system"
         />
       </div>
       <div className="m-2 grid grid-cols-2">
         <div>Date To</div>
         <DatePicker
-          value={moment(dateTo)}
+          date={moment(dateTo)}
           onChange={value => {
             if (value) {
               setDateTo(timeMid(value).utc().format());
             }
           }}
-          timezone="system"
         />
       </div>
       <div className="m-2 grid grid-cols-2">
         <div>Registration Open</div>
         <DatePicker
-          value={moment(registrationOpen)}
+          date={moment(registrationOpen)}
           onChange={value => {
             if (value) {
               setRegistrationOpen(timeMid(value).utc().format());
             }
           }}
-          timezone="system"
         />
       </div>
       <div className="m-2 grid grid-cols-2">
         <div>Registration Deadline</div>
         <DatePicker
-          value={moment(registrationDeadline)}
+          date={moment(registrationDeadline)}
           onChange={value => {
             if (value) {
               setRegistrationDeadline(timeMid(value).utc().format());
             }
           }}
-          timezone="system"
         />
       </div>
       {/* venue address */}
