@@ -72,6 +72,8 @@ Registration
 
 - [New Mail](https://www.iconfinder.com/icons/9044457/email_new_icon)
 
+- [Dizzy Emoji](https://www.iconfinder.com/icons/8664942/face_dizzy_emoji_icon)
+
 - [Bye](https://www.iconfinder.com/icons/9070043/bye_icon)
 
 Public User Page
