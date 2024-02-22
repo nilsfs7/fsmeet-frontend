@@ -7,17 +7,17 @@ const RegistrationConfirmation: NextPage = (props: any) => {
   let confirmationSuccessful: boolean = props.data;
 
   return (
-    <>
-      <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
-        {confirmationSuccessful ? <div>Registration successful</div> : <div>{`Something went worng :(`}</div>}
+    <div className={'flex h-screen flex-col items-center justify-center'}>
+      <div className="mx-2 text-center">
+        <div>{confirmationSuccessful ? `Registration successful` : `Something went worng :(`}</div>
 
-        <div className="flex justify-center py-2">
+        <div className="mt-2">
           <Link href={routeLogin}>
             <TextButton text="Proceed" />
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
