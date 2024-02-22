@@ -68,7 +68,15 @@ docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --
 
 ### Images
 
-Account
+Registration
+
+- [New Mail](https://www.iconfinder.com/icons/9044457/email_new_icon)
+
+- [Dizzy Emoji](https://www.iconfinder.com/icons/8664942/face_dizzy_emoji_icon)
+
+- [Bye](https://www.iconfinder.com/icons/9070043/bye_icon)
+
+Public User Page
 
 - [Verified User Checkmark](https://www.iconfinder.com/icons/9554694/store_verified_shopping_ecommerce_cart_icon)
 
@@ -80,7 +88,7 @@ Account
 
 - [Website](https://www.iconfinder.com/icons/6428026/connect_globe_internet_website_icon)
 
-Profile
+User Menu
 
 - [Events](https://www.iconfinder.com/icons/2316003/ball_courts_football_sports_icon)
 
@@ -101,8 +109,6 @@ Feedback
 - [General Feedback](https://www.iconfinder.com/icons/6843045/customer_feedback_happy_performance_satisfaction_satisfied_satisfy_icon)
 
 - [Thumbs up](https://www.iconfinder.com/icons/8665808/thumbs_up_icon)
-
-- [Bye](https://www.iconfinder.com/icons/9070043/bye_icon)
 
 Event
 

@@ -2,22 +2,25 @@ import { GetServerSideProps, NextPage } from 'next';
 import TextButton from '@/components/common/TextButton';
 import Link from 'next/link';
 import { routeLogin } from '@/types/consts/routes';
+import Image from 'next/image';
+import { imgEmojiError } from '@/types/consts/images';
 
 const RegistrationConfirmation: NextPage = (props: any) => {
   let confirmationSuccessful: boolean = props.data;
 
   return (
-    <>
-      <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
-        {confirmationSuccessful ? <div>Registration successful</div> : <div>{`Something went worng :(`}</div>}
+    <div className={'flex h-screen flex-col items-center justify-center'}>
+      <div className="mx-2 text-center">
+        {!confirmationSuccessful && <Image src={imgEmojiError} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={'image'} />}
 
-        <div className="flex justify-center py-2">
+        <div className="mt-2">{confirmationSuccessful ? `Registration successful` : `Something went wrong`}</div>
+        <div className="mt-2">
           <Link href={routeLogin}>
             <TextButton text="Proceed" />
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
