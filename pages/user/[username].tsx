@@ -2,15 +2,20 @@ import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import SocialLink from '@/components/user/SocialLink';
 import { imgUserDefaultImg, imgVerifiedCheckmark } from '@/types/consts/images';
-import { routeHome } from '@/types/consts/routes';
+import { routeAccount } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
 import { User } from '@/types/user';
 import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Profile = (props: any) => {
+  const session = props.session;
   const user: User = props.data;
+
+  const router = useRouter();
 
   let displayName = user.firstName ? `${user.firstName}` : `${user.username}`;
   if (user.lastName) {
@@ -64,13 +69,15 @@ const Profile = (props: any) => {
       </div>
 
       <Navigation>
-        <div className="flex justify-start">
-          <div className="mr-1">
-            <Link href={routeHome}>
-              <ActionButton action={Action.BACK} />
-            </Link>
-          </div>
-        </div>
+        {/* <Link href={routeHome}> */}
+        <ActionButton action={Action.BACK} onClick={() => router.back()} />
+        {/* </Link> */}
+
+        {session?.user?.username === user.username && (
+          <Link href={routeAccount}>
+            <ActionButton action={Action.EDIT} />
+          </Link>
+        )}
       </Navigation>
     </div>
   );
@@ -79,12 +86,15 @@ const Profile = (props: any) => {
 export default Profile;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await getSession(context);
+
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${context.params.username}`);
   const data = await response.json();
 
   return {
     props: {
       data: data,
+      session: session,
     },
   };
 };
