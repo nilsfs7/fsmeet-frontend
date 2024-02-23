@@ -4,6 +4,7 @@ import { routeLogin } from '@/types/consts/routes';
 import Image from 'next/image';
 import { imgEmojiError, imgCelebration } from '@/types/consts/images';
 import { GetServerSidePropsContext } from 'next';
+import { getConfirmUser } from '@/services/fsmeet-backend/get-confirm-user';
 
 const RegistrationConfirmation = (props: any) => {
   let confirmationSuccessful: boolean = props.data;
@@ -33,20 +34,15 @@ export default RegistrationConfirmation;
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   let confirmationSuccessful = false;
 
-  try {
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/confirm/user?username=${context.query.username}&requestToken=${context.query.requestToken}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const username = context.query.username;
+  const requestToken = context.query.requestToken;
 
-    if (response.status == 200) {
-      confirmationSuccessful = true;
+  if (username && requestToken) {
+    try {
+      confirmationSuccessful = await getConfirmUser(username.toString(), requestToken.toString());
+    } catch (error: any) {
+      console.error('Error confirming account.');
     }
-  } catch (error: any) {
-    console.error('Error confirming account.');
   }
 
   return {
