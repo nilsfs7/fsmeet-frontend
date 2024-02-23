@@ -70,7 +70,7 @@ const EventEditing = (props: any) => {
     });
 
     if (response.status == 200) {
-      router.replace(`/events/${eventId}?auth=1`);
+      router.replace(`${routeEvents}/${eventId}?auth=1`);
     } else {
       const error = await response.json();
       setError(error.message);

@@ -44,7 +44,7 @@ const CompetitionEditing = (props: any) => {
     });
 
     if (response.status == 200) {
-      router.replace(`/events/${eventId}/comps`);
+      router.replace(`${routeEvents}/${eventId}/comps`);
     } else {
       const error = await response.json();
       setError(error.message);
@@ -124,7 +124,7 @@ const CompetitionEditing = (props: any) => {
 
         <div className="my-2 flex">
           <div className="px-1">
-            <ActionButton action={Action.CANCEL} onClick={() => router.replace(`/events/${eventId}/comps`)} />
+            <ActionButton action={Action.CANCEL} onClick={() => router.replace(`${routeEvents}/${eventId}/comps`)} />
           </div>
           <div className="px-1">
             <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />

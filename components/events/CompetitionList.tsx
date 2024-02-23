@@ -1,6 +1,7 @@
 import { EventCompetition } from '@/types/event-competition';
 import Competition from './Competition';
 import Link from 'next/link';
+import { routeEvents } from '@/types/consts/routes';
 
 interface ICompetitionListListProps {
   competitions: EventCompetition[];
@@ -20,7 +21,7 @@ const CompetitionList = ({ competitions, eventId, auth = false }: ICompetitionLi
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              <Link href={`/events/${eventId}/comps/${competition.id}${auth ? '?auth=1' : ''}`}>
+              <Link href={`${routeEvents}/${eventId}/comps/${competition.id}${auth ? '?auth=1' : ''}`}>
                 <Competition competition={competition} />
               </Link>
             </div>

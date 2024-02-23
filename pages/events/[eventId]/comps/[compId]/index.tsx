@@ -11,7 +11,7 @@ import TabbedCompetitionDetailsMenu from '@/components/comp/TabbedCompetitionDet
 import { User } from '@/types/user';
 import { useSearchParams } from 'next/navigation';
 import { validateSession } from '@/types/funcs/validate-session';
-import { routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/types/consts/routes';
 
 const Competition = (props: any) => {
   const session = props.session;
@@ -102,7 +102,7 @@ const Competition = (props: any) => {
         <ActionButton
           action={Action.BACK}
           onClick={() => {
-            let path = `/events/${eventId}`;
+            let path = `${routeEvents}/${eventId}`;
             if (needsAuthorization) {
               path = `${path}?auth=1`;
             }

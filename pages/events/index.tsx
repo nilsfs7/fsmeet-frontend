@@ -5,7 +5,7 @@ import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
-import { routeHome } from '@/types/consts/routes';
+import { routeEvents, routeHome } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
@@ -85,7 +85,7 @@ const EventsOverview = ({ session }: { session: any }) => {
           {events.map((item: any, i: number) => {
             return (
               <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                <Link href={`/events/${item.id}`}>
+                <Link href={`${routeEvents}/${item.id}`}>
                   <EventCard event={item} />
                 </Link>
               </div>

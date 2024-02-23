@@ -69,7 +69,7 @@ const Home = ({ data }: { data: any }) => {
                         {ongoingEvents.map((item: any, i: number) => {
                           return (
                             <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                              <Link href={`/events/${item.id}`}>
+                              <Link href={`${routeEvents}/${item.id}`}>
                                 <EventCard event={item} />
                               </Link>
                             </div>
@@ -92,7 +92,7 @@ const Home = ({ data }: { data: any }) => {
                         {upcomingEvents.map((item: any, i: number) => {
                           return (
                             <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                              <Link href={`/events/${item.id}`}>
+                              <Link href={`${routeEvents}/${item.id}`}>
                                 <EventCard event={item} />
                               </Link>
                             </div>
@@ -115,7 +115,7 @@ const Home = ({ data }: { data: any }) => {
                         {recentEvents.map((item: any, i: number) => {
                           return (
                             <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                              <Link href={`/events/${item.id}`}>
+                              <Link href={`${routeEvents}/${item.id}`}>
                                 <EventCard event={item} />
                               </Link>
                             </div>

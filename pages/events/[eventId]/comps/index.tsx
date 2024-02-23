@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
-import { routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/types/consts/routes';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
@@ -46,7 +46,7 @@ const EventCompetitions = (props: any) => {
                       <div className="flex w-1/2 justify-end">{comp.name}</div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`/events/${eventId}/comps/${comp.id}/edit`}>
+                          <Link href={`${routeEvents}/${eventId}/comps/${comp.id}/edit`}>
                             <ActionButton action={Action.EDIT} />
                           </Link>
                           <div>Edit</div>
@@ -58,7 +58,7 @@ const EventCompetitions = (props: any) => {
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`/events/${eventId}/comps/${comp.id}/edit/pool`}>
+                          <Link href={`${routeEvents}/${eventId}/comps/${comp.id}/edit/pool`}>
                             <ActionButton action={Action.MANAGE_USERS} />
                           </Link>
                           <div>Pool</div>
@@ -70,7 +70,7 @@ const EventCompetitions = (props: any) => {
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`/events/${eventId}/comps/${comp.id}/edit/mode`}>
+                          <Link href={`${routeEvents}/${eventId}/comps/${comp.id}/edit/mode`}>
                             <ActionButton action={Action.MANAGE_COMPETITIONS} />
                           </Link>
                           <div>Game Mode</div>
@@ -82,7 +82,7 @@ const EventCompetitions = (props: any) => {
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`/events/${eventId}/comps/${comp.id}/edit/seeding`}>
+                          <Link href={`${routeEvents}/${eventId}/comps/${comp.id}/edit/seeding`}>
                             <ActionButton action={Action.MANAGE_USERS} />
                           </Link>
                           <div>Seeding & Results</div>
@@ -101,7 +101,7 @@ const EventCompetitions = (props: any) => {
                 <div className="flex w-1/2 justify-end">Add new</div>
                 <div className="flex w-1/2">
                   <div className="">
-                    <Link href={`/events/${eventId}/comps/create`}>
+                    <Link href={`${routeEvents}/${eventId}/comps/create`}>
                       <ActionButton action={Action.ADD} />
                     </Link>
                   </div>
@@ -113,7 +113,7 @@ const EventCompetitions = (props: any) => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}?auth=1`)} />
+        <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}?auth=1`)} />
       </Navigation>
     </>
   );

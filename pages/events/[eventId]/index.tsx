@@ -401,20 +401,20 @@ const Event = (props: any) => {
               <div className="mr-8 flex items-center">Admin Panel</div>
               <div className="flex">
                 <div className="ml-1">
-                  <Link href={`/events/${eventId}/edit`}>
+                  <Link href={`${routeEvents}/${eventId}/edit`}>
                     <ActionButton action={Action.EDIT} />
                   </Link>
                 </div>
 
                 <div className="ml-1">
-                  <Link href={`/events/${eventId}/participants`}>
+                  <Link href={`${routeEvents}/${eventId}/participants`}>
                     <ActionButton action={Action.MANAGE_USERS} />
                   </Link>
                 </div>
 
                 {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
                   <div className="ml-1">
-                    <Link href={`/events/${eventId}/comps`}>
+                    <Link href={`${routeEvents}/${eventId}/comps`}>
                       <ActionButton action={Action.MANAGE_COMPETITIONS} />
                     </Link>
                   </div>
@@ -531,7 +531,7 @@ const Event = (props: any) => {
 
             {isRegistered() && moment(event.dateTo).unix() < moment().unix() && (
               <div className="ml-1">
-                <Link href={`/events/${eventId}/feedback`}>
+                <Link href={`${routeEvents}/${eventId}/feedback`}>
                   <TextButton text={'Feedback'} />
                 </Link>
               </div>
