@@ -28,7 +28,7 @@ const PostInput = ({ elementId, username, userProfileImageUrl, onMessageChange, 
       </div>
 
       <div className="mx-1 w-full">
-        <input id={elementId} className="h-full w-full rounded-lg border border-secondary-dark bg-background p-1 text-sm hover:border-primary " onChange={handleChange} />
+        <input id={elementId} className="h-full w-full rounded-lg border border-secondary-dark bg-background p-1 text-sm hover:border-primary" maxLength={255} onChange={handleChange} />
       </div>
 
       <div className="mx-1">
