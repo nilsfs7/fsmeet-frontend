@@ -13,7 +13,7 @@ interface Props {
 
 const fontRoboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
-export default function App({ Component, pageProps }: Props) {
+const App = ({ Component, pageProps }: Props) => {
   return (
     <SessionProvider session={pageProps.session}>
       <main className={fontRoboto.className}>
@@ -21,4 +21,6 @@ export default function App({ Component, pageProps }: Props) {
       </main>
     </SessionProvider>
   );
-}
+};
+
+export default App;

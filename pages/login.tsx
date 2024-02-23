@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import Link from 'next/link';
@@ -10,7 +9,7 @@ import ErrorMessage from '@/components/ErrorMessage';
 import { useSearchParams } from 'next/navigation';
 import { routeHome } from '@/types/consts/routes';
 
-const Login: NextPage = () => {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

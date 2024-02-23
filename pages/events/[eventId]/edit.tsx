@@ -1,5 +1,4 @@
 import EventEditor from '@/components/events/EventEditor';
-import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -11,6 +10,7 @@ import Dialog from '@/components/Dialog';
 import ErrorMessage from '@/components/ErrorMessage';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
+import { GetServerSidePropsContext } from 'next';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -146,7 +146,7 @@ const EventEditing = (props: any) => {
 
 export default EventEditing;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

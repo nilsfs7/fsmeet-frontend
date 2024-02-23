@@ -5,7 +5,6 @@ import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/Profile';
 import { imgAbout, imgFreestyler, imgWorld } from '@/types/consts/images';
 import { routeAbout, routeEvents, routeMap } from '@/types/consts/routes';
-import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Event } from '@/types/event';
@@ -14,6 +13,7 @@ import { getEventsRecent } from '@/services/fsmeet-backend/get-events-recent';
 import { getEventsOngoing } from '@/services/fsmeet-backend/get-events-ongoing';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import { GetServerSidePropsContext } from 'next';
 
 const Home = ({ data }: { data: any }) => {
   let upcomingEvents: Event[] = data.upcoming;
@@ -160,7 +160,7 @@ const Home = ({ data }: { data: any }) => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   let data: { upcoming: any[]; ongoing: any[]; recent: any[] } = { upcoming: [], ongoing: [], recent: [] };
@@ -193,17 +193,3 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     },
   };
 };
-
-{
-  /* <div className="m-2 flex flex-shrink-0 justify-center">
-<Link href={routeEvents}>
-  <TextAndImageButton text="Events" image={imgCompetition} />
-</Link>
-</div>
-
-<div className="m-2 flex flex-shrink-0 justify-center">
-<Link href={routeMap}>
-  <TextAndImageButton text="Freestyler Map" image={imgWorld} />
-</Link>
-</div> */
-}

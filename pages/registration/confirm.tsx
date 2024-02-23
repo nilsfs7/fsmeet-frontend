@@ -1,11 +1,11 @@
-import { GetServerSideProps, NextPage } from 'next';
 import TextButton from '@/components/common/TextButton';
 import Link from 'next/link';
 import { routeLogin } from '@/types/consts/routes';
 import Image from 'next/image';
 import { imgEmojiError } from '@/types/consts/images';
+import { GetServerSidePropsContext } from 'next';
 
-const RegistrationConfirmation: NextPage = (props: any) => {
+const RegistrationConfirmation = (props: any) => {
   let confirmationSuccessful: boolean = props.data;
 
   return (
@@ -26,11 +26,11 @@ const RegistrationConfirmation: NextPage = (props: any) => {
 
 export default RegistrationConfirmation;
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   let confirmationSuccessful = false;
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/confirm/user?username=${query.username}&requestToken=${query.requestToken}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/confirm/user?username=${context.query.username}&requestToken=${context.query.requestToken}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

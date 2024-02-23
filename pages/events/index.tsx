@@ -1,7 +1,7 @@
 import { LogoFSMeet } from '@/components/Logo';
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
@@ -106,7 +106,7 @@ const EventsOverview = ({ session }: { session: any }) => {
 };
 export default EventsOverview;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   return {

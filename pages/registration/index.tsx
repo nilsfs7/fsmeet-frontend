@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
@@ -7,7 +6,7 @@ import router from 'next/router';
 import ErrorMessage from '@/components/ErrorMessage';
 import { validateFirstName } from '@/types/funcs/validation/validation-user';
 
-const Register: NextPage = () => {
+const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');

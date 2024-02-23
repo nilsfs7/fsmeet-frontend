@@ -1,5 +1,5 @@
 import TextButton from '@/components/common/TextButton';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -70,7 +70,7 @@ const CompetitionCreation = (props: any) => {
 
 export default CompetitionCreation;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

@@ -10,6 +10,7 @@ import { routeAccount, routeLogin } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { ButtonStyle } from '@/types/enums/button-style';
 import { validateSession } from '@/types/funcs/validate-session';
+import { GetServerSidePropsContext } from 'next';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -106,7 +107,7 @@ const AccountImage = ({ session }: any) => {
 };
 export default AccountImage;
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {
@@ -123,4 +124,4 @@ export async function getServerSideProps(context: any) {
       session,
     },
   };
-}
+};

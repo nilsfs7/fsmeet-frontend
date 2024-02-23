@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { Event } from '@/types/event';
 import { useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
@@ -13,6 +12,7 @@ import { routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
+import { GetServerSidePropsContext } from 'next';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -191,7 +191,7 @@ const EventParticipants = (props: any) => {
 
 export default EventParticipants;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

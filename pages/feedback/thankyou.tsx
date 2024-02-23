@@ -1,11 +1,10 @@
-import { NextPage } from 'next';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Image from 'next/image';
 import { routeHome } from '@/types/consts/routes';
 import { imgThumbsUp } from '@/types/consts/images';
 
-const ThankYou: NextPage = () => {
+const ThankYou = () => {
   return (
     <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
       <div className="py-2 ">

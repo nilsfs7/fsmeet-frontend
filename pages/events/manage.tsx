@@ -1,6 +1,5 @@
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
-import { GetServerSideProps } from 'next';
 import { Event } from '@/types/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
@@ -14,6 +13,7 @@ import { getLicense } from '@/services/fsmeet-backend/get-license';
 import { License } from '@/types/license';
 import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
+import { GetServerSidePropsContext } from 'next';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const eventsOwning: Event[] = data.owning;
@@ -28,10 +28,6 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
     } else {
       router.replace(`${routeEventSubs}/?license=1`, undefined, { shallow: true });
     }
-  };
-
-  const handleConfirmDialogClicked = async () => {
-    router.replace(`${routeEventSubs}`, undefined, { shallow: true });
   };
 
   const handleCancelDialogClicked = async () => {
@@ -111,7 +107,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
 };
 export default MyEventsOverview;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

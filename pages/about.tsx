@@ -5,10 +5,9 @@ import SocialLink from '@/components/user/SocialLink';
 import { routeDataProtection, routeFeedback, routeHome, routeImprint } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
-import { NextPage } from 'next';
 import Link from 'next/link';
 
-const About: NextPage = () => {
+const About = () => {
   const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME;
   const shortSha = process.env.NEXT_PUBLIC_COMMIT_SHA && process.env.NEXT_PUBLIC_COMMIT_SHA?.length > 7 ? process.env.NEXT_PUBLIC_COMMIT_SHA?.substring(0, 7) : process.env.NEXT_PUBLIC_COMMIT_SHA;
 

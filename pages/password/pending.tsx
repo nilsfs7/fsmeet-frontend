@@ -1,8 +1,7 @@
-import { NextPage } from 'next';
 import TextButton from '@/components/common/TextButton';
 import Link from 'next/link';
 
-const PasswordResetRequestPending: NextPage = () => {
+const PasswordResetRequestPending = () => {
   return (
     <>
       <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>

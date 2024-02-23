@@ -1,4 +1,3 @@
-import { GetServerSideProps, NextPage } from 'next';
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
@@ -11,8 +10,9 @@ import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
 import { Action } from '@/types/enums/action';
 import { validateSession } from '@/types/funcs/validate-session';
+import { GetServerSidePropsContext } from 'next';
 
-const GeneralFeedback: NextPage = (props: any) => {
+const GeneralFeedback = (props: any) => {
   const session = props.session;
 
   const [message, setMessage] = useState('');
@@ -75,7 +75,7 @@ const GeneralFeedback: NextPage = (props: any) => {
 
 export default GeneralFeedback;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

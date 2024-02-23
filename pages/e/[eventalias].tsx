@@ -1,13 +1,14 @@
 import { Event } from '@/types/event';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 
 const EventAlias = () => {
+  // TODO
   return <>No event found</>;
 };
 
 export default EventAlias;
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const alias = context.params?.eventalias;
 
   let event: Event;
@@ -28,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       };
     }
   } catch (error: any) {
-    console.error('Error event by alias.');
+    console.error('Error fetching event by alias.');
   }
 
   return {

@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
-import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import ParticipantList from '@/components/events/ParticipantList';
 import { User } from '@/types/user';
@@ -31,6 +30,7 @@ import { switchTab } from '@/types/funcs/switch-tab';
 import { isPublicEventState } from '@/types/funcs/is-public-event-state';
 import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
 import { EventState } from '@/types/enums/event-state';
+import { GetServerSidePropsContext } from 'next';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -545,7 +545,7 @@ const Event = (props: any) => {
 
 export default Event;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   return {

@@ -18,6 +18,7 @@ import ComboBox from '@/components/common/ComboBox';
 import { validateSession } from '@/types/funcs/validate-session';
 import CheckBox from '@/components/common/CheckBox';
 import { prefixRequired } from '@/types/funcs/prefix-required';
+import { GetServerSidePropsContext } from 'next';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -329,7 +330,7 @@ const Account = ({ session }: any) => {
 };
 export default Account;
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {
@@ -346,4 +347,4 @@ export async function getServerSideProps(context: any) {
       session,
     },
   };
-}
+};
