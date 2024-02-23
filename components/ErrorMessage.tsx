@@ -5,7 +5,7 @@ interface IErrorMessageProps {
 const ErrorMessage = ({ message }: IErrorMessageProps) => {
   return message ? (
     <div className="flex justify-center py-2">
-      <label className="text-red-500">{`${message}`}</label>
+      <label className="text-critical">{`${message}`}</label>
     </div>
   ) : null;
 };
