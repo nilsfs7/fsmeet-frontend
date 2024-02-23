@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
-import { routeAdminOverview, routeLogin } from '@/types/consts/routes';
+import { routeAdminOverview, routeLogin, routeUsers } from '@/types/consts/routes';
 import { validateSession } from '@/types/funcs/validate-session';
 import ActionButton from '@/components/common/ActionButton';
 import { getLicenses } from '@/services/fsmeet-backend/get-licenses';
@@ -56,7 +56,7 @@ const Licenses = (props: any) => {
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`/user/${license.username}`}>
+                    <Link className="float-right" href={`${routeUsers}/${license.username}`}>
                       {license.username}
                     </Link>
                   </div>

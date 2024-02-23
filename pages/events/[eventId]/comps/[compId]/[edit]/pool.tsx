@@ -7,7 +7,7 @@ import ActionButton from '@/components/common/ActionButton';
 import Participant from '@/components/events/Participant';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
-import { routeLogin } from '@/types/consts/routes';
+import { routeLogin, routeUsers } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ErrorMessage from '@/components/ErrorMessage';
 import { validateSession } from '@/types/funcs/validate-session';
@@ -135,7 +135,7 @@ const CompetitionPool = (props: any) => {
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`/user/${participant.username}`}>
+                    <Link className="float-right" href={`${routeUsers}/${participant.username}`}>
                       <Participant participant={participant} />
                     </Link>
                   </div>

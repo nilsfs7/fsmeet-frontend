@@ -2,6 +2,7 @@ import { User } from '@/types/user';
 import Participant from './Participant';
 import Link from 'next/link';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
+import { routeUsers } from '@/types/consts/routes';
 
 interface IParticipantListProps {
   participants: User[];
@@ -20,7 +21,7 @@ const ParticipantList = ({ participants, registrationStatus }: IParticipantListP
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              <Link href={`/user/${participant.username}`}>
+              <Link href={`${routeUsers}/${participant.username}`}>
                 {registrationStatus && <Participant participant={participant} registrationStatus={registrationStatus[i]} />}
                 {!registrationStatus && <Participant participant={participant} />}
               </Link>

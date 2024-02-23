@@ -9,6 +9,7 @@ import { getTimeString } from '@/types/funcs/time';
 import ComboBox from '../common/ComboBox';
 import dayjs from 'dayjs';
 import { TimePicker } from 'antd';
+import { routeUsers } from '@/types/consts/routes';
 
 interface IMatchProps {
   match: Match;
@@ -116,7 +117,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                 <div className="border-red flex w-full justify-between">
                   <div className="flex w-full items-center">
                     <div className="h-8 w-8 p-1">
-                      <Link href={matchSlot?.name ? `/user/${matchSlot.name}` : self}>
+                      <Link href={matchSlot?.name ? `${routeUsers}/${matchSlot.name}` : self}>
                         <img
                           src={matchSlot?.name && usersMap?.get(matchSlot.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg}
                           className="h-full w-full rounded-full bg-zinc-200 object-cover"
@@ -125,7 +126,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                     </div>
 
                     <div className="flex h-full w-32 items-center overflow-hidden text-ellipsis px-1">
-                      <Link href={matchSlot?.name ? `/user/${matchSlot.name}` : self}>
+                      <Link href={matchSlot?.name ? `${routeUsers}/${matchSlot.name}` : self}>
                         <div className="text-sm">{`${matchSlot?.name ? matchSlot.name : ''}`}</div>
                       </Link>
                     </div>

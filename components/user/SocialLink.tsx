@@ -1,6 +1,7 @@
 import { Platform } from '@/types/enums/platform';
 import { LogoFSM } from '../Logo';
 import { imgInstagramLogo, imgTikTokLogo, imgWebsiteLogo, imgYouTubeLogo } from '@/types/consts/images';
+import { routeUsers } from '@/types/consts/routes';
 
 interface ISocialLink {
   platform: Platform;
@@ -13,7 +14,7 @@ const SocialLink = ({ platform, path }: ISocialLink) => {
       <LogoFSM />
     </div>
   );
-  let url = `/user/${path}`;
+  let url = `${routeUsers}/${path}`;
 
   switch (platform) {
     case Platform.INSTAGRAM:

@@ -32,7 +32,7 @@ const About = () => {
         </div>
 
         <div className="mt-4">
-          <SocialLink platform={Platform.INSTAGRAM} path={'@fsmeet_com'}></SocialLink>
+          <SocialLink platform={Platform.INSTAGRAM} path={'@fsmeet_com'} />
         </div>
 
         <div className="mt-20">{`Build: ${shortSha}`}</div>

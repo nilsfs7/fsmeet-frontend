@@ -19,4 +19,6 @@ export const routeEvents = '/events';
 export const routeEventSubs = '/events/manage';
 export const routeEventsCreate = '/events/create';
 
+export const routeUsers = '/users';
+
 export const routeMap = '/map';

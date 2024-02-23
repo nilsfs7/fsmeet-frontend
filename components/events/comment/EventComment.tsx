@@ -1,4 +1,5 @@
 import { imgUserDefaultImg } from '@/types/consts/images';
+import { routeUsers } from '@/types/consts/routes';
 import { EventComment } from '@/types/event-comment';
 import { formatTs } from '@/types/funcs/time';
 import moment from 'moment';
@@ -19,7 +20,7 @@ const UserComment = ({ comment, onClickReply }: ICommentProps) => {
       <div className="grid grid-flow-col justify-start">
         <div className="ml-1">
           <div className="h-8 w-8">
-            <Link href={`/user/${comment.user.username}`}>
+            <Link href={`${routeUsers}/${comment.user.username}`}>
               <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-background object-cover" />
             </Link>
           </div>
@@ -27,7 +28,7 @@ const UserComment = ({ comment, onClickReply }: ICommentProps) => {
 
         <div className="mx-1">
           <div className="rounded-lg bg-background px-2 py-1">
-            <Link href={`/user/${comment.user.username}`}>
+            <Link href={`${routeUsers}/${comment.user.username}`}>
               <div className="w-max text-base font-bold">{comment.user.username}</div>
             </Link>
 

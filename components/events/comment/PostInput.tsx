@@ -1,5 +1,6 @@
 import ActionButton from '@/components/common/ActionButton';
 import { imgUserDefaultImg } from '@/types/consts/images';
+import { routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
 
@@ -20,7 +21,7 @@ const PostInput = ({ elementId, username, userProfileImageUrl, onMessageChange, 
     <div className="mt-1 flex">
       <div className="ml-1">
         <div className="h-8 w-8">
-          <Link href={`/user/${username}`}>
+          <Link href={`${routeUsers}/${username}`}>
             <img src={userProfileImageUrl ? userProfileImageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
           </Link>
         </div>
