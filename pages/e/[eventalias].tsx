@@ -1,4 +1,5 @@
-import { Event } from '@/types/event';
+import { getEventByAlias } from '@/services/fsmeet-backend/get-event-by-alias';
+import { routeEvents } from '@/types/consts/routes';
 import { GetServerSidePropsContext } from 'next';
 
 const EventAlias = () => {
@@ -11,25 +12,23 @@ export default EventAlias;
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const alias = context.params?.eventalias;
 
-  let event: Event;
-
   // TODO: bug -> url funktioniert nicht für events ohne public state
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/alias/${alias}`;
-  try {
-    const response = await fetch(url);
-    if (response.status == 200) {
-      event = await response.json();
+  if (alias) {
+    try {
+      const event = await getEventByAlias(alias.toString());
 
-      return {
-        redirect: {
-          permanent: false,
-          destination: `/events/${event.id}`,
-        },
-        props: {},
-      };
+      if (event.id) {
+        return {
+          redirect: {
+            permanent: false,
+            destination: `${routeEvents}/${event.id}`,
+          },
+          props: {},
+        };
+      }
+    } catch (error: any) {
+      console.error('Error fetching event by alias.');
     }
-  } catch (error: any) {
-    console.error('Error fetching event by alias.');
   }
 
   return {

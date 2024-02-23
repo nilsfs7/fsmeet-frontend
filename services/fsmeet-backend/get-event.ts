@@ -15,19 +15,4 @@ export async function getEvent(eventId: string, needsAuthorization?: boolean, se
   }
 
   return await response.json();
-
-  // convert moment string into moment object
-  // event.registrationOpen = moment(event.registrationOpen);
-  // event.registrationDeadline = moment(event.registrationDeadline);
-  // event.dateFrom = moment(event.dateFrom);
-  // event.dateTo = moment(event.dateTo);
-
-  //  const paymentMehodCash: PaymentMethodCash = { enabled: res.paymentMethodCash.enabled };
-  //         const paymentMehodSepa: PaymentMethodSepa = {
-  //           enabled: res.paymentMethodSepa.enabled,
-  //           bank: res.paymentMethodSepa.bank,
-  //           recipient: res.paymentMethodSepa.recipient,
-  //           iban: res.paymentMethodSepa.iban,
-  //           reference: res.paymentMethodSepa.reference,
-  //         };
 }
