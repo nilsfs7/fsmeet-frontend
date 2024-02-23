@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
-import { routeAdminOverview, routeLogin } from '@/types/consts/routes';
+import { routeAdminOverview, routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import { validateSession } from '@/types/funcs/validate-session';
 import ActionButton from '@/components/common/ActionButton';
 import { Event } from '@/types/event';
@@ -68,11 +68,11 @@ const Events = (props: any) => {
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end gap-1">
-                    <Link className="float-right" href={`/events/${event.id}`}>
+                    <Link className="float-right" href={`${routeEvents}/${event.id}`}>
                       {event.name}
                     </Link>
 
-                    <Link className="float-right" href={`/user/${event.admin}`}>
+                    <Link className="float-right" href={`${routeUsers}/${event.admin}`}>
                       {`(${event.admin})`}
                     </Link>
                   </div>
@@ -119,7 +119,7 @@ const Events = (props: any) => {
 
 export default Events;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

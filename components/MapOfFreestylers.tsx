@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-// import router from 'next/router';
 import { User } from '@/types/user';
 import { imgFreestyler } from '@/types/consts/images';
+import { routeUsers } from '@/types/consts/routes';
 
 const loader = new Loader({
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',
@@ -61,7 +61,7 @@ const MapOfFreestylers = ({ address = 'Europe', zoom = 6, users = [] }: IMapsPro
               <div style="line-height:1.35;overflow:hidden;white-space:nowrap;";>
                 <div>${user.firstName ? `${user.firstName} ${user.lastName} (${user.username})` : `${user.username}`}</div>
                 <div>  
-                  <a href=user/${user.username}>
+                  <a href=${routeUsers}/${user.username}>
                     <u>Click for profile</u>
                   </a>
                 </div>
@@ -80,7 +80,6 @@ const MapOfFreestylers = ({ address = 'Europe', zoom = 6, users = [] }: IMapsPro
               });
 
               marker.addListener('click', () => {
-                // router.push(`user/${user.username}`);
                 infowindow.open(map, marker);
               });
             }

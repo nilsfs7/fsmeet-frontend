@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
@@ -7,7 +6,7 @@ import { useRouter } from 'next/router';
 import { routeLogin } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
 
-const ResetPassword: NextPage = () => {
+const ResetPassword = () => {
   const router = useRouter();
   const { requestToken } = router.query;
 

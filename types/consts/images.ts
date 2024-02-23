@@ -6,6 +6,7 @@ export const imgCompetition = '/event/competition.svg';
 
 export const imgMailIncoming = '/registration/mail.svg';
 export const imgEmojiError = '/registration/error.svg';
+export const imgCelebration = '/registration/celebration.svg';
 
 export const imgGoodBye = '/account/bye.svg';
 

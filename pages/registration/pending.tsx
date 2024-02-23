@@ -1,11 +1,10 @@
-import { NextPage } from 'next';
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { imgMailIncoming } from '@/types/consts/images';
 import Image from 'next/image';
 
-const RegistrationPending: NextPage = () => {
+const RegistrationPending = () => {
   const router = useRouter();
   const { email } = router.query;
 

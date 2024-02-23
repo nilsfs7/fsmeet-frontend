@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import Participant from '@/components/events/Participant';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
-import { routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ErrorMessage from '@/components/ErrorMessage';
 import { validateSession } from '@/types/funcs/validate-session';
@@ -135,7 +135,7 @@ const CompetitionPool = (props: any) => {
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`/user/${participant.username}`}>
+                    <Link className="float-right" href={`${routeUsers}/${participant.username}`}>
                       <Participant participant={participant} />
                     </Link>
                   </div>
@@ -181,7 +181,7 @@ const CompetitionPool = (props: any) => {
       <ErrorMessage message={error} />
 
       <Navigation>
-        <Link href={`/events/${eventId}/comps`}>
+        <Link href={`${routeEvents}/${eventId}/comps`}>
           <ActionButton action={Action.BACK} />
         </Link>
       </Navigation>
@@ -191,7 +191,7 @@ const CompetitionPool = (props: any) => {
 
 export default CompetitionPool;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

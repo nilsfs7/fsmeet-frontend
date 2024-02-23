@@ -4,10 +4,9 @@ import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { routeAbout } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
-import { NextPage } from 'next';
 import Link from 'next/link';
 
-const Imprint: NextPage = () => {
+const Imprint = () => {
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       {/* Banner */}

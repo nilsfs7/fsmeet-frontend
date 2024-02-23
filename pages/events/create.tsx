@@ -1,6 +1,5 @@
 import TextButton from '@/components/common/TextButton';
 import EventEditor from '@/components/events/EventEditor';
-import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import router from 'next/router';
 import { useState } from 'react';
@@ -8,6 +7,7 @@ import { Event } from '@/types/event';
 import { routeEventSubs, routeLogin } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
 import { validateSession } from '@/types/funcs/validate-session';
+import { GetServerSidePropsContext } from 'next';
 
 const EventCreation = (props: any) => {
   const session = props.session;
@@ -96,7 +96,7 @@ const EventCreation = (props: any) => {
 
 export default EventCreation;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

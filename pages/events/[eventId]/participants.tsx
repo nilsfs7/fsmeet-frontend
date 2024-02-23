@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { Event } from '@/types/event';
 import { useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
@@ -9,10 +8,11 @@ import Participant from '@/components/events/Participant';
 import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import Link from 'next/link';
-import { routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
+import { GetServerSidePropsContext } from 'next';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -129,7 +129,7 @@ const EventParticipants = (props: any) => {
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`/user/${participant.username}`}>
+                    <Link className="float-right" href={`${routeUsers}/${participant.username}`}>
                       <Participant participant={participant} registrationStatus={registration.status} />
                     </Link>
                   </div>
@@ -181,7 +181,7 @@ const EventParticipants = (props: any) => {
       <div className="m-2 flex justify-between">
         <div className="flex justify-start">
           <div className="mr-1">
-            <ActionButton action={Action.BACK} onClick={() => router.push(`/events/${eventId}?auth=1`)} />
+            <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}?auth=1`)} />
           </div>
         </div>
       </div>
@@ -191,7 +191,7 @@ const EventParticipants = (props: any) => {
 
 export default EventParticipants;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

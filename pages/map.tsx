@@ -7,9 +7,8 @@ import { getUser } from '@/services/fsmeet-backend/get-user';
 import { getUsers } from '@/services/fsmeet-backend/get-users';
 import { routeHome } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
-import { validateSession } from '@/types/funcs/validate-session';
 import { User } from '@/types/user';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 
@@ -77,17 +76,8 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
 
 export default FreestylersMap;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
-
-  // if (!validateSession(session)) {
-  //   return {
-  //     redirect: {
-  //       permanent: false,
-  //       destination: routeLogin,
-  //     },
-  //   };
-  // }
 
   let data: User[] = [];
   try {

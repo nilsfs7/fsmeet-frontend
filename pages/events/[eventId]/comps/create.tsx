@@ -1,9 +1,9 @@
 import TextButton from '@/components/common/TextButton';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { EventCompetition } from '@/types/event-competition';
 import ErrorMessage from '@/components/ErrorMessage';
@@ -37,7 +37,7 @@ const CompetitionCreation = (props: any) => {
     });
 
     if (response.status == 201) {
-      router.replace(`/events/${eventId}/comps`);
+      router.replace(`${routeEvents}/${eventId}/comps`);
     } else {
       const error = await response.json();
       setError(error.message);
@@ -70,7 +70,7 @@ const CompetitionCreation = (props: any) => {
 
 export default CompetitionCreation;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

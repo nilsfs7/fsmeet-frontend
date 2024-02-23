@@ -1,29 +1,29 @@
 import moment, { Moment } from 'moment';
 
-export const getShortDateString = (timestamp: Moment, appendYear: boolean = true): string => {
+export function getShortDateString(timestamp: Moment, appendYear: boolean = true): string {
   if (appendYear) {
     return moment(timestamp).format('DD.MM.YY');
   } else {
     return moment(timestamp).format('DD.MM.');
   }
-};
+}
 
-export const getTimeString = (timestamp: Moment): string => {
+export function getTimeString(timestamp: Moment): string {
   return timestamp.format('HH:mm');
-};
+}
 
-export const formatTs = (timestamp: Moment, format: string): string => {
+export function formatTs(timestamp: Moment, format: string): string {
   return moment(timestamp).format(format);
-};
+}
 
-export const timeMin = (timestamp: Moment): Moment => {
+export function timeMin(timestamp: Moment): Moment {
   return timestamp.set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
-};
+}
 
-export const timeMid = (timestamp: Moment): Moment => {
+export function timeMid(timestamp: Moment): Moment {
   return timestamp.set({ hour: 12, minute: 0, second: 0, millisecond: 0 });
-};
+}
 
-export const timeMax = (timestamp: Moment): Moment => {
+export function timeMax(timestamp: Moment): Moment {
   return timestamp.set({ hour: 23, minute: 59, second: 59, millisecond: 999 });
-};
+}

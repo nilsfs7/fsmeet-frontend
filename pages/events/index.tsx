@@ -1,11 +1,11 @@
 import { LogoFSMeet } from '@/components/Logo';
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
-import { routeHome } from '@/types/consts/routes';
+import { routeEvents, routeHome } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
@@ -63,7 +63,6 @@ const EventsOverview = ({ session }: { session: any }) => {
           <DatePicker
             date={dateFrom}
             onChange={newDate => {
-              console.log(newDate);
               hanldeDateFromChanged(newDate);
             }}
           />
@@ -74,7 +73,6 @@ const EventsOverview = ({ session }: { session: any }) => {
           <DatePicker
             date={dateTo}
             onChange={newDate => {
-              console.log(newDate);
               hanldeDateToChanged(newDate);
             }}
           />
@@ -87,12 +85,14 @@ const EventsOverview = ({ session }: { session: any }) => {
           {events.map((item: any, i: number) => {
             return (
               <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                <Link href={`/events/${item.id}`}>
+                <Link href={`${routeEvents}/${item.id}`}>
                   <EventCard event={item} />
                 </Link>
               </div>
             );
           })}
+
+          {events.length === 0 && <div className="mt-2 text-center">No events for the specified date range.</div>}
         </div>
       </div>
 
@@ -106,7 +106,7 @@ const EventsOverview = ({ session }: { session: any }) => {
 };
 export default EventsOverview;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   return {

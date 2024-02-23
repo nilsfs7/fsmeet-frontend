@@ -9,6 +9,7 @@ import TextButton from '../common/TextButton';
 import { Event } from '@/types/event';
 import moment from 'moment';
 import { EventType } from '@/types/enums/event-type';
+import { routeUsers } from '@/types/consts/routes';
 
 interface IEventProps {
   event: Event;
@@ -53,7 +54,7 @@ const EventDetails = ({ event }: IEventProps) => {
 
         <div className="col-span-1">Event host</div>
         <div className="col-span-2 hover:underline">
-          <Link href={`/user/${event.admin}`}>{event.admin}</Link>
+          <Link href={`${routeUsers}/${event.admin}`}>{event.admin}</Link>
         </div>
       </div>
 

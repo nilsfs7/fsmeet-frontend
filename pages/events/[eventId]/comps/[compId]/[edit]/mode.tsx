@@ -3,11 +3,11 @@
   - dadurch ist die teilnehmeranzahl bekannt
 */
 
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/types/consts/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
@@ -325,8 +325,8 @@ const ModeEditing = (props: any) => {
       </div>
 
       <Navigation>
-        <Link href={`/events/${eventId}/comps`}>
-          <ActionButton action={Action.BACK} onClick={() => router.replace(`/events/${eventId}/comps`)} />
+        <Link href={`${routeEvents}/${eventId}/comps`}>
+          <ActionButton action={Action.BACK} onClick={() => router.replace(`${routeEvents}/${eventId}/comps`)} />
         </Link>
       </Navigation>
     </div>
@@ -335,7 +335,7 @@ const ModeEditing = (props: any) => {
 
 export default ModeEditing;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

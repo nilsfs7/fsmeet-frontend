@@ -74,6 +74,8 @@ Registration
 
 - [Dizzy Emoji](https://www.iconfinder.com/icons/8664942/face_dizzy_emoji_icon)
 
+- [Celebration](https://www.iconfinder.com/icons/6472607/birthday_celebration_christmas_party_trumpet_xmas_icon)
+
 - [Bye](https://www.iconfinder.com/icons/9070043/bye_icon)
 
 Public User Page

@@ -17,7 +17,6 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.0",
     "@mui/system": "^5.12.3",
-    "@mui/x-date-pickers": "^6.3.1",
     "@next/font": "^13.2.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-popover": "^1.0.7",

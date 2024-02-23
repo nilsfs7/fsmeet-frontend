@@ -1,4 +1,3 @@
-import { GetServerSideProps, NextPage } from 'next';
 import TextAndImageButton from '@/components/common/TextAndImageButton';
 import Link from 'next/link';
 import { imgBug, imgFeature, imgFeedback } from '@/types/consts/images';
@@ -8,8 +7,9 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { getSession } from 'next-auth/react';
 import { validateSession } from '@/types/funcs/validate-session';
+import { GetServerSidePropsContext } from 'next';
 
-const Feedback: NextPage = () => {
+const Feedback = () => {
   return (
     <div className={'absolute inset-0 flex flex-col'}>
       <div className="flex h-full flex-col items-center justify-center">
@@ -41,7 +41,7 @@ const Feedback: NextPage = () => {
 
 export default Feedback;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {

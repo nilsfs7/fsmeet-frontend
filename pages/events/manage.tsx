@@ -1,11 +1,10 @@
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
-import { GetServerSideProps } from 'next';
 import { Event } from '@/types/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
-import { routeEventSubs, routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
+import { routeEventSubs, routeEvents, routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
 import { LogoFSMeet } from '@/components/Logo';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
@@ -14,6 +13,7 @@ import { getLicense } from '@/services/fsmeet-backend/get-license';
 import { License } from '@/types/license';
 import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
+import { GetServerSidePropsContext } from 'next';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const eventsOwning: Event[] = data.owning;
@@ -28,10 +28,6 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
     } else {
       router.replace(`${routeEventSubs}/?license=1`, undefined, { shallow: true });
     }
-  };
-
-  const handleConfirmDialogClicked = async () => {
-    router.replace(`${routeEventSubs}`, undefined, { shallow: true });
   };
 
   const handleCancelDialogClicked = async () => {
@@ -67,7 +63,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
                   {eventsOwning.map((item: any, i: number) => {
                     return (
                       <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                        <Link href={`/events/${item.id}?auth=1`}>
+                        <Link href={`${routeEvents}/${item.id}?auth=1`}>
                           <EventCard event={item} />
                         </Link>
                       </div>
@@ -86,7 +82,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
                   {eventsSubscribed.map((item: any, i: number) => {
                     return (
                       <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                        <Link href={`/events/${item.id}`}>
+                        <Link href={`${routeEvents}/${item.id}`}>
                           <EventCard event={item} />
                         </Link>
                       </div>
@@ -111,7 +107,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
 };
 export default MyEventsOverview;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!validateSession(session)) {
