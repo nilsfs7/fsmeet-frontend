@@ -23,6 +23,7 @@ const ForgotPassword = () => {
   const handleResetClicked = async () => {
     setError('');
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/password/forgot`, {
       method: 'POST',
       body: JSON.stringify({ username: username }),

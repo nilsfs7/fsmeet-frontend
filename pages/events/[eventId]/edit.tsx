@@ -60,6 +60,7 @@ const EventEditing = (props: any) => {
       state: event?.state,
     });
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'PATCH',
       body: body,
@@ -83,6 +84,7 @@ const EventEditing = (props: any) => {
   };
 
   const handleConfirmDeleteClicked = async () => {
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'DELETE',
       body: JSON.stringify({

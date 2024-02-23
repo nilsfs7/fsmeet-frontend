@@ -1,8 +1,9 @@
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import SocialLink from '@/components/user/SocialLink';
+import { getUser } from '@/services/fsmeet-backend/get-user';
 import { imgUserDefaultImg, imgVerifiedCheckmark } from '@/types/consts/images';
-import { routeAccount } from '@/types/consts/routes';
+import { routeAccount, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
 import { User } from '@/types/user';
@@ -11,9 +12,9 @@ import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const Profile = (props: any) => {
+const PublicUserProfile = (props: any) => {
   const session = props.session;
-  const user: User = props.data;
+  const user: User = props.user;
 
   const router = useRouter();
 
@@ -83,18 +84,32 @@ const Profile = (props: any) => {
   );
 };
 
-export default Profile;
+export default PublicUserProfile;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${context.params?.username}`);
-  const data = await response.json();
+  const username = context.params?.username;
+
+  if (username) {
+    try {
+      const user = await getUser(username.toString());
+
+      return {
+        props: {
+          user: user,
+          session: session,
+        },
+      };
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
 
   return {
-    props: {
-      data: data,
-      session: session,
+    redirect: {
+      permanent: false,
+      destination: routeUsers,
     },
   };
 };

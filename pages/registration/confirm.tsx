@@ -34,6 +34,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   let confirmationSuccessful = false;
 
   try {
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/confirm/user?username=${context.query.username}&requestToken=${context.query.requestToken}`, {
       method: 'GET',
       headers: {

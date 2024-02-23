@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import router from 'next/router';
 import ErrorMessage from '@/components/ErrorMessage';
 import { validateFirstName } from '@/types/funcs/validation/validation-user';
+import { routeRegistrationPending } from '@/types/consts/routes';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -56,6 +57,7 @@ const Register = () => {
   const handleCreateClicked = async () => {
     setError('');
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'POST',
       body: JSON.stringify({ username: username, email: email, password: password, firstName: firstName.trim() }),
@@ -65,7 +67,7 @@ const Register = () => {
     });
 
     if (response.status == 201) {
-      router.replace(`registration/pending?username=${username}&email=${email}`);
+      router.replace(`${routeRegistrationPending}?username=${username}&email=${email}`);
     } else {
       const error = await response.json();
       setError(error.message);

@@ -53,6 +53,7 @@ const EventCreation = (props: any) => {
       state: event?.state,
     });
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
       method: 'POST',
       body: body,

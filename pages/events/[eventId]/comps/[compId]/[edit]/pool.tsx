@@ -97,6 +97,7 @@ const CompetitionPool = (props: any) => {
 
   useEffect(() => {
     async function fetchEventRegistrations() {
+      // TODO: outsource
       const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
       const response = await fetch(url);
       const registrations = await response.json();
@@ -104,6 +105,7 @@ const CompetitionPool = (props: any) => {
     }
 
     async function fetchCompetitionParticipants() {
+      // TODO: outsource
       const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
       const response = await fetch(url);
       const participants = await response.json();

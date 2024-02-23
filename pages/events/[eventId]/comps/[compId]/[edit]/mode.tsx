@@ -37,6 +37,7 @@ const ModeEditing = (props: any) => {
   const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
 
   const fetchCompetitionParticipants = async (compId: string): Promise<number> => {
+    // TODO: outsource
     const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
     const response = await fetch(url);
     const participants = await response.json();
@@ -49,6 +50,7 @@ const ModeEditing = (props: any) => {
       rounds: rounds,
     });
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`, {
       method: 'POST',
       body: body,
@@ -66,6 +68,7 @@ const ModeEditing = (props: any) => {
   };
 
   const handleDeleteClicked = async () => {
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`, {
       method: 'DELETE',
       headers: {
@@ -92,6 +95,7 @@ const ModeEditing = (props: any) => {
         name: name,
       });
 
+      // TODO: outsource
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
         method: 'PATCH',
         body: body,
@@ -119,6 +123,7 @@ const ModeEditing = (props: any) => {
       time: time,
     });
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
       method: 'PATCH',
       body: body,
