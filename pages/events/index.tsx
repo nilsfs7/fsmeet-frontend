@@ -63,7 +63,6 @@ const EventsOverview = ({ session }: { session: any }) => {
           <DatePicker
             date={dateFrom}
             onChange={newDate => {
-              console.log(newDate);
               hanldeDateFromChanged(newDate);
             }}
           />
@@ -74,7 +73,6 @@ const EventsOverview = ({ session }: { session: any }) => {
           <DatePicker
             date={dateTo}
             onChange={newDate => {
-              console.log(newDate);
               hanldeDateToChanged(newDate);
             }}
           />
@@ -93,6 +91,8 @@ const EventsOverview = ({ session }: { session: any }) => {
               </div>
             );
           })}
+
+          {events.length === 0 && <div className="mt-2 text-center">No events for the specified date range.</div>}
         </div>
       </div>
 
