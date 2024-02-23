@@ -2,7 +2,7 @@ import TextButton from '@/components/common/TextButton';
 import Link from 'next/link';
 import { routeLogin } from '@/types/consts/routes';
 import Image from 'next/image';
-import { imgEmojiError } from '@/types/consts/images';
+import { imgEmojiError, imgCelebration } from '@/types/consts/images';
 import { GetServerSidePropsContext } from 'next';
 
 const RegistrationConfirmation = (props: any) => {
@@ -11,7 +11,11 @@ const RegistrationConfirmation = (props: any) => {
   return (
     <div className={'flex h-screen flex-col items-center justify-center'}>
       <div className="mx-2 text-center">
-        {!confirmationSuccessful && <Image src={imgEmojiError} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={'image'} />}
+        {confirmationSuccessful ? (
+          <Image src={imgCelebration} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
+        ) : (
+          <Image src={imgEmojiError} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
+        )}
 
         <div className="mt-2">{confirmationSuccessful ? `Registration successful` : `Something went wrong`}</div>
         <div className="mt-2">
