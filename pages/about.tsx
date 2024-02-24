@@ -20,7 +20,7 @@ const About = () => {
         </div>
       </div>
 
-      <div className="mx-2 mt-2 flex flex-col items-center text-center">
+      <div className="mx-2 mt-2 flex flex-col items-center text-center overflow-y-auto">
         <div>FSMeet is a free tool to easily organize and manage freestyle football meetings and competitions.</div>
         <div className="mt-2">
           This is a community driven project. If you love freestyle as much as we do, we encourage you to send any feedback or ideas to further improve our service. You can reach out to us either
