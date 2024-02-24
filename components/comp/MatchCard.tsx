@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 import moment, { Moment } from 'moment';
 import { getTimeString } from '@/types/funcs/time';
 import ComboBox from '../common/ComboBox';
-import dayjs from 'dayjs';
-import { TimePicker } from 'antd';
+// import dayjs from 'dayjs';
+// import { TimePicker } from 'antd';
 import { routeUsers } from '@/types/consts/routes';
 
 interface IMatchProps {
@@ -83,7 +83,9 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
 
         {editingEnabled && (
           <div className="w-full flex items-center py-1">
-            <TimePicker
+            {/* Todo: enable time picker again: requires diabling babel transpilation. or built own time picker -> remove antd */}
+
+            {/* <TimePicker
               value={match.time !== undefined ? dayjs(match.time) : undefined}
               format={'HH:mm'}
               onChange={value => {
@@ -96,7 +98,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                   handleUpdateTime(null);
                 }
               }}
-            />
+            /> */}
           </div>
         )}
 
