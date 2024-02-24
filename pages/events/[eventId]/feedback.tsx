@@ -27,6 +27,7 @@ const GeneralFeedback = (props: any) => {
   const handleSubmitClicked = async () => {
     setError('');
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/feedback`, {
       method: 'POST',
       body: JSON.stringify({ message: message }),

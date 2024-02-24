@@ -34,6 +34,7 @@ const CompetitionEditing = (props: any) => {
       rules: comp?.rules.trim(),
     });
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`, {
       method: 'PATCH',
       body: body,
@@ -63,6 +64,7 @@ const CompetitionEditing = (props: any) => {
   const handleConfirmDeleteClicked = async () => {
     setError('');
 
+    // TODO: outsource
     let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`;
     let method: string = 'DELETE';
 

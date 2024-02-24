@@ -7,7 +7,7 @@ import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import ErrorMessage from '@/components/ErrorMessage';
 import { useSearchParams } from 'next/navigation';
-import { routeHome } from '@/types/consts/routes';
+import { routeHome, routePasswordForgot, routeRegistration } from '@/types/consts/routes';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -103,13 +103,13 @@ const Login = () => {
         <ErrorMessage message={error} />
 
         <div className="flex justify-center py-2">
-          <Link href={'/password/forgot'}>
+          <Link href={`${routePasswordForgot}`}>
             <label className="cursor-pointer pr-4 underline">Reset password</label>
           </Link>
         </div>
 
         <div className="flex justify-center py-2">
-          <Link href={'/registration'}>
+          <Link href={`${routeRegistration}`}>
             <label className="cursor-pointer pr-4 underline">No account yet?</label>
           </Link>
         </div>

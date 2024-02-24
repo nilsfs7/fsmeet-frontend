@@ -123,6 +123,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     throw new Error('Validating session failed');
   }
 
+  // TODO: outsource
   const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/manage?admin=${session?.user.username}`;
   const responseMyEvents = await fetch(urlMyEvents, {
     method: 'GET',
@@ -133,6 +134,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   });
   const dataMyEvents = await responseMyEvents.json();
 
+  // TODO: outsource
   const urlEventSubs = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?participant=${session?.user.username}`;
   const responseEventSubs = await fetch(urlEventSubs);
   const dataEventSubs = await responseEventSubs.json();

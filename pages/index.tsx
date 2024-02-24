@@ -110,7 +110,7 @@ const Home = ({ data }: { data: any }) => {
                   <>
                     <h1 className="mt-2 text-center text-2xl">Recent Event</h1>
 
-                    <div className="mt-2 flex max-h-full justify-center  px-2">
+                    <div className="mt-2 flex max-h-full justify-center px-2">
                       <div className="w-full">
                         {recentEvents.map((item: any, i: number) => {
                           return (

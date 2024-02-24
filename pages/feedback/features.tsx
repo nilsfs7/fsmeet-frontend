@@ -25,6 +25,7 @@ const ReportBug = (props: any) => {
   const handleSubmitClicked = async () => {
     setError('');
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/feedback/features`, {
       method: 'POST',
       body: JSON.stringify({ message: message }),

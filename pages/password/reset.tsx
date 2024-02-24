@@ -27,6 +27,7 @@ const ResetPassword = () => {
   const handleSaveClicked = async () => {
     setError('');
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/password/reset`, {
       method: 'PATCH',
       body: JSON.stringify({ requestToken: requestToken, password: password }),

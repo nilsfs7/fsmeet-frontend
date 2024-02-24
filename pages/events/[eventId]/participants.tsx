@@ -21,7 +21,6 @@ const EventParticipants = (props: any) => {
   const { eventId } = router.query;
 
   const [event, setEvent] = useState<Event>();
-
   const [userToRemove, setUserToRemove] = useState('');
 
   const handleRemoveParticipantClicked = async (username: string) => {
@@ -39,6 +38,7 @@ const EventParticipants = (props: any) => {
       return;
     }
 
+    // TODO: outsource
     let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
     let method: string = 'DELETE';
 
@@ -65,6 +65,7 @@ const EventParticipants = (props: any) => {
       return;
     }
 
+    // TODO: outsource
     let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations/status`;
     let method: string = 'PATCH';
 

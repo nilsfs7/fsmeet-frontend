@@ -30,12 +30,14 @@ const Competition = (props: any) => {
     let response;
 
     if (!needsAuthorization) {
+      // TODO: outsource
       response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`);
     } else {
       if (!validateSession(session)) {
         router.push(routeLogin);
       }
 
+      // TODO: outsource
       response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/manage`, {
         method: 'GET',
         headers: {
@@ -48,6 +50,7 @@ const Competition = (props: any) => {
   };
 
   const fetchCompetitionParticipants = async (compId: string): Promise<{ username: string }[]> => {
+    // TODO: outsource
     const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
     const response = await fetch(url);
     return await response.json();

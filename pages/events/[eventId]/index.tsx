@@ -103,6 +103,7 @@ const Event = (props: any) => {
     }
 
     if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
+      // TODO: outsource
       const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
       const method: string = 'POST';
 
@@ -155,6 +156,7 @@ const Event = (props: any) => {
     }
 
     if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
+      // TODO: outsource
       const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
       const method: string = 'DELETE';
 
@@ -183,6 +185,7 @@ const Event = (props: any) => {
       return;
     }
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`, {
       method: 'POST',
       body: JSON.stringify({
@@ -207,6 +210,7 @@ const Event = (props: any) => {
       return;
     }
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments/subs`, {
       method: 'POST',
       body: JSON.stringify({

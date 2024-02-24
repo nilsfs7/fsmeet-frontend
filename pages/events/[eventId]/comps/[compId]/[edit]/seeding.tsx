@@ -28,6 +28,7 @@ const Seeding = (props: any) => {
   const [rounds, setRounds] = useState<Round[]>([]);
 
   const fetchCompetitionParticipants = async (compId: string): Promise<number> => {
+    // TODO: outsource
     const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
     const response = await fetch(url);
     const participants = await response.json();
@@ -36,6 +37,7 @@ const Seeding = (props: any) => {
   };
 
   const fetchRounds = async (compId: string): Promise<Round[]> => {
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`);
     const rnds: Round[] = await response.json();
 
@@ -80,6 +82,7 @@ const Seeding = (props: any) => {
       result: result,
     });
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches/${matchId}/slots`, {
       method: 'PUT',
       body: body,

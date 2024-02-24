@@ -21,6 +21,7 @@ const CompetitionCreation = (props: any) => {
   const handleCreateClicked = async () => {
     setError('');
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`, {
       method: 'POST',
       body: JSON.stringify({

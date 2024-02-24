@@ -64,6 +64,7 @@ const Account = ({ session }: any) => {
       },
     });
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'PATCH',
       body: body,
@@ -90,6 +91,7 @@ const Account = ({ session }: any) => {
   const handleConfirmDeleteAccountClicked = async () => {
     setError('');
 
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
       method: 'DELETE',
       headers: {
@@ -122,6 +124,7 @@ const Account = ({ session }: any) => {
 
   useEffect(() => {
     async function fetchUser() {
+      // TODO: outsource
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}/private`, {
         method: 'GET',
         headers: {

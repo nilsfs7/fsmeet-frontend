@@ -29,6 +29,7 @@ const AccountImage = ({ session }: any) => {
   const handleUploadImageClicked = async () => {
     const reqBody = new FormData();
     reqBody.append('file', image);
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/image`, {
       method: 'PATCH',
       body: reqBody,
@@ -48,6 +49,7 @@ const AccountImage = ({ session }: any) => {
   };
 
   const handleDeleteImageClicked = async () => {
+    // TODO: outsource
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/image`, {
       method: 'DELETE',
       headers: {
@@ -66,6 +68,7 @@ const AccountImage = ({ session }: any) => {
 
   useEffect(() => {
     async function fetchUser() {
+      // TODO: outsource
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
       const user = await res.json();
       setImageUrl(user.imageUrl);
