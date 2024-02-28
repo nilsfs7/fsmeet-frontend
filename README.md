@@ -4,7 +4,11 @@
 
 ### Prerequisites
 
+[node.js](https://nodejs.org/en) >= 20.9.0
+
 [yarn](https://yarnpkg.com/)
+
+[Docker](https://docs.docker.com/manuals/) Engine, Build & Compose
 
 ### Run app
 
