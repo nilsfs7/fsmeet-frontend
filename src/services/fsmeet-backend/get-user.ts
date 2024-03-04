@@ -14,6 +14,7 @@ export async function getUser(username: string, session?: any): Promise<User> {
 
     user.tShirtSize = user.private?.tShirtSize;
     user.city = user?.private?.city;
+    user.exposeLocation = user?.private?.exposeLocation;
     user.locLatitude = user?.private?.locLatitude;
     user.locLongitude = user?.private?.locLongitude;
 
