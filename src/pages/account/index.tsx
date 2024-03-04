@@ -19,6 +19,7 @@ import { validateSession } from '@/types/funcs/validate-session';
 import CheckBox from '@/components/common/CheckBox';
 import { prefixRequired } from '@/types/funcs/prefix-required';
 import { GetServerSidePropsContext } from 'next';
+import { getUser } from '@/services/fsmeet-backend/get-user';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -35,9 +36,9 @@ const Account = ({ session }: any) => {
   const [website, setWebsite] = useState('');
 
   // private user info
-  const [tShirtSize, setTShirtSize] = useState();
-  const [city, setCity] = useState('');
-  const [exposeLocation, setExposeLocation] = useState(false);
+  const [tShirtSize, setTShirtSize] = useState<string>();
+  const [city, setCity] = useState<string>();
+  const [exposeLocation, setExposeLocation] = useState<boolean>(false);
 
   const handleSaveUserInfoClicked = async () => {
     setError('');
@@ -124,17 +125,12 @@ const Account = ({ session }: any) => {
 
   useEffect(() => {
     async function fetchUser() {
-      // TODO: outsource
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}/private`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${session?.user?.accessToken}`,
-        },
-      });
-      const user = await res.json();
+      const user = await getUser(session?.user?.username, session);
       setUserFetched(true);
 
-      setImageUrl(user.imageUrl);
+      if (user.imageUrl) {
+        setImageUrl(user.imageUrl);
+      }
       if (user.firstName) {
         setFirstName(user.firstName);
       }
@@ -156,14 +152,14 @@ const Account = ({ session }: any) => {
       if (user.website) {
         setWebsite(user.website);
       }
-      if (user.private?.tShirtSize) {
-        setTShirtSize(user.private.tShirtSize);
+      if (user.tShirtSize) {
+        setTShirtSize(user.tShirtSize);
       }
-      if (user.private?.city) {
-        setCity(user.private.city);
+      if (user.city) {
+        setCity(user.city);
       }
-      if (user.private?.exposeLocation) {
-        setExposeLocation(user.private.exposeLocation);
+      if (user.exposeLocation) {
+        setExposeLocation(user.exposeLocation);
       }
     }
     fetchUser();
