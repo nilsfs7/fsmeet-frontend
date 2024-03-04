@@ -24,7 +24,7 @@ const ForgotPassword = () => {
     setError('');
 
     // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/password/forgot`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/password/reset`, {
       method: 'POST',
       body: JSON.stringify({ username: username }),
       headers: {
