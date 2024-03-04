@@ -9,8 +9,9 @@ export type User = {
   youTubeHandle?: string;
   website?: string;
   isVerifiedAccount?: boolean;
+  tShirtSize?: string;
   city?: string;
-  exposeLocation?: string;
+  exposeLocation?: boolean;
   locLatitude?: number;
   locLongitude?: number;
 };
