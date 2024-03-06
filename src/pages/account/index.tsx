@@ -20,6 +20,9 @@ import CheckBox from '@/components/common/CheckBox';
 import { prefixRequired } from '@/types/funcs/prefix-required';
 import { GetServerSidePropsContext } from 'next';
 import { getUser } from '@/services/fsmeet-backend/get-user';
+import { updateUser } from '@/services/fsmeet-backend/update-user';
+import { User } from '@/types/user';
+import { deleteUser } from '@/services/fsmeet-backend/delete-user';
 
 const Account = ({ session }: any) => {
   const [userFetched, setUserFetched] = useState(false);
@@ -50,36 +53,24 @@ const Account = ({ session }: any) => {
       websiteAdjusted = websiteAdjusted.substring(0, websiteAdjusted.length - 1);
     }
 
-    const body = JSON.stringify({
+    const user: User = {
+      username: session?.user?.username,
       firstName: firstNameAdjusted,
       lastName: lastNameAdjusted,
       country: country,
+      website: websiteAdjusted,
       instagramHandle: instagramHandle,
       tikTokHandle: tikTokHandle,
       youTubeHandle: youTubeHandle,
-      website: websiteAdjusted,
-      private: {
-        tShirtSize: tShirtSize,
-        city: city,
-        exposeLocation: exposeLocation,
-      },
-    });
+      tShirtSize: tShirtSize,
+      city: city,
+      exposeLocation: exposeLocation,
+    };
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
-      method: 'PATCH',
-      body: body,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      console.info('updating user info successful');
+    try {
+      await updateUser(user, session);
       router.push(`${routeHome}`);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       setError(error.message);
       console.error(error.message);
     }
@@ -92,21 +83,13 @@ const Account = ({ session }: any) => {
   const handleConfirmDeleteAccountClicked = async () => {
     setError('');
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${session?.user?.accessToken}`,
-      },
-    });
-
-    if (response.status === 200) {
+    try {
+      await deleteUser(session);
       await signOut({ redirect: false });
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
       router.push(routeAccountDeleted);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       setError(error.message);
       console.error(error.message);
     }
