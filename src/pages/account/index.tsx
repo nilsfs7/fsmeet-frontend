@@ -20,8 +20,18 @@ import CheckBox from '@/components/common/CheckBox';
 import { prefixRequired } from '@/types/funcs/prefix-required';
 import { GetServerSidePropsContext } from 'next';
 import { getUser } from '@/services/fsmeet-backend/get-user';
+import { updateUser } from '@/services/fsmeet-backend/update-user';
+import { User } from '@/types/user';
+import { deleteUser } from '@/services/fsmeet-backend/delete-user';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { switchTab } from '@/types/funcs/switch-tab';
+import { useSearchParams } from 'next/navigation';
 
 const Account = ({ session }: any) => {
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
+  const needsAuthorization = searchParams.get('auth');
+
   const [userFetched, setUserFetched] = useState(false);
   const [error, setError] = useState('');
 
@@ -50,36 +60,24 @@ const Account = ({ session }: any) => {
       websiteAdjusted = websiteAdjusted.substring(0, websiteAdjusted.length - 1);
     }
 
-    const body = JSON.stringify({
+    const user: User = {
+      username: session?.user?.username,
       firstName: firstNameAdjusted,
       lastName: lastNameAdjusted,
       country: country,
+      website: websiteAdjusted,
       instagramHandle: instagramHandle,
       tikTokHandle: tikTokHandle,
       youTubeHandle: youTubeHandle,
-      website: websiteAdjusted,
-      private: {
-        tShirtSize: tShirtSize,
-        city: city,
-        exposeLocation: exposeLocation,
-      },
-    });
+      tShirtSize: tShirtSize,
+      city: city,
+      exposeLocation: exposeLocation,
+    };
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
-      method: 'PATCH',
-      body: body,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      console.info('updating user info successful');
+    try {
+      await updateUser(user, session);
       router.push(`${routeHome}`);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       setError(error.message);
       console.error(error.message);
     }
@@ -92,21 +90,13 @@ const Account = ({ session }: any) => {
   const handleConfirmDeleteAccountClicked = async () => {
     setError('');
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${session?.user?.accessToken}`,
-      },
-    });
-
-    if (response.status === 200) {
+    try {
+      await deleteUser(session);
       await signOut({ redirect: false });
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
       router.push(routeAccountDeleted);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       setError(error.message);
       console.error(error.message);
     }
@@ -170,12 +160,12 @@ const Account = ({ session }: any) => {
   }
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
+    <div className="absolute inset-0 flex flex-col">
       <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDeleteAccountClicked} onConfirm={handleConfirmDeleteAccountClicked}>
         <p>Do you really want to leave us?</p>
       </Dialog>
 
-      <div className="mx-2 flex flex-col overflow-y-auto">
+      <div className="mx-2 flex flex-col overflow-auto">
         <h1 className="mt-2 text-center text-xl">Account Settings</h1>
 
         <div className="mt-2 flex justify-center py-2">
@@ -185,133 +175,174 @@ const Account = ({ session }: any) => {
         </div>
 
         <div className="my-4" />
+        <div className="mx-2 flex flex-col overflow-hidden">
+          <div className={'flex flex-col items-center overflow-auto'}>
+            <Tabs defaultValue={tab || `general`} className="flex flex-col h-full">
+              <TabsList className="mb-2">
+                <TabsTrigger
+                  value="general"
+                  onClick={() => {
+                    switchTab(router, 'general');
+                  }}
+                >
+                  {`General Info`}
+                </TabsTrigger>
 
-        <div className={'flex flex-col items-center'}>
-          <div>
-            <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-              <div className="text-center">Public Info</div>
-              <TextInput
-                id={'firstName'}
-                label={'First Name'}
-                placeholder=""
-                value={firstName}
-                onChange={e => {
-                  setFirstName(e.currentTarget.value);
-                }}
-              />
+                <TabsTrigger
+                  value="map"
+                  onClick={() => {
+                    switchTab(router, 'map');
+                  }}
+                >
+                  {`Freestyler Map`}
+                </TabsTrigger>
 
-              <TextInput
-                id={'lastName'}
-                label={'Last Name'}
-                placeholder=""
-                value={lastName}
-                onChange={e => {
-                  setLastName(e.currentTarget.value);
-                }}
-              />
+                <TabsTrigger
+                  value="account"
+                  onClick={() => {
+                    switchTab(router, 'account');
+                  }}
+                >
+                  {`Account`}
+                </TabsTrigger>
+              </TabsList>
 
-              <div className="m-2 grid grid-cols-2">
-                <div className="p-2">Country</div>
-                <div className="flex w-full">
-                  <ComboBox
-                    menus={menuCountries}
-                    value={country ? country : menuCountries[0].value}
-                    searchEnabled={true}
-                    onChange={(value: any) => {
-                      setCountry(value);
+              {/* General */}
+              <TabsContent value="general" className="overflow-hidden overflow-y-auto">
+                <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+                  <TextInput
+                    id={'firstName'}
+                    label={'First Name'}
+                    placeholder=""
+                    value={firstName}
+                    onChange={e => {
+                      setFirstName(e.currentTarget.value);
+                    }}
+                  />
+
+                  <TextInput
+                    id={'lastName'}
+                    label={'Last Name'}
+                    placeholder=""
+                    value={lastName}
+                    onChange={e => {
+                      setLastName(e.currentTarget.value);
+                    }}
+                  />
+
+                  <div className="m-2 grid grid-cols-2">
+                    <div className="p-2">Country</div>
+                    <div className="flex w-full">
+                      <ComboBox
+                        menus={menuCountries}
+                        value={country ? country : menuCountries[0].value}
+                        searchEnabled={true}
+                        onChange={(value: any) => {
+                          setCountry(value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <TextInput
+                    id={'instagramHandle'}
+                    label={'Instagram Handle'}
+                    placeholder="@dffb_org"
+                    value={instagramHandle}
+                    onChange={e => {
+                      setInstagramHandle(prefixRequired(e.currentTarget.value, '@'));
+                    }}
+                  />
+
+                  <TextInput
+                    id={'tikTokHandle'}
+                    label={'TikTok Handle'}
+                    placeholder="@dffb_org"
+                    value={tikTokHandle}
+                    onChange={e => {
+                      setTikTokHandle(prefixRequired(e.currentTarget.value, '@'));
+                    }}
+                  />
+
+                  <TextInput
+                    id={'youTubeHandle'}
+                    label={'YouTube Handle'}
+                    placeholder="@dffb_org"
+                    value={youTubeHandle}
+                    onChange={e => {
+                      setYouTubeHandle(prefixRequired(e.currentTarget.value, '@'));
+                    }}
+                  />
+
+                  <TextInput
+                    id={'website'}
+                    label={'Website'}
+                    placeholder="https://dffb.org"
+                    value={website}
+                    onChange={e => {
+                      let url: string = e.currentTarget.value;
+                      url = url.toLowerCase();
+
+                      setWebsite(url);
+                    }}
+                  />
+
+                  {/* <div className="m-2 grid grid-cols-2">
+                    <div className="p-2">T-Shirt Size</div>
+                    <div className="flex w-full">
+                      <ComboBox
+                        menus={menuTShirtSizes}
+                        value={tShirtSize ? tShirtSize : menuTShirtSizes[0].value}
+                        onChange={(value: any) => {
+                          setTShirtSize(value);
+                        }}
+                      />
+                    </div>
+                  </div> */}
+                </div>
+              </TabsContent>
+
+              {/* Freestyler Map */}
+              <TabsContent value="map" className="overflow-hidden overflow-y-auto">
+                <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+                  <TextInput
+                    id={'city'}
+                    label={'City'}
+                    placeholder="Munich"
+                    value={city}
+                    onChange={e => {
+                      setExposeLocation(true);
+                      setCity(e.currentTarget.value);
+                    }}
+                  />
+
+                  <CheckBox
+                    id={'exposeLocation'}
+                    label="Publish city on Freestyler Map"
+                    value={exposeLocation}
+                    onChange={() => {
+                      setExposeLocation(!exposeLocation);
                     }}
                   />
                 </div>
-              </div>
+              </TabsContent>
 
-              <TextInput
-                id={'instagramHandle'}
-                label={'Instagram Handle'}
-                placeholder="@dffb_org"
-                value={instagramHandle}
-                onChange={e => {
-                  setInstagramHandle(prefixRequired(e.currentTarget.value, '@'));
-                }}
-              />
+              {/* Account */}
+              <TabsContent value="account" className="overflow-hidden overflow-y-auto">
+                <div className="mt-2">
+                  <div className="flex justify-center pt-4">
+                    <TextButton text="Logout" onClick={handleLogoutClicked} />
+                  </div>
 
-              <TextInput
-                id={'tikTokHandle'}
-                label={'TikTok Handle'}
-                placeholder="@dffb_org"
-                value={tikTokHandle}
-                onChange={e => {
-                  setTikTokHandle(prefixRequired(e.currentTarget.value, '@'));
-                }}
-              />
-
-              <TextInput
-                id={'youTubeHandle'}
-                label={'YouTube Handle'}
-                placeholder="@dffb_org"
-                value={youTubeHandle}
-                onChange={e => {
-                  setYouTubeHandle(prefixRequired(e.currentTarget.value, '@'));
-                }}
-              />
-
-              <TextInput
-                id={'website'}
-                label={'Website'}
-                placeholder="https://dffb.org"
-                value={website}
-                onChange={e => {
-                  let url: string = e.currentTarget.value;
-                  url = url.toLowerCase();
-
-                  setWebsite(url);
-                }}
-              />
-            </div>
-
-            <div className="flex flex-col rounded-lg  border border-primary bg-secondary-light p-1">
-              <div className="text-center">Private Info</div>
-
-              <div className="m-2 grid grid-cols-2">
-                <div className="p-2">T-Shirt Size</div>
-                <div className="flex w-full">
-                  <ComboBox
-                    menus={menuTShirtSizes}
-                    value={tShirtSize ? tShirtSize : menuTShirtSizes[0].value}
-                    onChange={(value: any) => {
-                      setTShirtSize(value);
-                    }}
-                  />
+                  <div className="flex justify-center pt-4">
+                    <TextButton text="Delete account" style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
+                  </div>
                 </div>
-              </div>
+              </TabsContent>
 
-              <TextInput
-                id={'city'}
-                label={'City'}
-                placeholder="Munich"
-                value={city}
-                onChange={e => {
-                  setCity(e.currentTarget.value);
-                }}
-              />
-
-              <CheckBox
-                id={'exposeLocation'}
-                label="Publish city on Freestyler Map"
-                value={exposeLocation}
-                onChange={() => {
-                  setExposeLocation(!exposeLocation);
-                }}
-              />
-            </div>
+              <TabsContent value="competitions" className="overflow-hidden overflow-y-auto"></TabsContent>
+            </Tabs>
           </div>
-        </div>
-
-        <div className="flex justify-center pt-4">
-          <TextButton text="Logout" onClick={handleLogoutClicked} />
-        </div>
-
-        <div className="flex justify-center pt-4">
-          <TextButton text="Delete account" style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
         </div>
       </div>
 
