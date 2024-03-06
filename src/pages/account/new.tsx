@@ -205,6 +205,60 @@ const Account = ({ session }: any) => {
                 >
                   {`Account`}
                 </TabsTrigger>
+
+                <TabsTrigger
+                  value="general1"
+                  onClick={() => {
+                    switchTab(router, 'general1');
+                  }}
+                >
+                  {`General Info1`}
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="map1"
+                  onClick={() => {
+                    switchTab(router, 'map1');
+                  }}
+                >
+                  {`Freestyler Map1`}
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="account1"
+                  onClick={() => {
+                    switchTab(router, 'account1');
+                  }}
+                >
+                  {`Account1`}
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="general2"
+                  onClick={() => {
+                    switchTab(router, 'general2');
+                  }}
+                >
+                  {`General Info2`}
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="map2"
+                  onClick={() => {
+                    switchTab(router, 'map2');
+                  }}
+                >
+                  {`Freestyler Map2`}
+                </TabsTrigger>
+
+                <TabsTrigger
+                  value="account2"
+                  onClick={() => {
+                    switchTab(router, 'account2');
+                  }}
+                >
+                  {`Account2`}
+                </TabsTrigger>
               </TabsList>
 
               {/* General */}
