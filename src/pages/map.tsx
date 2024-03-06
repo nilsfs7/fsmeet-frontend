@@ -5,7 +5,7 @@ import ActionButton from '@/components/common/ActionButton';
 import TextButton from '@/components/common/TextButton';
 import { getUser } from '@/services/fsmeet-backend/get-user';
 import { getUsers } from '@/services/fsmeet-backend/get-users';
-import { routeHome } from '@/types/consts/routes';
+import { routeAccount, routeHome } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { User } from '@/types/user';
 import { GetServerSidePropsContext } from 'next';
@@ -63,7 +63,7 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
 
           {(!user || (user && !user.locLatitude)) && (
             <div className="ml-1">
-              <Link href={`/account`}>
+              <Link href={`${routeAccount}?tab=map`}>
                 <TextButton text={'Add Your Pin'} />
               </Link>
             </div>
