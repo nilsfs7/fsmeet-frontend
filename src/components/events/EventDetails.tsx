@@ -30,7 +30,7 @@ const EventDetails = ({ event }: IEventProps) => {
         <div className="col-span-2">
           {event.dateFrom && event.dateTo && (
             <div>
-              {event.dateFrom.toLocaleString() === event.dateTo.toLocaleString()
+              {moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
                 ? `${getShortDateString(moment(event.dateFrom))}`
                 : `${getShortDateString(moment(event.dateFrom), false)} - ${getShortDateString(moment(event.dateTo))}`}
             </div>

@@ -11,7 +11,6 @@ import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 import ComboBox from '../common/ComboBox';
 import { menuEventTypes } from '@/types/consts/menus/menu-event-types';
 import { validateAlias } from '@/types/funcs/validation/validation-event';
-import { timeMid } from '@/types/funcs/time';
 import CurInput from '../common/CurrencyInput';
 import { EventState } from '@/types/enums/event-state';
 import { DatePicker } from '../common/DatePicker';
@@ -24,10 +23,10 @@ interface IEventEditorProps {
 const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
   const [name, setEventName] = useState(event?.name || '');
   const [alias, setEventAlias] = useState(event?.alias || '');
-  const [dateFrom, setDateFrom] = useState<string>(event?.dateFrom ? event.dateFrom : timeMid(moment()).add(7, 'day').utc().format());
-  const [dateTo, setDateTo] = useState<string>(event?.dateTo ? event.dateTo : timeMid(moment()).add(7, 'day').utc().format());
-  const [registrationOpen, setRegistrationOpen] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : timeMid(moment()).utc().format());
-  const [registrationDeadline, setRegistrationDeadline] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : timeMid(moment()).add(6, 'day').utc().format());
+  const [dateFrom, setDateFrom] = useState<string>(event?.dateFrom ? event.dateFrom : moment().startOf('day').add(7, 'day').utc().format());
+  const [dateTo, setDateTo] = useState<string>(event?.dateTo ? event.dateTo : moment().endOf('day').add(7, 'day').utc().format());
+  const [registrationOpen, setRegistrationOpen] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : moment().startOf('day').utc().format());
+  const [registrationDeadline, setRegistrationDeadline] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : moment().endOf('day').add(6, 'day').utc().format());
   const [description, setDescription] = useState(event?.description || '');
   const [venueHouseNo, setVenueHouseNo] = useState(event?.venueCity || '');
   const [venueStreet, setVenueStreet] = useState(event?.venueCity || '');
@@ -218,7 +217,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           date={moment(dateFrom)}
           onChange={value => {
             if (value) {
-              setDateFrom(timeMid(value).utc().format());
+              setDateFrom(value.startOf('day').utc().format());
             }
           }}
         />
@@ -229,7 +228,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           date={moment(dateTo)}
           onChange={value => {
             if (value) {
-              setDateTo(timeMid(value).utc().format());
+              setDateTo(value.endOf('day').utc().format());
             }
           }}
         />
@@ -240,7 +239,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           date={moment(registrationOpen)}
           onChange={value => {
             if (value) {
-              setRegistrationOpen(timeMid(value).utc().format());
+              setRegistrationOpen(value.startOf('day').utc().format());
             }
           }}
         />
@@ -251,7 +250,7 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
           date={moment(registrationDeadline)}
           onChange={value => {
             if (value) {
-              setRegistrationDeadline(timeMid(value).utc().format());
+              setRegistrationDeadline(value.endOf('day').utc().format());
             }
           }}
         />
