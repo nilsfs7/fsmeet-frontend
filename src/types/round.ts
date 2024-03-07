@@ -84,4 +84,29 @@ export class Round {
 
     return matches;
   };
+
+  containsParticipant(username: string): boolean {
+    // TODO: remove function and use containsParticipant(...) of match class instead
+    function userInMatch(username: string, match: Match): boolean {
+      let userFound = false;
+      for (const slot of match.matchSlots) {
+        if (slot.name === username) {
+          userFound = true;
+          break;
+        }
+      }
+
+      return userFound;
+    }
+
+    let userFound = false;
+    for (const match of this.matches) {
+      if (userInMatch(username, match)) {
+        userFound = true;
+        break;
+      }
+    }
+
+    return userFound;
+  }
 }

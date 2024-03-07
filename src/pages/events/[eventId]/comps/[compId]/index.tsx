@@ -22,6 +22,7 @@ import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { validateSession } from '@/types/funcs/validate-session';
+import { Switch } from '@/components/ui/switch';
 
 const Competition = (props: any) => {
   const session = props.session;
@@ -38,6 +39,7 @@ const Competition = (props: any) => {
   const [comp, setComp] = useState<EventCompetition>();
   const [rounds, setRounds] = useState<Round[]>([]);
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
+  const [filteredByUser, setFilteredByUser] = useState<string | null>(null);
 
   const getParentRound = (roundId: number): Round => {
     return rounds[roundId - 1];
@@ -171,7 +173,7 @@ const Competition = (props: any) => {
                   switchTab(router, 'schedule');
                 }}
               >
-                Schedule
+                {`Schedule`}
               </TabsTrigger>
             )}
             {rounds.length > 1 && (
@@ -181,7 +183,7 @@ const Competition = (props: any) => {
                   switchTab(router, 'grid');
                 }}
               >
-                Battle Grid
+                {`Battle Grid`}
               </TabsTrigger>
             )}
             {competitionParticipants.length > 0 && (
@@ -191,7 +193,7 @@ const Competition = (props: any) => {
                   switchTab(router, 'participants');
                 }}
               >
-                Participants
+                {`Participants`}
               </TabsTrigger>
             )}
             {(comp?.description || comp?.rules) && (
@@ -201,7 +203,7 @@ const Competition = (props: any) => {
                   switchTab(router, 'rules');
                 }}
               >
-                Rules
+                {`Rules`}
               </TabsTrigger>
             )}
           </TabsList>
@@ -209,7 +211,20 @@ const Competition = (props: any) => {
           {/* Schedule */}
           {rounds.length > 0 && (
             <TabsContent value="schedule" className="overflow-hidden overflow-y-auto">
-              <BattleList rounds={rounds} usersMap={usersMap} />
+              {usersMap.get(session?.user?.username) && (
+                <div className="flex justify-center gap-2 p-2">
+                  {'My battles only'}
+
+                  <Switch
+                    defaultChecked={filteredByUser !== null}
+                    onCheckedChange={checked => {
+                      checked ? setFilteredByUser(session?.user?.username) : setFilteredByUser(null);
+                    }}
+                  />
+                </div>
+              )}
+
+              <BattleList rounds={rounds} usersMap={usersMap} filteredByUser={filteredByUser} />
             </TabsContent>
           )}
 
