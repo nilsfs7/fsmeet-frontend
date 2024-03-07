@@ -3,8 +3,8 @@ import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/Profile';
-import { imgAbout, imgFreestyler, imgWorld } from '@/types/consts/images';
-import { routeAbout, routeEvents, routeMap } from '@/types/consts/routes';
+import { imgAbout, imgFreestyler, imgProfileSettings, imgWorld } from '@/types/consts/images';
+import { routeAbout, routeAdminOverview, routeEvents, routeMap } from '@/types/consts/routes';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Event } from '@/types/event';
@@ -15,7 +15,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import Autoplay from 'embla-carousel-autoplay';
 import { GetServerSidePropsContext } from 'next';
 
-const Home = ({ data }: { data: any }) => {
+const Home = ({ data, session }: { data: any; session: any }) => {
   let upcomingEvents: Event[] = data.upcoming;
   let ongoingEvents: Event[] = data.ongoing;
   let recentEvents: Event[] = data.recent;
@@ -142,6 +142,17 @@ const Home = ({ data }: { data: any }) => {
             </div>
           </Link>
         </div>
+
+        {session?.user?.username === 'admin' && (
+          <Link href={routeAdminOverview}>
+            <div className="rounded-lg p-1">
+              <div className="grid grid-flow-col items-center">
+                <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
+                <div className="mx-1">Admin Overview</div>
+              </div>
+            </div>
+          </Link>
+        )}
 
         <div className="mx-2">
           <Link href={routeAbout}>
