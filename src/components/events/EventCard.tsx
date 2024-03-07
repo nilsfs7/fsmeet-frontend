@@ -21,8 +21,8 @@ const EventCard = ({ event }: IEventProps) => {
         <div className="flex justify-between">
           <div className="w-1/3 ">{event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}</div>
           {event.dateFrom && event.dateTo && (
-            <div className="w-2/3 text-right">
-              {event.dateFrom.toLocaleString() === event.dateTo.toLocaleString()
+            <div>
+              {moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
                 ? `${getShortDateString(moment(event.dateFrom))}`
                 : `${getShortDateString(moment(event.dateFrom), false)} - ${getShortDateString(moment(event.dateTo))}`}
             </div>
