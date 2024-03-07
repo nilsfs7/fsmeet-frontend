@@ -196,7 +196,7 @@ const Competition = (props: any) => {
                 {`Participants`}
               </TabsTrigger>
             )}
-            {(comp?.description || comp?.rules) && (
+            {/* {(comp?.description || comp?.rules) && (
               <TabsTrigger
                 value="rules"
                 onClick={() => {
@@ -205,7 +205,7 @@ const Competition = (props: any) => {
               >
                 {`Rules`}
               </TabsTrigger>
-            )}
+            )} */}
           </TabsList>
 
           {/* Schedule */}
@@ -218,7 +218,7 @@ const Competition = (props: any) => {
                   <Switch
                     defaultChecked={filteredByUser !== null}
                     onCheckedChange={checked => {
-                      checked ? setFilteredByUser(session?.user?.username) : setFilteredByUser(null);
+                      checked ? setFilteredByUser('cbb') : setFilteredByUser(null);
                     }}
                   />
                 </div>
@@ -238,11 +238,11 @@ const Competition = (props: any) => {
           )}
 
           {/* Participants */}
-          {competitionParticipants.length > 0 && (
+          {/* {competitionParticipants.length > 0 && (
             <TabsContent value="participants" className="overflow-hidden overflow-y-auto">
               <ParticipantList participants={competitionParticipants} />
             </TabsContent>
-          )}
+          )} */}
 
           {/* Rules */}
           {(comp?.description || comp?.rules) && (
