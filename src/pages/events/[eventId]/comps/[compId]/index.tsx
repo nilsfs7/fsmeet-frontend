@@ -211,7 +211,7 @@ const Competition = (props: any) => {
           {/* Schedule */}
           {rounds.length > 0 && (
             <TabsContent value="schedule" className="overflow-hidden overflow-y-auto">
-              {usersMap.get(session?.user?.username) && (
+              {usersMap.get(session?.user?.username) && rounds.length > 1 && (
                 <div className="flex justify-center gap-2 p-2">
                   {'My battles only'}
 
