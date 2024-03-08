@@ -186,7 +186,7 @@ const Competition = (props: any) => {
                 {`Battle Grid`}
               </TabsTrigger>
             )}
-            {competitionParticipants.length > 0 && (
+            {/* {competitionParticipants.length > 0 && (
               <TabsTrigger
                 value="participants"
                 onClick={() => {
@@ -195,7 +195,7 @@ const Competition = (props: any) => {
               >
                 {`Participants`}
               </TabsTrigger>
-            )}
+            )} */}
             {(comp?.description || comp?.rules) && (
               <TabsTrigger
                 value="rules"
@@ -218,7 +218,7 @@ const Competition = (props: any) => {
                   <Switch
                     defaultChecked={filteredByUser !== null}
                     onCheckedChange={checked => {
-                      checked ? setFilteredByUser(session?.user?.username) : setFilteredByUser(null);
+                      checked ? setFilteredByUser('cbb') : setFilteredByUser(null);
                     }}
                   />
                 </div>
