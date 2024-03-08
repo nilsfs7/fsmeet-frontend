@@ -40,8 +40,8 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
 
   return showDialog === '1' ? (
     <dialog ref={dialogRef}>
-      <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-gray-900 bg-opacity-50">
-        <div className="rounded-lg bg-background">
+      <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50 ">
+        <div className="min-w-[250px] rounded-lg bg-background">
           <div className="rounded-t-lg bg-secondary-light p-2 text-center">
             <h1 className="text-2xl">{title}</h1>
           </div>
