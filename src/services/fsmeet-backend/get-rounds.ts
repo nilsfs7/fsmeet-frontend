@@ -1,3 +1,4 @@
+import { Match } from '@/types/match';
 import { Round } from '@/types/round';
 
 export async function getRounds(compId: string): Promise<Round[]> {
@@ -10,7 +11,12 @@ export async function getRounds(compId: string): Promise<Round[]> {
     round.passingPerMatch = rnd.passingPerMatch;
     round.matches = rnd.matches;
 
-    round.matches = round.matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser)
+    let matches: Match[] = round.matches.map(mtch => {
+      return new Match(mtch.matchIndex, mtch.name, mtch.slots, mtch.matchSlots, mtch.time, mtch.id);
+    });
+
+    matches = matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser) TODO #2: keine ahnung ob das hier überhaupt noch gebraucht wird
+    round.matches = matches;
 
     return round;
   });

@@ -23,6 +23,7 @@ import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { validateSession } from '@/types/funcs/validate-session';
 import { Switch } from '@/components/ui/switch';
+import { getUser } from '@/services/fsmeet-backend/get-user';
 
 const Competition = (props: any) => {
   const session = props.session;
@@ -106,18 +107,13 @@ const Competition = (props: any) => {
 
   useEffect(() => {
     const getUsers = async () => {
-      const fetchUsers = async (username: string): Promise<User> => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`);
-        return await response.json();
-      };
-
       const usersMap = new Map();
       const requests: Promise<void>[] = [];
       rounds.map(round => {
         round.matches.map(match => {
           match.matchSlots.map(slot => {
             if (!usersMap.get(slot.name)) {
-              const req = fetchUsers(slot.name).then(user => {
+              const req = getUser(slot.name).then(user => {
                 usersMap.set(slot.name, user);
               });
               requests.push(req);

@@ -2,7 +2,6 @@ import { Round } from '@/types/round';
 import MatchCard from './MatchCard';
 import Separator from '../Seperator';
 import { User } from '@/types/user';
-import { Match } from '@/types/match';
 
 interface IBattleListProps {
   rounds: Round[];
@@ -11,19 +10,6 @@ interface IBattleListProps {
 }
 
 const BattleList = ({ rounds, usersMap, filteredByUser = null }: IBattleListProps) => {
-  // TODO: add function containsParticipant(username: string) to match.ts; convert type match into class first
-  function participantInMatch(match: Match): boolean {
-    let userFound = false;
-    for (const slot of match.matchSlots) {
-      if (slot.name === filteredByUser) {
-        userFound = true;
-        break;
-      }
-    }
-
-    return userFound;
-  }
-
   return (
     <div className={'flex w-full flex-col justify-center'}>
       {rounds.map((round: Round, i: number) => {
@@ -37,7 +23,7 @@ const BattleList = ({ rounds, usersMap, filteredByUser = null }: IBattleListProp
               <div className="text-center text-lg">{round.name}</div>
               {round.matchesAscending.map((match, j) => {
                 if (filteredByUser) {
-                  if (!participantInMatch(match)) return;
+                  if (!match.containsParticipant(filteredByUser)) return;
                 }
 
                 return (
