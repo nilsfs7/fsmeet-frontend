@@ -13,6 +13,7 @@ import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -96,7 +97,7 @@ const EventParticipants = (props: any) => {
   }, [event == undefined]);
 
   if (!event) {
-    return <>loading...</>;
+    return <LoadingSpinner />;
   }
 
   return (

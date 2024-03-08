@@ -10,6 +10,7 @@ import { getLicenses } from '@/services/fsmeet-backend/get-licenses';
 import { License } from '@/types/license';
 import { updateLicense } from '@/services/fsmeet-backend/update-license';
 import Navigation from '@/components/Navigation';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 const Licenses = (props: any) => {
   const session = props.session;
@@ -42,7 +43,7 @@ const Licenses = (props: any) => {
   }, [licenses == undefined]);
 
   if (!licenses) {
-    return <>loading...</>;
+    return <LoadingSpinner />;
   }
 
   return (

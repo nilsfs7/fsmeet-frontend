@@ -26,6 +26,7 @@ import { deleteUser } from '@/services/fsmeet-backend/delete-user';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab } from '@/types/funcs/switch-tab';
 import { useSearchParams } from 'next/navigation';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -167,7 +168,7 @@ const Account = ({ session }: any) => {
   }, []);
 
   if (!userFetched) {
-    return <>loading...</>;
+    return <LoadingSpinner />;
   }
 
   return (

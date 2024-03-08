@@ -38,7 +38,7 @@ const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
   }, [name, description, rules]);
 
   // if (!name) {
-  //   return <>loading...</>;
+  //   return <LoadingSpinner />;
   // }
 
   return (
