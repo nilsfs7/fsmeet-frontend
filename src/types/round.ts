@@ -63,7 +63,7 @@ export class Round {
     const modulo = this.numberPlayers % this.maxMatchSize;
     if (modulo === 0) {
       for (let i = 0; i < numMatches; i++) {
-        matches.push({ matchIndex: i, name: `Match ${i + this.matchStartingIndex + 1}`, slots: this.maxMatchSize, matchSlots: [] });
+        matches.push(new Match(i, `Match ${i + this.matchStartingIndex + 1}`, this.maxMatchSize, []));
       }
     } else {
       let initialSlots = getInitialMatchSize(this.numberPlayers, numMatches, this.maxMatchSize);
@@ -71,7 +71,7 @@ export class Round {
 
       // distribute save (initial) slots
       for (let i = 0; i < numMatches; i++) {
-        matches.push({ matchIndex: i, name: `Match ${i + this.matchStartingIndex + 1}`, slots: initialSlots, matchSlots: [] });
+        matches.push(new Match(i, `Match ${i + this.matchStartingIndex + 1}`, initialSlots, []));
         distributedSlots += initialSlots;
       }
 
@@ -86,22 +86,9 @@ export class Round {
   };
 
   containsParticipant(username: string): boolean {
-    // TODO: remove function and use containsParticipant(...) of match class instead
-    function userInMatch(username: string, match: Match): boolean {
-      let userFound = false;
-      for (const slot of match.matchSlots) {
-        if (slot.name === username) {
-          userFound = true;
-          break;
-        }
-      }
-
-      return userFound;
-    }
-
     let userFound = false;
     for (const match of this.matches) {
-      if (userInMatch(username, match)) {
+      if (match.containsParticipant(username)) {
         userFound = true;
         break;
       }
