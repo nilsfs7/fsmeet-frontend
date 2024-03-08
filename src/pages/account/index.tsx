@@ -26,6 +26,7 @@ import { deleteUser } from '@/services/fsmeet-backend/delete-user';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab } from '@/types/funcs/switch-tab';
 import { useSearchParams } from 'next/navigation';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -102,15 +103,26 @@ const Account = ({ session }: any) => {
     }
   };
 
-  const handleCancelDeleteAccountClicked = async () => {
+  const handleLogoutClicked = async () => {
+    router.replace(`${routeAccount}?logout=1`, undefined, { shallow: true });
+  };
+
+  const handleCancelDialogClicked = async () => {
     router.replace(`${routeAccount}`, undefined, { shallow: true });
   };
 
-  const handleLogoutClicked = async () => {
-    await signOut({ redirect: false });
-    localStorage.removeItem('username');
-    localStorage.removeItem('imageUrl');
-    router.push(routeHome);
+  const handleConfirmLogoutClicked = async () => {
+    setError('');
+
+    try {
+      await signOut({ redirect: false });
+      localStorage.removeItem('username');
+      localStorage.removeItem('imageUrl');
+      router.push(routeAccountDeleted);
+    } catch (error: any) {
+      setError(error.message);
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -156,13 +168,17 @@ const Account = ({ session }: any) => {
   }, []);
 
   if (!userFetched) {
-    return <>loading...</>;
+    return <LoadingSpinner />;
   }
 
   return (
     <div className="absolute inset-0 flex flex-col">
-      <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDeleteAccountClicked} onConfirm={handleConfirmDeleteAccountClicked}>
+      <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmDeleteAccountClicked}>
         <p>Do you really want to leave us?</p>
+      </Dialog>
+
+      <Dialog title="Logout" queryParam="logout" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmLogoutClicked}>
+        <p>Logout now?</p>
       </Dialog>
 
       <div className="mx-2 flex flex-col overflow-auto">

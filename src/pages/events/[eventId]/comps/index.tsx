@@ -11,6 +11,7 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 const EventCompetitions = (props: any) => {
   const session = props.session;
@@ -29,7 +30,7 @@ const EventCompetitions = (props: any) => {
   }, [event == undefined]);
 
   if (!event?.eventCompetitions) {
-    return <>loading...</>;
+    return <LoadingSpinner />;
   }
 
   return (

@@ -31,6 +31,7 @@ import { isPublicEventState } from '@/types/funcs/is-public-event-state';
 import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
 import { EventState } from '@/types/enums/event-state';
 import { GetServerSidePropsContext } from 'next';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -303,7 +304,7 @@ const Event = (props: any) => {
   }, [event == undefined]);
 
   if (!event || !approvedAndPendingRegistrations) {
-    return <>loading...</>;
+    return <LoadingSpinner />;
   }
 
   return (

@@ -11,6 +11,7 @@ import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ErrorMessage from '@/components/ErrorMessage';
 import { validateSession } from '@/types/funcs/validate-session';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -117,7 +118,7 @@ const CompetitionPool = (props: any) => {
   }, [eventRegistrations == undefined, competitionParticipants == undefined]);
 
   if (!eventRegistrations || !competitionParticipants) {
-    return <>loading...</>;
+    return <LoadingSpinner />;
   }
 
   return (

@@ -14,6 +14,7 @@ import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
 import { getEventsForManagement } from '@/services/fsmeet-backend/get-events-for-management';
 import ComboBox from '@/components/common/ComboBox';
 import { menuEventStates } from '@/types/consts/menus/menu-event-states';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 const Events = (props: any) => {
   const session = props.session;
@@ -54,7 +55,7 @@ const Events = (props: any) => {
   }, [events == undefined]);
 
   if (!events) {
-    return <>loading...</>;
+    return <LoadingSpinner />;
   }
 
   return (
