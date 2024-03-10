@@ -15,6 +15,8 @@ import { Round } from '@/types/round';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
 import { validateSession } from '@/types/funcs/validate-session';
+import { getRounds } from '@/services/fsmeet-backend/get-rounds';
+import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 
 const Seeding = (props: any) => {
   const session = props.session;
@@ -26,31 +28,6 @@ const Seeding = (props: any) => {
   const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
 
   const [rounds, setRounds] = useState<Round[]>([]);
-
-  const fetchCompetitionParticipants = async (compId: string): Promise<number> => {
-    // TODO: outsource
-    const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
-    const response = await fetch(url);
-    const participants = await response.json();
-    setCompetitionParticipants(participants);
-    return participants.length;
-  };
-
-  const fetchRounds = async (compId: string): Promise<Round[]> => {
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`);
-    const rnds: Round[] = await response.json();
-
-    const rounds: Round[] = rnds.map(rnd => {
-      const round = new Round(rnd.roundIndex, rnd.name, rnd.numberPlayers);
-      round.passingExtra = rnd.passingExtra;
-      round.passingPerMatch = rnd.passingPerMatch;
-      round.matches = rnd.matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser)
-      return round;
-    });
-
-    return rounds;
-  };
 
   const handleSlotUpdated = async (roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => {
     const rnds = Array.from(rounds);
@@ -99,10 +76,9 @@ const Seeding = (props: any) => {
 
   useEffect(() => {
     if (compId) {
-      // @ts-ignore: next-line
-      fetchCompetitionParticipants(compId).then(numParticipants => {
-        // @ts-ignore: next-line
-        fetchRounds(compId).then(rounds => {
+      getCompetitionParticipants(compId?.toString()).then(participants => {
+        setCompetitionParticipants(participants);
+        getRounds(compId?.toString()).then(rounds => {
           if (rounds.length > 0) {
             setRounds(rounds);
           } else {
