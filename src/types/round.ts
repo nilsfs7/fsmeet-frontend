@@ -1,14 +1,14 @@
 import { Match } from './match';
 
 export class Round {
-  public roundIndex: number;
-  public name: string;
-  public numberPlayers: number;
-  public maxMatchSize: number = 2;
-  public matches: Match[] = [];
-  public passingPerMatch: number = 1;
-  public passingExtra: number = 0;
-  public matchStartingIndex: number = 0;
+  roundIndex: number;
+  name: string;
+  numberPlayers: number;
+  maxMatchSize: number = 2;
+  matches: Match[] = [];
+  passingPerMatch: number = 1;
+  passingExtra: number = 0;
+  matchStartingIndex: number = 0;
 
   constructor(roundIndex: number, name: string, numberPlayers: number, matchStartingIndex: number = 0) {
     this.roundIndex = roundIndex;
@@ -19,7 +19,7 @@ export class Round {
     this.matches = this.createMatches();
   }
 
-  public get advancingTotal(): number {
+  get advancingTotal(): number {
     const advancing = this.matches.length * this.passingPerMatch + this.passingExtra;
 
     if (advancing > this.numberPlayers) {
@@ -29,7 +29,7 @@ export class Round {
     return advancing;
   }
 
-  public get maxPossibleAdvancingExtra(): number {
+  get maxPossibleAdvancingExtra(): number {
     const maxAdvancingExtra = this.numberPlayers - this.matches.length * this.passingPerMatch;
 
     if (maxAdvancingExtra < 0) {
@@ -39,15 +39,15 @@ export class Round {
     return maxAdvancingExtra;
   }
 
-  public get matchesAscending(): Match[] {
+  get matchesAscending(): Match[] {
     return this.matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1));
   }
 
-  public get cumulatedMatchStartingIndex(): number {
+  get cumulatedMatchStartingIndex(): number {
     return this.matchStartingIndex + this.matches.length;
   }
 
-  public createMatches = (): Match[] => {
+  createMatches = (): Match[] => {
     const getInitialMatchSize = (numPlayers: number, numMatches: number, maxMatchSize: number): number => {
       while (numMatches * maxMatchSize > numPlayers) {
         maxMatchSize -= 1;
