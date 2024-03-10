@@ -1,5 +1,5 @@
-export async function deleteUser(session: any): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
+export async function deleteRounds(compId: string, session: any): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`;
 
   const response = await fetch(url, {
     method: 'DELETE',
@@ -9,7 +9,7 @@ export async function deleteUser(session: any): Promise<void> {
   });
 
   if (response.ok) {
-    console.info('Deleting user info successful');
+    console.info('Deleting rounds successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

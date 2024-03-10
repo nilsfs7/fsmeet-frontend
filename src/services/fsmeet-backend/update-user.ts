@@ -35,7 +35,7 @@ export async function updateUser(user: User, session: any): Promise<User> {
     user.locLatitude = user?.private?.locLatitude;
     user.locLongitude = user?.private?.locLongitude;
 
-    console.info('updating user info successful');
+    console.info('Updating user info successful');
 
     return user;
   } else {

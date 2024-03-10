@@ -18,6 +18,9 @@ import Link from 'next/link';
 import { Moment } from 'moment';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { validateSession } from '@/types/funcs/validate-session';
+import { deleteRounds } from '@/services/fsmeet-backend/delete-round';
+import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
+import { createRounds } from '@/services/fsmeet-backend/create-rounds';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -36,51 +39,25 @@ const ModeEditing = (props: any) => {
   const [rounds, setRounds] = useState<Round[]>([]);
   const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
 
-  const fetchCompetitionParticipants = async (compId: string): Promise<number> => {
-    // TODO: outsource
-    const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
-    const response = await fetch(url);
-    const participants = await response.json();
-    setCompetitionParticipants(participants);
-    return participants.length;
-  };
-
   const handleSaveClicked = async () => {
-    const body = JSON.stringify({
-      rounds: rounds,
-    });
-
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`, {
-      method: 'POST',
-      body: body,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-    if (response.status == 201) {
-      router.reload();
-    } else {
-      const error = await response.json();
-      console.error(error.message);
+    if (compId) {
+      try {
+        await createRounds(compId?.toString(), rounds, session);
+        router.reload();
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }
   };
 
   const handleDeleteClicked = async () => {
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-    if (response.status == 200) {
-      router.reload();
-    } else {
-      const error = await response.json();
-      console.error(error.message);
+    if (compId) {
+      try {
+        await deleteRounds(compId?.toString(), session);
+        router.reload();
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }
   };
 
@@ -140,12 +117,11 @@ const ModeEditing = (props: any) => {
 
   useEffect(() => {
     if (compId) {
-      // @ts-ignore: next-line
-      fetchCompetitionParticipants(compId).then(numParticipants => {
-        // @ts-ignore: next-line
-        getRounds(compId).then(rounds => {
+      getCompetitionParticipants(compId?.toString()).then(participants => {
+        setCompetitionParticipants(participants);
+        getRounds(compId?.toString()).then(rounds => {
           if (rounds.length === 0) {
-            const initRound = new Round(0, 'Round 1', numParticipants);
+            const initRound = new Round(0, 'Round 1', participants.length);
             setRounds([initRound]);
             setGameModeApplied(false);
           } else {
