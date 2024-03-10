@@ -23,29 +23,39 @@ interface IButton {
   onClick?: () => void;
 }
 
-enum ActionButtonSize {
+enum IconSize {
   S = 'h-4 w-4',
   M = 'h-6 w-6',
   L = 'h-8 w-8',
+}
+
+enum ButtonSize {
+  S = 'h-8 w-8',
+  M = 'h-10 w-10',
+  L = 'h-12 w-12',
 }
 
 const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
   const textColor = 'text-primary';
 
   let buttonSize = '';
+  let iconSize = '';
   switch (size) {
     case Size.S:
-      buttonSize = ActionButtonSize.S;
+      buttonSize = ButtonSize.S;
+      iconSize = IconSize.S;
       break;
     case Size.M:
-      buttonSize = ActionButtonSize.M;
+      buttonSize = ButtonSize.M;
+      iconSize = IconSize.M;
       break;
     case Size.L:
-      buttonSize = ActionButtonSize.L;
+      buttonSize = ButtonSize.L;
+      iconSize = IconSize.L;
       break;
   }
 
-  const className = `${textColor} ${buttonSize}`;
+  const className = `${textColor} ${iconSize}`;
 
   let icon = <ArrowBackIcon className={`${className}`} />;
 
@@ -104,7 +114,7 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
   }
 
   return (
-    <div className="rounded-lg border border-primary h-10 w-10 flex justify-center items-center hover:bg-secondary" onClick={onClick}>
+    <div className={`rounded-lg border border-primary ${buttonSize} flex justify-center items-center hover:bg-secondary`} onClick={onClick}>
       {icon}
     </div>
   );
