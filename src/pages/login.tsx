@@ -10,16 +10,16 @@ import { useSearchParams } from 'next/navigation';
 import { routeHome, routePasswordForgot, routeRegistration } from '@/types/consts/routes';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redir');
 
-  const handleInputChangeUsername = (event: any) => {
-    const uname: string = event.target.value;
-    setUsername(uname.toLowerCase());
+  const handleInputChangeUsernameOrEmail = (event: any) => {
+    const usernameOrEmail: string = event.target.value;
+    setUsernameOrEmail(usernameOrEmail.toLowerCase());
   };
 
   const handleInputChangePassword = (event: any) => {
@@ -36,7 +36,7 @@ const Login = () => {
   const handleLoginClicked = async () => {
     setError('');
 
-    const response = await signIn('credentials', { username: username, password: password, redirect: false });
+    const response = await signIn('credentials', { usernameOrEmail: usernameOrEmail, password: password, redirect: false });
 
     let err = 'Unknown error.';
     switch (response?.status) {
@@ -76,12 +76,12 @@ const Login = () => {
       <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
         <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
           <TextInput
-            id={'username'}
-            label={'Username'}
+            id={'usernameOrEmail'}
+            label={'Username / Email'}
             placeholder="Max"
-            value={username}
+            value={usernameOrEmail}
             onChange={e => {
-              handleInputChangeUsername(e);
+              handleInputChangeUsernameOrEmail(e);
             }}
           />
           <TextInput
