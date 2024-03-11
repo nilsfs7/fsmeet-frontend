@@ -118,7 +118,7 @@ const Account = ({ session }: any) => {
       await signOut({ redirect: false });
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
-      router.push(routeAccountDeleted);
+      router.push(routeHome);
     } catch (error: any) {
       setError(error.message);
       console.error(error.message);
