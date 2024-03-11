@@ -4,14 +4,15 @@ import TextInput from '@/components/common/TextInput';
 import router from 'next/router';
 import { routePasswordPending } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
+import { createPasswordReset } from '@/services/fsmeet-backend/create-password-reset';
 
 const ForgotPassword = () => {
-  const [username, setUsername] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [error, setError] = useState('');
 
   const handleInputChangeUsername = (event: any) => {
     const uname: string = event.target.value;
-    setUsername(uname.toLowerCase());
+    setUsernameOrEmail(uname.toLowerCase());
   };
 
   const handleInputKeypressUsername = (e: any) => {
@@ -23,19 +24,10 @@ const ForgotPassword = () => {
   const handleResetClicked = async () => {
     setError('');
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/password/reset`, {
-      method: 'POST',
-      body: JSON.stringify({ username: username }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.status == 201) {
+    try {
+      await createPasswordReset(usernameOrEmail);
       router.replace(routePasswordPending);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       setError(error.message);
       console.error(error.message);
     }
@@ -46,10 +38,10 @@ const ForgotPassword = () => {
       <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
         <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
           <TextInput
-            id={'username'}
-            label={'Username'}
-            placeholder="Max"
-            value={username}
+            id={'usernameOrEmail'}
+            label={'Username / Email'}
+            placeholder="max"
+            value={usernameOrEmail}
             onChange={e => {
               handleInputChangeUsername(e);
             }}

@@ -78,7 +78,7 @@ const Login = () => {
           <TextInput
             id={'usernameOrEmail'}
             label={'Username / Email'}
-            placeholder="Max"
+            placeholder="max"
             value={usernameOrEmail}
             onChange={e => {
               handleInputChangeUsernameOrEmail(e);
