@@ -11,15 +11,17 @@ export default NextAuth({
       name: 'Credentials',
 
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: 'max' },
+        usernameOrEmail: { label: 'Username', type: 'text', placeholder: 'max' },
         password: { label: 'Password', type: 'password' },
       },
 
       async authorize(credentials, req): Promise<any> {
-        if (credentials?.username && credentials?.password) {
+        if (credentials?.usernameOrEmail && credentials?.password) {
+          const body = JSON.stringify({ usernameOrEmail: credentials.usernameOrEmail, password: credentials.password });
+
           const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`, {
             method: 'POST',
-            body: JSON.stringify({ username: credentials.username, password: credentials.password }),
+            body: body,
             headers: {
               'Content-Type': 'application/json',
             },
