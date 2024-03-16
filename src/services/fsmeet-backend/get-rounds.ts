@@ -6,9 +6,9 @@ export async function getRounds(compId: string): Promise<Round[]> {
   const rnds: Round[] = await response.json();
 
   const rounds: Round[] = rnds.map((rnd: Round) => {
-    const round = new Round(rnd.roundIndex, rnd.name, rnd.numberPlayers);
-    round.passingExtra = rnd.passingExtra;
-    round.passingPerMatch = rnd.passingPerMatch;
+    const round = new Round(rnd.roundIndex, rnd.name, rnd.advancingTotal);
+    // round.passingExtra = rnd.passingExtra;
+    // round.passingPerMatch = rnd.passingPerMatch;
     round.matches = rnd.matches;
 
     let matches: Match[] = round.matches.map(mtch => {
