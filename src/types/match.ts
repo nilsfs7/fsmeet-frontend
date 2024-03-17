@@ -7,6 +7,7 @@ export class Match {
   slots: number;
   matchSlots: MatchSlot[];
   time?: string;
+  // TODO: isExtraMatch: boolean,
 
   constructor(matchIndex: number, name: string, slots: number = 1, matchSlots: MatchSlot[], time?: string, id?: string) {
     this.matchIndex = matchIndex;

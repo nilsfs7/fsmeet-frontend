@@ -11,16 +11,24 @@ import { routeEvents, routeLogin } from '@/types/consts/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
-import RoundOptions from '@/components/comp/RoundOptions';
-import { Round } from '@/types/round';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
 import { Moment } from 'moment';
-import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { validateSession } from '@/types/funcs/validate-session';
 import { deleteRounds } from '@/services/fsmeet-backend/delete-round';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { createRounds } from '@/services/fsmeet-backend/create-rounds';
+import { Round } from '@/types/round';
+import DialogAddRound from '@/components/DialogAddRound';
+import TextButton from '@/components/common/TextButton';
+import DialogAddMatch from '@/components/DialogAddMatch';
+import DialogEditRound from '@/components/DialogEditRound';
+import DialogEditMatch from '@/components/DialogEditMatch';
+import DialogDeleteMatch from '@/components/DialogDeleteMatch';
+import DialogDeleteRound from '@/components/DialogDeleteRound';
+import { getRounds } from '@/services/fsmeet-backend/get-rounds';
+import { plainToInstance } from 'class-transformer';
+import { updateRounds } from '@/services/fsmeet-backend/update-rounds';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -29,20 +37,34 @@ const ModeEditing = (props: any) => {
   const { eventId } = router.query;
   const { compId } = router.query;
 
-  const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
+  const [numParticipants] = useState<number>(props.data.participants.length);
 
-  const minMatchSize = 2;
-  const minPassingPerMatch = 1;
-  const minPassingExtra = 0;
+  // const minMatchSize = 2;
+  // const minPassingPerMatch = 1;
+  // const minPassingExtra = 0;
 
-  const [gameModeApplied, setGameModeApplied] = useState<boolean>(false);
-  const [rounds, setRounds] = useState<Round[]>([]);
-  const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
+  const [gameModeApplied, setGameModeApplied] = useState<boolean>(plainToInstance(Round, props.data.rounds).length > 0);
+  const [rounds, setRounds] = useState<Round[]>(plainToInstance(Round, props.data.rounds));
+
+  // const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
 
   const handleSaveClicked = async () => {
     if (compId) {
       try {
         await createRounds(compId?.toString(), rounds, session);
+        // TODO: feedback
+        router.reload();
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    }
+  };
+
+  const handleUpdateClicked = async () => {
+    if (compId) {
+      try {
+        await updateRounds(compId?.toString(), rounds, session);
+        // TODO: feedback
         router.reload();
       } catch (error: any) {
         console.error(error.message);
@@ -54,6 +76,7 @@ const ModeEditing = (props: any) => {
     if (compId) {
       try {
         await deleteRounds(compId?.toString(), session);
+        // TODO: feedback
         router.reload();
       } catch (error: any) {
         console.error(error.message);
@@ -61,256 +84,287 @@ const ModeEditing = (props: any) => {
     }
   };
 
-  const handleMatchRenamed = async (roundIndex: number, matchIndex: number, matchId: string, name: string) => {
-    const rnds = Array.from(rounds);
-    rnds[roundIndex].matches[matchIndex].name = name;
-    setRounds(rnds);
+  // useEffect(() => {
+  //   if (compId) {
+  //     rounds.map((rnd, i) => {
+  //       // update input "max-match-size"
+  //       const inputMaxMatchSize = document.getElementById(`input-max-match-size-${i}`);
+  //       if (inputMaxMatchSize) {
+  //         const maxMatchSize = i === 0 ? competitionParticipants.length : getParentRound(i).advancingTotal;
+  //         inputMaxMatchSize.setAttribute('max', maxMatchSize.toString());
+  //       }
 
-    if (name) {
-      const body = JSON.stringify({
-        matchId: matchId,
-        name: name,
-      });
+  //       // update input "max-passing"
+  //       const inputMaxPassing = document.getElementById(`input-max-passing-${i}`);
+  //       if (inputMaxPassing) {
+  //         const maxPassing = rnd.maxMatchSize;
+  //         inputMaxPassing.setAttribute('max', maxPassing.toString());
+  //       }
 
-      // TODO: outsource
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
-        method: 'PATCH',
-        body: body,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.user.accessToken}`,
-        },
-      });
+  //       // update input "passing-extra"
+  //       const inputPassingExtra = document.getElementById(`input-passing-extra-${i}`);
+  //       if (inputPassingExtra) {
+  //         inputPassingExtra.setAttribute('max', rnd.maxPossibleAdvancingExtra.toString());
+  //       }
+  //     });
+  //   }
+  // }, [rounds]);
 
-      if (response.status == 200) {
-        console.info(`match ${matchId} updated. new name: ${name}`);
-      }
-    } else {
-      console.warn('empty match name');
-    }
-  };
-
-  const handleTimeUpdated = async (roundIndex: number, matchIndex: number, matchId: string, time: Moment | null) => {
-    const rnds = Array.from(rounds);
-    rnds[roundIndex].matches[matchIndex].time = time ? time.format() : undefined;
-    setRounds(rnds);
-
-    const body = JSON.stringify({
-      matchId: matchId,
-      time: time,
-    });
-
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches`, {
-      method: 'PATCH',
-      body: body,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      console.info(`match ${matchId} updated. new time: ${time}`);
-    }
-  };
-
-  useEffect(() => {
-    if (compId) {
-      getCompetitionParticipants(compId?.toString()).then(participants => {
-        setCompetitionParticipants(participants);
-        getRounds(compId?.toString()).then(rounds => {
-          if (rounds.length === 0) {
-            const initRound = new Round(0, 'Round 1', participants.length);
-            setRounds([initRound]);
-            setGameModeApplied(false);
-          } else {
-            setRounds(rounds);
-            setGameModeApplied(true);
-          }
-        });
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (compId) {
-      rounds.map((rnd, i) => {
-        // update input "max-match-size"
-        const inputMaxMatchSize = document.getElementById(`input-max-match-size-${i}`);
-        if (inputMaxMatchSize) {
-          const maxMatchSize = i === 0 ? competitionParticipants.length : getParentRound(i).advancingTotal;
-          inputMaxMatchSize.setAttribute('max', maxMatchSize.toString());
-        }
-
-        // update input "max-passing"
-        const inputMaxPassing = document.getElementById(`input-max-passing-${i}`);
-        if (inputMaxPassing) {
-          const maxPassing = rnd.maxMatchSize;
-          inputMaxPassing.setAttribute('max', maxPassing.toString());
-        }
-
-        // update input "passing-extra"
-        const inputPassingExtra = document.getElementById(`input-passing-extra-${i}`);
-        if (inputPassingExtra) {
-          inputPassingExtra.setAttribute('max', rnd.maxPossibleAdvancingExtra.toString());
-        }
-      });
-    }
-  }, [rounds]);
-
-  const addRound = () => {
-    const rnds = Array.from(rounds);
-    let optionLocks = Array.from(roundOptionsLocked);
-
-    const lastRound = getLastRound();
-
-    if (lastRound.advancingTotal > 1) {
-      const newRound = new Round(rnds.length, `Round ${rounds.length + 1}`, lastRound.advancingTotal, lastRound.cumulatedMatchStartingIndex);
-      rnds.push(newRound);
-      setRounds(rnds);
-
-      // manage UI locking
-      optionLocks = optionLocks.map(() => true);
-      optionLocks.push(newRound.numberPlayers === 2 ? true : false);
-      setRoundOptionsLocked(optionLocks);
-    }
-  };
-
-  const removeLastRound = () => {
-    const rnds = Array.from(rounds);
-    const optionLocks = Array.from(roundOptionsLocked);
-
-    if (rnds.length > 1) {
-      rnds.pop();
-      setRounds(rnds);
-
-      // manage UI locking
-      optionLocks.pop();
-      optionLocks[optionLocks.length - 1] = false;
-      setRoundOptionsLocked(optionLocks);
-    }
-  };
-
-  const getParentRound = (roundId: number): Round => {
-    return rounds[roundId - 1];
-  };
+  // const getParentRound = (roundId: number): Round => {
+  //   return rounds[roundId - 1];
+  // };
 
   const getLastRound = (): Round => {
     return rounds[rounds.length - 1];
   };
 
-  const changeMaxMatchSize = (roundId: number, maxMatchSize: number) => {
-    const rnds = Array.from(rounds);
+  // const changeMaxMatchSize = (roundId: number, maxMatchSize: number) => {
+  //   const rnds = Array.from(rounds);
 
-    const parentRound = getParentRound(roundId);
-    const maxVal = roundId === 0 ? competitionParticipants.length : parentRound.matches.length * parentRound.passingPerMatch + parentRound.passingExtra;
-    if (+maxMatchSize >= minMatchSize && +maxMatchSize <= maxVal) {
-      rnds[roundId].maxMatchSize = +maxMatchSize;
-      rnds[roundId].matches = rnds[roundId].createMatches();
-      setRounds(rnds);
-    }
+  //   const parentRound = getParentRound(roundId);
+  //   const maxVal = roundId === 0 ? competitionParticipants.length : parentRound.matches.length * parentRound.passingPerMatch + parentRound.passingExtra;
+  //   if (+maxMatchSize >= minMatchSize && +maxMatchSize <= maxVal) {
+  //     rnds[roundId].maxMatchSize = +maxMatchSize;
+  //     rnds[roundId].matches = rnds[roundId].createMatches();
+  //     setRounds(rnds);
+  //   }
+  // };
+
+  // const changePassingPerMatch = (roundId: number, passingPerMatch: number) => {
+  //   const rnds = Array.from(rounds);
+
+  //   if (+passingPerMatch >= minPassingPerMatch && +passingPerMatch <= rnds[roundId].maxMatchSize) {
+  //     rnds[roundId].passingPerMatch = +passingPerMatch;
+  //     setRounds(rnds);
+  //   }
+  // };
+
+  // const changePassingExtra = (roundId: number, passingExtra: number) => {
+  //   const rnds = Array.from(rounds);
+
+  //   if (+passingExtra >= minPassingExtra && +passingExtra <= rnds[roundId].maxPossibleAdvancingExtra) {
+  //     rnds[roundId].passingExtra = +passingExtra;
+  //     setRounds(rnds);
+  //   }
+  // };
+
+  const getAvailablePlayers = (): number => {
+    const rnd = getLastRound();
+    return rnd ? rnd.advancingTotal : numParticipants;
   };
 
-  const changePassingPerMatch = (roundId: number, passingPerMatch: number) => {
-    const rnds = Array.from(rounds);
-
-    if (+passingPerMatch >= minPassingPerMatch && +passingPerMatch <= rnds[roundId].maxMatchSize) {
-      rnds[roundId].passingPerMatch = +passingPerMatch;
-      setRounds(rnds);
-    }
+  const handleAddRoundClicked = async () => {
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?addround=1`;
+    router.replace(url, undefined, { shallow: true });
   };
 
-  const changePassingExtra = (roundId: number, passingExtra: number) => {
+  const handleEditRoundClicked = async (roundIndex: number) => {
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}&radvancing=${rounds[roundIndex].advancingTotal}`;
+    router.replace(url, undefined, { shallow: true });
+  };
+
+  const handleDeleteRoundClicked = async (roundIndex: number) => {
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?deleteround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}`;
+    router.replace(url, undefined, { shallow: true });
+  };
+
+  const handleAddMatchClicked = async (roundIndex: number) => {
+    const newMatchIndex = rounds[roundIndex].matches.length;
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?addmatch=1&rid=${roundIndex}&mid=${newMatchIndex}`;
+    router.replace(url, undefined, { shallow: true });
+  };
+
+  const handleEditMatchClicked = async (roundIndex: number, matchIndex: number) => {
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editmatch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}&mslots=${rounds[roundIndex].matches[matchIndex].slots}`;
+    router.replace(url, undefined, { shallow: true });
+  };
+
+  const handleDeleteMatchClicked = async (roundIndex: number, matchIndex: number) => {
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?deletematch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}`;
+    router.replace(url, undefined, { shallow: true });
+  };
+
+  const handleCancelDialogClicked = async () => {
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode`;
+    router.replace(url, undefined, { shallow: true });
+  };
+
+  const handleConfirmAddRoundClicked = async (slotsPerMatch: number, advancingTotal: number, roundName: string) => {
     const rnds = Array.from(rounds);
 
-    if (+passingExtra >= minPassingExtra && +passingExtra <= rnds[roundId].maxPossibleAdvancingExtra) {
-      rnds[roundId].passingExtra = +passingExtra;
-      setRounds(rnds);
+    // const newRound = new Round(rnds.length, roundName, getAvailablePlayers(), advancingTotal);
+    const newRound = new Round(rnds.length, roundName, advancingTotal);
+
+    // for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
+    for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
+      newRound.addMatch(`Match ${i + 1}`, slotsPerMatch);
     }
+
+    rnds.push(newRound);
+    setRounds(rnds);
+  };
+
+  const handleConfirmEditRoundClicked = async (roundIndex: number, roundName: string, advancingTotal: number) => {
+    const rnds = Array.from(rounds);
+    rnds[roundIndex].name = roundName;
+    rnds[roundIndex].advancingTotal = advancingTotal;
+    setRounds(rnds);
+  };
+
+  const handleConfirmDeleteRoundClicked = async (roundIndex: number) => {
+    const rnds = Array.from(rounds);
+    rnds.splice(roundIndex, 1);
+    rnds.map(rnd => {
+      if (rnd.roundIndex > roundIndex) {
+        rnd.roundIndex -= 1;
+      }
+    });
+    setRounds(rnds);
+  };
+
+  const handleConfirmAddMatchClicked = async (roundIndex: number, matchIndex: number, amountSlots: number, matchName: string) => {
+    const rnds = Array.from(rounds);
+    rnds[roundIndex].addMatch(matchName, amountSlots);
+    setRounds(rnds);
+  };
+
+  const handleConfirmEditMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, slots: number) => {
+    const rnds = Array.from(rounds);
+    const mtchs = Array.from(rnds[roundIndex].matches);
+    mtchs[matchIndex].name = matchName;
+    mtchs[matchIndex].slots = slots;
+
+    if (mtchs[matchIndex].matchSlots.length > slots) {
+      mtchs[matchIndex].matchSlots = mtchs[matchIndex].matchSlots.slice(0, slots);
+    }
+    rnds[roundIndex].matches = mtchs;
+
+    setRounds(rnds);
+  };
+
+  const handleConfirmDeleteMatchClicked = async (roundIndex: number, matchIndex: number) => {
+    const rnds = Array.from(rounds);
+    rnds[roundIndex].matches.splice(matchIndex, 1);
+    rnds[roundIndex].matches.map(mtch => {
+      if (mtch.matchIndex > matchIndex) {
+        mtch.matchIndex -= 1;
+      }
+    });
+    setRounds(rnds);
   };
 
   return (
-    <div className="absolute inset-0 flex flex-col">
-      <div className={`m-2 justify-center overflow-hidden overflow-y-auto`}>
-        <div className={'flex flex-col items-center'}>
-          <h1 className="mt-2 text-xl">Edit Mode</h1>
-        </div>
+    <>
+      <DialogAddRound
+        title="Add Round"
+        queryParam="addround"
+        onCancel={handleCancelDialogClicked}
+        onConfirm={(slotsPerMatch: number, advancingTotal: number, roundName: string) => {
+          handleConfirmAddRoundClicked(slotsPerMatch, advancingTotal, roundName);
+        }}
+        confirmText="Confirm"
+        roundIndex={rounds.length}
+        availablePlayers={getAvailablePlayers()}
+      />
 
-        <div className={'mt-2 flex justify-center'}>
-          <div className={'flex overflow-x-auto'}>
-            {rounds.map((round: Round, i: number) => {
-              return (
-                <div key={`rnd-${i}`} className="mx-1">
-                  <div className="w-52 rounded-lg border border-primary bg-secondary-light p-1">
-                    <div className="my-1 text-center">{round.name}</div>
+      <DialogEditRound
+        title="Edit Round"
+        queryParam="editround"
+        onCancel={handleCancelDialogClicked}
+        onConfirm={(roundIndex: number, roundName: string, advancingTotal: number) => {
+          handleConfirmEditRoundClicked(roundIndex, roundName, advancingTotal);
+        }}
+        confirmText="Confirm"
+      />
 
-                    <hr />
+      <DialogDeleteRound
+        title="Delete Round"
+        queryParam="deleteround"
+        onCancel={handleCancelDialogClicked}
+        onConfirm={(roundIndex: number) => {
+          handleConfirmDeleteRoundClicked(roundIndex);
+        }}
+        confirmText="Confirm"
+      />
 
-                    <RoundOptions
-                      round={round}
-                      minMatchSize={minMatchSize}
-                      numParticipants={competitionParticipants.length}
-                      minPassingPerMatch={minPassingPerMatch}
-                      minPassingExtra={minPassingExtra}
-                      lockUi={roundOptionsLocked[i]}
-                      onChangeMaxMatchSize={(val: number): void => {
-                        changeMaxMatchSize(i, val);
-                      }}
-                      onChangePassingPerMatch={(val: number): void => {
-                        changePassingPerMatch(i, val);
-                      }}
-                      onChangePassingExtra={(val: number): void => {
-                        changePassingExtra(i, val);
-                      }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+      <DialogAddMatch
+        title="Add Match"
+        queryParam="addmatch"
+        onCancel={handleCancelDialogClicked}
+        onConfirm={(roundIndex: number, matchIndex: number, amountSlots: number, matchName: string) => {
+          handleConfirmAddMatchClicked(roundIndex, matchIndex, amountSlots, matchName);
+        }}
+        confirmText="Confirm"
+      />
+
+      <DialogEditMatch
+        title="Edit Match"
+        queryParam="editmatch"
+        onCancel={handleCancelDialogClicked}
+        onConfirm={(roundIndex: number, matchIndex: number, matchName: string, slots: number) => {
+          handleConfirmEditMatchClicked(roundIndex, matchIndex, matchName, slots);
+        }}
+        confirmText="Confirm"
+      />
+
+      <DialogDeleteMatch
+        title="Delete Match"
+        queryParam="deletematch"
+        onCancel={handleCancelDialogClicked}
+        onConfirm={(roundIndex: number, matchIndex: number) => {
+          handleConfirmDeleteMatchClicked(roundIndex, matchIndex);
+        }}
+        confirmText="Confirm"
+      />
+
+      <div className="absolute inset-0 flex flex-col">
+        <div className={`m-2 flex flex-col overflow-hidden`}>
+          <div className={'flex flex-col items-center'}>
+            <h1 className="mt-2 text-xl">Mode Editor</h1>
           </div>
-        </div>
 
-        <div className={'mt-2 flex flex-col items-center'}>
-          {!gameModeApplied && (
-            <div className="mt-2 flex gap-2">
-              <>
-                {getLastRound() && getLastRound().numberPlayers > 2 && <ActionButton action={Action.ADD} onClick={addRound} />}
-                {rounds.length > 1 && <ActionButton action={Action.REMOVE} onClick={removeLastRound} />}
-              </>
-            </div>
-          )}
+          <div className={'mt-2 flex flex-col items-center'}>{(rounds.length === 0 || getLastRound().advancingTotal > 1) && <TextButton text={`Add Round`} onClick={handleAddRoundClicked} />}</div>
 
-          <div className="mt-2 flex gap-2">
-            {gameModeApplied && <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />}
-            {!gameModeApplied && getLastRound() && (getLastRound().numberPlayers < 3 || getLastRound().advancingTotal === 1) && <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />}
-          </div>
-
-          <h1 className="mt-8 text-xl">Preview</h1>
-        </div>
-
-        <div className={'mt-2 flex justify-center'}>
-          <div className="flex overflow-x-auto">
+          <div className={'my-2 flex justify-center overflow-y-auto'}>
             <BattleGrid
               rounds={rounds}
               editingEnabled={true}
-              onRenameMatch={(roundIndex, matchIndex, matchId, name) => {
-                handleMatchRenamed(roundIndex, matchIndex, matchId, name);
+              onEditRound={(roundIndex: number) => {
+                handleEditRoundClicked(roundIndex);
               }}
-              onUpdateTime={(roundIndex, matchIndex, matchId, time) => {
-                handleTimeUpdated(roundIndex, matchIndex, matchId, time);
+              onDeleteRound={(roundIndex: number) => {
+                handleDeleteRoundClicked(roundIndex);
               }}
+              onAddMatch={(roundIndex: number) => {
+                handleAddMatchClicked(roundIndex);
+              }}
+              onEditMatch={(roundIndex: number, matchIndex: number) => {
+                handleEditMatchClicked(roundIndex, matchIndex);
+              }}
+              onDeleteMatch={(roundIndex: number, matchIndex: number) => {
+                handleDeleteMatchClicked(roundIndex, matchIndex);
+              }}
+              // onRenameMatch={(roundIndex, matchIndex, matchId, name) => {
+              //   handleMatchRenamed(roundIndex, matchIndex, matchId, name);
+              // }}
+              // onUpdateTime={(roundIndex, matchIndex, matchId, time) => {
+              //   handleTimeUpdated(roundIndex, matchIndex, matchId, time);
+              // }}
             />
           </div>
         </div>
-      </div>
 
-      <Navigation>
-        <Link href={`${routeEvents}/${eventId}/comps`}>
-          <ActionButton action={Action.BACK} onClick={() => router.replace(`${routeEvents}/${eventId}/comps`)} />
-        </Link>
-      </Navigation>
-    </div>
+        <Navigation>
+          <Link href={`${routeEvents}/${eventId}/comps`}>
+            <ActionButton action={Action.BACK} onClick={() => router.replace(`${routeEvents}/${eventId}/comps`)} />
+          </Link>
+
+          {!gameModeApplied && rounds.length > 0 && <TextButton text={`Save`} onClick={handleSaveClicked} />}
+          {gameModeApplied && rounds.length > 0 && <TextButton text={`Update`} onClick={handleUpdateClicked} />}
+          {gameModeApplied && rounds.length === 0 && <TextButton text={`Save`} onClick={handleDeleteClicked} />}
+        </Navigation>
+      </div>
+    </>
   );
 };
 
@@ -328,9 +382,28 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     };
   }
 
+  const compId = context.query.compId;
+
+  let data: { rounds: Round[]; participants: { username: string }[] } = { rounds: [], participants: [] };
+
+  if (compId) {
+    try {
+      data.rounds = JSON.parse(JSON.stringify(await getRounds(compId?.toString())));
+    } catch (error: any) {
+      console.error('Error fetching rounds.');
+    }
+
+    try {
+      data.participants = await getCompetitionParticipants(compId?.toString());
+    } catch (error: any) {
+      console.error('Error fetching participants.');
+    }
+  }
+
   return {
     props: {
       session: session,
+      data: data,
     },
   };
 };

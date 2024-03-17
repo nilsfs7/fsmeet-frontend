@@ -10,6 +10,9 @@ import ComboBox from '../common/ComboBox';
 // import dayjs from 'dayjs';
 // import { TimePicker } from 'antd';
 import { routeUsers } from '@/types/consts/routes';
+import ActionButton from '../common/ActionButton';
+import { Action } from '@/types/enums/action';
+import { Size } from '@/types/enums/size';
 
 interface IMatchProps {
   match: Match;
@@ -20,10 +23,24 @@ interface IMatchProps {
   seedingList?: User[];
   onRename?: (matchIndex: number, matchId: string, name: string) => void;
   onUpdateTime?: (matchIndex: number, matchId: string, time: Moment | null) => void;
+  onEditMatch?: (matchIndex: number) => void; // matchId: string
+  onDeleteMatch?: (matchIndex: number) => void;
   onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result?: number) => void;
 }
 
-const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, seedingList = [], onRename, onUpdateTime, onUpdateSlot }: IMatchProps) => {
+const MatchCard = ({
+  match,
+  usersMap,
+  showTime = false,
+  editingEnabled = false,
+  seedingEnabled = false,
+  seedingList = [],
+  onRename,
+  onUpdateTime,
+  onEditMatch,
+  onDeleteMatch,
+  onUpdateSlot,
+}: IMatchProps) => {
   const router = useRouter();
   const self = `${router.asPath}`;
 
@@ -71,21 +88,18 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
 
   return (
     <div className={`rounded-lg border border-secondary-dark ${!editingEnabled || match.slots > 1 ? 'bg-secondary-light' : 'bg-warning'} p-2`}>
-      <div className="flex justify-between">
-        <input
-          className={`w-full flex items-center ${!showTime && 'text-center'} ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}
-          defaultValue={match.name}
-          disabled={!editingEnabled}
-          onChange={e => {
-            handleRename(e.currentTarget.value);
-          }}
-        />
+      <div className={`flex justify-between items-center ${editingEnabled && 'mb-2 gap-2'} `}>
+        <div className={`w-full flex ${editingEnabled ? 'justify-between' : 'justify-center'} items-center`}>
+          <div className={`flex px-1 ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}>{match.name}</div>
+          {editingEnabled && (
+            <div className="flex gap-1 justify-end w-fit">
+              {onEditMatch && <ActionButton action={Action.EDIT} size={Size.S} onClick={() => onEditMatch(match.matchIndex)} />}
+              {onDeleteMatch && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteMatch(match.matchIndex)} />}
 
-        {editingEnabled && (
-          <div className="w-full flex items-center py-1">
-            {/* Todo: enable time picker again: requires diabling babel transpilation. or built own time picker -> remove antd */}
+              {/* <div className="w-full flex items-center py-1"> */}
+              {/* Todo: enable time picker again: requires diabling babel transpilation. or built own time picker -> remove antd */}
 
-            {/* <TimePicker
+              {/* <TimePicker
               value={match.time !== undefined ? dayjs(match.time) : undefined}
               format={'HH:mm'}
               onChange={value => {
@@ -99,10 +113,11 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                 }
               }}
             /> */}
-          </div>
-        )}
-
-        {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(moment(match.time))}</div>}
+              {/* </div> */}
+            </div>
+          )}
+          {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(moment(match.time))}</div>}
+        </div>
       </div>
 
       <hr />
@@ -116,7 +131,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
           return (
             <div key={`slot-${i}`} className="flex items-center justify-between">
               {!seedingEnabled && (
-                <div className="border-red flex w-full justify-between">
+                <div className="flex w-full justify-between">
                   <div className="flex w-full items-center">
                     <div className="h-8 w-8 p-1">
                       <Link href={matchSlot?.name ? `${routeUsers}/${matchSlot.name}` : self}>
