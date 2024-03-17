@@ -89,54 +89,22 @@ const Seeding = (props: any) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (compId) {
-      rounds.map((rnd, i) => {
-        // update input "max-match-size"
-        const inputMaxMatchSize = document.getElementById(`input-max-match-size-${i}`);
-        if (inputMaxMatchSize) {
-          const maxMatchSize = i === 0 ? competitionParticipants.length : getParentRound(i).advancingTotal;
-          inputMaxMatchSize.setAttribute('max', maxMatchSize.toString());
-        }
-
-        // update input "max-passing"
-        const inputMaxPassing = document.getElementById(`input-max-passing-${i}`);
-        if (inputMaxPassing) {
-          const maxPassing = rnd.maxMatchSize;
-          inputMaxPassing.setAttribute('max', maxPassing.toString());
-        }
-
-        // update input "passing-extra"
-        const inputPassingExtra = document.getElementById(`input-passing-extra-${i}`);
-        if (inputPassingExtra) {
-          inputPassingExtra.setAttribute('max', rnd.maxPossibleAdvancingExtra.toString());
-        }
-      });
-    }
-  }, [rounds]);
-
-  const getParentRound = (roundId: number): Round => {
-    return rounds[roundId - 1];
-  };
-
   return (
     <div className="absolute inset-0 flex flex-col">
-      <div className={`m-2 justify-center overflow-hidden overflow-y-auto`}>
+      <div className={`m-2 flex flex-col overflow-hidden`}>
         <div className={'flex flex-col items-center'}>
-          <h1 className="mt-2 text-xl">Seeding</h1>
+          <h1 className="mt-2 text-xl">Seeding & Results</h1>
         </div>
 
-        <div className={'mt-2 flex justify-center'}>
-          <div className="flex overflow-x-auto">
-            <BattleGrid
-              rounds={rounds}
-              seedingEnabled={true}
-              seedingList={competitionParticipants}
-              onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => {
-                handleSlotUpdated(roundIndex, matchId, slotIndex, username, result);
-              }}
-            />
-          </div>
+        <div className={'my-2 flex justify-center overflow-y-auto'}>
+          <BattleGrid
+            rounds={rounds}
+            seedingEnabled={true}
+            seedingList={competitionParticipants}
+            onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => {
+              handleSlotUpdated(roundIndex, matchId, slotIndex, username, result);
+            }}
+          />
         </div>
       </div>
 

@@ -129,32 +129,6 @@ const Competition = (props: any) => {
     getUsers();
   }, [rounds]);
 
-  useEffect(() => {
-    if (compId) {
-      rounds.map((rnd, i) => {
-        // update input "max-match-size"
-        const inputMaxMatchSize = document.getElementById(`input-max-match-size-${i}`);
-        if (inputMaxMatchSize) {
-          const maxMatchSize = i === 0 ? competitionParticipants.length : getParentRound(i).advancingTotal;
-          inputMaxMatchSize.setAttribute('max', maxMatchSize.toString());
-        }
-
-        // update input "max-passing"
-        const inputMaxPassing = document.getElementById(`input-max-passing-${i}`);
-        if (inputMaxPassing) {
-          const maxPassing = rnd.maxMatchSize;
-          inputMaxPassing.setAttribute('max', maxPassing.toString());
-        }
-
-        // update input "passing-extra"
-        const inputPassingExtra = document.getElementById(`input-passing-extra-${i}`);
-        if (inputPassingExtra) {
-          inputPassingExtra.setAttribute('max', rnd.maxPossibleAdvancingExtra.toString());
-        }
-      });
-    }
-  }, [rounds]);
-
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       <h1 className="my-2 flex items-center justify-center text-xl">{comp?.name}</h1>
