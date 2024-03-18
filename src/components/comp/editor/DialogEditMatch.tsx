@@ -8,7 +8,7 @@ interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (roundIndex: number, matchIndex: number, matchName: string, slots: number) => void;
+  onConfirm?: (roundIndex: number, matchIndex: number, matchName: string, slots: number, isExtraMatch: boolean) => void;
   cancelText?: string;
   confirmText?: string;
 }
@@ -21,14 +21,17 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
   const matchIndex = +(searchParams.get('mid') || 0);
   const mname = searchParams.get('mname') || '';
   const mslots = +(searchParams.get('mslots') || 2);
+  const mextra = searchParams.get('mextra') === 'true';
 
   const [matchName, setMatchName] = useState<string>('');
   const [matchSlots, setMatchSlots] = useState<number>(2);
+  const [isExtraMatch, setIsExtraMatch] = useState<boolean>(false);
 
   useEffect(() => {
     if (showDialog === '1') {
       setMatchName(mname);
       setMatchSlots(mslots);
+      setIsExtraMatch(mextra);
 
       dialogRef.current?.showModal();
     } else {
@@ -42,7 +45,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex, matchIndex, matchName, matchSlots);
+    onConfirm && onConfirm(roundIndex, matchIndex, matchName, matchSlots, isExtraMatch);
     dialogRef.current?.close();
     onCancel && onCancel();
   };
@@ -56,8 +59,8 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
           </div>
           <div className="rounded-b-lg bg-background p-2">
             <div className="p-2 grid gap-1">
-              <div className="grid grid-cols-2 justify-between gap-2">
-                <div>Match name</div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>{'Match name'}</div>
                 <input
                   id={`input-round-name`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
@@ -68,8 +71,8 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 />
               </div>
 
-              <div className="grid grid-cols-2 justify-between gap-2">
-                <div>Players per match</div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>{'Players per match'}</div>
                 <input
                   id={`input-slots-per-match`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
@@ -79,6 +82,19 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                   value={matchSlots}
                   onChange={e => {
                     setMatchSlots(+e.currentTarget.value);
+                  }}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 items-center">
+                <div>{'Is extra battle?'}</div>
+                <input
+                  id={'input-is-extra-battle'}
+                  className="h-4 w-4"
+                  type="checkbox"
+                  checked={isExtraMatch}
+                  onChange={e => {
+                    setIsExtraMatch(!isExtraMatch);
                   }}
                 />
               </div>

@@ -175,7 +175,7 @@ const ModeEditing = (props: any) => {
   };
 
   const handleEditMatchClicked = async (roundIndex: number, matchIndex: number) => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editmatch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}&mslots=${rounds[roundIndex].matches[matchIndex].slots}`;
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editmatch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}&mslots=${rounds[roundIndex].matches[matchIndex].slots}&mextra=${rounds[roundIndex].matches[matchIndex].isExtraMatch}`;
     router.replace(url, undefined, { shallow: true });
   };
 
@@ -197,7 +197,7 @@ const ModeEditing = (props: any) => {
 
     // for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
     for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
-      newRound.addMatch(`Match ${i + 1}`, slotsPerMatch);
+      newRound.addMatch(`Match ${i + 1}`, false, slotsPerMatch);
     }
 
     rnds.push(newRound);
@@ -222,17 +222,18 @@ const ModeEditing = (props: any) => {
     setRounds(rnds);
   };
 
-  const handleConfirmAddMatchClicked = async (roundIndex: number, matchIndex: number, amountSlots: number, matchName: string) => {
+  const handleConfirmAddMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, amountSlots: number, isExtraMatch: boolean) => {
     const rnds = Array.from(rounds);
-    rnds[roundIndex].addMatch(matchName, amountSlots);
+    rnds[roundIndex].addMatch(matchName, isExtraMatch, amountSlots);
     setRounds(rnds);
   };
 
-  const handleConfirmEditMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, slots: number) => {
+  const handleConfirmEditMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, slots: number, isExtraMatch: boolean) => {
     const rnds = Array.from(rounds);
     const mtchs = Array.from(rnds[roundIndex].matches);
     mtchs[matchIndex].name = matchName;
     mtchs[matchIndex].slots = slots;
+    mtchs[matchIndex].isExtraMatch = isExtraMatch;
 
     if (mtchs[matchIndex].matchSlots.length > slots) {
       mtchs[matchIndex].matchSlots = mtchs[matchIndex].matchSlots.slice(0, slots);
@@ -291,8 +292,8 @@ const ModeEditing = (props: any) => {
         title="Add Match"
         queryParam="addmatch"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(roundIndex: number, matchIndex: number, amountSlots: number, matchName: string) => {
-          handleConfirmAddMatchClicked(roundIndex, matchIndex, amountSlots, matchName);
+        onConfirm={(roundIndex: number, matchIndex: number, matchName: string, amountSlots: number, isExtraMatch: boolean) => {
+          handleConfirmAddMatchClicked(roundIndex, matchIndex, matchName, amountSlots, isExtraMatch);
         }}
         confirmText="Confirm"
       />
@@ -301,8 +302,8 @@ const ModeEditing = (props: any) => {
         title="Edit Match"
         queryParam="editmatch"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(roundIndex: number, matchIndex: number, matchName: string, slots: number) => {
-          handleConfirmEditMatchClicked(roundIndex, matchIndex, matchName, slots);
+        onConfirm={(roundIndex: number, matchIndex: number, matchName: string, slots: number, isExtraMatch: boolean) => {
+          handleConfirmEditMatchClicked(roundIndex, matchIndex, matchName, slots, isExtraMatch);
         }}
         confirmText="Confirm"
       />

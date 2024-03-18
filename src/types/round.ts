@@ -36,8 +36,8 @@ export class Round {
     return userFound;
   }
 
-  addMatch(name: string, amountSlots: number) {
-    this.matches.push(new Match(this.matches.length, name, amountSlots, []));
+  addMatch(name: string, isExtraMatch: boolean, amountSlots: number) {
+    this.matches.push(new Match(this.matches.length, name, isExtraMatch, amountSlots, []));
   }
 
   get amountSlots(): number {

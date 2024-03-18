@@ -12,7 +12,7 @@ export async function getRounds(compId: string): Promise<Round[]> {
     round.matches = rnd.matches;
 
     let matches: Match[] = round.matches.map(mtch => {
-      return new Match(mtch.matchIndex, mtch.name, mtch.slots, mtch.matchSlots, mtch.time, mtch.id);
+      return new Match(mtch.matchIndex, mtch.name, mtch.isExtraMatch, mtch.slots, mtch.matchSlots, mtch.time, mtch.id);
     });
 
     matches = matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser) TODO #2: keine ahnung ob das hier überhaupt noch gebraucht wird
