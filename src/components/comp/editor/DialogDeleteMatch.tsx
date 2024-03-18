@@ -1,31 +1,31 @@
 import { useSearchParams } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
-import ActionButton from './common/ActionButton';
+import ActionButton from '../../common/ActionButton';
 import { Action } from '@/types/enums/action';
-import TextButton from './common/TextButton';
+import TextButton from '../../common/TextButton';
 
 interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (roundIndex: number) => void;
+  onConfirm?: (roundIndex: number, matchIndex: number) => void;
   cancelText?: string;
   confirmText?: string;
 }
 
-const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
+const DialogDeleteMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
   const showDialog = searchParams.get(queryParam);
   const roundIndex = +(searchParams.get('rid') || 0);
   const matchIndex = +(searchParams.get('mid') || 0);
-  const rname = searchParams.get('rname') || '';
+  const mname = searchParams.get('mname') || '';
 
-  const [matchName, setRoundName] = useState<string>('');
+  const [matchName, setMatchName] = useState<string>('');
 
   useEffect(() => {
     if (showDialog === '1') {
-      setRoundName(rname);
+      setMatchName(mname);
 
       dialogRef.current?.showModal();
     } else {
@@ -39,7 +39,7 @@ const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText,
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex);
+    onConfirm && onConfirm(roundIndex, matchIndex);
     dialogRef.current?.close();
     onCancel && onCancel();
   };
@@ -79,4 +79,4 @@ const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText,
   ) : null;
 };
 
-export default DialogDeleteRound;
+export default DialogDeleteMatch;

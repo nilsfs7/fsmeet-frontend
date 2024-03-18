@@ -4,14 +4,15 @@ export class Match {
   id?: string;
   matchIndex: number;
   name: string;
+  isExtraMatch: boolean;
   slots: number;
   matchSlots: MatchSlot[];
   time?: string;
-  // TODO: isExtraMatch: boolean,
 
-  constructor(matchIndex: number, name: string, slots: number = 1, matchSlots: MatchSlot[], time?: string, id?: string) {
+  constructor(matchIndex: number, name: string, isExtraMatch: boolean, slots: number = 1, matchSlots: MatchSlot[], time?: string, id?: string) {
     this.matchIndex = matchIndex;
     this.name = name;
+    this.isExtraMatch = isExtraMatch;
     this.slots = slots;
     this.matchSlots = matchSlots;
     this.time = time;
