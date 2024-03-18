@@ -1,43 +1,31 @@
 import { useSearchParams } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
-import ActionButton from './common/ActionButton';
+import ActionButton from '../../common/ActionButton';
 import { Action } from '@/types/enums/action';
-import TextButton from './common/TextButton';
+import TextButton from '../../common/TextButton';
 
 interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (slotsPerMatch: number, advancingTotal: number, roundName: string) => void;
+  onConfirm?: (roundIndex: number, matchIndex: number, slotsPerMatch: number, matchName: string) => void;
   cancelText?: string;
   confirmText?: string;
-  roundIndex: number;
-  availablePlayers: number;
 }
 
-const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText, roundIndex, availablePlayers }: IDialogProps) => {
-  function getAdvancing(): number {
-    const availablePlayersHalf = Math.floor(availablePlayers / 2);
-    if (availablePlayersHalf === 1) {
-      return availablePlayersHalf;
-    }
-
-    const availablePlayersHalfEven = availablePlayersHalf % 2 === 0 ? availablePlayersHalf : availablePlayersHalf - 1;
-    return availablePlayersHalfEven;
-  }
-
+const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
   const showDialog = searchParams.get(queryParam);
+  const roundIndex = +(searchParams.get('rid') || 0);
+  const matchIndex = +(searchParams.get('mid') || 0);
   const [slotsPerMatch, setSlotsPerMatch] = useState<number>(2);
-  const [advancingTotal, setAdvancingTotal] = useState<number>(0);
-  const [roundName, setRoundName] = useState<string>('');
+
+  const [matchName, setMatchName] = useState<string>(`Match ${matchIndex + 1}`);
 
   useEffect(() => {
     if (showDialog === '1') {
-      setRoundName(`Round ${roundIndex + 1}`);
-      setAdvancingTotal(getAdvancing());
-      setSlotsPerMatch(2);
+      setMatchName(`Match ${matchIndex + 1}`);
 
       dialogRef.current?.showModal();
     } else {
@@ -51,7 +39,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(slotsPerMatch, advancingTotal, roundName);
+    onConfirm && onConfirm(roundIndex, matchIndex, slotsPerMatch, matchName);
     dialogRef.current?.close();
     onCancel && onCancel();
   };
@@ -66,60 +54,30 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
           <div className="rounded-b-lg bg-background p-2">
             <div className="p-2 grid gap-1">
               <div className="grid grid-cols-2 justify-between gap-2">
-                <div>Round name</div>
+                <div>Match name</div>
                 <input
-                  id={`input-round-name`}
+                  id={`input-match-name`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
-                  value={roundName}
+                  value={matchName}
                   onChange={e => {
-                    setRoundName(e.currentTarget.value);
+                    setMatchName(e.currentTarget.value);
                   }}
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <div>Available players in pool</div>
-                <div>{availablePlayers}</div>
-              </div>
-
-              {/* TODO: add checkbox: is final battle? */}
-
-              <div className="grid grid-cols-2 gap-2">
-                <div>Advancing to next round</div>
-                <input
-                  id={`input-advancingTotal`}
-                  className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
-                  type="number"
-                  min={1}
-                  max={availablePlayers}
-                  value={advancingTotal}
-                  onChange={e => {
-                    setAdvancingTotal(+e.currentTarget.value);
-                    setSlotsPerMatch(Math.ceil(availablePlayers / +e.currentTarget.value));
-                  }}
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <div>Players per match</div>
+              <div className="grid grid-cols-2 justify-between gap-2">
+                <div>Amount of players</div>
                 <input
                   id={`input-slots-per-match`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                   type="number"
                   min={2}
-                  max={availablePlayers}
-                  value={slotsPerMatch}
-                  disabled={advancingTotal === 1}
+                  // max={availablePlayers}
+                  defaultValue={slotsPerMatch}
                   onChange={e => {
-                    console.log(+e.currentTarget.value);
                     setSlotsPerMatch(+e.currentTarget.value);
                   }}
                 />
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <div>Amount of matches</div>
-                <div>{Math.ceil(availablePlayers / slotsPerMatch)}</div>
               </div>
             </div>
 
@@ -146,4 +104,4 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
   ) : null;
 };
 
-export default DialogAddRound;
+export default DialogAddMatch;

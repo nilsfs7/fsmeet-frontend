@@ -1,8 +1,8 @@
 import { useSearchParams } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
-import ActionButton from './common/ActionButton';
+import ActionButton from '../../common/ActionButton';
 import { Action } from '@/types/enums/action';
-import TextButton from './common/TextButton';
+import TextButton from '../../common/TextButton';
 
 interface IDialogProps {
   title: string;

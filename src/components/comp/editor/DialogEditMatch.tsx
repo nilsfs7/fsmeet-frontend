@@ -1,31 +1,34 @@
 import { useSearchParams } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
-import ActionButton from './common/ActionButton';
+import ActionButton from '../../common/ActionButton';
 import { Action } from '@/types/enums/action';
-import TextButton from './common/TextButton';
+import TextButton from '../../common/TextButton';
 
 interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (roundIndex: number, matchIndex: number, slotsPerMatch: number, matchName: string) => void;
+  onConfirm?: (roundIndex: number, matchIndex: number, matchName: string, slots: number) => void;
   cancelText?: string;
   confirmText?: string;
 }
 
-const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
+const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
   const showDialog = searchParams.get(queryParam);
   const roundIndex = +(searchParams.get('rid') || 0);
   const matchIndex = +(searchParams.get('mid') || 0);
-  const [slotsPerMatch, setSlotsPerMatch] = useState<number>(2);
+  const mname = searchParams.get('mname') || '';
+  const mslots = +(searchParams.get('mslots') || 2);
 
-  const [matchName, setMatchName] = useState<string>(`Match ${matchIndex + 1}`);
+  const [matchName, setMatchName] = useState<string>('');
+  const [matchSlots, setMatchSlots] = useState<number>(2);
 
   useEffect(() => {
     if (showDialog === '1') {
-      setMatchName(`Match ${matchIndex + 1}`);
+      setMatchName(mname);
+      setMatchSlots(mslots);
 
       dialogRef.current?.showModal();
     } else {
@@ -39,7 +42,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex, matchIndex, slotsPerMatch, matchName);
+    onConfirm && onConfirm(roundIndex, matchIndex, matchName, matchSlots);
     dialogRef.current?.close();
     onCancel && onCancel();
   };
@@ -56,7 +59,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
               <div className="grid grid-cols-2 justify-between gap-2">
                 <div>Match name</div>
                 <input
-                  id={`input-match-name`}
+                  id={`input-round-name`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                   value={matchName}
                   onChange={e => {
@@ -66,16 +69,16 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
               </div>
 
               <div className="grid grid-cols-2 justify-between gap-2">
-                <div>Amount of players</div>
+                <div>Players per match</div>
                 <input
                   id={`input-slots-per-match`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                   type="number"
-                  min={2}
-                  // max={availablePlayers}
-                  defaultValue={slotsPerMatch}
+                  min={1}
+                  max={99} // TODO
+                  value={matchSlots}
                   onChange={e => {
-                    setSlotsPerMatch(+e.currentTarget.value);
+                    setMatchSlots(+e.currentTarget.value);
                   }}
                 />
               </div>
@@ -104,4 +107,4 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
   ) : null;
 };
 
-export default DialogAddMatch;
+export default DialogEditMatch;

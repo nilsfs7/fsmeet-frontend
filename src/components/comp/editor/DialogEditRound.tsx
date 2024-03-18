@@ -1,31 +1,33 @@
 import { useSearchParams } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
-import ActionButton from './common/ActionButton';
+import ActionButton from '../../common/ActionButton';
 import { Action } from '@/types/enums/action';
-import TextButton from './common/TextButton';
+import TextButton from '../../common/TextButton';
 
 interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (roundIndex: number) => void;
+  onConfirm?: (roundIndex: number, roundName: string, advancingTotal: number) => void;
   cancelText?: string;
   confirmText?: string;
 }
 
-const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
+const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
   const showDialog = searchParams.get(queryParam);
-  const roundIndex = +(searchParams.get('rid') || 0);
-  const matchIndex = +(searchParams.get('mid') || 0);
   const rname = searchParams.get('rname') || '';
+  const radvancing = +(searchParams.get('radvancing') || 1);
+  const roundIndex = +(searchParams.get('rid') || 0);
 
-  const [matchName, setRoundName] = useState<string>('');
+  const [roundName, setRoundName] = useState<string>('');
+  const [advancingTotal, setAdvancingTotal] = useState<number>(1);
 
   useEffect(() => {
     if (showDialog === '1') {
       setRoundName(rname);
+      setAdvancingTotal(radvancing);
 
       dialogRef.current?.showModal();
     } else {
@@ -39,7 +41,7 @@ const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText,
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex);
+    onConfirm && onConfirm(roundIndex, roundName, advancingTotal);
     dialogRef.current?.close();
     onCancel && onCancel();
   };
@@ -52,8 +54,32 @@ const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText,
             <h1 className="text-2xl">{title}</h1>
           </div>
           <div className="rounded-b-lg bg-background p-2">
-            <div className="p-2 flex flex-col">
-              <div>{`Delete ${matchName}?`}</div>
+            <div className="p-2 grid gap-1">
+              <div className="grid grid-cols-2 justify-between gap-2">
+                <div>Round name</div>
+                <input
+                  id={`input-round-name`}
+                  className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
+                  value={roundName}
+                  onChange={e => {
+                    setRoundName(e.currentTarget.value);
+                  }}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <div>Advancing to next round</div>
+                <input
+                  id={`input-advancingTotal`}
+                  className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
+                  type="number"
+                  min={1}
+                  value={advancingTotal}
+                  onChange={e => {
+                    setAdvancingTotal(+e.currentTarget.value);
+                  }}
+                />
+              </div>
             </div>
 
             <div className="flex flex-row justify-between p-2">
@@ -79,4 +105,4 @@ const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText,
   ) : null;
 };
 
-export default DialogDeleteRound;
+export default DialogEditRound;
