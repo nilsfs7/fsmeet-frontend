@@ -52,25 +52,25 @@ const PublicUserProfile = (props: any) => {
                     <AccordionContent>
                       <div className="">
                         {user.instagramHandle && (
-                          <div className="mt-1">
+                          <div className="mt-1 w-fit">
                             <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
                           </div>
                         )}
 
                         {user.tikTokHandle && (
-                          <div className="mt-1">
+                          <div className="mt-1 w-fit">
                             <SocialLink platform={Platform.TIKTOK} path={user.tikTokHandle} />
                           </div>
                         )}
 
                         {user.youTubeHandle && (
-                          <div className="mt-1">
+                          <div className="mt-1 w-fit">
                             <SocialLink platform={Platform.YOUTUBE} path={user.youTubeHandle} />
                           </div>
                         )}
 
                         {user.website && (
-                          <div className="mt-1">
+                          <div className="mt-1 w-fit">
                             <SocialLink platform={Platform.WEBSITE} path={user.website} />
                           </div>
                         )}
