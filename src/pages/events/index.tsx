@@ -13,7 +13,7 @@ import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Event } from '@/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
 
-const defaultDateFrom = moment(moment().year().toString()).startOf('year');
+const defaultDateFrom = moment(moment().subtract(1, 'y').year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
 
 const EventsOverview = ({ session }: { session: any }) => {
@@ -59,7 +59,7 @@ const EventsOverview = ({ session }: { session: any }) => {
       {/* Filters */}
       <div className="mt-2 flex justify-center gap-2">
         <div>
-          <div className="mx-2">From</div>
+          <div className="mx-2">{`From`}</div>
           <DatePicker
             date={dateFrom}
             onChange={newDate => {
@@ -69,7 +69,7 @@ const EventsOverview = ({ session }: { session: any }) => {
         </div>
 
         <div>
-          <div className="mx-2">To</div>
+          <div className="mx-2">{`To`}</div>
           <DatePicker
             date={dateTo}
             onChange={newDate => {
@@ -92,7 +92,7 @@ const EventsOverview = ({ session }: { session: any }) => {
             );
           })}
 
-          {events.length === 0 && <div className="mt-2 text-center">No events for the specified date range.</div>}
+          {events.length === 0 && <div className="mt-2 text-center">{`No events for the specified date range.`}</div>}
         </div>
       </div>
 
