@@ -20,6 +20,6 @@ export async function getUser(username: string, session?: any): Promise<User> {
 
     return user;
   } else {
-    throw Error('Error fetching acting user.');
+    throw Error('Error fetching user.');
   }
 }
