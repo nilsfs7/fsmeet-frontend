@@ -1,5 +1,6 @@
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import SocialLink from '@/components/user/SocialLink';
 import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
 import { getUser } from '@/services/fsmeet-backend/get-user';
@@ -44,55 +45,60 @@ const PublicUserProfile = (props: any) => {
                 {user.isVerifiedAccount && <img className="h-8 p-1 hover:p-0" src={imgVerifiedCheckmark} alt="user verified checkmark" />}
               </div>
 
-              {(user.instagramHandle || user.tikTokHandle || user.youTubeHandle || user.website) && (
-                <div className="mt-2">
-                  <div className="h-8 flex items-center text-lg underline">{`Socials`}</div>
+              <Accordion type="single" collapsible>
+                {(user.instagramHandle || user.tikTokHandle || user.youTubeHandle || user.website) && (
+                  <AccordionItem value="item-socials">
+                    <AccordionTrigger>{`Socials`}</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="">
+                        {user.instagramHandle && (
+                          <div className="mt-1">
+                            <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
+                          </div>
+                        )}
 
-                  <div className="">
-                    {user.instagramHandle && (
-                      <div className="mt-1">
-                        <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
+                        {user.tikTokHandle && (
+                          <div className="mt-1">
+                            <SocialLink platform={Platform.TIKTOK} path={user.tikTokHandle} />
+                          </div>
+                        )}
+
+                        {user.youTubeHandle && (
+                          <div className="mt-1">
+                            <SocialLink platform={Platform.YOUTUBE} path={user.youTubeHandle} />
+                          </div>
+                        )}
+
+                        {user.website && (
+                          <div className="mt-1">
+                            <SocialLink platform={Platform.WEBSITE} path={user.website} />
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
 
-                    {user.tikTokHandle && (
-                      <div className="mt-1">
-                        <SocialLink platform={Platform.TIKTOK} path={user.tikTokHandle} />
-                      </div>
-                    )}
+                <AccordionItem value="item-matches">
+                  <AccordionTrigger>{`Battle Statistics`}</AccordionTrigger>
+                  <AccordionContent>
+                    <div className="grid grid-cols-2">
+                      <div>{`Matches`}</div>
+                      <div>{matchStats.matches}</div>
 
-                    {user.youTubeHandle && (
-                      <div className="mt-1">
-                        <SocialLink platform={Platform.YOUTUBE} path={user.youTubeHandle} />
-                      </div>
-                    )}
+                      {matchStats.matches > 0 && (
+                        <>
+                          <div>{`Wins`}</div>
+                          <div>{`${matchStats.wins} `}</div>
 
-                    {user.website && (
-                      <div className="mt-1">
-                        <SocialLink platform={Platform.WEBSITE} path={user.website} />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              <div className="mt-2">
-                <div className="h-8 flex items-center text-lg underline">{`Battle Statistics`}</div>
-                <div className="grid grid-cols-2">
-                  <div>{`Matches`}</div>
-                  <div>{matchStats.matches}</div>
-
-                  {matchStats.matches > 0 && (
-                    <>
-                      <div>{`Wins`}</div>
-                      <div>{`${matchStats.wins} `}</div>
-
-                      <div>{`Win ratio`}</div>
-                      <div>{`${(matchStats.ratio * 100).toFixed(2)}%`}</div>
-                    </>
-                  )}
-                </div>
-              </div>
+                          <div>{`Win ratio`}</div>
+                          <div>{`${(matchStats.ratio * 100).toFixed(2)}%`}</div>
+                        </>
+                      )}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
           </div>
         </div>
