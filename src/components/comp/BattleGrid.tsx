@@ -43,7 +43,7 @@ const BattleGrid = ({
       {rounds.map((round: Round, i: number) => {
         return (
           <div key={`rnd-${round.roundIndex}`} className={`${i > 0 ? 'ml-1' : ''} ${i < rounds.length - 1 ? 'mr-1' : ''}`}>
-            <div className={`h-full flex flex-col ${!editingEnabled ? 'justify-center' : ''}`}>
+            <div className={`h-full flex flex-col`}>
               <div className={`flex justify-between items-center px-2 ${editingEnabled && 'mb-2 gap-2'}`}>
                 <div className={`text-lg ${!editingEnabled ? 'flex w-full justify-center' : ''} `}>{round.name}</div>
                 <div className="flex gap-1 justify-end w-fit">
@@ -51,8 +51,8 @@ const BattleGrid = ({
                   {onDeleteRound && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteRound(round.roundIndex, round.name)} />}
                 </div>
               </div>
-              <div className={`h-full flex flex-col ${!editingEnabled ? 'justify-center' : ''}`}>
-                <div className="flex w-52 flex-col justify-center mt-2">
+              <div className={`h-full flex flex-col ${!editingEnabled ? 'justify-center' : ''} mt-2`}>
+                <div className="flex w-52 flex-col justify-center">
                   {round.matches.map((match, j) => {
                     return (
                       <div key={`match-${j}`} className={`${j > 0 ? 'mt-1' : ''} ${j < round.matches.length - 1 ? 'mb-1' : ''}`}>

@@ -12,6 +12,8 @@ import ErrorMessage from '@/components/ErrorMessage';
 import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
+import { updateCompetition } from '@/services/fsmeet-backend/update-competition';
+import { EditorMode } from '@/types/enums/editor-mode';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -26,30 +28,14 @@ const CompetitionEditing = (props: any) => {
   const handleSaveClicked = async () => {
     setError('');
 
-    const body = JSON.stringify({
-      id: compId,
-      eventId: eventId,
-      name: comp?.name.trim(),
-      description: comp?.description.trim(),
-      rules: comp?.rules.trim(),
-    });
-
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`, {
-      method: 'PATCH',
-      body: body,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      router.replace(`${routeEvents}/${eventId}/comps`);
-    } else {
-      const error = await response.json();
-      setError(error.message);
-      console.error(error.message);
+    if (comp) {
+      try {
+        await updateCompetition(comp, session);
+        router.replace(`${routeEvents}/${eventId}/comps`);
+      } catch (error: any) {
+        setError(error.message);
+        console.error(error.message);
+      }
     }
   };
 
@@ -98,6 +84,7 @@ const CompetitionEditing = (props: any) => {
           id: comp.id,
           eventId: eventId,
           name: comp.name,
+          type: comp.type,
           description: comp.description,
           rules: comp.rules,
         };
@@ -114,8 +101,9 @@ const CompetitionEditing = (props: any) => {
       </Dialog>
 
       <div className={'flex columns-1 flex-col items-center'}>
-        <h1 className="m-2 text-xl">Edit Competition</h1>
+        <h1 className="m-2 text-xl">{`Edit Competition`}</h1>
         <CompetitionEditor
+          editorMode={EditorMode.EDIT}
           comp={comp}
           onCompUpdate={(comp: EventCompetition) => {
             setComp(comp);

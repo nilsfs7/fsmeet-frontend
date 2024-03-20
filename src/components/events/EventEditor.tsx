@@ -14,13 +14,15 @@ import { validateAlias } from '@/types/funcs/validation/validation-event';
 import CurInput from '../common/CurrencyInput';
 import { EventState } from '@/types/enums/event-state';
 import { DatePicker } from '../common/DatePicker';
+import { EditorMode } from '@/types/enums/editor-mode';
 
 interface IEventEditorProps {
+  editorMode: EditorMode;
   event?: Event;
   onEventUpdate: (event: Event) => void;
 }
 
-const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
+const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) => {
   const [name, setEventName] = useState(event?.name || '');
   const [alias, setEventAlias] = useState(event?.alias || '');
   const [dateFrom, setDateFrom] = useState<string>(event?.dateFrom ? event.dateFrom : moment().startOf('day').add(7, 'day').utc().format());
@@ -190,15 +192,18 @@ const EventEditor = ({ event, onEventUpdate }: IEventEditorProps) => {
         }}
       />
       <div className="m-2 grid grid-cols-2">
-        <div>Type</div>
+        <div>{`Type`}</div>
         <div className="flex w-full">
-          <ComboBox
-            menus={menuEventTypes}
-            value={eventType}
-            onChange={(value: EventType) => {
-              setEventType(value);
-            }}
-          />
+          {editorMode === EditorMode.CREATE && (
+            <ComboBox
+              menus={menuEventTypes}
+              value={eventType}
+              onChange={(value: EventType) => {
+                setEventType(value);
+              }}
+            />
+          )}
+          {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find(item => item.value === eventType)?.text}</div>}
         </div>
       </div>
       <TextInputLarge

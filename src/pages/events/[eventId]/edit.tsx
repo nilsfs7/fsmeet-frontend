@@ -11,6 +11,7 @@ import ErrorMessage from '@/components/ErrorMessage';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
+import { EditorMode } from '@/types/enums/editor-mode';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -120,8 +121,9 @@ const EventEditing = (props: any) => {
       </Dialog>
 
       <div className={'flex columns-1 flex-col items-center'}>
-        <h1 className="m-2 text-xl">Edit Event</h1>
+        <h1 className="m-2 text-xl">{`Edit Event`}</h1>
         <EventEditor
+          editorMode={EditorMode.EDIT}
           event={event}
           onEventUpdate={(event: Event) => {
             setEvent(event);

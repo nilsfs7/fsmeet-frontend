@@ -8,6 +8,8 @@ import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { EventCompetition } from '@/types/event-competition';
 import ErrorMessage from '@/components/ErrorMessage';
 import { validateSession } from '@/types/funcs/validate-session';
+import { createCompetition } from '@/services/fsmeet-backend/create-competition';
+import { EditorMode } from '@/types/enums/editor-mode';
 
 const CompetitionCreation = (props: any) => {
   const session = props.session;
@@ -21,35 +23,22 @@ const CompetitionCreation = (props: any) => {
   const handleCreateClicked = async () => {
     setError('');
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`, {
-      method: 'POST',
-      body: JSON.stringify({
-        eventId: eventId,
-        name: comp?.name.trim(),
-        description: comp?.description.trim(),
-        rules: comp?.rules.trim(),
-      }),
-
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
-      router.replace(`${routeEvents}/${eventId}/comps`);
-    } else {
-      const error = await response.json();
-      setError(error.message);
-      console.error(error.message);
+    if (eventId && comp) {
+      try {
+        await createCompetition(eventId.toString(), comp, session);
+        router.replace(`${routeEvents}/${eventId}/comps`);
+      } catch (error: any) {
+        setError(error.message);
+        console.error(error.message);
+      }
     }
   };
 
   return (
     <div className={'flex columns-1 flex-col items-center'}>
-      <h1 className="m-2 text-xl">Create Competition</h1>
+      <h1 className="m-2 text-xl">{`Create Competition`}</h1>
       <CompetitionEditor
+        editorMode={EditorMode.CREATE}
         onCompUpdate={(comp: EventCompetition) => {
           setComp(comp);
         }}

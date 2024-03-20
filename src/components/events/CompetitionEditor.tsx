@@ -2,14 +2,20 @@ import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import { EventCompetition } from '@/types/event-competition';
 import TextInputLarge from '../common/TextInputLarge';
+import { CompetitionType } from '@/types/enums/competition-type';
+import ComboBox from '../common/ComboBox';
+import { menuCompTypes } from '@/types/consts/menus/menu-comp-types';
+import { EditorMode } from '@/types/enums/editor-mode';
 
 interface ICompetitionEditorProps {
+  editorMode: EditorMode;
   comp?: EventCompetition;
   onCompUpdate: (comp: EventCompetition) => void;
 }
 
-const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
+const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEditorProps) => {
   const [name, setCompName] = useState(comp?.name || '');
+  const [compType, setCompType] = useState(comp?.type || CompetitionType.BATTLES);
   const [description, setDescription] = useState(comp?.description || '');
   const [rules, setRules] = useState(comp?.rules || '');
 
@@ -18,6 +24,7 @@ const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
       id: comp?.id,
       eventId: comp?.eventId,
       name: name,
+      type: compType,
       description: description,
       rules: rules,
     });
@@ -27,6 +34,7 @@ const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
   useEffect(() => {
     if (comp) {
       setCompName(comp.name);
+      setCompType(comp.type);
       setDescription(comp.description);
       setRules(comp.rules);
     }
@@ -52,6 +60,23 @@ const CompetitionEditor = ({ comp, onCompUpdate }: ICompetitionEditorProps) => {
           setCompName(e.currentTarget.value);
         }}
       />
+
+      <div className="m-2 grid grid-cols-2">
+        <div>{`Type`}</div>
+
+        <div className="flex w-full">
+          {editorMode === EditorMode.CREATE && (
+            <ComboBox
+              menus={menuCompTypes}
+              value={compType}
+              onChange={(value: CompetitionType) => {
+                setCompType(value);
+              }}
+            />
+          )}
+          {editorMode === EditorMode.EDIT && <div>{menuCompTypes.find(item => item.value === compType)?.text}</div>}
+        </div>
+      </div>
 
       <TextInputLarge
         id={'description'}
