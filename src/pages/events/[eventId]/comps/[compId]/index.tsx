@@ -42,10 +42,6 @@ const Competition = (props: any) => {
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [filteredByUser, setFilteredByUser] = useState<string | null>(null);
 
-  const getParentRound = (roundId: number): Round => {
-    return rounds[roundId - 1];
-  };
-
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
       let p: Promise<Event>;
@@ -64,6 +60,7 @@ const Competition = (props: any) => {
           id: comp.id,
           eventId: eventId,
           name: comp.name,
+          type: comp.type,
           description: comp.description,
           rules: comp.rules,
         };

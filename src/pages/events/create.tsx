@@ -8,6 +8,7 @@ import { routeEventSubs, routeLogin } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
+import { EditorMode } from '@/types/enums/editor-mode';
 
 const EventCreation = (props: any) => {
   const session = props.session;
@@ -74,8 +75,9 @@ const EventCreation = (props: any) => {
 
   return (
     <div className={'flex columns-1 flex-col items-center'}>
-      <h1 className="m-2 text-xl">Create Event</h1>
+      <h1 className="m-2 text-xl">{`Create Event`}</h1>
       <EventEditor
+        editorMode={EditorMode.CREATE}
         onEventUpdate={(event: Event) => {
           setEvent(event);
         }}
