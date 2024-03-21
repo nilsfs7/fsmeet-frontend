@@ -111,7 +111,6 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                   value={slotsPerMatch}
                   disabled={advancingTotal === 1}
                   onChange={e => {
-                    console.log(+e.currentTarget.value);
                     setSlotsPerMatch(+e.currentTarget.value);
                   }}
                 />

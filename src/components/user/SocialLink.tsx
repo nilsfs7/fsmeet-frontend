@@ -6,9 +6,10 @@ import { routeUsers } from '@/types/consts/routes';
 interface ISocialLink {
   platform: Platform;
   path: string;
+  showPath?: boolean;
 }
 
-const SocialLink = ({ platform, path }: ISocialLink) => {
+const SocialLink = ({ platform, path, showPath = true }: ISocialLink) => {
   let icon = (
     <div className="flex h-8 w-10 items-center justify-center text-center">
       <LogoFSM />
@@ -43,7 +44,7 @@ const SocialLink = ({ platform, path }: ISocialLink) => {
     <a target="_blank" rel="noopener noreferrer" href={url}>
       <div className="flex items-center gap-1 hover:underline">
         {icon}
-        {path}
+        {showPath && <>{path}</>}
       </div>
     </a>
   );
