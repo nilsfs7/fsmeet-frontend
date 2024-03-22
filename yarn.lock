@@ -1817,11 +1817,6 @@ countries-list@^3.0.6:
   resolved "https://registry.npmjs.org/countries-list/-/countries-list-3.0.6.tgz"
   integrity sha512-BCJODHTSRMIxS0W80NZw8bC7x6/WS8Tf4FdtFrEbW0FONBbqTAzOrKNG06UEMgLGxOZpOJddiVEdCztKLpmPxA==
 
-country-flag-icons@^1.5.10:
-  version "1.5.10"
-  resolved "https://registry.yarnpkg.com/country-flag-icons/-/country-flag-icons-1.5.10.tgz#f03a2c7cc42d6049983ba3e1c52554f87ec94faa"
-  integrity sha512-x3elaK+ZY23W1YtFsNQknRdURzkV7g3Z93AoA7SHZJUEXbVjRsNh4h9Uf09+OjWF/4u8tXeAt37gezGRdwR/2g==
-
 cross-spawn@^7.0.0, cross-spawn@^7.0.2:
   version "7.0.3"
   resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz"
@@ -3828,6 +3823,11 @@ rc-virtual-list@^3.11.1, rc-virtual-list@^3.5.1, rc-virtual-list@^3.5.2:
     classnames "^2.2.6"
     rc-resize-observer "^1.0.0"
     rc-util "^5.36.0"
+
+react-country-flag@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-country-flag/-/react-country-flag-3.1.0.tgz#f0c4c332934a77d3e894ba4800634f7a887e53d4"
+  integrity sha512-JWQFw1efdv9sTC+TGQvTKXQg1NKbDU2mBiAiRWcKM9F1sK+/zjhP2yGmm8YDddWyZdXVkR8Md47rPMJmo4YO5g==
 
 react-currency-input-field@^3.6.14:
   version "3.7.0"

@@ -35,7 +35,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import getUnicodeFlagIcon from 'country-flag-icons/unicode';
+import ReactCountryFlag from 'react-country-flag';
 
 export type User = {
   username: string;
@@ -125,7 +125,18 @@ export const columns: ColumnDef<ColumnInfo>[] = [
     },
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <div>{(row.getValue('country') as string).toUpperCase()}</div> {(row.getValue('country') as string) && <div className="text-3xl">{getUnicodeFlagIcon(row.getValue('country'))}</div>}
+        <div>{(row.getValue('country') as string).toUpperCase()}</div>
+        {(row.getValue('country') as string) && (
+          <ReactCountryFlag
+            countryCode={row.getValue('country')}
+            svg
+            style={{
+              width: '2em',
+              height: '2em',
+            }}
+            title={row.getValue('country')}
+          />
+        )}
       </div>
     ),
   },
