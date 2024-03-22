@@ -11,8 +11,10 @@ export async function getUsers(): Promise<User[]> {
 
   data.map(d => {
     const user: User = d;
-    // user.tShirtSize = user.private?.tShirtSize
+
+    user.tShirtSize = d.private?.tShirtSize;
     user.city = d.private?.city;
+    user.exposeLocation = d.private?.exposeLocation;
     user.locLatitude = d.private?.locLatitude;
     user.locLongitude = d.private?.locLongitude;
 
