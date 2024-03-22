@@ -2,6 +2,7 @@ import { Platform } from '@/types/enums/platform';
 import { LogoFSM } from '../Logo';
 import { imgInstagramLogo, imgTikTokLogo, imgWebsiteLogo, imgYouTubeLogo } from '@/types/consts/images';
 import { routeUsers } from '@/types/consts/routes';
+import Link from 'next/link';
 
 interface ISocialLink {
   platform: Platform;
@@ -10,26 +11,27 @@ interface ISocialLink {
 }
 
 const SocialLink = ({ platform, path, showPath = true }: ISocialLink) => {
-  let icon = (
-    <div className="flex h-8 w-10 items-center justify-center text-center">
-      <LogoFSM />
-    </div>
-  );
-  let url = `${routeUsers}/${path}`;
+  let icon = <></>;
+  let url = ``;
 
   switch (platform) {
+    case Platform.FSMEET:
+      icon = <LogoFSM />;
+      url = `${routeUsers}/${path}`;
+      break;
+
     case Platform.INSTAGRAM:
-      icon = <img className="h-8" src={imgInstagramLogo} alt="instagram icon" />;
+      icon = <img src={imgInstagramLogo} alt="instagram icon" />;
       url = `https://www.instagram.com/${path.replace('@', '')}`;
       break;
 
     case Platform.TIKTOK:
-      icon = <img className="h-8" src={imgTikTokLogo} alt="tiktok icon" />;
+      icon = <img src={imgTikTokLogo} alt="tiktok icon" />;
       url = `https://www.tiktok.com/${path}`;
       break;
 
     case Platform.YOUTUBE:
-      icon = <img className="h-8" src={imgYouTubeLogo} alt="youtube icon" />;
+      icon = <img src={imgYouTubeLogo} alt="youtube icon" />;
       url = `https://www.youtube.com/${path}`;
       break;
 
@@ -41,12 +43,27 @@ const SocialLink = ({ platform, path, showPath = true }: ISocialLink) => {
   }
 
   return (
-    <a target="_blank" rel="noopener noreferrer" href={url}>
-      <div className="flex items-center gap-1 hover:underline">
-        {icon}
-        {showPath && <>{path}</>}
-      </div>
-    </a>
+    <>
+      {platform === Platform.FSMEET && (
+        <Link href={url}>
+          <div className="flex items-center gap-1">
+            <div className="flex w-10 items-center justify-center text-center">{icon}</div>
+
+            {showPath && <div className="hover:underline">{path}</div>}
+          </div>
+        </Link>
+      )}
+
+      {platform !== Platform.FSMEET && (
+        <a target="_blank" rel="noopener noreferrer" href={url}>
+          <div className="flex items-center gap-1">
+            <div className="flex w-8 items-center justify-center text-center">{icon}</div>
+
+            {showPath && <div className="hover:underline">{path}</div>}
+          </div>
+        </a>
+      )}
+    </>
   );
 };
 
