@@ -5,8 +5,8 @@ import SocialLink from '@/components/user/SocialLink';
 import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
 import { getUser } from '@/services/fsmeet-backend/get-user';
 import { getUsers } from '@/services/fsmeet-backend/get-users';
-import { imgUserDefaultImg, imgVerifiedCheckmark } from '@/types/consts/images';
-import { routeAccount, routeHome, routeUsers } from '@/types/consts/routes';
+import { imgUserDefaultImg, imgWorld } from '@/types/consts/images';
+import { routeHome, routeMap, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
 import { TotalMatchPerfromance } from '@/types/total-match-performance';
@@ -47,6 +47,11 @@ export type Name = {
   lastName: string;
 };
 
+export type Location = {
+  city: string;
+  mapLink: string;
+};
+
 export type Socials = {
   fsm: string;
   insta: string;
@@ -57,8 +62,9 @@ export type Socials = {
 
 export type ColumnInfo = {
   user: User;
-  country: string;
   name: Name;
+  country: string;
+  location: Location;
   socials: Socials;
 };
 
@@ -141,6 +147,29 @@ export const columns: ColumnDef<ColumnInfo>[] = [
     ),
   },
 
+  {
+    accessorKey: 'location',
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Location
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <div className="flex items-center gap-2">
+        {(row.getValue('location') as Location).city && (
+          <Link href={(row.getValue('location') as Location).mapLink}>
+            <button>
+              <img src={imgWorld} className="mx-1 h-8 w-8 rounded-full object-cover" />
+            </button>
+          </Link>
+        )}
+      </div>
+    ),
+  },
+
   // {
   //   accessorKey: 'lastName',
   //   header: ({ column }) => {
@@ -175,21 +204,6 @@ export const columns: ColumnDef<ColumnInfo>[] = [
     ),
   },
 
-  // {
-  //   accessorKey: 'amount',
-  //   header: () => <div className="text-right">Amount</div>,
-  //   cell: ({ row }) => {
-  //     const amount = parseFloat(row.getValue('amount'));
-
-  //     // Format the amount as a dollar amount
-  //     const formatted = new Intl.NumberFormat('en-US', {
-  //       style: 'currency',
-  //       currency: 'USD',
-  //     }).format(amount);
-
-  //     return <div className="text-right font-medium">{formatted}</div>;
-  //   },
-  // },
   // {
   //   id: 'actions',
   //   enableHiding: false,
@@ -486,11 +500,12 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
           username: user.username,
           imageUrl: user.imageUrl || '',
         },
-        country: user.country || '',
         name: {
           firstName: user.firstName || '',
           lastName: user.lastName || '',
         },
+        country: user.country || '',
+        location: user.city && user.exposeLocation ? { city: user.city, mapLink: `${routeMap}?user=${user.username}` } : { city: '', mapLink: '' },
         socials: {
           fsm: user.username,
           insta: user.instagramHandle || '',
@@ -500,8 +515,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         },
       };
     });
-
-    // console.log(userInfos);
 
     return {
       props: {
