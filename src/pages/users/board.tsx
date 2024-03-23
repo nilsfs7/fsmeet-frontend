@@ -41,9 +41,6 @@ import ReactCountryFlag from 'react-country-flag';
 export type User = {
   username: string;
   imageUrl: string;
-};
-
-export type Name = {
   firstName: string;
   lastName: string;
 };
@@ -63,7 +60,6 @@ export type Socials = {
 
 export type ColumnInfo = {
   user: User;
-  name: Name;
   country: string;
   location: Location;
   socials: Socials;
@@ -84,43 +80,48 @@ export const columns: ColumnDef<ColumnInfo>[] = [
   //   enableHiding: false,
   // },
 
+  // {
+  //   accessorKey: 'user',
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+  //         User
+  //         <ArrowUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     );
+  //   },
+  //   cell: ({ row }) => (
+  //     <div className="flex items-center gap-2 lowercase">
+  //       <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>{(row.getValue('user') as User).username}</Link>
+  //     </div>
+  //   ),
+  // },
+
   {
     accessorKey: 'user',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          User
+          {`Name`}
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
     cell: ({ row }) => (
-      <div className="flex items-center gap-2 lowercase">
-        <div className="h-8 w-8">
-          <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>
+      <div className="flex items-center gap-2">
+        <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>
+          <div className="h-8 w-8">
             <img src={(row.getValue('user') as User).imageUrl ? (row.getValue('user') as User).imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
-          </Link>
-        </div>
-
-        <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>{(row.getValue('user') as User).username}</Link>
+          </div>
+        </Link>
+        <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>
+          <div className="capitalize">{`${(row.getValue('user') as User).firstName} ${(row.getValue('user') as User).lastName}`}</div>
+        </Link>
       </div>
     ),
-  },
-
-  {
-    accessorKey: 'name',
-    header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div className="capitalize">{`${(row.getValue('name') as Name).firstName} ${(row.getValue('name') as Name).lastName}`}</div>,
     sortingFn: (rowA: Row<ColumnInfo>, rowB: Row<ColumnInfo>, columnId: string) => {
-      const rowAVal = `${rowA.original.name.firstName} ${rowA.original.name.lastName}`;
-      const rowBVal = `${rowB.original.name.firstName} ${rowB.original.name.lastName}`;
+      const rowAVal = `${rowA.original.user.firstName} ${rowA.original.user.lastName}`;
+      const rowBVal = `${rowB.original.user.firstName} ${rowB.original.user.lastName}`;
 
       if (rowAVal < rowBVal) {
         return -1;
@@ -138,7 +139,7 @@ export const columns: ColumnDef<ColumnInfo>[] = [
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Country
+          {`Country`}
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -164,12 +165,7 @@ export const columns: ColumnDef<ColumnInfo>[] = [
   {
     accessorKey: 'location',
     header: ({ column }) => {
-      return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Location
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <>{`Location`}</>;
     },
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
@@ -182,25 +178,8 @@ export const columns: ColumnDef<ColumnInfo>[] = [
         )}
       </div>
     ),
+    enableSorting: false,
   },
-
-  // {
-  //   accessorKey: 'lastName',
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() => {
-  //           column.toggleSorting(column.getIsSorted() === 'asc');
-  //         }}
-  //       >
-  //         Last Name
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     );
-  //   },
-  //   cell: ({ row }) => <div className="capitalize">{row.getValue('lastName')}</div>,
-  // },
 
   {
     accessorKey: 'socials',
@@ -216,6 +195,7 @@ export const columns: ColumnDef<ColumnInfo>[] = [
         {(row.getValue('socials') as Socials).website && <SocialLink platform={Platform.WEBSITE} path={(row.getValue('socials') as Socials).website} showPath={false} />}
       </div>
     ),
+    enableSorting: false,
   },
 
   // {
@@ -513,8 +493,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
         user: {
           username: user.username,
           imageUrl: user.imageUrl || '',
-        },
-        name: {
           firstName: user.firstName || '',
           lastName: user.lastName || '',
         },
