@@ -8,7 +8,7 @@ import { imgUserDefaultImg, imgVerifiedCheckmark } from '@/types/consts/images';
 import { routeAccount, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
-import { TotalMatchPerfromance } from '@/types/total-match-performance';
+import { TotalMatchPerformance } from '@/types/total-match-performance';
 import { User } from '@/types/user';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
@@ -18,7 +18,7 @@ import { useRouter } from 'next/router';
 const PublicUserProfile = (props: any) => {
   const session = props.session;
   const user: User = props.user;
-  const matchStats: TotalMatchPerfromance = props.matchStats;
+  const matchStats: TotalMatchPerformance = props.matchStats;
 
   const router = useRouter();
 
