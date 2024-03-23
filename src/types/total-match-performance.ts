@@ -1,4 +1,4 @@
-export type TotalMatchPerfromance = {
+export type TotalMatchPerformance = {
   username: string;
   matches: number;
   wins: number;

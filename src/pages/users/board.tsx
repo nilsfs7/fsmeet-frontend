@@ -9,7 +9,7 @@ import { imgUserDefaultImg, imgWorld } from '@/types/consts/images';
 import { routeHome, routeMap, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
-import { TotalMatchPerfromance } from '@/types/total-match-performance';
+import { TotalMatchPerformance } from '@/types/total-match-performance';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import {
   ColumnDef,
   ColumnFiltersState,
+  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -117,6 +118,19 @@ export const columns: ColumnDef<ColumnInfo>[] = [
       );
     },
     cell: ({ row }) => <div className="capitalize">{`${(row.getValue('name') as Name).firstName} ${(row.getValue('name') as Name).lastName}`}</div>,
+    sortingFn: (rowA: Row<ColumnInfo>, rowB: Row<ColumnInfo>, columnId: string) => {
+      const rowAVal = `${rowA.original.name.firstName} ${rowA.original.name.lastName}`;
+      const rowBVal = `${rowB.original.name.firstName} ${rowB.original.name.lastName}`;
+
+      if (rowAVal < rowBVal) {
+        return -1;
+      }
+      if (rowAVal > rowBVal) {
+        return 1;
+      }
+
+      return 0;
+    },
   },
 
   {
@@ -234,7 +248,7 @@ export const columns: ColumnDef<ColumnInfo>[] = [
 const UsersList = (props: any) => {
   const session = props.session;
   const columnInfos: ColumnInfo[] = props.columnInfos;
-  const matchStats: TotalMatchPerfromance = props.matchStats;
+  const matchStats: TotalMatchPerformance = props.matchStats;
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
