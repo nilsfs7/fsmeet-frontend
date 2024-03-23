@@ -11,10 +11,17 @@ import { User } from '@/types/user';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) => {
   const users: User[] = data;
   const user: User = actingUser;
+
+  const searchParams = useSearchParams();
+  const paramUser = searchParams.get('user');
+  const paramLat = searchParams.get('lat');
+  const paramLng = searchParams.get('lng');
 
   const unsecuredCopyToClipboard = (text: string) => {
     const textArea = document.createElement('textarea');
@@ -48,7 +55,8 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
       </div>
 
       <div className="h-full">
-        <MapOfFreestylers address={'Europe'} zoom={4} users={users} />
+        {paramLat && paramLng && <MapOfFreestylers lat={+paramLat} lng={+paramLng} zoom={7} users={users} selectedUsers={[paramUser ? paramUser : '']} />}
+        {(!paramLat || !paramLng) && <MapOfFreestylers zoom={4} users={users} />}
       </div>
 
       <Navigation>
