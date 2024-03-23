@@ -505,7 +505,10 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
           lastName: user.lastName || '',
         },
         country: user.country || '',
-        location: user.city && user.exposeLocation ? { city: user.city, mapLink: `${routeMap}?user=${user.username}` } : { city: '', mapLink: '' },
+        location:
+          user.city && user.exposeLocation && user.locLatitude && user.locLongitude
+            ? { city: user.city, mapLink: `${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}` }
+            : { city: '', mapLink: '' },
         socials: {
           fsm: user.username,
           insta: user.instagramHandle || '',
