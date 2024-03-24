@@ -1,5 +1,8 @@
+import { UserType } from './enums/user-type';
+
 export type User = {
   username: string;
+  type?: UserType;
   imageUrl?: string;
   firstName?: string;
   lastName?: string;

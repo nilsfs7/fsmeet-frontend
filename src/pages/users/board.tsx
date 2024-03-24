@@ -37,6 +37,7 @@ import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import ReactCountryFlag from 'react-country-flag';
+import { UserType } from '@/types/enums/user-type';
 
 export type User = {
   username: string;
@@ -197,32 +198,6 @@ export const columns: ColumnDef<ColumnInfo>[] = [
     ),
     enableSorting: false,
   },
-
-  // {
-  //   id: 'actions',
-  //   enableHiding: false,
-  //   cell: ({ row }) => {
-  //     const payment = row.original;
-
-  //     return (
-  //       <DropdownMenu>
-  //         <DropdownMenuTrigger asChild>
-  //           <Button variant="ghost" className="h-8 w-8 p-0">
-  //             <span className="sr-only">Open menu</span>
-  //             <MoreHorizontal className="h-4 w-4" />
-  //           </Button>
-  //         </DropdownMenuTrigger>
-  //         <DropdownMenuContent align="end">
-  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-  //           <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>Copy payment ID</DropdownMenuItem>
-  //           <DropdownMenuSeparator />
-  //           <DropdownMenuItem>View customer</DropdownMenuItem>
-  //           <DropdownMenuItem>View payment details</DropdownMenuItem>
-  //         </DropdownMenuContent>
-  //       </DropdownMenu>
-  //     );
-  //   },
-  // },
 ];
 
 const UsersList = (props: any) => {
@@ -261,98 +236,22 @@ const UsersList = (props: any) => {
     <div className="absolute inset-0 flex flex-col">
       <div className={`m-2 flex flex-col overflow-hidden`}>
         <div className={'flex flex-col items-center'}>
-          <h1 className="mt-2 text-xl">Community Board</h1>
+          <h1 className="mt-2 text-xl">{`Community Board`}</h1>
         </div>
 
         <div className={'my-2 flex justify-center overflow-y-auto p-2'}>
-          {/* <div className="flex flex-col items-center justify-center">
-          <div className="m-2 text-3xl">{user.username}</div>
-
-          <div>
-            <div className="flex h-96 w-64">
-              <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
-            </div>
-
-            <div className="mx-2 mt-6 ">
-              <div className="h-8 flex items-center text-lg">
-                {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
-                {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
-                {user.isVerifiedAccount && <img className="h-8 p-1 hover:p-0" src={imgVerifiedCheckmark} alt="user verified checkmark" />}
-              </div>
-
-              <Accordion type="single" collapsible>
-                {(user.instagramHandle || user.tikTokHandle || user.youTubeHandle || user.website) && (
-                  <AccordionItem value="item-socials">
-                    <AccordionTrigger>{`Socials`}</AccordionTrigger>
-                    <AccordionContent>
-                      <div className="">
-                        {user.instagramHandle && (
-                          <div className="mt-1 w-fit">
-                            <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
-                          </div>
-                        )}
-
-                        {user.tikTokHandle && (
-                          <div className="mt-1 w-fit">
-                            <SocialLink platform={Platform.TIKTOK} path={user.tikTokHandle} />
-                          </div>
-                        )}
-
-                        {user.youTubeHandle && (
-                          <div className="mt-1 w-fit">
-                            <SocialLink platform={Platform.YOUTUBE} path={user.youTubeHandle} />
-                          </div>
-                        )}
-
-                        {user.website && (
-                          <div className="mt-1 w-fit">
-                            <SocialLink platform={Platform.WEBSITE} path={user.website} />
-                          </div>
-                        )}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-
-                <AccordionItem value="item-matches">
-                  <AccordionTrigger>{`Battle Statistics`}</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="grid grid-cols-2">
-                      <div>{`Matches`}</div>
-                      <div>{matchStats.matches}</div>
-
-                      {matchStats.matches > 0 && (
-                        <>
-                          <div>{`Wins`}</div>
-                          <div>{`${matchStats.wins} `}</div>
-
-                          <div>{`Win ratio`}</div>
-                          <div>{`${(matchStats.ratio * 100).toFixed(2)}%`}</div>
-                        </>
-                      )}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-          </div>
-        </div> */}
-
-          {/* {users.map((user, index) => {
-          return <div key={`${user}-${index}`}> {user.username}</div>;
-        })} */}
-
           <div className="w-full">
             <div className="flex items-center py-4">
               {/* <Input
                 placeholder="Filter by name..."
-                value={(table.getColumn('country')?.getFilterValue() as string) ?? ''}
+                value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
                 onChange={(event: any) => {
                   console.log(event.target.value);
-                  table.getColumn('country')?.setFilterValue(event.target.value);
+                  table.getColumn('user')?.setFilterValue(event.target.value);
                 }}
                 className="max-w-xs"
               /> */}
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="ml-auto">
@@ -488,34 +387,35 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
     // const matchStats = await getTotalMatchPerformance(username.toString());
 
-    const columnInfos: ColumnInfo[] = users.map((user, index) => {
-      return {
-        user: {
-          username: user.username,
-          imageUrl: user.imageUrl || '',
-          firstName: user.firstName || '',
-          lastName: user.lastName || '',
-        },
-        country: user.country || '',
-        location:
-          user.city && user.exposeLocation && user.locLatitude && user.locLongitude
-            ? { city: user.city, mapLink: `${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}` }
-            : { city: '', mapLink: '' },
-        socials: {
-          fsm: user.username,
-          insta: user.instagramHandle || '',
-          tikTok: user.tikTokHandle || '',
-          youTube: user.youTubeHandle || '',
-          website: user.website || '',
-        },
-      };
+    const columnInfos: ColumnInfo[] = [];
+    users.forEach((user, index) => {
+      if (user.type !== UserType.TECHNICAL) {
+        columnInfos.push({
+          user: {
+            username: user.username,
+            imageUrl: user.imageUrl || '',
+            firstName: user.firstName || '',
+            lastName: user.lastName || '',
+          },
+          country: user.country || '',
+          location:
+            user.city && user.exposeLocation && user.locLatitude && user.locLongitude
+              ? { city: user.city, mapLink: `${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}` }
+              : { city: '', mapLink: '' },
+          socials: {
+            fsm: user.username,
+            insta: user.instagramHandle || '',
+            tikTok: user.tikTokHandle || '',
+            youTube: user.youTubeHandle || '',
+            website: user.website || '',
+          },
+        });
+      }
     });
 
     return {
       props: {
-        // users: users,
         columnInfos: columnInfos,
-        // matchStats: matchStats,
         session: session,
       },
     };
