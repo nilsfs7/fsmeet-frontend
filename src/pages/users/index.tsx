@@ -257,7 +257,7 @@ const UsersList = (props: any) => {
                   console.log('filter value:', table.getColumn('user')?.getFilterValue());
                   table.getColumn('user')?.setFilterValue(event.target.value);
                 }}
-                className="max-w-xs"
+                className="max-w-48"
               />
 
               <DropdownMenu>
