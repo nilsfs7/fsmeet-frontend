@@ -38,6 +38,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import ReactCountryFlag from 'react-country-flag';
 import { UserType } from '@/types/enums/user-type';
+import { LogoFSMeet } from '@/components/Logo';
 
 export type User = {
   username: string;
@@ -241,9 +242,16 @@ const UsersList = (props: any) => {
 
   return (
     <div className="absolute inset-0 flex flex-col">
+      {/* Header */}
+      <div className="bg-secondary-light sm:block">
+        <div className="mx-2 flex h-20 items-center justify-between">
+          <LogoFSMeet />
+        </div>
+      </div>
+
       <div className={`m-2 flex flex-col overflow-hidden`}>
         <div className={'flex flex-col items-center'}>
-          <h1 className="mt-2 text-xl">{`Community Board`}</h1>
+          <h1 className="mt-2 text-xl">{`Community`}</h1>
         </div>
 
         <div className={'my-2 flex justify-center overflow-y-auto p-2'}>
@@ -257,7 +265,7 @@ const UsersList = (props: any) => {
                   console.log('filter value:', table.getColumn('user')?.getFilterValue());
                   table.getColumn('user')?.setFilterValue(event.target.value);
                 }}
-                className="max-w-xs"
+                className="max-w-48"
               />
 
               <DropdownMenu>

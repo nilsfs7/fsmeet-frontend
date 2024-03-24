@@ -128,6 +128,10 @@ Map
 
 - [World](https://www.iconfinder.com/icons/7030157/navigation_map_gps_ui_basic_location_app_icon)
 
+Community
+
+- [People](https://www.iconfinder.com/icons/4265044/community_conversation_friends_group_people_target_team_icon)
+
 About
 
 - [About](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)
