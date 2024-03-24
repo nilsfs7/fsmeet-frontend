@@ -3,8 +3,8 @@ import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import Profile from '@/components/user/Profile';
-import { imgAbout, imgFreestyler, imgProfileSettings, imgWorld } from '@/types/consts/images';
-import { routeAbout, routeAdminOverview, routeEvents, routeMap } from '@/types/consts/routes';
+import { imgAbout, imgCommunity, imgFreestyler, imgProfileSettings, imgWorld } from '@/types/consts/images';
+import { routeAbout, routeAdminOverview, routeEvents, routeMap, routeUsers } from '@/types/consts/routes';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Event } from '@/types/event';
@@ -132,38 +132,48 @@ const Home = ({ data, session }: { data: any; session: any }) => {
       </div>
 
       <Navigation>
-        <div className="mx-2">
+        <div className="mx-2 flex gap-1">
           <Link href={routeMap}>
             <div className="rounded-lg p-1">
-              <div className="grid grid-flow-col items-center">
-                <img src={imgWorld} className="mx-1 h-8 w-8 rounded-full object-cover" />
-                <div className="mx-1">{`Freestyler Map`}</div>
+              <div className="grid grid-flow-col items-center gap-1">
+                <img src={imgWorld} className="h-8 w-8 rounded-full object-cover" />
+                <div>{`Map`}</div>
+                {/* <div>{`Freestyler Map`}</div> */}
+              </div>
+            </div>
+          </Link>
+
+          <Link href={routeUsers}>
+            <div className="rounded-lg p-1">
+              <div className="grid grid-flow-col items-center gap-1">
+                <img src={imgCommunity} className="h-8 w-8 rounded-full object-cover" />
+                <div>{`Community Board`}</div>
               </div>
             </div>
           </Link>
         </div>
 
         {session?.user?.username === 'admin' && (
-          <Link href={routeAdminOverview}>
-            <div className="rounded-lg p-1">
-              <div className="grid grid-flow-col items-center">
-                <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
-                <div className="mx-1">Admin Overview</div>
+          <div className="mx-2">
+            <Link href={routeAdminOverview}>
+              <div className="rounded-lg p-1">
+                <div className="grid grid-flow-col items-center gap-1">
+                  <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
+                  <div>{`Admin Overview`}</div>
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         )}
 
-        <div className="mx-2">
-          <Link href={routeAbout}>
-            <div className="rounded-lg p-1">
-              <div className="grid grid-flow-col items-center">
-                <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
-                <div className="mx-1">About</div>
-              </div>
+        <Link href={routeAbout}>
+          <div className="rounded-lg p-1">
+            <div className="grid grid-flow-col items-center">
+              <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
+              <div className="mx-1">{`About`}</div>
             </div>
-          </Link>
-        </div>
+          </div>
+        </Link>
       </Navigation>
     </div>
   );
