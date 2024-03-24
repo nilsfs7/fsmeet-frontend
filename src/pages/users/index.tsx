@@ -133,6 +133,13 @@ export const columns: ColumnDef<ColumnInfo>[] = [
 
       return 0;
     },
+    filterFn: (row: Row<ColumnInfo>, columnId: string, filterValue: string): boolean => {
+      const rowVal = `${row.original.user.firstName} ${row.original.user.lastName}`;
+
+      if (rowVal.toLowerCase().includes(filterValue.toLowerCase())) return true;
+
+      return false;
+    },
   },
 
   {
@@ -242,15 +249,16 @@ const UsersList = (props: any) => {
         <div className={'my-2 flex justify-center overflow-y-auto p-2'}>
           <div className="w-full">
             <div className="flex items-center py-4">
-              {/* <Input
-                placeholder="Filter by name..."
+              <Input
+                placeholder="Search name..."
                 value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
                 onChange={(event: any) => {
                   console.log(event.target.value);
+                  console.log('filter value:', table.getColumn('user')?.getFilterValue());
                   table.getColumn('user')?.setFilterValue(event.target.value);
                 }}
                 className="max-w-xs"
-              /> */}
+              />
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
