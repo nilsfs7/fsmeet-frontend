@@ -243,7 +243,7 @@ const UsersList = (props: any) => {
     <div className="absolute inset-0 flex flex-col">
       <div className={`m-2 flex flex-col overflow-hidden`}>
         <div className={'flex flex-col items-center'}>
-          <h1 className="mt-2 text-xl">{`Community Board`}</h1>
+          <h1 className="mt-2 text-xl">{`Community`}</h1>
         </div>
 
         <div className={'my-2 flex justify-center overflow-y-auto p-2'}>

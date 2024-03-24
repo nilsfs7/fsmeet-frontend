@@ -147,7 +147,7 @@ const Home = ({ data, session }: { data: any; session: any }) => {
             <div className="rounded-lg p-1">
               <div className="grid grid-flow-col items-center gap-1">
                 <img src={imgCommunity} className="h-8 w-8 rounded-full object-cover" />
-                <div>{`Community Board`}</div>
+                <div>{`Community`}</div>
               </div>
             </div>
           </Link>

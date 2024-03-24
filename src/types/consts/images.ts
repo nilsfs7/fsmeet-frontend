@@ -29,4 +29,4 @@ export const imgProfileLogout = '/profile/logout.svg';
 export const imgFreestyler = '/map/freestyler.svg';
 export const imgWorld = '/map/world.svg';
 
-export const imgCommunity = '/community-board/community.svg';
+export const imgCommunity = '/community/people.svg';
