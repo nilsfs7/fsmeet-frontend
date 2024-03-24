@@ -46,13 +46,18 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
   };
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
+    <div className="absolute inset-0 flex flex-col">
       {/* Header */}
       <div className="bg-secondary-light sm:block">
         <div className="mx-2 flex h-20 items-center justify-between">
           <LogoFSMeet />
         </div>
       </div>
+
+      {/* <div className={'flex flex-col items-center'}>
+        <h1 className="mt-2 text-xl">{`Freestyler Map`}</h1>
+      </div>
+      <div className="mt-2 h-full"> */}
 
       <div className="h-full">
         {paramLat && paramLng && <MapOfFreestylers lat={+paramLat} lng={+paramLng} zoom={7} users={users} selectedUsers={[paramUser ? paramUser : '']} />}
