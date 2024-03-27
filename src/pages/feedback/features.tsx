@@ -11,6 +11,7 @@ import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
+import { createFeedbackFeature } from '@/services/fsmeet-backend/create-feedback-feature';
 
 const ReportBug = (props: any) => {
   const session = props.session;
@@ -25,20 +26,10 @@ const ReportBug = (props: any) => {
   const handleSubmitClicked = async () => {
     setError('');
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/feedback/features`, {
-      method: 'POST',
-      body: JSON.stringify({ message: message }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
+    try {
+      await createFeedbackFeature(message, session);
       router.push(routeFeedbackThankyou);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       setError(error.message);
       console.error(error.message);
     }
@@ -47,7 +38,7 @@ const ReportBug = (props: any) => {
   return (
     <div className={'absolute inset-0 flex flex-col'}>
       <div className="mx-2 flex flex-col overflow-y-auto">
-        <h1 className="mt-2 text-center text-xl">Feature Request</h1>
+        <h1 className="mt-2 text-center text-xl">{`Feature Request`}</h1>
 
         <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
           <TextInputLarge

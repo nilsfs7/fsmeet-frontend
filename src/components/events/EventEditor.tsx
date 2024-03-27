@@ -176,7 +176,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       <TextInput
         id={'name'}
         label={'Event Name'}
-        placeholder="Superball 2023"
+        placeholder="German Freestyle Football Championship 2023"
         value={name}
         onChange={e => {
           setEventName(e.currentTarget.value);
@@ -185,7 +185,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       <TextInput
         id={'alias'}
         label={'Event Alias'}
-        placeholder="superball2023"
+        placeholder="gffc2023"
         value={alias}
         onChange={e => {
           handleInputChangeAlias(e);
@@ -217,7 +217,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         }}
       />
       <div className="m-2 grid grid-cols-2">
-        <div>Date From</div>
+        <div>{`Date From`}</div>
         <DatePicker
           date={moment(dateFrom)}
           onChange={value => {
@@ -228,7 +228,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         />
       </div>
       <div className="m-2 grid grid-cols-2">
-        <div>Date To</div>
+        <div>{`Date To`}</div>
         <DatePicker
           date={moment(dateTo)}
           onChange={value => {
@@ -239,7 +239,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         />
       </div>
       <div className="m-2 grid grid-cols-2">
-        <div>Registration Open</div>
+        <div>{`Registration Open`}</div>
         <DatePicker
           date={moment(registrationOpen)}
           onChange={value => {
@@ -250,7 +250,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         />
       </div>
       <div className="m-2 grid grid-cols-2">
-        <div>Registration Deadline</div>
+        <div>{`Registration Deadline`}</div>
         <DatePicker
           date={moment(registrationDeadline)}
           onChange={value => {
