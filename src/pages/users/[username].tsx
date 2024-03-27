@@ -8,6 +8,7 @@ import { imgUserDefaultImg, imgVerifiedCheckmark } from '@/types/consts/images';
 import { routeAccount, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
+import { UserType } from '@/types/enums/user-type';
 import { TotalMatchPerformance } from '@/types/total-match-performance';
 import { User } from '@/types/user';
 import { GetServerSidePropsContext } from 'next';
@@ -79,25 +80,27 @@ const PublicUserProfile = (props: any) => {
                   </AccordionItem>
                 )}
 
-                <AccordionItem value="item-matches">
-                  <AccordionTrigger>{`Battle Statistics`}</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="grid grid-cols-2">
-                      <div>{`Matches`}</div>
-                      <div>{matchStats.matches}</div>
+                {user.type === UserType.FREESTYLER && (
+                  <AccordionItem value="item-matches">
+                    <AccordionTrigger>{`Battle Statistics`}</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="grid grid-cols-2">
+                        <div>{`Matches`}</div>
+                        <div>{matchStats.matches}</div>
 
-                      {matchStats.matches > 0 && (
-                        <>
-                          <div>{`Wins`}</div>
-                          <div>{`${matchStats.wins} `}</div>
+                        {matchStats.matches > 0 && (
+                          <>
+                            <div>{`Wins`}</div>
+                            <div>{`${matchStats.wins} `}</div>
 
-                          <div>{`Win ratio`}</div>
-                          <div>{`${(matchStats.ratio * 100).toFixed(2)}%`}</div>
-                        </>
-                      )}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+                            <div>{`Win ratio`}</div>
+                            <div>{`${(matchStats.ratio * 100).toFixed(2)}%`}</div>
+                          </>
+                        )}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
               </Accordion>
             </div>
           </div>
