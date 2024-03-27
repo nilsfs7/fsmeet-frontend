@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { validateSession } from '@/types/funcs/validate-session';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
+import { updateMatchSlots } from '@/services/fsmeet-backend/update-match-slots';
 
 const Seeding = (props: any) => {
   const session = props.session;
@@ -52,25 +53,13 @@ const Seeding = (props: any) => {
 
     setRounds(rnds);
 
-    const body = JSON.stringify({
-      eventId: eventId,
-      slotIndex: slotIndex,
-      name: username,
-      result: result,
-    });
-
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches/${matchId}/slots`, {
-      method: 'PUT',
-      body: body,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      console.info(`match ${matchId} updated.`);
+    if (eventId && compId) {
+      try {
+        await updateMatchSlots(eventId?.toString(), compId?.toString(), matchId, slotIndex, username, result, session);
+      } catch (error: any) {
+        // setError(error.message);
+        console.error(error.message);
+      }
     }
   };
 
