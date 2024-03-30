@@ -4,8 +4,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import SocialLink from '@/components/user/SocialLink';
 import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
 import { getUser } from '@/services/fsmeet-backend/get-user';
-import { imgUserDefaultImg, imgVerifiedCheckmark } from '@/types/consts/images';
-import { routeAccount, routeUsers } from '@/types/consts/routes';
+import { imgUserDefaultImg, imgVerifiedCheckmark, imgWorld } from '@/types/consts/images';
+import { routeAccount, routeMap, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
 import { UserType } from '@/types/enums/user-type';
@@ -15,6 +15,8 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import ReactCountryFlag from 'react-country-flag';
+import { countries } from 'countries-list';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;
@@ -28,6 +30,12 @@ const PublicUserProfile = (props: any) => {
     displayName = `${displayName}`;
   }
 
+  function getCountryNameByCode(code: string): string {
+    // @ts-ignore: next-line
+    const country = countries[code.toUpperCase()];
+    return country ? country.name : null;
+  }
+
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       <div className="overflow-hidden overflow-y-auto h-full">
@@ -39,14 +47,47 @@ const PublicUserProfile = (props: any) => {
               <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
             </div>
 
-            <div className="mx-2 mt-6 ">
+            <div className="mx-2 mt-6">
               <div className="h-8 flex items-center text-lg">
                 {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
                 {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
                 {user.isVerifiedAccount && <img className="h-8 p-1 hover:p-0" src={imgVerifiedCheckmark} alt="user verified checkmark" />}
               </div>
 
-              <Accordion type="single" collapsible>
+              {user.country && user.country != '--' && (
+                <div className="flex items-center gap-2 mt-1">
+                  <div className="flex items-center w-6">
+                    <ReactCountryFlag
+                      className="h-full w-full"
+                      countryCode={user.country}
+                      svg
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                      }}
+                      title={user.country}
+                    />
+                  </div>
+
+                  <div className="">{getCountryNameByCode(user.country)}</div>
+                </div>
+              )}
+
+              {user.city && (
+                <div className="flex items-center gap-2 mt-1">
+                  <button>
+                    <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
+                      <img src={imgWorld} className="w-6 rounded-full object-cover" />
+                    </Link>
+                  </button>
+
+                  <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
+                    {user.city}
+                  </Link>
+                </div>
+              )}
+
+              <Accordion className="mt-1" type="single" collapsible>
                 {(user.instagramHandle || user.tikTokHandle || user.youTubeHandle || user.website) && (
                   <AccordionItem value="item-socials">
                     <AccordionTrigger>{`Socials`}</AccordionTrigger>
