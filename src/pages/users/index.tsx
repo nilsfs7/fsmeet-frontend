@@ -261,7 +261,6 @@ const UsersList = (props: any) => {
                 placeholder="Search name..."
                 value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
                 onChange={(event: any) => {
-                  console.log(event.target.value);
                   console.log('filter value:', table.getColumn('user')?.getFilterValue());
                   table.getColumn('user')?.setFilterValue(event.target.value);
                 }}

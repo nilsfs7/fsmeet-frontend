@@ -11,6 +11,9 @@ import { Action } from '@/types/enums/action';
 import { ButtonStyle } from '@/types/enums/button-style';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
+import { getUser } from '@/services/fsmeet-backend/get-user';
+import { deleteUserImage } from '@/services/fsmeet-backend/delete-user-image';
+import { updateUserImage } from '@/services/fsmeet-backend/update-user-image';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -27,51 +30,35 @@ const AccountImage = ({ session }: any) => {
   };
 
   const handleUploadImageClicked = async () => {
-    const reqBody = new FormData();
-    reqBody.append('file', image);
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/image`, {
-      method: 'PATCH',
-      body: reqBody,
-      headers: {
-        Authorization: `Bearer ${session?.user?.accessToken}`,
-      },
-    });
+    try {
+      const imageUrl = await updateUserImage(image, session);
 
-    if (response.status === 200) {
-      const resBody = await response.json();
-      setImageUrl(resBody.imageUrl);
-      localStorage.setItem('imageUrl', resBody.imageUrl);
-      router.replace('/account');
-    } else {
-      console.error('failed to upload image');
+      setImageUrl(imageUrl);
+      localStorage.setItem('imageUrl', imageUrl);
+      router.replace(routeAccount);
+    } catch (error: any) {
+      console.error(error.message);
     }
   };
 
   const handleDeleteImageClicked = async () => {
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/image`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${session?.user?.accessToken}`,
-      },
-    });
+    try {
+      await deleteUserImage(session);
 
-    if (response.status === 200) {
       setImageUrl('');
       localStorage.removeItem('imageUrl');
-      router.replace('/account');
-    } else {
-      console.error('failed to delete image');
+      router.replace(routeAccount);
+    } catch (error: any) {
+      console.error(error.message);
     }
   };
 
   useEffect(() => {
     async function fetchUser() {
-      // TODO: outsource
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${session?.user?.username}`);
-      const user = await res.json();
-      setImageUrl(user.imageUrl);
+      const user = await getUser(session?.user?.username, session);
+      if (user.imageUrl) {
+        setImageUrl(user.imageUrl);
+      }
     }
     fetchUser();
   }, []);
