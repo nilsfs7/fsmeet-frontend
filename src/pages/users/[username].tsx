@@ -42,48 +42,48 @@ const PublicUserProfile = (props: any) => {
         <div className="flex flex-col items-center justify-center">
           <div className="m-2 text-3xl">{user.username}</div>
 
-          <div>
-            <div className="flex h-96 w-64">
+          <div className="w-64">
+            <div className="flex h-96">
               <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
             </div>
 
             <div className="mx-2 mt-6">
-              <div className="h-8 flex items-center text-lg">
+              <div className="flex items-center text-lg">
                 {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
                 {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
                 {user.isVerifiedAccount && <img className="h-8 p-1 hover:p-0" src={imgVerifiedCheckmark} alt="user verified checkmark" />}
               </div>
 
               {user.country && user.country != '--' && (
-                <div className="flex items-center gap-2 mt-1">
-                  <div className="flex items-center w-6">
+                <div className="flex items-center gap-1 mt-1">
+                  <div className="flex w-6">
                     <ReactCountryFlag
-                      className="h-full w-full"
                       countryCode={user.country}
                       svg
                       style={{
                         width: '100%',
-                        height: '100%',
                       }}
                       title={user.country}
                     />
                   </div>
 
-                  <div className="">{getCountryNameByCode(user.country)}</div>
+                  <div>{getCountryNameByCode(user.country)}</div>
                 </div>
               )}
 
               {user.city && (
-                <div className="flex items-center gap-2 mt-1">
-                  <button>
+                <div className="flex items-start gap-1 mt-1">
+                  <div className="w-6">
                     <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
-                      <img src={imgWorld} className="w-6 rounded-full object-cover" />
+                      <img src={imgWorld} className="rounded-full object-cover" />
                     </Link>
-                  </button>
+                  </div>
 
-                  <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
-                    {user.city}
-                  </Link>
+                  <div className="w-fit">
+                    <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
+                      {user.city}
+                    </Link>
+                  </div>
                 </div>
               )}
 
