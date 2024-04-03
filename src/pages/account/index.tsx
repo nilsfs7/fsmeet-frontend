@@ -27,6 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab } from '@/types/funcs/switch-tab';
 import { useSearchParams } from 'next/navigation';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { Toaster, toast } from 'sonner';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -77,7 +78,7 @@ const Account = ({ session }: any) => {
 
     try {
       await updateUser(user, session);
-      router.push(`${routeHome}`);
+      toast('Profile updated.');
     } catch (error: any) {
       setError(error.message);
       console.error(error.message);
@@ -173,6 +174,8 @@ const Account = ({ session }: any) => {
 
   return (
     <div className="absolute inset-0 flex flex-col">
+      <Toaster />
+
       <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmDeleteAccountClicked}>
         <p>Do you really want to leave us?</p>
       </Dialog>
