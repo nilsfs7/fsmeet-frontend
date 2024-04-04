@@ -18,6 +18,7 @@ import { validateSession } from '@/types/funcs/validate-session';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { updateMatchSlots } from '@/services/fsmeet-backend/update-match-slots';
+import { toast } from 'sonner';
 
 const Seeding = (props: any) => {
   const session = props.session;
@@ -32,7 +33,7 @@ const Seeding = (props: any) => {
 
   const handleSlotUpdated = async (roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => {
     const rnds = Array.from(rounds);
-    const match = rnds[roundIndex].matches.filter(match => {
+    const match = rnds[roundIndex].matches.filter((match) => {
       if (match.id === matchId) {
         return match;
       }
@@ -48,7 +49,12 @@ const Seeding = (props: any) => {
       }
     }
     if (!nameUpdated) {
-      match.matchSlots.push({ id: '', slotIndex: slotIndex, name: username, result: result });
+      match.matchSlots.push({
+        id: '',
+        slotIndex: slotIndex,
+        name: username,
+        result: result,
+      });
     }
 
     setRounds(rnds);
@@ -57,7 +63,7 @@ const Seeding = (props: any) => {
       try {
         await updateMatchSlots(eventId?.toString(), compId?.toString(), matchId, slotIndex, username, result, session);
       } catch (error: any) {
-        // setError(error.message);
+        toast.error(error.message);
         console.error(error.message);
       }
     }
@@ -65,9 +71,9 @@ const Seeding = (props: any) => {
 
   useEffect(() => {
     if (compId) {
-      getCompetitionParticipants(compId?.toString()).then(participants => {
+      getCompetitionParticipants(compId?.toString()).then((participants) => {
         setCompetitionParticipants(participants);
-        getRounds(compId?.toString()).then(rounds => {
+        getRounds(compId?.toString()).then((rounds) => {
           if (rounds.length > 0) {
             setRounds(rounds);
           } else {
