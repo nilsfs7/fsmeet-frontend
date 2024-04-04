@@ -64,7 +64,7 @@ const CompetitionEditing = (props: any) => {
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
-      getEvent(eventId).then((res: Event) => {
+      getEvent(eventId, true, session).then((res: Event) => {
         const comp = res.eventCompetitions.filter((c) => c.id === compId)[0];
 
         const c: EventCompetition = {
