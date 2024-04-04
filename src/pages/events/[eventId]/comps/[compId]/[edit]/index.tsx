@@ -14,6 +14,7 @@ import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { updateCompetition } from '@/services/fsmeet-backend/update-competition';
 import { EditorMode } from '@/types/enums/editor-mode';
+import { deleteCompetition } from '@/services/fsmeet-backend/delete-competition';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -50,35 +51,21 @@ const CompetitionEditing = (props: any) => {
   const handleConfirmDeleteClicked = async () => {
     setError('');
 
-    // TODO: outsource
-    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`;
-    let method: string = 'DELETE';
-
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify({
-        id: `${compId}`,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      console.info(`competition ${compId} removed`);
-      router.push(`${routeEvents}/${eventId}/comps`);
-    } else {
-      const error = await response.json();
-      setError(error.message);
-      console.error(error.message);
+    if (compId) {
+      try {
+        await deleteCompetition(compId?.toString(), session);
+        router.push(`${routeEvents}/${eventId}/comps`);
+      } catch (error: any) {
+        setError(error.message);
+        console.error(error.message);
+      }
     }
   };
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
       getEvent(eventId).then((res: Event) => {
-        const comp = res.eventCompetitions.filter(c => c.id === compId)[0];
+        const comp = res.eventCompetitions.filter((c) => c.id === compId)[0];
 
         const c: EventCompetition = {
           id: comp.id,
