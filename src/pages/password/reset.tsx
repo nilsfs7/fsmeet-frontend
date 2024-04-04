@@ -3,8 +3,9 @@ import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import { useRouter } from 'next/router';
-import { routeLogin } from '@/types/consts/routes';
 import ErrorMessage from '@/components/ErrorMessage';
+import { updateUserPassword } from '@/services/fsmeet-backend/update-rounds';
+import { routeLogin } from '@/types/consts/routes';
 
 const ResetPassword = () => {
   const router = useRouter();
@@ -27,21 +28,14 @@ const ResetPassword = () => {
   const handleSaveClicked = async () => {
     setError('');
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/password/reset`, {
-      method: 'PATCH',
-      body: JSON.stringify({ requestToken: requestToken, password: password }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.status == 200) {
-      router.replace(routeLogin);
-    } else {
-      const error = await response.json();
-      setError(error.message);
-      console.error(error.message);
+    if (requestToken) {
+      try {
+        await updateUserPassword(requestToken?.toString(), password);
+        router.replace(routeLogin);
+      } catch (error: any) {
+        setError(error.message);
+        console.error(error.message);
+      }
     }
   };
 
@@ -54,7 +48,7 @@ const ResetPassword = () => {
             type={'password'}
             label={'New password'}
             placeholder="Ball&Chill2021"
-            onChange={e => {
+            onChange={(e) => {
               handleInputChangePassword(e);
             }}
             onKeyDown={handleInputKeypressPassword}
