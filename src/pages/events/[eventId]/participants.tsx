@@ -14,6 +14,9 @@ import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { deleteEventRegistration } from '@/services/fsmeet-backend/delete-event-registration';
+import { Toaster, toast } from 'sonner';
+import { updateEventRegistrationStatus } from '@/services/fsmeet-backend/update-event-registration-status';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -39,24 +42,15 @@ const EventParticipants = (props: any) => {
       return;
     }
 
-    // TODO: outsource
-    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
-    let method: string = 'DELETE';
-
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify({
-        username: `${username}`,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      console.info(`${username} removed`);
-      router.reload();
+    if (eventId) {
+      try {
+        await deleteEventRegistration(eventId?.toString(), username, session);
+        toast.success(`${username} removed`);
+        router.reload(); // TODO: remove reload, but also remove user from ui
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
     }
   };
 
@@ -66,25 +60,15 @@ const EventParticipants = (props: any) => {
       return;
     }
 
-    // TODO: outsource
-    let url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations/status`;
-    let method: string = 'PATCH';
-
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify({
-        username: `${username}`,
-        status: status,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      console.info(`Status for ${username} updated`);
-      router.reload();
+    if (eventId) {
+      try {
+        await updateEventRegistrationStatus(eventId?.toString(), username, status, session);
+        toast.success(`Status for ${username} updated`);
+        router.reload(); // TODO: remove reload, but also user status in ui
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
     }
   };
 
@@ -102,6 +86,8 @@ const EventParticipants = (props: any) => {
 
   return (
     <>
+      <Toaster richColors />
+
       <Dialog
         title="Remove Participant"
         queryParam="delete"
