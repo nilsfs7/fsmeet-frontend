@@ -18,7 +18,7 @@ import { validateSession } from '@/types/funcs/validate-session';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { updateMatchSlots } from '@/services/fsmeet-backend/update-match-slots';
-import { toast } from 'sonner';
+import { Toaster, toast } from 'sonner';
 
 const Seeding = (props: any) => {
   const session = props.session;
@@ -85,30 +85,34 @@ const Seeding = (props: any) => {
   }, []);
 
   return (
-    <div className="absolute inset-0 flex flex-col">
-      <div className={`m-2 flex flex-col overflow-hidden`}>
-        <div className={'flex flex-col items-center'}>
-          <h1 className="mt-2 text-xl">Seeding & Results</h1>
+    <>
+      <Toaster richColors />
+
+      <div className="absolute inset-0 flex flex-col">
+        <div className={`m-2 flex flex-col overflow-hidden`}>
+          <div className={'flex flex-col items-center'}>
+            <h1 className="mt-2 text-xl">{`Seeding & Results`}</h1>
+          </div>
+
+          <div className={'my-2 flex justify-center overflow-y-auto'}>
+            <BattleGrid
+              rounds={rounds}
+              seedingEnabled={true}
+              seedingList={competitionParticipants}
+              onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => {
+                handleSlotUpdated(roundIndex, matchId, slotIndex, username, result);
+              }}
+            />
+          </div>
         </div>
 
-        <div className={'my-2 flex justify-center overflow-y-auto'}>
-          <BattleGrid
-            rounds={rounds}
-            seedingEnabled={true}
-            seedingList={competitionParticipants}
-            onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => {
-              handleSlotUpdated(roundIndex, matchId, slotIndex, username, result);
-            }}
-          />
-        </div>
+        <Navigation>
+          <Link href={`${routeEvents}/${eventId}/comps`}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+        </Navigation>
       </div>
-
-      <Navigation>
-        <Link href={`${routeEvents}/${eventId}/comps`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-      </Navigation>
-    </div>
+    </>
   );
 };
 
