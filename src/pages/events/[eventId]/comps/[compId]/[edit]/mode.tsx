@@ -214,7 +214,7 @@ const ModeEditing = (props: any) => {
   const handleConfirmDeleteRoundClicked = async (roundIndex: number) => {
     const rnds = Array.from(rounds);
     rnds.splice(roundIndex, 1);
-    rnds.map(rnd => {
+    rnds.map((rnd) => {
       if (rnd.roundIndex > roundIndex) {
         rnd.roundIndex -= 1;
       }
@@ -246,7 +246,7 @@ const ModeEditing = (props: any) => {
   const handleConfirmDeleteMatchClicked = async (roundIndex: number, matchIndex: number) => {
     const rnds = Array.from(rounds);
     rnds[roundIndex].matches.splice(matchIndex, 1);
-    rnds[roundIndex].matches.map(mtch => {
+    rnds[roundIndex].matches.map((mtch) => {
       if (mtch.matchIndex > matchIndex) {
         mtch.matchIndex -= 1;
       }
