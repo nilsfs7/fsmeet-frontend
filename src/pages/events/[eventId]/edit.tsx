@@ -7,11 +7,15 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
-import ErrorMessage from '@/components/ErrorMessage';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { EditorMode } from '@/types/enums/editor-mode';
+import Navigation from '@/components/Navigation';
+import TextButton from '@/components/common/TextButton';
+import { editEvent } from '@/services/fsmeet-backend/edit-event';
+import { Toaster, toast } from 'sonner';
+import { deleteEvent } from '@/services/fsmeet-backend/delete-event';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -20,62 +24,15 @@ const EventEditing = (props: any) => {
   const { eventId } = router.query;
 
   const [event, setEvent] = useState<Event>();
-  const [error, setError] = useState('');
 
   const handleSaveClicked = async () => {
-    setError('');
-
-    const body = JSON.stringify({
-      id: eventId,
-      name: event?.name.trim(),
-      alias: event?.alias,
-      description: event?.description.trim(),
-      dateFrom: event?.dateFrom,
-      dateTo: event?.dateTo,
-      registrationOpen: event?.registrationOpen,
-      registrationDeadline: event?.registrationDeadline,
-      venueHouseNo: event?.venueHouseNo.trim(),
-      venueStreet: event?.venueStreet.trim(),
-      venuePostCode: event?.venuePostCode.trim(),
-      venueCity: event?.venueCity.trim(),
-      venueCountry: event?.venueCountry.trim(),
-      participationFee: event?.participationFee,
-      type: event?.type,
-      livestreamUrl: event?.livestreamUrl,
-      paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
-      paymentMethodPayPal: {
-        enabled: event?.paymentMethodPayPal.enabled,
-        payPalHandle: event?.paymentMethodPayPal.payPalHandle,
-      },
-      paymentMethodSepa: {
-        enabled: event?.paymentMethodSepa.enabled,
-        bank: event?.paymentMethodSepa.bank,
-        recipient: event?.paymentMethodSepa.recipient,
-        iban: event?.paymentMethodSepa.iban,
-        reference: event?.paymentMethodSepa.reference,
-      },
-      autoApproveRegistrations: event?.autoApproveRegistrations,
-      notifyOnRegistration: event?.notifyOnRegistration,
-      allowComments: event?.allowComments,
-      notifyOnComment: event?.notifyOnComment,
-      state: event?.state,
-    });
-
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
-      method: 'PATCH',
-      body: body,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      router.replace(`${routeEvents}/${eventId}?auth=1`);
-    } else {
-      const error = await response.json();
-      setError(error.message);
+    try {
+      if (event) {
+        await editEvent(event, session);
+        router.replace(`${routeEvents}/${eventId}?auth=1`);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
       console.error(error.message);
     }
   };
@@ -85,20 +42,14 @@ const EventEditing = (props: any) => {
   };
 
   const handleConfirmDeleteClicked = async () => {
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
-      method: 'DELETE',
-      body: JSON.stringify({
-        id: eventId,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
-      router.push(routeEventSubs);
+    if (eventId) {
+      try {
+        await deleteEvent(eventId.toString(), session);
+        router.push(routeEventSubs);
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
     }
   };
 
@@ -116,33 +67,48 @@ const EventEditing = (props: any) => {
 
   return (
     <>
+      <Toaster richColors />
+
       <Dialog title="Delete Event" queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
         <p>Do you really want to delete this event?</p>
       </Dialog>
 
-      <div className={'flex columns-1 flex-col items-center'}>
-        <h1 className="m-2 text-xl">{`Edit Event`}</h1>
-        <EventEditor
-          editorMode={EditorMode.EDIT}
-          event={event}
-          onEventUpdate={(event: Event) => {
-            setEvent(event);
-          }}
-        />
-
-        <ErrorMessage message={error} />
-
-        <div className="my-2 flex">
-          <div className="px-1">
-            <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+      <div className="absolute inset-0 flex flex-col">
+        <div className={`m-2 flex flex-col overflow-hidden`}>
+          <div className={'flex flex-col items-center'}>
+            <h1 className="mt-2 text-xl">{`Edit Event`}</h1>
           </div>
-          <div className="px-1">
-            <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-          </div>
-          <div className="px-1">
-            <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
+
+          <div className={'my-2 flex justify-center overflow-y-auto'}>
+            <div>
+              <EventEditor
+                editorMode={EditorMode.EDIT}
+                event={event}
+                onEventUpdate={(event: Event) => {
+                  setEvent(event);
+                }}
+              />
+            </div>
           </div>
         </div>
+
+        <Navigation>
+          <div className="flex justify-start">
+            <div className="mr-1">
+              <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+            </div>
+          </div>
+
+          <div className="flex justify-end">
+            <div className="ml-1">
+              <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
+            </div>
+
+            <div className="ml-1">
+              <TextButton text={`Save`} onClick={handleSaveClicked} />
+            </div>
+          </div>
+        </Navigation>
       </div>
     </>
   );

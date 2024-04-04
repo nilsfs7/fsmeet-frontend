@@ -5,95 +5,65 @@ import router from 'next/router';
 import { useState } from 'react';
 import { Event } from '@/types/event';
 import { routeEventSubs, routeLogin } from '@/types/consts/routes';
-import ErrorMessage from '@/components/ErrorMessage';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { EditorMode } from '@/types/enums/editor-mode';
+import Navigation from '@/components/Navigation';
+import ActionButton from '@/components/common/ActionButton';
+import { Action } from '@/types/enums/action';
+import { Toaster, toast } from 'sonner';
+import { createEvent } from '@/services/fsmeet-backend/create-event';
 
 const EventCreation = (props: any) => {
   const session = props.session;
 
   const [event, setEvent] = useState<Event>();
-  const [error, setError] = useState('');
 
   const handleCreateClicked = async () => {
-    setError('');
-
-    const body = JSON.stringify({
-      name: event?.name.trim(),
-      alias: event?.alias,
-      description: event?.description.trim(),
-      dateFrom: event?.dateFrom,
-      dateTo: event?.dateTo,
-      registrationOpen: event?.registrationOpen,
-      registrationDeadline: event?.registrationDeadline,
-      venueHouseNo: event?.venueHouseNo.trim(),
-      venueStreet: event?.venueStreet.trim(),
-      venueCity: event?.venueCity.trim(),
-      venuePostCode: event?.venuePostCode.trim(),
-      venueCountry: event?.venueCountry.trim(),
-      participationFee: event?.participationFee,
-      type: event?.type,
-      livestreamUrl: event?.livestreamUrl,
-      paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
-      paymentMethodPayPal: {
-        enabled: event?.paymentMethodPayPal.enabled,
-        payPalHandle: event?.paymentMethodPayPal.payPalHandle,
-      },
-      paymentMethodSepa: {
-        enabled: event?.paymentMethodSepa.enabled,
-        bank: event?.paymentMethodSepa.bank,
-        recipient: event?.paymentMethodSepa.recipient,
-        iban: event?.paymentMethodSepa.iban,
-        reference: event?.paymentMethodSepa.reference,
-      },
-      autoApproveRegistrations: event?.autoApproveRegistrations,
-      notifyOnRegistration: event?.notifyOnRegistration,
-      allowComments: event?.allowComments,
-      notifyOnComment: event?.notifyOnComment,
-      state: event?.state,
-    });
-
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`, {
-      method: 'POST',
-      body: body,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
-      router.replace(routeEventSubs);
-    } else {
-      const error = await response.json();
-      setError(error.message);
-      console.error(error.message);
+    if (event) {
+      try {
+        await createEvent(event, session);
+        router.replace(routeEventSubs);
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
     }
   };
 
   return (
-    <div className={'flex columns-1 flex-col items-center'}>
-      <h1 className="m-2 text-xl">{`Create Event`}</h1>
-      <EventEditor
-        editorMode={EditorMode.CREATE}
-        onEventUpdate={(event: Event) => {
-          setEvent(event);
-        }}
-      />
+    <>
+      <Toaster richColors />
 
-      <ErrorMessage message={error} />
+      <div className="absolute inset-0 flex flex-col">
+        <div className={`m-2 flex flex-col overflow-hidden`}>
+          <div className={'flex flex-col items-center'}>
+            <h1 className="mt-2 text-xl">{`Create Event`}</h1>
+          </div>
 
-      <div className="my-2 flex">
-        <div className="pr-1">
-          <TextButton text={'Cancel'} onClick={() => router.back()} />
+          <div className={'my-2 flex justify-center overflow-y-auto'}>
+            <div>
+              <EventEditor
+                editorMode={EditorMode.CREATE}
+                onEventUpdate={(event: Event) => {
+                  setEvent(event);
+                }}
+              />
+            </div>
+          </div>
         </div>
-        <div className="pl-1">
-          <TextButton text={'Create'} onClick={handleCreateClicked} />
-        </div>
+
+        <Navigation>
+          <div className="mr-1">
+            <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+          </div>
+
+          <div className="ml-1">
+            <TextButton text={'Create'} onClick={handleCreateClicked} />
+          </div>
+        </Navigation>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -172,13 +172,13 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   ]);
 
   return (
-    <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+    <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
       <TextInput
         id={'name'}
         label={'Event Name'}
         placeholder="German Freestyle Football Championship 2023"
         value={name}
-        onChange={e => {
+        onChange={(e) => {
           setEventName(e.currentTarget.value);
         }}
       />
@@ -187,7 +187,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         label={'Event Alias'}
         placeholder="gffc2023"
         value={alias}
-        onChange={e => {
+        onChange={(e) => {
           handleInputChangeAlias(e);
         }}
       />
@@ -203,7 +203,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
               }}
             />
           )}
-          {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find(item => item.value === eventType)?.text}</div>}
+          {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find((item) => item.value === eventType)?.text}</div>}
         </div>
       </div>
       <TextInputLarge
@@ -212,7 +212,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         placeholder="German Championship"
         value={description}
         resizable={true}
-        onChange={e => {
+        onChange={(e) => {
           setDescription(e.currentTarget.value);
         }}
       />
@@ -220,7 +220,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         <div>{`Date From`}</div>
         <DatePicker
           date={moment(dateFrom)}
-          onChange={value => {
+          onChange={(value) => {
             if (value) {
               setDateFrom(value.startOf('day').utc().format());
             }
@@ -231,7 +231,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         <div>{`Date To`}</div>
         <DatePicker
           date={moment(dateTo)}
-          onChange={value => {
+          onChange={(value) => {
             if (value) {
               setDateTo(value.endOf('day').utc().format());
             }
@@ -242,7 +242,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         <div>{`Registration Open`}</div>
         <DatePicker
           date={moment(registrationOpen)}
-          onChange={value => {
+          onChange={(value) => {
             if (value) {
               setRegistrationOpen(value.startOf('day').utc().format());
             }
@@ -253,7 +253,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         <div>{`Registration Deadline`}</div>
         <DatePicker
           date={moment(registrationDeadline)}
-          onChange={value => {
+          onChange={(value) => {
             if (value) {
               setRegistrationDeadline(value.endOf('day').utc().format());
             }
@@ -268,7 +268,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={'House No'}
             placeholder="40/1"
             value={venueHouseNo}
-            onChange={e => {
+            onChange={(e) => {
               setVenueHouseNo(e.currentTarget.value);
             }}
           />
@@ -278,7 +278,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={'Street'}
             placeholder="Hofwiesenstraße"
             value={venueStreet}
-            onChange={e => {
+            onChange={(e) => {
               setVenueStreet(e.currentTarget.value);
             }}
           />
@@ -288,7 +288,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={'Post Code'}
             placeholder="74081"
             value={venuePostCode}
-            onChange={e => {
+            onChange={(e) => {
               setVenuePostCode(e.currentTarget.value);
             }}
           />
@@ -298,7 +298,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={'City'}
             placeholder="Heilbronn"
             value={venueCity}
-            onChange={e => {
+            onChange={(e) => {
               setVenueCity(e.currentTarget.value);
             }}
           />
@@ -308,7 +308,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={'Country'}
             placeholder="Germany"
             value={venueCountry}
-            onChange={e => {
+            onChange={(e) => {
               setVenueCountry(e.currentTarget.value);
             }}
           />
@@ -319,7 +319,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         label={'Livestream URL'}
         placeholder="https://www.youtube.com/watch?v=gwiE0fXnByg"
         value={livestreamUrl}
-        onChange={e => {
+        onChange={(e) => {
           setLivestreamUrl(e.currentTarget.value);
         }}
       />
@@ -363,7 +363,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={'PayPal User Handle'}
                 placeholder="username"
                 value={paymentMethodPayPalHandle}
-                onChange={e => {
+                onChange={(e) => {
                   setPaymentMethodPayPalHandle(e.currentTarget.value);
                 }}
               />
@@ -399,7 +399,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={'SEPA Bank'}
                 placeholder="DKB"
                 value={paymentMethodSepaBank}
-                onChange={e => {
+                onChange={(e) => {
                   setPaymentMethodSepaBank(e.currentTarget.value);
                 }}
               />
@@ -409,7 +409,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={'SEPA Recipient'}
                 placeholder="DFFB e.V."
                 value={paymentMethodSepaRecipient}
-                onChange={e => {
+                onChange={(e) => {
                   setPaymentMethodSepaRecipient(e.currentTarget.value);
                 }}
               />
@@ -419,7 +419,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={'SEPA IBAN'}
                 placeholder="DE123"
                 value={paymentMethodSepaIban}
-                onChange={e => {
+                onChange={(e) => {
                   setPaymentMethodSepaIban(e.currentTarget.value);
                 }}
               />
@@ -429,7 +429,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={'SEPA Reference'}
                 placeholder="superball-2023"
                 value={paymentMethodSepaReference}
-                onChange={e => {
+                onChange={(e) => {
                   setPaymentMethodSepaReference(e.currentTarget.value);
                 }}
               />
