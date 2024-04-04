@@ -5,14 +5,13 @@ import { getSession, signIn } from 'next-auth/react';
 import router from 'next/router';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
-import ErrorMessage from '@/components/ErrorMessage';
 import { useSearchParams } from 'next/navigation';
 import { routeHome, routePasswordForgot, routeRegistration } from '@/types/consts/routes';
+import { Toaster, toast } from 'sonner';
 
 const Login = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redir');
@@ -34,9 +33,11 @@ const Login = () => {
   };
 
   const handleLoginClicked = async () => {
-    setError('');
-
-    const response = await signIn('credentials', { usernameOrEmail: usernameOrEmail, password: password, redirect: false });
+    const response = await signIn('credentials', {
+      usernameOrEmail: usernameOrEmail,
+      password: password,
+      redirect: false,
+    });
 
     let err = 'Unknown error.';
     switch (response?.status) {
@@ -54,18 +55,19 @@ const Login = () => {
             router.replace(routeHome);
           }
         } else {
-          console.error('unknown error');
+          toast.error(err);
+          console.error(err);
         }
         break;
 
       case 401:
         err = 'Wrong username or password.';
-        setError(err);
+        toast.error(err);
         console.error(err);
         break;
 
       default:
-        setError(err);
+        toast.error(err);
         console.error(err);
         break;
     }
@@ -73,6 +75,8 @@ const Login = () => {
 
   return (
     <>
+      <Toaster richColors />
+
       <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
         <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
           <TextInput
@@ -80,7 +84,7 @@ const Login = () => {
             label={'Username / Email'}
             placeholder="max"
             value={usernameOrEmail}
-            onChange={e => {
+            onChange={(e) => {
               handleInputChangeUsernameOrEmail(e);
             }}
           />
@@ -89,7 +93,7 @@ const Login = () => {
             type={'password'}
             label={'Password'}
             placeholder="Ball&Chill2021"
-            onChange={e => {
+            onChange={(e) => {
               handleInputChangePassword(e);
             }}
             onKeyDown={handleInputKeypressPassword}
@@ -99,8 +103,6 @@ const Login = () => {
         <div className="flex justify-center py-2">
           <TextButton text="Login" onClick={handleLoginClicked} />
         </div>
-
-        <ErrorMessage message={error} />
 
         <div className="flex justify-center py-2">
           <Link href={`${routePasswordForgot}`}>
