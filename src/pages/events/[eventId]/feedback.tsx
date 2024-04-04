@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { Action } from '@/types/enums/action';
 import { GetServerSidePropsContext } from 'next';
 import { Toaster, toast } from 'sonner';
+import { createEventFeedback } from '@/services/fsmeet-backend/create-event-feedback';
 
 const GeneralFeedback = (props: any) => {
   const session = props.session;
@@ -24,22 +25,14 @@ const GeneralFeedback = (props: any) => {
   };
 
   const handleSubmitClicked = async () => {
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/feedback`, {
-      method: 'POST',
-      body: JSON.stringify({ message: message }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
-      router.push(routeFeedbackThankyou);
-    } else {
-      const error = await response.json();
-      toast.error(error.message);
-      console.error(error.message);
+    if (eventId) {
+      try {
+        await createEventFeedback(eventId.toString(), message, session);
+        router.push(routeFeedbackThankyou);
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
     }
   };
 
