@@ -178,7 +178,7 @@ const Account = ({ session }: any) => {
 
       <div className="absolute inset-0 flex flex-col">
         <div className="mx-2 flex flex-col overflow-auto">
-          <h1 className="mt-2 text-center text-xl">Account Settings</h1>
+          <h1 className="mt-2 text-center text-xl">{`Account Settings`}</h1>
 
           <div className="mt-2 flex justify-center py-2">
             <Link href={routeAccountImage}>
