@@ -124,7 +124,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     throw new Error('Validating session failed');
   }
 
-  const myEvents = await getEvents(session?.user.username, null, null, null);
+  const myEvents = await getEvents(session?.user.username, null, null, null, session);
   const eventSubs = await getEvents(null, session?.user.username, null, null);
   const license = await getLicense(session, session.user.username);
 
