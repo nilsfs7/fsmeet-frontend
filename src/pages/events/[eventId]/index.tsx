@@ -34,6 +34,8 @@ import { GetServerSidePropsContext } from 'next';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { createEventRegistration } from '@/services/fsmeet-backend/create-event-registration';
 import { deleteEventRegistration } from '@/services/fsmeet-backend/delete-event-registration';
+import { createComment } from '@/services/fsmeet-backend/create-comment';
+import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -164,22 +166,13 @@ const Event = (props: any) => {
       return;
     }
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`, {
-      method: 'POST',
-      body: JSON.stringify({
-        eventId: eventId,
-        message: message,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
-      router.replace(`${routeEvents}/${eventId}`, undefined, { shallow: true });
-      router.reload();
+    if (eventId) {
+      try {
+        await createComment(eventId.toString(), message, session);
+        router.reload();
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }
   };
 
@@ -189,21 +182,13 @@ const Event = (props: any) => {
       return;
     }
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments/subs`, {
-      method: 'POST',
-      body: JSON.stringify({
-        rootCommentId: commentId,
-        message: message,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
-      router.reload();
+    if (eventId) {
+      try {
+        await createSubComment(eventId.toString(), commentId, message, session);
+        router.reload();
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }
   };
 

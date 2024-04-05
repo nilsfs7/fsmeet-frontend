@@ -26,14 +26,14 @@ const EventEditing = (props: any) => {
   const [event, setEvent] = useState<Event>();
 
   const handleSaveClicked = async () => {
-    try {
-      if (event) {
+    if (event) {
+      try {
         await editEvent(event, session);
         router.replace(`${routeEvents}/${eventId}?auth=1`);
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
       }
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
     }
   };
 
