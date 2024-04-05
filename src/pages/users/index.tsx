@@ -261,7 +261,6 @@ const UsersList = (props: any) => {
                 placeholder="Search name..."
                 value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
                 onChange={(event: any) => {
-                  console.log('filter value:', table.getColumn('user')?.getFilterValue());
                   table.getColumn('user')?.setFilterValue(event.target.value);
                 }}
                 className="max-w-48"
@@ -276,8 +275,8 @@ const UsersList = (props: any) => {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter(column => column.getCanHide())
-                    .map(column => {
+                    .filter((column) => column.getCanHide())
+                    .map((column) => {
                       return (
                         <DropdownMenuCheckboxItem key={column.id} className="capitalize" checked={column.getIsVisible()} onCheckedChange={(value: any) => column.toggleVisibility(!!value)}>
                           {column.id}
@@ -290,9 +289,9 @@ const UsersList = (props: any) => {
             <div className="rounded-md border">
               <Table>
                 <TableHeader>
-                  {table.getHeaderGroups().map(headerGroup => (
+                  {table.getHeaderGroups().map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
-                      {headerGroup.headers.map(header => {
+                      {headerGroup.headers.map((header) => {
                         return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
                       })}
                     </TableRow>
@@ -301,9 +300,9 @@ const UsersList = (props: any) => {
 
                 <TableBody>
                   {table.getRowModel().rows?.length ? (
-                    table.getRowModel().rows.map(row => (
+                    table.getRowModel().rows.map((row) => (
                       <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                        {row.getVisibleCells().map(cell => (
+                        {row.getVisibleCells().map((cell) => (
                           <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                         ))}
                       </TableRow>
