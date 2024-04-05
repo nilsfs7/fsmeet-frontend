@@ -25,7 +25,7 @@ const EventsOverview = ({ session }: { session: any }) => {
     if (moment) {
       setDateFrom(moment);
 
-      getEvents(moment, dateTo).then(events => {
+      getEvents(null, null, moment, dateTo).then((events) => {
         setEvents(events);
       });
     }
@@ -35,14 +35,14 @@ const EventsOverview = ({ session }: { session: any }) => {
     if (moment) {
       setDateTo(moment);
 
-      getEvents(dateFrom, moment).then(events => {
+      getEvents(null, null, dateFrom, moment).then((events) => {
         setEvents(events);
       });
     }
   };
 
   useEffect(() => {
-    getEvents(dateFrom, dateTo).then(events => {
+    getEvents(null, null, dateFrom, dateTo).then((events) => {
       setEvents(events);
     });
   }, []);
@@ -62,7 +62,7 @@ const EventsOverview = ({ session }: { session: any }) => {
           <div className="mx-2">{`From`}</div>
           <DatePicker
             date={dateFrom}
-            onChange={newDate => {
+            onChange={(newDate) => {
               hanldeDateFromChanged(newDate);
             }}
           />
@@ -72,7 +72,7 @@ const EventsOverview = ({ session }: { session: any }) => {
           <div className="mx-2">{`To`}</div>
           <DatePicker
             date={dateTo}
-            onChange={newDate => {
+            onChange={(newDate) => {
               hanldeDateToChanged(newDate);
             }}
           />

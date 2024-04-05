@@ -14,6 +14,7 @@ import { License } from '@/types/license';
 import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
 import { GetServerSidePropsContext } from 'next';
+import { getEvents } from '@/services/fsmeet-backend/get-events';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const eventsOwning: Event[] = data.owning;
@@ -123,27 +124,13 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     throw new Error('Validating session failed');
   }
 
-  // TODO: outsource
-  const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/manage?admin=${session?.user.username}`;
-  const responseMyEvents = await fetch(urlMyEvents, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${session?.user.accessToken}`,
-    },
-  });
-  const dataMyEvents = await responseMyEvents.json();
-
-  // TODO: outsource
-  const urlEventSubs = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?participant=${session?.user.username}`;
-  const responseEventSubs = await fetch(urlEventSubs);
-  const dataEventSubs = await responseEventSubs.json();
-
-  const dataLicense = await getLicense(session, session.user.username);
+  const myEvents = await getEvents(session?.user.username, null, null, null);
+  const eventSubs = await getEvents(null, session?.user.username, null, null);
+  const license = await getLicense(session, session.user.username);
 
   return {
     props: {
-      data: { owning: dataMyEvents, subs: dataEventSubs, license: dataLicense },
+      data: { owning: myEvents, subs: eventSubs, license: license },
       session: session,
     },
   };
