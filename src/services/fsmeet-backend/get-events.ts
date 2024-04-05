@@ -3,7 +3,6 @@ import { Event } from '@/types/event';
 
 export async function getEvents(from: moment.Moment, to: moment.Moment): Promise<Event[]> {
   const format = 'YYYY-MM-DDTHH:mm:ss.SSS';
-
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?`;
 
   if (from) {

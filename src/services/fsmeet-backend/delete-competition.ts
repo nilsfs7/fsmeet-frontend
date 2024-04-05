@@ -1,5 +1,5 @@
 export async function deleteCompetition(compId: string, session: any): Promise<void> {
-  const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`;
 
   const body = JSON.stringify({
     id: `${compId}`,

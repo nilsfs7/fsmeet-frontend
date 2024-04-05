@@ -2,6 +2,7 @@ import { User } from '@/types/user';
 
 export async function getUser(username: string, session?: any): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
+
   const response = await fetch(url, {
     method: 'GET',
     headers: {

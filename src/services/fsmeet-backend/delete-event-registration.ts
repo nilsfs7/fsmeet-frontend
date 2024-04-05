@@ -1,5 +1,5 @@
 export async function deleteEventRegistration(eventId: string, username: string, session: any): Promise<void> {
-  const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
 
   const body = JSON.stringify({
     username: `${username}`,

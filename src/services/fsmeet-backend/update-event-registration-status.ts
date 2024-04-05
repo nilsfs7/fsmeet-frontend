@@ -1,7 +1,7 @@
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 
 export async function updateEventRegistrationStatus(eventId: string, username: string, status: EventRegistrationStatus, session: any): Promise<void> {
-  const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations/status`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations/status`;
 
   const body = JSON.stringify({
     username: `${username}`,
