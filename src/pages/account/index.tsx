@@ -5,7 +5,7 @@ import { getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
 import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin } from '@/types/consts/routes';
-import { imgUserNoImg } from '@/types/consts/images';
+import { imgUserAddImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
 import { menuCountries } from '@/types/consts/menus/menu-countries';
@@ -182,7 +182,20 @@ const Account = ({ session }: any) => {
 
           <div className="mt-2 flex justify-center py-2">
             <Link href={routeAccountImage}>
-              <img src={imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-secondary-dark hover:border-primary" />
+              {!imageUrl && (
+                <div className="mx-2 flex h-32 w-32 rounded-full border border-primary hover:bg-secondary justify-center">
+                  <div className="w-24 flex flex-col justify-center items-center text-center gap-1">
+                    <img className="w-16" src={imgUserAddImg} />
+                    <div className="text-sm">{`Add picture`}</div>
+                  </div>
+                </div>
+              )}
+
+              {imageUrl && (
+                <div className="mx-2 flex h-32 w-32 rounded-full border border-secondary-dark hover:border-primary justify-center">
+                  <img src={imageUrl} className="rounded-full object-cover" />
+                </div>
+              )}
             </Link>
           </div>
 

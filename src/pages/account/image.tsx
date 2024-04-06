@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import router from 'next/router';
-import { imgUserNoImg } from '@/types/consts/images';
+import { imgUserDefaultImg } from '@/types/consts/images';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { routeAccount, routeLogin } from '@/types/consts/routes';
@@ -72,7 +72,7 @@ const AccountImage = ({ session }: any) => {
 
       <div className="absolute inset-0 flex flex-col justify-center">
         <div className="flex justify-center py-2">
-          <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-secondary-dark" />
+          <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserDefaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-primary" />
         </div>
 
         <div className="flex justify-center py-2">
