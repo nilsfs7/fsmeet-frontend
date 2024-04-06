@@ -153,22 +153,24 @@ export const columns: ColumnDef<ColumnInfo>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <div>{(row.getValue('country') as string).toUpperCase()}</div>
-        {(row.getValue('country') as string) && (
-          <ReactCountryFlag
-            countryCode={row.getValue('country')}
-            svg
-            style={{
-              width: '2em',
-              height: '2em',
-            }}
-            title={row.getValue('country')}
-          />
-        )}
-      </div>
-    ),
+    cell: ({ row }) =>
+      row.getValue('country') &&
+      (row.getValue('country') as string) !== '--' && (
+        <div className="flex items-center gap-2">
+          <div>{(row.getValue('country') as string).toUpperCase()}</div>
+          {
+            <ReactCountryFlag
+              countryCode={row.getValue('country')}
+              svg
+              style={{
+                width: '2em',
+                height: '2em',
+              }}
+              title={row.getValue('country')}
+            />
+          }
+        </div>
+      ),
   },
 
   {
@@ -263,7 +265,7 @@ const UsersList = (props: any) => {
                 onChange={(event: any) => {
                   table.getColumn('user')?.setFilterValue(event.target.value);
                 }}
-                className="max-w-48"
+                className="max-w-44"
               />
 
               <DropdownMenu>
