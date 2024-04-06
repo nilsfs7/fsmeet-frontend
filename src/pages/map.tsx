@@ -1,4 +1,4 @@
-import { LogoFSMeet } from '@/components/Logo';
+import { Header } from '@/components/Header';
 import MapOfFreestylers from '@/components/MapOfFreestylers';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
@@ -12,7 +12,6 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
 
 const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) => {
   const users: User[] = data;
@@ -47,12 +46,7 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
 
   return (
     <div className="absolute inset-0 flex flex-col">
-      {/* Header */}
-      <div className="bg-secondary-light sm:block">
-        <div className="mx-2 flex h-20 items-center justify-between">
-          <LogoFSMeet />
-        </div>
-      </div>
+      <Header />
 
       {/* <div className={'flex flex-col items-center'}>
         <h1 className="mt-2 text-xl">{`Freestyler Map`}</h1>

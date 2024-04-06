@@ -1,4 +1,3 @@
-import { LogoFSMeet } from '@/components/Logo';
 import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSidePropsContext } from 'next';
@@ -12,6 +11,7 @@ import { Action } from '@/types/enums/action';
 import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Event } from '@/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
+import { Header } from '@/components/Header';
 
 const defaultDateFrom = moment(moment().subtract(1, 'y').year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
@@ -48,13 +48,8 @@ const EventsOverview = ({ session }: { session: any }) => {
   }, []);
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
-      {/* Banner */}
-      <div className="sm:block">
-        <div className="mx-2 flex h-20 items-center justify-between">
-          <LogoFSMeet />
-        </div>
-      </div>
+    <div className="absolute inset-0 flex flex-col">
+      <Header showMenu={true} />
 
       {/* Filters */}
       <div className="mt-2 flex justify-center gap-2">

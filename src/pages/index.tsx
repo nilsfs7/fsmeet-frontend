@@ -1,8 +1,6 @@
-import { LogoFSMeet } from '@/components/Logo';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
-import Profile from '@/components/user/Profile';
 import { imgAbout, imgCommunity, imgFreestyler, imgProfileSettings, imgWorld } from '@/types/consts/images';
 import { routeAbout, routeAdminOverview, routeEvents, routeMap, routeUsers } from '@/types/consts/routes';
 import { getSession } from 'next-auth/react';
@@ -14,6 +12,7 @@ import { getEventsOngoing } from '@/services/fsmeet-backend/get-events-ongoing';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { GetServerSidePropsContext } from 'next';
+import { Header } from '@/components/Header';
 
 const Home = ({ data, session }: { data: any; session: any }) => {
   let upcomingEvents: Event[] = data.upcoming;
@@ -22,14 +21,7 @@ const Home = ({ data, session }: { data: any; session: any }) => {
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
-      {/* Header */}
-      <div className="bg-secondary-light sm:block">
-        <div className="mx-2 flex h-20 items-center justify-between">
-          <LogoFSMeet />
-
-          <Profile />
-        </div>
-      </div>
+      <Header showMenu={true} />
 
       <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
         <div className="text-center text-3xl">Your Freestyle Events</div>

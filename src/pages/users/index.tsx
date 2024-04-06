@@ -3,7 +3,6 @@ import ActionButton from '@/components/common/ActionButton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import SocialLink from '@/components/user/SocialLink';
 import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
-import { getUser } from '@/services/fsmeet-backend/get-user';
 import { getUsers } from '@/services/fsmeet-backend/get-users';
 import { imgUserDefaultImg, imgWorld } from '@/types/consts/images';
 import { routeHome, routeMap, routeUsers } from '@/types/consts/routes';
@@ -13,7 +12,6 @@ import { TotalMatchPerformance } from '@/types/total-match-performance';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -29,7 +27,6 @@ import {
 } from '@tanstack/react-table';
 // import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -38,7 +35,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import ReactCountryFlag from 'react-country-flag';
 import { UserType } from '@/types/enums/user-type';
-import { LogoFSMeet } from '@/components/Logo';
+import { Header } from '@/components/Header';
 
 export type User = {
   username: string;
@@ -244,12 +241,7 @@ const UsersList = (props: any) => {
 
   return (
     <div className="absolute inset-0 flex flex-col">
-      {/* Header */}
-      <div className="bg-secondary-light sm:block">
-        <div className="mx-2 flex h-20 items-center justify-between">
-          <LogoFSMeet />
-        </div>
-      </div>
+      <Header />
 
       <div className={`m-2 flex flex-col overflow-hidden`}>
         <div className={'flex flex-col items-center'}>
