@@ -182,7 +182,7 @@ const Account = ({ session }: any) => {
 
           <div className="mt-2 flex justify-center py-2">
             <Link href={routeAccountImage}>
-              <img src={imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
+              <img src={imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-secondary-dark hover:border-primary" />
             </Link>
           </div>
 

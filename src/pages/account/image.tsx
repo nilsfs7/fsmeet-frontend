@@ -72,11 +72,11 @@ const AccountImage = ({ session }: any) => {
 
       <div className="absolute inset-0 flex flex-col justify-center">
         <div className="flex justify-center py-2">
-          <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
+          <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-secondary-dark" />
         </div>
 
         <div className="flex justify-center py-2">
-          <input type="file" className="" onChange={uploadToClient} />
+          <input type="file" onChange={uploadToClient} />
         </div>
 
         <div className="flex justify-center py-2">
