@@ -12,6 +12,8 @@ import Navigation from '@/components/Navigation';
 import ErrorMessage from '@/components/ErrorMessage';
 import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { getEventRegistrations } from '@/services/fsmeet-backend/get-event-registrations';
+import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -48,7 +50,7 @@ const CompetitionPool = (props: any) => {
 
     if (response.status == 200) {
       let newArray = Array.from(competitionParticipants);
-      newArray = newArray.filter(registration => {
+      newArray = newArray.filter((registration) => {
         return registration.username != username;
       });
       setCompetitionParticipants(newArray);
@@ -98,19 +100,17 @@ const CompetitionPool = (props: any) => {
 
   useEffect(() => {
     async function fetchEventRegistrations() {
-      // TODO: outsource
-      const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
-      const response = await fetch(url);
-      const registrations = await response.json();
-      setEventRegistrations(registrations);
+      if (eventId) {
+        const registrations = await getEventRegistrations(eventId?.toString());
+        setEventRegistrations(registrations);
+      }
     }
 
     async function fetchCompetitionParticipants() {
-      // TODO: outsource
-      const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
-      const response = await fetch(url);
-      const participants = await response.json();
-      setCompetitionParticipants(participants);
+      if (compId) {
+        const participants = await getCompetitionParticipants(compId?.toString());
+        setCompetitionParticipants(participants);
+      }
     }
 
     fetchEventRegistrations();
@@ -144,7 +144,7 @@ const CompetitionPool = (props: any) => {
                   </div>
                   <div className="mx-1 flex w-1/2 justify-start">
                     <div className="flex">
-                      {competitionParticipants.some(e => e.username === participant.username) && (
+                      {competitionParticipants.some((e) => e.username === participant.username) && (
                         <>
                           <div className="flex h-full w-16 items-center justify-center">assigned</div>
                           <div className="ml-1">
@@ -158,7 +158,7 @@ const CompetitionPool = (props: any) => {
                           </div>
                         </>
                       )}
-                      {!competitionParticipants.some(e => e.username === participant.username) && (
+                      {!competitionParticipants.some((e) => e.username === participant.username) && (
                         <>
                           <div className="flex h-full w-16 items-center justify-center">free</div>
                           <div className="mx-1">

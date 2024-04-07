@@ -14,13 +14,20 @@ import { License } from '@/types/license';
 import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
 import { GetServerSidePropsContext } from 'next';
+import { getEvents } from '@/services/fsmeet-backend/get-events';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { switchTab } from '@/types/funcs/switch-tab';
+import { useSearchParams } from 'next/navigation';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
+
   const eventsOwning: Event[] = data.owning;
   const eventsSubscribed: Event[] = data.subs;
   const license: License = data.license;
-
-  const router = useRouter();
 
   const handleCreateEventClicked = async () => {
     if (license.amountEventLicenses > 0) {
@@ -44,7 +51,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
         </p>
       </Dialog>
 
-      <div className="absolute inset-0 flex flex-col overflow-hidden">
+      <div className="absolute inset-0 flex flex-col">
         {/* Banner */}
         <div className="bg-secondary-light sm:block">
           <div className="mx-2 flex h-20 items-center justify-start">
@@ -52,46 +59,64 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
           </div>
         </div>
 
-        {/* Event Subscriptions */}
+        <div className="mx-2 flex flex-col overflow-auto">
+          <h1 className="mt-2 text-center text-xl">{`Manage Events`}</h1>
 
-        <div className="overflow-hidden overflow-y-auto">
-          {eventsOwning.length > 0 && (
-            <>
-              <h1 className="mt-2 text-center text-xl">My Events</h1>
-              <div className="mt-2 flex justify-center overflow-y-auto px-2">
-                <div className="w-full">
-                  {eventsOwning.map((item: any, i: number) => {
-                    return (
-                      <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                        <Link href={`${routeEvents}/${item.id}?auth=1`}>
-                          <EventCard event={item} />
-                        </Link>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </>
-          )}
+          <div className="mt-2 flex flex-col overflow-hidden">
+            <div className={'w-full overflow-auto'}>
+              <Tabs defaultValue={tab || `registrations`} className="flex flex-col h-full">
+                <TabsList className="mb-2">
+                  <TabsTrigger
+                    value="registrations"
+                    onClick={() => {
+                      switchTab(router, 'registrations');
+                    }}
+                  >
+                    Registrations
+                  </TabsTrigger>
 
-          {eventsSubscribed.length > 0 && (
-            <>
-              <h1 className="mt-2 text-center text-xl">Event Subscriptions</h1>
-              <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
-                <div className="w-full">
-                  {eventsSubscribed.map((item: any, i: number) => {
-                    return (
-                      <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                        <Link href={`${routeEvents}/${item.id}`}>
-                          <EventCard event={item} />
-                        </Link>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </>
-          )}
+                  <TabsTrigger
+                    value="myevents"
+                    onClick={() => {
+                      switchTab(router, 'myevents');
+                    }}
+                  >
+                    My Events
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="registrations" className="overflow-y-auto">
+                  {eventsSubscribed.length === 0 && <div className="flex justify-center">{`You have not signed up for any event, yet.`}</div>}
+
+                  {eventsSubscribed.length > 0 &&
+                    eventsSubscribed.map((item: any, i: number) => {
+                      return (
+                        <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                          <Link href={`${routeEvents}/${item.id}`}>
+                            <EventCard event={item} />
+                          </Link>
+                        </div>
+                      );
+                    })}
+                </TabsContent>
+
+                <TabsContent value="myevents" className="overflow-y-auto">
+                  {eventsOwning.length === 0 && <div className="flex justify-center">{`You have not created any events, yet.`}</div>}
+
+                  {eventsOwning.length > 0 &&
+                    eventsOwning.map((item: any, i: number) => {
+                      return (
+                        <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                          <Link href={`${routeEvents}/${item.id}?auth=1`}>
+                            <EventCard event={item} />
+                          </Link>
+                        </div>
+                      );
+                    })}
+                </TabsContent>
+              </Tabs>
+            </div>
+          </div>
         </div>
 
         <Navigation>
@@ -123,27 +148,13 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     throw new Error('Validating session failed');
   }
 
-  // TODO: outsource
-  const urlMyEvents = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/manage?admin=${session?.user.username}`;
-  const responseMyEvents = await fetch(urlMyEvents, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${session?.user.accessToken}`,
-    },
-  });
-  const dataMyEvents = await responseMyEvents.json();
-
-  // TODO: outsource
-  const urlEventSubs = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?participant=${session?.user.username}`;
-  const responseEventSubs = await fetch(urlEventSubs);
-  const dataEventSubs = await responseEventSubs.json();
-
-  const dataLicense = await getLicense(session, session.user.username);
+  const myEvents = await getEvents(session?.user.username, null, null, null, session);
+  const eventSubs = await getEvents(null, session?.user.username, null, null);
+  const license = await getLicense(session, session.user.username);
 
   return {
     props: {
-      data: { owning: dataMyEvents, subs: dataEventSubs, license: dataLicense },
+      data: { owning: myEvents, subs: eventSubs, license: license },
       session: session,
     },
   };

@@ -2,6 +2,7 @@ import { User } from '@/types/user';
 
 export async function getUsers(): Promise<User[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
+
   const response = await fetch(url, {
     method: 'GET',
   });
@@ -9,7 +10,7 @@ export async function getUsers(): Promise<User[]> {
   const data: any[] = await response.json();
   const users: User[] = [];
 
-  data.map(d => {
+  data.map((d) => {
     const user: User = d;
 
     user.tShirtSize = d.private?.tShirtSize;

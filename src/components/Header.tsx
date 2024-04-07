@@ -1,0 +1,18 @@
+import { LogoFSMeet } from './Logo';
+import Profile from './user/Profile';
+
+interface IHeaderProps {
+  showMenu?: boolean;
+}
+
+export const Header = ({ showMenu = false }: IHeaderProps) => {
+  return (
+    <div className="bg-secondary-light sm:block">
+      <div className="mx-2 flex h-20 items-center justify-between">
+        <LogoFSMeet />
+
+        {showMenu && <Profile />}
+      </div>
+    </div>
+  );
+};

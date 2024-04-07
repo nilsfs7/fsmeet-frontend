@@ -48,15 +48,22 @@ const PublicUserProfile = (props: any) => {
             </div>
 
             <div className="mx-2 mt-6">
-              <div className="flex items-center text-lg">
-                {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
-                {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
-                {user.isVerifiedAccount && <img className="h-8 p-1 hover:p-0" src={imgVerifiedCheckmark} alt="user verified checkmark" />}
+              <div className="flex items-start gap-1 text-lg">
+                {user.isVerifiedAccount && (
+                  <div className="h-6 w-6 hover:p-0.5 flex items-center">
+                    <img className="" src={imgVerifiedCheckmark} alt="user verified checkmark" />
+                  </div>
+                )}
+
+                <div className="w-fit">
+                  {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
+                  {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
+                </div>
               </div>
 
               {user.country && user.country != '--' && (
                 <div className="flex items-center gap-1 mt-1">
-                  <div className="flex w-6">
+                  <div className="flex w-6 hover:p-0.5">
                     <ReactCountryFlag
                       countryCode={user.country}
                       svg
@@ -73,7 +80,7 @@ const PublicUserProfile = (props: any) => {
 
               {user.city && (
                 <div className="flex items-start gap-1 mt-1">
-                  <div className="w-6">
+                  <div className="w-6 hover:p-0.5">
                     <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
                       <img src={imgWorld} className="rounded-full object-cover" />
                     </Link>

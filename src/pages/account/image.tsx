@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import router from 'next/router';
-import { imgUserNoImg } from '@/types/consts/images';
+import { imgUserDefaultImg } from '@/types/consts/images';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { routeAccount, routeLogin } from '@/types/consts/routes';
@@ -14,6 +14,7 @@ import { GetServerSidePropsContext } from 'next';
 import { getUser } from '@/services/fsmeet-backend/get-user';
 import { deleteUserImage } from '@/services/fsmeet-backend/delete-user-image';
 import { updateUserImage } from '@/services/fsmeet-backend/update-user-image';
+import { Toaster, toast } from 'sonner';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -37,6 +38,7 @@ const AccountImage = ({ session }: any) => {
       localStorage.setItem('imageUrl', imageUrl);
       router.replace(routeAccount);
     } catch (error: any) {
+      toast.error(error.message);
       console.error(error.message);
     }
   };
@@ -49,6 +51,7 @@ const AccountImage = ({ session }: any) => {
       localStorage.removeItem('imageUrl');
       router.replace(routeAccount);
     } catch (error: any) {
+      toast.error(error.message);
       console.error(error.message);
     }
   };
@@ -64,35 +67,39 @@ const AccountImage = ({ session }: any) => {
   }, []);
 
   return (
-    <div className="absolute inset-0 flex flex-col justify-center">
-      <div className="flex justify-center py-2">
-        <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
+    <>
+      <Toaster richColors />
+
+      <div className="absolute inset-0 flex flex-col justify-center">
+        <div className="flex justify-center py-2">
+          <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserDefaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-primary" />
+        </div>
+
+        <div className="flex justify-center py-2">
+          <input type="file" onChange={uploadToClient} />
+        </div>
+
+        <div className="flex justify-center py-2">
+          {imageUrl && imageUrl.length > 0 && (
+            <div className="mx-1">
+              <TextButton text="Delete" onClick={handleDeleteImageClicked} style={ButtonStyle.CRITICAL} />
+            </div>
+          )}
+
+          {createObjectURL && createObjectURL.length > 0 && (
+            <div className="mx-1">
+              <TextButton text="Upload" onClick={handleUploadImageClicked} />
+            </div>
+          )}
+        </div>
+
+        <Navigation>
+          <Link href={routeAccount}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+        </Navigation>
       </div>
-
-      <div className="flex justify-center py-2">
-        <input type="file" className="" onChange={uploadToClient} />
-      </div>
-
-      <div className="flex justify-center py-2">
-        {imageUrl && imageUrl.length > 0 && (
-          <div className="mx-1">
-            <TextButton text="Delete" onClick={handleDeleteImageClicked} style={ButtonStyle.CRITICAL} />
-          </div>
-        )}
-
-        {createObjectURL && createObjectURL.length > 0 && (
-          <div className="mx-1">
-            <TextButton text="Upload" onClick={handleUploadImageClicked} />
-          </div>
-        )}
-      </div>
-
-      <Navigation>
-        <Link href={routeAccount}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-      </Navigation>
-    </div>
+    </>
   );
 };
 export default AccountImage;

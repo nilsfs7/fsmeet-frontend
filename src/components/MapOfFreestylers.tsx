@@ -33,14 +33,13 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
       // @ts-ignore
       const newMap = new window.google.maps.Map(document.getElementById('map'), mapOptions);
 
-      users.forEach(user => {
+      users.forEach((user) => {
         if (user.locLatitude && user.locLongitude) {
           // const userImg = 'https://bucket-fsmeet-dev.s3.eu-central-1.amazonaws.com/nils/Safeimagekit-resized-img.png';
 
           const iconSize = 40;
 
           const icon = {
-            // url: user.imageUrl ? user.imageUrl : imgUserNoImg,
             url: imgFreestyler,
             size: new google.maps.Size(iconSize, iconSize),
             // origin: new google.maps.Point(0, 0),

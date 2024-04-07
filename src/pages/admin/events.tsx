@@ -11,10 +11,10 @@ import Navigation from '@/components/Navigation';
 import moment from 'moment';
 import { EventState } from '@/types/enums/event-state';
 import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
-import { getEventsForManagement } from '@/services/fsmeet-backend/get-events-for-management';
 import ComboBox from '@/components/common/ComboBox';
 import { menuEventStates } from '@/types/consts/menus/menu-event-states';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { getEvents } from '@/services/fsmeet-backend/get-events';
 
 const Events = (props: any) => {
   const session = props.session;
@@ -25,7 +25,7 @@ const Events = (props: any) => {
 
   const handlEventStateChanged = async (eventId: string, state: EventState) => {
     let evts = Array.from(events);
-    evts = evts.map(evt => {
+    evts = evts.map((evt) => {
       if (evt.id === eventId) {
         evt.state = state;
       }
@@ -36,7 +36,7 @@ const Events = (props: any) => {
   };
 
   const handleSaveEventClicked = async (eventId: string, state: EventState) => {
-    const event = events.filter(evt => {
+    const event = events.filter((evt) => {
       if (evt.id === eventId) {
         return evt;
       }
@@ -49,7 +49,7 @@ const Events = (props: any) => {
   };
 
   useEffect(() => {
-    getEventsForManagement(session, defaultDateFrom, defaultDateTo).then(events => {
+    getEvents(null, null, defaultDateFrom, defaultDateTo, session).then((events) => {
       setEvents(events);
     });
   }, [events == undefined]);

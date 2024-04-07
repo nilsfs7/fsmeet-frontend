@@ -5,13 +5,12 @@ import { getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
 import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin } from '@/types/consts/routes';
-import { imgUserNoImg } from '@/types/consts/images';
+import { imgUserAddImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
 import { menuCountries } from '@/types/consts/menus/menu-countries';
 import { menuTShirtSizes } from '@/types/consts/menus/menu-t-shirt-sizes';
 import { ButtonStyle } from '@/types/enums/button-style';
-import ErrorMessage from '@/components/ErrorMessage';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import ComboBox from '@/components/common/ComboBox';
@@ -27,6 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab } from '@/types/funcs/switch-tab';
 import { useSearchParams } from 'next/navigation';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { Toaster, toast } from 'sonner';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -34,7 +34,6 @@ const Account = ({ session }: any) => {
   const needsAuthorization = searchParams.get('auth');
 
   const [userFetched, setUserFetched] = useState(false);
-  const [error, setError] = useState('');
 
   // public user info
   const [imageUrl, setImageUrl] = useState('');
@@ -52,8 +51,6 @@ const Account = ({ session }: any) => {
   const [exposeLocation, setExposeLocation] = useState<boolean>(false);
 
   const handleSaveUserInfoClicked = async () => {
-    setError('');
-
     let firstNameAdjusted = firstName.trim();
     let lastNameAdjusted = lastName.trim();
     let websiteAdjusted = website.trim();
@@ -77,9 +74,9 @@ const Account = ({ session }: any) => {
 
     try {
       await updateUser(user, session);
-      router.push(`${routeHome}`);
+      toast.success('Profile updated.');
     } catch (error: any) {
-      setError(error.message);
+      toast.error(error.message);
       console.error(error.message);
     }
   };
@@ -89,8 +86,6 @@ const Account = ({ session }: any) => {
   };
 
   const handleConfirmDeleteAccountClicked = async () => {
-    setError('');
-
     try {
       await deleteUser(session);
       await signOut({ redirect: false });
@@ -98,7 +93,7 @@ const Account = ({ session }: any) => {
       localStorage.removeItem('imageUrl');
       router.push(routeAccountDeleted);
     } catch (error: any) {
-      setError(error.message);
+      toast.error(error.message);
       console.error(error.message);
     }
   };
@@ -112,15 +107,13 @@ const Account = ({ session }: any) => {
   };
 
   const handleConfirmLogoutClicked = async () => {
-    setError('');
-
     try {
       await signOut({ redirect: false });
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
       router.push(routeHome);
     } catch (error: any) {
-      setError(error.message);
+      toast.error(error.message);
       console.error(error.message);
     }
   };
@@ -172,7 +165,9 @@ const Account = ({ session }: any) => {
   }
 
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <>
+      <Toaster richColors />
+
       <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmDeleteAccountClicked}>
         <p>Do you really want to leave us?</p>
       </Dialog>
@@ -181,129 +176,143 @@ const Account = ({ session }: any) => {
         <p>Logout now?</p>
       </Dialog>
 
-      <div className="mx-2 flex flex-col overflow-auto">
-        <h1 className="mt-2 text-center text-xl">Account Settings</h1>
+      <div className="absolute inset-0 flex flex-col">
+        <div className="mx-2 flex flex-col overflow-auto">
+          <h1 className="mt-2 text-center text-xl">{`Account Settings`}</h1>
 
-        <div className="mt-2 flex justify-center py-2">
-          <Link href={routeAccountImage}>
-            <img src={imageUrl ? imageUrl : imgUserNoImg} className="mx-2 flex h-32 w-32 rounded-full object-cover" />
-          </Link>
-        </div>
-
-        <div className="my-4" />
-        <div className="mx-2 flex flex-col overflow-hidden">
-          <div className={'flex flex-col items-center overflow-auto'}>
-            <Tabs defaultValue={tab || `general`} className="flex flex-col h-full">
-              <TabsList className="mb-2">
-                <TabsTrigger
-                  value="general"
-                  onClick={() => {
-                    switchTab(router, 'general');
-                  }}
-                >
-                  {`General Info`}
-                </TabsTrigger>
-
-                <TabsTrigger
-                  value="map"
-                  onClick={() => {
-                    switchTab(router, 'map');
-                  }}
-                >
-                  {`Freestyler Map`}
-                </TabsTrigger>
-
-                <TabsTrigger
-                  value="account"
-                  onClick={() => {
-                    switchTab(router, 'account');
-                  }}
-                >
-                  {`Account`}
-                </TabsTrigger>
-              </TabsList>
-
-              {/* General */}
-              <TabsContent value="general" className="overflow-hidden overflow-y-auto">
-                <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-                  <TextInput
-                    id={'firstName'}
-                    label={'First Name'}
-                    placeholder=""
-                    value={firstName}
-                    onChange={e => {
-                      setFirstName(e.currentTarget.value);
-                    }}
-                  />
-
-                  <TextInput
-                    id={'lastName'}
-                    label={'Last Name'}
-                    placeholder=""
-                    value={lastName}
-                    onChange={e => {
-                      setLastName(e.currentTarget.value);
-                    }}
-                  />
-
-                  <div className="m-2 grid grid-cols-2">
-                    <div className="p-2">Country</div>
-                    <div className="flex w-full">
-                      <ComboBox
-                        menus={menuCountries}
-                        value={country ? country : menuCountries[0].value}
-                        searchEnabled={true}
-                        onChange={(value: any) => {
-                          setCountry(value);
-                        }}
-                      />
-                    </div>
+          <div className="mt-2 flex justify-center py-2">
+            <Link href={routeAccountImage}>
+              {!imageUrl && (
+                <div className="mx-2 flex h-32 w-32 rounded-full border border-primary hover:bg-secondary justify-center">
+                  <div className="w-24 flex flex-col justify-center items-center text-center gap-1">
+                    <img className="w-16" src={imgUserAddImg} />
+                    <div className="text-sm">{`Add picture`}</div>
                   </div>
+                </div>
+              )}
 
-                  <TextInput
-                    id={'instagramHandle'}
-                    label={'Instagram Handle'}
-                    placeholder="@dffb_org"
-                    value={instagramHandle}
-                    onChange={e => {
-                      setInstagramHandle(prefixRequired(e.currentTarget.value, '@'));
+              {imageUrl && (
+                <div className="mx-2 flex h-32 w-32 rounded-full border border-secondary-dark hover:border-primary justify-center">
+                  <img src={imageUrl} className="rounded-full object-cover" />
+                </div>
+              )}
+            </Link>
+          </div>
+
+          <div className="my-4" />
+          <div className="mx-2 flex flex-col overflow-hidden">
+            <div className={'flex flex-col items-center overflow-auto'}>
+              <Tabs defaultValue={tab || `general`} className="flex flex-col h-full">
+                <TabsList className="mb-2">
+                  <TabsTrigger
+                    value="general"
+                    onClick={() => {
+                      switchTab(router, 'general');
                     }}
-                  />
+                  >
+                    {`General Info`}
+                  </TabsTrigger>
 
-                  <TextInput
-                    id={'tikTokHandle'}
-                    label={'TikTok Handle'}
-                    placeholder="@dffb_org"
-                    value={tikTokHandle}
-                    onChange={e => {
-                      setTikTokHandle(prefixRequired(e.currentTarget.value, '@'));
+                  <TabsTrigger
+                    value="map"
+                    onClick={() => {
+                      switchTab(router, 'map');
                     }}
-                  />
+                  >
+                    {`Freestyler Map`}
+                  </TabsTrigger>
 
-                  <TextInput
-                    id={'youTubeHandle'}
-                    label={'YouTube Handle'}
-                    placeholder="@dffb_org"
-                    value={youTubeHandle}
-                    onChange={e => {
-                      setYouTubeHandle(prefixRequired(e.currentTarget.value, '@'));
+                  <TabsTrigger
+                    value="account"
+                    onClick={() => {
+                      switchTab(router, 'account');
                     }}
-                  />
+                  >
+                    {`Account`}
+                  </TabsTrigger>
+                </TabsList>
 
-                  <TextInput
-                    id={'website'}
-                    label={'Website'}
-                    placeholder="https://dffb.org"
-                    value={website}
-                    onChange={e => {
-                      let url: string = e.currentTarget.value;
-                      url = url.toLowerCase();
+                {/* General */}
+                <TabsContent value="general" className="overflow-hidden overflow-y-auto">
+                  <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+                    <TextInput
+                      id={'firstName'}
+                      label={'First Name'}
+                      placeholder=""
+                      value={firstName}
+                      onChange={(e) => {
+                        setFirstName(e.currentTarget.value);
+                      }}
+                    />
 
-                      setWebsite(url);
-                    }}
-                  />
+                    <TextInput
+                      id={'lastName'}
+                      label={'Last Name'}
+                      placeholder=""
+                      value={lastName}
+                      onChange={(e) => {
+                        setLastName(e.currentTarget.value);
+                      }}
+                    />
 
-                  {/* <div className="m-2 grid grid-cols-2">
+                    <div className="m-2 grid grid-cols-2">
+                      <div className="p-2">Country</div>
+                      <div className="flex w-full">
+                        <ComboBox
+                          menus={menuCountries}
+                          value={country ? country : menuCountries[0].value}
+                          searchEnabled={true}
+                          onChange={(value: any) => {
+                            setCountry(value);
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <TextInput
+                      id={'instagramHandle'}
+                      label={'Instagram Handle'}
+                      placeholder="@dffb_org"
+                      value={instagramHandle}
+                      onChange={(e) => {
+                        setInstagramHandle(prefixRequired(e.currentTarget.value, '@'));
+                      }}
+                    />
+
+                    <TextInput
+                      id={'tikTokHandle'}
+                      label={'TikTok Handle'}
+                      placeholder="@dffb_org"
+                      value={tikTokHandle}
+                      onChange={(e) => {
+                        setTikTokHandle(prefixRequired(e.currentTarget.value, '@'));
+                      }}
+                    />
+
+                    <TextInput
+                      id={'youTubeHandle'}
+                      label={'YouTube Handle'}
+                      placeholder="@dffb_org"
+                      value={youTubeHandle}
+                      onChange={(e) => {
+                        setYouTubeHandle(prefixRequired(e.currentTarget.value, '@'));
+                      }}
+                    />
+
+                    <TextInput
+                      id={'website'}
+                      label={'Website'}
+                      placeholder="https://dffb.org"
+                      value={website}
+                      onChange={(e) => {
+                        let url: string = e.currentTarget.value;
+                        url = url.toLowerCase();
+
+                        setWebsite(url);
+                      }}
+                    />
+
+                    {/* <div className="m-2 grid grid-cols-2">
                     <div className="p-2">T-Shirt Size</div>
                     <div className="flex w-full">
                       <ComboBox
@@ -315,63 +324,62 @@ const Account = ({ session }: any) => {
                       />
                     </div>
                   </div> */}
-                </div>
-              </TabsContent>
-
-              {/* Freestyler Map */}
-              <TabsContent value="map" className="overflow-hidden overflow-y-auto">
-                <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-                  <TextInput
-                    id={'city'}
-                    label={'City'}
-                    placeholder="Munich"
-                    value={city}
-                    onChange={e => {
-                      setExposeLocation(true);
-                      setCity(e.currentTarget.value);
-                    }}
-                  />
-
-                  <CheckBox
-                    id={'exposeLocation'}
-                    label="Publish city on Freestyler Map"
-                    value={exposeLocation}
-                    onChange={() => {
-                      setExposeLocation(!exposeLocation);
-                    }}
-                  />
-                </div>
-              </TabsContent>
-
-              {/* Account */}
-              <TabsContent value="account" className="overflow-hidden overflow-y-auto">
-                <div className="mt-2">
-                  <div className="flex justify-center pt-4">
-                    <TextButton text="Logout" onClick={handleLogoutClicked} />
                   </div>
+                </TabsContent>
 
-                  <div className="flex justify-center pt-4">
-                    <TextButton text="Delete account" style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
+                {/* Freestyler Map */}
+                <TabsContent value="map" className="overflow-hidden overflow-y-auto">
+                  <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+                    <TextInput
+                      id={'city'}
+                      label={'City'}
+                      placeholder="Munich"
+                      value={city}
+                      onChange={(e) => {
+                        setExposeLocation(true);
+                        setCity(e.currentTarget.value);
+                      }}
+                    />
+
+                    <CheckBox
+                      id={'exposeLocation'}
+                      label="Publish city on Freestyler Map"
+                      value={exposeLocation}
+                      onChange={() => {
+                        setExposeLocation(!exposeLocation);
+                      }}
+                    />
                   </div>
-                </div>
-              </TabsContent>
+                </TabsContent>
 
-              <TabsContent value="competitions" className="overflow-hidden overflow-y-auto"></TabsContent>
-            </Tabs>
+                {/* Account */}
+                <TabsContent value="account" className="overflow-hidden overflow-y-auto">
+                  <div className="mt-2">
+                    <div className="flex justify-center pt-4">
+                      <TextButton text="Logout" onClick={handleLogoutClicked} />
+                    </div>
+
+                    <div className="flex justify-center pt-4">
+                      <TextButton text="Delete account" style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
+                    </div>
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="competitions" className="overflow-hidden overflow-y-auto"></TabsContent>
+              </Tabs>
+            </div>
           </div>
         </div>
+
+        <Navigation>
+          <Link href={routeHome}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+
+          <TextButton text="Save" onClick={handleSaveUserInfoClicked} />
+        </Navigation>
       </div>
-
-      <ErrorMessage message={error} />
-
-      <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-
-        <TextButton text="Save" onClick={handleSaveUserInfoClicked} />
-      </Navigation>
-    </div>
+    </>
   );
 };
 export default Account;

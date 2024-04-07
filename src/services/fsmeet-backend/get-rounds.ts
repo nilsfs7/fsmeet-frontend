@@ -2,7 +2,9 @@ import { Match } from '@/types/match';
 import { Round } from '@/types/round';
 
 export async function getRounds(compId: string): Promise<Round[]> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`);
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`;
+
+  const response = await fetch(url);
   const rnds: Round[] = await response.json();
 
   const rounds: Round[] = rnds.map((rnd: Round) => {
@@ -11,7 +13,7 @@ export async function getRounds(compId: string): Promise<Round[]> {
     // round.passingPerMatch = rnd.passingPerMatch;
     round.matches = rnd.matches;
 
-    let matches: Match[] = round.matches.map(mtch => {
+    let matches: Match[] = round.matches.map((mtch) => {
       return new Match(mtch.matchIndex, mtch.name, mtch.isExtraMatch, mtch.slots, mtch.matchSlots, mtch.time, mtch.id);
     });
 

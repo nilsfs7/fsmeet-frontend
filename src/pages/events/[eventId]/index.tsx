@@ -32,6 +32,10 @@ import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
 import { EventState } from '@/types/enums/event-state';
 import { GetServerSidePropsContext } from 'next';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { createEventRegistration } from '@/services/fsmeet-backend/create-event-registration';
+import { deleteEventRegistration } from '@/services/fsmeet-backend/delete-event-registration';
+import { createComment } from '@/services/fsmeet-backend/create-comment';
+import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -49,7 +53,7 @@ const Event = (props: any) => {
 
   const isRegistered = () => {
     if (validateSession(session)) {
-      if (event && event.eventRegistrations.some(user => user.username === session.user.username)) {
+      if (event && event.eventRegistrations.some((user) => user.username === session.user.username)) {
         return true;
       }
     }
@@ -103,24 +107,12 @@ const Event = (props: any) => {
       return;
     }
 
-    if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
-      // TODO: outsource
-      const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
-      const method: string = 'POST';
-
-      const response = await fetch(url, {
-        method: method,
-        body: JSON.stringify({
-          username: `${session.user.username}`,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.user.accessToken}`,
-        },
-      });
-
-      if (response.status == 201) {
+    if (event?.id && moment(event?.registrationDeadline).unix() > moment().unix()) {
+      try {
+        await createEventRegistration(event.id, session?.user?.username, session);
         router.reload();
+      } catch (error: any) {
+        console.error(error.message);
       }
     } else {
       console.error('Registration deadline exceeded.');
@@ -156,24 +148,12 @@ const Event = (props: any) => {
       return;
     }
 
-    if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
-      // TODO: outsource
-      const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
-      const method: string = 'DELETE';
-
-      const response = await fetch(url, {
-        method: method,
-        body: JSON.stringify({
-          username: `${session.user.username}`,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.user.accessToken}`,
-        },
-      });
-
-      if (response.status == 200) {
+    if (event?.id && moment(event?.registrationDeadline).unix() > moment().unix()) {
+      try {
+        await deleteEventRegistration(event.id, session?.user?.username, session);
         router.reload();
+      } catch (error: any) {
+        console.error(error.message);
       }
     } else {
       console.error('Registration deadline exceeded.');
@@ -186,22 +166,13 @@ const Event = (props: any) => {
       return;
     }
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`, {
-      method: 'POST',
-      body: JSON.stringify({
-        eventId: eventId,
-        message: message,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
-      router.replace(`${routeEvents}/${eventId}`, undefined, { shallow: true });
-      router.reload();
+    if (eventId) {
+      try {
+        await createComment(eventId.toString(), message, session);
+        router.reload();
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }
   };
 
@@ -211,21 +182,13 @@ const Event = (props: any) => {
       return;
     }
 
-    // TODO: outsource
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments/subs`, {
-      method: 'POST',
-      body: JSON.stringify({
-        rootCommentId: commentId,
-        message: message,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
-      router.reload();
+    if (eventId) {
+      try {
+        await createSubComment(eventId.toString(), commentId, message, session);
+        router.reload();
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }
   };
 
@@ -454,7 +417,7 @@ const Event = (props: any) => {
                   Competitions
                 </TabsTrigger>
               )}
-              {approvedAndPendingRegistrations.length > 1 && (
+              {approvedAndPendingRegistrations.length > 0 && (
                 <TabsTrigger
                   value="registrations"
                   onClick={() => {
@@ -494,10 +457,10 @@ const Event = (props: any) => {
             )}
 
             {/* Registrations */}
-            {approvedAndPendingRegistrations.length > 1 && (
+            {approvedAndPendingRegistrations.length > 0 && (
               <TabsContent value="registrations" className="overflow-hidden overflow-y-auto">
                 <ParticipantList
-                  participants={approvedAndPendingRegistrations.map(registration => {
+                  participants={approvedAndPendingRegistrations.map((registration) => {
                     const user: User = {
                       username: registration.username,
                       imageUrl: registration.imageUrl,
@@ -505,7 +468,7 @@ const Event = (props: any) => {
 
                     return user;
                   })}
-                  registrationStatus={approvedAndPendingRegistrations.map(registration => {
+                  registrationStatus={approvedAndPendingRegistrations.map((registration) => {
                     return registration.status;
                   })}
                 />

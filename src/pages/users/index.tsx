@@ -3,7 +3,6 @@ import ActionButton from '@/components/common/ActionButton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import SocialLink from '@/components/user/SocialLink';
 import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
-import { getUser } from '@/services/fsmeet-backend/get-user';
 import { getUsers } from '@/services/fsmeet-backend/get-users';
 import { imgUserDefaultImg, imgWorld } from '@/types/consts/images';
 import { routeHome, routeMap, routeUsers } from '@/types/consts/routes';
@@ -13,7 +12,6 @@ import { TotalMatchPerformance } from '@/types/total-match-performance';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -29,7 +27,6 @@ import {
 } from '@tanstack/react-table';
 // import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -38,7 +35,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import ReactCountryFlag from 'react-country-flag';
 import { UserType } from '@/types/enums/user-type';
-import { LogoFSMeet } from '@/components/Logo';
+import { Header } from '@/components/Header';
 
 export type User = {
   username: string;
@@ -153,22 +150,24 @@ export const columns: ColumnDef<ColumnInfo>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <div>{(row.getValue('country') as string).toUpperCase()}</div>
-        {(row.getValue('country') as string) && (
-          <ReactCountryFlag
-            countryCode={row.getValue('country')}
-            svg
-            style={{
-              width: '2em',
-              height: '2em',
-            }}
-            title={row.getValue('country')}
-          />
-        )}
-      </div>
-    ),
+    cell: ({ row }) =>
+      row.getValue('country') &&
+      (row.getValue('country') as string) !== '--' && (
+        <div className="flex items-center gap-2">
+          <div>{(row.getValue('country') as string).toUpperCase()}</div>
+          {
+            <ReactCountryFlag
+              countryCode={row.getValue('country')}
+              svg
+              style={{
+                width: '2em',
+                height: '2em',
+              }}
+              title={row.getValue('country')}
+            />
+          }
+        </div>
+      ),
   },
 
   {
@@ -242,12 +241,7 @@ const UsersList = (props: any) => {
 
   return (
     <div className="absolute inset-0 flex flex-col">
-      {/* Header */}
-      <div className="bg-secondary-light sm:block">
-        <div className="mx-2 flex h-20 items-center justify-between">
-          <LogoFSMeet />
-        </div>
-      </div>
+      <Header />
 
       <div className={`m-2 flex flex-col overflow-hidden`}>
         <div className={'flex flex-col items-center'}>
@@ -261,10 +255,9 @@ const UsersList = (props: any) => {
                 placeholder="Search name..."
                 value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
                 onChange={(event: any) => {
-                  console.log('filter value:', table.getColumn('user')?.getFilterValue());
                   table.getColumn('user')?.setFilterValue(event.target.value);
                 }}
-                className="max-w-48"
+                className="max-w-44"
               />
 
               <DropdownMenu>
@@ -276,8 +269,8 @@ const UsersList = (props: any) => {
                 <DropdownMenuContent align="end">
                   {table
                     .getAllColumns()
-                    .filter(column => column.getCanHide())
-                    .map(column => {
+                    .filter((column) => column.getCanHide())
+                    .map((column) => {
                       return (
                         <DropdownMenuCheckboxItem key={column.id} className="capitalize" checked={column.getIsVisible()} onCheckedChange={(value: any) => column.toggleVisibility(!!value)}>
                           {column.id}
@@ -290,9 +283,9 @@ const UsersList = (props: any) => {
             <div className="rounded-md border">
               <Table>
                 <TableHeader>
-                  {table.getHeaderGroups().map(headerGroup => (
+                  {table.getHeaderGroups().map((headerGroup) => (
                     <TableRow key={headerGroup.id}>
-                      {headerGroup.headers.map(header => {
+                      {headerGroup.headers.map((header) => {
                         return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
                       })}
                     </TableRow>
@@ -301,9 +294,9 @@ const UsersList = (props: any) => {
 
                 <TableBody>
                   {table.getRowModel().rows?.length ? (
-                    table.getRowModel().rows.map(row => (
+                    table.getRowModel().rows.map((row) => (
                       <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                        {row.getVisibleCells().map(cell => (
+                        {row.getVisibleCells().map((cell) => (
                           <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                         ))}
                       </TableRow>

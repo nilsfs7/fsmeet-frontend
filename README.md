@@ -80,6 +80,10 @@ Registration
 
 - [Celebration](https://www.iconfinder.com/icons/6472607/birthday_celebration_christmas_party_trumpet_xmas_icon)
 
+Account
+
+- [Add Image](https://www.iconfinder.com/icons/103590/image_add_icon)
+
 - [Bye](https://www.iconfinder.com/icons/9070043/bye_icon)
 
 Public User Page
