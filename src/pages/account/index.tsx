@@ -27,6 +27,8 @@ import { switchTab } from '@/types/funcs/switch-tab';
 import { useSearchParams } from 'next/navigation';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
+import { Gender } from '@/types/enums/gender';
+import { menuGender } from '@/types/consts/menus/menu-gender';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -39,6 +41,7 @@ const Account = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [gender, setGender] = useState<Gender>();
   const [country, setCountry] = useState('');
   const [instagramHandle, setInstagramHandle] = useState('');
   const [tikTokHandle, setTikTokHandle] = useState('');
@@ -47,6 +50,9 @@ const Account = ({ session }: any) => {
 
   // private user info
   const [tShirtSize, setTShirtSize] = useState<string>();
+  const [houseNumber, setHouseNumber] = useState<string>();
+  const [street, setStreet] = useState<string>();
+  const [postCode, setPostCode] = useState<string>();
   const [city, setCity] = useState<string>();
   const [exposeLocation, setExposeLocation] = useState<boolean>(false);
 
@@ -62,6 +68,7 @@ const Account = ({ session }: any) => {
       username: session?.user?.username,
       firstName: firstNameAdjusted,
       lastName: lastNameAdjusted,
+      gender: gender,
       country: country,
       website: websiteAdjusted,
       instagramHandle: instagramHandle,
@@ -132,6 +139,9 @@ const Account = ({ session }: any) => {
       if (user.lastName) {
         setLastName(user.lastName);
       }
+      if (user.gender) {
+        setGender(user.gender);
+      }
       if (user.country) {
         setCountry(user.country);
       }
@@ -149,6 +159,15 @@ const Account = ({ session }: any) => {
       }
       if (user.tShirtSize) {
         setTShirtSize(user.tShirtSize);
+      }
+      if (user.houseNumber) {
+        setHouseNumber(user.houseNumber);
+      }
+      if (user.street) {
+        setStreet(user.street);
+      }
+      if (user.postCode) {
+        setPostCode(user.postCode);
       }
       if (user.city) {
         setCity(user.city);
@@ -256,7 +275,20 @@ const Account = ({ session }: any) => {
                     />
 
                     <div className="m-2 grid grid-cols-2">
-                      <div className="p-2">Country</div>
+                      <div className="p-2">{`Gender`}</div>
+                      <div className="flex w-full">
+                        <ComboBox
+                          menus={menuGender}
+                          value={gender ? gender : menuGender[0].value}
+                          onChange={(value: any) => {
+                            setGender(value);
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="m-2 grid grid-cols-2">
+                      <div className="p-2">{`Country`}</div>
                       <div className="flex w-full">
                         <ComboBox
                           menus={menuCountries}

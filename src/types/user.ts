@@ -1,3 +1,4 @@
+import { Gender } from './enums/gender';
 import { UserType } from './enums/user-type';
 
 export type User = {
@@ -6,6 +7,7 @@ export type User = {
   imageUrl?: string;
   firstName?: string;
   lastName?: string;
+  gender?: Gender;
   country?: string;
   instagramHandle?: string;
   tikTokHandle?: string;
@@ -13,6 +15,9 @@ export type User = {
   website?: string;
   isVerifiedAccount?: boolean;
   tShirtSize?: string;
+  houseNumber?: string;
+  street?: string;
+  postCode?: string;
   city?: string;
   exposeLocation?: boolean;
   locLatitude?: number;

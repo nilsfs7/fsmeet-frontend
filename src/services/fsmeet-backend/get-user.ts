@@ -14,6 +14,9 @@ export async function getUser(username: string, session?: any): Promise<User> {
     const user: any = await response.json();
 
     user.tShirtSize = user.private?.tShirtSize;
+    user.houseNumber = user.private?.houseNumber;
+    user.street = user.private?.street;
+    user.postCode = user.private?.postCode;
     user.city = user.private?.city;
     user.exposeLocation = user.private?.exposeLocation;
     user.locLatitude = user.private?.locLatitude;

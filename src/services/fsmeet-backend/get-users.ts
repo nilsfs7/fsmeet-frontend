@@ -14,6 +14,9 @@ export async function getUsers(): Promise<User[]> {
     const user: User = d;
 
     user.tShirtSize = d.private?.tShirtSize;
+    user.houseNumber = d.private?.houseNumber;
+    user.street = d.private?.street;
+    user.postCode = d.private?.postCode;
     user.city = d.private?.city;
     user.exposeLocation = d.private?.exposeLocation;
     user.locLatitude = d.private?.locLatitude;
