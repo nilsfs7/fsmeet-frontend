@@ -211,8 +211,8 @@ const Account = ({ session }: any) => {
               )}
 
               {imageUrl && (
-                <div className="mx-2 flex h-32 w-32 rounded-full border border-secondary-dark hover:border-primary justify-center">
-                  <img src={imageUrl} className="rounded-full object-cover" />
+                <div className="flex justify-center py-2">
+                  <img src={imageUrl} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-secondary-dark hover:border-primary" />
                 </div>
               )}
             </Link>
