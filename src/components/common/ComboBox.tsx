@@ -22,22 +22,22 @@ const ComboBox = ({ menus, value, searchEnabled = false, label = 'Select', onCha
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" role="combobox" aria-expanded={open} className="w-[340px] justify-between bg-transparent hover:border-primary truncate">
-          <div className="truncate">{value ? menus.find(menu => menu.value === value)?.text : label}</div>
+        <Button variant="outline" role="combobox" aria-expanded={open} className="min-w-[160px] justify-between bg-transparent hover:border-primary truncate">
+          <div className="truncate">{value ? menus.find((menu) => menu.value === value)?.text : label}</div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[160px] p-0">
         <Command>
           {searchEnabled && <CommandInput placeholder="Search ..." />}
           <CommandEmpty>No data found.</CommandEmpty>
           <CommandGroup className="max-h-[300px] overflow-y-auto">
-            {menus.map(menu => (
+            {menus.map((menu) => (
               <CommandItem
                 key={menu.text}
                 value={menu.text}
-                onSelect={currentValue => {
-                  const menuItem = menus.find(item => {
+                onSelect={(currentValue) => {
+                  const menuItem = menus.find((item) => {
                     return item.text.toLowerCase() === currentValue.toLowerCase();
                   });
 
