@@ -1,6 +1,6 @@
 import { Event } from '@/types/event';
 
-export async function editEvent(event: Event, session: any): Promise<void> {
+export async function updateEvent(event: Event, session: any): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`;
 
   const body = JSON.stringify({
@@ -18,7 +18,6 @@ export async function editEvent(event: Event, session: any): Promise<void> {
     venueCity: event?.venueCity.trim(),
     venueCountry: event?.venueCountry.trim(),
     participationFee: event?.participationFee,
-    type: event?.type,
     livestreamUrl: event?.livestreamUrl,
     paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
     paymentMethodPayPal: {
@@ -36,7 +35,6 @@ export async function editEvent(event: Event, session: any): Promise<void> {
     notifyOnRegistration: event?.notifyOnRegistration,
     allowComments: event?.allowComments,
     notifyOnComment: event?.notifyOnComment,
-    state: event?.state,
   });
 
   const response = await fetch(url, {

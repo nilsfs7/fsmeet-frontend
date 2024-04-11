@@ -250,14 +250,14 @@ const UsersList = (props: any) => {
 
         <div className={'my-2 flex justify-center overflow-y-auto p-2'}>
           <div className="w-full">
-            <div className="flex items-center py-4">
+            <div className="flex py-4">
               <Input
                 placeholder="Search name..."
                 value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
                 onChange={(event: any) => {
                   table.getColumn('user')?.setFilterValue(event.target.value);
                 }}
-                className="max-w-44"
+                className="max-w-40"
               />
 
               <DropdownMenu>
@@ -371,13 +371,13 @@ const UsersList = (props: any) => {
             </div>
           </div>
         </div>
-      </div>
 
-      <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-      </Navigation>
+        <Navigation>
+          <Link href={routeHome}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+        </Navigation>
+      </div>
     </div>
   );
 };

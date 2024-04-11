@@ -3,6 +3,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { User } from '@/types/user';
 import { imgFreestyler } from '@/types/consts/images';
 import { routeUsers } from '@/types/consts/routes';
+import { Gender } from '@/types/enums/gender';
 
 const loader = new Loader({
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',
@@ -16,12 +17,47 @@ interface IMapsProps {
   lat?: number;
   lng?: number;
   zoom?: number;
+  filterName?: string;
+  filterGender?: Gender;
 }
 
 // Europe = lat: 54.5259614, lng: 15.2551187
-const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, lng = 15.2551187, zoom = 6 }: IMapsProps) => {
+const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, lng = 15.2551187, zoom = 6, filterName, filterGender }: IMapsProps) => {
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
+  const [markersWithInfo, setMarkersWithInfo] = useState<{ marker: google.maps.Marker; info: google.maps.InfoWindow }[]>([]);
+
+  useEffect(() => {
+    markersWithInfo.forEach((markerWithInfo) => {
+      const markerTitle = markerWithInfo.marker.getTitle();
+      if (markerTitle) {
+        const user = users.filter((user) => {
+          return user.username === markerTitle;
+        })[0];
+
+        // @ts-ignore
+        const fullName = `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
+
+        let nameOk: boolean = true;
+        if (filterName && !fullName.includes(filterName.toLowerCase())) {
+          nameOk = false;
+        }
+
+        let genderOk: boolean = true;
+        if (filterGender && filterGender?.toString() !== '--' && user.gender !== filterGender) {
+          genderOk = false;
+        }
+
+        console.log(nameOk, genderOk);
+        if (nameOk && genderOk) {
+          markerWithInfo.marker.setVisible(true);
+        } else {
+          markerWithInfo.marker.setVisible(false);
+          markerWithInfo.info.close();
+        }
+      }
+    });
+  }, [filterName, filterGender]);
 
   useEffect(() => {
     loader.load().then(async () => {
@@ -33,6 +69,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
       // @ts-ignore
       const newMap = new window.google.maps.Map(document.getElementById('map'), mapOptions);
 
+      const markersWithInfo: { marker: google.maps.Marker; info: google.maps.InfoWindow }[] = [];
       users.forEach((user) => {
         if (user.locLatitude && user.locLongitude) {
           // const userImg = 'https://bucket-fsmeet-dev.s3.eu-central-1.amazonaws.com/nils/Safeimagekit-resized-img.png';
@@ -42,12 +79,10 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
           const icon = {
             url: imgFreestyler,
             size: new google.maps.Size(iconSize, iconSize),
-            // origin: new google.maps.Point(0, 0),
-            // anchor: new google.maps.Point(0, 32),
             scaledSize: new google.maps.Size(iconSize, iconSize),
           };
 
-          const marker = new window.google.maps.Marker({
+          const marker = new google.maps.Marker({
             clickable: true,
             title: user.username,
             position: new google.maps.LatLng(user.locLatitude, user.locLongitude),
@@ -65,9 +100,11 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
                 </div>
               </div>`;
 
-          var infowindow = new google.maps.InfoWindow({
+          var infoWindow = new google.maps.InfoWindow({
             content: content,
           });
+
+          markersWithInfo.push({ marker: marker, info: infoWindow });
 
           marker.addListener('mouseover', () => {
             // infowindow.open(map, marker);
@@ -78,14 +115,16 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
           });
 
           marker.addListener('click', () => {
-            infowindow.open(map, marker);
+            infoWindow.open(map, marker);
           });
 
           if (selectedUsers.includes(user.username)) {
-            infowindow.open(map, marker);
+            infoWindow.open(map, marker);
           }
         }
       });
+
+      setMarkersWithInfo(markersWithInfo);
 
       // @ts-ignore
       setMap(newMap);

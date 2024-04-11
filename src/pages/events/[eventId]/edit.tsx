@@ -13,9 +13,9 @@ import { GetServerSidePropsContext } from 'next';
 import { EditorMode } from '@/types/enums/editor-mode';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
-import { editEvent } from '@/services/fsmeet-backend/edit-event';
 import { Toaster, toast } from 'sonner';
 import { deleteEvent } from '@/services/fsmeet-backend/delete-event';
+import { updateEvent } from '@/services/fsmeet-backend/update-event';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -28,7 +28,7 @@ const EventEditing = (props: any) => {
   const handleSaveClicked = async () => {
     if (event) {
       try {
-        await editEvent(event, session);
+        await updateEvent(event, session);
         router.replace(`${routeEvents}/${eventId}?auth=1`);
       } catch (error: any) {
         toast.error(error.message);

@@ -23,7 +23,7 @@ const EventCreation = (props: any) => {
     if (event) {
       try {
         await createEvent(event, session);
-        router.replace(routeEventSubs);
+        router.replace(`${routeEventSubs}/?tab=myevents`);
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);

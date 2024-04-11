@@ -2,16 +2,21 @@ import { Header } from '@/components/Header';
 import MapOfFreestylers from '@/components/MapOfFreestylers';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
+import ComboBox from '@/components/common/ComboBox';
 import TextButton from '@/components/common/TextButton';
+import { Input } from '@/components/ui/input';
 import { getUser } from '@/services/fsmeet-backend/get-user';
 import { getUsers } from '@/services/fsmeet-backend/get-users';
+import { menuGenderWithBoth } from '@/types/consts/menus/menu-gender';
 import { routeAccount, routeHome } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
+import { Gender } from '@/types/enums/gender';
 import { User } from '@/types/user';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) => {
   const users: User[] = data;
@@ -21,6 +26,9 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
   const paramUser = searchParams.get('user');
   const paramLat = searchParams.get('lat');
   const paramLng = searchParams.get('lng');
+
+  const [filterName, setFilterName] = useState('');
+  const [filterGender, setGender] = useState<Gender>();
 
   const unsecuredCopyToClipboard = (text: string) => {
     const textArea = document.createElement('textarea');
@@ -48,14 +56,32 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
     <div className="absolute inset-0 flex flex-col">
       <Header />
 
-      {/* <div className={'flex flex-col items-center'}>
+      <div className={'flex flex-col items-center'}>
         <h1 className="mt-2 text-xl">{`Freestyler Map`}</h1>
       </div>
-      <div className="mt-2 h-full"> */}
 
-      <div className="h-full">
+      <div className="mt-2 mx-2 flex gap-2">
+        <Input
+          placeholder="Search name..."
+          value={filterName}
+          onChange={(event: any) => {
+            setFilterName(event.target.value);
+          }}
+          className="max-w-40"
+        />
+
+        <ComboBox
+          menus={menuGenderWithBoth}
+          value={filterGender ? filterGender : menuGenderWithBoth[0].value}
+          onChange={(value: any) => {
+            setGender(value);
+          }}
+        />
+      </div>
+
+      <div className="mt-2 h-full max-h-screen overflow-hidden">
         {paramLat && paramLng && <MapOfFreestylers lat={+paramLat} lng={+paramLng} zoom={7} users={users} selectedUsers={[paramUser ? paramUser : '']} />}
-        {(!paramLat || !paramLng) && <MapOfFreestylers zoom={4} users={users} />}
+        {(!paramLat || !paramLng) && <MapOfFreestylers zoom={4} users={users} filterName={filterName} filterGender={filterGender} />}
       </div>
 
       <Navigation>
