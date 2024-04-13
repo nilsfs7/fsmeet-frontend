@@ -80,7 +80,9 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
       </div>
 
       <div className="mt-2 h-full max-h-screen overflow-hidden">
-        {paramLat && paramLng && <MapOfFreestylers lat={+paramLat} lng={+paramLng} zoom={7} users={users} selectedUsers={[paramUser ? paramUser : '']} />}
+        {paramLat && paramLng && (
+          <MapOfFreestylers lat={+paramLat} lng={+paramLng} zoom={7} users={users} selectedUsers={[paramUser ? paramUser : '']} filterName={filterName} filterGender={filterGender} />
+        )}
         {(!paramLat || !paramLng) && <MapOfFreestylers zoom={4} users={users} filterName={filterName} filterGender={filterGender} />}
       </div>
 
