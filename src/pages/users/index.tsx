@@ -36,8 +36,9 @@ import { Input } from '@/components/ui/input';
 import ReactCountryFlag from 'react-country-flag';
 import { UserType } from '@/types/enums/user-type';
 import { Header } from '@/components/Header';
+import { User } from '@/types/user';
 
-export type User = {
+export type UserInfo = {
   username: string;
   imageUrl: string;
   firstName: string;
@@ -58,7 +59,7 @@ export type Socials = {
 };
 
 export type ColumnInfo = {
-  user: User;
+  user: UserInfo;
   country: string;
   location: Location;
   socials: Socials;
@@ -108,13 +109,13 @@ export const columns: ColumnDef<ColumnInfo>[] = [
     },
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>
+        <Link href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}>
           <div className="h-8 w-8">
-            <img src={(row.getValue('user') as User).imageUrl ? (row.getValue('user') as User).imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
+            <img src={(row.getValue('user') as UserInfo).imageUrl ? (row.getValue('user') as UserInfo).imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
           </div>
         </Link>
-        <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>
-          <div className="capitalize">{`${(row.getValue('user') as User).firstName} ${(row.getValue('user') as User).lastName}`}</div>
+        <Link href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}>
+          <div className="capitalize">{`${(row.getValue('user') as UserInfo).firstName} ${(row.getValue('user') as UserInfo).lastName}`}</div>
         </Link>
       </div>
     ),
@@ -396,7 +397,22 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     // const matchStats = await getTotalMatchPerformance(username.toString());
 
     const columnInfos: ColumnInfo[] = [];
-    users.forEach((user, index) => {
+
+    const userSorted = users.sort((a: User, b: User) => {
+      const rowAVal = `${a.firstName} ${a.lastName}`;
+      const rowBVal = `${b.firstName} ${b.lastName}`;
+
+      if (rowAVal < rowBVal) {
+        return -1;
+      }
+      if (rowAVal > rowBVal) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    userSorted.forEach((user, index) => {
       if (user.type !== UserType.TECHNICAL) {
         columnInfos.push({
           user: {
