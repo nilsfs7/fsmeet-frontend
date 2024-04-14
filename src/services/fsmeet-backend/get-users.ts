@@ -11,16 +11,27 @@ export async function getUsers(): Promise<User[]> {
   const users: User[] = [];
 
   data.map((d) => {
-    const user: User = d;
-
-    user.tShirtSize = d.private?.tShirtSize;
-    user.houseNumber = d.private?.houseNumber;
-    user.street = d.private?.street;
-    user.postCode = d.private?.postCode;
-    user.city = d.private?.city;
-    user.exposeLocation = d.private?.exposeLocation;
-    user.locLatitude = d.private?.locLatitude;
-    user.locLongitude = d.private?.locLongitude;
+    const user: User = {
+      username: d.username,
+      type: d.type,
+      imageUrl: d.imageUrl,
+      firstName: d.firstName,
+      lastName: d.lastName,
+      gender: d.gender,
+      country: d.country,
+      instagramHandle: d.instagramHandle,
+      tikTokHandle: d.tikTokHandle,
+      youTubeHandle: d.youTubeHandle,
+      website: d.website,
+      isVerifiedAccount: d.isVerifiedAccount,
+      tShirtSize: d.private?.tShirtSize,
+      houseNumber: d.private?.houseNumber,
+      street: d.private?.street,
+      postCode: d.private?.postCode,
+      city: d.private?.city,
+      exposeLocation: d.private?.exposeLocation,
+      locLatitude: d.private?.locLatitude,
+    };
 
     users.push(user);
   });
