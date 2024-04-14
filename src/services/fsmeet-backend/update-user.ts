@@ -14,6 +14,9 @@ export async function updateUser(user: User, session: any): Promise<User> {
     website: user.website,
     private: {
       tShirtSize: user.tShirtSize,
+      houseNumber: user.houseNumber,
+      street: user.street,
+      postCode: user.postCode,
       city: user.city,
       exposeLocation: user.exposeLocation,
     },
@@ -31,10 +34,13 @@ export async function updateUser(user: User, session: any): Promise<User> {
   if (response.ok) {
     const user: any = await response.json();
     user.tShirtSize = user.private?.tShirtSize;
-    user.city = user?.private?.city;
-    user.exposeLocation = user?.private?.exposeLocation;
-    user.locLatitude = user?.private?.locLatitude;
-    user.locLongitude = user?.private?.locLongitude;
+    user.houseNumber = user.private?.houseNumber;
+    user.street = user.private?.street;
+    user.postCode = user.private?.postCode;
+    user.city = user.private?.city;
+    user.exposeLocation = user.private?.exposeLocation;
+    user.locLatitude = user.private?.locLatitude;
+    user.locLongitude = user.private?.locLongitude;
 
     console.info('Updating user info successful');
 
