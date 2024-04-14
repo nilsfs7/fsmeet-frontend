@@ -11,16 +11,30 @@ export async function getUser(username: string, session?: any): Promise<User> {
   });
 
   if (response.ok) {
-    const user: any = await response.json();
+    const data: any = await response.json();
 
-    user.tShirtSize = user.private?.tShirtSize;
-    user.houseNumber = user.private?.houseNumber;
-    user.street = user.private?.street;
-    user.postCode = user.private?.postCode;
-    user.city = user.private?.city;
-    user.exposeLocation = user.private?.exposeLocation;
-    user.locLatitude = user.private?.locLatitude;
-    user.locLongitude = user.private?.locLongitude;
+    const user: User = {
+      username: data.username,
+      type: data.type,
+      imageUrl: data.imageUrl,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      gender: data.gender,
+      country: data.country,
+      instagramHandle: data.instagramHandle,
+      tikTokHandle: data.tikTokHandle,
+      youTubeHandle: data.youTubeHandle,
+      website: data.website,
+      isVerifiedAccount: data.isVerifiedAccount,
+      tShirtSize: data.private?.tShirtSize,
+      houseNumber: data.private?.houseNumber,
+      street: data.private?.street,
+      postCode: data.private?.postCode,
+      city: data.private?.city,
+      exposeLocation: data.private?.exposeLocation,
+      locLatitude: data.private?.locLatitude,
+      locLongitude: data.private?.locLongitude,
+    };
 
     return user;
   } else {

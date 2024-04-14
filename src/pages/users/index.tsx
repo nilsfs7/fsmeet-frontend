@@ -36,8 +36,9 @@ import { Input } from '@/components/ui/input';
 import ReactCountryFlag from 'react-country-flag';
 import { UserType } from '@/types/enums/user-type';
 import { Header } from '@/components/Header';
+import { User } from '@/types/user';
 
-export type User = {
+export type UserInfo = {
   username: string;
   imageUrl: string;
   firstName: string;
@@ -58,7 +59,7 @@ export type Socials = {
 };
 
 export type ColumnInfo = {
-  user: User;
+  user: UserInfo;
   country: string;
   location: Location;
   socials: Socials;
@@ -108,13 +109,13 @@ export const columns: ColumnDef<ColumnInfo>[] = [
     },
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>
+        <Link href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}>
           <div className="h-8 w-8">
-            <img src={(row.getValue('user') as User).imageUrl ? (row.getValue('user') as User).imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
+            <img src={(row.getValue('user') as UserInfo).imageUrl ? (row.getValue('user') as UserInfo).imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
           </div>
         </Link>
-        <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>
-          <div className="capitalize">{`${(row.getValue('user') as User).firstName} ${(row.getValue('user') as User).lastName}`}</div>
+        <Link href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}>
+          <div className="capitalize">{`${(row.getValue('user') as UserInfo).firstName} ${(row.getValue('user') as UserInfo).lastName}`}</div>
         </Link>
       </div>
     ),
@@ -243,89 +244,89 @@ const UsersList = (props: any) => {
     <div className="absolute inset-0 flex flex-col">
       <Header />
 
-      <div className={`m-2 flex flex-col overflow-hidden`}>
-        <div className={'flex flex-col items-center'}>
-          <h1 className="mt-2 text-xl">{`Community`}</h1>
-        </div>
+      <div className={'flex flex-col items-center'}>
+        <h1 className="mt-2 text-xl">{`Community`}</h1>
+      </div>
 
-        <div className={'my-2 flex justify-center overflow-y-auto p-2'}>
-          <div className="w-full">
-            <div className="flex py-4">
-              <Input
-                placeholder="Search name..."
-                value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
-                onChange={(event: any) => {
-                  table.getColumn('user')?.setFilterValue(event.target.value);
-                }}
-                className="max-w-40"
-              />
+      <div className="mt-2 mx-2 flex gap-2">
+        <Input
+          placeholder="Search name..."
+          value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
+          onChange={(event: any) => {
+            table.getColumn('user')?.setFilterValue(event.target.value);
+          }}
+          className="max-w-40"
+        />
 
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    Columns <ChevronDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {table
-                    .getAllColumns()
-                    .filter((column) => column.getCanHide())
-                    .map((column) => {
-                      return (
-                        <DropdownMenuCheckboxItem key={column.id} className="capitalize" checked={column.getIsVisible()} onCheckedChange={(value: any) => column.toggleVisibility(!!value)}>
-                          {column.id}
-                        </DropdownMenuCheckboxItem>
-                      );
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="ml-auto">
+              Columns <ChevronDown className="ml-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem key={column.id} className="capitalize" checked={column.getIsVisible()} onCheckedChange={(value: any) => column.toggleVisibility(!!value)}>
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      <div className={'mt-2 mx-2 flex justify-center overflow-y-auto'}>
+        <div className="w-full">
+          <div className="rounded-md border">
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                      return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
                     })}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-            <div className="rounded-md border">
-              <Table>
-                <TableHeader>
-                  {table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow key={headerGroup.id}>
-                      {headerGroup.headers.map((header) => {
-                        return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
-                      })}
-                    </TableRow>
-                  ))}
-                </TableHeader>
+                  </TableRow>
+                ))}
+              </TableHeader>
 
-                <TableBody>
-                  {table.getRowModel().rows?.length ? (
-                    table.getRowModel().rows.map((row) => (
-                      <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                        {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                        ))}
-                      </TableRow>
-                    ))
-                  ) : (
-                    <TableRow>
-                      <TableCell colSpan={columns.length} className="h-24 text-center">
-                        No results.
-                      </TableCell>
+              <TableBody>
+                {table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                      ))}
                     </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </div>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={columns.length} className="h-24 text-center">
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
 
-            <div className="flex items-center justify-end space-x-2 py-4">
-              {/* <div className="flex-1 text-sm text-muted-foreground">
+          {/* <div className="flex items-center justify-end space-x-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
                 {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div> */}
-              {/* <div className="space-x-2">
+              </div>
+            <div className="space-x-2">
                 <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                   Previous
                 </Button>
                 <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
                   Next
                 </Button>
-              </div> */}
+              </div>
 
-              {/* <div className="flex items-center space-x-6 lg:space-x-8">
+            <div className="flex items-center space-x-6 lg:space-x-8">
                 <div className="flex items-center space-x-2">
                   <p className="text-sm font-medium">Rows per page</p>
                   <Select
@@ -367,17 +368,16 @@ const UsersList = (props: any) => {
                     <DoubleArrowRightIcon className="h-4 w-4" />
                   </Button>
                 </div>
-              </div> */}
-            </div>
-          </div>
+              </div>
+          </div> */}
         </div>
-
-        <Navigation>
-          <Link href={routeHome}>
-            <ActionButton action={Action.BACK} />
-          </Link>
-        </Navigation>
       </div>
+
+      <Navigation>
+        <Link href={routeHome}>
+          <ActionButton action={Action.BACK} />
+        </Link>
+      </Navigation>
     </div>
   );
 };
@@ -396,7 +396,22 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     // const matchStats = await getTotalMatchPerformance(username.toString());
 
     const columnInfos: ColumnInfo[] = [];
-    users.forEach((user, index) => {
+
+    const userSorted = users.sort((a: User, b: User) => {
+      const rowAVal = `${a.firstName} ${a.lastName}`;
+      const rowBVal = `${b.firstName} ${b.lastName}`;
+
+      if (rowAVal < rowBVal) {
+        return -1;
+      }
+      if (rowAVal > rowBVal) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    userSorted.forEach((user, index) => {
       if (user.type !== UserType.TECHNICAL) {
         columnInfos.push({
           user: {
