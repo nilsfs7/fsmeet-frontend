@@ -33,6 +33,7 @@ export async function getUser(username: string, session?: any): Promise<User> {
       city: data.private?.city,
       exposeLocation: data.private?.exposeLocation,
       locLatitude: data.private?.locLatitude,
+      locLongitude: data.private?.locLongitude,
     };
 
     return user;

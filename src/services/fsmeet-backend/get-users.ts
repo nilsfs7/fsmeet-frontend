@@ -31,6 +31,7 @@ export async function getUsers(): Promise<User[]> {
       city: d.private?.city,
       exposeLocation: d.private?.exposeLocation,
       locLatitude: d.private?.locLatitude,
+      locLongitude: d.private?.locLongitude,
     };
 
     users.push(user);
