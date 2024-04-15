@@ -15,6 +15,7 @@ import ComboBox from '@/components/common/ComboBox';
 import { menuEventStates } from '@/types/consts/menus/menu-event-states';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { getEvents } from '@/services/fsmeet-backend/get-events';
+import { Toaster, toast } from 'sonner';
 
 const Events = (props: any) => {
   const session = props.session;
@@ -42,9 +43,11 @@ const Events = (props: any) => {
       }
     })[0];
 
-    const response = await updateEventState(session, eventId, event.state);
-    if (response.status == 200) {
-      console.info(`State for ${eventId} updated`);
+    try {
+      await updateEventState(session, eventId, event.state);
+      toast.success(`State for ${eventId} updated`);
+    } catch (error: any) {
+      toast.error(error);
     }
   };
 
@@ -59,62 +62,66 @@ const Events = (props: any) => {
   }
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <div className="m-2 text-center text-base font-bold">Manage Events</div>
+    <>
+      <Toaster richColors />
 
-      <div className="m-2 overflow-y-auto">
-        <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
-          <div className="flex flex-col">
-            {events.map((event, index) => {
-              return (
-                <div key={index} className="m-1 flex items-center">
-                  <div className="mx-1 flex w-1/2 justify-end gap-1">
-                    <Link className="float-right" href={`${routeEvents}/${event.id}`}>
-                      {event.name}
-                    </Link>
+      <div className="absolute inset-0 flex flex-col overflow-hidden">
+        <div className="m-2 text-center text-base font-bold">Manage Events</div>
 
-                    <Link className="float-right" href={`${routeUsers}/${event.admin}`}>
-                      {`(${event.admin})`}
-                    </Link>
-                  </div>
-                  <div className="mx-1 flex w-1/2 justify-start">
-                    <>
-                      <ComboBox
-                        menus={menuEventStates}
-                        value={event.state}
-                        searchEnabled={false}
-                        onChange={(value: any) => {
-                          if (event?.id) {
-                            handlEventStateChanged(event.id, value);
-                          }
-                        }}
-                      />
+        <div className="m-2 overflow-y-auto">
+          <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
+            <div className="flex flex-col">
+              {events.map((event, index) => {
+                return (
+                  <div key={index} className="m-1 flex items-center">
+                    <div className="mx-1 flex w-1/2 justify-end gap-1">
+                      <Link className="float-right" href={`${routeEvents}/${event.id}`}>
+                        {event.name}
+                      </Link>
 
-                      <div className="ml-1">
-                        <ActionButton
-                          action={Action.SAVE}
-                          onClick={() => {
+                      <Link className="float-right" href={`${routeUsers}/${event.admin}`}>
+                        {`(${event.admin})`}
+                      </Link>
+                    </div>
+                    <div className="mx-1 flex w-1/2 justify-start">
+                      <>
+                        <ComboBox
+                          menus={menuEventStates}
+                          value={event.state}
+                          searchEnabled={false}
+                          onChange={(value: any) => {
                             if (event?.id) {
-                              handleSaveEventClicked(event.id, event.state);
+                              handlEventStateChanged(event.id, value);
                             }
                           }}
                         />
-                      </div>
-                    </>
+
+                        <div className="ml-1">
+                          <ActionButton
+                            action={Action.SAVE}
+                            onClick={() => {
+                              if (event?.id) {
+                                handleSaveEventClicked(event.id, event.state);
+                              }
+                            }}
+                          />
+                        </div>
+                      </>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
 
-      <Navigation>
-        <Link href={routeAdminOverview}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-      </Navigation>
-    </div>
+        <Navigation>
+          <Link href={routeAdminOverview}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+        </Navigation>
+      </div>
+    </>
   );
 };
 
