@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { User } from '@/types/user';
-import { imgFreestyler } from '@/types/consts/images';
+import { imgAssociation, imgDJ, imgFreestyler, imgMC, imgMedia } from '@/types/consts/images';
 import { routeUsers } from '@/types/consts/routes';
 import { Gender } from '@/types/enums/gender';
+import { UserType } from '@/types/enums/user-type';
 
 const loader = new Loader({
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',
@@ -48,7 +49,6 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
           genderOk = false;
         }
 
-        console.log(nameOk, genderOk);
         if (nameOk && genderOk) {
           markerWithInfo.marker.setVisible(true);
         } else {
@@ -72,12 +72,36 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
       const markersWithInfo: { marker: google.maps.Marker; info: google.maps.InfoWindow }[] = [];
       users.forEach((user) => {
         if (user.locLatitude && user.locLongitude) {
-          // const userImg = 'https://bucket-fsmeet-dev.s3.eu-central-1.amazonaws.com/nils/Safeimagekit-resized-img.png';
+          let userImg = '';
+          let iconSize = 30;
+          let tagType: string = '</>';
 
-          const iconSize = 40;
+          switch (user.type) {
+            case UserType.ASSOCIATION:
+              userImg = imgAssociation;
+              tagType = '<p>Association</p>';
+              iconSize = 40;
+              break;
+            case UserType.DJ:
+              userImg = imgDJ;
+              tagType = '<p>DJ</p>';
+              break;
+            case UserType.FREESTYLER:
+              userImg = imgFreestyler;
+              iconSize = 40;
+              break;
+            case UserType.MC:
+              userImg = imgMC;
+              tagType = '<p>MC</p>';
+              break;
+            case UserType.MEDIA:
+              userImg = imgMedia;
+              tagType = '<p>Media</p>';
+              break;
+          }
 
           const icon = {
-            url: imgFreestyler,
+            url: userImg,
             size: new google.maps.Size(iconSize, iconSize),
             scaledSize: new google.maps.Size(iconSize, iconSize),
           };
@@ -93,6 +117,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
           const content = `
               <div style="line-height:1.35;overflow:hidden;white-space:nowrap;";>
                 <div>${user.firstName ? `${user.firstName} ${user.lastName} (${user.username})` : `${user.username}`}</div>
+                ${tagType}
                 <div>  
                   <a href=${routeUsers}/${user.username}>
                     <u>Click for profile</u>
