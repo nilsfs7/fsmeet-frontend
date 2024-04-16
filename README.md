@@ -130,6 +130,14 @@ Map
 
 - [Freestyler (purchased)](https://www.iconfinder.com/icons/8176401/sport_freestyle_football_soccer_trick_juggling_juggle_icon?coming-from=related-results)
 
+- [Association](https://www.iconfinder.com/icons/2135919/group_leader_man_men_icon)
+
+- [DJ](https://www.iconfinder.com/icons/3994356/dj_earphone_headphone_headset_listen_icon)
+
+- [MC](https://www.iconfinder.com/icons/9023701/microphone_stage_fill_icon)
+
+- [Media](https://www.iconfinder.com/icons/4632668/camera_film_movie_recorder_video_icon)
+
 - [World](https://www.iconfinder.com/icons/7030157/navigation_map_gps_ui_basic_location_app_icon)
 
 Community

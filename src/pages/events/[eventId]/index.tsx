@@ -90,13 +90,13 @@ const Event = (props: any) => {
     }
 
     if (event?.id) {
-      const response = await updateEventState(session, event?.id, EventState.WAITING_FOR_APPROVAL);
+      try {
+        await updateEventState(session, event?.id, EventState.WAITING_FOR_APPROVAL);
 
-      if (response.status == 200) {
-        console.info('Successfully sent to review. Waiting for approval');
+        // toast.success(`todo`);
         router.reload();
-      } else {
-        console.error('Send to review failed.');
+      } catch (error: any) {
+        // toast.error(error);
       }
     }
   };

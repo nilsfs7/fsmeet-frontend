@@ -27,7 +27,12 @@ export const imgProfileSettings = '/profile/settings.svg';
 export const imgProfileFeedback = '/profile/feedback.svg';
 export const imgProfileLogout = '/profile/logout.svg';
 
+export const imgAssociation = '/map/association.svg';
+export const imgDJ = '/map/dj.svg';
 export const imgFreestyler = '/map/freestyler.svg';
+export const imgMC = '/map/mc.svg';
+export const imgMedia = '/map/video.svg';
+
 export const imgWorld = '/map/world.svg';
 
 export const imgCommunity = '/community/people.svg';
