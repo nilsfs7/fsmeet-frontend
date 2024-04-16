@@ -24,8 +24,8 @@ const Home = ({ data, session }: { data: any; session: any }) => {
       <Header showMenu={true} />
 
       <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
-        <div className="text-center text-3xl">Your Freestyle Events</div>
-        <div className="text-center text-xl">Plan | Compete | Connect</div>
+        <div className="text-center text-3xl">{`Your Freestyle Events`}</div>
+        <div className="text-center text-xl">{`Plan | Compete | Connect`}</div>
         <img className="h-12 mt-2" src={imgFreestyler}></img>
       </div>
 
@@ -54,7 +54,7 @@ const Home = ({ data, session }: { data: any; session: any }) => {
               {Array.from({ length: ongoingEvents.length }).map((_, index) => (
                 <CarouselItem key={`ongoing-${index}`}>
                   <>
-                    <h1 className="mt-2 text-center text-2xl">Current Event</h1>
+                    <h1 className="mt-2 text-center text-2xl">{`Ongoing Event`}</h1>
 
                     <div className="mt-2 flex max-h-full justify-center px-2">
                       <div className="w-full">
@@ -77,7 +77,7 @@ const Home = ({ data, session }: { data: any; session: any }) => {
               {Array.from({ length: upcomingEvents.length }).map((_, index) => (
                 <CarouselItem key={`upcoming-${index}`}>
                   <>
-                    <h1 className="mt-2 text-center text-2xl">Upcoming Event</h1>
+                    <h1 className="mt-2 text-center text-2xl">{`Upcoming Event`}</h1>
 
                     <div className="mt-2 flex max-h-full justify-center px-2">
                       <div className="w-full">
@@ -100,7 +100,7 @@ const Home = ({ data, session }: { data: any; session: any }) => {
               {Array.from({ length: recentEvents.length }).map((_, index) => (
                 <CarouselItem key={`recent-${index}`}>
                   <>
-                    <h1 className="mt-2 text-center text-2xl">Recent Event</h1>
+                    <h1 className="mt-2 text-center text-2xl">{`Recent Event`}</h1>
 
                     <div className="mt-2 flex max-h-full justify-center px-2">
                       <div className="w-full">
