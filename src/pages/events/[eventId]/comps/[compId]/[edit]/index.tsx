@@ -8,13 +8,13 @@ import { EventCompetition } from '@/types/event-competition';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
-import ErrorMessage from '@/components/ErrorMessage';
 import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { updateCompetition } from '@/services/fsmeet-backend/update-competition';
 import { EditorMode } from '@/types/enums/editor-mode';
 import { deleteCompetition } from '@/services/fsmeet-backend/delete-competition';
+import { Toaster, toast } from 'sonner';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -24,17 +24,15 @@ const CompetitionEditing = (props: any) => {
   const { compId } = router.query;
 
   const [comp, setComp] = useState<EventCompetition>();
-  const [error, setError] = useState('');
 
   const handleSaveClicked = async () => {
-    setError('');
-
     if (comp) {
       try {
         await updateCompetition(comp, session);
+        toast.success(`Competition successfully updated`);
         router.replace(`${routeEvents}/${eventId}/comps`);
       } catch (error: any) {
-        setError(error.message);
+        toast.error(error.message);
         console.error(error.message);
       }
     }
@@ -49,14 +47,12 @@ const CompetitionEditing = (props: any) => {
   };
 
   const handleConfirmDeleteClicked = async () => {
-    setError('');
-
     if (compId) {
       try {
         await deleteCompetition(compId?.toString(), session);
-        router.push(`${routeEvents}/${eventId}/comps`);
+        router.replace(`${routeEvents}/${eventId}/comps`);
       } catch (error: any) {
-        setError(error.message);
+        toast.error(error.message);
         console.error(error.message);
       }
     }
@@ -83,6 +79,8 @@ const CompetitionEditing = (props: any) => {
 
   return (
     <>
+      <Toaster richColors />
+
       <Dialog title="Delete Competition" queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
         <p>Do you really want to delete this competition?</p>
       </Dialog>
@@ -96,8 +94,6 @@ const CompetitionEditing = (props: any) => {
             setComp(comp);
           }}
         />
-
-        <ErrorMessage message={error} />
 
         <div className="my-2 flex">
           <div className="px-1">
