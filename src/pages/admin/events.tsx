@@ -36,7 +36,7 @@ const Events = (props: any) => {
     setEvents(evts);
   };
 
-  const handleSaveEventClicked = async (eventId: string, state: EventState) => {
+  const handleSaveEventClicked = async (eventId: string) => {
     const event = events.filter((evt) => {
       if (evt.id === eventId) {
         return evt;
@@ -45,7 +45,7 @@ const Events = (props: any) => {
 
     try {
       await updateEventState(session, eventId, event.state);
-      toast.success(`State for ${eventId} updated`);
+      toast.success(`State for ${event.name} (${eventId}) updated.`);
     } catch (error: any) {
       toast.error(error);
     }
@@ -101,7 +101,7 @@ const Events = (props: any) => {
                             action={Action.SAVE}
                             onClick={() => {
                               if (event?.id) {
-                                handleSaveEventClicked(event.id, event.state);
+                                handleSaveEventClicked(event.id);
                               }
                             }}
                           />
