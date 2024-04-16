@@ -36,6 +36,7 @@ import { createEventRegistration } from '@/services/fsmeet-backend/create-event-
 import { deleteEventRegistration } from '@/services/fsmeet-backend/delete-event-registration';
 import { createComment } from '@/services/fsmeet-backend/create-comment';
 import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
+import { getComments } from '@/services/fsmeet-backend/get-comments';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -257,9 +258,10 @@ const Event = (props: any) => {
     }
 
     async function fetchEventComments() {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`);
-      const eventComments: EventComment[] = await response.json();
-      setEventComments(eventComments);
+      if (eventId) {
+        const eventComments = await getComments(eventId?.toString());
+        setEventComments(eventComments);
+      }
     }
 
     fetchEventComments();
