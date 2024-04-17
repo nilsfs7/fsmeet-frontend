@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { User } from '@/types/user';
-import { imgAssociation, imgDJ, imgFreestyler, imgMC, imgMedia } from '@/types/consts/images';
+import { imgAssociation, imgBrand, imgDJ, imgFreestyler, imgMC, imgMedia } from '@/types/consts/images';
 import { routeUsers } from '@/types/consts/routes';
 import { Gender } from '@/types/enums/gender';
 import { UserType } from '@/types/enums/user-type';
@@ -81,6 +81,10 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
               userImg = imgAssociation;
               tagType = '<p>Association</p>';
               iconSize = 40;
+              break;
+            case UserType.BRAND:
+              userImg = imgBrand;
+              tagType = '<p>Brand</p>';
               break;
             case UserType.DJ:
               userImg = imgDJ;

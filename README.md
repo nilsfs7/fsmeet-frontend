@@ -132,6 +132,8 @@ Map
 
 - [Association](https://www.iconfinder.com/icons/2135919/group_leader_man_men_icon)
 
+- [Brand](https://www.iconfinder.com/icons/8542538/tshirt_clothing_icon)
+
 - [DJ](https://www.iconfinder.com/icons/3994356/dj_earphone_headphone_headset_listen_icon)
 
 - [MC](https://www.iconfinder.com/icons/9023701/microphone_stage_fill_icon)

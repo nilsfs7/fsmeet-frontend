@@ -28,6 +28,7 @@ export const imgProfileFeedback = '/profile/feedback.svg';
 export const imgProfileLogout = '/profile/logout.svg';
 
 export const imgAssociation = '/map/association.svg';
+export const imgBrand = '/map/brand.svg';
 export const imgDJ = '/map/dj.svg';
 export const imgFreestyler = '/map/freestyler.svg';
 export const imgMC = '/map/mc.svg';
