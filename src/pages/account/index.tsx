@@ -29,6 +29,7 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import { Gender } from '@/types/enums/gender';
 import { menuGender } from '@/types/consts/menus/menu-gender';
+import { UserType } from '@/types/enums/user-type';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -39,6 +40,7 @@ const Account = ({ session }: any) => {
 
   // public user info
   const [imageUrl, setImageUrl] = useState('');
+  const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [gender, setGender] = useState<Gender>();
@@ -55,6 +57,8 @@ const Account = ({ session }: any) => {
   const [postCode, setPostCode] = useState<string>();
   const [city, setCity] = useState<string>();
   const [exposeLocation, setExposeLocation] = useState<boolean>(false);
+  const [locLatitude, setLocLatitude] = useState<number | undefined>(undefined);
+  const [locLongitude, setLocLongitude] = useState<number | undefined>(undefined);
 
   const handleSaveUserInfoClicked = async () => {
     let firstNameAdjusted = firstName.trim();
@@ -66,17 +70,23 @@ const Account = ({ session }: any) => {
 
     const user: User = {
       username: session?.user?.username,
+      type: userType,
       firstName: firstNameAdjusted,
       lastName: lastNameAdjusted,
       gender: gender,
       country: country,
-      website: websiteAdjusted,
       instagramHandle: instagramHandle,
       tikTokHandle: tikTokHandle,
       youTubeHandle: youTubeHandle,
+      website: websiteAdjusted,
       tShirtSize: tShirtSize,
+      houseNumber: houseNumber,
+      street: street,
+      postCode: postCode,
       city: city,
       exposeLocation: exposeLocation,
+      locLatitude: locLatitude,
+      locLongitude: locLongitude,
     };
 
     try {
@@ -125,6 +135,15 @@ const Account = ({ session }: any) => {
     }
   };
 
+  const getLabelForFirstName = (userType: UserType) => {
+    let label = 'First Name';
+
+    if (userType === UserType.ASSOCIATION) label = 'Association Name';
+    if (userType === UserType.BRAND) label = 'Brand Name';
+
+    return label;
+  };
+
   useEffect(() => {
     async function fetchUser() {
       const user = await getUser(session?.user?.username, session);
@@ -132,6 +151,9 @@ const Account = ({ session }: any) => {
 
       if (user.imageUrl) {
         setImageUrl(user.imageUrl);
+      }
+      if (user.type) {
+        setUserType(user.type);
       }
       if (user.firstName) {
         setFirstName(user.firstName);
@@ -174,6 +196,12 @@ const Account = ({ session }: any) => {
       }
       if (user.exposeLocation) {
         setExposeLocation(user.exposeLocation);
+      }
+      if (user.locLatitude) {
+        setLocLatitude(user.locLatitude);
+      }
+      if (user.locLongitude) {
+        setLocLongitude(user.locLongitude);
       }
     }
     fetchUser();
@@ -256,7 +284,7 @@ const Account = ({ session }: any) => {
                   <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
                     <TextInput
                       id={'firstName'}
-                      label={'First Name'}
+                      label={getLabelForFirstName(userType)}
                       placeholder=""
                       value={firstName}
                       onChange={(e) => {
@@ -264,42 +292,46 @@ const Account = ({ session }: any) => {
                       }}
                     />
 
-                    <TextInput
-                      id={'lastName'}
-                      label={'Last Name'}
-                      placeholder=""
-                      value={lastName}
-                      onChange={(e) => {
-                        setLastName(e.currentTarget.value);
-                      }}
-                    />
-
-                    <div className="m-2 grid grid-cols-2">
-                      <div className="p-2">{`Gender`}</div>
-                      <div className="flex w-full">
-                        <ComboBox
-                          menus={menuGender}
-                          value={gender ? gender : menuGender[0].value}
-                          onChange={(value: any) => {
-                            setGender(value);
+                    {userType !== UserType.ASSOCIATION && userType !== UserType.BRAND && (
+                      <>
+                        <TextInput
+                          id={'lastName'}
+                          label={'Last Name'}
+                          placeholder=""
+                          value={lastName}
+                          onChange={(e) => {
+                            setLastName(e.currentTarget.value);
                           }}
                         />
-                      </div>
-                    </div>
 
-                    <div className="m-2 grid grid-cols-2">
-                      <div className="p-2">{`Country`}</div>
-                      <div className="flex w-full">
-                        <ComboBox
-                          menus={menuCountries}
-                          value={country ? country : menuCountries[0].value}
-                          searchEnabled={true}
-                          onChange={(value: any) => {
-                            setCountry(value);
-                          }}
-                        />
-                      </div>
-                    </div>
+                        <div className="m-2 grid grid-cols-2">
+                          <div className="p-2">{`Gender`}</div>
+                          <div className="flex w-full">
+                            <ComboBox
+                              menus={menuGender}
+                              value={gender ? gender : menuGender[0].value}
+                              onChange={(value: any) => {
+                                setGender(value);
+                              }}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="m-2 grid grid-cols-2">
+                          <div className="p-2">{`Country`}</div>
+                          <div className="flex w-full">
+                            <ComboBox
+                              menus={menuCountries}
+                              value={country ? country : menuCountries[0].value}
+                              searchEnabled={true}
+                              onChange={(value: any) => {
+                                setCountry(value);
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </>
+                    )}
 
                     <TextInput
                       id={'instagramHandle'}
@@ -370,6 +402,8 @@ const Account = ({ session }: any) => {
                       onChange={(e) => {
                         setExposeLocation(true);
                         setCity(e.currentTarget.value);
+                        setLocLatitude(undefined);
+                        setLocLongitude(undefined);
                       }}
                     />
 

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { User } from '@/types/user';
-import { imgAssociation, imgDJ, imgFreestyler, imgMC, imgMedia } from '@/types/consts/images';
+import { imgFreestyler } from '@/types/consts/images';
 import { routeUsers } from '@/types/consts/routes';
 import { Gender } from '@/types/enums/gender';
 import { UserType } from '@/types/enums/user-type';
+import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
 
 const loader = new Loader({
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',
@@ -71,39 +72,15 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
 
       const markersWithInfo: { marker: google.maps.Marker; info: google.maps.InfoWindow }[] = [];
       users.forEach((user) => {
-        if (user.locLatitude && user.locLongitude) {
-          let userImg = '';
-          let iconSize = 30;
-          let tagType: string = '</>';
-
-          switch (user.type) {
-            case UserType.ASSOCIATION:
-              userImg = imgAssociation;
-              tagType = '<p>Association</p>';
-              iconSize = 40;
-              break;
-            case UserType.DJ:
-              userImg = imgDJ;
-              tagType = '<p>DJ</p>';
-              break;
-            case UserType.FREESTYLER:
-              userImg = imgFreestyler;
-              iconSize = 40;
-              break;
-            case UserType.MC:
-              userImg = imgMC;
-              tagType = '<p>MC</p>';
-              break;
-            case UserType.MEDIA:
-              userImg = imgMedia;
-              tagType = '<p>Media</p>';
-              break;
-          }
+        if (user.locLatitude && user.locLongitude && user.type !== UserType.TECHNICAL) {
+          let imgPath = user.type ? getUserTypeImages(user.type).path : imgFreestyler;
+          let imgSize = user.type ? getUserTypeImages(user.type).size : 40;
+          let tagType = user.type && user.type !== UserType.FREESTYLER ? `<p>${getUserTypeLabels(user.type)}</p` : '</>';
 
           const icon = {
-            url: userImg,
-            size: new google.maps.Size(iconSize, iconSize),
-            scaledSize: new google.maps.Size(iconSize, iconSize),
+            url: imgPath,
+            size: new google.maps.Size(imgSize, imgSize),
+            scaledSize: new google.maps.Size(imgSize, imgSize),
           };
 
           const marker = new google.maps.Marker({

@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ReactCountryFlag from 'react-country-flag';
 import { countries } from 'countries-list';
+import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;
@@ -40,10 +41,8 @@ const PublicUserProfile = (props: any) => {
     <div className="absolute inset-0 flex flex-col overflow-hidden">
       <div className="overflow-hidden overflow-y-auto h-full">
         <div className="flex flex-col items-center justify-center">
-          <div className="m-2 text-3xl">{user.username}</div>
-
           <div className="w-64">
-            <div className="flex h-96">
+            <div className="mt-6 flex h-96">
               <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
             </div>
 
@@ -60,6 +59,16 @@ const PublicUserProfile = (props: any) => {
                   {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
                 </div>
               </div>
+
+              {user.type && user.type !== UserType.FREESTYLER && (
+                <div className="flex items-start gap-1 mt-1">
+                  <div className="w-6 hover:p-0.5">
+                    <img src={getUserTypeImages(user.type).path} className="rounded-full object-cover" />
+                  </div>
+
+                  <div className="w-fit">{getUserTypeLabels(user.type)}</div>
+                </div>
+              )}
 
               {user.country && user.country != '--' && (
                 <div className="flex items-center gap-1 mt-1">

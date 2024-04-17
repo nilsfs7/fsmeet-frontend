@@ -58,7 +58,7 @@
     "react-textarea-autosize": "^8.5.2",
     "sonner": "^1.4.41",
     "swr": "^2.1.3",
-    "tailwind-merge": "^2.0.0",
+    "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2"
   },
@@ -68,6 +68,6 @@
     "postcss": "^8.4.31",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.10",
-    "tailwindcss": "^3.3.5"
+    "tailwindcss": "^3.4.3"
   }
 }
