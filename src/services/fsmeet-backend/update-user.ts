@@ -19,6 +19,8 @@ export async function updateUser(user: User, session: any): Promise<User> {
       postCode: user.postCode,
       city: user.city,
       exposeLocation: user.exposeLocation,
+      locLatitude: user.locLatitude,
+      locLongitude: user.locLongitude,
     },
   });
 
