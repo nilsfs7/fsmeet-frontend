@@ -9,11 +9,11 @@ import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
 import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
-import ErrorMessage from '@/components/ErrorMessage';
 import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { getEventRegistrations } from '@/services/fsmeet-backend/get-event-registrations';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
+import { Toaster, toast } from 'sonner';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -24,11 +24,8 @@ const CompetitionPool = (props: any) => {
 
   const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>([]);
   const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
-  const [error, setError] = useState('');
 
   const handleRemoveParticipantClicked = async (compId: string, username: string) => {
-    setError('');
-
     if (!validateSession(session)) {
       router.push(routeLogin);
       return;
@@ -58,14 +55,12 @@ const CompetitionPool = (props: any) => {
       console.info(`${username} removed`);
     } else {
       const error = await response.json();
-      setError(error.message);
+      toast.error(error.message);
       console.error(error.message);
     }
   };
 
   const handleAddParticipantClicked = async (compId: string, username: string) => {
-    setError('');
-
     if (!validateSession(session)) {
       router.push(routeLogin);
       return;
@@ -93,7 +88,7 @@ const CompetitionPool = (props: any) => {
       console.info(`${username} added`);
     } else {
       const error = await response.json();
-      setError(error.message);
+      toast.error(error.message);
       console.error(error.message);
     }
   };
@@ -123,6 +118,8 @@ const CompetitionPool = (props: any) => {
 
   return (
     <>
+      <Toaster richColors />
+
       <div className="mx-2 mt-2">
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <h1 className="m-2 text-center text-xl font-bold">Manage Player Pool</h1>
@@ -180,8 +177,6 @@ const CompetitionPool = (props: any) => {
           </div>
         </div>
       </div>
-
-      <ErrorMessage message={error} />
 
       <Navigation>
         <Link href={`${routeEvents}/${eventId}/comps`}>

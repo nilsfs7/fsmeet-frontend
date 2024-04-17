@@ -29,6 +29,7 @@ import DialogDeleteRound from '@/components/comp/editor/DialogDeleteRound';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { plainToInstance } from 'class-transformer';
 import { updateRounds } from '@/services/fsmeet-backend/update-rounds';
+import { Toaster, toast } from 'sonner';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -52,9 +53,10 @@ const ModeEditing = (props: any) => {
     if (compId) {
       try {
         await createRounds(compId?.toString(), rounds, session);
-        // TODO: feedback
+        toast.success(`Round successfully created`);
         router.reload();
       } catch (error: any) {
+        toast.error(error.message);
         console.error(error.message);
       }
     }
@@ -64,9 +66,10 @@ const ModeEditing = (props: any) => {
     if (compId) {
       try {
         await updateRounds(compId?.toString(), rounds, session);
-        // TODO: feedback
+        toast.success(`Round successfully updated`);
         router.reload();
       } catch (error: any) {
+        toast.error(error.message);
         console.error(error.message);
       }
     }
@@ -76,9 +79,10 @@ const ModeEditing = (props: any) => {
     if (compId) {
       try {
         await deleteRounds(compId?.toString(), session);
-        // TODO: feedback
+        toast.success(`Round successfully deleted`);
         router.reload();
       } catch (error: any) {
+        toast.error(error.message);
         console.error(error.message);
       }
     }
@@ -256,6 +260,8 @@ const ModeEditing = (props: any) => {
 
   return (
     <>
+      <Toaster richColors />
+
       <DialogAddRound
         title="Add Round"
         queryParam="addround"

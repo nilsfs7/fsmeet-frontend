@@ -78,6 +78,7 @@ const Seeding = (props: any) => {
             setRounds(rounds);
           } else {
             // TODO: error message: no game mode set
+            toast.error(`No game mode set`);
           }
         });
       });
