@@ -62,6 +62,7 @@ const Seeding = (props: any) => {
     if (eventId && compId) {
       try {
         await updateMatchSlots(eventId?.toString(), compId?.toString(), matchId, slotIndex, username, result, session);
+        toast.success('Slot updated');
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -74,11 +75,7 @@ const Seeding = (props: any) => {
       getCompetitionParticipants(compId?.toString()).then((participants) => {
         setCompetitionParticipants(participants);
         getRounds(compId?.toString()).then((rounds) => {
-          if (rounds.length > 0) {
-            setRounds(rounds);
-          } else {
-            // TODO: error message: no game mode set
-          }
+          setRounds(rounds);
         });
       });
     }
@@ -95,6 +92,8 @@ const Seeding = (props: any) => {
           </div>
 
           <div className={'my-2 flex justify-center overflow-y-auto'}>
+            {rounds.length === 0 && <div>{`You have not configured a game mode, yet.`}</div>}
+
             <BattleGrid
               rounds={rounds}
               seedingEnabled={true}

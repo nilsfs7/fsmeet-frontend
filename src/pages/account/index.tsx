@@ -30,6 +30,7 @@ import { Toaster, toast } from 'sonner';
 import { Gender } from '@/types/enums/gender';
 import { menuGender } from '@/types/consts/menus/menu-gender';
 import { UserType } from '@/types/enums/user-type';
+import { UserVerificationState } from '@/types/enums/user-verification-state';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -49,6 +50,7 @@ const Account = ({ session }: any) => {
   const [tikTokHandle, setTikTokHandle] = useState('');
   const [youTubeHandle, setYouTubeHandle] = useState('');
   const [website, setWebsite] = useState('');
+  const [verificationState, setVerificationState] = useState<UserVerificationState>(UserVerificationState.NOT_VERIFIED);
 
   // private user info
   const [tShirtSize, setTShirtSize] = useState<string>();
@@ -79,6 +81,7 @@ const Account = ({ session }: any) => {
       tikTokHandle: tikTokHandle,
       youTubeHandle: youTubeHandle,
       website: websiteAdjusted,
+      verificationState: verificationState,
       tShirtSize: tShirtSize,
       houseNumber: houseNumber,
       street: street,
@@ -178,6 +181,9 @@ const Account = ({ session }: any) => {
       }
       if (user.website) {
         setWebsite(user.website);
+      }
+      if (user.verificationState) {
+        setVerificationState(user.verificationState);
       }
       if (user.tShirtSize) {
         setTShirtSize(user.tShirtSize);

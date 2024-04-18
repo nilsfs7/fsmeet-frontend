@@ -3,61 +3,55 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
-import { routeAdminOverview, routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
+import { routeAdminOverview, routeLogin, routeUsers } from '@/types/consts/routes';
 import { validateSession } from '@/types/funcs/validate-session';
 import ActionButton from '@/components/common/ActionButton';
-import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
-import moment from 'moment';
-import { EventState } from '@/types/enums/event-state';
-import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
 import ComboBox from '@/components/common/ComboBox';
-import { menuEventStates } from '@/types/consts/menus/menu-event-states';
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Toaster, toast } from 'sonner';
+import { getUsers } from '@/services/fsmeet-backend/get-users';
+import { User } from '@/types/user';
+import { menuUserVerificationStates } from '@/types/consts/menus/menu-user-verification-states';
+import { UserVerificationState } from '@/types/enums/user-verification-state';
+import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
 
-const Events = (props: any) => {
+const Users = (props: any) => {
   const session = props.session;
 
-  const [events, setEvents] = useState<Event[]>([]);
-  const defaultDateFrom = moment('2000').startOf('year');
-  const defaultDateTo = moment('2099').endOf('year');
+  const [users, setUsers] = useState<User[]>([]);
 
-  const handlEventStateChanged = async (eventId: string, state: EventState) => {
-    let evts = Array.from(events);
-    evts = evts.map((evt) => {
-      if (evt.id === eventId) {
-        evt.state = state;
+  const handlUserVerificationStateChanged = async (username: string, verificationState: UserVerificationState) => {
+    let usrs = Array.from(users);
+    usrs = usrs.map((usr) => {
+      if (usr.username === username) {
+        usr.verificationState = verificationState;
       }
 
-      return evt;
+      return usr;
     });
-    setEvents(evts);
+    setUsers(usrs);
   };
 
-  const handleSaveEventClicked = async (eventId: string) => {
-    const event = events.filter((evt) => {
-      if (evt.id === eventId) {
-        return evt;
-      }
-    })[0];
-
+  const handleSaveUserClicked = async (user: User) => {
     try {
-      await updateEventState(session, eventId, event.state);
-      toast.success(`State for ${event.name} (${eventId}) updated.`);
+      if (user.verificationState) {
+        await updateUserVerificationState(session, user.username, user.verificationState);
+        toast.success(`Verification state for ${user.username} (${user.firstName}) updated.`);
+      }
     } catch (error: any) {
+      console.error(error);
       toast.error(error);
     }
   };
 
   useEffect(() => {
-    getEvents(null, null, defaultDateFrom, defaultDateTo, session).then((events) => {
-      setEvents(events);
+    getUsers().then((users) => {
+      setUsers(users);
     });
-  }, [events == undefined]);
+  }, [users == undefined]);
 
-  if (!events) {
+  if (!users) {
     return <LoadingSpinner />;
   }
 
@@ -66,33 +60,31 @@ const Events = (props: any) => {
       <Toaster richColors />
 
       <div className="absolute inset-0 flex flex-col overflow-hidden">
-        <div className="m-2 text-center text-base font-bold">{`Manage Events`}</div>
+        <div className="m-2 text-center text-base font-bold">{`Manage Users`}</div>
 
         <div className="m-2 overflow-y-auto">
           <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
             <div className="flex flex-col">
-              {events.map((event, index) => {
+              {users.map((user, index) => {
                 return (
                   <div key={index} className="m-1 flex items-center">
                     <div className="mx-1 flex w-1/2 justify-end gap-1">
-                      <Link className="float-right" href={`${routeEvents}/${event.id}`}>
-                        {event.name}
+                      <Link className="float-right" href={`${routeUsers}/${user.username}`}>
+                        {user.username}
                       </Link>
 
-                      <Link className="float-right" href={`${routeUsers}/${event.admin}`}>
-                        {`(${event.admin})`}
+                      <Link className="float-right" href={`${routeUsers}/${user.username}`}>
+                        {`(${user.firstName})`}
                       </Link>
                     </div>
                     <div className="mx-1 flex w-1/2 justify-start">
                       <>
                         <ComboBox
-                          menus={menuEventStates}
-                          value={event.state}
+                          menus={menuUserVerificationStates}
+                          value={user.verificationState || ''}
                           searchEnabled={false}
                           onChange={(value: any) => {
-                            if (event?.id) {
-                              handlEventStateChanged(event.id, value);
-                            }
+                            handlUserVerificationStateChanged(user.username, value);
                           }}
                         />
 
@@ -100,9 +92,7 @@ const Events = (props: any) => {
                           <ActionButton
                             action={Action.SAVE}
                             onClick={() => {
-                              if (event?.id) {
-                                handleSaveEventClicked(event.id);
-                              }
+                              handleSaveUserClicked(user);
                             }}
                           />
                         </div>
@@ -125,7 +115,7 @@ const Events = (props: any) => {
   );
 };
 
-export default Events;
+export default Users;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);

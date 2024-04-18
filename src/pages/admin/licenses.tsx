@@ -21,7 +21,7 @@ const Licenses = (props: any) => {
     const newAmount = license.amountEventLicenses + diff;
     if (newAmount >= 0 && newAmount < 100) {
       let lics = Array.from(licenses);
-      lics = lics.map(lic => {
+      lics = lics.map((lic) => {
         if (lic.username === license.username) {
           lic.amountEventLicenses = newAmount;
         }
@@ -37,7 +37,7 @@ const Licenses = (props: any) => {
   };
 
   useEffect(() => {
-    getLicenses(session).then(licenses => {
+    getLicenses(session).then((licenses) => {
       setLicenses(licenses);
     });
   }, [licenses == undefined]);
@@ -48,7 +48,7 @@ const Licenses = (props: any) => {
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <div className="m-2 text-center text-base font-bold">Manage Licenses</div>
+      <div className="m-2 text-center text-base font-bold">{`Manage Licenses`}</div>
 
       <div className="m-2 overflow-y-auto">
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>

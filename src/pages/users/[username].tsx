@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import ReactCountryFlag from 'react-country-flag';
 import { countries } from 'countries-list';
 import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
+import { UserVerificationState } from '@/types/enums/user-verification-state';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;
@@ -48,7 +49,7 @@ const PublicUserProfile = (props: any) => {
 
             <div className="mx-2 mt-6">
               <div className="flex items-start gap-1 text-lg">
-                {user.isVerifiedAccount && (
+                {user.verificationState === UserVerificationState.VERIFIED && (
                   <div className="h-6 w-6 hover:p-0.5 flex items-center">
                     <img className="" src={imgVerifiedCheckmark} alt="user verified checkmark" />
                   </div>

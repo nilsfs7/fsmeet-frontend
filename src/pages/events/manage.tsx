@@ -101,7 +101,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
                 </TabsContent>
 
                 <TabsContent value="myevents" className="overflow-y-auto">
-                  {eventsOwning.length === 0 && <div className="flex justify-center">{`You have not created any events, yet.`}</div>}
+                  {eventsOwning.length === 0 && <div>{`You have not created any events, yet.`}</div>}
 
                   {eventsOwning.length > 0 &&
                     eventsOwning.map((item: any, i: number) => {
