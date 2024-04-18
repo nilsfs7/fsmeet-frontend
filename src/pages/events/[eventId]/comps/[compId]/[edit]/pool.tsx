@@ -53,6 +53,7 @@ const CompetitionPool = (props: any) => {
       setCompetitionParticipants(newArray);
 
       console.info(`${username} removed`);
+      toast.success(`${username} removed`);
     } else {
       const error = await response.json();
       toast.error(error.message);
@@ -85,6 +86,7 @@ const CompetitionPool = (props: any) => {
       newArray.push({ username: username });
       setCompetitionParticipants(newArray);
 
+      toast.success(`${username} added`);
       console.info(`${username} added`);
     } else {
       const error = await response.json();
