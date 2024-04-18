@@ -23,7 +23,7 @@ export async function getUsers(): Promise<User[]> {
       tikTokHandle: d.tikTokHandle,
       youTubeHandle: d.youTubeHandle,
       website: d.website,
-      isVerifiedAccount: d.isVerifiedAccount,
+      verificationState: d.verificationState,
       tShirtSize: d.private?.tShirtSize,
       houseNumber: d.private?.houseNumber,
       street: d.private?.street,

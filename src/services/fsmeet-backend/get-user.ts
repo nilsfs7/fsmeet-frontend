@@ -25,7 +25,7 @@ export async function getUser(username: string, session?: any): Promise<User> {
       tikTokHandle: data.tikTokHandle,
       youTubeHandle: data.youTubeHandle,
       website: data.website,
-      isVerifiedAccount: data.isVerifiedAccount,
+      verificationState: data.verificationState,
       tShirtSize: data.private?.tShirtSize,
       houseNumber: data.private?.houseNumber,
       street: data.private?.street,
