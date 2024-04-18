@@ -29,6 +29,7 @@ import DialogDeleteRound from '@/components/comp/editor/DialogDeleteRound';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { plainToInstance } from 'class-transformer';
 import { updateRounds } from '@/services/fsmeet-backend/update-rounds';
+import { Toaster, toast } from 'sonner';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -37,12 +38,11 @@ const ModeEditing = (props: any) => {
   const { eventId } = router.query;
   const { compId } = router.query;
 
-  const [numParticipants] = useState<number>(props.data.participants.length);
-
   // const minMatchSize = 2;
   // const minPassingPerMatch = 1;
   // const minPassingExtra = 0;
 
+  const [numParticipants] = useState<number>(props.data.participants.length);
   const [gameModeApplied, setGameModeApplied] = useState<boolean>(plainToInstance(Round, props.data.rounds).length > 0);
   const [rounds, setRounds] = useState<Round[]>(plainToInstance(Round, props.data.rounds));
 
@@ -52,9 +52,9 @@ const ModeEditing = (props: any) => {
     if (compId) {
       try {
         await createRounds(compId?.toString(), rounds, session);
-        // TODO: feedback
-        router.reload();
+        toast.success(`Rounds successfully created`);
       } catch (error: any) {
+        toast.error(error.message);
         console.error(error.message);
       }
     }
@@ -64,9 +64,9 @@ const ModeEditing = (props: any) => {
     if (compId) {
       try {
         await updateRounds(compId?.toString(), rounds, session);
-        // TODO: feedback
-        router.reload();
+        toast.success(`Rounds successfully updated`);
       } catch (error: any) {
+        toast.error(error.message);
         console.error(error.message);
       }
     }
@@ -76,9 +76,10 @@ const ModeEditing = (props: any) => {
     if (compId) {
       try {
         await deleteRounds(compId?.toString(), session);
-        // TODO: feedback
+        toast.success(`Round successfully deleted`);
         router.reload();
       } catch (error: any) {
+        toast.error(error.message);
         console.error(error.message);
       }
     }
@@ -256,6 +257,8 @@ const ModeEditing = (props: any) => {
 
   return (
     <>
+      <Toaster richColors />
+
       <DialogAddRound
         title="Add Round"
         queryParam="addround"
@@ -321,12 +324,16 @@ const ModeEditing = (props: any) => {
       <div className="absolute inset-0 flex flex-col">
         <div className={`m-2 flex flex-col overflow-hidden`}>
           <div className={'flex flex-col items-center'}>
-            <h1 className="mt-2 text-xl">Mode Editor</h1>
+            <h1 className="mt-2 text-xl">{`Game Mode Editor`}</h1>
           </div>
 
-          <div className={'mt-2 flex flex-col items-center'}>{(rounds.length === 0 || getLastRound().advancingTotal > 1) && <TextButton text={`Add Round`} onClick={handleAddRoundClicked} />}</div>
+          {numParticipants > 1 && (
+            <div className={'mt-2 flex flex-col items-center'}>{(rounds.length === 0 || getLastRound().advancingTotal > 1) && <TextButton text={`Add Round`} onClick={handleAddRoundClicked} />}</div>
+          )}
 
           <div className={'my-2 flex justify-center overflow-y-auto'}>
+            {numParticipants < 2 && <div>{`Add at least 2 players to the competition pool before creating a game mode.`}</div>}
+
             <BattleGrid
               rounds={rounds}
               editingEnabled={true}
