@@ -92,6 +92,8 @@ const Seeding = (props: any) => {
           </div>
 
           <div className={'my-2 flex justify-center overflow-y-auto'}>
+            {rounds.length === 0 && <div>{`You have not configured a game mode, yet.`}</div>}
+
             <BattleGrid
               rounds={rounds}
               seedingEnabled={true}

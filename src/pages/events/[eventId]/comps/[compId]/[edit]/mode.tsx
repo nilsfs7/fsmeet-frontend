@@ -324,12 +324,16 @@ const ModeEditing = (props: any) => {
       <div className="absolute inset-0 flex flex-col">
         <div className={`m-2 flex flex-col overflow-hidden`}>
           <div className={'flex flex-col items-center'}>
-            <h1 className="mt-2 text-xl">Mode Editor</h1>
+            <h1 className="mt-2 text-xl">{`Game Mode Editor`}</h1>
           </div>
 
-          <div className={'mt-2 flex flex-col items-center'}>{(rounds.length === 0 || getLastRound().advancingTotal > 1) && <TextButton text={`Add Round`} onClick={handleAddRoundClicked} />}</div>
+          {numParticipants > 1 && (
+            <div className={'mt-2 flex flex-col items-center'}>{(rounds.length === 0 || getLastRound().advancingTotal > 1) && <TextButton text={`Add Round`} onClick={handleAddRoundClicked} />}</div>
+          )}
 
           <div className={'my-2 flex justify-center overflow-y-auto'}>
+            {numParticipants < 2 && <div>{`Add at least 2 players to the competition pool before creating a game mode.`}</div>}
+
             <BattleGrid
               rounds={rounds}
               editingEnabled={true}

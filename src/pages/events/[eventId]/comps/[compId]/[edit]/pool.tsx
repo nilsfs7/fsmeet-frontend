@@ -123,10 +123,15 @@ const CompetitionPool = (props: any) => {
       <Toaster richColors />
 
       <div className="mx-2 mt-2">
-        <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
-          <h1 className="m-2 text-center text-xl font-bold">Manage Player Pool</h1>
-          <div className="flex flex-col">
-            <div className="m-2 text-center text-sm">Number of players in pool: {competitionParticipants.length}</div>
+        <div className={'rounded-lg border border-primary bg-secondary-light p-2'}>
+          <div className={'flex flex-col items-center'}>
+            <h1 className="mt-2 text-xl">{`Manage Player Pool`}</h1>
+          </div>
+
+          <div className={'my-2 flex flex-col justify-center overflow-y-auto'}>
+            {competitionParticipants.length === 0 && <div className="m-2 text-center">{`There are no registrations for your event, yet.`}</div>}
+            {competitionParticipants.length > 0 && <div className="m-2 text-center">{`Number of players in pool: ${competitionParticipants.length}`}</div>}
+
             {eventRegistrations.map((registration, index) => {
               const participant: EventRegistration = {
                 username: registration.username,
