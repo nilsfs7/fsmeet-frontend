@@ -38,12 +38,11 @@ const ModeEditing = (props: any) => {
   const { eventId } = router.query;
   const { compId } = router.query;
 
-  const [numParticipants] = useState<number>(props.data.participants.length);
-
   // const minMatchSize = 2;
   // const minPassingPerMatch = 1;
   // const minPassingExtra = 0;
 
+  const [numParticipants] = useState<number>(props.data.participants.length);
   const [gameModeApplied, setGameModeApplied] = useState<boolean>(plainToInstance(Round, props.data.rounds).length > 0);
   const [rounds, setRounds] = useState<Round[]>(plainToInstance(Round, props.data.rounds));
 
@@ -53,8 +52,7 @@ const ModeEditing = (props: any) => {
     if (compId) {
       try {
         await createRounds(compId?.toString(), rounds, session);
-        toast.success(`Round successfully created`);
-        router.reload();
+        toast.success(`Rounds successfully created`);
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -66,8 +64,7 @@ const ModeEditing = (props: any) => {
     if (compId) {
       try {
         await updateRounds(compId?.toString(), rounds, session);
-        toast.success(`Round successfully updated`);
-        router.reload();
+        toast.success(`Rounds successfully updated`);
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
