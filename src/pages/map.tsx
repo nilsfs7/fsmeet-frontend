@@ -11,6 +11,7 @@ import { menuGenderWithBoth } from '@/types/consts/menus/menu-gender';
 import { routeAccount, routeHome } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Gender } from '@/types/enums/gender';
+import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { User } from '@/types/user';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
@@ -30,26 +31,8 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
   const [filterName, setFilterName] = useState('');
   const [filterGender, setGender] = useState<Gender>();
 
-  const unsecuredCopyToClipboard = (text: string) => {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-      document.execCommand('copy');
-    } catch (err) {
-      console.error('Unable to copy to clipboard', err);
-    }
-    document.body.removeChild(textArea);
-  };
-
   const handleShareClicked = async () => {
-    if (window.isSecureContext && navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.toString());
-    } else {
-      unsecuredCopyToClipboard(window.location.toString());
-    }
+    copyToClipboard(window.location.toString());
   };
 
   return (

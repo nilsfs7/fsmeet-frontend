@@ -37,6 +37,7 @@ import { deleteEventRegistration } from '@/services/fsmeet-backend/delete-event-
 import { createComment } from '@/services/fsmeet-backend/create-comment';
 import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
 import { getComments } from '@/services/fsmeet-backend/get-comments';
+import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -202,25 +203,7 @@ const Event = (props: any) => {
       eventUrl = window.location.toString();
     }
 
-    if (window.isSecureContext && navigator.clipboard) {
-      navigator.clipboard.writeText(eventUrl);
-    } else {
-      unsecuredCopyToClipboard(eventUrl);
-    }
-  };
-
-  const unsecuredCopyToClipboard = (text: string) => {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-      document.execCommand('copy');
-    } catch (err) {
-      console.error('Unable to copy to clipboard', err);
-    }
-    document.body.removeChild(textArea);
+    copyToClipboard(eventUrl);
   };
 
   useEffect(() => {
