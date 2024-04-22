@@ -300,7 +300,7 @@ const Event = (props: any) => {
       <Dialog title="Event Visibility" queryParam="state" onCancel={handleCancelDialogClicked}>
         <>
           <p className="flex gap-2 items-center">
-            <div> Event state: </div>
+            <div>{`Event state:`}</div>
             <div className="font-extrabold p-2 rounded-lg bg-secondary">{(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}</div>
           </p>
 

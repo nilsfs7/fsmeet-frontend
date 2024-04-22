@@ -35,6 +35,7 @@ import Separator from '@/components/Seperator';
 import SocialLink from '@/components/user/SocialLink';
 import { Platform } from '@/types/enums/platform';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
+import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -142,6 +143,30 @@ const Account = ({ session }: any) => {
     }
   };
 
+  const handleVerificationRequestClicked = async () => {
+    if (!validateSession(session)) {
+      router.push(routeLogin);
+      return;
+    }
+
+    router.replace(`${routeAccount}?tab=account&verification=1`, undefined, { shallow: true });
+  };
+
+  const handleConfirmSendVerificationRequestClicked = async () => {
+    if (!validateSession(session)) {
+      router.push(routeLogin);
+      return;
+    }
+
+    try {
+      await updateUserVerificationState(session, session?.user?.username, UserVerificationState.VERIFICATION_PENDING);
+      toast.success('Requesting verification successful.');
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
+  };
+
   const handleCopyClicked = async (input: string) => {
     copyToClipboard(input);
     toast.info('Message copied to clipboard.');
@@ -230,12 +255,69 @@ const Account = ({ session }: any) => {
     <>
       <Toaster richColors />
 
+      <Dialog title="Account Verification" queryParam="verification" onCancel={handleCancelDialogClicked}>
+        <div className="flex flex-col justify-center text-center">
+          <p className="text-lg font-bold">{`Step 1`}</p>
+          <p>{`Provide your first and last name, gender and country in general info. Any other fields are optional.`}</p>
+          <p>
+            {`Please note: Once verification is completed, updating any of the previously mentioned
+            fields will reset your verified status and the process needs to be repeated.`}
+          </p>
+        </div>
+
+        <div className="mt-4 mb-2">
+          <Separator />
+        </div>
+
+        <div className="flex flex-col justify-center items-center text-center">
+          <p className="text-lg font-bold">{`Step 2`}</p>
+          <p className="flex">{`Have an Instagram profile with decent history (account age and feed with freestyle related content showing you).`}</p>
+          <p className="flex">{`Send us a DM on Instagram including your FSMeet username. You can simply copy the message below.`}</p>
+          <div className="flex justify-center items-center gap-2">
+            <div className="italic select-text bg-secondary rounded-lg py-1 px-2">{`"Hey there, please verify ${session?.user?.username} on fsmeet."`}</div>
+
+            <ActionButton
+              action={Action.COPY}
+              onClick={() => {
+                handleCopyClicked(`Hey there, please verify ${session?.user?.username} on fsmeet.`);
+              }}
+            />
+          </div>
+
+          <div className="mt-2">
+            <SocialLink platform={Platform.INSTAGRAM} path="@fsmeet_com" />
+          </div>
+        </div>
+
+        <div className="mt-4 mb-2">
+          <Separator />
+        </div>
+
+        <div className="flex flex-col items-center justify-center text-center">
+          <p className="text-lg font-bold">{`Step 3`}</p>
+          <p>{`If done with step 1 and 2, please request verification by hitting the button below.`}</p>
+          <div className="mt-2">
+            <TextButton text="Request Now" onClick={handleConfirmSendVerificationRequestClicked} />
+          </div>
+        </div>
+
+        <div className="mt-4 mb-2">
+          <Separator />
+        </div>
+
+        <div className="flex flex-col justify-center text-center">
+          <p className="text-lg font-bold">{`Step 4`}</p>
+          <p>{`Wait for verification. This should usually be done within a few hours. We will let you know via email.`}</p>
+          <p>{`Once verified a checkmark appears next to your name in your public profile.`}</p>
+        </div>
+      </Dialog>
+
       <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmDeleteAccountClicked}>
-        <p>Do you really want to leave us?</p>
+        <p>{`Do you really want to leave us?`}</p>
       </Dialog>
 
       <Dialog title="Logout" queryParam="logout" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmLogoutClicked}>
-        <p>Logout now?</p>
+        <p>{`Logout now?`}</p>
       </Dialog>
 
       <div className="absolute inset-0 flex flex-col">
@@ -262,7 +344,7 @@ const Account = ({ session }: any) => {
           </div>
 
           <div className="my-4" />
-          <div className="mx-2 flex flex-col overflow-hidden">
+          <div className="flex flex-col overflow-hidden">
             <div className={'flex flex-col items-center overflow-auto'}>
               <Tabs defaultValue={tab || `general`} className="flex flex-col h-full">
                 <TabsList className="mb-2">
@@ -438,48 +520,29 @@ const Account = ({ session }: any) => {
                   <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-4">
                     <div className="flex justify-center text-lg">{`Account Verification`}</div>
 
-                    <div className="mt-4 flex justify-center text-center">
-                      1. Provide information about your first and last name, gender and country. Any other fields are optional. Please note: Once verification is completed, updating any of the
-                      previously mentiond fields will reset your verified status and you need to repeat the process.
+                    <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
+                      <p className="flex gap-2 items-center">
+                        <div>{`Verification Status:`}</div>
+                        <div className="font-extrabold p-2 rounded-lg bg-secondary">{(verificationState.charAt(0).toUpperCase() + verificationState.slice(1)).replaceAll('_', ' ')}</div>
+                      </p>
+
+                      {verificationState !== UserVerificationState.VERIFIED && verificationState !== UserVerificationState.VERIFICATION_PENDING && (
+                        <TextButton text="Verify Now" onClick={handleVerificationRequestClicked} />
+                      )}
                     </div>
 
-                    <div className="mt-4 flex flex-col justify-center items-center text-center">
-                      <div className="flex">2. Have an Instagram profile with decent history (account age and feed with freestyle related content showing you). Send a DM to</div>
-                      <SocialLink platform={Platform.INSTAGRAM} path="@fsmeet_com" />
-                      <div className="flex">including your FSMeet username. You can simply copy the message below.</div>
-
-                      <div className="flex justify-center items-center gap-4">
-                        <div className="italic select-text bg-secondary rounded-lg py-1 px-2">{`"Hey there, please verify ${session?.user?.username} on fsmeet.com."`}</div>
-
-                        <div className="flex items-center gap-1">
-                          <ActionButton
-                            action={Action.COPY}
-                            onClick={() => {
-                              handleCopyClicked(`Hey there, please verify ${session?.user?.username} on fsmeet.com.`);
-                            }}
-                          />
-                          {/* <div>{`(copy)`}</div> */}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 flex justify-center text-center">
-                      3. Wait for verification. This should usually be done within a few hours. Once verified a checkmark appears next to your name in your public profile. We will let you know via
-                      email.
-                    </div>
-
-                    <div className="my-8">
+                    <div className="my-4">
                       <Separator />
                     </div>
 
-                    {/* <div className="flex justify-center text-lg">{`Account Management`}</div> */}
+                    <div className="flex justify-center text-lg">{`Account Management`}</div>
 
-                    <div className="flex justify-center">
+                    <div className="mt-4 flex justify-center">
                       <TextButton text="Logout" onClick={handleLogoutClicked} />
                     </div>
 
-                    <div className="my-4 flex justify-center">
-                      <TextButton text="Delete account" style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
+                    <div className="mt-4 flex justify-center">
+                      <TextButton text="Delete Account" style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
                     </div>
                   </div>
                 </TabsContent>
