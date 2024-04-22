@@ -144,6 +144,7 @@ const Account = ({ session }: any) => {
 
   const handleCopyClicked = async (input: string) => {
     copyToClipboard(input);
+    toast.info('Message copied to clipboard.');
   };
 
   const getLabelForFirstName = (userType: UserType) => {

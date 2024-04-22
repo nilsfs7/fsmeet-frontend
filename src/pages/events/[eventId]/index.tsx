@@ -38,6 +38,7 @@ import { createComment } from '@/services/fsmeet-backend/create-comment';
 import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
 import { getComments } from '@/services/fsmeet-backend/get-comments';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
+import { Toaster, toast } from 'sonner';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -204,6 +205,7 @@ const Event = (props: any) => {
     }
 
     copyToClipboard(eventUrl);
+    toast.info('Event URL copied to clipboard.');
   };
 
   useEffect(() => {
@@ -257,6 +259,8 @@ const Event = (props: any) => {
 
   return (
     <>
+      <Toaster richColors />
+
       <Dialog title="Unregister From Event" queryParam="unregister" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmUnregisterClicked} confirmText="Confirm">
         <p>Do you really want to unregister from this event?</p>
       </Dialog>

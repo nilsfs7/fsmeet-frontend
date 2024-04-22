@@ -18,6 +18,7 @@ import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { Toaster, toast } from 'sonner';
 
 const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) => {
   const users: User[] = data;
@@ -33,62 +34,67 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
 
   const handleShareClicked = async () => {
     copyToClipboard(window.location.toString());
+    toast.info('Map URL copied to clipboard.');
   };
 
   return (
-    <div className="absolute inset-0 flex flex-col">
-      <Header />
+    <>
+      <Toaster richColors />
 
-      <div className={'flex flex-col items-center'}>
-        <h1 className="mt-2 text-xl">{`Freestyler Map`}</h1>
-      </div>
+      <div className="absolute inset-0 flex flex-col">
+        <Header />
 
-      <div className="mt-2 mx-2 flex gap-2">
-        <Input
-          placeholder="Search name..."
-          value={filterName}
-          onChange={(event: any) => {
-            setFilterName(event.target.value);
-          }}
-          className="max-w-40"
-        />
-
-        <ComboBox
-          menus={menuGenderWithBoth}
-          value={filterGender ? filterGender : menuGenderWithBoth[0].value}
-          onChange={(value: any) => {
-            setGender(value);
-          }}
-        />
-      </div>
-
-      <div className="mt-2 h-full max-h-screen overflow-hidden">
-        {paramLat && paramLng && (
-          <MapOfFreestylers lat={+paramLat} lng={+paramLng} zoom={7} users={users} selectedUsers={[paramUser ? paramUser : '']} filterName={filterName} filterGender={filterGender} />
-        )}
-        {(!paramLat || !paramLng) && <MapOfFreestylers zoom={4} users={users} filterName={filterName} filterGender={filterGender} />}
-      </div>
-
-      <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-
-        <div className="flex justify-end">
-          <div className="ml-1">
-            <ActionButton action={Action.COPY} onClick={handleShareClicked} />
-          </div>
-
-          {(!user || (user && !user.locLatitude)) && (
-            <div className="ml-1">
-              <Link href={`${routeAccount}?tab=map`}>
-                <TextButton text={'Add Your Pin'} />
-              </Link>
-            </div>
-          )}
+        <div className={'flex flex-col items-center'}>
+          <h1 className="mt-2 text-xl">{`Freestyler Map`}</h1>
         </div>
-      </Navigation>
-    </div>
+
+        <div className="mt-2 mx-2 flex gap-2">
+          <Input
+            placeholder="Search name..."
+            value={filterName}
+            onChange={(event: any) => {
+              setFilterName(event.target.value);
+            }}
+            className="max-w-40"
+          />
+
+          <ComboBox
+            menus={menuGenderWithBoth}
+            value={filterGender ? filterGender : menuGenderWithBoth[0].value}
+            onChange={(value: any) => {
+              setGender(value);
+            }}
+          />
+        </div>
+
+        <div className="mt-2 h-full max-h-screen overflow-hidden">
+          {paramLat && paramLng && (
+            <MapOfFreestylers lat={+paramLat} lng={+paramLng} zoom={7} users={users} selectedUsers={[paramUser ? paramUser : '']} filterName={filterName} filterGender={filterGender} />
+          )}
+          {(!paramLat || !paramLng) && <MapOfFreestylers zoom={4} users={users} filterName={filterName} filterGender={filterGender} />}
+        </div>
+
+        <Navigation>
+          <Link href={routeHome}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+
+          <div className="flex justify-end">
+            <div className="ml-1">
+              <ActionButton action={Action.COPY} onClick={handleShareClicked} />
+            </div>
+
+            {(!user || (user && !user.locLatitude)) && (
+              <div className="ml-1">
+                <Link href={`${routeAccount}?tab=map`}>
+                  <TextButton text={'Add Your Pin'} />
+                </Link>
+              </div>
+            )}
+          </div>
+        </Navigation>
+      </div>
+    </>
   );
 };
 
