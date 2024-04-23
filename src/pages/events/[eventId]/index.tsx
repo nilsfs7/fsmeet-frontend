@@ -37,6 +37,8 @@ import { deleteEventRegistration } from '@/services/fsmeet-backend/delete-event-
 import { createComment } from '@/services/fsmeet-backend/create-comment';
 import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
 import { getComments } from '@/services/fsmeet-backend/get-comments';
+import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
+import { Toaster, toast } from 'sonner';
 
 const Event = (props: any) => {
   const session = props.session;
@@ -202,25 +204,8 @@ const Event = (props: any) => {
       eventUrl = window.location.toString();
     }
 
-    if (window.isSecureContext && navigator.clipboard) {
-      navigator.clipboard.writeText(eventUrl);
-    } else {
-      unsecuredCopyToClipboard(eventUrl);
-    }
-  };
-
-  const unsecuredCopyToClipboard = (text: string) => {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-      document.execCommand('copy');
-    } catch (err) {
-      console.error('Unable to copy to clipboard', err);
-    }
-    document.body.removeChild(textArea);
+    copyToClipboard(eventUrl);
+    toast.info('Event URL copied to clipboard.');
   };
 
   useEffect(() => {
@@ -274,6 +259,8 @@ const Event = (props: any) => {
 
   return (
     <>
+      <Toaster richColors />
+
       <Dialog title="Unregister From Event" queryParam="unregister" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmUnregisterClicked} confirmText="Confirm">
         <p>Do you really want to unregister from this event?</p>
       </Dialog>
@@ -313,7 +300,7 @@ const Event = (props: any) => {
       <Dialog title="Event Visibility" queryParam="state" onCancel={handleCancelDialogClicked}>
         <>
           <p className="flex gap-2 items-center">
-            <div> Event state: </div>
+            <div>{`Event state:`}</div>
             <div className="font-extrabold p-2 rounded-lg bg-secondary">{(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}</div>
           </p>
 

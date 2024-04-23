@@ -40,29 +40,31 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
 
   return showDialog === '1' ? (
     <dialog ref={dialogRef}>
-      <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50 ">
-        <div className="min-w-[250px] rounded-lg bg-background">
+      <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50">
+        <div className="min-w-[250px] max-h-[80%] flex flex-col rounded-lg bg-background">
           <div className="rounded-t-lg bg-secondary-light p-2 text-center">
             <h1 className="text-2xl">{title}</h1>
           </div>
-          <div className="rounded-b-lg bg-background p-2">
-            <div className="p-2">{children}</div>
-            <div className="flex flex-row justify-between p-2">
-              {onCancel && (
-                <>
-                  {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
-                  {cancelText && <TextButton text={cancelText} onClick={clickCancel} />}
-                </>
-              )}
-              {!onCancel && <div />}
 
-              {onConfirm && (
-                <>
-                  {!confirmText && <ActionButton action={Action.ACCEPT} onClick={clickConfirm} />}
-                  {confirmText && <TextButton text={confirmText} onClick={clickConfirm} />}
-                </>
-              )}
-            </div>
+          <div className="p-2 bg-background overflow-hidden">
+            <div className="h-full overflow-y-auto">{children}</div>
+          </div>
+
+          <div className="flex flex-row justify-between p-2">
+            {onCancel && (
+              <>
+                {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
+                {cancelText && <TextButton text={cancelText} onClick={clickCancel} />}
+              </>
+            )}
+            {!onCancel && <div />}
+
+            {onConfirm && (
+              <>
+                {!confirmText && <ActionButton action={Action.ACCEPT} onClick={clickConfirm} />}
+                {confirmText && <TextButton text={confirmText} onClick={clickConfirm} />}
+              </>
+            )}
           </div>
         </div>
       </div>
