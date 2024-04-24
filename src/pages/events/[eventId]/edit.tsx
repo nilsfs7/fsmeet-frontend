@@ -16,6 +16,7 @@ import TextButton from '@/components/common/TextButton';
 import { Toaster, toast } from 'sonner';
 import { deleteEvent } from '@/services/fsmeet-backend/delete-event';
 import { updateEvent } from '@/services/fsmeet-backend/update-event';
+import PageTitle from '@/components/PageTitle';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -74,10 +75,10 @@ const EventEditing = (props: any) => {
       </Dialog>
 
       <div className="absolute inset-0 flex flex-col">
-        <div className={`mx-2 flex flex-col overflow-hidden`}>
-          <h1 className="mt-2 text-center text-xl">{`Edit Event`}</h1>
+        <PageTitle title="Edit Event" />
 
-          <div className={'mt-2 flex justify-center overflow-y-auto'}>
+        <div className={`mx-2 flex flex-col overflow-y-auto`}>
+          <div className={'flex justify-center'}>
             <div>
               <EventEditor
                 editorMode={EditorMode.EDIT}

@@ -13,6 +13,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Toaster, toast } from 'sonner';
 import { createEvent } from '@/services/fsmeet-backend/create-event';
+import PageTitle from '@/components/PageTitle';
 
 const EventCreation = (props: any) => {
   const session = props.session;
@@ -36,10 +37,10 @@ const EventCreation = (props: any) => {
       <Toaster richColors />
 
       <div className="absolute inset-0 flex flex-col">
-        <div className={`mx-2 flex flex-col overflow-hidden`}>
-          <h1 className="mt-2 text-center text-xl">{`Create Event`}</h1>
+        <PageTitle title="Create Event" />
 
-          <div className={'mt-2 flex justify-center overflow-y-auto'}>
+        <div className={`mx-2 flex flex-col overflow-y-auto`}>
+          <div className={'flex justify-center'}>
             <div>
               <EventEditor
                 editorMode={EditorMode.CREATE}

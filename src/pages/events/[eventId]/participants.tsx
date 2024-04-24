@@ -17,6 +17,8 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 import { deleteEventRegistration } from '@/services/fsmeet-backend/delete-event-registration';
 import { Toaster, toast } from 'sonner';
 import { updateEventRegistrationStatus } from '@/services/fsmeet-backend/update-event-registration-status';
+import Navigation from '@/components/Navigation';
+import PageTitle from '@/components/PageTitle';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -102,11 +104,12 @@ const EventParticipants = (props: any) => {
         <p>Do you really want to remove {userToRemove}?</p>
       </Dialog>
 
-      <div className="m-2">
-        <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
-          <div className="m-2 text-center text-base font-bold">Manage Participants</div>
+      <div className="absolute inset-0 flex flex-col">
+        <PageTitle title="Manage Participants" />
+
+        <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>
           <div className="flex flex-col">
-            {event.eventRegistrations.length === 0 && <div className="m-1 flex justify-center">No registrations yet</div>}
+            {event.eventRegistrations.length === 0 && <div className="m-1 flex justify-center">{`No registrations yet`}</div>}
             {event.eventRegistrations.map((registration, index) => {
               const participant: EventRegistration = {
                 username: registration.username,
@@ -121,6 +124,7 @@ const EventParticipants = (props: any) => {
                       <Participant participant={participant} registrationStatus={registration.status} />
                     </Link>
                   </div>
+
                   <div className="mx-1 flex w-1/2 justify-start">
                     {(participant.status === EventRegistrationStatus.APPROVED || participant.status === EventRegistrationStatus.DENIED) && (
                       <>
@@ -164,14 +168,10 @@ const EventParticipants = (props: any) => {
             })}
           </div>
         </div>
-      </div>
 
-      <div className="m-2 flex justify-between">
-        <div className="flex justify-start">
-          <div className="mr-1">
-            <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}?auth=1`)} />
-          </div>
-        </div>
+        <Navigation>
+          <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}?auth=1`)} />
+        </Navigation>
       </div>
     </>
   );

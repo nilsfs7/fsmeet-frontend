@@ -30,6 +30,7 @@ import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { plainToInstance } from 'class-transformer';
 import { updateRounds } from '@/services/fsmeet-backend/update-rounds';
 import { Toaster, toast } from 'sonner';
+import PageTitle from '@/components/PageTitle';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -322,16 +323,14 @@ const ModeEditing = (props: any) => {
       />
 
       <div className="absolute inset-0 flex flex-col">
-        <div className={`m-2 flex flex-col overflow-hidden`}>
-          <div className={'flex flex-col items-center'}>
-            <h1 className="mt-2 text-xl">{`Game Mode Editor`}</h1>
-          </div>
+        <PageTitle title="Game Mode Editor" />
 
+        <div className={`mx-2 flex flex-col overflow-hidden`}>
           {numParticipants > 1 && (
             <div className={'mt-2 flex flex-col items-center'}>{(rounds.length === 0 || getLastRound().advancingTotal > 1) && <TextButton text={`Add Round`} onClick={handleAddRoundClicked} />}</div>
           )}
 
-          <div className={'my-2 flex justify-center overflow-y-auto'}>
+          <div className={'mt-2 flex justify-center overflow-y-auto'}>
             {numParticipants < 2 && <div>{`Add at least 2 players to the competition pool before creating a game mode.`}</div>}
 
             <BattleGrid

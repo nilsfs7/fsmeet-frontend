@@ -19,6 +19,7 @@ import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { updateMatchSlots } from '@/services/fsmeet-backend/update-match-slots';
 import { Toaster, toast } from 'sonner';
+import PageTitle from '@/components/PageTitle';
 
 const Seeding = (props: any) => {
   const session = props.session;
@@ -86,12 +87,10 @@ const Seeding = (props: any) => {
       <Toaster richColors />
 
       <div className="absolute inset-0 flex flex-col">
-        <div className={`m-2 flex flex-col overflow-hidden`}>
-          <div className={'flex flex-col items-center'}>
-            <h1 className="mt-2 text-xl">{`Seeding & Results`}</h1>
-          </div>
+        <PageTitle title="Seeding & Results" />
 
-          <div className={'my-2 flex justify-center overflow-y-auto'}>
+        <div className={`mx-2 flex flex-col overflow-y-auto`}>
+          <div className={'my-2 flex justify-center'}>
             {rounds.length === 0 && <div>{`You have not configured a game mode, yet.`}</div>}
 
             <BattleGrid

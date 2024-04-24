@@ -14,6 +14,7 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 import { getEventRegistrations } from '@/services/fsmeet-backend/get-event-registrations';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { Toaster, toast } from 'sonner';
+import PageTitle from '@/components/PageTitle';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -122,12 +123,10 @@ const CompetitionPool = (props: any) => {
     <>
       <Toaster richColors />
 
-      <div className="mx-2 mt-2">
-        <div className={'rounded-lg border border-primary bg-secondary-light p-2'}>
-          <div className={'flex flex-col items-center'}>
-            <h1 className="mt-2 text-xl">{`Manage Player Pool`}</h1>
-          </div>
+      <div className="absolute inset-0 flex flex-col">
+        <PageTitle title="Manage Player Pool" />
 
+        <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 overflow-y-auto'}>
           <div className={'my-2 flex flex-col justify-center overflow-y-auto'}>
             {competitionParticipants.length === 0 && <div className="m-2 text-center">{`There are no registrations for your event, yet.`}</div>}
             {competitionParticipants.length > 0 && <div className="m-2 text-center">{`Number of players in pool: ${competitionParticipants.length}`}</div>}
@@ -183,13 +182,13 @@ const CompetitionPool = (props: any) => {
             })}
           </div>
         </div>
-      </div>
 
-      <Navigation>
-        <Link href={`${routeEvents}/${eventId}/comps`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-      </Navigation>
+        <Navigation>
+          <Link href={`${routeEvents}/${eventId}/comps`}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+        </Navigation>
+      </div>
     </>
   );
 };

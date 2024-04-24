@@ -15,6 +15,9 @@ import { updateCompetition } from '@/services/fsmeet-backend/update-competition'
 import { EditorMode } from '@/types/enums/editor-mode';
 import { deleteCompetition } from '@/services/fsmeet-backend/delete-competition';
 import { Toaster, toast } from 'sonner';
+import Navigation from '@/components/Navigation';
+import TextButton from '@/components/common/TextButton';
+import PageTitle from '@/components/PageTitle';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;
@@ -85,27 +88,28 @@ const CompetitionEditing = (props: any) => {
         <p>Do you really want to delete this competition?</p>
       </Dialog>
 
-      <div className={'flex columns-1 flex-col items-center'}>
-        <h1 className="m-2 text-xl">{`Edit Competition`}</h1>
-        <CompetitionEditor
-          editorMode={EditorMode.EDIT}
-          comp={comp}
-          onCompUpdate={(comp: EventCompetition) => {
-            setComp(comp);
-          }}
-        />
+      <div className="absolute inset-0 flex flex-col">
+        <PageTitle title="Edit Competition" />
 
-        <div className="my-2 flex">
-          <div className="px-1">
-            <ActionButton action={Action.CANCEL} onClick={() => router.replace(`${routeEvents}/${eventId}/comps`)} />
-          </div>
-          <div className="px-1">
-            <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-          </div>
-          <div className="px-1">
-            <ActionButton action={Action.SAVE} onClick={handleSaveClicked} />
-          </div>
+        <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
+          <CompetitionEditor
+            editorMode={EditorMode.EDIT}
+            comp={comp}
+            onCompUpdate={(comp: EventCompetition) => {
+              setComp(comp);
+            }}
+          />
         </div>
+
+        <Navigation>
+          <ActionButton action={Action.CANCEL} onClick={() => router.replace(`${routeEvents}/${eventId}/comps`)} />
+
+          <div className="flex gap-1">
+            <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
+
+            <TextButton text={'Save'} onClick={handleSaveClicked} />
+          </div>
+        </Navigation>
       </div>
     </>
   );

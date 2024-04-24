@@ -10,6 +10,10 @@ import { validateSession } from '@/types/funcs/validate-session';
 import { createCompetition } from '@/services/fsmeet-backend/create-competition';
 import { EditorMode } from '@/types/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
+import Navigation from '@/components/Navigation';
+import ActionButton from '@/components/common/ActionButton';
+import { Action } from '@/types/enums/action';
+import PageTitle from '@/components/PageTitle';
 
 const CompetitionCreation = (props: any) => {
   const session = props.session;
@@ -35,23 +39,22 @@ const CompetitionCreation = (props: any) => {
     <>
       <Toaster richColors />
 
-      <div className={'flex columns-1 flex-col items-center'}>
-        <h1 className="m-2 text-xl">{`Create Competition`}</h1>
-        <CompetitionEditor
-          editorMode={EditorMode.CREATE}
-          onCompUpdate={(comp: EventCompetition) => {
-            setComp(comp);
-          }}
-        />
+      <div className="absolute inset-0 flex flex-col">
+        <PageTitle title="Create Competition" />
 
-        <div className="my-2 flex">
-          <div className="pr-1">
-            <TextButton text={'Cancel'} onClick={() => router.back()} />
-          </div>
-          <div className="pl-1">
-            <TextButton text={'Create'} onClick={handleCreateClicked} />
-          </div>
+        <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
+          <CompetitionEditor
+            editorMode={EditorMode.CREATE}
+            onCompUpdate={(comp: EventCompetition) => {
+              setComp(comp);
+            }}
+          />
         </div>
+
+        <Navigation>
+          <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+          <TextButton text={'Create'} onClick={handleCreateClicked} />
+        </Navigation>
       </div>
     </>
   );

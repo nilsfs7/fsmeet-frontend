@@ -24,6 +24,7 @@ import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-compet
 import { validateSession } from '@/types/funcs/validate-session';
 import { Switch } from '@/components/ui/switch';
 import { getUser } from '@/services/fsmeet-backend/get-user';
+import PageTitle from '@/components/PageTitle';
 
 const Competition = (props: any) => {
   const session = props.session;
@@ -55,7 +56,7 @@ const Competition = (props: any) => {
       }
 
       p.then(async (e: Event) => {
-        const comp = e.eventCompetitions.filter(c => c.id === compId)[0];
+        const comp = e.eventCompetitions.filter((c) => c.id === compId)[0];
         const c: EventCompetition = {
           id: comp.id,
           eventId: eventId,
@@ -67,8 +68,8 @@ const Competition = (props: any) => {
         setComp(c);
 
         const participants = await getCompetitionParticipants(compId);
-        const competitionParticipants = participants.map(participant => {
-          const participantRegistrationPair = e.eventRegistrations.filter(registration => {
+        const competitionParticipants = participants.map((participant) => {
+          const participantRegistrationPair = e.eventRegistrations.filter((registration) => {
             if (registration.username === participant.username) {
               return registration.imageUrl;
             }
@@ -93,7 +94,7 @@ const Competition = (props: any) => {
   useEffect(() => {
     if (compId) {
       // @ts-ignore: next-line
-      getRounds(compId).then(rounds => {
+      getRounds(compId).then((rounds) => {
         if (rounds.length === 0) {
         } else {
           setRounds(rounds);
@@ -106,11 +107,11 @@ const Competition = (props: any) => {
     const getUsers = async () => {
       const usersMap = new Map();
       const requests: Promise<void>[] = [];
-      rounds.map(round => {
-        round.matches.map(match => {
-          match.matchSlots.map(slot => {
+      rounds.map((round) => {
+        round.matches.map((match) => {
+          match.matchSlots.map((slot) => {
             if (!usersMap.get(slot.name)) {
-              const req = getUser(slot.name).then(user => {
+              const req = getUser(slot.name).then((user) => {
                 usersMap.set(slot.name, user);
               });
               requests.push(req);
@@ -127,8 +128,9 @@ const Competition = (props: any) => {
   }, [rounds]);
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <h1 className="my-2 flex items-center justify-center text-xl">{comp?.name}</h1>
+    <div className="absolute inset-0 flex flex-col">
+      {/* @ts-ignore TODO: remove, comp name should never be empty */}
+      <PageTitle title={comp?.name} />
 
       <div className="mx-2 overflow-hidden">
         <Tabs defaultValue={tab || `schedule`} className="flex flex-col h-full">
@@ -184,7 +186,7 @@ const Competition = (props: any) => {
 
                   <Switch
                     defaultChecked={filteredByUser !== null}
-                    onCheckedChange={checked => {
+                    onCheckedChange={(checked) => {
                       checked ? setFilteredByUser(session?.user?.username) : setFilteredByUser(null);
                     }}
                   />
