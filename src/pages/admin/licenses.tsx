@@ -12,6 +12,7 @@ import { updateLicense } from '@/services/fsmeet-backend/update-license';
 import Navigation from '@/components/Navigation';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import PageTitle from '@/components/PageTitle';
+import { Toaster, toast } from 'sonner';
 
 const Licenses = (props: any) => {
   const session = props.session;
@@ -30,9 +31,13 @@ const Licenses = (props: any) => {
         return lic;
       });
       setLicenses(lics);
-      const response = await updateLicense(session, license);
-      if (response.status == 200) {
-        console.info(`Licenses for ${license.username} updated`);
+
+      try {
+        await updateLicense(session, license);
+        toast.success(`Licenses for ${license.username} updated (${license.amountEventLicenses}).`);
+      } catch (error: any) {
+        console.error(error);
+        toast.error(error);
       }
     }
   };
@@ -48,54 +53,58 @@ const Licenses = (props: any) => {
   }
 
   return (
-    <div className="absolute inset-0 flex flex-col">
-      <PageTitle title="Manage Licenses" />
+    <>
+      <Toaster richColors />
 
-      <div className="mx-2 overflow-y-auto">
-        <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
-          <div className="flex flex-col">
-            {licenses.map((license, index) => {
-              return (
-                <div key={index} className="m-1 flex items-center">
-                  <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`${routeUsers}/${license.username}`}>
-                      {license.username}
-                    </Link>
+      <div className="absolute inset-0 flex flex-col">
+        <PageTitle title="Manage Licenses" />
+
+        <div className="mx-2 overflow-y-auto">
+          <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
+            <div className="flex flex-col">
+              {licenses.map((license, index) => {
+                return (
+                  <div key={index} className="m-1 flex items-center">
+                    <div className="mx-1 flex w-1/2 justify-end">
+                      <Link className="float-right" href={`${routeUsers}/${license.username}`}>
+                        {license.username}
+                      </Link>
+                    </div>
+                    <div className="mx-1 flex w-1/2 justify-start">
+                      <>
+                        <div className="mx-1 flex justify-start items-center">{license.amountEventLicenses}</div>
+                        <div className="ml-1">
+                          <ActionButton
+                            action={Action.ADD}
+                            onClick={() => {
+                              handleUpdateLicenseClicked(license, 1);
+                            }}
+                          />
+                        </div>
+                        <div className="ml-1">
+                          <ActionButton
+                            action={Action.REMOVE}
+                            onClick={() => {
+                              handleUpdateLicenseClicked(license, -1);
+                            }}
+                          />
+                        </div>
+                      </>
+                    </div>
                   </div>
-                  <div className="mx-1 flex w-1/2 justify-start">
-                    <>
-                      <div className="mx-1 flex justify-start items-center">{license.amountEventLicenses}</div>
-                      <div className="ml-1">
-                        <ActionButton
-                          action={Action.ADD}
-                          onClick={() => {
-                            handleUpdateLicenseClicked(license, 1);
-                          }}
-                        />
-                      </div>
-                      <div className="ml-1">
-                        <ActionButton
-                          action={Action.REMOVE}
-                          onClick={() => {
-                            handleUpdateLicenseClicked(license, -1);
-                          }}
-                        />
-                      </div>
-                    </>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
 
-      <Navigation>
-        <Link href={routeAdminOverview}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-      </Navigation>
-    </div>
+        <Navigation>
+          <Link href={routeAdminOverview}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+        </Navigation>
+      </div>
+    </>
   );
 };
 
