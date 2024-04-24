@@ -16,6 +16,7 @@ import { menuEventStates } from '@/types/consts/menus/menu-event-states';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Toaster, toast } from 'sonner';
+import PageTitle from '@/components/PageTitle';
 
 const Events = (props: any) => {
   const session = props.session;
@@ -65,10 +66,10 @@ const Events = (props: any) => {
     <>
       <Toaster richColors />
 
-      <div className="absolute inset-0 flex flex-col overflow-hidden">
-        <div className="m-2 text-center text-base font-bold">{`Manage Events`}</div>
+      <div className="absolute inset-0 flex flex-col">
+        <PageTitle title="Manage Events" />
 
-        <div className="m-2 overflow-y-auto">
+        <div className="mx-2 overflow-y-auto">
           <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
             <div className="flex flex-col">
               {events.map((event, index) => {

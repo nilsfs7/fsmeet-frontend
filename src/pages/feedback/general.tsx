@@ -12,6 +12,7 @@ import { Action } from '@/types/enums/action';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { createFeedbackGeneral } from '@/services/fsmeet-backend/create-feedback-general';
+import PageTitle from '@/components/PageTitle';
 
 const GeneralFeedback = (props: any) => {
   const session = props.session;
@@ -37,15 +38,15 @@ const GeneralFeedback = (props: any) => {
 
   return (
     <div className={'absolute inset-0 flex flex-col'}>
-      <div className="mx-2 flex flex-col overflow-y-auto">
-        <h1 className="mt-2 text-center text-xl">{`Send Feedback`}</h1>
+      <PageTitle title="Send Feedback" />
 
+      <div className="mx-2 flex flex-col overflow-y-auto">
         <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
           <TextInputLarge
             id={'message'}
             label={'Message'}
             placeholder="Any feedback is highly appreciated!"
-            onChange={e => {
+            onChange={(e) => {
               handleInputChangeMessage(e);
             }}
           />

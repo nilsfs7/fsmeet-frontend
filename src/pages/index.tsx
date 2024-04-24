@@ -20,7 +20,7 @@ const Home = ({ data, session }: { data: any; session: any }) => {
   let recentEvents: Event[] = data.recent;
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
+    <div className="absolute inset-0 flex flex-col">
       <Header showMenu={true} />
 
       <div className="flex flex-col px-4 pt-4 pb-1 justify-center">

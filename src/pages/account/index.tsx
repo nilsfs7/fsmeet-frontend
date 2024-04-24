@@ -36,6 +36,7 @@ import SocialLink from '@/components/user/SocialLink';
 import { Platform } from '@/types/enums/platform';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
+import PageTitle from '@/components/PageTitle';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -321,10 +322,10 @@ const Account = ({ session }: any) => {
       </Dialog>
 
       <div className="absolute inset-0 flex flex-col">
-        <div className="mx-2 flex flex-col overflow-auto">
-          <h1 className="mt-2 text-center text-xl">{`Account Settings`}</h1>
+        <PageTitle title="Account Settings" />
 
-          <div className="mt-2 flex justify-center py-2">
+        <div className="mx-2 flex flex-col overflow-auto">
+          <div className="flex justify-center py-2">
             <Link href={routeAccountImage}>
               {!imageUrl && (
                 <div className="mx-2 flex h-32 w-32 rounded-full border border-primary hover:bg-secondary justify-center">

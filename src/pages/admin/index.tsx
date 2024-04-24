@@ -7,13 +7,14 @@ import { validateSession } from '@/types/funcs/validate-session';
 import ActionButton from '@/components/common/ActionButton';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
+import PageTitle from '@/components/PageTitle';
 
 const AdminOverview = () => {
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <div className="m-2 text-center text-base font-bold">{`Admin Overview`}</div>
+    <div className="absolute inset-0 flex flex-col">
+      <PageTitle title="Admin Overview" />
 
-      <div className="m-2 flex items-center flex-col gap-2">
+      <div className="mx-2 flex items-center flex-col gap-2">
         <Link href={routeAdminEvents}>
           <TextButton text={'Events'} />
         </Link>

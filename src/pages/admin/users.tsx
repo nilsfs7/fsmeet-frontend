@@ -15,6 +15,7 @@ import { User } from '@/types/user';
 import { menuUserVerificationStates } from '@/types/consts/menus/menu-user-verification-states';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
+import PageTitle from '@/components/PageTitle';
 
 const Users = (props: any) => {
   const session = props.session;
@@ -59,10 +60,10 @@ const Users = (props: any) => {
     <>
       <Toaster richColors />
 
-      <div className="absolute inset-0 flex flex-col overflow-hidden">
-        <div className="m-2 text-center text-base font-bold">{`Manage Users`}</div>
+      <div className="absolute inset-0 flex flex-col">
+        <PageTitle title="Manage Users" />
 
-        <div className="m-2 overflow-y-auto">
+        <div className="mx-2 overflow-y-auto">
           <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
             <div className="flex flex-col">
               {users.map((user, index) => {

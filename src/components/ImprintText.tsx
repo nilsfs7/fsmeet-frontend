@@ -1,9 +1,7 @@
 export const ImprintText = () => {
   return (
     <div className="select-text break-words w-full">
-      <h1 className="text-3xl">Impressum</h1>
-
-      <h2 className="mt-6 text-2xl">Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
+      <h2 className="mt-6 text-xl">Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
       <p className="mt-4">
         Nils Effinghausen
         <br />
@@ -12,14 +10,14 @@ export const ImprintText = () => {
         80639 M&uuml;nchen
       </p>
 
-      <h2 className="mt-6 text-2xl">Kontakt</h2>
+      <h2 className="mt-6 text-xl">Kontakt</h2>
       <p className="mt-4">
         Telefon: +49 (0) 15161996348
         <br />
         E-Mail: nils.effinghausen@gmail.com
       </p>
 
-      <h2 className="mt-6 text-2xl">Berufsbezeichnung und berufsrechtliche Regelungen</h2>
+      <h2 className="mt-6 text-xl">Berufsbezeichnung und berufsrechtliche Regelungen</h2>
       <p className="mt-4">
         Berufsbezeichnung:
         <br />
@@ -38,7 +36,7 @@ export const ImprintText = () => {
         <br />
         Niedersachsen
       </p>
-      <h2 className="mt-6 text-2xl">EU-Streitschlichtung</h2>
+      <h2 className="mt-6 text-xl">EU-Streitschlichtung</h2>
       <p className="mt-4">
         Die Europ&auml;ische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{' '}
         <a className="underline" href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">
@@ -47,7 +45,7 @@ export const ImprintText = () => {
         .<br /> Unsere E-Mail-Adresse finden Sie oben im Impressum.
       </p>
 
-      <h2 className="mt-6 text-2xl">Verbraucher&shy;streit&shy;beilegung / Universal&shy;schlichtungs&shy;stelle</h2>
+      <h2 className="mt-6 text-xl">Verbraucher&shy;streit&shy;beilegung / Universal&shy;schlichtungs&shy;stelle</h2>
       <p className="mt-4">Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
 
       <p className="mt-4">
