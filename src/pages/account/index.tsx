@@ -259,10 +259,10 @@ const Account = ({ session }: any) => {
       <Dialog title="Account Verification" queryParam="verification" onCancel={handleCancelDialogClicked}>
         <div className="flex flex-col justify-center text-center">
           <p className="text-lg font-bold">{`Step 1`}</p>
-          <p>{`Provide your first and last name, gender and country in general info. Any other fields are optional.`}</p>
+          <p>{`Provide your first name, gender and country in general info. Any other fields are optional.`}</p>
           <p>
             {`Please note: Once verification is completed, updating any of the previously mentioned
-            fields will reset your verified status and the process needs to be repeated.`}
+            fields will automatically reset your verified status and the process needs to be repeated.`}
           </p>
         </div>
 
