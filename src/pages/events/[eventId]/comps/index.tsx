@@ -12,6 +12,7 @@ import { getSession } from 'next-auth/react';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import PageTitle from '@/components/PageTitle';
 
 const EventCompetitions = (props: any) => {
   const session = props.session;
@@ -34,10 +35,11 @@ const EventCompetitions = (props: any) => {
   }
 
   return (
-    <>
-      <div className="mx-2 mt-2">
+    <div className="absolute inset-0 flex flex-col">
+      <PageTitle title="Manage Competitions" />
+
+      <div className="mx-2 overflow-y-auto">
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
-          <div className="m-2 text-center text-base font-bold">Manage Competitions</div>
           <div className="flex flex-col">
             <>
               {event.eventCompetitions.map((comp, index) => {
@@ -116,7 +118,7 @@ const EventCompetitions = (props: any) => {
       <Navigation>
         <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}?auth=1`)} />
       </Navigation>
-    </>
+    </div>
   );
 };
 

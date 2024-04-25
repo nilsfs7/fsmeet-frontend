@@ -150,6 +150,8 @@ Community
 
 - [People](https://www.iconfinder.com/icons/4265044/community_conversation_friends_group_people_target_team_icon)
 
-About
+Misc
 
 - [About](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)
+
+- [Not Found](https://www.iconfinder.com/icons/9054414/bx_confused_icon)

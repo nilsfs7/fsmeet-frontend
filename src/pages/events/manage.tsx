@@ -18,6 +18,8 @@ import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab } from '@/types/funcs/switch-tab';
 import { useSearchParams } from 'next/navigation';
+import { Header } from '@/components/Header';
+import PageTitle from '@/components/PageTitle';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const router = useRouter();
@@ -52,70 +54,63 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
       </Dialog>
 
       <div className="absolute inset-0 flex flex-col">
-        {/* Banner */}
-        <div className="bg-secondary-light sm:block">
-          <div className="mx-2 flex h-20 items-center justify-start">
-            <LogoFSMeet />
-          </div>
-        </div>
+        <Header />
+
+        <PageTitle title="Manage Events" />
 
         <div className="mx-2 flex flex-col overflow-auto">
-          <h1 className="mt-2 text-center text-xl">{`Manage Events`}</h1>
+          <div className={'w-full overflow-auto'}>
+            <Tabs defaultValue={tab || `registrations`} className="flex flex-col h-full">
+              <TabsList className="mb-2">
+                <TabsTrigger
+                  value="registrations"
+                  onClick={() => {
+                    switchTab(router, 'registrations');
+                  }}
+                >
+                  Registrations
+                </TabsTrigger>
 
-          <div className="mt-2 flex flex-col overflow-hidden">
-            <div className={'w-full overflow-auto'}>
-              <Tabs defaultValue={tab || `registrations`} className="flex flex-col h-full">
-                <TabsList className="mb-2">
-                  <TabsTrigger
-                    value="registrations"
-                    onClick={() => {
-                      switchTab(router, 'registrations');
-                    }}
-                  >
-                    Registrations
-                  </TabsTrigger>
+                <TabsTrigger
+                  value="myevents"
+                  onClick={() => {
+                    switchTab(router, 'myevents');
+                  }}
+                >
+                  My Events
+                </TabsTrigger>
+              </TabsList>
 
-                  <TabsTrigger
-                    value="myevents"
-                    onClick={() => {
-                      switchTab(router, 'myevents');
-                    }}
-                  >
-                    My Events
-                  </TabsTrigger>
-                </TabsList>
+              <TabsContent value="registrations" className="overflow-y-auto">
+                {eventsSubscribed.length === 0 && <div className="flex justify-center">{`You have not signed up for any event, yet.`}</div>}
 
-                <TabsContent value="registrations" className="overflow-y-auto">
-                  {eventsSubscribed.length === 0 && <div className="flex justify-center">{`You have not signed up for any event, yet.`}</div>}
+                {eventsSubscribed.length > 0 &&
+                  eventsSubscribed.map((item: any, i: number) => {
+                    return (
+                      <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                        <Link href={`${routeEvents}/${item.id}`}>
+                          <EventCard event={item} />
+                        </Link>
+                      </div>
+                    );
+                  })}
+              </TabsContent>
 
-                  {eventsSubscribed.length > 0 &&
-                    eventsSubscribed.map((item: any, i: number) => {
-                      return (
-                        <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                          <Link href={`${routeEvents}/${item.id}`}>
-                            <EventCard event={item} />
-                          </Link>
-                        </div>
-                      );
-                    })}
-                </TabsContent>
+              <TabsContent value="myevents" className="overflow-y-auto">
+                {eventsOwning.length === 0 && <div>{`You have not created any events, yet.`}</div>}
 
-                <TabsContent value="myevents" className="overflow-y-auto">
-                  {eventsOwning.length === 0 && <div>{`You have not created any events, yet.`}</div>}
-
-                  {eventsOwning.length > 0 &&
-                    eventsOwning.map((item: any, i: number) => {
-                      return (
-                        <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                          <Link href={`${routeEvents}/${item.id}?auth=1`}>
-                            <EventCard event={item} />
-                          </Link>
-                        </div>
-                      );
-                    })}
-                </TabsContent>
-              </Tabs>
-            </div>
+                {eventsOwning.length > 0 &&
+                  eventsOwning.map((item: any, i: number) => {
+                    return (
+                      <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                        <Link href={`${routeEvents}/${item.id}?auth=1`}>
+                          <EventCard event={item} />
+                        </Link>
+                      </div>
+                    );
+                  })}
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
 

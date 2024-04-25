@@ -1,15 +1,14 @@
 export const DataProtectionText = () => {
   return (
     <div className="select-text break-words w-full">
-      <h1 className="text-3xl">Datenschutz&shy;erkl&auml;rung</h1>
-      <h2 className="mt-6 text-2xl">1. Datenschutz auf einen Blick</h2>
-      <h3 className="mt-4 text-xl">Allgemeine Hinweise</h3>
+      <h2 className="mt-6 text-xl">1. Datenschutz auf einen Blick</h2>
+      <h3 className="mt-4 text-lg">Allgemeine Hinweise</h3>
       <p>
         Die folgenden Hinweise geben einen einfachen &Uuml;berblick dar&uuml;ber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle
         Daten, mit denen Sie pers&ouml;nlich identifiziert werden k&ouml;nnen. Ausf&uuml;hrliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgef&uuml;hrten
         Datenschutzerkl&auml;rung.
       </p>
-      <h3 className="mt-4 text-xl">Datenerfassung auf dieser Website</h3> <h4>Wer ist verantwortlich f&uuml;r die Datenerfassung auf dieser Website?</h4>
+      <h3 className="mt-4 text-lg">Datenerfassung auf dieser Website</h3> <h4>Wer ist verantwortlich f&uuml;r die Datenerfassung auf dieser Website?</h4>
       <p>
         Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten k&ouml;nnen Sie dem Abschnitt &bdquo;Hinweis zur Verantwortlichen Stelle&ldquo; in dieser
         Datenschutzerkl&auml;rung entnehmen.
@@ -30,9 +29,9 @@ export const DataProtectionText = () => {
         Beschwerderecht bei der zust&auml;ndigen Aufsichtsbeh&ouml;rde zu.
       </p>
       <p>Hierzu sowie zu weiteren Fragen zum Thema Datenschutz k&ouml;nnen Sie sich jederzeit an uns wenden.</p>
-      <h2 className="mt-6 text-2xl">2. Hosting</h2>
+      <h2 className="mt-6 text-xl">2. Hosting</h2>
       <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
-      <h3 className="mt-4 text-xl">Amazon Web Services (AWS)</h3> <p>Anbieter ist die Amazon Web Services EMEA SARL, 38 Avenue John F. Kennedy, 1855 Luxemburg (nachfolgend AWS).</p>
+      <h3 className="mt-4 text-lg">Amazon Web Services (AWS)</h3> <p>Anbieter ist die Amazon Web Services EMEA SARL, 38 Avenue John F. Kennedy, 1855 Luxemburg (nachfolgend AWS).</p>
       <p>
         Wenn Sie unsere Website besuchen, werden Ihre personenbezogenen Daten auf den Servern von AWS verarbeitet. Hierbei k&ouml;nnen auch personenbezogene Daten an das Mutterunternehmen von AWS in
         die USA &uuml;bermittelt werden. Die Daten&uuml;bertragung in die USA wird auf die EU-Standardvertragsklauseln gest&uuml;tzt. Details finden Sie hier:
@@ -62,8 +61,8 @@ export const DataProtectionText = () => {
           https://www.dataprivacyframework.gov/s/participant-search/participant-detail?contact=true&id=a2zt0000000TOWQAA4&status=Active
         </a>
       </p>
-      <h2 className="mt-6 text-2xl">3. Allgemeine Hinweise und Pflicht&shy;informationen</h2>
-      <h3 className="mt-4 text-xl">Datenschutz</h3>
+      <h2 className="mt-6 text-xl">3. Allgemeine Hinweise und Pflicht&shy;informationen</h2>
+      <h3 className="mt-4 text-lg">Datenschutz</h3>
       <p>
         Die Betreiber dieser Seiten nehmen den Schutz Ihrer pers&ouml;nlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen
         Datenschutzvorschriften sowie dieser Datenschutzerkl&auml;rung.
@@ -76,7 +75,7 @@ export const DataProtectionText = () => {
         Wir weisen darauf hin, dass die Daten&uuml;bertragung im Internet (z.&nbsp;B. bei der Kommunikation per E-Mail) Sicherheitsl&uuml;cken aufweisen kann. Ein l&uuml;ckenloser Schutz der Daten vor
         dem Zugriff durch Dritte ist nicht m&ouml;glich.
       </p>
-      <h3 className="mt-4 text-xl">Hinweis zur verantwortlichen Stelle</h3> <p>Die verantwortliche Stelle f&uuml;r die Datenverarbeitung auf dieser Website ist:</p>
+      <h3 className="mt-4 text-lg">Hinweis zur verantwortlichen Stelle</h3> <p>Die verantwortliche Stelle f&uuml;r die Datenverarbeitung auf dieser Website ist:</p>
       <p>
         Nils Effinghausen
         <br />
@@ -93,14 +92,14 @@ export const DataProtectionText = () => {
         Verantwortliche Stelle ist die nat&uuml;rliche oder juristische Person, die allein oder gemeinsam mit anderen &uuml;ber die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten
         (z.&nbsp;B. Namen, E-Mail-Adressen o. &Auml;.) entscheidet.
       </p>
-      <h3 className="mt-4 text-xl">Speicherdauer</h3>
+      <h3 className="mt-4 text-lg">Speicherdauer</h3>
       <p>
         Soweit innerhalb dieser Datenschutzerkl&auml;rung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck f&uuml;r die Datenverarbeitung
         entf&auml;llt. Wenn Sie ein berechtigtes L&ouml;schersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gel&ouml;scht, sofern wir keine anderen
         rechtlich zul&auml;ssigen Gr&uuml;nde f&uuml;r die Speicherung Ihrer personenbezogenen Daten haben (z.&nbsp;B. steuer- oder handelsrechtliche Aufbewahrungsfristen); im letztgenannten Fall
         erfolgt die L&ouml;schung nach Fortfall dieser Gr&uuml;nde.
       </p>
-      <h3 className="mt-4 text-xl">Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website</h3>
+      <h3 className="mt-4 text-lg">Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website</h3>
       <p>
         Sofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, sofern
         besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden. Im Falle einer ausdr&uuml;cklichen Einwilligung in die &Uuml;bertragung personenbezogener Daten in Drittstaaten erfolgt
@@ -111,7 +110,7 @@ export const DataProtectionText = () => {
         kann ferner auf Grundlage unseres berechtigten Interesses nach Art. 6 Abs. 1 lit. f DSGVO erfolgen. &Uuml;ber die jeweils im Einzelfall einschl&auml;gigen Rechtsgrundlagen wird in den
         folgenden Abs&auml;tzen dieser Datenschutzerkl&auml;rung informiert.
       </p>
-      <h3 className="mt-4 text-xl">Empfänger von personenbezogenen Daten</h3>
+      <h3 className="mt-4 text-lg">Empfänger von personenbezogenen Daten</h3>
       <p>
         Im Rahmen unserer Gesch&auml;ftst&auml;tigkeit arbeiten wir mit verschiedenen externen Stellen zusammen. Dabei ist teilweise auch eine &Uuml;bermittlung von personenbezogenen Daten an diese
         externen Stellen erforderlich. Wir geben personenbezogene Daten nur dann an externe Stellen weiter, wenn dies im Rahmen einer Vertragserf&uuml;llung erforderlich ist, wenn wir gesetzlich
@@ -119,12 +118,12 @@ export const DataProtectionText = () => {
         sonstige Rechtsgrundlage die Datenweitergabe erlaubt. Beim Einsatz von Auftragsverarbeitern geben wir personenbezogene Daten unserer Kunden nur auf Grundlage eines g&uuml;ltigen Vertrags
         &uuml;ber Auftragsverarbeitung weiter. Im Falle einer gemeinsamen Verarbeitung wird ein Vertrag &uuml;ber gemeinsame Verarbeitung geschlossen.
       </p>
-      <h3 className="mt-4 text-xl">Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
+      <h3 className="mt-4 text-lg">Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
       <p>
         Viele Datenverarbeitungsvorg&auml;nge sind nur mit Ihrer ausdr&uuml;cklichen Einwilligung m&ouml;glich. Sie k&ouml;nnen eine bereits erteilte Einwilligung jederzeit widerrufen. Die
         Rechtm&auml;&szlig;igkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unber&uuml;hrt.
       </p>
-      <h3 className="mt-4 text-xl">Widerspruchsrecht gegen die Datenerhebung in besonderen F&auml;llen sowie gegen Direktwerbung (Art. 21 DSGVO)</h3>
+      <h3 className="mt-4 text-lg">Widerspruchsrecht gegen die Datenerhebung in besonderen F&auml;llen sowie gegen Direktwerbung (Art. 21 DSGVO)</h3>
       <p>
         WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HABEN SIE JEDERZEIT DAS RECHT, AUS GR&Uuml;NDEN, DIE SICH AUS IHRER BESONDEREN SITUATION ERGEBEN, GEGEN
         DIE VERARBEITUNG IHRER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH F&Uuml;R EIN AUF DIESE BESTIMMUNGEN GEST&Uuml;TZTES PROFILING. DIE JEWEILIGE RECHTSGRUNDLAGE, AUF DENEN
@@ -137,25 +136,25 @@ export const DataProtectionText = () => {
         ZUM ZWECKE DERARTIGER WERBUNG EINZULEGEN; DIES GILT AUCH F&Uuml;R DAS PROFILING, SOWEIT ES MIT SOLCHER DIREKTWERBUNG IN VERBINDUNG STEHT. WENN SIE WIDERSPRECHEN, WERDEN IHRE PERSONENBEZOGENEN
         DATEN ANSCHLIESSEND NICHT MEHR ZUM ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO).
       </p>
-      <h3 className="mt-4 text-xl">Beschwerde&shy;recht bei der zust&auml;ndigen Aufsichts&shy;beh&ouml;rde</h3>
+      <h3 className="mt-4 text-lg">Beschwerde&shy;recht bei der zust&auml;ndigen Aufsichts&shy;beh&ouml;rde</h3>
       <p>
         Im Falle von Verst&ouml;&szlig;en gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbeh&ouml;rde, insbesondere in dem Mitgliedstaat ihres gew&ouml;hnlichen
         Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutma&szlig;lichen Versto&szlig;es zu. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher
         Rechtsbehelfe.
       </p>
-      <h3 className="mt-4 text-xl">Recht auf Daten&shy;&uuml;bertrag&shy;barkeit</h3>
+      <h3 className="mt-4 text-lg">Recht auf Daten&shy;&uuml;bertrag&shy;barkeit</h3>
       <p>
         Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erf&uuml;llung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem g&auml;ngigen,
         maschinenlesbaren Format aush&auml;ndigen zu lassen. Sofern Sie die direkte &Uuml;bertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch
         machbar ist.
       </p>
-      <h3 className="mt-4 text-xl">Auskunft, Berichtigung und L&ouml;schung</h3>
+      <h3 className="mt-4 text-lg">Auskunft, Berichtigung und L&ouml;schung</h3>
       <p>
         Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft &uuml;ber Ihre gespeicherten personenbezogenen Daten, deren Herkunft und
         Empf&auml;nger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder L&ouml;schung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten
         k&ouml;nnen Sie sich jederzeit an uns wenden.
       </p>
-      <h3 className="mt-4 text-xl">Recht auf Einschr&auml;nkung der Verarbeitung</h3>
+      <h3 className="mt-4 text-lg">Recht auf Einschr&auml;nkung der Verarbeitung</h3>
       <p>
         Sie haben das Recht, die Einschr&auml;nkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Hierzu k&ouml;nnen Sie sich jederzeit an uns wenden. Das Recht auf Einschr&auml;nkung
         der Verarbeitung besteht in folgenden F&auml;llen:
@@ -182,20 +181,20 @@ export const DataProtectionText = () => {
         Geltendmachung, Aus&uuml;bung oder Verteidigung von Rechtsanspr&uuml;chen oder zum Schutz der Rechte einer anderen nat&uuml;rlichen oder juristischen Person oder aus Gr&uuml;nden eines
         wichtigen &ouml;ffentlichen Interesses der Europ&auml;ischen Union oder eines Mitgliedstaats verarbeitet werden.
       </p>
-      <h3 className="mt-4 text-xl">SSL- bzw. TLS-Verschl&uuml;sselung</h3>
+      <h3 className="mt-4 text-lg">SSL- bzw. TLS-Verschl&uuml;sselung</h3>
       <p>
         Diese Seite nutzt aus Sicherheitsgr&uuml;nden und zum Schutz der &Uuml;bertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden,
         eine SSL- bzw. TLS-Verschl&uuml;sselung. Eine verschl&uuml;sselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von &bdquo;http://&ldquo; auf &bdquo;https://&ldquo; wechselt
         und an dem Schloss-Symbol in Ihrer Browserzeile.
       </p>
       <p>Wenn die SSL- bzw. TLS-Verschl&uuml;sselung aktiviert ist, k&ouml;nnen die Daten, die Sie an uns &uuml;bermitteln, nicht von Dritten mitgelesen werden.</p>
-      <h3 className="mt-4 text-xl">Widerspruch gegen Werbe-E-Mails</h3>
+      <h3 className="mt-4 text-lg">Widerspruch gegen Werbe-E-Mails</h3>
       <p>
         Der Nutzung von im Rahmen der Impressumspflicht ver&ouml;ffentlichten Kontaktdaten zur &Uuml;bersendung von nicht ausdr&uuml;cklich angeforderter Werbung und Informationsmaterialien wird
         hiermit widersprochen. Die Betreiber der Seiten behalten sich ausdr&uuml;cklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor.
       </p>
-      <h2 className="mt-6 text-2xl">4. Datenerfassung auf dieser Website</h2>
-      <h3 className="mt-4 text-xl">Cookies</h3>
+      <h2 className="mt-6 text-xl">4. Datenerfassung auf dieser Website</h2>
+      <h3 className="mt-4 text-lg">Cookies</h3>
       <p>
         Unsere Internetseiten verwenden so genannte &bdquo;Cookies&ldquo;. Cookies sind kleine Datenpakete und richten auf Ihrem Endger&auml;t keinen Schaden an. Sie werden entweder vor&uuml;bergehend
         f&uuml;r die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endger&auml;t gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch
@@ -222,7 +221,7 @@ export const DataProtectionText = () => {
         Funktionalit&auml;t dieser Website eingeschr&auml;nkt sein.
       </p>
       <p>Welche Cookies und Dienste auf dieser Website eingesetzt werden, k&ouml;nnen Sie dieser Datenschutzerkl&auml;rung entnehmen.</p>
-      <h3 className="mt-4 text-xl">Kontaktformular</h3>
+      <h3 className="mt-4 text-lg">Kontaktformular</h3>
       <p>
         Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und
         f&uuml;r den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
@@ -237,8 +236,8 @@ export const DataProtectionText = () => {
         Datenspeicherung entf&auml;llt (z.&nbsp;B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen &ndash; insbesondere Aufbewahrungsfristen &ndash; bleiben
         unber&uuml;hrt.
       </p>
-      <h2 className="mt-6 text-2xl">5. Newsletter</h2>
-      <h3 className="mt-4 text-xl">Newsletter&shy;daten</h3>
+      <h2 className="mt-6 text-xl">5. Newsletter</h2>
+      <h3 className="mt-4 text-lg">Newsletter&shy;daten</h3>
       <p>
         Wenn Sie den auf der Website angebotenen Newsletter beziehen m&ouml;chten, ben&ouml;tigen wir von Ihnen eine E-Mail-Adresse sowie Informationen, welche uns die &Uuml;berpr&uuml;fung gestatten,
         dass Sie der Inhaber der angegebenen E-Mail-Adresse sind und mit dem Empfang des Newsletters einverstanden sind. Weitere Daten werden nicht bzw. nur auf freiwilliger Basis erhoben. Diese Daten
@@ -261,8 +260,8 @@ export const DataProtectionText = () => {
         Interesse als auch unserem Interesse an der Einhaltung der gesetzlichen Vorgaben beim Versand von Newslettern (berechtigtes Interesse im Sinne des Art. 6 Abs. 1 lit. f DSGVO). Die Speicherung
         in der Blacklist ist zeitlich nicht befristet. <strong>Sie k&ouml;nnen der Speicherung widersprechen, sofern Ihre Interessen unser berechtigtes Interesse &uuml;berwiegen.</strong>
       </p>
-      <h2 className="mt-6 text-2xl">6. Plugins und Tools</h2>
-      <h3 className="mt-4 text-xl">Google Fonts (lokales Hosting)</h3>
+      <h2 className="mt-6 text-xl">6. Plugins und Tools</h2>
+      <h3 className="mt-4 text-lg">Google Fonts (lokales Hosting)</h3>
       <p>
         Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten so genannte Google Fonts, die von Google bereitgestellt werden. Die Google Fonts sind lokal installiert. Eine Verbindung zu
         Servern von Google findet dabei nicht statt.
@@ -278,7 +277,7 @@ export const DataProtectionText = () => {
         </a>
         .
       </p>
-      <h3 className="mt-4 text-xl">Google Maps</h3>{' '}
+      <h3 className="mt-4 text-lg">Google Maps</h3>{' '}
       <p>Diese Seite nutzt den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited (&bdquo;Google&ldquo;), Gordon House, Barrow Street, Dublin 4, Irland.</p>
       <p>
         Zur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA &uuml;bertragen und

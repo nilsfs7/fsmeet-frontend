@@ -350,12 +350,12 @@ const Event = (props: any) => {
         </>
       </Dialog>
 
-      <div className="absolute inset-0 flex flex-col overflow-hidden">
+      <div className="absolute inset-0 flex flex-col">
         {/* admin panel */}
         <div className="mx-2 my-2">
           {event.admin === session?.user?.username && (
             <div className="flex justify-between rounded-lg border border-primary bg-warning p-2">
-              <div className="mr-8 flex items-center">Admin Panel</div>
+              <div className="mr-8 flex items-center">{`Admin Panel`}</div>
               <div className="flex">
                 <div className="ml-1">
                   <Link href={`${routeEvents}/${eventId}/edit`}>

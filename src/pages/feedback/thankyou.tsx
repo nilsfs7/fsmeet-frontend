@@ -10,8 +10,8 @@ const ThankYou = () => {
       <div className="py-2 ">
         <Image src={imgThumbsUp} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={'image'} />
         <div className="m-1 text-center text-lg font-bold">
-          <div>Thank you!</div>
-          <div>Your feedback is highly appreciated!</div>
+          <div>{`Thank you!`}</div>
+          <div>{`Your feedback is highly appreciated!`}</div>
         </div>
       </div>
 

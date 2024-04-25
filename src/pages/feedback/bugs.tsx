@@ -12,6 +12,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { createFeedbackBug } from '@/services/fsmeet-backend/create-feedback-bug';
+import PageTitle from '@/components/PageTitle';
 
 const ReportBug = (props: any) => {
   const session = props.session;
@@ -36,16 +37,16 @@ const ReportBug = (props: any) => {
   };
 
   return (
-    <div className={'absolute inset-0 flex flex-col'}>
-      <div className="mx-2 flex flex-col overflow-y-auto">
-        <h1 className="mt-2 text-center text-xl">{`Report Bug`}</h1>
+    <div className="absolute inset-0 flex flex-col">
+      <PageTitle title="Report Bug" />
 
+      <div className="mx-2 flex flex-col overflow-y-auto">
         <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
           <TextInputLarge
             id={'message'}
             label={'Message'}
             placeholder="Describe any misbehavior you noticed."
-            onChange={e => {
+            onChange={(e) => {
               handleInputChangeMessage(e);
             }}
           />

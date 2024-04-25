@@ -37,6 +37,7 @@ import ReactCountryFlag from 'react-country-flag';
 import { UserType } from '@/types/enums/user-type';
 import { Header } from '@/components/Header';
 import { User } from '@/types/user';
+import PageTitle from '@/components/PageTitle';
 
 export type UserInfo = {
   username: string;
@@ -244,11 +245,9 @@ const UsersList = (props: any) => {
     <div className="absolute inset-0 flex flex-col">
       <Header />
 
-      <div className={'flex flex-col items-center'}>
-        <h1 className="mt-2 text-xl">{`Community`}</h1>
-      </div>
+      <PageTitle title="Community" />
 
-      <div className="mt-2 mx-2 flex gap-2">
+      <div className="mx-2 flex gap-2">
         <Input
           placeholder="Search name..."
           value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}

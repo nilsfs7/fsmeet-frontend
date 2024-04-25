@@ -70,7 +70,7 @@ const AccountImage = ({ session }: any) => {
     <>
       <Toaster richColors />
 
-      <div className="absolute inset-0 flex flex-col justify-center">
+      <div className="absolute inset-0 flex flex-col">
         <div className="flex justify-center py-2">
           <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserDefaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-primary" />
         </div>

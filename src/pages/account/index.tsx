@@ -36,6 +36,7 @@ import SocialLink from '@/components/user/SocialLink';
 import { Platform } from '@/types/enums/platform';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
+import PageTitle from '@/components/PageTitle';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -258,10 +259,10 @@ const Account = ({ session }: any) => {
       <Dialog title="Account Verification" queryParam="verification" onCancel={handleCancelDialogClicked}>
         <div className="flex flex-col justify-center text-center">
           <p className="text-lg font-bold">{`Step 1`}</p>
-          <p>{`Provide your first and last name, gender and country in general info. Any other fields are optional.`}</p>
+          <p>{`Provide your first name, gender and country in general info. Any other fields are optional.`}</p>
           <p>
             {`Please note: Once verification is completed, updating any of the previously mentioned
-            fields will reset your verified status and the process needs to be repeated.`}
+            fields will automatically reset your verified status and the process needs to be repeated.`}
           </p>
         </div>
 
@@ -321,10 +322,10 @@ const Account = ({ session }: any) => {
       </Dialog>
 
       <div className="absolute inset-0 flex flex-col">
-        <div className="mx-2 flex flex-col overflow-auto">
-          <h1 className="mt-2 text-center text-xl">{`Account Settings`}</h1>
+        <PageTitle title="Account Settings" />
 
-          <div className="mt-2 flex justify-center py-2">
+        <div className="mx-2 flex flex-col overflow-auto">
+          <div className="flex justify-center py-2">
             <Link href={routeAccountImage}>
               {!imageUrl && (
                 <div className="mx-2 flex h-32 w-32 rounded-full border border-primary hover:bg-secondary justify-center">

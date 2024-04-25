@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header';
 import MapOfFreestylers from '@/components/MapOfFreestylers';
 import Navigation from '@/components/Navigation';
+import PageTitle from '@/components/PageTitle';
 import ActionButton from '@/components/common/ActionButton';
 import ComboBox from '@/components/common/ComboBox';
 import TextButton from '@/components/common/TextButton';
@@ -44,11 +45,9 @@ const FreestylersMap = ({ data, actingUser }: { data: any; actingUser: any }) =>
       <div className="absolute inset-0 flex flex-col">
         <Header />
 
-        <div className={'flex flex-col items-center'}>
-          <h1 className="mt-2 text-xl">{`Freestyler Map`}</h1>
-        </div>
+        <PageTitle title="Freestyler Map" />
 
-        <div className="mt-2 mx-2 flex gap-2">
+        <div className="mx-2 flex gap-2">
           <Input
             placeholder="Search name..."
             value={filterName}

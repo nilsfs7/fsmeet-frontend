@@ -10,19 +10,24 @@ const RegistrationConfirmation = (props: any) => {
   let confirmationSuccessful: boolean = props.data;
 
   return (
-    <div className={'flex h-screen flex-col items-center justify-center'}>
-      <div className="mx-2 text-center">
-        {confirmationSuccessful ? (
-          <Image src={imgCelebration} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
-        ) : (
-          <Image src={imgEmojiError} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
-        )}
+    <div className={'absolute inset-0 flex flex-col'}>
+      <div className="p-2 h-full grid overflow-y-auto">
+        <div className={'h-full flex flex-col justify-center'}>
+          <div className="mx-2 text-center">
+            {confirmationSuccessful ? (
+              <Image src={imgCelebration} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
+            ) : (
+              <Image src={imgEmojiError} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
+            )}
 
-        <div className="mt-2">{confirmationSuccessful ? `Registration successful` : `Something went wrong`}</div>
-        <div className="mt-2">
-          <Link href={routeLogin}>
-            <TextButton text="Proceed" />
-          </Link>
+            <div className="mt-2">{confirmationSuccessful ? `Registration successful` : `Something went wrong`}</div>
+
+            <div className="mt-2">
+              <Link href={routeLogin}>
+                <TextButton text="Proceed" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

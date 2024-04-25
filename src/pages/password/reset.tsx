@@ -40,28 +40,30 @@ const ResetPassword = () => {
   };
 
   return (
-    <>
-      <div className={'flex h-screen columns-1 flex-col items-center justify-center'}>
-        <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
-          <TextInput
-            id={'password'}
-            type={'password'}
-            label={'New password'}
-            placeholder="Ball&Chill2021"
-            onChange={(e) => {
-              handleInputChangePassword(e);
-            }}
-            onKeyDown={handleInputKeypressPassword}
-          />
-        </div>
+    <div className="absolute inset-0 flex flex-col">
+      <div className="p-2 h-full grid overflow-y-auto">
+        <div className="h-full flex flex-col items-center justify-center">
+          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
+            <TextInput
+              id={'password'}
+              type={'password'}
+              label={'New password'}
+              placeholder="Ball&Chill2021"
+              onChange={(e) => {
+                handleInputChangePassword(e);
+              }}
+              onKeyDown={handleInputKeypressPassword}
+            />
+          </div>
 
-        <div className="flex justify-center py-2">
-          <TextButton text="Save" onClick={handleSaveClicked} />
-        </div>
+          <div className="flex justify-center py-2">
+            <TextButton text="Save" onClick={handleSaveClicked} />
+          </div>
 
-        <ErrorMessage message={error} />
+          <ErrorMessage message={error} />
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

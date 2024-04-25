@@ -19,6 +19,7 @@ import ReactCountryFlag from 'react-country-flag';
 import { countries } from 'countries-list';
 import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
+import { Header } from '@/components/Header';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;
@@ -39,8 +40,10 @@ const PublicUserProfile = (props: any) => {
   }
 
   return (
-    <div className="absolute inset-0 flex flex-col overflow-hidden">
-      <div className="overflow-hidden overflow-y-auto h-full">
+    <div className="absolute inset-0 flex flex-col">
+      <Header />
+
+      <div className="h-full overflow-y-auto">
         <div className="flex flex-col items-center justify-center">
           <div className="w-64">
             <div className="mt-6 flex h-96">
