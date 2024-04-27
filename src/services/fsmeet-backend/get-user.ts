@@ -19,6 +19,7 @@ export async function getUser(username: string, session?: any): Promise<User> {
       imageUrl: data.imageUrl,
       firstName: data.firstName,
       lastName: data.lastName,
+      nickName: data.nickName,
       gender: data.gender,
       country: data.country,
       instagramHandle: data.instagramHandle,

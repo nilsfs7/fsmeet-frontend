@@ -6,6 +6,7 @@ export async function updateUser(user: User, session: any): Promise<User> {
   const body = JSON.stringify({
     firstName: user.firstName,
     lastName: user.lastName,
+    nickName: user.nickName,
     gender: user.gender,
     country: user.country,
     instagramHandle: user.instagramHandle,

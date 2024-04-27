@@ -50,6 +50,7 @@ const Account = ({ session }: any) => {
   const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [nickName, setNickName] = useState('');
   const [gender, setGender] = useState<Gender>();
   const [country, setCountry] = useState('');
   const [instagramHandle, setInstagramHandle] = useState('');
@@ -71,6 +72,7 @@ const Account = ({ session }: any) => {
   const handleSaveUserInfoClicked = async () => {
     let firstNameAdjusted = firstName.trim();
     let lastNameAdjusted = lastName.trim();
+    let nickNameAdjusted = nickName.trim();
     let websiteAdjusted = website.trim();
     if (websiteAdjusted.endsWith('/')) {
       websiteAdjusted = websiteAdjusted.substring(0, websiteAdjusted.length - 1);
@@ -81,6 +83,7 @@ const Account = ({ session }: any) => {
       type: userType,
       firstName: firstNameAdjusted,
       lastName: lastNameAdjusted,
+      nickName: nickNameAdjusted,
       gender: gender,
       country: country,
       instagramHandle: instagramHandle,
@@ -198,6 +201,9 @@ const Account = ({ session }: any) => {
       }
       if (user.lastName) {
         setLastName(user.lastName);
+      }
+      if (user.nickName) {
+        setNickName(user.nickName);
       }
       if (user.gender) {
         setGender(user.gender);
@@ -399,6 +405,16 @@ const Account = ({ session }: any) => {
                           value={lastName}
                           onChange={(e) => {
                             setLastName(e.currentTarget.value);
+                          }}
+                        />
+
+                        <TextInput
+                          id={'nickName'}
+                          label={'Nickname / Artist Name'}
+                          placeholder=""
+                          value={nickName}
+                          onChange={(e) => {
+                            setNickName(e.currentTarget.value);
                           }}
                         />
 
