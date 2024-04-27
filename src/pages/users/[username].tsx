@@ -59,6 +59,7 @@ const PublicUserProfile = (props: any) => {
                 )}
 
                 <div className="w-fit">
+                  {user.nickName && <div>{user.nickName}</div>}
                   {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
                   {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
                 </div>

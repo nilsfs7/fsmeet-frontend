@@ -8,6 +8,7 @@ export type User = {
   imageUrl?: string;
   firstName?: string;
   lastName?: string;
+  nickName?: string;
   gender?: Gender;
   country?: string;
   instagramHandle?: string;
