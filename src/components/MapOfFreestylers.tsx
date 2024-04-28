@@ -93,7 +93,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
 
           const content = `
               <div style="line-height:1.35;overflow:hidden;white-space:nowrap;";>
-                <div>${user.firstName ? `${user.firstName} ${user.lastName} (${user.username})` : `${user.username}`}</div>
+                <div>${user.lastName ? `${user.firstName} ${user.lastName} (${user.username})` : `${user.firstName}`}</div>
                 ${tagType}
                 <div>  
                   <a href=${routeUsers}/${user.username}>
