@@ -1,8 +1,11 @@
-export async function createUser(username: string, email: string, password: string, firstName: string): Promise<void> {
+import { UserType } from '@/types/enums/user-type';
+
+export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
 
   const body = JSON.stringify({
     username: username,
+    type: type,
     email: email,
     password: password,
     firstName: firstName.trim(),

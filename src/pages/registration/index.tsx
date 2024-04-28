@@ -11,6 +11,7 @@ import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
+import { UserType } from '@/types/enums/user-type';
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -63,7 +64,7 @@ const Register = () => {
     setError('');
 
     try {
-      await createUser(username, email, password, firstName);
+      await createUser(username, UserType.FREESTYLER, email, password, firstName);
       router.replace(`${routeRegistrationPending}?username=${username}&email=${email}`);
     } catch (error: any) {
       setError(error.message);
