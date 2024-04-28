@@ -38,7 +38,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
         })[0];
 
         // @ts-ignore
-        const fullName = `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
+        const fullName = `${user.firstName.toLowerCase()} ${user.lastName?.toLowerCase()}`;
 
         let nameOk: boolean = true;
         if (filterName && !fullName.includes(filterName.toLowerCase())) {
