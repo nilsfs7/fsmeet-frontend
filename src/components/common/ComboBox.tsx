@@ -13,25 +13,26 @@ interface IComboboxProps {
   value: string;
   searchEnabled?: boolean;
   label?: string;
+  className?: string;
   onChange: (value: any) => void;
 }
 
-const ComboBox = ({ menus, value, searchEnabled = false, label = 'Select', onChange }: IComboboxProps) => {
+const ComboBox = ({ menus, value, searchEnabled = false, label = 'Select', className, onChange }: IComboboxProps) => {
   const [open, setOpen] = React.useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" role="combobox" aria-expanded={open} className="min-w-[160px] justify-between bg-transparent hover:border-primary truncate">
+        <Button variant="outline" role="combobox" aria-expanded={open} className={cn('min-w-[160px] justify-between bg-transparent hover:border-primary truncate', className)}>
           <div className="truncate">{value ? menus.find((menu) => menu.value === value)?.text : label}</div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[160px] p-0">
+      <PopoverContent className={cn('w-[160px] p-0', className)}>
         <Command>
           {searchEnabled && <CommandInput placeholder="Search ..." />}
           <CommandEmpty>No data found.</CommandEmpty>
-          <CommandGroup className="max-h-[300px] overflow-y-auto">
+          <CommandGroup className={cn('max-h-[300px] overflow-y-auto', className)}>
             {menus.map((menu) => (
               <CommandItem
                 key={menu.text}
