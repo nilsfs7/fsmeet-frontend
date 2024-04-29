@@ -12,8 +12,13 @@ import Link from 'next/link';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { UserType } from '@/types/enums/user-type';
+import ComboBox from '@/components/common/ComboBox';
+import { menuUserType } from '@/types/consts/menus/menu-user-type';
+import { getLabelForFirstName } from '@/types/funcs/get-label-for-first-name';
+import { getPlaceholderForByUserType } from '@/types/funcs/get-placeholders-by-user-type';
 
 const Register = () => {
+  const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);
   const [firstName, setFirstName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -64,7 +69,7 @@ const Register = () => {
     setError('');
 
     try {
-      await createUser(username, UserType.FREESTYLER, email, password, firstName);
+      await createUser(username, userType, email, password, firstName);
       router.replace(`${routeRegistrationPending}?username=${username}&email=${email}`);
     } catch (error: any) {
       setError(error.message);
@@ -77,10 +82,24 @@ const Register = () => {
       <div className="p-2 h-full grid overflow-y-auto">
         <div className="h-full flex flex-col items-center justify-center">
           <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1 ">
+            <div className="flex h-[100%] flex-col p-2">
+              <div>{`Sign up as`}</div>
+              <div className="flex w-full">
+                <ComboBox
+                  className="w-full"
+                  menus={menuUserType}
+                  value={userType ? userType : menuUserType[0].value}
+                  onChange={(value: any) => {
+                    setUserType(value);
+                  }}
+                />
+              </div>
+            </div>
+
             <TextInput
               id={'firstName'}
-              label={'First name'}
-              placeholder="Max"
+              label={getLabelForFirstName(userType)}
+              placeholder={getPlaceholderForByUserType(userType).firstName}
               value={firstName}
               onChange={(e) => {
                 handleInputChangeFirstName(e);
@@ -90,7 +109,7 @@ const Register = () => {
             <TextInput
               id={'username'}
               label={'Username'}
-              placeholder="max"
+              placeholder={getPlaceholderForByUserType(userType).username}
               value={username}
               onChange={(e) => {
                 handleInputChangeUsername(e);
