@@ -15,6 +15,8 @@ import { getEventRegistrations } from '@/services/fsmeet-backend/get-event-regis
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
+import { createCompetitionParticipation } from '@/services/fsmeet-backend/create-competition-participation';
+import { deleteCompetitionParticipation } from '@/services/fsmeet-backend/delete-competition-participation';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -32,31 +34,17 @@ const CompetitionPool = (props: any) => {
       return;
     }
 
-    const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
-    const method: string = 'DELETE';
+    try {
+      await deleteCompetitionParticipation(compId, username, session);
 
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify({
-        username: `${username}`,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
       let newArray = Array.from(competitionParticipants);
       newArray = newArray.filter((registration) => {
         return registration.username != username;
       });
       setCompetitionParticipants(newArray);
 
-      console.info(`${username} removed`);
       toast.success(`${username} removed`);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
     }
@@ -68,29 +56,15 @@ const CompetitionPool = (props: any) => {
       return;
     }
 
-    const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
-    const method: string = 'POST';
+    try {
+      await createCompetitionParticipation(compId, username, session);
 
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify({
-        username: `${username}`,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
       const newArray = Array.from(competitionParticipants);
       newArray.push({ username: username });
       setCompetitionParticipants(newArray);
 
       toast.success(`${username} added`);
-      console.info(`${username} added`);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
     }
@@ -129,7 +103,7 @@ const CompetitionPool = (props: any) => {
         <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 overflow-y-auto'}>
           <div className={'my-2 flex flex-col justify-center overflow-y-auto'}>
             {competitionParticipants.length === 0 && <div className="m-2 text-center">{`There are no registrations for your event, yet.`}</div>}
-            {competitionParticipants.length > 0 && <div className="m-2 text-center">{`Number of players in pool: ${competitionParticipants.length}`}</div>}
+            {competitionParticipants.length > 0 && <div className="m-2 text-center">{`Number of players added to pool: ${competitionParticipants.length}`}</div>}
 
             {eventRegistrations.map((registration, index) => {
               const participant: EventRegistration = {
