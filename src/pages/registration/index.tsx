@@ -30,7 +30,7 @@ const Register = () => {
     firstName = firstName.trimStart();
     firstName = firstName.replaceAll('  ', ' ');
 
-    if (firstName.length > 0) {
+    if (firstName.length > 0 && userType !== UserType.ASSOCIATION && userType !== UserType.BRAND) {
       const firstChar = firstName.charAt(0).toUpperCase();
       if (firstName.length === 1) {
         firstName = firstChar;
