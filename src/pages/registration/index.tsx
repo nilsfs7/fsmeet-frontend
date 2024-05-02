@@ -15,7 +15,7 @@ import { UserType } from '@/types/enums/user-type';
 import ComboBox from '@/components/common/ComboBox';
 import { menuUserType } from '@/types/consts/menus/menu-user-type';
 import { getLabelForFirstName } from '@/types/funcs/get-label-for-first-name';
-import { getPlaceholderForByUserType } from '@/types/funcs/get-placeholders-by-user-type';
+import { getPlaceholderByUserType } from '@/types/funcs/get-placeholder-by-user-type';
 
 const Register = () => {
   const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);
@@ -99,7 +99,7 @@ const Register = () => {
             <TextInput
               id={'firstName'}
               label={getLabelForFirstName(userType)}
-              placeholder={getPlaceholderForByUserType(userType).firstName}
+              placeholder={getPlaceholderByUserType(userType).firstName}
               value={firstName}
               onChange={(e) => {
                 handleInputChangeFirstName(e);
@@ -109,21 +109,23 @@ const Register = () => {
             <TextInput
               id={'username'}
               label={'Username'}
-              placeholder={getPlaceholderForByUserType(userType).username}
+              placeholder={getPlaceholderByUserType(userType).username}
               value={username}
               onChange={(e) => {
                 handleInputChangeUsername(e);
               }}
             />
+
             <TextInput
               id={'email'}
               label={'E-Mail'}
-              placeholder="max@gmail.com"
+              placeholder={getPlaceholderByUserType(userType).email}
               value={email}
               onChange={(e) => {
                 handleInputChangeEmail(e);
               }}
             />
+
             <TextInput
               id={'password'}
               type={'password'}
