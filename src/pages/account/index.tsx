@@ -37,6 +37,8 @@ import { Platform } from '@/types/enums/platform';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
 import PageTitle from '@/components/PageTitle';
+import { getLabelForFirstName } from '@/types/funcs/get-label-for-first-name';
+import { getPlaceholderByUserType } from '@/types/funcs/get-placeholder-by-user-type';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -174,15 +176,6 @@ const Account = ({ session }: any) => {
   const handleCopyClicked = async (input: string) => {
     copyToClipboard(input);
     toast.info('Message copied to clipboard.');
-  };
-
-  const getLabelForFirstName = (userType: UserType) => {
-    let label = 'First Name';
-
-    if (userType === UserType.ASSOCIATION) label = 'Association Name';
-    if (userType === UserType.BRAND) label = 'Brand Name';
-
-    return label;
   };
 
   useEffect(() => {
@@ -389,7 +382,7 @@ const Account = ({ session }: any) => {
                     <TextInput
                       id={'firstName'}
                       label={getLabelForFirstName(userType)}
-                      placeholder=""
+                      placeholder={getPlaceholderByUserType(userType).firstName}
                       value={firstName}
                       onChange={(e) => {
                         setFirstName(e.currentTarget.value);
