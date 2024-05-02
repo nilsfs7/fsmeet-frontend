@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
-import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin } from '@/types/consts/routes';
+import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin, routeMap } from '@/types/consts/routes';
 import { imgUserAddImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
@@ -37,6 +37,8 @@ import { Platform } from '@/types/enums/platform';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
 import PageTitle from '@/components/PageTitle';
+import { getLabelForFirstName } from '@/types/funcs/get-label-for-first-name';
+import { getPlaceholderByUserType } from '@/types/funcs/get-placeholder-by-user-type';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -174,15 +176,6 @@ const Account = ({ session }: any) => {
   const handleCopyClicked = async (input: string) => {
     copyToClipboard(input);
     toast.info('Message copied to clipboard.');
-  };
-
-  const getLabelForFirstName = (userType: UserType) => {
-    let label = 'First Name';
-
-    if (userType === UserType.ASSOCIATION) label = 'Association Name';
-    if (userType === UserType.BRAND) label = 'Brand Name';
-
-    return label;
   };
 
   useEffect(() => {
@@ -389,7 +382,7 @@ const Account = ({ session }: any) => {
                     <TextInput
                       id={'firstName'}
                       label={getLabelForFirstName(userType)}
-                      placeholder=""
+                      placeholder={getPlaceholderByUserType(userType).firstName}
                       value={firstName}
                       onChange={(e) => {
                         setFirstName(e.currentTarget.value);
@@ -529,6 +522,18 @@ const Account = ({ session }: any) => {
                         setExposeLocation(!exposeLocation);
                       }}
                     />
+
+                    {exposeLocation && locLatitude && locLongitude && (
+                      <div className="m-2 flex place-items-start items-center">
+                        <Link href={`${routeMap}?user=${session?.user?.username}&lat=${locLatitude}&lng=${locLongitude}`}>
+                          <div className="p-2 hover:underline">{'Show my pin'}</div>
+                        </Link>
+
+                        <Link href={`${routeMap}?user=${session?.user?.username}&lat=${locLatitude}&lng=${locLongitude}`}>
+                          <ActionButton action={Action.GOTOMAP} />
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </TabsContent>
 

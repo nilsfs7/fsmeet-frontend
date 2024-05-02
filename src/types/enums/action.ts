@@ -8,6 +8,7 @@ export enum Action {
   DENY,
   DELETE,
   EDIT,
+  GOTOMAP,
   HIDE,
   MANAGE_COMPETITIONS,
   MANAGE_USERS,
