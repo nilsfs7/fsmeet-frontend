@@ -16,6 +16,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/types/enums/size';
+import { imgWorld } from '@/types/consts/images';
 
 interface IButton {
   action: Action;
@@ -110,6 +111,9 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
       break;
     case Action.SHOW:
       icon = <VisibilityIcon className={className} />;
+      break;
+    case Action.GOTOMAP:
+      icon = <img src={imgWorld} className={className} />;
       break;
   }
 

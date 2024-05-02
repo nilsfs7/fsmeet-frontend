@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
-import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin } from '@/types/consts/routes';
+import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin, routeMap } from '@/types/consts/routes';
 import { imgUserAddImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
@@ -522,6 +522,18 @@ const Account = ({ session }: any) => {
                         setExposeLocation(!exposeLocation);
                       }}
                     />
+
+                    {exposeLocation && locLatitude && locLongitude && (
+                      <div className="m-2 flex place-items-start items-center">
+                        <Link href={`${routeMap}?user=${session?.user?.username}&lat=${locLatitude}&lng=${locLongitude}`}>
+                          <div className="p-2 hover:underline">{'Show my pin'}</div>
+                        </Link>
+
+                        <Link href={`${routeMap}?user=${session?.user?.username}&lat=${locLatitude}&lng=${locLongitude}`}>
+                          <ActionButton action={Action.GOTOMAP} />
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </TabsContent>
 
