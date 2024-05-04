@@ -3,16 +3,15 @@ import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import { useRouter } from 'next/router';
-import ErrorMessage from '@/components/ErrorMessage';
 import { routeLogin } from '@/types/consts/routes';
 import { updateUserPassword } from '@/services/fsmeet-backend/update-user-password';
+import { Toaster, toast } from 'sonner';
 
 const ResetPassword = () => {
   const router = useRouter();
   const { requestToken } = router.query;
 
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const handleInputChangePassword = (event: any) => {
     const hashedPassword = bcrypt.hashSync(event.target.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
@@ -26,44 +25,44 @@ const ResetPassword = () => {
   };
 
   const handleSaveClicked = async () => {
-    setError('');
-
     if (requestToken) {
       try {
         await updateUserPassword(requestToken?.toString(), password);
         router.replace(routeLogin);
       } catch (error: any) {
-        setError(error.message);
+        toast.error(error.message);
         console.error(error.message);
       }
     }
   };
 
   return (
-    <div className="absolute inset-0 flex flex-col">
-      <div className="p-2 h-full grid overflow-y-auto">
-        <div className="h-full flex flex-col items-center justify-center">
-          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
-            <TextInput
-              id={'password'}
-              type={'password'}
-              label={'New password'}
-              placeholder="Ball&Chill2021"
-              onChange={(e) => {
-                handleInputChangePassword(e);
-              }}
-              onKeyDown={handleInputKeypressPassword}
-            />
-          </div>
+    <>
+      <Toaster richColors />
 
-          <div className="flex justify-center py-2">
-            <TextButton text="Save" onClick={handleSaveClicked} />
-          </div>
+      <div className="absolute inset-0 flex flex-col">
+        <div className="p-2 h-full grid overflow-y-auto">
+          <div className="h-full flex flex-col items-center justify-center">
+            <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
+              <TextInput
+                id={'password'}
+                type={'password'}
+                label={'New password'}
+                placeholder="Ball&Chill2021"
+                onChange={(e) => {
+                  handleInputChangePassword(e);
+                }}
+                onKeyDown={handleInputKeypressPassword}
+              />
+            </div>
 
-          <ErrorMessage message={error} />
+            <div className="flex justify-center py-2">
+              <TextButton text="Save" onClick={handleSaveClicked} />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
