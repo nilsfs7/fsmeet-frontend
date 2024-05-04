@@ -18,9 +18,13 @@ import PageTitle from '@/components/PageTitle';
 import { createCompetitionParticipation } from '@/services/fsmeet-backend/create-competition-participation';
 import { deleteCompetitionParticipation } from '@/services/fsmeet-backend/delete-competition-participation';
 import { UserType } from '@/types/enums/user-type';
+import { getCompetition } from '@/services/fsmeet-backend/get-competition';
+import { EventCompetition } from '@/types/event-competition';
+import { CompetitionGender } from '@/types/enums/competition-gender';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
+  const competition: EventCompetition = props.data.competition;
 
   const router = useRouter();
   const { eventId } = router.query;
@@ -82,6 +86,15 @@ const CompetitionPool = (props: any) => {
             return registration;
           }
         });
+
+        // remove wrong gender
+        if (competition.gender !== CompetitionGender.MIXED) {
+          registrations = registrations.filter((registration) => {
+            if (registration.user.gender === competition.gender.toString()) {
+              return registration;
+            }
+          });
+        }
 
         setEventRegistrations(registrations);
       }
@@ -184,9 +197,22 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     };
   }
 
+  const compId = context.query.compId;
+
+  let data: { competition: EventCompetition | null } = { competition: null };
+
+  if (compId) {
+    try {
+      data.competition = JSON.parse(JSON.stringify(await getCompetition(compId?.toString())));
+    } catch (error: any) {
+      console.error('Error fetching competiton.');
+    }
+  }
+
   return {
     props: {
       session: session,
+      data: data,
     },
   };
 };
