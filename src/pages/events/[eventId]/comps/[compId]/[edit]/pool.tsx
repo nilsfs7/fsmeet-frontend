@@ -17,6 +17,7 @@ import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { createCompetitionParticipation } from '@/services/fsmeet-backend/create-competition-participation';
 import { deleteCompetitionParticipation } from '@/services/fsmeet-backend/delete-competition-participation';
+import { UserType } from '@/types/enums/user-type';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -106,22 +107,16 @@ const CompetitionPool = (props: any) => {
             {eventRegistrations.length > 0 && <div className="m-2 text-center">{`Number of players added to pool: ${competitionParticipants.length}`}</div>}
 
             {eventRegistrations.map((registration, index) => {
-              const participant: EventRegistration = {
-                username: registration.username,
-                status: registration.status,
-                imageUrl: registration.imageUrl,
-              };
-
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`${routeUsers}/${participant.username}`}>
-                      <Participant participant={participant} />
+                    <Link className="float-right" href={`${routeUsers}/${registration.user.username}`}>
+                      <Participant participant={registration.user} />
                     </Link>
                   </div>
                   <div className="mx-1 flex w-1/2 justify-start">
                     <div className="flex">
-                      {competitionParticipants.some((e) => e.username === participant.username) && (
+                      {competitionParticipants.some((e) => e.username === registration.user.username) && (
                         <>
                           <div className="flex h-full w-16 items-center justify-center">assigned</div>
                           <div className="ml-1">
@@ -129,13 +124,13 @@ const CompetitionPool = (props: any) => {
                               action={Action.DELETE}
                               onClick={() => {
                                 // @ts-ignore
-                                handleRemoveParticipantClicked(compId, participant.username);
+                                handleRemoveParticipantClicked(compId, registration.user.username);
                               }}
                             />
                           </div>
                         </>
                       )}
-                      {!competitionParticipants.some((e) => e.username === participant.username) && (
+                      {!competitionParticipants.some((e) => e.username === registration.user.username) && (
                         <>
                           <div className="flex h-full w-16 items-center justify-center">free</div>
                           <div className="mx-1">
@@ -143,7 +138,7 @@ const CompetitionPool = (props: any) => {
                               action={Action.ADD}
                               onClick={() => {
                                 // @ts-ignore
-                                handleAddParticipantClicked(compId, participant.username);
+                                handleAddParticipantClicked(compId, registration.user.username);
                               }}
                             />
                           </div>

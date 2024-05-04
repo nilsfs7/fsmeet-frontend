@@ -56,7 +56,7 @@ const Event = (props: any) => {
 
   const isRegistered = () => {
     if (validateSession(session)) {
-      if (event && event.eventRegistrations.some((user) => user.username === session.user.username)) {
+      if (event && event.eventRegistrations.some((registration) => registration.user.username === session.user.username)) {
         return true;
       }
     }
@@ -226,17 +226,17 @@ const Event = (props: any) => {
         }
 
         const approvedWithImage = event.eventRegistrations
-          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && registration.imageUrl)
-          .sort((a, b) => (a.username > b.username ? 1 : -1));
+          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && registration.user.imageUrl)
+          .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
         const approvedNoImage = event.eventRegistrations
-          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && !registration.imageUrl)
-          .sort((a, b) => (a.username > b.username ? 1 : -1));
+          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && !registration.user.imageUrl)
+          .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
         const pendingWithImage = event.eventRegistrations
-          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && registration.imageUrl)
-          .sort((a, b) => (a.username > b.username ? 1 : -1));
+          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && registration.user.imageUrl)
+          .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
         const pendingNoImage = event.eventRegistrations
-          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && !registration.imageUrl)
-          .sort((a, b) => (a.username > b.username ? 1 : -1));
+          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && !registration.user.imageUrl)
+          .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
 
         setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
       }
@@ -451,8 +451,8 @@ const Event = (props: any) => {
                 <ParticipantList
                   participants={approvedAndPendingRegistrations.map((registration) => {
                     const user: User = {
-                      username: registration.username,
-                      imageUrl: registration.imageUrl,
+                      username: registration.user.username,
+                      imageUrl: registration.user.imageUrl,
                     };
 
                     return user;

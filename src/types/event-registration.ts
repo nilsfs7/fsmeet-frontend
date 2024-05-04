@@ -1,7 +1,7 @@
 import { EventRegistrationStatus } from './enums/event-registration-status';
+import { User } from './user';
 
 export type EventRegistration = {
-  username: string;
-  imageUrl?: string;
+  user: User;
   status: EventRegistrationStatus;
 };
