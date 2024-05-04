@@ -74,7 +74,15 @@ const CompetitionPool = (props: any) => {
   useEffect(() => {
     async function fetchEventRegistrations() {
       if (eventId) {
-        const registrations = await getEventRegistrations(eventId?.toString());
+        let registrations = await getEventRegistrations(eventId?.toString());
+
+        // remove non-freestylers
+        registrations = registrations.filter((registration) => {
+          if (registration.user.type === UserType.FREESTYLER) {
+            return registration;
+          }
+        });
+
         setEventRegistrations(registrations);
       }
     }
