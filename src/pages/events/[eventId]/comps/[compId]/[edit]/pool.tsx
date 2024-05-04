@@ -15,9 +15,16 @@ import { getEventRegistrations } from '@/services/fsmeet-backend/get-event-regis
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
+import { createCompetitionParticipation } from '@/services/fsmeet-backend/create-competition-participation';
+import { deleteCompetitionParticipation } from '@/services/fsmeet-backend/delete-competition-participation';
+import { UserType } from '@/types/enums/user-type';
+import { getCompetition } from '@/services/fsmeet-backend/get-competition';
+import { EventCompetition } from '@/types/event-competition';
+import { CompetitionGender } from '@/types/enums/competition-gender';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
+  const competition: EventCompetition = props.data.competition;
 
   const router = useRouter();
   const { eventId } = router.query;
@@ -32,31 +39,17 @@ const CompetitionPool = (props: any) => {
       return;
     }
 
-    const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
-    const method: string = 'DELETE';
+    try {
+      await deleteCompetitionParticipation(compId, username, session);
 
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify({
-        username: `${username}`,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 200) {
       let newArray = Array.from(competitionParticipants);
       newArray = newArray.filter((registration) => {
         return registration.username != username;
       });
       setCompetitionParticipants(newArray);
 
-      console.info(`${username} removed`);
       toast.success(`${username} removed`);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
     }
@@ -68,29 +61,15 @@ const CompetitionPool = (props: any) => {
       return;
     }
 
-    const url: string = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
-    const method: string = 'POST';
+    try {
+      await createCompetitionParticipation(compId, username, session);
 
-    const response = await fetch(url, {
-      method: method,
-      body: JSON.stringify({
-        username: `${username}`,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    });
-
-    if (response.status == 201) {
       const newArray = Array.from(competitionParticipants);
       newArray.push({ username: username });
       setCompetitionParticipants(newArray);
 
       toast.success(`${username} added`);
-      console.info(`${username} added`);
-    } else {
-      const error = await response.json();
+    } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
     }
@@ -99,7 +78,24 @@ const CompetitionPool = (props: any) => {
   useEffect(() => {
     async function fetchEventRegistrations() {
       if (eventId) {
-        const registrations = await getEventRegistrations(eventId?.toString());
+        let registrations = await getEventRegistrations(eventId?.toString());
+
+        // remove non-freestylers
+        registrations = registrations.filter((registration) => {
+          if (registration.user.type === UserType.FREESTYLER) {
+            return registration;
+          }
+        });
+
+        // remove wrong gender
+        if (competition.gender !== CompetitionGender.MIXED) {
+          registrations = registrations.filter((registration) => {
+            if (registration.user.gender === competition.gender.toString()) {
+              return registration;
+            }
+          });
+        }
+
         setEventRegistrations(registrations);
       }
     }
@@ -128,26 +124,20 @@ const CompetitionPool = (props: any) => {
 
         <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 overflow-y-auto'}>
           <div className={'my-2 flex flex-col justify-center overflow-y-auto'}>
-            {competitionParticipants.length === 0 && <div className="m-2 text-center">{`There are no registrations for your event, yet.`}</div>}
-            {competitionParticipants.length > 0 && <div className="m-2 text-center">{`Number of players in pool: ${competitionParticipants.length}`}</div>}
+            {eventRegistrations.length === 0 && <div className="m-2 text-center">{`There are no registrations for your event, yet.`}</div>}
+            {eventRegistrations.length > 0 && <div className="m-2 text-center">{`Number of players added to pool: ${competitionParticipants.length}`}</div>}
 
             {eventRegistrations.map((registration, index) => {
-              const participant: EventRegistration = {
-                username: registration.username,
-                status: registration.status,
-                imageUrl: registration.imageUrl,
-              };
-
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`${routeUsers}/${participant.username}`}>
-                      <Participant participant={participant} />
+                    <Link className="float-right" href={`${routeUsers}/${registration.user.username}`}>
+                      <Participant participant={registration.user} />
                     </Link>
                   </div>
                   <div className="mx-1 flex w-1/2 justify-start">
                     <div className="flex">
-                      {competitionParticipants.some((e) => e.username === participant.username) && (
+                      {competitionParticipants.some((e) => e.username === registration.user.username) && (
                         <>
                           <div className="flex h-full w-16 items-center justify-center">assigned</div>
                           <div className="ml-1">
@@ -155,13 +145,13 @@ const CompetitionPool = (props: any) => {
                               action={Action.DELETE}
                               onClick={() => {
                                 // @ts-ignore
-                                handleRemoveParticipantClicked(compId, participant.username);
+                                handleRemoveParticipantClicked(compId, registration.user.username);
                               }}
                             />
                           </div>
                         </>
                       )}
-                      {!competitionParticipants.some((e) => e.username === participant.username) && (
+                      {!competitionParticipants.some((e) => e.username === registration.user.username) && (
                         <>
                           <div className="flex h-full w-16 items-center justify-center">free</div>
                           <div className="mx-1">
@@ -169,7 +159,7 @@ const CompetitionPool = (props: any) => {
                               action={Action.ADD}
                               onClick={() => {
                                 // @ts-ignore
-                                handleAddParticipantClicked(compId, participant.username);
+                                handleAddParticipantClicked(compId, registration.user.username);
                               }}
                             />
                           </div>
@@ -207,9 +197,22 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     };
   }
 
+  const compId = context.query.compId;
+
+  let data: { competition: EventCompetition | null } = { competition: null };
+
+  if (compId) {
+    try {
+      data.competition = JSON.parse(JSON.stringify(await getCompetition(compId?.toString())));
+    } catch (error: any) {
+      console.error('Error fetching competiton.');
+    }
+  }
+
   return {
     props: {
       session: session,
+      data: data,
     },
   };
 };

@@ -1,3 +1,4 @@
+import { CompetitionGender } from './enums/competition-gender';
 import { CompetitionType } from './enums/competition-type';
 
 export type EventCompetition = {
@@ -5,6 +6,7 @@ export type EventCompetition = {
   eventId: string | undefined;
   name: string;
   type: CompetitionType;
+  gender: CompetitionGender;
   description: string;
   rules: string;
 };

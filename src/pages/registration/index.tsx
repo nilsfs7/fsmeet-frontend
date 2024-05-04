@@ -3,7 +3,6 @@ import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import router from 'next/router';
-import ErrorMessage from '@/components/ErrorMessage';
 import { validateFirstName } from '@/types/funcs/validation/validation-user';
 import { routeLogin, routeRegistrationPending } from '@/types/consts/routes';
 import { createUser } from '@/services/fsmeet-backend/create-user';
@@ -16,6 +15,7 @@ import ComboBox from '@/components/common/ComboBox';
 import { menuUserType } from '@/types/consts/menus/menu-user-type';
 import { getLabelForFirstName } from '@/types/funcs/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/types/funcs/get-placeholder-by-user-type';
+import { Toaster, toast } from 'sonner';
 
 const Register = () => {
   const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);
@@ -23,7 +23,6 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const handleInputChangeFirstName = (event: any) => {
     let firstName: string = event.currentTarget.value;
@@ -66,92 +65,92 @@ const Register = () => {
   };
 
   const handleCreateClicked = async () => {
-    setError('');
-
     try {
       await createUser(username, userType, email, password, firstName);
       router.replace(`${routeRegistrationPending}?username=${username}&email=${email}`);
     } catch (error: any) {
-      setError(error.message);
+      toast.error(error.message);
       console.error(error.message);
     }
   };
 
   return (
-    <div className={'absolute inset-0 flex flex-col'}>
-      <div className="p-2 h-full grid overflow-y-auto">
-        <div className="h-full flex flex-col items-center justify-center">
-          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1 ">
-            <div className="flex h-[100%] flex-col p-2">
-              <div>{`Sign up as`}</div>
-              <div className="flex w-full">
-                <ComboBox
-                  className="w-full"
-                  menus={menuUserType}
-                  value={userType ? userType : menuUserType[0].value}
-                  onChange={(value: any) => {
-                    setUserType(value);
-                  }}
-                />
+    <>
+      <Toaster richColors />
+
+      <div className={'absolute inset-0 flex flex-col'}>
+        <div className="p-2 h-full grid overflow-y-auto">
+          <div className="h-full flex flex-col items-center justify-center">
+            <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1 ">
+              <div className="flex h-[100%] flex-col p-2">
+                <div>{`Sign up as`}</div>
+                <div className="flex w-full">
+                  <ComboBox
+                    className="w-full"
+                    menus={menuUserType}
+                    value={userType ? userType : menuUserType[0].value}
+                    onChange={(value: any) => {
+                      setUserType(value);
+                    }}
+                  />
+                </div>
               </div>
+
+              <TextInput
+                id={'firstName'}
+                label={getLabelForFirstName(userType)}
+                placeholder={getPlaceholderByUserType(userType).firstName}
+                value={firstName}
+                onChange={(e) => {
+                  handleInputChangeFirstName(e);
+                }}
+              />
+
+              <TextInput
+                id={'username'}
+                label={'Username'}
+                placeholder={getPlaceholderByUserType(userType).username}
+                value={username}
+                onChange={(e) => {
+                  handleInputChangeUsername(e);
+                }}
+              />
+
+              <TextInput
+                id={'email'}
+                label={'E-Mail'}
+                placeholder={getPlaceholderByUserType(userType).email}
+                value={email}
+                onChange={(e) => {
+                  handleInputChangeEmail(e);
+                }}
+              />
+
+              <TextInput
+                id={'password'}
+                type={'password'}
+                label={'Password'}
+                placeholder="Ball&Chill2021"
+                onChange={(e) => {
+                  handleInputChangePassword(e);
+                }}
+                onKeyDown={handleInputKeypressPassword}
+              />
             </div>
 
-            <TextInput
-              id={'firstName'}
-              label={getLabelForFirstName(userType)}
-              placeholder={getPlaceholderByUserType(userType).firstName}
-              value={firstName}
-              onChange={(e) => {
-                handleInputChangeFirstName(e);
-              }}
-            />
-
-            <TextInput
-              id={'username'}
-              label={'Username'}
-              placeholder={getPlaceholderByUserType(userType).username}
-              value={username}
-              onChange={(e) => {
-                handleInputChangeUsername(e);
-              }}
-            />
-
-            <TextInput
-              id={'email'}
-              label={'E-Mail'}
-              placeholder={getPlaceholderByUserType(userType).email}
-              value={email}
-              onChange={(e) => {
-                handleInputChangeEmail(e);
-              }}
-            />
-
-            <TextInput
-              id={'password'}
-              type={'password'}
-              label={'Password'}
-              placeholder="Ball&Chill2021"
-              onChange={(e) => {
-                handleInputChangePassword(e);
-              }}
-              onKeyDown={handleInputKeypressPassword}
-            />
+            <div className="flex justify-center py-2">
+              <TextButton text="Sign Up" onClick={handleCreateClicked} />
+            </div>
           </div>
-
-          <div className="flex justify-center py-2">
-            <TextButton text="Sign Up" onClick={handleCreateClicked} />
-          </div>
-
-          <ErrorMessage message={error} />
         </div>
-      </div>
 
-      <Navigation>
-        <Link href={routeLogin}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-      </Navigation>
-    </div>
+        <Navigation>
+          <Link href={routeLogin}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+        </Navigation>
+      </div>
+    </>
   );
 };
 

@@ -71,6 +71,7 @@ const CompetitionEditing = (props: any) => {
           eventId: eventId,
           name: comp.name,
           type: comp.type,
+          gender: comp.gender,
           description: comp.description,
           rules: comp.rules,
         };

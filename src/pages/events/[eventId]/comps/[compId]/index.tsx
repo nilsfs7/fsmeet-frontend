@@ -62,6 +62,7 @@ const Competition = (props: any) => {
           eventId: eventId,
           name: comp.name,
           type: comp.type,
+          gender: comp.gender,
           description: comp.description,
           rules: comp.rules,
         };
@@ -70,13 +71,13 @@ const Competition = (props: any) => {
         const participants = await getCompetitionParticipants(compId);
         const competitionParticipants = participants.map((participant) => {
           const participantRegistrationPair = e.eventRegistrations.filter((registration) => {
-            if (registration.username === participant.username) {
-              return registration.imageUrl;
+            if (registration.user.username === participant.username) {
+              return registration.user.imageUrl;
             }
           });
 
           let profileImageUrl;
-          participantRegistrationPair.length === 1 ? (profileImageUrl = participantRegistrationPair[0].imageUrl) : null;
+          participantRegistrationPair.length === 1 ? (profileImageUrl = participantRegistrationPair[0].user.imageUrl) : null;
 
           const user: User = {
             username: participant.username,

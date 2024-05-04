@@ -1,12 +1,12 @@
-export async function deleteCompetition(compId: string, session: any): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions`;
+export async function createCompetitionParticipation(compId: string, username: string, session: any): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
 
   const body = JSON.stringify({
-    id: `${compId}`,
+    username: `${username}`,
   });
 
   const response = await fetch(url, {
-    method: 'DELETE',
+    method: 'POST',
     body: body,
     headers: {
       'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ export async function deleteCompetition(compId: string, session: any): Promise<v
   });
 
   if (response.ok) {
-    console.info('Deleting competition successful');
+    console.info('Creating competition participation successful');
   } else {
     const error = await response.json();
     throw Error(error.message);
