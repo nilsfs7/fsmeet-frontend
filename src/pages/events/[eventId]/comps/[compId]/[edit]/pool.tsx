@@ -102,8 +102,8 @@ const CompetitionPool = (props: any) => {
 
         <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 overflow-y-auto'}>
           <div className={'my-2 flex flex-col justify-center overflow-y-auto'}>
-            {competitionParticipants.length === 0 && <div className="m-2 text-center">{`There are no registrations for your event, yet.`}</div>}
-            {competitionParticipants.length > 0 && <div className="m-2 text-center">{`Number of players added to pool: ${competitionParticipants.length}`}</div>}
+            {eventRegistrations.length === 0 && <div className="m-2 text-center">{`There are no registrations for your event, yet.`}</div>}
+            {eventRegistrations.length > 0 && <div className="m-2 text-center">{`Number of players added to pool: ${competitionParticipants.length}`}</div>}
 
             {eventRegistrations.map((registration, index) => {
               const participant: EventRegistration = {
