@@ -1,7 +1,7 @@
 import { EventCompetition } from '@/types/event-competition';
 
 export async function createCompetition(eventId: string, comp: EventCompetition, session: any): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/competition`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions`;
 
   const body = JSON.stringify({
     eventId: eventId,
