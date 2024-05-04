@@ -41,8 +41,8 @@ const Users = (props: any) => {
         toast.success(`Verification state for ${user.username} (${user.firstName}) updated.`);
       }
     } catch (error: any) {
-      console.error(error);
-      toast.error(error);
+      toast.error(error.message);
+      console.error(error.message);
     }
   };
 

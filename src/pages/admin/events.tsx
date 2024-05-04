@@ -48,7 +48,8 @@ const Events = (props: any) => {
       await updateEventState(session, eventId, event.state);
       toast.success(`State for ${event.name} (${eventId}) updated.`);
     } catch (error: any) {
-      toast.error(error);
+      toast.error(error.message);
+      console.error(error.message);
     }
   };
 

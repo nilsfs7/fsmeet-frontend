@@ -99,7 +99,7 @@ const Event = (props: any) => {
         // toast.success(`todo`);
         router.reload();
       } catch (error: any) {
-        // toast.error(error);
+        // toast.error(error.message);
       }
     }
   };

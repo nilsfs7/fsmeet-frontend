@@ -36,8 +36,8 @@ const Licenses = (props: any) => {
         await updateLicense(session, license);
         toast.success(`Licenses for ${license.username} updated (${license.amountEventLicenses}).`);
       } catch (error: any) {
-        console.error(error);
-        toast.error(error);
+        toast.error(error.message);
+        console.error(error.message);
       }
     }
   };
