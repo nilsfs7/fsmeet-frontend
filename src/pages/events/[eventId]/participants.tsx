@@ -111,29 +111,23 @@ const EventParticipants = (props: any) => {
           <div className="flex flex-col">
             {event.eventRegistrations.length === 0 && <div className="m-1 flex justify-center">{`No registrations yet`}</div>}
             {event.eventRegistrations.map((registration, index) => {
-              const participant: EventRegistration = {
-                username: registration.username,
-                status: registration.status,
-                imageUrl: registration.imageUrl,
-              };
-
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`${routeUsers}/${participant.username}`}>
-                      <Participant participant={participant} registrationStatus={registration.status} />
+                    <Link className="float-right" href={`${routeUsers}/${registration.user.username}`}>
+                      <Participant participant={registration.user} registrationStatus={registration.status} />
                     </Link>
                   </div>
 
                   <div className="mx-1 flex w-1/2 justify-start">
-                    {(participant.status === EventRegistrationStatus.APPROVED || participant.status === EventRegistrationStatus.DENIED) && (
+                    {(registration.status === EventRegistrationStatus.APPROVED || registration.status === EventRegistrationStatus.DENIED) && (
                       <>
-                        <div className="mr-1 flex w-24 items-center justify-center font-bold ">{participant.status.toUpperCase()}</div>
+                        <div className="mr-1 flex w-24 items-center justify-center font-bold ">{registration.status.toUpperCase()}</div>
                         <div className="ml-1">
                           <ActionButton
                             action={Action.DELETE}
                             onClick={() => {
-                              handleRemoveParticipantClicked(participant.username);
+                              handleRemoveParticipantClicked(registration.user.username);
                             }}
                           />
                         </div>
@@ -141,13 +135,13 @@ const EventParticipants = (props: any) => {
                     )}
 
                     <div className="flex">
-                      {participant.status == EventRegistrationStatus.PENDING && (
+                      {registration.status == EventRegistrationStatus.PENDING && (
                         <>
                           <div className="mr-1">
                             <ActionButton
                               action={Action.ACCEPT}
                               onClick={() => {
-                                handleApproveParticipantClicked(participant.username, EventRegistrationStatus.APPROVED);
+                                handleApproveParticipantClicked(registration.user.username, EventRegistrationStatus.APPROVED);
                               }}
                             />
                           </div>
@@ -155,7 +149,7 @@ const EventParticipants = (props: any) => {
                             <ActionButton
                               action={Action.DENY}
                               onClick={() => {
-                                handleApproveParticipantClicked(participant.username, EventRegistrationStatus.DENIED);
+                                handleApproveParticipantClicked(registration.user.username, EventRegistrationStatus.DENIED);
                               }}
                             />
                           </div>
