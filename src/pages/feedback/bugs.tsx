@@ -4,7 +4,6 @@ import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
 import { getSession } from 'next-auth/react';
 import { routeFeedback, routeFeedbackThankyou, routeLogin } from '@/types/consts/routes';
-import ErrorMessage from '@/components/ErrorMessage';
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 import { Action } from '@/types/enums/action';
@@ -13,56 +12,56 @@ import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { createFeedbackBug } from '@/services/fsmeet-backend/create-feedback-bug';
 import PageTitle from '@/components/PageTitle';
+import { Toaster, toast } from 'sonner';
 
 const ReportBug = (props: any) => {
   const session = props.session;
 
   const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
 
   const handleInputChangeMessage = (event: any) => {
     setMessage(event.target.value);
   };
 
   const handleSubmitClicked = async () => {
-    setError('');
-
     try {
       await createFeedbackBug(message, session);
       router.push(routeFeedbackThankyou);
     } catch (error: any) {
-      setError(error.message);
+      toast.error(error.message);
       console.error(error.message);
     }
   };
 
   return (
-    <div className="absolute inset-0 flex flex-col">
-      <PageTitle title="Report Bug" />
+    <>
+      <Toaster richColors />
 
-      <div className="mx-2 flex flex-col overflow-y-auto">
-        <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
-          <TextInputLarge
-            id={'message'}
-            label={'Message'}
-            placeholder="Describe any misbehavior you noticed."
-            onChange={(e) => {
-              handleInputChangeMessage(e);
-            }}
-          />
+      <div className="absolute inset-0 flex flex-col">
+        <PageTitle title="Report Bug" />
+
+        <div className="mx-2 flex flex-col overflow-y-auto">
+          <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
+            <TextInputLarge
+              id={'message'}
+              label={'Message'}
+              placeholder="Describe any misbehavior you noticed."
+              onChange={(e) => {
+                handleInputChangeMessage(e);
+              }}
+            />
+          </div>
         </div>
 
-        <ErrorMessage message={error} />
+        <Navigation>
+          <Link href={routeFeedback}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+
+          <TextButton text="Submit" onClick={handleSubmitClicked} />
+        </Navigation>
       </div>
-
-      <Navigation>
-        <Link href={routeFeedback}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-
-        <TextButton text="Submit" onClick={handleSubmitClicked} />
-      </Navigation>
-    </div>
+    </>
   );
 };
 
