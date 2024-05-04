@@ -4,7 +4,6 @@ import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
 import { getSession } from 'next-auth/react';
 import { routeFeedback, routeFeedbackThankyou, routeLogin } from '@/types/consts/routes';
-import ErrorMessage from '@/components/ErrorMessage';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
@@ -13,56 +12,56 @@ import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { createFeedbackGeneral } from '@/services/fsmeet-backend/create-feedback-general';
 import PageTitle from '@/components/PageTitle';
+import { Toaster, toast } from 'sonner';
 
 const GeneralFeedback = (props: any) => {
   const session = props.session;
 
   const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
 
   const handleInputChangeMessage = (event: any) => {
     setMessage(event.target.value);
   };
 
   const handleSubmitClicked = async () => {
-    setError('');
-
     try {
       await createFeedbackGeneral(message, session);
       router.push(routeFeedbackThankyou);
     } catch (error: any) {
-      setError(error.message);
+      toast.error(error.message);
       console.error(error.message);
     }
   };
 
   return (
-    <div className={'absolute inset-0 flex flex-col'}>
-      <PageTitle title="Send Feedback" />
+    <>
+      <Toaster richColors />
 
-      <div className="mx-2 flex flex-col overflow-y-auto">
-        <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
-          <TextInputLarge
-            id={'message'}
-            label={'Message'}
-            placeholder="Any feedback is highly appreciated!"
-            onChange={(e) => {
-              handleInputChangeMessage(e);
-            }}
-          />
+      <div className={'absolute inset-0 flex flex-col'}>
+        <PageTitle title="Send Feedback" />
+
+        <div className="mx-2 flex flex-col overflow-y-auto">
+          <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
+            <TextInputLarge
+              id={'message'}
+              label={'Message'}
+              placeholder="Any feedback is highly appreciated!"
+              onChange={(e) => {
+                handleInputChangeMessage(e);
+              }}
+            />
+          </div>
         </div>
 
-        <ErrorMessage message={error} />
+        <Navigation>
+          <Link href={routeFeedback}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+
+          <TextButton text="Submit" onClick={handleSubmitClicked} />
+        </Navigation>
       </div>
-
-      <Navigation>
-        <Link href={routeFeedback}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-
-        <TextButton text="Submit" onClick={handleSubmitClicked} />
-      </Navigation>
-    </div>
+    </>
   );
 };
 
