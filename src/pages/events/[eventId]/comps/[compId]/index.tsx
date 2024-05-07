@@ -26,7 +26,7 @@ import { Switch } from '@/components/ui/switch';
 import { getUser } from '@/services/fsmeet-backend/get-user';
 import PageTitle from '@/components/PageTitle';
 
-const Competition = (props: any) => {
+const CompetitionDetails = (props: any) => {
   const session = props.session;
 
   const router = useRouter();
@@ -256,7 +256,7 @@ const Competition = (props: any) => {
   );
 };
 
-export default Competition;
+export default CompetitionDetails;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);

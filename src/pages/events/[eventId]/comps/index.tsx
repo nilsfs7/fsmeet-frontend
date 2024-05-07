@@ -14,7 +14,7 @@ import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import PageTitle from '@/components/PageTitle';
 
-const EventCompetitions = (props: any) => {
+const ManageCompetitions = (props: any) => {
   const session = props.session;
 
   const router = useRouter();
@@ -122,7 +122,7 @@ const EventCompetitions = (props: any) => {
   );
 };
 
-export default EventCompetitions;
+export default ManageCompetitions;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);

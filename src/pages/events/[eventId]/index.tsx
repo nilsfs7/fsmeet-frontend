@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
 import moment from 'moment';
 import CompetitionList from '@/components/events/CompetitionList';
-import EventDetails from '@/components/events/EventDetails';
+import EventInfo from '@/components/events/EventInfo';
 import CommentSection from '@/components/events/comment/CommentSection';
 import { EventComment } from '@/types/event-comment';
 import { EventType } from '@/types/enums/event-type';
@@ -40,7 +40,7 @@ import { getComments } from '@/services/fsmeet-backend/get-comments';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { Toaster, toast } from 'sonner';
 
-const Event = (props: any) => {
+const EventDetails = (props: any) => {
   const session = props.session;
 
   const router = useRouter();
@@ -420,7 +420,7 @@ const Event = (props: any) => {
 
             {/* Details */}
             <TabsContent value="overview" className="overflow-hidden overflow-y-auto">
-              <EventDetails event={event} />
+              <EventInfo event={event} />
 
               {event.allowComments && (
                 <div className="mt-2">
@@ -500,7 +500,7 @@ const Event = (props: any) => {
   );
 };
 
-export default Event;
+export default EventDetails;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
