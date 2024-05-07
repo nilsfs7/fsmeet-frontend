@@ -1,5 +1,5 @@
 import { EventCompetition } from '@/types/event-competition';
-import Competition from './Competition';
+import CompetitionBadge from './CompetitionBadge';
 import Link from 'next/link';
 import { routeEvents } from '@/types/consts/routes';
 
@@ -22,7 +22,7 @@ const CompetitionList = ({ competitions, eventId, auth = false }: ICompetitionLi
           return (
             <div key={i} className={`my-1 ${margin}`}>
               <Link href={`${routeEvents}/${eventId}/comps/${competition.id}${auth ? '?auth=1' : ''}`}>
-                <Competition competition={competition} />
+                <CompetitionBadge competition={competition} />
               </Link>
             </div>
           );
