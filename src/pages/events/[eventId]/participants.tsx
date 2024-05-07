@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
-import Participant from '@/components/events/Participant';
-import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import Link from 'next/link';
 import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
@@ -19,6 +17,7 @@ import { Toaster, toast } from 'sonner';
 import { updateEventRegistrationStatus } from '@/services/fsmeet-backend/update-event-registration-status';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
+import ParticipantBadge from '@/components/events/ParticipantBadge';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -115,7 +114,7 @@ const EventParticipants = (props: any) => {
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
                     <Link className="float-right" href={`${routeUsers}/${registration.user.username}`}>
-                      <Participant participant={registration.user} registrationStatus={registration.status} />
+                      <ParticipantBadge participant={registration.user} registrationStatus={registration.status} />
                     </Link>
                   </div>
 
