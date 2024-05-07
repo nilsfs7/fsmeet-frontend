@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
@@ -26,7 +26,7 @@ const CompetitionEditing = (props: any) => {
   const { eventId } = router.query;
   const { compId } = router.query;
 
-  const [comp, setComp] = useState<EventCompetition>();
+  const [comp, setComp] = useState<Competition>();
 
   const handleSaveClicked = async () => {
     if (comp) {
@@ -64,9 +64,9 @@ const CompetitionEditing = (props: any) => {
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
       getEvent(eventId, true, session).then((res: Event) => {
-        const comp = res.eventCompetitions.filter((c) => c.id === compId)[0];
+        const comp = res.competitions.filter((c) => c.id === compId)[0];
 
-        const c: EventCompetition = {
+        const c: Competition = {
           id: comp.id,
           eventId: eventId,
           name: comp.name,
@@ -96,7 +96,7 @@ const CompetitionEditing = (props: any) => {
           <CompetitionEditor
             editorMode={EditorMode.EDIT}
             comp={comp}
-            onCompUpdate={(comp: EventCompetition) => {
+            onCompUpdate={(comp: Competition) => {
               setComp(comp);
             }}
           />

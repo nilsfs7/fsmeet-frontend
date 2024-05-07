@@ -1,6 +1,6 @@
 import { EventType } from './enums/event-type';
 import { EventRegistration } from './event-registration';
-import { EventCompetition } from './event-competition';
+import { Competition } from './competition';
 import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
@@ -32,6 +32,6 @@ export type Event = {
   allowComments: boolean;
   notifyOnComment: boolean;
   eventRegistrations: EventRegistration[];
-  eventCompetitions: EventCompetition[];
+  competitions: Competition[];
   state: EventState;
 };

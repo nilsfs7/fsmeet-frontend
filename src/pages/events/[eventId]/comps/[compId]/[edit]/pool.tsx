@@ -19,12 +19,12 @@ import { createCompetitionParticipation } from '@/services/fsmeet-backend/create
 import { deleteCompetitionParticipation } from '@/services/fsmeet-backend/delete-competition-participation';
 import { UserType } from '@/types/enums/user-type';
 import { getCompetition } from '@/services/fsmeet-backend/get-competition';
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 import { CompetitionGender } from '@/types/enums/competition-gender';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
-  const competition: EventCompetition = props.data.competition;
+  const competition: Competition = props.data.competition;
 
   const router = useRouter();
   const { eventId } = router.query;
@@ -199,7 +199,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const compId = context.query.compId;
 
-  let data: { competition: EventCompetition | null } = { competition: null };
+  let data: { competition: Competition | null } = { competition: null };
 
   if (compId) {
     try {

@@ -100,7 +100,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       allowComments: allowComments,
       notifyOnComment: notifyOnComment,
       eventRegistrations: [],
-      eventCompetitions: [],
+      competitions: [],
       state: event?.state || EventState.CREATED,
     });
   };

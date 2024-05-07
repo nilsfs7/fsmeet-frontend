@@ -396,7 +396,7 @@ const EventDetails = (props: any) => {
               >
                 Overview
               </TabsTrigger>
-              {event.eventCompetitions.length > 0 && (
+              {event.competitions.length > 0 && (
                 <TabsTrigger
                   value="competitions"
                   onClick={() => {
@@ -439,9 +439,9 @@ const EventDetails = (props: any) => {
               )}
             </TabsContent>
 
-            {event.id && event.eventCompetitions.length > 0 && (
+            {event.id && event.competitions.length > 0 && (
               <TabsContent value="competitions" className="overflow-hidden overflow-y-auto">
-                <CompetitionList competitions={event.eventCompetitions} eventId={event.id} auth={needsAuthorization ? true : false} />
+                <CompetitionList competitions={event.competitions} eventId={event.id} auth={needsAuthorization ? true : false} />
               </TabsContent>
             )}
 

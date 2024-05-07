@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 import { validateSession } from '@/types/funcs/validate-session';
 import { createCompetition } from '@/services/fsmeet-backend/create-competition';
 import { EditorMode } from '@/types/enums/editor-mode';
@@ -21,7 +21,7 @@ const CompetitionCreation = (props: any) => {
   const router = useRouter();
   const { eventId } = router.query;
 
-  const [comp, setComp] = useState<EventCompetition>();
+  const [comp, setComp] = useState<Competition>();
 
   const handleCreateClicked = async () => {
     if (eventId && comp) {
@@ -45,7 +45,7 @@ const CompetitionCreation = (props: any) => {
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <CompetitionEditor
             editorMode={EditorMode.CREATE}
-            onCompUpdate={(comp: EventCompetition) => {
+            onCompUpdate={(comp: Competition) => {
               setComp(comp);
             }}
           />

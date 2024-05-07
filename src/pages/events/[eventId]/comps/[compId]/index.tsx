@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
@@ -38,7 +38,7 @@ const CompetitionDetails = (props: any) => {
   const needsAuthorization = searchParams.get('auth');
 
   const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
-  const [comp, setComp] = useState<EventCompetition>();
+  const [comp, setComp] = useState<Competition>();
   const [rounds, setRounds] = useState<Round[]>([]);
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [filteredByUser, setFilteredByUser] = useState<string | null>(null);
@@ -56,8 +56,8 @@ const CompetitionDetails = (props: any) => {
       }
 
       p.then(async (e: Event) => {
-        const comp = e.eventCompetitions.filter((c) => c.id === compId)[0];
-        const c: EventCompetition = {
+        const comp = e.competitions.filter((c) => c.id === compId)[0];
+        const c: Competition = {
           id: comp.id,
           eventId: eventId,
           name: comp.name,

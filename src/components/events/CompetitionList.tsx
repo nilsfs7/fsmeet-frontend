@@ -1,10 +1,10 @@
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 import CompetitionBadge from './CompetitionBadge';
 import Link from 'next/link';
 import { routeEvents } from '@/types/consts/routes';
 
 interface ICompetitionListListProps {
-  competitions: EventCompetition[];
+  competitions: Competition[];
   eventId: string;
   auth?: boolean;
 }

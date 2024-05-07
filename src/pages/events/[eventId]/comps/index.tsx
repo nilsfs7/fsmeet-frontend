@@ -30,7 +30,7 @@ const ManageCompetitions = (props: any) => {
     }
   }, [event == undefined]);
 
-  if (!event?.eventCompetitions) {
+  if (!event?.competitions) {
     return <LoadingSpinner />;
   }
 
@@ -42,7 +42,7 @@ const ManageCompetitions = (props: any) => {
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <div className="flex flex-col">
             <>
-              {event.eventCompetitions.map((comp, index) => {
+              {event.competitions.map((comp, index) => {
                 return (
                   <div key={index} className="m-1 flex flex-col gap-1">
                     <div className="flex items-center w-full gap-2">
