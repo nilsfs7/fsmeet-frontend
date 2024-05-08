@@ -45,17 +45,17 @@ const MatchCard = ({
   const self = `${router.asPath}`;
 
   const playerMenu: MenuItem[] = [];
-  seedingList.map(user => {
+  seedingList.map((user) => {
     playerMenu.push({ text: user.username, value: user.username });
   });
 
-  const handleRename = (name: string) => {
-    if (match.id) {
-      onRename && onRename(match.matchIndex, match.id, name);
-    } else {
-      console.error('unknown match id');
-    }
-  };
+  // const handleRename = (name: string) => {
+  //   if (match.id) {
+  //     onRename && onRename(match.matchIndex, match.id, name);
+  //   } else {
+  //     console.error('unknown match id');
+  //   }
+  // };
 
   const handleUpdateTime = (time: Moment | null) => {
     if (match.id) {
@@ -88,6 +88,7 @@ const MatchCard = ({
 
   return (
     <div className={`rounded-lg border border-secondary-dark ${!editingEnabled || match.slots > 1 ? 'bg-secondary-light' : 'bg-warning'} p-2`}>
+      {/* Header */}
       <div className={`flex justify-between items-center ${editingEnabled && 'mb-2 gap-2'} `}>
         <div className={`w-full flex ${editingEnabled ? 'justify-between' : 'justify-center'} items-center`}>
           <div className={`flex px-1 ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}>{match.name}</div>
@@ -122,9 +123,10 @@ const MatchCard = ({
 
       <hr />
 
+      {/* Slots */}
       <div className="mt-2">
         {[...Array(match.slots)].map((val: number, i: number) => {
-          const matchSlot = match.matchSlots.filter(slot => {
+          const matchSlot = match.matchSlots.filter((slot) => {
             if (slot.slotIndex === i) return slot;
           })[0];
 
@@ -156,6 +158,7 @@ const MatchCard = ({
               {seedingEnabled && (
                 <div className={`flex w-full justify-between ${i > 0 ? 'mt-1' : ''} gap-1`}>
                   <ComboBox
+                    className="w-full"
                     menus={playerMenu}
                     value={matchSlot && matchSlot?.name ? matchSlot.name : ''}
                     searchEnabled={true}
@@ -172,7 +175,7 @@ const MatchCard = ({
                     min={-1}
                     max={99}
                     value={matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : undefined}
-                    onChange={e => {
+                    onChange={(e) => {
                       handleSlotUpdateResult(i, matchSlot?.name, e.currentTarget.valueAsNumber);
                     }}
                   />
