@@ -10,7 +10,7 @@ interface IParticipantProps {
   registrationStatus?: EventRegistrationStatus;
 }
 
-const Participant = ({ participant, registrationStatus }: IParticipantProps) => {
+const ParticipantBadge = ({ participant, registrationStatus }: IParticipantProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
       <div className="grid grid-flow-col items-center justify-between">
@@ -28,4 +28,4 @@ const Participant = ({ participant, registrationStatus }: IParticipantProps) => 
   );
 };
 
-export default Participant;
+export default ParticipantBadge;

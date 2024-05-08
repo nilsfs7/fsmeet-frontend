@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 import TextInputLarge from '../common/TextInputLarge';
 import { CompetitionType } from '@/types/enums/competition-type';
 import ComboBox from '../common/ComboBox';
@@ -11,8 +11,8 @@ import { menuCompGenders } from '@/types/consts/menus/menu-comp-genders';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;
-  comp?: EventCompetition;
-  onCompUpdate: (comp: EventCompetition) => void;
+  comp?: Competition;
+  onCompUpdate: (comp: Competition) => void;
 }
 
 const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEditorProps) => {

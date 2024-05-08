@@ -1,6 +1,6 @@
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 
-export async function createCompetition(eventId: string, comp: EventCompetition, session: any): Promise<void> {
+export async function createCompetition(eventId: string, comp: Competition, session: any): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions`;
 
   const body = JSON.stringify({

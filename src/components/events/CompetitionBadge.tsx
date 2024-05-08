@@ -1,11 +1,11 @@
 import { imgCompetition } from '@/types/consts/images';
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 
 interface ICompetitionProps {
-  competition: EventCompetition;
+  competition: Competition;
 }
 
-const Competition = ({ competition }: ICompetitionProps) => {
+const CompetitionBadge = ({ competition }: ICompetitionProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
       <div className="grid grid-flow-col items-center justify-between ">
@@ -16,4 +16,4 @@ const Competition = ({ competition }: ICompetitionProps) => {
   );
 };
 
-export default Competition;
+export default CompetitionBadge;

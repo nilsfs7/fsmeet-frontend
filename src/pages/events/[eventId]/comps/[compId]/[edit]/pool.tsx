@@ -4,7 +4,6 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
-import Participant from '@/components/events/Participant';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
 import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
@@ -19,12 +18,13 @@ import { createCompetitionParticipation } from '@/services/fsmeet-backend/create
 import { deleteCompetitionParticipation } from '@/services/fsmeet-backend/delete-competition-participation';
 import { UserType } from '@/types/enums/user-type';
 import { getCompetition } from '@/services/fsmeet-backend/get-competition';
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 import { CompetitionGender } from '@/types/enums/competition-gender';
+import ParticipantBadge from '@/components/events/ParticipantBadge';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
-  const competition: EventCompetition = props.data.competition;
+  const competition: Competition = props.data.competition;
 
   const router = useRouter();
   const { eventId } = router.query;
@@ -132,7 +132,7 @@ const CompetitionPool = (props: any) => {
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
                     <Link className="float-right" href={`${routeUsers}/${registration.user.username}`}>
-                      <Participant participant={registration.user} />
+                      <ParticipantBadge participant={registration.user} />
                     </Link>
                   </div>
                   <div className="mx-1 flex w-1/2 justify-start">
@@ -199,7 +199,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   const compId = context.query.compId;
 
-  let data: { competition: EventCompetition | null } = { competition: null };
+  let data: { competition: Competition | null } = { competition: null };
 
   if (compId) {
     try {

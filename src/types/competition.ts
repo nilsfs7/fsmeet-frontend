@@ -1,7 +1,7 @@
 import { CompetitionGender } from './enums/competition-gender';
 import { CompetitionType } from './enums/competition-type';
 
-export type EventCompetition = {
+export type Competition = {
   id: string | undefined;
   eventId: string | undefined;
   name: string;

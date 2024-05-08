@@ -1,6 +1,6 @@
-import { EventCompetition } from '@/types/event-competition';
+import { Competition } from '@/types/competition';
 
-export async function getCompetition(compId: string): Promise<EventCompetition> {
+export async function getCompetition(compId: string): Promise<Competition> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}`;
 
   const response = await fetch(url, {
