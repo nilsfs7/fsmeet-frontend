@@ -45,6 +45,7 @@ const MatchCard = ({
   const self = `${router.asPath}`;
 
   const playerMenu: MenuItem[] = [];
+  playerMenu.push({ text: 'unassigned', value: '' });
   seedingList.map((user) => {
     playerMenu.push({ text: user.username, value: user.username });
   });
