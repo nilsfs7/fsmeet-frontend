@@ -8,8 +8,8 @@ import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeL
 import { imgUserAddImg } from '@/types/consts/images';
 import Dialog from '@/components/Dialog';
 import Navigation from '@/components/Navigation';
-import { menuCountries } from '@/types/consts/menus/menu-countries';
-import { menuTShirtSizes } from '@/types/consts/menus/menu-t-shirt-sizes';
+import { menuCountriesWithUnspecified } from '@/types/consts/menus/menu-countries';
+import { menuTShirtSizesWithUnspecified } from '@/types/consts/menus/menu-t-shirt-sizes';
 import { ButtonStyle } from '@/types/enums/button-style';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
@@ -28,7 +28,7 @@ import { useSearchParams } from 'next/navigation';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import { Gender } from '@/types/enums/gender';
-import { menuGender } from '@/types/consts/menus/menu-gender';
+import { menuGenderWithUnspecified } from '@/types/consts/menus/menu-gender';
 import { UserType } from '@/types/enums/user-type';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import Separator from '@/components/Seperator';
@@ -415,8 +415,8 @@ const Account = ({ session }: any) => {
                           <div className="p-2">{`Gender`}</div>
                           <div className="flex w-full">
                             <ComboBox
-                              menus={menuGender}
-                              value={gender ? gender : menuGender[0].value}
+                              menus={menuGenderWithUnspecified}
+                              value={gender ? gender : menuGenderWithUnspecified[0].value}
                               onChange={(value: any) => {
                                 setGender(value);
                               }}
@@ -428,8 +428,8 @@ const Account = ({ session }: any) => {
                           <div className="p-2">{`Country`}</div>
                           <div className="flex w-full">
                             <ComboBox
-                              menus={menuCountries}
-                              value={country ? country : menuCountries[0].value}
+                              menus={menuCountriesWithUnspecified}
+                              value={country ? country : menuCountriesWithUnspecified[0].value}
                               searchEnabled={true}
                               onChange={(value: any) => {
                                 setCountry(value);
@@ -487,8 +487,8 @@ const Account = ({ session }: any) => {
                     <div className="p-2">T-Shirt Size</div>
                     <div className="flex w-full">
                       <ComboBox
-                        menus={menuTShirtSizes}
-                        value={tShirtSize ? tShirtSize : menuTShirtSizes[0].value}
+                        menus={menuTShirtSizesWithUnspecified}
+                        value={tShirtSize ? tShirtSize : menuTShirtSizesWithUnspecified[0].value}
                         onChange={(value: any) => {
                           setTShirtSize(value);
                         }}
