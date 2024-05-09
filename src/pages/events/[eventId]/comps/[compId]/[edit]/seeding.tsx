@@ -32,7 +32,7 @@ const Seeding = (props: any) => {
 
   const [rounds, setRounds] = useState<Round[]>([]);
 
-  const handleSlotUpdated = async (roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => {
+  const handleSlotUpdated = async (roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => {
     const rnds = Array.from(rounds);
     const match = rnds[roundIndex].matches.filter((match) => {
       if (match.id === matchId) {
@@ -40,16 +40,17 @@ const Seeding = (props: any) => {
       }
     })[0];
 
-    let nameUpdated = false;
+    let slotIndexFound = false;
     for (let i = 0; i < match.matchSlots.length; i++) {
       if (match.matchSlots[i].slotIndex === slotIndex) {
         match.matchSlots[i].name = username;
         match.matchSlots[i].result = result;
 
-        nameUpdated = true;
+        slotIndexFound = true;
       }
     }
-    if (!nameUpdated) {
+
+    if (!slotIndexFound) {
       match.matchSlots.push({
         id: '',
         slotIndex: slotIndex,
@@ -97,7 +98,7 @@ const Seeding = (props: any) => {
               rounds={rounds}
               seedingEnabled={true}
               seedingList={competitionParticipants}
-              onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => {
+              onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => {
                 handleSlotUpdated(roundIndex, matchId, slotIndex, username, result);
               }}
             />

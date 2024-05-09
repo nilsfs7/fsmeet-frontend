@@ -20,7 +20,7 @@ interface IBattleGridProps {
   onUpdateTime?: (roundIndex: number, matchIndex: number, matchId: string, time: Moment | null) => void;
   onEditMatch?: (roundIndex: number, matchIndex: number) => void;
   onDeleteMatch?: (roundIndex: number, matchIndex: number) => void;
-  onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => void;
+  onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => void;
 }
 
 const BattleGrid = ({
@@ -74,7 +74,7 @@ const BattleGrid = ({
                           onDeleteMatch={(matchIndex: number) => {
                             onDeleteMatch && onDeleteMatch(round.roundIndex, matchIndex);
                           }}
-                          onUpdateSlot={(matchId: string, slotIndex: number, username: string, result?: number) => {
+                          onUpdateSlot={(matchId: string, slotIndex: number, username: string, result: number) => {
                             onUpdateSlot && onUpdateSlot(rounds[i].roundIndex, matchId, slotIndex, username, result);
                           }}
                         />

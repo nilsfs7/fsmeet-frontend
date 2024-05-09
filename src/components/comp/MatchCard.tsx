@@ -25,7 +25,7 @@ interface IMatchProps {
   onUpdateTime?: (matchIndex: number, matchId: string, time: Moment | null) => void;
   onEditMatch?: (matchIndex: number) => void; // matchId: string
   onDeleteMatch?: (matchIndex: number) => void;
-  onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result?: number) => void;
+  onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result: number) => void;
 }
 
 const MatchCard = ({
@@ -68,7 +68,7 @@ const MatchCard = ({
 
   const handleSlotUpdateName = (slotIndex: number, username: string) => {
     if (match.id) {
-      onUpdateSlot && onUpdateSlot(match.id, slotIndex, username);
+      onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, -1);
     } else {
       console.error('unknown match id');
     }
@@ -175,7 +175,7 @@ const MatchCard = ({
                     type="number"
                     min={-1}
                     max={99}
-                    value={matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : undefined}
+                    value={matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : ''}
                     onChange={(e) => {
                       handleSlotUpdateResult(i, matchSlot?.name, e.currentTarget.valueAsNumber);
                     }}
