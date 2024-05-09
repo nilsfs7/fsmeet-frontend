@@ -16,11 +16,10 @@ interface IBattleGridProps {
   onDeleteRound?: (roundIndex: number, name: string) => void;
   onAddMatch?: (roundIndex: number) => void;
   onEditRound?: (roundIndex: number) => void;
-  onRenameMatch?: (roundIndex: number, matchIndex: number, matchId: string, name: string) => void;
   onUpdateTime?: (roundIndex: number, matchIndex: number, matchId: string, time: Moment | null) => void;
   onEditMatch?: (roundIndex: number, matchIndex: number) => void;
   onDeleteMatch?: (roundIndex: number, matchIndex: number) => void;
-  onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string, result?: number) => void;
+  onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => void;
 }
 
 const BattleGrid = ({
@@ -32,7 +31,6 @@ const BattleGrid = ({
   onDeleteRound,
   onAddMatch,
   onEditRound,
-  onRenameMatch,
   onUpdateTime,
   onEditMatch,
   onDeleteMatch,
@@ -62,9 +60,6 @@ const BattleGrid = ({
                           editingEnabled={editingEnabled}
                           seedingEnabled={seedingEnabled}
                           seedingList={seedingList}
-                          onRename={(matchIndex: number, matchId: string, name: string) => {
-                            onRenameMatch && onRenameMatch(rounds[i].roundIndex, matchIndex, matchId, name);
-                          }}
                           onUpdateTime={(matchIndex: number, matchId: string, time: Moment | null) => {
                             onUpdateTime && onUpdateTime(rounds[i].roundIndex, matchIndex, matchId, time);
                           }}
@@ -74,7 +69,7 @@ const BattleGrid = ({
                           onDeleteMatch={(matchIndex: number) => {
                             onDeleteMatch && onDeleteMatch(round.roundIndex, matchIndex);
                           }}
-                          onUpdateSlot={(matchId: string, slotIndex: number, username: string, result?: number) => {
+                          onUpdateSlot={(matchId: string, slotIndex: number, username: string, result: number) => {
                             onUpdateSlot && onUpdateSlot(rounds[i].roundIndex, matchId, slotIndex, username, result);
                           }}
                         />

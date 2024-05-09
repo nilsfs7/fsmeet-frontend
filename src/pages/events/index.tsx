@@ -48,7 +48,7 @@ const EventsOverview = ({ session }: { session: any }) => {
   }, []);
 
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <div className="h-[calc(100dvh)] flex flex-col">
       <Header showMenu={true} />
 
       {/* Filters */}

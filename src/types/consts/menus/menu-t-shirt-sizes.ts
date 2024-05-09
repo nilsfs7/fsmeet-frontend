@@ -1,6 +1,6 @@
 import { MenuItem } from '../../menu-item';
 
-export const menuTShirtSizes: MenuItem[] = [
+export const menuTShirtSizesWithUnspecified: MenuItem[] = [
   { text: 'not specified', value: '--' },
   { text: 'XS', value: 'XS' },
   { text: 'S', value: 'S' },

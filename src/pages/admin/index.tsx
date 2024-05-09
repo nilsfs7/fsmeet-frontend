@@ -11,7 +11,7 @@ import PageTitle from '@/components/PageTitle';
 
 const AdminOverview = () => {
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title="Admin Overview" />
 
       <div className="mx-2 flex items-center flex-col gap-2">

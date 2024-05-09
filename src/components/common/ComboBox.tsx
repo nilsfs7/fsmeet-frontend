@@ -23,12 +23,12 @@ const ComboBox = ({ menus, value, searchEnabled = false, label = 'Select', class
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" role="combobox" aria-expanded={open} className={cn('min-w-[160px] justify-between bg-transparent hover:border-primary truncate', className)}>
+        <Button variant="outline" role="combobox" aria-expanded={open} className={cn('min-w-[140px] justify-between bg-transparent hover:border-primary truncate', className)}>
           <div className="truncate">{value ? menus.find((menu) => menu.value === value)?.text : label}</div>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={cn('w-[160px] p-0', className)}>
+      <PopoverContent className={cn('w-[140px] p-0', className)}>
         <Command>
           {searchEnabled && <CommandInput placeholder="Search ..." />}
           <CommandEmpty>No data found.</CommandEmpty>

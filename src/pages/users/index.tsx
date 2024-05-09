@@ -242,7 +242,7 @@ const UsersList = (props: any) => {
   });
 
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <div className="h-[calc(100dvh)] flex flex-col">
       <Header />
 
       <PageTitle title="Community" />
@@ -269,7 +269,13 @@ const UsersList = (props: any) => {
               .filter((column) => column.getCanHide())
               .map((column) => {
                 return (
-                  <DropdownMenuCheckboxItem key={column.id} className="capitalize" checked={column.getIsVisible()} onCheckedChange={(value: any) => column.toggleVisibility(!!value)}>
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    disabled={column.id === 'user' ?? true}
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value: any) => column.toggleVisibility(!!value)}
+                  >
                     {column.id}
                   </DropdownMenuCheckboxItem>
                 );

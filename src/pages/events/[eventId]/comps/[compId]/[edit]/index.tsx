@@ -89,7 +89,7 @@ const CompetitionEditing = (props: any) => {
         <p>Do you really want to delete this competition?</p>
       </Dialog>
 
-      <div className="absolute inset-0 flex flex-col">
+      <div className="h-[calc(100dvh)] flex flex-col">
         <PageTitle title="Edit Competition" />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>

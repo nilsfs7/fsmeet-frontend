@@ -20,7 +20,7 @@ interface IMapsProps {
   lng?: number;
   zoom?: number;
   filterName?: string;
-  filterGender?: Gender;
+  filterGender?: Gender[];
 }
 
 // Europe = lat: 54.5259614, lng: 15.2551187
@@ -46,7 +46,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
         }
 
         let genderOk: boolean = true;
-        if (filterGender && filterGender?.toString() !== '--' && user.gender !== filterGender) {
+        if (user.gender && filterGender && !filterGender.includes(user.gender)) {
           genderOk = false;
         }
 

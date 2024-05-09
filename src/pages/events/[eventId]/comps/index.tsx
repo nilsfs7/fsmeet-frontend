@@ -35,7 +35,7 @@ const ManageCompetitions = (props: any) => {
   }
 
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title="Manage Competitions" />
 
       <div className="mx-2 overflow-y-auto">

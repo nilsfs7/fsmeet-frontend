@@ -21,41 +21,21 @@ interface IMatchProps {
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
   seedingList?: User[];
-  onRename?: (matchIndex: number, matchId: string, name: string) => void;
   onUpdateTime?: (matchIndex: number, matchId: string, time: Moment | null) => void;
   onEditMatch?: (matchIndex: number) => void; // matchId: string
   onDeleteMatch?: (matchIndex: number) => void;
-  onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result?: number) => void;
+  onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result: number) => void;
 }
 
-const MatchCard = ({
-  match,
-  usersMap,
-  showTime = false,
-  editingEnabled = false,
-  seedingEnabled = false,
-  seedingList = [],
-  onRename,
-  onUpdateTime,
-  onEditMatch,
-  onDeleteMatch,
-  onUpdateSlot,
-}: IMatchProps) => {
+const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, seedingList = [], onUpdateTime, onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
   const router = useRouter();
   const self = `${router.asPath}`;
 
   const playerMenu: MenuItem[] = [];
-  seedingList.map(user => {
+  playerMenu.push({ text: 'unassigned', value: '' });
+  seedingList.map((user) => {
     playerMenu.push({ text: user.username, value: user.username });
   });
-
-  const handleRename = (name: string) => {
-    if (match.id) {
-      onRename && onRename(match.matchIndex, match.id, name);
-    } else {
-      console.error('unknown match id');
-    }
-  };
 
   const handleUpdateTime = (time: Moment | null) => {
     if (match.id) {
@@ -67,7 +47,7 @@ const MatchCard = ({
 
   const handleSlotUpdateName = (slotIndex: number, username: string) => {
     if (match.id) {
-      onUpdateSlot && onUpdateSlot(match.id, slotIndex, username);
+      onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, -1);
     } else {
       console.error('unknown match id');
     }
@@ -78,7 +58,6 @@ const MatchCard = ({
       if (username) {
         onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, result);
       } else {
-        onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, -1);
         console.error('cannot set result for unknown player');
       }
     } else {
@@ -88,6 +67,7 @@ const MatchCard = ({
 
   return (
     <div className={`rounded-lg border border-secondary-dark ${!editingEnabled || match.slots > 1 ? 'bg-secondary-light' : 'bg-warning'} p-2`}>
+      {/* Header */}
       <div className={`flex justify-between items-center ${editingEnabled && 'mb-2 gap-2'} `}>
         <div className={`w-full flex ${editingEnabled ? 'justify-between' : 'justify-center'} items-center`}>
           <div className={`flex px-1 ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}>{match.name}</div>
@@ -122,9 +102,10 @@ const MatchCard = ({
 
       <hr />
 
+      {/* Slots */}
       <div className="mt-2">
         {[...Array(match.slots)].map((val: number, i: number) => {
-          const matchSlot = match.matchSlots.filter(slot => {
+          const matchSlot = match.matchSlots.filter((slot) => {
             if (slot.slotIndex === i) return slot;
           })[0];
 
@@ -156,6 +137,7 @@ const MatchCard = ({
               {seedingEnabled && (
                 <div className={`flex w-full justify-between ${i > 0 ? 'mt-1' : ''} gap-1`}>
                   <ComboBox
+                    className="w-full"
                     menus={playerMenu}
                     value={matchSlot && matchSlot?.name ? matchSlot.name : ''}
                     searchEnabled={true}
@@ -171,8 +153,8 @@ const MatchCard = ({
                     type="number"
                     min={-1}
                     max={99}
-                    value={matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : undefined}
-                    onChange={e => {
+                    value={matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : ''}
+                    onChange={(e) => {
                       handleSlotUpdateResult(i, matchSlot?.name, e.currentTarget.valueAsNumber);
                     }}
                   />

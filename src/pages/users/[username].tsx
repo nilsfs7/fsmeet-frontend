@@ -40,7 +40,7 @@ const PublicUserProfile = (props: any) => {
   }
 
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <div className="h-[calc(100dvh)] flex flex-col">
       <Header />
 
       <div className="h-full overflow-y-auto">
