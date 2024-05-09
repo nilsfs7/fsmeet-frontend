@@ -269,7 +269,13 @@ const UsersList = (props: any) => {
               .filter((column) => column.getCanHide())
               .map((column) => {
                 return (
-                  <DropdownMenuCheckboxItem key={column.id} className="capitalize" checked={column.getIsVisible()} onCheckedChange={(value: any) => column.toggleVisibility(!!value)}>
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    disabled={column.id === 'user' ?? true}
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value: any) => column.toggleVisibility(!!value)}
+                  >
                     {column.id}
                   </DropdownMenuCheckboxItem>
                 );
