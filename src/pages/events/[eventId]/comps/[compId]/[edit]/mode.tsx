@@ -351,9 +351,6 @@ const ModeEditing = (props: any) => {
               onDeleteMatch={(roundIndex: number, matchIndex: number) => {
                 handleDeleteMatchClicked(roundIndex, matchIndex);
               }}
-              // onRenameMatch={(roundIndex, matchIndex, matchId, name) => {
-              //   handleMatchRenamed(roundIndex, matchIndex, matchId, name);
-              // }}
               // onUpdateTime={(roundIndex, matchIndex, matchId, time) => {
               //   handleTimeUpdated(roundIndex, matchIndex, matchId, time);
               // }}

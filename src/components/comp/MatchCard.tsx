@@ -21,26 +21,13 @@ interface IMatchProps {
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
   seedingList?: User[];
-  onRename?: (matchIndex: number, matchId: string, name: string) => void;
   onUpdateTime?: (matchIndex: number, matchId: string, time: Moment | null) => void;
   onEditMatch?: (matchIndex: number) => void; // matchId: string
   onDeleteMatch?: (matchIndex: number) => void;
   onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result: number) => void;
 }
 
-const MatchCard = ({
-  match,
-  usersMap,
-  showTime = false,
-  editingEnabled = false,
-  seedingEnabled = false,
-  seedingList = [],
-  onRename,
-  onUpdateTime,
-  onEditMatch,
-  onDeleteMatch,
-  onUpdateSlot,
-}: IMatchProps) => {
+const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, seedingList = [], onUpdateTime, onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
   const router = useRouter();
   const self = `${router.asPath}`;
 
@@ -49,14 +36,6 @@ const MatchCard = ({
   seedingList.map((user) => {
     playerMenu.push({ text: user.username, value: user.username });
   });
-
-  // const handleRename = (name: string) => {
-  //   if (match.id) {
-  //     onRename && onRename(match.matchIndex, match.id, name);
-  //   } else {
-  //     console.error('unknown match id');
-  //   }
-  // };
 
   const handleUpdateTime = (time: Moment | null) => {
     if (match.id) {
