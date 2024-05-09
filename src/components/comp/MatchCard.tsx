@@ -58,7 +58,6 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
       if (username) {
         onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, result);
       } else {
-        onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, -1);
         console.error('cannot set result for unknown player');
       }
     } else {
