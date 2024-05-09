@@ -350,7 +350,7 @@ const EventDetails = (props: any) => {
         </>
       </Dialog>
 
-      <div className="absolute inset-0 flex flex-col">
+      <div className="h-[calc(100dvh)] flex flex-col">
         {/* admin panel */}
         <div className="mx-2 my-2">
           {event.admin === session?.user?.username && (

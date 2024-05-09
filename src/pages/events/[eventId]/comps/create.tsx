@@ -39,7 +39,7 @@ const CompetitionCreation = (props: any) => {
     <>
       <Toaster richColors />
 
-      <div className="absolute inset-0 flex flex-col">
+      <div className="h-[calc(100dvh)] flex flex-col">
         <PageTitle title="Create Competition" />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>

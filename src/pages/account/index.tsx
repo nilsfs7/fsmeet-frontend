@@ -320,7 +320,7 @@ const Account = ({ session }: any) => {
         <p>{`Logout now?`}</p>
       </Dialog>
 
-      <div className="absolute inset-0 flex flex-col">
+      <div className="h-[calc(100dvh)] flex flex-col">
         <PageTitle title="Account Settings" />
 
         <div className="mx-2 flex flex-col overflow-auto">

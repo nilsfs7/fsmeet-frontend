@@ -103,7 +103,7 @@ const EventParticipants = (props: any) => {
         <p>Do you really want to remove {userToRemove}?</p>
       </Dialog>
 
-      <div className="absolute inset-0 flex flex-col">
+      <div className="h-[calc(100dvh)] flex flex-col">
         <PageTitle title="Manage Participants" />
 
         <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>

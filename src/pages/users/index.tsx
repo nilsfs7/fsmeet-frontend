@@ -242,7 +242,7 @@ const UsersList = (props: any) => {
   });
 
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <div className="h-[calc(100dvh)] flex flex-col">
       <Header />
 
       <PageTitle title="Community" />

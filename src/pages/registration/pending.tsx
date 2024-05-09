@@ -10,7 +10,7 @@ const RegistrationPending = () => {
   const { email } = router.query;
 
   return (
-    <div className="absolute inset-0 flex flex-col">
+    <div className="h-[calc(100dvh)] flex flex-col">
       <div className="p-2 h-full grid overflow-y-auto">
         <div className={'h-full flex flex-col items-center justify-center'}>
           <div className="mx-2 text-center">
