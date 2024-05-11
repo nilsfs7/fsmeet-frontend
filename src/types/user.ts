@@ -24,4 +24,5 @@ export type User = {
   exposeLocation?: boolean;
   locLatitude?: number;
   locLongitude?: number;
+  wffaId?: string;
 };

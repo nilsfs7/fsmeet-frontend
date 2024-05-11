@@ -35,6 +35,7 @@ export async function getUser(username: string, session?: any): Promise<User> {
       exposeLocation: data.private?.exposeLocation,
       locLatitude: data.private?.locLatitude,
       locLongitude: data.private?.locLongitude,
+      wffaId: data.wffaId,
     };
 
     return user;
