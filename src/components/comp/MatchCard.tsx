@@ -125,7 +125,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
 
                     <div className="flex h-full w-32 items-center overflow-hidden text-ellipsis px-1">
                       <Link href={matchSlot?.name ? `${routeUsers}/${matchSlot.name}` : self}>
-                        <div className="text-sm">{`${matchSlot?.name ? (usersMap?.get(matchSlot.name)?.firstName && usersMap?.get(matchSlot.name)?.lastName ? `${usersMap?.get(matchSlot.name)?.firstName} ${usersMap?.get(matchSlot.name)?.lastName}` : usersMap?.get(matchSlot.name)?.firstName) : ''}`}</div>
+                        <div className="text-sm">{`${matchSlot?.name ? (usersMap?.get(matchSlot.name)?.firstName && usersMap?.get(matchSlot.name)?.lastName ? `${usersMap?.get(matchSlot.name)?.firstName} ${usersMap?.get(matchSlot.name)?.lastName}` : usersMap?.get(matchSlot.name)?.firstName || matchSlot?.name) : ''}`}</div>
                       </Link>
                     </div>
                   </div>
