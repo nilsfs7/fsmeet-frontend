@@ -38,6 +38,7 @@ import { UserType } from '@/types/enums/user-type';
 import { Header } from '@/components/Header';
 import { User } from '@/types/user';
 import PageTitle from '@/components/PageTitle';
+import { getUserTypeImages } from '@/types/funcs/user-type';
 
 export type UserInfo = {
   username: string;
@@ -62,42 +63,12 @@ export type Socials = {
 export type ColumnInfo = {
   user: UserInfo;
   country: string;
+  userType: UserType;
   location: Location;
   socials: Socials;
 };
 
 export const columns: ColumnDef<ColumnInfo>[] = [
-  // {
-  //   id: 'select',
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
-  //       onCheckedChange={(value: any) => table.toggleAllPageRowsSelected(!!value)}
-  //       aria-label="Select all"
-  //     />
-  //   ),
-  //   cell: ({ row }) => <Checkbox checked={row.getIsSelected()} onCheckedChange={(value: any) => row.toggleSelected(!!value)} aria-label="Select row" />,
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
-
-  // {
-  //   accessorKey: 'user',
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-  //         User
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     );
-  //   },
-  //   cell: ({ row }) => (
-  //     <div className="flex items-center gap-2 lowercase">
-  //       <Link href={`${routeUsers}/${(row.getValue('user') as User).username}`}>{(row.getValue('user') as User).username}</Link>
-  //     </div>
-  //   ),
-  // },
-
   {
     accessorKey: 'user',
     header: ({ column }) => {
@@ -158,18 +129,30 @@ export const columns: ColumnDef<ColumnInfo>[] = [
         <div className="flex items-center gap-2">
           <div>{(row.getValue('country') as string).toUpperCase()}</div>
           {
-            <ReactCountryFlag
-              countryCode={row.getValue('country')}
-              svg
-              style={{
-                width: '2em',
-                height: '2em',
-              }}
-              title={row.getValue('country')}
-            />
+            <div className="mx-1 w-8 h-8">
+              <ReactCountryFlag
+                className="w-full h-full"
+                countryCode={row.getValue('country')}
+                svg
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
+                title={row.getValue('country')}
+              />
+            </div>
           }
         </div>
       ),
+  },
+
+  {
+    accessorKey: 'userType',
+    header: ({ column }) => {
+      return <>{`User Type`}</>;
+    },
+    cell: ({ row }) => <img src={getUserTypeImages(row.getValue('userType')).path} className="mx-1 h-8 w-8" />,
+    enableSorting: false,
   },
 
   {
@@ -182,7 +165,7 @@ export const columns: ColumnDef<ColumnInfo>[] = [
         {(row.getValue('location') as Location).city && (
           <Link href={(row.getValue('location') as Location).mapLink}>
             <button>
-              <img src={imgWorld} className="mx-1 h-8 w-8 rounded-full object-cover" />
+              <img src={imgWorld} className="mx-1 h-8 w-8" />
             </button>
           </Link>
         )}
@@ -426,6 +409,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
             lastName: user.lastName || '',
           },
           country: user.country || '',
+          userType: user.type,
           location:
             user.city && user.exposeLocation && user.locLatitude && user.locLongitude
               ? { city: user.city, mapLink: `${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}` }

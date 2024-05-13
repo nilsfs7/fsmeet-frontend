@@ -4,7 +4,7 @@ import { UserVerificationState } from './enums/user-verification-state';
 
 export type User = {
   username: string;
-  type?: UserType;
+  type: UserType;
   imageUrl?: string;
   firstName?: string;
   lastName?: string;

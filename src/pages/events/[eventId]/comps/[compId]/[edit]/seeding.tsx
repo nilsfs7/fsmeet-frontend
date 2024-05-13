@@ -20,6 +20,8 @@ import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-compet
 import { updateMatchSlots } from '@/services/fsmeet-backend/update-match-slots';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
+import { User } from '@/types/user';
+import { UserType } from '@/types/enums/user-type';
 
 const Seeding = (props: any) => {
   const session = props.session;
@@ -28,7 +30,7 @@ const Seeding = (props: any) => {
   const { eventId } = router.query;
   const { compId } = router.query;
 
-  const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>([]);
+  const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
 
   const [rounds, setRounds] = useState<Round[]>([]);
 
@@ -75,7 +77,11 @@ const Seeding = (props: any) => {
   useEffect(() => {
     if (compId) {
       getCompetitionParticipants(compId?.toString()).then((participants) => {
-        setCompetitionParticipants(participants);
+        const users: User[] = [];
+        participants.map((participant) => {
+          users.push({ username: participant.username, type: UserType.FREESTYLER });
+        });
+        setCompetitionParticipants(users);
         getRounds(compId?.toString()).then((rounds) => {
           setRounds(rounds);
         });

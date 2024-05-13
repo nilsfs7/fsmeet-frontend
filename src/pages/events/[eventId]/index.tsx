@@ -450,12 +450,7 @@ const EventDetails = (props: any) => {
               <TabsContent value="registrations" className="overflow-hidden overflow-y-auto">
                 <ParticipantList
                   participants={approvedAndPendingRegistrations.map((registration) => {
-                    const user: User = {
-                      username: registration.user.username,
-                      imageUrl: registration.user.imageUrl,
-                    };
-
-                    return user;
+                    return registration.user;
                   })}
                   registrationStatus={approvedAndPendingRegistrations.map((registration) => {
                     return registration.status;
