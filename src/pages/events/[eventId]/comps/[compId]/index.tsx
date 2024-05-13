@@ -175,10 +175,10 @@ const CompetitionDetails = (props: any) => {
 
             data.push({
               'Match ID': matchId,
-              Player1: s1.name,
+              Player1: `${p1?.firstName} ${p1?.lastName}`,
               'Player1 WFFA ID': p1?.wffaId ? p1.wffaId : na,
               'Player1 Result': s1.result !== undefined && s1.result > -1 ? s1.result : na,
-              Player2: s2.name,
+              Player2: `${p2?.firstName} ${p2?.lastName}`,
               'Player2 WFFA ID': p2?.wffaId ? p2.wffaId : na,
               'Player2 Result': s2.result !== undefined && s2.result > -1 ? s2.result : na,
             });
@@ -204,7 +204,7 @@ const CompetitionDetails = (props: any) => {
   };
 
   const handleDownloadResultsClicked = () => {
-    const options: ConfigOptions = { filename: `${moment().format('YYYY-MM-DD')} - ${comp?.name} - results`, useKeysAsHeaders: true };
+    const options: ConfigOptions = { filename: `${moment().format('YYYYMMDD HHmmss')} - ${comp?.name} - results`, useKeysAsHeaders: true };
     const csvConfig = mkConfig(options);
     const csvOutput = generateCsv(csvConfig)(mapRoundsToCsv(rounds));
     download(csvConfig)(csvOutput);
