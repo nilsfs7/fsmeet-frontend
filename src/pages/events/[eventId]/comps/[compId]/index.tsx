@@ -175,10 +175,10 @@ const CompetitionDetails = (props: any) => {
 
             data.push({
               'Match ID': matchId,
-              Player1: `${p1?.firstName} ${p1?.lastName}`,
+              Player1: p1?.lastName ? `${p1?.firstName} ${p1?.lastName}` : p1?.firstName,
               'Player1 WFFA ID': p1?.wffaId ? p1.wffaId : na,
               'Player1 Result': s1.result !== undefined && s1.result > -1 ? s1.result : na,
-              Player2: `${p2?.firstName} ${p2?.lastName}`,
+              Player2: p2?.lastName ? `${p2?.firstName} ${p2?.lastName}` : p2?.firstName,
               'Player2 WFFA ID': p2?.wffaId ? p2.wffaId : na,
               'Player2 Result': s2.result !== undefined && s2.result > -1 ? s2.result : na,
             });
