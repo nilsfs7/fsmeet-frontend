@@ -82,12 +82,10 @@ const CompetitionDetails = (props: any) => {
             }
           });
 
-          let profileImageUrl;
-          participantRegistrationPair.length === 1 ? (profileImageUrl = participantRegistrationPair[0].user.imageUrl) : null;
-
           const user: User = {
             username: participant.username,
-            imageUrl: profileImageUrl,
+            type: participantRegistrationPair[0]?.user?.type,
+            imageUrl: participantRegistrationPair[0]?.user?.imageUrl,
           };
 
           return user;
