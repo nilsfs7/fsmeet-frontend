@@ -149,7 +149,7 @@ export const columns: ColumnDef<ColumnInfo>[] = [
   {
     accessorKey: 'userType',
     header: ({ column }) => {
-      return <>{`User Type`}</>;
+      return <>{`Type`}</>;
     },
     cell: ({ row }) => <img src={getUserTypeImages(row.getValue('userType')).path} className="mx-1 h-8 w-8" />,
     enableSorting: false,
