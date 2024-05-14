@@ -62,7 +62,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
 
   useEffect(() => {
     loader.load().then(async () => {
-      const mapOptions = {
+      const mapOptions: google.maps.MapOptions = {
         center: new google.maps.LatLng(lat, lng),
         zoom: zoom,
       };
