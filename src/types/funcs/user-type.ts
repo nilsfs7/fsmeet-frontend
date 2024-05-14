@@ -21,17 +21,17 @@ export function getUserTypeLabels(userType: UserType): string {
 }
 
 export function getUserTypeImages(userType: UserType): { path: string; size: number } {
-  const defaultSize = 30;
+  const defaultSize = 20;
 
   switch (userType) {
     case UserType.ASSOCIATION:
-      return { path: imgAssociation, size: 40 };
+      return { path: imgAssociation, size: 30 };
     case UserType.BRAND:
       return { path: imgBrand, size: defaultSize };
     case UserType.DJ:
       return { path: imgDJ, size: defaultSize };
     case UserType.FREESTYLER:
-      return { path: imgFreestyler, size: 40 };
+      return { path: imgFreestyler, size: 30 };
     case UserType.MC:
       return { path: imgMC, size: defaultSize };
     case UserType.MEDIA:
