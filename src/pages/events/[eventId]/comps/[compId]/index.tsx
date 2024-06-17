@@ -40,8 +40,8 @@ const CompetitionDetails = (props: any) => {
   const { compId } = router.query;
 
   const searchParams = useSearchParams();
-  const tab = searchParams.get('tab');
-  const needsAuthorization = searchParams.get('auth');
+  const tab = searchParams?.get('tab');
+  const needsAuthorization = searchParams?.get('auth');
 
   const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
   const [comp, setComp] = useState<Competition>();

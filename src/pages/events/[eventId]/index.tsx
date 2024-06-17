@@ -47,8 +47,8 @@ const EventDetails = (props: any) => {
   const { eventId } = router.query;
 
   const searchParams = useSearchParams();
-  const tab = searchParams.get('tab');
-  const needsAuthorization = searchParams.get('auth');
+  const tab = searchParams?.get('tab');
+  const needsAuthorization = searchParams?.get('auth');
 
   const [event, setEvent] = useState<Event>();
   const [eventComments, setEventComments] = useState<EventComment[]>();

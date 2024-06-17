@@ -17,7 +17,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get('redir');
+  const redirectUrl = searchParams?.get('redir');
 
   const handleInputChangeUsernameOrEmail = (event: any) => {
     const usernameOrEmail: string = event.target.value;

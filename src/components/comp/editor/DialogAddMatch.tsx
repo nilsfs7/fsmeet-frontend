@@ -16,9 +16,9 @@ interface IDialogProps {
 const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const showDialog = searchParams.get(queryParam);
-  const roundIndex = +(searchParams.get('rid') || 0);
-  const matchIndex = +(searchParams.get('mid') || 0);
+  const showDialog = searchParams?.get(queryParam);
+  const roundIndex = +(searchParams?.get('rid') || 0);
+  const matchIndex = +(searchParams?.get('mid') || 0);
   const [slotsPerMatch, setSlotsPerMatch] = useState<number>(2);
 
   const [matchName, setMatchName] = useState<string>(`Match ${matchIndex + 1}`);
@@ -60,7 +60,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                   id={`input-match-name`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                   value={matchName}
-                  onChange={e => {
+                  onChange={(e) => {
                     setMatchName(e.currentTarget.value);
                   }}
                 />
@@ -75,7 +75,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                   min={2}
                   // max={availablePlayers}
                   defaultValue={slotsPerMatch}
-                  onChange={e => {
+                  onChange={(e) => {
                     setSlotsPerMatch(+e.currentTarget.value);
                   }}
                 />
@@ -88,7 +88,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                   className="h-4 w-4"
                   type="checkbox"
                   checked={isExtraMatch}
-                  onChange={e => {
+                  onChange={(e) => {
                     setIsExtraMatch(!isExtraMatch);
                   }}
                 />

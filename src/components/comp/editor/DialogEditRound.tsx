@@ -16,10 +16,10 @@ interface IDialogProps {
 const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const showDialog = searchParams.get(queryParam);
-  const rname = searchParams.get('rname') || '';
-  const radvancing = +(searchParams.get('radvancing') || 1);
-  const roundIndex = +(searchParams.get('rid') || 0);
+  const showDialog = searchParams?.get(queryParam);
+  const rname = searchParams?.get('rname') || '';
+  const radvancing = +(searchParams?.get('radvancing') || 1);
+  const roundIndex = +(searchParams?.get('rid') || 0);
 
   const [roundName, setRoundName] = useState<string>('');
   const [advancingTotal, setAdvancingTotal] = useState<number>(1);
@@ -61,7 +61,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                   id={`input-round-name`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                   value={roundName}
-                  onChange={e => {
+                  onChange={(e) => {
                     setRoundName(e.currentTarget.value);
                   }}
                 />
@@ -75,7 +75,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                   type="number"
                   min={1}
                   value={advancingTotal}
-                  onChange={e => {
+                  onChange={(e) => {
                     setAdvancingTotal(+e.currentTarget.value);
                   }}
                 />
