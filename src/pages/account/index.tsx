@@ -42,8 +42,8 @@ import { getPlaceholderByUserType } from '@/types/funcs/get-placeholder-by-user-
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
-  const tab = searchParams.get('tab');
-  const needsAuthorization = searchParams.get('auth');
+  const tab = searchParams?.get('tab');
+  const needsAuthorization = searchParams?.get('auth');
 
   const [userFetched, setUserFetched] = useState(false);
 

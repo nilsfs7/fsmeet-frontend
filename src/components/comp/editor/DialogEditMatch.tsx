@@ -16,12 +16,12 @@ interface IDialogProps {
 const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const showDialog = searchParams.get(queryParam);
-  const roundIndex = +(searchParams.get('rid') || 0);
-  const matchIndex = +(searchParams.get('mid') || 0);
-  const mname = searchParams.get('mname') || '';
-  const mslots = +(searchParams.get('mslots') || 2);
-  const mextra = searchParams.get('mextra') === 'true';
+  const showDialog = searchParams?.get(queryParam);
+  const roundIndex = +(searchParams?.get('rid') || 0);
+  const matchIndex = +(searchParams?.get('mid') || 0);
+  const mname = searchParams?.get('mname') || '';
+  const mslots = +(searchParams?.get('mslots') || 2);
+  const mextra = searchParams?.get('mextra') === 'true';
 
   const [matchName, setMatchName] = useState<string>('');
   const [matchSlots, setMatchSlots] = useState<number>(2);
@@ -65,7 +65,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                   id={`input-round-name`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                   value={matchName}
-                  onChange={e => {
+                  onChange={(e) => {
                     setMatchName(e.currentTarget.value);
                   }}
                 />
@@ -80,7 +80,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                   min={1}
                   max={99} // TODO
                   value={matchSlots}
-                  onChange={e => {
+                  onChange={(e) => {
                     setMatchSlots(+e.currentTarget.value);
                   }}
                 />
@@ -93,7 +93,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                   className="h-4 w-4"
                   type="checkbox"
                   checked={isExtraMatch}
-                  onChange={e => {
+                  onChange={(e) => {
                     setIsExtraMatch(!isExtraMatch);
                   }}
                 />

@@ -17,7 +17,7 @@ interface IDialogProps {
 const DialogWithInput = ({ title, description, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const showDialog = searchParams.get(queryParam);
+  const showDialog = searchParams?.get(queryParam);
   const [input, setInput] = useState<string>();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const DialogWithInput = ({ title, description, queryParam, onCancel, onConfirm, 
             <div className="flex h-full p-2">
               <textarea
                 className={`h-full w-full resize-none rounded-lg p-1`}
-                onChange={e => {
+                onChange={(e) => {
                   setInput(e.currentTarget.value.trim());
                 }}
               />

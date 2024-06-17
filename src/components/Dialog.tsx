@@ -17,7 +17,7 @@ interface IDialogProps {
 const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText, children }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const showDialog = searchParams.get(queryParam);
+  const showDialog = searchParams?.get(queryParam);
 
   useEffect(() => {
     if (showDialog === '1') {

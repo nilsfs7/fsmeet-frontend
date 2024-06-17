@@ -8,7 +8,7 @@ import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
 import Link from 'next/link';
 
-const About = () => {
+export default function About() {
   const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME;
   const shortSha = process.env.NEXT_PUBLIC_COMMIT_SHA && process.env.NEXT_PUBLIC_COMMIT_SHA?.length > 7 ? process.env.NEXT_PUBLIC_COMMIT_SHA?.substring(0, 7) : process.env.NEXT_PUBLIC_COMMIT_SHA;
 
@@ -55,6 +55,4 @@ const About = () => {
       </Navigation>
     </div>
   );
-};
-
-export default About;
+}

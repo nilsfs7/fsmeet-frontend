@@ -28,7 +28,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
 
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const showDialog = searchParams.get(queryParam);
+  const showDialog = searchParams?.get(queryParam);
   const [slotsPerMatch, setSlotsPerMatch] = useState<number>(2);
   const [advancingTotal, setAdvancingTotal] = useState<number>(0);
   const [roundName, setRoundName] = useState<string>('');
@@ -71,7 +71,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                   id={`input-round-name`}
                   className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                   value={roundName}
-                  onChange={e => {
+                  onChange={(e) => {
                     setRoundName(e.currentTarget.value);
                   }}
                 />
@@ -93,7 +93,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                   min={1}
                   max={availablePlayers}
                   value={advancingTotal}
-                  onChange={e => {
+                  onChange={(e) => {
                     setAdvancingTotal(+e.currentTarget.value);
                     setSlotsPerMatch(Math.ceil(availablePlayers / +e.currentTarget.value));
                   }}
@@ -110,7 +110,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                   max={availablePlayers}
                   value={slotsPerMatch}
                   disabled={advancingTotal === 1}
-                  onChange={e => {
+                  onChange={(e) => {
                     setSlotsPerMatch(+e.currentTarget.value);
                   }}
                 />

@@ -16,10 +16,10 @@ interface IDialogProps {
 const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
   const searchParams = useSearchParams();
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const showDialog = searchParams.get(queryParam);
-  const roundIndex = +(searchParams.get('rid') || 0);
-  const matchIndex = +(searchParams.get('mid') || 0);
-  const rname = searchParams.get('rname') || '';
+  const showDialog = searchParams?.get(queryParam);
+  const roundIndex = +(searchParams?.get('rid') || 0);
+  const matchIndex = +(searchParams?.get('mid') || 0);
+  const rname = searchParams?.get('rname') || '';
 
   const [matchName, setRoundName] = useState<string>('');
 

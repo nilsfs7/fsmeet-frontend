@@ -25,7 +25,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const tab = searchParams.get('tab');
+  const tab = searchParams?.get('tab');
 
   const eventsOwning: Event[] = data.owning;
   const eventsSubscribed: Event[] = data.subs;

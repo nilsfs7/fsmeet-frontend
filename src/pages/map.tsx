@@ -28,9 +28,9 @@ const FreestylerMap = ({ data, actingUser }: { data: any; actingUser: any }) => 
   const user: User = actingUser;
 
   const searchParams = useSearchParams();
-  const paramUser = searchParams.get('user');
-  const paramLat = searchParams.get('lat');
-  const paramLng = searchParams.get('lng');
+  const paramUser = searchParams?.get('user');
+  const paramLat = searchParams?.get('lat');
+  const paramLng = searchParams?.get('lng');
 
   const [filterName, setFilterName] = useState('');
   const [filterGender, setFilterGender] = useState<Gender[]>([Gender.FEMALE, Gender.MALE]);

@@ -1,5 +1,5 @@
-import { DataProtectionText } from '@/components/DataProtectionText';
 import { Header } from '@/components/Header';
+import { ImprintText } from '@/components/ImprintText';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ActionButton from '@/components/common/ActionButton';
@@ -7,15 +7,15 @@ import { routeAbout } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
 
-const DataProtection = () => {
+export default function Imprint() {
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <Header />
 
-      <PageTitle title="Datenschutzerklärung" />
+      <PageTitle title="Impressum" />
 
       <div className="mx-2 mt-2 flex flex-col items-center text-center overflow-y-auto">
-        <DataProtectionText />
+        <ImprintText />
       </div>
 
       <Navigation>
@@ -25,6 +25,4 @@ const DataProtection = () => {
       </Navigation>
     </div>
   );
-};
-
-export default DataProtection;
+}
