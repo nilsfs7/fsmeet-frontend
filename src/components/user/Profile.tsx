@@ -1,3 +1,5 @@
+'use client';
+
 import { signOut, useSession } from 'next-auth/react';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
