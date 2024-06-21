@@ -9,7 +9,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
-import { routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/routes';
 import moment from 'moment';
 import CompetitionList from '@/components/events/CompetitionList';
 import EventInfo from '@/components/events/EventInfo';
@@ -48,7 +48,6 @@ const EventDetails = (props: any) => {
 
   const searchParams = useSearchParams();
   const tab = searchParams?.get('tab');
-  const needsAuthorization = searchParams?.get('auth');
 
   const [event, setEvent] = useState<Event>();
   const [eventComments, setEventComments] = useState<EventComment[]>();
@@ -83,7 +82,7 @@ const EventDetails = (props: any) => {
       return;
     }
 
-    router.replace(`${routeEvents}/${eventId}?state=1&auth=1`, undefined, { shallow: true });
+    router.replace(`${routeEvents}/${eventId}?state=1`, undefined, { shallow: true });
   };
 
   const handleSendToReviewClicked = async () => {
@@ -137,11 +136,6 @@ const EventDetails = (props: any) => {
 
   const handleCancelDialogClicked = async () => {
     let url = `${routeEvents}/${eventId}`;
-
-    if (event && !isPublicEventState(event?.state)) {
-      url = `${url}?auth=1`;
-    }
-
     router.replace(url, undefined, { shallow: true });
   };
 
@@ -210,35 +204,29 @@ const EventDetails = (props: any) => {
 
   useEffect(() => {
     async function loadEventInfos() {
-      let event: Event;
       if (eventId) {
-        if (needsAuthorization) {
-          if (!validateSession(session)) {
-            router.push(routeLogin);
-            return;
-          }
+        getEvent(eventId?.toString(), session)
+          .then((event: Event) => {
+            setEvent(event);
 
-          event = await getEvent(eventId?.toString(), JSON.parse(needsAuthorization), session);
-          setEvent(event);
-        } else {
-          event = await getEvent(eventId?.toString());
-          setEvent(event);
-        }
+            const approvedWithImage = event.eventRegistrations
+              .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && registration.user.imageUrl)
+              .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
+            const approvedNoImage = event.eventRegistrations
+              .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && !registration.user.imageUrl)
+              .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
+            const pendingWithImage = event.eventRegistrations
+              .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && registration.user.imageUrl)
+              .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
+            const pendingNoImage = event.eventRegistrations
+              .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && !registration.user.imageUrl)
+              .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
 
-        const approvedWithImage = event.eventRegistrations
-          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && registration.user.imageUrl)
-          .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
-        const approvedNoImage = event.eventRegistrations
-          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && !registration.user.imageUrl)
-          .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
-        const pendingWithImage = event.eventRegistrations
-          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && registration.user.imageUrl)
-          .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
-        const pendingNoImage = event.eventRegistrations
-          .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && !registration.user.imageUrl)
-          .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
-
-        setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
+            setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
+          })
+          .catch(() => {
+            router.push(routeEventNotFound);
+          });
       }
     }
 
@@ -311,7 +299,7 @@ const EventDetails = (props: any) => {
                   <p className="mt-2">Your event is not listed publicly, yet.</p>
                   <p>Do you want to publish your event? Please complete your event info with as many details as possible before sending for review.</p>
                   <div className="mt-2 flex justify-between">
-                    <Link href={`${routeEvents}/${eventId}/edit?auth=1`}>
+                    <Link href={`${routeEvents}/${eventId}/edit`}>
                       <TextButton text="Edit Event" />
                     </Link>
 
@@ -441,7 +429,7 @@ const EventDetails = (props: any) => {
 
             {event.id && event.competitions.length > 0 && (
               <TabsContent value="competitions" className="overflow-hidden overflow-y-auto">
-                <CompetitionList competitions={event.competitions} eventId={event.id} auth={needsAuthorization ? true : false} />
+                <CompetitionList competitions={event.competitions} eventId={event.id} />
               </TabsContent>
             )}
 

@@ -103,7 +103,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
                   eventsOwning.map((item: any, i: number) => {
                     return (
                       <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                        <Link href={`${routeEvents}/${item.id}?auth=1`}>
+                        <Link href={`${routeEvents}/${item.id}`}>
                           <EventCard event={item} />
                         </Link>
                       </div>

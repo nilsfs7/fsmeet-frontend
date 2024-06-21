@@ -21,6 +21,7 @@ export const routeFeedbackThankyou = '/feedback/thankyou';
 
 export const routeEvents = '/events';
 export const routeEventSubs = '/events/manage';
+export const routeEventNotFound = '/events/notfound';
 export const routeEventsCreate = '/events/create';
 
 export const routeUsers = '/users';
