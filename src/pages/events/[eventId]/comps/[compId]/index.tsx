@@ -9,7 +9,7 @@ import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import { User } from '@/types/user';
 import { useSearchParams } from 'next/navigation';
-import { routeEvents } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents } from '@/types/consts/routes';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import BattleList from '@/components/comp/BattleList';
 import BattleGrid from '@/components/comp/BattleGrid';
@@ -21,7 +21,6 @@ import Separator from '@/components/Seperator';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
-import { validateSession } from '@/types/funcs/validate-session';
 import { Switch } from '@/components/ui/switch';
 import { getUser } from '@/services/fsmeet-backend/get-user';
 import PageTitle from '@/components/PageTitle';
@@ -41,7 +40,6 @@ const CompetitionDetails = (props: any) => {
 
   const searchParams = useSearchParams();
   const tab = searchParams?.get('tab');
-  const needsAuthorization = searchParams?.get('auth');
 
   const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
   const [comp, setComp] = useState<Competition>();
@@ -53,46 +51,42 @@ const CompetitionDetails = (props: any) => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
       let p: Promise<Event>;
 
-      if (!needsAuthorization) {
-        p = getEvent(eventId);
-      } else {
-        validateSession(session);
+      getEvent(eventId, session)
+        .then(async (e: Event) => {
+          const comp = e.competitions.filter((c) => c.id === compId)[0];
+          const c: Competition = {
+            id: comp.id,
+            eventId: eventId,
+            name: comp.name,
+            type: comp.type,
+            gender: comp.gender,
+            description: comp.description,
+            rules: comp.rules,
+          };
+          setComp(c);
 
-        p = getEvent(eventId, true, session);
-      }
+          const participants = await getCompetitionParticipants(compId);
+          const competitionParticipants = participants.map((participant) => {
+            const participantRegistrationPair = e.eventRegistrations.filter((registration) => {
+              if (registration.user.username === participant.username) {
+                return registration.user.imageUrl;
+              }
+            });
 
-      p.then(async (e: Event) => {
-        const comp = e.competitions.filter((c) => c.id === compId)[0];
-        const c: Competition = {
-          id: comp.id,
-          eventId: eventId,
-          name: comp.name,
-          type: comp.type,
-          gender: comp.gender,
-          description: comp.description,
-          rules: comp.rules,
-        };
-        setComp(c);
+            const user: User = {
+              username: participant.username,
+              type: participantRegistrationPair[0]?.user?.type,
+              imageUrl: participantRegistrationPair[0]?.user?.imageUrl,
+            };
 
-        const participants = await getCompetitionParticipants(compId);
-        const competitionParticipants = participants.map((participant) => {
-          const participantRegistrationPair = e.eventRegistrations.filter((registration) => {
-            if (registration.user.username === participant.username) {
-              return registration.user.imageUrl;
-            }
+            return user;
           });
 
-          const user: User = {
-            username: participant.username,
-            type: participantRegistrationPair[0]?.user?.type,
-            imageUrl: participantRegistrationPair[0]?.user?.imageUrl,
-          };
-
-          return user;
+          setCompetitionParticipants(competitionParticipants);
+        })
+        .catch(() => {
+          router.push(routeEventNotFound);
         });
-
-        setCompetitionParticipants(competitionParticipants);
-      });
     }
   }, []);
 
@@ -329,9 +323,6 @@ const CompetitionDetails = (props: any) => {
             action={Action.BACK}
             onClick={() => {
               let path = `${routeEvents}/${eventId}`;
-              if (needsAuthorization) {
-                path = `${path}?auth=1`;
-              }
 
               router.push(path);
             }}

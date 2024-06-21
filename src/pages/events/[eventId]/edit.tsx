@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Event } from '@/types/event';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
-import { routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEventNotFound, routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
@@ -30,7 +30,7 @@ const EventEditing = (props: any) => {
     if (event) {
       try {
         await updateEvent(event, session);
-        router.replace(`${routeEvents}/${eventId}?auth=1`);
+        router.replace(`${routeEvents}/${eventId}`);
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -60,9 +60,13 @@ const EventEditing = (props: any) => {
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string') {
-      getEvent(eventId, true, session).then((event: Event) => {
-        setEvent(event);
-      });
+      getEvent(eventId, session)
+        .then((event: Event) => {
+          setEvent(event);
+        })
+        .catch(() => {
+          router.push(routeEventNotFound);
+        });
     }
   }, []);
 

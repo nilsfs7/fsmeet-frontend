@@ -6,10 +6,9 @@ import { routeEvents } from '@/types/consts/routes';
 interface ICompetitionListListProps {
   competitions: Competition[];
   eventId: string;
-  auth?: boolean;
 }
 
-const CompetitionList = ({ competitions, eventId, auth = false }: ICompetitionListListProps) => {
+const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
       <div className="text-base font-bold">Competitions</div>
@@ -21,7 +20,7 @@ const CompetitionList = ({ competitions, eventId, auth = false }: ICompetitionLi
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              <Link href={`${routeEvents}/${eventId}/comps/${competition.id}${auth ? '?auth=1' : ''}`}>
+              <Link href={`${routeEvents}/${eventId}/comps/${competition.id}`}>
                 <CompetitionBadge competition={competition} />
               </Link>
             </div>

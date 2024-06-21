@@ -6,7 +6,7 @@ import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
 import Link from 'next/link';
-import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
@@ -75,9 +75,13 @@ const EventParticipants = (props: any) => {
 
   useEffect(() => {
     if (eventId) {
-      getEvent(eventId?.toString(), true, session).then((event: Event) => {
-        setEvent(event);
-      });
+      getEvent(eventId?.toString(), session)
+        .then((event: Event) => {
+          setEvent(event);
+        })
+        .catch(() => {
+          router.push(routeEventNotFound);
+        });
     }
   }, [event == undefined]);
 
@@ -163,7 +167,7 @@ const EventParticipants = (props: any) => {
         </div>
 
         <Navigation>
-          <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}?auth=1`)} />
+          <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}`)} />
         </Navigation>
       </div>
     </>

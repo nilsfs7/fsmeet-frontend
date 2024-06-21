@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { Competition } from '@/types/competition';
 import ActionButton from '@/components/common/ActionButton';
@@ -63,21 +63,25 @@ const CompetitionEditing = (props: any) => {
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
-      getEvent(eventId, true, session).then((res: Event) => {
-        const comp = res.competitions.filter((c) => c.id === compId)[0];
+      getEvent(eventId, session)
+        .then((res: Event) => {
+          const comp = res.competitions.filter((c) => c.id === compId)[0];
 
-        const c: Competition = {
-          id: comp.id,
-          eventId: eventId,
-          name: comp.name,
-          type: comp.type,
-          gender: comp.gender,
-          description: comp.description,
-          rules: comp.rules,
-        };
+          const c: Competition = {
+            id: comp.id,
+            eventId: eventId,
+            name: comp.name,
+            type: comp.type,
+            gender: comp.gender,
+            description: comp.description,
+            rules: comp.rules,
+          };
 
-        setComp(c);
-      });
+          setComp(c);
+        })
+        .catch(() => {
+          router.push(routeEventNotFound);
+        });
     }
   }, []);
 

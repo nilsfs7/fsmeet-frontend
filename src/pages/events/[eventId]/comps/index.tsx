@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
-import { routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/routes';
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
@@ -24,9 +24,13 @@ const ManageCompetitions = (props: any) => {
 
   useEffect(() => {
     if (eventId) {
-      getEvent(eventId?.toString(), true, session).then((event: Event) => {
-        setEvent(event);
-      });
+      getEvent(eventId?.toString(), session)
+        .then((event: Event) => {
+          setEvent(event);
+        })
+        .catch(() => {
+          router.push(routeEventNotFound);
+        });
     }
   }, [event == undefined]);
 
@@ -116,7 +120,7 @@ const ManageCompetitions = (props: any) => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}?auth=1`)} />
+        <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}`)} />
       </Navigation>
     </div>
   );
