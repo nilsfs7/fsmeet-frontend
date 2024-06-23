@@ -186,8 +186,7 @@ const CompetitionDetails = (props: any) => {
       }
     }
 
-    console.log('amount matches (check value): ', checkValueAmountMatches);
-    console.log(data);
+    console.info('amount matches (check value): ', checkValueAmountMatches);
 
     if (data.length === checkValueAmountMatches) {
       toast.info('Processed battle results.');
@@ -200,7 +199,9 @@ const CompetitionDetails = (props: any) => {
   const handleDownloadResultsClicked = () => {
     const options: ConfigOptions = { filename: `${moment().format('YYYYMMDD HHmmss')} - ${comp?.name} - results`, useKeysAsHeaders: true };
     const csvConfig = mkConfig(options);
-    const csvOutput = generateCsv(csvConfig)(mapRoundsToCsv(rounds));
+
+    const data = mapRoundsToCsv(rounds);
+    const csvOutput = generateCsv(csvConfig)(data);
     download(csvConfig)(csvOutput);
   };
 
@@ -328,7 +329,7 @@ const CompetitionDetails = (props: any) => {
             }}
           />
 
-          <TextButton text="Download Data" onClick={handleDownloadResultsClicked} />
+          {rounds.length > 0 && rounds[0].matches.length > 0 && <TextButton text="Download Data" onClick={handleDownloadResultsClicked} />}
         </Navigation>
       </div>
     </>
