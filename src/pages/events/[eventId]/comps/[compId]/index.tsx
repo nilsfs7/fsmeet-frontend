@@ -188,7 +188,9 @@ const CompetitionDetails = (props: any) => {
 
     console.info('amount matches (check value): ', checkValueAmountMatches);
 
-    if (data.length === checkValueAmountMatches) {
+    if (checkValueAmountMatches === 0) {
+      toast.error('Matches seems to have inconsistent data.');
+    } else if (data.length === checkValueAmountMatches) {
       toast.info('Processed battle results.');
     } else {
       toast.error('Export of battle results is inconsistent.');
@@ -201,8 +203,10 @@ const CompetitionDetails = (props: any) => {
     const csvConfig = mkConfig(options);
 
     const data = mapRoundsToCsv(rounds);
-    const csvOutput = generateCsv(csvConfig)(data);
-    download(csvConfig)(csvOutput);
+    if (data.length > 0) {
+      const csvOutput = generateCsv(csvConfig)(data);
+      download(csvConfig)(csvOutput);
+    }
   };
 
   return (
