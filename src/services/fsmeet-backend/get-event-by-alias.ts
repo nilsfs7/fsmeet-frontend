@@ -6,15 +6,22 @@ export async function getEventByAlias(alias: string, session?: any): Promise<Eve
   let response;
 
   if (!session) {
-    response = await fetch(url);
+    response = await fetch(url, { cache: 'no-store' });
   } else {
     response = await fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${session?.user?.accessToken}`,
       },
+      cache: 'no-store',
     });
   }
 
-  return await response.json();
+  if (response.ok) {
+    console.info('Getting event by alias successful');
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
 }
