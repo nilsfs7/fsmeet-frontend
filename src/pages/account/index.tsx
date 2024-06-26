@@ -543,10 +543,10 @@ const Account = ({ session }: any) => {
                     <div className="flex justify-center text-lg">{`Account Verification`}</div>
 
                     <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
-                      <p className="flex gap-2 items-center">
+                      <div className="flex gap-2 items-center">
                         <div>{`Verification Status:`}</div>
                         <div className="font-extrabold p-2 rounded-lg bg-secondary">{(verificationState.charAt(0).toUpperCase() + verificationState.slice(1)).replaceAll('_', ' ')}</div>
-                      </p>
+                      </div>
 
                       {verificationState !== UserVerificationState.VERIFIED && verificationState !== UserVerificationState.VERIFICATION_PENDING && (
                         <TextButton text="Verify Now" onClick={handleVerificationRequestClicked} />
