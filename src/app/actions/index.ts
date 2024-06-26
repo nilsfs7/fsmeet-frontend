@@ -14,18 +14,13 @@ export async function doLogout() {
 
 export async function doCredentialLogin(username: string, password: string) {
   try {
-    // console.log("pppppppppppp", password)
     // const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
 
-    // console.log(hashedPassword)
     const response = await signIn('credentials', {
       usernameOrEmail: username,
       password: password,
       redirect: false,
     });
-
-    console.log('signin reposnse:', response);
-    console.log('dscdcdscsdcdscsdcscd');
 
     return response;
   } catch (err) {

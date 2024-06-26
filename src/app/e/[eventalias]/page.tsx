@@ -17,8 +17,6 @@ export default async function EventAlias({ params }: { params: { eventalias: str
 async function getServerSideProps(alias: string) {
   const session = await auth();
 
-  // const session = await getSession();
-  console.log('session', session); // TODO: session is empty
   if (alias) {
     try {
       const event = await getEventByAlias(alias.toString(), session);

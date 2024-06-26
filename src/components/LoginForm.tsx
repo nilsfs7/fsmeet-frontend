@@ -50,18 +50,15 @@ export const LoginForm = () => {
     // });
 
     const session = await getSession();
-    console.log('session', session);
-    console.log('halloooooo bums');
 
     // if (!response?.status) {
 
-    // console.log('session:', session);
     if (session) {
       localStorage.setItem('username', session.user.username);
       if (session.user.imageUrl) {
         localStorage.setItem('imageUrl', session.user.imageUrl);
       }
-      console.log(1);
+
       if (redirectUrl) {
         router.replace(redirectUrl);
         // redirect(redirectUrl, RedirectType.replace);
