@@ -10,7 +10,6 @@ import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
 import { TotalMatchPerformance } from '@/types/total-match-performance';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import {
   ColumnDef,
@@ -39,6 +38,7 @@ import { Header } from '@/components/Header';
 import { User } from '@/types/user';
 import PageTitle from '@/components/PageTitle';
 import { getUserTypeImages } from '@/types/funcs/user-type';
+import { auth } from '@/auth';
 
 export type UserInfo = {
   username: string;
@@ -373,7 +373,7 @@ const UsersList = (props: any) => {
 export default UsersList;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   const username = context.params?.username;
 

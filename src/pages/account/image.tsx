@@ -1,6 +1,5 @@
 import TextButton from '@/components/common/TextButton';
 import { useEffect, useState } from 'react';
-import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import router from 'next/router';
 import { imgUserDefaultImg } from '@/types/consts/images';
@@ -15,6 +14,7 @@ import { getUser } from '@/services/fsmeet-backend/get-user';
 import { deleteUserImage } from '@/services/fsmeet-backend/delete-user-image';
 import { updateUserImage } from '@/services/fsmeet-backend/update-user-image';
 import { Toaster, toast } from 'sonner';
+import { auth } from '@/auth';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -105,7 +105,7 @@ const AccountImage = ({ session }: any) => {
 export default AccountImage;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

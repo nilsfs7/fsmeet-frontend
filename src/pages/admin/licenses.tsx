@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
 import { routeAdminOverview, routeLogin, routeUsers } from '@/types/consts/routes';
@@ -13,6 +12,7 @@ import Navigation from '@/components/Navigation';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import PageTitle from '@/components/PageTitle';
 import { Toaster, toast } from 'sonner';
+import { auth } from '@/auth';
 
 const Licenses = (props: any) => {
   const session = props.session;
@@ -111,7 +111,7 @@ const Licenses = (props: any) => {
 export default Licenses;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

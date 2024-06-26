@@ -1,7 +1,7 @@
 import TextButton from '@/components/common/TextButton';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
-import { getSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import TextInput from '@/components/common/TextInput';
 import { routeAccount, routeAccountDeleted, routeAccountImage, routeHome, routeLogin, routeMap } from '@/types/consts/routes';
@@ -39,6 +39,7 @@ import { updateUserVerificationState } from '@/services/fsmeet-backend/update-us
 import PageTitle from '@/components/PageTitle';
 import { getLabelForFirstName } from '@/types/funcs/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/types/funcs/get-placeholder-by-user-type';
+import { auth } from '@/auth';
 
 const Account = ({ session }: any) => {
   const searchParams = useSearchParams();
@@ -588,7 +589,7 @@ const Account = ({ session }: any) => {
 export default Account;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

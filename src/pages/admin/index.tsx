@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
 import { routeAdminEvents, routeAdminLicenses, routeAdminUsers, routeHome, routeLogin } from '@/types/consts/routes';
@@ -8,6 +7,7 @@ import ActionButton from '@/components/common/ActionButton';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const AdminOverview = () => {
   return (
@@ -40,7 +40,7 @@ const AdminOverview = () => {
 export default AdminOverview;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

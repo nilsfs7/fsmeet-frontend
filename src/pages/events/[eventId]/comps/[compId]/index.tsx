@@ -30,6 +30,7 @@ import { AcceptedData, ConfigOptions } from 'export-to-csv/output/lib/types';
 import moment from 'moment';
 import { MatchSlot } from '@/types/match-slot';
 import { Toaster, toast } from 'sonner';
+import { auth } from '@/auth';
 
 const CompetitionDetails = (props: any) => {
   const session = props.session;
@@ -343,7 +344,7 @@ const CompetitionDetails = (props: any) => {
 export default CompetitionDetails;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   return {
     props: {

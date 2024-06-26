@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
 import { routeAdminOverview, routeLogin, routeUsers } from '@/types/consts/routes';
@@ -16,6 +15,7 @@ import { menuUserVerificationStates } from '@/types/consts/menus/menu-user-verif
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const Users = (props: any) => {
   const session = props.session;
@@ -119,7 +119,7 @@ const Users = (props: any) => {
 export default Users;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

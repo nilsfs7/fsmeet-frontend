@@ -39,6 +39,7 @@ import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
 import { getComments } from '@/services/fsmeet-backend/get-comments';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { Toaster, toast } from 'sonner';
+import { auth } from '@/auth';
 
 const EventDetails = (props: any) => {
   const session = props.session;
@@ -486,7 +487,7 @@ const EventDetails = (props: any) => {
 export default EventDetails;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   return {
     props: {

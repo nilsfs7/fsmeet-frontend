@@ -21,6 +21,7 @@ import { getCompetition } from '@/services/fsmeet-backend/get-competition';
 import { Competition } from '@/types/competition';
 import { CompetitionGender } from '@/types/enums/competition-gender';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
+import { auth } from '@/auth';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -186,7 +187,7 @@ const CompetitionPool = (props: any) => {
 export default CompetitionPool;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {
