@@ -44,8 +44,12 @@ export default function About() {
           </Link>
         </div>
 
-        <div className="mt-20">{`Build: ${shortSha}`}</div>
-        <div>{buildTime}</div>
+        {shortSha && buildTime && (
+          <>
+            <div className="mt-20">{`Build: ${shortSha}`}</div>
+            <div>{buildTime}</div>
+          </>
+        )}
       </div>
 
       <Navigation>

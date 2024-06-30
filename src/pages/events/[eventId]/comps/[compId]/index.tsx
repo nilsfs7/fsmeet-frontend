@@ -186,10 +186,11 @@ const CompetitionDetails = (props: any) => {
       }
     }
 
-    console.log('amount matches (check value): ', checkValueAmountMatches);
-    console.log(data);
+    console.info('amount matches (check value): ', checkValueAmountMatches);
 
-    if (data.length === checkValueAmountMatches) {
+    if (checkValueAmountMatches === 0) {
+      toast.error('Matches seems to have inconsistent data.');
+    } else if (data.length === checkValueAmountMatches) {
       toast.info('Processed battle results.');
     } else {
       toast.error('Export of battle results is inconsistent.');
@@ -200,8 +201,12 @@ const CompetitionDetails = (props: any) => {
   const handleDownloadResultsClicked = () => {
     const options: ConfigOptions = { filename: `${moment().format('YYYYMMDD HHmmss')} - ${comp?.name} - results`, useKeysAsHeaders: true };
     const csvConfig = mkConfig(options);
-    const csvOutput = generateCsv(csvConfig)(mapRoundsToCsv(rounds));
-    download(csvConfig)(csvOutput);
+
+    const data = mapRoundsToCsv(rounds);
+    if (data.length > 0) {
+      const csvOutput = generateCsv(csvConfig)(data);
+      download(csvConfig)(csvOutput);
+    }
   };
 
   return (
@@ -328,7 +333,7 @@ const CompetitionDetails = (props: any) => {
             }}
           />
 
-          <TextButton text="Download Data" onClick={handleDownloadResultsClicked} />
+          {rounds.length > 0 && rounds[0].matches.length > 0 && <TextButton text="Download Data" onClick={handleDownloadResultsClicked} />}
         </Navigation>
       </div>
     </>
