@@ -568,8 +568,6 @@ const Account = ({ session }: any) => {
                     </div>
                   </div>
                 </TabsContent>
-
-                <TabsContent value="competitions" className="overflow-hidden overflow-y-auto"></TabsContent>
               </Tabs>
             </div>
           </div>
