@@ -22,7 +22,7 @@ const EventsOverview = ({ session }: { session: any }) => {
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
 
-  const hanldeDateFromChanged = (moment: Moment | null) => {
+  const handleDateFromChanged = (moment: Moment | null) => {
     if (moment) {
       setDateFrom(moment);
 
@@ -59,7 +59,7 @@ const EventsOverview = ({ session }: { session: any }) => {
           <DatePicker
             date={dateFrom}
             onChange={(newDate) => {
-              hanldeDateFromChanged(newDate);
+              handleDateFromChanged(newDate);
             }}
           />
         </div>
