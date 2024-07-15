@@ -1,4 +1,6 @@
-export async function updateUserImage(image: any, session: any): Promise<string> {
+import { Session } from 'next-auth';
+
+export async function updateUserImage(image: any, session: Session | null): Promise<string> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/image`;
 
   const body = new FormData();

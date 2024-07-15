@@ -1,6 +1,7 @@
 import { Event } from '@/types/event';
+import { Session } from 'next-auth';
 
-export async function updateEvent(event: Event, session: any): Promise<void> {
+export async function updateEvent(event: Event, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`;
 
   const body = JSON.stringify({
@@ -42,7 +43,7 @@ export async function updateEvent(event: Event, session: any): Promise<void> {
     body: body,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${session.user.accessToken}`,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
 

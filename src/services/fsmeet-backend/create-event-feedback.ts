@@ -1,4 +1,6 @@
-export async function createEventFeedback(eventId: string, message: string, session: any): Promise<void> {
+import { Session } from 'next-auth';
+
+export async function createEventFeedback(eventId: string, message: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/feedback`;
 
   const body = JSON.stringify({
@@ -10,7 +12,7 @@ export async function createEventFeedback(eventId: string, message: string, sess
     body: body,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${session.user.accessToken}`,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
 

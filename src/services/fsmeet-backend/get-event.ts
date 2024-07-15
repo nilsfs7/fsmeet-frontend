@@ -1,6 +1,7 @@
 import { Event } from '@/types/event';
+import { Session } from 'next-auth';
 
-export async function getEvent(eventId: string, session?: any): Promise<Event> {
+export async function getEvent(eventId: string, session?: Session | null): Promise<Event> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`;
 
   let response;

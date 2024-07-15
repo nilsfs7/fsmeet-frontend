@@ -1,4 +1,6 @@
-export async function deleteEventRegistration(eventId: string, username: string, session: any): Promise<void> {
+import { Session } from 'next-auth';
+
+export async function deleteEventRegistration(eventId: string, username: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
 
   const body = JSON.stringify({
@@ -10,7 +12,7 @@ export async function deleteEventRegistration(eventId: string, username: string,
     body: body,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${session.user.accessToken}`,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
 

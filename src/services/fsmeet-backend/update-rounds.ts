@@ -1,6 +1,7 @@
 import { Round } from '@/types/round';
+import { Session } from 'next-auth';
 
-export async function updateRounds(compId: string, rounds: Round[], session: any): Promise<void> {
+export async function updateRounds(compId: string, rounds: Round[], session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`;
 
   const body = JSON.stringify({

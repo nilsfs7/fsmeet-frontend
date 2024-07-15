@@ -1,6 +1,7 @@
 import { EventState } from '@/types/enums/event-state';
+import { Session } from 'next-auth';
 
-export async function updateEventState(session: any, eventId: string, state: EventState): Promise<void> {
+export async function updateEventState(session: Session | null, eventId: string, state: EventState): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/state`;
 
   const body = JSON.stringify({

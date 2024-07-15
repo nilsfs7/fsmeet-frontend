@@ -1,7 +1,8 @@
 import moment from 'moment';
 import { Event } from '@/types/event';
+import { Session } from 'next-auth';
 
-export async function getEvents(admin: string | null, participant: string | null, from: moment.Moment | null, to: moment.Moment | null, session?: any): Promise<Event[]> {
+export async function getEvents(admin: string | null, participant: string | null, from: moment.Moment | null, to: moment.Moment | null, session?: Session | null): Promise<Event[]> {
   const format = 'YYYY-MM-DDTHH:mm:ss.SSS';
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?`;
 

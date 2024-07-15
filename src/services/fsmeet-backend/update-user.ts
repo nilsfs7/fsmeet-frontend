@@ -1,6 +1,7 @@
 import { User } from '@/types/user';
+import { Session } from 'next-auth';
 
-export async function updateUser(user: User, session: any): Promise<User> {
+export async function updateUser(user: User, session: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
 
   const body = JSON.stringify({

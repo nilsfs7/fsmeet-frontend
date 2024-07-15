@@ -1,4 +1,6 @@
-export async function deleteRounds(compId: string, session: any): Promise<void> {
+import { Session } from 'next-auth';
+
+export async function deleteRounds(compId: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`;
 
   const response = await fetch(url, {

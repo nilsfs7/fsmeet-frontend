@@ -1,6 +1,7 @@
 import { User } from '@/types/user';
+import { Session } from 'next-auth';
 
-export async function getUser(username: string, session?: any): Promise<User> {
+export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
 
   const response = await fetch(url, {

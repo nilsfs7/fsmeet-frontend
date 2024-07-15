@@ -1,6 +1,7 @@
 import { Competition } from '@/types/competition';
+import { Session } from 'next-auth';
 
-export async function updateCompetition(comp: Competition, session: any): Promise<void> {
+export async function updateCompetition(comp: Competition, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions`;
 
   const body = JSON.stringify({

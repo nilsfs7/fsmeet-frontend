@@ -1,6 +1,7 @@
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
+import { Session } from 'next-auth';
 
-export async function updateEventRegistrationStatus(eventId: string, username: string, status: EventRegistrationStatus, session: any): Promise<void> {
+export async function updateEventRegistrationStatus(eventId: string, username: string, status: EventRegistrationStatus, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations/status`;
 
   const body = JSON.stringify({
@@ -13,7 +14,7 @@ export async function updateEventRegistrationStatus(eventId: string, username: s
     body: body,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${session.user.accessToken}`,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
 
