@@ -9,13 +9,13 @@ export type User = {
   firstName?: string;
   lastName?: string;
   nickName?: string;
-  gender?: Gender;
+  gender?: string;
   country?: string;
   instagramHandle?: string;
   tikTokHandle?: string;
   youTubeHandle?: string;
   website?: string;
-  verificationState?: UserVerificationState;
+  verificationState: UserVerificationState;
   tShirtSize?: string;
   houseNumber?: string;
   street?: string;

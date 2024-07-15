@@ -1,11 +1,5 @@
-import { LoginForm } from "@/components/LoginForm";
+import { LoginForm } from './components/login-form';
 
 export default async function Page() {
-
-  return (
-    // <section>
-    //   <div>{user ? <SignOut>{`Welcome ${user}`}</SignOut> : <SignIn />}</div>
-    // </section>
-    <LoginForm/>
-  );
+  return <LoginForm />;
 }

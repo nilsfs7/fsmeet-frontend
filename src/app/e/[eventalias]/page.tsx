@@ -1,6 +1,6 @@
 import { getEventByAlias } from '@/services/fsmeet-backend/get-event-by-alias';
 import { routeEventNotFound, routeEvents } from '@/types/consts/routes';
-import { auth, signIn, signOut } from '@/auth';
+import { auth } from '@/auth';
 import { RedirectType, redirect } from 'next/navigation';
 
 export default async function EventAlias({ params }: { params: { eventalias: string } }) {

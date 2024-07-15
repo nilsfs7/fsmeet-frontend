@@ -27,11 +27,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             },
           });
 
-          if (response.ok) {
-            const body = await response.json();
-            if (body) {
-              return body;
-            }
+          const responseBody = await response.json();
+          if (responseBody) {
+            return responseBody;
           }
         }
 
@@ -42,12 +40,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   callbacks: {
     async signIn(auth: any) {
-      if (auth) return true;
+      if (auth?.user?.accessToken) return true;
 
       return false;
     },
 
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, trigger, session }) => {
+      // if (trigger === 'update') {
+      //   return { ...token, ...session.user };
+      // }
+
       return { ...token, ...user };
     },
 

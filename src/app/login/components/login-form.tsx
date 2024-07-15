@@ -1,18 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { RedirectType, redirect, useRouter, useSearchParams } from 'next/navigation';
-import { doCredentialLogin } from '@/app/actions';
-import bcrypt from 'bcryptjs';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { loginUserWithCredentials } from '@/app/actions';
 import Link from 'next/link';
 import { routeHome, routePasswordForgot, routeRegistration } from '@/types/consts/routes';
-import Navigation from './Navigation';
-import ActionButton from './common/ActionButton';
+import Navigation from '../../../components/Navigation';
+import ActionButton from '../../../components/common/ActionButton';
 import { Action } from '@/types/enums/action';
-import TextButton from './common/TextButton';
-import TextInput from './common/TextInput';
+import TextButton from '../../../components/common/TextButton';
+import TextInput from '../../../components/common/TextInput';
 import { Toaster, toast } from 'sonner';
-import router from 'next/router';
 import { getSession } from 'next-auth/react';
 
 export const LoginForm = () => {
@@ -29,8 +27,7 @@ export const LoginForm = () => {
   };
 
   const handleInputChangePassword = (event: any) => {
-    const hashedPassword = bcrypt.hashSync(event.target.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
-    setPassword(hashedPassword);
+    setPassword(event.target.value);
   };
 
   const handleInputKeypressPassword = (e: any) => {
@@ -40,43 +37,37 @@ export const LoginForm = () => {
   };
 
   const handleLoginClicked = async () => {
-    const response = await doCredentialLogin(usernameOrEmail, password);
+    const response = await loginUserWithCredentials(usernameOrEmail, password);
 
     const session = await getSession();
 
-    // if (!response?.status) {
+    switch (response?.status) {
+      case 200:
+        if (session) {
+          localStorage.setItem('username', session.user.username);
+          if (session.user.imageUrl) {
+            localStorage.setItem('imageUrl', session.user.imageUrl);
+          }
 
-    if (session) {
-      localStorage.setItem('username', session.user.username);
-      if (session.user.imageUrl) {
-        localStorage.setItem('imageUrl', session.user.imageUrl);
-      }
+          if (redirectUrl) {
+            router.replace(redirectUrl);
+          } else {
+            router.replace(routeHome);
+          }
+        }
+        break;
 
-      if (redirectUrl) {
-        router.replace(redirectUrl);
-        // redirect(redirectUrl, RedirectType.replace);
-      } else {
-        router.replace(routeHome);
-        // redirect(routeHome, RedirectType.replace);
-      }
+      case 401:
+        const err = 'Wrong username or password.';
+        toast.error(err);
+        console.error(err);
+        break;
+
+      default:
+        toast.error(response.message);
+        console.error(response.message);
+        break;
     }
-
-    // } else {
-    //     let err = 'Unknown error.';
-    //     switch (response?.status) {
-
-    //       case 401:
-    //         err = 'Wrong username or password.';
-    //         toast.error(err);
-    //         console.error(err);
-    //         break;
-
-    //       default:
-    //         toast.error(err);
-    //         console.error(err);
-    //         break;
-    //     }
-    //   };
   };
 
   return (
