@@ -13,7 +13,7 @@ export async function updateRounds(compId: string, rounds: Round[], session: Ses
     body: body,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${session.user.accessToken}`,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
 
