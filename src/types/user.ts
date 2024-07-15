@@ -15,7 +15,7 @@ export type User = {
   tikTokHandle?: string;
   youTubeHandle?: string;
   website?: string;
-  verificationState: UserVerificationState;
+  verificationState?: UserVerificationState;
   tShirtSize?: string;
   houseNumber?: string;
   street?: string;
