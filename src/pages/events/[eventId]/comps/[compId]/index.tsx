@@ -15,7 +15,7 @@ import BattleList from '@/components/comp/BattleList';
 import BattleGrid from '@/components/comp/BattleGrid';
 import ParticipantList from '@/components/events/ParticipantList';
 import TextareaAutosize from 'react-textarea-autosize';
-import { switchTab } from '@/types/funcs/switch-tab';
+import { switchTab_pages } from '@/types/funcs/switch-tab';
 import { Round } from '@/types/round';
 import Separator from '@/components/Seperator';
 import { getRounds } from '@/services/fsmeet-backend/get-rounds';
@@ -225,7 +225,7 @@ const CompetitionDetails = (props: any) => {
                 <TabsTrigger
                   value="schedule"
                   onClick={() => {
-                    switchTab(router, 'schedule');
+                    switchTab_pages(router, 'schedule');
                   }}
                 >
                   {`Schedule`}
@@ -235,7 +235,7 @@ const CompetitionDetails = (props: any) => {
                 <TabsTrigger
                   value="grid"
                   onClick={() => {
-                    switchTab(router, 'grid');
+                    switchTab_pages(router, 'grid');
                   }}
                 >
                   {`Battle Grid`}
@@ -245,7 +245,7 @@ const CompetitionDetails = (props: any) => {
                 <TabsTrigger
                   value="participants"
                   onClick={() => {
-                    switchTab(router, 'participants');
+                    switchTab_pages(router, 'participants');
                   }}
                 >
                   {`Participants`}
@@ -255,7 +255,7 @@ const CompetitionDetails = (props: any) => {
                 <TabsTrigger
                   value="rules"
                   onClick={() => {
-                    switchTab(router, 'rules');
+                    switchTab_pages(router, 'rules');
                   }}
                 >
                   {`Rules`}

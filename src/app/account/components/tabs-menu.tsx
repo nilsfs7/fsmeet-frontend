@@ -506,7 +506,9 @@ export const TabsMenu = ({ user }: { user: User }) => {
             <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
               <div className="flex gap-2 items-center">
                 <div>{`Verification Status:`}</div>
-                <div className="font-extrabold p-2 rounded-lg bg-secondary">{(userInfo.verificationState.charAt(0).toUpperCase() + userInfo.verificationState.slice(1)).replaceAll('_', ' ')}</div>
+                <div className="font-extrabold p-2 rounded-lg bg-secondary">
+                  {(userInfo?.verificationState ? userInfo.verificationState.charAt(0).toUpperCase() + userInfo.verificationState.slice(1) : 'n/a').replaceAll('_', ' ')}
+                </div>
               </div>
 
               {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (
