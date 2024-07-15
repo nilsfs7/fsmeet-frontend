@@ -15,7 +15,8 @@ import { validateSession } from '@/types/funcs/validate-session';
 export default async function Account() {
   const session = await auth();
 
-  if (!validateSession(session) || !session?.user?.username) {
+  // TODO: remove because redirect is done by middleware anyway
+  if (!session?.user?.username) {
     redirect(routeLogin, RedirectType.replace);
   }
 

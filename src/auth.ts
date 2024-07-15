@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import jwt_decode from 'jwt-decode';
-import { routeLogin } from './types/consts/routes';
+import { routeAccount, routeLogin } from './types/consts/routes';
 
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',
@@ -44,6 +44,17 @@ const config = {
   },
 
   callbacks: {
+    authorized({ request, auth }) {
+      const { pathname } = request.nextUrl;
+
+      // TODO: add more protected routes
+      if (pathname === routeAccount) {
+        return !!auth;
+      }
+
+      return true;
+    },
+
     async signIn(auth: any) {
       if (auth?.user?.accessToken) return true;
 
