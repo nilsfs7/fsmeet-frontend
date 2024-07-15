@@ -39,6 +39,7 @@ import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
 import { getComments } from '@/services/fsmeet-backend/get-comments';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { Toaster, toast } from 'sonner';
+import { auth } from '@/auth';
 
 const EventDetails = (props: any) => {
   const session = props.session;
@@ -287,10 +288,10 @@ const EventDetails = (props: any) => {
 
       <Dialog title="Event Visibility" queryParam="state" onCancel={handleCancelDialogClicked}>
         <>
-          <p className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center">
             <div>{`Event state:`}</div>
             <div className="font-extrabold p-2 rounded-lg bg-secondary">{(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}</div>
-          </p>
+          </div>
 
           {!isPublicEventState(event.state) && (
             <>
@@ -486,7 +487,7 @@ const EventDetails = (props: any) => {
 export default EventDetails;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   return {
     props: {

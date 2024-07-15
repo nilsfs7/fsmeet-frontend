@@ -1,20 +1,22 @@
-import { useState } from 'react';
-import TextButton from '@/components/common/TextButton';
-import Link from 'next/link';
-import { getSession, signIn } from 'next-auth/react';
-import router from 'next/router';
-import TextInput from '@/components/common/TextInput';
-import bcrypt from 'bcryptjs';
-import { useSearchParams } from 'next/navigation';
-import { routeHome, routePasswordForgot, routeRegistration } from '@/types/consts/routes';
-import { Toaster, toast } from 'sonner';
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
+'use client';
 
-const Login = () => {
+import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { loginUserWithCredentials } from '@/app/actions';
+import Link from 'next/link';
+import { routeHome, routePasswordForgot, routeRegistration } from '@/types/consts/routes';
+import Navigation from '../../../components/Navigation';
+import ActionButton from '../../../components/common/ActionButton';
+import { Action } from '@/types/enums/action';
+import TextButton from '../../../components/common/TextButton';
+import TextInput from '../../../components/common/TextInput';
+import { Toaster, toast } from 'sonner';
+import { getSession } from 'next-auth/react';
+
+export const LoginForm = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const searchParams = useSearchParams();
   const redirectUrl = searchParams?.get('redir');
@@ -25,8 +27,7 @@ const Login = () => {
   };
 
   const handleInputChangePassword = (event: any) => {
-    const hashedPassword = bcrypt.hashSync(event.target.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
-    setPassword(hashedPassword);
+    setPassword(event.target.value);
   };
 
   const handleInputKeypressPassword = (e: any) => {
@@ -36,16 +37,12 @@ const Login = () => {
   };
 
   const handleLoginClicked = async () => {
-    const response = await signIn('credentials', {
-      usernameOrEmail: usernameOrEmail,
-      password: password,
-      redirect: false,
-    });
+    const response = await loginUserWithCredentials(usernameOrEmail, password);
 
-    let err = 'Unknown error.';
+    const session = await getSession();
+
     switch (response?.status) {
       case 200:
-        const session = await getSession();
         if (session) {
           localStorage.setItem('username', session.user.username);
           if (session.user.imageUrl) {
@@ -57,21 +54,18 @@ const Login = () => {
           } else {
             router.replace(routeHome);
           }
-        } else {
-          toast.error(err);
-          console.error(err);
         }
         break;
 
       case 401:
-        err = 'Wrong username or password.';
+        const err = 'Wrong username or password.';
         toast.error(err);
         console.error(err);
         break;
 
       default:
-        toast.error(err);
-        console.error(err);
+        toast.error(response.message);
+        console.error(response.message);
         break;
     }
   };
@@ -132,5 +126,3 @@ const Login = () => {
     </>
   );
 };
-
-export default Login;

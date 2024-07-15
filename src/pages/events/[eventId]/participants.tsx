@@ -18,6 +18,7 @@ import { updateEventRegistrationStatus } from '@/services/fsmeet-backend/update-
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
+import { auth } from '@/auth';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -177,7 +178,7 @@ const EventParticipants = (props: any) => {
 export default EventParticipants;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

@@ -1,4 +1,3 @@
-import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { Event } from '@/types/event';
 import Link from 'next/link';
@@ -20,6 +19,7 @@ import { switchTab } from '@/types/funcs/switch-tab';
 import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/Header';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const router = useRouter();
@@ -128,7 +128,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
 export default MyEventsOverview;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

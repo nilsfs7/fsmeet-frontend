@@ -12,7 +12,6 @@ import { UserType } from '@/types/enums/user-type';
 import { TotalMatchPerformance } from '@/types/total-match-performance';
 import { User } from '@/types/user';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import ReactCountryFlag from 'react-country-flag';
@@ -20,6 +19,7 @@ import { countries } from 'countries-list';
 import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import { Header } from '@/components/Header';
+import { auth } from '@/auth';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;
@@ -187,7 +187,7 @@ const PublicUserProfile = (props: any) => {
 export default PublicUserProfile;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   const username = context.params?.username;
 

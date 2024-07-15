@@ -12,6 +12,7 @@ import { GetServerSidePropsContext } from 'next';
 import { Toaster, toast } from 'sonner';
 import { createEventFeedback } from '@/services/fsmeet-backend/create-event-feedback';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const GeneralFeedback = (props: any) => {
   const session = props.session;
@@ -72,7 +73,7 @@ const GeneralFeedback = (props: any) => {
 export default GeneralFeedback;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   return {
     props: {

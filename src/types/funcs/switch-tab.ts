@@ -1,15 +1,9 @@
-import { NextRouter } from 'next/router';
+'use client';
 
-export function switchTab(router: NextRouter, newTab: string): void {
-  if (router.asPath.includes('tab=')) {
-    const { tab } = router.query;
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-    router.replace(`${router.asPath}`.replace(`tab=${tab}`, `tab=${newTab}`), undefined, { shallow: true });
-  } else {
-    if (router.asPath.includes('?')) {
-      router.replace(`${router.asPath}&tab=${newTab}`, undefined, { shallow: true });
-    } else {
-      router.replace(`${router.asPath}?tab=${newTab}`, undefined, { shallow: true });
-    }
-  }
+export function switchTab(router: AppRouterInstance, newTab: string): void {
+  const params = new URLSearchParams(window.location.search);
+  params.set('tab', newTab);
+  router.replace(`${window.location.pathname}?${params.toString()}`, { scroll: false });
 }

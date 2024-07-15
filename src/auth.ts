@@ -2,10 +2,11 @@ import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import jwt_decode from 'jwt-decode';
 
-export default NextAuth({
-  // session: {
-  //   strategy: 'jwt',
-  // },
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  session: {
+    strategy: 'jwt',
+  },
+
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -15,10 +16,9 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
 
-      async authorize(credentials, req): Promise<any> {
+      async authorize(credentials): Promise<any> {
         if (credentials?.usernameOrEmail && credentials?.password) {
           const body = JSON.stringify({ usernameOrEmail: credentials.usernameOrEmail, password: credentials.password });
-
           const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`, {
             method: 'POST',
             body: body,
@@ -27,11 +27,9 @@ export default NextAuth({
             },
           });
 
-          if (response.ok) {
-            const body = await response.json();
-            if (body) {
-              return body;
-            }
+          const responseBody = await response.json();
+          if (responseBody) {
+            return responseBody;
           }
         }
 
@@ -40,19 +38,18 @@ export default NextAuth({
     }),
   ],
 
-  // pages: {
-  //   signIn: '/login',
-  //   signOut: '/account',
-  // },
-
   callbacks: {
     async signIn(auth: any) {
-      if (auth) return true;
+      if (auth?.user?.accessToken) return true;
 
       return false;
     },
 
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, trigger, session }) => {
+      // if (trigger === 'update') {
+      //   return { ...token, ...session.user };
+      // }
+
       return { ...token, ...user };
     },
 

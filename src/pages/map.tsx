@@ -1,3 +1,4 @@
+import { auth } from '@/auth';
 import { Header } from '@/components/Header';
 import MapOfFreestylers from '@/components/MapOfFreestylers';
 import Navigation from '@/components/Navigation';
@@ -17,7 +18,6 @@ import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { User } from '@/types/user';
 import { ChevronDown } from 'lucide-react';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
@@ -129,7 +129,7 @@ const FreestylerMap = ({ data, actingUser }: { data: any; actingUser: any }) => 
 export default FreestylerMap;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   let data: User[] = [];
   try {

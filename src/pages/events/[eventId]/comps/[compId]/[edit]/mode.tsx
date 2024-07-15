@@ -31,6 +31,7 @@ import { plainToInstance } from 'class-transformer';
 import { updateRounds } from '@/services/fsmeet-backend/update-rounds';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -375,7 +376,7 @@ const ModeEditing = (props: any) => {
 export default ModeEditing;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

@@ -12,6 +12,7 @@ import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Event } from '@/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
 import { Header } from '@/components/Header';
+import { auth } from '@/auth';
 
 const defaultDateFrom = moment(moment().subtract(1, 'y').year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
@@ -21,7 +22,7 @@ const EventsOverview = ({ session }: { session: any }) => {
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
 
-  const hanldeDateFromChanged = (moment: Moment | null) => {
+  const handleDateFromChanged = (moment: Moment | null) => {
     if (moment) {
       setDateFrom(moment);
 
@@ -58,7 +59,7 @@ const EventsOverview = ({ session }: { session: any }) => {
           <DatePicker
             date={dateFrom}
             onChange={(newDate) => {
-              hanldeDateFromChanged(newDate);
+              handleDateFromChanged(newDate);
             }}
           />
         </div>
@@ -102,7 +103,7 @@ const EventsOverview = ({ session }: { session: any }) => {
 export default EventsOverview;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   return {
     props: {

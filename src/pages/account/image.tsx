@@ -1,6 +1,5 @@
 import TextButton from '@/components/common/TextButton';
 import { useEffect, useState } from 'react';
-import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import router from 'next/router';
 import { imgUserDefaultImg } from '@/types/consts/images';
@@ -9,12 +8,12 @@ import ActionButton from '@/components/common/ActionButton';
 import { routeAccount, routeLogin } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { ButtonStyle } from '@/types/enums/button-style';
-import { validateSession } from '@/types/funcs/validate-session';
-import { GetServerSidePropsContext } from 'next';
-import { getUser } from '@/services/fsmeet-backend/get-user';
 import { deleteUserImage } from '@/services/fsmeet-backend/delete-user-image';
 import { updateUserImage } from '@/services/fsmeet-backend/update-user-image';
 import { Toaster, toast } from 'sonner';
+import { GetServerSidePropsContext } from 'next';
+import { auth } from '@/auth';
+import { validateSession } from '@/types/funcs/validate-session';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -57,14 +56,9 @@ const AccountImage = ({ session }: any) => {
   };
 
   useEffect(() => {
-    async function fetchUser() {
-      const user = await getUser(session?.user?.username, session);
-      if (user.imageUrl) {
-        setImageUrl(user.imageUrl);
-      }
-    }
-    fetchUser();
-  }, []);
+    const imageUrl = localStorage.getItem('imageUrl'); // TODO: get url from session, session must be uptodate
+    setImageUrl(imageUrl || '');
+  }, [imageUrl]);
 
   return (
     <>
@@ -105,7 +99,7 @@ const AccountImage = ({ session }: any) => {
 export default AccountImage;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

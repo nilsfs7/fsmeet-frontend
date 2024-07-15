@@ -3,7 +3,6 @@ import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
 import { imgAbout, imgCommunity, imgFreestyler, imgProfileSettings, imgWorld } from '@/types/consts/images';
 import { routeAbout, routeAdminOverview, routeEvents, routeMap, routeUsers } from '@/types/consts/routes';
-import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Event } from '@/types/event';
 import { getEventsUpcoming } from '@/services/fsmeet-backend/get-events-upcoming';
@@ -13,6 +12,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import Autoplay from 'embla-carousel-autoplay';
 import { GetServerSidePropsContext } from 'next';
 import { Header } from '@/components/Header';
+import { auth } from '@/auth';
 
 const Home = ({ data, session }: { data: any; session: any }) => {
   let upcomingEvents: Event[] = data.upcoming;
@@ -174,7 +174,7 @@ const Home = ({ data, session }: { data: any; session: any }) => {
 export default Home;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   let data: { upcoming: any[]; ongoing: any[]; recent: any[] } = { upcoming: [], ongoing: [], recent: [] };
 
