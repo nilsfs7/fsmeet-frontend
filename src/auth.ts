@@ -1,42 +1,47 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import jwt_decode from 'jwt-decode';
+import { routeLogin } from './types/consts/routes';
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+const credentialsConfig = CredentialsProvider({
+  name: 'Credentials',
+
+  credentials: {
+    usernameOrEmail: { label: 'Username', type: 'text', placeholder: 'max' },
+    password: { label: 'Password', type: 'password' },
+  },
+
+  async authorize(credentials): Promise<any> {
+    if (credentials?.usernameOrEmail && credentials?.password) {
+      const body = JSON.stringify({ usernameOrEmail: credentials.usernameOrEmail, password: credentials.password });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`, {
+        method: 'POST',
+        body: body,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const responseBody = await response.json();
+      if (responseBody) {
+        return responseBody;
+      }
+    }
+
+    return null;
+  },
+});
+
+const config = {
+  providers: [credentialsConfig],
+
   session: {
     strategy: 'jwt',
   },
 
-  providers: [
-    CredentialsProvider({
-      name: 'Credentials',
-
-      credentials: {
-        usernameOrEmail: { label: 'Username', type: 'text', placeholder: 'max' },
-        password: { label: 'Password', type: 'password' },
-      },
-
-      async authorize(credentials): Promise<any> {
-        if (credentials?.usernameOrEmail && credentials?.password) {
-          const body = JSON.stringify({ usernameOrEmail: credentials.usernameOrEmail, password: credentials.password });
-          const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`, {
-            method: 'POST',
-            body: body,
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-
-          const responseBody = await response.json();
-          if (responseBody) {
-            return responseBody;
-          }
-        }
-
-        return null;
-      },
-    }),
-  ],
+  pages: {
+    signIn: routeLogin,
+  },
 
   callbacks: {
     async signIn(auth: any) {
@@ -59,4 +64,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
   },
-});
+} satisfies NextAuthConfig;
+
+export const { handlers, auth, signIn, signOut } = NextAuth(config);
