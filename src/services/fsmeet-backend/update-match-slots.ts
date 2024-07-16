@@ -1,4 +1,6 @@
-export async function updateMatchSlots(eventId: string, compId: string, matchId: string, slotIndex: number, username: string, result: number | undefined, session: any): Promise<any> {
+import { Session } from 'next-auth';
+
+export async function updateMatchSlots(eventId: string, compId: string, matchId: string, slotIndex: number, username: string, result: number | undefined, session: Session | null): Promise<any> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/matches/${matchId}/slots`;
 
   const body = JSON.stringify({
@@ -13,7 +15,7 @@ export async function updateMatchSlots(eventId: string, compId: string, matchId:
     body: body,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${session.user.accessToken}`,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
 

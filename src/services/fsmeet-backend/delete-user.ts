@@ -1,4 +1,6 @@
-export async function deleteUser(session: any): Promise<void> {
+import { Session } from 'next-auth';
+
+export async function deleteUser(session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
 
   const response = await fetch(url, {

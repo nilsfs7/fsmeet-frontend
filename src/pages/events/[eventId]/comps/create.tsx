@@ -1,6 +1,5 @@
 import TextButton from '@/components/common/TextButton';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
@@ -14,6 +13,7 @@ import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const CompetitionCreation = (props: any) => {
   const session = props.session;
@@ -63,7 +63,7 @@ const CompetitionCreation = (props: any) => {
 export default CompetitionCreation;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

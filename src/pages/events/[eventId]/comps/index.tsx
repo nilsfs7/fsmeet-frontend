@@ -8,11 +8,11 @@ import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
 import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/routes';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const ManageCompetitions = (props: any) => {
   const session = props.session;
@@ -129,7 +129,7 @@ const ManageCompetitions = (props: any) => {
 export default ManageCompetitions;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

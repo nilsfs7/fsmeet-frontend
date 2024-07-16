@@ -1,11 +1,9 @@
-import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { Event } from '@/types/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
 import { routeEventSubs, routeEvents, routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
-import { LogoFSMeet } from '@/components/Logo';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';
@@ -16,10 +14,11 @@ import Dialog from '@/components/Dialog';
 import { GetServerSidePropsContext } from 'next';
 import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { switchTab } from '@/types/funcs/switch-tab';
+import { switchTab_pages } from '@/types/funcs/switch-tab';
 import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/Header';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const router = useRouter();
@@ -65,7 +64,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
                 <TabsTrigger
                   value="registrations"
                   onClick={() => {
-                    switchTab(router, 'registrations');
+                    switchTab_pages(router, 'registrations');
                   }}
                 >
                   Registrations
@@ -74,7 +73,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
                 <TabsTrigger
                   value="myevents"
                   onClick={() => {
-                    switchTab(router, 'myevents');
+                    switchTab_pages(router, 'myevents');
                   }}
                 >
                   My Events
@@ -128,7 +127,7 @@ const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
 export default MyEventsOverview;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

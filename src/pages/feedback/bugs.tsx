@@ -2,7 +2,6 @@ import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
-import { getSession } from 'next-auth/react';
 import { routeFeedback, routeFeedbackThankyou, routeLogin } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
@@ -13,6 +12,7 @@ import { GetServerSidePropsContext } from 'next';
 import { createFeedbackBug } from '@/services/fsmeet-backend/create-feedback-bug';
 import PageTitle from '@/components/PageTitle';
 import { Toaster, toast } from 'sonner';
+import { auth } from '@/auth';
 
 const ReportBug = (props: any) => {
   const session = props.session;
@@ -68,7 +68,7 @@ const ReportBug = (props: any) => {
 export default ReportBug;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

@@ -1,5 +1,4 @@
 import EventEditor from '@/components/events/EventEditor';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Event } from '@/types/event';
@@ -17,6 +16,7 @@ import { Toaster, toast } from 'sonner';
 import { deleteEvent } from '@/services/fsmeet-backend/delete-event';
 import { updateEvent } from '@/services/fsmeet-backend/update-event';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -120,7 +120,7 @@ const EventEditing = (props: any) => {
 export default EventEditing;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

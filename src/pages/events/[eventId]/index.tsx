@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
-import { getSession } from 'next-auth/react';
 import ParticipantList from '@/components/events/ParticipantList';
-import { User } from '@/types/user';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
@@ -26,7 +24,7 @@ import { Event } from '@/types/event';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { switchTab } from '@/types/funcs/switch-tab';
+import { switchTab_pages } from '@/types/funcs/switch-tab';
 import { isPublicEventState } from '@/types/funcs/is-public-event-state';
 import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
 import { EventState } from '@/types/enums/event-state';
@@ -39,6 +37,7 @@ import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
 import { getComments } from '@/services/fsmeet-backend/get-comments';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { Toaster, toast } from 'sonner';
+import { auth } from '@/auth';
 
 const EventDetails = (props: any) => {
   const session = props.session;
@@ -287,10 +286,10 @@ const EventDetails = (props: any) => {
 
       <Dialog title="Event Visibility" queryParam="state" onCancel={handleCancelDialogClicked}>
         <>
-          <p className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center">
             <div>{`Event state:`}</div>
             <div className="font-extrabold p-2 rounded-lg bg-secondary">{(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}</div>
-          </p>
+          </div>
 
           {!isPublicEventState(event.state) && (
             <>
@@ -379,7 +378,7 @@ const EventDetails = (props: any) => {
               <TabsTrigger
                 value="overview"
                 onClick={() => {
-                  switchTab(router, 'overview');
+                  switchTab_pages(router, 'overview');
                 }}
               >
                 Overview
@@ -388,7 +387,7 @@ const EventDetails = (props: any) => {
                 <TabsTrigger
                   value="competitions"
                   onClick={() => {
-                    switchTab(router, 'competitions');
+                    switchTab_pages(router, 'competitions');
                   }}
                 >
                   Competitions
@@ -398,7 +397,7 @@ const EventDetails = (props: any) => {
                 <TabsTrigger
                   value="registrations"
                   onClick={() => {
-                    switchTab(router, 'registrations');
+                    switchTab_pages(router, 'registrations');
                   }}
                 >
                   Registrations
@@ -486,7 +485,7 @@ const EventDetails = (props: any) => {
 export default EventDetails;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   return {
     props: {

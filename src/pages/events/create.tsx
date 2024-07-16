@@ -1,6 +1,5 @@
 import TextButton from '@/components/common/TextButton';
 import EventEditor from '@/components/events/EventEditor';
-import { getSession } from 'next-auth/react';
 import router from 'next/router';
 import { useState } from 'react';
 import { Event } from '@/types/event';
@@ -14,6 +13,7 @@ import { Action } from '@/types/enums/action';
 import { Toaster, toast } from 'sonner';
 import { createEvent } from '@/services/fsmeet-backend/create-event';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const EventCreation = (props: any) => {
   const session = props.session;
@@ -69,7 +69,7 @@ const EventCreation = (props: any) => {
 export default EventCreation;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

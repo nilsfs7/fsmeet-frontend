@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { Event } from '@/types/event';
 import { useEffect, useState } from 'react';
-import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
@@ -18,6 +17,7 @@ import { updateEventRegistrationStatus } from '@/services/fsmeet-backend/update-
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
+import { auth } from '@/auth';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -177,7 +177,7 @@ const EventParticipants = (props: any) => {
 export default EventParticipants;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

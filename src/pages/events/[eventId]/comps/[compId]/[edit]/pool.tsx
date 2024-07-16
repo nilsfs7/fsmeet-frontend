@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistration } from '@/types/event-registration';
@@ -21,6 +20,7 @@ import { getCompetition } from '@/services/fsmeet-backend/get-competition';
 import { Competition } from '@/types/competition';
 import { CompetitionGender } from '@/types/enums/competition-gender';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
+import { auth } from '@/auth';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -186,7 +186,7 @@ const CompetitionPool = (props: any) => {
 export default CompetitionPool;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

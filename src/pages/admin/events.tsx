@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import Link from 'next/link';
 import { routeAdminOverview, routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
@@ -17,6 +16,7 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const Events = (props: any) => {
   const session = props.session;
@@ -130,7 +130,7 @@ const Events = (props: any) => {
 export default Events;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

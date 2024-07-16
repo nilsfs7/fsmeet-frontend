@@ -1,6 +1,7 @@
 import { UserVerificationState } from '@/types/enums/user-verification-state';
+import { Session } from 'next-auth';
 
-export async function updateUserVerificationState(session: any, username: string, verificationState: UserVerificationState): Promise<void> {
+export async function updateUserVerificationState(session: Session | null, username: string, verificationState: UserVerificationState): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/state`;
 
   const body = JSON.stringify({

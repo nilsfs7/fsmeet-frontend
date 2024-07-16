@@ -4,7 +4,6 @@
 */
 
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
@@ -22,6 +21,7 @@ import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { User } from '@/types/user';
 import { UserType } from '@/types/enums/user-type';
+import { auth } from '@/auth';
 
 const Seeding = (props: any) => {
   const session = props.session;
@@ -124,7 +124,7 @@ const Seeding = (props: any) => {
 export default Seeding;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

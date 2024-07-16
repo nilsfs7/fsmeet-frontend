@@ -20,7 +20,7 @@ interface IMapsProps {
   lng?: number;
   zoom?: number;
   filterName?: string;
-  filterGender?: Gender[];
+  filterGender?: string[];
 }
 
 // Europe = lat: 54.5259614, lng: 15.2551187

@@ -4,16 +4,14 @@
 */
 
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
-import { Moment } from 'moment';
 import { validateSession } from '@/types/funcs/validate-session';
 import { deleteRounds } from '@/services/fsmeet-backend/delete-round';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
@@ -31,6 +29,7 @@ import { plainToInstance } from 'class-transformer';
 import { updateRounds } from '@/services/fsmeet-backend/update-rounds';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
+import { auth } from '@/auth';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -375,7 +374,7 @@ const ModeEditing = (props: any) => {
 export default ModeEditing;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {

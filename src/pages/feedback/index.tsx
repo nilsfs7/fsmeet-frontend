@@ -5,9 +5,9 @@ import Navigation from '@/components/Navigation';
 import { routeHome, routeLogin } from '@/types/consts/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
-import { getSession } from 'next-auth/react';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
+import { auth } from '@/auth';
 
 const Feedback = () => {
   return (
@@ -40,7 +40,7 @@ const Feedback = () => {
 export default Feedback;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await getSession(context);
+  const session = await auth(context);
 
   if (!validateSession(session)) {
     return {
