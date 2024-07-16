@@ -1,6 +1,5 @@
 import TextButton from '@/components/common/TextButton';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { routeEvents, routeLogin } from '@/types/consts/routes';

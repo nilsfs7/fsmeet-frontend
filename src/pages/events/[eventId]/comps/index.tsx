@@ -8,7 +8,6 @@ import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
 import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/routes';
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';

@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Competition } from '@/types/competition';

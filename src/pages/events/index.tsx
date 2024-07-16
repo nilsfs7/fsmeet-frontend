@@ -1,4 +1,3 @@
-import { getSession } from 'next-auth/react';
 import EventCard from '@/components/events/EventCard';
 import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';

@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { Event } from '@/types/event';
 import { useEffect, useState } from 'react';
-import { getSession } from 'next-auth/react';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
