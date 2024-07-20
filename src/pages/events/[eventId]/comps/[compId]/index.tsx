@@ -126,7 +126,7 @@ const CompetitionDetails = (props: any) => {
     getUsers();
   }, [rounds]);
 
-  const getAmountDirectComparisonsOfMatch = (matchSlots: MatchSlot[]) => {
+  const getAmountDirectComparisonsOfMatch = (matchSlots: MatchSlot[]): number => {
     let amountComparisons = 0;
     let i = matchSlots.length;
 
@@ -137,6 +137,10 @@ const CompetitionDetails = (props: any) => {
     }
 
     return amountComparisons;
+  };
+
+  const getBinaryResultForRes1 = (res1: number, res2: number): number => {
+    return res1 > res2 ? 1 : 0;
   };
 
   const mapRoundsToCsv = (rounds: Round[]): { [k: string]: AcceptedData; [k: number]: AcceptedData }[] => {
@@ -161,20 +165,35 @@ const CompetitionDetails = (props: any) => {
           // Take slot (s2) of match. This is the slot after slot s1.
           let l = k + 1;
           while (l < match.matchSlots.length) {
+            const battleId = matchId + 1; // WFFA battle index starts at 1
+
             const s1 = match.matchSlots[k];
             const p1 = usersMap.get(s1.name);
 
             const s2 = match.matchSlots[l];
             const p2 = usersMap.get(s2.name);
 
+            const battleType = match.slots > 2 ? 'C' : 'B'; // B = 1vs1, C = Circle
+
+            let p1Result: string | number = na;
+            let p2Result: string | number = na;
+
+            if (s1.result !== undefined && s2.result !== undefined && s1.result > -1 && s2.result > -1) {
+              p1Result = getBinaryResultForRes1(s1.result, s2.result);
+              p2Result = getBinaryResultForRes1(s2.result, s1.result);
+            }
+
             data.push({
-              'Match ID': matchId,
-              Player1: p1?.lastName ? `${p1?.firstName} ${p1?.lastName}` : p1?.firstName,
-              'Player1 WFFA ID': p1?.wffaId ? p1.wffaId : na,
-              'Player1 Result': s1.result !== undefined && s1.result > -1 ? s1.result : na,
-              Player2: p2?.lastName ? `${p2?.firstName} ${p2?.lastName}` : p2?.firstName,
-              'Player2 WFFA ID': p2?.wffaId ? p2.wffaId : na,
-              'Player2 Result': s2.result !== undefined && s2.result > -1 ? s2.result : na,
+              battle_id: battleId,
+              player_a_id: p1?.wffaId ? p1.wffaId : na,
+              player_1_name: p1?.lastName ? `${p1?.firstName} ${p1?.lastName}` : p1?.firstName,
+              player_a_result: p1Result,
+              player_b_id: p2?.wffaId ? p2.wffaId : na,
+              player_2_name: p2?.lastName ? `${p2?.firstName} ${p2?.lastName}` : p2?.firstName,
+              player_b_result: p2Result,
+              battle_type: battleType,
+              competition_type: '', // TODO: what to put here?
+              competition_strength: '', // TODO: what to put here?
             });
 
             matchId += 1;
