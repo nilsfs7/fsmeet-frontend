@@ -186,10 +186,10 @@ const CompetitionDetails = (props: any) => {
             data.push({
               battle_id: battleId,
               player_a_id: p1?.wffaId ? p1.wffaId : na,
-              player_1_name: p1?.lastName ? `${p1?.firstName} ${p1?.lastName}` : p1?.firstName,
+              player_a_name: p1?.lastName ? `${p1?.firstName} ${p1?.lastName}` : p1?.firstName,
               player_a_result: p1Result,
               player_b_id: p2?.wffaId ? p2.wffaId : na,
-              player_2_name: p2?.lastName ? `${p2?.firstName} ${p2?.lastName}` : p2?.firstName,
+              player_b_name: p2?.lastName ? `${p2?.firstName} ${p2?.lastName}` : p2?.firstName,
               player_b_result: p2Result,
               battle_type: battleType,
               competition_type: '', // TODO: what to put here?
