@@ -11,6 +11,7 @@ export type User = {
   nickName?: string;
   gender?: string;
   country?: string;
+  freestyleSince?: number;
   instagramHandle?: string;
   tikTokHandle?: string;
   youTubeHandle?: string;

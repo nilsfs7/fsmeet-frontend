@@ -23,6 +23,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       nickName: data.nickName,
       gender: data.gender,
       country: data.country,
+      freestyleSince: data.freestyleSince,
       instagramHandle: data.instagramHandle,
       tikTokHandle: data.tikTokHandle,
       youTubeHandle: data.youTubeHandle,

@@ -20,6 +20,7 @@ export async function getUsers(): Promise<User[]> {
       nickName: d.nickName,
       gender: d.gender,
       country: d.country,
+      freestyleSince: d.freestyleSince,
       instagramHandle: d.instagramHandle,
       tikTokHandle: d.tikTokHandle,
       youTubeHandle: d.youTubeHandle,
