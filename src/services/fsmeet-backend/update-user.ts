@@ -10,6 +10,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     nickName: user.nickName,
     gender: user.gender,
     country: user.country,
+    freestyleSince: user.freestyleSince,
     instagramHandle: user.instagramHandle,
     tikTokHandle: user.tikTokHandle,
     youTubeHandle: user.youTubeHandle,

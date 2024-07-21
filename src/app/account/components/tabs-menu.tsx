@@ -32,6 +32,7 @@ import { updateUserVerificationState } from '@/services/fsmeet-backend/update-us
 import Dialog from '@/components/Dialog';
 import SocialLink from '@/components/user/SocialLink';
 import { Platform } from '@/types/enums/platform';
+import { menuFreestyleSinceWithUnspecified } from '@/types/consts/menus/menu-freestyle-since';
 
 export const TabsMenu = ({ user }: { user: User }) => {
   const { data: session, status } = useSession();
@@ -75,6 +76,13 @@ export const TabsMenu = ({ user }: { user: User }) => {
   const handleCountryChanged = (value: any) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.country = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handleFreestyleSinceChanged = (value: string) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.freestyleSince = +value;
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);
   };
@@ -155,6 +163,7 @@ export const TabsMenu = ({ user }: { user: User }) => {
       nickName: nickNameAdjusted,
       gender: userInfo.gender,
       country: userInfo.country,
+      freestyleSince: userInfo.freestyleSince,
       instagramHandle: userInfo.instagramHandle,
       tikTokHandle: userInfo.tikTokHandle,
       youTubeHandle: userInfo.youTubeHandle,
@@ -406,6 +415,20 @@ export const TabsMenu = ({ user }: { user: User }) => {
                 </div>
               </>
             )}
+
+            <div className="m-2 grid grid-cols-2">
+              <div className="p-2">{`Freestyle since`}</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuFreestyleSinceWithUnspecified}
+                  value={userInfo.freestyleSince ? userInfo.freestyleSince.toString() : menuFreestyleSinceWithUnspecified[0].value}
+                  onChange={(value: any) => {
+                    console.log(value);
+                    handleFreestyleSinceChanged(value);
+                  }}
+                />
+              </div>
+            </div>
 
             <TextInput
               id={'instagramHandle'}
