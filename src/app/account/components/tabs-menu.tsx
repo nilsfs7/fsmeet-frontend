@@ -33,8 +33,15 @@ import Dialog from '@/components/Dialog';
 import SocialLink from '@/components/user/SocialLink';
 import { Platform } from '@/types/enums/platform';
 import { menuFreestyleSinceWithUnspecified } from '@/types/consts/menus/menu-freestyle-since';
+import { DatePicker } from '@/components/common/DatePicker';
+import moment, { Moment } from 'moment';
+import { menuTShirtSizesWithUnspecified } from '@/types/consts/menus/menu-t-shirt-sizes';
 
-export const TabsMenu = ({ user }: { user: User }) => {
+interface ITabsMenu {
+  user: User;
+}
+
+export const TabsMenu = ({ user }: ITabsMenu) => {
   const { data: session, status } = useSession();
 
   const router = useRouter();
@@ -115,6 +122,15 @@ export const TabsMenu = ({ user }: { user: User }) => {
     cacheUserInfo(newUserInfo);
   };
 
+  const handleBirthdayChanged = (value: Moment) => {
+    if (value) {
+      const newUserInfo = Object.assign({}, userInfo);
+      newUserInfo.birthday = value.startOf('day').utc().format();
+      setUserInfo(newUserInfo);
+      cacheUserInfo(newUserInfo);
+    }
+  };
+
   const handleTShirtSizeChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.tShirtSize = value;
@@ -169,6 +185,7 @@ export const TabsMenu = ({ user }: { user: User }) => {
       youTubeHandle: userInfo.youTubeHandle,
       website: websiteAdjusted,
       verificationState: userInfo.verificationState,
+      birthday: userInfo.birthday,
       tShirtSize: userInfo.tShirtSize,
       houseNumber: userInfo.houseNumber,
       street: userInfo.street,
@@ -236,7 +253,7 @@ export const TabsMenu = ({ user }: { user: User }) => {
     }
 
     try {
-      await updateUserVerificationState(session, 'nils', UserVerificationState.VERIFICATION_PENDING);
+      await updateUserVerificationState(session, session?.user?.username || '', UserVerificationState.VERIFICATION_PENDING);
       toast.success('Requesting verification successful.');
     } catch (error: any) {
       toast.error(error.message);
@@ -413,22 +430,44 @@ export const TabsMenu = ({ user }: { user: User }) => {
                     />
                   </div>
                 </div>
+
+                <div className="m-2 grid grid-cols-2">
+                  <div className="p-2">{`Birthday`}</div>
+                  <DatePicker
+                    date={moment(userInfo.birthday)}
+                    onChange={(value) => {
+                      handleBirthdayChanged(value);
+                    }}
+                  />
+                </div>
+
+                <div className="m-2 grid grid-cols-2">
+                  <div className="p-2">{`Freestyle since`}</div>
+                  <div className="flex w-full">
+                    <ComboBox
+                      menus={menuFreestyleSinceWithUnspecified}
+                      value={userInfo.freestyleSince ? userInfo.freestyleSince.toString() : menuFreestyleSinceWithUnspecified[0].value}
+                      onChange={(value: any) => {
+                        handleFreestyleSinceChanged(value);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="m-2 grid grid-cols-2">
+                  <div className="p-2">{`T-Shirt Size`}</div>
+                  <div className="flex w-full">
+                    <ComboBox
+                      menus={menuTShirtSizesWithUnspecified}
+                      value={userInfo.tShirtSize ? userInfo.tShirtSize : menuTShirtSizesWithUnspecified[0].value}
+                      onChange={(value: any) => {
+                        handleTShirtSizeChanged(value);
+                      }}
+                    />
+                  </div>
+                </div>
               </>
             )}
-
-            <div className="m-2 grid grid-cols-2">
-              <div className="p-2">{`Freestyle since`}</div>
-              <div className="flex w-full">
-                <ComboBox
-                  menus={menuFreestyleSinceWithUnspecified}
-                  value={userInfo.freestyleSince ? userInfo.freestyleSince.toString() : menuFreestyleSinceWithUnspecified[0].value}
-                  onChange={(value: any) => {
-                    console.log(value);
-                    handleFreestyleSinceChanged(value);
-                  }}
-                />
-              </div>
-            </div>
 
             <TextInput
               id={'instagramHandle'}
@@ -469,19 +508,6 @@ export const TabsMenu = ({ user }: { user: User }) => {
                 handleWebsiteChanged(e.currentTarget.value);
               }}
             />
-
-            {/* <div className="m-2 grid grid-cols-2">
-              <div className="p-2">T-Shirt Size</div>
-              <div className="flex w-full">
-                <ComboBox
-                  menus={menuTShirtSizesWithUnspecified}
-                  value={userInfo.tShirtSize ? userInfo.tShirtSize : menuTShirtSizesWithUnspecified[0].value}
-                  onChange={(value: any) => {
-                    handleTShirtSizeChanged(value);
-                  }}
-                />
-              </div>
-            </div> */}
           </div>
         </TabsContent>
 

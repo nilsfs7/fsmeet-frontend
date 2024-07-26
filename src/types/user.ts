@@ -1,4 +1,3 @@
-import { Gender } from './enums/gender';
 import { UserType } from './enums/user-type';
 import { UserVerificationState } from './enums/user-verification-state';
 
@@ -11,12 +10,14 @@ export type User = {
   nickName?: string;
   gender?: string;
   country?: string;
+  age?: number;
   freestyleSince?: number;
   instagramHandle?: string;
   tikTokHandle?: string;
   youTubeHandle?: string;
   website?: string;
   verificationState?: UserVerificationState;
+  birthday?: string;
   tShirtSize?: string;
   houseNumber?: string;
   street?: string;
