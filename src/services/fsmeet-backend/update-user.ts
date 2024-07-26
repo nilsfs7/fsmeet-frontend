@@ -16,6 +16,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     youTubeHandle: user.youTubeHandle,
     website: user.website,
     private: {
+      birthday: user.birthday,
       tShirtSize: user.tShirtSize,
       houseNumber: user.houseNumber,
       street: user.street,
