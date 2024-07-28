@@ -43,6 +43,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       jobOfferShows: data.private?.jobOfferShows,
       jobOfferWalkActs: data.private?.jobOfferWalkActs,
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
+      jobShowExperience: data.private?.jobShowExperience,
       phoneNumber: data.private?.phoneNumber,
       wffaId: data.wffaId,
     };

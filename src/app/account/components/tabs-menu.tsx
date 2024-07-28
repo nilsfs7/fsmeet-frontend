@@ -37,6 +37,7 @@ import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/types/consts/menus/menu-t-shirt-sizes';
 import { isDACH } from '@/types/funcs/is-dach';
+import { menuShowExperience } from '@/types/consts/menus/menu-show-experience';
 import { menuPhoneCountryCodesWithUnspecified } from '@/types/consts/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/section-header';
 
@@ -179,6 +180,13 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(newUserInfo);
   };
 
+  const handleShowExperienceChanged = (value: any) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobShowExperience = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
   const handlePhoneCountryCodeChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.phoneCountryCode = +value;
@@ -239,6 +247,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       jobOfferShows: userInfo.jobOfferShows,
       jobOfferWalkActs: userInfo.jobOfferWalkActs,
       jobOfferWorkshops: userInfo.jobOfferWorkshops,
+      jobShowExperience: userInfo.jobShowExperience,
       phoneCountryCode: userInfo.phoneCountryCode,
       phoneNumber: userInfo.phoneNumber,
     };
@@ -675,6 +684,25 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 handlePhoneNumberChanged(e.currentTarget.value);
               }}
             />
+
+            <div className="m-2">
+              <Separator />
+            </div>
+            <div className="mx-2 text-lg underline">{`Other`}</div>
+
+            <div className="m-2 grid grid-cols-2 items-center">
+              <div>{`Experience (Amount Shows)`}</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuShowExperience}
+                  value={userInfo.jobShowExperience ? userInfo.jobShowExperience : menuShowExperience[0].value}
+                  searchEnabled={false}
+                  onChange={(value: any) => {
+                    handleShowExperienceChanged(value);
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </TabsContent>
 

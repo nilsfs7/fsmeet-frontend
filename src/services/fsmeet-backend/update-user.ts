@@ -28,6 +28,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
       jobOfferShows: user.jobOfferShows,
       jobOfferWalkActs: user.jobOfferWalkActs,
       jobOfferWorkshops: user.jobOfferWorkshops,
+      jobShowExperience: user.jobShowExperience,
       phoneCountryCode: user.phoneCountryCode,
       phoneNumber: user.phoneNumber,
     },
@@ -55,6 +56,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     user.jobOfferShows = user.private?.jobOfferShows;
     user.jobOfferWalkActs = user.private?.jobOfferWalkActs;
     user.jobOfferWorkshops = user.private?.jobOfferWorkshops;
+    user.jobShowExperience = user.private?.jobShowExperience;
     user.phoneCountryCode = user.private?.phoneCountryCode;
     user.phoneNumber = user.private?.phoneNumber;
 

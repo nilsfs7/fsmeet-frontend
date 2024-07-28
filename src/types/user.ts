@@ -1,3 +1,4 @@
+import { ShowExperience } from './enums/show-experience';
 import { UserType } from './enums/user-type';
 import { UserVerificationState } from './enums/user-verification-state';
 
@@ -29,6 +30,7 @@ export type User = {
   jobOfferShows?: boolean;
   jobOfferWalkActs?: boolean;
   jobOfferWorkshops?: boolean;
+  jobShowExperience?: ShowExperience;
   phoneCountryCode?: number;
   phoneNumber?: number;
   wffaId?: string;
