@@ -376,15 +376,6 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             {`General Info`}
           </TabsTrigger>
 
-          {/* <TabsTrigger
-            value="socials"
-            onClick={() => {
-              switchTab(router, 'socials');
-            }}
-          >
-            {`Socials`}
-          </TabsTrigger> */}
-
           <TabsTrigger
             value="map"
             onClick={() => {
@@ -450,8 +441,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   }}
                 />
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`Gender`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Gender`}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuGenderWithUnspecified}
@@ -463,8 +454,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 </div>
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`Country`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Country`}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuCountriesWithUnspecified}
@@ -477,8 +468,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 </div>
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`Birthday`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Birthday`}</div>
                   <DatePicker
                     date={moment(userInfo.birthday)}
                     onChange={(value) => {
@@ -487,8 +478,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   />
                 </div>
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`Freestyle since`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Freestyle since`}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuFreestyleSinceWithUnspecified}
@@ -500,8 +491,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 </div>
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`T-Shirt Size`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`T-Shirt Size`}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuTShirtSizesWithUnspecified}
@@ -584,9 +575,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             />
 
             {userInfo.exposeLocation && userInfo.locLatitude && userInfo.locLongitude && (
-              <div className="m-2 flex place-items-start items-center">
+              <div className="m-2 flex place-items-start gap-2 items-center">
                 <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}`}>
-                  <div className="p-2 hover:underline">{'Show my pin'}</div>
+                  <div className="hover:underline">{'Show my pin'}</div>
                 </Link>
 
                 <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}`}>
@@ -600,8 +591,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Jobs */}
         <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
           <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-            <div className="m-2 grid grid-cols-2">
-              <div className="p-2">{`Phone Country Code`}</div>
+            <div className="m-2 grid grid-cols-2 items-center">
+              <div>{`Phone Country Code`}</div>
               <div className="flex w-full">
                 <ComboBox
                   menus={menuPhoneCountryCodesWithUnspecified}
