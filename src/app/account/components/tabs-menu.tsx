@@ -37,10 +37,6 @@ import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/types/consts/menus/menu-t-shirt-sizes';
 import { isDACH } from '@/types/funcs/is-dach';
-import CurInput from '@/components/common/CurrencyInput';
-import { menuMobility } from '@/types/consts/menus/menu-mobility';
-import { menuShowExperience } from '@/types/consts/menus/menu-show-experience';
-import { menuTravelDistance } from '@/types/consts/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/types/consts/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/section-header';
 
