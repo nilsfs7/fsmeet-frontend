@@ -39,6 +39,7 @@ export async function getUsers(): Promise<User[]> {
       jobOfferShows: data.private?.jobOfferShows,
       jobOfferWalkActs: data.private?.jobOfferWalkActs,
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
+      jobShowExperience: data.private?.jobShowExperience,
       phoneCountryCode: data.private?.phoneCountryCode,
       phoneNumber: data.private?.phoneNumber,
       wffaId: data.wffaId,
