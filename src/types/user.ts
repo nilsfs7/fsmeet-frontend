@@ -26,5 +26,7 @@ export type User = {
   exposeLocation?: boolean;
   locLatitude?: number;
   locLongitude?: number;
+  phoneCountryCode?: number;
+  phoneNumber?: number;
   wffaId?: string;
 };

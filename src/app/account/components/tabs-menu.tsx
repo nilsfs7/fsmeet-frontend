@@ -36,6 +36,12 @@ import { menuFreestyleSinceWithUnspecified } from '@/types/consts/menus/menu-fre
 import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/types/consts/menus/menu-t-shirt-sizes';
+import { isDACH } from '@/types/funcs/is-dach';
+import CurInput from '@/components/common/CurrencyInput';
+import { menuMobility } from '@/types/consts/menus/menu-mobility';
+import { menuShowExperience } from '@/types/consts/menus/menu-show-experience';
+import { menuTravelDistance } from '@/types/consts/menus/menu-travel-distance';
+import { menuPhoneCountryCodesWithUnspecified } from '@/types/consts/menus/menu-phone-county-codes';
 
 interface ITabsMenu {
   user: User;
@@ -155,6 +161,24 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(newUserInfo);
   };
 
+  const handlePhoneCountryCodeChanged = (value: string) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.phoneCountryCode = +value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handlePhoneNumberChanged = (value: string) => {
+    const regex = new RegExp('^[0-9]+$');
+
+    if (regex.test(value)) {
+      const newUserInfo = Object.assign({}, userInfo);
+      newUserInfo.phoneNumber = +value;
+      setUserInfo(newUserInfo);
+      cacheUserInfo(newUserInfo);
+    }
+  };
+
   const cacheUserInfo = async (userInfo: User) => {
     let firstNameAdjusted = userInfo.firstName;
     let lastNameAdjusted = userInfo.lastName;
@@ -194,6 +218,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       exposeLocation: userInfo.exposeLocation,
       locLatitude: userInfo.locLatitude,
       locLongitude: userInfo.locLongitude,
+      phoneCountryCode: userInfo.phoneCountryCode,
+      phoneNumber: userInfo.phoneNumber,
     };
 
     try {
@@ -350,6 +376,15 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             {`General Info`}
           </TabsTrigger>
 
+          {/* <TabsTrigger
+            value="socials"
+            onClick={() => {
+              switchTab(router, 'socials');
+            }}
+          >
+            {`Socials`}
+          </TabsTrigger> */}
+
           <TabsTrigger
             value="map"
             onClick={() => {
@@ -358,6 +393,17 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
           >
             {`Freestyler Map`}
           </TabsTrigger>
+
+          {isDACH(userInfo.country || '') && (
+            <TabsTrigger
+              value="jobs"
+              onClick={() => {
+                switchTab(router, 'jobs');
+              }}
+            >
+              {`Jobs (upcoming)`}
+            </TabsTrigger>
+          )}
 
           <TabsTrigger
             value="account"
@@ -469,6 +515,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               </>
             )}
 
+            <div className="px-2">
+              <Separator />
+            </div>
+
             <TextInput
               id={'instagramHandle'}
               label={'Instagram Handle'}
@@ -544,6 +594,37 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </Link>
               </div>
             )}
+          </div>
+        </TabsContent>
+
+        {/* Jobs */}
+        <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
+          <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <div className="m-2 grid grid-cols-2">
+              <div className="p-2">{`Phone Country Code`}</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuPhoneCountryCodesWithUnspecified}
+                  value={userInfo.phoneCountryCode ? userInfo.phoneCountryCode.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                  searchEnabled={true}
+                  onChange={(value: any) => {
+                    handlePhoneCountryCodeChanged(value);
+                  }}
+                />
+              </div>
+            </div>
+
+            <TextInput
+              id={'phoneNumber'}
+              label={'Phone Number'}
+              labelOnTop={false}
+              type="tel"
+              placeholder="1516 123456"
+              value={userInfo.phoneNumber?.toString()}
+              onChange={(e) => {
+                handlePhoneNumberChanged(e.currentTarget.value);
+              }}
+            />
           </div>
         </TabsContent>
 
