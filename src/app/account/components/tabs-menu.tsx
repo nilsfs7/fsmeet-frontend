@@ -42,6 +42,7 @@ import { menuMobility } from '@/types/consts/menus/menu-mobility';
 import { menuShowExperience } from '@/types/consts/menus/menu-show-experience';
 import { menuTravelDistance } from '@/types/consts/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/types/consts/menus/menu-phone-county-codes';
+import SectionHeader from '@/components/common/section-header';
 
 interface ITabsMenu {
   user: User;
@@ -409,6 +410,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* General */}
         <TabsContent value="general" className="overflow-hidden overflow-y-auto">
           <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <SectionHeader label={`General`} />
+
             <TextInput
               id={'firstName'}
               label={getLabelForFirstName(userInfo.type)}
@@ -505,10 +508,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </div>
               </>
             )}
-
-            <div className="px-2">
+            <div className="m-2">
               <Separator />
             </div>
+            <SectionHeader label={`Socials`} />
 
             <TextInput
               id={'instagramHandle'}
@@ -555,6 +558,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Freestyler Map */}
         <TabsContent value="map" className="overflow-hidden overflow-y-auto">
           <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <SectionHeader label={`Location`} />
+
             <TextInput
               id={'city'}
               label={'City'}
@@ -591,6 +596,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Jobs */}
         <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
           <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <div className="mx-2 text-lg underline">{`Contact`}</div>
+
             <div className="m-2 grid grid-cols-2 items-center">
               <div>{`Phone Country Code`}</div>
               <div className="flex w-full">
@@ -637,7 +644,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               )}
             </div>
 
-            <div className="my-4">
+            <div className="m-2">
               <Separator />
             </div>
 

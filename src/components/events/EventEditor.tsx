@@ -15,6 +15,10 @@ import CurInput from '../common/CurrencyInput';
 import { EventState } from '@/types/enums/event-state';
 import { DatePicker } from '../common/DatePicker';
 import { EditorMode } from '@/types/enums/editor-mode';
+import Separator from '../Seperator';
+import SectionHeader from '../common/section-header';
+import Link from 'next/link';
+import { routeEvents } from '@/types/consts/routes';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -173,6 +177,8 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
+      <SectionHeader label={`General`} />
+
       <TextInput
         id={'name'}
         label={'Event Name'}
@@ -182,6 +188,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           setEventName(e.currentTarget.value);
         }}
       />
+
       <TextInput
         id={'alias'}
         label={'Event Alias'}
@@ -191,6 +198,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           handleInputChangeAlias(e);
         }}
       />
+
       <div className="m-2 grid grid-cols-2">
         <div>{`Type`}</div>
         <div className="flex w-full">
@@ -206,6 +214,18 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find((item) => item.value === eventType)?.text}</div>}
         </div>
       </div>
+
+      {event?.state && (
+        <div className="m-2 grid grid-cols-2 items-center">
+          <div>{'Event State'}</div>
+          <Link href={`${routeEvents}/${event.id}?state=1`}>
+            <label id={'eventState'} className="w-full hover:underline">
+              {(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}
+            </label>
+          </Link>
+        </div>
+      )}
+
       <TextInputLarge
         id={'description'}
         label={'Event Description'}
@@ -216,6 +236,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           setDescription(e.currentTarget.value);
         }}
       />
+
       <div className="m-2 grid grid-cols-2">
         <div>{`Date From`}</div>
         <DatePicker
@@ -227,6 +248,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           }}
         />
       </div>
+
       <div className="m-2 grid grid-cols-2">
         <div>{`Date To`}</div>
         <DatePicker
@@ -238,6 +260,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           }}
         />
       </div>
+
       <div className="m-2 grid grid-cols-2">
         <div>{`Registration Open`}</div>
         <DatePicker
@@ -249,6 +272,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           }}
         />
       </div>
+
       <div className="m-2 grid grid-cols-2">
         <div>{`Registration Deadline`}</div>
         <DatePicker
@@ -260,7 +284,22 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           }}
         />
       </div>
-      {/* venue address */}
+
+      <TextInput
+        id={'livestreamUrl'}
+        label={'Livestream URL'}
+        placeholder="https://www.youtube.com/watch?v=gwiE0fXnByg"
+        value={livestreamUrl}
+        onChange={(e) => {
+          setLivestreamUrl(e.currentTarget.value);
+        }}
+      />
+
+      <div className="m-2">
+        <Separator />
+      </div>
+      <SectionHeader label={`Location`} />
+
       {eventType != EventType.COMPETITION_ONLINE && (
         <>
           <TextInput
@@ -314,15 +353,11 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           />
         </>
       )}
-      <TextInput
-        id={'livestreamUrl'}
-        label={'Livestream URL'}
-        placeholder="https://www.youtube.com/watch?v=gwiE0fXnByg"
-        value={livestreamUrl}
-        onChange={(e) => {
-          setLivestreamUrl(e.currentTarget.value);
-        }}
-      />
+
+      <div className="m-2">
+        <Separator />
+      </div>
+      <SectionHeader label={`Payment`} />
 
       <CurInput
         id={'participationFee'}
@@ -437,6 +472,12 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           )}
         </>
       )}
+
+      <div className="m-2">
+        <Separator />
+      </div>
+      <SectionHeader label={`Other`} />
+
       <CheckBox
         id={'autoApproveRegistrations'}
         label="Auto Approve Registrations"
@@ -471,15 +512,6 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           }}
         />
       )}
-
-      {/* {event?.state && (
-        <div className="m-2 grid grid-cols-2 place-items-start items-center">
-          <div className="p-2">{'Event State'}</div>
-          <label id={'eventState'} className="w-full">
-            {(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}
-          </label>
-        </div>
-      )} */}
     </div>
   );
 };
