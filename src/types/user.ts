@@ -26,5 +26,10 @@ export type User = {
   exposeLocation?: boolean;
   locLatitude?: number;
   locLongitude?: number;
+  jobOfferShows?: boolean;
+  jobOfferWalkActs?: boolean;
+  jobOfferWorkshops?: boolean;
+  phoneCountryCode?: number;
+  phoneNumber?: number;
   wffaId?: string;
 };

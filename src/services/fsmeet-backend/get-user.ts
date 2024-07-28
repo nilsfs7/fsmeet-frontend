@@ -39,6 +39,11 @@ export async function getUser(username: string, session?: Session | null): Promi
       exposeLocation: data.private?.exposeLocation,
       locLatitude: data.private?.locLatitude,
       locLongitude: data.private?.locLongitude,
+      phoneCountryCode: data.private?.phoneCountryCode,
+      jobOfferShows: data.private?.jobOfferShows,
+      jobOfferWalkActs: data.private?.jobOfferWalkActs,
+      jobOfferWorkshops: data.private?.jobOfferWorkshops,
+      phoneNumber: data.private?.phoneNumber,
       wffaId: data.wffaId,
     };
 

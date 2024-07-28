@@ -36,6 +36,9 @@ import { menuFreestyleSinceWithUnspecified } from '@/types/consts/menus/menu-fre
 import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/types/consts/menus/menu-t-shirt-sizes';
+import { isDACH } from '@/types/funcs/is-dach';
+import { menuPhoneCountryCodesWithUnspecified } from '@/types/consts/menus/menu-phone-county-codes';
+import SectionHeader from '@/components/common/section-header';
 
 interface ITabsMenu {
   user: User;
@@ -155,6 +158,45 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(newUserInfo);
   };
 
+  const handleOfferShowsChanged = (value: boolean) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobOfferShows = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handleOfferWalkActsChanged = (value: boolean) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobOfferWalkActs = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handleOfferWorkshopsChanged = (value: boolean) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobOfferWorkshops = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handlePhoneCountryCodeChanged = (value: string) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.phoneCountryCode = +value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handlePhoneNumberChanged = (value: string) => {
+    const regex = new RegExp('^[0-9]+$');
+
+    if (regex.test(value)) {
+      const newUserInfo = Object.assign({}, userInfo);
+      newUserInfo.phoneNumber = +value;
+      setUserInfo(newUserInfo);
+      cacheUserInfo(newUserInfo);
+    }
+  };
+
   const cacheUserInfo = async (userInfo: User) => {
     let firstNameAdjusted = userInfo.firstName;
     let lastNameAdjusted = userInfo.lastName;
@@ -194,6 +236,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       exposeLocation: userInfo.exposeLocation,
       locLatitude: userInfo.locLatitude,
       locLongitude: userInfo.locLongitude,
+      jobOfferShows: userInfo.jobOfferShows,
+      jobOfferWalkActs: userInfo.jobOfferWalkActs,
+      jobOfferWorkshops: userInfo.jobOfferWorkshops,
+      phoneCountryCode: userInfo.phoneCountryCode,
+      phoneNumber: userInfo.phoneNumber,
     };
 
     try {
@@ -359,6 +406,17 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             {`Freestyler Map`}
           </TabsTrigger>
 
+          {isDACH(userInfo.country || '') && (
+            <TabsTrigger
+              value="jobs"
+              onClick={() => {
+                switchTab(router, 'jobs');
+              }}
+            >
+              {`Jobs (upcoming)`}
+            </TabsTrigger>
+          )}
+
           <TabsTrigger
             value="account"
             onClick={() => {
@@ -372,6 +430,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* General */}
         <TabsContent value="general" className="overflow-hidden overflow-y-auto">
           <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <SectionHeader label={`General`} />
+
             <TextInput
               id={'firstName'}
               label={getLabelForFirstName(userInfo.type)}
@@ -404,8 +464,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   }}
                 />
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`Gender`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Gender`}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuGenderWithUnspecified}
@@ -417,8 +477,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 </div>
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`Country`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Country`}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuCountriesWithUnspecified}
@@ -431,8 +491,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 </div>
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`Birthday`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Birthday`}</div>
                   <DatePicker
                     date={moment(userInfo.birthday)}
                     onChange={(value) => {
@@ -441,8 +501,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   />
                 </div>
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`Freestyle since`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Freestyle since`}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuFreestyleSinceWithUnspecified}
@@ -454,8 +514,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 </div>
 
-                <div className="m-2 grid grid-cols-2">
-                  <div className="p-2">{`T-Shirt Size`}</div>
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`T-Shirt Size`}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuTShirtSizesWithUnspecified}
@@ -468,6 +528,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </div>
               </>
             )}
+            <div className="m-2">
+              <Separator />
+            </div>
+            <SectionHeader label={`Socials`} />
 
             <TextInput
               id={'instagramHandle'}
@@ -514,6 +578,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Freestyler Map */}
         <TabsContent value="map" className="overflow-hidden overflow-y-auto">
           <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <SectionHeader label={`Location`} />
+
             <TextInput
               id={'city'}
               label={'City'}
@@ -534,9 +600,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             />
 
             {userInfo.exposeLocation && userInfo.locLatitude && userInfo.locLongitude && (
-              <div className="m-2 flex place-items-start items-center">
+              <div className="m-2 flex place-items-start gap-2 items-center">
                 <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}`}>
-                  <div className="p-2 hover:underline">{'Show my pin'}</div>
+                  <div className="hover:underline">{'Show my pin'}</div>
                 </Link>
 
                 <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}`}>
@@ -544,6 +610,71 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </Link>
               </div>
             )}
+          </div>
+        </TabsContent>
+
+        {/* Jobs */}
+        <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
+          <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <div className="mx-2 text-lg underline">{`Offer`}</div>
+
+            <CheckBox
+              id={'offeringShow'}
+              label="Shows"
+              value={userInfo.jobOfferShows}
+              onChange={(e) => {
+                handleOfferShowsChanged(!userInfo.jobOfferShows);
+              }}
+            />
+
+            <CheckBox
+              id={'offeringWalkAct'}
+              label="Walk Acts"
+              value={userInfo.jobOfferWalkActs}
+              onChange={(e) => {
+                handleOfferWalkActsChanged(!userInfo.jobOfferWalkActs);
+              }}
+            />
+
+            <CheckBox
+              id={'offeringWorkshop'}
+              label="Workshops"
+              value={userInfo.jobOfferWorkshops}
+              onChange={(e) => {
+                handleOfferWorkshopsChanged(!userInfo.jobOfferWorkshops);
+              }}
+            />
+
+            <div className="m-2">
+              <Separator />
+            </div>
+            <div className="mx-2 text-lg underline">{`Contact`}</div>
+
+            <div className="m-2 grid grid-cols-2 items-center">
+              <div>{`Phone Country Code`}</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuPhoneCountryCodesWithUnspecified}
+                  value={userInfo.phoneCountryCode ? userInfo.phoneCountryCode.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                  searchEnabled={true}
+                  onChange={(value: any) => {
+                    handlePhoneCountryCodeChanged(value);
+                  }}
+                />
+              </div>
+            </div>
+
+            <TextInput
+              id={'phoneNumber'}
+              label={'Phone Number'}
+              labelOnTop={false}
+              type="tel"
+              placeholder="1516 123456"
+              value={userInfo.phoneNumber?.toString()}
+              onChange={(e) => {
+                handlePhoneNumberChanged(e.currentTarget.value);
+              }}
+            />
           </div>
         </TabsContent>
 
@@ -565,7 +696,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               )}
             </div>
 
-            <div className="my-4">
+            <div className="m-2">
               <Separator />
             </div>
 

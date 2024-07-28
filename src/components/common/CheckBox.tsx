@@ -8,7 +8,7 @@ interface ICheckBoxInput {
 const CheckBox = ({ id, label, value, onChange }: ICheckBoxInput) => {
   return (
     <div className="m-2 grid grid-cols-2 place-items-start items-center">
-      <div className="p-2">{label}</div>
+      <div className="py-1">{label}</div>
       <input id={id} className="h-4 w-4" type="checkbox" checked={value} onChange={onChange} />
     </div>
   );
