@@ -162,6 +162,27 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(newUserInfo);
   };
 
+  const handleOfferShowsChanged = (value: boolean) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobOfferShows = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handleOfferWalkActsChanged = (value: boolean) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobOfferWalkActs = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handleOfferWorkshopsChanged = (value: boolean) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobOfferWorkshops = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
   const handlePhoneCountryCodeChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.phoneCountryCode = +value;
@@ -219,6 +240,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       exposeLocation: userInfo.exposeLocation,
       locLatitude: userInfo.locLatitude,
       locLongitude: userInfo.locLongitude,
+      jobOfferShows: userInfo.jobOfferShows,
+      jobOfferWalkActs: userInfo.jobOfferWalkActs,
+      jobOfferWorkshops: userInfo.jobOfferWorkshops,
       phoneCountryCode: userInfo.phoneCountryCode,
       phoneNumber: userInfo.phoneNumber,
     };
@@ -596,6 +620,38 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Jobs */}
         <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
           <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+            <div className="mx-2 text-lg underline">{`Offer`}</div>
+
+            <CheckBox
+              id={'offeringShow'}
+              label="Shows"
+              value={userInfo.jobOfferShows}
+              onChange={(e) => {
+                handleOfferShowsChanged(!userInfo.jobOfferShows);
+              }}
+            />
+
+            <CheckBox
+              id={'offeringWalkAct'}
+              label="Walk Acts"
+              value={userInfo.jobOfferWalkActs}
+              onChange={(e) => {
+                handleOfferWalkActsChanged(!userInfo.jobOfferWalkActs);
+              }}
+            />
+
+            <CheckBox
+              id={'offeringWorkshop'}
+              label="Workshops"
+              value={userInfo.jobOfferWorkshops}
+              onChange={(e) => {
+                handleOfferWorkshopsChanged(!userInfo.jobOfferWorkshops);
+              }}
+            />
+
+            <div className="m-2">
+              <Separator />
+            </div>
             <div className="mx-2 text-lg underline">{`Contact`}</div>
 
             <div className="m-2 grid grid-cols-2 items-center">

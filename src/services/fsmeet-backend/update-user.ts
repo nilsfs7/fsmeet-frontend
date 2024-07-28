@@ -25,6 +25,9 @@ export async function updateUser(user: User, session: Session | null): Promise<U
       exposeLocation: user.exposeLocation,
       locLatitude: user.locLatitude,
       locLongitude: user.locLongitude,
+      jobOfferShows: user.jobOfferShows,
+      jobOfferWalkActs: user.jobOfferWalkActs,
+      jobOfferWorkshops: user.jobOfferWorkshops,
       phoneCountryCode: user.phoneCountryCode,
       phoneNumber: user.phoneNumber,
     },
@@ -49,6 +52,9 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     user.exposeLocation = user.private?.exposeLocation;
     user.locLatitude = user.private?.locLatitude;
     user.locLongitude = user.private?.locLongitude;
+    user.jobOfferShows = user.private?.jobOfferShows;
+    user.jobOfferWalkActs = user.private?.jobOfferWalkActs;
+    user.jobOfferWorkshops = user.private?.jobOfferWorkshops;
     user.phoneCountryCode = user.private?.phoneCountryCode;
     user.phoneNumber = user.private?.phoneNumber;
 
