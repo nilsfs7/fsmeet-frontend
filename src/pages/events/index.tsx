@@ -57,6 +57,8 @@ const EventsOverview = ({ session }: { session: any }) => {
           <div className="mx-2">{`From`}</div>
           <DatePicker
             date={dateFrom}
+            fromDate={moment().subtract(2, 'y')}
+            toDate={dateTo}
             onChange={(newDate) => {
               handleDateFromChanged(newDate);
             }}
@@ -67,6 +69,8 @@ const EventsOverview = ({ session }: { session: any }) => {
           <div className="mx-2">{`To`}</div>
           <DatePicker
             date={dateTo}
+            fromDate={dateFrom}
+            toDate={moment().add(2, 'y')}
             onChange={(newDate) => {
               hanldeDateToChanged(newDate);
             }}

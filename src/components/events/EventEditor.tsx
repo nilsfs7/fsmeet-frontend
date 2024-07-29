@@ -241,6 +241,8 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         <div>{`Date From`}</div>
         <DatePicker
           date={moment(dateFrom)}
+          fromDate={moment(2020)}
+          toDate={moment().add(2, 'y')}
           onChange={(value) => {
             if (value) {
               setDateFrom(value.startOf('day').utc().format());
@@ -253,6 +255,8 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         <div>{`Date To`}</div>
         <DatePicker
           date={moment(dateTo)}
+          fromDate={moment(2020)}
+          toDate={moment().add(2, 'y')}
           onChange={(value) => {
             if (value) {
               setDateTo(value.endOf('day').utc().format());
@@ -265,6 +269,8 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         <div>{`Registration Open`}</div>
         <DatePicker
           date={moment(registrationOpen)}
+          fromDate={moment(2020)}
+          toDate={moment().add(2, 'y')}
           onChange={(value) => {
             if (value) {
               setRegistrationOpen(value.startOf('day').utc().format());
@@ -277,6 +283,8 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         <div>{`Registration Deadline`}</div>
         <DatePicker
           date={moment(registrationDeadline)}
+          fromDate={moment(2020)}
+          toDate={moment().add(2, 'y')}
           onChange={(value) => {
             if (value) {
               setRegistrationDeadline(value.endOf('day').utc().format());
