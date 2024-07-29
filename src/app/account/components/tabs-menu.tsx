@@ -36,7 +36,6 @@ import { menuFreestyleSinceWithUnspecified } from '@/types/consts/menus/menu-fre
 import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/types/consts/menus/menu-t-shirt-sizes';
-import { isDACH } from '@/types/funcs/is-dach';
 import { menuShowExperience } from '@/types/consts/menus/menu-show-experience';
 import { menuPhoneCountryCodesWithUnspecified } from '@/types/consts/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/section-header';
@@ -159,6 +158,14 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(newUserInfo);
   };
 
+  const handleAcceptTermsChanged = (value: boolean) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobAcceptTerms = value;
+    setUserInfo(newUserInfo);
+    console.log(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
   const handleOfferShowsChanged = (value: boolean) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.jobOfferShows = value;
@@ -244,6 +251,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       exposeLocation: userInfo.exposeLocation,
       locLatitude: userInfo.locLatitude,
       locLongitude: userInfo.locLongitude,
+      jobAcceptTerms: userInfo.jobAcceptTerms,
       jobOfferShows: userInfo.jobOfferShows,
       jobOfferWalkActs: userInfo.jobOfferWalkActs,
       jobOfferWorkshops: userInfo.jobOfferWorkshops,
@@ -258,6 +266,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       toast.error('error.message');
       console.error('error.message');
     }
+  };
+
+  const handleTermsAndConditionsClicked = async () => {
+    router.replace(`${routeAccount}?tab=jobs&terms=1`);
   };
 
   const handleDeleteAccountClicked = async () => {
@@ -329,6 +341,52 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   return (
     <>
       <Toaster richColors />
+
+      <Dialog title="Terms And Conditions" queryParam="terms" onCancel={handleCancelDialogClicked}>
+        <p className="mb-4">{`Last updated: July 29, 2024.`}</p>
+
+        <div className="flex flex-col justify-center text-start">
+          <p className="text-lg font-bold">{`Jobs feature`}</p>
+          <p>{`In the past, we took note of some looking for freestylers for their events here on FSMeet. We would like to enable you as freestyler to promote yourself.`}</p>
+          <p className="mt-2">{`Soon, we will release a new feature helping to connect freestylers and clients and further improve everyone's experience. Become part of a public pool of freestylers offering services like shows, workshops and more. Effortlessly share necessary information, so clients can directly contact you and find freestylers that fit their needs.`}</p>
+          <p className="mt-2">{`As any feature on FSMeet this is a free service.`}</p>
+        </div>
+
+        <div className="my-2">
+          <Separator />
+        </div>
+
+        <div className="flex flex-col justify-center text-start">
+          <p className="text-lg font-bold">{`Data sharing`}</p>
+          <p>{`As stated above, your account will become part of a public pool of freestylers clients can pick from. Only basic information is required to be listed. However, as clients can pick freestylers for their event, more detailed information like phone number or email address will be shared automatically on request.`}</p>
+          <p className="mt-2">{`The jobs feature may be integrated across external domains that are owned and part of FSMeet.`}</p>
+          <p className="mt-2">{`If you don't want to be listed, simply uncheck terms and conditions. This will disable sharing off any information regarding jobs. We will never share private information without your approval.`}</p>
+        </div>
+
+        <div className="my-2">
+          <Separator />
+        </div>
+
+        <div className="flex flex-col justify-center text-start">
+          <p className="text-lg font-bold">{`What data will be shared?`}</p>
+          <p>{`Publicly listed:`}</p>
+          <p>{`- First and last name`}</p>
+          <p>{`- Gender`}</p>
+          <p>{`- Nationality`}</p>
+          <p>{`- Age`}</p>
+          <p>{`- City`}</p>
+          <p>{`- Socials (Instagram, TikTok, YouTube)`}</p>
+          <p>{`- Website`}</p>
+          <p>{`- Freestyle since`}</p>
+          <p>{`- Offers (Shows, Walk Acts, Workshops)`}</p>
+          <p>{`- Show experience`}</p>
+
+          <p className="mt-2">{`Shared on request:`}</p>
+          <p>{`- Phone number`}</p>
+          <p>{`- Email address`}</p>
+          <p>{`- T-Shirt Size`}</p>
+        </div>
+      </Dialog>
 
       <Dialog title="Account Verification" queryParam="verification" onCancel={handleCancelDialogClicked}>
         <div className="flex flex-col justify-center text-center">
@@ -415,16 +473,14 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             {`Freestyler Map`}
           </TabsTrigger>
 
-          {isDACH(userInfo.country || '') && (
-            <TabsTrigger
-              value="jobs"
-              onClick={() => {
-                switchTab(router, 'jobs');
-              }}
-            >
-              {`Jobs (upcoming)`}
-            </TabsTrigger>
-          )}
+          <TabsTrigger
+            value="jobs"
+            onClick={() => {
+              switchTab(router, 'jobs');
+            }}
+          >
+            {`Jobs (upcoming)`}
+          </TabsTrigger>
 
           <TabsTrigger
             value="account"
@@ -625,84 +681,107 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Jobs */}
         <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
           <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-            <div className="mx-2 text-lg underline">{`Offer`}</div>
-
-            <CheckBox
-              id={'offeringShow'}
-              label="Shows"
-              value={userInfo.jobOfferShows}
-              onChange={(e) => {
-                handleOfferShowsChanged(!userInfo.jobOfferShows);
-              }}
-            />
-
-            <CheckBox
-              id={'offeringWalkAct'}
-              label="Walk Acts"
-              value={userInfo.jobOfferWalkActs}
-              onChange={(e) => {
-                handleOfferWalkActsChanged(!userInfo.jobOfferWalkActs);
-              }}
-            />
-
-            <CheckBox
-              id={'offeringWorkshop'}
-              label="Workshops"
-              value={userInfo.jobOfferWorkshops}
-              onChange={(e) => {
-                handleOfferWorkshopsChanged(!userInfo.jobOfferWorkshops);
-              }}
-            />
-
-            <div className="m-2">
-              <Separator />
-            </div>
-            <div className="mx-2 text-lg underline">{`Contact`}</div>
+            <div className="mx-2 text-lg underline">{`Terms and Conditions`}</div>
 
             <div className="m-2 grid grid-cols-2 items-center">
-              <div>{`Phone Country Code`}</div>
-              <div className="flex w-full">
-                <ComboBox
-                  menus={menuPhoneCountryCodesWithUnspecified}
-                  value={userInfo.phoneCountryCode ? userInfo.phoneCountryCode.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
-                  searchEnabled={true}
-                  onChange={(value: any) => {
-                    handlePhoneCountryCodeChanged(value);
-                  }}
-                />
-              </div>
+              <div>{`Terms`}</div>
+              <TextButton text="Read Terms" onClick={handleTermsAndConditionsClicked} />
             </div>
 
-            <TextInput
-              id={'phoneNumber'}
-              label={'Phone Number'}
-              labelOnTop={false}
-              type="tel"
-              placeholder="1516 123456"
-              value={userInfo.phoneNumber?.toString()}
+            <CheckBox
+              id={'terms'}
+              label="Accept Terms"
+              value={userInfo.jobAcceptTerms}
               onChange={(e) => {
-                handlePhoneNumberChanged(e.currentTarget.value);
+                handleAcceptTermsChanged(!userInfo.jobAcceptTerms);
               }}
             />
 
-            <div className="m-2">
-              <Separator />
-            </div>
-            <div className="mx-2 text-lg underline">{`Other`}</div>
+            {userInfo.jobAcceptTerms && (
+              <>
+                <div className="m-2">
+                  <Separator />
+                </div>
+                <div className="mx-2 text-lg underline">{`Offer`}</div>
 
-            <div className="m-2 grid grid-cols-2 items-center">
-              <div>{`Experience (Amount Shows)`}</div>
-              <div className="flex w-full">
-                <ComboBox
-                  menus={menuShowExperience}
-                  value={userInfo.jobShowExperience ? userInfo.jobShowExperience : menuShowExperience[0].value}
-                  searchEnabled={false}
-                  onChange={(value: any) => {
-                    handleShowExperienceChanged(value);
+                <CheckBox
+                  id={'offeringShow'}
+                  label="Shows"
+                  value={userInfo.jobOfferShows}
+                  onChange={(e) => {
+                    handleOfferShowsChanged(!userInfo.jobOfferShows);
                   }}
                 />
-              </div>
-            </div>
+
+                <CheckBox
+                  id={'offeringWalkAct'}
+                  label="Walk Acts"
+                  value={userInfo.jobOfferWalkActs}
+                  onChange={(e) => {
+                    handleOfferWalkActsChanged(!userInfo.jobOfferWalkActs);
+                  }}
+                />
+
+                <CheckBox
+                  id={'offeringWorkshop'}
+                  label="Workshops"
+                  value={userInfo.jobOfferWorkshops}
+                  onChange={(e) => {
+                    handleOfferWorkshopsChanged(!userInfo.jobOfferWorkshops);
+                  }}
+                />
+
+                <div className="m-2">
+                  <Separator />
+                </div>
+                <div className="mx-2 text-lg underline">{`Contact`}</div>
+
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Phone Country Code`}</div>
+                  <div className="flex w-full">
+                    <ComboBox
+                      menus={menuPhoneCountryCodesWithUnspecified}
+                      value={userInfo.phoneCountryCode ? userInfo.phoneCountryCode.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                      searchEnabled={true}
+                      onChange={(value: any) => {
+                        handlePhoneCountryCodeChanged(value);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <TextInput
+                  id={'phoneNumber'}
+                  label={'Phone Number'}
+                  labelOnTop={false}
+                  type="tel"
+                  placeholder="1516 123456"
+                  value={userInfo.phoneNumber?.toString()}
+                  onChange={(e) => {
+                    handlePhoneNumberChanged(e.currentTarget.value);
+                  }}
+                />
+
+                <div className="m-2">
+                  <Separator />
+                </div>
+                <div className="mx-2 text-lg underline">{`Other`}</div>
+
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Experience (Amount Shows)`}</div>
+                  <div className="flex w-full">
+                    <ComboBox
+                      menus={menuShowExperience}
+                      value={userInfo.jobShowExperience ? userInfo.jobShowExperience : menuShowExperience[0].value}
+                      searchEnabled={false}
+                      onChange={(value: any) => {
+                        handleShowExperienceChanged(value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </TabsContent>
 

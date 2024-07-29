@@ -27,6 +27,7 @@ export type User = {
   exposeLocation?: boolean;
   locLatitude?: number;
   locLongitude?: number;
+  jobAcceptTerms?: boolean;
   jobOfferShows?: boolean;
   jobOfferWalkActs?: boolean;
   jobOfferWorkshops?: boolean;

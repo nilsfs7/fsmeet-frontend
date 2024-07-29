@@ -40,6 +40,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       locLatitude: data.private?.locLatitude,
       locLongitude: data.private?.locLongitude,
       phoneCountryCode: data.private?.phoneCountryCode,
+      jobAcceptTerms: data.private?.jobAcceptTerms,
       jobOfferShows: data.private?.jobOfferShows,
       jobOfferWalkActs: data.private?.jobOfferWalkActs,
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
