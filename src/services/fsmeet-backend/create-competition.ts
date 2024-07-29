@@ -9,6 +9,7 @@ export async function createCompetition(eventId: string, comp: Competition, sess
     name: comp?.name.trim(),
     type: comp.type,
     gender: comp.gender,
+    maxAge: comp?.maxAge,
     description: comp?.description.trim(),
     rules: comp?.rules.trim(),
   });

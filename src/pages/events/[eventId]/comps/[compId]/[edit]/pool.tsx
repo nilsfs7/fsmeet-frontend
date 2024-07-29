@@ -21,6 +21,7 @@ import { Competition } from '@/types/competition';
 import { CompetitionGender } from '@/types/enums/competition-gender';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
 import { auth } from '@/auth';
+import { MaxAge } from '@/types/enums/max-age';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -91,6 +92,17 @@ const CompetitionPool = (props: any) => {
         if (competition.gender !== CompetitionGender.MIXED) {
           registrations = registrations.filter((registration) => {
             if (registration.user.gender === competition.gender.toString()) {
+              return registration;
+            }
+          });
+        }
+
+        // remove participants exceeding max age
+        if (competition.maxAge !== MaxAge.NONE) {
+          registrations = registrations.filter((registration) => {
+            console.log(registration.user);
+            console.log(competition.maxAge);
+            if (!registration.user.age || registration.user.age <= competition.maxAge) {
               return registration;
             }
           });

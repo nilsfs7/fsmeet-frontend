@@ -60,6 +60,7 @@ const CompetitionDetails = (props: any) => {
             name: comp.name,
             type: comp.type,
             gender: comp.gender,
+            maxAge: comp.maxAge,
             description: comp.description,
             rules: comp.rules,
           };
