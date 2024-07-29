@@ -8,6 +8,8 @@ import { menuCompTypes } from '@/types/consts/menus/menu-comp-types';
 import { EditorMode } from '@/types/enums/editor-mode';
 import { CompetitionGender } from '@/types/enums/competition-gender';
 import { menuCompGenders } from '@/types/consts/menus/menu-comp-genders';
+import { MaxAge } from '@/types/enums/max-age';
+import { menuMaxAge } from '@/types/consts/menus/menu-max-age';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;
@@ -19,6 +21,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
   const [name, setCompName] = useState(comp?.name || '');
   const [compType, setCompType] = useState(comp?.type || CompetitionType.BATTLES);
   const [compGender, setCompGender] = useState(comp?.gender || CompetitionGender.MIXED);
+  const [maxAge, setMaxAge] = useState<MaxAge>(comp?.maxAge || MaxAge.NONE);
   const [description, setDescription] = useState(comp?.description || '');
   const [rules, setRules] = useState(comp?.rules || '');
 
@@ -29,6 +32,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       name: name,
       type: compType,
       gender: compGender,
+      maxAge: maxAge,
       description: description,
       rules: rules,
     });
@@ -40,6 +44,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       setCompName(comp.name);
       setCompType(comp.type);
       setCompGender(comp.gender);
+      setMaxAge(comp.maxAge);
       setDescription(comp.description);
       setRules(comp.rules);
     }
@@ -48,7 +53,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
   // fires comp back
   useEffect(() => {
     updateComp();
-  }, [name, compType, compGender, description, rules]);
+  }, [name, compType, compGender, maxAge, description, rules]);
 
   // if (!name) {
   //   return <LoadingSpinner />;
@@ -66,7 +71,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
         }}
       />
 
-      <div className="m-2 grid grid-cols-2">
+      <div className="m-2 grid grid-cols-2 items-center">
         <div>{`Type`}</div>
 
         <div className="flex w-full">
@@ -83,7 +88,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
         </div>
       </div>
 
-      <div className="m-2 grid grid-cols-2">
+      <div className="m-2 grid grid-cols-2 items-center">
         <div>{`Gender`}</div>
 
         <div className="flex w-full">
@@ -97,6 +102,20 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
             />
           )}
           {editorMode === EditorMode.EDIT && <div>{menuCompGenders.find((item) => item.value === compGender)?.text}</div>}
+        </div>
+      </div>
+
+      <div className="m-2 grid grid-cols-2 items-center">
+        <div>{`Max Age`}</div>
+        <div className="flex w-full">
+          <ComboBox
+            menus={menuMaxAge}
+            value={maxAge ? maxAge.toString() : menuMaxAge[0].value}
+            searchEnabled={false}
+            onChange={(value: any) => {
+              setMaxAge(+value);
+            }}
+          />
         </div>
       </div>
 

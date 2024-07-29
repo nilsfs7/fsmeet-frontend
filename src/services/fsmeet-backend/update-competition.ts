@@ -7,6 +7,7 @@ export async function updateCompetition(comp: Competition, session: Session | nu
   const body = JSON.stringify({
     id: comp.id,
     name: comp?.name.trim(),
+    maxAge: comp?.maxAge,
     description: comp?.description.trim(),
     rules: comp?.rules.trim(),
   });
