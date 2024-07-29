@@ -384,7 +384,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
           <p className="mt-2">{`Shared on request:`}</p>
           <p>{`- Phone number`}</p>
           <p>{`- Email address`}</p>
-          <p>{`- T-Shirt Size`}</p>
+          <p>{`- T-Shirt size`}</p>
         </div>
       </Dialog>
 
@@ -560,6 +560,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <div>{`Birthday`}</div>
                   <DatePicker
                     date={moment(userInfo.birthday)}
+                    fromDate={moment(1970)}
+                    toDate={moment().subtract(6, 'y')}
                     onChange={(value) => {
                       handleBirthdayChanged(value);
                     }}
