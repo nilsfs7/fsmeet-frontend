@@ -30,6 +30,7 @@ import moment from 'moment';
 import { MatchSlot } from '@/types/match-slot';
 import { Toaster, toast } from 'sonner';
 import { auth } from '@/auth';
+import { MaxAge } from '@/types/enums/max-age';
 
 const CompetitionDetails = (props: any) => {
   const session = props.session;
@@ -234,10 +235,10 @@ const CompetitionDetails = (props: any) => {
       <Toaster richColors />
 
       <div className="h-[calc(100dvh)] flex flex-col">
-        {/* @ts-ignore TODO: remove, comp name should never be empty */}
-        <PageTitle title={comp?.name} />
+        <PageTitle title={comp?.name || ''} />
 
         <div className="mx-2 overflow-hidden">
+          {/* TODO: comp serverseitig laden und tabs so wählen ->    {tab || rounds.length > 0 ? `schedule`: `info`} */}
           <Tabs defaultValue={tab || `schedule`} className="flex flex-col h-full">
             <TabsList className="mb-2">
               {rounds.length > 0 && (
@@ -260,6 +261,14 @@ const CompetitionDetails = (props: any) => {
                   {`Battle Grid`}
                 </TabsTrigger>
               )}
+              <TabsTrigger
+                value="info"
+                onClick={() => {
+                  switchTab_pages(router, 'info');
+                }}
+              >
+                {`Info`}
+              </TabsTrigger>
               {competitionParticipants.length > 0 && (
                 <TabsTrigger
                   value="participants"
@@ -268,16 +277,6 @@ const CompetitionDetails = (props: any) => {
                   }}
                 >
                   {`Participants`}
-                </TabsTrigger>
-              )}
-              {(comp?.description || comp?.rules) && (
-                <TabsTrigger
-                  value="rules"
-                  onClick={() => {
-                    switchTab_pages(router, 'rules');
-                  }}
-                >
-                  {`Rules`}
                 </TabsTrigger>
               )}
             </TabsList>
@@ -311,33 +310,52 @@ const CompetitionDetails = (props: any) => {
               </TabsContent>
             )}
 
+            {/* Info */}
+            <TabsContent value="info" className="overflow-hidden overflow-y-auto">
+              <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
+                <div className="m-2">
+                  <div className="text-base font-bold">{`General Info`}</div>
+
+                  <div className="grid grid-cols-2 gap-4 w-fit">
+                    <div>
+                      <div>{`Competition Type`}</div>
+                      <div>{`Gender`}</div>
+                      <div>{`Maximum Age`}</div>
+                    </div>
+                    <div className="capitalize">
+                      <div>{comp?.type}</div>
+                      <div>{comp?.gender}</div>
+                      <div>{comp?.maxAge !== MaxAge.NONE ? comp?.maxAge : `none`}</div>
+                    </div>
+                  </div>
+                </div>
+
+                {comp?.description && (
+                  <>
+                    <Separator />
+                    <div className="m-2">
+                      <div className="text-base font-bold">Description</div>
+                      <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-none" value={comp.description} />
+                    </div>
+                  </>
+                )}
+
+                {comp?.rules && (
+                  <>
+                    <Separator />
+                    <div className="m-2">
+                      <div className="text-base font-bold">Rules</div>
+                      <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-none" value={comp.rules} />
+                    </div>
+                  </>
+                )}
+              </div>
+            </TabsContent>
+
             {/* Participants */}
             {competitionParticipants.length > 0 && (
               <TabsContent value="participants" className="overflow-hidden overflow-y-auto">
                 <ParticipantList participants={competitionParticipants} />
-              </TabsContent>
-            )}
-
-            {/* Rules */}
-            {(comp?.description || comp?.rules) && (
-              <TabsContent value="rules" className="overflow-hidden overflow-y-auto">
-                <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
-                  {comp.description && (
-                    <div>
-                      <div className="text-base font-bold">Description</div>
-                      <TextareaAutosize readOnly className="w-full p-2 resize-none bg-transparent outline-none" value={comp.description} />
-                    </div>
-                  )}
-
-                  {comp.description && comp.rules && <Separator />}
-
-                  {comp.rules && (
-                    <div className={`${comp.description ? 'mt-2' : ''}`}>
-                      <div className="text-base font-bold">Rules</div>
-                      <TextareaAutosize readOnly className="w-full p-2 resize-none bg-transparent outline-none" value={comp.rules} />
-                    </div>
-                  )}
-                </div>
               </TabsContent>
             )}
           </Tabs>
