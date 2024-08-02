@@ -14,6 +14,7 @@ import { Toaster, toast } from 'sonner';
 import { GetServerSidePropsContext } from 'next';
 import { auth } from '@/auth';
 import { validateSession } from '@/types/funcs/validate-session';
+import PageTitle from '@/components/PageTitle';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');
@@ -65,6 +66,8 @@ const AccountImage = ({ session }: any) => {
       <Toaster richColors />
 
       <div className="h-[calc(100dvh)] flex flex-col">
+        <PageTitle title="Account Settings" />
+
         <div className="flex justify-center py-2">
           <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserDefaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-primary" />
         </div>

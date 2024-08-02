@@ -28,7 +28,6 @@ export default async function Account() {
       <div className="mx-2 flex flex-col overflow-auto">
         <ProfilePicture />
 
-        <div className="my-4" />
         <div className="flex flex-col overflow-hidden">
           <div className={'flex flex-col items-center overflow-auto'}>
             <TabsMenu user={user} />

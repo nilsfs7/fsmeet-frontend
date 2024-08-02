@@ -37,6 +37,9 @@ import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/types/consts/menus/menu-t-shirt-sizes';
 import { menuShowExperience } from '@/types/consts/menus/menu-show-experience';
+// import CurInput from '@/components/common/CurrencyInput';
+// import { menuMobility } from '@/types/consts/menus/menu-mobility';
+// import { menuTravelDistance } from '@/types/consts/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/types/consts/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/section-header';
 
@@ -342,7 +345,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       <Toaster richColors />
 
       <Dialog title="Terms And Conditions" queryParam="terms" onCancel={handleCancelDialogClicked}>
-        <p className="mb-4">{`Last updated: July 29, 2024.`}</p>
+        <p className="mb-4">{`Last updated: August 02, 2024.`}</p>
 
         <div className="flex flex-col justify-center text-start">
           <p className="text-lg font-bold">{`Jobs feature`}</p>
@@ -357,9 +360,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
         <div className="flex flex-col justify-center text-start">
           <p className="text-lg font-bold">{`Data sharing`}</p>
-          <p>{`As stated above, your account will become part of a public pool of freestylers clients can pick from. Only basic information is required to be listed. However, as clients can pick freestylers for their event, more detailed information like phone number or email address will be shared automatically on request.`}</p>
+          <p>{`Your account will become part of a public pool of freestylers clients can pick from. Only basic information is required to be listed. However, as clients can pick freestylers for their event, more detailed information like phone number or email address will be shared automatically on request.`}</p>
           <p className="mt-2">{`The jobs feature may be integrated across external domains that are owned and part of FSMeet.`}</p>
-          <p className="mt-2">{`If you don't want to be listed, simply uncheck terms and conditions. This will disable sharing off any information regarding jobs. We will never share private information without your approval.`}</p>
+          <p className="mt-2">{`If you don't want to be listed, simply uncheck terms and conditions. This will prevent sharing private information, too. We will never share private information without your approval.`}</p>
         </div>
 
         <div className="my-2">
@@ -781,6 +784,49 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                     />
                   </div>
                 </div>
+
+                {/* <div className="h-min">
+                  <CurInput
+                    id={'minimumPay'}
+                    label={'Minimum Pay'}
+                    labelOnTop={false}
+                    placeholder="300,00"
+                    value={400}
+                    onValueChange={(value, name, values) => {
+                      if (values?.float || values?.float == 0) {
+                        // setParticipationFee(values?.float);
+                      }
+                    }}
+                  />
+                </div>
+
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Travel Distance (km)`}</div>
+                  <div className="flex w-full">
+                    <ComboBox
+                      menus={menuTravelDistance}
+                      value={userInfo.country ? userInfo.country : menuTravelDistance[0].value}
+                      searchEnabled={false}
+                      onChange={(value: any) => {
+                        handleCountryChanged(value);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{`Mobility`}</div>
+                  <div className="flex w-full">
+                    <ComboBox
+                      menus={menuMobility}
+                      value={userInfo.country ? userInfo.country : menuMobility[0].value}
+                      searchEnabled={false}
+                      onChange={(value: any) => {
+                        handleCountryChanged(value);
+                      }}
+                    />
+                  </div>
+                </div> */}
               </>
             )}
           </div>
