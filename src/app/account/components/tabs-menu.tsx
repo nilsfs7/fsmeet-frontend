@@ -754,17 +754,19 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 </div>
 
-                <TextInput
-                  id={'phoneNumber'}
-                  label={'Phone Number'}
-                  labelOnTop={false}
-                  type="tel"
-                  placeholder="1516 123456"
-                  value={userInfo.phoneNumber?.toString()}
-                  onChange={(e) => {
-                    handlePhoneNumberChanged(e.currentTarget.value);
-                  }}
-                />
+                <div className="h-fit" /* fixes safari layouting issue */>
+                  <TextInput
+                    id={'phoneNumber'}
+                    label={'Phone Number'}
+                    labelOnTop={false}
+                    type="tel"
+                    placeholder="1516 123456"
+                    value={userInfo.phoneNumber?.toString()}
+                    onChange={(e) => {
+                      handlePhoneNumberChanged(e.currentTarget.value);
+                    }}
+                  />
+                </div>
 
                 <div className="m-2">
                   <Separator />
