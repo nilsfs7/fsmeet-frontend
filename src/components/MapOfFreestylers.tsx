@@ -3,7 +3,6 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { User } from '@/types/user';
 import { imgFreestyler } from '@/types/consts/images';
 import { routeUsers } from '@/types/consts/routes';
-import { Gender } from '@/types/enums/gender';
 import { UserType } from '@/types/enums/user-type';
 import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
 
