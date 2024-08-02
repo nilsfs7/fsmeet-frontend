@@ -14,11 +14,11 @@ interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (roundIndex: number, roundName: string, roundDate: Moment, advancingTotal: number) => void;
+  onConfirm?: (roundIndex: number, roundName: string, roundDate: string, advancingTotal: number) => void;
   cancelText?: string;
   confirmText?: string;
-  dateFrom: Moment;
-  dateTo: Moment;
+  dateFrom: string;
+  dateTo: string;
 }
 
 const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText, dateFrom, dateTo }: IDialogProps) => {
@@ -31,12 +31,12 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
 
   const [roundName, setRoundName] = useState<string>('');
   const [advancingTotal, setAdvancingTotal] = useState<number>(1);
-  const [roundDate, setRoundDate] = useState<Moment>(dateFrom);
+  const [roundDate, setRoundDate] = useState<string>(dateFrom);
 
   useEffect(() => {
     if (showDialog === '1') {
       setRoundName(rname);
-      setRoundDate(moment(rdate));
+      setRoundDate(rdate);
       setAdvancingTotal(radvancing);
     }
   }, [showDialog]);
@@ -75,10 +75,9 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
               <div className="flex w-full">
                 <ComboBox
                   menus={getMenuAvailableDays(dateFrom, dateTo)}
-                  value={roundDate.format('YYYY-MM-DD') || getMenuAvailableDays(dateFrom, dateTo)[0].value}
+                  value={moment(roundDate).format('YYYY-MM-DD') || getMenuAvailableDays(dateFrom, dateTo)[0].value}
                   onChange={(value: any) => {
-                    console.log(value);
-                    setRoundDate(moment(value));
+                    setRoundDate(moment(value).startOf('day').utc().format());
                   }}
                 />
               </div>

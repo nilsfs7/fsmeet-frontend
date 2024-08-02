@@ -162,7 +162,6 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.jobAcceptTerms = value;
     setUserInfo(newUserInfo);
-    console.log(newUserInfo);
     cacheUserInfo(newUserInfo);
   };
 
