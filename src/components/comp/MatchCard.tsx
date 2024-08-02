@@ -130,7 +130,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                     </div>
                   </div>
 
-                  <div className="flex w-4 items-center justify-end text-base font-bold">{matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : '--'}</div>
+                  <div className="flex w-4 items-center justify-end text-base font-bold">{matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : '-'}</div>
                 </div>
               )}
 
