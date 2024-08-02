@@ -318,9 +318,9 @@ const CompetitionDetails = (props: any) => {
 
                   <div className="grid grid-cols-2 gap-4 w-fit">
                     <div>
-                      <div>{`Competition Type`}</div>
+                      <div>{`Mode`}</div>
                       <div>{`Gender`}</div>
-                      <div>{`Maximum Age`}</div>
+                      <div>{`Max age`}</div>
                     </div>
                     <div className="capitalize">
                       <div>{comp?.type}</div>

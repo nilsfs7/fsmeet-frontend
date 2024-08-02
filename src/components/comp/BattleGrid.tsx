@@ -6,6 +6,7 @@ import ActionButton from '../common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Size } from '@/types/enums/size';
 import TextButton from '../common/TextButton';
+import moment from 'moment';
 
 interface IBattleGridProps {
   rounds: Round[];
@@ -49,6 +50,15 @@ const BattleGrid = ({
                   {onDeleteRound && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteRound(round.roundIndex, round.name)} />}
                 </div>
               </div>
+              <div className={`px-2 h-6`}>
+                <div className={`text-sm ${!editingEnabled ? 'flex w-full justify-center' : ''} `}>
+                  {moment(round.date).isValid() &&
+                    moment(round.date)
+                      .locale('en')
+                      .format(`dddd ${!editingEnabled && !seedingEnabled ? '' : ', MMMM D'}`)}
+                </div>
+              </div>
+
               <div className={`h-full flex flex-col ${!editingEnabled ? 'justify-center' : ''} mt-2`}>
                 <div className="flex w-52 flex-col justify-center">
                   {round.matches.map((match, j) => {

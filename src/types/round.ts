@@ -1,23 +1,23 @@
+import { Moment } from 'moment';
 import { Match } from './match';
+import moment from 'moment';
 
-// TODO: cleanup
 export class Round {
   roundIndex: number;
   name: string;
-  // numberPlayers: number;
   advancingTotal: number;
-  // passingPerMatch: number = 1;
   matches: Match[] = [];
-  // passingExtra: number = 0;
+  date: Moment | null;
 
-  constructor(roundIndex: number, name: string, advancingTotal: number) {
-    //  passingPerMatch = 1
-    // numberPlayers: number
+  constructor(roundIndex: number, name: string, date: Moment | null, advancingTotal: number) {
     this.roundIndex = roundIndex;
     this.name = name;
-    // this.numberPlayers = numberPlayers;
+    if (date) {
+      this.date = moment(date).startOf('day');
+    } else {
+      this.date = date;
+    }
     this.advancingTotal = advancingTotal;
-    // this.passingPerMatch = passingPerMatch;
   }
 
   get matchesAscending(): Match[] {

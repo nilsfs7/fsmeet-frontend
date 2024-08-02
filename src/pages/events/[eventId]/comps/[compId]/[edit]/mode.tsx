@@ -30,6 +30,9 @@ import { updateRounds } from '@/services/fsmeet-backend/update-rounds';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
+import moment, { Moment } from 'moment';
+import { Event } from '@/types/event';
+import { getEvent } from '@/services/fsmeet-backend/get-event';
 
 const ModeEditing = (props: any) => {
   const session = props.session;
@@ -38,21 +41,17 @@ const ModeEditing = (props: any) => {
   const { eventId } = router.query;
   const { compId } = router.query;
 
-  // const minMatchSize = 2;
-  // const minPassingPerMatch = 1;
-  // const minPassingExtra = 0;
-
   const [numParticipants] = useState<number>(props.data.participants.length);
-  const [gameModeApplied, setGameModeApplied] = useState<boolean>(plainToInstance(Round, props.data.rounds).length > 0);
+  const [gameModeApplied] = useState<boolean>(plainToInstance(Round, props.data.rounds).length > 0);
   const [rounds, setRounds] = useState<Round[]>(plainToInstance(Round, props.data.rounds));
-
-  // const [roundOptionsLocked, setRoundOptionsLocked] = useState<boolean[]>([false]);
+  const [event] = useState<Event>(props.data.event);
 
   const handleSaveClicked = async () => {
     if (compId) {
       try {
         await createRounds(compId?.toString(), rounds, session);
         toast.success(`Rounds successfully created`);
+        router.reload(); // TODO: remove, must reload to swutsch from save to update method.
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -85,69 +84,19 @@ const ModeEditing = (props: any) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (compId) {
-  //     rounds.map((rnd, i) => {
-  //       // update input "max-match-size"
-  //       const inputMaxMatchSize = document.getElementById(`input-max-match-size-${i}`);
-  //       if (inputMaxMatchSize) {
-  //         const maxMatchSize = i === 0 ? competitionParticipants.length : getParentRound(i).advancingTotal;
-  //         inputMaxMatchSize.setAttribute('max', maxMatchSize.toString());
-  //       }
-
-  //       // update input "max-passing"
-  //       const inputMaxPassing = document.getElementById(`input-max-passing-${i}`);
-  //       if (inputMaxPassing) {
-  //         const maxPassing = rnd.maxMatchSize;
-  //         inputMaxPassing.setAttribute('max', maxPassing.toString());
-  //       }
-
-  //       // update input "passing-extra"
-  //       const inputPassingExtra = document.getElementById(`input-passing-extra-${i}`);
-  //       if (inputPassingExtra) {
-  //         inputPassingExtra.setAttribute('max', rnd.maxPossibleAdvancingExtra.toString());
-  //       }
-  //     });
-  //   }
-  // }, [rounds]);
-
-  // const getParentRound = (roundId: number): Round => {
-  //   return rounds[roundId - 1];
-  // };
-
   const getLastRound = (): Round => {
     return rounds[rounds.length - 1];
   };
 
-  // const changeMaxMatchSize = (roundId: number, maxMatchSize: number) => {
-  //   const rnds = Array.from(rounds);
+  function getDiffInNumOfDays(date1: Moment, date2: Moment): number {
+    let diff = date1.diff(date2, 'days');
 
-  //   const parentRound = getParentRound(roundId);
-  //   const maxVal = roundId === 0 ? competitionParticipants.length : parentRound.matches.length * parentRound.passingPerMatch + parentRound.passingExtra;
-  //   if (+maxMatchSize >= minMatchSize && +maxMatchSize <= maxVal) {
-  //     rnds[roundId].maxMatchSize = +maxMatchSize;
-  //     rnds[roundId].matches = rnds[roundId].createMatches();
-  //     setRounds(rnds);
-  //   }
-  // };
+    if (diff < 0) {
+      diff *= -1;
+    }
 
-  // const changePassingPerMatch = (roundId: number, passingPerMatch: number) => {
-  //   const rnds = Array.from(rounds);
-
-  //   if (+passingPerMatch >= minPassingPerMatch && +passingPerMatch <= rnds[roundId].maxMatchSize) {
-  //     rnds[roundId].passingPerMatch = +passingPerMatch;
-  //     setRounds(rnds);
-  //   }
-  // };
-
-  // const changePassingExtra = (roundId: number, passingExtra: number) => {
-  //   const rnds = Array.from(rounds);
-
-  //   if (+passingExtra >= minPassingExtra && +passingExtra <= rnds[roundId].maxPossibleAdvancingExtra) {
-  //     rnds[roundId].passingExtra = +passingExtra;
-  //     setRounds(rnds);
-  //   }
-  // };
+    return diff;
+  }
 
   const getAvailablePlayers = (): number => {
     const rnd = getLastRound();
@@ -160,7 +109,7 @@ const ModeEditing = (props: any) => {
   };
 
   const handleEditRoundClicked = async (roundIndex: number) => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}&radvancing=${rounds[roundIndex].advancingTotal}`;
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}&rdate=${rounds[roundIndex].date}&radvancing=${rounds[roundIndex].advancingTotal}`;
     router.replace(url, undefined, { shallow: true });
   };
 
@@ -190,13 +139,11 @@ const ModeEditing = (props: any) => {
     router.replace(url, undefined, { shallow: true });
   };
 
-  const handleConfirmAddRoundClicked = async (slotsPerMatch: number, advancingTotal: number, roundName: string) => {
+  const handleConfirmAddRoundClicked = async (slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: Moment) => {
     const rnds = Array.from(rounds);
 
-    // const newRound = new Round(rnds.length, roundName, getAvailablePlayers(), advancingTotal);
-    const newRound = new Round(rnds.length, roundName, advancingTotal);
+    const newRound = new Round(rnds.length, roundName, roundDate, advancingTotal);
 
-    // for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
     for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
       newRound.addMatch(`Match ${i + 1}`, false, slotsPerMatch);
     }
@@ -205,9 +152,10 @@ const ModeEditing = (props: any) => {
     setRounds(rnds);
   };
 
-  const handleConfirmEditRoundClicked = async (roundIndex: number, roundName: string, advancingTotal: number) => {
+  const handleConfirmEditRoundClicked = async (roundIndex: number, roundName: string, roundDate: Moment, advancingTotal: number) => {
     const rnds = Array.from(rounds);
     rnds[roundIndex].name = roundName;
+    rnds[roundIndex].date = roundDate;
     rnds[roundIndex].advancingTotal = advancingTotal;
     setRounds(rnds);
   };
@@ -263,22 +211,26 @@ const ModeEditing = (props: any) => {
         title="Add Round"
         queryParam="addround"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(slotsPerMatch: number, advancingTotal: number, roundName: string) => {
-          handleConfirmAddRoundClicked(slotsPerMatch, advancingTotal, roundName);
+        onConfirm={(slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: Moment) => {
+          handleConfirmAddRoundClicked(slotsPerMatch, advancingTotal, roundName, roundDate);
         }}
         confirmText="Confirm"
         roundIndex={rounds.length}
         availablePlayers={getAvailablePlayers()}
+        dateFrom={getLastRound()?.date ? moment(event.dateFrom).add(getDiffInNumOfDays(moment(event.dateFrom), moment(getLastRound().date)), 'days') : moment(event.dateFrom)}
+        dateTo={moment(event.dateTo)}
       />
 
       <DialogEditRound
         title="Edit Round"
         queryParam="editround"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(roundIndex: number, roundName: string, advancingTotal: number) => {
-          handleConfirmEditRoundClicked(roundIndex, roundName, advancingTotal);
+        onConfirm={(roundIndex: number, roundName: string, roundDate: Moment, advancingTotal: number) => {
+          handleConfirmEditRoundClicked(roundIndex, roundName, roundDate, advancingTotal);
         }}
         confirmText="Confirm"
+        dateFrom={moment(event.dateFrom)}
+        dateTo={moment(event.dateTo)}
       />
 
       <DialogDeleteRound
@@ -385,9 +337,18 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     };
   }
 
+  const eventId = context.query.eventId;
   const compId = context.query.compId;
 
-  let data: { rounds: Round[]; participants: { username: string }[] } = { rounds: [], participants: [] };
+  let data: { event: Event | null; rounds: Round[]; participants: { username: string }[] } = { event: null, rounds: [], participants: [] };
+
+  if (eventId) {
+    try {
+      data.event = JSON.parse(JSON.stringify(await getEvent(eventId?.toString())));
+    } catch (error: any) {
+      console.error('Error fetching event.');
+    }
+  }
 
   if (compId) {
     try {

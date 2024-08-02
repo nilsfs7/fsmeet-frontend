@@ -2,6 +2,7 @@ import { Round } from '@/types/round';
 import MatchCard from './MatchCard';
 import Separator from '../Seperator';
 import { User } from '@/types/user';
+import moment from 'moment';
 
 interface IBattleListProps {
   rounds: Round[];
@@ -21,6 +22,10 @@ const BattleList = ({ rounds, usersMap, filteredByUser = null }: IBattleListProp
           <div key={`rnd-${i}`} className="mx-1 flex justify-center">
             <div className="flex h-full w-52 flex-col justify-center">
               <div className="text-center text-lg">{round.name}</div>
+              <div className={`px-2 h-6`}>
+                <div className={`text-sm text-center`}>{moment(round.date).isValid() && moment(round.date).locale('en').format(`dddd, MMMM D`)}</div>
+              </div>
+
               {round.matchesAscending.map((match, j) => {
                 if (filteredByUser) {
                   if (!match.containsParticipant(filteredByUser)) return;
