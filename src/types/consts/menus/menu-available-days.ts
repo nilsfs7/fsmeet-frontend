@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { MenuItem } from '../../menu-item';
 import { Moment } from 'moment';
 
@@ -13,8 +14,8 @@ function enumerateDaysBetweenDates(startDate: Moment, endDate: Moment) {
   return dates;
 }
 
-export function getMenuAvailableDays(dateFrom: Moment, dateTo: Moment): MenuItem[] {
-  return enumerateDaysBetweenDates(dateFrom, dateTo).map((date) => {
+export function getMenuAvailableDays(dateFrom: string, dateTo: string): MenuItem[] {
+  return enumerateDaysBetweenDates(moment(dateFrom), moment(dateTo)).map((date) => {
     return { text: date.format('MM/DD'), value: date.format('YYYY-MM-DD') };
   });
 }

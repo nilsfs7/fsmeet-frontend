@@ -1,22 +1,16 @@
-import { Moment } from 'moment';
 import { Match } from './match';
-import moment from 'moment';
 
 export class Round {
   roundIndex: number;
   name: string;
   advancingTotal: number;
   matches: Match[] = [];
-  date: Moment | null;
+  date: string | null;
 
-  constructor(roundIndex: number, name: string, date: Moment | null, advancingTotal: number) {
+  constructor(roundIndex: number, name: string, date: string | null, advancingTotal: number) {
     this.roundIndex = roundIndex;
     this.name = name;
-    if (date) {
-      this.date = moment(date).startOf('day');
-    } else {
-      this.date = date;
-    }
+    this.date = date;
     this.advancingTotal = advancingTotal;
   }
 

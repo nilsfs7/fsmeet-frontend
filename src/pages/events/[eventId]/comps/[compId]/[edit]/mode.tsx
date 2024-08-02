@@ -139,7 +139,7 @@ const ModeEditing = (props: any) => {
     router.replace(url, undefined, { shallow: true });
   };
 
-  const handleConfirmAddRoundClicked = async (slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: Moment) => {
+  const handleConfirmAddRoundClicked = async (slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string) => {
     const rnds = Array.from(rounds);
 
     const newRound = new Round(rnds.length, roundName, roundDate, advancingTotal);
@@ -152,7 +152,7 @@ const ModeEditing = (props: any) => {
     setRounds(rnds);
   };
 
-  const handleConfirmEditRoundClicked = async (roundIndex: number, roundName: string, roundDate: Moment, advancingTotal: number) => {
+  const handleConfirmEditRoundClicked = async (roundIndex: number, roundName: string, roundDate: string, advancingTotal: number) => {
     const rnds = Array.from(rounds);
     rnds[roundIndex].name = roundName;
     rnds[roundIndex].date = roundDate;
@@ -211,26 +211,32 @@ const ModeEditing = (props: any) => {
         title="Add Round"
         queryParam="addround"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: Moment) => {
+        onConfirm={(slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string) => {
           handleConfirmAddRoundClicked(slotsPerMatch, advancingTotal, roundName, roundDate);
         }}
         confirmText="Confirm"
         roundIndex={rounds.length}
         availablePlayers={getAvailablePlayers()}
-        dateFrom={getLastRound()?.date ? moment(event.dateFrom).add(getDiffInNumOfDays(moment(event.dateFrom), moment(getLastRound().date)), 'days') : moment(event.dateFrom)}
-        dateTo={moment(event.dateTo)}
+        dateFrom={
+          getLastRound()?.date
+            ? moment(event.dateFrom)
+                .add(getDiffInNumOfDays(moment(event.dateFrom), moment(getLastRound().date)), 'days')
+                .format()
+            : event.dateFrom
+        }
+        dateTo={event.dateTo}
       />
 
       <DialogEditRound
         title="Edit Round"
         queryParam="editround"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(roundIndex: number, roundName: string, roundDate: Moment, advancingTotal: number) => {
+        onConfirm={(roundIndex: number, roundName: string, roundDate: string, advancingTotal: number) => {
           handleConfirmEditRoundClicked(roundIndex, roundName, roundDate, advancingTotal);
         }}
         confirmText="Confirm"
-        dateFrom={moment(event.dateFrom)}
-        dateTo={moment(event.dateTo)}
+        dateFrom={event.dateFrom}
+        dateTo={event.dateTo}
       />
 
       <DialogDeleteRound
