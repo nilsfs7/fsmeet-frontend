@@ -86,8 +86,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                   menus={getMenuAvailableDays(dateFrom, dateTo)}
                   value={roundDate.format('YYYY-MM-DD') || getMenuAvailableDays(dateFrom, dateTo)[0].value}
                   onChange={(value: any) => {
-                    console.log(value);
-                    setRoundDate(moment(value));
+                    setRoundDate(moment(value).utc());
                   }}
                 />
               </div>

@@ -100,8 +100,6 @@ const CompetitionPool = (props: any) => {
         // remove participants exceeding max age
         if (competition.maxAge !== MaxAge.NONE) {
           registrations = registrations.filter((registration) => {
-            console.log(registration.user);
-            console.log(competition.maxAge);
             if (!registration.user.age || registration.user.age <= competition.maxAge) {
               return registration;
             }
