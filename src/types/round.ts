@@ -3,9 +3,9 @@ import { Match } from './match';
 export class Round {
   roundIndex: number;
   name: string;
+  date: string | null;
   advancingTotal: number;
   matches: Match[] = [];
-  date: string | null;
 
   constructor(roundIndex: number, name: string, date: string | null, advancingTotal: number) {
     this.roundIndex = roundIndex;
@@ -30,8 +30,8 @@ export class Round {
     return userFound;
   }
 
-  addMatch(name: string, isExtraMatch: boolean, amountSlots: number) {
-    this.matches.push(new Match(this.matches.length, name, isExtraMatch, amountSlots, []));
+  addMatch(name: string, matchTime: string | null, isExtraMatch: boolean, amountSlots: number) {
+    this.matches.push(new Match(this.matches.length, name, matchTime, isExtraMatch, amountSlots, []));
   }
 
   get amountSlots(): number {

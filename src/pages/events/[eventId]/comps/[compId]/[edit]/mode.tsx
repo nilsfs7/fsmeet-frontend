@@ -98,6 +98,18 @@ const ModeEditing = (props: any) => {
     return diff;
   }
 
+  function getRoundDateForMatchTime(roundDate: string | null, matchTime: string | null) {
+    if (roundDate && matchTime) {
+      const r = moment(roundDate).utc();
+      const m = moment(matchTime).utc();
+      const format = `${r.format('YYYY-MM-DD')}T${m.format('HH:mm')}:00.000Z`;
+
+      return moment(format).utc().format();
+    }
+
+    return null;
+  }
+
   const getAvailablePlayers = (): number => {
     const rnd = getLastRound();
     return rnd ? rnd.advancingTotal : numParticipants;
@@ -125,7 +137,7 @@ const ModeEditing = (props: any) => {
   };
 
   const handleEditMatchClicked = async (roundIndex: number, matchIndex: number) => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editmatch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}&mslots=${rounds[roundIndex].matches[matchIndex].slots}&mextra=${rounds[roundIndex].matches[matchIndex].isExtraMatch}`;
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editmatch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}&mtime=${rounds[roundIndex].matches[matchIndex].time}&mslots=${rounds[roundIndex].matches[matchIndex].slots}&mextra=${rounds[roundIndex].matches[matchIndex].isExtraMatch}`;
     router.replace(url, undefined, { shallow: true });
   };
 
@@ -145,7 +157,7 @@ const ModeEditing = (props: any) => {
     const newRound = new Round(rnds.length, roundName, roundDate, advancingTotal);
 
     for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
-      newRound.addMatch(`Match ${i + 1}`, false, slotsPerMatch);
+      newRound.addMatch(`Match ${i + 1}`, null, false, slotsPerMatch);
     }
 
     rnds.push(newRound);
@@ -171,16 +183,20 @@ const ModeEditing = (props: any) => {
     setRounds(rnds);
   };
 
-  const handleConfirmAddMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, amountSlots: number, isExtraMatch: boolean) => {
+  const handleConfirmAddMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, amountSlots: number, isExtraMatch: boolean) => {
     const rnds = Array.from(rounds);
-    rnds[roundIndex].addMatch(matchName, isExtraMatch, amountSlots);
+    matchTime = getRoundDateForMatchTime(rnds[roundIndex].date, matchTime);
+    rnds[roundIndex].addMatch(matchName, matchTime, isExtraMatch, amountSlots);
     setRounds(rnds);
   };
 
-  const handleConfirmEditMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, slots: number, isExtraMatch: boolean) => {
+  const handleConfirmEditMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, slots: number, isExtraMatch: boolean) => {
     const rnds = Array.from(rounds);
     const mtchs = Array.from(rnds[roundIndex].matches);
+    matchTime = getRoundDateForMatchTime(rnds[roundIndex].date, matchTime);
+
     mtchs[matchIndex].name = matchName;
+    mtchs[matchIndex].time = matchTime;
     mtchs[matchIndex].slots = slots;
     mtchs[matchIndex].isExtraMatch = isExtraMatch;
 
@@ -253,8 +269,8 @@ const ModeEditing = (props: any) => {
         title="Add Match"
         queryParam="addmatch"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(roundIndex: number, matchIndex: number, matchName: string, amountSlots: number, isExtraMatch: boolean) => {
-          handleConfirmAddMatchClicked(roundIndex, matchIndex, matchName, amountSlots, isExtraMatch);
+        onConfirm={(roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, amountSlots: number, isExtraMatch: boolean) => {
+          handleConfirmAddMatchClicked(roundIndex, matchIndex, matchName, matchTime, amountSlots, isExtraMatch);
         }}
         confirmText="Confirm"
       />
@@ -263,8 +279,8 @@ const ModeEditing = (props: any) => {
         title="Edit Match"
         queryParam="editmatch"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(roundIndex: number, matchIndex: number, matchName: string, slots: number, isExtraMatch: boolean) => {
-          handleConfirmEditMatchClicked(roundIndex, matchIndex, matchName, slots, isExtraMatch);
+        onConfirm={(roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, slots: number, isExtraMatch: boolean) => {
+          handleConfirmEditMatchClicked(roundIndex, matchIndex, matchName, matchTime, slots, isExtraMatch);
         }}
         confirmText="Confirm"
       />
@@ -308,9 +324,6 @@ const ModeEditing = (props: any) => {
               onDeleteMatch={(roundIndex: number, matchIndex: number) => {
                 handleDeleteMatchClicked(roundIndex, matchIndex);
               }}
-              // onUpdateTime={(roundIndex, matchIndex, matchId, time) => {
-              //   handleTimeUpdated(roundIndex, matchIndex, matchId, time);
-              // }}
             />
           </div>
         </div>

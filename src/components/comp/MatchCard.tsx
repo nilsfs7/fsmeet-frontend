@@ -7,8 +7,6 @@ import { useRouter } from 'next/router';
 import moment, { Moment } from 'moment';
 import { getTimeString } from '@/types/funcs/time';
 import ComboBox from '../common/ComboBox';
-// import dayjs from 'dayjs';
-// import { TimePicker } from 'antd';
 import { routeUsers } from '@/types/consts/routes';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/types/enums/action';
@@ -75,28 +73,9 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
             <div className="flex gap-1 justify-end w-fit">
               {onEditMatch && <ActionButton action={Action.EDIT} size={Size.S} onClick={() => onEditMatch(match.matchIndex)} />}
               {onDeleteMatch && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteMatch(match.matchIndex)} />}
-
-              {/* <div className="w-full flex items-center py-1"> */}
-              {/* Todo: enable time picker again: requires diabling babel transpilation. or built own time picker -> remove antd */}
-
-              {/* <TimePicker
-              value={match.time !== undefined ? dayjs(match.time) : undefined}
-              format={'HH:mm'}
-              onChange={value => {
-                if (value) {
-                  const date = moment(value.toDate());
-                  if (date && moment.isMoment(date)) {
-                    handleUpdateTime(date);
-                  }
-                } else {
-                  handleUpdateTime(null);
-                }
-              }}
-            /> */}
-              {/* </div> */}
             </div>
           )}
-          {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(moment(match.time))}</div>}
+          {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(moment(match.time).utc())}</div>}
         </div>
       </div>
 
