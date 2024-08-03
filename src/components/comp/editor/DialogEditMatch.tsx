@@ -5,12 +5,14 @@ import { useEffect, useState } from 'react';
 import ActionButton from '../../common/ActionButton';
 import { Action } from '@/types/enums/action';
 import TextButton from '../../common/TextButton';
+import { TimePicker } from '@mui/x-date-pickers';
+import moment from 'moment';
 
 interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (roundIndex: number, matchIndex: number, matchName: string, slots: number, isExtraMatch: boolean) => void;
+  onConfirm?: (roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, slots: number, isExtraMatch: boolean) => void;
   cancelText?: string;
   confirmText?: string;
 }
@@ -21,16 +23,19 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
   const roundIndex = +(searchParams?.get('rid') || 0);
   const matchIndex = +(searchParams?.get('mid') || 0);
   const mname = searchParams?.get('mname') || '';
+  const mtime = searchParams?.get('mtime') || '';
   const mslots = +(searchParams?.get('mslots') || 2);
   const mextra = searchParams?.get('mextra') === 'true';
 
   const [matchName, setMatchName] = useState<string>('');
+  const [matchTime, setMatchTime] = useState<string | null>(null);
   const [matchSlots, setMatchSlots] = useState<number>(2);
   const [isExtraMatch, setIsExtraMatch] = useState<boolean>(false);
 
   useEffect(() => {
     if (showDialog === '1') {
       setMatchName(mname);
+      setMatchTime(mtime);
       setMatchSlots(mslots);
       setIsExtraMatch(mextra);
     }
@@ -41,7 +46,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex, matchIndex, matchName, matchSlots, isExtraMatch);
+    onConfirm && onConfirm(roundIndex, matchIndex, matchName, matchTime, matchSlots, isExtraMatch);
     onCancel && onCancel();
   };
 
@@ -61,6 +66,32 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 value={matchName}
                 onChange={(e) => {
                   setMatchName(e.currentTarget.value);
+                }}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 items-center">
+              <div>{'Match time'}</div>
+              <TimePicker
+                className=" rounded-lg"
+                slotProps={{
+                  textField: {
+                    size: 'small',
+                    sx: {
+                      '& .MuiOutlinedInput-root': {
+                        borderRadius: '8px',
+                      },
+                    },
+                  },
+                }}
+                value={moment(matchTime).utc()}
+                format={'HH:mm'}
+                onChange={(value) => {
+                  if (value && value.isValid()) {
+                    setMatchTime(value.utc().format());
+                  } else if (!value) {
+                    setMatchTime(value);
+                  }
                 }}
               />
             </div>

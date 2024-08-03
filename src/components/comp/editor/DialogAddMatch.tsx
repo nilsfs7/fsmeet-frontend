@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import ActionButton from '../../common/ActionButton';
 import { Action } from '@/types/enums/action';
 import TextButton from '../../common/TextButton';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (roundIndex: number, matchIndex: number, matchName: string, slotsPerMatch: number, isExtraMatch: boolean) => void;
+  onConfirm?: (roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, slotsPerMatch: number, isExtraMatch: boolean) => void;
   cancelText?: string;
   confirmText?: string;
 }
@@ -23,6 +24,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
   const [slotsPerMatch, setSlotsPerMatch] = useState<number>(2);
 
   const [matchName, setMatchName] = useState<string>(`Match ${matchIndex + 1}`);
+  const [matchTime, setMatchTime] = useState<string | null>(null);
   const [isExtraMatch, setIsExtraMatch] = useState<boolean>(false);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex, matchIndex, matchName, slotsPerMatch, isExtraMatch);
+    onConfirm && onConfirm(roundIndex, matchIndex, matchName, matchTime, slotsPerMatch, isExtraMatch);
     onCancel && onCancel();
   };
 
@@ -60,6 +62,32 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
               />
             </div>
 
+            <div className="grid grid-cols-2 gap-2 items-center">
+              <div>{'Match time'}</div>
+              <TimePicker
+                className=" rounded-lg"
+                slotProps={{
+                  textField: {
+                    size: 'small',
+                    sx: {
+                      '& .MuiOutlinedInput-root': {
+                        borderRadius: '8px',
+                      },
+                    },
+                  },
+                }}
+                value={undefined}
+                format={'HH:mm'}
+                onChange={(value) => {
+                  if (value && value.isValid()) {
+                    setMatchTime(value.format());
+                  } else if (!value) {
+                    setMatchTime(value);
+                  }
+                }}
+              />
+            </div>
+
             <div className="grid grid-cols-2 gap-2">
               <div>{'Amount of players'}</div>
               <input
@@ -67,7 +95,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                 type="number"
                 min={2}
-                // max={availablePlayers}
+                max={99} // TODO: maximum is players in round
                 defaultValue={slotsPerMatch}
                 onChange={(e) => {
                   setSlotsPerMatch(+e.currentTarget.value);
