@@ -5,7 +5,7 @@ import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
-import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin } from '@/types/consts/routes';
+import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/types/consts/routes';
 import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/types/consts/images';
 
 const Profile = () => {
@@ -16,8 +16,8 @@ const Profile = () => {
 
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-  const menuItems = ['My Events', 'Settings', 'Feedback', 'Logout'];
-  const menuItemIcons = [imgProfileEvents, imgProfileSettings, imgProfileFeedback, imgProfileLogout];
+  const menuItems = ['My Events', 'Public Profile', 'Settings', 'Feedback', 'Logout'];
+  const menuItemIcons = [imgProfileEvents, imgUserNoImg, imgProfileSettings, imgProfileFeedback, imgProfileLogout];
 
   useEffect(() => {
     const name = localStorage.getItem('username');
@@ -35,6 +35,10 @@ const Profile = () => {
     router.push(routeEventSubs);
   };
 
+  const onPublicProfileClicked = () => {
+    router.push(`${routeUsers}/${username}`);
+  };
+
   const onAccountClicked = () => {
     router.push(routeAccount);
   };
@@ -50,7 +54,7 @@ const Profile = () => {
     router.push(routeHome);
   };
 
-  const menuItemActions = [onEventsClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];
+  const menuItemActions = [onEventsClicked, onPublicProfileClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];
 
   const isAuthenticated = () => {
     return status === 'authenticated';
