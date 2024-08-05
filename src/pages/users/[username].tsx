@@ -251,6 +251,8 @@ const PublicUserProfile = (props: any) => {
                   <AccordionItem value="item-history">
                     <AccordionTrigger>{`Competition History`}</AccordionTrigger>
                     <AccordionContent>
+                      {battleHistory.length === 0 && <div className="flex flex-col">{`No participations, yet.`}</div>}
+
                       {battleHistory.length > 0 &&
                         battleHistory.map((data, i) => {
                           return (
@@ -258,7 +260,7 @@ const PublicUserProfile = (props: any) => {
                               <div className="text-lg hover:underline">
                                 <Link
                                   href={`${routeEvents}/${competitionsMap.get(data.competitionId)?.eventId}`}
-                                >{`${eventsMap.get(competitionsMap.get(data.competitionId)?.eventId || '')?.name} `}</Link>
+                                >{`${eventsMap.get(competitionsMap.get(data.competitionId)?.eventId || '')?.name}`}</Link>
                               </div>
 
                               <div className="text-lg hover:underline">
