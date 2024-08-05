@@ -5,7 +5,7 @@ import SocialLink from '@/components/user/SocialLink';
 import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
 import { getUser } from '@/services/fsmeet-backend/get-user';
 import { imgUserDefaultImg, imgVerifiedCheckmark, imgWorld } from '@/types/consts/images';
-import { routeAccount, routeMap, routeUsers } from '@/types/consts/routes';
+import { routeAccount, routeEvents, routeMap, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { Platform } from '@/types/enums/platform';
 import { UserType } from '@/types/enums/user-type';
@@ -20,13 +20,29 @@ import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
+import { getUserBattleHistory } from '@/services/fsmeet-backend/history.client';
+import { ReadUserBattleHistoryResponseDto } from '@/services/fsmeet-backend/dtos/read-user-battle-history.response.dto';
+import MatchCard from '@/components/comp/MatchCard';
+import { Match } from '@/types/match';
+import moment from 'moment';
+import { Event } from '@/types/event';
+import { useEffect, useState } from 'react';
+import { getCompetition } from '@/services/fsmeet-backend/get-competition';
+import { getEvent } from '@/services/fsmeet-backend/get-event';
+import { ReadCompetitionResponseDto } from '@/services/fsmeet-backend/dtos/read-competition.reposnse.dto';
+import { Competition } from '@/types/competition';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;
   const user: User = props.user;
   const matchStats: TotalMatchPerformance = props.matchStats;
+  const battleHistory: ReadUserBattleHistoryResponseDto[] = props.battleHistory;
 
   const router = useRouter();
+
+  const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
+  const [competitionsMap, setCompetitionsMap] = useState<Map<string, Competition>>(new Map<string, Competition>());
+  const [eventsMap, setEventsMap] = useState<Map<string, Event>>(new Map<string, Event>());
 
   let displayName = user.firstName ? `${user.firstName}` : `${user.username}`;
   if (user.lastName) {
@@ -38,6 +54,73 @@ const PublicUserProfile = (props: any) => {
     const country = countries[code.toUpperCase()];
     return country ? country.name : null;
   }
+
+  useEffect(() => {
+    const getCompetitions = async () => {
+      const competitionsMap: Map<string, ReadCompetitionResponseDto> = new Map();
+      const requests: Promise<void>[] = [];
+
+      battleHistory.map((data) => {
+        const req = getCompetition(data.competitionId).then((comp) => {
+          competitionsMap.set(data.competitionId, comp);
+        });
+
+        requests.push(req);
+      });
+
+      await Promise.all(requests);
+      setCompetitionsMap(competitionsMap);
+    };
+
+    const getUsers = async () => {
+      const usersMap: Map<string, User> = new Map();
+      const requests: Promise<void>[] = [];
+
+      battleHistory.map((data) => {
+        data.rounds.map((round) => {
+          round.matches.map((match) => {
+            match.matchSlots.map((slot) => {
+              if (!usersMap.get(slot.name)) {
+                const req = getUser(slot.name).then((user) => {
+                  usersMap.set(slot.name, user);
+                });
+                requests.push(req);
+              }
+            });
+          });
+        });
+      });
+
+      await Promise.all(requests);
+      setUsersMap(usersMap);
+    };
+
+    getCompetitions();
+    getUsers();
+  }, [battleHistory]);
+
+  useEffect(() => {
+    const getEvents = async () => {
+      const eventsMap: Map<string, Event> = new Map();
+      const requests: Promise<void>[] = [];
+
+      competitionsMap.forEach((comp) => {
+        if (comp.eventId) {
+          const req = getEvent(comp.eventId).then((event: Event) => {
+            if (event.id) {
+              eventsMap.set(event.id, event);
+            }
+          });
+
+          requests.push(req);
+        }
+      });
+      await Promise.all(requests);
+      setEventsMap(eventsMap);
+    };
+
+    getEvents();
+  }, [competitionsMap]);
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
@@ -163,6 +246,55 @@ const PublicUserProfile = (props: any) => {
                     </AccordionContent>
                   </AccordionItem>
                 )}
+
+                {user.type === UserType.FREESTYLER && (
+                  <AccordionItem value="item-history">
+                    <AccordionTrigger>{`Competition History`}</AccordionTrigger>
+                    <AccordionContent>
+                      {battleHistory.length > 0 &&
+                        battleHistory.map((data, i) => {
+                          return (
+                            <div key={`history-data-${i}`} className="mb-2 p-2 flex flex-col border border-secondary-dark rounded-lg">
+                              <div className="text-lg hover:underline">
+                                <Link
+                                  href={`${routeEvents}/${competitionsMap.get(data.competitionId)?.eventId}`}
+                                >{`${eventsMap.get(competitionsMap.get(data.competitionId)?.eventId || '')?.name} `}</Link>
+                              </div>
+
+                              <div className="text-lg hover:underline">
+                                <Link href={`${routeEvents}/${competitionsMap.get(data.competitionId)?.eventId}/comps/${data.competitionId}`}>
+                                  {`${competitionsMap.get(data.competitionId)?.name}`}
+                                </Link>
+                              </div>
+
+                              {data.rounds.map((round, roundIndex) => {
+                                return (
+                                  <div key={`history-round-${i}-${roundIndex}`} className="mt-2 gap-2">
+                                    {round.matches.map((match, matchIndex) => {
+                                      return (
+                                        <div key={`history-match-${i}-${roundIndex}-${matchIndex}`} className="mt-2">
+                                          <div className="mx-2">
+                                            <div>{`${round.name} (${moment(round.date).format('YYYY-MM-DD')})`}</div>
+                                          </div>
+
+                                          <div className="">
+                                            <MatchCard
+                                              match={new Match(match.matchIndex, match.name, moment(match.time).format(), match.isExtraMatch, match.slots, match.matchSlots, match.id)}
+                                              usersMap={usersMap}
+                                            />
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          );
+                        })}
+                    </AccordionContent>
+                  </AccordionItem>
+                )}
               </Accordion>
             </div>
           </div>
@@ -197,10 +329,13 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
       const matchStats = await getTotalMatchPerformance(username.toString());
 
+      const battleHistory = await getUserBattleHistory(username.toString());
+
       return {
         props: {
           user: user,
           matchStats: matchStats,
+          battleHistory: battleHistory,
           session: session,
         },
       };

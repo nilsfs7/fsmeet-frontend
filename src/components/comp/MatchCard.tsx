@@ -25,7 +25,7 @@ interface IMatchProps {
   onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result: number) => void;
 }
 
-const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, seedingList = [], onUpdateTime, onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
+const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, seedingList = [], onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
   const router = useRouter();
   const self = `${router.asPath}`;
 
@@ -34,14 +34,6 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
   seedingList.map((user) => {
     playerMenu.push({ text: user.username, value: user.username });
   });
-
-  const handleUpdateTime = (time: Moment | null) => {
-    if (match.id) {
-      onUpdateTime && onUpdateTime(match.matchIndex, match.id, time);
-    } else {
-      console.error('unknown match id');
-    }
-  };
 
   const handleSlotUpdateName = (slotIndex: number, username: string) => {
     if (match.id) {
