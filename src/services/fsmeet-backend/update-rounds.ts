@@ -4,9 +4,7 @@ import { Session } from 'next-auth';
 export async function updateRounds(compId: string, rounds: Round[], session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`;
 
-  const body = JSON.stringify({
-    rounds: rounds,
-  });
+  const body = JSON.stringify(rounds);
 
   const response = await fetch(url, {
     method: 'PUT',
