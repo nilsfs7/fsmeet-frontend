@@ -4,8 +4,8 @@ import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import { useRouter } from 'next/router';
 import { routeLogin } from '@/types/consts/routes';
-import { updateUserPassword } from '@/services/fsmeet-backend/update-user-password';
 import { Toaster, toast } from 'sonner';
+import { updateUserPassword } from '@/services/fsmeet-backend/user.client';
 
 const ResetPassword = () => {
   const router = useRouter();

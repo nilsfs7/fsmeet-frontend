@@ -9,13 +9,12 @@ import Navigation from '@/components/Navigation';
 import ComboBox from '@/components/common/ComboBox';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
-import { getUsers } from '@/services/fsmeet-backend/get-users';
 import { User } from '@/types/user';
 import { menuUserVerificationStates } from '@/types/consts/menus/menu-user-verification-states';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
-import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
+import { getUsers, updateUserVerificationState } from '@/services/fsmeet-backend/user.client';
 
 const Users = (props: any) => {
   const session = props.session;

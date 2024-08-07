@@ -8,13 +8,12 @@ import ActionButton from '@/components/common/ActionButton';
 import { routeAccount, routeLogin } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
 import { ButtonStyle } from '@/types/enums/button-style';
-import { deleteUserImage } from '@/services/fsmeet-backend/delete-user-image';
-import { updateUserImage } from '@/services/fsmeet-backend/update-user-image';
 import { Toaster, toast } from 'sonner';
 import { GetServerSidePropsContext } from 'next';
 import { auth } from '@/auth';
 import { validateSession } from '@/types/funcs/validate-session';
 import PageTitle from '@/components/PageTitle';
+import { deleteUserImage, updateUserImage } from '@/services/fsmeet-backend/user.client';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');

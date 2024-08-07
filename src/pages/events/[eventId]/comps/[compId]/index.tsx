@@ -21,7 +21,6 @@ import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { Switch } from '@/components/ui/switch';
-import { getUser } from '@/services/fsmeet-backend/get-user';
 import PageTitle from '@/components/PageTitle';
 import TextButton from '@/components/common/TextButton';
 import { download, generateCsv, mkConfig } from 'export-to-csv';
@@ -31,6 +30,7 @@ import { MatchSlot } from '@/types/match-slot';
 import { Toaster, toast } from 'sonner';
 import { auth } from '@/auth';
 import { MaxAge } from '@/types/enums/max-age';
+import { getUser } from '@/services/fsmeet-backend/user.client';
 
 const CompetitionDetails = (props: any) => {
   const session = props.session;
