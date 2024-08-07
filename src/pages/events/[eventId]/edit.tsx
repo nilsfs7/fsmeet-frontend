@@ -6,17 +6,15 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { routeEventNotFound, routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
-import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { EditorMode } from '@/types/enums/editor-mode';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import { Toaster, toast } from 'sonner';
-import { deleteEvent } from '@/services/fsmeet-backend/delete-event';
-import { updateEvent } from '@/services/fsmeet-backend/update-event';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
+import { deleteEvent, getEvent, updateEvent } from '@/services/fsmeet-backend/event.client';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -102,14 +100,10 @@ const EventEditing = (props: any) => {
             </div>
           </div>
 
-          <div className="flex justify-end">
-            <div className="ml-1">
-              <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-            </div>
+          <div className="flex justify-end gap-1">
+            <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
 
-            <div className="ml-1">
-              <TextButton text={`Save`} onClick={handleSaveClicked} />
-            </div>
+            <TextButton text={`Save`} onClick={handleSaveClicked} />
           </div>
         </Navigation>
       </div>

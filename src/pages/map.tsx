@@ -106,17 +106,13 @@ const FreestylerMap = ({ data, actingUser }: { data: any; actingUser: any }) => 
             <ActionButton action={Action.BACK} />
           </Link>
 
-          <div className="flex justify-end">
-            <div className="ml-1">
-              <ActionButton action={Action.COPY} onClick={handleShareClicked} />
-            </div>
+          <div className="flex justify-end gap-1">
+            <ActionButton action={Action.COPY} onClick={handleShareClicked} />
 
             {(!user || (user && !user.locLatitude)) && (
-              <div className="ml-1">
-                <Link href={`${routeAccount}?tab=map`}>
-                  <TextButton text={'Add Your Pin'} />
-                </Link>
-              </div>
+              <Link href={`${routeAccount}?tab=map`}>
+                <TextButton text={'Add Your Pin'} />
+              </Link>
             )}
           </div>
         </Navigation>

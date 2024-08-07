@@ -279,7 +279,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
   const handleConfirmDeleteAccountClicked = async () => {
     try {
-      await deleteUser(session);
+      await deleteUser(session?.user?.username || '', session);
 
       await logoutUser();
       localStorage.removeItem('username');

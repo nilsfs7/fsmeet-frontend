@@ -9,14 +9,13 @@ import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import moment from 'moment';
 import { EventState } from '@/types/enums/event-state';
-import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
 import ComboBox from '@/components/common/ComboBox';
 import { menuEventStates } from '@/types/consts/menus/menu-event-states';
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
+import { getEvents, updateEventState } from '@/services/fsmeet-backend/event.client';
 
 const Events = (props: any) => {
   const session = props.session;

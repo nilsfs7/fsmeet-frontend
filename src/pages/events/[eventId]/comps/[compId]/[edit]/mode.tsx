@@ -32,7 +32,7 @@ import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import moment, { Moment } from 'moment';
 import { Event } from '@/types/event';
-import { getEvent } from '@/services/fsmeet-backend/get-event';
+import { getEvent } from '@/services/fsmeet-backend/event.client';
 
 const ModeEditing = (props: any) => {
   const session = props.session;

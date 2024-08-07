@@ -9,7 +9,6 @@ import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import { getEventRegistrations } from '@/services/fsmeet-backend/get-event-registrations';
 import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
@@ -22,6 +21,7 @@ import { CompetitionGender } from '@/types/enums/competition-gender';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
 import { auth } from '@/auth';
 import { MaxAge } from '@/types/enums/max-age';
+import { getEventRegistrations } from '@/services/fsmeet-backend/event.client';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;

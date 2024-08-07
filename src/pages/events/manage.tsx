@@ -11,7 +11,6 @@ import { License } from '@/types/license';
 import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
 import { GetServerSidePropsContext } from 'next';
-import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab_pages } from '@/types/funcs/switch-tab';
 import { useSearchParams } from 'next/navigation';
@@ -19,6 +18,7 @@ import { Header } from '@/components/Header';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import { getLicense } from '@/services/fsmeet-backend/license.client';
+import { getEvents } from '@/services/fsmeet-backend/event.client';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const router = useRouter();

@@ -21,23 +21,18 @@ import PayPalInfo from '@/components/payment/paypal-info';
 import SepaInfo from '@/components/payment/sepa-info';
 import { useSearchParams } from 'next/navigation';
 import { Event } from '@/types/event';
-import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab_pages } from '@/types/funcs/switch-tab';
 import { isPublicEventState } from '@/types/funcs/is-public-event-state';
-import { updateEventState } from '@/services/fsmeet-backend/update-event-state';
 import { EventState } from '@/types/enums/event-state';
 import { GetServerSidePropsContext } from 'next';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { createEventRegistration } from '@/services/fsmeet-backend/create-event-registration';
-import { deleteEventRegistration } from '@/services/fsmeet-backend/delete-event-registration';
-import { createComment } from '@/services/fsmeet-backend/create-comment';
-import { createSubComment } from '@/services/fsmeet-backend/create-sub-comment';
-import { getComments } from '@/services/fsmeet-backend/get-comments';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { Toaster, toast } from 'sonner';
 import { auth } from '@/auth';
+import { createComment, createSubComment, deleteEventRegistration, getComments, getEvent, updateEventState } from '@/services/fsmeet-backend/event.client';
 
 const EventDetails = (props: any) => {
   const session = props.session;
@@ -457,15 +452,11 @@ const EventDetails = (props: any) => {
             </div>
           </div>
 
-          <div className="flex justify-end">
-            <div className="ml-1">
-              <ActionButton action={Action.COPY} onClick={handleShareClicked} />
-            </div>
+          <div className="flex justify-end gap-1">
+            <ActionButton action={Action.COPY} onClick={handleShareClicked} />
 
             {moment(event.registrationOpen).unix() < moment().unix() && moment(event.registrationDeadline).unix() > moment().unix() && (
-              <div className="ml-1">
-                <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={isRegistered() ? handleUnregisterClicked : handleRegisterClicked} />
-              </div>
+              <TextButton text={isRegistered() ? 'Unregister' : 'Register'} onClick={isRegistered() ? handleUnregisterClicked : handleRegisterClicked} />
             )}
 
             {isRegistered() && moment(event.dateTo).unix() < moment().unix() && (

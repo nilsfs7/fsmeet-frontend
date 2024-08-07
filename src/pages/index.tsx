@@ -5,14 +5,13 @@ import { imgAbout, imgCommunity, imgFreestyler, imgProfileSettings, imgWorld } f
 import { routeAbout, routeAdminOverview, routeEvents, routeMap, routeUsers } from '@/types/consts/routes';
 import Link from 'next/link';
 import { Event } from '@/types/event';
-import { getEventsUpcoming } from '@/services/fsmeet-backend/get-events-upcoming';
-import { getEventsRecent } from '@/services/fsmeet-backend/get-events-recent';
-import { getEventsOngoing } from '@/services/fsmeet-backend/get-events-ongoing';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { GetServerSidePropsContext } from 'next';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
+import { TechnicalUser } from '@/types/enums/technical-user';
+import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/services/fsmeet-backend/event.client';
 
 const Home = ({ data, session }: { data: any; session: any }) => {
   let upcomingEvents: Event[] = data.upcoming;
@@ -145,7 +144,7 @@ const Home = ({ data, session }: { data: any; session: any }) => {
           </Link>
         </div>
 
-        {session?.user?.username === 'admin' && (
+        {session?.user?.username === TechnicalUser.ADMIN && (
           <div className="mx-2">
             <Link href={routeAdminOverview}>
               <div className="rounded-lg p-1">
