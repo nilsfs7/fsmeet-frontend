@@ -5,7 +5,6 @@ import bcrypt from 'bcryptjs';
 import router from 'next/router';
 import { validateFirstName } from '@/types/funcs/validation/validation-user';
 import { routeLogin, routeRegistrationPending } from '@/types/consts/routes';
-import { createUser } from '@/services/fsmeet-backend/create-user';
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 import { Action } from '@/types/enums/action';
@@ -16,6 +15,7 @@ import { menuUserType } from '@/types/consts/menus/menu-user-type';
 import { getLabelForFirstName } from '@/types/funcs/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/types/funcs/get-placeholder-by-user-type';
 import { Toaster, toast } from 'sonner';
+import { createUser } from '@/services/fsmeet-backend/user.client';
 
 const Register = () => {
   const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);

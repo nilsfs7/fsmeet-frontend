@@ -1,3 +1,4 @@
+import { UserType } from '@/types/enums/user-type';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import { User } from '@/types/user';
 import { Session } from 'next-auth';
@@ -106,6 +107,51 @@ export async function getUsers(): Promise<User[]> {
   });
 
   return users;
+}
+
+// todo: turn into post
+export async function getConfirmUser(username: string, requestToken: string): Promise<boolean> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/confirm/user?username=${username}&requestToken=${requestToken}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (response.status == 200) {
+    return true;
+  }
+
+  return false;
+}
+
+export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
+
+  const body = JSON.stringify({
+    username: username,
+    type: type,
+    email: email,
+    password: password,
+    firstName: firstName.trim(),
+  });
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: body,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (response.ok) {
+    console.info('Creating user successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
 }
 
 export async function createPasswordReset(usernameOrEmail: string): Promise<void> {
