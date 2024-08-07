@@ -3,7 +3,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import SocialLink from '@/components/user/SocialLink';
 import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
-import { getUser } from '@/services/fsmeet-backend/get-user';
+
 import { imgUserDefaultImg, imgVerifiedCheckmark, imgWorld } from '@/types/consts/images';
 import { routeAccount, routeEvents, routeMap, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
@@ -31,6 +31,7 @@ import { getCompetition } from '@/services/fsmeet-backend/get-competition';
 import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { ReadCompetitionResponseDto } from '@/services/fsmeet-backend/dtos/read-competition.reposnse.dto';
 import { Competition } from '@/types/competition';
+import { getUser } from '@/services/fsmeet-backend/user.client';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;

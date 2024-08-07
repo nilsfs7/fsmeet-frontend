@@ -1,9 +1,6 @@
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import SocialLink from '@/components/user/SocialLink';
-import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
-import { getUsers } from '@/services/fsmeet-backend/get-users';
 import { imgUserDefaultImg, imgWorld } from '@/types/consts/images';
 import { routeHome, routeMap, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
@@ -39,6 +36,7 @@ import { User } from '@/types/user';
 import PageTitle from '@/components/PageTitle';
 import { getUserTypeImages } from '@/types/funcs/user-type';
 import { auth } from '@/auth';
+import { getUsers } from '@/services/fsmeet-backend/user.client';
 
 export type UserInfo = {
   username: string;

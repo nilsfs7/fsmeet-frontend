@@ -3,12 +3,12 @@ import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import router from 'next/router';
 import { routeLogin, routePasswordPending } from '@/types/consts/routes';
-import { createPasswordReset } from '@/services/fsmeet-backend/create-password-reset';
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { Toaster, toast } from 'sonner';
+import { createPasswordReset } from '@/services/fsmeet-backend/user.client';
 
 const ForgotPassword = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');

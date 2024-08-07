@@ -11,7 +11,6 @@ import { useSession } from 'next-auth/react';
 import { User } from '@/types/user';
 import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeHome, routeLogin, routeMap } from '@/types/consts/routes';
-import { deleteUser } from '@/services/fsmeet-backend/delete-user';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { logoutUser } from '../../actions';
@@ -28,7 +27,6 @@ import Link from 'next/link';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { ButtonStyle } from '@/types/enums/button-style';
-import { updateUserVerificationState } from '@/services/fsmeet-backend/update-user-verification-state';
 import Dialog from '@/components/Dialog';
 import SocialLink from '@/components/user/SocialLink';
 import { Platform } from '@/types/enums/platform';
@@ -42,6 +40,7 @@ import { menuShowExperience } from '@/types/consts/menus/menu-show-experience';
 // import { menuTravelDistance } from '@/types/consts/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/types/consts/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/section-header';
+import { deleteUser, updateUserVerificationState } from '@/services/fsmeet-backend/user.client';
 
 interface ITabsMenu {
   user: User;
