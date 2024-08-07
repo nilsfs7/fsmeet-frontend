@@ -7,7 +7,6 @@ import { routeEventSubs, routeEvents, routeEventsCreate, routeHome, routeLogin }
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';
-import { getLicense } from '@/services/fsmeet-backend/get-license';
 import { License } from '@/types/license';
 import { useRouter } from 'next/router';
 import Dialog from '@/components/Dialog';
@@ -19,6 +18,7 @@ import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/Header';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
+import { getLicense } from '@/services/fsmeet-backend/license.client';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const router = useRouter();
