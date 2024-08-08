@@ -2,7 +2,6 @@ import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import SocialLink from '@/components/user/SocialLink';
-import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
 import { imgUserDefaultImg, imgVerifiedCheckmark, imgWorld } from '@/types/consts/images';
 import { routeAccount, routeEvents, routeMap, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
@@ -33,6 +32,7 @@ import { deleteUser, getUser } from '@/services/fsmeet-backend/user.client';
 import { getEvent } from '@/services/fsmeet-backend/event.client';
 import { TechnicalUser } from '@/types/enums/technical-user';
 import { Toaster, toast } from 'sonner';
+import { getTotalMatchPerformance } from '@/services/fsmeet-backend/statistic.client';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;

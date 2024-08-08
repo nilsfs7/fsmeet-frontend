@@ -193,7 +193,6 @@ export const columns: ColumnDef<ColumnInfo>[] = [
 const UsersList = (props: any) => {
   const session = props.session;
   const columnInfos: ColumnInfo[] = props.columnInfos;
-  const matchStats: TotalMatchPerformance = props.matchStats;
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -378,8 +377,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   // if (username) {
   try {
     const users = await getUsers();
-
-    // const matchStats = await getTotalMatchPerformance(username.toString());
 
     const columnInfos: ColumnInfo[] = [];
 
