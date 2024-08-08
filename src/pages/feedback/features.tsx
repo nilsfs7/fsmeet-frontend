@@ -9,10 +9,10 @@ import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
-import { createFeedbackFeature } from '@/services/fsmeet-backend/create-feedback-feature';
 import PageTitle from '@/components/PageTitle';
 import { Toaster, toast } from 'sonner';
 import { auth } from '@/auth';
+import { createFeedbackFeature } from '@/services/fsmeet-backend/feedback.client';
 
 const ReportBug = (props: any) => {
   const session = props.session;
