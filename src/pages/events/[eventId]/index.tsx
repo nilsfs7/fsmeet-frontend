@@ -28,11 +28,10 @@ import { isPublicEventState } from '@/types/funcs/is-public-event-state';
 import { EventState } from '@/types/enums/event-state';
 import { GetServerSidePropsContext } from 'next';
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import { createEventRegistration } from '@/services/fsmeet-backend/create-event-registration';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { Toaster, toast } from 'sonner';
 import { auth } from '@/auth';
-import { createComment, createSubComment, deleteEventRegistration, getComments, getEvent, updateEventState } from '@/services/fsmeet-backend/event.client';
+import { createComment, createEventRegistration, createSubComment, deleteEventRegistration, getComments, getEvent, updateEventState } from '@/services/fsmeet-backend/event.client';
 
 const EventDetails = (props: any) => {
   const session = props.session;
