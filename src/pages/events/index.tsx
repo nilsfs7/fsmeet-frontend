@@ -7,11 +7,11 @@ import { routeEvents, routeHome } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
-import { getEvents } from '@/services/fsmeet-backend/get-events';
 import { Event } from '@/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
+import { getEvents } from '@/infrastructure/clients/event.client';
 
 const defaultDateFrom = moment(moment().subtract(1, 'y').year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');

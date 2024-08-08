@@ -8,7 +8,7 @@ import TextButton from '@/components/common/TextButton';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { getUser, getUsers } from '@/services/fsmeet-backend/user.client';
+import { getUser, getUsers } from '@/infrastructure/clients/user.client';
 import { menuGender } from '@/types/consts/menus/menu-gender';
 import { routeAccount, routeHome } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
@@ -106,17 +106,13 @@ const FreestylerMap = ({ data, actingUser }: { data: any; actingUser: any }) => 
             <ActionButton action={Action.BACK} />
           </Link>
 
-          <div className="flex justify-end">
-            <div className="ml-1">
-              <ActionButton action={Action.COPY} onClick={handleShareClicked} />
-            </div>
+          <div className="flex justify-end gap-1">
+            <ActionButton action={Action.COPY} onClick={handleShareClicked} />
 
             {(!user || (user && !user.locLatitude)) && (
-              <div className="ml-1">
-                <Link href={`${routeAccount}?tab=map`}>
-                  <TextButton text={'Add Your Pin'} />
-                </Link>
-              </div>
+              <Link href={`${routeAccount}?tab=map`}>
+                <TextButton text={'Add Your Pin'} />
+              </Link>
             )}
           </div>
         </Navigation>

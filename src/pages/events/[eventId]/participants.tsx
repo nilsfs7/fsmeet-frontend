@@ -7,17 +7,15 @@ import { EventRegistrationStatus } from '@/types/enums/event-registration-status
 import Link from 'next/link';
 import { routeEventNotFound, routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
-import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import { deleteEventRegistration } from '@/services/fsmeet-backend/delete-event-registration';
 import { Toaster, toast } from 'sonner';
-import { updateEventRegistrationStatus } from '@/services/fsmeet-backend/update-event-registration-status';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
 import { auth } from '@/auth';
+import { deleteEventRegistration, getEvent, updateEventRegistrationStatus } from '@/infrastructure/clients/event.client';
 
 const EventParticipants = (props: any) => {
   const session = props.session;

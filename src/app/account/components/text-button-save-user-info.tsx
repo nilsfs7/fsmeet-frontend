@@ -1,7 +1,7 @@
 'use client';
 
 import TextButton from '@/components/common/TextButton';
-import { updateUser } from '@/services/fsmeet-backend/user.client';
+import { updateUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/types/user';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';

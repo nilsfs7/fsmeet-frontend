@@ -9,9 +9,9 @@ import Link from 'next/link';
 import { Action } from '@/types/enums/action';
 import { GetServerSidePropsContext } from 'next';
 import { Toaster, toast } from 'sonner';
-import { createEventFeedback } from '@/services/fsmeet-backend/create-event-feedback';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
+import { createEventFeedback } from '@/infrastructure/clients/event.client';
 
 const GeneralFeedback = (props: any) => {
   const session = props.session;

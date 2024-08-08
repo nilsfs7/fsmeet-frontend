@@ -11,9 +11,9 @@ import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Toaster, toast } from 'sonner';
-import { createEvent } from '@/services/fsmeet-backend/create-event';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
+import { createEvent } from '@/infrastructure/clients/event.client';
 
 const EventCreation = (props: any) => {
   const session = props.session;

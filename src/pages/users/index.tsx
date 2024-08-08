@@ -36,7 +36,7 @@ import { User } from '@/types/user';
 import PageTitle from '@/components/PageTitle';
 import { getUserTypeImages } from '@/types/funcs/user-type';
 import { auth } from '@/auth';
-import { getUsers } from '@/services/fsmeet-backend/user.client';
+import { getUsers } from '@/infrastructure/clients/user.client';
 
 export type UserInfo = {
   username: string;
@@ -193,7 +193,6 @@ export const columns: ColumnDef<ColumnInfo>[] = [
 const UsersList = (props: any) => {
   const session = props.session;
   const columnInfos: ColumnInfo[] = props.columnInfos;
-  const matchStats: TotalMatchPerformance = props.matchStats;
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -378,8 +377,6 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   // if (username) {
   try {
     const users = await getUsers();
-
-    // const matchStats = await getTotalMatchPerformance(username.toString());
 
     const columnInfos: ColumnInfo[] = [];
 

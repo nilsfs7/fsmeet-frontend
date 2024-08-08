@@ -2,8 +2,6 @@ import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import SocialLink from '@/components/user/SocialLink';
-import { getTotalMatchPerformance } from '@/services/fsmeet-backend/get-total-match-performance';
-
 import { imgUserDefaultImg, imgVerifiedCheckmark, imgWorld } from '@/types/consts/images';
 import { routeAccount, routeEvents, routeMap, routeUsers } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';
@@ -20,18 +18,21 @@ import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
-import { getUserBattleHistory } from '@/services/fsmeet-backend/history.client';
-import { ReadUserBattleHistoryResponseDto } from '@/services/fsmeet-backend/dtos/read-user-battle-history.response.dto';
+import { getUserBattleHistory } from '@/infrastructure/clients/history.client';
+import { ReadUserBattleHistoryResponseDto } from '@/infrastructure/clients/dtos/read-user-battle-history.response.dto';
 import MatchCard from '@/components/comp/MatchCard';
 import { Match } from '@/types/match';
 import moment from 'moment';
 import { Event } from '@/types/event';
 import { useEffect, useState } from 'react';
-import { getCompetition } from '@/services/fsmeet-backend/get-competition';
-import { getEvent } from '@/services/fsmeet-backend/get-event';
-import { ReadCompetitionResponseDto } from '@/services/fsmeet-backend/dtos/read-competition.reposnse.dto';
+import { ReadCompetitionResponseDto } from '@/infrastructure/clients/dtos/read-competition.reposnse.dto';
 import { Competition } from '@/types/competition';
-import { getUser } from '@/services/fsmeet-backend/user.client';
+import { deleteUser, getUser } from '@/infrastructure/clients/user.client';
+import { getEvent } from '@/infrastructure/clients/event.client';
+import { TechnicalUser } from '@/types/enums/technical-user';
+import { Toaster, toast } from 'sonner';
+import { getTotalMatchPerformance } from '@/infrastructure/clients/statistic.client';
+import { getCompetition } from '@/infrastructure/clients/competition.client';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;
@@ -54,6 +55,17 @@ const PublicUserProfile = (props: any) => {
     // @ts-ignore: next-line
     const country = countries[code.toUpperCase()];
     return country ? country.name : null;
+  }
+
+  async function handleDeleteAccountClicked() {
+    try {
+      await deleteUser(user.username, session);
+
+      toast.success('User deleted.');
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
   }
 
   useEffect(() => {
@@ -124,198 +136,204 @@ const PublicUserProfile = (props: any) => {
   }, [competitionsMap]);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
-      <Header />
+    <>
+      <Toaster richColors />
 
-      <div className="h-full overflow-y-auto">
-        <div className="flex flex-col items-center justify-center">
-          <div className="w-64">
-            <div className="mt-6 flex h-96">
-              <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
-            </div>
+      <div className="h-[calc(100dvh)] flex flex-col">
+        <Header />
 
-            <div className="mx-2 mt-6">
-              <div className="flex items-start gap-1 text-lg">
-                {user.verificationState === UserVerificationState.VERIFIED && (
-                  <div className="h-6 w-6 hover:p-0.5 flex items-center">
-                    <img className="" src={imgVerifiedCheckmark} alt="user verified checkmark" />
-                  </div>
-                )}
-
-                <div className="w-fit">
-                  {user.nickName && <div>{user.nickName}</div>}
-                  {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
-                  {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
-                </div>
+        <div className="h-full overflow-y-auto">
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-64">
+              <div className="mt-6 flex h-96">
+                <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
               </div>
 
-              {user.type && user.type !== UserType.FREESTYLER && (
-                <div className="flex items-start gap-1 mt-1">
-                  <div className="w-6 hover:p-0.5">
-                    <img src={getUserTypeImages(user.type).path} className="rounded-full object-cover" />
-                  </div>
-
-                  <div className="w-fit">{getUserTypeLabels(user.type)}</div>
-                </div>
-              )}
-
-              {user.country && user.country != '--' && (
-                <div className="flex items-center gap-1 mt-1">
-                  <div className="flex w-6 hover:p-0.5">
-                    <ReactCountryFlag
-                      countryCode={user.country}
-                      svg
-                      style={{
-                        width: '100%',
-                      }}
-                      title={user.country}
-                    />
-                  </div>
-
-                  <div>{getCountryNameByCode(user.country)}</div>
-                </div>
-              )}
-
-              {user.city && (
-                <div className="flex items-start gap-1 mt-1">
-                  <div className="w-6 hover:p-0.5">
-                    <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
-                      <img src={imgWorld} className="rounded-full object-cover" />
-                    </Link>
-                  </div>
+              <div className="mx-2 mt-6">
+                <div className="flex items-start gap-1 text-lg">
+                  {user.verificationState === UserVerificationState.VERIFIED && (
+                    <div className="h-6 w-6 hover:p-0.5 flex items-center">
+                      <img className="" src={imgVerifiedCheckmark} alt="user verified checkmark" />
+                    </div>
+                  )}
 
                   <div className="w-fit">
-                    <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
-                      {user.city}
-                    </Link>
+                    {user.nickName && <div>{user.nickName}</div>}
+                    {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
+                    {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
                   </div>
                 </div>
-              )}
 
-              <Accordion className="mt-1" type="single" collapsible>
-                {(user.instagramHandle || user.tikTokHandle || user.youTubeHandle || user.website) && (
-                  <AccordionItem value="item-socials">
-                    <AccordionTrigger>{`Socials`}</AccordionTrigger>
-                    <AccordionContent>
-                      <div className="">
-                        {user.instagramHandle && (
-                          <div className="mt-1 w-fit">
-                            <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
-                          </div>
-                        )}
+                {user.type && user.type !== UserType.FREESTYLER && (
+                  <div className="flex items-start gap-1 mt-1">
+                    <div className="w-6 hover:p-0.5">
+                      <img src={getUserTypeImages(user.type).path} className="rounded-full object-cover" />
+                    </div>
 
-                        {user.tikTokHandle && (
-                          <div className="mt-1 w-fit">
-                            <SocialLink platform={Platform.TIKTOK} path={user.tikTokHandle} />
-                          </div>
-                        )}
-
-                        {user.youTubeHandle && (
-                          <div className="mt-1 w-fit">
-                            <SocialLink platform={Platform.YOUTUBE} path={user.youTubeHandle} />
-                          </div>
-                        )}
-
-                        {user.website && (
-                          <div className="mt-1 w-fit">
-                            <SocialLink platform={Platform.WEBSITE} path={user.website} />
-                          </div>
-                        )}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
+                    <div className="w-fit">{getUserTypeLabels(user.type)}</div>
+                  </div>
                 )}
 
-                {user.type === UserType.FREESTYLER && (
-                  <AccordionItem value="item-matches">
-                    <AccordionTrigger>{`Battle Statistics`}</AccordionTrigger>
-                    <AccordionContent>
-                      <div className="grid grid-cols-2">
-                        <div>{`Matches`}</div>
-                        <div>{matchStats.matches}</div>
+                {user.country && user.country != '--' && (
+                  <div className="flex items-center gap-1 mt-1">
+                    <div className="flex w-6 hover:p-0.5">
+                      <ReactCountryFlag
+                        countryCode={user.country}
+                        svg
+                        style={{
+                          width: '100%',
+                        }}
+                        title={user.country}
+                      />
+                    </div>
 
-                        {matchStats.matches > 0 && (
-                          <>
-                            <div>{`Wins`}</div>
-                            <div>{`${matchStats.wins} `}</div>
-
-                            <div>{`Win ratio`}</div>
-                            <div>{`${(matchStats.ratio * 100).toFixed(2)}%`}</div>
-                          </>
-                        )}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
+                    <div>{getCountryNameByCode(user.country)}</div>
+                  </div>
                 )}
 
-                {user.type === UserType.FREESTYLER && (
-                  <AccordionItem value="item-history">
-                    <AccordionTrigger>{`Competition History`}</AccordionTrigger>
-                    <AccordionContent>
-                      {battleHistory.length === 0 && <div className="flex flex-col">{`No participations, yet.`}</div>}
+                {user.city && (
+                  <div className="flex items-start gap-1 mt-1">
+                    <div className="w-6 hover:p-0.5">
+                      <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
+                        <img src={imgWorld} className="rounded-full object-cover" />
+                      </Link>
+                    </div>
 
-                      {battleHistory.length > 0 &&
-                        battleHistory.map((data, i) => {
-                          return (
-                            <div key={`history-data-${i}`} className="mb-2 p-2 flex flex-col border border-secondary-dark rounded-lg">
-                              <div className="text-lg hover:underline">
-                                <Link
-                                  href={`${routeEvents}/${competitionsMap.get(data.competitionId)?.eventId}`}
-                                >{`${eventsMap.get(competitionsMap.get(data.competitionId)?.eventId || '')?.name}`}</Link>
-                              </div>
+                    <div className="w-fit">
+                      <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
+                        {user.city}
+                      </Link>
+                    </div>
+                  </div>
+                )}
 
-                              <div className="text-lg hover:underline">
-                                <Link href={`${routeEvents}/${competitionsMap.get(data.competitionId)?.eventId}/comps/${data.competitionId}`}>
-                                  {`${competitionsMap.get(data.competitionId)?.name}`}
-                                </Link>
-                              </div>
-
-                              {data.rounds.map((round, roundIndex) => {
-                                return (
-                                  <div key={`history-round-${i}-${roundIndex}`} className="mt-2 gap-2">
-                                    {round.matches.map((match, matchIndex) => {
-                                      return (
-                                        <div key={`history-match-${i}-${roundIndex}-${matchIndex}`} className="mt-2">
-                                          <div className="mx-2">
-                                            <div>{`${round.name} (${moment(round.date).format('YYYY-MM-DD')})`}</div>
-                                          </div>
-
-                                          <div className="">
-                                            <MatchCard
-                                              match={new Match(match.matchIndex, match.name, moment(match.time).format(), match.isExtraMatch, match.slots, match.matchSlots, match.id)}
-                                              usersMap={usersMap}
-                                            />
-                                          </div>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                );
-                              })}
+                <Accordion className="mt-1" type="single" collapsible>
+                  {(user.instagramHandle || user.tikTokHandle || user.youTubeHandle || user.website) && (
+                    <AccordionItem value="item-socials">
+                      <AccordionTrigger>{`Socials`}</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="">
+                          {user.instagramHandle && (
+                            <div className="mt-1 w-fit">
+                              <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
                             </div>
-                          );
-                        })}
-                    </AccordionContent>
-                  </AccordionItem>
-                )}
-              </Accordion>
+                          )}
+
+                          {user.tikTokHandle && (
+                            <div className="mt-1 w-fit">
+                              <SocialLink platform={Platform.TIKTOK} path={user.tikTokHandle} />
+                            </div>
+                          )}
+
+                          {user.youTubeHandle && (
+                            <div className="mt-1 w-fit">
+                              <SocialLink platform={Platform.YOUTUBE} path={user.youTubeHandle} />
+                            </div>
+                          )}
+
+                          {user.website && (
+                            <div className="mt-1 w-fit">
+                              <SocialLink platform={Platform.WEBSITE} path={user.website} />
+                            </div>
+                          )}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {user.type === UserType.FREESTYLER && (
+                    <AccordionItem value="item-matches">
+                      <AccordionTrigger>{`Battle Statistics`}</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid grid-cols-2">
+                          <div>{`Matches`}</div>
+                          <div>{matchStats.matches}</div>
+
+                          {matchStats.matches > 0 && (
+                            <>
+                              <div>{`Wins`}</div>
+                              <div>{`${matchStats.wins} `}</div>
+
+                              <div>{`Win ratio`}</div>
+                              <div>{`${(matchStats.ratio * 100).toFixed(2)}%`}</div>
+                            </>
+                          )}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {user.type === UserType.FREESTYLER && (
+                    <AccordionItem value="item-history">
+                      <AccordionTrigger>{`Competition History`}</AccordionTrigger>
+                      <AccordionContent>
+                        {battleHistory.length === 0 && <div className="flex flex-col">{`No participations, yet.`}</div>}
+
+                        {battleHistory.length > 0 &&
+                          battleHistory.map((data, i) => {
+                            return (
+                              <div key={`history-data-${i}`} className="mb-2 p-2 flex flex-col border border-secondary-dark rounded-lg">
+                                <div className="text-lg hover:underline">
+                                  <Link
+                                    href={`${routeEvents}/${competitionsMap.get(data.competitionId)?.eventId}`}
+                                  >{`${eventsMap.get(competitionsMap.get(data.competitionId)?.eventId || '')?.name}`}</Link>
+                                </div>
+
+                                <div className="text-lg hover:underline">
+                                  <Link href={`${routeEvents}/${competitionsMap.get(data.competitionId)?.eventId}/comps/${data.competitionId}`}>
+                                    {`${competitionsMap.get(data.competitionId)?.name}`}
+                                  </Link>
+                                </div>
+
+                                {data.rounds.map((round, roundIndex) => {
+                                  return (
+                                    <div key={`history-round-${i}-${roundIndex}`} className="mt-2 gap-2">
+                                      {round.matches.map((match, matchIndex) => {
+                                        return (
+                                          <div key={`history-match-${i}-${roundIndex}-${matchIndex}`} className="mt-2">
+                                            <div className="mx-2">
+                                              <div>{`${round.name} (${moment(round.date).format('YYYY-MM-DD')})`}</div>
+                                            </div>
+
+                                            <div className="">
+                                              <MatchCard
+                                                match={new Match(match.matchIndex, match.name, moment(match.time).format(), match.isExtraMatch, match.slots, match.matchSlots, match.id)}
+                                                usersMap={usersMap}
+                                              />
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            );
+                          })}
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+                </Accordion>
+              </div>
             </div>
           </div>
         </div>
+
+        <Navigation>
+          <ActionButton action={Action.BACK} onClick={() => router.back()} />
+
+          <div className="flex justify-end gap-1">
+            {session?.user?.username === TechnicalUser.ADMIN && <ActionButton action={Action.DELETE} onClick={handleDeleteAccountClicked} />}
+
+            {session?.user?.username === user.username && (
+              <Link href={routeAccount}>
+                <ActionButton action={Action.EDIT} />
+              </Link>
+            )}
+          </div>
+        </Navigation>
       </div>
-
-      <Navigation>
-        {/* <Link href={routeHome}> */}
-        <ActionButton action={Action.BACK} onClick={() => router.back()} />
-        {/* </Link> */}
-
-        {session?.user?.username === user.username && (
-          <Link href={routeAccount}>
-            <ActionButton action={Action.EDIT} />
-          </Link>
-        )}
-      </Navigation>
-    </div>
+    </>
   );
 };
 

@@ -8,16 +8,15 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Event } from '@/types/event';
 import Dialog from '@/components/Dialog';
-import { getEvent } from '@/services/fsmeet-backend/get-event';
 import { validateSession } from '@/types/funcs/validate-session';
-import { updateCompetition } from '@/services/fsmeet-backend/update-competition';
 import { EditorMode } from '@/types/enums/editor-mode';
-import { deleteCompetition } from '@/services/fsmeet-backend/delete-competition';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
+import { getEvent } from '@/infrastructure/clients/event.client';
+import { deleteCompetition, updateCompetition } from '@/infrastructure/clients/competition.client';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;

@@ -2,6 +2,7 @@ import { UserType } from '@/types/enums/user-type';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import { User } from '@/types/user';
 import { Session } from 'next-auth';
+import { DeleteUserBodyDto } from './dtos/delete-user.body.dto';
 
 export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
@@ -318,12 +319,18 @@ export async function updateUserVerificationState(session: Session | null, usern
   }
 }
 
-export async function deleteUser(session: Session | null): Promise<void> {
+export async function deleteUser(username: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
+
+  const body: DeleteUserBodyDto = {
+    username: username,
+  };
 
   const response = await fetch(url, {
     method: 'DELETE',
+    body: JSON.stringify(body),
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

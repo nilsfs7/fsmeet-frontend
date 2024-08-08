@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { Action } from '@/types/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { Toaster, toast } from 'sonner';
-import { createPasswordReset } from '@/services/fsmeet-backend/user.client';
+import { createPasswordReset } from '@/infrastructure/clients/user.client';
 
 const ForgotPassword = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');

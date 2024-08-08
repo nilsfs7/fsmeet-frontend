@@ -9,7 +9,7 @@ import PageTitle from '@/components/PageTitle';
 import { TabsMenu } from './components/tabs-menu';
 import { ButtonSaveUserInfo } from './components/text-button-save-user-info';
 import { RedirectType, redirect } from 'next/navigation';
-import { getUser } from '@/services/fsmeet-backend/user.client';
+import { getUser } from '@/infrastructure/clients/user.client';
 
 export default async function Account() {
   const session = await auth();
