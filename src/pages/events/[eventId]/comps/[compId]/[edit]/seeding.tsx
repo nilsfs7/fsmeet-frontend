@@ -14,14 +14,12 @@ import { Round } from '@/types/round';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
 import { validateSession } from '@/types/funcs/validate-session';
-import { getRounds } from '@/services/fsmeet-backend/get-rounds';
-import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
-import { updateMatchSlots } from '@/services/fsmeet-backend/update-match-slots';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { User } from '@/types/user';
 import { UserType } from '@/types/enums/user-type';
 import { auth } from '@/auth';
+import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/services/fsmeet-backend/competition.client';
 
 const Seeding = (props: any) => {
   const session = props.session;

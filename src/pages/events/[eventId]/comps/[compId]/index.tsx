@@ -17,8 +17,6 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { switchTab_pages } from '@/types/funcs/switch-tab';
 import { Round } from '@/types/round';
 import Separator from '@/components/Seperator';
-import { getRounds } from '@/services/fsmeet-backend/get-rounds';
-import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { Switch } from '@/components/ui/switch';
 import PageTitle from '@/components/PageTitle';
 import TextButton from '@/components/common/TextButton';
@@ -31,6 +29,7 @@ import { auth } from '@/auth';
 import { MaxAge } from '@/types/enums/max-age';
 import { getUser } from '@/services/fsmeet-backend/user.client';
 import { getEvent } from '@/services/fsmeet-backend/event.client';
+import { getCompetitionParticipants, getRounds } from '@/services/fsmeet-backend/competition.client';
 
 const CompetitionDetails = (props: any) => {
   const session = props.session;

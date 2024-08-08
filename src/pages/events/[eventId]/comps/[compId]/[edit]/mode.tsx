@@ -13,9 +13,6 @@ import Navigation from '@/components/Navigation';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
 import { validateSession } from '@/types/funcs/validate-session';
-import { deleteRounds } from '@/services/fsmeet-backend/delete-round';
-import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
-import { createRounds } from '@/services/fsmeet-backend/create-rounds';
 import { Round } from '@/types/round';
 import DialogAddRound from '@/components/comp/editor/DialogAddRound';
 import TextButton from '@/components/common/TextButton';
@@ -24,15 +21,14 @@ import DialogEditRound from '@/components/comp/editor/DialogEditRound';
 import DialogEditMatch from '@/components/comp/editor/DialogEditMatch';
 import DialogDeleteMatch from '@/components/comp/editor/DialogDeleteMatch';
 import DialogDeleteRound from '@/components/comp/editor/DialogDeleteRound';
-import { getRounds } from '@/services/fsmeet-backend/get-rounds';
 import { plainToInstance } from 'class-transformer';
-import { updateRounds } from '@/services/fsmeet-backend/update-rounds';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import moment, { Moment } from 'moment';
 import { Event } from '@/types/event';
 import { getEvent } from '@/services/fsmeet-backend/event.client';
+import { createRounds, deleteRounds, getCompetitionParticipants, getRounds, updateRounds } from '@/services/fsmeet-backend/competition.client';
 
 const ModeEditing = (props: any) => {
   const session = props.session;

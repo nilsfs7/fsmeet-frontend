@@ -9,19 +9,16 @@ import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import { getCompetitionParticipants } from '@/services/fsmeet-backend/get-competition-participants';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
-import { createCompetitionParticipation } from '@/services/fsmeet-backend/create-competition-participation';
-import { deleteCompetitionParticipation } from '@/services/fsmeet-backend/delete-competition-participation';
 import { UserType } from '@/types/enums/user-type';
-import { getCompetition } from '@/services/fsmeet-backend/get-competition';
 import { Competition } from '@/types/competition';
 import { CompetitionGender } from '@/types/enums/competition-gender';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
 import { auth } from '@/auth';
 import { MaxAge } from '@/types/enums/max-age';
 import { getEventRegistrations } from '@/services/fsmeet-backend/event.client';
+import { createCompetitionParticipation, deleteCompetitionParticipation, getCompetition, getCompetitionParticipants } from '@/services/fsmeet-backend/competition.client';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;

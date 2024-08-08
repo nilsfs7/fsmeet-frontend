@@ -25,7 +25,6 @@ import { Match } from '@/types/match';
 import moment from 'moment';
 import { Event } from '@/types/event';
 import { useEffect, useState } from 'react';
-import { getCompetition } from '@/services/fsmeet-backend/get-competition';
 import { ReadCompetitionResponseDto } from '@/services/fsmeet-backend/dtos/read-competition.reposnse.dto';
 import { Competition } from '@/types/competition';
 import { deleteUser, getUser } from '@/services/fsmeet-backend/user.client';
@@ -33,6 +32,7 @@ import { getEvent } from '@/services/fsmeet-backend/event.client';
 import { TechnicalUser } from '@/types/enums/technical-user';
 import { Toaster, toast } from 'sonner';
 import { getTotalMatchPerformance } from '@/services/fsmeet-backend/statistic.client';
+import { getCompetition } from '@/services/fsmeet-backend/competition.client';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;

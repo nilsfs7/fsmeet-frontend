@@ -6,7 +6,6 @@ import { routeEvents, routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { Competition } from '@/types/competition';
 import { validateSession } from '@/types/funcs/validate-session';
-import { createCompetition } from '@/services/fsmeet-backend/create-competition';
 import { EditorMode } from '@/types/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -14,6 +13,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
+import { createCompetition } from '@/services/fsmeet-backend/competition.client';
 
 const CompetitionCreation = (props: any) => {
   const session = props.session;
