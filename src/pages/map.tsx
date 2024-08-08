@@ -8,7 +8,7 @@ import TextButton from '@/components/common/TextButton';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { getUser, getUsers } from '@/services/fsmeet-backend/user.client';
+import { getUser, getUsers } from '@/infrastructure/clients/user.client';
 import { menuGender } from '@/types/consts/menus/menu-gender';
 import { routeAccount, routeHome } from '@/types/consts/routes';
 import { Action } from '@/types/enums/action';

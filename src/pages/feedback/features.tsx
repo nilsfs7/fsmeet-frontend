@@ -12,7 +12,7 @@ import { GetServerSidePropsContext } from 'next';
 import PageTitle from '@/components/PageTitle';
 import { Toaster, toast } from 'sonner';
 import { auth } from '@/auth';
-import { createFeedbackFeature } from '@/services/fsmeet-backend/feedback.client';
+import { createFeedbackFeature } from '@/infrastructure/clients/feedback.client';
 
 const ReportBug = (props: any) => {
   const session = props.session;

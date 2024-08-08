@@ -13,7 +13,7 @@ import { Action } from '@/types/enums/action';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { createEvent } from '@/services/fsmeet-backend/event.client';
+import { createEvent } from '@/infrastructure/clients/event.client';
 
 const EventCreation = (props: any) => {
   const session = props.session;

@@ -12,7 +12,7 @@ import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { getEvent } from '@/services/fsmeet-backend/event.client';
+import { getEvent } from '@/infrastructure/clients/event.client';
 
 const ManageCompetitions = (props: any) => {
   const session = props.session;

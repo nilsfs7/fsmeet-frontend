@@ -11,7 +11,7 @@ import { Event } from '@/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
-import { getEvents } from '@/services/fsmeet-backend/event.client';
+import { getEvents } from '@/infrastructure/clients/event.client';
 
 const defaultDateFrom = moment(moment().subtract(1, 'y').year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');

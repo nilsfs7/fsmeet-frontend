@@ -15,7 +15,7 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { getEvents, updateEventState } from '@/services/fsmeet-backend/event.client';
+import { getEvents, updateEventState } from '@/infrastructure/clients/event.client';
 
 const Events = (props: any) => {
   const session = props.session;

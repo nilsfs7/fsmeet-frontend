@@ -17,8 +17,8 @@ import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/Header';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { getLicense } from '@/services/fsmeet-backend/license.client';
-import { getEvents } from '@/services/fsmeet-backend/event.client';
+import { getLicense } from '@/infrastructure/clients/license.client';
+import { getEvents } from '@/infrastructure/clients/event.client';
 
 const MyEventsOverview = ({ data, session }: { data: any; session: any }) => {
   const router = useRouter();

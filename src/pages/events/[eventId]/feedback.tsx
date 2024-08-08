@@ -11,7 +11,7 @@ import { GetServerSidePropsContext } from 'next';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { createEventFeedback } from '@/services/fsmeet-backend/event.client';
+import { createEventFeedback } from '@/infrastructure/clients/event.client';
 
 const GeneralFeedback = (props: any) => {
   const session = props.session;

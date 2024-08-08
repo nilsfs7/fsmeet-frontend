@@ -27,8 +27,8 @@ import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import moment, { Moment } from 'moment';
 import { Event } from '@/types/event';
-import { getEvent } from '@/services/fsmeet-backend/event.client';
-import { createRounds, deleteRounds, getCompetitionParticipants, getRounds, updateRounds } from '@/services/fsmeet-backend/competition.client';
+import { getEvent } from '@/infrastructure/clients/event.client';
+import { createRounds, deleteRounds, getCompetitionParticipants, getRounds, updateRounds } from '@/infrastructure/clients/competition.client';
 
 const ModeEditing = (props: any) => {
   const session = props.session;

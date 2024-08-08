@@ -13,7 +13,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { createCompetition } from '@/services/fsmeet-backend/competition.client';
+import { createCompetition } from '@/infrastructure/clients/competition.client';
 
 const CompetitionCreation = (props: any) => {
   const session = props.session;

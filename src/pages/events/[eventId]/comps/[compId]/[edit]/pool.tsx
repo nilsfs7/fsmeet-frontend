@@ -17,8 +17,8 @@ import { CompetitionGender } from '@/types/enums/competition-gender';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
 import { auth } from '@/auth';
 import { MaxAge } from '@/types/enums/max-age';
-import { getEventRegistrations } from '@/services/fsmeet-backend/event.client';
-import { createCompetitionParticipation, deleteCompetitionParticipation, getCompetition, getCompetitionParticipants } from '@/services/fsmeet-backend/competition.client';
+import { getEventRegistrations } from '@/infrastructure/clients/event.client';
+import { createCompetitionParticipation, deleteCompetitionParticipation, getCompetition, getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;

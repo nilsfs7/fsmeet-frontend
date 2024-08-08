@@ -15,8 +15,8 @@ import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { getEvent } from '@/services/fsmeet-backend/event.client';
-import { deleteCompetition, updateCompetition } from '@/services/fsmeet-backend/competition.client';
+import { getEvent } from '@/infrastructure/clients/event.client';
+import { deleteCompetition, updateCompetition } from '@/infrastructure/clients/competition.client';
 
 const CompetitionEditing = (props: any) => {
   const session = props.session;

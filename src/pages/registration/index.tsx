@@ -15,7 +15,7 @@ import { menuUserType } from '@/types/consts/menus/menu-user-type';
 import { getLabelForFirstName } from '@/types/funcs/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/types/funcs/get-placeholder-by-user-type';
 import { Toaster, toast } from 'sonner';
-import { createUser } from '@/services/fsmeet-backend/user.client';
+import { createUser } from '@/infrastructure/clients/user.client';
 
 const Register = () => {
   const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);

@@ -4,7 +4,7 @@ import { routeLogin } from '@/types/consts/routes';
 import Image from 'next/image';
 import { imgEmojiError, imgCelebration } from '@/types/consts/images';
 import { GetServerSidePropsContext } from 'next';
-import { getConfirmUser } from '@/services/fsmeet-backend/user.client';
+import { getConfirmUser } from '@/infrastructure/clients/user.client';
 
 const RegistrationConfirmation = (props: any) => {
   let confirmationSuccessful: boolean = props.data;

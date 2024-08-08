@@ -40,7 +40,7 @@ import { menuShowExperience } from '@/types/consts/menus/menu-show-experience';
 // import { menuTravelDistance } from '@/types/consts/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/types/consts/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/section-header';
-import { deleteUser, updateUserVerificationState } from '@/services/fsmeet-backend/user.client';
+import { deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 
 interface ITabsMenu {
   user: User;

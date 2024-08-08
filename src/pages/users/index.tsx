@@ -36,7 +36,7 @@ import { User } from '@/types/user';
 import PageTitle from '@/components/PageTitle';
 import { getUserTypeImages } from '@/types/funcs/user-type';
 import { auth } from '@/auth';
-import { getUsers } from '@/services/fsmeet-backend/user.client';
+import { getUsers } from '@/infrastructure/clients/user.client';
 
 export type UserInfo = {
   username: string;

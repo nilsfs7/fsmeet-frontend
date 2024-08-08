@@ -27,9 +27,9 @@ import { MatchSlot } from '@/types/match-slot';
 import { Toaster, toast } from 'sonner';
 import { auth } from '@/auth';
 import { MaxAge } from '@/types/enums/max-age';
-import { getUser } from '@/services/fsmeet-backend/user.client';
-import { getEvent } from '@/services/fsmeet-backend/event.client';
-import { getCompetitionParticipants, getRounds } from '@/services/fsmeet-backend/competition.client';
+import { getUser } from '@/infrastructure/clients/user.client';
+import { getEvent } from '@/infrastructure/clients/event.client';
+import { getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 
 const CompetitionDetails = (props: any) => {
   const session = props.session;

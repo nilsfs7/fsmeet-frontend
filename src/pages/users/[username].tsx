@@ -18,21 +18,21 @@ import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
-import { getUserBattleHistory } from '@/services/fsmeet-backend/history.client';
-import { ReadUserBattleHistoryResponseDto } from '@/services/fsmeet-backend/dtos/read-user-battle-history.response.dto';
+import { getUserBattleHistory } from '@/infrastructure/clients/history.client';
+import { ReadUserBattleHistoryResponseDto } from '@/infrastructure/clients/dtos/read-user-battle-history.response.dto';
 import MatchCard from '@/components/comp/MatchCard';
 import { Match } from '@/types/match';
 import moment from 'moment';
 import { Event } from '@/types/event';
 import { useEffect, useState } from 'react';
-import { ReadCompetitionResponseDto } from '@/services/fsmeet-backend/dtos/read-competition.reposnse.dto';
+import { ReadCompetitionResponseDto } from '@/infrastructure/clients/dtos/read-competition.reposnse.dto';
 import { Competition } from '@/types/competition';
-import { deleteUser, getUser } from '@/services/fsmeet-backend/user.client';
-import { getEvent } from '@/services/fsmeet-backend/event.client';
+import { deleteUser, getUser } from '@/infrastructure/clients/user.client';
+import { getEvent } from '@/infrastructure/clients/event.client';
 import { TechnicalUser } from '@/types/enums/technical-user';
 import { Toaster, toast } from 'sonner';
-import { getTotalMatchPerformance } from '@/services/fsmeet-backend/statistic.client';
-import { getCompetition } from '@/services/fsmeet-backend/competition.client';
+import { getTotalMatchPerformance } from '@/infrastructure/clients/statistic.client';
+import { getCompetition } from '@/infrastructure/clients/competition.client';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;

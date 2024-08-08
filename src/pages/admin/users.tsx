@@ -14,7 +14,7 @@ import { menuUserVerificationStates } from '@/types/consts/menus/menu-user-verif
 import { UserVerificationState } from '@/types/enums/user-verification-state';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { getUsers, updateUserVerificationState } from '@/services/fsmeet-backend/user.client';
+import { getUsers, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 
 const Users = (props: any) => {
   const session = props.session;

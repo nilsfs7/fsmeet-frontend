@@ -19,7 +19,7 @@ import PageTitle from '@/components/PageTitle';
 import { User } from '@/types/user';
 import { UserType } from '@/types/enums/user-type';
 import { auth } from '@/auth';
-import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/services/fsmeet-backend/competition.client';
+import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/infrastructure/clients/competition.client';
 
 const Seeding = (props: any) => {
   const session = props.session;

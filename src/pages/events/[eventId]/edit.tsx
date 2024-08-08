@@ -14,7 +14,7 @@ import TextButton from '@/components/common/TextButton';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { deleteEvent, getEvent, updateEvent } from '@/services/fsmeet-backend/event.client';
+import { deleteEvent, getEvent, updateEvent } from '@/infrastructure/clients/event.client';
 
 const EventEditing = (props: any) => {
   const session = props.session;

@@ -13,7 +13,7 @@ import { GetServerSidePropsContext } from 'next';
 import { auth } from '@/auth';
 import { validateSession } from '@/types/funcs/validate-session';
 import PageTitle from '@/components/PageTitle';
-import { deleteUserImage, updateUserImage } from '@/services/fsmeet-backend/user.client';
+import { deleteUserImage, updateUserImage } from '@/infrastructure/clients/user.client';
 
 const AccountImage = ({ session }: any) => {
   const [imageUrl, setImageUrl] = useState('');

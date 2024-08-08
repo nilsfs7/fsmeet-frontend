@@ -15,7 +15,7 @@ import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
 import { auth } from '@/auth';
-import { deleteEventRegistration, getEvent, updateEventRegistrationStatus } from '@/services/fsmeet-backend/event.client';
+import { deleteEventRegistration, getEvent, updateEventRegistrationStatus } from '@/infrastructure/clients/event.client';
 
 const EventParticipants = (props: any) => {
   const session = props.session;

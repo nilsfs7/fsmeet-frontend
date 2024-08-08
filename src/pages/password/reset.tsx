@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import { useRouter } from 'next/router';
 import { routeLogin } from '@/types/consts/routes';
 import { Toaster, toast } from 'sonner';
-import { updateUserPassword } from '@/services/fsmeet-backend/user.client';
+import { updateUserPassword } from '@/infrastructure/clients/user.client';
 
 const ResetPassword = () => {
   const router = useRouter();

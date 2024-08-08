@@ -11,7 +11,7 @@ import { GetServerSidePropsContext } from 'next';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
 import { TechnicalUser } from '@/types/enums/technical-user';
-import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/services/fsmeet-backend/event.client';
+import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastructure/clients/event.client';
 
 const Home = ({ data, session }: { data: any; session: any }) => {
   let upcomingEvents: Event[] = data.upcoming;

@@ -31,7 +31,7 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { Toaster, toast } from 'sonner';
 import { auth } from '@/auth';
-import { createComment, createEventRegistration, createSubComment, deleteEventRegistration, getComments, getEvent, updateEventState } from '@/services/fsmeet-backend/event.client';
+import { createComment, createEventRegistration, createSubComment, deleteEventRegistration, getComments, getEvent, updateEventState } from '@/infrastructure/clients/event.client';
 
 const EventDetails = (props: any) => {
   const session = props.session;
