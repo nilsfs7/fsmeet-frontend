@@ -17,6 +17,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/types/enums/size';
 import { imgWorld } from '@/types/consts/images';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
 interface IButton {
   action: Action;
@@ -84,6 +85,9 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
       break;
     case Action.DENY:
       icon = <CancelIcon className={className} />;
+      break;
+    case Action.DOWNLOAD:
+      icon = <CloudDownloadIcon className={className} />;
       break;
     case Action.EDIT:
       icon = <EditIcon className={className} />;

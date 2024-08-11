@@ -19,7 +19,6 @@ import { Round } from '@/types/round';
 import Separator from '@/components/Seperator';
 import { Switch } from '@/components/ui/switch';
 import PageTitle from '@/components/PageTitle';
-import TextButton from '@/components/common/TextButton';
 import { download, generateCsv, mkConfig } from 'export-to-csv';
 import { AcceptedData, ConfigOptions } from 'export-to-csv/output/lib/types';
 import moment from 'moment';
@@ -30,6 +29,8 @@ import { MaxAge } from '@/types/enums/max-age';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { getCompetitionParticipants, getRounds } from '@/infrastructure/clients/competition.client';
+import Dialog from '@/components/Dialog';
+import CheckBox from '@/components/common/CheckBox';
 
 const CompetitionDetails = (props: any) => {
   const session = props.session;
@@ -46,6 +47,7 @@ const CompetitionDetails = (props: any) => {
   const [rounds, setRounds] = useState<Round[]>([]);
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [filteredByUser, setFilteredByUser] = useState<string | null>(null);
+  const [exportContainsPlayerNames, setExportContainsPlayerNames] = useState<boolean>(false);
 
   useEffect(() => {
     if (eventId && typeof eventId === 'string' && compId && typeof compId === 'string') {
@@ -144,7 +146,7 @@ const CompetitionDetails = (props: any) => {
     return res1 > res2 ? 1 : 0;
   };
 
-  const mapRoundsToCsv = (rounds: Round[]): { [k: string]: AcceptedData; [k: number]: AcceptedData }[] => {
+  const mapRoundsToCsv = (rounds: Round[], addPlayerNames: boolean): { [k: string]: AcceptedData; [k: number]: AcceptedData }[] => {
     const na = 'n/a';
     const data: { [k: string]: AcceptedData; [k: number]: AcceptedData }[] = [];
 
@@ -184,18 +186,31 @@ const CompetitionDetails = (props: any) => {
               p2Result = getBinaryResultForRes1(s2.result, s1.result);
             }
 
-            data.push({
-              battle_id: battleId,
-              player_a_id: p1?.wffaId ? p1.wffaId : na,
-              player_a_name: p1?.lastName ? `${p1?.firstName} ${p1?.lastName}` : p1?.firstName,
-              player_a_result: p1Result,
-              player_b_id: p2?.wffaId ? p2.wffaId : na,
-              player_b_name: p2?.lastName ? `${p2?.firstName} ${p2?.lastName}` : p2?.firstName,
-              player_b_result: p2Result,
-              battle_type: battleType,
-              competition_type: '', // TODO: what to put here?
-              competition_strength: '', // TODO: what to put here?
-            });
+            if (addPlayerNames) {
+              data.push({
+                battle_id: battleId,
+                player_a_id: p1?.wffaId ? p1.wffaId : '',
+                player_a_name: p1?.lastName ? `${p1?.firstName} ${p1?.lastName}` : p1?.firstName,
+                player_a_result: p1Result,
+                player_b_id: p2?.wffaId ? p2.wffaId : '',
+                player_b_name: p2?.lastName ? `${p2?.firstName} ${p2?.lastName}` : p2?.firstName,
+                player_b_result: p2Result,
+                battle_type: battleType,
+                competition_type: '', // leave empty
+                competition_strength: '', // leave empty
+              });
+            } else {
+              data.push({
+                battle_id: battleId,
+                player_a_id: p1?.wffaId ? p1.wffaId : na,
+                player_a_result: p1Result,
+                player_b_id: p2?.wffaId ? p2.wffaId : na,
+                player_b_result: p2Result,
+                battle_type: battleType,
+                competition_type: '', // leave empty
+                competition_strength: '', // leave empty
+              });
+            }
 
             matchId += 1;
             l++;
@@ -218,20 +233,40 @@ const CompetitionDetails = (props: any) => {
     return data;
   };
 
-  const handleDownloadResultsClicked = () => {
+  const handleDownloadResultsConfirmedClicked = () => {
     const options: ConfigOptions = { filename: `${moment().format('YYYYMMDD HHmmss')} - ${comp?.name} - results`, useKeysAsHeaders: true };
     const csvConfig = mkConfig(options);
 
-    const data = mapRoundsToCsv(rounds);
+    const data = mapRoundsToCsv(rounds, exportContainsPlayerNames);
     if (data.length > 0) {
       const csvOutput = generateCsv(csvConfig)(data);
       download(csvConfig)(csvOutput);
     }
   };
 
+  const handleDownloadResultsClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}/comps/${compId}/?download=1`, undefined, { shallow: true });
+  };
+
+  const handleCancelDialogClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}/comps/${compId}`, undefined, { shallow: true });
+  };
+
   return (
     <>
       <Toaster richColors />
+
+      <Dialog title="Download Results" queryParam="download" confirmText="Download" onCancel={handleCancelDialogClicked} onConfirm={handleDownloadResultsConfirmedClicked}>
+        <p className="px-2">{`Export competition results for world rankings.`}</p>
+
+        <CheckBox
+          id={'addPlayerNames'}
+          label={'Add player names'}
+          onChange={() => {
+            setExportContainsPlayerNames(!exportContainsPlayerNames);
+          }}
+        ></CheckBox>
+      </Dialog>
 
       <div className="h-[calc(100dvh)] flex flex-col">
         <PageTitle title={comp?.name || ''} />
@@ -370,7 +405,7 @@ const CompetitionDetails = (props: any) => {
             }}
           />
 
-          {rounds.length > 0 && rounds[0].matches.length > 0 && <TextButton text="Download Data" onClick={handleDownloadResultsClicked} />}
+          {rounds.length > 0 && rounds[0].matches.length > 0 && <ActionButton action={Action.DOWNLOAD} onClick={handleDownloadResultsClicked} />}
         </Navigation>
       </div>
     </>
