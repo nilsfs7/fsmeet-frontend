@@ -29,7 +29,7 @@ import { auth } from '@/auth';
 import { MaxAge } from '@/types/enums/max-age';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { getEvent } from '@/infrastructure/clients/event.client';
-import { getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
+import { getCompetitionParticipants, getRounds } from '@/infrastructure/clients/competition.client';
 
 const CompetitionDetails = (props: any) => {
   const session = props.session;
