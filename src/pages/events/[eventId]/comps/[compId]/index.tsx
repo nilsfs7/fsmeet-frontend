@@ -202,9 +202,9 @@ const CompetitionDetails = (props: any) => {
             } else {
               data.push({
                 battle_id: battleId,
-                player_a_id: p1?.wffaId ? p1.wffaId : na,
+                player_a_id: p1?.wffaId ? p1.wffaId : '',
                 player_a_result: p1Result,
-                player_b_id: p2?.wffaId ? p2.wffaId : na,
+                player_b_id: p2?.wffaId ? p2.wffaId : '',
                 player_b_result: p2Result,
                 battle_type: battleType,
                 competition_type: '', // leave empty
