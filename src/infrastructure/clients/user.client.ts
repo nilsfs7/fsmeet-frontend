@@ -58,8 +58,12 @@ export async function getUser(username: string, session?: Session | null): Promi
   }
 }
 
-export async function getUsers(): Promise<User[]> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
+export async function getUsers(type?: UserType): Promise<User[]> {
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users?`;
+
+  if (type) {
+    url = url + `type=${type}`;
+  }
 
   const response = await fetch(url, {
     method: 'GET',
