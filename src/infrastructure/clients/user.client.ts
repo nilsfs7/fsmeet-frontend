@@ -58,12 +58,18 @@ export async function getUser(username: string, session?: Session | null): Promi
   }
 }
 
-export async function getUsers(type?: UserType): Promise<User[]> {
+export async function getUsers(type?: UserType, hasWffaId?: boolean): Promise<User[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users?`;
 
   if (type) {
     url = url + `type=${type}`;
   }
+
+  if (hasWffaId !== undefined) {
+    url = url + `&hasWffaId=${hasWffaId}`;
+  }
+
+  console.log(url);
 
   const response = await fetch(url, {
     method: 'GET',
