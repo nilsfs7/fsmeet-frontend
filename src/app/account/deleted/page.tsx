@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { routeHome } from '@/types/consts/routes';
 import { imgGoodBye } from '@/types/consts/images';
 
-const AccountDeleted = () => {
+export default async function AccountDeleted() {
   return (
     <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
       <div className="py-2 ">
@@ -22,6 +22,4 @@ const AccountDeleted = () => {
       </div>
     </div>
   );
-};
-
-export default AccountDeleted;
+}
