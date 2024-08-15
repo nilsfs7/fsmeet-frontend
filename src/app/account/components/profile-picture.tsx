@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export const ProfilePicture = () => {
-  const [imageUrl, setImageUrl] = useState<string>('');
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
     const imageUrl = localStorage.getItem('imageUrl'); // TODO: get url from session, session must be uptodate
