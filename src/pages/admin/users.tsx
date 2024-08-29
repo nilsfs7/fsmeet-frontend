@@ -15,10 +15,12 @@ import { UserVerificationState } from '@/types/enums/user-verification-state';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import { getUsers, updateUserVerificationState } from '@/infrastructure/clients/user.client';
+import { getUserCount } from '@/infrastructure/clients/statistic.client';
 
 const Users = (props: any) => {
   const session = props.session;
 
+  const [userCount, setUserCount] = useState<number>(-1);
   const [users, setUsers] = useState<User[]>([]);
 
   const handlUserVerificationStateChanged = async (username: string, verificationState: UserVerificationState) => {
@@ -46,10 +48,14 @@ const Users = (props: any) => {
   };
 
   useEffect(() => {
+    getUserCount().then((dto) => {
+      setUserCount(dto.userCount);
+    });
+
     getUsers().then((users) => {
       setUsers(users);
     });
-  }, [users == undefined]);
+  }, [users == undefined, userCount == undefined]);
 
   if (!users) {
     return <LoadingSpinner />;
@@ -65,6 +71,16 @@ const Users = (props: any) => {
         <div className="mx-2 overflow-y-auto">
           <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
             <div className="flex flex-col">
+              <div className="m-2 flex items-center gap-2">
+                <div className="flex w-1/2 justify-end">
+                  <div>{`Total users:`}</div>
+                </div>
+
+                <div className="flex w-1/2 justify-start">
+                  <div>{userCount}</div>
+                </div>
+              </div>
+
               {users.map((user, index) => {
                 return (
                   <div key={index} className="m-1 flex items-center">
