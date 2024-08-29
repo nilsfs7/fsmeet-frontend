@@ -20,7 +20,8 @@ import { getUserCount } from '@/infrastructure/clients/statistic.client';
 const Users = (props: any) => {
   const session = props.session;
 
-  const [userCount, setUserCount] = useState<number>(-1);
+  const [userCountTotal, setUserCountTotal] = useState<number>(-1);
+  const [userCountNonTechnical, setUserCountNonTechnical] = useState<number>(-1);
   const [users, setUsers] = useState<User[]>([]);
 
   const handlUserVerificationStateChanged = async (username: string, verificationState: UserVerificationState) => {
@@ -49,13 +50,14 @@ const Users = (props: any) => {
 
   useEffect(() => {
     getUserCount().then((dto) => {
-      setUserCount(dto.userCount);
+      setUserCountTotal(dto.userCountTotal);
+      setUserCountNonTechnical(dto.userCountNonTechnical);
     });
 
     getUsers().then((users) => {
       setUsers(users);
     });
-  }, [users == undefined, userCount == undefined]);
+  }, [users == undefined, userCountTotal == undefined, userCountNonTechnical == undefined]);
 
   if (!users) {
     return <LoadingSpinner />;
@@ -77,7 +79,17 @@ const Users = (props: any) => {
                 </div>
 
                 <div className="flex w-1/2 justify-start">
-                  <div>{userCount}</div>
+                  <div>{userCountTotal}</div>
+                </div>
+              </div>
+
+              <div className="m-2 flex items-center gap-2">
+                <div className="flex w-1/2 justify-end">
+                  <div>{`Non-technical users:`}</div>
+                </div>
+
+                <div className="flex w-1/2 justify-start">
+                  <div>{userCountNonTechnical}</div>
                 </div>
               </div>
 

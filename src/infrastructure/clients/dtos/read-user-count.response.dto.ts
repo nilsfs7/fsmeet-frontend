@@ -1,7 +1,33 @@
 export class ReadUserCountResponseDto {
-  userCount: number;
+  userCountTotal: number;
+  userCountAssociations: number;
+  userCountBrands: number;
+  userCountDJs: number;
+  userCountFreestylers: number;
+  userCountMCs: number;
+  userCountMedia: number;
+  userCountTechnical: number;
+  userCountNonTechnical: number;
 
-  constructor(userCount: number) {
-    this.userCount = userCount;
+  constructor(
+    userCountTotal: number,
+    userCountAssociations: number,
+    userCountBrands: number,
+    userCountDJs: number,
+    userCountFreestylers: number,
+    userCountMCs: number,
+    userCountMedia: number,
+    userCountTechnical: number,
+    userCountNonTechnical: number
+  ) {
+    this.userCountTotal = userCountTotal;
+    this.userCountAssociations = userCountAssociations;
+    this.userCountBrands = userCountBrands;
+    this.userCountDJs = userCountDJs;
+    this.userCountFreestylers = userCountFreestylers;
+    this.userCountMCs = userCountMCs;
+    this.userCountMedia = userCountMedia;
+    this.userCountTechnical = userCountTechnical;
+    this.userCountNonTechnical = userCountNonTechnical;
   }
 }
