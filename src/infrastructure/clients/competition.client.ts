@@ -9,7 +9,6 @@ export async function getCompetition(compId: string): Promise<ReadCompetitionRes
 
   const response = await fetch(url, {
     method: 'GET',
-
     headers: {
       'Content-Type': 'application/json',
     },
@@ -27,14 +26,14 @@ export async function getCompetition(compId: string): Promise<ReadCompetitionRes
 export async function getCompetitionParticipants(compId: string): Promise<{ username: string }[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, { method: 'GET' });
   return await response.json();
 }
 
 export async function getRounds(compId: string): Promise<Round[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, { method: 'GET' });
   const rnds: Round[] = await response.json();
 
   const rounds: Round[] = rnds.map((rnd: Round) => {

@@ -4,7 +4,9 @@ import { ReadUserBattleHistoryResponseDto } from './dtos/read-user-battle-histor
 // export async function getUserBattleHistory(username: string): Promise<{ competitionId: string; rounds: Round[] }[]> {
 //   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/history/battles/${username}`;
 
-//   const response = await fetch(url);
+//   const response = await fetch(url, {
+//     method: 'GET',
+//   });
 //   const battleData: ReadUserBattleHistoryResponseDto[] = await response.json();
 
 //   const data = battleData.map((data) => {
@@ -33,6 +35,8 @@ import { ReadUserBattleHistoryResponseDto } from './dtos/read-user-battle-histor
 export async function getUserBattleHistory(username: string): Promise<ReadUserBattleHistoryResponseDto[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/history/battles/${username}`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: 'GET',
+  });
   return await response.json();
 }
