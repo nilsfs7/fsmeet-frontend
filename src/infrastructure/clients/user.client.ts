@@ -332,9 +332,7 @@ export async function updateUserVerificationState(session: Session | null, usern
 export async function deleteUser(username: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
 
-  const body: DeleteUserBodyDto = {
-    username: username,
-  };
+  const body = new DeleteUserBodyDto(username);
 
   const response = await fetch(url, {
     method: 'DELETE',

@@ -30,7 +30,9 @@ export async function getEvents(admin: string | null, participant: string | null
   let response;
 
   if (!session) {
-    response = await fetch(url);
+    response = await fetch(url, {
+      method: 'GET',
+    });
   } else {
     response = await fetch(url, {
       method: 'GET',
@@ -46,21 +48,27 @@ export async function getEvents(admin: string | null, participant: string | null
 export async function getEventsUpcoming(numberOfEventsToFetch: number): Promise<Event[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/upcoming/${numberOfEventsToFetch.toString()}`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: 'GET',
+  });
   return await response.json();
 }
 
 export async function getEventsOngoing(numberOfEventsToFetch: number): Promise<Event[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/ongoing/${numberOfEventsToFetch.toString()}`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: 'GET',
+  });
   return await response.json();
 }
 
 export async function getEventsRecent(numberOfEventsToFetch: number): Promise<Event[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/recent/${numberOfEventsToFetch.toString()}`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: 'GET',
+  });
   return await response.json();
 }
 
@@ -70,7 +78,7 @@ export async function getEvent(eventId: string, session?: Session | null): Promi
   let response;
 
   if (!session) {
-    response = await fetch(url);
+    response = await fetch(url, { method: 'GET' });
   } else {
     response = await fetch(url, {
       method: 'GET',
@@ -95,7 +103,10 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
   let response;
 
   if (!session) {
-    response = await fetch(url, { cache: 'no-store' });
+    response = await fetch(url, {
+      method: 'GET',
+      cache: 'no-store',
+    });
   } else {
     response = await fetch(url, {
       method: 'GET',
@@ -118,7 +129,9 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
 export async function getEventRegistrations(eventId: string): Promise<EventRegistration[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    method: 'GET',
+  });
   return await response.json();
 }
 
