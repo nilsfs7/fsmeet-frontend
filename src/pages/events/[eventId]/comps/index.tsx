@@ -107,11 +107,9 @@ const ManageCompetitions = (props: any) => {
               <div className="m-1 flex items-center gap-2">
                 <div className="flex w-1/2 justify-end">Add new</div>
                 <div className="flex w-1/2">
-                  <div className="">
-                    <Link href={`${routeEvents}/${eventId}/comps/create`}>
-                      <ActionButton action={Action.ADD} />
-                    </Link>
-                  </div>
+                  <Link href={`${routeEvents}/${eventId}/comps/create`}>
+                    <ActionButton action={Action.ADD} />
+                  </Link>
                 </div>
               </div>
             </>

@@ -13,8 +13,10 @@ const credentialsConfig = CredentialsProvider({
 
   async authorize(credentials): Promise<any> {
     if (credentials?.usernameOrEmail && credentials?.password) {
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`;
       const body = JSON.stringify({ usernameOrEmail: credentials.usernameOrEmail, password: credentials.password });
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`, {
+
+      const response = await fetch(url, {
         method: 'POST',
         body: body,
         headers: {
