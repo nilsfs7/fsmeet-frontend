@@ -41,9 +41,11 @@ export default async function EventSponsors({ params }: { params: { eventId: str
             );
           })}
 
-          <div className="my-1">
-            <Separator />
-          </div>
+          {sponsors.length > 0 && (
+            <div className="my-1">
+              <Separator />
+            </div>
+          )}
 
           <div className="m-1 flex items-center gap-2">
             <div className="flex w-1/2 justify-end">Add new</div>
