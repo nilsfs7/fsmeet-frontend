@@ -3,21 +3,22 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckIcon from '@mui/icons-material/CheckCircle';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import CommentIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
-import TrophyIcon from '@mui/icons-material/EmojiEvents';
 import EditIcon from '@mui/icons-material/Edit';
+import PaidIcon from '@mui/icons-material/Paid';
 import PeopleIcon from '@mui/icons-material/PeopleAlt';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import SaveIcon from '@mui/icons-material/Save';
 import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
+import TrophyIcon from '@mui/icons-material/EmojiEvents';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/types/enums/size';
 import { imgWorld } from '@/types/consts/images';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
 interface IButton {
   action: Action;
@@ -100,6 +101,9 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
       break;
     case Action.MANAGE_USERS:
       icon = <PeopleIcon className={className} />;
+      break;
+    case Action.MANAGE_SPONSORS:
+      icon = <PaidIcon className={className} />;
       break;
     case Action.REMOVE:
       icon = <RemoveCircleIcon className={className} />;

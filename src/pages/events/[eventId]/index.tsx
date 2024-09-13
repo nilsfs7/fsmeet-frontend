@@ -359,6 +359,12 @@ const EventDetails = (props: any) => {
                 )}
 
                 <div className="ml-1">
+                  <Link href={`${routeEvents}/${eventId}/sponsors`}>
+                    <ActionButton action={Action.MANAGE_SPONSORS} />
+                  </Link>
+                </div>
+
+                <div className="ml-1">
                   <ActionButton action={isPublicEventState(event.state) ? Action.SHOW : Action.HIDE} onClick={handleStateActionClicked} />
                 </div>
               </div>
