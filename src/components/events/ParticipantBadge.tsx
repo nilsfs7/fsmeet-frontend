@@ -5,12 +5,12 @@ import CheckIcon from '@mui/icons-material/Check';
 import BlockIcon from '@mui/icons-material/Block';
 import { imgUserDefaultImg } from '@/types/consts/images';
 
-interface IParticipantProps {
+interface IParticipantBadgeProps {
   participant: User;
   registrationStatus?: EventRegistrationStatus;
 }
 
-const ParticipantBadge = ({ participant, registrationStatus }: IParticipantProps) => {
+const ParticipantBadge = ({ participant, registrationStatus }: IParticipantBadgeProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
       <div className="grid grid-flow-col items-center justify-between">
