@@ -32,6 +32,9 @@ import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
 import { Toaster, toast } from 'sonner';
 import { auth } from '@/auth';
 import { createComment, createEventRegistration, createSubComment, deleteEventRegistration, getComments, getEvent, updateEventState } from '@/infrastructure/clients/event.client';
+import { getSponsors } from '@/infrastructure/clients/sponsor.client';
+import { Sponsor } from '@/types/sponsor';
+import SponsorSection from '@/components/events/SponsorSection';
 
 const EventDetails = (props: any) => {
   const session = props.session;
@@ -44,6 +47,7 @@ const EventDetails = (props: any) => {
 
   const [event, setEvent] = useState<Event>();
   const [eventComments, setEventComments] = useState<EventComment[]>();
+  const [eventSponsors, setEventSponsors] = useState<Sponsor[]>([]);
   const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
 
   const isRegistered = () => {
@@ -230,8 +234,16 @@ const EventDetails = (props: any) => {
       }
     }
 
+    async function fetchEventSponsors() {
+      if (eventId) {
+        const sponsors = await getSponsors(eventId.toString());
+        setEventSponsors(sponsors);
+      }
+    }
+
     fetchEventComments();
     loadEventInfos();
+    fetchEventSponsors();
   }, [event == undefined]);
 
   if (!event || !approvedAndPendingRegistrations) {
@@ -408,6 +420,12 @@ const EventDetails = (props: any) => {
             {/* Details */}
             <TabsContent value="overview" className="overflow-hidden overflow-y-auto">
               <EventInfo event={event} />
+
+              {eventSponsors?.length > 0 && (
+                <div className="mt-2">
+                  <SponsorSection eventSponsors={eventSponsors} />
+                </div>
+              )}
 
               {event.allowComments && (
                 <div className="mt-2">

@@ -24,7 +24,7 @@ export default function CreateEventSponsor({ params }: { params: { eventId: stri
   const handleCreateClicked = async () => {
     if (params.eventId && sponsor) {
       try {
-        await createSponsor(params.eventId.toString(), sponsor.name, session);
+        await createSponsor(params.eventId.toString(), sponsor.name, sponsor.website, session);
         router.replace(`${routeEvents}/${params.eventId}/sponsors?timestamp=${new Date().getTime()}`); // add query param -> triggers refetching data
       } catch (error: any) {
         toast.error(error.message);

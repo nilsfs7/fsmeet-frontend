@@ -11,7 +11,7 @@ interface ICompetitionListListProps {
 const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
-      <div className="text-base font-bold">Competitions</div>
+      <div className="text-base font-bold">{`Competitions`}</div>
       <div className="flex flex-wrap">
         {competitions.map((competition, i) => {
           let margin = 'my-1 mx-1';
