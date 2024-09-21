@@ -3,4 +3,5 @@ export type Sponsor = {
   eventId: string | undefined;
   name: string;
   website: string;
+  imageUrlLogo?: string;
 };

@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import { Sponsor } from '@/types/sponsor';
+import { imgUserDefaultImg } from '@/types/consts/images';
 
 interface ISponsorEditorProps {
   sponsor?: Sponsor;
   onSponsorUpdate: (sponsor: Sponsor) => void;
+  onSponsorLogoUpdate: (image: any) => void;
 }
 
-const SponsorEditor = ({ sponsor, onSponsorUpdate }: ISponsorEditorProps) => {
+const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISponsorEditorProps) => {
   const [name, setSponsorName] = useState(sponsor?.name || '');
   const [website, setSponsorWebsite] = useState(sponsor?.website || '');
+
+  const [imgLogo, setImgLogo] = useState<any>();
+  const [imgLogoObjectURL, setImgLogoObjectURL] = useState('');
+
+  const uploadToClient = (event: any) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+
+      setImgLogo(i);
+      setImgLogoObjectURL(URL.createObjectURL(i));
+    }
+  };
 
   const updateSponsor = () => {
     onSponsorUpdate({
@@ -17,7 +31,12 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate }: ISponsorEditorProps) => {
       eventId: sponsor?.eventId,
       name: name,
       website: website,
+      imageUrlLogo: sponsor?.imageUrlLogo,
     });
+  };
+
+  const updateSponsorLogo = () => {
+    onSponsorLogoUpdate(imgLogo);
   };
 
   // updates inputs with given sponsor
@@ -32,6 +51,11 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate }: ISponsorEditorProps) => {
   useEffect(() => {
     updateSponsor();
   }, [name, website]);
+
+  // fires sponsor logo back
+  useEffect(() => {
+    updateSponsorLogo();
+  }, [imgLogoObjectURL]);
 
   // if (!name) {
   //   return <LoadingSpinner />;
@@ -59,6 +83,17 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate }: ISponsorEditorProps) => {
             setSponsorWebsite(e.currentTarget.value);
           }}
         />
+
+        <div className="flex justify-center py-2">
+          <img
+            src={imgLogoObjectURL ? imgLogoObjectURL : sponsor?.imageUrlLogo ? sponsor.imageUrlLogo : imgUserDefaultImg}
+            className="mx-2 flex h-12 w-12 rounded-full object-cover border border-primary"
+          />
+
+          <div className="flex justify-center py-2">
+            <input type="file" onChange={uploadToClient} />
+          </div>
+        </div>
       </div>
     </>
   );
