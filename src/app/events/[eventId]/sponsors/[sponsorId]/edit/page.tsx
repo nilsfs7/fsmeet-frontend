@@ -11,7 +11,7 @@ import { Action } from '@/types/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Sponsor } from '@/types/sponsor';
-import { deleteSponsor, getSponsor, updateSponsor } from '@/infrastructure/clients/sponsor.client';
+import { deleteSponsor, getSponsor, updateSponsor, updateSponsorLogo } from '@/infrastructure/clients/sponsor.client';
 import SponsorEditor from '@/components/events/SponsorEditor';
 import Dialog from '@/components/Dialog';
 
@@ -21,11 +21,17 @@ export default function EditEventSponsor({ params }: { params: { eventId: string
   const router = useRouter();
 
   const [sponsor, setSponsor] = useState<Sponsor>();
+  const [sponsorLogo, setSponsorLogo] = useState<any>(null);
 
   const handleSaveClicked = async () => {
     if (params.eventId && sponsor) {
       try {
         await updateSponsor(params.sponsorId, sponsor.name, sponsor.website, session);
+
+        if (sponsorLogo && sponsor.id) {
+          await updateSponsorLogo(sponsor.id.toString(), sponsorLogo, session);
+        }
+
         router.replace(`${routeEvents}/${params.eventId}/sponsors?timestamp=${new Date().getTime()}`); // add query param -> triggers refetching data
       } catch (error: any) {
         toast.error(error.message);
@@ -76,6 +82,9 @@ export default function EditEventSponsor({ params }: { params: { eventId: string
             sponsor={sponsor}
             onSponsorUpdate={(sponsor: Sponsor) => {
               setSponsor(sponsor);
+            }}
+            onSponsorLogoUpdate={(image: any) => {
+              setSponsorLogo(image);
             }}
           />
         </div>

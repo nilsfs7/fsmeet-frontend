@@ -3,6 +3,7 @@ import { ReadSponsorResponseDto } from './dtos/sponsor/read-sponsor.response.dto
 import { CreateSponsorBodyDto } from './dtos/sponsor/create-sponsor.body.dto';
 import { PatchSponsorBodyDto } from './dtos/sponsor/patch-sponsor.body.dto';
 import { DeleteSponsorBodyDto } from './dtos/sponsor/delete-sponsor.body.dto';
+import { CreateSponsorResponseDto } from './dtos/sponsor/create-sponsor.response.dto';
 
 export async function getSponsors(eventId: string | null): Promise<ReadSponsorResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/?`;
@@ -36,7 +37,7 @@ export async function getSponsor(sponsorId: string): Promise<ReadSponsorResponse
   }
 }
 
-export async function createSponsor(eventId: string, name: string, website: string, session: Session | null): Promise<void> {
+export async function createSponsor(eventId: string, name: string, website: string, session: Session | null): Promise<CreateSponsorResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors`;
 
   const body = new CreateSponsorBodyDto(eventId, name, website);
@@ -51,7 +52,10 @@ export async function createSponsor(eventId: string, name: string, website: stri
   });
 
   if (response.ok) {
+    const responseDto = await response.json();
     console.info('Creating sponsor successful');
+
+    return responseDto;
   } else {
     const error = await response.json();
     throw Error(error.message);
@@ -74,6 +78,28 @@ export async function updateSponsor(id: string, name: string, website: string, s
 
   if (response.ok) {
     console.info('Updating sponsor successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function updateSponsorLogo(id: string, image: any, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/${id}/logo`;
+
+  const body = new FormData();
+  body.append('file', image);
+
+  const response = await fetch(url, {
+    method: 'PATCH',
+    body: body,
+    headers: {
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating sponsor logo successful');
   } else {
     const error = await response.json();
     throw Error(error.message);
