@@ -4,9 +4,7 @@ import { RedirectType, redirect } from 'next/navigation';
 import { getEventByAlias } from '@/infrastructure/clients/event.client';
 
 export default async function EventAlias({ params }: { params: { eventalias: string } }) {
-  const { eventalias } = params;
-
-  const props = await getServerSideProps(eventalias);
+  const props = await getServerSideProps(params.eventalias);
   if (props?.redirect.destination) {
     redirect(props?.redirect.destination, RedirectType.replace);
   }
