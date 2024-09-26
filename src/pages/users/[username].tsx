@@ -33,6 +33,7 @@ import { TechnicalUser } from '@/types/enums/technical-user';
 import { Toaster, toast } from 'sonner';
 import { getTotalMatchPerformance } from '@/infrastructure/clients/statistic.client';
 import { getCompetition } from '@/infrastructure/clients/competition.client';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
 const PublicUserProfile = (props: any) => {
   const session = props.session;
@@ -320,7 +321,7 @@ const PublicUserProfile = (props: any) => {
         </div>
 
         <Navigation>
-          <ActionButton action={Action.BACK} onClick={() => router.back()} />
+          <NavigateBackButton />
 
           <div className="flex justify-end gap-1">
             {session?.user?.username === TechnicalUser.ADMIN && <ActionButton action={Action.DELETE} onClick={handleDeleteAccountClicked} />}

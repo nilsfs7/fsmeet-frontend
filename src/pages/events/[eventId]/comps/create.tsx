@@ -9,11 +9,10 @@ import { validateSession } from '@/types/funcs/validate-session';
 import { EditorMode } from '@/types/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import { createCompetition } from '@/infrastructure/clients/competition.client';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
 const CompetitionCreation = (props: any) => {
   const session = props.session;
@@ -52,7 +51,7 @@ const CompetitionCreation = (props: any) => {
         </div>
 
         <Navigation>
-          <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+          <NavigateBackButton />
           <TextButton text={'Create'} onClick={handleCreateClicked} />
         </Navigation>
       </div>

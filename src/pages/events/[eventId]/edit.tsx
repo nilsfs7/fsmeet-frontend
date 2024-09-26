@@ -15,6 +15,7 @@ import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import { deleteEvent, getEvent, updateEvent } from '@/infrastructure/clients/event.client';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -96,7 +97,7 @@ const EventEditing = (props: any) => {
         <Navigation>
           <div className="flex justify-start">
             <div className="mr-1">
-              <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+              <NavigateBackButton />
             </div>
           </div>
 

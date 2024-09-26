@@ -6,13 +6,12 @@ import { useState } from 'react';
 import { routeEvents } from '@/types/consts/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Sponsor } from '@/types/sponsor';
 import { createSponsor, updateSponsorLogo } from '@/infrastructure/clients/sponsor.client';
 import SponsorEditor from '@/components/events/SponsorEditor';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
 export default function CreateEventSponsor({ params }: { params: { eventId: string } }) {
   const { data: session, status } = useSession();
@@ -58,7 +57,7 @@ export default function CreateEventSponsor({ params }: { params: { eventId: stri
         </div>
 
         <Navigation>
-          <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+          <NavigateBackButton />
           <TextButton text={'Create'} onClick={handleCreateClicked} />
         </Navigation>
       </div>

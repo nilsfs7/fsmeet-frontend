@@ -14,6 +14,7 @@ import { Sponsor } from '@/types/sponsor';
 import { deleteSponsor, getSponsor, updateSponsor, updateSponsorLogo } from '@/infrastructure/clients/sponsor.client';
 import SponsorEditor from '@/components/events/SponsorEditor';
 import Dialog from '@/components/Dialog';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
 export default function EditEventSponsor({ params }: { params: { eventId: string; sponsorId: string } }) {
   const { data: session, status } = useSession();
@@ -90,7 +91,7 @@ export default function EditEventSponsor({ params }: { params: { eventId: string
         </div>
 
         <Navigation>
-          <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+          <NavigateBackButton />
 
           <div className="flex gap-1">
             <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
