@@ -8,7 +8,7 @@ import Separator from '../Seperator';
 import TextButton from '../common/TextButton';
 import { Event } from '@/types/event';
 import moment from 'moment';
-import { EventType } from '@/types/enums/event-type';
+import { EventType } from '@/domain/enums/event-type';
 import { routeUsers } from '@/types/consts/routes';
 
 interface IEventProps {

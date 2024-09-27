@@ -1,4 +1,4 @@
-import { UserVerificationState } from '@/types/enums/user-verification-state';
+import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { MenuItem } from '../../menu-item';
 
 export const menuUserVerificationStates: MenuItem[] = [

@@ -10,7 +10,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { GetServerSidePropsContext } from 'next';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
-import { TechnicalUser } from '@/types/enums/technical-user';
+import { TechnicalUser } from '@/domain/enums/technical-user';
 import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastructure/clients/event.client';
 
 const Home = ({ data, session }: { data: any; session: any }) => {

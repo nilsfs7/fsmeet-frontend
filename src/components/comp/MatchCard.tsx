@@ -9,8 +9,8 @@ import { getTimeString } from '@/types/funcs/time';
 import ComboBox from '../common/ComboBox';
 import { routeUsers } from '@/types/consts/routes';
 import ActionButton from '../common/ActionButton';
-import { Action } from '@/types/enums/action';
-import { Size } from '@/types/enums/size';
+import { Action } from '@/domain/enums/action';
+import { Size } from '@/domain/enums/size';
 import { Match } from '@/types/match';
 
 interface IMatchProps {

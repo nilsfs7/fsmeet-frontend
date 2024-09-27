@@ -1,5 +1,5 @@
 import { MenuItem } from '../../menu-item';
-import { UserType } from '@/types/enums/user-type';
+import { UserType } from '@/domain/enums/user-type';
 
 export const menuUserType: MenuItem[] = [
   { text: 'Freestyler', value: UserType.FREESTYLER },

@@ -1,4 +1,4 @@
-import { Gender } from '@/types/enums/gender';
+import { Gender } from '@/domain/enums/gender';
 import { MenuItem } from '../../menu-item';
 
 export const menuGender: MenuItem[] = [

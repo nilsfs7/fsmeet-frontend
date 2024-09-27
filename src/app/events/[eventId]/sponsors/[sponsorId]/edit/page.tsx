@@ -7,7 +7,7 @@ import { routeEvents } from '@/types/consts/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Sponsor } from '@/types/sponsor';

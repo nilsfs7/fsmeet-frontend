@@ -1,4 +1,4 @@
-import { EventType } from '../../enums/event-type';
+import { EventType } from '../../../domain/enums/event-type';
 import { MenuItem } from '../../menu-item';
 
 export const menuEventTypes: MenuItem[] = [

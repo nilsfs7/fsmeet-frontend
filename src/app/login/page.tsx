@@ -2,7 +2,7 @@ import Navigation from '@/components/Navigation';
 import { LoginForm } from './components/login-form';
 import Link from 'next/link';
 import { routeHome } from '@/types/consts/routes';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 
 export default async function Page({ searchParams }: any) {

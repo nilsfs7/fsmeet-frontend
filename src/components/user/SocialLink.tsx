@@ -1,4 +1,4 @@
-import { Platform } from '@/types/enums/platform';
+import { Platform } from '@/domain/enums/platform';
 import { LogoFSM } from '../Logo';
 import { imgInstagramLogo, imgTikTokLogo, imgWebsiteLogo, imgYouTubeLogo } from '@/types/consts/images';
 import { routeUsers } from '@/types/consts/routes';

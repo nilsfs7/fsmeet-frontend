@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import ActionButton from './common/ActionButton';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 
 export default function NavigateBackButton() {
   const router = useRouter();

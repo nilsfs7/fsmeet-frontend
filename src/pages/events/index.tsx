@@ -6,7 +6,7 @@ import moment, { Moment } from 'moment';
 import { routeEvents, routeHome } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import { Event } from '@/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
 import { Header } from '@/components/Header';

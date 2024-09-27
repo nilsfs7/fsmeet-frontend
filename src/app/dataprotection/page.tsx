@@ -4,7 +4,7 @@ import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ActionButton from '@/components/common/ActionButton';
 import { routeAbout } from '@/types/consts/routes';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 
 export default function DataProtection() {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { routeAdminOverview, routeLogin, routeUsers } from '@/types/consts/routes';
 import { validateSession } from '@/types/funcs/validate-session';
@@ -11,7 +11,7 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import { User } from '@/types/user';
 import { menuUserVerificationStates } from '@/types/consts/menus/menu-user-verification-states';
-import { UserVerificationState } from '@/types/enums/user-verification-state';
+import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import { getUsers, updateUserVerificationState } from '@/infrastructure/clients/user.client';

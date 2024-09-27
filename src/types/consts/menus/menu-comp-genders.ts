@@ -1,4 +1,4 @@
-import { CompetitionGender } from '@/types/enums/competition-gender';
+import { CompetitionGender } from '@/domain/enums/competition-gender';
 import { MenuItem } from '../../menu-item';
 
 export const menuCompGenders: MenuItem[] = [

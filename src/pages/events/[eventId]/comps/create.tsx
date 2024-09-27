@@ -6,7 +6,7 @@ import { routeEvents, routeLogin } from '@/types/consts/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { Competition } from '@/types/competition';
 import { validateSession } from '@/types/funcs/validate-session';
-import { EditorMode } from '@/types/enums/editor-mode';
+import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';

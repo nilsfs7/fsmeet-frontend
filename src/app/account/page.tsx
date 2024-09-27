@@ -1,7 +1,7 @@
 import { routeHome, routeLogin } from '@/types/consts/routes';
 import { auth } from '@/auth';
 import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { ProfilePicture } from './components/profile-picture';
 import Navigation from '@/components/Navigation';

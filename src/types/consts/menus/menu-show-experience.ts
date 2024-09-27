@@ -1,4 +1,4 @@
-import { ShowExperience } from '@/types/enums/show-experience';
+import { ShowExperience } from '@/domain/enums/show-experience';
 import { MenuItem } from '../../menu-item';
 
 export const menuShowExperience: MenuItem[] = [

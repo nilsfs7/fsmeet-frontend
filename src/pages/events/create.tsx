@@ -6,7 +6,7 @@ import { Event } from '@/types/event';
 import { routeEventSubs, routeLogin } from '@/types/consts/routes';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
-import { EditorMode } from '@/types/enums/editor-mode';
+import { EditorMode } from '@/domain/enums/editor-mode';
 import Navigation from '@/components/Navigation';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';

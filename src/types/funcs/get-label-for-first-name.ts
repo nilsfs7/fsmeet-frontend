@@ -1,4 +1,4 @@
-import { UserType } from '../enums/user-type';
+import { UserType } from '../../domain/enums/user-type';
 
 export function getLabelForFirstName(userType: UserType): string {
   let label = 'First Name';

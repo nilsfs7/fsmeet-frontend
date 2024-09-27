@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
@@ -11,12 +11,12 @@ import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
-import { UserType } from '@/types/enums/user-type';
+import { UserType } from '@/domain/enums/user-type';
 import { Competition } from '@/types/competition';
-import { CompetitionGender } from '@/types/enums/competition-gender';
+import { CompetitionGender } from '@/domain/enums/competition-gender';
 import ParticipantBadge from '@/components/events/ParticipantBadge';
 import { auth } from '@/auth';
-import { MaxAge } from '@/types/enums/max-age';
+import { MaxAge } from '@/domain/enums/max-age';
 import { getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { createCompetitionParticipation, deleteCompetitionParticipation, getCompetition, getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 

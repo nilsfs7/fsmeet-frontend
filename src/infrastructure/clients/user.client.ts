@@ -1,5 +1,5 @@
-import { UserType } from '@/types/enums/user-type';
-import { UserVerificationState } from '@/types/enums/user-verification-state';
+import { UserType } from '@/domain/enums/user-type';
+import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { User } from '@/types/user';
 import { Session } from 'next-auth';
 import { DeleteUserBodyDto } from './dtos/delete-user.body.dto';

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { routeAccount, routeLogin } from '@/types/consts/routes';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import { auth } from '@/auth';
 import PageTitle from '@/components/PageTitle';
 import { RedirectType, redirect } from 'next/navigation';

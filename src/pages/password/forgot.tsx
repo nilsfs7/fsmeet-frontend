@@ -5,7 +5,7 @@ import router from 'next/router';
 import { routeLogin, routePasswordPending } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { Toaster, toast } from 'sonner';
 import { createPasswordReset } from '@/infrastructure/clients/user.client';

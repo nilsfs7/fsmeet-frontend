@@ -1,10 +1,10 @@
-import { EventType } from './enums/event-type';
+import { EventType } from '../domain/enums/event-type';
 import { EventRegistration } from './event-registration';
 import { Competition } from './competition';
 import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
-import { EventState } from './enums/event-state';
+import { EventState } from '../domain/enums/event-state';
 
 export type Event = {
   id?: string;

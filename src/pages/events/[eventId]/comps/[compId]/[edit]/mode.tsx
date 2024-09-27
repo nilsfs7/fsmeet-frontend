@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { routeEvents, routeLogin } from '@/types/consts/routes';
 import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/Navigation';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';

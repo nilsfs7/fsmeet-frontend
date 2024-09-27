@@ -3,8 +3,8 @@ import MatchCard from './MatchCard';
 import { User } from '@/types/user';
 import { Moment } from 'moment';
 import ActionButton from '../common/ActionButton';
-import { Action } from '@/types/enums/action';
-import { Size } from '@/types/enums/size';
+import { Action } from '@/domain/enums/action';
+import { Size } from '@/domain/enums/size';
 import TextButton from '../common/TextButton';
 import moment from 'moment';
 

@@ -1,4 +1,4 @@
-import { EventState } from '../enums/event-state';
+import { EventState } from '../../domain/enums/event-state';
 
 export function isPublicEventState(eventState: EventState): boolean {
   switch (eventState) {
