@@ -6,14 +6,13 @@ import { Event } from '@/types/event';
 import { routeEventSubs, routeLogin } from '@/types/consts/routes';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
-import { EditorMode } from '@/types/enums/editor-mode';
+import { EditorMode } from '@/domain/enums/editor-mode';
 import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import { createEvent } from '@/infrastructure/clients/event.client';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
 const EventCreation = (props: any) => {
   const session = props.session;
@@ -54,7 +53,7 @@ const EventCreation = (props: any) => {
 
         <Navigation>
           <div className="mr-1">
-            <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+            <NavigateBackButton />
           </div>
 
           <div className="ml-1">

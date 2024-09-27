@@ -1,4 +1,4 @@
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
 import { routeEvents, routeLogin } from '@/types/consts/routes';

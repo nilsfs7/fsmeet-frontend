@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
 import { Event } from '@/types/event';

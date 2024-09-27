@@ -3,18 +3,19 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Event } from '@/types/event';
 import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import { routeEventNotFound, routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
 import Dialog from '@/components/Dialog';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
-import { EditorMode } from '@/types/enums/editor-mode';
+import { EditorMode } from '@/domain/enums/editor-mode';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
 import { deleteEvent, getEvent, updateEvent } from '@/infrastructure/clients/event.client';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
 const EventEditing = (props: any) => {
   const session = props.session;
@@ -96,7 +97,7 @@ const EventEditing = (props: any) => {
         <Navigation>
           <div className="flex justify-start">
             <div className="mr-1">
-              <ActionButton action={Action.CANCEL} onClick={() => router.back()} />
+              <NavigateBackButton />
             </div>
           </div>
 

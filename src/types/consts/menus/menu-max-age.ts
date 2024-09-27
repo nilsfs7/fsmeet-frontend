@@ -1,5 +1,5 @@
 import { MenuItem } from '../../menu-item';
-import { MaxAge } from '@/types/enums/max-age';
+import { MaxAge } from '@/domain/enums/max-age';
 
 export const menuMaxAge: MenuItem[] = [
   { text: 'None', value: MaxAge.NONE.toString() },

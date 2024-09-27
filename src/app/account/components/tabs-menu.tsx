@@ -2,8 +2,8 @@
 
 import Separator from '@/components/Seperator';
 import TextButton from '@/components/common/TextButton';
-import { UserType } from '@/types/enums/user-type';
-import { UserVerificationState } from '@/types/enums/user-verification-state';
+import { UserType } from '@/domain/enums/user-type';
+import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { switchTab } from '@/types/funcs/switch-tab';
@@ -25,11 +25,11 @@ import { prefixRequired } from '@/types/funcs/prefix-required';
 import CheckBox from '@/components/common/CheckBox';
 import Link from 'next/link';
 import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
-import { ButtonStyle } from '@/types/enums/button-style';
+import { Action } from '@/domain/enums/action';
+import { ButtonStyle } from '@/domain/enums/button-style';
 import Dialog from '@/components/Dialog';
 import SocialLink from '@/components/user/SocialLink';
-import { Platform } from '@/types/enums/platform';
+import { Platform } from '@/domain/enums/platform';
 import { menuFreestyleSinceWithUnspecified } from '@/types/consts/menus/menu-freestyle-since';
 import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';

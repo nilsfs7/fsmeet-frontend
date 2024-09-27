@@ -4,7 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import { deleteUserImage, updateUserImage } from '@/infrastructure/clients/user.client';
 import { imgUserDefaultImg } from '@/types/consts/images';
 import { routeAccount } from '@/types/consts/routes';
-import { ButtonStyle } from '@/types/enums/button-style';
+import { ButtonStyle } from '@/domain/enums/button-style';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';

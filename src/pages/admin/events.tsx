@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { routeAdminOverview, routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
 import { validateSession } from '@/types/funcs/validate-session';
@@ -8,7 +8,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import moment from 'moment';
-import { EventState } from '@/types/enums/event-state';
+import { EventState } from '@/domain/enums/event-state';
 import ComboBox from '@/components/common/ComboBox';
 import { menuEventStates } from '@/types/consts/menus/menu-event-states';
 import LoadingSpinner from '@/components/animation/loading-spinner';

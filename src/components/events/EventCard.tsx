@@ -3,7 +3,7 @@ import { getShortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';
 import { Event } from '@/types/event';
 import moment from 'moment';
-import { EventType } from '@/types/enums/event-type';
+import { EventType } from '@/domain/enums/event-type';
 import { isPublicEventState } from '@/types/funcs/is-public-event-state';
 
 interface IEventProps {

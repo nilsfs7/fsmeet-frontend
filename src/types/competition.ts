@@ -1,6 +1,6 @@
-import { CompetitionGender } from './enums/competition-gender';
-import { CompetitionType } from './enums/competition-type';
-import { MaxAge } from './enums/max-age';
+import { CompetitionGender } from '../domain/enums/competition-gender';
+import { CompetitionType } from '../domain/enums/competition-type';
+import { MaxAge } from '../domain/enums/max-age';
 
 export type Competition = {
   id: string | undefined;

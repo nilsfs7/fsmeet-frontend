@@ -1,6 +1,6 @@
-import { CompetitionGender } from '@/types/enums/competition-gender';
-import { CompetitionType } from '@/types/enums/competition-type';
-import { MaxAge } from '@/types/enums/max-age';
+import { CompetitionGender } from '@/domain/enums/competition-gender';
+import { CompetitionType } from '@/domain/enums/competition-type';
+import { MaxAge } from '@/domain/enums/max-age';
 
 export class ReadCompetitionResponseDto {
   id: string;

@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import { Competition } from '@/types/competition';
 import TextInputLarge from '../common/TextInputLarge';
-import { CompetitionType } from '@/types/enums/competition-type';
+import { CompetitionType } from '@/domain/enums/competition-type';
 import ComboBox from '../common/ComboBox';
 import { menuCompTypes } from '@/types/consts/menus/menu-comp-types';
-import { EditorMode } from '@/types/enums/editor-mode';
-import { CompetitionGender } from '@/types/enums/competition-gender';
+import { EditorMode } from '@/domain/enums/editor-mode';
+import { CompetitionGender } from '@/domain/enums/competition-gender';
 import { menuCompGenders } from '@/types/consts/menus/menu-comp-genders';
-import { MaxAge } from '@/types/enums/max-age';
+import { MaxAge } from '@/domain/enums/max-age';
 import { menuMaxAge } from '@/types/consts/menus/menu-max-age';
 
 interface ICompetitionEditorProps {

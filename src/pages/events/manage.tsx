@@ -4,7 +4,7 @@ import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
 import { routeEventSubs, routeEvents, routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';
 import { License } from '@/types/license';

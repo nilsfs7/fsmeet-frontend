@@ -1,5 +1,5 @@
 import { User } from '@/types/user';
-import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
+import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 import CheckIcon from '@mui/icons-material/Check';
 import BlockIcon from '@mui/icons-material/Block';

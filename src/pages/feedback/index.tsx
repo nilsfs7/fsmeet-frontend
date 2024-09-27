@@ -4,7 +4,7 @@ import { imgBug, imgFeature, imgFeedback } from '@/types/consts/images';
 import Navigation from '@/components/Navigation';
 import { routeHome, routeLogin } from '@/types/consts/routes';
 import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { auth } from '@/auth';

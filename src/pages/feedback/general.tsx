@@ -6,7 +6,7 @@ import { routeFeedback, routeFeedbackThankyou, routeLogin } from '@/types/consts
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import PageTitle from '@/components/PageTitle';

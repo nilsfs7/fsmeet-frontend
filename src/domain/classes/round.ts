@@ -1,4 +1,4 @@
-import { Match } from './match';
+import { Match } from '@/domain/classes/match';
 
 export class Round {
   roundIndex: number;

@@ -5,7 +5,7 @@ import router from 'next/router';
 import { routeFeedback, routeFeedbackThankyou, routeLogin } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';

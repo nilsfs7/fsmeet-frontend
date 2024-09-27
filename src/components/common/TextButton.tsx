@@ -1,4 +1,4 @@
-import { ButtonStyle } from '@/types/enums/button-style';
+import { ButtonStyle } from '@/domain/enums/button-style';
 
 interface IButton {
   text: string;

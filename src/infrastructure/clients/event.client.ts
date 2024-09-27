@@ -2,8 +2,8 @@ import { EventComment } from '@/types/event-comment';
 import { Session } from 'next-auth';
 import { Event } from '@/types/event';
 import { EventRegistration } from '@/types/event-registration';
-import { EventRegistrationStatus } from '@/types/enums/event-registration-status';
-import { EventState } from '@/types/enums/event-state';
+import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
+import { EventState } from '@/domain/enums/event-state';
 
 export async function getEvents(admin: string | null, participant: string | null, from: moment.Moment | null, to: moment.Moment | null, session?: Session | null): Promise<Event[]> {
   const format = 'YYYY-MM-DDTHH:mm:ss.SSS';

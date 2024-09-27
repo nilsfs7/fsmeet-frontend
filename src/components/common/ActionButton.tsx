@@ -1,4 +1,4 @@
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -17,7 +17,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import TrophyIcon from '@mui/icons-material/EmojiEvents';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Size } from '@/types/enums/size';
+import { Size } from '@/domain/enums/size';
 import { imgWorld } from '@/types/consts/images';
 
 interface IButton {

@@ -5,11 +5,11 @@ import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/rout
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { Competition } from '@/types/competition';
 import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import { Event } from '@/types/event';
 import Dialog from '@/components/Dialog';
 import { validateSession } from '@/types/funcs/validate-session';
-import { EditorMode } from '@/types/enums/editor-mode';
+import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';

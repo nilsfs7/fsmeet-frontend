@@ -6,7 +6,7 @@ import { routeEvents, routeFeedbackThankyou } from '@/types/consts/routes';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
-import { Action } from '@/types/enums/action';
+import { Action } from '@/domain/enums/action';
 import { GetServerSidePropsContext } from 'next';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
