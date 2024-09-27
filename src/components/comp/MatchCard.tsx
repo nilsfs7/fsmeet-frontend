@@ -3,7 +3,6 @@ import { MenuItem } from '@/types/menu-item';
 import { User } from '@/types/user';
 import Link from 'next/link';
 import { imgUserDefaultImg } from '@/types/consts/images';
-import { useRouter } from 'next/router';
 import moment, { Moment } from 'moment';
 import { getTimeString } from '@/types/funcs/time';
 import ComboBox from '../common/ComboBox';
@@ -26,9 +25,6 @@ interface IMatchProps {
 }
 
 const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, seedingList = [], onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
-  const router = useRouter();
-  const self = `${router.asPath}`;
-
   const playerMenu: MenuItem[] = [];
   playerMenu.push({ text: 'unassigned', value: '' });
   seedingList.map((user) => {
@@ -80,24 +76,30 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
             if (slot.slotIndex === i) return slot;
           })[0];
 
+          const playerImage = (
+            <img
+              src={matchSlot?.name && usersMap?.get(matchSlot.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg}
+              className="h-full w-full rounded-full bg-zinc-200 object-cover"
+            />
+          );
+
+          const playerName = (
+            <div className="text-sm">{`${matchSlot?.name ? (usersMap?.get(matchSlot.name)?.firstName && usersMap?.get(matchSlot.name)?.lastName ? `${usersMap?.get(matchSlot.name)?.firstName} ${usersMap?.get(matchSlot.name)?.lastName}` : usersMap?.get(matchSlot.name)?.firstName || matchSlot?.name) : ''}`}</div>
+          );
+
           return (
             <div key={`slot-${i}`} className="flex items-center justify-between">
               {!seedingEnabled && (
                 <div className="flex w-full justify-between">
                   <div className="flex w-full items-center">
                     <div className="h-8 w-8 p-1">
-                      <Link href={matchSlot?.name ? `${routeUsers}/${matchSlot.name}` : self}>
-                        <img
-                          src={matchSlot?.name && usersMap?.get(matchSlot.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg}
-                          className="h-full w-full rounded-full bg-zinc-200 object-cover"
-                        />
-                      </Link>
+                      {matchSlot?.name && <Link href={`${routeUsers}/${matchSlot.name}`}>{playerImage}</Link>}
+                      {!matchSlot?.name && playerImage}
                     </div>
 
                     <div className="flex h-full w-32 items-center overflow-hidden text-ellipsis px-1">
-                      <Link href={matchSlot?.name ? `${routeUsers}/${matchSlot.name}` : self}>
-                        <div className="text-sm">{`${matchSlot?.name ? (usersMap?.get(matchSlot.name)?.firstName && usersMap?.get(matchSlot.name)?.lastName ? `${usersMap?.get(matchSlot.name)?.firstName} ${usersMap?.get(matchSlot.name)?.lastName}` : usersMap?.get(matchSlot.name)?.firstName || matchSlot?.name) : ''}`}</div>
-                      </Link>
+                      {matchSlot?.name && <Link href={`${routeUsers}/${matchSlot.name}`}>{playerName}</Link>}
+                      {!matchSlot?.name && playerName}
                     </div>
                   </div>
 
