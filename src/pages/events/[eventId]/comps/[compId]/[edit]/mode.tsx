@@ -359,7 +359,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   if (eventId) {
     try {
-      data.event = JSON.parse(JSON.stringify(await getEvent(eventId?.toString())));
+      data.event = JSON.parse(JSON.stringify(await getEvent(eventId?.toString(), session)));
     } catch (error: any) {
       console.error('Error fetching event.');
     }
