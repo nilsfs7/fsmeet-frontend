@@ -1,5 +1,5 @@
-import { EventType } from '../../../domain/enums/event-type';
-import { MenuItem } from '../../menu-item';
+import { MenuItem } from '@/types/menu-item';
+import { EventType } from '@/domain/enums/event-type';
 
 export const menuEventTypes: MenuItem[] = [
   { text: 'Competition', value: EventType.COMPETITION },

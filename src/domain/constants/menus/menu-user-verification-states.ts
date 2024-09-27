@@ -1,5 +1,5 @@
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
-import { MenuItem } from '../../menu-item';
+import { MenuItem } from '@/types/menu-item';
 
 export const menuUserVerificationStates: MenuItem[] = [
   { text: 'DENIED', value: UserVerificationState.DENIED },

@@ -1,5 +1,5 @@
+import { MenuItem } from '@/types/menu-item';
 import moment from 'moment';
-import { MenuItem } from '../../menu-item';
 import { Moment } from 'moment';
 
 function enumerateDaysBetweenDates(startDate: Moment, endDate: Moment) {

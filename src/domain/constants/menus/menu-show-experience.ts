@@ -1,5 +1,5 @@
 import { ShowExperience } from '@/domain/enums/show-experience';
-import { MenuItem } from '../../menu-item';
+import { MenuItem } from '@/types/menu-item';
 
 export const menuShowExperience: MenuItem[] = [
   { text: '0', value: ShowExperience.NONE },
