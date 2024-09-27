@@ -3,7 +3,7 @@ import { imgCompetition, imgMeeting } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import Map from '../Map';
 import Link from 'next/link';
-import { getShortDateString } from '@/types/funcs/time';
+import { getShortDateString } from '@/functions/time';
 import Separator from '../Seperator';
 import TextButton from '../common/TextButton';
 import { Event } from '@/types/event';

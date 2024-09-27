@@ -12,7 +12,7 @@ import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/Navigation';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import { Round } from '@/domain/classes/round';
 import DialogAddRound from '@/components/comp/editor/DialogAddRound';
 import TextButton from '@/components/common/TextButton';

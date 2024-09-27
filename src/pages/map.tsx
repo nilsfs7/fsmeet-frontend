@@ -13,7 +13,7 @@ import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { routeAccount, routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { Gender } from '@/domain/enums/gender';
-import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
+import { copyToClipboard } from '@/functions/copy-to-clipboard';
 import { User } from '@/types/user';
 import { ChevronDown } from 'lucide-react';
 import { GetServerSidePropsContext } from 'next';

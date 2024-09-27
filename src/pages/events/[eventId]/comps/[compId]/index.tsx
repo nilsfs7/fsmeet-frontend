@@ -14,7 +14,7 @@ import BattleList from '@/components/comp/BattleList';
 import BattleGrid from '@/components/comp/BattleGrid';
 import ParticipantList from '@/components/events/ParticipantList';
 import TextareaAutosize from 'react-textarea-autosize';
-import { switchTab_pages } from '@/types/funcs/switch-tab';
+import { switchTab_pages } from '@/functions/switch-tab';
 import { Round } from '@/domain/classes/round';
 import Separator from '@/components/Seperator';
 import { Switch } from '@/components/ui/switch';

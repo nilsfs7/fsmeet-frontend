@@ -10,7 +10,7 @@ import { PaymentMethodPayPal } from '@/types/payment-method-paypal';
 import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 import ComboBox from '../common/ComboBox';
 import { menuEventTypes } from '@/domain/constants/menus/menu-event-types';
-import { validateAlias } from '@/types/funcs/validation/validation-event';
+import { validateAlias } from '@/functions/validation/validation-event';
 import CurInput from '../common/CurrencyInput';
 import { EventState } from '@/domain/enums/event-state';
 import { DatePicker } from '../common/DatePicker';

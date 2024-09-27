@@ -6,22 +6,21 @@ import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { switchTab } from '@/types/funcs/switch-tab';
 import { useSession } from 'next-auth/react';
 import { User } from '@/types/user';
 import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeHome, routeLogin, routeMap } from '@/domain/constants/routes';
-import { copyToClipboard } from '@/types/funcs/copy-to-clipboard';
+import { copyToClipboard } from '@/functions/copy-to-clipboard';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { logoutUser } from '../../actions';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import TextInput from '@/components/common/TextInput';
-import { getLabelForFirstName } from '@/types/funcs/get-label-for-first-name';
-import { getPlaceholderByUserType } from '@/types/funcs/get-placeholder-by-user-type';
+import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
+import { getPlaceholderByUserType } from '@/functions/get-placeholder-by-user-type';
 import ComboBox from '@/components/common/ComboBox';
 import { menuGenderWithUnspecified } from '@/domain/constants/menus/menu-gender';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
-import { prefixRequired } from '@/types/funcs/prefix-required';
+import { prefixRequired } from '@/functions/prefix-required';
 import CheckBox from '@/components/common/CheckBox';
 import Link from 'next/link';
 import ActionButton from '@/components/common/ActionButton';
@@ -41,6 +40,7 @@ import { menuShowExperience } from '@/domain/constants/menus/menu-show-experienc
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/section-header';
 import { deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
+import { switchTab } from '@/functions/switch-tab';
 
 interface ITabsMenu {
   user: User;

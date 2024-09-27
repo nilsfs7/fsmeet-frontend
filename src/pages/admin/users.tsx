@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { routeAdminOverview, routeLogin, routeUsers } from '@/domain/constants/routes';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import ActionButton from '@/components/common/ActionButton';
 import Navigation from '@/components/Navigation';
 import ComboBox from '@/components/common/ComboBox';

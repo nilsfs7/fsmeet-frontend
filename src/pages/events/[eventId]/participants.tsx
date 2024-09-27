@@ -7,7 +7,7 @@ import { EventRegistrationStatus } from '@/domain/enums/event-registration-statu
 import Link from 'next/link';
 import { routeEventNotFound, routeEvents, routeLogin, routeUsers } from '@/domain/constants/routes';
 import Dialog from '@/components/Dialog';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';

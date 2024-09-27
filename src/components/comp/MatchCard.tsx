@@ -5,7 +5,7 @@ import { User } from '@/types/user';
 import Link from 'next/link';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import moment, { Moment } from 'moment';
-import { getTimeString } from '@/types/funcs/time';
+import { getTimeString } from '@/functions/time';
 import ComboBox from '../common/ComboBox';
 import { routeUsers } from '@/domain/constants/routes';
 import ActionButton from '../common/ActionButton';

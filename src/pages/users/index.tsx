@@ -34,7 +34,7 @@ import { UserType } from '@/domain/enums/user-type';
 import { Header } from '@/components/Header';
 import { User } from '@/types/user';
 import PageTitle from '@/components/PageTitle';
-import { getUserTypeImages } from '@/types/funcs/user-type';
+import { getUserTypeImages } from '@/functions/user-type';
 import { auth } from '@/auth';
 import { getUsers } from '@/infrastructure/clients/user.client';
 

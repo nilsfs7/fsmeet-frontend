@@ -8,7 +8,7 @@ import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
 import { routeEventNotFound, routeEvents, routeLogin } from '@/domain/constants/routes';
 import { GetServerSidePropsContext } from 'next';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';

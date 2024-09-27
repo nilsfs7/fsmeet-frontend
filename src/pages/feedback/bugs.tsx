@@ -7,7 +7,7 @@ import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import PageTitle from '@/components/PageTitle';
 import { Toaster, toast } from 'sonner';

@@ -7,7 +7,7 @@ import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
 import { routeEvents, routeLogin, routeUsers } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';

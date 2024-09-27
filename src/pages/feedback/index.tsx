@@ -5,7 +5,7 @@ import Navigation from '@/components/Navigation';
 import { routeHome, routeLogin } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { auth } from '@/auth';
 

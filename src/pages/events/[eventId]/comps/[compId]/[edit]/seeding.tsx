@@ -13,7 +13,7 @@ import Navigation from '@/components/Navigation';
 import { Round } from '@/domain/classes/round';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { User } from '@/types/user';

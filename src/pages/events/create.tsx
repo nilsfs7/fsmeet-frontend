@@ -4,7 +4,7 @@ import router from 'next/router';
 import { useState } from 'react';
 import { Event } from '@/types/event';
 import { routeEventSubs, routeLogin } from '@/domain/constants/routes';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import Navigation from '@/components/Navigation';

@@ -1,7 +1,7 @@
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeUsers } from '@/domain/constants/routes';
 import { EventComment } from '@/types/event-comment';
-import { formatTs } from '@/types/funcs/time';
+import { formatTs } from '@/functions/time';
 import moment from 'moment';
 import Link from 'next/link';
 

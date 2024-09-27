@@ -11,7 +11,7 @@ import { User } from '@/types/user';
 import Link from 'next/link';
 import ReactCountryFlag from 'react-country-flag';
 import { countries } from 'countries-list';
-import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
+import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
