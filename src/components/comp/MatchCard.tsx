@@ -1,4 +1,5 @@
-import { Match } from '@/types/match';
+'use client';
+
 import { MenuItem } from '@/types/menu-item';
 import { User } from '@/types/user';
 import Link from 'next/link';
@@ -10,6 +11,7 @@ import { routeUsers } from '@/types/consts/routes';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/types/enums/action';
 import { Size } from '@/types/enums/size';
+import { Match } from '@/types/match';
 
 interface IMatchProps {
   match: Match;

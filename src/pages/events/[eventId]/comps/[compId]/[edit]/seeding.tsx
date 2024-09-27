@@ -10,7 +10,7 @@ import { routeEvents, routeLogin } from '@/types/consts/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/types/enums/action';
 import Navigation from '@/components/Navigation';
-import { Round } from '@/types/round';
+import { Round } from '@/domain/classes/round';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
 import { validateSession } from '@/types/funcs/validate-session';

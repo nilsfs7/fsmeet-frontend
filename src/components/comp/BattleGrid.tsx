@@ -1,4 +1,4 @@
-import { Round } from '@/types/round';
+import { Round } from '@/domain/classes/round';
 import MatchCard from './MatchCard';
 import { User } from '@/types/user';
 import { Moment } from 'moment';

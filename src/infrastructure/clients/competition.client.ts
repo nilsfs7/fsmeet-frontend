@@ -1,8 +1,8 @@
 import { Competition } from '@/types/competition';
-import { Round } from '@/types/round';
+import { Round } from '@/domain/classes/round';
 import { Session } from 'next-auth';
 import { ReadCompetitionResponseDto } from './dtos/read-competition.reposnse.dto';
-import { Match } from '@/types/match';
+import { Match } from '@/domain/classes/match';
 
 export async function getCompetition(compId: string): Promise<ReadCompetitionResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}`;
