@@ -1,4 +1,4 @@
-import { imgCompetition, imgMeeting } from '@/types/consts/images';
+import { imgCompetition, imgMeeting } from '@/domain/constants/images';
 import { getShortDateString } from '@/types/funcs/time';
 import Separator from '../Seperator';
 import { Event } from '@/types/event';

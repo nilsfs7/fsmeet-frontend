@@ -2,7 +2,7 @@ import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
 import router from 'next/router';
-import { routeFeedback, routeFeedbackThankyou, routeLogin } from '@/types/consts/routes';
+import { routeFeedback, routeFeedbackThankyou, routeLogin } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';

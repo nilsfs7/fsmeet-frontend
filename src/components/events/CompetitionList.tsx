@@ -1,7 +1,7 @@
 import { Competition } from '@/types/competition';
 import CompetitionBadge from './CompetitionBadge';
 import Link from 'next/link';
-import { routeEvents } from '@/types/consts/routes';
+import { routeEvents } from '@/domain/constants/routes';
 
 interface ICompetitionListListProps {
   competitions: Competition[];

@@ -1,8 +1,8 @@
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import SocialLink from '@/components/user/SocialLink';
-import { imgUserDefaultImg, imgWorld } from '@/types/consts/images';
-import { routeHome, routeMap, routeUsers } from '@/types/consts/routes';
+import { imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
+import { routeHome, routeMap, routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { Platform } from '@/domain/enums/platform';
 import { TotalMatchPerformance } from '@/types/total-match-performance';

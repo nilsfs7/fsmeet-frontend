@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents, routeLogin } from '@/domain/constants/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { Competition } from '@/types/competition';
 import ActionButton from '@/components/common/ActionButton';

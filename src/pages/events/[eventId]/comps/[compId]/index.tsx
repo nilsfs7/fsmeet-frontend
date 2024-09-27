@@ -8,7 +8,7 @@ import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import { User } from '@/types/user';
 import { useSearchParams } from 'next/navigation';
-import { routeEventNotFound, routeEvents } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents } from '@/domain/constants/routes';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import BattleList from '@/components/comp/BattleList';
 import BattleGrid from '@/components/comp/BattleGrid';

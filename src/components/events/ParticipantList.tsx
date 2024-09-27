@@ -2,7 +2,7 @@ import { User } from '@/types/user';
 import ParticipantBadge from './ParticipantBadge';
 import Link from 'next/link';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
-import { routeUsers } from '@/types/consts/routes';
+import { routeUsers } from '@/domain/constants/routes';
 
 interface IParticipantListProps {
   participants: User[];

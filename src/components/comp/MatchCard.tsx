@@ -3,11 +3,11 @@
 import { MenuItem } from '@/types/menu-item';
 import { User } from '@/types/user';
 import Link from 'next/link';
-import { imgUserDefaultImg } from '@/types/consts/images';
+import { imgUserDefaultImg } from '@/domain/constants/images';
 import moment, { Moment } from 'moment';
 import { getTimeString } from '@/types/funcs/time';
 import ComboBox from '../common/ComboBox';
-import { routeUsers } from '@/types/consts/routes';
+import { routeUsers } from '@/domain/constants/routes';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';

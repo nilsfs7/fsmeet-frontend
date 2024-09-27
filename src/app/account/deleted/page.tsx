@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Image from 'next/image';
-import { routeHome } from '@/types/consts/routes';
-import { imgGoodBye } from '@/types/consts/images';
+import { routeHome } from '@/domain/constants/routes';
+import { imgGoodBye } from '@/domain/constants/images';
 
 export default async function AccountDeleted() {
   return (

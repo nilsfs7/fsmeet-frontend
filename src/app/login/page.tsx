@@ -1,7 +1,7 @@
 import Navigation from '@/components/Navigation';
 import { LoginForm } from './components/login-form';
 import Link from 'next/link';
-import { routeHome } from '@/types/consts/routes';
+import { routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 

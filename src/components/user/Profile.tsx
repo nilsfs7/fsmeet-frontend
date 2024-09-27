@@ -5,8 +5,8 @@ import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
-import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/types/consts/routes';
-import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/types/consts/images';
+import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/domain/constants/routes';
+import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
 
 const Profile = () => {
   const { data: session, status } = useSession();

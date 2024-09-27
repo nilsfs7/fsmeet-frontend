@@ -1,5 +1,5 @@
-import { imgUserDefaultImg } from '@/types/consts/images';
-import { routeUsers } from '@/types/consts/routes';
+import { imgUserDefaultImg } from '@/domain/constants/images';
+import { routeUsers } from '@/domain/constants/routes';
 import { EventComment } from '@/types/event-comment';
 import { formatTs } from '@/types/funcs/time';
 import moment from 'moment';

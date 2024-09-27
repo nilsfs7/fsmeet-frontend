@@ -7,7 +7,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
-import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents, routeLogin } from '@/domain/constants/routes';
 import moment from 'moment';
 import CompetitionList from '@/components/events/CompetitionList';
 import EventInfo from '@/components/events/EventInfo';

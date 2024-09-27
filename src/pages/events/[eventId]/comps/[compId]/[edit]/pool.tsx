@@ -5,7 +5,7 @@ import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
-import { routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
+import { routeEvents, routeLogin, routeUsers } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';

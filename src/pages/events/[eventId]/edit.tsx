@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Event } from '@/types/event';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import { routeEventNotFound, routeEventSubs, routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEventNotFound, routeEventSubs, routeEvents, routeLogin } from '@/domain/constants/routes';
 import Dialog from '@/components/Dialog';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';

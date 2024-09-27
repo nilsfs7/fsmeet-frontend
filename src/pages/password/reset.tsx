@@ -3,7 +3,7 @@ import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
 import { useRouter } from 'next/router';
-import { routeLogin } from '@/types/consts/routes';
+import { routeLogin } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import { updateUserPassword } from '@/infrastructure/clients/user.client';
 

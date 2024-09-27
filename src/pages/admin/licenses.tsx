@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { GetServerSidePropsContext } from 'next';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { routeAdminOverview, routeLogin, routeUsers } from '@/types/consts/routes';
+import { routeAdminOverview, routeLogin, routeUsers } from '@/domain/constants/routes';
 import { validateSession } from '@/types/funcs/validate-session';
 import ActionButton from '@/components/common/ActionButton';
 import { License } from '@/types/license';

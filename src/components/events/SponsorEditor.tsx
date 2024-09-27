@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import { Sponsor } from '@/types/sponsor';
-import { imgUserDefaultImg } from '@/types/consts/images';
+import { imgUserDefaultImg } from '@/domain/constants/images';
 
 interface ISponsorEditorProps {
   sponsor?: Sponsor;

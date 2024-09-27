@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import jwt_decode from 'jwt-decode';
-import { routeAccount, routeLogin } from './types/consts/routes';
+import { routeAccount, routeLogin } from './domain/constants/routes';
 
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',

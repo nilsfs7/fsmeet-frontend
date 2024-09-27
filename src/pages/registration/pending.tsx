@@ -1,9 +1,9 @@
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { imgMailIncoming } from '@/types/consts/images';
+import { imgMailIncoming } from '@/domain/constants/images';
 import Image from 'next/image';
-import { routeHome } from '@/types/consts/routes';
+import { routeHome } from '@/domain/constants/routes';
 
 const RegistrationPending = () => {
   const router = useRouter();

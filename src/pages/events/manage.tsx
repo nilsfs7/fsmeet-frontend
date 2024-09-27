@@ -3,7 +3,7 @@ import { Event } from '@/types/event';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Navigation from '@/components/Navigation';
-import { routeEventSubs, routeEvents, routeEventsCreate, routeHome, routeLogin } from '@/types/consts/routes';
+import { routeEventSubs, routeEvents, routeEventsCreate, routeHome, routeLogin } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { validateSession } from '@/types/funcs/validate-session';

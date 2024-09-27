@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
-import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents, routeLogin } from '@/domain/constants/routes';
 import { GetServerSidePropsContext } from 'next';
 import { validateSession } from '@/types/funcs/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';

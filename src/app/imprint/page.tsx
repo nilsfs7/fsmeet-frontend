@@ -3,7 +3,7 @@ import { ImprintText } from '@/components/ImprintText';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ActionButton from '@/components/common/ActionButton';
-import { routeAbout } from '@/types/consts/routes';
+import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 

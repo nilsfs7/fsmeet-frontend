@@ -1,7 +1,7 @@
 import { Platform } from '@/domain/enums/platform';
 import { LogoFSM } from '../Logo';
-import { imgInstagramLogo, imgTikTokLogo, imgWebsiteLogo, imgYouTubeLogo } from '@/types/consts/images';
-import { routeUsers } from '@/types/consts/routes';
+import { imgInstagramLogo, imgTikTokLogo, imgWebsiteLogo, imgYouTubeLogo } from '@/domain/constants/images';
+import { routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';
 
 interface ISocialLink {

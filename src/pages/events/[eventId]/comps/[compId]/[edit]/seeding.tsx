@@ -6,7 +6,7 @@
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/Navigation';

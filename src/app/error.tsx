@@ -1,7 +1,7 @@
 'use client';
 
-import { imgNotFound } from '@/types/consts/images';
-import { routeHome } from '@/types/consts/routes';
+import { imgNotFound } from '@/domain/constants/images';
+import { routeHome } from '@/domain/constants/routes';
 
 import { useEffect } from 'react';
 import Image from 'next/image';

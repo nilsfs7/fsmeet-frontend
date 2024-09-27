@@ -1,4 +1,4 @@
-import { routeEventNotFound, routeEvents } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents } from '@/domain/constants/routes';
 import { auth } from '@/auth';
 import { RedirectType, redirect } from 'next/navigation';
 import { getEventByAlias } from '@/infrastructure/clients/event.client';

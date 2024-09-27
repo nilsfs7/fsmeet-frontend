@@ -5,7 +5,7 @@ import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import Link from 'next/link';
-import { routeEventNotFound, routeEvents, routeLogin, routeUsers } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents, routeLogin, routeUsers } from '@/domain/constants/routes';
 import Dialog from '@/components/Dialog';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';

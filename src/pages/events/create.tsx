@@ -3,7 +3,7 @@ import EventEditor from '@/components/events/EventEditor';
 import router from 'next/router';
 import { useState } from 'react';
 import { Event } from '@/types/event';
-import { routeEventSubs, routeLogin } from '@/types/consts/routes';
+import { routeEventSubs, routeLogin } from '@/domain/constants/routes';
 import { validateSession } from '@/types/funcs/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { EditorMode } from '@/domain/enums/editor-mode';

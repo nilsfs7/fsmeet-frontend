@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Image from 'next/image';
-import { routeHome } from '@/types/consts/routes';
-import { imgThumbsUp } from '@/types/consts/images';
+import { routeHome } from '@/domain/constants/routes';
+import { imgThumbsUp } from '@/domain/constants/images';
 
 const ThankYou = () => {
   return (

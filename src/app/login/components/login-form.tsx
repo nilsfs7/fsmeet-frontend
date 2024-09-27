@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { loginUserWithCredentials } from '@/app/actions';
 import Link from 'next/link';
-import { routeHome, routePasswordForgot, routeRegistration } from '@/types/consts/routes';
+import { routeHome, routePasswordForgot, routeRegistration } from '@/domain/constants/routes';
 import TextButton from '../../../components/common/TextButton';
 import TextInput from '../../../components/common/TextInput';
 import { Toaster, toast } from 'sonner';

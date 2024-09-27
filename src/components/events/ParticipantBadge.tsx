@@ -3,7 +3,7 @@ import { EventRegistrationStatus } from '@/domain/enums/event-registration-statu
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 import CheckIcon from '@mui/icons-material/Check';
 import BlockIcon from '@mui/icons-material/Block';
-import { imgUserDefaultImg } from '@/types/consts/images';
+import { imgUserDefaultImg } from '@/domain/constants/images';
 
 interface IParticipantBadgeProps {
   participant: User;

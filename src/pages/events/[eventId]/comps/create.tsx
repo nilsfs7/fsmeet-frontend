@@ -2,7 +2,7 @@ import TextButton from '@/components/common/TextButton';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { Competition } from '@/types/competition';
 import { validateSession } from '@/types/funcs/validate-session';

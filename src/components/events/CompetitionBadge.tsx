@@ -1,4 +1,4 @@
-import { imgCompetition } from '@/types/consts/images';
+import { imgCompetition } from '@/domain/constants/images';
 import { Competition } from '@/types/competition';
 
 interface ICompetitionProps {

@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
-import { routeEvents, routeHome } from '@/types/consts/routes';
+import { routeEvents, routeHome } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
