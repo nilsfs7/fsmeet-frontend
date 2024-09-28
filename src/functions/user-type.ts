@@ -1,5 +1,5 @@
-import { imgAssociation, imgBrand, imgDJ, imgFreestyler, imgMC, imgMedia, imgTechnical } from '../consts/images';
-import { UserType } from '../../domain/enums/user-type';
+import { UserType } from '@/domain/enums/user-type';
+import { imgAssociation, imgBrand, imgDJ, imgFreestyler, imgMC, imgMedia, imgTechnical } from '@/domain/constants/images';
 
 export function getUserTypeLabels(userType: UserType): string {
   switch (userType) {

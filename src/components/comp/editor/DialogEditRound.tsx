@@ -6,7 +6,7 @@ import ActionButton from '../../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import TextButton from '../../common/TextButton';
 import ComboBox from '@/components/common/ComboBox';
-import { getMenuAvailableDays } from '@/types/consts/menus/menu-available-days';
+import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
 import { Moment } from 'moment';
 import moment from 'moment';
 

@@ -3,7 +3,7 @@ import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ActionButton from '@/components/common/ActionButton';
 import SocialLink from '@/components/user/SocialLink';
-import { routeDataProtection, routeFeedback, routeHome, routeImprint } from '@/types/consts/routes';
+import { routeDataProtection, routeFeedback, routeHome, routeImprint } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { Platform } from '@/domain/enums/platform';
 import Link from 'next/link';

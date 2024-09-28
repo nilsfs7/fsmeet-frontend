@@ -1,14 +1,14 @@
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { routeEventNotFound, routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEventNotFound, routeEvents, routeLogin } from '@/domain/constants/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { Competition } from '@/types/competition';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { Event } from '@/types/event';
 import Dialog from '@/components/Dialog';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';

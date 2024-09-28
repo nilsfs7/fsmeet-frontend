@@ -1,6 +1,6 @@
 import ActionButton from '@/components/common/ActionButton';
-import { imgUserDefaultImg } from '@/types/consts/images';
-import { routeUsers } from '@/types/consts/routes';
+import { imgUserDefaultImg } from '@/domain/constants/images';
+import { routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 

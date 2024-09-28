@@ -1,8 +1,8 @@
 import TextButton from '@/components/common/TextButton';
 import Link from 'next/link';
-import { routeLogin } from '@/types/consts/routes';
+import { routeLogin } from '@/domain/constants/routes';
 import Image from 'next/image';
-import { imgEmojiError, imgCelebration } from '@/types/consts/images';
+import { imgEmojiError, imgCelebration } from '@/domain/constants/images';
 import { GetServerSidePropsContext } from 'next';
 import { getConfirmUser } from '@/infrastructure/clients/user.client';
 

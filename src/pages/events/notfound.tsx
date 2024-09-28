@@ -1,7 +1,7 @@
-import { imgNotFound } from '@/types/consts/images';
+import { imgNotFound } from '@/domain/constants/images';
 import Link from 'next/link';
 import Image from 'next/image';
-import { routeEvents } from '@/types/consts/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import TextButton from '@/components/common/TextButton';
 
 const EventNotFound = () => {

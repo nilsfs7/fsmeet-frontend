@@ -1,6 +1,6 @@
 import TextButton from '@/components/common/TextButton';
-import { imgMailIncoming } from '@/types/consts/images';
-import { routeHome } from '@/types/consts/routes';
+import { imgMailIncoming } from '@/domain/constants/images';
+import { routeHome } from '@/domain/constants/routes';
 import Image from 'next/image';
 import Link from 'next/link';
 

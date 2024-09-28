@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
 import { User } from '@/types/user';
-import { imgFreestyler } from '@/types/consts/images';
-import { routeUsers } from '@/types/consts/routes';
+import { imgFreestyler } from '@/domain/constants/images';
+import { routeUsers } from '@/domain/constants/routes';
 import { UserType } from '@/domain/enums/user-type';
-import { getUserTypeImages, getUserTypeLabels } from '@/types/funcs/user-type';
+import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
 
 const loader = new Loader({
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',

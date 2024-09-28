@@ -6,13 +6,13 @@
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/Navigation';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import { Round } from '@/domain/classes/round';
 import DialogAddRound from '@/components/comp/editor/DialogAddRound';
 import TextButton from '@/components/common/TextButton';
@@ -359,7 +359,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
   if (eventId) {
     try {
-      data.event = JSON.parse(JSON.stringify(await getEvent(eventId?.toString())));
+      data.event = JSON.parse(JSON.stringify(await getEvent(eventId?.toString(), session)));
     } catch (error: any) {
       console.error('Error fetching event.');
     }

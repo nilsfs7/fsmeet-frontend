@@ -1,7 +1,7 @@
 'use server';
 
 import { signIn, signOut } from '@/auth';
-import { routeHome } from '@/types/consts/routes';
+import { routeHome } from '@/domain/constants/routes';
 import { AccessDenied } from '@auth/core/errors';
 import bcrypt from 'bcryptjs';
 

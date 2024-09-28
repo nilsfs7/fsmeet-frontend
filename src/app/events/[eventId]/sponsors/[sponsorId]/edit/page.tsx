@@ -3,7 +3,7 @@
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { routeEvents } from '@/types/consts/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';

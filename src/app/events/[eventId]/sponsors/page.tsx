@@ -1,7 +1,7 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
-import { routeEvents, routeLogin } from '@/types/consts/routes';
+import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';

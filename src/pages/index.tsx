@@ -1,8 +1,8 @@
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import EventCard from '@/components/events/EventCard';
-import { imgAbout, imgCommunity, imgFreestyler, imgProfileSettings, imgWorld } from '@/types/consts/images';
-import { routeAbout, routeAdminOverview, routeEvents, routeMap, routeUsers } from '@/types/consts/routes';
+import { imgAbout, imgCommunity, imgFreestyler, imgProfileSettings, imgWorld } from '@/domain/constants/images';
+import { routeAbout, routeAdminOverview, routeEvents, routeMap, routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { Event } from '@/types/event';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';

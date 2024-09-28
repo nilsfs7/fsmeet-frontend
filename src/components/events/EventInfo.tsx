@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { imgCompetition, imgMeeting } from '@/types/consts/images';
+import { imgCompetition, imgMeeting } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import Map from '../Map';
 import Link from 'next/link';
-import { getShortDateString } from '@/types/funcs/time';
+import { getShortDateString } from '@/functions/time';
 import Separator from '../Seperator';
 import TextButton from '../common/TextButton';
 import { Event } from '@/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
-import { routeUsers } from '@/types/consts/routes';
+import { routeUsers } from '@/domain/constants/routes';
 
 interface IEventProps {
   event: Event;

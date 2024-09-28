@@ -1,11 +1,11 @@
 import TextAndImageButton from '@/components/common/TextAndImageButton';
 import Link from 'next/link';
-import { imgBug, imgFeature, imgFeedback } from '@/types/consts/images';
+import { imgBug, imgFeature, imgFeedback } from '@/domain/constants/images';
 import Navigation from '@/components/Navigation';
-import { routeHome, routeLogin } from '@/types/consts/routes';
+import { routeHome, routeLogin } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import { validateSession } from '@/types/funcs/validate-session';
+import { validateSession } from '@/functions/validate-session';
 import { GetServerSidePropsContext } from 'next';
 import { auth } from '@/auth';
 

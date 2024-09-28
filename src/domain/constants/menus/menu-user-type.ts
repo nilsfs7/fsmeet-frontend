@@ -1,4 +1,4 @@
-import { MenuItem } from '../../menu-item';
+import { MenuItem } from '@/types/menu-item';
 import { UserType } from '@/domain/enums/user-type';
 
 export const menuUserType: MenuItem[] = [

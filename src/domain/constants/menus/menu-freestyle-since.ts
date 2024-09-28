@@ -1,4 +1,4 @@
-import { MenuItem } from '../../menu-item';
+import { MenuItem } from '@/types/menu-item';
 
 const currentYear = new Date().getFullYear();
 

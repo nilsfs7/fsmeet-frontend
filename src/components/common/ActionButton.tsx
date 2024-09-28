@@ -18,7 +18,7 @@ import TrophyIcon from '@mui/icons-material/EmojiEvents';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/domain/enums/size';
-import { imgWorld } from '@/types/consts/images';
+import { imgWorld } from '@/domain/constants/images';
 
 interface IButton {
   action: Action;

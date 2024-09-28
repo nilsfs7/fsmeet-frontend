@@ -1,8 +1,8 @@
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import SocialLink from '@/components/user/SocialLink';
-import { imgUserDefaultImg, imgWorld } from '@/types/consts/images';
-import { routeHome, routeMap, routeUsers } from '@/types/consts/routes';
+import { imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
+import { routeHome, routeMap, routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { Platform } from '@/domain/enums/platform';
 import { TotalMatchPerformance } from '@/types/total-match-performance';
@@ -34,7 +34,7 @@ import { UserType } from '@/domain/enums/user-type';
 import { Header } from '@/components/Header';
 import { User } from '@/types/user';
 import PageTitle from '@/components/PageTitle';
-import { getUserTypeImages } from '@/types/funcs/user-type';
+import { getUserTypeImages } from '@/functions/user-type';
 import { auth } from '@/auth';
 import { getUsers } from '@/infrastructure/clients/user.client';
 

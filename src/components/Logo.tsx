@@ -1,4 +1,4 @@
-import { routeHome } from '@/types/consts/routes';
+import { routeHome } from '@/domain/constants/routes';
 import Link from 'next/link';
 import localFont from 'next/font/local';
 

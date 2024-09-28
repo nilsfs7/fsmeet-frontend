@@ -1,4 +1,4 @@
-import { routeHome, routeLogin } from '@/types/consts/routes';
+import { routeHome, routeLogin } from '@/domain/constants/routes';
 import { auth } from '@/auth';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';

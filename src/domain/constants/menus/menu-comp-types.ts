@@ -1,5 +1,5 @@
 import { CompetitionType } from '@/domain/enums/competition-type';
-import { MenuItem } from '../../menu-item';
+import { MenuItem } from '@/types/menu-item';
 
 export const menuCompTypes: MenuItem[] = [
   { text: 'Battles', value: CompetitionType.BATTLES },

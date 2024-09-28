@@ -1,4 +1,4 @@
-import { UserType } from '../../domain/enums/user-type';
+import { UserType } from '@/domain/enums/user-type';
 
 export function getPlaceholderByUserType(userType: UserType): { firstName: string; username: string; email: string } {
   let placeholders = { firstName: 'Max', username: 'max', email: 'max@gmail.com' };

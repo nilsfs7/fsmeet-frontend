@@ -1,5 +1,5 @@
 import { EventState } from '@/domain/enums/event-state';
-import { MenuItem } from '../../menu-item';
+import { MenuItem } from '@/types/menu-item';
 
 export const menuEventStates: MenuItem[] = [
   { text: 'APPROVED', value: EventState.APPROVED },

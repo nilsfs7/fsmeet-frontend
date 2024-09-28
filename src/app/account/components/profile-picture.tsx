@@ -1,7 +1,7 @@
 'use client';
 
-import { imgUserAddImg } from '@/types/consts/images';
-import { routeAccountImage } from '@/types/consts/routes';
+import { imgUserAddImg } from '@/domain/constants/images';
+import { routeAccountImage } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 

@@ -4,12 +4,12 @@ import { Competition } from '@/types/competition';
 import TextInputLarge from '../common/TextInputLarge';
 import { CompetitionType } from '@/domain/enums/competition-type';
 import ComboBox from '../common/ComboBox';
-import { menuCompTypes } from '@/types/consts/menus/menu-comp-types';
+import { menuCompTypes } from '@/domain/constants/menus/menu-comp-types';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { CompetitionGender } from '@/domain/enums/competition-gender';
-import { menuCompGenders } from '@/types/consts/menus/menu-comp-genders';
+import { menuCompGenders } from '@/domain/constants/menus/menu-comp-genders';
 import { MaxAge } from '@/domain/enums/max-age';
-import { menuMaxAge } from '@/types/consts/menus/menu-max-age';
+import { menuMaxAge } from '@/domain/constants/menus/menu-max-age';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;

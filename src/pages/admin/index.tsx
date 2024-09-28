@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext } from 'next';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { routeAdminEvents, routeAdminLicenses, routeAdminUsers, routeHome, routeLogin } from '@/types/consts/routes';
-import { validateSession } from '@/types/funcs/validate-session';
+import { routeAdminEvents, routeAdminLicenses, routeAdminUsers, routeHome, routeLogin } from '@/domain/constants/routes';
+import { validateSession } from '@/functions/validate-session';
 import ActionButton from '@/components/common/ActionButton';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';

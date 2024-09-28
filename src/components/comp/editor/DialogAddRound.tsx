@@ -8,7 +8,7 @@ import TextButton from '../../common/TextButton';
 import { Moment } from 'moment';
 import ComboBox from '@/components/common/ComboBox';
 import moment from 'moment';
-import { getMenuAvailableDays } from '@/types/consts/menus/menu-available-days';
+import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
 
 interface IDialogProps {
   title: string;

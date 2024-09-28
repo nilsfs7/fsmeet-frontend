@@ -9,8 +9,8 @@ import { PaymentMethodCash } from '@/types/payment-method-cash';
 import { PaymentMethodPayPal } from '@/types/payment-method-paypal';
 import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 import ComboBox from '../common/ComboBox';
-import { menuEventTypes } from '@/types/consts/menus/menu-event-types';
-import { validateAlias } from '@/types/funcs/validation/validation-event';
+import { menuEventTypes } from '@/domain/constants/menus/menu-event-types';
+import { validateAlias } from '@/functions/validation/validation-event';
 import CurInput from '../common/CurrencyInput';
 import { EventState } from '@/domain/enums/event-state';
 import { DatePicker } from '../common/DatePicker';
@@ -18,7 +18,7 @@ import { EditorMode } from '@/domain/enums/editor-mode';
 import Separator from '../Seperator';
 import SectionHeader from '../common/section-header';
 import Link from 'next/link';
-import { routeEvents } from '@/types/consts/routes';
+import { routeEvents } from '@/domain/constants/routes';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
