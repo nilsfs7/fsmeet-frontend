@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { routeAccount, routeLogin } from './domain/constants/routes';
 
 const credentialsConfig = CredentialsProvider({
@@ -72,7 +72,7 @@ const config = {
     },
 
     session({ session, token }: { session: any; token: any }) {
-      const decoded: any = jwt_decode(token.accessToken);
+      const decoded: any = jwtDecode(token.accessToken);
       session.user = { username: decoded.username, imageUrl: decoded.imageUrl, accessToken: token.accessToken } as any;
       return session;
     },
