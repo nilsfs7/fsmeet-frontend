@@ -103,7 +103,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                 type="number"
                 min={1}
-                max={99} // TODO
+                max={999}
                 value={matchSlots}
                 onChange={(e) => {
                   setMatchSlots(+e.currentTarget.value);
