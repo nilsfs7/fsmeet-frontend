@@ -77,7 +77,7 @@ const EventInfo = ({ event, showMessangerInvitationUrl }: IEventProps) => {
         <div className={'p-2'}>
           <div className={'grid grid-cols-3'}>
             <div className="col-span-1">{`Livestream`}</div>
-            <div className="col-span-2 hover:underline select-text">
+            <div className="col-span-2 hover:underline select-text break-words">
               <a target="_blank" rel="noopener noreferrer" href={event.livestreamUrl}>
                 {event.livestreamUrl}
               </a>
@@ -89,8 +89,8 @@ const EventInfo = ({ event, showMessangerInvitationUrl }: IEventProps) => {
       {event.messangerInvitationUrl && showMessangerInvitationUrl && (
         <div className={'p-2'}>
           <div className={'grid grid-cols-3'}>
-            <div className="col-span-1">{`Groupchat invitation link`}</div>
-            <div className="col-span-2 hover:underline select-text">
+            <div className="col-span-1">{`Group chat invitation link`}</div>
+            <div className="col-span-2 hover:underline select-text break-words">
               <a target="_blank" rel="noopener noreferrer" href={event.messangerInvitationUrl}>
                 {event.messangerInvitationUrl}
               </a>
