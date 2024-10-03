@@ -1,3 +1,4 @@
+import LanguagePicker from './LanguagePicker';
 import { LogoFSMeet } from './Logo';
 import Profile from './user/Profile';
 
@@ -11,7 +12,10 @@ export const Header = ({ showMenu = false }: IHeaderProps) => {
       <div className="mx-2 flex h-20 items-center justify-between">
         <LogoFSMeet />
 
-        {showMenu && <Profile />}
+        <div className="flex gap-2">
+          {showMenu && <Profile />}
+          <LanguagePicker />
+        </div>
       </div>
     </div>
   );

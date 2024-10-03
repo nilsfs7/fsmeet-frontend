@@ -27,8 +27,8 @@ const Profile = () => {
     setImageUrl(url ? url : null);
   }, [username, imageUrl]);
 
-  const onClickProfile = (e: any) => {
-    !isAuthenticated() ? router.push(routeLogin) : !opened ? setOpened(true) : setOpened(false);
+  const onClickProfile = () => {
+    !isAuthenticated() ? router.push(routeLogin) : setOpened(!opened);
   };
 
   const onEventsClicked = () => {
