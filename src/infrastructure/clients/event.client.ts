@@ -164,6 +164,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
     participationFee: event?.participationFee,
     type: event?.type,
     livestreamUrl: event?.livestreamUrl,
+    messangerInvitationUrl: event?.messangerInvitationUrl,
     paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
     paymentMethodPayPal: {
       enabled: event?.paymentMethodPayPal.enabled,
@@ -317,6 +318,7 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     venueCountry: event?.venueCountry.trim(),
     participationFee: event?.participationFee,
     livestreamUrl: event?.livestreamUrl,
+    messangerInvitationUrl: event?.messangerInvitationUrl,
     paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
     paymentMethodPayPal: {
       enabled: event?.paymentMethodPayPal.enabled,

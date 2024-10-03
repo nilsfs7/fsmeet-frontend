@@ -60,6 +60,16 @@ const EventDetails = (props: any) => {
     return false;
   };
 
+  const isEventAdmin = () => {
+    if (validateSession(session)) {
+      if (event && event.admin === session?.user?.username) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
   const handleRegisterClicked = async () => {
     if (!validateSession(session)) {
       router.push(routeLogin);
@@ -419,7 +429,7 @@ const EventDetails = (props: any) => {
 
             {/* Details */}
             <TabsContent value="overview" className="overflow-hidden overflow-y-auto">
-              <EventInfo event={event} />
+              <EventInfo event={event} showMessangerInvitationUrl={isEventAdmin() || isRegistered()} />
 
               {eventSponsors?.length > 0 && (
                 <div className="mt-2">

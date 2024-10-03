@@ -41,6 +41,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const [venueCountry, setVenueCountry] = useState(event?.venueCity || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
+  const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || '');
   const [participationFee, setParticipationFee] = useState(event?.participationFee || 0.0);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
   const [paymentMethodPayPalEnabled, setPaymentMethodPayPalEnabled] = useState<boolean>(event?.paymentMethodPayPal?.enabled || false);
@@ -60,7 +61,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     alias = alias.toLowerCase();
 
     if (validateAlias(alias)) {
-      setEventAlias(alias.toLowerCase());
+      setEventAlias(alias);
     }
   };
 
@@ -95,6 +96,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       venuePostCode: venuePostCode,
       venueCountry: venueCountry,
       livestreamUrl: livestreamUrl,
+      messangerInvitationUrl: messangerInvitationUrl,
       participationFee: participationFee,
       paymentMethodCash: paymentMethodCash,
       paymentMethodPayPal: paymentMethodPayPal,
@@ -127,6 +129,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       setVenueCountry(event.venueCountry);
       setEventType(event.type);
       setLivestreamUrl(event.livestreamUrl);
+      setMessangerInvitationUrl(event.messangerInvitationUrl);
       setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
       setPaymentMethodPayPalEnabled(event.paymentMethodPayPal.enabled);
       setPaymentMethodPayPalHandle(event.paymentMethodPayPal.payPalHandle);
@@ -160,6 +163,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     venueCountry,
     eventType,
     livestreamUrl,
+    messangerInvitationUrl,
     participationFee,
     paymentMethodCashEnabled,
     paymentMethodPayPalEnabled,
@@ -300,6 +304,16 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         value={livestreamUrl}
         onChange={(e) => {
           setLivestreamUrl(e.currentTarget.value);
+        }}
+      />
+
+      <TextInput
+        id={'messangerInvitationUrl'}
+        label={'Group Chat Invitation Link (e.g. WhatsApp)'}
+        placeholder="https://chat.whatsapp.com/FcFFSq0ybgT4tsk48ZQoxJ"
+        value={messangerInvitationUrl}
+        onChange={(e) => {
+          setMessangerInvitationUrl(e.currentTarget.value);
         }}
       />
 

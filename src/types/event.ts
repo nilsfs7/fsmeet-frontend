@@ -24,6 +24,7 @@ export type Event = {
   venueCountry: string;
   type: EventType;
   livestreamUrl: string;
+  messangerInvitationUrl: string;
   paymentMethodCash: PaymentMethodCash;
   paymentMethodPayPal: PaymentMethodPayPal;
   paymentMethodSepa: PaymentMethodSepa;
