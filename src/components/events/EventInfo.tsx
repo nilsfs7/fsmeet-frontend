@@ -13,9 +13,10 @@ import { routeUsers } from '@/domain/constants/routes';
 
 interface IEventProps {
   event: Event;
+  showMessangerInvitationUrl: boolean;
 }
 
-const EventInfo = ({ event }: IEventProps) => {
+const EventInfo = ({ event, showMessangerInvitationUrl }: IEventProps) => {
   const [showMap, setShowMap] = useState<boolean>(false);
 
   return (
@@ -69,22 +70,33 @@ const EventInfo = ({ event }: IEventProps) => {
         </>
       )}
 
-      {/* livestream */}
-      {event.livestreamUrl && (
-        <>
-          <Separator />
+      {/* urls */}
+      {(event.livestreamUrl || (event.messangerInvitationUrl && showMessangerInvitationUrl)) && <Separator />}
 
-          <div className={'p-2'}>
-            <div className={'grid grid-cols-3'}>
-              <div className="col-span-1">{`Livestream`}</div>
-              <div className="col-span-2 hover:underline select-text">
-                <a target="_blank" rel="noopener noreferrer" href={event.livestreamUrl}>
-                  {event.livestreamUrl}
-                </a>
-              </div>
+      {event.livestreamUrl && (
+        <div className={'p-2'}>
+          <div className={'grid grid-cols-3'}>
+            <div className="col-span-1">{`Livestream`}</div>
+            <div className="col-span-2 hover:underline select-text">
+              <a target="_blank" rel="noopener noreferrer" href={event.livestreamUrl}>
+                {event.livestreamUrl}
+              </a>
             </div>
           </div>
-        </>
+        </div>
+      )}
+
+      {event.messangerInvitationUrl && showMessangerInvitationUrl && (
+        <div className={'p-2'}>
+          <div className={'grid grid-cols-3'}>
+            <div className="col-span-1">{`Groupchat invitation link`}</div>
+            <div className="col-span-2 hover:underline select-text">
+              <a target="_blank" rel="noopener noreferrer" href={event.messangerInvitationUrl}>
+                {event.messangerInvitationUrl}
+              </a>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* address */}
