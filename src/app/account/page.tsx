@@ -13,7 +13,7 @@ import { getUser } from '@/infrastructure/clients/user.client';
 import { getTranslations } from 'next-intl/server';
 
 export default async function Account() {
-  const t = await getTranslations('account');
+  const t = await getTranslations('/account');
   const session = await auth();
 
   // TODO: remove because redirect is done by middleware anyway

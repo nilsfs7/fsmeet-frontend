@@ -1,5 +1,8 @@
 {
-  "account": {
+  "/": {
+    "pageTitle": "Your Freestyle Events"
+  },
+  "/account": {
     "pageTitle": "Account Settings"
   }
 }
