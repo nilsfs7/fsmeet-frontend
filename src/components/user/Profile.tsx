@@ -1,7 +1,7 @@
 'use client';
 
 import { signOut, useSession } from 'next-auth/react';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
@@ -10,6 +10,7 @@ import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSetti
 
 const Profile = () => {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   const [username, setUsername] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
