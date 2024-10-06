@@ -1,6 +1,12 @@
 {
   "/": {
-    "pageTitle": "Your Freestyle Events"
+    "pageTitle": "Your Freestyle Events",
+    "slogan": "Plan | Compete | Connect",
+    "btnShowAllEvents": "Show All",
+    "navMap": "Map",
+    "navCommunity": "Community",
+    "navAdminOverview": "Admin Overview",
+    "navAbout": "About"
   },
   "/account": {
     "pageTitle": "Account Settings"
