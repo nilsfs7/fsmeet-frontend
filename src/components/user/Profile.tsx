@@ -64,12 +64,12 @@ const Profile = () => {
   return (
     <div className="relative">
       {/* picture and name  */}
-      <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light p-1 hover:border-primary">
-        <button className="h-full w-full" onClick={onClickProfile}>
-          <div className="grid grid-flow-col items-center">
-            <img src={isAuthenticated() && imageUrl ? imageUrl : imgUserNoImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
-            <div className="mx-1 truncate hover:text-clip">{isAuthenticated() ? username : 'Login'}</div>
+      <div className="static flex h-14 min-w-[100px] max-w-[180px] p-1 items-center justify-center cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary">
+        <button className="flex gap-2 items-center" onClick={onClickProfile}>
+          <div className="h-11 w-11">
+            <img src={isAuthenticated() && imageUrl ? imageUrl : imgUserNoImg} className="h-full w-full rounded-full object-cover" />
           </div>
+          <div className="truncate hover:text-clip">{isAuthenticated() ? username : 'Login'}</div>
         </button>
       </div>
 

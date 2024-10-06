@@ -35,18 +35,20 @@ const LanguagePicker = () => {
 
   return (
     <div className="relative">
-      <div className="static grid h-14 w-14 cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light p-1 hover:border-primary">
-        <button className="h-full w-full rounded-full" onClick={handleMenuClicked}>
-          <ReactCountryFlag
-            countryCode={locale}
-            svg
-            style={{
-              width: '100%',
-              height: '100%',
-              borderRadius: '9999px',
-              objectFit: 'cover',
-            }}
-          />
+      <div className="static flex h-14 w-14 p-1 items-center justify-center cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary">
+        <button onClick={handleMenuClicked}>
+          <div className="h-11 w-11">
+            <ReactCountryFlag
+              countryCode={locale}
+              svg
+              style={{
+                width: '100%',
+                height: '100%',
+                borderRadius: '9999px',
+                objectFit: 'cover',
+              }}
+            />
+          </div>
         </button>
       </div>
 
@@ -61,12 +63,12 @@ const LanguagePicker = () => {
         leaveTo="transform opacity-0 scale-95"
         show={opened}
       >
-        <div className={`absolute right-0 top-14 mt-2 min-w-max rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary`}>
+        <div className={`absolute right-0 top-14 mt-2 w-14 rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary`}>
           {menuItems.map((menuItem, index) => {
             return (
               <div
                 key={index}
-                className={`flex h-14 w-14 cursor-pointer items-center p-1 
+                className={`flex h-14 items-center justify-center cursor-pointer
                 ${activeIndex === index ? 'bg-secondary' : ''} 
                 ${index === 0 ? 'rounded-t-[8px]' : ''} 
                 ${index === menuItems.length - 1 ? 'rounded-b-[8px]' : ''}`}
@@ -76,7 +78,7 @@ const LanguagePicker = () => {
                   handleLanguageChanged(index);
                 }}
               >
-                <div className="h-full w-full object-fill">
+                <div className="h-11 w-11">
                   <ReactCountryFlag
                     countryCode={menuItem}
                     svg
