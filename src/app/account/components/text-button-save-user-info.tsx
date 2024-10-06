@@ -6,7 +6,7 @@ import { User } from '@/types/user';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
 
-export const ButtonSaveUserInfo = () => {
+export const TextButtonSaveUserInfo = () => {
   const { data: session, status } = useSession();
 
   const handleSaveUserInfoClicked = async () => {
