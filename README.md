@@ -41,7 +41,7 @@ docker pull luisnaldo7/fsmeet-frontend:latest
 or build image
 
 ```
-docker build --build-arg COMMIT_SHA=456 -t luisnaldo7/fsmeet-frontend:latest .
+docker buildx build --build-arg COMMIT_SHA=456 -t luisnaldo7/fsmeet-frontend:latest .
 ```
 
 Execute container
