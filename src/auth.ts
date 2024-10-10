@@ -2,6 +2,7 @@ import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode } from 'jwt-decode';
 import { routeAccount, routeHome, routeLogin } from './domain/constants/routes';
+import { TechnicalUser } from './domain/enums/technical-user';
 
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',
@@ -57,6 +58,11 @@ const config = {
 
       // redirect from login page if user is already logged
       if (pathname === routeLogin && isLoggedIn) {
+        return Response.redirect(new URL(routeHome, nextUrl));
+      }
+
+      // deny access to /admin routes
+      if (pathname.startsWith('/admin') && auth?.user?.username !== TechnicalUser.ADMIN) {
         return Response.redirect(new URL(routeHome, nextUrl));
       }
 
