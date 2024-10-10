@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode } from 'jwt-decode';
-import { routeAccount, routeLogin } from './domain/constants/routes';
+import { routeAccount, routeHome, routeLogin } from './domain/constants/routes';
 
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',
@@ -46,12 +46,18 @@ const config = {
   },
 
   callbacks: {
-    authorized({ request, auth }) {
-      const { pathname } = request.nextUrl;
+    authorized({ request: { nextUrl }, auth }) {
+      const isLoggedIn = !!auth?.user;
+      const { pathname } = nextUrl;
 
       // TODO: add more protected routes
       if (pathname === routeAccount) {
         return !!auth;
+      }
+
+      // redirect from login page if user is already logged
+      if (pathname === routeLogin && isLoggedIn) {
+        return Response.redirect(new URL(routeHome, nextUrl));
       }
 
       return true;
