@@ -37,7 +37,7 @@ const LanguagePicker = () => {
     <div className="relative">
       <div className="static flex h-14 w-14 p-1 items-center justify-center cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary">
         <button onClick={handleMenuClicked}>
-          <div className="h-11 w-11">
+          <div className="h-9 w-9">
             <ReactCountryFlag
               countryCode={locale}
               svg
@@ -78,7 +78,7 @@ const LanguagePicker = () => {
                   handleLanguageChanged(index);
                 }}
               >
-                <div className="h-11 w-11">
+                <div className="h-9 w-9">
                   <ReactCountryFlag
                     countryCode={menuItem}
                     svg
