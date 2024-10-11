@@ -9,7 +9,7 @@ import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, rou
 import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
 
 const Profile = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   const [username, setUsername] = useState<string | null>(null);
@@ -26,7 +26,7 @@ const Profile = () => {
 
     const url = localStorage.getItem('imageUrl');
     setImageUrl(url ? url : null);
-  }, [username, imageUrl]);
+  }, [username, imageUrl, session]);
 
   const onClickProfile = () => {
     !isAuthenticated() ? router.push(routeLogin) : setOpened(!opened);
@@ -52,13 +52,22 @@ const Profile = () => {
     await signOut({ redirect: false });
     localStorage.removeItem('username');
     localStorage.removeItem('imageUrl');
+
+    setUsername(null);
+    setImageUrl(null);
+
     router.push(routeHome);
   };
 
   const menuItemActions = [onEventsClicked, onPublicProfileClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];
 
   const isAuthenticated = () => {
-    return status === 'authenticated';
+    // workaround because session does not update and will be undefined unsless page is refreshed manually
+    if (username) {
+      return true;
+    }
+
+    return false;
   };
 
   return (
@@ -67,9 +76,9 @@ const Profile = () => {
       <div className="static flex h-14 min-w-[100px] max-w-[180px] p-1 items-center justify-center cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary">
         <button className="flex gap-2 items-center" onClick={onClickProfile}>
           <div className="h-11 w-11">
-            <img src={isAuthenticated() && imageUrl ? imageUrl : imgUserNoImg} className="h-full w-full rounded-full object-cover" />
+            <img src={imageUrl ? imageUrl : imgUserNoImg} className="h-full w-full rounded-full object-cover" />
           </div>
-          <div className="truncate hover:text-clip">{isAuthenticated() ? username : 'Login'}</div>
+          <div className="truncate hover:text-clip">{username || 'Login'}</div>
         </button>
       </div>
 
