@@ -6,12 +6,10 @@ import { TechnicalUser } from './domain/enums/technical-user';
 
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',
-
   credentials: {
     usernameOrEmail: { label: 'Username', type: 'text', placeholder: 'max' },
     password: { label: 'Password', type: 'password' },
   },
-
   async authorize(credentials): Promise<any> {
     if (credentials?.usernameOrEmail && credentials?.password) {
       const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`;
