@@ -7,11 +7,13 @@ import { ProfilePicture } from './components/profile-picture';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { TabsMenu } from './components/tabs-menu';
-import { ButtonSaveUserInfo } from './components/text-button-save-user-info';
+import { TextButtonSaveUserInfo } from './components/text-button-save-user-info';
 import { RedirectType, redirect } from 'next/navigation';
 import { getUser } from '@/infrastructure/clients/user.client';
+import { getTranslations } from 'next-intl/server';
 
 export default async function Account() {
+  const t = await getTranslations('/account');
   const session = await auth();
 
   // TODO: remove because redirect is done by middleware anyway
@@ -23,7 +25,7 @@ export default async function Account() {
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
-      <PageTitle title="Account Settings" />
+      <PageTitle title={t('pageTitle')} />
 
       <div className="mx-2 flex flex-col overflow-auto">
         <ProfilePicture />
@@ -40,7 +42,7 @@ export default async function Account() {
           <ActionButton action={Action.BACK} />
         </Link>
 
-        <ButtonSaveUserInfo />
+        <TextButtonSaveUserInfo />
       </Navigation>
     </div>
   );

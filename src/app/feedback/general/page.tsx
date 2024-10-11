@@ -1,21 +1,22 @@
+'use client';
+
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
-import router from 'next/router';
-import { routeFeedback, routeFeedbackThankyou, routeLogin } from '@/domain/constants/routes';
+import { routeFeedback, routeFeedbackThankyou } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
+import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
-import { validateSession } from '@/functions/validate-session';
-import { GetServerSidePropsContext } from 'next';
 import PageTitle from '@/components/PageTitle';
 import { Toaster, toast } from 'sonner';
-import { auth } from '@/auth';
-import { createFeedbackFeature } from '@/infrastructure/clients/feedback.client';
+import { createFeedbackGeneral } from '@/infrastructure/clients/feedback.client';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
-const ReportBug = (props: any) => {
-  const session = props.session;
+export default function GeneralFeedback() {
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const [message, setMessage] = useState('');
 
@@ -25,7 +26,7 @@ const ReportBug = (props: any) => {
 
   const handleSubmitClicked = async () => {
     try {
-      await createFeedbackFeature(message, session);
+      await createFeedbackGeneral(message, session);
       router.push(routeFeedbackThankyou);
     } catch (error: any) {
       toast.error(error.message);
@@ -38,14 +39,14 @@ const ReportBug = (props: any) => {
       <Toaster richColors />
 
       <div className={'absolute inset-0 flex flex-col'}>
-        <PageTitle title="Feature Request" />
+        <PageTitle title="Send Feedback" />
 
         <div className="mx-2 flex flex-col overflow-y-auto">
           <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
             <TextInputLarge
               id={'message'}
               label={'Message'}
-              placeholder="Does the app lack some feature or do you have any wishes?"
+              placeholder="Any feedback is highly appreciated!"
               onChange={(e) => {
                 handleInputChangeMessage(e);
               }}
@@ -63,24 +64,4 @@ const ReportBug = (props: any) => {
       </div>
     </>
   );
-};
-
-export default ReportBug;
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  if (!validateSession(session)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: routeLogin,
-      },
-    };
-  }
-
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
+}

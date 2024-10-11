@@ -1,7 +1,7 @@
 'use client';
 
 import { signOut, useSession } from 'next-auth/react';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
@@ -9,7 +9,8 @@ import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, rou
 import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
 
 const Profile = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const [username, setUsername] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -25,10 +26,10 @@ const Profile = () => {
 
     const url = localStorage.getItem('imageUrl');
     setImageUrl(url ? url : null);
-  }, [username, imageUrl]);
+  }, [username, imageUrl, session]);
 
-  const onClickProfile = (e: any) => {
-    !isAuthenticated() ? router.push(routeLogin) : !opened ? setOpened(true) : setOpened(false);
+  const onClickProfile = () => {
+    !isAuthenticated() ? router.push(routeLogin) : setOpened(!opened);
   };
 
   const onEventsClicked = () => {
@@ -51,24 +52,33 @@ const Profile = () => {
     await signOut({ redirect: false });
     localStorage.removeItem('username');
     localStorage.removeItem('imageUrl');
+
+    setUsername(null);
+    setImageUrl(null);
+
     router.push(routeHome);
   };
 
   const menuItemActions = [onEventsClicked, onPublicProfileClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];
 
   const isAuthenticated = () => {
-    return status === 'authenticated';
+    // workaround because session does not update and will be undefined unsless page is refreshed manually
+    if (username) {
+      return true;
+    }
+
+    return false;
   };
 
   return (
     <div className="relative">
       {/* picture and name  */}
-      <div className="static grid h-14 min-w-[100px] max-w-[180px] cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light p-1 hover:border-primary">
-        <button className="h-full w-full" onClick={onClickProfile}>
-          <div className="grid grid-flow-col items-center">
-            <img src={isAuthenticated() && imageUrl ? imageUrl : imgUserNoImg} className="mx-2 h-10 w-10 rounded-full object-cover" />
-            <div className="mx-1 truncate hover:text-clip">{isAuthenticated() ? username : 'Login'}</div>
+      <div className="static flex h-14 min-w-[100px] max-w-[180px] p-1 items-center justify-center cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary">
+        <button className="flex gap-2 items-center" onClick={onClickProfile}>
+          <div className="h-11 w-11">
+            <img src={imageUrl ? imageUrl : imgUserNoImg} className="h-full w-full rounded-full object-cover" />
           </div>
+          <div className="truncate hover:text-clip">{username || 'Login'}</div>
         </button>
       </div>
 

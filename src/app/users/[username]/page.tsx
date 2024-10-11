@@ -20,14 +20,14 @@ import MatchCard from '@/components/comp/MatchCard';
 import moment from 'moment';
 import { Event } from '@/types/event';
 import { ReadCompetitionResponseDto } from '@/infrastructure/clients/dtos/read-competition.reposnse.dto';
-import { deleteUser, getUser } from '@/infrastructure/clients/user.client';
+import { getUser } from '@/infrastructure/clients/user.client';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { TechnicalUser } from '@/domain/enums/technical-user';
-import { Toaster, toast } from 'sonner';
 import { getTotalMatchPerformance } from '@/infrastructure/clients/statistic.client';
 import { getCompetition } from '@/infrastructure/clients/competition.client';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { ReadRoundResponseDto } from '@/infrastructure/clients/dtos/read-round.response.dto';
+import { ActionButtonDeleteUser } from './components/action-button-delete-user';
 
 const getCompetitionsByBattles = async (
   battleHistory: {
@@ -119,21 +119,8 @@ export default async function PublicUserProfile({ params }: { params: { username
     return country ? country.name : null;
   }
 
-  async function handleDeleteAccountClicked() {
-    try {
-      await deleteUser(user.username, session);
-
-      toast.success('User deleted.');
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
-    }
-  }
-
   return (
     <>
-      <Toaster richColors />
-
       <div className="h-[calc(100dvh)] flex flex-col">
         <Header />
 
@@ -324,7 +311,7 @@ export default async function PublicUserProfile({ params }: { params: { username
           <NavigateBackButton />
 
           <div className="flex justify-end gap-1">
-            {session?.user?.username === TechnicalUser.ADMIN && <ActionButton action={Action.DELETE} onClick={handleDeleteAccountClicked} />}
+            {session?.user?.username === TechnicalUser.ADMIN && <ActionButtonDeleteUser username={user.username} />}
 
             {session?.user?.username === user.username && (
               <Link href={routeAccount}>

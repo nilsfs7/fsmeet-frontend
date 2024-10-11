@@ -1,15 +1,12 @@
-import { GetServerSidePropsContext } from 'next';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { routeAdminEvents, routeAdminLicenses, routeAdminUsers, routeHome, routeLogin } from '@/domain/constants/routes';
-import { validateSession } from '@/functions/validate-session';
+import { routeAdminEvents, routeAdminLicenses, routeAdminUsers, routeHome } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import PageTitle from '@/components/PageTitle';
-import { auth } from '@/auth';
 
-const AdminOverview = () => {
+export default async function AdminOverview() {
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title="Admin Overview" />
@@ -35,25 +32,4 @@ const AdminOverview = () => {
       </Navigation>
     </div>
   );
-};
-
-export default AdminOverview;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  if (!validateSession(session)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: routeLogin,
-      },
-    };
-  }
-
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
+}

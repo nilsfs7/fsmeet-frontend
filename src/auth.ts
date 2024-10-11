@@ -1,16 +1,15 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode } from 'jwt-decode';
-import { routeAccount, routeLogin } from './domain/constants/routes';
+import { routeAccount, routeFeedback, routeHome, routeLogin } from './domain/constants/routes';
+import { TechnicalUser } from './domain/enums/technical-user';
 
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',
-
   credentials: {
     usernameOrEmail: { label: 'Username', type: 'text', placeholder: 'max' },
     password: { label: 'Password', type: 'password' },
   },
-
   async authorize(credentials): Promise<any> {
     if (credentials?.usernameOrEmail && credentials?.password) {
       const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`;
@@ -46,12 +45,23 @@ const config = {
   },
 
   callbacks: {
-    authorized({ request, auth }) {
-      const { pathname } = request.nextUrl;
+    authorized({ request: { nextUrl }, auth }) {
+      const isLoggedIn = !!auth?.user;
+      const { pathname } = nextUrl;
 
       // TODO: add more protected routes
-      if (pathname === routeAccount) {
+      if (pathname.startsWith(routeAccount) || pathname.startsWith(routeFeedback)) {
         return !!auth;
+      }
+
+      // redirect from login page if user is already logged
+      if (pathname === routeLogin && isLoggedIn) {
+        return Response.redirect(new URL(routeHome, nextUrl));
+      }
+
+      // deny access to /admin routes
+      if (pathname.startsWith('/admin') && auth?.user?.username !== TechnicalUser.ADMIN) {
+        return Response.redirect(new URL(routeHome, nextUrl));
       }
 
       return true;

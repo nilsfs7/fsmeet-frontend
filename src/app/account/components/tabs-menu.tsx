@@ -11,7 +11,7 @@ import { User } from '@/types/user';
 import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeHome, routeLogin, routeMap } from '@/domain/constants/routes';
 import { copyToClipboard } from '@/functions/copy-to-clipboard';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { logoutUser } from '../../actions';
 import { validateSession } from '@/functions/validate-session';
 import TextInput from '@/components/common/TextInput';
@@ -50,7 +50,6 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const { data: session, status } = useSession();
 
   const router = useRouter();
-  const pathname = usePathname();
 
   const searchParams = useSearchParams();
   const tab = searchParams?.get('tab');

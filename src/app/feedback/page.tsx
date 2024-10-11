@@ -2,14 +2,11 @@ import TextAndImageButton from '@/components/common/TextAndImageButton';
 import Link from 'next/link';
 import { imgBug, imgFeature, imgFeedback } from '@/domain/constants/images';
 import Navigation from '@/components/Navigation';
-import { routeHome, routeLogin } from '@/domain/constants/routes';
+import { routeHome } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import { validateSession } from '@/functions/validate-session';
-import { GetServerSidePropsContext } from 'next';
-import { auth } from '@/auth';
 
-const Feedback = () => {
+export default function Feedback() {
   return (
     <div className={'absolute inset-0 flex flex-col'}>
       <div className="p-2 h-full grid overflow-y-auto">
@@ -35,25 +32,4 @@ const Feedback = () => {
       </Navigation>
     </div>
   );
-};
-
-export default Feedback;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  if (!validateSession(session)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: routeLogin,
-      },
-    };
-  }
-
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
+}
