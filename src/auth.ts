@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode } from 'jwt-decode';
-import { routeAccount, routeHome, routeLogin } from './domain/constants/routes';
+import { routeAccount, routeFeedback, routeHome, routeLogin } from './domain/constants/routes';
 import { TechnicalUser } from './domain/enums/technical-user';
 
 const credentialsConfig = CredentialsProvider({
@@ -50,7 +50,7 @@ const config = {
       const { pathname } = nextUrl;
 
       // TODO: add more protected routes
-      if (pathname === routeAccount) {
+      if (pathname.startsWith(routeAccount) || pathname.startsWith(routeFeedback)) {
         return !!auth;
       }
 

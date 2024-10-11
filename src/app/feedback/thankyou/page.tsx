@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import TextButton from '@/components/common/TextButton';
-import Image from 'next/image';
-import { routeHome } from '@/domain/constants/routes';
 import { imgThumbsUp } from '@/domain/constants/images';
+import { routeHome } from '@/domain/constants/routes';
+import Image from 'next/image';
+import TextButton from '@/components/common/TextButton';
 
-const ThankYou = () => {
+export default function ThankYou() {
   return (
     <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
       <div className="py-2 ">
@@ -22,6 +22,4 @@ const ThankYou = () => {
       </div>
     </div>
   );
-};
-
-export default ThankYou;
+}
