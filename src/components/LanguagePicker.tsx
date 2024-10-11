@@ -6,9 +6,11 @@ import { Transition } from '@headlessui/react';
 import ReactCountryFlag from 'react-country-flag';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const LanguagePicker = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const [locale, setLocale] = useState<string>('GB');
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
@@ -32,6 +34,18 @@ const LanguagePicker = () => {
     setOpened(false);
     router.refresh();
   };
+
+  // TODO: remove when translation is ready
+  const showPicker = (): boolean => {
+    if (!session || (session?.user?.username !== 'nils' && session?.user?.username !== 'admin' && session?.user?.username !== 'sebifreestyle' && session?.user?.username !== 'basti')) {
+      return true;
+    }
+
+    return false;
+  };
+
+  // TODO: remove when translation is ready
+  if (showPicker()) return <></>;
 
   return (
     <div className="relative">
