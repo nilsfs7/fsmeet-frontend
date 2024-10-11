@@ -49,6 +49,7 @@ const config = {
       const isLoggedIn = !!auth?.user;
       const { pathname } = nextUrl;
 
+      // deny access to routes that require a session
       // TODO: add more protected routes
       if (pathname.startsWith(routeAccount) || pathname.startsWith(routeFeedback)) {
         return !!auth;

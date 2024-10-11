@@ -1,7 +1,9 @@
+'use client';
+
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
-import router from 'next/router';
+import { useRouter } from 'next/navigation';
 import { routeLogin, routePasswordPending } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import Link from 'next/link';
@@ -10,7 +12,8 @@ import ActionButton from '@/components/common/ActionButton';
 import { Toaster, toast } from 'sonner';
 import { createPasswordReset } from '@/infrastructure/clients/user.client';
 
-const ForgotPassword = () => {
+export default function ForgotPassword() {
+  const router = useRouter();
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
 
   const handleInputChangeUsername = (event: any) => {
@@ -68,6 +71,4 @@ const ForgotPassword = () => {
       </div>
     </>
   );
-};
-
-export default ForgotPassword;
+}

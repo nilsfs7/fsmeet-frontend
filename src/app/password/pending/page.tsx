@@ -4,7 +4,7 @@ import { routeHome } from '@/domain/constants/routes';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const PasswordResetRequestPending = () => {
+export default function PasswordResetRequestPending() {
   return (
     <div className={'absolute inset-0 flex flex-col'}>
       <div className="p-2 h-full grid overflow-y-auto">
@@ -25,6 +25,4 @@ const PasswordResetRequestPending = () => {
       </div>
     </div>
   );
-};
-
-export default PasswordResetRequestPending;
+}

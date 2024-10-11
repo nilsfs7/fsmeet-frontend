@@ -1,15 +1,16 @@
+'use client';
+
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { routeLogin } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import { updateUserPassword } from '@/infrastructure/clients/user.client';
 
-const ResetPassword = () => {
+export default function ResetPassword({ searchParams }: any) {
   const router = useRouter();
-  const { requestToken } = router.query;
 
   const [password, setPassword] = useState('');
 
@@ -25,9 +26,9 @@ const ResetPassword = () => {
   };
 
   const handleSaveClicked = async () => {
-    if (requestToken) {
+    if (searchParams?.requestToken) {
       try {
-        await updateUserPassword(requestToken?.toString(), password);
+        await updateUserPassword(searchParams.requestToken, password);
         router.replace(routeLogin);
       } catch (error: any) {
         toast.error(error.message);
@@ -64,6 +65,4 @@ const ResetPassword = () => {
       </div>
     </>
   );
-};
-
-export default ResetPassword;
+}
