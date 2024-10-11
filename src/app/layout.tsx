@@ -1,7 +1,7 @@
+import './globals.css';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import './globals.css';
-import Providers from './providers';
+import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 
@@ -23,9 +23,9 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={fontRoboto.className}>
-        <Providers>
+        <SessionProvider>
           <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
-        </Providers>
+        </SessionProvider>
       </body>
     </html>
   );
