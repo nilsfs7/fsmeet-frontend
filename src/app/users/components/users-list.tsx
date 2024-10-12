@@ -1,13 +1,11 @@
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
-import SocialLink from '@/components/user/SocialLink';
-import { imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
-import { routeHome, routeMap, routeUsers } from '@/domain/constants/routes';
-import { Action } from '@/domain/enums/action';
-import { Platform } from '@/domain/enums/platform';
-import { TotalMatchPerformance } from '@/types/total-match-performance';
-import { GetServerSidePropsContext } from 'next';
-import Link from 'next/link';
+'use client';
+
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Input } from '@/components/ui/input';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { ArrowUpDown, ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import ReactCountryFlag from 'react-country-flag';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -21,22 +19,20 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-// import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import React, { useState } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Input } from '@/components/ui/input';
-import ReactCountryFlag from 'react-country-flag';
+import { useState } from 'react';
 import { UserType } from '@/domain/enums/user-type';
-import { Header } from '@/components/Header';
-import { User } from '@/types/user';
-import PageTitle from '@/components/PageTitle';
+import { routeUsers } from '@/domain/constants/routes';
+import Link from 'next/link';
+import { imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
 import { getUserTypeImages } from '@/functions/user-type';
-import { auth } from '@/auth';
-import { getUsers } from '@/infrastructure/clients/user.client';
+import SocialLink from '@/components/user/SocialLink';
+import { Platform } from '@/domain/enums/platform';
+import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+interface IUsersList {
+  columnData: ColumnInfo[];
+}
 
 export type UserInfo = {
   username: string;
@@ -190,17 +186,14 @@ export const columns: ColumnDef<ColumnInfo>[] = [
   },
 ];
 
-const UsersList = (props: any) => {
-  const session = props.session;
-  const columnInfos: ColumnInfo[] = props.columnInfos;
-
+export const UsersList = ({ columnData }: IUsersList) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
-    data: columnInfos,
+    data: columnData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -222,11 +215,7 @@ const UsersList = (props: any) => {
   });
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
-      <Header />
-
-      <PageTitle title="Community" />
-
+    <>
       <div className="mx-2 flex gap-2">
         <Input
           placeholder="Search name..."
@@ -298,143 +287,51 @@ const UsersList = (props: any) => {
             </Table>
           </div>
 
-          {/* <div className="flex items-center justify-end space-x-2 py-4">
-            <div className="flex-1 text-sm text-muted-foreground">
-                {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s) selected.
-              </div>
-            <div className="space-x-2">
-                <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                  Previous
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                  Next
-                </Button>
-              </div>
+          <div className="flex items-center justify-end space-x-2 mt-4">
+            <div className="flex min-w-max items-center justify-center text-sm font-medium">{`Page ${table.getState().pagination.pageIndex + 1} of ${table.getPageCount()} `}</div>
 
-            <div className="flex items-center space-x-6 lg:space-x-8">
-                <div className="flex items-center space-x-2">
-                  <p className="text-sm font-medium">Rows per page</p>
-                  <Select
-                    value={`${table.getState().pagination.pageSize}`}
-                    onValueChange={value => {
-                      table.setPageSize(Number(value));
-                    }}
-                  >
-                    <SelectTrigger className="h-8 w-[70px]">
-                      <SelectValue placeholder={table.getState().pagination.pageSize} />
-                    </SelectTrigger>
-                    <SelectContent side="top">
-                      {[10, 25, 50, 100].map(pageSize => (
-                        <SelectItem key={pageSize} value={`${pageSize}`}>
-                          {pageSize}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-                  Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Button variant="outline" className="hidden h-8 w-8 p-0 lg:flex" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
-                    <span className="sr-only">Go to first page</span>
-                    <DoubleArrowLeftIcon className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" className="h-8 w-8 p-0" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                    <span className="sr-only">Go to previous page</span>
-                    <ChevronLeftIcon className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" className="h-8 w-8 p-0" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                    <span className="sr-only">Go to next page</span>
-                    <ChevronRightIcon className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" className="hidden h-8 w-8 p-0 lg:flex" onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
-                    <span className="sr-only">Go to last page</span>
-                    <DoubleArrowRightIcon className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-          </div> */}
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" className="hidden h-8 w-8 p-0 lg:flex" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
+                <span className="sr-only">Go to first page</span>
+                <DoubleArrowLeftIcon className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" className="h-8 w-8 p-0" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+                <span className="sr-only">Go to previous page</span>
+                <ChevronLeftIcon className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" className="h-8 w-8 p-0" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+                <span className="sr-only">Go to next page</span>
+                <ChevronRightIcon className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" className="hidden h-8 w-8 p-0 lg:flex" onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
+                <span className="sr-only">Go to last page</span>
+                <DoubleArrowRightIcon className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-end space-x-2 mt-4">
+            <p className="text-sm font-medium">{`Rows per page`}</p>
+            <Select
+              value={`${table.getState().pagination.pageSize}`}
+              onValueChange={(value) => {
+                table.setPageSize(Number(value));
+              }}
+            >
+              <SelectTrigger className="h-8 w-[70px]">
+                <SelectValue placeholder={table.getState().pagination.pageSize} />
+              </SelectTrigger>
+              <SelectContent side="top">
+                {[50, 100, 200].map((pageSize) => (
+                  <SelectItem key={pageSize} value={`${pageSize}`}>
+                    {pageSize}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
       </div>
-
-      <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-      </Navigation>
-    </div>
+    </>
   );
-};
-
-export default UsersList;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  const username = context.params?.username;
-
-  // if (username) {
-  try {
-    const users = await getUsers();
-
-    const columnInfos: ColumnInfo[] = [];
-
-    const userSorted = users.sort((a: User, b: User) => {
-      const rowAVal = `${a.firstName} ${a.lastName}`;
-      const rowBVal = `${b.firstName} ${b.lastName}`;
-
-      if (rowAVal < rowBVal) {
-        return -1;
-      }
-      if (rowAVal > rowBVal) {
-        return 1;
-      }
-
-      return 0;
-    });
-
-    userSorted.forEach((user, index) => {
-      if (user.type !== UserType.TECHNICAL) {
-        columnInfos.push({
-          user: {
-            username: user.username,
-            imageUrl: user.imageUrl || '',
-            firstName: user.firstName || '',
-            lastName: user.lastName || '',
-          },
-          country: user.country || '',
-          userType: user.type,
-          location:
-            user.city && user.exposeLocation && user.locLatitude && user.locLongitude
-              ? { city: user.city, mapLink: `${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}` }
-              : { city: '', mapLink: '' },
-          socials: {
-            fsm: user.username,
-            insta: user.instagramHandle || '',
-            tikTok: user.tikTokHandle || '',
-            youTube: user.youTubeHandle || '',
-            website: user.website || '',
-          },
-        });
-      }
-    });
-
-    return {
-      props: {
-        columnInfos: columnInfos,
-        session: session,
-      },
-    };
-  } catch (error: any) {
-    console.error(error);
-  }
-  // }
-
-  // return {
-  //   redirect: {
-  //     permanent: false,
-  //     destination: routeUsers,
-  //   },
-  // };
 };
