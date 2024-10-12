@@ -3,11 +3,10 @@ import Link from 'next/link';
 import { routeLogin } from '@/domain/constants/routes';
 import Image from 'next/image';
 import { imgEmojiError, imgCelebration } from '@/domain/constants/images';
-import { GetServerSidePropsContext } from 'next';
 import { getConfirmUser } from '@/infrastructure/clients/user.client';
 
-const RegistrationConfirmation = (props: any) => {
-  let confirmationSuccessful: boolean = props.data;
+export default async function RegistrationConfirmation({ searchParams }: any) {
+  const confirmationSuccessful = await getConfirmUser(searchParams.username, searchParams.requestToken);
 
   return (
     <div className={'absolute inset-0 flex flex-col'}>
@@ -32,27 +31,4 @@ const RegistrationConfirmation = (props: any) => {
       </div>
     </div>
   );
-};
-
-export default RegistrationConfirmation;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  let confirmationSuccessful = false;
-
-  const username = context.query.username;
-  const requestToken = context.query.requestToken;
-
-  if (username && requestToken) {
-    try {
-      confirmationSuccessful = await getConfirmUser(username.toString(), requestToken.toString());
-    } catch (error: any) {
-      console.error('Error confirming account.');
-    }
-  }
-
-  return {
-    props: {
-      data: confirmationSuccessful,
-    },
-  };
-};
+}
