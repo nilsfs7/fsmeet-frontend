@@ -1,22 +1,18 @@
-import EventCard from '@/components/events/EventCard';
-import { GetServerSidePropsContext } from 'next';
-import Link from 'next/link';
+'use client';
+
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
-import { routeEvents, routeHome } from '@/domain/constants/routes';
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
-import { Action } from '@/domain/enums/action';
+import Link from 'next/link';
+import EventCard from '@/components/events/EventCard';
+import { routeEvents } from '@/domain/constants/routes';
+import { getEvents } from '@/infrastructure/clients/event.client';
 import { Event } from '@/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
-import { Header } from '@/components/Header';
-import { auth } from '@/auth';
-import { getEvents } from '@/infrastructure/clients/event.client';
 
 const defaultDateFrom = moment(moment().subtract(1, 'y').year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
 
-const EventsOverview = ({ session }: { session: any }) => {
+export const EventsList = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
@@ -48,9 +44,7 @@ const EventsOverview = ({ session }: { session: any }) => {
   }, []);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
-      <Header showMenu={true} />
-
+    <>
       {/* Filters */}
       <div className="mt-2 flex justify-center gap-2">
         <div>
@@ -94,23 +88,6 @@ const EventsOverview = ({ session }: { session: any }) => {
           {events.length === 0 && <div className="mt-2 text-center">{`No events for the specified date range.`}</div>}
         </div>
       </div>
-
-      <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-      </Navigation>
-    </div>
+    </>
   );
-};
-export default EventsOverview;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  return {
-    props: {
-      session: session,
-    },
-  };
 };
