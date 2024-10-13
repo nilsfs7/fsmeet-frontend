@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import ActionButton from '../../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import TextButton from '../../common/TextButton';
-import { Moment } from 'moment';
 import ComboBox from '@/components/common/ComboBox';
 import moment from 'moment';
 import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
@@ -14,7 +13,7 @@ interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string) => void;
+  onConfirm?: (slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string, roundTimeLimit: boolean) => void;
   cancelText?: string;
   confirmText?: string;
   roundIndex: number;
@@ -30,6 +29,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
   const [advancingTotal, setAdvancingTotal] = useState<number>(0);
   const [roundName, setRoundName] = useState<string>('');
   const [roundDate, setRoundDate] = useState<string>(dateFrom);
+  const [roundTimeLimit, setRoundTimeLimit] = useState<boolean>(false);
 
   function getAdvancing(): number {
     const availablePlayersHalf = Math.floor(availablePlayers / 2);
@@ -45,6 +45,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
     if (showDialog === '1') {
       setRoundName(`Round ${roundIndex + 1}`);
       setRoundDate(dateFrom);
+      setRoundTimeLimit(false);
       setAdvancingTotal(getAdvancing());
       setSlotsPerMatch(2);
     }
@@ -55,7 +56,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(slotsPerMatch, advancingTotal, roundName, roundDate);
+    onConfirm && onConfirm(slotsPerMatch, advancingTotal, roundName, roundDate, roundTimeLimit);
     onCancel && onCancel();
   };
 
@@ -96,6 +97,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
               <div>{`Available players in pool`}</div>
               <div>{availablePlayers}</div>
             </div>
+
             {/* TODO: add checkbox: is final battle? */}
             <div className="grid grid-cols-2 gap-2">
               <div>{`Advancing to next round`}</div>
@@ -112,6 +114,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                 }}
               />
             </div>
+
             <div className="grid grid-cols-2 gap-2">
               <div>{`Players per match`}</div>
               <input
@@ -127,9 +130,23 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
                 }}
               />
             </div>
+
             <div className="grid grid-cols-2 gap-2">
               <div>{`Amount of matches`}</div>
               <div>{Math.ceil(availablePlayers / slotsPerMatch)}</div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 items-center">
+              <div>{'Has time limit'}</div>
+              <input
+                id={'input-time-limit'}
+                className="h-4 w-4"
+                type="checkbox"
+                checked={roundTimeLimit}
+                onChange={(e) => {
+                  setRoundTimeLimit(!roundTimeLimit);
+                }}
+              />
             </div>
           </div>
 

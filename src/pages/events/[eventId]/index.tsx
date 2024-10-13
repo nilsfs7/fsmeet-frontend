@@ -35,6 +35,8 @@ import { createComment, createEventRegistration, createSubComment, deleteEventRe
 import { getSponsors } from '@/infrastructure/clients/sponsor.client';
 import { Sponsor } from '@/types/sponsor';
 import SponsorSection from '@/components/events/SponsorSection';
+import { User } from '@/types/user';
+import { getUser } from '@/infrastructure/clients/user.client';
 
 const EventDetails = (props: any) => {
   const session = props.session;
@@ -46,6 +48,7 @@ const EventDetails = (props: any) => {
   const tab = searchParams?.get('tab');
 
   const [event, setEvent] = useState<Event>();
+  const [eventAdmin, setEventAdmin] = useState<User>();
   const [eventComments, setEventComments] = useState<EventComment[]>();
   const [eventSponsors, setEventSponsors] = useState<Sponsor[]>([]);
   const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
@@ -230,6 +233,12 @@ const EventDetails = (props: any) => {
               .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
 
             setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
+
+            if (event.admin) {
+              getUser(event.admin).then((user) => {
+                setEventAdmin(user);
+              });
+            }
           })
           .catch(() => {
             router.push(routeEventNotFound);
@@ -429,7 +438,7 @@ const EventDetails = (props: any) => {
 
             {/* Details */}
             <TabsContent value="overview" className="overflow-hidden overflow-y-auto">
-              <EventInfo event={event} showMessangerInvitationUrl={isEventAdmin() || isRegistered()} />
+              {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessangerInvitationUrl={isEventAdmin() || isRegistered()} />}
 
               {eventSponsors?.length > 0 && (
                 <div className="mt-2">
