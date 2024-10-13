@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode } from 'jwt-decode';
-import { routeAccount, routeFeedback, routeHome, routeLogin } from './domain/constants/routes';
+import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin } from './domain/constants/routes';
 import { TechnicalUser } from './domain/enums/technical-user';
 
 const credentialsConfig = CredentialsProvider({
@@ -51,7 +51,7 @@ const config = {
 
       // deny access to routes that require a session
       // TODO: add more protected routes
-      if (pathname.startsWith(routeAccount) || pathname.startsWith(routeFeedback)) {
+      if (pathname.startsWith(routeAccount) || pathname.startsWith(routeFeedback) || pathname.startsWith(routeEventSubs)) {
         return !!auth;
       }
 
