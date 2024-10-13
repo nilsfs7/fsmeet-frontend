@@ -4,14 +4,16 @@ export class Round {
   roundIndex: number;
   name: string;
   date: string | null;
+  timeLimit: boolean;
   advancingTotal: number;
   matches: Match[] = [];
 
-  constructor(roundIndex: number, name: string, date: string | null, advancingTotal: number) {
+  constructor(roundIndex: number, name: string, date: string | null, timeLimit: boolean, advancingTotal: number) {
     this.roundIndex = roundIndex;
     this.name = name;
     this.date = date;
     this.advancingTotal = advancingTotal;
+    this.timeLimit = timeLimit;
   }
 
   get matchesAscending(): Match[] {

@@ -117,7 +117,7 @@ const ModeEditing = (props: any) => {
   };
 
   const handleEditRoundClicked = async (roundIndex: number) => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}&rdate=${rounds[roundIndex].date}&radvancing=${rounds[roundIndex].advancingTotal}`;
+    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}&rdate=${rounds[roundIndex].date}&rtimelimit=${rounds[roundIndex].timeLimit}&radvancing=${rounds[roundIndex].advancingTotal}`;
     router.replace(url, undefined, { shallow: true });
   };
 
@@ -147,10 +147,10 @@ const ModeEditing = (props: any) => {
     router.replace(url, undefined, { shallow: true });
   };
 
-  const handleConfirmAddRoundClicked = async (slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string) => {
+  const handleConfirmAddRoundClicked = async (slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string, roundTimeLimit: boolean) => {
     const rnds = Array.from(rounds);
 
-    const newRound = new Round(rnds.length, roundName, roundDate, advancingTotal);
+    const newRound = new Round(rnds.length, roundName, roundDate, roundTimeLimit, advancingTotal);
 
     for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
       newRound.addMatch(`Match ${i + 1}`, null, false, slotsPerMatch);
@@ -160,10 +160,11 @@ const ModeEditing = (props: any) => {
     setRounds(rnds);
   };
 
-  const handleConfirmEditRoundClicked = async (roundIndex: number, roundName: string, roundDate: string, advancingTotal: number) => {
+  const handleConfirmEditRoundClicked = async (roundIndex: number, roundName: string, roundDate: string, roundTimeLimit: boolean, advancingTotal: number) => {
     const rnds = Array.from(rounds);
     rnds[roundIndex].name = roundName;
     rnds[roundIndex].date = roundDate;
+    rnds[roundIndex].timeLimit = roundTimeLimit;
     rnds[roundIndex].advancingTotal = advancingTotal;
     setRounds(rnds);
   };
@@ -223,8 +224,8 @@ const ModeEditing = (props: any) => {
         title="Add Round"
         queryParam="addround"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string) => {
-          handleConfirmAddRoundClicked(slotsPerMatch, advancingTotal, roundName, roundDate);
+        onConfirm={(slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string, roundTimeLimit: boolean) => {
+          handleConfirmAddRoundClicked(slotsPerMatch, advancingTotal, roundName, roundDate, roundTimeLimit);
         }}
         confirmText="Confirm"
         roundIndex={rounds.length}
@@ -243,8 +244,8 @@ const ModeEditing = (props: any) => {
         title="Edit Round"
         queryParam="editround"
         onCancel={handleCancelDialogClicked}
-        onConfirm={(roundIndex: number, roundName: string, roundDate: string, advancingTotal: number) => {
-          handleConfirmEditRoundClicked(roundIndex, roundName, roundDate, advancingTotal);
+        onConfirm={(roundIndex: number, roundName: string, roundDate: string, roundTimeLimit: boolean, advancingTotal: number) => {
+          handleConfirmEditRoundClicked(roundIndex, roundName, roundDate, roundTimeLimit, advancingTotal);
         }}
         confirmText="Confirm"
         dateFrom={event.dateFrom}

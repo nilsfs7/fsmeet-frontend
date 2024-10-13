@@ -14,7 +14,7 @@ interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (roundIndex: number, roundName: string, roundDate: string, advancingTotal: number) => void;
+  onConfirm?: (roundIndex: number, roundName: string, roundDate: string, roundTimeLimit: boolean, advancingTotal: number) => void;
   cancelText?: string;
   confirmText?: string;
   dateFrom: string;
@@ -26,18 +26,21 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
   const showDialog = searchParams?.get(queryParam);
   const rname = searchParams?.get('rname') || '';
   const rdate = searchParams?.get('rdate') || '';
+  const rTimeLimit = searchParams?.get('rtimelimit') === 'true';
   const radvancing = +(searchParams?.get('radvancing') || 1);
   const roundIndex = +(searchParams?.get('rid') || 0);
 
   const [roundName, setRoundName] = useState<string>('');
   const [advancingTotal, setAdvancingTotal] = useState<number>(1);
   const [roundDate, setRoundDate] = useState<string>(dateFrom);
+  const [roundTimeLimit, setRoundTimeLimit] = useState<boolean>(false);
 
   useEffect(() => {
     if (showDialog === '1') {
       setRoundName(rname);
       setRoundDate(rdate);
       setAdvancingTotal(radvancing);
+      setRoundTimeLimit(rTimeLimit);
     }
   }, [showDialog]);
 
@@ -46,7 +49,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex, roundName, roundDate, advancingTotal);
+    onConfirm && onConfirm(roundIndex, roundName, roundDate, roundTimeLimit, advancingTotal);
     onCancel && onCancel();
   };
 
@@ -93,6 +96,19 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 value={advancingTotal}
                 onChange={(e) => {
                   setAdvancingTotal(+e.currentTarget.value);
+                }}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 items-center">
+              <div>{'Has time limit'}</div>
+              <input
+                id={'input-time-limit'}
+                className="h-4 w-4"
+                type="checkbox"
+                checked={roundTimeLimit}
+                onChange={(e) => {
+                  setRoundTimeLimit(!roundTimeLimit);
                 }}
               />
             </div>
