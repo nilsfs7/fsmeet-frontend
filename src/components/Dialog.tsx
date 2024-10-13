@@ -1,7 +1,6 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
 import ActionButton from './common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import TextButton from './common/TextButton';

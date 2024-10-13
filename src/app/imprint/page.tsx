@@ -1,5 +1,5 @@
 import { Header } from '@/components/Header';
-import { ImprintText } from '@/components/ImprintText';
+import { ImprintText } from '@/app/imprint/components/imprint-text';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ActionButton from '@/components/common/ActionButton';
