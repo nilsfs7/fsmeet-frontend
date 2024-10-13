@@ -1,8 +1,6 @@
 import { User } from '@/types/user';
-import ParticipantBadge from './ParticipantBadge';
-import Link from 'next/link';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
-import { routeUsers } from '@/domain/constants/routes';
+import UserBadge from '../user/UserBadge';
 
 interface IParticipantListProps {
   participants: User[];
@@ -21,10 +19,8 @@ const ParticipantList = ({ participants, registrationStatus }: IParticipantListP
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              <Link href={`${routeUsers}/${participant.username}`}>
-                {registrationStatus && <ParticipantBadge participant={participant} registrationStatus={registrationStatus[i]} />}
-                {!registrationStatus && <ParticipantBadge participant={participant} />}
-              </Link>
+              {registrationStatus && <UserBadge participant={participant} registrationStatus={registrationStatus[i]} />}
+              {!registrationStatus && <UserBadge participant={participant} />}
             </div>
           );
         })}

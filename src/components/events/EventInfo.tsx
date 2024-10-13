@@ -9,14 +9,17 @@ import TextButton from '../common/TextButton';
 import { Event } from '@/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
+import { User } from '@/types/user';
 import { routeUsers } from '@/domain/constants/routes';
+import UserBadge from '../user/UserBadge';
 
 interface IEventProps {
   event: Event;
+  eventAdmin: User;
   showMessangerInvitationUrl: boolean;
 }
 
-const EventInfo = ({ event, showMessangerInvitationUrl }: IEventProps) => {
+const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEventProps) => {
   const [showMap, setShowMap] = useState<boolean>(false);
 
   return (
@@ -53,10 +56,8 @@ const EventInfo = ({ event, showMessangerInvitationUrl }: IEventProps) => {
         <div className="col-span-1">Registration end</div>
         {event.registrationDeadline && <div className="col-span-2">{getShortDateString(moment(event.registrationDeadline))}</div>}
 
-        <div className="col-span-1">Event host</div>
-        <div className="col-span-2 hover:underline">
-          <Link href={`${routeUsers}/${event.admin}`}>{event.admin}</Link>
-        </div>
+        <div className="col-span-1 flex items-center">Event host</div>
+        {eventAdmin && <UserBadge participant={eventAdmin} />}
       </div>
 
       {/* description */}

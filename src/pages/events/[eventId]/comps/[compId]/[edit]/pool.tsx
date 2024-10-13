@@ -5,7 +5,7 @@ import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistration } from '@/types/event-registration';
 import Link from 'next/link';
-import { routeEvents, routeLogin, routeUsers } from '@/domain/constants/routes';
+import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import { validateSession } from '@/functions/validate-session';
 import LoadingSpinner from '@/components/animation/loading-spinner';
@@ -14,11 +14,11 @@ import PageTitle from '@/components/PageTitle';
 import { UserType } from '@/domain/enums/user-type';
 import { Competition } from '@/types/competition';
 import { CompetitionGender } from '@/domain/enums/competition-gender';
-import ParticipantBadge from '@/components/events/ParticipantBadge';
 import { auth } from '@/auth';
 import { MaxAge } from '@/domain/enums/max-age';
 import { getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { createCompetitionParticipation, deleteCompetitionParticipation, getCompetition, getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
+import UserBadge from '@/components/user/UserBadge';
 
 const CompetitionPool = (props: any) => {
   const session = props.session;
@@ -138,9 +138,7 @@ const CompetitionPool = (props: any) => {
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`${routeUsers}/${registration.user.username}`}>
-                      <ParticipantBadge participant={registration.user} />
-                    </Link>
+                    <UserBadge participant={registration.user} />
                   </div>
                   <div className="mx-1 flex w-1/2 justify-start">
                     <div className="flex">

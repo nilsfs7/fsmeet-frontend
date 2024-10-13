@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
-import Link from 'next/link';
-import { routeEventNotFound, routeEvents, routeLogin, routeUsers } from '@/domain/constants/routes';
+import { routeEventNotFound, routeEvents, routeLogin } from '@/domain/constants/routes';
 import Dialog from '@/components/Dialog';
 import { validateSession } from '@/functions/validate-session';
 import { GetServerSidePropsContext } from 'next';
@@ -13,9 +12,9 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
-import ParticipantBadge from '@/components/events/ParticipantBadge';
 import { auth } from '@/auth';
 import { deleteEventRegistration, getEvent, updateEventRegistrationStatus } from '@/infrastructure/clients/event.client';
+import UserBadge from '@/components/user/UserBadge';
 
 const EventParticipants = (props: any) => {
   const session = props.session;
@@ -115,9 +114,7 @@ const EventParticipants = (props: any) => {
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <Link className="float-right" href={`${routeUsers}/${registration.user.username}`}>
-                      <ParticipantBadge participant={registration.user} registrationStatus={registration.status} />
-                    </Link>
+                    <UserBadge participant={registration.user} registrationStatus={registration.status} />
                   </div>
 
                   <div className="mx-1 flex w-1/2 justify-start">
