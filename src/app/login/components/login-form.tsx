@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { loginUserWithCredentials } from '@/app/actions';
+import { loginUserWithCredentials } from '@/app/actions/authentication';
 import Link from 'next/link';
 import { routeHome, routePasswordForgot, routeRegistration } from '@/domain/constants/routes';
 import TextButton from '../../../components/common/TextButton';
