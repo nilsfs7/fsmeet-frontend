@@ -1,12 +1,13 @@
 'use client';
 
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/domain/constants/routes';
 import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
+import { logoutUser } from '@/app/actions/authentication';
 
 const Profile = () => {
   const { data: session } = useSession();
@@ -49,14 +50,14 @@ const Profile = () => {
   };
 
   const onLogoutClicked = async () => {
-    await signOut({ redirect: false });
+    await logoutUser();
     localStorage.removeItem('username');
     localStorage.removeItem('imageUrl');
 
     setUsername(null);
     setImageUrl(null);
 
-    router.push(routeHome);
+    router.push(routeHome); // TODO: remove once redirect works
   };
 
   const menuItemActions = [onEventsClicked, onPublicProfileClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];

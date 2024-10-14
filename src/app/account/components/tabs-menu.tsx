@@ -12,7 +12,7 @@ import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeHome, routeLogin, routeMap } from '@/domain/constants/routes';
 import { copyToClipboard } from '@/functions/copy-to-clipboard';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { logoutUser } from '../../actions';
+import { logoutUser } from '../../actions/authentication';
 import { validateSession } from '@/functions/validate-session';
 import TextInput from '@/components/common/TextInput';
 import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
