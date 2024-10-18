@@ -24,7 +24,7 @@ export default function CreateEventSponsor({ params }: { params: { eventId: stri
   const handleCreateClicked = async () => {
     if (params.eventId && sponsor) {
       try {
-        const sponsorId = (await createSponsor(params.eventId.toString(), sponsor.name, sponsor.website, session)).id;
+        const sponsorId = (await createSponsor(params.eventId, sponsor.name, sponsor.website, session)).id;
 
         if (sponsorLogo) {
           await updateSponsorLogo(sponsorId, sponsorLogo, session);
