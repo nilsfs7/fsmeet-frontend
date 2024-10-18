@@ -473,14 +473,16 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             {`Freestyler Map`}
           </TabsTrigger>
 
-          <TabsTrigger
-            value="jobs"
-            onClick={() => {
-              switchTab(router, 'jobs');
-            }}
-          >
-            {`Jobs (upcoming)`}
-          </TabsTrigger>
+          {userInfo.type === UserType.FREESTYLER && (
+            <TabsTrigger
+              value="jobs"
+              onClick={() => {
+                switchTab(router, 'jobs');
+              }}
+            >
+              {`Jobs (upcoming)`}
+            </TabsTrigger>
+          )}
 
           <TabsTrigger
             value="account"
