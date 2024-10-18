@@ -1,6 +1,7 @@
 import { CompetitionGender } from '../domain/enums/competition-gender';
 import { CompetitionType } from '../domain/enums/competition-type';
 import { MaxAge } from '../domain/enums/max-age';
+import { User } from './user';
 
 export type Competition = {
   id: string | undefined;
@@ -11,4 +12,5 @@ export type Competition = {
   maxAge: MaxAge;
   description: string;
   rules: string;
+  judges: User[];
 };

@@ -138,7 +138,7 @@ const CompetitionPool = (props: any) => {
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <UserBadge participant={registration.user} />
+                    <UserBadge user={registration.user} />
                   </div>
                   <div className="mx-1 flex w-1/2 justify-start">
                     <div className="flex">

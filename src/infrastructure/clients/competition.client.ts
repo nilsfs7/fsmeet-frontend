@@ -1,10 +1,9 @@
 import { Competition } from '@/types/competition';
 import { Round } from '@/domain/classes/round';
 import { Session } from 'next-auth';
-import { ReadCompetitionResponseDto } from './dtos/read-competition.reposnse.dto';
 import { Match } from '@/domain/classes/match';
 
-export async function getCompetition(compId: string): Promise<ReadCompetitionResponseDto> {
+export async function getCompetition(compId: string): Promise<any> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}`;
 
   const response = await fetch(url, {
@@ -64,6 +63,9 @@ export async function createCompetition(eventId: string, comp: Competition, sess
     maxAge: comp?.maxAge,
     description: comp?.description.trim(),
     rules: comp?.rules.trim(),
+    judges: comp.judges.map((judge) => {
+      return judge.username;
+    }),
   });
 
   const response = await fetch(url, {
@@ -140,6 +142,9 @@ export async function updateCompetition(comp: Competition, session: Session | nu
     maxAge: comp?.maxAge,
     description: comp?.description.trim(),
     rules: comp?.rules.trim(),
+    judges: comp.judges.map((judge) => {
+      return judge.username;
+    }),
   });
 
   const response = await fetch(url, {

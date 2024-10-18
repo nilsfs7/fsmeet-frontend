@@ -10,6 +10,12 @@ import { CompetitionGender } from '@/domain/enums/competition-gender';
 import { menuCompGenders } from '@/domain/constants/menus/menu-comp-genders';
 import { MaxAge } from '@/domain/enums/max-age';
 import { menuMaxAge } from '@/domain/constants/menus/menu-max-age';
+import { User } from '@/types/user';
+import UserBadge from '../user/UserBadge';
+import { getUsers } from '@/infrastructure/clients/user.client';
+import ActionButton from '../common/ActionButton';
+import { Action } from '@/domain/enums/action';
+import { UserType } from '@/domain/enums/user-type';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;
@@ -24,6 +30,47 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
   const [maxAge, setMaxAge] = useState<MaxAge>(comp?.maxAge || MaxAge.NONE);
   const [description, setDescription] = useState(comp?.description || '');
   const [rules, setRules] = useState(comp?.rules || '');
+  const [judges, setJudges] = useState<User[]>(comp?.judges || []);
+  const [judgeToAddUsername, setJudgeToAddUsername] = useState<string>();
+  const [users, setUsers] = useState<User[]>([]);
+
+  const handleAddJudgeClicked = async (username: string) => {
+    // check if judge is already in array
+    const judgesMatching = judges.filter((user) => {
+      if (user.username === username) {
+        return user;
+      }
+    });
+
+    if (judgesMatching.length > 0) {
+      console.error(`${username} already assigned in judges list.`);
+    } else {
+      try {
+        const judge = users.filter((user) => {
+          if (user.username === username) {
+            return user;
+          }
+        })[0];
+
+        const newArray = Array.from(judges);
+        newArray.push(judge);
+        setJudges(newArray);
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    }
+  };
+
+  const handleDeleteJudgeClicked = async (judge: User) => {
+    try {
+      const newArray = Array.from(judges);
+      const index = newArray.indexOf(judge);
+      newArray.splice(index, 1);
+      setJudges(newArray);
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  };
 
   const updateComp = () => {
     onCompUpdate({
@@ -35,6 +82,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       maxAge: maxAge,
       description: description,
       rules: rules,
+      judges: judges,
     });
   };
 
@@ -47,17 +95,21 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       setMaxAge(comp.maxAge);
       setDescription(comp.description);
       setRules(comp.rules);
+      setJudges(comp.judges);
+
+      getUsers().then((users) => {
+        users = users.filter((user) => {
+          if (user.type !== UserType.TECHNICAL) return user;
+        });
+        setUsers(users);
+      });
     }
   }, [comp]);
 
   // fires comp back
   useEffect(() => {
     updateComp();
-  }, [name, compType, compGender, maxAge, description, rules]);
-
-  // if (!name) {
-  //   return <LoadingSpinner />;
-  // }
+  }, [name, compType, compGender, maxAge, description, rules, judges]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
@@ -140,6 +192,50 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
           setRules(e.currentTarget.value);
         }}
       />
+
+      <div className="flex h-[100%] flex-col p-2">
+        <div>{`Judges`}</div>
+
+        <div className="flex h-full">
+          <div className="flex flex-col w-full">
+            {judges.map((judge, index) => {
+              return (
+                <div key={`${judge}-${index}`} className="flex justify-between p-1 gap-2">
+                  <UserBadge user={judge} />
+                  <ActionButton
+                    action={Action.DELETE}
+                    onClick={() => {
+                      handleDeleteJudgeClicked(judge);
+                    }}
+                  />
+                </div>
+              );
+            })}
+
+            <div className="flex justify-between p-1 gap-2">
+              <ComboBox
+                menus={users.map((user) => {
+                  return { text: `${user.firstName} (${user.username})`, value: user.username };
+                })}
+                value={judgeToAddUsername || ''}
+                searchEnabled={true}
+                onChange={(value: string) => {
+                  setJudgeToAddUsername(value);
+                }}
+              />
+
+              <ActionButton
+                action={Action.ADD}
+                onClick={() => {
+                  if (judgeToAddUsername) {
+                    handleAddJudgeClicked(judgeToAddUsername);
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

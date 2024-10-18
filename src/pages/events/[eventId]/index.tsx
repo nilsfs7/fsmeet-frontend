@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
-import ParticipantList from '@/components/events/ParticipantList';
+import UserSection from '@/components/events/UserSection';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
@@ -472,8 +472,9 @@ const EventDetails = (props: any) => {
             {/* Registrations */}
             {approvedAndPendingRegistrations.length > 0 && (
               <TabsContent value="registrations" className="overflow-hidden overflow-y-auto">
-                <ParticipantList
-                  participants={approvedAndPendingRegistrations.map((registration) => {
+                <UserSection
+                  sectionTitle="Participants"
+                  users={approvedAndPendingRegistrations.map((registration) => {
                     return registration.user;
                   })}
                   registrationStatus={approvedAndPendingRegistrations.map((registration) => {

@@ -57,7 +57,7 @@ const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEventProp
         {event.registrationDeadline && <div className="col-span-2">{getShortDateString(moment(event.registrationDeadline))}</div>}
 
         <div className="col-span-1 flex items-center">Event host</div>
-        {eventAdmin && <UserBadge participant={eventAdmin} />}
+        {eventAdmin && <UserBadge user={eventAdmin} />}
       </div>
 
       {/* description */}

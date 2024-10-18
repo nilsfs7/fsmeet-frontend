@@ -8,17 +8,17 @@ import { routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';
 
 interface IUserBadgeProps {
-  participant: User;
+  user: User;
   registrationStatus?: EventRegistrationStatus;
 }
 
-const UserBadge = ({ participant, registrationStatus }: IUserBadgeProps) => {
+const UserBadge = ({ user, registrationStatus }: IUserBadgeProps) => {
   return (
-    <Link href={`${routeUsers}/${participant.username}`}>
+    <Link href={`${routeUsers}/${user.username}`}>
       <div className={'w-max rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
         <div className="grid grid-flow-col items-center">
-          <img src={participant.imageUrl ? participant.imageUrl : imgUserDefaultImg} className="mx-1 h-6 w-6 rounded-full object-cover" />
-          <div className="mx-1">{participant.username}</div>
+          <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="mx-1 h-6 w-6 rounded-full object-cover" />
+          <div className="mx-1">{user.username}</div>
           {registrationStatus && (
             <>
               {registrationStatus == EventRegistrationStatus.APPROVED && <CheckIcon />}
