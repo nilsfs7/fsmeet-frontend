@@ -2,25 +2,26 @@ import { User } from '@/types/user';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import UserBadge from '../user/UserBadge';
 
-interface IParticipantListProps {
-  participants: User[];
+interface IUserSectionProps {
+  sectionTitle: string;
+  users: User[];
   registrationStatus?: EventRegistrationStatus[];
 }
 
-const ParticipantList = ({ participants, registrationStatus }: IParticipantListProps) => {
+const UserSection = ({ sectionTitle, users, registrationStatus }: IUserSectionProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
-      <div className="text-base font-bold">{`Participants`}</div>
+      <div className="text-base font-bold">{sectionTitle}</div>
       <div className="flex flex-wrap">
-        {participants.map((participant, i) => {
+        {users.map((user, i) => {
           let margin = 'my-1 mx-1';
           i === 0 ? (margin = 'm-1') : null;
-          i === participants.length - 1 ? (margin = 'ml-1') : null;
+          i === users.length - 1 ? (margin = 'ml-1') : null;
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              {registrationStatus && <UserBadge participant={participant} registrationStatus={registrationStatus[i]} />}
-              {!registrationStatus && <UserBadge participant={participant} />}
+              {registrationStatus && <UserBadge user={user} registrationStatus={registrationStatus[i]} />}
+              {!registrationStatus && <UserBadge user={user} />}
             </div>
           );
         })}
@@ -29,4 +30,4 @@ const ParticipantList = ({ participants, registrationStatus }: IParticipantListP
   );
 };
 
-export default ParticipantList;
+export default UserSection;

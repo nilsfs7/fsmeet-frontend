@@ -75,6 +75,7 @@ const CompetitionEditing = (props: any) => {
             maxAge: comp.maxAge,
             description: comp.description,
             rules: comp.rules,
+            judges: comp.judges,
           };
 
           setComp(c);

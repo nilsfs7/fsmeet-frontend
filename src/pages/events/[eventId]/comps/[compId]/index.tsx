@@ -12,7 +12,7 @@ import { routeEventNotFound, routeEvents } from '@/domain/constants/routes';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import BattleList from '@/components/comp/BattleList';
 import BattleGrid from '@/components/comp/BattleGrid';
-import ParticipantList from '@/components/events/ParticipantList';
+import UserSection from '@/components/events/UserSection';
 import TextareaAutosize from 'react-textarea-autosize';
 import { switchTab_pages } from '@/functions/switch-tab';
 import { Round } from '@/domain/classes/round';
@@ -65,6 +65,7 @@ const CompetitionDetails = (props: any) => {
             maxAge: comp.maxAge,
             description: comp.description,
             rules: comp.rules,
+            judges: comp.judges,
           };
           setComp(c);
 
@@ -285,6 +286,7 @@ const CompetitionDetails = (props: any) => {
                   {`Schedule`}
                 </TabsTrigger>
               )}
+
               {rounds.length > 1 && (
                 <TabsTrigger
                   value="grid"
@@ -295,6 +297,7 @@ const CompetitionDetails = (props: any) => {
                   {`Battle Grid`}
                 </TabsTrigger>
               )}
+
               <TabsTrigger
                 value="info"
                 onClick={() => {
@@ -303,6 +306,7 @@ const CompetitionDetails = (props: any) => {
               >
                 {`Info`}
               </TabsTrigger>
+
               {competitionParticipants.length > 0 && (
                 <TabsTrigger
                   value="participants"
@@ -346,50 +350,57 @@ const CompetitionDetails = (props: any) => {
 
             {/* Info */}
             <TabsContent value="info" className="overflow-hidden overflow-y-auto">
-              <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
-                <div className="m-2">
-                  <div className="text-base font-bold">{`General Info`}</div>
+              <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
+                <div className="text-base font-bold">{`General Info`}</div>
 
-                  <div className="grid grid-cols-2 gap-4 w-fit">
-                    <div>
-                      <div>{`Mode`}</div>
-                      <div>{`Gender`}</div>
-                      <div>{`Max age`}</div>
-                    </div>
-                    <div className="capitalize">
-                      <div>{comp?.type}</div>
-                      <div>{comp?.gender}</div>
-                      <div>{comp?.maxAge !== MaxAge.NONE ? comp?.maxAge : `none`}</div>
-                    </div>
+                <div className="grid grid-cols-2 m-2 gap-4 w-fit">
+                  <div>
+                    <div>{`Mode`}</div>
+                    <div>{`Gender`}</div>
+                    <div>{`Max age`}</div>
+                  </div>
+                  <div className="capitalize">
+                    <div>{comp?.type}</div>
+                    <div>{comp?.gender}</div>
+                    <div>{comp?.maxAge !== MaxAge.NONE ? comp?.maxAge : `none`}</div>
                   </div>
                 </div>
 
                 {comp?.description && (
                   <>
                     <Separator />
-                    <div className="m-2">
-                      <div className="text-base font-bold">Description</div>
-                      <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-none" value={comp.description} />
-                    </div>
-                  </>
-                )}
+                    <div className="mt-2">
+                      <div className="text-base font-bold">{`Description`}</div>
 
-                {comp?.rules && (
-                  <>
-                    <Separator />
-                    <div className="m-2">
-                      <div className="text-base font-bold">Rules</div>
-                      <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-none" value={comp.rules} />
+                      <div className="m-2">
+                        <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-none" value={comp.description} />
+                      </div>
                     </div>
                   </>
                 )}
               </div>
+
+              {comp?.judges && comp?.judges.length > 0 && (
+                <div className="mt-2">
+                  <UserSection sectionTitle="Judges" users={comp.judges} />
+                </div>
+              )}
+
+              {comp?.rules && (
+                <div className={'mt-2 rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
+                  <div className="text-base font-bold">{`Rules`}</div>
+
+                  <div className="m-2">
+                    <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-none" value={comp.rules} />
+                  </div>
+                </div>
+              )}
             </TabsContent>
 
             {/* Participants */}
             {competitionParticipants.length > 0 && (
               <TabsContent value="participants" className="overflow-hidden overflow-y-auto">
-                <ParticipantList participants={competitionParticipants} />
+                <UserSection sectionTitle="Participants" users={competitionParticipants} />
               </TabsContent>
             )}
           </Tabs>

@@ -114,7 +114,7 @@ const EventParticipants = (props: any) => {
               return (
                 <div key={index} className="m-1 flex items-center">
                   <div className="mx-1 flex w-1/2 justify-end">
-                    <UserBadge participant={registration.user} registrationStatus={registration.status} />
+                    <UserBadge user={registration.user} registrationStatus={registration.status} />
                   </div>
 
                   <div className="mx-1 flex w-1/2 justify-start">
