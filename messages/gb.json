@@ -8,6 +8,16 @@
     "navAdminOverview": "Admin Overview",
     "navAbout": "About"
   },
+  "/about": {
+    "pageTitle": "Über FSMeet",
+    "aboutText1": "FSMeet is a free tool to easily organize and manage freestyle football meetings and competitions.",
+    "aboutText2": "This is a community driven project. If you love freestyle as much as we do, we encourage you to send any feedback or ideas to further improve our service. You can reach out to us either using the ",
+    "aboutText3": "feedback function",
+    "aboutText4": " or drop us a DM on Instagram.",
+    "lnkImprint": "Imprint",
+    "lnkPrivacyPolicy": "Privacy policy",
+    "build": "Build"
+  },
   "/account": {
     "pageTitle": "Account Settings"
   }

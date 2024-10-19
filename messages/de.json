@@ -8,6 +8,16 @@
     "navAdminOverview": "Admin-Übersicht",
     "navAbout": "Info"
   },
+  "/about": {
+    "pageTitle": "About",
+    "aboutText1": "FSMeet ist ein kostenloses Tool um Freestyle Fußball Events zu organisieren. Erstelle einfach und schnell Meetings oder Wettbewerbe.",
+    "aboutText2": "Dieses Projekt wird von der Community vorangetrieben. Wenn du Freestyle genauso liebst, wie wir, lass gerne Feedback da oder schicke uns deine Ideen, damit wir unsere Plattform verbessern können. Du kannst uns entweder mit der ",
+    "aboutText3": "Feedback Funktion",
+    "aboutText4": " erreichen oder uns eine DM auf Instagram senden.",
+    "lnkImprint": "Impressum",
+    "lnkPrivacyPolicy": "Datenschutzerklärung",
+    "build": "Version"
+  },
   "/account": {
     "pageTitle": "Profileinstellungen"
   }

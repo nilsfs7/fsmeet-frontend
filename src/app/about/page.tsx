@@ -6,9 +6,12 @@ import SocialLink from '@/components/user/SocialLink';
 import { routeDataProtection, routeFeedback, routeHome, routeImprint } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { Platform } from '@/domain/enums/platform';
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 
-export default function About() {
+export default async function About() {
+  const t = await getTranslations('/about');
+
   const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME;
   const shortSha = process.env.NEXT_PUBLIC_COMMIT_SHA && process.env.NEXT_PUBLIC_COMMIT_SHA?.length > 7 ? process.env.NEXT_PUBLIC_COMMIT_SHA?.substring(0, 7) : process.env.NEXT_PUBLIC_COMMIT_SHA;
 
@@ -16,17 +19,16 @@ export default function About() {
     <div className="h-[calc(100dvh)] flex flex-col">
       <Header />
 
-      <PageTitle title="About" />
+      <PageTitle title={t('pageTitle')} />
 
       <div className="mx-2 mt-2 flex flex-col items-center text-center overflow-y-auto">
-        <div>{`FSMeet is a free tool to easily organize and manage freestyle football meetings and competitions.`}</div>
+        <div>{t('aboutText1')}</div>
         <div className="mt-2">
-          {`This is a community driven project. If you love freestyle as much as we do, we encourage you to send any feedback or ideas to further improve our service. You can reach out to us either
-          using the `}
+          {t('aboutText2')}
           <Link href={routeFeedback} className="underline">
-            {`feedback function`}
+            {t('aboutText3')}
           </Link>
-          {` or drop us a DM on Instagram.`}
+          {t('aboutText4')}
         </div>
 
         <div className="mt-4">
@@ -35,18 +37,18 @@ export default function About() {
 
         <div className="mt-20">
           <Link className="underline" href={routeImprint}>
-            {`Impressum`}
+            {t('lnkImprint')}
           </Link>
         </div>
         <div>
           <Link className="underline" href={routeDataProtection}>
-            {`Datenschutzerklärung`}
+            {t('lnkPrivacyPolicy')}
           </Link>
         </div>
 
         {shortSha && buildTime && (
           <>
-            <div className="mt-20">{`Build: ${shortSha}`}</div>
+            <div className="mt-20">{`${t('build')}: ${shortSha}`}</div>
             <div>{buildTime}</div>
           </>
         )}
