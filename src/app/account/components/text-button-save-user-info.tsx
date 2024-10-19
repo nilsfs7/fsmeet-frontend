@@ -4,9 +4,12 @@ import TextButton from '@/components/common/TextButton';
 import { updateUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/types/user';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { Toaster, toast } from 'sonner';
 
 export const TextButtonSaveUserInfo = () => {
+  const t = useTranslations('/account');
+
   const { data: session, status } = useSession();
 
   const handleSaveUserInfoClicked = async () => {
@@ -33,7 +36,7 @@ export const TextButtonSaveUserInfo = () => {
     <>
       <Toaster richColors />
 
-      <TextButton text="Save" onClick={handleSaveUserInfoClicked} />
+      <TextButton text={t('btnSave')} onClick={handleSaveUserInfoClicked} />
     </>
   );
 };

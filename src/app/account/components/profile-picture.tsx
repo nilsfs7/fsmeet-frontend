@@ -2,10 +2,13 @@
 
 import { imgUserAddImg } from '@/domain/constants/images';
 import { routeAccountImage } from '@/domain/constants/routes';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export const ProfilePicture = () => {
+  const t = useTranslations('/account');
+
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
@@ -20,7 +23,7 @@ export const ProfilePicture = () => {
           <div className="mx-2 flex h-32 w-32 rounded-full border border-primary hover:bg-secondary justify-center">
             <div className="w-24 flex flex-col justify-center items-center text-center gap-1">
               <img className="w-16" src={imgUserAddImg} />
-              <div className="text-sm">{`Add picture`}</div>
+              <div className="text-sm">{t('profilePictureAddPicture')}</div>
             </div>
           </div>
         )}
