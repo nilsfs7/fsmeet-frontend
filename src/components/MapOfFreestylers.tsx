@@ -5,6 +5,7 @@ import { imgFreestyler } from '@/domain/constants/images';
 import { routeUsers } from '@/domain/constants/routes';
 import { UserType } from '@/domain/enums/user-type';
 import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
+import { useTranslations } from 'next-intl';
 
 const loader = new Loader({
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',
@@ -24,6 +25,8 @@ interface IMapsProps {
 
 // Europe = lat: 54.5259614, lng: 15.2551187
 const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, lng = 15.2551187, zoom = 6, filterName, filterGender }: IMapsProps) => {
+  const t = useTranslations('/account'); // TODO: nicht /account
+
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
   const [markersWithInfo, setMarkersWithInfo] = useState<{ marker: google.maps.Marker; info: google.maps.InfoWindow }[]>([]);
@@ -74,7 +77,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
         if (user.locLatitude && user.locLongitude && user.type !== UserType.TECHNICAL) {
           let imgPath = user.type ? getUserTypeImages(user.type).path : imgFreestyler;
           let imgSize = user.type ? getUserTypeImages(user.type).size : 40;
-          let tagType = user.type && user.type !== UserType.FREESTYLER ? `<p>${getUserTypeLabels(user.type)}</p` : '</>';
+          let tagType = user.type && user.type !== UserType.FREESTYLER ? `<p>${getUserTypeLabels(user.type, t)}</p` : '</>';
 
           const icon = {
             url: imgPath,

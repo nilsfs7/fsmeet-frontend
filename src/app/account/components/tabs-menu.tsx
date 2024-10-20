@@ -501,7 +501,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
             <TextInput
               id={'firstName'}
-              label={getLabelForFirstName(userInfo.type)}
+              label={getLabelForFirstName(userInfo.type, t)}
               placeholder={getPlaceholderByUserType(userInfo.type).firstName}
               value={userInfo.firstName}
               onChange={(e) => {

@@ -28,6 +28,7 @@ import { getCompetition } from '@/infrastructure/clients/competition.client';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { ReadRoundResponseDto } from '@/infrastructure/clients/dtos/read-round.response.dto';
 import { ActionButtonDeleteUser } from './components/action-button-delete-user';
+import { getTranslations } from 'next-intl/server';
 
 const getCompetitionsByBattles = async (
   battleHistory: {
@@ -98,6 +99,7 @@ const getEventsByCompetitions = async (competitionsMap: Map<string, ReadCompetit
 };
 
 export default async function PublicUserProfile({ params }: { params: { username: string } }) {
+  const t = await getTranslations('/account'); // TODO: nicht /account
   const session = await auth();
 
   const user = await getUser(params.username.toString());
@@ -152,7 +154,7 @@ export default async function PublicUserProfile({ params }: { params: { username
                       <img src={getUserTypeImages(user.type).path} className="rounded-full object-cover" />
                     </div>
 
-                    <div className="w-fit">{getUserTypeLabels(user.type)}</div>
+                    <div className="w-fit">{getUserTypeLabels(user.type, t)}</div>
                   </div>
                 )}
 
