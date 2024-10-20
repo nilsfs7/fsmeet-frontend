@@ -1,7 +1,7 @@
 import '@/styles/globals.css';
+import 'moment/locale/de';
 import { Roboto } from 'next/font/google';
 import { SessionProvider } from 'next-auth/react';
-import 'moment/locale/de';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
