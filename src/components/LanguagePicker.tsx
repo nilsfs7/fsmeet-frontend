@@ -37,7 +37,14 @@ const LanguagePicker = () => {
 
   // TODO: remove when translation is ready
   const showPicker = (): boolean => {
-    if (!session || (session?.user?.username !== 'nils' && session?.user?.username !== 'admin' && session?.user?.username !== 'sebifreestyle' && session?.user?.username !== 'basti')) {
+    if (
+      !session ||
+      (session?.user?.username !== 'nils' &&
+        session?.user?.username !== 'admin' &&
+        session?.user?.username !== 'sebifreestyle' &&
+        session?.user?.username !== 'basti' &&
+        session?.user?.username !== 'jule')
+    ) {
       return true;
     }
 
