@@ -70,9 +70,6 @@
     "dlgAccountDeleteAccountText": "Do you really want to leave us?",
     "tabGeneralTitle": "General Info",
     "tabGeneralSectionGeneral": "General",
-    "tabGeneralFirstName": "First name",
-    "tabGeneralAssociationName": "Association Name",
-    "tabGeneralBrandName": "Brand Name",
     "tabGeneralLastName": "Last Name",
     "tabGeneralArtistName": "Nickname / Artist Name",
     "tabGeneralGender": "Gender",
@@ -176,5 +173,17 @@
   "/password/reset": {
     "inputPassword": "New password",
     "btnSave": "Save"
+  },
+  "/registration": {
+    "cbUserType": "Sign up as",
+    "inputUsername": "Username",
+    "inputEmail": "E-Mail",
+    "inputPassword": "Password",
+    "btnSignUp": "Sign Up"
+  },
+  "functions/getLabelForFirstName": {
+    "firstName": "First name",
+    "associationName": "Association name",
+    "brandName": "Brand name"
   }
 }

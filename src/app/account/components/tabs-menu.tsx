@@ -49,6 +49,7 @@ interface ITabsMenu {
 
 export const TabsMenu = ({ user }: ITabsMenu) => {
   const t = useTranslations('/account');
+  const tf = useTranslations('functions/getLabelForFirstName');
 
   const { data: session, status } = useSession();
 
@@ -501,7 +502,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
             <TextInput
               id={'firstName'}
-              label={getLabelForFirstName(userInfo.type, t)}
+              label={getLabelForFirstName(userInfo.type, tf)}
               placeholder={getPlaceholderByUserType(userInfo.type).firstName}
               value={userInfo.firstName}
               onChange={(e) => {

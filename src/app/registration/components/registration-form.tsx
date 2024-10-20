@@ -17,7 +17,8 @@ import { createUser } from '@/infrastructure/clients/user.client';
 import { useTranslations } from 'next-intl';
 
 export const RegistrationForm = () => {
-  const t = useTranslations('/account'); // TODO: nicht /account
+  const t = useTranslations('/registration');
+  const tf = useTranslations('functions/getLabelForFirstName');
 
   const router = useRouter();
 
@@ -85,7 +86,7 @@ export const RegistrationForm = () => {
         <div className="h-full flex flex-col items-center justify-center">
           <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1 ">
             <div className="flex h-[100%] flex-col p-2">
-              <div>{`Sign up as`}</div>
+              <div>{t('cbUserType')}</div>
               <div className="flex w-full">
                 <ComboBox
                   className="w-full"
@@ -100,7 +101,7 @@ export const RegistrationForm = () => {
 
             <TextInput
               id={'firstName'}
-              label={getLabelForFirstName(userType, t)}
+              label={getLabelForFirstName(userType, tf)}
               placeholder={getPlaceholderByUserType(userType).firstName}
               value={firstName}
               onChange={(e) => {
@@ -110,7 +111,7 @@ export const RegistrationForm = () => {
 
             <TextInput
               id={'username'}
-              label={'Username'}
+              label={t('inputUsername')}
               placeholder={getPlaceholderByUserType(userType).username}
               value={username}
               onChange={(e) => {
@@ -120,7 +121,7 @@ export const RegistrationForm = () => {
 
             <TextInput
               id={'email'}
-              label={'E-Mail'}
+              label={t('inputUsername')}
               placeholder={getPlaceholderByUserType(userType).email}
               value={email}
               onChange={(e) => {
@@ -131,7 +132,7 @@ export const RegistrationForm = () => {
             <TextInput
               id={'password'}
               type={'password'}
-              label={'Password'}
+              label={t('inputPassword')}
               placeholder="Ball&Chill2021"
               onChange={(e) => {
                 handleInputChangePassword(e);
@@ -141,7 +142,7 @@ export const RegistrationForm = () => {
           </div>
 
           <div className="flex justify-center py-2">
-            <TextButton text="Sign Up" onClick={handleCreateClicked} />
+            <TextButton text={t('btnSignUp')} onClick={handleCreateClicked} />
           </div>
         </div>
       </div>
