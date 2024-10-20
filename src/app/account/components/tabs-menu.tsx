@@ -41,12 +41,15 @@ import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/m
 import SectionHeader from '@/components/common/section-header';
 import { deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
+import { useTranslations } from 'next-intl';
 
 interface ITabsMenu {
   user: User;
 }
 
 export const TabsMenu = ({ user }: ITabsMenu) => {
+  const t = useTranslations('/account');
+
   const { data: session, status } = useSession();
 
   const router = useRouter();
@@ -342,14 +345,14 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     <>
       <Toaster richColors />
 
-      <Dialog title="Terms And Conditions" queryParam="terms" onCancel={handleCancelDialogClicked}>
-        <p className="mb-4">{`Last updated: August 02, 2024.`}</p>
+      <Dialog title={t('dlgJobsTermsTitle')} queryParam="terms" onCancel={handleCancelDialogClicked}>
+        <p className="mb-4">{t('dlgJobsTermsDate')}</p>
 
         <div className="flex flex-col justify-center text-start">
-          <p className="text-lg font-bold">{`Jobs feature`}</p>
-          <p>{`In the past, we took note of some looking for freestylers for their events here on FSMeet. We would like to enable you as freestyler to promote yourself.`}</p>
-          <p className="mt-2">{`Soon, we will release a new feature helping to connect freestylers and clients and further improve everyone's experience. Become part of a public pool of freestylers offering services like shows, workshops and more. Effortlessly share necessary information, so clients can directly contact you and find freestylers that fit their needs.`}</p>
-          <p className="mt-2">{`As any feature on FSMeet this is a free service.`}</p>
+          <p className="text-lg font-bold">{t('dlgJobsTermsDescriptionTitle')}</p>
+          <p>{t('dlgJobsTermsDescriptionText1')}</p>
+          <p className="mt-2">{t('dlgJobsTermsDescriptionText2')}</p>
+          <p className="mt-2">{t('dlgJobsTermsDescriptionText3')}</p>
         </div>
 
         <div className="my-2">
@@ -357,10 +360,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         </div>
 
         <div className="flex flex-col justify-center text-start">
-          <p className="text-lg font-bold">{`Data sharing`}</p>
-          <p>{`Your account will become part of a public pool of freestylers clients can pick from. Only basic information is required to be listed. However, as clients can pick freestylers for their event, more detailed information like phone number or email address will be shared automatically on request.`}</p>
-          <p className="mt-2">{`The jobs feature may be integrated across external domains that are owned and part of FSMeet.`}</p>
-          <p className="mt-2">{`If you don't want to be listed, simply uncheck terms and conditions. This will prevent sharing private information, too. We will never share private information without your approval.`}</p>
+          <p className="text-lg font-bold">{t('dlgJobsTermsDataSharingTitle')}</p>
+          <p>{t('dlgJobsTermsDataSharingText1')}</p>
+          <p className="mt-2">{t('dlgJobsTermsDataSharingText2')}</p>
+          <p className="mt-2">{t('dlgJobsTermsDataSharingText3')}</p>
         </div>
 
         <div className="my-2">
@@ -368,34 +371,31 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         </div>
 
         <div className="flex flex-col justify-center text-start">
-          <p className="text-lg font-bold">{`What data will be shared?`}</p>
-          <p>{`Publicly listed:`}</p>
-          <p>{`- First and last name`}</p>
-          <p>{`- Gender`}</p>
-          <p>{`- Nationality`}</p>
-          <p>{`- Age`}</p>
-          <p>{`- City`}</p>
-          <p>{`- Socials (Instagram, TikTok, YouTube)`}</p>
-          <p>{`- Website`}</p>
-          <p>{`- Freestyle since`}</p>
-          <p>{`- Offers (Shows, Walk Acts, Workshops)`}</p>
-          <p>{`- Show experience`}</p>
+          <p className="text-lg font-bold">{t('dlgJobsTermsDataSharingDetailsTitle')}</p>
+          <p>{`${t('dlgJobsTermsDataSharingDetailsPublic')}:`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsName')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsGender')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsCountry')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsAge')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsCity')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsSocials')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsWebsite')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsFreestyleSince')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsOfferings')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsShowExperience')}`}</p>
 
-          <p className="mt-2">{`Shared on request:`}</p>
-          <p>{`- Phone number`}</p>
-          <p>{`- Email address`}</p>
-          <p>{`- T-Shirt size`}</p>
+          <p className="mt-2">{`${t('dlgJobsTermsDataSharingDetailsOnRequest')}:`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsPhone')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsEmail')}`}</p>
+          <p>{`- ${t('dlgJobsTermsDataSharingDetailsShirtSize')}`}</p>
         </div>
       </Dialog>
 
-      <Dialog title="Account Verification" queryParam="verification" onCancel={handleCancelDialogClicked}>
+      <Dialog title={t('dlgAccountVerificationTitle')} queryParam="verification" onCancel={handleCancelDialogClicked}>
         <div className="flex flex-col justify-center text-center">
-          <p className="text-lg font-bold">{`Step 1`}</p>
-          <p>{`Provide your first name, gender and country in general info. Any other fields are optional.`}</p>
-          <p>
-            {`Please note: Once verification is completed, updating any of the previously mentioned
-        fields will automatically reset your verified status and the process needs to be repeated.`}
-          </p>
+          <p className="text-lg font-bold">{t('dlgAccountVerificationStep1')}</p>
+          <p>{t('dlgAccountVerificationStep1Text1')}</p>
+          <p>{t('dlgAccountVerificationStep1Text2')}</p>
         </div>
 
         <div className="mt-4 mb-2">
@@ -403,9 +403,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         </div>
 
         <div className="flex flex-col justify-center items-center text-center">
-          <p className="text-lg font-bold">{`Step 2`}</p>
-          <p className="flex">{`Have an Instagram profile with decent history (account age and feed with freestyle related content showing you).`}</p>
-          <p className="flex">{`Send us a DM on Instagram including your FSMeet username. You can simply copy the message below.`}</p>
+          <p className="text-lg font-bold">{t('dlgAccountVerificationStep2')}</p>
+          <p className="flex">{t('dlgAccountVerificationStep2Text1')}</p>
+          <p className="flex">{t('dlgAccountVerificationStep2Text2')}</p>
           <div className="flex justify-center items-center gap-2">
             <div className="italic select-text bg-secondary rounded-lg py-1 px-2">{`"Hey there, please verify ${session?.user?.username} on fsmeet."`}</div>
 
@@ -427,10 +427,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         </div>
 
         <div className="flex flex-col items-center justify-center text-center">
-          <p className="text-lg font-bold">{`Step 3`}</p>
-          <p>{`If done with step 1 and 2, please request verification by hitting the button below.`}</p>
+          <p className="text-lg font-bold">{t('dlgAccountVerificationStep3')}</p>
+          <p>{t('dlgAccountVerificationStep3Text1')}</p>
           <div className="mt-2">
-            <TextButton text="Request Now" onClick={handleConfirmSendVerificationRequestClicked} />
+            <TextButton text={t('dlgAccountVerificationStep3BtnRequestNow')} onClick={handleConfirmSendVerificationRequestClicked} />
           </div>
         </div>
 
@@ -439,18 +439,18 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         </div>
 
         <div className="flex flex-col justify-center text-center">
-          <p className="text-lg font-bold">{`Step 4`}</p>
-          <p>{`Wait for verification. This should usually be done within a few hours. We will let you know via email.`}</p>
-          <p>{`Once verified a checkmark appears next to your name in your public profile.`}</p>
+          <p className="text-lg font-bold">{t('dlgAccountVerificationStep4')}</p>
+          <p>{t('dlgAccountVerificationStep4Text1')}</p>
+          <p>{t('dlgAccountVerificationStep4Text2')}</p>
         </div>
       </Dialog>
 
-      <Dialog title="Delete Account" queryParam="delete" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmDeleteAccountClicked}>
-        <p>{`Do you really want to leave us?`}</p>
+      <Dialog title={t('dlgAccountLogoutTitle')} queryParam="logout" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmLogoutClicked}>
+        <p>{t('dlgAccountLogoutText')}</p>
       </Dialog>
 
-      <Dialog title="Logout" queryParam="logout" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmLogoutClicked}>
-        <p>{`Logout now?`}</p>
+      <Dialog title={t('dlgAccountDeleteAccountTitle')} queryParam="delete" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmDeleteAccountClicked}>
+        <p>{t('dlgAccountDeleteAccountText')}</p>
       </Dialog>
 
       <Tabs defaultValue={tab || `general`} className="flex flex-col h-full">
@@ -461,7 +461,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               switchTab(router, 'general');
             }}
           >
-            {`General Info`}
+            {t('tabGeneralTitle')}
           </TabsTrigger>
 
           <TabsTrigger
@@ -470,7 +470,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               switchTab(router, 'map');
             }}
           >
-            {`Freestyler Map`}
+            {t('tabMaplTitle')}
           </TabsTrigger>
 
           {userInfo.type === UserType.FREESTYLER && (
@@ -480,7 +480,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 switchTab(router, 'jobs');
               }}
             >
-              {`Jobs (upcoming)`}
+              {t('tabJobsTitle')}
             </TabsTrigger>
           )}
 
@@ -490,14 +490,14 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               switchTab(router, 'account');
             }}
           >
-            {`Account`}
+            {t('tabAccountTitle')}
           </TabsTrigger>
         </TabsList>
 
         {/* General */}
         <TabsContent value="general" className="overflow-hidden overflow-y-auto">
           <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-            <SectionHeader label={`General`} />
+            <SectionHeader label={t('tabGeneralSectionGeneral')} />
 
             <TextInput
               id={'firstName'}
@@ -513,7 +513,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               <>
                 <TextInput
                   id={'lastName'}
-                  label={'Last Name'}
+                  label={t('tabGeneralLastName')}
                   placeholder=""
                   value={userInfo.lastName}
                   onChange={(e) => {
@@ -523,7 +523,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
                 <TextInput
                   id={'nickName'}
-                  label={'Nickname / Artist Name'}
+                  label={t('tabGeneralArtistName')}
                   placeholder=""
                   value={userInfo.nickName}
                   onChange={(e) => {
@@ -532,7 +532,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 />
 
                 <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{`Gender`}</div>
+                  <div>{t('tabGeneralGender')}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuGenderWithUnspecified}
@@ -545,7 +545,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </div>
 
                 <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{`Country`}</div>
+                  <div>{t('tabGeneralCountry')}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuCountriesWithUnspecified}
@@ -559,7 +559,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </div>
 
                 <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{`Birthday`}</div>
+                  <div>{t('tabGeneralBirthday')}</div>
                   <DatePicker
                     date={moment(userInfo.birthday)}
                     fromDate={moment(1970)}
@@ -571,7 +571,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </div>
 
                 <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{`Freestyle since`}</div>
+                  <div>{t('tabGeneralFreestyleSince')}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuFreestyleSinceWithUnspecified}
@@ -584,7 +584,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </div>
 
                 <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{`T-Shirt Size`}</div>
+                  <div>{t('tabGeneralShirtSize')}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuTShirtSizesWithUnspecified}
@@ -600,11 +600,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             <div className="m-2">
               <Separator />
             </div>
-            <SectionHeader label={`Socials`} />
+            <SectionHeader label={t('tabGeneralSectionSocials')} />
 
             <TextInput
               id={'instagramHandle'}
-              label={'Instagram Handle'}
+              label={t('tabGeneralInstagramHandle')}
               placeholder="@dffb_org"
               value={userInfo.instagramHandle}
               onChange={(e) => {
@@ -614,7 +614,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
             <TextInput
               id={'tikTokHandle'}
-              label={'TikTok Handle'}
+              label={t('tabGeneralTikTokHandle')}
               placeholder="@dffb_org"
               value={userInfo.tikTokHandle}
               onChange={(e) => {
@@ -624,7 +624,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
             <TextInput
               id={'youTubeHandle'}
-              label={'YouTube Handle'}
+              label={t('tabGeneralYouTubeHandle')}
               placeholder="@dffb_org"
               value={userInfo.youTubeHandle}
               onChange={(e) => {
@@ -634,7 +634,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
             <TextInput
               id={'website'}
-              label={'Website'}
+              label={t('tabGeneralWebsite')}
               placeholder="https://dffb.org"
               value={userInfo.website}
               onChange={(e) => {
@@ -647,11 +647,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Freestyler Map */}
         <TabsContent value="map" className="overflow-hidden overflow-y-auto">
           <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-            <SectionHeader label={`Location`} />
+            <SectionHeader label={t('tabMaplSectionLocation')} />
 
             <TextInput
               id={'city'}
-              label={'City'}
+              label={t('tabMaplCity')}
               placeholder="Munich"
               value={userInfo.city}
               onChange={(e) => {
@@ -661,7 +661,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
             <CheckBox
               id={'exposeLocation'}
-              label="Publish city on Freestyler Map"
+              label={t('tabMapPublish')}
               value={userInfo.exposeLocation}
               onChange={(e) => {
                 handleExposeLocationChanged(!userInfo.exposeLocation);
@@ -685,16 +685,16 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Jobs */}
         <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
           <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-            <div className="mx-2 text-lg underline">{`Terms and Conditions`}</div>
+            <div className="mx-2 text-lg underline">{t('tabJobsSectionTerms')}</div>
 
             <div className="m-2 grid grid-cols-2 items-center">
-              <div>{`Terms`}</div>
-              <TextButton text="Read Terms" onClick={handleTermsAndConditionsClicked} />
+              <div>{t('tabJobsTerms')}</div>
+              <TextButton text={t('tabJobBtnReadTerms')} onClick={handleTermsAndConditionsClicked} />
             </div>
 
             <CheckBox
               id={'terms'}
-              label="Accept Terms"
+              label={t('tabJobAcceptTerms')}
               value={userInfo.jobAcceptTerms}
               onChange={(e) => {
                 handleAcceptTermsChanged(!userInfo.jobAcceptTerms);
@@ -706,11 +706,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 <div className="m-2">
                   <Separator />
                 </div>
-                <div className="mx-2 text-lg underline">{`Offer`}</div>
+                <div className="mx-2 text-lg underline">{t('tabJobSectionOffer')}</div>
 
                 <CheckBox
                   id={'offeringShow'}
-                  label="Shows"
+                  label={t('tabJobOfferingShow')}
                   value={userInfo.jobOfferShows}
                   onChange={(e) => {
                     handleOfferShowsChanged(!userInfo.jobOfferShows);
@@ -719,7 +719,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
                 <CheckBox
                   id={'offeringWalkAct'}
-                  label="Walk Acts"
+                  label={t('tabJobOfferingWalkact')}
                   value={userInfo.jobOfferWalkActs}
                   onChange={(e) => {
                     handleOfferWalkActsChanged(!userInfo.jobOfferWalkActs);
@@ -728,7 +728,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
                 <CheckBox
                   id={'offeringWorkshop'}
-                  label="Workshops"
+                  label={t('tabJobOfferingWorkshop')}
                   value={userInfo.jobOfferWorkshops}
                   onChange={(e) => {
                     handleOfferWorkshopsChanged(!userInfo.jobOfferWorkshops);
@@ -738,10 +738,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 <div className="m-2">
                   <Separator />
                 </div>
-                <div className="mx-2 text-lg underline">{`Contact`}</div>
+                <div className="mx-2 text-lg underline">{t('tabJobSectionContact')}</div>
 
                 <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{`Phone Country Code`}</div>
+                  <div>{t('tabJobPhoneCountryCode')}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuPhoneCountryCodesWithUnspecified}
@@ -757,7 +757,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 <div className="h-fit" /* fixes safari layouting issue */>
                   <TextInput
                     id={'phoneNumber'}
-                    label={'Phone Number'}
+                    label={t('tabJobPhoneNumber')}
                     labelOnTop={false}
                     type="tel"
                     placeholder="1516 123456"
@@ -771,10 +771,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 <div className="m-2">
                   <Separator />
                 </div>
-                <div className="mx-2 text-lg underline">{`Other`}</div>
+                <div className="mx-2 text-lg underline">{t('tabJobSectionOther')}</div>
 
                 <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{`Experience (Amount Shows)`}</div>
+                  <div>{t('tabJobExperience')}</div>
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuShowExperience}
@@ -837,18 +837,18 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Account */}
         <TabsContent value="account" className="overflow-hidden overflow-y-auto">
           <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-4">
-            <div className="flex justify-center text-lg">{`Account Verification`}</div>
+            <div className="flex justify-center text-lg">{t('tabAccountSectionVerification')}</div>
 
             <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
               <div className="flex gap-2 items-center">
-                <div>{`Verification Status:`}</div>
+                <div>{`${t('tabAccounVerificationStatus')}:`}</div>
                 <div className="font-extrabold p-2 rounded-lg bg-secondary">
                   {(userInfo?.verificationState ? userInfo.verificationState.charAt(0).toUpperCase() + userInfo.verificationState.slice(1) : 'n/a').replaceAll('_', ' ')}
                 </div>
               </div>
 
               {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (
-                <TextButton text="Verify Now" onClick={handleVerificationRequestClicked} />
+                <TextButton text={t('tabAccounBtnVerify')} onClick={handleVerificationRequestClicked} />
               )}
             </div>
 
@@ -856,14 +856,14 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               <Separator />
             </div>
 
-            <div className="flex justify-center text-lg">{`Account Management`}</div>
+            <div className="flex justify-center text-lg">{t('tabAccountSectionAccountManagement')}</div>
 
             <div className="mt-4 flex justify-center">
-              <TextButton text="Logout" onClick={handleLogoutClicked} />
+              <TextButton text={t('tabAccounBtnLogout')} onClick={handleLogoutClicked} />
             </div>
 
             <div className="mt-4 flex justify-center">
-              <TextButton text="Delete Account" style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
+              <TextButton text={t('tabAccounBtnDeleteAccount')} style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
             </div>
           </div>
         </TabsContent>

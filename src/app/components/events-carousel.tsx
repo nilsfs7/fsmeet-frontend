@@ -6,6 +6,7 @@ import { routeEvents } from '@/domain/constants/routes';
 import Autoplay from 'embla-carousel-autoplay';
 import Link from 'next/link';
 import { Event } from '@/types/event';
+import { useTranslations } from 'next-intl';
 
 interface IEventsCarousel {
   upcomingEvents: Event[];
@@ -14,6 +15,8 @@ interface IEventsCarousel {
 }
 
 export const EventsCarousel = ({ upcomingEvents, ongoingEvents, recentEvents }: IEventsCarousel) => {
+  const t = useTranslations('/');
+
   return (
     <Carousel
       opts={{
@@ -31,7 +34,7 @@ export const EventsCarousel = ({ upcomingEvents, ongoingEvents, recentEvents }: 
         {Array.from({ length: ongoingEvents.length }).map((_, index) => (
           <CarouselItem key={`ongoing-${index}`}>
             <>
-              <h1 className="mt-2 text-center text-2xl">{`Ongoing Event`}</h1>
+              <h1 className="mt-2 text-center text-2xl">{t('carouselCurrentEvent')}</h1>
 
               <div className="mt-2 flex max-h-full justify-center px-2">
                 <div className="w-full">
@@ -54,7 +57,7 @@ export const EventsCarousel = ({ upcomingEvents, ongoingEvents, recentEvents }: 
         {Array.from({ length: upcomingEvents.length }).map((_, index) => (
           <CarouselItem key={`upcoming-${index}`}>
             <>
-              <h1 className="mt-2 text-center text-2xl">{`Upcoming Event`}</h1>
+              <h1 className="mt-2 text-center text-2xl">{t('carouselUpcomingEvent')}</h1>
 
               <div className="mt-2 flex max-h-full justify-center px-2">
                 <div className="w-full">
@@ -77,7 +80,7 @@ export const EventsCarousel = ({ upcomingEvents, ongoingEvents, recentEvents }: 
         {Array.from({ length: recentEvents.length }).map((_, index) => (
           <CarouselItem key={`recent-${index}`}>
             <>
-              <h1 className="mt-2 text-center text-2xl">{`Recent Event`}</h1>
+              <h1 className="mt-2 text-center text-2xl">{t('carouselRecentEvent')}</h1>
 
               <div className="mt-2 flex max-h-full justify-center px-2">
                 <div className="w-full">

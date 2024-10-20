@@ -1,10 +1,12 @@
 import { UserType } from '@/domain/enums/user-type';
+import { useTranslations } from 'next-intl';
 
 export function getLabelForFirstName(userType: UserType): string {
-  let label = 'First Name';
+  const t = useTranslations('/account');
+  let label = t('tabGeneralFirstName');
 
-  if (userType === UserType.ASSOCIATION) label = 'Association Name';
-  if (userType === UserType.BRAND) label = 'Brand Name';
+  if (userType === UserType.ASSOCIATION) label = t('tabGeneralAssociationName');
+  if (userType === UserType.BRAND) label = t('tabGeneralBrandName');
 
   return label;
 }
