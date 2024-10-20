@@ -149,5 +149,12 @@
     "thankYouText1": "Vielen Dank!",
     "thankYouText2": "Dein Feedback ist sehr wichtig für uns!",
     "btnBackHome": "Zur Homepage"
+  },
+  "/login": {
+    "inputUsername": "Nutzername / E-Mail",
+    "inputPassword": "Passwort",
+    "btnLogin": "Anmelden",
+    "lnkResetPassword": "Password zurücksetzen",
+    "lnkNewAccount": "Noch keinen Account?"
   }
 }
