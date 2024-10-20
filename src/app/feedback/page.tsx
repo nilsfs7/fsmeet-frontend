@@ -5,22 +5,25 @@ import Navigation from '@/components/Navigation';
 import { routeHome } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
+import { getTranslations } from 'next-intl/server';
 
-export default function Feedback() {
+export default async function Feedback() {
+  const t = await getTranslations('/feedback');
+
   return (
     <div className={'absolute inset-0 flex flex-col'}>
       <div className="p-2 h-full grid overflow-y-auto">
         <div className="h-full flex flex-col items-center justify-center gap-2">
           <Link href="feedback/general">
-            <TextAndImageButton text="General Feedback" image={imgFeedback} />
+            <TextAndImageButton text={t('pageGeneralFeedback')} image={imgFeedback} />
           </Link>
 
           <Link href="feedback/features">
-            <TextAndImageButton text="Request Feature" image={imgFeature} />
+            <TextAndImageButton text={t('btnFeatures')} image={imgFeature} />
           </Link>
 
           <Link href="feedback/bugs">
-            <TextAndImageButton text="Report Bug" image={imgBug} />
+            <TextAndImageButton text={t('btnBugs')} image={imgBug} />
           </Link>
         </div>
       </div>

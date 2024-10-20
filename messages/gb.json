@@ -121,5 +121,33 @@
     "pageTitle": "Account Settings",
     "btnUpload": "Upload",
     "btnDelete": "Delete"
+  },
+  "/feedback": {
+    "pageGeneralFeedback": "General Feedback",
+    "btnFeatures": "Request Feature",
+    "btnBugs": "Report Bug"
+  },
+  "/feedback/bugs": {
+    "pageTitle": "Report Bug",
+    "inputMessage": "Message",
+    "inputMessagePlaceholder": "Describe any misbehavior you noticed.",
+    "btnSubmit": "Submit"
+  },
+  "/feedback/features": {
+    "pageTitle": "Feature Request",
+    "inputMessage": "Message",
+    "inputMessagePlaceholder": "Do you have an idea or improvement for us?",
+    "btnSubmit": "Submit"
+  },
+  "/feedback/general": {
+    "pageTitle": "Send Feedback",
+    "inputMessage": "Message",
+    "inputMessagePlaceholder": "Any feedback is highly appreciated!",
+    "btnSubmit": "Submit"
+  },
+  "/feedback/thankyou": {
+    "thankYouText1": "Thank you!",
+    "thankYouText2": "Your feedback is highly appreciated!",
+    "btnBackHome": "Back to home"
   }
 }

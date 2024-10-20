@@ -121,5 +121,33 @@
     "pageTitle": "Profileinstellungen",
     "btnUpload": "Hochladen",
     "btnDelete": "Löschen"
+  },
+  "/feedback": {
+    "pageGeneralFeedback": "Feedback",
+    "btnFeatures": "Feature anfragen",
+    "btnBugs": "Fehler melden"
+  },
+  "/feedback/bugs": {
+    "pageTitle": "Fehler Melden",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Beschreibe einen Fehler, den du entdeckt hast.",
+    "btnSubmit": "Senden"
+  },
+  "/feedback/features": {
+    "pageTitle": "Feature Anfrage",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Hast du neue Ideen oder Verbesserungen für uns?",
+    "btnSubmit": "Senden"
+  },
+  "/feedback/general": {
+    "pageTitle": "Sende Feedback",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Wir freuen uns über jegliches Feedback!",
+    "btnSubmit": "Senden"
+  },
+  "/feedback/thankyou": {
+    "thankYouText1": "Vielen Dank!",
+    "thankYouText2": "Dein Feedback ist sehr wichtig für uns!",
+    "btnBackHome": "Zur Homepage"
   }
 }
