@@ -156,5 +156,12 @@
     "btnLogin": "Login",
     "lnkResetPassword": "Reset password",
     "lnkNewAccount": "No account yet?"
+  },
+  "/map": {
+    "pageTitle": "Freestyler Map",
+    "btnAddPin": "Add Your Pin",
+    "inputSearchPlaceholder": "Search name...",
+    "drpDwnGender": "Gender",
+    "infoWindowGoToProfile": "Click for profile"
   }
 }

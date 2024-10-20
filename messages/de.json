@@ -156,5 +156,12 @@
     "btnLogin": "Anmelden",
     "lnkResetPassword": "Password zurücksetzen",
     "lnkNewAccount": "Noch keinen Account?"
+  },
+  "/map": {
+    "pageTitle": "Freestyler Karte",
+    "btnAddPin": "Trag dich ein",
+    "inputSearchPlaceholder": "Suche Name...",
+    "drpDwnGender": "Geschlecht",
+    "infoWindowGoToProfile": "Klicke fürs Profil"
   }
 }
