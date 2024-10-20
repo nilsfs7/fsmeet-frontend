@@ -25,7 +25,7 @@ export default async function Home() {
 
       <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
         <div className="text-center text-3xl">{t('pageTitle')}</div>
-        <div className="text-center text-xl">{`Plan | Compete | Connect`}</div>
+        <div className="text-center text-xl">{t('slogan')}</div>
         <img className="h-12 mt-2" src={imgFreestyler}></img>
       </div>
 
@@ -33,7 +33,7 @@ export default async function Home() {
         {/* Show all */}
         <div className="m-2 mt-6 flex flex-shrink-0 justify-center">
           <Link href={routeEvents}>
-            <TextButton text="Show All" />
+            <TextButton text={t('btnShowAllEvents')} />
           </Link>
         </div>
 
@@ -48,7 +48,7 @@ export default async function Home() {
             <div className="rounded-lg p-1">
               <div className="grid grid-flow-col items-center gap-1">
                 <img src={imgWorld} className="h-8 w-8 rounded-full object-cover" />
-                <div>{`Map`}</div>
+                <div>{t('navMap')}</div>
               </div>
             </div>
           </Link>
@@ -57,7 +57,7 @@ export default async function Home() {
             <div className="rounded-lg p-1">
               <div className="grid grid-flow-col items-center gap-1">
                 <img src={imgCommunity} className="h-8 w-8 rounded-full object-cover" />
-                <div>{`Community`}</div>
+                <div>{t('navCommunity')}</div>
               </div>
             </div>
           </Link>
@@ -69,7 +69,7 @@ export default async function Home() {
               <div className="rounded-lg p-1">
                 <div className="grid grid-flow-col items-center gap-1">
                   <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
-                  <div>{`Admin Overview`}</div>
+                  <div>{t('navAdminOverview')}</div>
                 </div>
               </div>
             </Link>
@@ -80,7 +80,7 @@ export default async function Home() {
           <div className="rounded-lg p-1">
             <div className="grid grid-flow-col items-center">
               <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
-              <div className="mx-1">{`About`}</div>
+              <div className="mx-1">{t('navAbout')}</div>
             </div>
           </div>
         </Link>

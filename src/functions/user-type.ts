@@ -1,7 +1,7 @@
 import { UserType } from '@/domain/enums/user-type';
 import { imgAssociation, imgBrand, imgDJ, imgFreestyler, imgMC, imgMedia, imgTechnical } from '@/domain/constants/images';
 
-export function getUserTypeLabels(userType: UserType): string {
+export function getUserTypeLabels(userType: UserType, t: any): string {
   switch (userType) {
     case UserType.ASSOCIATION:
       return 'Association';

@@ -7,8 +7,10 @@ import { auth } from '@/auth';
 import PageTitle from '@/components/PageTitle';
 import { RedirectType, redirect } from 'next/navigation';
 import { ProfilePictureUpload } from './components/profile-picture-upload';
+import { getTranslations } from 'next-intl/server';
 
 export default async function AccountImage() {
+  const t = await getTranslations('/account/image');
   const session = await auth();
 
   // TODO: remove because redirect is done by middleware anyway
@@ -18,7 +20,7 @@ export default async function AccountImage() {
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
-      <PageTitle title="Account Settings" />
+      <PageTitle title={t('pageTitle')} />
 
       <ProfilePictureUpload />
 

@@ -14,8 +14,11 @@ import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/functions/get-placeholder-by-user-type';
 import { Toaster, toast } from 'sonner';
 import { createUser } from '@/infrastructure/clients/user.client';
+import { useTranslations } from 'next-intl';
 
 export const RegistrationForm = () => {
+  const t = useTranslations('/account'); // TODO: nicht /account
+
   const router = useRouter();
 
   const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);
@@ -97,7 +100,7 @@ export const RegistrationForm = () => {
 
             <TextInput
               id={'firstName'}
-              label={getLabelForFirstName(userType)}
+              label={getLabelForFirstName(userType, t)}
               placeholder={getPlaceholderByUserType(userType).firstName}
               value={firstName}
               onChange={(e) => {

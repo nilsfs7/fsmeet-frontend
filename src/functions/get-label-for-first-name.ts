@@ -1,10 +1,12 @@
+'use client';
+
 import { UserType } from '@/domain/enums/user-type';
 
-export function getLabelForFirstName(userType: UserType): string {
-  let label = 'First Name';
+export function getLabelForFirstName(userType: UserType, t: any): string {
+  let label = t('tabGeneralFirstName');
 
-  if (userType === UserType.ASSOCIATION) label = 'Association Name';
-  if (userType === UserType.BRAND) label = 'Brand Name';
+  if (userType === UserType.ASSOCIATION) label = t('tabGeneralAssociationName');
+  if (userType === UserType.BRAND) label = t('tabGeneralBrandName');
 
   return label;
 }
