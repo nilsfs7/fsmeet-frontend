@@ -671,7 +671,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             {userInfo.exposeLocation && userInfo.locLatitude && userInfo.locLongitude && (
               <div className="m-2 flex place-items-start gap-2 items-center">
                 <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}`}>
-                  <div className="hover:underline">{'Show my pin'}</div>
+                  <div className="hover:underline">{t('tabMapShowOnMap')}</div>
                 </Link>
 
                 <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}`}>
