@@ -115,7 +115,7 @@
   "/account/deleted": {
     "textGoodbye": "Goodbye!",
     "textConfirmation": "Your account was successfully deleted.",
-    "btnBackHome": "Back to home"
+    "btnBackHome": "Back home"
   },
   "/account/image": {
     "pageTitle": "Account Settings",
@@ -148,7 +148,7 @@
   "/feedback/thankyou": {
     "thankYouText1": "Thank you!",
     "thankYouText2": "Your feedback is highly appreciated!",
-    "btnBackHome": "Back to home"
+    "btnBackHome": "Back home"
   },
   "/login": {
     "inputUsername": "Username / Email",
@@ -163,5 +163,18 @@
     "inputSearchPlaceholder": "Search name...",
     "drpDwnGender": "Gender",
     "infoWindowGoToProfile": "Click for profile"
+  },
+  "/password/forgot": {
+    "inputUsername": "Nutzername / E-Mail",
+    "btnResetPassword": "Reset Password"
+  },
+  "/password/pending": {
+    "thankYouText1": "Check your mail.",
+    "thankYouText2": "A reset link for was sent to you.",
+    "btnBackHome": "Back home"
+  },
+  "/password/reset": {
+    "inputPassword": "New password",
+    "btnSave": "Save"
   }
 }

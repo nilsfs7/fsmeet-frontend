@@ -11,8 +11,11 @@ import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { Toaster, toast } from 'sonner';
 import { createPasswordReset } from '@/infrastructure/clients/user.client';
+import { useTranslations } from 'next-intl';
 
 export default function ForgotPassword() {
+  const t = useTranslations('/password/forgot');
+
   const router = useRouter();
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
 
@@ -47,7 +50,7 @@ export default function ForgotPassword() {
             <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
               <TextInput
                 id={'usernameOrEmail'}
-                label={'Username / Email'}
+                label={t('inputUsername')}
                 placeholder="max"
                 value={usernameOrEmail}
                 onChange={(e) => {
@@ -58,7 +61,7 @@ export default function ForgotPassword() {
             </div>
 
             <div className="flex justify-center py-2">
-              <TextButton text="Reset Password" onClick={handleResetClicked} />
+              <TextButton text={t('btnResetPassword')} onClick={handleResetClicked} />
             </div>
           </div>
         </div>

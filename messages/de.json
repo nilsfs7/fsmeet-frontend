@@ -163,5 +163,18 @@
     "inputSearchPlaceholder": "Suche Name...",
     "drpDwnGender": "Geschlecht",
     "infoWindowGoToProfile": "Klicke fürs Profil"
+  },
+  "/password/forgot": {
+    "inputUsername": "Nutzername / E-Mail",
+    "btnResetPassword": "Passwort zurücksetzen"
+  },
+  "/password/pending": {
+    "thankYouText1": "Prüfe dein Mailpostfach.",
+    "thankYouText2": "Wir haben dir einen Link geschickt.",
+    "btnBackHome": "Zur Homepage"
+  },
+  "/password/reset": {
+    "inputPassword": "Neues Passwort",
+    "btnSave": "Speichern"
   }
 }
