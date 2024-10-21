@@ -121,7 +121,7 @@ export const RegistrationForm = () => {
 
             <TextInput
               id={'email'}
-              label={t('inputUsername')}
+              label={t('inputEmail')}
               placeholder={getPlaceholderByUserType(userType).email}
               value={email}
               onChange={(e) => {

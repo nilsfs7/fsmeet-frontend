@@ -4,8 +4,11 @@ import { routeLogin } from '@/domain/constants/routes';
 import Image from 'next/image';
 import { imgEmojiError, imgCelebration } from '@/domain/constants/images';
 import { getConfirmUser } from '@/infrastructure/clients/user.client';
+import { getTranslations } from 'next-intl/server';
 
 export default async function RegistrationConfirmation({ searchParams }: any) {
+  const t = await getTranslations('/registration/confirm');
+
   const confirmationSuccessful = await getConfirmUser(searchParams.username, searchParams.requestToken);
 
   return (
@@ -19,11 +22,11 @@ export default async function RegistrationConfirmation({ searchParams }: any) {
               <Image src={imgEmojiError} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
             )}
 
-            <div className="mt-2">{confirmationSuccessful ? `Registration successful` : `Something went wrong`}</div>
+            <div className="mt-2">{confirmationSuccessful ? t('textRegistrationSuccess') : t('textRegistrationFailure')}</div>
 
             <div className="mt-2">
               <Link href={routeLogin}>
-                <TextButton text="Proceed" />
+                <TextButton text={t('btnProceed')} />
               </Link>
             </div>
           </div>

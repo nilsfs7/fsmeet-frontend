@@ -162,7 +162,7 @@
     "infoWindowGoToProfile": "Click for profile"
   },
   "/password/forgot": {
-    "inputUsername": "Nutzername / E-Mail",
+    "inputUsername": "Username / Email",
     "btnResetPassword": "Reset Password"
   },
   "/password/pending": {
@@ -180,6 +180,11 @@
     "inputEmail": "E-Mail",
     "inputPassword": "Password",
     "btnSignUp": "Sign Up"
+  },
+  "/registration/confirm": {
+    "textRegistrationSuccess": "Registration successful",
+    "textRegistrationFailure": "Something went wrong",
+    "btnProceed": "Proceed"
   },
   "functions/getLabelForFirstName": {
     "firstName": "First name",

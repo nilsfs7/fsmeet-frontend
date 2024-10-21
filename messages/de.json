@@ -181,6 +181,11 @@
     "inputPassword": "Passwort",
     "btnSignUp": "Registrieren"
   },
+  "/registration/confirm": {
+    "textRegistrationSuccess": "Registrierung erfolgreich",
+    "textRegistrationFailure": "Etwas ist schief gelaufen",
+    "btnProceed": "Fortfahren"
+  },
   "functions/getLabelForFirstName": {
     "firstName": "Vorname",
     "associationName": "Vereinsname",
