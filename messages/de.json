@@ -205,6 +205,15 @@
     "navCurrentPage2": "von",
     "navRowsPerPage": "Zeilen pro Seite"
   },
+  "/users/username": {
+    "accordionItemSocials": "Netzwerke",
+    "accordionItemBattleStatistics": "Battle Statistiken",
+    "accordionItemBattleStatisticsAmountBattles": "Battles",
+    "accordionItemBattleStatisticsAmountWins": "Siege",
+    "accordionItemBattleStatisticsWinLossRatio": "Siegverhältnis",
+    "accordionItemCompetitionHistory": "Wettkampf Historie",
+    "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
+  },
   "functions/getLabelForFirstName": {
     "firstName": "Vorname",
     "associationName": "Vereinsname",

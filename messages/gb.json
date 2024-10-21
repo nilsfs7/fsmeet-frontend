@@ -205,6 +205,15 @@
     "navCurrentPage2": "of",
     "navRowsPerPage": "Rows per page"
   },
+  "/users/username": {
+    "accordionItemSocials": "Socials",
+    "accordionItemBattleStatistics": "Battle Statistics",
+    "accordionItemBattleStatisticsAmountBattles": "Battles",
+    "accordionItemBattleStatisticsAmountWins": "Wins",
+    "accordionItemBattleStatisticsWinLossRatio": "Win ratio",
+    "accordionItemCompetitionHistory": "Competition History",
+    "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
+  },
   "functions/getLabelForFirstName": {
     "firstName": "First name",
     "associationName": "Association name",
