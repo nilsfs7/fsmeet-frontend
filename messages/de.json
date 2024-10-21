@@ -7,7 +7,7 @@
     "carouselRecentEvent": "Letztes Event",
     "carouselUpcomingEvent": "Anstehendes Event",
     "navMap": "Karte",
-    "navCommunity": "Community",
+    "navCommunity": "Szene",
     "navAdminOverview": "Admin-Übersicht",
     "navAbout": "Info"
   },
@@ -70,9 +70,6 @@
     "dlgAccountDeleteAccountText": "Möchtest du uns wirklich verlassen?",
     "tabGeneralTitle": "Allgemeine Infos",
     "tabGeneralSectionGeneral": "Allgemeines",
-    "tabGeneralFirstName": "Vorname",
-    "tabGeneralAssociationName": "Vereinsname",
-    "tabGeneralBrandName": "Markenname",
     "tabGeneralLastName": "Nachname",
     "tabGeneralArtistName": "Künstlername",
     "tabGeneralGender": "Geschlecht",
@@ -89,7 +86,8 @@
     "tabMaplSectionLocation": "Wohnort",
     "tabMaplCity": "Stadt",
     "tabMapPublish": "Pin auf Karte veröffentlichen",
-    "tabJobsTitle": "Jobs (anstehend)",
+    "tabMapShowOnMap": "Zur Karte wechseln",
+    "tabJobsTitle": "Jobs (bald verfügbar)",
     "tabJobsSectionTerms": "Bedingungen",
     "tabJobsTerms": "Vereinbarung ansehen",
     "tabJobBtnReadTerms": "Lesen",
@@ -120,5 +118,112 @@
     "pageTitle": "Profileinstellungen",
     "btnUpload": "Hochladen",
     "btnDelete": "Löschen"
+  },
+  "/error": {
+    "textError": "Ein Fehler ist aufgetreten.",
+    "btnBackHome": "Zur Homepage"
+  },
+  "/feedback": {
+    "pageGeneralFeedback": "Feedback",
+    "btnFeatures": "Feature anfragen",
+    "btnBugs": "Fehler melden"
+  },
+  "/feedback/bugs": {
+    "pageTitle": "Fehler Melden",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Beschreibe einen Fehler, den du entdeckt hast.",
+    "btnSubmit": "Senden"
+  },
+  "/feedback/features": {
+    "pageTitle": "Feature Anfrage",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Hast du neue Ideen oder Verbesserungen für uns?",
+    "btnSubmit": "Senden"
+  },
+  "/feedback/general": {
+    "pageTitle": "Sende Feedback",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Wir freuen uns über jegliches Feedback!",
+    "btnSubmit": "Senden"
+  },
+  "/feedback/thankyou": {
+    "thankYouText1": "Vielen Dank!",
+    "thankYouText2": "Dein Feedback ist sehr wichtig für uns!",
+    "btnBackHome": "Zur Homepage"
+  },
+  "/loading": {
+    "textLoading": "Lädt..."
+  },
+  "/login": {
+    "inputUsername": "Nutzername / E-Mail",
+    "inputPassword": "Passwort",
+    "btnLogin": "Anmelden",
+    "lnkResetPassword": "Password zurücksetzen",
+    "lnkNewAccount": "Noch keinen Account?"
+  },
+  "/map": {
+    "pageTitle": "Freestyler Karte",
+    "btnAddPin": "Trag dich ein",
+    "inputSearchPlaceholder": "Suche Name...",
+    "drpDwnGender": "Geschlecht",
+    "infoWindowGoToProfile": "Klicke fürs Profil"
+  },
+  "/password/forgot": {
+    "inputUsername": "Nutzername / E-Mail",
+    "btnResetPassword": "Passwort zurücksetzen"
+  },
+  "/password/pending": {
+    "thankYouText1": "Prüfe dein Mailpostfach.",
+    "thankYouText2": "Wir haben dir einen Link geschickt.",
+    "btnBackHome": "Zur Homepage"
+  },
+  "/password/reset": {
+    "inputPassword": "Neues Passwort",
+    "btnSave": "Speichern"
+  },
+  "/registration": {
+    "cbUserType": "Anmelden als",
+    "inputUsername": "Nutzername",
+    "inputEmail": "E-Mail",
+    "inputPassword": "Passwort",
+    "btnSignUp": "Registrieren"
+  },
+  "/registration/confirm": {
+    "registrationSuccess": "Registrierung erfolgreich",
+    "registrationFailure": "Etwas ist schief gelaufen",
+    "btnProceed": "Fortfahren"
+  },
+  "/registration/pending": {
+    "registrationPendingText1": "Ein Bestätigungslink wurde an folgende Adresse gesendet:",
+    "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
+    "btnBackHome": "Back home"
+  },
+  "/users": {
+    "pageTitle": "Freestyle Szene",
+    "inputSearchPlaceholder": "Suche Name...",
+    "cbColumns": "Spalten",
+    "tblColumnUsername": "Nutzer",
+    "tblColumnName": "Name",
+    "tblColumnCountry": "Land",
+    "tblColumnType": "Typ",
+    "tblColumnLocation": "Wohnort",
+    "tblColumnSocials": "Netzwerke",
+    "navCurrentPage1": "Seite",
+    "navCurrentPage2": "von",
+    "navRowsPerPage": "Zeilen pro Seite"
+  },
+  "/users/username": {
+    "accordionItemSocials": "Netzwerke",
+    "accordionItemBattleStatistics": "Battle Statistiken",
+    "accordionItemBattleStatisticsAmountBattles": "Battles",
+    "accordionItemBattleStatisticsAmountWins": "Siege",
+    "accordionItemBattleStatisticsWinLossRatio": "Siegverhältnis",
+    "accordionItemCompetitionHistory": "Wettkampf Historie",
+    "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
+  },
+  "functions/getLabelForFirstName": {
+    "firstName": "Vorname",
+    "associationName": "Vereinsname",
+    "brandName": "Markenname"
   }
 }

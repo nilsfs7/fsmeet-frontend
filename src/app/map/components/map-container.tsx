@@ -8,10 +8,13 @@ import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { Gender } from '@/domain/enums/gender';
 import { User } from '@/types/user';
 import { ChevronDown } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
 export const MapContainer = ({ users }: { users: User[] }) => {
+  const t = useTranslations('/map');
+
   const searchParams = useSearchParams();
   const paramUser = searchParams?.get('user');
   const paramLat = searchParams?.get('lat');
@@ -24,7 +27,7 @@ export const MapContainer = ({ users }: { users: User[] }) => {
     <>
       <div className="mx-2 flex gap-2">
         <Input
-          placeholder="Search name..."
+          placeholder={t('inputSearchPlaceholder')}
           value={filterName}
           onChange={(event: any) => {
             setFilterName(event.target.value);
@@ -35,7 +38,8 @@ export const MapContainer = ({ users }: { users: User[] }) => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
-              Gender <ChevronDown className="ml-2 h-4 w-4" />
+              {t('drpDwnGender')}
+              <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

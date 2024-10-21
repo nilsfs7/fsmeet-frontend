@@ -58,7 +58,7 @@ export const EventsEditor = () => {
   }, [session]);
 
   if (!events) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner text="Loading..." />; // todo
   }
 
   return (

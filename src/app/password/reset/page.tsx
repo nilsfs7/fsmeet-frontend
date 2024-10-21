@@ -8,8 +8,10 @@ import { useRouter } from 'next/navigation';
 import { routeLogin } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import { updateUserPassword } from '@/infrastructure/clients/user.client';
+import { useTranslations } from 'next-intl';
 
 export default function ResetPassword({ searchParams }: any) {
+  const t = useTranslations('/password/reset');
   const router = useRouter();
 
   const [password, setPassword] = useState('');
@@ -48,7 +50,7 @@ export default function ResetPassword({ searchParams }: any) {
               <TextInput
                 id={'password'}
                 type={'password'}
-                label={'New password'}
+                label={t('inputPassword')}
                 placeholder="Ball&Chill2021"
                 onChange={(e) => {
                   handleInputChangePassword(e);
@@ -58,7 +60,7 @@ export default function ResetPassword({ searchParams }: any) {
             </div>
 
             <div className="flex justify-center py-2">
-              <TextButton text="Save" onClick={handleSaveClicked} />
+              <TextButton text={t('btnSave')} onClick={handleSaveClicked} />
             </div>
           </div>
         </div>

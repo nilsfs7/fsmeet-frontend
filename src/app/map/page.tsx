@@ -11,8 +11,10 @@ import { User } from '@/types/user';
 import Link from 'next/link';
 import { MapContainer } from './components/map-container';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
+import { getTranslations } from 'next-intl/server';
 
 export default async function Map() {
+  const t = await getTranslations('/map');
   const session = await auth();
 
   let actingUser: User | null = null;
@@ -26,7 +28,7 @@ export default async function Map() {
     <div className="h-[calc(100dvh)] flex flex-col">
       <Header />
 
-      <PageTitle title="Freestyler Map" />
+      <PageTitle title={t('pageTitle')} />
 
       <MapContainer users={users} />
 
@@ -40,7 +42,7 @@ export default async function Map() {
 
           {(!actingUser || (actingUser && !actingUser.locLatitude)) && (
             <Link href={`${routeAccount}?tab=map`}>
-              <TextButton text={'Add Your Pin'} />
+              <TextButton text={t('btnAddPin')} />
             </Link>
           )}
         </div>

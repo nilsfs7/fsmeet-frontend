@@ -49,6 +49,7 @@ interface ITabsMenu {
 
 export const TabsMenu = ({ user }: ITabsMenu) => {
   const t = useTranslations('/account');
+  const tf = useTranslations('functions/getLabelForFirstName');
 
   const { data: session, status } = useSession();
 
@@ -501,7 +502,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
             <TextInput
               id={'firstName'}
-              label={getLabelForFirstName(userInfo.type, t)}
+              label={getLabelForFirstName(userInfo.type, tf)}
               placeholder={getPlaceholderByUserType(userInfo.type).firstName}
               value={userInfo.firstName}
               onChange={(e) => {
@@ -671,7 +672,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             {userInfo.exposeLocation && userInfo.locLatitude && userInfo.locLongitude && (
               <div className="m-2 flex place-items-start gap-2 items-center">
                 <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}`}>
-                  <div className="hover:underline">{'Show my pin'}</div>
+                  <div className="hover:underline">{t('tabMapShowOnMap')}</div>
                 </Link>
 
                 <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}`}>

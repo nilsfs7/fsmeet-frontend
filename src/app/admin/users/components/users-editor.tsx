@@ -58,7 +58,7 @@ export const UsersEditor = () => {
   }, [users == undefined, userCountTotal == undefined, userCountNonTechnical == undefined]);
 
   if (!users) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner text="Loading..." />; // todo
   }
 
   return (

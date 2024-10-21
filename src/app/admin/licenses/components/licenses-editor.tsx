@@ -47,7 +47,7 @@ export const LicensesEditor = () => {
   }, [session]);
 
   if (!licenses) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner text="Loading..." />; // todo
   }
 
   return (

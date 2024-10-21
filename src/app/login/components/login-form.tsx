@@ -9,12 +9,15 @@ import TextButton from '../../../components/common/TextButton';
 import TextInput from '../../../components/common/TextInput';
 import { Toaster, toast } from 'sonner';
 import { getSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 interface ILoginFormProps {
   redirectUrl?: string;
 }
 
 export const LoginForm = ({ redirectUrl }: ILoginFormProps) => {
+  const t = useTranslations('/login');
+
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -73,7 +76,7 @@ export const LoginForm = ({ redirectUrl }: ILoginFormProps) => {
           <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
             <TextInput
               id={'usernameOrEmail'}
-              label={'Username / Email'}
+              label={t('inputUsername')}
               placeholder="max"
               value={usernameOrEmail}
               onChange={(e) => {
@@ -83,7 +86,7 @@ export const LoginForm = ({ redirectUrl }: ILoginFormProps) => {
             <TextInput
               id={'password'}
               type={'password'}
-              label={'Password'}
+              label={t('inputPassword')}
               placeholder="Ball&Chill2021"
               onChange={(e) => {
                 handleInputChangePassword(e);
@@ -93,18 +96,18 @@ export const LoginForm = ({ redirectUrl }: ILoginFormProps) => {
           </div>
 
           <div className="flex justify-center py-2">
-            <TextButton text="Login" onClick={handleLoginClicked} />
+            <TextButton text={t('btnLogin')} onClick={handleLoginClicked} />
           </div>
 
           <div className="flex justify-center py-2">
             <Link href={`${routePasswordForgot}`}>
-              <label className="cursor-pointer pr-4 underline">{`Reset password`}</label>
+              <label className="cursor-pointer pr-4 underline">{t('lnkResetPassword')}</label>
             </Link>
           </div>
 
           <div className="flex justify-center py-2">
             <Link href={`${routeRegistration}`}>
-              <label className="cursor-pointer pr-4 underline">{`No account yet?`}</label>
+              <label className="cursor-pointer pr-4 underline">{t('lnkNewAccount')}</label>
             </Link>
           </div>
         </div>

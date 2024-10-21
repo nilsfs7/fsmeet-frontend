@@ -99,7 +99,7 @@ const getEventsByCompetitions = async (competitionsMap: Map<string, ReadCompetit
 };
 
 export default async function PublicUserProfile({ params }: { params: { username: string } }) {
-  const t = await getTranslations('/account'); // TODO: nicht /account
+  const t = await getTranslations('/users/username');
   const session = await auth();
 
   const user = await getUser(params.username.toString());
@@ -194,7 +194,7 @@ export default async function PublicUserProfile({ params }: { params: { username
                 <Accordion className="mt-1" type="single" collapsible>
                   {(user.instagramHandle || user.tikTokHandle || user.youTubeHandle || user.website) && (
                     <AccordionItem value="item-socials">
-                      <AccordionTrigger>{`Socials`}</AccordionTrigger>
+                      <AccordionTrigger>{t('accordionItemSocials')}</AccordionTrigger>
                       <AccordionContent>
                         <div className="">
                           {user.instagramHandle && (
@@ -227,18 +227,18 @@ export default async function PublicUserProfile({ params }: { params: { username
 
                   {user.type === UserType.FREESTYLER && (
                     <AccordionItem value="item-matches">
-                      <AccordionTrigger>{`Battle Statistics`}</AccordionTrigger>
+                      <AccordionTrigger>{t('accordionItemBattleStatistics')}</AccordionTrigger>
                       <AccordionContent>
                         <div className="grid grid-cols-2">
-                          <div>{`Matches`}</div>
+                          <div>{t('accordionItemBattleStatisticsAmountBattles')}</div>
                           <div>{matchStats.matches}</div>
 
                           {matchStats.matches > 0 && (
                             <>
-                              <div>{`Wins`}</div>
+                              <div>{t('accordionItemBattleStatisticsAmountWins')}</div>
                               <div>{`${matchStats.wins} `}</div>
 
-                              <div>{`Win ratio`}</div>
+                              <div>{t('accordionItemBattleStatisticsWinLossRatio')}</div>
                               <div>{`${(matchStats.ratio * 100).toFixed(2)}%`}</div>
                             </>
                           )}
@@ -249,9 +249,9 @@ export default async function PublicUserProfile({ params }: { params: { username
 
                   {user.type === UserType.FREESTYLER && (
                     <AccordionItem value="item-history">
-                      <AccordionTrigger>{`Competition History`}</AccordionTrigger>
+                      <AccordionTrigger>{t('accordionItemCompetitionHistory')}</AccordionTrigger>
                       <AccordionContent>
-                        {battleHistory.length === 0 && <div className="flex flex-col">{`No participations, yet.`}</div>}
+                        {battleHistory.length === 0 && <div className="flex flex-col">{t('accordionItemCompetitionHistoryNoParticipations')}</div>}
 
                         {battleHistory.length > 0 &&
                           battleHistory.map((data, i) => {

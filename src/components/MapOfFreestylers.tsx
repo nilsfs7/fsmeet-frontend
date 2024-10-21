@@ -25,7 +25,7 @@ interface IMapsProps {
 
 // Europe = lat: 54.5259614, lng: 15.2551187
 const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, lng = 15.2551187, zoom = 6, filterName, filterGender }: IMapsProps) => {
-  const t = useTranslations('/account'); // TODO: nicht /account
+  const t = useTranslations('/map');
 
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
@@ -99,7 +99,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
                 ${tagType}
                 <div>  
                   <a href=${routeUsers}/${user.username}>
-                    <u>Click for profile</u>
+                    <u>${t('infoWindowGoToProfile')}</u>
                   </a>
                 </div>
               </div>`;

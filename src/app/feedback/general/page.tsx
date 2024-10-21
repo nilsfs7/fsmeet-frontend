@@ -13,8 +13,11 @@ import { Toaster, toast } from 'sonner';
 import { createFeedbackGeneral } from '@/infrastructure/clients/feedback.client';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function GeneralFeedback() {
+  const t = useTranslations('/feedback/general');
+
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -39,14 +42,14 @@ export default function GeneralFeedback() {
       <Toaster richColors />
 
       <div className={'absolute inset-0 flex flex-col'}>
-        <PageTitle title="Send Feedback" />
+        <PageTitle title={t('pageTitle')} />
 
         <div className="mx-2 flex flex-col overflow-y-auto">
           <div className="mt-2 h-48 w-full rounded-lg border border-primary bg-secondary-light">
             <TextInputLarge
               id={'message'}
-              label={'Message'}
-              placeholder="Any feedback is highly appreciated!"
+              label={t('inputMessage')}
+              placeholder={t('inputMessagePlaceholder')}
               onChange={(e) => {
                 handleInputChangeMessage(e);
               }}
@@ -59,7 +62,7 @@ export default function GeneralFeedback() {
             <ActionButton action={Action.BACK} />
           </Link>
 
-          <TextButton text="Submit" onClick={handleSubmitClicked} />
+          <TextButton text={t('btnSubmit')} onClick={handleSubmitClicked} />
         </Navigation>
       </div>
     </>
