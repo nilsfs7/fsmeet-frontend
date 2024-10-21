@@ -191,6 +191,20 @@
     "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
     "btnBackHome": "Back home"
   },
+  "/users": {
+    "pageTitle": "Community",
+    "inputSearchPlaceholder": "Search name...",
+    "cbColumns": "Columns",
+    "tblColumnUsername": "User",
+    "tblColumnName": "Name",
+    "tblColumnCountry": "Country",
+    "tblColumnType": "Type",
+    "tblColumnLocation": "Location",
+    "tblColumnSocials": "Socials",
+    "navCurrentPage1": "Page",
+    "navCurrentPage2": "of",
+    "navRowsPerPage": "Rows per page"
+  },
   "functions/getLabelForFirstName": {
     "firstName": "First name",
     "associationName": "Association name",

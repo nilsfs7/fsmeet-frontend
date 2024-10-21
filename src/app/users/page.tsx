@@ -9,8 +9,11 @@ import { getUsers } from '@/infrastructure/clients/user.client';
 import { ColumnInfo, UsersList } from './components/users-list';
 import { UserType } from '@/domain/enums/user-type';
 import { User } from '@/types/user';
+import { getTranslations } from 'next-intl/server';
 
 export default async function Users() {
+  const t = await getTranslations('/users');
+
   const users = await getUsers();
 
   const columnData: ColumnInfo[] = [];
@@ -59,7 +62,7 @@ export default async function Users() {
     <div className="h-[calc(100dvh)] flex flex-col">
       <Header />
 
-      <PageTitle title="Community" />
+      <PageTitle title={t('pageTitle')} />
 
       <UsersList columnData={columnData} />
 

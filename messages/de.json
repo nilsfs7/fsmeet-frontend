@@ -7,7 +7,7 @@
     "carouselRecentEvent": "Letztes Event",
     "carouselUpcomingEvent": "Anstehendes Event",
     "navMap": "Karte",
-    "navCommunity": "Community",
+    "navCommunity": "Szene",
     "navAdminOverview": "Admin-Übersicht",
     "navAbout": "Info"
   },
@@ -190,6 +190,20 @@
     "registrationPendingText1": "Ein Bestätigungslink wurde an folgende Adresse gesendet:",
     "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
     "btnBackHome": "Back home"
+  },
+  "/users": {
+    "pageTitle": "Freestyle Szene",
+    "inputSearchPlaceholder": "Suche Name...",
+    "cbColumns": "Spalten",
+    "tblColumnUsername": "Nutzer",
+    "tblColumnName": "Name",
+    "tblColumnCountry": "Land",
+    "tblColumnType": "Typ",
+    "tblColumnLocation": "Wohnort",
+    "tblColumnSocials": "Netzwerke",
+    "navCurrentPage1": "Seite",
+    "navCurrentPage2": "von",
+    "navRowsPerPage": "Zeilen pro Seite"
   },
   "functions/getLabelForFirstName": {
     "firstName": "Vorname",
