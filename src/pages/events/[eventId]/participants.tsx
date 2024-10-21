@@ -83,7 +83,7 @@ const EventParticipants = (props: any) => {
   }, [event == undefined]);
 
   if (!event) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner text="Loading..." />; // todo
   }
 
   return (

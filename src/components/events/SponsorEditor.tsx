@@ -57,10 +57,6 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
     updateSponsorLogo();
   }, [imgLogoObjectURL]);
 
-  // if (!name) {
-  //   return <LoadingSpinner />;
-  // }
-
   return (
     <>
       <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">

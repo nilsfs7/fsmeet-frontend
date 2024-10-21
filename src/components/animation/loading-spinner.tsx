@@ -1,4 +1,8 @@
-const LoadingSpinner = () => {
+interface ILoadingSpinner {
+  text: string;
+}
+
+const LoadingSpinner = ({ text }: ILoadingSpinner) => {
   return (
     <div role="status" className="flex flex-col items-center justify-center h-screen">
       <svg aria-hidden="true" className="w-10 h-10 text-secondary animate-spin dark:text-secondary fill-primary" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,7 +15,7 @@ const LoadingSpinner = () => {
           fill="currentFill"
         />
       </svg>
-      <div className="mt-1">Loading...</div>
+      <div className="mt-1">{text}</div>
     </div>
   );
 };

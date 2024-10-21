@@ -119,6 +119,10 @@
     "btnUpload": "Hochladen",
     "btnDelete": "Löschen"
   },
+  "/error": {
+    "textError": "Ein Fehler ist aufgetreten.",
+    "btnBackHome": "Zur Homepage"
+  },
   "/feedback": {
     "pageGeneralFeedback": "Feedback",
     "btnFeatures": "Feature anfragen",
@@ -146,6 +150,9 @@
     "thankYouText1": "Vielen Dank!",
     "thankYouText2": "Dein Feedback ist sehr wichtig für uns!",
     "btnBackHome": "Zur Homepage"
+  },
+  "/loading": {
+    "textLoading": "Lädt..."
   },
   "/login": {
     "inputUsername": "Nutzername / E-Mail",

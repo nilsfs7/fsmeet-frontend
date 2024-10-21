@@ -119,6 +119,10 @@
     "btnUpload": "Upload",
     "btnDelete": "Delete"
   },
+  "/error": {
+    "textError": "Some error occurred.",
+    "btnBackHome": "Back home"
+  },
   "/feedback": {
     "pageGeneralFeedback": "General Feedback",
     "btnFeatures": "Request Feature",
@@ -153,6 +157,9 @@
     "btnLogin": "Login",
     "lnkResetPassword": "Reset password",
     "lnkNewAccount": "No account yet?"
+  },
+  "/loading": {
+    "textLoading": "Loading..."
   },
   "/map": {
     "pageTitle": "Freestyler Map",

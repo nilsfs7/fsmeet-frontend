@@ -119,7 +119,7 @@ const CompetitionPool = (props: any) => {
   }, [eventRegistrations == undefined, competitionParticipants == undefined]);
 
   if (!eventRegistrations || !competitionParticipants) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner text="Loading..." />; // todo
   }
 
   return (

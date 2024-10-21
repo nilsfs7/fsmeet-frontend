@@ -266,7 +266,7 @@ const EventDetails = (props: any) => {
   }, [event == undefined]);
 
   if (!event || !approvedAndPendingRegistrations) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner text="Loading..." />; // todo
   }
 
   return (
