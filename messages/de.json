@@ -182,9 +182,14 @@
     "btnSignUp": "Registrieren"
   },
   "/registration/confirm": {
-    "textRegistrationSuccess": "Registrierung erfolgreich",
-    "textRegistrationFailure": "Etwas ist schief gelaufen",
+    "registrationSuccess": "Registrierung erfolgreich",
+    "registrationFailure": "Etwas ist schief gelaufen",
     "btnProceed": "Fortfahren"
+  },
+  "/registration/pending": {
+    "registrationPendingText1": "Ein Bestätigungslink wurde an folgende Adresse gesendet:",
+    "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
+    "btnBackHome": "Back home"
   },
   "functions/getLabelForFirstName": {
     "firstName": "Vorname",

@@ -182,9 +182,14 @@
     "btnSignUp": "Sign Up"
   },
   "/registration/confirm": {
-    "textRegistrationSuccess": "Registration successful",
-    "textRegistrationFailure": "Something went wrong",
+    "registrationSuccess": "Registration successful",
+    "registrationFailure": "Something went wrong",
     "btnProceed": "Proceed"
+  },
+  "/registration/pending": {
+    "registrationPendingText1": "A confirmation link was sent to",
+    "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
+    "btnBackHome": "Back home"
   },
   "functions/getLabelForFirstName": {
     "firstName": "First name",

@@ -22,7 +22,7 @@ export default async function RegistrationConfirmation({ searchParams }: any) {
               <Image src={imgEmojiError} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
             )}
 
-            <div className="mt-2">{confirmationSuccessful ? t('textRegistrationSuccess') : t('textRegistrationFailure')}</div>
+            <div className="mt-2">{confirmationSuccessful ? t('registrationSuccess') : t('registrationFailure')}</div>
 
             <div className="mt-2">
               <Link href={routeLogin}>
