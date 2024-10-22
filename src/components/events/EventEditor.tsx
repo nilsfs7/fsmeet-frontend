@@ -226,7 +226,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
       {event?.state && (
         <div className="m-2 grid grid-cols-2 items-center">
-          <div>{t('lblType')}</div>
+          <div>{t('lblState')}</div>
           <Link href={`${routeEvents}/${event.id}?state=1`}>
             <label id={'eventState'} className="w-full hover:underline">
               {(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}

@@ -267,8 +267,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     try {
       sessionStorage.setItem('userInfo', JSON.stringify(user));
     } catch (error: any) {
-      toast.error('error.message');
-      console.error('error.message');
+      toast.error(error.message);
+      console.error(error.message);
     }
   };
 

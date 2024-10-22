@@ -128,6 +128,12 @@
     "datePickerTo": "Bis",
     "textNoEventsFound": "Keine Events für den angegebenen Zeitraum gefunden."
   },
+  "/events/edit": {
+    "pageTitle": "Event bearbeiten",
+    "dlgEventDeletionTitle": "Event löschen",
+    "dlgEventDeletionText": "Möchtest du das Event wirklich löschen?",
+    "btnSave": "Speichern"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",
     "btnCreate": "Sponsor hinzufügen"
@@ -257,6 +263,7 @@
     "inputAlias": "Eventalias",
     "cbType": "Art",
     "lblType": "Art",
+    "lblState": "State",
     "inputDescription": "Eventbeschreibung",
     "datePickerFrom": "Startdatum",
     "datePickerTo": "Enddatum",
