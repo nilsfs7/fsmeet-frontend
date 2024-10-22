@@ -49,7 +49,7 @@ interface ITabsMenu {
 
 export const TabsMenu = ({ user }: ITabsMenu) => {
   const t = useTranslations('/account');
-  const tf = useTranslations('functions/getLabelForFirstName');
+  const tf = useTranslations('global/functions/getLabelForFirstName');
 
   const { data: session, status } = useSession();
 

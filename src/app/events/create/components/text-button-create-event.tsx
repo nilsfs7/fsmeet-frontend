@@ -7,8 +7,11 @@ import { Toaster, toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Event } from '@/types/event';
 import { routeEventSubs } from '@/domain/constants/routes';
+import { useTranslations } from 'next-intl';
 
 export const TextButtonCreateEvent = () => {
+  const t = useTranslations('/events/create');
+
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -32,7 +35,7 @@ export const TextButtonCreateEvent = () => {
     <>
       <Toaster richColors />
 
-      <TextButton text="Create" onClick={handleCreateEventClicked} />
+      <TextButton text={t('btnCreate')} onClick={handleCreateEventClicked} />
     </>
   );
 };

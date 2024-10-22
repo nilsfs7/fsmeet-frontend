@@ -128,6 +128,10 @@
     "datePickerTo": "Bis",
     "textNoEventsFound": "Keine Events für den angegebenen Zeitraum gefunden."
   },
+  "/events/create": {
+    "pageTitle": "Event erstellen",
+    "btnCreate": "Erstellen"
+  },
   "/feedback": {
     "pageGeneralFeedback": "Feedback",
     "btnFeatures": "Feature anfragen",
@@ -226,9 +230,45 @@
     "accordionItemCompetitionHistory": "Wettkampf Historie",
     "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
   },
-  "functions/getLabelForFirstName": {
+  "global/functions/getLabelForFirstName": {
     "firstName": "Vorname",
     "associationName": "Vereinsname",
     "brandName": "Markenname"
+  },
+  "global/components/event-editor": {
+    "sectionGeneral": "Allgemeines",
+    "inputName": "Eventname",
+    "inputAlias": "Eventalias",
+    "cbType": "Art",
+    "lblType": "Art",
+    "inputDescription": "Eventbeschreibung",
+    "datePickerFrom": "Startdatum",
+    "datePickerTo": "Enddatum",
+    "datePickerRegistrationFrom": "Öffnung Registrierung",
+    "datePickerRegistrationTo": "Deadline Registrierung",
+    "inputLivestreamUrl": "Livestream URL",
+    "inputMessangerInvitationUrl": "Gruppen Chat Einladungslink (z.B. WhatsApp)",
+    "sectionLocation": "Austragungsort",
+    "inputHouseNumber": "Hausnummer",
+    "inputStreet": "Straße",
+    "inputPostCode": "Postleitzahl",
+    "inputCity": "Stadt",
+    "inputCountry": "Land",
+    "sectionPayment": "Bezahlung",
+    "inputFee": "Teilnahmegebühr",
+    "chbCashAccept": "Bargeld akzeptieren",
+    "chbPayPalAccept": "PayPal akzeptieren",
+    "inputPayPalUsername": "PayPal Nutzername",
+    "lnkPayPalVerifyAccount": "PayPal Konto verifizieren",
+    "chbBankSepaAccept": "Banküberweisung (SEPA) akzeptieren",
+    "inputBankSepaBank": "Bankname (SEPA)",
+    "inputBankSepaRecipeint": "Empfänger (SEPA)",
+    "inputBankSepaIban": "IBAN (SEPA)",
+    "inputBankSepaReference": "Verwendungszweck (SEPA)",
+    "sectionOther": "Sonstiges",
+    "chbAutoApproveRegistration": "Neue Registrierungen automatisch bestätigen",
+    "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",
+    "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
+    "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
   }
 }

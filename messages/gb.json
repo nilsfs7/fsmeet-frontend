@@ -128,6 +128,10 @@
     "datePickerTo": "To",
     "textNoEventsFound": "No events for the specified date range."
   },
+  "/events/create": {
+    "pageTitle": "Create Event",
+    "btnCreate": "Create"
+  },
   "/feedback": {
     "pageGeneralFeedback": "General Feedback",
     "btnFeatures": "Request Feature",
@@ -226,9 +230,45 @@
     "accordionItemCompetitionHistory": "Competition History",
     "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
   },
-  "functions/getLabelForFirstName": {
+  "global/functions/getLabelForFirstName": {
     "firstName": "First name",
     "associationName": "Association name",
     "brandName": "Brand name"
+  },
+  "global/components/event-editor": {
+    "sectionGeneral": "General",
+    "inputName": "Event Name",
+    "inputAlias": "Event Alias",
+    "cbType": "Type",
+    "lblType": "Type",
+    "inputDescription": "Event Description",
+    "datePickerFrom": "Date From",
+    "datePickerTo": "Date To",
+    "datePickerRegistrationFrom": "Registration Open",
+    "datePickerRegistrationTo": "Registration Deadline",
+    "inputLivestreamUrl": "Livestream URL",
+    "inputMessangerInvitationUrl": "Group Chat Invitation Link (e.g. WhatsApp)",
+    "sectionLocation": "Location",
+    "inputHouseNumber": "House No",
+    "inputStreet": "Street",
+    "inputPostCode": "Post Code",
+    "inputCity": "City",
+    "inputCountry": "Country",
+    "sectionPayment": "Payment",
+    "inputFee": "Participation Fee",
+    "chbCashAccept": "Accept Cash",
+    "chbPayPalAccept": "Accept PayPal",
+    "inputPayPalUsername": "PayPal User Handle",
+    "lnkPayPalVerifyAccount": "Verify PayPal Account",
+    "chbBankSepaAccept": "Accept Bank Transfer (SEPA)",
+    "inputBankSepaBank": "SEPA Bankname",
+    "inputBankSepaRecipeint": "SEPA Recipient",
+    "inputBankSepaIban": "SEPA IBAN",
+    "inputBankSepaReference": "SEPA Reference",
+    "sectionOther": "Other",
+    "chbAutoApproveRegistration": "Auto Approve New Registrations",
+    "chbNotifyOnRegistration": "Notify On New Registration",
+    "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
+    "chbNotifyOnComment": "Notify On Comment"
   }
 }
