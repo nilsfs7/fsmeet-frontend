@@ -123,6 +123,11 @@
     "textError": "Ein Fehler ist aufgetreten.",
     "btnBackHome": "Zur Homepage"
   },
+  "/events": {
+    "datePickerFrom": "Von",
+    "datePickerTo": "Bis",
+    "textNoEventsFound": "Keine Events für den angegebenen Zeitraum gefunden."
+  },
   "/feedback": {
     "pageGeneralFeedback": "Feedback",
     "btnFeatures": "Feature anfragen",

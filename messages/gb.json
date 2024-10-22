@@ -123,6 +123,11 @@
     "textError": "Some error occurred.",
     "btnBackHome": "Back home"
   },
+  "/events": {
+    "datePickerFrom": "From",
+    "datePickerTo": "To",
+    "textNoEventsFound": "No events for the specified date range."
+  },
   "/feedback": {
     "pageGeneralFeedback": "General Feedback",
     "btnFeatures": "Request Feature",
