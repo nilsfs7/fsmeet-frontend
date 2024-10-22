@@ -1,7 +1,10 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import { Sponsor } from '@/types/sponsor';
 import { imgUserDefaultImg } from '@/domain/constants/images';
+import { useTranslations } from 'next-intl';
 
 interface ISponsorEditorProps {
   sponsor?: Sponsor;
@@ -10,6 +13,8 @@ interface ISponsorEditorProps {
 }
 
 const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISponsorEditorProps) => {
+  const t = useTranslations('global/components/sponsor-editor');
+
   const [name, setSponsorName] = useState(sponsor?.name || '');
   const [website, setSponsorWebsite] = useState(sponsor?.website || '');
 
@@ -62,7 +67,7 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
       <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
         <TextInput
           id={'name'}
-          label={'Sponsor Name'}
+          label={t('inputName')}
           placeholder="PersianBall"
           value={name}
           onChange={(e) => {
@@ -72,7 +77,7 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
 
         <TextInput
           id={'website'}
-          label={'Website'}
+          label={t('inputWebsite')}
           placeholder="https://persianball.shop/"
           value={website}
           onChange={(e) => {

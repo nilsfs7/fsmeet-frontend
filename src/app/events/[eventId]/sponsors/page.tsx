@@ -5,23 +5,19 @@ import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { auth } from '@/auth';
-import { RedirectType, redirect } from 'next/navigation';
 import { getSponsors } from '@/infrastructure/clients/sponsor.client';
 import Separator from '@/components/Seperator';
+import { getTranslations } from 'next-intl/server';
 
 export default async function EventSponsors({ params }: { params: { eventId: string } }) {
+  const t = await getTranslations('/events/eventid/sponsors');
   const session = await auth();
-
-  // TODO: remove because redirect is done by middleware anyway
-  if (!session?.user?.username) {
-    redirect(routeLogin, RedirectType.replace);
-  }
 
   const sponsors = await getSponsors(params.eventId);
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
-      <PageTitle title="Manage Sponsors" />
+      <PageTitle title={t('pageTitle')} />
 
       <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>
         <div className="flex flex-col">
@@ -48,7 +44,7 @@ export default async function EventSponsors({ params }: { params: { eventId: str
           )}
 
           <div className="m-1 flex items-center gap-2">
-            <div className="flex w-1/2 justify-end">Add new</div>
+            <div className="flex w-1/2 justify-end">{t('btnCreate')}</div>
             <div className="flex w-1/2">
               <Link href={`${routeEvents}/${params.eventId}/sponsors/create`}>
                 <ActionButton action={Action.ADD} />

@@ -128,6 +128,14 @@
     "datePickerTo": "Bis",
     "textNoEventsFound": "Keine Events für den angegebenen Zeitraum gefunden."
   },
+  "/events/eventid/sponsors": {
+    "pageTitle": "Sponsoren verwalten",
+    "btnCreate": "Sponsor hinzufügen"
+  },
+  "/events/eventid/sponsors/create": {
+    "pageTitle": "Sponsor erstellen",
+    "btnCreate": "Erstellen"
+  },
   "/events/create": {
     "pageTitle": "Event erstellen",
     "btnCreate": "Erstellen"
@@ -278,5 +286,9 @@
     "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",
     "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
     "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
+  },
+  "global/components/sponsor-editor": {
+    "inputName": "Sponsor Name",
+    "inputWebsite": "Website"
   }
 }

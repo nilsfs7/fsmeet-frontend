@@ -128,6 +128,14 @@
     "datePickerTo": "To",
     "textNoEventsFound": "No events for the specified date range."
   },
+  "/events/eventid/sponsors": {
+    "pageTitle": "Manage Sponsors",
+    "btnCreate": "Create"
+  },
+  "/events/eventid/sponsors/create": {
+    "pageTitle": "Create Sponsor",
+    "btnCreate": "Add new"
+  },
   "/events/create": {
     "pageTitle": "Create Event",
     "btnCreate": "Create"
@@ -278,5 +286,9 @@
     "chbNotifyOnRegistration": "Notify On New Registration",
     "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
     "chbNotifyOnComment": "Notify On Comment"
+  },
+  "global/components/sponsor-editor": {
+    "inputName": "Sponsor Name",
+    "inputWebsite": "Website"
   }
 }
