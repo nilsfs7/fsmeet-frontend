@@ -123,6 +123,37 @@
     "textError": "Some error occurred.",
     "btnBackHome": "Back home"
   },
+  "/events": {
+    "datePickerFrom": "From",
+    "datePickerTo": "To",
+    "textNoEventsFound": "No events for the specified date range."
+  },
+  "/events/edit": {
+    "pageTitle": "Edit Event",
+    "dlgEventDeletionTitle": "Delete Event",
+    "dlgEventDeletionText": "Do you really want to delete this event?",
+    "btnSave": "Save"
+  },
+  "/events/eventid/sponsors": {
+    "pageTitle": "Manage Sponsors",
+    "btnCreate": "Create"
+  },
+  "/events/eventid/sponsors/create": {
+    "pageTitle": "Create Sponsor",
+    "btnCreate": "Add new"
+  },
+  "/events/create": {
+    "pageTitle": "Create Event",
+    "btnCreate": "Create"
+  },
+  "/events/manage": {
+    "pageTitle": "Manage Events",
+    "tabRegistrationsTitle": "Registrations",
+    "tabRegistrationsTextNoEvents": "You have not signed up for any event, yet.",
+    "tabEventsHostedTitle": "My Events",
+    "tabEventsHostedTextNoEvents": "You have not created any events, yet.",
+    "btnCreate": "Create Event"
+  },
   "/feedback": {
     "pageGeneralFeedback": "General Feedback",
     "btnFeatures": "Request Feature",
@@ -221,9 +252,49 @@
     "accordionItemCompetitionHistory": "Competition History",
     "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
   },
-  "functions/getLabelForFirstName": {
+  "global/functions/getLabelForFirstName": {
     "firstName": "First name",
     "associationName": "Association name",
     "brandName": "Brand name"
+  },
+  "global/components/event-editor": {
+    "sectionGeneral": "General",
+    "inputName": "Event Name",
+    "inputAlias": "Event Alias",
+    "cbType": "Type",
+    "lblState": "Status",
+    "inputDescription": "Event Description",
+    "datePickerFrom": "Date From",
+    "datePickerTo": "Date To",
+    "datePickerRegistrationFrom": "Registration Open",
+    "datePickerRegistrationTo": "Registration Deadline",
+    "inputLivestreamUrl": "Livestream URL",
+    "inputMessangerInvitationUrl": "Group Chat Invitation Link (e.g. WhatsApp)",
+    "sectionLocation": "Location",
+    "inputHouseNumber": "House No",
+    "inputStreet": "Street",
+    "inputPostCode": "Post Code",
+    "inputCity": "City",
+    "inputCountry": "Country",
+    "sectionPayment": "Payment",
+    "inputFee": "Participation Fee",
+    "chbCashAccept": "Accept Cash",
+    "chbPayPalAccept": "Accept PayPal",
+    "inputPayPalUsername": "PayPal User Handle",
+    "lnkPayPalVerifyAccount": "Verify PayPal Account",
+    "chbBankSepaAccept": "Accept Bank Transfer (SEPA)",
+    "inputBankSepaBank": "SEPA Bankname",
+    "inputBankSepaRecipeint": "SEPA Recipient",
+    "inputBankSepaIban": "SEPA IBAN",
+    "inputBankSepaReference": "SEPA Reference",
+    "sectionOther": "Other",
+    "chbAutoApproveRegistration": "Auto Approve New Registrations",
+    "chbNotifyOnRegistration": "Notify On New Registration",
+    "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
+    "chbNotifyOnComment": "Notify On Comment"
+  },
+  "global/components/sponsor-editor": {
+    "inputName": "Sponsor Name",
+    "inputWebsite": "Website"
   }
 }

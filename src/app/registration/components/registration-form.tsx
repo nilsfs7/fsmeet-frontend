@@ -18,7 +18,7 @@ import { useTranslations } from 'next-intl';
 
 export const RegistrationForm = () => {
   const t = useTranslations('/registration');
-  const tf = useTranslations('functions/getLabelForFirstName');
+  const tf = useTranslations('global/functions/getLabelForFirstName');
 
   const router = useRouter();
 

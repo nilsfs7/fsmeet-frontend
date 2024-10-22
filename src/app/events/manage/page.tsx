@@ -10,8 +10,11 @@ import { getEvents } from '@/infrastructure/clients/event.client';
 import { auth } from '@/auth';
 import { TabsMenu } from './components/tabs-menu';
 import { TextButtonCreateEvent } from './components/text-button-create-event';
+import { getTranslations } from 'next-intl/server';
 
 export default async function MyEventsOverview() {
+  const t = await getTranslations('/events/manage');
+
   const session = await auth();
 
   let eventsOwning: Event[] = [];
@@ -27,7 +30,7 @@ export default async function MyEventsOverview() {
       <div className="h-[calc(100dvh)] flex flex-col">
         <Header />
 
-        <PageTitle title="Manage Events" />
+        <PageTitle title={t('pageTitle')} />
 
         <div className="mx-2 flex flex-col overflow-auto">
           <div className={'w-full overflow-auto'}>

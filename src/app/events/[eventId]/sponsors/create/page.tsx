@@ -12,9 +12,11 @@ import { Sponsor } from '@/types/sponsor';
 import { createSponsor, updateSponsorLogo } from '@/infrastructure/clients/sponsor.client';
 import SponsorEditor from '@/components/events/SponsorEditor';
 import NavigateBackButton from '@/components/NavigateBackButton';
+import { useTranslations } from 'next-intl';
 
 export default function CreateEventSponsor({ params }: { params: { eventId: string } }) {
-  const { data: session, status } = useSession();
+  const t = useTranslations('/events/eventid/sponsors/create');
+  const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -43,7 +45,7 @@ export default function CreateEventSponsor({ params }: { params: { eventId: stri
       <Toaster richColors />
 
       <div className="h-[calc(100dvh)] flex flex-col">
-        <PageTitle title="Create Sponsor" />
+        <PageTitle title={t('pageTitle')} />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <SponsorEditor
@@ -58,7 +60,7 @@ export default function CreateEventSponsor({ params }: { params: { eventId: stri
 
         <Navigation>
           <NavigateBackButton />
-          <TextButton text={'Create'} onClick={handleCreateClicked} />
+          <TextButton text={t('btnCreate')} onClick={handleCreateClicked} />
         </Navigation>
       </div>
     </>

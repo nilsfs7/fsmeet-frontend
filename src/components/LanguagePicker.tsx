@@ -15,6 +15,7 @@ const LanguagePicker = () => {
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
   const menuItems = ['GB', 'DE'];
+  // const menuItems = ['GB', 'FR', 'ES', 'IT', 'DE'];
 
   useEffect(() => {
     const locale = getCookie('locale');
@@ -58,7 +59,7 @@ const LanguagePicker = () => {
     <div className="relative">
       <div className="static flex h-14 w-14 p-1 items-center justify-center cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary">
         <button onClick={handleMenuClicked}>
-          <div className="h-9 w-9">
+          <div className="h-9 w-9 rounded-full border border-secondary-dark hover:border-primary">
             <ReactCountryFlag
               countryCode={locale}
               svg
@@ -99,7 +100,7 @@ const LanguagePicker = () => {
                   handleLanguageChanged(index);
                 }}
               >
-                <div className="h-9 w-9">
+                <div className="h-9 w-9 rounded-full border border-secondary-dark hover:border-primary">
                   <ReactCountryFlag
                     countryCode={menuItem}
                     svg

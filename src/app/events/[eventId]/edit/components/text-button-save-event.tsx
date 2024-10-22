@@ -1,29 +1,28 @@
 'use client';
 
 import TextButton from '@/components/common/TextButton';
-import { createEvent } from '@/infrastructure/clients/event.client';
+import { updateEvent } from '@/infrastructure/clients/event.client';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Event } from '@/types/event';
-import { routeEventSubs } from '@/domain/constants/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 
-export const TextButtonCreateEvent = () => {
-  const t = useTranslations('/events/create');
+export const TextButtonSaveEvent = () => {
+  const t = useTranslations('/events/edit');
 
   const { data: session } = useSession();
   const router = useRouter();
 
-  const handleCreateEventClicked = async () => {
+  const handleSaveClicked = async () => {
     const eventInfoObject = sessionStorage.getItem('eventInfo');
     if (eventInfoObject) {
       const event: Event = JSON.parse(eventInfoObject);
 
       try {
-        await createEvent(event, session);
-        router.push(`${routeEventSubs}/?tab=myevents`);
-        router.refresh();
+        await updateEvent(event, session);
+        router.replace(`${routeEvents}/${event.id}`);
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -35,7 +34,7 @@ export const TextButtonCreateEvent = () => {
     <>
       <Toaster richColors />
 
-      <TextButton text={t('btnCreate')} onClick={handleCreateEventClicked} />
+      <TextButton text={t('btnSave')} onClick={handleSaveClicked} />
     </>
   );
 };

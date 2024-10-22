@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import moment from 'moment';
@@ -19,6 +21,7 @@ import Separator from '../Seperator';
 import SectionHeader from '../common/section-header';
 import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
+import { useTranslations } from 'next-intl';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -27,6 +30,8 @@ interface IEventEditorProps {
 }
 
 const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) => {
+  const t = useTranslations('global/components/event-editor');
+
   const [name, setEventName] = useState(event?.name || '');
   const [alias, setEventAlias] = useState(event?.alias || '');
   const [dateFrom, setDateFrom] = useState<string>(event?.dateFrom ? event.dateFrom : moment().startOf('day').add(7, 'day').utc().format());
@@ -181,11 +186,11 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
-      <SectionHeader label={`General`} />
+      <SectionHeader label={t('sectionGeneral')} />
 
       <TextInput
         id={'name'}
-        label={'Event Name'}
+        label={t('inputName')}
         placeholder="German Freestyle Football Championship 2023"
         value={name}
         onChange={(e) => {
@@ -195,7 +200,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
       <TextInput
         id={'alias'}
-        label={'Event Alias'}
+        label={t('inputAlias')}
         placeholder="gffc2023"
         value={alias}
         onChange={(e) => {
@@ -204,7 +209,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       />
 
       <div className="m-2 grid grid-cols-2">
-        <div>{`Type`}</div>
+        <div>{t('cbType')}</div>
         <div className="flex w-full">
           {editorMode === EditorMode.CREATE && (
             <ComboBox
@@ -221,7 +226,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
       {event?.state && (
         <div className="m-2 grid grid-cols-2 items-center">
-          <div>{'Event State'}</div>
+          <div>{t('lblState')}</div>
           <Link href={`${routeEvents}/${event.id}?state=1`}>
             <label id={'eventState'} className="w-full hover:underline">
               {(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}
@@ -232,7 +237,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
       <TextInputLarge
         id={'description'}
-        label={'Event Description'}
+        label={t('inputDescription')}
         placeholder="German Championship"
         value={description}
         resizable={true}
@@ -242,7 +247,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       />
 
       <div className="m-2 grid grid-cols-2">
-        <div>{`Date From`}</div>
+        <div>{t('datePickerFrom')}</div>
         <DatePicker
           date={moment(dateFrom)}
           fromDate={moment(2020)}
@@ -256,7 +261,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       </div>
 
       <div className="m-2 grid grid-cols-2">
-        <div>{`Date To`}</div>
+        <div>{t('datePickerTo')}</div>
         <DatePicker
           date={moment(dateTo)}
           fromDate={moment(2020)}
@@ -270,7 +275,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       </div>
 
       <div className="m-2 grid grid-cols-2">
-        <div>{`Registration Open`}</div>
+        <div>{t('datePickerRegistrationFrom')}</div>
         <DatePicker
           date={moment(registrationOpen)}
           fromDate={moment(2020)}
@@ -284,7 +289,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       </div>
 
       <div className="m-2 grid grid-cols-2">
-        <div>{`Registration Deadline`}</div>
+        <div>{t('datePickerRegistrationTo')}</div>
         <DatePicker
           date={moment(registrationDeadline)}
           fromDate={moment(2020)}
@@ -299,7 +304,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
       <TextInput
         id={'livestreamUrl'}
-        label={'Livestream URL'}
+        label={t('inputLivestreamUrl')}
         placeholder="https://www.youtube.com/watch?v=gwiE0fXnByg"
         value={livestreamUrl}
         onChange={(e) => {
@@ -309,7 +314,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
       <TextInput
         id={'messangerInvitationUrl'}
-        label={'Group Chat Invitation Link (e.g. WhatsApp)'}
+        label={t('inputMessangerInvitationUrl')}
         placeholder="https://chat.whatsapp.com/FcFFSq0ybgT4tsk48ZQoxJ"
         value={messangerInvitationUrl}
         onChange={(e) => {
@@ -320,13 +325,13 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       <div className="m-2">
         <Separator />
       </div>
-      <SectionHeader label={`Location`} />
+      <SectionHeader label={t('sectionLocation')} />
 
       {eventType != EventType.COMPETITION_ONLINE && (
         <>
           <TextInput
             id={'venueHouseNo'}
-            label={'House No'}
+            label={t('inputHouseNumber')}
             placeholder="40/1"
             value={venueHouseNo}
             onChange={(e) => {
@@ -336,7 +341,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <TextInput
             id={'venueStreet'}
-            label={'Street'}
+            label={t('inputStreet')}
             placeholder="Hofwiesenstraße"
             value={venueStreet}
             onChange={(e) => {
@@ -346,7 +351,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <TextInput
             id={'venuePostCode'}
-            label={'Post Code'}
+            label={t('inputPostCode')}
             placeholder="74081"
             value={venuePostCode}
             onChange={(e) => {
@@ -356,7 +361,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <TextInput
             id={'venueCity'}
-            label={'City'}
+            label={t('inputCity')}
             placeholder="Heilbronn"
             value={venueCity}
             onChange={(e) => {
@@ -366,7 +371,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <TextInput
             id={'venueCountry'}
-            label={'Country'}
+            label={t('inputCountry')}
             placeholder="Germany"
             value={venueCountry}
             onChange={(e) => {
@@ -379,11 +384,11 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       <div className="m-2">
         <Separator />
       </div>
-      <SectionHeader label={`Payment`} />
+      <SectionHeader label={t('sectionPayment')} />
 
       <CurInput
         id={'participationFee'}
-        label={'Participation Fee'}
+        label={t('inputFee')}
         placeholder="25,00"
         value={participationFee}
         onValueChange={(value, name, values) => {
@@ -397,7 +402,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         <>
           <CheckBox
             id={'paymentMethodCashEnabled'}
-            label="Accept Cash"
+            label={t('chbCashAccept')}
             value={paymentMethodCashEnabled}
             onChange={() => {
               setPaymentMethodCashEnabled(!paymentMethodCashEnabled);
@@ -406,7 +411,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <CheckBox
             id={'paymentMethodPayPalEnabled'}
-            label="Accept PayPal"
+            label={t('chbPayPalAccept')}
             value={paymentMethodPayPalEnabled}
             onChange={() => {
               setPaymentMethodPayPalEnabled(!paymentMethodPayPalEnabled);
@@ -417,7 +422,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             <>
               <TextInput
                 id={'paymentMethodPayPal'}
-                label={'PayPal User Handle'}
+                label={t('inputPayPalUsername')}
                 placeholder="username"
                 value={paymentMethodPayPalHandle}
                 onChange={(e) => {
@@ -427,7 +432,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
               {paymentMethodPayPalHandle && (
                 <div className="m-2 grid h-[100%] grid-cols-2">
-                  <div>{`Verify PayPal Profile`}</div>
+                  <div>{t('lnkPayPalVerifyAccount')}</div>
 
                   <a
                     target="_blank"
@@ -442,7 +447,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <CheckBox
             id={'paymentMethodSepaEnabled'}
-            label="Accept Bank Transfer (SEPA)"
+            label={t('chbBankSepaAccept')}
             value={paymentMethodSepaEnabled}
             onChange={() => {
               setPaymentMethodSepaEnabled(!paymentMethodSepaEnabled);
@@ -453,7 +458,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             <>
               <TextInput
                 id={'paymentMethodSepaBank'}
-                label={'SEPA Bank'}
+                label={t('inputBankSepaBank')}
                 placeholder="DKB"
                 value={paymentMethodSepaBank}
                 onChange={(e) => {
@@ -463,7 +468,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
               <TextInput
                 id={'paymentMethodSepaRecipient'}
-                label={'SEPA Recipient'}
+                label={t('inputBankSepaRecipeint')}
                 placeholder="DFFB e.V."
                 value={paymentMethodSepaRecipient}
                 onChange={(e) => {
@@ -473,8 +478,8 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
               <TextInput
                 id={'paymentMethodSepaIban'}
-                label={'SEPA IBAN'}
-                placeholder="DE123"
+                label={t('inputBankSepaIban')}
+                placeholder="DE01 2345 0000 6789 8765 43"
                 value={paymentMethodSepaIban}
                 onChange={(e) => {
                   setPaymentMethodSepaIban(e.currentTarget.value);
@@ -483,7 +488,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
               <TextInput
                 id={'paymentMethodSepaReference'}
-                label={'SEPA Reference'}
+                label={t('inputBankSepaReference')}
                 placeholder="superball-2023"
                 value={paymentMethodSepaReference}
                 onChange={(e) => {
@@ -498,11 +503,11 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       <div className="m-2">
         <Separator />
       </div>
-      <SectionHeader label={`Other`} />
+      <SectionHeader label={t('sectionOther')} />
 
       <CheckBox
         id={'autoApproveRegistrations'}
-        label="Auto Approve Registrations"
+        label={t('chbAutoApproveRegistration')}
         value={autoApproveRegistrations}
         onChange={() => {
           setAutoApproveRegistrations(!autoApproveRegistrations);
@@ -510,7 +515,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       />
       <CheckBox
         id={'notifyOnRegistration'}
-        label="Notify On Registration"
+        label={t('chbNotifyOnRegistration')}
         value={notifyOnRegistration}
         onChange={() => {
           setNotifyOnRegistration(!notifyOnRegistration);
@@ -518,7 +523,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       />
       <CheckBox
         id={'allowComments'}
-        label="Allow Comments And Questions"
+        label={t('chbAllowCommentsAndQuestions')}
         value={allowComments}
         onChange={() => {
           setAllowComments(!allowComments);
@@ -527,7 +532,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       {allowComments && (
         <CheckBox
           id={'notifyOnComment'}
-          label="Notify On Comment"
+          label={t('chbNotifyOnComment')}
           value={notifyOnComment}
           onChange={() => {
             setNotifyOnComment(!notifyOnComment);

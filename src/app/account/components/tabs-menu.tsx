@@ -49,7 +49,7 @@ interface ITabsMenu {
 
 export const TabsMenu = ({ user }: ITabsMenu) => {
   const t = useTranslations('/account');
-  const tf = useTranslations('functions/getLabelForFirstName');
+  const tf = useTranslations('global/functions/getLabelForFirstName');
 
   const { data: session, status } = useSession();
 
@@ -267,8 +267,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     try {
       sessionStorage.setItem('userInfo', JSON.stringify(user));
     } catch (error: any) {
-      toast.error('error.message');
-      console.error('error.message');
+      toast.error(error.message);
+      console.error(error.message);
     }
   };
 

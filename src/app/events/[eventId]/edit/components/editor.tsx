@@ -3,9 +3,13 @@
 import { Event } from '@/types/event';
 import EventEditor from '@/components/events/EventEditor';
 import { EditorMode } from '@/domain/enums/editor-mode';
-import { toast } from 'sonner';
+import { toast, Toaster } from 'sonner';
 
-export const Editor = () => {
+interface IEditor {
+  event?: Event;
+}
+
+export const Editor = ({ event }: IEditor) => {
   const cacheEventInfo = async (event: Event) => {
     try {
       sessionStorage.setItem('eventInfo', JSON.stringify(event));
@@ -16,11 +20,16 @@ export const Editor = () => {
   };
 
   return (
-    <EventEditor
-      editorMode={EditorMode.CREATE}
-      onEventUpdate={(event: Event) => {
-        cacheEventInfo(event);
-      }}
-    />
+    <>
+      <Toaster richColors />
+
+      <EventEditor
+        editorMode={EditorMode.EDIT}
+        event={event}
+        onEventUpdate={(event: Event) => {
+          cacheEventInfo(event);
+        }}
+      />
+    </>
   );
 };

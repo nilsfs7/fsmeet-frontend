@@ -8,6 +8,7 @@ import Dialog from '@/components/Dialog';
 import { switchTab } from '@/functions/switch-tab';
 import EventCard from '@/components/events/EventCard';
 import { Event } from '@/types/event';
+import { useTranslations } from 'next-intl';
 
 interface ITabsMenu {
   eventsOwning: Event[];
@@ -15,6 +16,7 @@ interface ITabsMenu {
 }
 
 export const TabsMenu = ({ eventsOwning, eventsSubscribed }: ITabsMenu) => {
+  const t = useTranslations('/events/manage');
   const router = useRouter();
 
   const searchParams = useSearchParams();
@@ -42,7 +44,7 @@ export const TabsMenu = ({ eventsOwning, eventsSubscribed }: ITabsMenu) => {
               switchTab(router, 'registrations');
             }}
           >
-            Registrations
+            {t('tabRegistrationsTitle')}
           </TabsTrigger>
 
           <TabsTrigger
@@ -51,12 +53,12 @@ export const TabsMenu = ({ eventsOwning, eventsSubscribed }: ITabsMenu) => {
               switchTab(router, 'myevents');
             }}
           >
-            My Events
+            {t('tabEventsHostedTitle')}
           </TabsTrigger>
         </TabsList>
 
         <TabsContent value="registrations" className="overflow-y-auto">
-          {eventsSubscribed.length === 0 && <div className="flex justify-center">{`You have not signed up for any event, yet.`}</div>}
+          {eventsSubscribed.length === 0 && <div className="flex justify-center">{t('tabRegistrationsTextNoEvents')}</div>}
 
           {eventsSubscribed.length > 0 &&
             eventsSubscribed.map((item: any, i: number) => {
@@ -71,7 +73,7 @@ export const TabsMenu = ({ eventsOwning, eventsSubscribed }: ITabsMenu) => {
         </TabsContent>
 
         <TabsContent value="myevents" className="overflow-y-auto">
-          {eventsOwning.length === 0 && <div className="flex justify-center">{`You have not created any events, yet.`}</div>}
+          {eventsOwning.length === 0 && <div className="flex justify-center">{t('tabEventsHostedTextNoEvents')}</div>}
 
           {eventsOwning.length > 0 &&
             eventsOwning.map((item: any, i: number) => {

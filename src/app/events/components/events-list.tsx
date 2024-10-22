@@ -8,11 +8,14 @@ import { routeEvents } from '@/domain/constants/routes';
 import { getEvents } from '@/infrastructure/clients/event.client';
 import { Event } from '@/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
+import { useTranslations } from 'next-intl';
 
 const defaultDateFrom = moment(moment().subtract(1, 'y').year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
 
 export const EventsList = () => {
+  const t = useTranslations('/events');
+
   const [events, setEvents] = useState<Event[]>([]);
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
@@ -48,7 +51,7 @@ export const EventsList = () => {
       {/* Filters */}
       <div className="mt-2 flex justify-center gap-2">
         <div>
-          <div className="mx-2">{`From`}</div>
+          <div className="mx-2">{t('datePickerFrom')}</div>
           <DatePicker
             date={dateFrom}
             fromDate={moment().subtract(2, 'y')}
@@ -60,7 +63,7 @@ export const EventsList = () => {
         </div>
 
         <div>
-          <div className="mx-2">{`To`}</div>
+          <div className="mx-2">{t('datePickerTo')}</div>
           <DatePicker
             date={dateTo}
             fromDate={dateFrom}
@@ -85,7 +88,7 @@ export const EventsList = () => {
             );
           })}
 
-          {events.length === 0 && <div className="mt-2 text-center">{`No events for the specified date range.`}</div>}
+          {events.length === 0 && <div className="mt-2 text-center">{t('textNoEventsFound')}</div>}
         </div>
       </div>
     </>
