@@ -263,7 +263,7 @@
     "inputAlias": "Eventalias",
     "cbType": "Art",
     "lblType": "Art",
-    "lblState": "State",
+    "lblState": "Status",
     "inputDescription": "Eventbeschreibung",
     "datePickerFrom": "Startdatum",
     "datePickerTo": "Enddatum",

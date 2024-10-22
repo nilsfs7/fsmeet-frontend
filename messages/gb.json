@@ -262,7 +262,7 @@
     "inputName": "Event Name",
     "inputAlias": "Event Alias",
     "cbType": "Type",
-    "lblState": "Status",
+    "lblState": "State",
     "inputDescription": "Event Description",
     "datePickerFrom": "Date From",
     "datePickerTo": "Date To",
