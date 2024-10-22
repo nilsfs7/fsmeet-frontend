@@ -132,6 +132,14 @@
     "pageTitle": "Event erstellen",
     "btnCreate": "Erstellen"
   },
+  "/events/manage": {
+    "pageTitle": "Events verwalten",
+    "tabRegistrationsTitle": "Registrieungen",
+    "tabRegistrationsTextNoEvents": "Du hast dich noch für kein Event angemeldet.",
+    "tabEventsHostedTitle": "Meine Events",
+    "tabEventsHostedTextNoEvents": "Du hast noch kein Event erstellt.",
+    "btnCreate": "Erstelle Event"
+  },
   "/feedback": {
     "pageGeneralFeedback": "Feedback",
     "btnFeatures": "Feature anfragen",

@@ -132,6 +132,14 @@
     "pageTitle": "Create Event",
     "btnCreate": "Create"
   },
+  "/events/manage": {
+    "pageTitle": "Manage Events",
+    "tabRegistrationsTitle": "Registrations",
+    "tabRegistrationsTextNoEvents": "You have not signed up for any event, yet.",
+    "tabEventsHostedTitle": "My Events",
+    "tabEventsHostedTextNoEvents": "You have not created any events, yet.",
+    "btnCreate": "Create Event"
+  },
   "/feedback": {
     "pageGeneralFeedback": "General Feedback",
     "btnFeatures": "Request Feature",

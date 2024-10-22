@@ -5,10 +5,13 @@ import { routeEventSubs, routeEventsCreate } from '@/domain/constants/routes';
 import { getLicense } from '@/infrastructure/clients/license.client';
 import { License } from '@/types/license';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export const TextButtonCreateEvent = () => {
+  const t = useTranslations('/events/manage');
+
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -30,5 +33,5 @@ export const TextButtonCreateEvent = () => {
     }
   };
 
-  return <TextButton text="Create Event" onClick={handleCreateEventClicked} />;
+  return <TextButton text={t('btnCreate')} onClick={handleCreateEventClicked} />;
 };
