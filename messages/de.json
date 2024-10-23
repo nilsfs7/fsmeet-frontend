@@ -172,6 +172,10 @@
     "btnUnregister": "Absagen",
     "btnFeedback": "Feedback"
   },
+  "/events/eventid/not-found": {
+    "textNotFound": "Event nicht gefunden.",
+    "btnBackToEvents": "Zur Übersicht"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",
     "btnCreate": "Sponsor hinzufügen"
