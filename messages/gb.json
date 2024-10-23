@@ -172,6 +172,12 @@
     "btnUnregister": "Unregister",
     "btnFeedback": "Feedback"
   },
+  "/events/eventid/feedback": {
+    "pageTitle": "Event Feedback",
+    "inputMessage": "Message",
+    "inputMessagePlaceholder": "Any feedback is highly appreciated!",
+    "btnSubmit": "Submit"
+  },
   "/events/eventid/not-found": {
     "textNotFound": "Event not found.",
     "btnBackToEvents": "Back To Overview"

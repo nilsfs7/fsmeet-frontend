@@ -172,6 +172,12 @@
     "btnUnregister": "Absagen",
     "btnFeedback": "Feedback"
   },
+  "/events/eventid/feedback": {
+    "pageTitle": "Event Feedback",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Jegliches Feedback zum Event ist willkommen!",
+    "btnSubmit": "Senden"
+  },
   "/events/eventid/not-found": {
     "textNotFound": "Event nicht gefunden.",
     "btnBackToEvents": "Zur Übersicht"
