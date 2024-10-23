@@ -1,17 +1,22 @@
+'use client';
+
 import { Competition } from '@/types/competition';
-import CompetitionBadge from './CompetitionBadge';
+import CompetitionBadge from '../../../../components/events/CompetitionBadge';
 import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
+import { useTranslations } from 'next-intl';
 
-interface ICompetitionListListProps {
+interface ICompetitionSectionProps {
   competitions: Competition[];
   eventId: string;
 }
 
-const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) => {
+export const CompetitionSection = ({ competitions, eventId }: ICompetitionSectionProps) => {
+  const t = useTranslations('/events/eventid');
+
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
-      <div className="text-base font-bold">{`Competitions`}</div>
+      <div className="text-base font-bold">{t('tabCompetitionsSectionCompetitions')}</div>
       <div className="flex flex-wrap">
         {competitions.map((competition, i) => {
           let margin = 'my-1 mx-1';
@@ -30,5 +35,3 @@ const CompetitionList = ({ competitions, eventId }: ICompetitionListListProps) =
     </div>
   );
 };
-
-export default CompetitionList;

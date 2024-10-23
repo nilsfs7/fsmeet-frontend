@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { imgCompetition, imgMeeting } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
-import Map from '../Map';
+import Map from '../../../../components/Map';
 import Link from 'next/link';
 import { getShortDateString } from '@/functions/time';
-import Separator from '../Seperator';
-import TextButton from '../common/TextButton';
+import Separator from '../../../../components/Seperator';
+import TextButton from '../../../../components/common/TextButton';
 import { Event } from '@/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
 import { User } from '@/types/user';
 import { routeUsers } from '@/domain/constants/routes';
-import UserBadge from '../user/UserBadge';
+import UserBadge from '../../../../components/user/UserBadge';
+import { useTranslations } from 'next-intl';
 
 interface IEventProps {
   event: Event;
@@ -19,7 +20,8 @@ interface IEventProps {
   showMessangerInvitationUrl: boolean;
 }
 
-const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEventProps) => {
+export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEventProps) => {
+  const t = useTranslations('/events/eventid');
   const [showMap, setShowMap] = useState<boolean>(false);
 
   return (
@@ -47,16 +49,16 @@ const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEventProp
       <Separator />
 
       <div className={'grid grid-cols-3 justify-end object-right p-2'}>
-        <div className="col-span-1">Participation fee</div>
+        <div className="col-span-1">{t('tabOverviewParticipationFee')}</div>
         <div className="col-span-2">{event.participationFee > 0 ? `${event.participationFee.toString().replace('.', ',')}  €` : 'free'}</div>
 
-        <div className="col-span-1">Registration open</div>
+        <div className="col-span-1">{t('tabOverviewRegistrationFrom')}</div>
         {event.registrationOpen && <div className="col-span-2">{getShortDateString(moment(event.registrationOpen))}</div>}
 
-        <div className="col-span-1">Registration end</div>
+        <div className="col-span-1">{t('tabOverviewRegistrationTo')}</div>
         {event.registrationDeadline && <div className="col-span-2">{getShortDateString(moment(event.registrationDeadline))}</div>}
 
-        <div className="col-span-1 flex items-center">Event host</div>
+        <div className="col-span-1 flex items-center">{t('tabOverviewEventHost')}</div>
         {eventAdmin && <UserBadge user={eventAdmin} />}
       </div>
 
@@ -105,7 +107,7 @@ const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEventProp
         <>
           <Separator />
 
-          <div className="p-2">Venue address:</div>
+          <div className="p-2">{t('tabOverviewVenueAddress')}</div>
           <div className="select-text p-2">
             <p>{`${event.venueStreet} ${event.venueHouseNo}`}</p>
             <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
@@ -113,7 +115,7 @@ const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEventProp
           </div>
 
           <TextButton
-            text={showMap ? 'Hide Map' : 'Show Map'}
+            text={showMap ? t('tabOverviewBtnHideVenueMap') : t('tabOverviewBtnShowVenueMap')}
             onClick={() => {
               setShowMap(showMap ? false : true);
             }}
@@ -132,5 +134,3 @@ const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEventProp
     </div>
   );
 };
-
-export default EventInfo;

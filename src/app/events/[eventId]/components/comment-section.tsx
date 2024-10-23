@@ -1,8 +1,11 @@
+'use client';
+
 import { EventComment } from '@/types/event-comment';
-import UserComment from './EventComment';
+import UserComment from '../../../../components/events/comment/EventComment';
 import { EventSubComment } from '@/types/event-sub-comment';
 import { useEffect, useState } from 'react';
-import PostInput from './PostInput';
+import PostInput from '../../../../components/events/comment/PostInput';
+import { useTranslations } from 'next-intl';
 
 interface ICommentSectionProps {
   eventComments: EventComment[];
@@ -12,7 +15,9 @@ interface ICommentSectionProps {
   onPostReply: (commentId: string, message: string) => void;
 }
 
-const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostComment, onPostReply }: ICommentSectionProps) => {
+export const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostComment, onPostReply }: ICommentSectionProps) => {
+  const t = useTranslations('/events/eventid');
+
   const [newComment, setNewComment] = useState<string>();
   const [replyTo, setReplyTo] = useState<string>();
   const [replyMessage, setReplyMessage] = useState<string>();
@@ -55,7 +60,7 @@ const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostCo
 
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2'}>
-      <div className="text-base font-bold">Comments</div>
+      <div className="text-base font-bold">{t('tabOverviewSectionComments')}</div>
 
       {/* new comment */}
       {username && (
@@ -132,5 +137,3 @@ const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostCo
     </div>
   );
 };
-
-export default CommentSection;

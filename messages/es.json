@@ -1,6 +1,304 @@
 {
   "/": {
-    "pageTitle": "Tus eventos de estilo libre",
-    "slogan": "Plan | Compete | Connect"
+    "pageTitle": "Tus eventos de Freestyle",
+    "slogan": "Planificar | Competir | Conectar",
+    "btnShowAllEvents": "Todas las pantallas",
+    "carouselCurrentEvent": "Evento actual",
+    "carouselRecentEvent": "Último evento",
+    "carouselUpcomingEvent": "Próximo evento",
+    "navMap": "Mapa",
+    "navCommunity": "Comunidad",
+    "navAdminOverview": "Admin overview",
+    "navAbout": "Información"
+  },
+  "/about": {
+    "pageTitle": "Sobre FSMeet",
+    "aboutText1": "FSMeet es una herramienta gratuita para organizar eventos de fútbol freestyle. Crea encuentros o competiciones de forma rápida y sencilla.",
+    "aboutText2": "Este proyecto está impulsado por la comunidad. Si te gusta el freestyle tanto como a nosotros, no dudes en dejarnos tus comentarios o enviarnos tus ideas para que podamos mejorar nuestra plataforma. Puedes ponerte en contacto con nosotros a través del enlace ",
+    "aboutText3": "función de comentarios",
+    "aboutText4": " o enviarnos un DM en Instagram.",
+    "lnkImprint": "Impressum",
+    "lnkPrivacyPolicy": "Política de privacidad",
+    "build": "Versión"
+  },
+  "/account": {
+    "pageTitle": "Configuración del perfil",
+    "profilePictureAddPicture": "Subir foto",
+    "btnSave": "Guardar",
+    "dlgJobsTermsTitle": "Términos",
+    "dlgJobsTermsDate": "Actualizado: 02 agosto 2024",
+    "dlgJobsTermsDescriptionTitle": "Job Feature",
+    "dlgJobsTermsDescriptionText1": "Nos hemos dado cuenta de que se buscan freestylers para eventos a través de FSMeet. Por eso queremos ayudarte a comercializarte como freestyler.",
+    "dlgJobsTermsDescriptionText2": "En un futuro próximo, lanzaremos una nueva función que te pondrá en contacto con los clientes de forma directa y eficaz. Forma parte de un grupo público de freestylers para ofrecer espectáculos, talleres y mucho más. Esto te permitirá compartir tu información directamente con clientes potenciales y llamar la atención.",
+    "dlgJobsTermsDescriptionText3": "Como todas las funciones de FSMeet, este servicio es gratuito.",
+    "dlgJobsTermsDataSharingTitle": "Uso de datos",
+    "dlgJobsTermsDataSharingText1": "Tu perfil formará parte de un grupo público de freestylers entre los que los clientes podrán elegir directamente. Sólo se requiere la información esencial para aparecer en la lista. Para permitir una colocación sin problemas, la información privada como el número de teléfono y la dirección de correo electrónico se comparten automáticamente cuando se realiza una consulta.",
+    "dlgJobsTermsDataSharingText2": "La oferta de empleo también puede utilizarse en dominios externos propiedad de FSMeet.",
+    "dlgJobsTermsDataSharingText3": "Si no quieres aparecer en la lista, simplemente desmarca las condiciones. Esto también evitará que se comparta tu información privada. Tu información privada nunca se compartirá con terceros sin tu consentimiento.",
+    "dlgJobsTermsDataSharingDetailsTitle": "¿Qué datos se comparten?",
+    "dlgJobsTermsDataSharingDetailsPublic": "Públicos",
+    "dlgJobsTermsDataSharingDetailsName": "Nombre y apellidos",
+    "dlgJobsTermsDataSharingDetailsGender": "Sexo",
+    "dlgJobsTermsDataSharingDetailsCountry": "Nacionalidad",
+    "dlgJobsTermsDataSharingDetailsAge": "Edad",
+    "dlgJobsTermsDataSharingDetailsCity": "Lugar de residencia",
+    "dlgJobsTermsDataSharingDetailsSocials": "Redes (Instagram, TikTok, YouTube)",
+    "dlgJobsTermsDataSharingDetailsWebsite": "Sitio web",
+    "dlgJobsTermsDataSharingDetailsFreestyleSince": "Freestyle desde",
+    "dlgJobsTermsDataSharingDetailsOfferings": "Tu oferta (actuaciones, walk acts, talleres)",
+    "dlgJobsTermsDataSharingDetailsShowExperience": "Experiencia en shows",
+    "dlgJobsTermsDataSharingDetailsOnRequest": "A petición",
+    "dlgJobsTermsDataSharingDetailsPhone": "Número de teléfono",
+    "dlgJobsTermsDataSharingDetailsEmail": "Dirección de correo electrónico",
+    "dlgJobsTermsDataSharingDetailsShirtSize": "Talla de camiseta",
+    "dlgAccountVerificationTitle": "Verificación de cuenta",
+    "dlgAccountVerificationStep1": "Paso 1",
+    "dlgAccountVerificationStep1Text1": "Rellene tu nombre, sexo y nacionalidad en la información general. Los demás campos son opcionales.",
+    "dlgAccountVerificationStep1Text2": "Nota: Si cambias alguno de estos datos después de haber sido verificado, perderás tu estatus y tendrás que volver a pasar por el proceso.",
+    "dlgAccountVerificationStep2": "Paso 2",
+    "dlgAccountVerificationStep2Text1": "Tener un perfil de Instagram significativo. Debe tener algunos clips de Freestyle o fotos tuyas que te hagan reconocible.",
+    "dlgAccountVerificationStep2Text2": "Envíanos un DM en Instagram y haznos saber tu nombre de usuario FSMeet. También puedes copiar el siguiente mensaje.",
+    "dlgAccountVerificationStep3": "Paso 3",
+    "dlgAccountVerificationStep3Text1": "Una vez que hayas completado los pasos 1 y 2, puedes solicitar la verificación. Utiliza el siguiente botón para hacerlo.",
+    "dlgAccountVerificationStep3BtnRequestNow": "Solicitar ahora",
+    "dlgAccountVerificationStep4": "Paso 4",
+    "dlgAccountVerificationStep4Text1": "Espere la verificación. Normalmente sólo tarda unas horas. Le notificaremos por correo electrónico en cuanto se haya verificado.",
+    "dlgAccountVerificationStep4Text2": "Cuando la verificación se haya completado, aparecerá una marca azul junto a tu nombre en tu perfil público.",
+    "dlgAccountLogoutTitle": "Cerrar sesión",
+    "dlgAccountLogoutText": "¿Cerrar sesión ahora??",
+    "dlgAccountDeleteAccountTitle": "Eliminar cuenta",
+    "dlgAccountDeleteAccountText": "¿De verdad quieres dejarnos?",
+    "tabGeneralTitle": "Información general",
+    "tabGeneralSectionGeneral": "Genera",
+    "tabGeneralLastName": "Apellidos",
+    "tabGeneralArtistName": "«Nombre del artista",
+    "tabGeneralGender": "Sexo",
+    "tabGeneralCountry": "Nacionalidad",
+    "tabGeneralBirthday": "Cumpleaños",
+    "tabGeneralFreestyleSince": "Freestyle desde",
+    "tabGeneralShirtSize": "Talla de camiseta",
+    "tabGeneralSectionSocials": "Redes",
+    "tabGeneralInstagramHandle": "Nombre de usuario de Instagram",
+    "tabGeneralTikTokHandle": "Nombre de usuario de TikTok",
+    "tabGeneralYouTubeHandle": "Nombre de usuario de YouTube",
+    "tabGeneralWebsite": "Sitio web",
+    "tabMaplTitle": "Ubicacio de freestyler",
+    "tabMaplSectionLocation": "Lugar de residencia",
+    "tabMaplCity": "Ciudad",
+    "tabMapPublish": "Publicar pin en el mapa",
+    "tabMapShowOnMap": "Zur Karte wechseln",
+    "tabJobsTitle": "Trabajos (pendientes)",
+    "tabJobsSectionTerms": "Condiciones",
+    "tabJobsTerms": "Ver acuerdo",
+    "tabJobBtnReadTerms": "Leer",
+    "tabJobAcceptTerms": "Aceptar acuerdo",
+    "tabJobSectionOffer": "Su oferta",
+    "tabJobOfferingShow": "Actuaciones",
+    "tabJobOfferingWalkact": "Walk Acts",
+    "tabJobOfferingWorkshop": "Talleres",
+    "tabJobSectionContact": "Contacto",
+    "tabJobPhoneCountryCode": "Código de país",
+    "tabJobPhoneNumber": "Número de teléfono",
+    "tabJobSectionOther": "Otros",
+    "tabJobExperience": "Experiencia (número de apariciones)",
+    "tabAccountTitle": "Cuenta",
+    "tabAccountSectionVerification": "Verificación de la cuenta",
+    "tabAccounVerificationStatus": "Estado de verificación",
+    "tabAccounBtnVerify": "Verificar ahora",
+    "tabAccountSectionAccountManagement": "Gestión de la cuenta",
+    "tabAccounBtnLogout": "Cerrar sesión",
+    "tabAccounBtnDeleteAccount": "Eliminar cuenta"
+  },
+  "/account/deleted": {
+    "textGoodbye": "¡Cuídese!",
+    "textConfirmation": "Su cuenta ha sido eliminada con éxito",
+    "btnBackHome": "A la página de inicio"
+  },
+  "/account/image": {
+    "pageTitle": "Configuración del perfil",
+    "btnUpload": "Cargar",
+    "btnDelete": "Eliminar"
+  },
+  "/error": {
+    "textError": "Ein Fehler ist aufgetreten.",
+    "btnBackHome": "Zur Homepage"
+  },
+  "/events": {
+    "datePickerFrom": "Von",
+    "datePickerTo": "Bis",
+    "textNoEventsFound": "Keine Events für den angegebenen Zeitraum gefunden."
+  },
+  "/events/edit": {
+    "pageTitle": "Event bearbeiten",
+    "dlgEventDeletionTitle": "Event löschen",
+    "dlgEventDeletionText": "Möchtest du das Event wirklich löschen?",
+    "btnSave": "Speichern"
+  },
+  "/events/eventid": {
+    "pageTitle": "xx"
+  },
+  "/events/eventid/sponsors": {
+    "pageTitle": "Sponsoren verwalten",
+    "btnCreate": "Sponsor hinzufügen"
+  },
+  "/events/eventid/sponsors/create": {
+    "pageTitle": "Sponsor erstellen",
+    "btnCreate": "Erstellen"
+  },
+  "/events/create": {
+    "pageTitle": "Event erstellen",
+    "btnCreate": "Erstellen"
+  },
+  "/events/manage": {
+    "pageTitle": "Events verwalten",
+    "tabRegistrationsTitle": "Registrieungen",
+    "tabRegistrationsTextNoEvents": "Du hast dich noch für kein Event angemeldet.",
+    "tabEventsHostedTitle": "Meine Events",
+    "tabEventsHostedTextNoEvents": "Du hast noch kein Event erstellt.",
+    "btnCreate": "Erstelle Event"
+  },
+  "/feedback": {
+    "pageGeneralFeedback": "Feedback",
+    "btnFeatures": "Feature anfragen",
+    "btnBugs": "Fehler melden"
+  },
+  "/feedback/bugs": {
+    "pageTitle": "Fehler Melden",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Beschreibe einen Fehler, den du entdeckt hast.",
+    "btnSubmit": "Senden"
+  },
+  "/feedback/features": {
+    "pageTitle": "Feature Anfrage",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Hast du neue Ideen oder Verbesserungen für uns?",
+    "btnSubmit": "Senden"
+  },
+  "/feedback/general": {
+    "pageTitle": "Sende Feedback",
+    "inputMessage": "Nachricht",
+    "inputMessagePlaceholder": "Wir freuen uns über jegliches Feedback!",
+    "btnSubmit": "Senden"
+  },
+  "/feedback/thankyou": {
+    "thankYouText1": "Vielen Dank!",
+    "thankYouText2": "Dein Feedback ist sehr wichtig für uns!",
+    "btnBackHome": "Zur Homepage"
+  },
+  "/loading": {
+    "textLoading": "Lädt..."
+  },
+  "/login": {
+    "inputUsername": "Nutzername / E-Mail",
+    "inputPassword": "Passwort",
+    "btnLogin": "Anmelden",
+    "lnkResetPassword": "Password zurücksetzen",
+    "lnkNewAccount": "Noch keinen Account?"
+  },
+  "/map": {
+    "pageTitle": "Freestyler Karte",
+    "btnAddPin": "Trag dich ein",
+    "inputSearchPlaceholder": "Suche Name...",
+    "drpDwnGender": "Geschlecht",
+    "infoWindowGoToProfile": "Klicke fürs Profil"
+  },
+  "/password/forgot": {
+    "inputUsername": "Nutzername / E-Mail",
+    "btnResetPassword": "Passwort zurücksetzen"
+  },
+  "/password/pending": {
+    "thankYouText1": "Prüfe dein Mailpostfach.",
+    "thankYouText2": "Wir haben dir einen Link geschickt.",
+    "btnBackHome": "Zur Homepage"
+  },
+  "/password/reset": {
+    "inputPassword": "Neues Passwort",
+    "btnSave": "Speichern"
+  },
+  "/registration": {
+    "cbUserType": "Anmelden als",
+    "inputUsername": "Nutzername",
+    "inputEmail": "E-Mail",
+    "inputPassword": "Passwort",
+    "btnSignUp": "Registrieren"
+  },
+  "/registration/confirm": {
+    "registrationSuccess": "Registrierung erfolgreich",
+    "registrationFailure": "Etwas ist schief gelaufen",
+    "btnProceed": "Fortfahren"
+  },
+  "/registration/pending": {
+    "registrationPendingText1": "Ein Bestätigungslink wurde an folgende Adresse gesendet:",
+    "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
+    "btnBackHome": "Back home"
+  },
+  "/users": {
+    "pageTitle": "Freestyle Szene",
+    "inputSearchPlaceholder": "Suche Name...",
+    "cbColumns": "Spalten",
+    "tblColumnUsername": "Nutzer",
+    "tblColumnName": "Name",
+    "tblColumnCountry": "Land",
+    "tblColumnType": "Typ",
+    "tblColumnLocation": "Wohnort",
+    "tblColumnSocials": "Netzwerke",
+    "navCurrentPage1": "Seite",
+    "navCurrentPage2": "von",
+    "navRowsPerPage": "Zeilen pro Seite"
+  },
+  "/users/username": {
+    "accordionItemSocials": "Netzwerke",
+    "accordionItemBattleStatistics": "Battle Statistiken",
+    "accordionItemBattleStatisticsAmountBattles": "Battles",
+    "accordionItemBattleStatisticsAmountWins": "Siege",
+    "accordionItemBattleStatisticsWinLossRatio": "Siegverhältnis",
+    "accordionItemCompetitionHistory": "Wettkampf Historie",
+    "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
+  },
+  "global/functions/getLabelForFirstName": {
+    "firstName": "Nombre",
+    "associationName": "Nombre del club",
+    "brandName": "Nombre de marca"
+  },
+  "global/components/event-editor": {
+    "sectionGeneral": "Allgemeines",
+    "inputName": "Eventname",
+    "inputAlias": "Eventalias",
+    "cbType": "Art",
+    "lblType": "Art",
+    "lblState": "Status",
+    "inputDescription": "Eventbeschreibung",
+    "datePickerFrom": "Startdatum",
+    "datePickerTo": "Enddatum",
+    "datePickerRegistrationFrom": "Öffnung Registrierung",
+    "datePickerRegistrationTo": "Deadline Registrierung",
+    "inputLivestreamUrl": "Livestream URL",
+    "inputMessangerInvitationUrl": "Gruppen Chat Einladungslink (z.B. WhatsApp)",
+    "sectionLocation": "Austragungsort",
+    "inputHouseNumber": "Hausnummer",
+    "inputStreet": "Straße",
+    "inputPostCode": "Postleitzahl",
+    "inputCity": "Stadt",
+    "inputCountry": "Land",
+    "sectionPayment": "Bezahlung",
+    "inputFee": "Teilnahmegebühr",
+    "chbCashAccept": "Bargeld akzeptieren",
+    "chbPayPalAccept": "PayPal akzeptieren",
+    "inputPayPalUsername": "PayPal Nutzername",
+    "lnkPayPalVerifyAccount": "PayPal Konto verifizieren",
+    "chbBankSepaAccept": "Banküberweisung (SEPA) akzeptieren",
+    "inputBankSepaBank": "Bankname (SEPA)",
+    "inputBankSepaRecipeint": "Empfänger (SEPA)",
+    "inputBankSepaIban": "IBAN (SEPA)",
+    "inputBankSepaReference": "Verwendungszweck (SEPA)",
+    "sectionOther": "Sonstiges",
+    "chbAutoApproveRegistration": "Neue Registrierungen automatisch bestätigen",
+    "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",
+    "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
+    "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
+  },
+  "global/components/sponsor-editor": {
+    "inputName": "Sponsor Name",
+    "inputWebsite": "Website"
   }
 }
