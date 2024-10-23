@@ -1,23 +1,25 @@
+'use client';
+
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { routeEvents, routeFeedbackThankyou } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
-import { GetServerSidePropsContext } from 'next';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
-import { auth } from '@/auth';
 import { createEventFeedback } from '@/infrastructure/clients/event.client';
+import { useTranslations } from 'next-intl';
+import { useSession } from 'next-auth/react';
 
-const GeneralFeedback = (props: any) => {
-  const session = props.session;
+export default function EventFeedback({ params }: { params: { eventId: string } }) {
+  const t = useTranslations('/events/eventid/feedback');
 
+  const { data: session } = useSession();
   const router = useRouter();
-  const { eventId } = router.query;
 
   const [message, setMessage] = useState('');
 
@@ -26,14 +28,12 @@ const GeneralFeedback = (props: any) => {
   };
 
   const handleSubmitClicked = async () => {
-    if (eventId) {
-      try {
-        await createEventFeedback(eventId.toString(), message, session);
-        router.push(routeFeedbackThankyou);
-      } catch (error: any) {
-        toast.error(error.message);
-        console.error(error.message);
-      }
+    try {
+      await createEventFeedback(params.eventId, message, session);
+      router.push(routeFeedbackThankyou);
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
     }
   };
 
@@ -42,14 +42,14 @@ const GeneralFeedback = (props: any) => {
       <Toaster richColors />
 
       <div className={'absolute inset-0 flex flex-col'}>
-        <PageTitle title="Event Feedback" />
+        <PageTitle title={t('pageTitle')} />
 
         <div className="mx-2 flex flex-col overflow-y-auto">
           <div className="h-48 w-full rounded-lg border border-primary bg-secondary-light">
             <TextInputLarge
               id={'message'}
-              label={'Message'}
-              placeholder="Any feedback is highly appreciated!"
+              label={t('inputMessage')}
+              placeholder={t('inputMessagePlaceholder')}
               onChange={(e) => {
                 handleInputChangeMessage(e);
               }}
@@ -58,25 +58,13 @@ const GeneralFeedback = (props: any) => {
         </div>
 
         <Navigation>
-          <Link href={`${routeEvents}/${eventId}`}>
+          <Link href={`${routeEvents}/${params.eventId}`}>
             <ActionButton action={Action.BACK} />
           </Link>
 
-          <TextButton text="Submit" onClick={handleSubmitClicked} />
+          <TextButton text={t('btnSubmit')} onClick={handleSubmitClicked} />
         </Navigation>
       </div>
     </>
   );
-};
-
-export default GeneralFeedback;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
+}
