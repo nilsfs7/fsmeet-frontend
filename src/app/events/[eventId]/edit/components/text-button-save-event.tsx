@@ -23,6 +23,7 @@ export const TextButtonSaveEvent = () => {
       try {
         await updateEvent(event, session);
         router.replace(`${routeEvents}/${event.id}`);
+        router.refresh();
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);

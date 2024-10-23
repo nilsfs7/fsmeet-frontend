@@ -1,14 +1,19 @@
+'use client';
+
 import { Sponsor } from '@/types/sponsor';
-import SponsorBadge from './SponsorBadge';
+import SponsorBadge from '../../../../components/events/SponsorBadge';
+import { useTranslations } from 'next-intl';
 
 interface ISponsorSectionProps {
   eventSponsors: Sponsor[];
 }
 
-const SponsorSection = ({ eventSponsors }: ISponsorSectionProps) => {
+export const SponsorSection = ({ eventSponsors }: ISponsorSectionProps) => {
+  const t = useTranslations('/events/eventid');
+
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2'}>
-      <div className="text-base font-bold">{`Sponsors`}</div>
+      <div className="text-base font-bold">{t('tabOverviewSectionSponsors')}</div>
 
       <div className="flex flex-wrap">
         {eventSponsors.map((sponsor, i) => {
@@ -26,5 +31,3 @@ const SponsorSection = ({ eventSponsors }: ISponsorSectionProps) => {
     </div>
   );
 };
-
-export default SponsorSection;

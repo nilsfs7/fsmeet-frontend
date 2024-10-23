@@ -1,0 +1,31 @@
+'use client';
+
+import TextButton from '@/components/common/TextButton';
+import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import { isRegistered } from './tabs-menu';
+import { Event } from '@/types/event';
+import moment from 'moment';
+import { routeEvents } from '@/domain/constants/routes';
+import Link from 'next/link';
+
+interface ITextButtonFeedback {
+  event: Event;
+}
+
+export const TextButtonFeedback = ({ event }: ITextButtonFeedback) => {
+  const t = useTranslations('/events/eventid');
+
+  const { data: session } = useSession();
+
+  return (
+    isRegistered(event, session) &&
+    moment(event.dateTo).unix() < moment().unix() && (
+      <div className="ml-1">
+        <Link href={`${routeEvents}/${event.id}/feedback`}>
+          <TextButton text={t('btnFeedback')} />
+        </Link>
+      </div>
+    )
+  );
+};

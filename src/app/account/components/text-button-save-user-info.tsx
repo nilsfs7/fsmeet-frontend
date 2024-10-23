@@ -10,7 +10,7 @@ import { Toaster, toast } from 'sonner';
 export const TextButtonSaveUserInfo = () => {
   const t = useTranslations('/account');
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const handleSaveUserInfoClicked = async () => {
     const userInfoObject = sessionStorage.getItem('userInfo');
