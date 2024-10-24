@@ -1,5 +1,4 @@
 import { auth } from '@/auth';
-import { Header } from '@/components/Header';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';

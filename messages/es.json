@@ -172,6 +172,14 @@
     "btnUnregister": "Absagen",
     "btnFeedback": "Feedback"
   },
+  "/events/eventid/comps": {
+    "pageTitle": "Wettbewerbe verwalten",
+    "btnEdit": "Bearbeiten",
+    "btnPool": "Pool",
+    "btnGameMode": "Turniermodus",
+    "btnSeedingAndResults": "Zuweisung & Ergebnisse",
+    "btnAddNew": "Neuen hinzufügen"
+  },
   "/events/eventid/feedback": {
     "pageTitle": "Event Feedback",
     "inputMessage": "Nachricht",

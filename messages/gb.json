@@ -172,6 +172,14 @@
     "btnUnregister": "Unregister",
     "btnFeedback": "Feedback"
   },
+  "/events/eventid/comps": {
+    "pageTitle": "Manage Competitions",
+    "btnEdit": "Edit",
+    "btnPool": "Pool",
+    "btnGameMode": "Game Mode",
+    "btnSeedingAndResults": "Seeding & Results",
+    "btnAddNew": "Add new"
+  },
   "/events/eventid/feedback": {
     "pageTitle": "Event Feedback",
     "inputMessage": "Message",
