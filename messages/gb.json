@@ -180,6 +180,13 @@
     "btnSeedingAndResults": "Seeding & Results",
     "btnAddNew": "Add new"
   },
+  "/events/eventid/comps/compid/edit/pool": {
+    "pageTitle": "Manage Player Pool",
+    "textNoRegistrations": "There are no registrations for your event, yet.",
+    "textAmountOfRegistrations": "Number of players added to pool",
+    "btnAssigned": "assigned",
+    "btnUnassigned": "free"
+  },
   "/events/eventid/feedback": {
     "pageTitle": "Event Feedback",
     "inputMessage": "Message",
