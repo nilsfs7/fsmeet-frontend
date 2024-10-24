@@ -182,6 +182,14 @@
     "textNotFound": "Event not found.",
     "btnBackToEvents": "Back To Overview"
   },
+  "/events/eventid/participants": {
+    "pageTitle": "Manage Participants",
+    "textNoRegistrations": "No registrations, yet.",
+    "dlgDenyParticipantTitle": "Deny Participant",
+    "dlgDenyParticipantText": "Do you really want to deny this participant?",
+    "dlgRemoveParticipantTitle": "Remove Participant",
+    "dlgRemoveParticipantText": "Do you want to remove this participant?"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Manage Sponsors",
     "btnCreate": "Create"
