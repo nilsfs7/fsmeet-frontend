@@ -1,46 +1,24 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
-import { Event } from '@/types/event';
 import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
-import { routeEventNotFound, routeEvents, routeLogin } from '@/domain/constants/routes';
-import { GetServerSidePropsContext } from 'next';
-import { validateSession } from '@/functions/validate-session';
-import LoadingSpinner from '@/components/animation/loading-spinner';
+import { routeEvents } from '@/domain/constants/routes';
 import PageTitle from '@/components/PageTitle';
-import { auth } from '@/auth';
 import { getEvent } from '@/infrastructure/clients/event.client';
+import { getTranslations } from 'next-intl/server';
+import { auth } from '@/auth';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
-const ManageCompetitions = (props: any) => {
-  const session = props.session;
+export default async function ManageCompetitions({ params }: { params: { eventId: string } }) {
+  const t = await getTranslations('/events/eventid/comps');
+  const session = await auth();
 
-  const router = useRouter();
-  const { eventId } = router.query;
-
-  const [event, setEvent] = useState<Event>();
-
-  useEffect(() => {
-    if (eventId) {
-      getEvent(eventId?.toString(), session)
-        .then((event: Event) => {
-          setEvent(event);
-        })
-        .catch(() => {
-          router.push(routeEventNotFound);
-        });
-    }
-  }, [event == undefined]);
-
-  if (!event?.competitions) {
-    return <LoadingSpinner text="Loading..." />; // todo
-  }
+  const event = await getEvent(params.eventId, session);
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
-      <PageTitle title="Manage Competitions" />
+      <PageTitle title={t('pageTitle')} />
 
       <div className="mx-2 overflow-y-auto">
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
@@ -53,10 +31,10 @@ const ManageCompetitions = (props: any) => {
                       <div className="flex w-1/2 justify-end">{comp.name}</div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${eventId}/comps/${comp.id}/edit`}>
+                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit`}>
                             <ActionButton action={Action.EDIT} />
                           </Link>
-                          <div>Edit</div>
+                          <div>{t('btnEdit')}</div>
                         </div>
                       </div>
                     </div>
@@ -65,10 +43,10 @@ const ManageCompetitions = (props: any) => {
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${eventId}/comps/${comp.id}/edit/pool`}>
+                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/pool`}>
                             <ActionButton action={Action.MANAGE_USERS} />
                           </Link>
-                          <div>Pool</div>
+                          <div>{t('btnPool')}</div>
                         </div>
                       </div>
                     </div>
@@ -77,10 +55,10 @@ const ManageCompetitions = (props: any) => {
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${eventId}/comps/${comp.id}/edit/mode`}>
+                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/mode`}>
                             <ActionButton action={Action.MANAGE_COMPETITIONS} />
                           </Link>
-                          <div>Game Mode</div>
+                          <div>{t('btnGameMode')}</div>
                         </div>
                       </div>
                     </div>
@@ -89,10 +67,10 @@ const ManageCompetitions = (props: any) => {
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${eventId}/comps/${comp.id}/edit/seeding`}>
+                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/seeding`}>
                             <ActionButton action={Action.MANAGE_USERS} />
                           </Link>
-                          <div>Seeding & Results</div>
+                          <div>{t('btnSeedingAndResults')}</div>
                         </div>
                       </div>
                     </div>
@@ -105,9 +83,9 @@ const ManageCompetitions = (props: any) => {
               })}
 
               <div className="m-1 flex items-center gap-2">
-                <div className="flex w-1/2 justify-end">Add new</div>
+                <div className="flex w-1/2 justify-end">{t('btnAddNew')}</div>
                 <div className="flex w-1/2">
-                  <Link href={`${routeEvents}/${eventId}/comps/create`}>
+                  <Link href={`${routeEvents}/${params.eventId}/comps/create`}>
                     <ActionButton action={Action.ADD} />
                   </Link>
                 </div>
@@ -118,29 +96,11 @@ const ManageCompetitions = (props: any) => {
       </div>
 
       <Navigation>
-        <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${eventId}`)} />
+        {/*   <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${params.eventId}`)} /> */}
+        <Link href={`${routeEvents}/${params.eventId}`}>
+          <ActionButton action={Action.BACK} />
+        </Link>
       </Navigation>
     </div>
   );
-};
-
-export default ManageCompetitions;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  if (!validateSession(session)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: routeLogin,
-      },
-    };
-  }
-
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
+}
