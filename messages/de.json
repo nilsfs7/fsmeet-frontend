@@ -182,6 +182,14 @@
     "textNotFound": "Event nicht gefunden.",
     "btnBackToEvents": "Zur Übersicht"
   },
+  "/events/eventid/participants": {
+    "pageTitle": "Teilnehmer verwalten",
+    "textNoRegistrations": "Noch keine Registrierungen.",
+    "dlgDenyParticipantTitle": "Teilnehmer ablehnen",
+    "dlgDenyParticipantText": "Möchtest du diesen Teilnehmer wirklich entfernen?",
+    "dlgRemoveParticipantTitle": "Teilnehmer entfernen",
+    "dlgRemoveParticipantText": "Möchtest du diesen Teilnehmer entfernen?"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",
     "btnCreate": "Sponsor hinzufügen"
