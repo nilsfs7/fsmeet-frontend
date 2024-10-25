@@ -206,6 +206,10 @@
     "btnAssigned": "zugewiesen",
     "btnUnassigned": "frei"
   },
+  "/events/eventid/comps/create": {
+    "pageTitle": "Wettbewerbe erstellen",
+    "btnCreate": "Erstellen"
+  },
   "/events/eventid/feedback": {
     "pageTitle": "Event Feedback",
     "inputMessage": "Nachricht",
@@ -346,6 +350,18 @@
     "firstName": "Nombre",
     "associationName": "Nombre del club",
     "brandName": "Nombre de marca"
+  },
+  "global/components/competition-editor": {
+    "inputName": "Wettbewerb Name",
+    "inputNamePlaceHolder": "Battles Männer",
+    "cbType": "Art",
+    "cbGender": "Geschlecht",
+    "cbMaxAge": "Max. Alter",
+    "inputDescription": "Beschreibung",
+    "inputDescriptionPlaceHolder": "Gruppenphase (Circles) und KO (Top 16).",
+    "inputRules": "Regeln",
+    "inputRulesPlaceHolder": "3 Runden, 30 Sekunden, 1 Ball.",
+    "cbJudges": "Richter"
   },
   "global/components/event-editor": {
     "sectionGeneral": "Allgemeines",

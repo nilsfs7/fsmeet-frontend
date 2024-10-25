@@ -206,6 +206,10 @@
     "btnAssigned": "assigned",
     "btnUnassigned": "free"
   },
+  "/events/eventid/comps/create": {
+    "pageTitle": "Create Competition",
+    "btnCreate": "Create"
+  },
   "/events/eventid/feedback": {
     "pageTitle": "Event Feedback",
     "inputMessage": "Message",
@@ -346,6 +350,18 @@
     "firstName": "First name",
     "associationName": "Association name",
     "brandName": "Brand name"
+  },
+  "global/components/competition-editor": {
+    "inputName": "Competition Name",
+    "inputNamePlaceHolder": "Male Battles",
+    "cbType": "Type",
+    "cbGender": "Gender",
+    "cbMaxAge": "Max Age",
+    "inputDescription": "Description",
+    "inputDescriptionPlaceHolder": "Group stage (circles) and KO (Top 16).",
+    "inputRules": "Rules",
+    "inputRulesPlaceHolder": "3 rounds, 30 seconds, 1 ball.",
+    "cbJudges": "Judges"
   },
   "global/components/event-editor": {
     "sectionGeneral": "General",

@@ -1,32 +1,33 @@
+'use client';
+
 import TextButton from '@/components/common/TextButton';
-import { GetServerSidePropsContext } from 'next';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { routeEvents, routeLogin } from '@/domain/constants/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { Competition } from '@/types/competition';
-import { validateSession } from '@/functions/validate-session';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
-import { auth } from '@/auth';
 import { createCompetition } from '@/infrastructure/clients/competition.client';
 import NavigateBackButton from '@/components/NavigateBackButton';
+import { useTranslations } from 'next-intl';
+import { useSession } from 'next-auth/react';
 
-const CompetitionCreation = (props: any) => {
-  const session = props.session;
+export default function CompetitionCreation({ params }: { params: { eventId: string } }) {
+  const t = useTranslations('/events/eventid/comps/create');
 
+  const { data: session } = useSession();
   const router = useRouter();
-  const { eventId } = router.query;
 
   const [comp, setComp] = useState<Competition>();
 
   const handleCreateClicked = async () => {
-    if (eventId && comp) {
+    if (comp) {
       try {
-        await createCompetition(eventId.toString(), comp, session);
-        router.replace(`${routeEvents}/${eventId}/comps`);
+        await createCompetition(params.eventId, comp, session);
+        router.replace(`${routeEvents}/${params.eventId}/comps`);
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -39,7 +40,7 @@ const CompetitionCreation = (props: any) => {
       <Toaster richColors />
 
       <div className="h-[calc(100dvh)] flex flex-col">
-        <PageTitle title="Create Competition" />
+        <PageTitle title={t('pageTitle')} />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <CompetitionEditor
@@ -52,30 +53,9 @@ const CompetitionCreation = (props: any) => {
 
         <Navigation>
           <NavigateBackButton />
-          <TextButton text={'Create'} onClick={handleCreateClicked} />
+          <TextButton text={t('btnCreate')} onClick={handleCreateClicked} />
         </Navigation>
       </div>
     </>
   );
-};
-
-export default CompetitionCreation;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  if (!validateSession(session)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: routeLogin,
-      },
-    };
-  }
-
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
+}

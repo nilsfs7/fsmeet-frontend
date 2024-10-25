@@ -16,6 +16,7 @@ import { getUsers } from '@/infrastructure/clients/user.client';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { UserType } from '@/domain/enums/user-type';
+import { useTranslations } from 'next-intl';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;
@@ -24,6 +25,8 @@ interface ICompetitionEditorProps {
 }
 
 const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEditorProps) => {
+  const t = useTranslations('global/components/competition-editor');
+
   const [name, setCompName] = useState(comp?.name || '');
   const [compType, setCompType] = useState(comp?.type || CompetitionType.BATTLES);
   const [compGender, setCompGender] = useState(comp?.gender || CompetitionGender.MIXED);
@@ -96,14 +99,14 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       setDescription(comp.description);
       setRules(comp.rules);
       setJudges(comp.judges);
-
-      getUsers().then((users) => {
-        users = users.filter((user) => {
-          if (user.type !== UserType.TECHNICAL) return user;
-        });
-        setUsers(users);
-      });
     }
+
+    getUsers().then((users) => {
+      users = users.filter((user) => {
+        if (user.type !== UserType.TECHNICAL) return user;
+      });
+      setUsers(users);
+    });
   }, [comp]);
 
   // fires comp back
@@ -115,8 +118,8 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
       <TextInput
         id={'name'}
-        label={'Competition Name'}
-        placeholder="Male Battles"
+        label={t('inputName')}
+        placeholder={t('inputNamePlaceHolder')}
         value={name}
         onChange={(e) => {
           setCompName(e.currentTarget.value);
@@ -124,7 +127,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       />
 
       <div className="m-2 grid grid-cols-2 items-center">
-        <div>{`Type`}</div>
+        <div>{t('cbType')}</div>
 
         <div className="flex w-full">
           {editorMode === EditorMode.CREATE && (
@@ -141,7 +144,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       </div>
 
       <div className="m-2 grid grid-cols-2 items-center">
-        <div>{`Gender`}</div>
+        <div>{t('cbGender')}</div>
 
         <div className="flex w-full">
           {editorMode === EditorMode.CREATE && (
@@ -158,7 +161,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       </div>
 
       <div className="m-2 grid grid-cols-2 items-center">
-        <div>{`Max Age`}</div>
+        <div>{t('cbMaxAge')}</div>
         <div className="flex w-full">
           <ComboBox
             menus={menuMaxAge}
@@ -173,8 +176,8 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
 
       <TextInputLarge
         id={'description'}
-        label={'Description'}
-        placeholder="Group stage (circles) and KO (Top 16)."
+        label={t('inputDescription')}
+        placeholder={t('inputDescriptionPlaceHolder')}
         value={description}
         resizable={true}
         onChange={(e) => {
@@ -184,8 +187,8 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
 
       <TextInputLarge
         id={'rules'}
-        label={'Rules'}
-        placeholder="3 rounds, 30 seconds, 1 ball."
+        label={t('inputRules')}
+        placeholder={t('inputRulesPlaceHolder')}
         value={rules}
         resizable={true}
         onChange={(e) => {
@@ -194,7 +197,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       />
 
       <div className="flex h-[100%] flex-col p-2">
-        <div>{`Judges`}</div>
+        <div>{t('cbJudges')}</div>
 
         <div className="flex h-full">
           <div className="flex flex-col w-full">
