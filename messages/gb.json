@@ -206,6 +206,12 @@
     "btnAssigned": "assigned",
     "btnUnassigned": "free"
   },
+  "/events/eventid/comps/edit": {
+    "pageTitle": "Edit Competition",
+    "btnSave": "Save",
+    "dlgDeleteCompetitionTitle": "Delete Competition",
+    "dlgDeleteCompetitionText": "Do you really want to delete this competition?"
+  },
   "/events/eventid/comps/create": {
     "pageTitle": "Create Competition",
     "btnCreate": "Create"

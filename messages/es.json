@@ -206,8 +206,14 @@
     "btnAssigned": "zugewiesen",
     "btnUnassigned": "frei"
   },
+  "/events/eventid/comps/edit": {
+    "pageTitle": "Wettbewerb anpassen",
+    "btnSave": "Speichern",
+    "dlgDeleteCompetitionTitle": "Wettbewerb löschen",
+    "dlgDeleteCompetitionText": "Möchtest du diesen Wettbewerb wirklich löschen?"
+  },
   "/events/eventid/comps/create": {
-    "pageTitle": "Wettbewerbe erstellen",
+    "pageTitle": "Wettbewerb erstellen",
     "btnCreate": "Erstellen"
   },
   "/events/eventid/feedback": {

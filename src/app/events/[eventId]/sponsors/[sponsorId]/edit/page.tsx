@@ -15,6 +15,7 @@ import { deleteSponsor, getSponsor, updateSponsor, updateSponsorLogo } from '@/i
 import SponsorEditor from '@/components/events/SponsorEditor';
 import Dialog from '@/components/Dialog';
 import NavigateBackButton from '@/components/NavigateBackButton';
+import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 
 export default function EditEventSponsor({ params }: { params: { eventId: string; sponsorId: string } }) {
   const { data: session, status } = useSession();
@@ -33,7 +34,7 @@ export default function EditEventSponsor({ params }: { params: { eventId: string
           await updateSponsorLogo(sponsor.id.toString(), sponsorLogo, session);
         }
 
-        router.replace(`${routeEvents}/${params.eventId}/sponsors?timestamp=${new Date().getTime()}`); // add query param -> triggers refetching data
+        router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/sponsors`));
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -53,7 +54,7 @@ export default function EditEventSponsor({ params }: { params: { eventId: string
     if (params.eventId && sponsor) {
       try {
         await deleteSponsor(params.sponsorId, session);
-        router.replace(`${routeEvents}/${params.eventId}/sponsors?timestamp=${new Date().getTime()}`); // add query param -> triggers refetching data
+        router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/sponsors`));
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);

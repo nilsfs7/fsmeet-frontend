@@ -14,6 +14,7 @@ import { createCompetition } from '@/infrastructure/clients/competition.client';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
+import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 
 export default function CompetitionCreation({ params }: { params: { eventId: string } }) {
   const t = useTranslations('/events/eventid/comps/create');
@@ -27,7 +28,7 @@ export default function CompetitionCreation({ params }: { params: { eventId: str
     if (comp) {
       try {
         await createCompetition(params.eventId, comp, session);
-        router.replace(`${routeEvents}/${params.eventId}/comps`);
+        router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/comps`));
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
