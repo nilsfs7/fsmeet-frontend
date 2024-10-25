@@ -8,7 +8,6 @@ import PageTitle from '@/components/PageTitle';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { getTranslations } from 'next-intl/server';
 import { auth } from '@/auth';
-import NavigateBackButton from '@/components/NavigateBackButton';
 
 export default async function ManageCompetitions({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid/comps');

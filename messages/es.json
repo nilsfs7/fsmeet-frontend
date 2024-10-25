@@ -180,6 +180,13 @@
     "btnSeedingAndResults": "Zuweisung & Ergebnisse",
     "btnAddNew": "Neuen hinzufügen"
   },
+  "/events/eventid/comps/compid/edit/pool": {
+    "pageTitle": "Teilnehmer Pool verwalten",
+    "textNoRegistrations": "Dein Event hat noch keine Registrierungen.",
+    "textAmountOfRegistrations": "Anzahl der Teilnehmer zum Pool hinzugefügt",
+    "btnAssigned": "zugewiesen",
+    "btnUnassigned": "frei"
+  },
   "/events/eventid/feedback": {
     "pageTitle": "Event Feedback",
     "inputMessage": "Nachricht",
