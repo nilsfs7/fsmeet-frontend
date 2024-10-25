@@ -180,12 +180,41 @@
     "btnSeedingAndResults": "Zuweisung & Ergebnisse",
     "btnAddNew": "Neuen hinzufügen"
   },
+  "/events/eventid/comps/compid": {
+    "tabScheduleTitle": "Spielplan",
+    "tabScheduleSwitchMyBattlesOnly": "Nur meine Battles",
+    "tabBattlGridTitle": "Turnierbaum",
+    "tabInfoTitle": "Info",
+    "tabInfoSectionGeneral": "Allgemeines",
+    "tabInfoSectionDescription": "Beschreibung",
+    "tabInfoMode": "Modus",
+    "tabInfoGender": "Geschlecht",
+    "tabInfoMaxAge": "Max. Alter",
+    "tabInfoSectionJudges": "Judges",
+    "tabInfoSectionRules": "Regeln",
+    "tabParticipantsTitle": "Teilnehmer",
+    "tabParticipantsSectionParticipants": "Teilnehmer",
+    "dlgDownloadResultsTitle": "Ergebnisse runterladen",
+    "dlgDownloadResultsText": "Export für WFFA World Rankings erstellen.",
+    "dlgDownloadResultsCbAddPlayerNames": "Namen hinzufügen",
+    "dlgDownloadResultsBtnDownload": "Runterladen"
+  },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Teilnehmer Pool verwalten",
     "textNoRegistrations": "Dein Event hat noch keine Registrierungen.",
     "textAmountOfRegistrations": "Anzahl der Teilnehmer zum Pool hinzugefügt",
     "btnAssigned": "zugewiesen",
     "btnUnassigned": "frei"
+  },
+  "/events/eventid/comps/edit": {
+    "pageTitle": "Wettbewerb anpassen",
+    "btnSave": "Speichern",
+    "dlgDeleteCompetitionTitle": "Wettbewerb löschen",
+    "dlgDeleteCompetitionText": "Möchtest du diesen Wettbewerb wirklich löschen?"
+  },
+  "/events/eventid/comps/create": {
+    "pageTitle": "Wettbewerb erstellen",
+    "btnCreate": "Erstellen"
   },
   "/events/eventid/feedback": {
     "pageTitle": "Event Feedback",
@@ -327,6 +356,18 @@
     "firstName": "Nombre",
     "associationName": "Nombre del club",
     "brandName": "Nombre de marca"
+  },
+  "global/components/competition-editor": {
+    "inputName": "Wettbewerb Name",
+    "inputNamePlaceHolder": "Battles Männer",
+    "cbType": "Art",
+    "cbGender": "Geschlecht",
+    "cbMaxAge": "Max. Alter",
+    "inputDescription": "Beschreibung",
+    "inputDescriptionPlaceHolder": "Gruppenphase (Circles) und KO (Top 16).",
+    "inputRules": "Regeln",
+    "inputRulesPlaceHolder": "3 Runden, 30 Sekunden, 1 Ball.",
+    "cbJudges": "Richter"
   },
   "global/components/event-editor": {
     "sectionGeneral": "Allgemeines",

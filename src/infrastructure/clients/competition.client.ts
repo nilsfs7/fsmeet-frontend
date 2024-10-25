@@ -2,6 +2,9 @@ import { Competition } from '@/types/competition';
 import { Round } from '@/domain/classes/round';
 import { Session } from 'next-auth';
 import { Match } from '@/domain/classes/match';
+import { CreateRoundBodyDto } from './dtos/competition/create-round.body.dto';
+import { CreateMatchBodyDto } from './dtos/competition/create-match.body.dto';
+import moment from 'moment';
 
 export async function getCompetition(compId: string): Promise<any> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}`;
@@ -112,9 +115,14 @@ export async function createCompetitionParticipation(compId: string, username: s
 export async function createRounds(compId: string, rounds: Round[], session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`;
 
-  const body = JSON.stringify({
-    rounds: rounds,
-  });
+  const body = JSON.stringify(
+    rounds.map((round) => {
+      const matchDtos: CreateMatchBodyDto[] = round.matches.map((match) => {
+        return new CreateMatchBodyDto(match.matchIndex, match.name, moment(match.time), match.isExtraMatch, match.slots);
+      });
+      return new CreateRoundBodyDto(round.roundIndex, round.name, moment(round.date), round.timeLimit, matchDtos, round.advancingTotal);
+    })
+  );
 
   const response = await fetch(url, {
     method: 'POST',

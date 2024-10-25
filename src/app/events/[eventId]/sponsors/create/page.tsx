@@ -13,6 +13,7 @@ import { createSponsor, updateSponsorLogo } from '@/infrastructure/clients/spons
 import SponsorEditor from '@/components/events/SponsorEditor';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
+import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 
 export default function CreateEventSponsor({ params }: { params: { eventId: string } }) {
   const t = useTranslations('/events/eventid/sponsors/create');
@@ -32,7 +33,7 @@ export default function CreateEventSponsor({ params }: { params: { eventId: stri
           await updateSponsorLogo(sponsorId, sponsorLogo, session);
         }
 
-        router.replace(`${routeEvents}/${params.eventId}/sponsors?timestamp=${new Date().getTime()}`); // add query param -> triggers refetching data
+        router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/sponsors`));
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);

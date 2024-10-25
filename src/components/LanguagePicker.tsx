@@ -41,6 +41,7 @@ const LanguagePicker = () => {
     if (
       !session ||
       (session?.user?.username !== 'nils' &&
+        session?.user?.username !== 'dffb' &&
         session?.user?.username !== 'admin' &&
         session?.user?.username !== 'sebifreestyle' &&
         session?.user?.username !== 'basti' &&
