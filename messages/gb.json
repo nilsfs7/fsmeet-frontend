@@ -180,6 +180,25 @@
     "btnSeedingAndResults": "Seeding & Results",
     "btnAddNew": "Add new"
   },
+  "/events/eventid/comps/compid": {
+    "tabScheduleTitle": "Schedule",
+    "tabScheduleSwitchMyBattlesOnly": "My battles only",
+    "tabBattlGridTitle": "Battle Grid",
+    "tabInfoTitle": "Info",
+    "tabInfoSectionGeneral": "General Info",
+    "tabInfoSectionDescription": "Description",
+    "tabInfoMode": "Mode",
+    "tabInfoGender": "Gender",
+    "tabInfoMaxAge": "Max age",
+    "tabInfoSectionJudges": "Judges",
+    "tabInfoSectionRules": "Rules",
+    "tabParticipantsTitle": "Participants",
+    "tabParticipantsSectionParticipants": "Participants",
+    "dlgDownloadResultsTitle": "Download Results",
+    "dlgDownloadResultsText": "Export competition results for world rankings.",
+    "dlgDownloadResultsCbAddPlayerNames": "Add player names",
+    "dlgDownloadResultsBtnDownload": "Add player names"
+  },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Manage Player Pool",
     "textNoRegistrations": "There are no registrations for your event, yet.",

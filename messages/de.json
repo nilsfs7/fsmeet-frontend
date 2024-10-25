@@ -180,6 +180,25 @@
     "btnSeedingAndResults": "Zuweisung & Ergebnisse",
     "btnAddNew": "Neuen hinzufügen"
   },
+  "/events/eventid/comps/compid": {
+    "tabScheduleTitle": "Spielplan",
+    "tabScheduleSwitchMyBattlesOnly": "Nur meine Battles",
+    "tabBattlGridTitle": "Turnierbaum",
+    "tabInfoTitle": "Info",
+    "tabInfoSectionGeneral": "Allgemeines",
+    "tabInfoSectionDescription": "Beschreibung",
+    "tabInfoMode": "Modus",
+    "tabInfoGender": "Geschlecht",
+    "tabInfoMaxAge": "Max. Alter",
+    "tabInfoSectionJudges": "Judges",
+    "tabInfoSectionRules": "Regeln",
+    "tabParticipantsTitle": "Teilnehmer",
+    "tabParticipantsSectionParticipants": "Teilnehmer",
+    "dlgDownloadResultsTitle": "Ergebnisse runterladen",
+    "dlgDownloadResultsText": "Export für WFFA World Rankings erstellen.",
+    "dlgDownloadResultsCbAddPlayerNames": "Namen hinzufügen",
+    "dlgDownloadResultsBtnDownload": "Runterladen"
+  },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Teilnehmer Pool verwalten",
     "textNoRegistrations": "Dein Event hat noch keine Registrierungen.",
