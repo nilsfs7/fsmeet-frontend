@@ -452,6 +452,14 @@
     "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
     "chbNotifyOnComment": "Notify On Comment"
   },
+  "global/components/profile-menu": {
+    "login": "Login",
+    "menuItemMyEvents": "My Events",
+    "menuItemPublicProfile": "Public Profile",
+    "menuItemSettings": "Settings",
+    "menuItemFeedback": "Feedback",
+    "menuItemLogout": "Logout"
+  },
   "global/components/sponsor-editor": {
     "inputName": "Sponsor Name",
     "inputWebsite": "Website"

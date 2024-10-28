@@ -8,8 +8,10 @@ import { Transition } from '@headlessui/react';
 import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/domain/constants/routes';
 import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
 import { logoutUser } from '@/app/actions/authentication';
+import { useTranslations } from 'next-intl';
 
-const Profile = () => {
+const ProfileMenu = () => {
+  const t = useTranslations('global/components/profile-menu');
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -18,7 +20,7 @@ const Profile = () => {
 
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-  const menuItems = ['My Events', 'Public Profile', 'Settings', 'Feedback', 'Logout'];
+  const menuItems = [t('menuItemMyEvents'), t('menuItemPublicProfile'), t('menuItemSettings'), t('menuItemFeedback'), t('menuItemLogout')];
   const menuItemIcons = [imgProfileEvents, imgUserNoImg, imgProfileSettings, imgProfileFeedback, imgProfileLogout];
 
   useEffect(() => {
@@ -79,7 +81,7 @@ const Profile = () => {
           <div className="h-11 w-11">
             <img src={imageUrl ? imageUrl : imgUserNoImg} className="h-full w-full rounded-full object-cover" />
           </div>
-          <div className="truncate hover:text-clip">{username || 'Login'}</div>
+          <div className="truncate hover:text-clip">{username || t('login')}</div>
         </button>
       </div>
 
@@ -118,4 +120,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileMenu;

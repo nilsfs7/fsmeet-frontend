@@ -453,6 +453,14 @@
     "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
     "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
   },
+  "global/components/profile-menu": {
+    "login": "Anmelden",
+    "menuItemMyEvents": "Meine Events",
+    "menuItemPublicProfile": "Öffentliches Profil",
+    "menuItemSettings": "Einstellungen",
+    "menuItemFeedback": "Feedback",
+    "menuItemLogout": "Abmelden"
+  },
   "global/components/sponsor-editor": {
     "inputName": "Sponsor Name",
     "inputWebsite": "Website"
