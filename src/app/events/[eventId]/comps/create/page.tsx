@@ -2,7 +2,7 @@
 
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState, use, useEffect } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import CompetitionEditor from '@/components/events/competition-editor';
 import { Competition } from '@/domain/types/competition';
@@ -19,9 +19,9 @@ import { Event } from '@/domain/types/event';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 
-export default function CompetitionCreation({ params }: { params: { eventId: string } }) {
+export default function CompetitionCreation(props: { params: Promise<{ eventId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/comps/create');
-
   const { data: session } = useSession();
   const router = useRouter();
 

@@ -8,7 +8,8 @@ import PageTitle from '@/components/PageTitle';
 import { getTranslations } from 'next-intl/server';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
 
-export default async function ManageCompetitions({ params }: { params: { eventId: string } }) {
+export default async function ManageCompetitions(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/comps');
 
   const competitions = await getCompetitions(params.eventId);

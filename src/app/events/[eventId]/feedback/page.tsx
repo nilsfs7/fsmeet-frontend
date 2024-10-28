@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, use } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInputLarge from '@/components/common/TextInputLarge';
 import { useRouter } from 'next/navigation';
@@ -15,9 +15,9 @@ import { createEventFeedback } from '@/infrastructure/clients/event.client';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 
-export default function EventFeedback({ params }: { params: { eventId: string } }) {
+export default function EventFeedback(props: { params: Promise<{ eventId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/feedback');
-
   const { data: session } = useSession();
   const router = useRouter();
 
