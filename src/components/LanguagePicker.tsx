@@ -14,7 +14,7 @@ const LanguagePicker = () => {
   const [locale, setLocale] = useState<string>('GB');
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-  const menuItems = ['GB', 'ES', 'DE'];
+  const menuItems = ['GB', 'DE'];
   // const menuItems = ['GB', 'FR', 'ES', 'IT', 'DE'];
 
   useEffect(() => {
@@ -35,26 +35,6 @@ const LanguagePicker = () => {
     setOpened(false);
     router.refresh();
   };
-
-  // TODO: remove when translation is ready
-  const showPicker = (): boolean => {
-    if (
-      !session ||
-      (session?.user?.username !== 'nils' &&
-        session?.user?.username !== 'dffb' &&
-        session?.user?.username !== 'admin' &&
-        session?.user?.username !== 'sebifreestyle' &&
-        session?.user?.username !== 'basti' &&
-        session?.user?.username !== 'jule')
-    ) {
-      return true;
-    }
-
-    return false;
-  };
-
-  // TODO: remove when translation is ready
-  if (showPicker()) return <></>;
 
   return (
     <div className="relative">
