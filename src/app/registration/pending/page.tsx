@@ -5,7 +5,8 @@ import Image from 'next/image';
 import { routeHome } from '@/domain/constants/routes';
 import { getTranslations } from 'next-intl/server';
 
-export default async function RegistrationPending({ searchParams }: any) {
+export default async function RegistrationPending(props: { searchParams: Promise<{ email: string }> }) {
+  const searchParams = await props.searchParams;
   const t = await getTranslations('/registration/pending');
 
   return (
