@@ -1,6 +1,467 @@
 {
   "/": {
-    "pageTitle": "Vos événements Freestyle",
-    "slogan": "Plan | Compete | Connect"
+    "pageTitle": "Your Freestyle Events",
+    "slogan": "Plan | Compete | Connect",
+    "btnShowAllEvents": "Show All",
+    "carouselCurrentEvent": "Ongoing Event",
+    "carouselRecentEvent": "Recent Event",
+    "carouselUpcomingEvent": "Upcoming Event",
+    "navMap": "Map",
+    "navCommunity": "Community",
+    "navAdminOverview": "Admin Overview",
+    "navAbout": "About"
+  },
+  "/about": {
+    "pageTitle": "About",
+    "aboutText1": "FSMeet is a free tool to easily organize and manage freestyle football meetings and competitions.",
+    "aboutText2": "This is a community driven project. If you love freestyle as much as we do, we encourage you to send any feedback or ideas to further improve our service. You can reach out to us either using the ",
+    "aboutText3": "feedback function",
+    "aboutText4": " or drop us a DM on Instagram.",
+    "lnkImprint": "Imprint",
+    "lnkPrivacyPolicy": "Privacy policy",
+    "build": "Build"
+  },
+  "/account": {
+    "pageTitle": "Account Settings",
+    "profilePictureAddPicture": "Add picture",
+    "btnSave": "Save",
+    "dlgJobsTermsTitle": "Terms And Conditions",
+    "dlgJobsTermsDate": "Last updated: August 02, 2024",
+    "dlgJobsTermsDescriptionTitle": "Jobs feature",
+    "dlgJobsTermsDescriptionText1": "In the past, we took note of some looking for freestylers for their events here on FSMeet. We would like to enable you as freestyler to promote yourself.",
+    "dlgJobsTermsDescriptionText2": "Soon, we will release a new feature helping to connect freestylers and clients and further improve everyone's experience. Become part of a public pool of freestylers offering services like shows, workshops and more. Effortlessly share necessary information, so clients can directly contact you and find freestylers that fit their needs.",
+    "dlgJobsTermsDescriptionText3": "As any feature on FSMeet this is a free service.",
+    "dlgJobsTermsDataSharingTitle": "Data sharing",
+    "dlgJobsTermsDataSharingText1": "Your account will become part of a public pool of freestylers clients can pick from. Only basic information is required to be listed. However, as clients can pick freestylers for their event, more detailed information like phone number or email address will be shared automatically on request.",
+    "dlgJobsTermsDataSharingText2": "The jobs feature may be integrated across external domains that are owned and part of FSMeet.",
+    "dlgJobsTermsDataSharingText3": "If you don't want to be listed, simply uncheck terms and conditions. This will prevent sharing private information, too. We will never share private information without your approval.",
+    "dlgJobsTermsDataSharingDetailsTitle": "What data will be shared?",
+    "dlgJobsTermsDataSharingDetailsPublic": "Publicly listed",
+    "dlgJobsTermsDataSharingDetailsName": "First and last name",
+    "dlgJobsTermsDataSharingDetailsGender": "Gender",
+    "dlgJobsTermsDataSharingDetailsCountry": "Nationality",
+    "dlgJobsTermsDataSharingDetailsAge": "Age",
+    "dlgJobsTermsDataSharingDetailsCity": "City",
+    "dlgJobsTermsDataSharingDetailsSocials": "Socials (Instagram, TikTok, YouTube)",
+    "dlgJobsTermsDataSharingDetailsWebsite": "Website",
+    "dlgJobsTermsDataSharingDetailsFreestyleSince": "Freestyle since",
+    "dlgJobsTermsDataSharingDetailsOfferings": "Offers (Shows, Walk Acts, Workshops)",
+    "dlgJobsTermsDataSharingDetailsShowExperience": "Show experience",
+    "dlgJobsTermsDataSharingDetailsOnRequest": "Publicly listed",
+    "dlgJobsTermsDataSharingDetailsPhone": "Phone number",
+    "dlgJobsTermsDataSharingDetailsEmail": "Email",
+    "dlgJobsTermsDataSharingDetailsShirtSize": "Shirt size",
+    "dlgAccountVerificationTitle": "Account Verification",
+    "dlgAccountVerificationStep1": "Step 1",
+    "dlgAccountVerificationStep1Text1": "Provide your first name, gender and country in general info. Any other fields are optional.",
+    "dlgAccountVerificationStep1Text2": "Please note: Once verification is completed, updating any of the previously mentioned fields will automatically reset your verified status and the process needs to be repeated.",
+    "dlgAccountVerificationStep2": "Step 2",
+    "dlgAccountVerificationStep2Text1": "Have an Instagram profile with decent history (account age and feed with freestyle related content showing you).",
+    "dlgAccountVerificationStep2Text2": "Send us a DM on Instagram including your FSMeet username. You can simply copy the message below.",
+    "dlgAccountVerificationStep3": "Step 3",
+    "dlgAccountVerificationStep3Text1": "If done with step 1 and 2, please request verification by hitting the button below.",
+    "dlgAccountVerificationStep3BtnRequestNow": "Request Now",
+    "dlgAccountVerificationStep4": "Step 4",
+    "dlgAccountVerificationStep4Text1": "Wait for verification. This should usually be done within a few hours. We will let you know via email.",
+    "dlgAccountVerificationStep4Text2": "Once verified a checkmark appears next to your name in your public profile.",
+    "dlgAccountLogoutTitle": "Logout",
+    "dlgAccountLogoutText": "Logout now?",
+    "dlgAccountDeleteAccountTitle": "Delete Account",
+    "dlgAccountDeleteAccountText": "Do you really want to leave us?",
+    "tabGeneralTitle": "General Info",
+    "tabGeneralSectionGeneral": "General",
+    "tabGeneralLastName": "Last Name",
+    "tabGeneralArtistName": "Nickname / Artist Name",
+    "tabGeneralGender": "Gender",
+    "tabGeneralCountry": "Nationality",
+    "tabGeneralBirthday": "Birthday",
+    "tabGeneralFreestyleSince": "Freestyle since",
+    "tabGeneralShirtSize": "T-Shirt Size",
+    "tabGeneralSectionSocials": "Socials",
+    "tabGeneralInstagramHandle": "Instagram Handle",
+    "tabGeneralTikTokHandle": "TikTok Handle",
+    "tabGeneralYouTubeHandle": "YouTube Handle",
+    "tabGeneralWebsite": "Website",
+    "tabMaplTitle": "Freestyler Map",
+    "tabMaplSectionLocation": "Place Of Living",
+    "tabMaplCity": "City",
+    "tabMapPublish": "Publish city on Freestyler Map",
+    "tabMapShowOnMap": "Show my pin",
+    "tabJobsTitle": "Jobs (upcoming)",
+    "tabJobsSectionTerms": "Terms And Conditions",
+    "tabJobsTerms": "Read Terms",
+    "tabJobBtnReadTerms": "Read",
+    "tabJobAcceptTerms": "Accept Terms",
+    "tabJobSectionOffer": "Your Offering",
+    "tabJobOfferingShow": "Shows",
+    "tabJobOfferingWalkact": "Walk Acts",
+    "tabJobOfferingWorkshop": "Workshops",
+    "tabJobSectionContact": "Contact",
+    "tabJobPhoneCountryCode": "Phone Country Code",
+    "tabJobPhoneNumber": "Phone Number",
+    "tabJobSectionOther": "Other",
+    "tabJobExperience": "Experience (Amount Shows)",
+    "tabAccountTitle": "Account",
+    "tabAccountSectionVerification": "Account Verification",
+    "tabAccounVerificationStatus": "Verification Status",
+    "tabAccounBtnVerify": "Verify Now",
+    "tabAccountSectionAccountManagement": "Account Management",
+    "tabAccounBtnLogout": "Logout",
+    "tabAccounBtnDeleteAccount": "Delete Account"
+  },
+  "/account/deleted": {
+    "textGoodbye": "Goodbye!",
+    "textConfirmation": "Your account was successfully deleted.",
+    "btnBackHome": "Back home"
+  },
+  "/account/image": {
+    "pageTitle": "Account Settings",
+    "btnUpload": "Upload",
+    "btnDelete": "Delete"
+  },
+  "/error": {
+    "textError": "Some error occurred.",
+    "btnBackHome": "Back home"
+  },
+  "/events": {
+    "datePickerFrom": "From",
+    "datePickerTo": "To",
+    "textNoEventsFound": "No events for the specified date range."
+  },
+  "/events/edit": {
+    "pageTitle": "Edit Event",
+    "dlgEventDeletionTitle": "Delete Event",
+    "dlgEventDeletionText": "Do you really want to delete this event?",
+    "btnSave": "Save"
+  },
+  "/events/eventid": {
+    "dlgEventRegisterTitle": "Confirm Registration",
+    "dlgEventRegisterText1": "Do you want to register for",
+    "dlgEventRegisterText2": "Please take note of the participation fee of",
+    "dlgEventRegisterText3": "Your registration will be confirmed once your payment completed.",
+    "dlgEventRegisterText4": "By confirming your registration we will also mail you the payment details.",
+    "dlgEventStateTitle": "Event Visibility",
+    "dlgEventStateText1": "Event state",
+    "dlgEventStateText2": "Your event is not listed publicly, yet.",
+    "dlgEventStateText3": "Do you want to publish your event? Please complete your event info with as many details as possible before sending for review.",
+    "dlgEventStateWaitingForApprovalText1": "Your event is not listed publicly but currently being reviewed.",
+    "dlgEventStateWaitingForApprovalText2": "In case you have any updates you can still adapt the event info.",
+    "dlgEventStateApprovedText1": "Your event is listed publicly. Nothing to do here.",
+    "dlgEventStateApprovedText2": "In case you have any updates you can still adapt the event info.",
+    "dlgEventStateBtnEditEvent": "Edit Event",
+    "dlgEventStateBtnSendToReview": "Send to review",
+    "dlgEventUnregisterTitle": "Unregister From Event",
+    "dlgEventUnregisterText": "Do you really want to unregister from this event?",
+    "dlgEventUnregisterBtnConfirm": "Confirm",
+    "adminPanelTitle": "Admin Panel",
+    "tabOverviewTitle": "Overview",
+    "tabOverviewParticipationFee": "Participation fee",
+    "tabOverviewRegistrationFrom": "Registration open",
+    "tabOverviewRegistrationTo": "Registration end",
+    "tabOverviewEventHost": "Event host",
+    "tabOverviewVenueAddress": "Venue address",
+    "tabOverviewBtnShowVenueMap": "Show Map",
+    "tabOverviewBtnHideVenueMap": "Hide Map",
+    "tabOverviewSectionSponsors": "Sponsors",
+    "tabOverviewSectionComments": "Comments",
+    "tabCompetitionsTitle": "Competitions",
+    "tabCompetitionsSectionCompetitions": "Competitions",
+    "tabRegistrationsTitle": "Participants",
+    "tabRegistrationsSectionRegistrations": "Participants",
+    "btnRegister": "Register",
+    "btnUnregister": "Unregister",
+    "btnFeedback": "Feedback"
+  },
+  "/events/eventid/comps": {
+    "pageTitle": "Manage Competitions",
+    "btnEdit": "Edit",
+    "btnPool": "Pool",
+    "btnGameMode": "Game Mode",
+    "btnSeedingAndResults": "Seeding & Results",
+    "btnAddNew": "Add new"
+  },
+  "/events/eventid/comps/compid": {
+    "tabScheduleTitle": "Schedule",
+    "tabScheduleSwitchMyBattlesOnly": "My battles only",
+    "tabBattlGridTitle": "Battle Grid",
+    "tabInfoTitle": "Info",
+    "tabInfoSectionGeneral": "General Info",
+    "tabInfoSectionDescription": "Description",
+    "tabInfoMode": "Mode",
+    "tabInfoGender": "Gender",
+    "tabInfoMaxAge": "Max age",
+    "tabInfoSectionJudges": "Judges",
+    "tabInfoSectionRules": "Rules",
+    "tabParticipantsTitle": "Participants",
+    "tabParticipantsSectionParticipants": "Participants",
+    "dlgDownloadResultsTitle": "Download Results",
+    "dlgDownloadResultsText": "Export competition results for world rankings.",
+    "dlgDownloadResultsCbAddPlayerNames": "Add player names",
+    "dlgDownloadResultsBtnDownload": "Add player names"
+  },
+  "/events/eventid/comps/compid/edit/pool": {
+    "pageTitle": "Manage Player Pool",
+    "textNoRegistrations": "There are no registrations for your event, yet.",
+    "textAmountOfRegistrations": "Number of players added to pool",
+    "btnAssigned": "assigned",
+    "btnUnassigned": "free"
+  },
+  "/events/eventid/comps/compid/edit/mode": {
+    "pageTitle": "Game Mode Editor",
+    "dlgAddRoundTitle": "Add Round",
+    "dlgAddRoundName": "Round name",
+    "dlgAddRoundDay": "Day",
+    "dlgAddRoundAvailablePlayers": "Available players in pool",
+    "dlgAddRoundPlayersAdvancing": "Advancing to next round",
+    "dlgAddRoundPlayersPerMatch": "Players per match",
+    "dlgAddRoundAmountMatches": "Amount of matches",
+    "dlgAddRoundTimeLimit": "Has time limit",
+    "dlgAddRoundBtnConfirm": "Confirm",
+    "dlgEditRoundTitle": "Edit Round",
+    "dlgEditRoundName": "Round name",
+    "dlgEditRoundDay": "Day",
+    "dlgEditRoundPlayersAdvancing": "Advancing to next round",
+    "dlgEditRoundTimeLimit": "Has time limit",
+    "dlgEditRoundBtnConfirm": "Confirm",
+    "dlgDeleteRoundTitle": "Delete Round",
+    "dlgDeleteRoundText": "Delete?",
+    "dlgDeleteRoundBtnConfirm": "Confirm",
+    "dlgAddMatchTitle": "Add Match",
+    "dlgAddMatchName": "Match name",
+    "dlgAddMatchTime": "Match time",
+    "dlgAddMatchAmountPlayers": "Amount of players",
+    "dlgAddMatchIsExtraBattle": "Is extra battle?",
+    "dlgAddMatchBtnConfirm": "Confirm",
+    "dlgEditMatchTitle": "Edit Match",
+    "dlgEditMatchName": "Match name",
+    "dlgEditMatchTime": "Match time",
+    "dlgEditMatchAmountPlayers": "Amount of players",
+    "dlgEditMatchIsExtraBattle": "Is extra battle?",
+    "dlgEditMatchBtnConfirm": "Confirm",
+    "dlgDeleteMatchTitle": "Delete Match",
+    "dlgDeleteMatchText": "Delete?",
+    "dlgDeleteMatchBtnConfirm": "Confirm",
+    "textNoSufficientPool": "Add at least 2 players to the competition pool before creating a game mode.",
+    "btnSave": "Save",
+    "btnUpdate": "Update",
+    "btnDelete": "Save"
+  },
+  "/events/eventid/comps/compid/edit/seeding": {
+    "pageTitle": "Seeding & Results",
+    "textNoGameMode": "You have not configured a game mode, yet."
+  },
+  "/events/eventid/comps/edit": {
+    "pageTitle": "Edit Competition",
+    "btnSave": "Save",
+    "dlgDeleteCompetitionTitle": "Delete Competition",
+    "dlgDeleteCompetitionText": "Do you really want to delete this competition?"
+  },
+  "/events/eventid/comps/create": {
+    "pageTitle": "Create Competition",
+    "btnCreate": "Create"
+  },
+  "/events/eventid/feedback": {
+    "pageTitle": "Event Feedback",
+    "inputMessage": "Message",
+    "inputMessagePlaceholder": "Any feedback is highly appreciated!",
+    "btnSubmit": "Submit"
+  },
+  "/events/eventid/not-found": {
+    "textNotFound": "Event not found.",
+    "btnBackToEvents": "Back To Overview"
+  },
+  "/events/eventid/participants": {
+    "pageTitle": "Manage Participants",
+    "textNoRegistrations": "No registrations, yet.",
+    "dlgDenyParticipantTitle": "Deny Participant",
+    "dlgDenyParticipantText": "Do you really want to deny this participant?",
+    "dlgRemoveParticipantTitle": "Remove Participant",
+    "dlgRemoveParticipantText": "Do you want to remove this participant?"
+  },
+  "/events/eventid/sponsors": {
+    "pageTitle": "Manage Sponsors",
+    "btnCreate": "Create"
+  },
+  "/events/eventid/sponsors/create": {
+    "pageTitle": "Create Sponsor",
+    "btnCreate": "Add new"
+  },
+  "/events/create": {
+    "pageTitle": "Create Event",
+    "btnCreate": "Create"
+  },
+  "/events/manage": {
+    "pageTitle": "Manage Events",
+    "tabRegistrationsTitle": "Registrations",
+    "tabRegistrationsTextNoEvents": "You have not signed up for any event, yet.",
+    "tabEventsHostedTitle": "My Events",
+    "tabEventsHostedTextNoEvents": "You have not created any events, yet.",
+    "btnCreate": "Create Event"
+  },
+  "/feedback": {
+    "pageGeneralFeedback": "General Feedback",
+    "btnFeatures": "Request Feature",
+    "btnBugs": "Report Bug"
+  },
+  "/feedback/bugs": {
+    "pageTitle": "Report Bug",
+    "inputMessage": "Message",
+    "inputMessagePlaceholder": "Describe any misbehavior you noticed.",
+    "btnSubmit": "Submit"
+  },
+  "/feedback/features": {
+    "pageTitle": "Feature Request",
+    "inputMessage": "Message",
+    "inputMessagePlaceholder": "Do you have an idea or improvement for us?",
+    "btnSubmit": "Submit"
+  },
+  "/feedback/general": {
+    "pageTitle": "Send Feedback",
+    "inputMessage": "Message",
+    "inputMessagePlaceholder": "Any feedback is highly appreciated!",
+    "btnSubmit": "Submit"
+  },
+  "/feedback/thankyou": {
+    "thankYouText1": "Thank you!",
+    "thankYouText2": "Your feedback is highly appreciated!",
+    "btnBackHome": "Back home"
+  },
+  "/login": {
+    "inputUsername": "Username / Email",
+    "inputPassword": "Password",
+    "btnLogin": "Login",
+    "lnkResetPassword": "Reset password",
+    "lnkNewAccount": "No account yet?"
+  },
+  "/loading": {
+    "textLoading": "Loading..."
+  },
+  "/map": {
+    "pageTitle": "Freestyler Map",
+    "btnAddPin": "Add Your Pin",
+    "inputSearchPlaceholder": "Search name...",
+    "drpDwnGender": "Gender",
+    "infoWindowGoToProfile": "Click for profile"
+  },
+  "/password/forgot": {
+    "inputUsername": "Username / Email",
+    "btnResetPassword": "Reset Password"
+  },
+  "/password/pending": {
+    "thankYouText1": "Check your mail.",
+    "thankYouText2": "A reset link for was sent to you.",
+    "btnBackHome": "Back home"
+  },
+  "/password/reset": {
+    "inputPassword": "New password",
+    "btnSave": "Save"
+  },
+  "/registration": {
+    "cbUserType": "Sign up as",
+    "inputUsername": "Username",
+    "inputEmail": "E-Mail",
+    "inputPassword": "Password",
+    "btnSignUp": "Sign Up"
+  },
+  "/registration/confirm": {
+    "registrationSuccess": "Registration successful",
+    "registrationFailure": "Something went wrong",
+    "btnProceed": "Proceed"
+  },
+  "/registration/pending": {
+    "registrationPendingText1": "A confirmation link was sent to",
+    "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
+    "btnBackHome": "Back home"
+  },
+  "/users": {
+    "pageTitle": "Community",
+    "inputSearchPlaceholder": "Search name...",
+    "cbColumns": "Columns",
+    "tblColumnUsername": "User",
+    "tblColumnName": "Name",
+    "tblColumnCountry": "Country",
+    "tblColumnType": "Type",
+    "tblColumnLocation": "Location",
+    "tblColumnSocials": "Socials",
+    "navCurrentPage1": "Page",
+    "navCurrentPage2": "of",
+    "navRowsPerPage": "Rows per page"
+  },
+  "/users/username": {
+    "accordionItemSocials": "Socials",
+    "accordionItemBattleStatistics": "Battle Statistics",
+    "accordionItemBattleStatisticsAmountBattles": "Battles",
+    "accordionItemBattleStatisticsAmountWins": "Wins",
+    "accordionItemBattleStatisticsWinLossRatio": "Win ratio",
+    "accordionItemCompetitionHistory": "Competition History",
+    "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
+  },
+  "global/functions/getLabelForFirstName": {
+    "firstName": "First name",
+    "associationName": "Association name",
+    "brandName": "Brand name"
+  },
+  "global/components/battle-grid": {
+    "btnAddMatch": "Add Match"
+  },
+  "global/components/competition-editor": {
+    "inputName": "Competition Name",
+    "inputNamePlaceHolder": "Male Battles",
+    "cbType": "Type",
+    "cbGender": "Gender",
+    "cbMaxAge": "Max Age",
+    "inputDescription": "Description",
+    "inputDescriptionPlaceHolder": "Group stage (circles) and KO (Top 16).",
+    "inputRules": "Rules",
+    "inputRulesPlaceHolder": "3 rounds, 30 seconds, 1 ball.",
+    "cbJudges": "Judges"
+  },
+  "global/components/event-editor": {
+    "sectionGeneral": "General",
+    "inputName": "Event Name",
+    "inputAlias": "Event Alias",
+    "cbType": "Type",
+    "lblState": "State",
+    "inputDescription": "Event Description",
+    "datePickerFrom": "Date From",
+    "datePickerTo": "Date To",
+    "datePickerRegistrationFrom": "Registration Open",
+    "datePickerRegistrationTo": "Registration Deadline",
+    "inputLivestreamUrl": "Livestream URL",
+    "inputMessangerInvitationUrl": "Group Chat Invitation Link (e.g. WhatsApp)",
+    "sectionLocation": "Location",
+    "inputHouseNumber": "House No",
+    "inputStreet": "Street",
+    "inputPostCode": "Post Code",
+    "inputCity": "City",
+    "inputCountry": "Country",
+    "sectionPayment": "Payment",
+    "inputFee": "Participation Fee",
+    "chbCashAccept": "Accept Cash",
+    "chbPayPalAccept": "Accept PayPal",
+    "inputPayPalUsername": "PayPal User Handle",
+    "lnkPayPalVerifyAccount": "Verify PayPal Account",
+    "chbBankSepaAccept": "Accept Bank Transfer (SEPA)",
+    "inputBankSepaBank": "SEPA Bankname",
+    "inputBankSepaRecipeint": "SEPA Recipient",
+    "inputBankSepaIban": "SEPA IBAN",
+    "inputBankSepaReference": "SEPA Reference",
+    "sectionOther": "Other",
+    "chbAutoApproveRegistration": "Auto Approve New Registrations",
+    "chbNotifyOnRegistration": "Notify On New Registration",
+    "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
+    "chbNotifyOnComment": "Notify On Comment"
+  },
+  "global/components/profile-menu": {
+    "login": "Login",
+    "menuItemMyEvents": "My Events",
+    "menuItemPublicProfile": "Public Profile",
+    "menuItemSettings": "Settings",
+    "menuItemFeedback": "Feedback",
+    "menuItemLogout": "Logout"
+  },
+  "global/components/sponsor-editor": {
+    "inputName": "Sponsor Name",
+    "inputWebsite": "Website"
   }
 }
