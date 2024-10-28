@@ -13,7 +13,8 @@ import { Event } from '@/types/event';
 import { Round } from '@/types/round';
 import { auth } from '@/auth';
 
-export default async function CompetitionDetails({ params }: { params: { eventId: string; compId: string } }) {
+export default async function CompetitionDetails(props: { params: Promise<{ eventId: string; compId: string }> }) {
+  const params = await props.params;
   const session = await auth();
 
   const event: Event = await getEvent(params.eventId, session);

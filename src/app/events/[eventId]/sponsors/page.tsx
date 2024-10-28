@@ -9,9 +9,9 @@ import { getSponsors } from '@/infrastructure/clients/sponsor.client';
 import Separator from '@/components/Seperator';
 import { getTranslations } from 'next-intl/server';
 
-export default async function EventSponsors({ params }: { params: { eventId: string } }) {
+export default async function EventSponsors(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/sponsors');
-  const session = await auth();
 
   const sponsors = await getSponsors(params.eventId);
 
