@@ -5,7 +5,9 @@ import { routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 
-export default async function Page({ searchParams }: any) {
+export default async function Page(props: { searchParams: Promise<{ redirectUrl: string }> }) {
+  const searchParams = await props.searchParams;
+
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <LoginForm redirectUrl={searchParams.redirectUrl} />;

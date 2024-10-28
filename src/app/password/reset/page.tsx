@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
@@ -10,7 +10,8 @@ import { Toaster, toast } from 'sonner';
 import { updateUserPassword } from '@/infrastructure/clients/user.client';
 import { useTranslations } from 'next-intl';
 
-export default function ResetPassword({ searchParams }: any) {
+export default function ResetPassword(props: { searchParams: Promise<{ requestToken: string }> }) {
+  const searchParams = use(props.searchParams);
   const t = useTranslations('/password/reset');
   const router = useRouter();
 
@@ -28,14 +29,12 @@ export default function ResetPassword({ searchParams }: any) {
   };
 
   const handleSaveClicked = async () => {
-    if (searchParams?.requestToken) {
-      try {
-        await updateUserPassword(searchParams.requestToken, password);
-        router.replace(routeLogin);
-      } catch (error: any) {
-        toast.error(error.message);
-        console.error(error.message);
-      }
+    try {
+      await updateUserPassword(searchParams.requestToken, password);
+      router.replace(routeLogin);
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
     }
   };
 
