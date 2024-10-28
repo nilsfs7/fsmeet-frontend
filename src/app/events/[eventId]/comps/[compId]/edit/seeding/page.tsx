@@ -1,32 +1,25 @@
-/*
-  - runden erst erstellen lassen nachdem registrierung zuende
-  - dadurch ist die teilnehmeranzahl bekannt
-*/
+'use client';
 
-import { GetServerSidePropsContext } from 'next';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { routeEvents, routeLogin } from '@/domain/constants/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/Navigation';
 import { Round } from '@/domain/classes/round';
 import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
-import { validateSession } from '@/functions/validate-session';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { User } from '@/types/user';
 import { UserType } from '@/domain/enums/user-type';
-import { auth } from '@/auth';
 import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/infrastructure/clients/competition.client';
+import { useTranslations } from 'next-intl';
+import { useSession } from 'next-auth/react';
 
-const Seeding = (props: any) => {
-  const session = props.session;
+export default function Seeding({ params }: { params: { eventId: string; compId: string } }) {
+  const t = useTranslations('/events/eventid/comps/compid/edit/seeding');
 
-  const router = useRouter();
-  const { eventId } = router.query;
-  const { compId } = router.query;
+  const { data: session } = useSession();
 
   const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
 
@@ -61,30 +54,26 @@ const Seeding = (props: any) => {
 
     setRounds(rnds);
 
-    if (eventId && compId) {
-      try {
-        await updateMatchSlots(eventId?.toString(), compId?.toString(), matchId, slotIndex, username, result, session);
-        toast.success('Slot updated');
-      } catch (error: any) {
-        toast.error(error.message);
-        console.error(error.message);
-      }
+    try {
+      await updateMatchSlots(params.eventId, params.compId, matchId, slotIndex, username, result, session);
+      toast.success('Slot updated');
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
     }
   };
 
   useEffect(() => {
-    if (compId) {
-      getCompetitionParticipants(compId?.toString()).then((participants) => {
-        const users: User[] = [];
-        participants.map((participant) => {
-          users.push({ username: participant.username, type: UserType.FREESTYLER });
-        });
-        setCompetitionParticipants(users);
-        getRounds(compId?.toString()).then((rounds) => {
-          setRounds(rounds);
-        });
+    getCompetitionParticipants(params.compId).then((participants) => {
+      const users: User[] = [];
+      participants.map((participant) => {
+        users.push({ username: participant.username, type: UserType.FREESTYLER });
       });
-    }
+      setCompetitionParticipants(users);
+      getRounds(params.compId).then((rounds) => {
+        setRounds(rounds);
+      });
+    });
   }, []);
 
   return (
@@ -92,11 +81,11 @@ const Seeding = (props: any) => {
       <Toaster richColors />
 
       <div className="h-[calc(100dvh)] flex flex-col">
-        <PageTitle title="Seeding & Results" />
+        <PageTitle title={t('pageTitle')} />
 
         <div className={`mx-2 flex flex-col overflow-y-auto`}>
           <div className={'my-2 flex justify-center'}>
-            {rounds.length === 0 && <div>{`You have not configured a game mode, yet.`}</div>}
+            {rounds.length === 0 && <div>{t('textNoGameMode')}</div>}
 
             <BattleGrid
               rounds={rounds}
@@ -110,32 +99,11 @@ const Seeding = (props: any) => {
         </div>
 
         <Navigation>
-          <Link href={`${routeEvents}/${eventId}/comps`}>
+          <Link href={`${routeEvents}/${params.eventId}/comps`}>
             <ActionButton action={Action.BACK} />
           </Link>
         </Navigation>
       </div>
     </>
   );
-};
-
-export default Seeding;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  if (!validateSession(session)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: routeLogin,
-      },
-    };
-  }
-
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
+}

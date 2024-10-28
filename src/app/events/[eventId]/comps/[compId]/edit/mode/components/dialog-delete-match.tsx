@@ -2,31 +2,34 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ActionButton from '../../common/ActionButton';
+import ActionButton from '../../../../../../../../components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import TextButton from '../../common/TextButton';
+import TextButton from '../../../../../../../../components/common/TextButton';
+import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
   title: string;
   queryParam: string;
   onCancel?: () => void;
-  onConfirm?: (roundIndex: number) => void;
+  onConfirm?: (roundIndex: number, matchIndex: number) => void;
   cancelText?: string;
   confirmText?: string;
 }
 
-const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
+const DialogDeleteMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
+  const t = useTranslations('/events/eventid/comps/compid/edit/mode');
+
   const searchParams = useSearchParams();
   const showDialog = searchParams?.get(queryParam);
   const roundIndex = +(searchParams?.get('rid') || 0);
   const matchIndex = +(searchParams?.get('mid') || 0);
-  const rname = searchParams?.get('rname') || '';
+  const mname = searchParams?.get('mname') || '';
 
-  const [matchName, setRoundName] = useState<string>('');
+  const [matchName, setMatchName] = useState<string>('');
 
   useEffect(() => {
     if (showDialog === '1') {
-      setRoundName(rname);
+      setMatchName(mname);
     }
   }, [showDialog]);
 
@@ -35,7 +38,7 @@ const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText,
   };
 
   const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex);
+    onConfirm && onConfirm(roundIndex, matchIndex);
     onCancel && onCancel();
   };
 
@@ -47,7 +50,7 @@ const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText,
         </div>
         <div className="rounded-b-lg bg-background p-2">
           <div className="p-2 flex flex-col">
-            <div>{`Delete ${matchName}?`}</div>
+            <div>{`${matchName} - ${t('dlgDeleteMatchText')}`}</div>
           </div>
 
           <div className="flex flex-row justify-between p-2">
@@ -72,4 +75,4 @@ const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText,
   ) : null;
 };
 
-export default DialogDeleteRound;
+export default DialogDeleteMatch;

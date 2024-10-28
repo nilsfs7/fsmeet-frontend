@@ -1,53 +1,55 @@
-/*
-  - runden erst erstellen lassen nachdem registrierung zuende
-  - dadurch ist die teilnehmeranzahl bekannt
-*/
+'use client';
 
-import { GetServerSidePropsContext } from 'next';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { routeEvents, routeLogin } from '@/domain/constants/routes';
+import { useSession } from 'next-auth/react';
+import { Event } from '@/types/event';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import { Toaster, toast } from 'sonner';
+import DialogAddRound from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-add-round';
+import DialogAddMatch from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-add-match';
+import DialogEditRound from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-edit-round';
+import DialogEditMatch from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-edit-match';
+import DialogDeleteMatch from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-delete-match';
+import DialogDeleteRound from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-delete-round';
+import moment, { Moment } from 'moment';
+import { Round } from '@/domain/classes/round';
+import { createRounds, deleteRounds, updateRounds } from '@/infrastructure/clients/competition.client';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/Navigation';
 import BattleGrid from '@/components/comp/BattleGrid';
-import Link from 'next/link';
-import { validateSession } from '@/functions/validate-session';
-import { Round } from '@/domain/classes/round';
-import DialogAddRound from '@/components/comp/editor/DialogAddRound';
 import TextButton from '@/components/common/TextButton';
-import DialogAddMatch from '@/components/comp/editor/DialogAddMatch';
-import DialogEditRound from '@/components/comp/editor/DialogEditRound';
-import DialogEditMatch from '@/components/comp/editor/DialogEditMatch';
-import DialogDeleteMatch from '@/components/comp/editor/DialogDeleteMatch';
-import DialogDeleteRound from '@/components/comp/editor/DialogDeleteRound';
+import { routeEvents } from '@/domain/constants/routes';
+import Link from 'next/link';
 import { plainToInstance } from 'class-transformer';
-import { Toaster, toast } from 'sonner';
-import PageTitle from '@/components/PageTitle';
-import { auth } from '@/auth';
-import moment, { Moment } from 'moment';
-import { Event } from '@/types/event';
-import { getEvent } from '@/infrastructure/clients/event.client';
-import { createRounds, deleteRounds, getCompetitionParticipants, getRounds, updateRounds } from '@/infrastructure/clients/competition.client';
 
-const ModeEditing = (props: any) => {
-  const session = props.session;
+interface IRoundEditor {
+  event: Event;
+  compId: string;
+  roundsInit: Round[];
+  participants: {
+    username: string;
+  }[];
+}
+
+export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRoundEditor) => {
+  const t = useTranslations('/events/eventid/comps/compid/edit/mode');
+
+  const { data: session } = useSession();
 
   const router = useRouter();
-  const { eventId } = router.query;
-  const { compId } = router.query;
 
-  const [numParticipants] = useState<number>(props.data.participants.length);
-  const [gameModeApplied] = useState<boolean>(plainToInstance(Round, props.data.rounds).length > 0);
-  const [rounds, setRounds] = useState<Round[]>(plainToInstance(Round, props.data.rounds));
-  const [event] = useState<Event>(props.data.event);
+  const [numParticipants] = useState<number>(participants.length);
+  const [gameModeApplied, setGameModeApplied] = useState<boolean>(); // plainToInstance(Round, props.data.rounds).length > 0
+  const [rounds, setRounds] = useState<Round[]>(plainToInstance(Round, roundsInit));
 
   const handleSaveClicked = async () => {
     if (compId) {
       try {
         await createRounds(compId?.toString(), rounds, session);
         toast.success(`Rounds successfully created`);
-        router.reload(); // TODO: remove, must reload to swutsch from save to update method.
+        router.refresh(); // TODO: remove, must reload to switch from save to update method.
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -72,7 +74,7 @@ const ModeEditing = (props: any) => {
       try {
         await deleteRounds(compId?.toString(), session);
         toast.success(`Round successfully deleted`);
-        router.reload();
+        router.refresh();
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -112,39 +114,39 @@ const ModeEditing = (props: any) => {
   };
 
   const handleAddRoundClicked = async () => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?addround=1`;
-    router.replace(url, undefined, { shallow: true });
+    const url = `${routeEvents}/${event.id}/comps/${compId}/edit/mode?addround=1`;
+    router.replace(url);
   };
 
   const handleEditRoundClicked = async (roundIndex: number) => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}&rdate=${rounds[roundIndex].date}&rtimelimit=${rounds[roundIndex].timeLimit}&radvancing=${rounds[roundIndex].advancingTotal}`;
-    router.replace(url, undefined, { shallow: true });
+    const url = `${routeEvents}/${event.id}/comps/${compId}/edit/mode?editround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}&rdate=${rounds[roundIndex].date}&rtimelimit=${rounds[roundIndex].timeLimit}&radvancing=${rounds[roundIndex].advancingTotal}`;
+    router.replace(url);
   };
 
   const handleDeleteRoundClicked = async (roundIndex: number) => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?deleteround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}`;
-    router.replace(url, undefined, { shallow: true });
+    const url = `${routeEvents}/${event.id}/comps/${compId}/edit/mode?deleteround=1&rid=${roundIndex}&rname=${rounds[roundIndex].name}`;
+    router.replace(url);
   };
 
   const handleAddMatchClicked = async (roundIndex: number) => {
     const newMatchIndex = rounds[roundIndex].matches.length;
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?addmatch=1&rid=${roundIndex}&mid=${newMatchIndex}`;
-    router.replace(url, undefined, { shallow: true });
+    const url = `${routeEvents}/${event.id}/comps/${compId}/edit/mode?addmatch=1&rid=${roundIndex}&mid=${newMatchIndex}`;
+    router.replace(url);
   };
 
   const handleEditMatchClicked = async (roundIndex: number, matchIndex: number) => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?editmatch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}&mtime=${rounds[roundIndex].matches[matchIndex].time}&mslots=${rounds[roundIndex].matches[matchIndex].slots}&mextra=${rounds[roundIndex].matches[matchIndex].isExtraMatch}`;
-    router.replace(url, undefined, { shallow: true });
+    const url = `${routeEvents}/${event.id}/comps/${compId}/edit/mode?editmatch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}&mtime=${rounds[roundIndex].matches[matchIndex].time}&mslots=${rounds[roundIndex].matches[matchIndex].slots}&mextra=${rounds[roundIndex].matches[matchIndex].isExtraMatch}`;
+    router.replace(url);
   };
 
   const handleDeleteMatchClicked = async (roundIndex: number, matchIndex: number) => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode?deletematch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}`;
-    router.replace(url, undefined, { shallow: true });
+    const url = `${routeEvents}/${event.id}/comps/${compId}/edit/mode?deletematch=1&rid=${roundIndex}&mid=${matchIndex}&mname=${rounds[roundIndex].matches[matchIndex].name}`;
+    router.replace(url);
   };
 
   const handleCancelDialogClicked = async () => {
-    const url = `${routeEvents}/${eventId}/comps/${compId}/edit/mode`;
-    router.replace(url, undefined, { shallow: true });
+    const url = `${routeEvents}/${event.id}/comps/${compId}/edit/mode`;
+    router.replace(url);
   };
 
   const handleConfirmAddRoundClicked = async (slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string, roundTimeLimit: boolean) => {
@@ -216,18 +218,22 @@ const ModeEditing = (props: any) => {
     setRounds(rnds);
   };
 
+  useEffect(() => {
+    setGameModeApplied(rounds.length > 0);
+  }, [rounds]);
+
   return (
     <>
       <Toaster richColors />
 
       <DialogAddRound
-        title="Add Round"
+        title={t('dlgAddRoundTitle')}
         queryParam="addround"
         onCancel={handleCancelDialogClicked}
         onConfirm={(slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string, roundTimeLimit: boolean) => {
           handleConfirmAddRoundClicked(slotsPerMatch, advancingTotal, roundName, roundDate, roundTimeLimit);
         }}
-        confirmText="Confirm"
+        confirmText={t('dlgAddRoundBtnConfirm')}
         roundIndex={rounds.length}
         availablePlayers={getAvailablePlayers()}
         dateFrom={
@@ -241,149 +247,97 @@ const ModeEditing = (props: any) => {
       />
 
       <DialogEditRound
-        title="Edit Round"
+        title={t('dlgEditRoundTitle')}
         queryParam="editround"
         onCancel={handleCancelDialogClicked}
         onConfirm={(roundIndex: number, roundName: string, roundDate: string, roundTimeLimit: boolean, advancingTotal: number) => {
           handleConfirmEditRoundClicked(roundIndex, roundName, roundDate, roundTimeLimit, advancingTotal);
         }}
-        confirmText="Confirm"
+        confirmText={t('dlgEditRoundBtnConfirm')}
         dateFrom={event.dateFrom}
         dateTo={event.dateTo}
       />
 
       <DialogDeleteRound
-        title="Delete Round"
+        title={t('dlgDeleteRoundTitle')}
         queryParam="deleteround"
         onCancel={handleCancelDialogClicked}
         onConfirm={(roundIndex: number) => {
           handleConfirmDeleteRoundClicked(roundIndex);
         }}
-        confirmText="Confirm"
+        confirmText={t('dlgDeleteRoundBtnConfirm')}
       />
 
       <DialogAddMatch
-        title="Add Match"
+        title={t('dlgAddMatchTitle')}
         queryParam="addmatch"
         onCancel={handleCancelDialogClicked}
         onConfirm={(roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, amountSlots: number, isExtraMatch: boolean) => {
           handleConfirmAddMatchClicked(roundIndex, matchIndex, matchName, matchTime, amountSlots, isExtraMatch);
         }}
-        confirmText="Confirm"
+        confirmText={t('dlgAddMatchBtnConfirm')}
       />
 
       <DialogEditMatch
-        title="Edit Match"
+        title={t('dlgEditMatchTitle')}
         queryParam="editmatch"
         onCancel={handleCancelDialogClicked}
         onConfirm={(roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, slots: number, isExtraMatch: boolean) => {
           handleConfirmEditMatchClicked(roundIndex, matchIndex, matchName, matchTime, slots, isExtraMatch);
         }}
-        confirmText="Confirm"
+        confirmText={t('dlgEditMatchBtnConfirm')}
       />
 
       <DialogDeleteMatch
-        title="Delete Match"
+        title={t('dlgDeleteMatchTitle')}
         queryParam="deletematch"
         onCancel={handleCancelDialogClicked}
         onConfirm={(roundIndex: number, matchIndex: number) => {
           handleConfirmDeleteMatchClicked(roundIndex, matchIndex);
         }}
-        confirmText="Confirm"
+        confirmText={t('dlgDeleteMatchBtnConfirm')}
       />
 
-      <div className="h-[calc(100dvh)] flex flex-col">
-        <PageTitle title="Game Mode Editor" />
+      <div className={`mx-2 flex flex-col overflow-hidden`}>
+        {numParticipants > 1 && (
+          <div className={'mt-2 flex flex-col items-center'}>{(rounds.length === 0 || getLastRound().advancingTotal > 1) && <TextButton text={`Add Round`} onClick={handleAddRoundClicked} />}</div>
+        )}
 
-        <div className={`mx-2 flex flex-col overflow-hidden`}>
-          {numParticipants > 1 && (
-            <div className={'mt-2 flex flex-col items-center'}>{(rounds.length === 0 || getLastRound().advancingTotal > 1) && <TextButton text={`Add Round`} onClick={handleAddRoundClicked} />}</div>
-          )}
+        <div className={'mt-2 flex justify-center overflow-y-auto'}>
+          {numParticipants < 2 && <div>{t('textNoSufficientPool')}</div>}
 
-          <div className={'mt-2 flex justify-center overflow-y-auto'}>
-            {numParticipants < 2 && <div>{`Add at least 2 players to the competition pool before creating a game mode.`}</div>}
-
-            <BattleGrid
-              rounds={rounds}
-              editingEnabled={true}
-              onEditRound={(roundIndex: number) => {
-                handleEditRoundClicked(roundIndex);
-              }}
-              onDeleteRound={(roundIndex: number) => {
-                handleDeleteRoundClicked(roundIndex);
-              }}
-              onAddMatch={(roundIndex: number) => {
-                handleAddMatchClicked(roundIndex);
-              }}
-              onEditMatch={(roundIndex: number, matchIndex: number) => {
-                handleEditMatchClicked(roundIndex, matchIndex);
-              }}
-              onDeleteMatch={(roundIndex: number, matchIndex: number) => {
-                handleDeleteMatchClicked(roundIndex, matchIndex);
-              }}
-            />
-          </div>
+          <BattleGrid
+            rounds={rounds}
+            editingEnabled={true}
+            onEditRound={(roundIndex: number) => {
+              handleEditRoundClicked(roundIndex);
+            }}
+            onDeleteRound={(roundIndex: number) => {
+              handleDeleteRoundClicked(roundIndex);
+            }}
+            onAddMatch={(roundIndex: number) => {
+              handleAddMatchClicked(roundIndex);
+            }}
+            onEditMatch={(roundIndex: number, matchIndex: number) => {
+              handleEditMatchClicked(roundIndex, matchIndex);
+            }}
+            onDeleteMatch={(roundIndex: number, matchIndex: number) => {
+              handleDeleteMatchClicked(roundIndex, matchIndex);
+            }}
+          />
         </div>
-
-        <Navigation>
-          <Link href={`${routeEvents}/${eventId}/comps`}>
-            <ActionButton action={Action.BACK} onClick={() => router.replace(`${routeEvents}/${eventId}/comps`)} />
-          </Link>
-
-          {!gameModeApplied && rounds.length > 0 && <TextButton text={`Save`} onClick={handleSaveClicked} />}
-          {gameModeApplied && rounds.length > 0 && <TextButton text={`Update`} onClick={handleUpdateClicked} />}
-          {gameModeApplied && rounds.length === 0 && <TextButton text={`Save`} onClick={handleDeleteClicked} />}
-        </Navigation>
       </div>
+
+      {/* TODO: move navigation to page.tsx */}
+      <Navigation>
+        <Link href={`${routeEvents}/${event.id}/comps`}>
+          <ActionButton action={Action.BACK} />
+        </Link>
+
+        {!gameModeApplied && rounds.length > 0 && <TextButton text={t('btnSave')} onClick={handleSaveClicked} />}
+        {gameModeApplied && rounds.length > 0 && <TextButton text={t(`btnUpdate`)} onClick={handleUpdateClicked} />}
+        {gameModeApplied && rounds.length === 0 && <TextButton text={t('btnDelete')} onClick={handleDeleteClicked} />}
+      </Navigation>
     </>
   );
-};
-
-export default ModeEditing;
-
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  const session = await auth(context);
-
-  if (!validateSession(session)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: routeLogin,
-      },
-    };
-  }
-
-  const eventId = context.query.eventId;
-  const compId = context.query.compId;
-
-  let data: { event: Event | null; rounds: Round[]; participants: { username: string }[] } = { event: null, rounds: [], participants: [] };
-
-  if (eventId) {
-    try {
-      data.event = JSON.parse(JSON.stringify(await getEvent(eventId?.toString(), session)));
-    } catch (error: any) {
-      console.error('Error fetching event.');
-    }
-  }
-
-  if (compId) {
-    try {
-      data.rounds = JSON.parse(JSON.stringify(await getRounds(compId?.toString())));
-    } catch (error: any) {
-      console.error('Error fetching rounds.');
-    }
-
-    try {
-      data.participants = await getCompetitionParticipants(compId?.toString());
-    } catch (error: any) {
-      console.error('Error fetching participants.');
-    }
-  }
-
-  return {
-    props: {
-      session: session,
-      data: data,
-    },
-  };
 };

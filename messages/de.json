@@ -206,6 +206,50 @@
     "btnAssigned": "zugewiesen",
     "btnUnassigned": "frei"
   },
+  "/events/eventid/comps/compid/edit/mode": {
+    "pageTitle": "Turniermodus Editor",
+    "dlgAddRoundTitle": "Runde hinzufügen",
+    "dlgAddRoundName": "Name",
+    "dlgAddRoundDay": "Tag",
+    "dlgAddRoundAvailablePlayers": "Verfügbare Spieler im Pool",
+    "dlgAddRoundPlayersAdvancing": "Anzahl in nächster Runde",
+    "dlgAddRoundPlayersPerMatch": "Spieler pro Battle",
+    "dlgAddRoundAmountMatches": "Anzahl Battles",
+    "dlgAddRoundTimeLimit": "Hat Zeitlimit?",
+    "dlgAddRoundBtnConfirm": "Bestätigen",
+    "dlgEditRoundTitle": "Runde bearbeiten",
+    "dlgEditRoundName": "Name",
+    "dlgEditRoundDay": "Tag",
+    "dlgEditRoundPlayersAdvancing": "Anzahl in nächster Runde",
+    "dlgEditRoundTimeLimit": "Hat Zeitlimit?",
+    "dlgEditRoundBtnConfirm": "Bestätigen",
+    "dlgDeleteRoundTitle": "Runde löschen",
+    "dlgDeleteRoundText": "Löschen?",
+    "dlgDeleteRoundBtnConfirm": "Bestätigen",
+    "dlgAddMatchTitle": "Battle hinzufügen",
+    "dlgAddMatchName": "Name",
+    "dlgAddMatchTime": "Battlezeit",
+    "dlgAddMatchAmountPlayers": "Anzahl Spieler",
+    "dlgAddMatchIsExtraBattle": "Ist Extrabattle?",
+    "dlgAddMatchBtnConfirm": "Bestätigen",
+    "dlgEditMatchTitle": "Battle bearbeiten",
+    "dlgEditMatchName": "Name",
+    "dlgEditMatchTime": "Battlezeit",
+    "dlgEditMatchAmountPlayers": "Anzahl Spieler",
+    "dlgEditMatchIsExtraBattle": "Ist Extrabattle?",
+    "dlgEditMatchBtnConfirm": "Bestätigen",
+    "dlgDeleteMatchTitle": "Battle löschen",
+    "dlgDeleteMatchText": "Löschen?",
+    "dlgDeleteMatchBtnConfirm": "Bestätigen",
+    "textNoSufficientPool": "Du musst mindestens zwei Teilnehmer zum Pool hinzufügen.",
+    "btnSave": "Save",
+    "btnUpdate": "Update",
+    "btnDelete": "Save"
+  },
+  "/events/eventid/comps/compid/edit/seeding": {
+    "pageTitle": "Zuweisung & Ergebnisse",
+    "textNoGameMode": "Du hast noch keinen Turniermodus erstellt."
+  },
   "/events/eventid/comps/edit": {
     "pageTitle": "Wettbewerb anpassen",
     "btnSave": "Speichern",
@@ -356,6 +400,9 @@
     "firstName": "Vorname",
     "associationName": "Vereinsname",
     "brandName": "Markenname"
+  },
+  "global/components/battle-grid": {
+    "btnAddMatch": "Match hinzufügen"
   },
   "global/components/competition-editor": {
     "inputName": "Wettbewerb Name",

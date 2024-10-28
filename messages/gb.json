@@ -206,6 +206,50 @@
     "btnAssigned": "assigned",
     "btnUnassigned": "free"
   },
+  "/events/eventid/comps/compid/edit/mode": {
+    "pageTitle": "Game Mode Editor",
+    "dlgAddRoundTitle": "Add Round",
+    "dlgAddRoundName": "Round name",
+    "dlgAddRoundDay": "Day",
+    "dlgAddRoundAvailablePlayers": "Available players in pool",
+    "dlgAddRoundPlayersAdvancing": "Advancing to next round",
+    "dlgAddRoundPlayersPerMatch": "Players per match",
+    "dlgAddRoundAmountMatches": "Amount of matches",
+    "dlgAddRoundTimeLimit": "Has time limit",
+    "dlgAddRoundBtnConfirm": "Confirm",
+    "dlgEditRoundTitle": "Edit Round",
+    "dlgEditRoundName": "Round name",
+    "dlgEditRoundDay": "Day",
+    "dlgEditRoundPlayersAdvancing": "Advancing to next round",
+    "dlgEditRoundTimeLimit": "Has time limit",
+    "dlgEditRoundBtnConfirm": "Confirm",
+    "dlgDeleteRoundTitle": "Delete Round",
+    "dlgDeleteRoundText": "Delete?",
+    "dlgDeleteRoundBtnConfirm": "Confirm",
+    "dlgAddMatchTitle": "Add Match",
+    "dlgAddMatchName": "Match name",
+    "dlgAddMatchTime": "Match time",
+    "dlgAddMatchAmountPlayers": "Amount of players",
+    "dlgAddMatchIsExtraBattle": "Is extra battle?",
+    "dlgAddMatchBtnConfirm": "Confirm",
+    "dlgEditMatchTitle": "Edit Match",
+    "dlgEditMatchName": "Match name",
+    "dlgEditMatchTime": "Match time",
+    "dlgEditMatchAmountPlayers": "Amount of players",
+    "dlgEditMatchIsExtraBattle": "Is extra battle?",
+    "dlgEditMatchBtnConfirm": "Confirm",
+    "dlgDeleteMatchTitle": "Delete Match",
+    "dlgDeleteMatchText": "Delete?",
+    "dlgDeleteMatchBtnConfirm": "Confirm",
+    "textNoSufficientPool": "Add at least 2 players to the competition pool before creating a game mode.",
+    "btnSave": "Save",
+    "btnUpdate": "Update",
+    "btnDelete": "Save"
+  },
+  "/events/eventid/comps/compid/edit/seeding": {
+    "pageTitle": "Seeding & Results",
+    "textNoGameMode": "You have not configured a game mode, yet."
+  },
   "/events/eventid/comps/edit": {
     "pageTitle": "Edit Competition",
     "btnSave": "Save",
@@ -356,6 +400,9 @@
     "firstName": "First name",
     "associationName": "Association name",
     "brandName": "Brand name"
+  },
+  "global/components/battle-grid": {
+    "btnAddMatch": "Add Match"
   },
   "global/components/competition-editor": {
     "inputName": "Competition Name",

@@ -4,6 +4,7 @@ import { Roboto } from 'next/font/google';
 import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
+import LocalizationProvider from '@/lib/providers';
 
 const fontRoboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
@@ -24,7 +25,10 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={fontRoboto.className}>
         <SessionProvider>
-          <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+          {/* Hint: LocalizationProvider is only used for MUI Time Picker */}
+          <LocalizationProvider>
+            <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+          </LocalizationProvider>
         </SessionProvider>
       </body>
     </html>

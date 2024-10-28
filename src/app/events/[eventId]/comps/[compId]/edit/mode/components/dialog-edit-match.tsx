@@ -2,11 +2,12 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ActionButton from '../../common/ActionButton';
+import ActionButton from '../../../../../../../../components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import TextButton from '../../common/TextButton';
-import { TimePicker } from '@mui/x-date-pickers';
+import TextButton from '../../../../../../../../components/common/TextButton';
 import moment from 'moment';
+import { TimePicker } from '@mui/x-date-pickers';
+import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
   title: string;
@@ -18,6 +19,8 @@ interface IDialogProps {
 }
 
 const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText }: IDialogProps) => {
+  const t = useTranslations('/events/eventid/comps/compid/edit/mode');
+
   const searchParams = useSearchParams();
   const showDialog = searchParams?.get(queryParam);
   const roundIndex = +(searchParams?.get('rid') || 0);
@@ -59,7 +62,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
         <div className="rounded-b-lg bg-background p-2">
           <div className="p-2 grid gap-1">
             <div className="grid grid-cols-2 gap-2">
-              <div>{'Match name'}</div>
+              <div>{t('dlgEditMatchName')}</div>
               <input
                 id={`input-round-name`}
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
@@ -71,9 +74,9 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center">
-              <div>{'Match time'}</div>
+              <div>{t('dlgEditMatchTime')}</div>
               <TimePicker
-                className=" rounded-lg"
+                className="rounded-lg"
                 slotProps={{
                   textField: {
                     size: 'small',
@@ -97,7 +100,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              <div>{'Players per match'}</div>
+              <div>{t('dlgEditMatchAmountPlayers')}</div>
               <input
                 id={`input-slots-per-match`}
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
@@ -112,7 +115,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center">
-              <div>{'Is extra battle?'}</div>
+              <div>{t('dlgEditMatchIsExtraBattle')}</div>
               <input
                 id={'input-is-extra-battle'}
                 className="h-4 w-4"

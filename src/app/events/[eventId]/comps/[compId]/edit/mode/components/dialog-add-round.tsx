@@ -2,12 +2,13 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ActionButton from '../../common/ActionButton';
+import ActionButton from '../../../../../../../../components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import TextButton from '../../common/TextButton';
+import TextButton from '../../../../../../../../components/common/TextButton';
 import ComboBox from '@/components/common/ComboBox';
 import moment from 'moment';
 import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
+import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
   title: string;
@@ -23,6 +24,8 @@ interface IDialogProps {
 }
 
 const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText, roundIndex, availablePlayers, dateFrom, dateTo }: IDialogProps) => {
+  const t = useTranslations('/events/eventid/comps/compid/edit/mode');
+
   const searchParams = useSearchParams();
   const showDialog = searchParams?.get(queryParam);
   const [slotsPerMatch, setSlotsPerMatch] = useState<number>(2);
@@ -69,7 +72,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
         <div className="rounded-b-lg bg-background p-2">
           <div className="p-2 grid gap-1">
             <div className="grid grid-cols-2 justify-between gap-2">
-              <div>{`Round name`}</div>
+              <div>{t('dlgAddRoundName')}</div>
               <input
                 id={`input-round-name`}
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
@@ -81,7 +84,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center relative z-60">
-              <div>{`Day`}</div>
+              <div>{t('dlgAddRoundDay')}</div>
               <div className="flex w-full">
                 <ComboBox
                   menus={getMenuAvailableDays(dateFrom, dateTo)}
@@ -94,13 +97,12 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              <div>{`Available players in pool`}</div>
+              <div>{t('dlgAddRoundAvailablePlayers')}</div>
               <div>{availablePlayers}</div>
             </div>
 
-            {/* TODO: add checkbox: is final battle? */}
             <div className="grid grid-cols-2 gap-2">
-              <div>{`Advancing to next round`}</div>
+              <div>{t('dlgAddRoundPlayersAdvancing')}</div>
               <input
                 id={`input-advancingTotal`}
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
@@ -116,7 +118,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              <div>{`Players per match`}</div>
+              <div>{t('dlgAddRoundPlayersPerMatch')}</div>
               <input
                 id={`input-slots-per-match`}
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
@@ -132,12 +134,12 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              <div>{`Amount of matches`}</div>
+              <div>{t('dlgAddRoundAmountMatches')}</div>
               <div>{Math.ceil(availablePlayers / slotsPerMatch)}</div>
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center">
-              <div>{'Has time limit'}</div>
+              <div>{t('dlgAddRoundTimeLimit')}</div>
               <input
                 id={'input-time-limit'}
                 className="h-4 w-4"
