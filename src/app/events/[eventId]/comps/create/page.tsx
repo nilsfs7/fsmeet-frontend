@@ -2,7 +2,7 @@
 
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, use } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
 import { Competition } from '@/types/competition';
@@ -16,9 +16,9 @@ import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 
-export default function CompetitionCreation({ params }: { params: { eventId: string } }) {
+export default function CompetitionCreation(props: { params: Promise<{ eventId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/comps/create');
-
   const { data: session } = useSession();
   const router = useRouter();
 

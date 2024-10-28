@@ -9,7 +9,8 @@ import { EventRegistrationType } from '@/types/event-registration-type';
 import { getAccommodations } from '@/infrastructure/clients/accommodation.client';
 import { getOfferings } from '@/infrastructure/clients/offering.client';
 
-export default async function EventParticipants({ params }: { params: { eventId: string } }) {
+export default async function EventParticipants(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/participants');
   const session = await auth();
 

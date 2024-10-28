@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
@@ -16,9 +16,9 @@ import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/infra
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 
-export default function Seeding({ params }: { params: { eventId: string; compId: string } }) {
+export default function Seeding(props: { params: Promise<{ eventId: string; compId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/comps/compid/edit/seeding');
-
   const { data: session } = useSession();
 
   const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
