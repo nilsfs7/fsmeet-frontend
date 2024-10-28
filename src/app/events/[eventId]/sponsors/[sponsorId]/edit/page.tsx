@@ -2,7 +2,7 @@
 
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -17,7 +17,8 @@ import Dialog from '@/components/Dialog';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 
-export default function EditEventSponsor({ params }: { params: { eventId: string; sponsorId: string } }) {
+export default function EditEventSponsor(props: { params: Promise<{ eventId: string; sponsorId: string }> }) {
+  const params = use(props.params);
   const { data: session, status } = useSession();
 
   const router = useRouter();

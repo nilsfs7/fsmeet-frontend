@@ -23,7 +23,8 @@ import { AccordionContentBattleHistory } from './components/accordion-content-ba
 import { AccordionContentMatchStats } from './components/accordion-content-match-stats';
 import { AccordionContentAchievements } from './components/accordion-content-achievements';
 
-export default async function PublicUserProfile({ params }: { params: { username: string } }) {
+export default async function PublicUserProfile(props: { params: Promise<{ username: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/users/username');
   const session = await auth();
 

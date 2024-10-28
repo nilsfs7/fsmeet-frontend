@@ -2,7 +2,7 @@
 
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, use } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -15,7 +15,8 @@ import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 
-export default function CreateEventSponsor({ params }: { params: { eventId: string } }) {
+export default function CreateEventSponsor(props: { params: Promise<{ eventId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/sponsors/create');
   const { data: session } = useSession();
 

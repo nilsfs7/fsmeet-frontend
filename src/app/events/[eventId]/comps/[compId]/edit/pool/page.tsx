@@ -10,7 +10,8 @@ import { getCompetition } from '@/infrastructure/clients/competition.client';
 import { getTranslations } from 'next-intl/server';
 import { getEvent } from '@/infrastructure/clients/event.client';
 
-export default async function CompetitionPool({ params }: { params: { eventId: string; compId: string } }) {
+export default async function CompetitionPool(props: { params: Promise<{ eventId: string; compId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/comps/compid/edit/pool');
 
   const event = JSON.parse(JSON.stringify(await getEvent(params.eventId)));
