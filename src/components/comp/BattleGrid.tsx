@@ -1,3 +1,5 @@
+'use client';
+
 import { Round } from '@/domain/classes/round';
 import MatchCard from './MatchCard';
 import { User } from '@/types/user';
@@ -7,6 +9,7 @@ import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
 import TextButton from '../common/TextButton';
 import moment from 'moment';
+import { useTranslations } from 'next-intl';
 
 interface IBattleGridProps {
   rounds: Round[];
@@ -37,6 +40,8 @@ const BattleGrid = ({
   onDeleteMatch,
   onUpdateSlot,
 }: IBattleGridProps) => {
+  const t = useTranslations('global/components/battle-grid');
+
   return (
     <div className="flex overflow-y-auto">
       {rounds.map((round: Round, i: number) => {
@@ -90,7 +95,7 @@ const BattleGrid = ({
 
                 {editingEnabled && onAddMatch && (
                   <div className="flex justify-center mt-2 gap-2 items-center">
-                    <TextButton text={`Add Match`} onClick={() => onAddMatch(round.roundIndex)} />
+                    <TextButton text={t('btnAddMatch')} onClick={() => onAddMatch(round.roundIndex)} />
                   </div>
                 )}
               </div>

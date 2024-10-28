@@ -2,13 +2,13 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ActionButton from '../../common/ActionButton';
+import ActionButton from '../../../../../../../../components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import TextButton from '../../common/TextButton';
+import TextButton from '../../../../../../../../components/common/TextButton';
 import ComboBox from '@/components/common/ComboBox';
 import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
-import { Moment } from 'moment';
 import moment from 'moment';
+import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
   title: string;
@@ -22,6 +22,8 @@ interface IDialogProps {
 }
 
 const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText, dateFrom, dateTo }: IDialogProps) => {
+  const t = useTranslations('/events/eventid/comps/compid/edit/mode');
+
   const searchParams = useSearchParams();
   const showDialog = searchParams?.get(queryParam);
   const rname = searchParams?.get('rname') || '';
@@ -62,7 +64,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
         <div className="rounded-b-lg bg-background p-2">
           <div className="p-2 grid gap-1">
             <div className="grid grid-cols-2 justify-between gap-2">
-              <div>{`Round name`}</div>
+              <div>{t('dlgEditRoundName')}</div>
               <input
                 id={`input-round-name`}
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
@@ -74,7 +76,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center relative z-60">
-              <div>{`Day`}</div>
+              <div>{t('dlgEditRoundDay')}</div>
               <div className="flex w-full">
                 <ComboBox
                   menus={getMenuAvailableDays(dateFrom, dateTo)}
@@ -87,7 +89,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              <div>{`Advancing to next round`}</div>
+              <div>{t('dlgEditRoundPlayersAdvancing')}</div>
               <input
                 id={`input-advancingTotal`}
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
@@ -101,7 +103,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center">
-              <div>{'Has time limit'}</div>
+              <div>{t('dlgEditRoundTimeLimit')}</div>
               <input
                 id={'input-time-limit'}
                 className="h-4 w-4"
