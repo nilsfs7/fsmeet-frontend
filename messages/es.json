@@ -431,6 +431,7 @@
     "inputLivestreamUrl": "Livestream URL",
     "inputMessangerInvitationUrl": "Gruppen Chat Einladungslink (z.B. WhatsApp)",
     "sectionLocation": "Austragungsort",
+    "inputVenueName": "Name Austragungsort",
     "inputHouseNumber": "Hausnummer",
     "inputStreet": "Straße",
     "inputPostCode": "Postleitzahl",

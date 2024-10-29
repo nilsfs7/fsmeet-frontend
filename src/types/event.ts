@@ -17,6 +17,7 @@ export type Event = {
   registrationDeadline: string;
   participationFee: number;
   description: string;
+  venueName: string;
   venueHouseNo: string;
   venueStreet: string;
   venueCity: string;
