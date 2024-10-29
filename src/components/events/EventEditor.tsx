@@ -164,6 +164,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     registrationOpen,
     registrationDeadline,
     description,
+    venueName,
     venueHouseNo,
     venueStreet,
     venueCity,
@@ -344,7 +345,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <TextInput
             id={'venueHouseNo'}
-            label={t('inputHouseNumber')}
+            label={t('inputVenueHouseNumber')}
             placeholder="40/1"
             value={venueHouseNo}
             onChange={(e) => {
@@ -354,7 +355,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <TextInput
             id={'venueStreet'}
-            label={t('inputStreet')}
+            label={t('inputVenueStreet')}
             placeholder="Hofwiesenstraße"
             value={venueStreet}
             onChange={(e) => {
@@ -364,7 +365,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <TextInput
             id={'venuePostCode'}
-            label={t('inputPostCode')}
+            label={t('inputVenuePostCode')}
             placeholder="74081"
             value={venuePostCode}
             onChange={(e) => {
@@ -374,7 +375,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <TextInput
             id={'venueCity'}
-            label={t('inputCity')}
+            label={t('inputVenueCity')}
             placeholder="Heilbronn"
             value={venueCity}
             onChange={(e) => {
@@ -384,7 +385,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <TextInput
             id={'venueCountry'}
-            label={t('inputCountry')}
+            label={t('inputVenueCountry')}
             placeholder="Germany"
             value={venueCountry}
             onChange={(e) => {
