@@ -110,7 +110,6 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
   if (!session) {
     response = await fetch(url, {
       method: 'GET',
-      cache: 'no-store',
     });
   } else {
     response = await fetch(url, {
@@ -118,7 +117,6 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
       headers: {
         Authorization: `Bearer ${session?.user?.accessToken}`,
       },
-      cache: 'no-store',
     });
   }
 
@@ -161,6 +159,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
     dateTo: event?.dateTo,
     registrationOpen: event?.registrationOpen,
     registrationDeadline: event?.registrationDeadline,
+    venueName: event?.venueName.trim(),
     venueHouseNo: event?.venueHouseNo.trim(),
     venueStreet: event?.venueStreet.trim(),
     venueCity: event?.venueCity.trim(),
@@ -316,6 +315,7 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     dateTo: event?.dateTo,
     registrationOpen: event?.registrationOpen,
     registrationDeadline: event?.registrationDeadline,
+    venueName: event?.venueName.trim(),
     venueHouseNo: event?.venueHouseNo.trim(),
     venueStreet: event?.venueStreet.trim(),
     venuePostCode: event?.venuePostCode.trim(),

@@ -5,10 +5,11 @@ import UserBadge from '../user/UserBadge';
 interface IUserSectionProps {
   sectionTitle: string;
   users: User[];
+  showUserTypeImage?: boolean;
   registrationStatus?: EventRegistrationStatus[];
 }
 
-const UserSection = ({ sectionTitle, users, registrationStatus }: IUserSectionProps) => {
+const UserSection = ({ sectionTitle, users, showUserTypeImage = false, registrationStatus }: IUserSectionProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
       <div className="text-base font-bold">{sectionTitle}</div>
@@ -20,8 +21,8 @@ const UserSection = ({ sectionTitle, users, registrationStatus }: IUserSectionPr
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              {registrationStatus && <UserBadge user={user} registrationStatus={registrationStatus[i]} />}
-              {!registrationStatus && <UserBadge user={user} />}
+              {registrationStatus && <UserBadge user={user} showUserTypeImage={showUserTypeImage} registrationStatus={registrationStatus[i]} />}
+              {!registrationStatus && <UserBadge user={user} showUserTypeImage={showUserTypeImage} />}
             </div>
           );
         })}

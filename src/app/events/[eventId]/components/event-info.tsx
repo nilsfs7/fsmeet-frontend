@@ -109,7 +109,8 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
 
           <div className="p-2">{t('tabOverviewVenueAddress')}</div>
           <div className="select-text p-2">
-            <p>{`${event.venueStreet} ${event.venueHouseNo}`}</p>
+            <p>{event.venueName}</p>
+            <p className="mt-1">{`${event.venueStreet} ${event.venueHouseNo}`}</p>
             <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
             <p>{event.venueCountry}</p>
           </div>

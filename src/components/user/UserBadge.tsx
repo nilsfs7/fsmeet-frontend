@@ -5,14 +5,16 @@ import CheckIcon from '@mui/icons-material/Check';
 import BlockIcon from '@mui/icons-material/Block';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeUsers } from '@/domain/constants/routes';
+import { getUserTypeImages } from '@/functions/user-type';
 import Link from 'next/link';
 
 interface IUserBadgeProps {
   user: User;
+  showUserTypeImage?: boolean;
   registrationStatus?: EventRegistrationStatus;
 }
 
-const UserBadge = ({ user, registrationStatus }: IUserBadgeProps) => {
+const UserBadge = ({ user, showUserTypeImage = false, registrationStatus }: IUserBadgeProps) => {
   const name = user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`;
 
   return (
@@ -20,7 +22,11 @@ const UserBadge = ({ user, registrationStatus }: IUserBadgeProps) => {
       <div className={'w-max rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
         <div className="grid grid-flow-col items-center">
           <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="mx-1 h-6 w-6 rounded-full object-cover" />
+
           <div className="mx-1">{name}</div>
+
+          {showUserTypeImage && <img src={getUserTypeImages(user.type).path} className="mx-1 h-6 w-6 rounded-full object-cover" />}
+
           {registrationStatus && (
             <>
               {registrationStatus == EventRegistrationStatus.APPROVED && <CheckIcon />}

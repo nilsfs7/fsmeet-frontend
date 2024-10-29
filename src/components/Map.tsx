@@ -7,11 +7,11 @@ const loader = new Loader({
   libraries: ['places'],
 });
 
-interface IMapsProps {
+interface IMapProps {
   address: string;
 }
 
-const Map = ({ address }: IMapsProps) => {
+const Map = ({ address }: IMapProps) => {
   const mapRef = useRef(null);
   // const geocoder = useMemo(() => new window.google.maps.Geocoder(), []);
   const [map, setMap] = useState(null);
