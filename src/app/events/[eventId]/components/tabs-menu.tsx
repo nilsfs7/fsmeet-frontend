@@ -24,6 +24,7 @@ import { SponsorSection } from './sponsor-section';
 import { EventInfo } from './event-info';
 import { CommentSection } from './comment-section';
 import { CompetitionSection } from './competition-section';
+import { UserType } from '@/domain/enums/user-type';
 
 interface ITabsMenu {
   event: Event;
@@ -170,6 +171,12 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
           {sponsors?.length > 0 && (
             <div className="mt-2">
               <SponsorSection eventSponsors={sponsors} />
+            </div>
+          )}
+
+          {eventSupporter?.length > 0 && (
+            <div className="mt-2">
+              <UserSection sectionTitle={t('tabOverviewSectionEventSupport')} users={[{ username: 'hus089', type: UserType.DJ, firstName: 'Tom', lastName: 'Hauser' }]} showUserIcon={true} />
             </div>
           )}
 
