@@ -1,4 +1,4 @@
 import { Round as RoundClass } from '@/domain/classes/round';
-import { RemoveFunctions } from './helper/remove-functions-from-class';
+import { RemoveFunctions } from '@/lib/utils';
 
 export type Round = RemoveFunctions<RoundClass>;

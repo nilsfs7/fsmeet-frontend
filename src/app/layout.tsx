@@ -25,7 +25,6 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={fontRoboto.className}>
         <SessionProvider>
-          {/* Hint: LocalizationProvider is only used for MUI Time Picker */}
           <LocalizationProvider>
             <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
           </LocalizationProvider>
