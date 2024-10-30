@@ -11,7 +11,7 @@ import Dialog from '@/components/Dialog';
 import { validateSession } from '@/functions/validate-session';
 import { Toaster, toast } from 'sonner';
 import { deleteEventRegistration, updateEventRegistrationStatus } from '@/infrastructure/clients/event.client';
-import UserBadge from '@/components/user/UserBadge';
+import UserCard from '@/components/user/UserCard';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
@@ -120,7 +120,7 @@ export const ParticipantsList = ({ event }: IParticipantsList) => {
             return (
               <div key={index} className="m-1 flex items-center">
                 <div className="mx-1 flex w-1/2 justify-end">
-                  <UserBadge user={registration.user} registrationStatus={registration.status} />
+                  <UserCard user={registration.user} registrationStatus={registration.status} />
                 </div>
 
                 <div className="mx-1 flex w-1/2 justify-start">

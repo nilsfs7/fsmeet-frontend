@@ -6,7 +6,7 @@ interface IPayPalInfo {
   usernameForReference: string;
 }
 
-const PayPalInfo = ({ participationFee, payPalInfo }: IPayPalInfo) => {
+export const PayPalInfo = ({ participationFee, payPalInfo }: IPayPalInfo) => {
   return (
     <div className="grid grid-cols-1 justify-between">
       <div className="underline">PayPal</div>
@@ -25,5 +25,3 @@ const PayPalInfo = ({ participationFee, payPalInfo }: IPayPalInfo) => {
     </div>
   );
 };
-
-export default PayPalInfo;

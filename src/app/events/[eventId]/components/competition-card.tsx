@@ -1,11 +1,11 @@
 import { imgCompetition } from '@/domain/constants/images';
 import { Competition } from '@/types/competition';
 
-interface ICompetitionProps {
+interface ICompetitionCardProps {
   competition: Competition;
 }
 
-const CompetitionBadge = ({ competition }: ICompetitionProps) => {
+const CompetitionCard = ({ competition }: ICompetitionCardProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
       <div className="grid grid-flow-col items-center justify-between ">
@@ -16,4 +16,4 @@ const CompetitionBadge = ({ competition }: ICompetitionProps) => {
   );
 };
 
-export default CompetitionBadge;
+export default CompetitionCard;

@@ -2,7 +2,7 @@
 
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import ActionButton from '@/components/common/ActionButton';
-import UserBadge from '@/components/user/UserBadge';
+import UserCard from '@/components/user/UserCard';
 import { routeLogin } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { CompetitionGender } from '@/domain/enums/competition-gender';
@@ -140,7 +140,7 @@ export const Participants = ({ competition }: IParticipants) => {
             return (
               <div key={index} className="m-1 flex items-center">
                 <div className="mx-1 flex w-1/2 justify-end">
-                  <UserBadge user={registration.user} />
+                  <UserCard user={registration.user} />
                 </div>
                 <div className="mx-1 flex w-1/2 justify-start">
                   <div className="flex">

@@ -2,7 +2,7 @@ interface ISepaInfo {
   participationFee: number;
 }
 
-const CashInfo = ({ participationFee }: ISepaInfo) => {
+export const CashInfo = ({ participationFee }: ISepaInfo) => {
   return (
     <div className="grid grid-cols-1 justify-between">
       <div className="underline">Cash (pay on arrival)</div>
@@ -14,5 +14,3 @@ const CashInfo = ({ participationFee }: ISepaInfo) => {
     </div>
   );
 };
-
-export default CashInfo;
