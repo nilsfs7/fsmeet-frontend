@@ -8,6 +8,7 @@ interface ILocalizationProvider {
   children?: ReactNode;
 }
 
+// HINT: only used for Material UI timepicker
 export default function LocalizationProvider({ children }: ILocalizationProvider) {
   return <LP dateAdapter={AdapterMoment}>{children}</LP>;
 }
