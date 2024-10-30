@@ -6,7 +6,7 @@ interface ISepaInfo {
   usernameForReference: string;
 }
 
-const SepaInfo = ({ participationFee, sepaInfo, usernameForReference }: ISepaInfo) => {
+export const SepaInfo = ({ participationFee, sepaInfo, usernameForReference }: ISepaInfo) => {
   return (
     <div className="grid grid-cols-1 justify-between">
       <div className="underline">Bank transfer (SEPA)</div>
@@ -40,5 +40,3 @@ const SepaInfo = ({ participationFee, sepaInfo, usernameForReference }: ISepaInf
     </div>
   );
 };
-
-export default SepaInfo;

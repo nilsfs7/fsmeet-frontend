@@ -12,9 +12,9 @@ import { useRouter } from 'next/navigation';
 import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import { createEventRegistration, deleteEventRegistration } from '@/infrastructure/clients/event.client';
 import Dialog from '@/components/Dialog';
-import SepaInfo from '@/components/payment/sepa-info';
-import PayPalInfo from '@/components/payment/paypal-info';
-import CashInfo from '@/components/payment/cash-info';
+import { CashInfo } from './payment/cash-info';
+import { PayPalInfo } from './payment/paypal-info';
+import { SepaInfo } from './payment/sepa-info';
 
 interface ITextButtonRegister {
   event: Event;
