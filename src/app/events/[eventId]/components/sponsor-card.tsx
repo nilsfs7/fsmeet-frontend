@@ -1,10 +1,10 @@
 import { Sponsor } from '@/types/sponsor';
 
-interface ISponsorBadgeProps {
+interface ISponsorCardProps {
   sponsor: Sponsor;
 }
 
-const SponsorBadge = ({ sponsor }: ISponsorBadgeProps) => {
+const SponsorCard = ({ sponsor }: ISponsorCardProps) => {
   return (
     <a target="_blank" rel="noopener noreferrer" href={sponsor.website}>
       <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
@@ -17,4 +17,4 @@ const SponsorBadge = ({ sponsor }: ISponsorBadgeProps) => {
   );
 };
 
-export default SponsorBadge;
+export default SponsorCard;

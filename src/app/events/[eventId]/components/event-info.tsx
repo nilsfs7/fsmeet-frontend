@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { imgCompetition, imgMeeting } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import Map from '../../../../components/Map';
-import Link from 'next/link';
 import { getShortDateString } from '@/functions/time';
 import Separator from '../../../../components/Seperator';
 import TextButton from '../../../../components/common/TextButton';
@@ -10,8 +9,7 @@ import { Event } from '@/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
 import { User } from '@/types/user';
-import { routeUsers } from '@/domain/constants/routes';
-import UserBadge from '../../../../components/user/UserBadge';
+import UserCard from '../../../../components/user/UserCard';
 import { useTranslations } from 'next-intl';
 
 interface IEventProps {
@@ -59,7 +57,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
         {event.registrationDeadline && <div className="col-span-2">{getShortDateString(moment(event.registrationDeadline))}</div>}
 
         <div className="col-span-1 flex items-center">{t('tabOverviewEventHost')}</div>
-        {eventAdmin && <UserBadge user={eventAdmin} />}
+        {eventAdmin && <UserCard user={eventAdmin} />}
       </div>
 
       {/* description */}

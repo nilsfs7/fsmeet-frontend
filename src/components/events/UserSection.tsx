@@ -1,6 +1,6 @@
 import { User } from '@/types/user';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
-import UserBadge from '../user/UserBadge';
+import UserCard from '../user/UserCard';
 
 interface IUserSectionProps {
   sectionTitle: string;
@@ -21,8 +21,8 @@ const UserSection = ({ sectionTitle, users, showUserTypeImage = false, registrat
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              {registrationStatus && <UserBadge user={user} showUserTypeImage={showUserTypeImage} registrationStatus={registrationStatus[i]} />}
-              {!registrationStatus && <UserBadge user={user} showUserTypeImage={showUserTypeImage} />}
+              {registrationStatus && <UserCard user={user} showUserTypeImage={showUserTypeImage} registrationStatus={registrationStatus[i]} />}
+              {!registrationStatus && <UserCard user={user} showUserTypeImage={showUserTypeImage} />}
             </div>
           );
         })}

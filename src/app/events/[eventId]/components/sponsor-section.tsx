@@ -1,7 +1,7 @@
 'use client';
 
 import { Sponsor } from '@/types/sponsor';
-import SponsorBadge from '../../../../components/events/SponsorBadge';
+import SponsorCard from './sponsor-card';
 import { useTranslations } from 'next-intl';
 
 interface ISponsorSectionProps {
@@ -23,7 +23,7 @@ export const SponsorSection = ({ eventSponsors }: ISponsorSectionProps) => {
 
           return (
             <div key={i} className={`my-1 ${margin}`}>
-              {<SponsorBadge sponsor={sponsor} />}
+              {<SponsorCard sponsor={sponsor} />}
             </div>
           );
         })}

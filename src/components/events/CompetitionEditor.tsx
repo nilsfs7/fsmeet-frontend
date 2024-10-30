@@ -11,7 +11,7 @@ import { menuCompGenders } from '@/domain/constants/menus/menu-comp-genders';
 import { MaxAge } from '@/domain/enums/max-age';
 import { menuMaxAge } from '@/domain/constants/menus/menu-max-age';
 import { User } from '@/types/user';
-import UserBadge from '../user/UserBadge';
+import UserCard from '../user/UserCard';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
@@ -204,7 +204,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
             {judges.map((judge, index) => {
               return (
                 <div key={`${judge}-${index}`} className="flex justify-between p-1 gap-2">
-                  <UserBadge user={judge} />
+                  <UserCard user={judge} />
                   <ActionButton
                     action={Action.DELETE}
                     onClick={() => {

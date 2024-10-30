@@ -1,7 +1,7 @@
 'use client';
 
 import { Competition } from '@/types/competition';
-import CompetitionBadge from '../../../../components/events/CompetitionBadge';
+import CompetitionCard from './competition-card';
 import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
@@ -26,7 +26,7 @@ export const CompetitionSection = ({ competitions, eventId }: ICompetitionSectio
           return (
             <div key={i} className={`my-1 ${margin}`}>
               <Link href={`${routeEvents}/${eventId}/comps/${competition.id}`}>
-                <CompetitionBadge competition={competition} />
+                <CompetitionCard competition={competition} />
               </Link>
             </div>
           );

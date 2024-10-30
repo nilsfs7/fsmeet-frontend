@@ -8,13 +8,13 @@ import { routeUsers } from '@/domain/constants/routes';
 import { getUserTypeImages } from '@/functions/user-type';
 import Link from 'next/link';
 
-interface IUserBadgeProps {
+interface IUserCardProps {
   user: User;
   showUserTypeImage?: boolean;
   registrationStatus?: EventRegistrationStatus;
 }
 
-const UserBadge = ({ user, showUserTypeImage = false, registrationStatus }: IUserBadgeProps) => {
+const UserCard = ({ user, showUserTypeImage = false, registrationStatus }: IUserCardProps) => {
   const name = user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`;
 
   return (
@@ -40,4 +40,4 @@ const UserBadge = ({ user, showUserTypeImage = false, registrationStatus }: IUse
   );
 };
 
-export default UserBadge;
+export default UserCard;
