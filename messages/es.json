@@ -416,6 +416,10 @@
     "inputRulesPlaceHolder": "3 Runden, 30 Sekunden, 1 Ball.",
     "cbJudges": "Richter"
   },
+  "global/components/event-card": {
+    "lblHost": "Veranstalter",
+    "lblDeadline": "Deadline"
+  },
   "global/components/event-editor": {
     "sectionGeneral": "Allgemeines",
     "inputName": "Eventname",
