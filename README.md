@@ -56,6 +56,17 @@ or execute container on boot
 docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --restart always --name fsmeet-frontend luisnaldo7/fsmeet-frontend:latest
 ```
 
+## Understanding the project structure
+
+- `fonts`: Third party fonts that do not come with nextjs by default.
+- `messages`: All text for visible elements like inputs, dropdowns, headers, etc.
+- `public`: Directory for static images to be displayed. All images are either purchased or free to use SVGs for commercial usage. Further deatils about their origin down below in `Images` section of the readme.
+- `src`: Application source code.
+  - `src/app`: App router directory. Subdirectories with `page.tsx` files represent routes on the website. Some routes might contain an additional `components` directory that is used to store local components.
+  - `src/components`: Global components used in multiple routes. If a component is only used for a specific route it is placed within the app router.
+  - `src/domain`: Contains all domain specific definitions like classes, types, enums and constants.
+  - `src/infrastructure`: REST based clients for backend communication. Clients should be imported in routes when wanting to request data.
+
 ## Component Library
 
 - [shadcn](https://ui.shadcn.com/docs/components/tabs)
