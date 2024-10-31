@@ -132,7 +132,7 @@
     "pageTitle": "Event bearbeiten",
     "dlgEventDeletionTitle": "Event löschen",
     "dlgEventDeletionText": "Möchtest du das Event wirklich löschen?",
-    "btnSave": "Speichern"
+    "btnSave": "Guardar"
   },
   "/events/eventid": {
     "dlgEventRegistrationTitle": "Anmeldeinfo",
