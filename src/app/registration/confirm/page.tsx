@@ -7,8 +7,8 @@ import { getConfirmUser } from '@/infrastructure/clients/user.client';
 import { getTranslations } from 'next-intl/server';
 
 export default async function RegistrationConfirmation(props: { searchParams: Promise<{ username: string; requestToken: string }> }) {
-  const searchParams = await props.searchParams;
   const t = await getTranslations('/registration/confirm');
+  const searchParams = await props.searchParams;
 
   const confirmationSuccessful = await getConfirmUser(searchParams.username, searchParams.requestToken);
 

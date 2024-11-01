@@ -6,8 +6,8 @@ import { routeHome } from '@/domain/constants/routes';
 import { getTranslations } from 'next-intl/server';
 
 export default async function RegistrationPending(props: { searchParams: Promise<{ email: string }> }) {
-  const searchParams = await props.searchParams;
   const t = await getTranslations('/registration/pending');
+  const searchParams = await props.searchParams;
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
