@@ -1,19 +1,21 @@
 'use client';
 
-import { use, useState } from 'react';
+import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
 import bcrypt from 'bcryptjs';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { routeLogin } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import { updateUserPassword } from '@/infrastructure/clients/user.client';
 import { useTranslations } from 'next-intl';
 
-export default function ResetPassword(props: { searchParams: Promise<{ requestToken: string }> }) {
-  const searchParams = use(props.searchParams);
+export default function ResetPassword() {
   const t = useTranslations('/password/reset');
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const requestToken = searchParams?.get('requestToken');
 
   const [password, setPassword] = useState('');
 
@@ -30,7 +32,8 @@ export default function ResetPassword(props: { searchParams: Promise<{ requestTo
 
   const handleSaveClicked = async () => {
     try {
-      await updateUserPassword(searchParams.requestToken, password);
+      // @ts-ignore
+      await updateUserPassword(requestToken, password);
       router.replace(routeLogin);
     } catch (error: any) {
       toast.error(error.message);
@@ -51,7 +54,7 @@ export default function ResetPassword(props: { searchParams: Promise<{ requestTo
                 type={'password'}
                 label={t('inputPassword')}
                 placeholder="Ball&Chill2021"
-                onChange={(e) => {
+                onChange={e => {
                   handleInputChangePassword(e);
                 }}
                 onKeyDown={handleInputKeypressPassword}
