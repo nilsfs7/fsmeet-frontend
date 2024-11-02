@@ -439,7 +439,7 @@
     "inputVenueStreet": "Street",
     "inputVenuePostCode": "Post Code",
     "inputVenueCity": "City",
-    "inputCountry": "Country",
+    "inputVenueCountry": "Country",
     "sectionPayment": "Payment",
     "inputFee": "Participation Fee",
     "chbCashAccept": "Accept Cash",
