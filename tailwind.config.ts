@@ -13,12 +13,12 @@ const config: Config = {
     },
     extend: {
       colors: {
-        background: '#ffffff',
-        primary: '#141D26',
-        'secondary-dark': '#ccd6dd',
-        secondary: '#e1e8ed',
-        'secondary-light': '#f8f9fa',
-        warning: '#FFE082',
+        background: '#fefbe9',
+        primary: '#005c65',
+        'secondary-dark': '#68b0ab',
+        secondary: '#005c65',
+        'secondary-light': '#68b0ab',
+        warning: '#d6764b',
         critical: '#EE0000',
       },
       keyframes: {

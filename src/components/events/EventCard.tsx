@@ -17,7 +17,7 @@ const EventCard = ({ event }: IEventProps) => {
   const t = useTranslations('global/components/event-card');
 
   return (
-    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
+    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary hover:bg-primary hover:text-background'}>
       <div className={'max-h-24 p-2'}>
         <div className="28 flex ">
           <div className="w-full text-base font-bold">{`${!isPublicEventState(event.state) ? '[NOT LISTED] ' : ''}${event.name}`}</div>

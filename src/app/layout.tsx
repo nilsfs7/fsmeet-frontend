@@ -23,7 +23,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={fontRoboto.className}>
+      <body className={`${fontRoboto.className} bg-background`}>
         <SessionProvider>
           <LocalizationProvider>
             <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
