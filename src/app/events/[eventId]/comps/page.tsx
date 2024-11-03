@@ -95,7 +95,6 @@ export default async function ManageCompetitions({ params }: { params: { eventId
       </div>
 
       <Navigation>
-        {/*   <ActionButton action={Action.BACK} onClick={() => router.push(`${routeEvents}/${params.eventId}`)} /> */}
         <Link href={`${routeEvents}/${params.eventId}`}>
           <ActionButton action={Action.BACK} />
         </Link>
