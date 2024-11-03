@@ -23,7 +23,7 @@ export const EventsEditor = () => {
 
   const handlEventStateChanged = async (eventId: string, state: EventState) => {
     let evts = Array.from(events);
-    evts = evts.map((evt) => {
+    evts = evts.map(evt => {
       if (evt.id === eventId) {
         evt.state = state;
       }
@@ -34,7 +34,7 @@ export const EventsEditor = () => {
   };
 
   const handleSaveEventClicked = async (eventId: string) => {
-    const event = events.filter((evt) => {
+    const event = events.filter(evt => {
       if (evt.id === eventId) {
         return evt;
       }
@@ -51,7 +51,7 @@ export const EventsEditor = () => {
 
   useEffect(() => {
     if (session) {
-      getEvents(null, null, defaultDateFrom, defaultDateTo, session).then((events) => {
+      getEvents(null, null, null, defaultDateFrom, defaultDateTo, session).then(events => {
         setEvents(events);
       });
     }

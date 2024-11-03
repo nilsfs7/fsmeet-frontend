@@ -5,12 +5,14 @@ import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
 import { EventState } from '../domain/enums/event-state';
+import { EventMaintainer } from './event-maintainer';
 
 export type Event = {
   id?: string;
   name: string;
   alias: string;
   admin?: string;
+  maintainers: EventMaintainer[];
   dateFrom: string;
   dateTo: string;
   registrationOpen: string;

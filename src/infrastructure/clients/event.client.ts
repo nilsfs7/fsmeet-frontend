@@ -6,12 +6,23 @@ import { EventRegistrationStatus } from '@/domain/enums/event-registration-statu
 import { EventState } from '@/domain/enums/event-state';
 import { notFound } from 'next/navigation';
 
-export async function getEvents(admin: string | null, participant: string | null, from: moment.Moment | null, to: moment.Moment | null, session?: Session | null): Promise<Event[]> {
+export async function getEvents(
+  admin: string | null,
+  maintainer: string | null,
+  participant: string | null,
+  from: moment.Moment | null,
+  to: moment.Moment | null,
+  session?: Session | null
+): Promise<Event[]> {
   const format = 'YYYY-MM-DDTHH:mm:ss.SSS';
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?`;
 
   if (admin) {
     url = url + `admin=${admin}`;
+  }
+
+  if (maintainer) {
+    url = url + `&maintainer=${maintainer}`;
   }
 
   if (participant) {
@@ -154,11 +165,12 @@ export async function createEvent(event: Event, session: Session | null): Promis
   const body = JSON.stringify({
     name: event?.name.trim(),
     alias: event?.alias,
-    description: event?.description.trim(),
+    maintainers: event.maintainers,
     dateFrom: event?.dateFrom,
     dateTo: event?.dateTo,
     registrationOpen: event?.registrationOpen,
     registrationDeadline: event?.registrationDeadline,
+    description: event?.description.trim(),
     venueName: event?.venueName.trim(),
     venueHouseNo: event?.venueHouseNo.trim(),
     venueStreet: event?.venueStreet.trim(),
@@ -310,11 +322,12 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     id: event.id,
     name: event?.name.trim(),
     alias: event?.alias,
-    description: event?.description.trim(),
+    maintainers: event.maintainers,
     dateFrom: event?.dateFrom,
     dateTo: event?.dateTo,
     registrationOpen: event?.registrationOpen,
     registrationDeadline: event?.registrationDeadline,
+    description: event?.description.trim(),
     venueName: event?.venueName.trim(),
     venueHouseNo: event?.venueHouseNo.trim(),
     venueStreet: event?.venueStreet.trim(),

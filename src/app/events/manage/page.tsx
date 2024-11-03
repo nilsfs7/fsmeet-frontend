@@ -18,11 +18,13 @@ export default async function MyEventsOverview() {
   const session = await auth();
 
   let eventsOwning: Event[] = [];
+  let eventsMaintaining: Event[] = [];
   let eventsSubscribed: Event[] = [];
 
   if (session) {
-    eventsOwning = await getEvents(session?.user.username, null, null, null, session);
-    eventsSubscribed = await getEvents(null, session?.user.username, null, null);
+    eventsOwning = await getEvents(session?.user.username, null, null, null, null, session);
+    eventsMaintaining = await getEvents(null, session?.user.username, null, null, null, session);
+    eventsSubscribed = await getEvents(null, null, session?.user.username, null, null);
   }
 
   return (
@@ -34,7 +36,7 @@ export default async function MyEventsOverview() {
 
         <div className="mx-2 flex flex-col overflow-auto">
           <div className={'w-full overflow-auto'}>
-            <TabsMenu eventsOwning={eventsOwning} eventsSubscribed={eventsSubscribed} />
+            <TabsMenu eventsOwning={eventsOwning} eventsMaintaining={eventsMaintaining} eventsSubscribed={eventsSubscribed} />
           </div>
         </div>
 

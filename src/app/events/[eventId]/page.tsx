@@ -13,6 +13,7 @@ import { ActionButtonCopyEventUrl } from './components/action-button-copy-event-
 import { TextButtonRegister } from './components/text-button-register';
 import { ActionButtonStateAction } from './components/action-button-state-action';
 import { TextButtonFeedback } from './components/text-button-feedback';
+import { isEventAdminOrMaintainer } from '@/functions/isEventAdminOrMaintrainer';
 
 export default async function EventDetails({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid');
@@ -26,7 +27,7 @@ export default async function EventDetails({ params }: { params: { eventId: stri
     <div className="h-[calc(100dvh)] flex flex-col">
       {/* admin panel */}
       <div className="mx-2 my-2">
-        {event.admin === session?.user?.username && (
+        {isEventAdminOrMaintainer(event, session) && (
           <div className="flex justify-between rounded-lg border border-primary bg-warning p-2 gap-1">
             <div className="flex items-center">{t('adminPanelTitle')}</div>
             <div className="flex gap-1">

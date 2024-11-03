@@ -451,6 +451,8 @@
     "inputBankSepaRecipeint": "SEPA Recipient",
     "inputBankSepaIban": "SEPA IBAN",
     "inputBankSepaReference": "SEPA Reference",
+    "sectionMaintainers": "Maintainers",
+    "cbMaintainers": "Assigned Maintainers",
     "sectionOther": "Other",
     "chbAutoApproveRegistration": "Auto Approve New Registrations",
     "chbNotifyOnRegistration": "Notify On New Registration",

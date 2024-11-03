@@ -24,6 +24,7 @@ import { SponsorSection } from './sponsor-section';
 import { EventInfo } from './event-info';
 import { CommentSection } from './comment-section';
 import { CompetitionSection } from './competition-section';
+import { isEventAdmin } from '@/functions/isEventAdmin';
 
 interface ITabsMenu {
   event: Event;
@@ -34,7 +35,7 @@ interface ITabsMenu {
 // todo: must be global
 export const isRegistered = (event: Event, session: Session | null) => {
   if (validateSession(session)) {
-    if (event && event.eventRegistrations.some((registration) => registration.user.username === session?.user?.username)) {
+    if (event && event.eventRegistrations.some(registration => registration.user.username === session?.user?.username)) {
       return true;
     }
   }
@@ -53,16 +54,6 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
 
   const [eventAdmin, setEventAdmin] = useState<User>();
   const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
-
-  const isEventAdmin = () => {
-    if (validateSession(session)) {
-      if (event && event.admin === session?.user?.username) {
-        return true;
-      }
-    }
-
-    return false;
-  };
 
   const handlePostCommentClicked = async (message: string) => {
     if (!validateSession(session)) {
@@ -114,7 +105,7 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
       setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
 
       if (event.admin) {
-        getUser(event.admin).then((user) => {
+        getUser(event.admin).then(user => {
           setEventAdmin(user);
         });
       }
@@ -165,7 +156,7 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
 
         {/* Details */}
         <TabsContent value="overview" className="overflow-hidden overflow-y-auto">
-          {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessangerInvitationUrl={isEventAdmin() || isRegistered(event, session)} />}
+          {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessangerInvitationUrl={isEventAdmin(event, session) || isRegistered(event, session)} />}
 
           {sponsors?.length > 0 && (
             <div className="mt-2">
@@ -202,10 +193,10 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
           <TabsContent value="registrations" className="overflow-hidden overflow-y-auto">
             <UserSection
               sectionTitle={t('tabRegistrationsSectionRegistrations')}
-              users={approvedAndPendingRegistrations.map((registration) => {
+              users={approvedAndPendingRegistrations.map(registration => {
                 return registration.user;
               })}
-              registrationStatus={approvedAndPendingRegistrations.map((registration) => {
+              registrationStatus={approvedAndPendingRegistrations.map(registration => {
                 return registration.status;
               })}
             />

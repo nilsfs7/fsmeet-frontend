@@ -12,10 +12,11 @@ import { useTranslations } from 'next-intl';
 
 interface ITabsMenu {
   eventsOwning: Event[];
+  eventsMaintaining: Event[];
   eventsSubscribed: Event[];
 }
 
-export const TabsMenu = ({ eventsOwning, eventsSubscribed }: ITabsMenu) => {
+export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: ITabsMenu) => {
   const t = useTranslations('/events/manage');
   const router = useRouter();
 
@@ -77,6 +78,17 @@ export const TabsMenu = ({ eventsOwning, eventsSubscribed }: ITabsMenu) => {
 
           {eventsOwning.length > 0 &&
             eventsOwning.map((item: any, i: number) => {
+              return (
+                <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                  <Link href={`${routeEvents}/${item.id}`}>
+                    <EventCard event={item} />
+                  </Link>
+                </div>
+              );
+            })}
+
+          {eventsMaintaining.length > 0 &&
+            eventsMaintaining.map((item: any, i: number) => {
               return (
                 <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
                   <Link href={`${routeEvents}/${item.id}`}>
