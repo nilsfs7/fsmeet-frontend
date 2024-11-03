@@ -452,6 +452,8 @@
     "inputBankSepaRecipeint": "Empfänger (SEPA)",
     "inputBankSepaIban": "IBAN (SEPA)",
     "inputBankSepaReference": "Verwendungszweck (SEPA)",
+    "sectionMaintainers": "Betreuer",
+    "cbMaintainers": "Hinzugefügte Betreuer",
     "sectionOther": "Sonstiges",
     "chbAutoApproveRegistration": "Neue Registrierungen automatisch bestätigen",
     "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",

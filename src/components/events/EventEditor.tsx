@@ -22,6 +22,15 @@ import SectionHeader from '../common/section-header';
 import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
+import { EventMaintainer } from '@/types/event-maintainer';
+import UserCard from '../user/UserCard';
+import ActionButton from '../common/ActionButton';
+import { Action } from '@/domain/enums/action';
+import { User } from '@/types/user';
+import { getUsers } from '@/infrastructure/clients/user.client';
+import { UserType } from '@/domain/enums/user-type';
+import { isEventAdmin } from '@/functions/isEventAdmin';
+import { useSession } from 'next-auth/react';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -31,6 +40,8 @@ interface IEventEditorProps {
 
 const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) => {
   const t = useTranslations('global/components/event-editor');
+
+  const { data: session } = useSession();
 
   const [name, setEventName] = useState(event?.name || '');
   const [alias, setEventAlias] = useState(event?.alias || '');
@@ -57,6 +68,9 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const [paymentMethodSepaRecipient, setPaymentMethodSepaRecipient] = useState<string>(event?.paymentMethodSepa?.recipient || '');
   const [paymentMethodSepaIban, setPaymentMethodSepaIban] = useState<string>(event?.paymentMethodSepa?.iban || '');
   const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
+  const [maintainers, setMaintainers] = useState<EventMaintainer[]>(event?.maintainers || []);
+  const [maintainerToAddUsername, setMaintainerToAddUsername] = useState<string>();
+  const [users, setUsers] = useState<User[]>([]);
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
   const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
@@ -68,6 +82,44 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
     if (validateAlias(alias)) {
       setEventAlias(alias);
+    }
+  };
+
+  const handleAddMaintainerClicked = async (username: string) => {
+    // check if maintainer is already in array
+    const maintainersMatching = maintainers.filter(maintainer => {
+      if (maintainer.username === username) {
+        return maintainer;
+      }
+    });
+
+    if (maintainersMatching.length > 0) {
+      console.error(`${username} already assigned in maintainers list.`);
+    } else {
+      try {
+        const maintainer = users.filter(user => {
+          if (user.username === username) {
+            return user;
+          }
+        })[0];
+
+        const newArray = Array.from(maintainers);
+        newArray.push({ username: maintainer.username });
+        setMaintainers(newArray);
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    }
+  };
+
+  const handleDeleteMaintainerClicked = async (maintainer: EventMaintainer) => {
+    try {
+      const newArray = Array.from(maintainers);
+      const index = newArray.indexOf(maintainer);
+      newArray.splice(index, 1);
+      setMaintainers(newArray);
+    } catch (error: any) {
+      console.error(error.message);
     }
   };
 
@@ -90,6 +142,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       name: name,
       alias: alias,
       admin: event?.admin,
+      maintainers: maintainers,
       type: eventType,
       description: description,
       dateFrom: dateFrom,
@@ -123,6 +176,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     if (event) {
       setEventName(event.name);
       setEventAlias(event.alias);
+      setMaintainers(event.maintainers);
       setDateFrom(event.dateFrom);
       setDateTo(event.dateTo);
       setParticipationFee(event.participationFee);
@@ -151,6 +205,13 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       setAllowComments(event.allowComments);
       setNotifyOnComment(event.notifyOnComment);
     }
+
+    getUsers().then(users => {
+      users = users.filter(user => {
+        if (user.type !== UserType.TECHNICAL) return user;
+      });
+      setUsers(users);
+    });
   }, [event]);
 
   // fires back event
@@ -159,6 +220,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   }, [
     name,
     alias,
+    maintainers,
     dateFrom,
     dateTo,
     registrationOpen,
@@ -197,7 +259,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         label={t('inputName')}
         placeholder="German Freestyle Football Championship 2023"
         value={name}
-        onChange={(e) => {
+        onChange={e => {
           setEventName(e.currentTarget.value);
         }}
       />
@@ -207,7 +269,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         label={t('inputAlias')}
         placeholder="gffc2023"
         value={alias}
-        onChange={(e) => {
+        onChange={e => {
           handleInputChangeAlias(e);
         }}
       />
@@ -224,7 +286,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
               }}
             />
           )}
-          {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find((item) => item.value === eventType)?.text}</div>}
+          {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find(item => item.value === eventType)?.text}</div>}
         </div>
       </div>
 
@@ -245,7 +307,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         placeholder="German Championship"
         value={description}
         resizable={true}
-        onChange={(e) => {
+        onChange={e => {
           setDescription(e.currentTarget.value);
         }}
       />
@@ -256,7 +318,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           date={moment(dateFrom)}
           fromDate={moment(2020)}
           toDate={moment().add(2, 'y')}
-          onChange={(value) => {
+          onChange={value => {
             if (value) {
               setDateFrom(value.startOf('day').utc().format());
             }
@@ -270,7 +332,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           date={moment(dateTo)}
           fromDate={moment(2020)}
           toDate={moment().add(2, 'y')}
-          onChange={(value) => {
+          onChange={value => {
             if (value) {
               setDateTo(value.endOf('day').utc().format());
             }
@@ -284,7 +346,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           date={moment(registrationOpen)}
           fromDate={moment(2020)}
           toDate={moment().add(2, 'y')}
-          onChange={(value) => {
+          onChange={value => {
             if (value) {
               setRegistrationOpen(value.startOf('day').utc().format());
             }
@@ -298,7 +360,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           date={moment(registrationDeadline)}
           fromDate={moment(2020)}
           toDate={moment().add(2, 'y')}
-          onChange={(value) => {
+          onChange={value => {
             if (value) {
               setRegistrationDeadline(value.endOf('day').utc().format());
             }
@@ -311,7 +373,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         label={t('inputLivestreamUrl')}
         placeholder="https://www.youtube.com/watch?v=gwiE0fXnByg"
         value={livestreamUrl}
-        onChange={(e) => {
+        onChange={e => {
           setLivestreamUrl(e.currentTarget.value);
         }}
       />
@@ -321,7 +383,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         label={t('inputMessangerInvitationUrl')}
         placeholder="https://chat.whatsapp.com/FcFFSq0ybgT4tsk48ZQoxJ"
         value={messangerInvitationUrl}
-        onChange={(e) => {
+        onChange={e => {
           setMessangerInvitationUrl(e.currentTarget.value);
         }}
       />
@@ -338,7 +400,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={t('inputVenueName')}
             placeholder="TSG 1845 Heilbronn"
             value={venueName}
-            onChange={(e) => {
+            onChange={e => {
               setVenueName(e.currentTarget.value);
             }}
           />
@@ -348,7 +410,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={t('inputVenueHouseNumber')}
             placeholder="40/1"
             value={venueHouseNo}
-            onChange={(e) => {
+            onChange={e => {
               setVenueHouseNo(e.currentTarget.value);
             }}
           />
@@ -358,7 +420,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={t('inputVenueStreet')}
             placeholder="Hofwiesenstraße"
             value={venueStreet}
-            onChange={(e) => {
+            onChange={e => {
               setVenueStreet(e.currentTarget.value);
             }}
           />
@@ -368,7 +430,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={t('inputVenuePostCode')}
             placeholder="74081"
             value={venuePostCode}
-            onChange={(e) => {
+            onChange={e => {
               setVenuePostCode(e.currentTarget.value);
             }}
           />
@@ -378,7 +440,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={t('inputVenueCity')}
             placeholder="Heilbronn"
             value={venueCity}
-            onChange={(e) => {
+            onChange={e => {
               setVenueCity(e.currentTarget.value);
             }}
           />
@@ -388,7 +450,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             label={t('inputVenueCountry')}
             placeholder="Germany"
             value={venueCountry}
-            onChange={(e) => {
+            onChange={e => {
               setVenueCountry(e.currentTarget.value);
             }}
           />
@@ -439,7 +501,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={t('inputPayPalUsername')}
                 placeholder="username"
                 value={paymentMethodPayPalHandle}
-                onChange={(e) => {
+                onChange={e => {
                   setPaymentMethodPayPalHandle(e.currentTarget.value);
                 }}
               />
@@ -475,7 +537,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={t('inputBankSepaBank')}
                 placeholder="DKB"
                 value={paymentMethodSepaBank}
-                onChange={(e) => {
+                onChange={e => {
                   setPaymentMethodSepaBank(e.currentTarget.value);
                 }}
               />
@@ -485,7 +547,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={t('inputBankSepaRecipeint')}
                 placeholder="DFFB e.V."
                 value={paymentMethodSepaRecipient}
-                onChange={(e) => {
+                onChange={e => {
                   setPaymentMethodSepaRecipient(e.currentTarget.value);
                 }}
               />
@@ -495,7 +557,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={t('inputBankSepaIban')}
                 placeholder="DE01 2345 0000 6789 8765 43"
                 value={paymentMethodSepaIban}
-                onChange={(e) => {
+                onChange={e => {
                   setPaymentMethodSepaIban(e.currentTarget.value);
                 }}
               />
@@ -505,12 +567,73 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 label={t('inputBankSepaReference')}
                 placeholder="superball-2023"
                 value={paymentMethodSepaReference}
-                onChange={(e) => {
+                onChange={e => {
                   setPaymentMethodSepaReference(e.currentTarget.value);
                 }}
               />
             </>
           )}
+        </>
+      )}
+
+      {/* only allow event admin to edit maintainers */}
+      {isEventAdmin(event, session) && (
+        <>
+          <div className="m-2">
+            <Separator />
+          </div>
+          <SectionHeader label={t('sectionMaintainers')} />
+
+          <div className="flex h-[100%] flex-col p-2">
+            <div>{t('cbMaintainers')}</div>
+
+            <div className="flex h-full">
+              <div className="flex flex-col w-full">
+                {users.length > 0 &&
+                  maintainers.map((maintainer, index) => {
+                    return (
+                      <div key={`${maintainer}-${index}`} className="flex justify-between p-1 gap-2">
+                        <UserCard
+                          user={
+                            users.filter(user => {
+                              return user.username === maintainer.username;
+                            })[0]
+                          }
+                        />
+                        <ActionButton
+                          action={Action.DELETE}
+                          onClick={() => {
+                            handleDeleteMaintainerClicked(maintainer);
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+
+                <div className="flex justify-between p-1 gap-2">
+                  <ComboBox
+                    menus={users.map(user => {
+                      return { text: `${user.firstName} (${user.username})`, value: user.username };
+                    })}
+                    value={maintainerToAddUsername || ''}
+                    searchEnabled={true}
+                    onChange={(value: string) => {
+                      setMaintainerToAddUsername(value);
+                    }}
+                  />
+
+                  <ActionButton
+                    action={Action.ADD}
+                    onClick={() => {
+                      if (maintainerToAddUsername) {
+                        handleAddMaintainerClicked(maintainerToAddUsername);
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       )}
 

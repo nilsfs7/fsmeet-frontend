@@ -24,7 +24,7 @@ export const EventsList = () => {
     if (moment) {
       setDateFrom(moment);
 
-      getEvents(null, null, moment, dateTo).then((events) => {
+      getEvents(null, null, null, moment, dateTo).then(events => {
         setEvents(events);
       });
     }
@@ -34,14 +34,14 @@ export const EventsList = () => {
     if (moment) {
       setDateTo(moment);
 
-      getEvents(null, null, dateFrom, moment).then((events) => {
+      getEvents(null, null, null, dateFrom, moment).then(events => {
         setEvents(events);
       });
     }
   };
 
   useEffect(() => {
-    getEvents(null, null, dateFrom, dateTo).then((events) => {
+    getEvents(null, null, null, dateFrom, dateTo).then(events => {
       setEvents(events);
     });
   }, []);
@@ -56,7 +56,7 @@ export const EventsList = () => {
             date={dateFrom}
             fromDate={moment().subtract(2, 'y')}
             toDate={dateTo}
-            onChange={(newDate) => {
+            onChange={newDate => {
               handleDateFromChanged(newDate);
             }}
           />
@@ -68,7 +68,7 @@ export const EventsList = () => {
             date={dateTo}
             fromDate={dateFrom}
             toDate={moment().add(2, 'y')}
-            onChange={(newDate) => {
+            onChange={newDate => {
               hanldeDateToChanged(newDate);
             }}
           />
