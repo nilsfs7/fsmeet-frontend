@@ -15,17 +15,16 @@ interface IUserCardProps {
 }
 
 const UserCard = ({ user, showUserTypeImage = false, registrationStatus }: IUserCardProps) => {
-  let name: string;
+  let name: string = user.username; // Defauts to username. Guarantees there is at least some name on the UserCard.
 
-  if (user.firstName && !user.lastName) {
-    // first name only
-    name = `${user.firstName}`;
-  } else if (user.firstName && user.lastName) {
-    // first name + last name
+  // Ideally show first name and last name.
+  if (user.firstName && user.lastName) {
     name = `${user.firstName} ${user.lastName}`;
-  } else if (!user.firstName && !user.lastName) {
-    // Fallback to username only. Guarantees there is at least some name in the UserCard.
-    name = user.username;
+  }
+
+  // Show first name only if last name does not exist.
+  if (user.firstName && !user.lastName) {
+    name = `${user.firstName}`;
   }
 
   return (
