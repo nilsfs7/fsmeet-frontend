@@ -15,7 +15,18 @@ interface IUserCardProps {
 }
 
 const UserCard = ({ user, showUserTypeImage = false, registrationStatus }: IUserCardProps) => {
-  const name = user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`;
+  let name: string;
+
+  if (user.firstName && !user.lastName) {
+    // first name only
+    name = `${user.firstName}`;
+  } else if (user.firstName && user.lastName) {
+    // first name + last name
+    name = `${user.firstName} ${user.lastName}`;
+  } else if (!user.firstName && !user.lastName) {
+    // Fallback to username only. Guarantees there is at least some name in the UserCard.
+    name = user.username;
+  }
 
   return (
     <Link href={`${routeUsers}/${user.username}`}>
