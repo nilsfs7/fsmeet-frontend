@@ -50,8 +50,8 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
         .then(async (e: Event) => {
           // @ts-ignore
           const participants = await getCompetitionParticipants(comp.id);
-          const competitionParticipants = participants.map((participant) => {
-            const participantRegistrationPair = e.eventRegistrations.filter((registration) => {
+          const competitionParticipants = participants.map(participant => {
+            const participantRegistrationPair = e.eventRegistrations.filter(registration => {
               if (registration.user.username === participant.username) {
                 return registration.user.imageUrl;
               }
@@ -60,6 +60,8 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
             const user: User = {
               username: participant.username,
               type: participantRegistrationPair[0]?.user?.type,
+              firstName: participantRegistrationPair[0]?.user?.firstName,
+              lastName: participantRegistrationPair[0]?.user?.lastName,
               imageUrl: participantRegistrationPair[0]?.user?.imageUrl,
             };
 
@@ -76,7 +78,7 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
 
   useEffect(() => {
     if (comp.id) {
-      getRounds(comp.id).then((rounds) => {
+      getRounds(comp.id).then(rounds => {
         if (rounds.length === 0) {
         } else {
           setRounds(rounds);
@@ -90,11 +92,11 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
       const usersMap = new Map();
       const requests: Promise<void>[] = [];
       if (rounds) {
-        rounds.map((round) => {
-          round.matches.map((match) => {
-            match.matchSlots.map((slot) => {
+        rounds.map(round => {
+          round.matches.map(match => {
+            match.matchSlots.map(slot => {
               if (!usersMap.get(slot.name)) {
-                const req = getUser(slot.name).then((user) => {
+                const req = getUser(slot.name).then(user => {
                   usersMap.set(slot.name, user);
                 });
                 requests.push(req);
@@ -171,7 +173,7 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
                 {t('tabScheduleSwitchMyBattlesOnly')}
                 <Switch
                   defaultChecked={filteredByUser !== null}
-                  onCheckedChange={(checked) => {
+                  onCheckedChange={checked => {
                     checked ? setFilteredByUser(session.user.username) : setFilteredByUser(null);
                   }}
                 />
