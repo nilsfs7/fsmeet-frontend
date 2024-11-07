@@ -28,7 +28,7 @@ export default function EditEventSponsor({ params }: { params: { eventId: string
   const handleSaveClicked = async () => {
     if (params.eventId && sponsor) {
       try {
-        await updateSponsor(params.sponsorId, sponsor.name, sponsor.website, session);
+        await updateSponsor(params.sponsorId, sponsor.name, sponsor.website, sponsor.isPublic, session);
 
         if (sponsorLogo && sponsor.id) {
           await updateSponsorLogo(sponsor.id.toString(), sponsorLogo, session);
@@ -63,7 +63,7 @@ export default function EditEventSponsor({ params }: { params: { eventId: string
   };
 
   useEffect(() => {
-    getSponsor(params.sponsorId).then((sponsor) => {
+    getSponsor(params.sponsorId).then(sponsor => {
       setSponsor(sponsor);
     });
   }, [sponsor === undefined]);

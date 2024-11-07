@@ -4,4 +4,5 @@ export type Sponsor = {
   name: string;
   website: string;
   imageUrlLogo?: string;
+  isPublic: boolean;
 };

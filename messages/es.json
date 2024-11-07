@@ -470,6 +470,7 @@
   },
   "global/components/sponsor-editor": {
     "inputName": "Sponsor Name",
-    "inputWebsite": "Website"
+    "inputWebsite": "Website",
+    "chbIsPublic": "Veröffentlichen?"
   }
 }

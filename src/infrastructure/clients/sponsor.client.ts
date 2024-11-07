@@ -37,10 +37,10 @@ export async function getSponsor(sponsorId: string): Promise<ReadSponsorResponse
   }
 }
 
-export async function createSponsor(eventId: string, name: string, website: string, session: Session | null): Promise<CreateSponsorResponseDto> {
+export async function createSponsor(eventId: string, name: string, website: string, isPublic: boolean, session: Session | null): Promise<CreateSponsorResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors`;
 
-  const body = new CreateSponsorBodyDto(eventId, name, website);
+  const body = new CreateSponsorBodyDto(eventId, name, website, isPublic);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -62,10 +62,10 @@ export async function createSponsor(eventId: string, name: string, website: stri
   }
 }
 
-export async function updateSponsor(id: string, name: string, website: string, session: Session | null): Promise<void> {
+export async function updateSponsor(id: string, name: string, website: string, isPublic: boolean, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors`;
 
-  const body = new PatchSponsorBodyDto(id, name, website);
+  const body = new PatchSponsorBodyDto(id, name, website, isPublic);
 
   const response = await fetch(url, {
     method: 'PATCH',
