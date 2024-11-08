@@ -5,6 +5,7 @@ import TextInput from '../common/TextInput';
 import { Sponsor } from '@/types/sponsor';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
+import CheckBox from '../common/CheckBox';
 
 interface ISponsorEditorProps {
   sponsor?: Sponsor;
@@ -17,9 +18,9 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
 
   const [name, setSponsorName] = useState(sponsor?.name || '');
   const [website, setSponsorWebsite] = useState(sponsor?.website || '');
-
   const [imgLogo, setImgLogo] = useState<any>();
   const [imgLogoObjectURL, setImgLogoObjectURL] = useState('');
+  const [isPublic, setIsPublic] = useState<boolean>(sponsor?.isPublic || true);
 
   const uploadToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
@@ -37,6 +38,7 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
       name: name,
       website: website,
       imageUrlLogo: sponsor?.imageUrlLogo,
+      isPublic: isPublic,
     });
   };
 
@@ -49,13 +51,14 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
     if (sponsor) {
       setSponsorName(sponsor.name);
       setSponsorWebsite(sponsor.website);
+      setIsPublic(sponsor.isPublic);
     }
   }, [sponsor]);
 
   // fires sponsor back
   useEffect(() => {
     updateSponsor();
-  }, [name, website]);
+  }, [name, website, isPublic]);
 
   // fires sponsor logo back
   useEffect(() => {
@@ -70,7 +73,7 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
           label={t('inputName')}
           placeholder="PersianBall"
           value={name}
-          onChange={(e) => {
+          onChange={e => {
             setSponsorName(e.currentTarget.value);
           }}
         />
@@ -80,7 +83,7 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
           label={t('inputWebsite')}
           placeholder="https://persianball.shop/"
           value={website}
-          onChange={(e) => {
+          onChange={e => {
             setSponsorWebsite(e.currentTarget.value);
           }}
         />
@@ -95,6 +98,15 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
             <input type="file" onChange={uploadToClient} />
           </div>
         </div>
+
+        <CheckBox
+          id={'isPublicEnabled'}
+          label={t('chbIsPublic')}
+          value={isPublic}
+          onChange={() => {
+            setIsPublic(!isPublic);
+          }}
+        />
       </div>
     </>
   );

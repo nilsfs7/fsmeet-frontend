@@ -80,6 +80,7 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
     if (comp.id) {
       getRounds(comp.id).then(rounds => {
         if (rounds.length === 0) {
+          setRounds([]);
         } else {
           setRounds(rounds);
         }
