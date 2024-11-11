@@ -174,7 +174,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   const handleConfirmDeleteRoundClicked = async (roundIndex: number) => {
     const rnds = Array.from(rounds);
     rnds.splice(roundIndex, 1);
-    rnds.map((rnd) => {
+    rnds.map(rnd => {
       if (rnd.roundIndex > roundIndex) {
         rnd.roundIndex -= 1;
       }
@@ -210,7 +210,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   const handleConfirmDeleteMatchClicked = async (roundIndex: number, matchIndex: number) => {
     const rnds = Array.from(rounds);
     rnds[roundIndex].matches.splice(matchIndex, 1);
-    rnds[roundIndex].matches.map((mtch) => {
+    rnds[roundIndex].matches.map(mtch => {
       if (mtch.matchIndex > matchIndex) {
         mtch.matchIndex -= 1;
       }
@@ -219,7 +219,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   };
 
   useEffect(() => {
-    setGameModeApplied(rounds.length > 0);
+    setGameModeApplied(roundsInit.length > 0);
   }, [rounds]);
 
   return (
