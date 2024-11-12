@@ -120,32 +120,32 @@
     "btnDelete": "Eliminar"
   },
   "/error": {
-    "textError": "Ein Fehler ist aufgetreten.",
-    "btnBackHome": "Zur Homepage"
+    "textError": "Ha ocurrido un error.",
+    "btnBackHome": "A la página de inicio"
   },
   "/events": {
-    "datePickerFrom": "Von",
-    "datePickerTo": "Bis",
-    "textNoEventsFound": "Keine Events für den angegebenen Zeitraum gefunden."
+    "datePickerFrom": "Desde",
+    "datePickerTo": "Hasta",
+    "textNoEventsFound": "No se han encontrado eventos para el periodo especificado."
   },
   "/events/edit": {
-    "pageTitle": "Event bearbeiten",
-    "dlgEventDeletionTitle": "Event löschen",
-    "dlgEventDeletionText": "Möchtest du das Event wirklich löschen?",
+    "pageTitle": "Editar evento",
+    "dlgEventDeletionTitle": "Eliminar evento",
+    "dlgEventDeletionText": "¿Realmente quieres borrar el evento?",
     "btnSave": "Guardar"
   },
   "/events/eventid": {
-    "dlgEventRegistrationTitle": "Anmeldeinfo",
-    "dlgEventRegistrationRegistrationStatus": "Registrierungsstatus",
-    "dlgEventRegistrationText1": "Möchtest du dich für dieses Event registrieren:",
-    "dlgEventRegistrationText2": "Bitte beachte die Teilnahmegebühr von",
-    "dlgEventRegistrationText3": "Deine Registrierung wird bestätigt sobald deine Zahlung eingegangen ist.",
-    "dlgEventRegistrationText4": "Wenn du dich registriert hast, bekommst du die Zahlungsdetails auch per Mail.",
-    "dlgEventRegistrationBtnRegister": "Jetzt anmelden",
-    "dlgEventRegistrationBtnUnregister": "Absagen",
-    "dlgEventRegistrationSuccessfulTitle": "Anmeldestatus",
-    "dlgEventRegistrationSuccessfulText1": "Anmeldung erfolgreich eingereicht.",
-    "dlgEventRegistrationSuccessfulText2": "Bitte denke an die Teilnahmegebühr. Die Zahlungsdetails haben wir dir per Mail geschickt.",
+    "dlgEventRegistrationTitle": "Información sobre la inscripción",
+    "dlgEventRegistrationRegistrationStatus": "Estado de la inscripción",
+    "dlgEventRegistrationText1": "¿Desea inscribirte en este evento?",
+    "dlgEventRegistrationText2": "Tenga en cuenta que la cuota de participación de",
+    "dlgEventRegistrationText3": "La inscripción se confirmará en cuanto se reciba el pago.",
+    "dlgEventRegistrationText4": "Si te has registrado, también recibirás los datos de pago por correo electrónico.",
+    "dlgEventRegistrationBtnRegister": "Regístrese ahora",
+    "dlgEventRegistrationBtnUnregister": "Anulaciones",
+    "dlgEventRegistrationSuccessfulTitle": "Estado del evento",
+    "dlgEventRegistrationSuccessfulText1": "Solicitud enviada correctamente.",
+    "dlgEventRegistrationSuccessfulText2": "No olvide abonar la cuota de participación. Le hemos enviado los datos de pago por correo electrónico.",
     "dlgEventRegistrationSuccessfulBtnOk": "Ok",
     "dlgEventStateTitle": "Event Sichtbarkeit",
     "dlgEventStateText1": "Event Status",
