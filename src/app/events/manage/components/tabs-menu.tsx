@@ -9,6 +9,8 @@ import { switchTab } from '@/functions/switch-tab';
 import EventCard from '@/components/events/EventCard';
 import { Event } from '@/types/event';
 import { useTranslations } from 'next-intl';
+import { isEventAdmin } from '@/functions/isEventAdmin';
+import { useSession } from 'next-auth/react';
 
 interface ITabsMenu {
   eventsOwning: Event[];
@@ -18,6 +20,8 @@ interface ITabsMenu {
 
 export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: ITabsMenu) => {
   const t = useTranslations('/events/manage');
+
+  const { data: session } = useSession();
   const router = useRouter();
 
   const searchParams = useSearchParams();
@@ -62,11 +66,11 @@ export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: 
           {eventsSubscribed.length === 0 && <div className="flex justify-center">{t('tabRegistrationsTextNoEvents')}</div>}
 
           {eventsSubscribed.length > 0 &&
-            eventsSubscribed.map((item: any, i: number) => {
+            eventsSubscribed.map((event, i: number) => {
               return (
                 <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                  <Link href={`${routeEvents}/${item.id}`}>
-                    <EventCard event={item} />
+                  <Link href={`${routeEvents}/${event.id}`}>
+                    <EventCard event={event} />
                   </Link>
                 </div>
               );
@@ -76,27 +80,26 @@ export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: 
         <TabsContent value="myevents" className="overflow-y-auto">
           {eventsOwning.length === 0 && <div className="flex justify-center">{t('tabEventsHostedTextNoEvents')}</div>}
 
-          {eventsOwning.length > 0 &&
-            eventsOwning.map((item: any, i: number) => {
-              return (
-                <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                  <Link href={`${routeEvents}/${item.id}`}>
-                    <EventCard event={item} />
-                  </Link>
-                </div>
-              );
-            })}
+          {eventsOwning.map((event, i: number) => {
+            return (
+              <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                <Link href={`${routeEvents}/${event.id}`}>
+                  <EventCard event={event} />
+                </Link>
+              </div>
+            );
+          })}
 
-          {eventsMaintaining.length > 0 &&
-            eventsMaintaining.map((item: any, i: number) => {
+          {eventsMaintaining.map((event, i: number) => {
+            if (!isEventAdmin(event, session))
               return (
                 <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                  <Link href={`${routeEvents}/${item.id}`}>
-                    <EventCard event={item} />
+                  <Link href={`${routeEvents}/${event.id}`}>
+                    <EventCard event={event} />
                   </Link>
                 </div>
               );
-            })}
+          })}
         </TabsContent>
       </Tabs>
     </>
