@@ -19,11 +19,11 @@ const EventCard = ({ event }: IEventProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
       <div className={'max-h-24 p-2'}>
-        <div className="28 flex ">
+        <div className="28 flex">
           <div className="w-full text-base font-bold">{`${!isPublicEventState(event.state) ? '[NOT LISTED] ' : ''}${event.name}`}</div>
         </div>
         <div className="flex justify-between">
-          <div className="w-1/3 ">{event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}</div>
+          <div className="w-1/3">{event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}</div>
           {event.dateFrom && event.dateTo && (
             <div>
               {moment(event.dateFrom).isSame(moment(event.dateTo), 'day')

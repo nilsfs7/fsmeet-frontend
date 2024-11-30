@@ -135,11 +135,18 @@
     "btnSave": "Speichern"
   },
   "/events/eventid": {
-    "dlgEventRegisterTitle": "Registrierung bestätigen",
-    "dlgEventRegisterText1": "Möchtest du dich für dieses Event registrieren:",
-    "dlgEventRegisterText2": "Bitte beachte die Teilnahmegebühr von",
-    "dlgEventRegisterText3": "Deine Registrierung wird bestätigt sobald deine Zahlung eingegangen ist.",
-    "dlgEventRegisterText4": "Wenn du dich regsitriert hast, bekommst du die Zahlungsdetails auch per Mail.",
+    "dlgEventRegistrationTitle": "Anmeldeinfo",
+    "dlgEventRegistrationRegistrationStatus": "Registrierungsstatus",
+    "dlgEventRegistrationText1": "Möchtest du dich für dieses Event registrieren:",
+    "dlgEventRegistrationText2": "Bitte beachte die Teilnahmegebühr von",
+    "dlgEventRegistrationText3": "Deine Registrierung wird bestätigt sobald deine Zahlung eingegangen ist.",
+    "dlgEventRegistrationText4": "Wenn du dich registriert hast, bekommst du die Zahlungsdetails auch per Mail.",
+    "dlgEventRegistrationBtnRegister": "Jetzt anmelden",
+    "dlgEventRegistrationBtnUnregister": "Absagen",
+    "dlgEventRegistrationSuccessfulTitle": "Anmeldestatus",
+    "dlgEventRegistrationSuccessfulText1": "Anmeldung erfolgreich eingereicht.",
+    "dlgEventRegistrationSuccessfulText2": "Bitte denke an die Teilnahmegebühr. Die Zahlungsdetails haben wir dir per Mail geschickt.",
+    "dlgEventRegistrationSuccessfulBtnOk": "Ok",
     "dlgEventStateTitle": "Event Sichtbarkeit",
     "dlgEventStateText1": "Event Status",
     "dlgEventStateText2": "Dein Event ist noch nicht öffentlich.",
@@ -168,8 +175,7 @@
     "tabCompetitionsTitle": "Wettbewerbe",
     "tabRegistrationsTitle": "Teilnehmer",
     "tabRegistrationsSectionRegistrations": "Teilnehmer",
-    "btnRegister": "Registrieren",
-    "btnUnregister": "Absagen",
+    "btnRegistration": "Registrierung",
     "btnFeedback": "Feedback"
   },
   "/events/eventid/comps": {

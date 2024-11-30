@@ -126,7 +126,7 @@ export const ParticipantsList = ({ event }: IParticipantsList) => {
                 <div className="mx-1 flex w-1/2 justify-start">
                   {(registration.status === EventRegistrationStatus.APPROVED || registration.status === EventRegistrationStatus.DENIED) && (
                     <>
-                      <div className="mr-1 flex w-24 items-center justify-center font-bold ">{registration.status.toUpperCase()}</div>
+                      <div className="mr-1 flex w-24 items-center justify-center font-bold">{registration.status.toUpperCase()}</div>
                       <div className="ml-1">
                         <ActionButton
                           action={Action.DELETE}

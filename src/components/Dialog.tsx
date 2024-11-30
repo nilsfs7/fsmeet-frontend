@@ -12,10 +12,11 @@ interface IDialogProps {
   onConfirm?: () => void;
   cancelText?: string;
   confirmText?: string;
+  executeCancelAfterConfirmClicked?: boolean;
   children: React.ReactNode;
 }
 
-const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText, children }: IDialogProps) => {
+const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText, executeCancelAfterConfirmClicked = true, children }: IDialogProps) => {
   const searchParams = useSearchParams();
   const showDialog = searchParams?.get(queryParam);
 
@@ -25,7 +26,10 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
 
   const clickConfirm = () => {
     onConfirm && onConfirm();
-    onCancel && onCancel();
+
+    if (executeCancelAfterConfirmClicked) {
+      onCancel && onCancel();
+    }
   };
 
   return showDialog === '1' ? (

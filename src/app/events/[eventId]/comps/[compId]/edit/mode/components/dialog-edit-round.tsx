@@ -56,7 +56,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
   };
 
   return showDialog === '1' ? (
-    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50 ">
+    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50">
       <div className="min-w-[250px] rounded-lg bg-background">
         <div className="rounded-t-lg bg-secondary-light p-2 text-center">
           <h1 className="text-2xl">{title}</h1>
@@ -69,7 +69,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 id={`input-round-name`}
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                 value={roundName}
-                onChange={(e) => {
+                onChange={e => {
                   setRoundName(e.currentTarget.value);
                 }}
               />
@@ -96,7 +96,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 type="number"
                 min={1}
                 value={advancingTotal}
-                onChange={(e) => {
+                onChange={e => {
                   setAdvancingTotal(+e.currentTarget.value);
                 }}
               />
@@ -109,7 +109,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 className="h-4 w-4"
                 type="checkbox"
                 checked={roundTimeLimit}
-                onChange={(e) => {
+                onChange={e => {
                   setRoundTimeLimit(!roundTimeLimit);
                 }}
               />

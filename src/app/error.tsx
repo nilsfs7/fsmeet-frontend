@@ -17,7 +17,7 @@ export default function ErrorPage({ error }: { error: Error }) {
 
   return (
     <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
-      <div className="py-2 ">
+      <div className="py-2">
         <Image src={imgNotFound} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={'image'} priority={true} />
         <div className="m-1 text-center text-lg font-bold">
           <div>{t('textError')}</div>

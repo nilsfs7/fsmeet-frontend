@@ -69,8 +69,6 @@ export async function getUsers(type?: UserType, hasWffaId?: boolean): Promise<Us
     url = url + `&hasWffaId=${hasWffaId}`;
   }
 
-  console.log(url);
-
   const response = await fetch(url, {
     method: 'GET',
   });
@@ -78,7 +76,7 @@ export async function getUsers(type?: UserType, hasWffaId?: boolean): Promise<Us
   const data: any[] = await response.json();
   const users: User[] = [];
 
-  data.map((data) => {
+  data.map(data => {
     const user: User = {
       username: data.username,
       type: data.type,
