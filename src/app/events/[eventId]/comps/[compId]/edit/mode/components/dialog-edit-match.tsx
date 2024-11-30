@@ -54,7 +54,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
   };
 
   return showDialog === '1' ? (
-    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50 ">
+    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50">
       <div className="min-w-[250px] rounded-lg bg-background">
         <div className="rounded-t-lg bg-secondary-light p-2 text-center">
           <h1 className="text-2xl">{title}</h1>
@@ -67,7 +67,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 id={`input-round-name`}
                 className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                 value={matchName}
-                onChange={(e) => {
+                onChange={e => {
                   setMatchName(e.currentTarget.value);
                 }}
               />
@@ -89,7 +89,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 }}
                 value={moment(matchTime).utc()}
                 format={'HH:mm'}
-                onChange={(value) => {
+                onChange={value => {
                   if (value && value.isValid()) {
                     setMatchTime(value.utc().format());
                   } else if (!value) {
@@ -108,7 +108,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 min={1}
                 max={999}
                 value={matchSlots}
-                onChange={(e) => {
+                onChange={e => {
                   setMatchSlots(+e.currentTarget.value);
                 }}
               />
@@ -121,7 +121,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
                 className="h-4 w-4"
                 type="checkbox"
                 checked={isExtraMatch}
-                onChange={(e) => {
+                onChange={e => {
                   setIsExtraMatch(!isExtraMatch);
                 }}
               />

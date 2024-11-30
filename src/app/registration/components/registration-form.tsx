@@ -84,7 +84,7 @@ export const RegistrationForm = () => {
 
       <div className="p-2 h-full grid overflow-y-auto">
         <div className="h-full flex flex-col items-center justify-center">
-          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1 ">
+          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
             <div className="flex h-[100%] flex-col p-2">
               <div>{t('cbUserType')}</div>
               <div className="flex w-full">
@@ -104,7 +104,7 @@ export const RegistrationForm = () => {
               label={getLabelForFirstName(userType, tf)}
               placeholder={getPlaceholderByUserType(userType).firstName}
               value={firstName}
-              onChange={(e) => {
+              onChange={e => {
                 handleInputChangeFirstName(e);
               }}
             />
@@ -114,7 +114,7 @@ export const RegistrationForm = () => {
               label={t('inputUsername')}
               placeholder={getPlaceholderByUserType(userType).username}
               value={username}
-              onChange={(e) => {
+              onChange={e => {
                 handleInputChangeUsername(e);
               }}
             />
@@ -124,7 +124,7 @@ export const RegistrationForm = () => {
               label={t('inputEmail')}
               placeholder={getPlaceholderByUserType(userType).email}
               value={email}
-              onChange={(e) => {
+              onChange={e => {
                 handleInputChangeEmail(e);
               }}
             />
@@ -134,7 +134,7 @@ export const RegistrationForm = () => {
               type={'password'}
               label={t('inputPassword')}
               placeholder="Ball&Chill2021"
-              onChange={(e) => {
+              onChange={e => {
                 handleInputChangePassword(e);
               }}
               onKeyDown={handleInputKeypressPassword}
