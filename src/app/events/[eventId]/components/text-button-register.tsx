@@ -15,6 +15,7 @@ import Dialog from '@/components/Dialog';
 import { CashInfo } from './payment/cash-info';
 import { PayPalInfo } from './payment/paypal-info';
 import { SepaInfo } from './payment/sepa-info';
+import Separator from '@/components/Seperator';
 
 interface ITextButtonRegister {
   event: Event;
@@ -26,19 +27,26 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
   const { data: session } = useSession();
   const router = useRouter();
 
+  const registrationStatus: string =
+    event.eventRegistrations.filter(registration => {
+      if (registration.user.username === session?.user.username) {
+        return registration.status;
+      }
+    })[0]?.status || 'Unregistered';
+
   const handleCancelDialogClicked = async () => {
-    let url = `${routeEvents}/${event.id}`;
-    router.replace(url);
+    router.replace(`${routeEvents}/${event.id}`);
+    router.refresh();
   };
 
-  const handleRegisterClicked = async () => {
+  const handleRegistrationClicked = async () => {
     if (!validateSession(session)) {
       router.push(routeLogin);
       return;
     }
 
     if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
-      router.replace(`${routeEvents}/${event.id}?register=1`);
+      router.replace(`${routeEvents}/${event.id}?registration=1`);
     } else {
       console.error('Registration deadline exceeded.');
     }
@@ -54,7 +62,7 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
       if (event?.id && moment(event?.registrationDeadline).unix() > moment().unix()) {
         try {
           await createEventRegistration(event.id, session.user.username, session);
-          router.refresh();
+          router.replace(`${routeEvents}/${event.id}?registrationstatus=1`);
         } catch (error: any) {
           console.error(error.message);
         }
@@ -74,6 +82,7 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
       if (event?.id && moment(event?.registrationDeadline).unix() > moment().unix()) {
         try {
           await deleteEventRegistration(event.id, session.user.username, session);
+          router.replace(`${routeEvents}/${event.id}`);
           router.refresh();
         } catch (error: any) {
           console.error(error.message);
@@ -101,13 +110,33 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
     <>
       <Toaster richColors />
 
-      <Dialog title={t('dlgEventRegisterTitle')} queryParam="register" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmRegisterClicked} confirmText="Register now">
-        <div>{`${t('dlgEventRegisterText1')} ${event.name}`}?</div>
+      <Dialog
+        title={t('dlgEventRegistrationTitle')}
+        queryParam="registration"
+        onCancel={handleCancelDialogClicked}
+        onConfirm={isRegistered(event, session) ? handleUnregisterClicked : handleConfirmRegisterClicked}
+        confirmText={isRegistered(event, session) ? t('dlgEventRegistrationBtnUnregister') : t('dlgEventRegistrationBtnRegister')}
+        executeCancelAfterConfirmClicked={false}
+      >
+        <div>
+          {isRegistered(event, session) ? (
+            <div className="flex gap-2 items-center">
+              <div>{`${t('dlgEventRegistrationRegistrationStatus')}:`}</div>
+              <div className="font-extrabold p-2 rounded-lg bg-secondary">{(registrationStatus.charAt(0).toUpperCase() + registrationStatus.slice(1)).replaceAll('_', ' ')}</div>
+            </div>
+          ) : (
+            `${t('dlgEventRegistrationText1')} ${event.name}?`
+          )}
+        </div>
 
         {event.participationFee > 0 && (
           <>
+            <div className="mt-4 mb-2">
+              <Separator />
+            </div>
+
             <div className="mt-4">
-              {t('dlgEventRegisterText2')} {event.participationFee.toString().replace('.', ',')}€. {event.autoApproveRegistrations ?? t('dlgEventRegisterText3')}
+              {t('dlgEventRegistrationText2')} {event.participationFee.toString().replace('.', ',')}€. {event.autoApproveRegistrations ?? t('dlgEventRegistrationText3')}
             </div>
 
             {event.paymentMethodCash.enabled && (
@@ -128,9 +157,14 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
               </div>
             )}
 
-            {(event.paymentMethodSepa.enabled || event.paymentMethodPayPal.enabled) && <div className="mt-4">{t('dlgEventRegisterText4')}</div>}
+            {(event.paymentMethodSepa.enabled || event.paymentMethodPayPal.enabled) && <div className="mt-4">{t('dlgEventRegistrationText4')}</div>}
           </>
         )}
+      </Dialog>
+
+      <Dialog title={t('dlgEventRegistrationSuccessfulTitle')} queryParam="registrationstatus" onConfirm={handleCancelDialogClicked} confirmText={t('dlgEventRegistrationSuccessfulBtnOk')}>
+        <div>{t('dlgEventRegistrationSuccessfulText1')}</div>
+        {event.participationFee > 0 && <div>{t('dlgEventRegistrationSuccessfulText2')}</div>}
       </Dialog>
 
       <Dialog
@@ -144,7 +178,7 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
       </Dialog>
 
       {moment(event.registrationOpen).unix() < moment().unix() && moment(event.registrationDeadline).unix() > moment().unix() && (
-        <TextButton text={isRegistered(event, session) ? t('btnUnregister') : t('btnRegister')} onClick={isRegistered(event, session) ? handleUnregisterClicked : handleRegisterClicked} />
+        <TextButton text={t('btnRegistration')} onClick={handleRegistrationClicked} />
       )}
     </>
   );

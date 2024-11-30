@@ -135,11 +135,18 @@
     "btnSave": "Save"
   },
   "/events/eventid": {
-    "dlgEventRegisterTitle": "Confirm Registration",
-    "dlgEventRegisterText1": "Do you want to register for",
-    "dlgEventRegisterText2": "Please take note of the participation fee of",
-    "dlgEventRegisterText3": "Your registration will be confirmed once your payment completed.",
-    "dlgEventRegisterText4": "By confirming your registration we will also mail you the payment details.",
+    "dlgEventRegistrationTitle": "Registration Info",
+    "dlgEventRegistrationRegistrationStatus": "Registration status",
+    "dlgEventRegistrationText1": "Do you want to register for",
+    "dlgEventRegistrationText2": "Please take note of the participation fee of",
+    "dlgEventRegistrationText3": "Your registration will be confirmed once your payment completed.",
+    "dlgEventRegistrationText4": "By confirming your registration we will also mail you the payment details.",
+    "dlgEventRegistrationBtnRegister": "Register now",
+    "dlgEventRegistrationBtnUnregister": "Unregister",
+    "dlgEventRegistrationSuccessfulTitle": "Registration Status",
+    "dlgEventRegistrationSuccessfulText1": "Registration successfully submitted.",
+    "dlgEventRegistrationSuccessfulText2": "Please remember the participation fee. We have sent you an email with the payment details.",
+    "dlgEventRegistrationSuccessfulBtnOk": "Ok",
     "dlgEventStateTitle": "Event Visibility",
     "dlgEventStateText1": "Event state",
     "dlgEventStateText2": "Your event is not listed publicly, yet.",
@@ -168,8 +175,7 @@
     "tabCompetitionsSectionCompetitions": "Competitions",
     "tabRegistrationsTitle": "Participants",
     "tabRegistrationsSectionRegistrations": "Participants",
-    "btnRegister": "Register",
-    "btnUnregister": "Unregister",
+    "btnRegistration": "Registration",
     "btnFeedback": "Feedback"
   },
   "/events/eventid/comps": {
