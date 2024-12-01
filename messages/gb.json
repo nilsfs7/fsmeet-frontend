@@ -365,6 +365,7 @@
   "/registration": {
     "cbUserType": "Sign up as",
     "inputUsername": "Username",
+    "cbGender": "Gender",
     "inputEmail": "E-Mail",
     "inputPassword": "Password",
     "btnSignUp": "Sign Up"
