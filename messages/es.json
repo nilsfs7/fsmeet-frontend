@@ -17,9 +17,20 @@
     "aboutText2": "Este proyecto está impulsado por la comunidad. Si te gusta el freestyle tanto como a nosotros, no dudes en dejarnos tus comentarios o enviarnos tus ideas para que podamos mejorar nuestra plataforma. Puedes ponerte en contacto con nosotros a través del enlace ",
     "aboutText3": "función de comentarios",
     "aboutText4": " o enviarnos un DM en Instagram.",
+    "lnkContributors": "Colaboradores",
     "lnkImprint": "Impressum",
     "lnkPrivacyPolicy": "Política de privacidad",
     "build": "Versión"
+  },
+  "/about/contributors": {
+    "pageTitle": "Colaboradores",
+    "sectionMainContributors": "Principales colaboradores",
+    "textHeadOfDevelopment": "Jefe de desarrollo",
+    "textSpanishTranslation": "Traductor - Español",
+    "sectionCommunityProposals": "Propuestas comunitarias",
+    "textPersonalSchedule": "Horario personal para deportistas",
+    "textSearchByGender": "Buscar en el mapa de freestyler por género",
+    "lnkPostProposal": "Propuesta"
   },
   "/account": {
     "pageTitle": "Configuración del perfil",

@@ -6,6 +6,7 @@ export const routeAdminLicenses = '/admin/licenses';
 export const routeAdminUsers = '/admin/users';
 
 export const routeAbout = '/about';
+export const routeContributors = '/about/contributors';
 export const routeImprint = '/imprint';
 export const routeDataProtection = '/dataprotection';
 export const routeRegistration = '/registration';

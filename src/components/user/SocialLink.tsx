@@ -8,9 +8,10 @@ interface ISocialLink {
   platform: Platform;
   path: string;
   showPath?: boolean;
+  pathNameOverride?: string;
 }
 
-const SocialLink = ({ platform, path, showPath = true }: ISocialLink) => {
+const SocialLink = ({ platform, path, showPath = true, pathNameOverride }: ISocialLink) => {
   let icon = <></>;
   let url = ``;
 
@@ -49,7 +50,7 @@ const SocialLink = ({ platform, path, showPath = true }: ISocialLink) => {
           <div className="flex items-center gap-1">
             <div className="flex w-10 items-center justify-center text-center">{icon}</div>
 
-            {showPath && <div className="hover:underline">{path}</div>}
+            {showPath && <div className="hover:underline">{pathNameOverride ? pathNameOverride : path}</div>}
           </div>
         </Link>
       )}
@@ -59,7 +60,7 @@ const SocialLink = ({ platform, path, showPath = true }: ISocialLink) => {
           <div className="flex items-center gap-1">
             <div className="flex w-8 items-center justify-center text-center">{icon}</div>
 
-            {showPath && <div className="hover:underline">{path}</div>}
+            {showPath && <div className="hover:underline">{pathNameOverride ? pathNameOverride : path}</div>}
           </div>
         </a>
       )}
