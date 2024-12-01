@@ -112,10 +112,11 @@ export const RegistrationForm = () => {
               }}
             />
 
-            <div className="m-2 grid grid-cols-2 items-center">
+            <div className="flex h-[100%] flex-col p-2">
               <div>{t('cbGender')}</div>
               <div className="flex w-full">
                 <ComboBox
+                  className="w-full"
                   menus={menuGender}
                   value={gender ? gender : menuGender[0].value}
                   onChange={(value: any) => {
