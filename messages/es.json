@@ -205,118 +205,118 @@
     "dlgDownloadResultsBtnDownload": "Descargar"
   },
   "/events/eventid/comps/compid/edit/pool": {
-    "pageTitle": "Teilnehmer Pool verwalten",
-    "textNoRegistrations": "Dein Event hat noch keine Registrierungen.",
-    "textAmountOfRegistrations": "Anzahl der Teilnehmer zum Pool hinzugefügt",
-    "btnAssigned": "zugewiesen",
-    "btnUnassigned": "frei"
+    "pageTitle": "Gestionar la reserva de participantes",
+    "textNoRegistrations": "Su evento aún no tiene inscripciones.",
+    "textAmountOfRegistrations": "Número de participantes añadidos a la reserva",
+    "btnAssigned": "zugewiesenasignado",
+    "btnUnassigned": "libre"
   },
   "/events/eventid/comps/compid/edit/mode": {
-    "pageTitle": "Turniermodus Editor",
-    "dlgAddRoundTitle": "Runde hinzufügen",
-    "dlgAddRoundName": "Name",
-    "dlgAddRoundDay": "Tag",
-    "dlgAddRoundAvailablePlayers": "Verfügbare Spieler im Pool",
-    "dlgAddRoundPlayersAdvancing": "Anzahl in nächster Runde",
-    "dlgAddRoundPlayersPerMatch": "Spieler pro Battle",
-    "dlgAddRoundAmountMatches": "Anzahl Battles",
-    "dlgAddRoundTimeLimit": "Hat Zeitlimit?",
-    "dlgAddRoundBtnConfirm": "Bestätigen",
-    "dlgEditRoundTitle": "Runde bearbeiten",
-    "dlgEditRoundName": "Name",
-    "dlgEditRoundDay": "Tag",
-    "dlgEditRoundPlayersAdvancing": "Anzahl in nächster Runde",
-    "dlgEditRoundTimeLimit": "Hat Zeitlimit?",
-    "dlgEditRoundBtnConfirm": "Bestätigen",
-    "dlgDeleteRoundTitle": "Runde löschen",
-    "dlgDeleteRoundText": "Löschen?",
-    "dlgDeleteRoundBtnConfirm": "Bestätigen",
-    "dlgAddMatchTitle": "Battle hinzufügen",
-    "dlgAddMatchName": "Name",
-    "dlgAddMatchTime": "Battlezeit",
-    "dlgAddMatchAmountPlayers": "Anzahl Spieler",
-    "dlgAddMatchIsExtraBattle": "Ist Extrabattle?",
-    "dlgAddMatchBtnConfirm": "Bestätigen",
-    "dlgEditMatchTitle": "Battle bearbeiten",
-    "dlgEditMatchName": "Name",
-    "dlgEditMatchTime": "Battlezeit",
-    "dlgEditMatchAmountPlayers": "Anzahl Spieler",
-    "dlgEditMatchIsExtraBattle": "Ist Extrabattle?",
-    "dlgEditMatchBtnConfirm": "Bestätigen",
-    "dlgDeleteMatchTitle": "Battle löschen",
-    "dlgDeleteMatchText": "Löschen?",
-    "dlgDeleteMatchBtnConfirm": "Bestätigen",
-    "textNoSufficientPool": "Du musst mindestens zwei Teilnehmer zum Pool hinzufügen.",
-    "btnSave": "Save",
-    "btnUpdate": "Update",
-    "btnDelete": "Save"
+    "pageTitle": "Editor del modo Torneo",
+    "dlgAddRoundTitle": "Añadir ronda",
+    "dlgAddRoundName": "Nombre",
+    "dlgAddRoundDay": "Día",
+    "dlgAddRoundAvailablePlayers": "Jugadores disponibles en la reserva",
+    "dlgAddRoundPlayersAdvancing": "Número en la siguiente ronda",
+    "dlgAddRoundPlayersPerMatch": "Jugadores por batalla",
+    "dlgAddRoundAmountMatches": "Número de batallas",
+    "dlgAddRoundTimeLimit": "¿Tiene un límite de tiempo?",
+    "dlgAddRoundBtnConfirm": "Confirmar",
+    "dlgEditRoundTitle": "Editar ronda",
+    "dlgEditRoundName": "Nombre",
+    "dlgEditRoundDay": "Día",
+    "dlgEditRoundPlayersAdvancing": "Número en la siguiente ronda",
+    "dlgEditRoundTimeLimit": "¿Tiene un límite de tiempo?",
+    "dlgEditRoundBtnConfirm": "Confirmar",
+    "dlgDeleteRoundTitle": "Borrar ronda",
+    "dlgDeleteRoundText": "¿Borrar?",
+    "dlgDeleteRoundBtnConfirm": "Confirmar",
+    "dlgAddMatchTitle": "Añadir batalla",
+    "dlgAddMatchName": "Nombre",
+    "dlgAddMatchTime": "Tiempo de batalla",
+    "dlgAddMatchAmountPlayers": "Número de jugadores",
+    "dlgAddMatchIsExtraBattle": "¿Es Extrabatalla?",
+    "dlgAddMatchBtnConfirm": "Confirmar",
+    "dlgEditMatchTitle": "Editar Batalla",
+    "dlgEditMatchName": "Nombre",
+    "dlgEditMatchTime": "Tiempo de batalla",
+    "dlgEditMatchAmountPlayers": "Número de participantes",
+    "dlgEditMatchIsExtraBattle": "¿Es Extrabatalla?",
+    "dlgEditMatchBtnConfirm": "Confirmar",
+    "dlgDeleteMatchTitle": "Borrar batalla",
+    "dlgDeleteMatchText": "¿Borrar?",
+    "dlgDeleteMatchBtnConfirm": "Confirmar",
+    "textNoSufficientPool": "Debe añadir al menos dos participantes a la reserva.",
+    "btnSave": "Guardar",
+    "btnUpdate": "Actualización",
+    "btnDelete": "Guardar"
   },
   "/events/eventid/comps/compid/edit/seeding": {
-    "pageTitle": "Zuweisung & Ergebnisse",
-    "textNoGameMode": "Du hast noch keinen Turniermodus erstellt."
+    "pageTitle": "Asignación y resultados",
+    "textNoGameMode": "Aún no has creado un modo de torneo."
   },
   "/events/eventid/comps/edit": {
-    "pageTitle": "Wettbewerb anpassen",
-    "btnSave": "Speichern",
-    "dlgDeleteCompetitionTitle": "Wettbewerb löschen",
-    "dlgDeleteCompetitionText": "Möchtest du diesen Wettbewerb wirklich löschen?"
+    "pageTitle": "Adaptar la Competición",
+    "btnSave": "Guardar",
+    "dlgDeleteCompetitionTitle": "Eliminar Competición",
+    "dlgDeleteCompetitionText": "¿De verdad quieres eliminar esta competición?"
   },
   "/events/eventid/comps/create": {
-    "pageTitle": "Wettbewerb erstellen",
-    "btnCreate": "Erstellen"
+    "pageTitle": "Crear Competición",
+    "btnCreate": "Competición"
   },
   "/events/eventid/feedback": {
-    "pageTitle": "Event Feedback",
-    "inputMessage": "Nachricht",
-    "inputMessagePlaceholder": "Jegliches Feedback zum Event ist willkommen!",
-    "btnSubmit": "Senden"
+    "pageTitle": "Comentarios sobre el evento",
+    "inputMessage": "Mensaje",
+    "inputMessagePlaceholder": "Cualquier comentario sobre el acto será bienvenido",
+    "btnSubmit": "Enviar"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "Event nicht gefunden.",
-    "btnBackToEvents": "Zur Übersicht"
+    "textNotFound": "Evento no encontrado.",
+    "btnBackToEvents": "A la visión general"
   },
   "/events/eventid/participants": {
-    "pageTitle": "Teilnehmer verwalten",
-    "textNoRegistrations": "Noch keine Registrierungen.",
-    "dlgDenyParticipantTitle": "Teilnehmer ablehnen",
-    "dlgDenyParticipantText": "Möchtest du diesen Teilnehmer wirklich entfernen?",
-    "dlgRemoveParticipantTitle": "Teilnehmer entfernen",
-    "dlgRemoveParticipantText": "Möchtest du diesen Teilnehmer entfernen?"
+    "pageTitle": "Gestionar a los participantes",
+    "textNoRegistrations": "Aún no hay inscripciones.",
+    "dlgDenyParticipantTitle": "Rechazar participante",
+    "dlgDenyParticipantText": "¿De verdad quieres eliminar a este participante?",
+    "dlgRemoveParticipantTitle": "Eliminar participante",
+    "dlgRemoveParticipantText": "¿Desea eliminar a este participante?"
   },
   "/events/eventid/sponsors": {
-    "pageTitle": "Sponsoren verwalten",
-    "btnCreate": "Sponsor hinzufügen"
+    "pageTitle": "Gestionar patrocinadores",
+    "btnCreate": "Añadir patrocinador"
   },
   "/events/eventid/sponsors/create": {
-    "pageTitle": "Sponsor erstellen",
-    "btnCreate": "Erstellen"
+    "pageTitle": "Crear patrocinador",
+    "btnCreate": "Crear"
   },
   "/events/create": {
-    "pageTitle": "Event erstellen",
-    "btnCreate": "Erstellen"
+    "pageTitle": "Crear evento",
+    "btnCreate": "Crear"
   },
   "/events/manage": {
-    "pageTitle": "Events verwalten",
-    "tabRegistrationsTitle": "Registrieungen",
-    "tabRegistrationsTextNoEvents": "Du hast dich noch für kein Event angemeldet.",
-    "tabEventsHostedTitle": "Meine Events",
-    "tabEventsHostedTextNoEvents": "Du hast noch kein Event erstellt.",
-    "btnCreate": "Erstelle Event"
+    "pageTitle": "Gestionar eventos",
+    "tabRegistrationsTitle": "Inscripciones",
+    "tabRegistrationsTextNoEvents": "Aún no te has inscrito en ningún evento.",
+    "tabEventsHostedTitle": "Mis eventos",
+    "tabEventsHostedTextNoEvents": "Aún no has creado ningún evento.",
+    "btnCreate": "Crear evento"
   },
   "/feedback": {
     "pageGeneralFeedback": "Feedback",
-    "btnFeatures": "Feature anfragen",
-    "btnBugs": "Fehler melden"
+    "btnFeatures": "Solicitud de funcionesn",
+    "btnBugs": "Informar de un error"
   },
   "/feedback/bugs": {
-    "pageTitle": "Fehler Melden",
-    "inputMessage": "Nachricht",
-    "inputMessagePlaceholder": "Beschreibe einen Fehler, den du entdeckt hast.",
-    "btnSubmit": "Senden"
+    "pageTitle": "Informar de un error",
+    "inputMessage": "Mensaje",
+    "inputMessagePlaceholder": "Describa un error que haya descubierto.",
+    "btnSubmit": "Enviar"
   },
   "/feedback/features": {
-    "pageTitle": "Feature Anfrage",
-    "inputMessage": "Nachricht",
+    "pageTitle": "Solicitud de funciones",
+    "inputMessage": "Mensaje",
     "inputMessagePlaceholder": "Hast du neue Ideen oder Verbesserungen für uns?",
     "btnSubmit": "Senden"
   },
