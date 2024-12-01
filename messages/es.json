@@ -175,6 +175,7 @@
     "tabCompetitionsTitle": "Competiciones",
     "tabRegistrationsTitle": "Participantes",
     "tabRegistrationsSectionRegistrations": "Participantes",
+    "btnRegistration": "Inscripción",
     "btnFeedback": "Feedback"
   },
   "/events/eventid/comps": {
@@ -458,8 +459,8 @@
     "inputBankSepaRecipeint": "Destinatario (SEPA)",
     "inputBankSepaIban": "IBAN (SEPA)",
     "inputBankSepaReference": "Objeto (SEPA)",
-    "sectionMaintainers": "Betreuer todo",
-    "cbMaintainers": "Hinzugefügte Betreuer todo",
+    "sectionMaintainers": "Mantenedores",
+    "cbMaintainers": "Mantenedores añadidos",
     "sectionOther": "General",
     "chbAutoApproveRegistration": "Confirmar automáticamente las nuevas inscripciones",
     "chbNotifyOnRegistration": "Notificar con nuevo registro",
