@@ -18,7 +18,7 @@ import TextInput from '@/components/common/TextInput';
 import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/functions/get-placeholder-by-user-type';
 import ComboBox from '@/components/common/ComboBox';
-import { menuGenderWithUnspecified } from '@/domain/constants/menus/menu-gender';
+import { menuGender, menuGenderWithUnspecified } from '@/domain/constants/menus/menu-gender';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
 import { prefixRequired } from '@/functions/prefix-required';
 import CheckBox from '@/components/common/CheckBox';
@@ -505,7 +505,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               label={getLabelForFirstName(userInfo.type, tf)}
               placeholder={getPlaceholderByUserType(userInfo.type).firstName}
               value={userInfo.firstName}
-              onChange={(e) => {
+              onChange={e => {
                 handleFirstNameChanged(e.currentTarget.value);
               }}
             />
@@ -517,7 +517,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   label={t('tabGeneralLastName')}
                   placeholder=""
                   value={userInfo.lastName}
-                  onChange={(e) => {
+                  onChange={e => {
                     handleLastNameChanged(e.currentTarget.value);
                   }}
                 />
@@ -527,7 +527,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   label={t('tabGeneralArtistName')}
                   placeholder=""
                   value={userInfo.nickName}
-                  onChange={(e) => {
+                  onChange={e => {
                     handleNickNameChanged(e.currentTarget.value);
                   }}
                 />
@@ -536,7 +536,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <div>{t('tabGeneralGender')}</div>
                   <div className="flex w-full">
                     <ComboBox
-                      menus={menuGenderWithUnspecified}
+                      menus={menuGender}
+                      // TODO: remove menuCountriesWithUnspecified. Only here until every user has a gender set
                       value={userInfo.gender ? userInfo.gender : menuGenderWithUnspecified[0].value}
                       onChange={(value: any) => {
                         handleGenderChanged(value);
@@ -565,7 +566,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                     date={moment(userInfo.birthday)}
                     fromDate={moment(1970)}
                     toDate={moment().subtract(6, 'y')}
-                    onChange={(value) => {
+                    onChange={value => {
                       handleBirthdayChanged(value);
                     }}
                   />
@@ -608,7 +609,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               label={t('tabGeneralInstagramHandle')}
               placeholder="@dffb_org"
               value={userInfo.instagramHandle}
-              onChange={(e) => {
+              onChange={e => {
                 handleInstagramHandleChanged(e.currentTarget.value);
               }}
             />
@@ -618,7 +619,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               label={t('tabGeneralTikTokHandle')}
               placeholder="@dffb_org"
               value={userInfo.tikTokHandle}
-              onChange={(e) => {
+              onChange={e => {
                 handleTikTokHandleChanged(e.currentTarget.value);
               }}
             />
@@ -628,7 +629,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               label={t('tabGeneralYouTubeHandle')}
               placeholder="@dffb_org"
               value={userInfo.youTubeHandle}
-              onChange={(e) => {
+              onChange={e => {
                 handleYouTubeHandleChanged(prefixRequired(e.currentTarget.value, '@'));
               }}
             />
@@ -638,7 +639,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               label={t('tabGeneralWebsite')}
               placeholder="https://dffb.org"
               value={userInfo.website}
-              onChange={(e) => {
+              onChange={e => {
                 handleWebsiteChanged(e.currentTarget.value);
               }}
             />
@@ -655,7 +656,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               label={t('tabMaplCity')}
               placeholder="Munich"
               value={userInfo.city}
-              onChange={(e) => {
+              onChange={e => {
                 handleCityChanged(e.currentTarget.value);
               }}
             />
@@ -664,7 +665,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               id={'exposeLocation'}
               label={t('tabMapPublish')}
               value={userInfo.exposeLocation}
-              onChange={(e) => {
+              onChange={e => {
                 handleExposeLocationChanged(!userInfo.exposeLocation);
               }}
             />
@@ -697,7 +698,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               id={'terms'}
               label={t('tabJobAcceptTerms')}
               value={userInfo.jobAcceptTerms}
-              onChange={(e) => {
+              onChange={e => {
                 handleAcceptTermsChanged(!userInfo.jobAcceptTerms);
               }}
             />
@@ -713,7 +714,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   id={'offeringShow'}
                   label={t('tabJobOfferingShow')}
                   value={userInfo.jobOfferShows}
-                  onChange={(e) => {
+                  onChange={e => {
                     handleOfferShowsChanged(!userInfo.jobOfferShows);
                   }}
                 />
@@ -722,7 +723,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   id={'offeringWalkAct'}
                   label={t('tabJobOfferingWalkact')}
                   value={userInfo.jobOfferWalkActs}
-                  onChange={(e) => {
+                  onChange={e => {
                     handleOfferWalkActsChanged(!userInfo.jobOfferWalkActs);
                   }}
                 />
@@ -731,7 +732,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   id={'offeringWorkshop'}
                   label={t('tabJobOfferingWorkshop')}
                   value={userInfo.jobOfferWorkshops}
-                  onChange={(e) => {
+                  onChange={e => {
                     handleOfferWorkshopsChanged(!userInfo.jobOfferWorkshops);
                   }}
                 />
@@ -763,7 +764,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                     type="tel"
                     placeholder="1516 123456"
                     value={userInfo.phoneNumber?.toString()}
-                    onChange={(e) => {
+                    onChange={e => {
                       handlePhoneNumberChanged(e.currentTarget.value);
                     }}
                   />

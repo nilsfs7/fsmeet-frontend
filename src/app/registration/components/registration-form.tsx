@@ -15,6 +15,8 @@ import { getPlaceholderByUserType } from '@/functions/get-placeholder-by-user-ty
 import { Toaster, toast } from 'sonner';
 import { createUser } from '@/infrastructure/clients/user.client';
 import { useTranslations } from 'next-intl';
+import { Gender } from '@/domain/enums/gender';
+import { menuGender } from '@/domain/constants/menus/menu-gender';
 
 export const RegistrationForm = () => {
   const t = useTranslations('/registration');
@@ -24,6 +26,7 @@ export const RegistrationForm = () => {
 
   const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);
   const [firstName, setFirstName] = useState('');
+  const [gender, setGender] = useState(Gender.MALE);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -70,7 +73,7 @@ export const RegistrationForm = () => {
 
   const handleCreateClicked = async () => {
     try {
-      await createUser(username, userType, email, password, firstName);
+      await createUser(username, userType, email, password, firstName, gender);
       router.replace(`${routeRegistrationPending}?username=${username}&email=${email}`);
     } catch (error: any) {
       toast.error(error.message);
@@ -108,6 +111,19 @@ export const RegistrationForm = () => {
                 handleInputChangeFirstName(e);
               }}
             />
+
+            <div className="m-2 grid grid-cols-2 items-center">
+              <div>{t('cbGender')}</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuGender}
+                  value={gender ? gender : menuGender[0].value}
+                  onChange={(value: any) => {
+                    setGender(value);
+                  }}
+                />
+              </div>
+            </div>
 
             <TextInput
               id={'username'}

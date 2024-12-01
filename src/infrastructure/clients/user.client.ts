@@ -2,7 +2,11 @@ import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { User } from '@/types/user';
 import { Session } from 'next-auth';
-import { DeleteUserBodyDto } from './dtos/delete-user.body.dto';
+import { DeleteUserBodyDto } from './dtos/user/delete-user.body.dto';
+import { Gender } from '@/domain/enums/gender';
+import { CreateUserBodyDto } from './dtos/user/create-user.body.dto';
+import { UpdateUserBodyDto } from './dtos/user/update-user.body.dto';
+import { UpdatePrivateUserInfoBodyDto } from './dtos/user/update-private-user-info.body.dto';
 
 export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
@@ -136,20 +140,14 @@ export async function getConfirmUser(username: string, requestToken: string): Pr
   return false;
 }
 
-export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string): Promise<void> {
+export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string, gender: Gender): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
 
-  const body = JSON.stringify({
-    username: username,
-    type: type,
-    email: email,
-    password: password,
-    firstName: firstName.trim(),
-  });
+  const body = new CreateUserBodyDto(username, type, email, password, firstName, gender);
 
   const response = await fetch(url, {
     method: 'POST',
-    body: body,
+    body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -189,40 +187,43 @@ export async function createPasswordReset(usernameOrEmail: string): Promise<void
 export async function updateUser(user: User, session: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
 
-  const body = JSON.stringify({
-    firstName: user.firstName,
-    lastName: user.lastName,
-    nickName: user.nickName,
-    gender: user.gender,
-    country: user.country,
-    freestyleSince: user.freestyleSince,
-    instagramHandle: user.instagramHandle,
-    tikTokHandle: user.tikTokHandle,
-    youTubeHandle: user.youTubeHandle,
-    website: user.website,
-    private: {
-      birthday: user.birthday,
-      tShirtSize: user.tShirtSize,
-      houseNumber: user.houseNumber,
-      street: user.street,
-      postCode: user.postCode,
-      city: user.city,
-      exposeLocation: user.exposeLocation,
-      locLatitude: user.locLatitude,
-      locLongitude: user.locLongitude,
-      jobAcceptTerms: user.jobAcceptTerms,
-      jobOfferShows: user.jobOfferShows,
-      jobOfferWalkActs: user.jobOfferWalkActs,
-      jobOfferWorkshops: user.jobOfferWorkshops,
-      jobShowExperience: user.jobShowExperience,
-      phoneCountryCode: user.phoneCountryCode,
-      phoneNumber: user.phoneNumber,
-    },
-  });
+  const body = new UpdateUserBodyDto(
+    user.username,
+    //@ts-ignore TODO
+    user.firstName,
+    user.lastName,
+    user.nickName,
+    user.gender,
+    user.country,
+    user.freestyleSince,
+    user.instagramHandle,
+    user.tikTokHandle,
+    user.youTubeHandle,
+    user.website,
+    new UpdatePrivateUserInfoBodyDto(
+      //@ts-ignore TODO
+      user.birthday,
+      user.tShirtSize,
+      user.houseNumber,
+      user.street,
+      user.postCode,
+      user.city,
+      user.exposeLocation,
+      user.locLatitude,
+      user.locLongitude,
+      user.jobAcceptTerms,
+      user.jobOfferShows,
+      user.jobOfferWalkActs,
+      user.jobOfferWorkshops,
+      user.jobShowExperience,
+      user.phoneCountryCode,
+      user.phoneNumber
+    )
+  );
 
   const response = await fetch(url, {
     method: 'PATCH',
-    body: body,
+    body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${session?.user?.accessToken}`,
