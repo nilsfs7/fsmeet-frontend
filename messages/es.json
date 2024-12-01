@@ -317,90 +317,90 @@
   "/feedback/features": {
     "pageTitle": "Solicitud de funciones",
     "inputMessage": "Mensaje",
-    "inputMessagePlaceholder": "Hast du neue Ideen oder Verbesserungen für uns?",
-    "btnSubmit": "Senden"
+    "inputMessagePlaceholder": "¿Tienes nuevas ideas o mejoras para nosotros?",
+    "btnSubmit": "Enviar"
   },
   "/feedback/general": {
-    "pageTitle": "Sende Feedback",
-    "inputMessage": "Nachricht",
-    "inputMessagePlaceholder": "Wir freuen uns über jegliches Feedback!",
-    "btnSubmit": "Senden"
+    "pageTitle": "Enviar comentarios",
+    "inputMessage": "Mensaje",
+    "inputMessagePlaceholder": "Esperamos tus comentarios.",
+    "btnSubmit": "Enviar"
   },
   "/feedback/thankyou": {
-    "thankYouText1": "Vielen Dank!",
-    "thankYouText2": "Dein Feedback ist sehr wichtig für uns!",
-    "btnBackHome": "Zur Homepage"
+    "thankYouText1": "¡Muchas gracias!",
+    "thankYouText2": "Tu opinión es muy importante para nosotros.",
+    "btnBackHome": "A la página de inicio"
   },
   "/loading": {
-    "textLoading": "Lädt..."
+    "textLoading": "Cargando..."
   },
   "/login": {
-    "inputUsername": "Nutzername / E-Mail",
-    "inputPassword": "Passwort",
-    "btnLogin": "Anmelden",
-    "lnkResetPassword": "Password zurücksetzen",
-    "lnkNewAccount": "Noch keinen Account?"
+    "inputUsername": "Nombre de usuario / e-mail",
+    "inputPassword": "contraseña",
+    "btnLogin": "Acceder",
+    "lnkResetPassword": "Restaurar contraseña",
+    "lnkNewAccount": "¿Aún no tienes cuenta?"
   },
   "/map": {
-    "pageTitle": "Freestyler Karte",
-    "btnAddPin": "Trag dich ein",
-    "inputSearchPlaceholder": "Suche Name...",
-    "drpDwnGender": "Geschlecht",
-    "infoWindowGoToProfile": "Klicke fürs Profil"
+    "pageTitle": "Mapa Freestyler",
+    "btnAddPin": "Inscríbete",
+    "inputSearchPlaceholder": "Buscar nombre...",
+    "drpDwnGender": "Género",
+    "infoWindowGoToProfile": "Haz clic para ver el perfil"
   },
   "/password/forgot": {
-    "inputUsername": "Nutzername / E-Mail",
-    "btnResetPassword": "Passwort zurücksetzen"
+    "inputUsername": "Nombre de usuario / e-mail",
+    "btnResetPassword": "Restaurar contraseña"
   },
   "/password/pending": {
-    "thankYouText1": "Prüfe dein Mailpostfach.",
-    "thankYouText2": "Wir haben dir einen Link geschickt.",
-    "btnBackHome": "Zur Homepage"
+    "thankYouText1": "Comprueba tu buzón.",
+    "thankYouText2": "Te hemos enviado un enlace.",
+    "btnBackHome": "A la página de inicio"
   },
   "/password/reset": {
-    "inputPassword": "Neues Passwort",
-    "btnSave": "Speichern"
+    "inputPassword": "Nueva contraseña",
+    "btnSave": "Guardar"
   },
   "/registration": {
-    "cbUserType": "Anmelden als",
-    "inputUsername": "Nutzername",
-    "cbGender": "Geschlecht",
-    "inputEmail": "E-Mail",
-    "inputPassword": "Passwort",
-    "btnSignUp": "Registrieren"
+    "cbUserType": "Registrarse como",
+    "inputUsername": "Nombre de usuario",
+    "cbGender": "Genero",
+    "inputEmail": "correo electrónico",
+    "inputPassword": "contraseña",
+    "btnSignUp": "Registrarse"
   },
   "/registration/confirm": {
-    "registrationSuccess": "Registrierung erfolgreich",
-    "registrationFailure": "Etwas ist schief gelaufen",
-    "btnProceed": "Fortfahren"
+    "registrationSuccess": "Registro efectuado con éxito",
+    "registrationFailure": "Algo ha ido mal",
+    "btnProceed": "Continuar"
   },
   "/registration/pending": {
-    "registrationPendingText1": "Ein Bestätigungslink wurde an folgende Adresse gesendet:",
-    "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
-    "btnBackHome": "Back home"
+    "registrationPendingText1": "Se ha enviado un enlace de confirmación a la siguiente dirección:",
+    "registrationPendingText2": "El correo puede tardar un poco en llegar. Comprueba también tu correo no deseado si no has recibido nada.",
+    "btnBackHome": "Volver a casa"
   },
   "/users": {
-    "pageTitle": "Freestyle Szene",
-    "inputSearchPlaceholder": "Suche Name...",
-    "cbColumns": "Spalten",
-    "tblColumnUsername": "Nutzer",
-    "tblColumnName": "Name",
-    "tblColumnCountry": "Land",
-    "tblColumnType": "Typ",
-    "tblColumnLocation": "Wohnort",
-    "tblColumnSocials": "Netzwerke",
-    "navCurrentPage1": "Seite",
-    "navCurrentPage2": "von",
-    "navRowsPerPage": "Zeilen pro Seite"
+    "pageTitle": "Escena Freestyle",
+    "inputSearchPlaceholder": "Buscar nombre...",
+    "cbColumns": "Columnas",
+    "tblColumnUsername": "Usuarios",
+    "tblColumnName": "Nombre",
+    "tblColumnCountry": "País",
+    "tblColumnType": "Tipo",
+    "tblColumnLocation": "Lugar de residencia",
+    "tblColumnSocials": "Redes",
+    "navCurrentPage1": "Página",
+    "navCurrentPage2": "de",
+    "navRowsPerPage": "Líneas por página"
   },
   "/users/username": {
-    "accordionItemSocials": "Netzwerke",
-    "accordionItemBattleStatistics": "Battle Statistiken",
-    "accordionItemBattleStatisticsAmountBattles": "Battles",
-    "accordionItemBattleStatisticsAmountWins": "Siege",
-    "accordionItemBattleStatisticsWinLossRatio": "Siegverhältnis",
-    "accordionItemCompetitionHistory": "Wettkampf Historie",
-    "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
+    "accordionItemSocials": "Redes",
+    "accordionItemBattleStatistics": "Estadísticas de batalla",
+    "accordionItemBattleStatisticsAmountBattles": "Batallas",
+    "accordionItemBattleStatisticsAmountWins": "Victorias",
+    "accordionItemBattleStatisticsWinLossRatio": "Ratio de victorias",
+    "accordionItemCompetitionHistory": "Historia de la competición",
+    "accordionItemCompetitionHistoryNoParticipations": "Aún no hay concursos disponibles."
   },
   "global/functions/getLabelForFirstName": {
     "firstName": "Nombre",
@@ -408,75 +408,75 @@
     "brandName": "Nombre de marca"
   },
   "global/components/battle-grid": {
-    "btnAddMatch": "Match hinzufügen"
+    "btnAddMatch": "Añadir partido"
   },
   "global/components/competition-editor": {
-    "inputName": "Wettbewerb Name",
-    "inputNamePlaceHolder": "Battles Männer",
-    "cbType": "Art",
-    "cbGender": "Geschlecht",
-    "cbMaxAge": "Max. Alter",
-    "inputDescription": "Beschreibung",
-    "inputDescriptionPlaceHolder": "Gruppenphase (Circles) und KO (Top 16).",
-    "inputRules": "Regeln",
-    "inputRulesPlaceHolder": "3 Runden, 30 Sekunden, 1 Ball.",
-    "cbJudges": "Richter"
+    "inputName": "Nombre de la competición",
+    "inputNamePlaceHolder": "Batallas hombres",
+    "cbType": "Tipo",
+    "cbGender": "Genero",
+    "cbMaxAge": "Max. Edad",
+    "inputDescription": "Descripción",
+    "inputDescriptionPlaceHolder": "Fase de grupos (Círculos) y KO (Top 16).",
+    "inputRules": "Reglas",
+    "inputRulesPlaceHolder": "3 rondas, 30 segundos, 1 pelota.",
+    "cbJudges": "Juez"
   },
   "global/components/event-card": {
-    "lblHost": "Veranstalter",
-    "lblDeadline": "Deadline"
+    "lblHost": "Organizador",
+    "lblDeadline": "Fecha límite"
   },
   "global/components/event-editor": {
-    "sectionGeneral": "Allgemeines",
-    "inputName": "Eventname",
+    "sectionGeneral": "Información general",
+    "inputName": "Nombre del evento",
     "inputAlias": "Eventalias",
-    "cbType": "Art",
-    "lblType": "Art",
-    "lblState": "Status",
-    "inputDescription": "Eventbeschreibung",
-    "datePickerFrom": "Startdatum",
-    "datePickerTo": "Enddatum",
-    "datePickerRegistrationFrom": "Öffnung Registrierung",
-    "datePickerRegistrationTo": "Deadline Registrierung",
-    "inputLivestreamUrl": "Livestream URL",
-    "inputMessangerInvitationUrl": "Gruppen Chat Einladungslink (z.B. WhatsApp)",
-    "sectionLocation": "Austragungsort",
-    "inputVenueName": "Name Austragungsort",
-    "inputVenueHouseNumber": "Hausnummer",
-    "inputVenueStreet": "Straße",
-    "inputVenuePostCode": "Postleitzahl",
-    "inputVenueCity": "Stadt",
-    "inputVenueCountry": "Land",
-    "sectionPayment": "Bezahlung",
-    "inputFee": "Teilnahmegebühr",
-    "chbCashAccept": "Bargeld akzeptieren",
-    "chbPayPalAccept": "PayPal akzeptieren",
-    "inputPayPalUsername": "PayPal Nutzername",
-    "lnkPayPalVerifyAccount": "PayPal Konto verifizieren",
-    "chbBankSepaAccept": "Banküberweisung (SEPA) akzeptieren",
-    "inputBankSepaBank": "Bankname (SEPA)",
-    "inputBankSepaRecipeint": "Empfänger (SEPA)",
+    "cbType": "Tipo",
+    "lblType": "Tipo",
+    "lblState": "Estado",
+    "inputDescription": "Descripción del evento",
+    "datePickerFrom": "Fecha de inicio",
+    "datePickerTo": "Fecha final",
+    "datePickerRegistrationFrom": "Apertura de inscripciones",
+    "datePickerRegistrationTo": "Plazo de inscripción",
+    "inputLivestreamUrl": "URL de la retransmisión en directo",
+    "inputMessangerInvitationUrl": "Enlace de invitación al chat de grupo (por ejemplo, WhatsApp)",
+    "sectionLocation": "Lugar",
+    "inputVenueName": "Nombre del lugar",
+    "inputVenueHouseNumber": "Número de casa",
+    "inputVenueStreet": "Calle",
+    "inputVenuePostCode": "Código postal",
+    "inputVenueCity": "Ciudad",
+    "inputVenueCountry": "País",
+    "sectionPayment": "Pago",
+    "inputFee": "Cuota de participación",
+    "chbCashAccept": "Aceptar efectivo",
+    "chbPayPalAccept": "Aceptar PayPal",
+    "inputPayPalUsername": "Nombre de usuario de PayPal",
+    "lnkPayPalVerifyAccount": "Verificar cuenta PayPaln",
+    "chbBankSepaAccept": "Aceptar transferencia bancaria (SEPA)",
+    "inputBankSepaBank": "Nombre del banco (SEPA)",
+    "inputBankSepaRecipeint": "Destinatario (SEPA)",
     "inputBankSepaIban": "IBAN (SEPA)",
-    "inputBankSepaReference": "Verwendungszweck (SEPA)",
-    "sectionMaintainers": "Betreuer",
-    "cbMaintainers": "Hinzugefügte Betreuer",
-    "sectionOther": "Sonstiges",
-    "chbAutoApproveRegistration": "Neue Registrierungen automatisch bestätigen",
-    "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",
-    "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
-    "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
+    "inputBankSepaReference": "Objeto (SEPA)",
+    "sectionMaintainers": "Betreuer todo",
+    "cbMaintainers": "Hinzugefügte Betreuer todo",
+    "sectionOther": "General",
+    "chbAutoApproveRegistration": "Confirmar automáticamente las nuevas inscripciones",
+    "chbNotifyOnRegistration": "Notificar con nuevo registro",
+    "chbAllowCommentsAndQuestions": "Activar la función de comentarios",
+    "chbNotifyOnComment": "Notificarme un nuevo comentario"
   },
   "global/components/profile-menu": {
-    "login": "Anmelden",
-    "menuItemMyEvents": "Meine Events",
-    "menuItemPublicProfile": "Öffentliches Profil",
-    "menuItemSettings": "Einstellungen",
+    "login": "Conectarse",
+    "menuItemMyEvents": "Mis eventos",
+    "menuItemPublicProfile": "Perfil público",
+    "menuItemSettings": "Configuración",
     "menuItemFeedback": "Feedback",
-    "menuItemLogout": "Abmelden"
+    "menuItemLogout": "Cerrar sesión"
   },
   "global/components/sponsor-editor": {
-    "inputName": "Sponsor Name",
-    "inputWebsite": "Website",
-    "chbIsPublic": "Veröffentlichen?"
+    "inputName": "Nombre del patrocinador",
+    "inputWebsite": "Página web",
+    "chbIsPublic": "¿Publicar?"
   }
 }
