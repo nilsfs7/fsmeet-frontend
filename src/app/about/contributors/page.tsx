@@ -56,7 +56,7 @@ export default async function About() {
           <div className="mt-4 flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
             {t('textSpanishTranslation')} <UserCard user={userNikolaj} />
-            <SocialLink platform={Platform.INSTAGRAM} path="p/DDEp2gZsB7e" pathNameOverride={t('lnkPostProposal')} />
+            <SocialLink platform={Platform.INSTAGRAM} path="p/DDEp2gZsB7e" pathNameOverride={t('lnkAnnouncement')} />
           </div>
         )}
 
@@ -66,7 +66,7 @@ export default async function About() {
           <div className="flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
             {t('textPersonalSchedule')} <UserCard user={userCBB} />
-            <SocialLink platform={Platform.INSTAGRAM} path="p/C4P5MiQr9Uj" pathNameOverride={t('lnkPostProposal')} />
+            <SocialLink platform={Platform.INSTAGRAM} path="p/C4P5MiQr9Uj" pathNameOverride={t('lnkAnnouncement')} />
           </div>
         )}
 
@@ -74,7 +74,7 @@ export default async function About() {
           <div className="mt-4 flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
             {t('textSearchByGender')} <UserCard user={userJule} />
-            <SocialLink platform={Platform.INSTAGRAM} path="p/C5scnaRrIo9" pathNameOverride={t('lnkPostProposal')} />
+            <SocialLink platform={Platform.INSTAGRAM} path="p/C5scnaRrIo9" pathNameOverride={t('lnkAnnouncement')} />
           </div>
         )}
       </div>
