@@ -156,7 +156,7 @@
     "dlgEventRegistrationBtnUnregister": "Anulaciones",
     "dlgEventRegistrationSuccessfulTitle": "Estado del evento",
     "dlgEventRegistrationSuccessfulText1": "Solicitud enviada correctamente.",
-    "dlgEventRegistrationSuccessfulText2": "No olvide abonar la cuota de participación. Le hemos enviado los datos de pago por correo electrónico.",
+    "dlgEventRegistrationSuccessfulText2": "Por favor, no olvide pagar la cuota de participación. Te hemos enviado los detalles del pago por correo electrónico.",
     "dlgEventRegistrationSuccessfulBtnOk": "Ok",
     "dlgEventStateTitle": "Visibilidad del evento",
     "dlgEventStateText1": "Estado del evento",
