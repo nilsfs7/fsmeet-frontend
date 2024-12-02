@@ -56,6 +56,7 @@ export default async function About() {
           <div className="mt-4 flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
             {t('textSpanishTranslation')} <UserCard user={userNikolaj} />
+            <SocialLink platform={Platform.INSTAGRAM} path="p/DDEp2gZsB7e" pathNameOverride={t('lnkPostProposal')} />
           </div>
         )}
 
