@@ -3,6 +3,7 @@ export class ReadUserCountResponseDto {
   userCountAssociations: number;
   userCountBrands: number;
   userCountDJs: number;
+  userCountEventOrganizers: number;
   userCountFreestylers: number;
   userCountMCs: number;
   userCountMedia: number;
@@ -14,6 +15,7 @@ export class ReadUserCountResponseDto {
     userCountAssociations: number,
     userCountBrands: number,
     userCountDJs: number,
+    userCountEventOrganizers: number,
     userCountFreestylers: number,
     userCountMCs: number,
     userCountMedia: number,
@@ -24,6 +26,7 @@ export class ReadUserCountResponseDto {
     this.userCountAssociations = userCountAssociations;
     this.userCountBrands = userCountBrands;
     this.userCountDJs = userCountDJs;
+    this.userCountEventOrganizers = userCountEventOrganizers;
     this.userCountFreestylers = userCountFreestylers;
     this.userCountMCs = userCountMCs;
     this.userCountMedia = userCountMedia;

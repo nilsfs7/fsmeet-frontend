@@ -21,6 +21,7 @@ export const imgWebsiteLogo = '/user/website.svg';
 export const imgAssociation = '/user/user-types/association.svg';
 export const imgBrand = '/user/user-types/brand.svg';
 export const imgDJ = '/user/user-types/dj.svg';
+export const imgEventOrganizer = '/user/user-types/organizer.svg';
 export const imgFreestyler = '/user/user-types/freestyler.svg';
 export const imgMC = '/user/user-types/mc.svg';
 export const imgMedia = '/user/user-types/video.svg';

@@ -39,8 +39,8 @@ const getCompetitionsByBattles = async (
   const competitionsMap: Map<string, ReadCompetitionResponseDto> = new Map();
   const requests: Promise<void>[] = [];
 
-  battleHistory.map((data) => {
-    const req = getCompetition(data.competitionId).then((comp) => {
+  battleHistory.map(data => {
+    const req = getCompetition(data.competitionId).then(comp => {
       competitionsMap.set(data.competitionId, comp);
     });
 
@@ -60,12 +60,12 @@ const getUsersByBattles = async (
   const usersMap: Map<string, User> = new Map();
   const requests: Promise<void>[] = [];
 
-  battleHistory.map((data) => {
-    data.rounds.map((round) => {
-      round.matches.map((match) => {
-        match.matchSlots.map((slot) => {
+  battleHistory.map(data => {
+    data.rounds.map(round => {
+      round.matches.map(match => {
+        match.matchSlots.map(slot => {
           if (!usersMap.get(slot.name)) {
-            const req = getUser(slot.name).then((user) => {
+            const req = getUser(slot.name).then(user => {
               usersMap.set(slot.name, user);
             });
             requests.push(req);
@@ -83,7 +83,7 @@ const getEventsByCompetitions = async (competitionsMap: Map<string, ReadCompetit
   const eventsMap: Map<string, Event> = new Map();
   const requests: Promise<void>[] = [];
 
-  competitionsMap.forEach((comp) => {
+  competitionsMap.forEach(comp => {
     if (comp.eventId) {
       const req = getEvent(comp.eventId).then((event: Event) => {
         if (event.id) {
@@ -148,7 +148,7 @@ export default async function PublicUserProfile({ params }: { params: { username
                   </div>
                 </div>
 
-                {user.type && user.type !== UserType.FREESTYLER && (
+                {user.type !== UserType.FREESTYLER && (
                   <div className="flex items-start gap-1 mt-1">
                     <div className="w-6 hover:p-0.5">
                       <img src={getUserTypeImages(user.type).path} className="rounded-full object-cover" />
