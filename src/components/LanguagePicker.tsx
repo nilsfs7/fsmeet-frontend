@@ -14,7 +14,7 @@ const LanguagePicker = () => {
   const [locale, setLocale] = useState<string>('GB');
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-  const menuItems = ['GB', 'ES', 'DE'];
+  const menuItems = ['GB', 'FR', 'ES', 'DE'];
   // const menuItems = ['GB', 'FR', 'ES', 'IT', 'DE'];
 
   useEffect(() => {

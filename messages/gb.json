@@ -344,15 +344,15 @@
     "thankYouText2": "Your feedback is highly appreciated!",
     "btnBackHome": "Back home"
   },
+  "/loading": {
+    "textLoading": "Loading..."
+  },
   "/login": {
     "inputUsername": "Username / Email",
     "inputPassword": "Password",
     "btnLogin": "Login",
     "lnkResetPassword": "Reset password",
     "lnkNewAccount": "No account yet?"
-  },
-  "/loading": {
-    "textLoading": "Loading..."
   },
   "/map": {
     "pageTitle": "Freestyler Map",
