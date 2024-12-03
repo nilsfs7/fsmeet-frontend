@@ -15,13 +15,18 @@ import Link from 'next/link';
 export default async function About() {
   const t = await getTranslations('/about/contributors');
 
-  let userCBB: User | undefined;
+  let userCbb: User | undefined;
+  let userGaby: User | undefined;
   let userJule: User | undefined;
   let userNikolaj: User | undefined;
   let userNils: User | undefined;
 
   try {
-    userCBB = await getUser('cbb');
+    userCbb = await getUser('cbb');
+  } catch (e) {}
+
+  try {
+    userGaby = await getUser('gabymassif');
   } catch (e) {}
 
   try {
@@ -60,9 +65,17 @@ export default async function About() {
           </div>
         )}
 
+        {userGaby && (
+          <div className="mt-4 flex flex-col gap-1 items-center">
+            {/* @ts-ignore */}
+            {t('textFrenchTranslation')} <UserCard user={userGaby} />
+            <SocialLink platform={Platform.INSTAGRAM} path="p/todo" pathNameOverride={t('lnkAnnouncement')} />
+          </div>
+        )}
+
         <div className="mt-6 text-lg">{t('sectionCommunityProposals')}</div>
 
-        {userCBB && (
+        {userCbb && (
           <div className="flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
             {t('textPersonalSchedule')} <UserCard user={userCBB} />

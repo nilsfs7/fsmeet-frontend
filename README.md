@@ -147,6 +147,8 @@ User Types
 
 - [DJ](https://www.iconfinder.com/icons/3994356/dj_earphone_headphone_headset_listen_icon)
 
+- [Event Organizer](https://www.iconfinder.com/icons/9075841/edit_pencil_write_paper_file_document_study_copywriting_writing_icon)
+
 - [Freestyler (purchased)](https://www.iconfinder.com/icons/8176401/sport_freestyle_football_soccer_trick_juggling_juggle_icon?coming-from=related-results)
 
 - [MC](https://www.iconfinder.com/icons/9023701/microphone_stage_fill_icon)

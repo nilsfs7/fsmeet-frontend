@@ -1,6 +1,7 @@
 import { UserType } from '@/domain/enums/user-type';
-import { imgAssociation, imgBrand, imgDJ, imgFreestyler, imgMC, imgMedia, imgTechnical } from '@/domain/constants/images';
+import { imgAssociation, imgBrand, imgDJ, imgEventOrganizer, imgFreestyler, imgMC, imgMedia, imgTechnical } from '@/domain/constants/images';
 
+// todo: t -> translation
 export function getUserTypeLabels(userType: UserType, t: any): string {
   switch (userType) {
     case UserType.ASSOCIATION:
@@ -9,6 +10,8 @@ export function getUserTypeLabels(userType: UserType, t: any): string {
       return 'Brand';
     case UserType.DJ:
       return 'DJ';
+    case UserType.EVENT_ORGANIZER:
+      return 'Event Organizer';
     case UserType.FREESTYLER:
       return 'Freestyler';
     case UserType.MC:
@@ -30,6 +33,8 @@ export function getUserTypeImages(userType: UserType): { path: string; size: num
       return { path: imgBrand, size: defaultSize };
     case UserType.DJ:
       return { path: imgDJ, size: defaultSize };
+    case UserType.EVENT_ORGANIZER:
+      return { path: imgEventOrganizer, size: defaultSize };
     case UserType.FREESTYLER:
       return { path: imgFreestyler, size: 30 };
     case UserType.MC:
