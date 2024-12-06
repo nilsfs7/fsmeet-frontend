@@ -78,7 +78,7 @@ export default async function About() {
         {userCbb && (
           <div className="flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
-            {t('textPersonalSchedule')} <UserCard user={userCBB} />
+            {t('textPersonalSchedule')} <UserCard user={userCbb} />
             <SocialLink platform={Platform.INSTAGRAM} path="p/C4P5MiQr9Uj" pathNameOverride={t('lnkAnnouncement')} />
           </div>
         )}
