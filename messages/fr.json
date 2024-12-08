@@ -215,7 +215,7 @@
     "dlgDownloadResultsTitle": "Télécharger les résultats",
     "dlgDownloadResultsText": "Exporter les résultats de la compétition pour le classement mondial.",
     "dlgDownloadResultsCbAddPlayerNames": "Ajouter les noms des joueurs",
-    "dlgDownloadResultsBtnDownload": "Ajouter les noms des joueurs"
+    "dlgDownloadResultsBtnDownload": "Télécharger"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Gérer les groupes",

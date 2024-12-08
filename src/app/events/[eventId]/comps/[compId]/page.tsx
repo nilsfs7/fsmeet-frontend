@@ -29,7 +29,7 @@ export default async function CompetitionDetails({ params }: { params: { eventId
             <ActionButton action={Action.BACK} />
           </Link>
 
-          <ActionButtonDownloadResults event={event} comp={comp} rounds={rounds} />
+          <ActionButtonDownloadResults event={event} comp={comp} rounds_plain={rounds} />
         </Navigation>
       </div>
     </>

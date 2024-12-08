@@ -214,7 +214,7 @@
     "dlgDownloadResultsTitle": "Download Results",
     "dlgDownloadResultsText": "Export competition results for world rankings.",
     "dlgDownloadResultsCbAddPlayerNames": "Add player names",
-    "dlgDownloadResultsBtnDownload": "Add player names"
+    "dlgDownloadResultsBtnDownload": "Download"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Manage Player Pool",
