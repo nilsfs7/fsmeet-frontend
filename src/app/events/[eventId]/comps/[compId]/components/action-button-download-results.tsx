@@ -17,21 +17,27 @@ import { MatchSlot } from '@/types/match-slot';
 import { User } from '@/types/user';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { Competition } from '@/types/competition';
-import { Round } from '@/types/round';
+import { Round as Round_Type } from '@/types/round';
+import { plainToInstance } from 'class-transformer';
+import { Round } from '@/domain/classes/round';
 
 interface IActionButtonDownloadResults {
   event: Event;
   comp: Competition;
-  rounds: Round[];
+  rounds_plain: Round_Type[];
 }
 
-export const ActionButtonDownloadResults = ({ event, comp, rounds }: IActionButtonDownloadResults) => {
+export const ActionButtonDownloadResults = ({ event, comp, rounds_plain }: IActionButtonDownloadResults) => {
   const t = useTranslations('/events/eventid/comps/compid');
 
   const router = useRouter();
 
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [exportContainsPlayerNames, setExportContainsPlayerNames] = useState<boolean>(false);
+
+  const rounds = rounds_plain.map(r => {
+    return plainToInstance(Round, r);
+  });
 
   const handleCancelDialogClicked = async () => {
     router.replace(`${routeEvents}/${event.id}/comps/${comp.id}`);
@@ -160,11 +166,11 @@ export const ActionButtonDownloadResults = ({ event, comp, rounds }: IActionButt
     const getUsers = async () => {
       const usersMap = new Map();
       const requests: Promise<void>[] = [];
-      rounds.map((round) => {
-        round.matches.map((match) => {
-          match.matchSlots.map((slot) => {
+      rounds.map(round => {
+        round.matches.map(match => {
+          match.matchSlots.map(slot => {
             if (!usersMap.get(slot.name)) {
-              const req = getUser(slot.name).then((user) => {
+              const req = getUser(slot.name).then(user => {
                 usersMap.set(slot.name, user);
               });
               requests.push(req);
