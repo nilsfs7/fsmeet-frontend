@@ -1,4 +1,4 @@
-import { ReadRoundResponseDto } from './read-round.response.dto';
+import { ReadRoundResponseDto } from '../competition/read-round.response.dto';
 
 export class ReadUserBattleHistoryResponseDto {
   competitionId: string;

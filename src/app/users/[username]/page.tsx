@@ -19,14 +19,14 @@ import { getUserBattleHistory } from '@/infrastructure/clients/history.client';
 import MatchCard from '@/components/comp/MatchCard';
 import moment from 'moment';
 import { Event } from '@/types/event';
-import { ReadCompetitionResponseDto } from '@/infrastructure/clients/dtos/read-competition.response.dto';
+import { ReadCompetitionResponseDto } from '@/infrastructure/clients/dtos/competition/read-competition.response.dto';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { TechnicalUser } from '@/domain/enums/technical-user';
 import { getTotalMatchPerformance } from '@/infrastructure/clients/statistic.client';
 import { getCompetition } from '@/infrastructure/clients/competition.client';
 import NavigateBackButton from '@/components/NavigateBackButton';
-import { ReadRoundResponseDto } from '@/infrastructure/clients/dtos/read-round.response.dto';
+import { ReadRoundResponseDto } from '@/infrastructure/clients/dtos/competition/read-round.response.dto';
 import { ActionButtonDeleteUser } from './components/action-button-delete-user';
 import { getTranslations } from 'next-intl/server';
 

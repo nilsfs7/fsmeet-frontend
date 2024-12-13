@@ -1,4 +1,4 @@
-import { ReadUserBattleHistoryResponseDto } from './dtos/read-user-battle-history.response.dto';
+import { ReadUserBattleHistoryResponseDto } from './dtos/history/read-user-battle-history.response.dto';
 
 // TODO: cleanup if not needed
 // export async function getUserBattleHistory(username: string): Promise<{ competitionId: string; rounds: Round[] }[]> {
