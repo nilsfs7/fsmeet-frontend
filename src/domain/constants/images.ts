@@ -5,6 +5,8 @@ export const imgUserDefaultImg = '/jury/judge-no-img.png';
 export const imgMeeting = '/event/meeting.svg';
 export const imgCompetition = '/event/competition.svg';
 
+export const imgClock = '/editor/clock.svg';
+
 export const imgMailIncoming = '/registration/mail.svg';
 export const imgEmojiError = '/registration/error.svg';
 export const imgCelebration = '/registration/celebration.svg';

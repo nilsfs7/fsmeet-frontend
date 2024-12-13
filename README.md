@@ -97,6 +97,10 @@ Account
 
 - [Bye](https://www.iconfinder.com/icons/9070043/bye_icon)
 
+Editor
+
+- [Clock](https://www.iconfinder.com/icons/8665257/clock_watch_icon)
+
 Public User Page
 
 - [Verified User Checkmark](https://www.iconfinder.com/icons/9554694/store_verified_shopping_ecommerce_cart_icon)

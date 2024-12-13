@@ -3,7 +3,7 @@
 import { MenuItem } from '@/types/menu-item';
 import { User } from '@/types/user';
 import Link from 'next/link';
-import { imgUserDefaultImg } from '@/domain/constants/images';
+import { imgClock, imgUserDefaultImg } from '@/domain/constants/images';
 import moment, { Moment } from 'moment';
 import { getTimeString } from '@/functions/time';
 import ComboBox from '../common/ComboBox';
@@ -29,8 +29,8 @@ interface IMatchProps {
 const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, seedingList = [], onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
   const playerMenu: MenuItem[] = [];
   playerMenu.push({ text: 'unassigned', value: '' });
-  seedingList.map((user) => {
-    playerMenu.push({ text: user.username, value: user.username });
+  seedingList.map(user => {
+    playerMenu.push({ text: `${user.firstName} ${user.lastName} (${user.username})`, value: user.username });
   });
 
   const handleSlotUpdateName = (slotIndex: number, username: string) => {
@@ -56,17 +56,27 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
   return (
     <div className={`rounded-lg border border-secondary-dark ${!editingEnabled || match.slots > 1 ? 'bg-secondary-light' : 'bg-warning'} p-2`}>
       {/* Header */}
-      <div className={`flex justify-between items-center ${editingEnabled && 'mb-2 gap-2'} `}>
-        <div className={`w-full flex ${editingEnabled ? 'justify-between' : 'justify-center'} items-center`}>
-          <div className={`flex px-1 ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}>{match.name}</div>
-          {editingEnabled && (
-            <div className="flex gap-1 justify-end w-fit">
-              {onEditMatch && <ActionButton action={Action.EDIT} size={Size.S} onClick={() => onEditMatch(match.matchIndex)} />}
-              {onDeleteMatch && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteMatch(match.matchIndex)} />}
-            </div>
-          )}
-          {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(moment(match.time).utc())}</div>}
+      <div className={`${editingEnabled && 'mb-2'}`}>
+        <div className={`flex justify-between items-center`}>
+          <div className={`w-full flex ${editingEnabled ? 'justify-between' : 'justify-center'} items-center`}>
+            <div className={`flex px-1 ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}>{match.name}</div>
+            {editingEnabled && (
+              <div className="flex gap-1 justify-end w-fit">
+                {onEditMatch && <ActionButton action={Action.EDIT} size={Size.S} onClick={() => onEditMatch(match.matchIndex)} />}
+                {onDeleteMatch && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteMatch(match.matchIndex)} />}
+              </div>
+            )}
+
+            {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(moment(match.time).utc())}</div>}
+          </div>
         </div>
+
+        {editingEnabled && (
+          <div className="flex items-center">
+            <img src={imgClock} className="mx-1 h-4 w-4 rounded-full object-cover" />
+            <div className="text-xs flex px-1">{match.time ? getTimeString(moment(match.time).utc()) : '--:--'} </div>{' '}
+          </div>
+        )}
       </div>
 
       <hr />
@@ -74,7 +84,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
       {/* Slots */}
       <div className="mt-2">
         {[...Array(match.slots)].map((val: number, i: number) => {
-          const matchSlot = match.matchSlots.filter((slot) => {
+          const matchSlot = match.matchSlots.filter(slot => {
             if (slot.slotIndex === i) return slot;
           })[0];
 
@@ -129,7 +139,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                     min={-1}
                     max={99}
                     value={matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : ''}
-                    onChange={(e) => {
+                    onChange={e => {
                       handleSlotUpdateResult(i, matchSlot?.name, e.currentTarget.valueAsNumber);
                     }}
                   />
