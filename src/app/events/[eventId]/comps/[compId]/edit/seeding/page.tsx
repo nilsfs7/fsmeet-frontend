@@ -27,7 +27,7 @@ export default function Seeding({ params }: { params: { eventId: string; compId:
 
   const handleSlotUpdated = async (roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => {
     const rnds = Array.from(rounds);
-    const match = rnds[roundIndex].matches.filter((match) => {
+    const match = rnds[roundIndex].matches.filter(match => {
       if (match.id === matchId) {
         return match;
       }
@@ -64,13 +64,13 @@ export default function Seeding({ params }: { params: { eventId: string; compId:
   };
 
   useEffect(() => {
-    getCompetitionParticipants(params.compId).then((participants) => {
+    getCompetitionParticipants(params.compId).then(participants => {
       const users: User[] = [];
-      participants.map((participant) => {
-        users.push({ username: participant.username, type: UserType.FREESTYLER });
+      participants.map(participant => {
+        users.push({ username: participant.username, type: UserType.FREESTYLER, firstName: participant.firstName, lastName: participant.lastName });
       });
       setCompetitionParticipants(users);
-      getRounds(params.compId).then((rounds) => {
+      getRounds(params.compId).then(rounds => {
         setRounds(rounds);
       });
     });

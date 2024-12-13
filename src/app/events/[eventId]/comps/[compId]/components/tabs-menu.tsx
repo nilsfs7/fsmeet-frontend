@@ -22,6 +22,7 @@ import { MaxAge } from '@/domain/enums/max-age';
 import UserSection from '@/components/events/UserSection';
 import { Switch } from '@/components/ui/switch';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { UserType } from '@/domain/enums/user-type';
 
 interface ITabsMenu {
   comp: Competition;
@@ -50,25 +51,20 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
         .then(async (e: Event) => {
           // @ts-ignore
           const participants = await getCompetitionParticipants(comp.id);
-          const competitionParticipants = participants.map(participant => {
-            const participantRegistrationPair = e.eventRegistrations.filter(registration => {
-              if (registration.user.username === participant.username) {
-                return registration.user.imageUrl;
-              }
-            });
 
+          const compParticipants = participants.map(participant => {
             const user: User = {
               username: participant.username,
-              type: participantRegistrationPair[0]?.user?.type,
-              firstName: participantRegistrationPair[0]?.user?.firstName,
-              lastName: participantRegistrationPair[0]?.user?.lastName,
-              imageUrl: participantRegistrationPair[0]?.user?.imageUrl,
+              type: UserType.FREESTYLER,
+              firstName: participant.firstName,
+              lastName: participant.lastName,
+              imageUrl: participant.imageUrl,
             };
 
             return user;
           });
 
-          setCompetitionParticipants(competitionParticipants);
+          setCompetitionParticipants(compParticipants);
         })
         .catch(() => {
           router.push(routeEventNotFound);

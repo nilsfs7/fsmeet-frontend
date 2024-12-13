@@ -5,6 +5,7 @@ import { Match } from '@/domain/classes/match';
 import { CreateRoundBodyDto } from './dtos/competition/create-round.body.dto';
 import { CreateMatchBodyDto } from './dtos/competition/create-match.body.dto';
 import moment from 'moment';
+import { ReadPartialUser1ResponseDto } from './dtos/user/read-partial-user-1.response.dto';
 
 export async function getCompetition(compId: string): Promise<any> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}`;
@@ -25,7 +26,7 @@ export async function getCompetition(compId: string): Promise<any> {
   }
 }
 
-export async function getCompetitionParticipants(compId: string): Promise<{ username: string }[]> {
+export async function getCompetitionParticipants(compId: string): Promise<ReadPartialUser1ResponseDto[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/participants`;
 
   const response = await fetch(url, { method: 'GET' });
@@ -42,7 +43,7 @@ export async function getRounds(compId: string): Promise<Round[]> {
     const round = new Round(rnd.roundIndex, rnd.name, rnd.date, rnd.timeLimit, rnd.advancingTotal);
     round.matches = rnd.matches;
 
-    let matches: Match[] = round.matches.map((mtch) => {
+    let matches: Match[] = round.matches.map(mtch => {
       return new Match(mtch.matchIndex, mtch.name, mtch.time, mtch.isExtraMatch, mtch.slots, mtch.matchSlots, mtch.id);
     });
 
@@ -66,7 +67,7 @@ export async function createCompetition(eventId: string, comp: Competition, sess
     maxAge: comp?.maxAge,
     description: comp?.description.trim(),
     rules: comp?.rules.trim(),
-    judges: comp.judges.map((judge) => {
+    judges: comp.judges.map(judge => {
       return judge.username;
     }),
   });
@@ -116,8 +117,8 @@ export async function createRounds(compId: string, rounds: Round[], session: Ses
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}/rounds`;
 
   const body = JSON.stringify(
-    rounds.map((round) => {
-      const matchDtos: CreateMatchBodyDto[] = round.matches.map((match) => {
+    rounds.map(round => {
+      const matchDtos: CreateMatchBodyDto[] = round.matches.map(match => {
         return new CreateMatchBodyDto(match.matchIndex, match.name, moment(match.time), match.isExtraMatch, match.slots);
       });
       return new CreateRoundBodyDto(round.roundIndex, round.name, moment(round.date), round.timeLimit, matchDtos, round.advancingTotal);
@@ -150,7 +151,7 @@ export async function updateCompetition(comp: Competition, session: Session | nu
     maxAge: comp?.maxAge,
     description: comp?.description.trim(),
     rules: comp?.rules.trim(),
-    judges: comp.judges.map((judge) => {
+    judges: comp.judges.map(judge => {
       return judge.username;
     }),
   });

@@ -19,7 +19,7 @@ import { getUserBattleHistory } from '@/infrastructure/clients/history.client';
 import MatchCard from '@/components/comp/MatchCard';
 import moment from 'moment';
 import { Event } from '@/types/event';
-import { ReadCompetitionResponseDto } from '@/infrastructure/clients/dtos/read-competition.reposnse.dto';
+import { ReadCompetitionResponseDto } from '@/infrastructure/clients/dtos/read-competition.response.dto';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { TechnicalUser } from '@/domain/enums/technical-user';
