@@ -3,7 +3,7 @@
 import { Event } from '@/types/event';
 import EventEditor from '@/components/events/EventEditor';
 import { EditorMode } from '@/domain/enums/editor-mode';
-import { toast, Toaster } from 'sonner';
+import { Toaster, toast } from 'sonner';
 
 interface IEditor {
   event?: Event;
