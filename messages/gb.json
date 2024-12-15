@@ -415,6 +415,17 @@
     "accordionItemCompetitionHistory": "Competition History",
     "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
   },
+  "/voice": {
+    "pageTitle": "Community Voice",
+    "questioner": "Questioner",
+    "btnVote": "Vote",
+    "totalVotes": "Total votes",
+    "btnManagePolls": "Manage Polls"
+  },
+  "/voice/manage": {
+    "pageTitle": "Manage Polls",
+    "btnCreatePoll": "Create Poll"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "First name",
     "associationName": "Association name",
