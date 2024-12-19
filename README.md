@@ -167,6 +167,8 @@ Community
 
 - [People](https://www.iconfinder.com/icons/4265044/community_conversation_friends_group_people_target_team_icon)
 
+- [Megaphone](https://www.iconfinder.com/icons/8673485/ic_fluent_megaphone_loud_filled_icon)
+
 Misc
 
 - [About](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)

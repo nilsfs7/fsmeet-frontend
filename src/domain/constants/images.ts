@@ -43,3 +43,5 @@ export const imgProfileLogout = '/profile/logout.svg';
 export const imgWorld = '/map/world.svg';
 
 export const imgCommunity = '/community/people.svg';
+
+export const imgMegaphone = '/voice/megaphone.svg';
