@@ -1,6 +1,6 @@
 'use client';
 
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { useTranslations } from 'next-intl';
 import { Poll } from '@/types/poll';
@@ -12,7 +12,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { Vote } from '@/types/vote';
 import { createVote, getVotes } from '@/infrastructure/clients/poll.client';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import UserCard from '@/components/user/UserCard';
 import { Toaster, toast } from 'sonner';
 
@@ -27,9 +27,22 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
 
   const router = useRouter();
 
+  const searchParams = useSearchParams();
+  const focus = searchParams?.get('select');
+
   const [polls, setPolls] = useState<Poll[]>(initPolls);
   const [myVotes, setMyVotes] = useState<Vote[]>([]);
   const [myUnconfirmedVote, setMyUnconfirmedVote] = useState<Vote>();
+
+  const [api, setApi] = useState<CarouselApi>();
+
+  const scrollToItem = (index: number) => {
+    if (!api) {
+      return;
+    }
+
+    api.scrollTo(index);
+  };
 
   const handleVoteClicked = async (pollId: string) => {
     // TODO: isAuthenticated nutzen?
@@ -94,19 +107,31 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
     }
   }, [session]);
 
+  useEffect(() => {
+    if (focus) scrollToItem(+focus);
+  }, [focus]);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    api.on('select', () => {
+      const url = `voice?select=${api.selectedScrollSnap()}`;
+      router.replace(url);
+    });
+  }, [api]);
+
   return (
     <>
       <Toaster richColors />
 
       <Carousel
+        setApi={setApi}
         opts={{
           loop: true,
         }}
-        plugins={[
-          Autoplay({
-            delay: 8000,
-          }),
-        ]}
+        plugins={[]}
         className="w-full max-w-lg"
       >
         <CarouselContent>
@@ -167,6 +192,8 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
             </CarouselItem>
           ))}
         </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
       </Carousel>
     </>
   );

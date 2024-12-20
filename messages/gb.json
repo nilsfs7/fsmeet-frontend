@@ -418,9 +418,15 @@
   },
   "/voice": {
     "pageTitle": "Community Voice",
-    "questioner": "Questioner",
     "btnVote": "Vote",
     "totalVotes": "Total votes",
+    "cbColumns": "Columns",
+    "tblColumnUsername": "User",
+    "tblColumnName": "Questioner",
+    "tblColumnQuestion": "Question",
+    "navCurrentPage1": "Page",
+    "navCurrentPage2": "of",
+    "navRowsPerPage": "Rows per page",
     "btnManagePolls": "Manage Polls"
   },
   "/voice/manage": {

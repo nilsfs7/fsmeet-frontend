@@ -8,7 +8,7 @@
     "carouselUpcomingEvent": "Anstehendes Event",
     "navMap": "Karte",
     "navCommunity": "Szene",
-   "navVoice": "Voice",
+    "navVoice": "Voice",
     "navAdminOverview": "Admin-Übersicht",
     "navAbout": "Info"
   },
@@ -415,6 +415,19 @@
     "accordionItemBattleStatisticsWinLossRatio": "Siegverhältnis",
     "accordionItemCompetitionHistory": "Wettkampf Historie",
     "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
+  },
+  "/voice": {
+    "pageTitle": "Community Voice",
+    "btnVote": "Abstimmen",
+    "totalVotes": "Stimmen gesamt",
+    "cbColumns": "Spalten",
+    "tblColumnUsername": "Nutzer",
+    "tblColumnName": "Fragesteller",
+    "tblColumnQuestion": "Frage",
+    "navCurrentPage1": "Seite",
+    "navCurrentPage2": "von",
+    "navRowsPerPage": "Zeilen pro Seite",
+    "btnManagePolls": "Umfragen verwalten"
   },
   "global/functions/getLabelForFirstName": {
     "firstName": "Vorname",

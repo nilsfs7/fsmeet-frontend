@@ -416,6 +416,19 @@
     "accordionItemCompetitionHistory": "Historia de la competición",
     "accordionItemCompetitionHistoryNoParticipations": "Aún no hay concursos disponibles."
   },
+  "/voice": {
+    "pageTitle": "Community Voice",
+    "btnVote": "Votar",
+    "totalVotes": "Votos totales",
+    "cbColumns": "Columnas",
+    "tblColumnUsername": "Usuarios",
+    "tblColumnName": "Preguntador",
+    "tblColumnQuestion": "Preguntar",
+    "navCurrentPage1": "Página",
+    "navCurrentPage2": "de",
+    "navRowsPerPage": "Líneas por página",
+    "btnManagePolls": "Gestionar encuestas"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Nombre",
     "associationName": "Nombre del club",

@@ -416,6 +416,19 @@
     "accordionItemCompetitionHistory": "Historique des compétitions",
     "accordionItemCompetitionHistoryNoParticipations": "Pas encore de participations."
   },
+  "/voice": {
+    "pageTitle": "Community Voice",
+    "btnVote": "Voter",
+    "totalVotes": "Nombre total de votes",
+    "cbColumns": "Colonnes",
+    "tblColumnUsername": "Utilisateur",
+    "tblColumnName": "Questionneur",
+    "tblColumnQuestion": "Question",
+    "navCurrentPage1": "Page",
+    "navCurrentPage2": "de",
+    "navRowsPerPage": "Lignes par page",
+    "btnManagePolls": "Gérer les sondages"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Prénom",
     "associationName": "Nom de l'association",
