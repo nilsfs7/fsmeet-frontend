@@ -8,6 +8,7 @@
     "carouselUpcomingEvent": "Événements à venir",
     "navMap": "Carte",
     "navCommunity": "Communauté",
+    "navVoice": "Voice",
     "navAdminOverview": "Aperçu Administrateur",
     "navAbout": "À propos"
   },
@@ -414,6 +415,23 @@
     "accordionItemBattleStatisticsWinLossRatio": "Ratio victoires/défaites",
     "accordionItemCompetitionHistory": "Historique des compétitions",
     "accordionItemCompetitionHistoryNoParticipations": "Pas encore de participations."
+  },
+  "/voice": {
+    "pageTitle": "Community Voice",
+    "btnVote": "Voter",
+    "totalVotes": "Nombre total de votes",
+    "cbColumns": "Colonnes",
+    "tblColumnUsername": "Utilisateur",
+    "tblColumnName": "Questionneur",
+    "tblColumnQuestion": "Question",
+    "navCurrentPage1": "Page",
+    "navCurrentPage2": "de",
+    "navRowsPerPage": "Lignes par page",
+    "btnManagePolls": "Gérer les sondages"
+  },
+  "/voice/manage/create": {
+    "pageTitle": "Créer un sondage",
+    "btnCreate": "Créer"
   },
   "global/functions/getLabelForFirstName": {
     "firstName": "Prénom",

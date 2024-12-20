@@ -3,9 +3,9 @@ import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastr
 import Link from 'next/link';
 import { Event } from '@/types/event';
 import { Header } from '@/components/Header';
-import { imgAbout, imgCommunity, imgFreestyler, imgProfileSettings, imgWorld } from '@/domain/constants/images';
+import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
 import TextButton from '@/components/common/TextButton';
-import { routeAbout, routeAdminOverview, routeEvents, routeMap, routeUsers } from '@/domain/constants/routes';
+import { routeAbout, routeAdminOverview, routeEvents, routeMap, routeUsers, routeVoice } from '@/domain/constants/routes';
 import { TechnicalUser } from '@/domain/enums/technical-user';
 import { auth } from '@/auth';
 import { EventsCarousel } from './components/events-carousel';
@@ -61,6 +61,26 @@ export default async function Home() {
               </div>
             </div>
           </Link>
+
+          {(session?.user.username === 'nils' ||
+            session?.user.username === 'samu' ||
+            session?.user.username === 'ben' ||
+            session?.user.username === 'kevin' ||
+            session?.user.username === 'sera' ||
+            session?.user.username === 'maja' ||
+            session?.user.username === 'jakim' ||
+            session?.user.username === 'jule' ||
+            session?.user.username === 'hus089' ||
+            session?.user.username === 'ricardo_rehlaender') && (
+            <Link href={routeVoice}>
+              <div className="rounded-lg p-1">
+                <div className="grid grid-flow-col items-center gap-1">
+                  <img src={imgMegaphone} className="h-8 w-8 rounded-full object-cover" />
+                  <div>{t('navVoice')}</div>
+                </div>
+              </div>
+            </Link>
+          )}
         </div>
 
         {session?.user?.username === TechnicalUser.ADMIN && (

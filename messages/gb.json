@@ -8,6 +8,7 @@
     "carouselUpcomingEvent": "Upcoming Event",
     "navMap": "Map",
     "navCommunity": "Community",
+    "navVoice": "Voice",
     "navAdminOverview": "Admin Overview",
     "navAbout": "About"
   },
@@ -415,6 +416,27 @@
     "accordionItemCompetitionHistory": "Competition History",
     "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
   },
+  "/voice": {
+    "pageTitle": "Community Voice",
+    "btnVote": "Vote",
+    "totalVotes": "Total votes",
+    "cbColumns": "Columns",
+    "tblColumnUsername": "User",
+    "tblColumnName": "Questioner",
+    "tblColumnQuestion": "Question",
+    "navCurrentPage1": "Page",
+    "navCurrentPage2": "of",
+    "navRowsPerPage": "Rows per page",
+    "btnManagePolls": "Manage Polls"
+  },
+  "/voice/manage": {
+    "pageTitle": "Manage Polls",
+    "btnCreatePoll": "Create Poll"
+  },
+  "/voice/manage/create": {
+    "pageTitle": "Create Poll",
+    "btnCreate": "Create"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "First name",
     "associationName": "Association name",
@@ -477,6 +499,10 @@
     "chbNotifyOnRegistration": "Notify On New Registration",
     "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
     "chbNotifyOnComment": "Notify On Comment"
+  },
+  "global/components/poll-editor": {
+    "inputQuestion": "Question",
+    "inputOption": "Option"
   },
   "global/components/profile-menu": {
     "login": "Login",
