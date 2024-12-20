@@ -31,3 +31,4 @@ export const routeMap = '/map';
 
 export const routeVoice = '/voice';
 export const routeVoiceManage = '/voice/manage';
+export const routeVoiceCreatePoll = '/voice/manage/create';

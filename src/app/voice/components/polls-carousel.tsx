@@ -50,7 +50,9 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
       router.push(routeLogin);
     } else {
       if (myUnconfirmedVote?.pollId === pollId) {
-        createVote(myUnconfirmedVote, session).then(poll => {
+        try {
+          const poll = await createVote(myUnconfirmedVote, session);
+
           // insert vote into my votes if not exists without reloading
           let vts = Array.from(myVotes);
           if (
@@ -73,7 +75,10 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
           setPolls(plls);
 
           toast.success('Vote submitted.');
-        });
+        } catch (error: any) {
+          toast.error(error.message);
+          console.error(error.message);
+        }
       }
     }
   };
@@ -161,7 +166,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                                 value={`option-${j}`}
                                 id={`option-${j}`}
                                 onClick={e => {
-                                  handleRadioItemClicked(polls[i].id, j);
+                                  if (polls[i]?.id) handleRadioItemClicked(polls[i].id, j);
                                 }}
                               />
 
@@ -184,7 +189,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                   <TextButton
                     text={t('btnVote')}
                     onClick={() => {
-                      handleVoteClicked(polls[i].id);
+                      if (polls[i]?.id) handleVoteClicked(polls[i].id);
                     }}
                   />
                 </div>

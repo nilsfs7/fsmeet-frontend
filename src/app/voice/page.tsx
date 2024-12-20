@@ -18,7 +18,7 @@ export default async function Voice() {
 
   const columnData: ColumnInfo[] = [];
 
-  polls.forEach((poll, index) => {
+  polls.forEach(poll => {
     columnData.push({
       user: {
         username: poll.questioner.username,

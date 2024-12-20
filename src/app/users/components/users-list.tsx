@@ -269,10 +269,15 @@ export const UsersList = ({ columnData }: IUsersList) => {
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
+              .filter(column => column.getCanHide())
+              .map(column => {
                 return (
-                  <DropdownMenuCheckboxItem key={column.id} disabled={column.id === 'user' ?? true} checked={column.getIsVisible()} onCheckedChange={(value: any) => column.toggleVisibility(!!value)}>
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    disabled={column.id === 'user' ? true : false}
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value: any) => column.toggleVisibility(!!value)}
+                  >
                     {getColumnNameById(column.id, t)}
                   </DropdownMenuCheckboxItem>
                 );
@@ -286,9 +291,9 @@ export const UsersList = ({ columnData }: IUsersList) => {
           <div className="rounded-md border">
             <Table>
               <TableHeader>
-                {table.getHeaderGroups().map((headerGroup) => (
+                {table.getHeaderGroups().map(headerGroup => (
                   <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
+                    {headerGroup.headers.map(header => {
                       return <TableHead key={header.id}>{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}</TableHead>;
                     })}
                   </TableRow>
@@ -297,9 +302,9 @@ export const UsersList = ({ columnData }: IUsersList) => {
 
               <TableBody>
                 {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
+                  table.getRowModel().rows.map(row => (
                     <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                      {row.getVisibleCells().map((cell) => (
+                      {row.getVisibleCells().map(cell => (
                         <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                       ))}
                     </TableRow>
@@ -342,7 +347,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
             <p className="text-sm font-medium">{t('navRowsPerPage')}</p>
             <Select
               value={`${table.getState().pagination.pageSize}`}
-              onValueChange={(value) => {
+              onValueChange={value => {
                 table.setPageSize(Number(value));
               }}
             >
@@ -350,7 +355,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
                 <SelectValue placeholder={table.getState().pagination.pageSize} />
               </SelectTrigger>
               <SelectContent side="top">
-                {[50, 100, 200].map((pageSize) => (
+                {[50, 100, 200].map(pageSize => (
                   <SelectItem key={pageSize} value={`${pageSize}`}>
                     {pageSize}
                   </SelectItem>

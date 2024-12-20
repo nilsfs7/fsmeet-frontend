@@ -429,6 +429,10 @@
     "navRowsPerPage": "Lignes par page",
     "btnManagePolls": "Gérer les sondages"
   },
+  "/voice/manage/create": {
+    "pageTitle": "Créer un sondage",
+    "btnCreate": "Créer"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Prénom",
     "associationName": "Nom de l'association",

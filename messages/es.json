@@ -429,6 +429,10 @@
     "navRowsPerPage": "Líneas por página",
     "btnManagePolls": "Gestionar encuestas"
   },
+  "/voice/manage/create": {
+    "pageTitle": "Crear encuesta",
+    "btnCreate": "Crear"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Nombre",
     "associationName": "Nombre del club",

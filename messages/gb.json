@@ -433,6 +433,10 @@
     "pageTitle": "Manage Polls",
     "btnCreatePoll": "Create Poll"
   },
+  "/voice/manage/create": {
+    "pageTitle": "Create Poll",
+    "btnCreate": "Create"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "First name",
     "associationName": "Association name",
@@ -495,6 +499,10 @@
     "chbNotifyOnRegistration": "Notify On New Registration",
     "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
     "chbNotifyOnComment": "Notify On Comment"
+  },
+  "global/components/poll-editor": {
+    "inputQuestion": "Question",
+    "inputOption": "Option"
   },
   "global/components/profile-menu": {
     "login": "Login",

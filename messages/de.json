@@ -429,6 +429,10 @@
     "navRowsPerPage": "Zeilen pro Seite",
     "btnManagePolls": "Umfragen verwalten"
   },
+  "/voice/manage/create": {
+    "pageTitle": "Umfrage erstellen",
+    "btnCreate": "Erstellen"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Vorname",
     "associationName": "Vereinsname",
