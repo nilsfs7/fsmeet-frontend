@@ -502,6 +502,11 @@
     "chbAllowCommentsAndQuestions": "Autoriser les commentaires et questions",
     "chbNotifyOnComment": "Notifier lors d'un commentaire"
   },
+  "global/components/poll-editor": {
+    "inputQuestion": "Question",
+    "inputOption": "Option",
+    "dateDeadline": "Date limite"
+  },
   "global/components/profile-menu": {
     "login": "Se connecter",
     "menuItemMyEvents": "Mes événements",

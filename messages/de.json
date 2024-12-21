@@ -502,6 +502,11 @@
     "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
     "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
   },
+  "global/components/poll-editor": {
+    "inputQuestion": "Question",
+    "inputOption": "Option",
+    "dateDeadline": "Deadline"
+  },
   "global/components/profile-menu": {
     "login": "Anmelden",
     "menuItemMyEvents": "Meine Events",

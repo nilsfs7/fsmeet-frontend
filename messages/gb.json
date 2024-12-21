@@ -503,8 +503,9 @@
     "chbNotifyOnComment": "Notify On Comment"
   },
   "global/components/poll-editor": {
-    "inputQuestion": "Question",
-    "inputOption": "Option"
+    "inputQuestion": "Frage",
+    "inputOption": "Option",
+    "dateDeadline": "Deadline"
   },
   "global/components/profile-menu": {
     "login": "Login",
