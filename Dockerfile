@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20.9.0 AS build
+FROM node:22.12.0 AS build
 
 ## Declare build arguments
 ARG COMMIT_SHA=""
@@ -32,7 +32,7 @@ RUN yarn build
 
 
 # Run stage
-FROM node:20.9.0
+FROM node:22.12.0
 
 ## Declare build arguments
 ARG TRUST_HOST=true

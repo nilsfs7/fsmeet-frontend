@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-[node.js](https://nodejs.org/en) >= 20.9.0
+[node.js](https://nodejs.org/en) >= 22.12.0
 
 [yarn](https://yarnpkg.com/)
 
