@@ -431,6 +431,10 @@
     "navRowsPerPage": "Lignes par page",
     "btnManagePolls": "Gérer les sondages"
   },
+  "/voice/manage": {
+    "pageTitle": "Créer un sondage",
+    "btnCreatePoll": "Créer un sondage"
+  },
   "/voice/manage/create": {
     "pageTitle": "Créer un sondage",
     "btnCreate": "Créer"

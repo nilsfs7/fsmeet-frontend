@@ -431,6 +431,10 @@
     "navRowsPerPage": "Líneas por página",
     "btnManagePolls": "Gestionar encuestas"
   },
+  "/voice/manage": {
+    "pageTitle": "Gestionar encuestas",
+    "btnCreatePoll": "Crear encuesta"
+  },
   "/voice/manage/create": {
     "pageTitle": "Crear encuesta",
     "btnCreate": "Crear"
