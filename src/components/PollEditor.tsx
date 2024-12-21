@@ -9,6 +9,7 @@ import { Poll } from '@/types/poll';
 import TextInput from './common/TextInput';
 import ActionButton from './common/ActionButton';
 import { Action } from '@/domain/enums/action';
+import moment from 'moment';
 
 interface IPollEditorProps {
   editorMode: EditorMode;
@@ -57,6 +58,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         return { option: o, numVotes: 0 };
       }),
       totalVotes: 0,
+      creationTime: moment().utc().format(),
     });
   };
 
