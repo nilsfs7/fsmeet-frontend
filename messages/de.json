@@ -403,6 +403,7 @@
     "tblColumnType": "Typ",
     "tblColumnLocation": "Wohnort",
     "tblColumnSocials": "Netzwerke",
+    "tblNoData": "Keine Daten",
     "navCurrentPage1": "Seite",
     "navCurrentPage2": "von",
     "navRowsPerPage": "Zeilen pro Seite"
@@ -424,6 +425,7 @@
     "tblColumnUsername": "Nutzer",
     "tblColumnName": "Fragesteller",
     "tblColumnQuestion": "Frage",
+    "tblNoData": "Keine Daten",
     "navCurrentPage1": "Seite",
     "navCurrentPage2": "von",
     "navRowsPerPage": "Zeilen pro Seite",

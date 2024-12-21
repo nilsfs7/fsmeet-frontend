@@ -174,7 +174,7 @@ export const PollsList = ({ columnData }: IPollsList) => {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className="h-24 text-center">
-                      No results.
+                      {`${t('tblNoData')}`}
                     </TableCell>
                   </TableRow>
                 )}

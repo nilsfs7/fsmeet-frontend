@@ -312,7 +312,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={columns.length} className="h-24 text-center">
-                      No results.
+                      {`${t('tblNoData')}`}
                     </TableCell>
                   </TableRow>
                 )}

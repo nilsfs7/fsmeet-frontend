@@ -403,6 +403,7 @@
     "tblColumnType": "Type",
     "tblColumnLocation": "Location",
     "tblColumnSocials": "Socials",
+    "tblNoData": "No data",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "of",
     "navRowsPerPage": "Rows per page"
@@ -424,6 +425,7 @@
     "tblColumnUsername": "User",
     "tblColumnName": "Questioner",
     "tblColumnQuestion": "Question",
+    "tblNoData": "No data",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "of",
     "navRowsPerPage": "Rows per page",

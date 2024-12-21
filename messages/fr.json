@@ -403,6 +403,7 @@
     "tblColumnType": "Type",
     "tblColumnLocation": "Lieu",
     "tblColumnSocials": "Réseaux sociaux",
+    "tblNoData": "Aucune donnée",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "de",
     "navRowsPerPage": "Lignes par page"
@@ -424,6 +425,7 @@
     "tblColumnUsername": "Utilisateur",
     "tblColumnName": "Questionneur",
     "tblColumnQuestion": "Question",
+    "tblNoData": "Aucune donnée",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "de",
     "navRowsPerPage": "Lignes par page",
