@@ -166,7 +166,8 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                                 value={`option-${j}`}
                                 id={`option-${j}`}
                                 onClick={e => {
-                                  if (polls[i]?.id) handleRadioItemClicked(polls[i].id, j);
+                                  const poll = polls[i];
+                                  if (poll?.id) handleRadioItemClicked(poll.id, j);
                                 }}
                               />
 
@@ -189,7 +190,8 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                   <TextButton
                     text={t('btnVote')}
                     onClick={() => {
-                      if (polls[i]?.id) handleVoteClicked(polls[i].id);
+                      const poll = polls[i];
+                      if (poll?.id) handleVoteClicked(poll.id);
                     }}
                   />
                 </div>
