@@ -37,7 +37,7 @@ export default async function Voice() {
       <PageTitle title={t('pageTitle')} />
 
       <div className="mx-2 flex flex-col overflow-auto">
-        <div className="mt-2 flex justify-center">
+        <div className="mt-2 flex justify-center px-12">
           <PollsCarousel initPolls={polls} />
         </div>
 
