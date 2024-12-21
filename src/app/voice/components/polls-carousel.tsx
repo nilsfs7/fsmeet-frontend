@@ -185,7 +185,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                 </div>
 
                 <div className="flex justify-between mt-2">
-                  <UserCard user={polls[i].questioner} />
+                  <UserCard user={polls[i].questioner} showFirstNameOnly={true} />
 
                   <TextButton
                     text={t('btnVote')}
