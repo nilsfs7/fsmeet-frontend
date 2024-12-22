@@ -31,10 +31,20 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   const [deadlineEnabled, setDeadlineEnabled] = useState<boolean>(poll?.deadline ? true : false);
   const [deadline, setDeadline] = useState<string>(poll?.deadline ? poll.deadline : moment().endOf('day').add(3, 'month').utc().format());
 
+  const INPUT_MAX_LENGTH = 100;
+
+  const handleQuestionUpdated = async (value: string) => {
+    if (value.length <= INPUT_MAX_LENGTH) {
+      setQuestion(value);
+    }
+  };
+
   const handleOptionUpdated = async (value: string, index: number) => {
-    const newArray = Array.from(options);
-    newArray[index] = value;
-    setOptions(newArray);
+    if (value.length <= INPUT_MAX_LENGTH) {
+      const newArray = Array.from(options);
+      newArray[index] = value;
+      setOptions(newArray);
+    }
   };
 
   const handleAddQuestionClicked = async () => {
@@ -85,7 +95,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         value={question}
         resizable={true}
         onChange={e => {
-          setQuestion(e.currentTarget.value);
+          handleQuestionUpdated(e.currentTarget.value);
         }}
       />
 
