@@ -764,15 +764,15 @@
     aria-hidden "^1.1.1"
     react-remove-scroll "2.5.4"
 
-"@radix-ui/react-dialog@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-dialog/-/react-dialog-1.1.3.tgz#87cf49f619a6a0f6219980678be0f7c31978dee1"
-  integrity sha512-ujGvqQNkZ0J7caQyl8XuZRj2/TIrYcOGwqz5TeD1OMcCdfBuEMP0D12ve+8J5F9XuNUth3FAKFWo/wt0E/GJrQ==
+"@radix-ui/react-dialog@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-dialog/-/react-dialog-1.1.4.tgz#d68e977acfcc0d044b9dab47b6dd2c179d2b3191"
+  integrity sha512-Ur7EV1IwQGCyaAuyDRiOLA5JIUZxELJljF+MbM/2NC0BYwfuRrbpS30BiQBJrVruscgUkieKkqXYDOoByaxIoA==
   dependencies:
     "@radix-ui/primitive" "1.1.1"
     "@radix-ui/react-compose-refs" "1.1.1"
     "@radix-ui/react-context" "1.1.1"
-    "@radix-ui/react-dismissable-layer" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.3"
     "@radix-ui/react-focus-guards" "1.1.1"
     "@radix-ui/react-focus-scope" "1.1.1"
     "@radix-ui/react-id" "1.1.0"
@@ -782,7 +782,7 @@
     "@radix-ui/react-slot" "1.1.1"
     "@radix-ui/react-use-controllable-state" "1.1.0"
     aria-hidden "^1.1.1"
-    react-remove-scroll "2.6.0"
+    react-remove-scroll "^2.6.1"
 
 "@radix-ui/react-direction@1.1.0":
   version "1.1.0"
@@ -801,10 +801,10 @@
     "@radix-ui/react-use-callback-ref" "1.0.0"
     "@radix-ui/react-use-escape-keydown" "1.0.0"
 
-"@radix-ui/react-dismissable-layer@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.1.2.tgz#771594b202f32bc8ffeb278c565f10c513814aee"
-  integrity sha512-kEHnlhv7wUggvhuJPkyw4qspXLJOdYoAP4dO2c8ngGuXTq1w/HZp1YeVB+NQ2KbH1iEG+pvOCGYSqh9HZOz6hg==
+"@radix-ui/react-dismissable-layer@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.1.3.tgz#4ee0f0f82d53bf5bd9db21665799bb0d1bad5ed8"
+  integrity sha512-onrWn/72lQoEucDmJnr8uczSNTujT0vJnA/X5+3AkChVPowr8n1yvIKIabhWyMQeMvvmdpsvcyDqx3X1LEXCPg==
   dependencies:
     "@radix-ui/primitive" "1.1.1"
     "@radix-ui/react-compose-refs" "1.1.1"
@@ -812,16 +812,16 @@
     "@radix-ui/react-use-callback-ref" "1.1.0"
     "@radix-ui/react-use-escape-keydown" "1.1.0"
 
-"@radix-ui/react-dropdown-menu@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-dropdown-menu/-/react-dropdown-menu-2.1.3.tgz#02665f99bfdcefc33a8a15dc130e9b98ebdf7671"
-  integrity sha512-eKyAfA9e4HOavzyGJC6kiDIlHMPzAU0zqSqTg+VwS0Okvb9nkTo7L4TugkCUqM3I06ciSpdtYQ73cgB7tyUgVw==
+"@radix-ui/react-dropdown-menu@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-dropdown-menu/-/react-dropdown-menu-2.1.4.tgz#5e1f453296dd9ae99224a26c36851832d26cf507"
+  integrity sha512-iXU1Ab5ecM+yEepGAWK8ZhMyKX4ubFdCNtol4sT9D0OVErG9PNElfx3TQhjw7n7BC5nFVz68/5//clWy+8TXzA==
   dependencies:
     "@radix-ui/primitive" "1.1.1"
     "@radix-ui/react-compose-refs" "1.1.1"
     "@radix-ui/react-context" "1.1.1"
     "@radix-ui/react-id" "1.1.0"
-    "@radix-ui/react-menu" "2.1.3"
+    "@radix-ui/react-menu" "2.1.4"
     "@radix-ui/react-primitive" "2.0.1"
     "@radix-ui/react-use-controllable-state" "1.1.0"
 
@@ -876,17 +876,17 @@
   dependencies:
     "@radix-ui/react-use-layout-effect" "1.1.0"
 
-"@radix-ui/react-menu@2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-menu/-/react-menu-2.1.3.tgz#5a3330cf5dc5d48666da31ba0e83fef99288e367"
-  integrity sha512-wY5SY6yCiJYP+DMIy7RrjF4shoFpB9LJltliVwejBm8T2yepWDJgKBhIFYOGWYR/lFHOCtbstN9duZFu6gmveQ==
+"@radix-ui/react-menu@2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-menu/-/react-menu-2.1.4.tgz#ac7aec296f29608206a7c6ef6335d8f102edaa95"
+  integrity sha512-BnOgVoL6YYdHAG6DtXONaR29Eq4nvbi8rutrV/xlr3RQCMMb3yqP85Qiw/3NReozrSW+4dfLkK+rc1hb4wPU/A==
   dependencies:
     "@radix-ui/primitive" "1.1.1"
     "@radix-ui/react-collection" "1.1.1"
     "@radix-ui/react-compose-refs" "1.1.1"
     "@radix-ui/react-context" "1.1.1"
     "@radix-ui/react-direction" "1.1.0"
-    "@radix-ui/react-dismissable-layer" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.3"
     "@radix-ui/react-focus-guards" "1.1.1"
     "@radix-ui/react-focus-scope" "1.1.1"
     "@radix-ui/react-id" "1.1.0"
@@ -898,17 +898,17 @@
     "@radix-ui/react-slot" "1.1.1"
     "@radix-ui/react-use-callback-ref" "1.1.0"
     aria-hidden "^1.1.1"
-    react-remove-scroll "2.6.0"
+    react-remove-scroll "^2.6.1"
 
-"@radix-ui/react-popover@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-popover/-/react-popover-1.1.3.tgz#b2c81c739eb183ede2314d6a448439d15aeec129"
-  integrity sha512-MBDKFwRe6fi0LT8m/Jl4V8J3WbS/UfXJtsgg8Ym5w5AyPG3XfHH4zhBp1P8HmZK83T8J7UzVm6/JpDE3WMl1Dw==
+"@radix-ui/react-popover@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-popover/-/react-popover-1.1.4.tgz#d83104e5fb588870a673b55f3387da4844e5836e"
+  integrity sha512-aUACAkXx8LaFymDma+HQVji7WhvEhpFJ7+qPz17Nf4lLZqtreGOFRiNQWQmhzp7kEWg9cOyyQJpdIMUMPc/CPw==
   dependencies:
     "@radix-ui/primitive" "1.1.1"
     "@radix-ui/react-compose-refs" "1.1.1"
     "@radix-ui/react-context" "1.1.1"
-    "@radix-ui/react-dismissable-layer" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.3"
     "@radix-ui/react-focus-guards" "1.1.1"
     "@radix-ui/react-focus-scope" "1.1.1"
     "@radix-ui/react-id" "1.1.0"
@@ -919,7 +919,7 @@
     "@radix-ui/react-slot" "1.1.1"
     "@radix-ui/react-use-controllable-state" "1.1.0"
     aria-hidden "^1.1.1"
-    react-remove-scroll "2.6.0"
+    react-remove-scroll "^2.6.1"
 
 "@radix-ui/react-popper@1.2.1":
   version "1.2.1"
@@ -1039,10 +1039,10 @@
     "@radix-ui/react-use-callback-ref" "1.1.0"
     "@radix-ui/react-use-layout-effect" "1.1.0"
 
-"@radix-ui/react-select@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-select/-/react-select-2.1.3.tgz#b3f0ed2ae8fb9ebb03baaec49f9856e24628fc16"
-  integrity sha512-tlLwaewTfrKetiex8iW9wwME/qrYlzlH0qcgYmos7xS54MO00SiPHasLoAykg/yVrjf41GQptPPi4oXzrP+sgg==
+"@radix-ui/react-select@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-select/-/react-select-2.1.4.tgz#8957050203640b668a883a225260c403514b3772"
+  integrity sha512-pOkb2u8KgO47j/h7AylCj7dJsm69BXcjkrvTqMptFqsE2i0p8lHkfgneXKjAgPzBMivnoMyt8o4KiV4wYzDdyQ==
   dependencies:
     "@radix-ui/number" "1.1.0"
     "@radix-ui/primitive" "1.1.1"
@@ -1050,7 +1050,7 @@
     "@radix-ui/react-compose-refs" "1.1.1"
     "@radix-ui/react-context" "1.1.1"
     "@radix-ui/react-direction" "1.1.0"
-    "@radix-ui/react-dismissable-layer" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.3"
     "@radix-ui/react-focus-guards" "1.1.1"
     "@radix-ui/react-focus-scope" "1.1.1"
     "@radix-ui/react-id" "1.1.0"
@@ -1064,7 +1064,7 @@
     "@radix-ui/react-use-previous" "1.1.0"
     "@radix-ui/react-visually-hidden" "1.1.1"
     aria-hidden "^1.1.1"
-    react-remove-scroll "2.6.0"
+    react-remove-scroll "^2.6.1"
 
 "@radix-ui/react-slider@^1.2.2":
   version "1.2.2"
@@ -1326,10 +1326,10 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
-"@types/react@^19.0.1":
-  version "19.0.1"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.0.1.tgz#a000d5b78f473732a08cecbead0f3751e550b3df"
-  integrity sha512-YW6614BDhqbpR5KtUYzTA+zlA7nayzJRA9ljz9CQoxthR0sDisYZLuvSMsil36t4EH/uAt8T52Xb4sVw17G+SQ==
+"@types/react@^19.0.2":
+  version "19.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.0.2.tgz#9363e6b3ef898c471cb182dd269decc4afc1b4f6"
+  integrity sha512-USU8ZI/xyKJwFTpjSVIrSeHBVAGagkHQKPNbxeWwql/vDmnTIBgx+TJnhFnj1NXgz8XfprU0egV2dROLGpsBEg==
   dependencies:
     csstype "^3.0.2"
 
@@ -3161,14 +3161,14 @@ next-auth@^5.0.0-beta.25:
   dependencies:
     "@auth/core" "0.37.2"
 
-next-intl@^3.26.1:
-  version "3.26.1"
-  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-3.26.1.tgz#159152b00179169371d7b70d2179cdb7f2aac964"
-  integrity sha512-TE4cQgXNw4jzEtVPdiYQOCmhAu+Z2qoUppCMxPkJoz8XXe8TdqiNEPhD/GtXEsI80nV6NnVAq3hyTHH5+ex6Hw==
+next-intl@^3.26.3:
+  version "3.26.3"
+  resolved "https://registry.yarnpkg.com/next-intl/-/next-intl-3.26.3.tgz#4991ba09de7d09d8a3e1a75b2cdf28a9648a4b70"
+  integrity sha512-6Y97ODrDsEE1J8cXKMHwg1laLdtkN66QMIqG8BzH4zennJRUNTtM8UMtBDyhfmF6uiZ+xsbWLXmHUgmUymUsfQ==
   dependencies:
     "@formatjs/intl-localematcher" "^0.5.4"
     negotiator "^1.0.0"
-    use-intl "^3.26.1"
+    use-intl "^3.26.3"
 
 next-themes@^0.3.0:
   version "0.3.0"
@@ -3558,12 +3558,20 @@ react-is@^19.0.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-19.0.0.tgz#d6669fd389ff022a9684f708cf6fa4962d1fea7a"
   integrity sha512-H91OHcwjZsbq3ClIDHMzBShc1rotbfACdWENsmEf0IFvZ3FgGPtdHMcsv45bQ1hAbgdfiA8SnxTKfDS+x/8m2g==
 
-react-remove-scroll-bar@^2.3.3, react-remove-scroll-bar@^2.3.6:
+react-remove-scroll-bar@^2.3.3:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/react-remove-scroll-bar/-/react-remove-scroll-bar-2.3.6.tgz#3e585e9d163be84a010180b18721e851ac81a29c"
   integrity sha512-DtSYaao4mBmX+HDo5YWYdBWQwYIQQshUV/dVxFxK+KM26Wjwp1gZ6rv6OC3oujI6Bfu6Xyg3TwK533AQutsn/g==
   dependencies:
     react-style-singleton "^2.2.1"
+    tslib "^2.0.0"
+
+react-remove-scroll-bar@^2.3.7:
+  version "2.3.8"
+  resolved "https://registry.yarnpkg.com/react-remove-scroll-bar/-/react-remove-scroll-bar-2.3.8.tgz#99c20f908ee467b385b68a3469b4a3e750012223"
+  integrity sha512-9r+yi9+mgU33AKcj6IbT9oRCO78WriSj6t/cF8DWBZJ9aOGPOTEDvdUDz1FwKim7QXWwmHqtdHnRJfhAxEG46Q==
+  dependencies:
+    react-style-singleton "^2.2.2"
     tslib "^2.0.0"
 
 react-remove-scroll@2.5.4:
@@ -3577,15 +3585,15 @@ react-remove-scroll@2.5.4:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
-react-remove-scroll@2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/react-remove-scroll/-/react-remove-scroll-2.6.0.tgz#fb03a0845d7768a4f1519a99fdb84983b793dc07"
-  integrity sha512-I2U4JVEsQenxDAKaVa3VZ/JeJZe0/2DxPWL8Tj8yLKctQJQiZM52pn/GWFpSp8dftjM3pSAHVJZscAnC/y+ySQ==
+react-remove-scroll@^2.6.1:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/react-remove-scroll/-/react-remove-scroll-2.6.2.tgz#2518d2c5112e71ea8928f1082a58459b5c7a2a97"
+  integrity sha512-KmONPx5fnlXYJQqC62Q+lwIeAk64ws/cUw6omIumRzMRPqgnYqhSSti99nbj0Ry13bv7dF+BKn7NB+OqkdZGTw==
   dependencies:
-    react-remove-scroll-bar "^2.3.6"
+    react-remove-scroll-bar "^2.3.7"
     react-style-singleton "^2.2.1"
     tslib "^2.1.0"
-    use-callback-ref "^1.3.0"
+    use-callback-ref "^1.3.3"
     use-sidecar "^1.1.2"
 
 react-style-singleton@^2.2.1:
@@ -3595,6 +3603,14 @@ react-style-singleton@^2.2.1:
   dependencies:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
+    tslib "^2.0.0"
+
+react-style-singleton@^2.2.2:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-style-singleton/-/react-style-singleton-2.2.3.tgz#4265608be69a4d70cfe3047f2c6c88b2c3ace388"
+  integrity sha512-b6jSvxvVnyptAiLjbkWLE/lOnR4lfTtDAl+eUC7RZy+QQWc6wRzIV2CE6xBuMmDxc2qIihtDCZD5NPOFl7fRBQ==
+  dependencies:
+    get-nonce "^1.0.0"
     tslib "^2.0.0"
 
 react-tabs@^6.0.2:
@@ -4002,10 +4018,10 @@ tailwindcss-animate@^1.0.7:
   resolved "https://registry.yarnpkg.com/tailwindcss-animate/-/tailwindcss-animate-1.0.7.tgz#318b692c4c42676cc9e67b19b78775742388bef4"
   integrity sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==
 
-tailwindcss@^3.4.16:
-  version "3.4.16"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.16.tgz#35a7c3030844d6000fc271878db4096b6a8d2ec9"
-  integrity sha512-TI4Cyx7gDiZ6r44ewaJmt0o6BrMCT5aK5e0rmJ/G9Xq3w7CX/5VXl/zIPEJZFUK5VEqwByyhqNPycPlvcK4ZNw==
+tailwindcss@^3.4.17:
+  version "3.4.17"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.17.tgz#ae8406c0f96696a631c790768ff319d46d5e5a63"
+  integrity sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==
   dependencies:
     "@alloc/quick-lru" "^5.2.0"
     arg "^5.0.2"
@@ -4184,15 +4200,22 @@ use-callback-ref@^1.3.0:
   dependencies:
     tslib "^2.0.0"
 
+use-callback-ref@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/use-callback-ref/-/use-callback-ref-1.3.3.tgz#98d9fab067075841c5b2c6852090d5d0feabe2bf"
+  integrity sha512-jQL3lRnocaFtu3V00JToYz/4QkNWswxijDaCVNZRiRTO3HQDLsdu1ZtmIUvV4yPp+rvWm5j0y0TG/S61cuijTg==
+  dependencies:
+    tslib "^2.0.0"
+
 use-composed-ref@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/use-composed-ref/-/use-composed-ref-1.3.0.tgz#3d8104db34b7b264030a9d916c5e94fbe280dbda"
   integrity sha512-GLMG0Jc/jiKov/3Ulid1wbv3r54K9HlMW29IWcDFPEqFkSO2nS0MuefWgMJpeHQ9YJeXDL3ZUF+P3jdXlZX/cQ==
 
-use-intl@^3.26.1:
-  version "3.26.1"
-  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-3.26.1.tgz#bb329d955658a416b42c4e2c48b9e9c53747add3"
-  integrity sha512-MZhtSBcMrDna3xs1T6O7CAXx4wRfm1eGyUYrDCCnW9qTOGZurCH5k/X6ChDl6EI4f+qYEtXQCRMkQUVOIhJWTQ==
+use-intl@^3.26.3:
+  version "3.26.3"
+  resolved "https://registry.yarnpkg.com/use-intl/-/use-intl-3.26.3.tgz#948c37388c1bfc894504f040930a32791b0158cf"
+  integrity sha512-yY0a2YseO17cKwHA9M6fcpiEJ2Uo81DEU0NOUxNTp6lJVNOuI6nULANPVVht6IFdrYFtlsMmMoc97+Eq9/Tnng==
   dependencies:
     "@formatjs/fast-memoize" "^2.2.0"
     intl-messageformat "^10.5.14"

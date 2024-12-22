@@ -32,7 +32,7 @@ export default async function Users() {
     return 0;
   });
 
-  userSorted.forEach((user, index) => {
+  userSorted.forEach(user => {
     if (user.type !== UserType.TECHNICAL) {
       columnData.push({
         user: {

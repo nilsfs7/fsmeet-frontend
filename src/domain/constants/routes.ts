@@ -28,3 +28,7 @@ export const routeEventsCreate = '/events/create';
 export const routeUsers = '/users';
 
 export const routeMap = '/map';
+
+export const routeVoice = '/voice';
+export const routeVoiceManage = '/voice/manage';
+export const routeVoiceCreatePoll = '/voice/manage/create';

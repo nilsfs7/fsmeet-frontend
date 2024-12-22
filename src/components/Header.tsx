@@ -8,7 +8,7 @@ interface IHeaderProps {
 
 export const Header = ({ showMenu = false }: IHeaderProps) => {
   return (
-    <div className="bg-secondary-light sm:block">
+    <div className="bg-secondary-light sm:block z-50">
       <div className="mx-2 flex h-20 items-center justify-between">
         <LogoFSMeet />
 

@@ -8,6 +8,7 @@
     "carouselUpcomingEvent": "Upcoming Event",
     "navMap": "Map",
     "navCommunity": "Community",
+    "navVoice": "Voice",
     "navAdminOverview": "Admin Overview",
     "navAbout": "About"
   },
@@ -402,6 +403,7 @@
     "tblColumnType": "Type",
     "tblColumnLocation": "Location",
     "tblColumnSocials": "Socials",
+    "tblNoData": "No data",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "of",
     "navRowsPerPage": "Rows per page"
@@ -414,6 +416,29 @@
     "accordionItemBattleStatisticsWinLossRatio": "Win ratio",
     "accordionItemCompetitionHistory": "Competition History",
     "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
+  },
+  "/voice": {
+    "pageTitle": "Community Voice",
+    "btnVote": "Vote",
+    "btnVotingEnded": "Voting ended",
+    "totalVotes": "Total votes",
+    "cbColumns": "Columns",
+    "tblColumnUsername": "User",
+    "tblColumnName": "Questioner",
+    "tblColumnQuestion": "Question",
+    "tblNoData": "No data",
+    "navCurrentPage1": "Page",
+    "navCurrentPage2": "of",
+    "navRowsPerPage": "Rows per page",
+    "btnManagePolls": "Manage Polls"
+  },
+  "/voice/manage": {
+    "pageTitle": "Manage Polls",
+    "btnCreatePoll": "Create Poll"
+  },
+  "/voice/manage/create": {
+    "pageTitle": "Create Poll",
+    "btnCreate": "Create"
   },
   "global/functions/getLabelForFirstName": {
     "firstName": "First name",
@@ -477,6 +502,12 @@
     "chbNotifyOnRegistration": "Notify On New Registration",
     "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
     "chbNotifyOnComment": "Notify On Comment"
+  },
+  "global/components/poll-editor": {
+    "inputQuestion": "Frage",
+    "inputOption": "Option",
+    "chbDeadlineEnabled": "Deadline enabled",
+    "dateDeadline": "Deadline"
   },
   "global/components/profile-menu": {
     "login": "Login",

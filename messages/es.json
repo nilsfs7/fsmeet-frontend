@@ -8,6 +8,7 @@
     "carouselUpcomingEvent": "Próximo evento",
     "navMap": "Mapa",
     "navCommunity": "Comunidad",
+    "navVoice": "Voice",
     "navAdminOverview": "Admin overview",
     "navAbout": "Información"
   },
@@ -402,6 +403,7 @@
     "tblColumnType": "Tipo",
     "tblColumnLocation": "Lugar de residencia",
     "tblColumnSocials": "Redes",
+    "tblNoData": "Sin datos",
     "navCurrentPage1": "Página",
     "navCurrentPage2": "de",
     "navRowsPerPage": "Líneas por página"
@@ -414,6 +416,29 @@
     "accordionItemBattleStatisticsWinLossRatio": "Ratio de victorias",
     "accordionItemCompetitionHistory": "Historia de la competición",
     "accordionItemCompetitionHistoryNoParticipations": "Aún no hay concursos disponibles."
+  },
+  "/voice": {
+    "pageTitle": "Community Voice",
+    "btnVote": "Votar",
+    "btnVotingEnded": "Votación terminada",
+    "totalVotes": "Votos totales",
+    "cbColumns": "Columnas",
+    "tblColumnUsername": "Usuarios",
+    "tblColumnName": "Preguntador",
+    "tblColumnQuestion": "Preguntar",
+    "tblNoData": "Sin datos",
+    "navCurrentPage1": "Página",
+    "navCurrentPage2": "de",
+    "navRowsPerPage": "Líneas por página",
+    "btnManagePolls": "Gestionar encuestas"
+  },
+  "/voice/manage": {
+    "pageTitle": "Gestionar encuestas",
+    "btnCreatePoll": "Crear encuesta"
+  },
+  "/voice/manage/create": {
+    "pageTitle": "Crear encuesta",
+    "btnCreate": "Crear"
   },
   "global/functions/getLabelForFirstName": {
     "firstName": "Nombre",
@@ -477,6 +502,12 @@
     "chbNotifyOnRegistration": "Notificar con nuevo registro",
     "chbAllowCommentsAndQuestions": "Activar la función de comentarios",
     "chbNotifyOnComment": "Notificarme un nuevo comentario"
+  },
+  "global/components/poll-editor": {
+    "inputQuestion": "Pregunta",
+    "inputOption": "Opción",
+    "chbDeadlineEnabled": "Fecha límite habilitada",
+    "dateDeadline": "Fecha límite"
   },
   "global/components/profile-menu": {
     "login": "Conectarse",

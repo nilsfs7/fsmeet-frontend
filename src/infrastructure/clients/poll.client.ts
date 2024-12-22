@@ -1,0 +1,91 @@
+import { Vote } from '@/types/vote';
+import { Poll } from '@/types/poll';
+import { CreatePollBodyDto } from './dtos/poll/create-poll.body.dto';
+import { Session } from 'next-auth';
+import { CreateVoteBodyDto } from './dtos/poll/create-vote.body.dto';
+import { Moment } from 'moment';
+
+export async function getPolls(): Promise<Poll[]> {
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw Error(`Error fetching polls.`);
+  }
+}
+
+export async function createPoll(question: string, options: string[], deadline: Moment | null, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls`;
+
+  const body = new CreatePollBodyDto(
+    question,
+    options.map(option => {
+      return { option: option };
+    }),
+    deadline
+  );
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Creating poll successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function getVotes(session: Session | null): Promise<Vote[]> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls/user/votes`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw Error(`Error fetching votes.`);
+  }
+}
+
+export async function createVote(vote: Vote, session: Session | null): Promise<Poll> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls/${vote.pollId}/votes`;
+
+  const body = new CreateVoteBodyDto(vote.optionIndex);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const responseDto = await response.json();
+    console.info('Creating vote successful');
+
+    return responseDto;
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}

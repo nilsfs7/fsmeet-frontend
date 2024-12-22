@@ -10,11 +10,12 @@ import Link from 'next/link';
 
 interface IUserCardProps {
   user: User;
+  showFirstNameOnly?: boolean;
   showUserTypeImage?: boolean;
   registrationStatus?: EventRegistrationStatus;
 }
 
-const UserCard = ({ user, showUserTypeImage = false, registrationStatus }: IUserCardProps) => {
+const UserCard = ({ user, showFirstNameOnly = false, showUserTypeImage = false, registrationStatus }: IUserCardProps) => {
   let name: string = user.username; // Defauts to username. Guarantees there is at least some name on the UserCard.
 
   // Ideally show first name and last name.
@@ -23,7 +24,7 @@ const UserCard = ({ user, showUserTypeImage = false, registrationStatus }: IUser
   }
 
   // Show first name only if last name does not exist.
-  if (user.firstName && !user.lastName) {
+  if (showFirstNameOnly || (user.firstName && !user.lastName)) {
     name = `${user.firstName}`;
   }
 

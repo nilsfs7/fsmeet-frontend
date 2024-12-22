@@ -8,6 +8,7 @@
     "carouselUpcomingEvent": "Anstehendes Event",
     "navMap": "Karte",
     "navCommunity": "Szene",
+    "navVoice": "Voice",
     "navAdminOverview": "Admin-Übersicht",
     "navAbout": "Info"
   },
@@ -402,6 +403,7 @@
     "tblColumnType": "Typ",
     "tblColumnLocation": "Wohnort",
     "tblColumnSocials": "Netzwerke",
+    "tblNoData": "Keine Daten",
     "navCurrentPage1": "Seite",
     "navCurrentPage2": "von",
     "navRowsPerPage": "Zeilen pro Seite"
@@ -414,6 +416,29 @@
     "accordionItemBattleStatisticsWinLossRatio": "Siegverhältnis",
     "accordionItemCompetitionHistory": "Wettkampf Historie",
     "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
+  },
+  "/voice": {
+    "pageTitle": "Community Voice",
+    "btnVote": "Abstimmen",
+    "btnVotingEnded": "Umfrage beendet",
+    "totalVotes": "Stimmen gesamt",
+    "cbColumns": "Spalten",
+    "tblColumnUsername": "Nutzer",
+    "tblColumnName": "Fragesteller",
+    "tblColumnQuestion": "Frage",
+    "tblNoData": "Keine Daten",
+    "navCurrentPage1": "Seite",
+    "navCurrentPage2": "von",
+    "navRowsPerPage": "Zeilen pro Seite",
+    "btnManagePolls": "Umfragen verwalten"
+  },
+  "/voice/manage": {
+    "pageTitle": "Umfragen verwalten",
+    "btnCreatePoll": "Umfragen erstellen"
+  },
+  "/voice/manage/create": {
+    "pageTitle": "Umfrage erstellen",
+    "btnCreate": "Erstellen"
   },
   "global/functions/getLabelForFirstName": {
     "firstName": "Vorname",
@@ -477,6 +502,12 @@
     "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",
     "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
     "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
+  },
+  "global/components/poll-editor": {
+    "inputQuestion": "Question",
+    "inputOption": "Option",
+    "chbDeadlineEnabled": "Deadline aktivieren",
+    "dateDeadline": "Deadline"
   },
   "global/components/profile-menu": {
     "login": "Anmelden",
