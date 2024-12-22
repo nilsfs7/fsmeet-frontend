@@ -139,6 +139,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
             loop: true,
           }}
           plugins={[]}
+          className="w-full"
         >
           <CarouselContent>
             {Array.from({ length: polls.length }).map((_, i) => (
