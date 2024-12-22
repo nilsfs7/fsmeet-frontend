@@ -145,7 +145,9 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
             {Array.from({ length: polls.length }).map((_, i) => (
               <CarouselItem key={`poll-${i}`}>
                 <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
-                  <h1 className="mt-2 text-2xl">{polls[i].question}</h1>
+                  <h1 className="flex items-center gap-2 mt-2 text-2xl">
+                    <UserCard user={polls[i].questioner} showName={false} /> {polls[i].question}
+                  </h1>
 
                   <div className="mt-2 max-h-full justify-center px-1">
                     <div className="w-full mt-2">
@@ -188,9 +190,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                     <div className="flex justify-end mt-2 text-xs">{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
                   </div>
 
-                  <div className="flex justify-between mt-2">
-                    <UserCard user={polls[i].questioner} showFirstNameOnly={true} />
-
+                  <div className="flex justify-end mt-2">
                     <TextButton
                       text={polls[i]?.deadline && moment(polls[i]?.deadline) < moment() ? t('carouselBtnVotingEnded') : t('carouselBtnVote')}
                       disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}

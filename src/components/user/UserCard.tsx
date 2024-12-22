@@ -10,12 +10,13 @@ import Link from 'next/link';
 
 interface IUserCardProps {
   user: User;
+  showName?: boolean;
   showFirstNameOnly?: boolean;
   showUserTypeImage?: boolean;
   registrationStatus?: EventRegistrationStatus;
 }
 
-const UserCard = ({ user, showFirstNameOnly = false, showUserTypeImage = false, registrationStatus }: IUserCardProps) => {
+const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserTypeImage = false, registrationStatus }: IUserCardProps) => {
   let name: string = user.username; // Defauts to username. Guarantees there is at least some name on the UserCard.
 
   // Ideally show first name and last name.
@@ -34,7 +35,7 @@ const UserCard = ({ user, showFirstNameOnly = false, showUserTypeImage = false, 
         <div className="grid grid-flow-col items-center">
           <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="mx-1 h-6 w-6 rounded-full object-cover" />
 
-          <div className="mx-1">{name}</div>
+          {showName && <div className="mx-1">{name}</div>}
 
           {showUserTypeImage && <img src={getUserTypeImages(user.type).path} className="mx-1 h-6 w-6 rounded-full object-cover" />}
 
