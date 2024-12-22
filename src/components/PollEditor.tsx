@@ -28,7 +28,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
       return o.option;
     }) || ['', '']
   );
-  const [deadlineEnabled, setDeadlineEnabled] = useState<boolean>(poll?.deadline ? false : true);
+  const [deadlineEnabled, setDeadlineEnabled] = useState<boolean>(poll?.deadline ? true : false);
   const [deadline, setDeadline] = useState<string>(poll?.deadline ? poll.deadline : moment().endOf('day').add(3, 'month').utc().format());
 
   const handleOptionUpdated = async (value: string, index: number) => {
