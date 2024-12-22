@@ -419,9 +419,10 @@
   },
   "/voice": {
     "pageTitle": "Community Voice",
-    "btnVote": "Abstimmen",
-    "btnVotingEnded": "Umfrage beendet",
-    "totalVotes": "Stimmen gesamt",
+    "carouselNoData": "Keine Daten",
+    "carouselBtnVote": "Abstimmen",
+    "carouselBtnVotingEnded": "Umfrage beendet",
+    "carouselTotalVotes": "Stimmen gesamt",
     "cbColumns": "Spalten",
     "tblColumnUsername": "Nutzer",
     "tblColumnName": "Fragesteller",

@@ -130,81 +130,87 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
   return (
     <>
       <Toaster richColors />
+      <div className="w-full max-w-xl min-h-10 flex justify-center">
+        {polls.length === 0 && <div>{t('carouselNoData')}</div>}
 
-      <Carousel
-        setApi={setApi}
-        opts={{
-          loop: true,
-        }}
-        plugins={[]}
-        className="w-full max-w-lg"
-      >
-        <CarouselContent>
-          {Array.from({ length: polls.length }).map((_, i) => (
-            <CarouselItem key={`poll-${i}`}>
-              <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
-                <h1 className="mt-2 text-2xl">{polls[i].question}</h1>
+        <Carousel
+          setApi={setApi}
+          opts={{
+            loop: true,
+          }}
+          plugins={[]}
+        >
+          <CarouselContent>
+            {Array.from({ length: polls.length }).map((_, i) => (
+              <CarouselItem key={`poll-${i}`}>
+                <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
+                  <h1 className="mt-2 text-2xl">{polls[i].question}</h1>
 
-                <div className="mt-2 max-h-full justify-center px-1">
-                  <div className="w-full mt-2">
-                    <RadioGroup
-                      value={`option-${
-                        (
-                          myVotes.filter(myVote => {
-                            return myVote.pollId === polls[i].id;
-                          })[0] || (myUnconfirmedVote?.pollId === polls[i].id ? myUnconfirmedVote : null)
-                        )?.optionIndex
-                      }`}
-                    >
-                      {polls[i].options.map((item, j: number) => {
-                        return (
-                          <div key={j.toString()} className={'flex py-1 gap-1'}>
-                            <div className="w-3/5">{`${j + 1}) ${item.option}`}</div>
+                  <div className="mt-2 max-h-full justify-center px-1">
+                    <div className="w-full mt-2">
+                      <RadioGroup
+                        value={`option-${
+                          (
+                            myVotes.filter(myVote => {
+                              return myVote.pollId === polls[i].id;
+                            })[0] || (myUnconfirmedVote?.pollId === polls[i].id ? myUnconfirmedVote : null)
+                          )?.optionIndex
+                        }`}
+                      >
+                        {polls[i].options.map((item, j: number) => {
+                          return (
+                            <div key={j.toString()} className={'flex py-1 gap-1'}>
+                              <div className="w-3/5">{`${j + 1}) ${item.option}`}</div>
 
-                            <div className="w-2/5 flex justify-between items-center gap-1">
-                              <RadioGroupItem
-                                value={`option-${j}`}
-                                id={`option-${j}`}
-                                disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
-                                onClick={e => {
-                                  const poll = polls[i];
-                                  if (poll?.id) handleRadioItemClicked(poll.id, j);
-                                }}
-                              />
+                              <div className="w-2/5 flex justify-between items-center gap-1">
+                                <RadioGroupItem
+                                  value={`option-${j}`}
+                                  id={`option-${j}`}
+                                  disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
+                                  onClick={e => {
+                                    const poll = polls[i];
+                                    if (poll?.id) handleRadioItemClicked(poll.id, j);
+                                  }}
+                                />
 
-                              {((polls[i].deadline && moment(polls[i].deadline) < moment()) ||
-                                myVotes.filter(myVote => {
-                                  return myVote.pollId === polls[i].id;
-                                }).length > 0) && <Progress className="border border-primary" value={(item.numVotes / polls[i].totalVotes) * 100} />}
+                                {((polls[i].deadline && moment(polls[i].deadline) < moment()) ||
+                                  myVotes.filter(myVote => {
+                                    return myVote.pollId === polls[i].id;
+                                  }).length > 0) && <Progress className="border border-primary" value={(item.numVotes / polls[i].totalVotes) * 100} />}
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    </RadioGroup>
+                          );
+                        })}
+                      </RadioGroup>
+                    </div>
+
+                    <div className="flex justify-end mt-2 text-xs">{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
                   </div>
 
-                  <div className="flex justify-end mt-2 text-xs">{`${t('totalVotes')}: ${polls[i].totalVotes}`}</div>
-                </div>
+                  <div className="flex justify-between mt-2">
+                    <UserCard user={polls[i].questioner} showFirstNameOnly={true} />
 
-                <div className="flex justify-between mt-2">
-                  <UserCard user={polls[i].questioner} showFirstNameOnly={true} />
-
-                  <TextButton
-                    text={polls[i]?.deadline && moment(polls[i]?.deadline) < moment() ? t('btnVotingEnded') : t('btnVote')}
-                    disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
-                    onClick={() => {
-                      const poll = polls[i];
-                      if (poll?.id) handleVoteClicked(poll.id);
-                    }}
-                  />
+                    <TextButton
+                      text={polls[i]?.deadline && moment(polls[i]?.deadline) < moment() ? t('carouselBtnVotingEnded') : t('carouselBtnVote')}
+                      disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
+                      onClick={() => {
+                        const poll = polls[i];
+                        if (poll?.id) handleVoteClicked(poll.id);
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          {polls.length > 1 && (
+            <>
+              <CarouselPrevious />
+              <CarouselNext />
+            </>
+          )}
+        </Carousel>
+      </div>
     </>
   );
 };

@@ -419,9 +419,10 @@
   },
   "/voice": {
     "pageTitle": "Community Voice",
-    "btnVote": "Vote",
-    "btnVotingEnded": "Voting ended",
-    "totalVotes": "Total votes",
+    "carouselNoData": "No data",
+    "carouselBtnVote": "Vote",
+    "carouselBtnVotingEnded": "Voting ended",
+    "carouselTotalVotes": "Total votes",
     "cbColumns": "Columns",
     "tblColumnUsername": "User",
     "tblColumnName": "Questioner",
