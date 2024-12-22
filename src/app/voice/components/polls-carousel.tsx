@@ -1,7 +1,7 @@
 'use client';
 
 import { Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
+import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { Poll } from '@/types/poll';
 import TextButton from '@/components/common/TextButton';
@@ -159,21 +159,23 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                       {polls[i].options.map((item, j: number) => {
                         return (
                           <div key={j.toString()} className={'flex py-1 gap-1'}>
-                            <div className="w-4/5">{`${j + 1}) ${item.option}`}</div>
+                            <div className="w-3/5">{`${j + 1}) ${item.option}`}</div>
 
-                            <div className="w-1/5 flex justify-between items-center gap-1">
+                            <div className="w-2/5 flex justify-between items-center gap-1">
                               <RadioGroupItem
                                 value={`option-${j}`}
                                 id={`option-${j}`}
+                                disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
                                 onClick={e => {
                                   const poll = polls[i];
                                   if (poll?.id) handleRadioItemClicked(poll.id, j);
                                 }}
                               />
 
-                              {myVotes.filter(myVote => {
-                                return myVote.pollId === polls[i].id;
-                              }).length > 0 && <Progress className="border border-primary" value={(item.numVotes / polls[i].totalVotes) * 100} />}
+                              {((polls[i].deadline && moment(polls[i].deadline) < moment()) ||
+                                myVotes.filter(myVote => {
+                                  return myVote.pollId === polls[i].id;
+                                }).length > 0) && <Progress className="border border-primary" value={(item.numVotes / polls[i].totalVotes) * 100} />}
                             </div>
                           </div>
                         );
@@ -188,7 +190,8 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                   <UserCard user={polls[i].questioner} showFirstNameOnly={true} />
 
                   <TextButton
-                    text={t('btnVote')}
+                    text={polls[i]?.deadline && moment(polls[i]?.deadline) < moment() ? t('btnVotingEnded') : t('btnVote')}
+                    disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
                     onClick={() => {
                       const poll = polls[i];
                       if (poll?.id) handleVoteClicked(poll.id);

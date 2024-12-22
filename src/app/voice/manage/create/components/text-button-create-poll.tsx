@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { routeVoiceManage } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 import { Poll } from '@/types/poll';
+import moment from 'moment';
 
 export const TextButtonCreatePoll = () => {
   const t = useTranslations('/voice/manage/create');
@@ -25,8 +26,10 @@ export const TextButtonCreatePoll = () => {
         await createPoll(
           poll.question,
           poll.options.map(o => o.option),
+          poll.deadline ? moment(poll.deadline) : null,
           session
         );
+
         router.push(`${routeVoiceManage}`);
         router.refresh();
       } catch (error: any) {

@@ -39,6 +39,7 @@ export type UserInfo = {
 export type ColumnInfo = {
   user: UserInfo;
   question: string;
+  deadline: string | null;
 };
 
 export const PollsList = ({ columnData }: IPollsList) => {

@@ -10,6 +10,8 @@ import TextInput from './common/TextInput';
 import ActionButton from './common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import moment from 'moment';
+import { DatePicker } from './common/DatePicker';
+import CheckBox from './common/CheckBox';
 
 interface IPollEditorProps {
   editorMode: EditorMode;
@@ -26,6 +28,8 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
       return o.option;
     }) || ['', '']
   );
+  const [deadlineEnabled, setDeadlineEnabled] = useState<boolean>(poll?.deadline ? false : true);
+  const [deadline, setDeadline] = useState<string>(poll?.deadline ? poll.deadline : moment().endOf('day').add(3, 'month').utc().format());
 
   const handleOptionUpdated = async (value: string, index: number) => {
     const newArray = Array.from(options);
@@ -34,18 +38,22 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   };
 
   const handleAddQuestionClicked = async () => {
-    const newArray = Array.from(options);
-    newArray.push('');
-    setOptions(newArray);
+    if (options.length < 12) {
+      const newArray = Array.from(options);
+      newArray.push('');
+      setOptions(newArray);
+    }
   };
 
   const handleRemoveQuestionClicked = async (index: number) => {
-    try {
-      const newArray = Array.from(options);
-      newArray.splice(index, 1);
-      setOptions(newArray);
-    } catch (error: any) {
-      console.error(error.message);
+    if (options.length > 2) {
+      try {
+        const newArray = Array.from(options);
+        newArray.splice(index, 1);
+        setOptions(newArray);
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }
   };
 
@@ -58,6 +66,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         return { option: o, numVotes: 0 };
       }),
       totalVotes: 0,
+      deadline: deadlineEnabled ? deadline : null,
       creationTime: moment().utc().format(),
     });
   };
@@ -65,7 +74,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   // fires back poll
   useEffect(() => {
     updatePoll();
-  }, [question, options]);
+  }, [question, options, deadlineEnabled, deadline]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
@@ -95,14 +104,41 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         );
       })}
 
+      <CheckBox
+        id={'deadlineEnabled'}
+        label={t('chbDeadlineEnabled')}
+        value={deadlineEnabled}
+        onChange={() => {
+          setDeadlineEnabled(!deadlineEnabled);
+        }}
+      />
+      {deadlineEnabled && (
+        <div className="m-2 grid grid-cols-2">
+          <div>{t('dateDeadline')}</div>
+          <DatePicker
+            date={moment(deadline)}
+            fromDate={moment(moment().year())}
+            toDate={moment().add(1, 'y')}
+            onChange={value => {
+              if (value) {
+                setDeadline(value.endOf('day').utc().format());
+              }
+            }}
+          />
+        </div>
+      )}
+
       <div className="flex p-2 gap-2 justify-end">
-        <ActionButton
-          action={Action.REMOVE}
-          onClick={() => {
-            handleRemoveQuestionClicked(options.length - 1);
-          }}
-        />
-        <ActionButton action={Action.ADD} onClick={handleAddQuestionClicked} />
+        {options.length > 2 && (
+          <ActionButton
+            action={Action.REMOVE}
+            onClick={() => {
+              handleRemoveQuestionClicked(options.length - 1);
+            }}
+          />
+        )}
+
+        {options.length < 12 && <ActionButton action={Action.ADD} onClick={handleAddQuestionClicked} />}
       </div>
     </div>
   );

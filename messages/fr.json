@@ -420,6 +420,7 @@
   "/voice": {
     "pageTitle": "Community Voice",
     "btnVote": "Voter",
+    "btnVotingEnded": "Vote terminé",
     "totalVotes": "Nombre total de votes",
     "cbColumns": "Colonnes",
     "tblColumnUsername": "Utilisateur",
@@ -505,6 +506,7 @@
   "global/components/poll-editor": {
     "inputQuestion": "Question",
     "inputOption": "Option",
+    "chbDeadlineEnabled": "Date limite activée",
     "dateDeadline": "Date limite"
   },
   "global/components/profile-menu": {

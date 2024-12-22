@@ -3,6 +3,7 @@ import { Poll } from '@/types/poll';
 import { CreatePollBodyDto } from './dtos/poll/create-poll.body.dto';
 import { Session } from 'next-auth';
 import { CreateVoteBodyDto } from './dtos/poll/create-vote.body.dto';
+import { Moment } from 'moment';
 
 export async function getPolls(): Promise<Poll[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls`;
@@ -18,14 +19,15 @@ export async function getPolls(): Promise<Poll[]> {
   }
 }
 
-export async function createPoll(question: string, options: string[], session: Session | null): Promise<void> {
+export async function createPoll(question: string, options: string[], deadline: Moment | null, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls`;
 
   const body = new CreatePollBodyDto(
     question,
     options.map(option => {
       return { option: option };
-    })
+    }),
+    deadline
   );
 
   const response = await fetch(url, {
