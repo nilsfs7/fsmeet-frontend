@@ -144,7 +144,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
           <CarouselContent>
             {Array.from({ length: polls.length }).map((_, i) => (
               <CarouselItem key={`poll-${i}`}>
-                <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
+                <div className={'max-h-72 overflow-y-auto rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
                   <h1 className="flex items-center gap-2 mt-2 text-2xl">
                     <UserCard user={polls[i].questioner} showName={false} /> {polls[i].question}
                   </h1>
