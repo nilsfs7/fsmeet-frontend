@@ -62,11 +62,19 @@ export async function getUser(username: string, session?: Session | null): Promi
   }
 }
 
-export async function getUsers(type?: UserType, hasWffaId?: boolean): Promise<User[]> {
+export async function getUsers(type?: UserType, gender?: Gender, country?: string, hasWffaId?: boolean): Promise<User[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users?`;
 
   if (type) {
     url = url + `type=${type}`;
+  }
+
+  if (gender) {
+    url = url + `gender=${gender}`;
+  }
+
+  if (country) {
+    url = url + `country=${country}`;
   }
 
   if (hasWffaId !== undefined) {
