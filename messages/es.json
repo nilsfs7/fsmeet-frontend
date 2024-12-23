@@ -421,6 +421,7 @@
     "pageTitle": "Community Voice",
     "carouselNoData": "Sin datos",
     "carouselBtnVote": "Votar",
+    "carouselLblEnds": "Termina",
     "carouselBtnVotingEnded": "Votación terminada",
     "carouselTotalVotes": "Votos totales",
     "cbColumns": "Columnas",

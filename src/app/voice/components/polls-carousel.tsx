@@ -15,6 +15,7 @@ import { createVote, getVotes } from '@/infrastructure/clients/poll.client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import UserCard from '@/components/user/UserCard';
 import { Toaster, toast } from 'sonner';
+import { getShortDateString } from '@/functions/time';
 
 interface IPollsCarousel {
   initPolls: Poll[];
@@ -190,7 +191,11 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                     <div className="flex justify-end mt-2 text-xs">{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
                   </div>
 
-                  <div className="flex justify-end mt-2">
+                  <div className="flex justify-between mt-2">
+                    <div className="flex items-center">
+                      {polls[i]?.deadline && moment(polls[i].deadline) > moment() ? `${t('carouselLblEnds')}: ${getShortDateString(moment(polls[i]?.deadline))}` : ''}
+                    </div>
+
                     <TextButton
                       text={polls[i]?.deadline && moment(polls[i]?.deadline) < moment() ? t('carouselBtnVotingEnded') : t('carouselBtnVote')}
                       disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
