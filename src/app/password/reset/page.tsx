@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
-import bcrypt from 'bcryptjs';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { routeLogin } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';

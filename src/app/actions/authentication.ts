@@ -3,7 +3,6 @@
 import { signIn, signOut } from '@/auth';
 import { routeHome } from '@/domain/constants/routes';
 import { AccessDenied } from '@auth/core/errors';
-import bcrypt from 'bcryptjs';
 
 export async function logoutUser() {
   // TODO: pass redirect params in function signature

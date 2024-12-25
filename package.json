@@ -36,7 +36,6 @@
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
-    "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -68,7 +67,6 @@
     "typescript": "5.4.5"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
     "@types/google-maps": "^3.2.6",
     "autoprefixer": "^10.4.20",
     "eslint": "8.57.0",

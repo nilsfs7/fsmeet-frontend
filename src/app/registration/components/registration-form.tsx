@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import TextInput from '@/components/common/TextInput';
-import bcrypt from 'bcryptjs';
 import { useRouter } from 'next/navigation';
 import { validateFirstName } from '@/functions/validation/validation-user';
 import { routeRegistrationPending } from '@/domain/constants/routes';
