@@ -42,6 +42,7 @@ import SectionHeader from '@/components/common/section-header';
 import { deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
+import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
 
 interface ITabsMenu {
   user: User;
@@ -62,6 +63,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
   const handleFirstNameChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
+
+    if (user.type !== UserType.ASSOCIATION && user.type !== UserType.BRAND) {
+      value = capitalizeFirstChar(value);
+    }
+
     newUserInfo.firstName = value;
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);

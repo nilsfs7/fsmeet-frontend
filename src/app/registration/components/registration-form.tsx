@@ -17,6 +17,7 @@ import { createUser } from '@/infrastructure/clients/user.client';
 import { useTranslations } from 'next-intl';
 import { Gender } from '@/domain/enums/gender';
 import { menuGender } from '@/domain/constants/menus/menu-gender';
+import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
 
 export const RegistrationForm = () => {
   const t = useTranslations('/registration');
@@ -36,13 +37,8 @@ export const RegistrationForm = () => {
     firstName = firstName.trimStart();
     firstName = firstName.replaceAll('  ', ' ');
 
-    if (firstName.length > 0 && userType !== UserType.ASSOCIATION && userType !== UserType.BRAND) {
-      const firstChar = firstName.charAt(0).toUpperCase();
-      if (firstName.length === 1) {
-        firstName = firstChar;
-      } else {
-        firstName = firstChar + firstName.slice(1).toLowerCase();
-      }
+    if (userType !== UserType.ASSOCIATION && userType !== UserType.BRAND) {
+      firstName = capitalizeFirstChar(firstName);
     }
 
     if (validateFirstName(firstName)) {
@@ -61,8 +57,7 @@ export const RegistrationForm = () => {
   };
 
   const handleInputChangePassword = (event: any) => {
-    const hashedPassword = bcrypt.hashSync(event.currentTarget.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
-    setPassword(hashedPassword);
+    setPassword(event.currentTarget.value);
   };
 
   const handleInputKeypressPassword = (e: any) => {
@@ -103,6 +98,16 @@ export const RegistrationForm = () => {
             </div>
 
             <TextInput
+              id={'username'}
+              label={t('inputUsername')}
+              placeholder={getPlaceholderByUserType(userType).username}
+              value={username}
+              onChange={e => {
+                handleInputChangeUsername(e);
+              }}
+            />
+
+            <TextInput
               id={'firstName'}
               label={getLabelForFirstName(userType, tf)}
               placeholder={getPlaceholderByUserType(userType).firstName}
@@ -125,16 +130,6 @@ export const RegistrationForm = () => {
                 />
               </div>
             </div>
-
-            <TextInput
-              id={'username'}
-              label={t('inputUsername')}
-              placeholder={getPlaceholderByUserType(userType).username}
-              value={username}
-              onChange={e => {
-                handleInputChangeUsername(e);
-              }}
-            />
 
             <TextInput
               id={'email'}

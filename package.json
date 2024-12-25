@@ -33,7 +33,6 @@
     "@radix-ui/react-switch": "^1.1.2",
     "@radix-ui/react-tabs": "^1.1.2",
     "@tanstack/react-table": "^8.20.6",
-    "@types/bcryptjs": "^2.4.2",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
@@ -69,6 +68,7 @@
     "typescript": "5.4.5"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/google-maps": "^3.2.6",
     "autoprefixer": "^10.4.20",
     "eslint": "8.57.0",
