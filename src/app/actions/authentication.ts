@@ -11,12 +11,10 @@ export async function logoutUser() {
 }
 
 export async function loginUserWithCredentials(username: string, password: string): Promise<{ status: number; message: string }> {
-  const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u');
-
   try {
     await signIn('credentials', {
       usernameOrEmail: username,
-      password: hashedPassword,
+      password: password,
       redirect: false,
     });
     return { status: 200, message: 'Ok.' };

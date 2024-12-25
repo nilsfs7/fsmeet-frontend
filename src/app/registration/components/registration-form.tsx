@@ -61,8 +61,7 @@ export const RegistrationForm = () => {
   };
 
   const handleInputChangePassword = (event: any) => {
-    const hashedPassword = bcrypt.hashSync(event.currentTarget.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
-    setPassword(hashedPassword);
+    setPassword(event.currentTarget.value);
   };
 
   const handleInputKeypressPassword = (e: any) => {

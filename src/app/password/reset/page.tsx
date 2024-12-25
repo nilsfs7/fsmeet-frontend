@@ -20,8 +20,7 @@ export default function ResetPassword() {
   const [password, setPassword] = useState('');
 
   const handleInputChangePassword = (event: any) => {
-    const hashedPassword = bcrypt.hashSync(event.target.value, '$2a$10$CwTycUXWue0Thq9StjUM0u');
-    setPassword(hashedPassword);
+    setPassword(event.target.value);
   };
 
   const handleInputKeypressPassword = (e: any) => {
