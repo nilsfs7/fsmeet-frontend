@@ -24,6 +24,7 @@ import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRigh
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import moment from 'moment';
 
 interface IPollsList {
   columnData: ColumnInfo[];
@@ -40,6 +41,7 @@ export type ColumnInfo = {
   user: UserInfo;
   question: string;
   deadline: string | null;
+  creationDate: string;
 };
 
 export const PollsList = ({ columnData }: IPollsList) => {
@@ -116,6 +118,22 @@ export const PollsList = ({ columnData }: IPollsList) => {
         );
       },
       cell: ({ row }) => row.getValue('question'),
+    },
+
+    {
+      accessorKey: 'creationDate',
+      header: ({ column }) => {
+        return (
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            {t('tblCreationDate')}
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        const diffDays = moment().diff(moment(row.getValue('creationDate')), 'days');
+        return diffDays === 0 ? t('tblCreationDateToday') : `${diffDays} ${t('tblCreationDateDays')}`;
+      },
     },
   ];
 

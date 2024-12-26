@@ -28,6 +28,7 @@ export default async function Voice() {
       },
       question: poll.question,
       deadline: poll.deadline,
+      creationDate: poll.creationTime,
     });
   });
 
