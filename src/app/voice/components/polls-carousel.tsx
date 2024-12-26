@@ -146,7 +146,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
             {Array.from({ length: polls.length }).map((_, i) => (
               <CarouselItem key={`poll-${i}`}>
                 <div className={'max-h-72 overflow-y-auto rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
-                  <h1 className="flex items-center gap-2 mt-2 text-2xl">
+                  <h1 className="flex items-center gap-2 mt-2 text-2xl break-words">
                     <UserCard user={polls[i].questioner} showName={false} /> {polls[i].question}
                   </h1>
 
@@ -164,7 +164,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                         {polls[i].options.map((item, j: number) => {
                           return (
                             <div key={j.toString()} className={'flex py-1 gap-1'}>
-                              <div className="w-3/5">{`${j + 1}) ${item.option}`}</div>
+                              <div className="w-3/5 break-words">{`${j + 1}) ${item.option}`}</div>
 
                               <div className="w-2/5 flex justify-between items-center gap-1">
                                 <RadioGroupItem
