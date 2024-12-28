@@ -4,6 +4,9 @@ import { CreatePollBodyDto } from './dtos/poll/create-poll.body.dto';
 import { Session } from 'next-auth';
 import { CreateVoteBodyDto } from './dtos/poll/create-vote.body.dto';
 import { Moment } from 'moment';
+import { RatingAction } from '@/domain/enums/rating-action';
+import { CreatePollRatingBodyDto } from './dtos/poll/create-poll-rating.body.dto';
+import { PollRating } from '@/types/poll-rating';
 
 export async function getPolls(): Promise<Poll[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls`;
@@ -82,6 +85,49 @@ export async function createVote(vote: Vote, session: Session | null): Promise<P
   if (response.ok) {
     const responseDto = await response.json();
     console.info('Creating vote successful');
+
+    return responseDto;
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function getPollRatings(session: Session | null): Promise<PollRating[]> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls/user/ratings`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw Error(`Error fetching poll ratings.`);
+  }
+}
+
+export async function createPollRating(pollId: string, ratingAction: RatingAction, session: Session | null): Promise<Poll> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls/${pollId}/ratings`;
+
+  const body = new CreatePollRatingBodyDto(ratingAction);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const responseDto = await response.json();
+    console.info('Creating poll rating successful');
 
     return responseDto;
   } else {

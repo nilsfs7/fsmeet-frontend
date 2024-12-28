@@ -7,6 +7,7 @@ export type Poll = {
   questioner: User;
   options: PollOption[];
   totalVotes: number;
+  totalRatingScore: number;
   deadline: string | null;
   creationTime: string;
 };

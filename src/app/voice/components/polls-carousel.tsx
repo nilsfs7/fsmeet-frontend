@@ -11,11 +11,14 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { Vote } from '@/types/vote';
-import { createVote, getVotes } from '@/infrastructure/clients/poll.client';
+import { createPollRating, createVote, getPollRatings, getVotes } from '@/infrastructure/clients/poll.client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import UserCard from '@/components/user/UserCard';
 import { Toaster, toast } from 'sonner';
 import { getShortDateString } from '@/functions/time';
+import { imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline } from '@/domain/constants/images';
+import { RatingAction } from '@/domain/enums/rating-action';
+import { PollRating } from '@/types/poll-rating';
 
 interface IPollsCarousel {
   initPolls: Poll[];
@@ -34,8 +37,60 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
   const [polls, setPolls] = useState<Poll[]>(initPolls);
   const [myVotes, setMyVotes] = useState<Vote[]>([]);
   const [myUnconfirmedVote, setMyUnconfirmedVote] = useState<Vote>();
+  const [myPollRatings, setMyPollRatings] = useState<PollRating[]>([]);
 
   const [api, setApi] = useState<CarouselApi>();
+
+  const updatePolls = (poll: Poll) => {
+    let plls = Array.from(polls);
+    plls = plls.map(pll => {
+      if (pll.id === poll.id) {
+        return poll;
+      }
+      return pll;
+    });
+    setPolls(plls);
+  };
+
+  const updatePollRatings = (pollId: string, action: RatingAction) => {
+    // TODO: isAuthenticated nutzen?
+    if (!session?.user.username) {
+      router.push(routeLogin);
+    } else {
+      let ratingExists = false;
+
+      let rtngs = Array.from(myPollRatings);
+      rtngs = rtngs.map(rtng => {
+        if (rtng.pollId === pollId) {
+          rtng.score = action;
+          ratingExists = true;
+        }
+        return rtng;
+      });
+
+      if (!ratingExists) {
+        rtngs.push({ pollId: pollId, username: session.user.username, score: action });
+      }
+
+      setMyPollRatings(rtngs);
+    }
+  };
+
+  const checkPollUpvoted = (pollId: string): boolean => {
+    return (
+      myPollRatings.filter(pollRating => {
+        return pollRating.pollId === pollId && pollRating.score === RatingAction.UP;
+      }).length === 1
+    );
+  };
+
+  const checkPollDownvoted = (pollId: string): boolean => {
+    return (
+      myPollRatings.filter(pollRating => {
+        return pollRating.pollId === pollId && pollRating.score === RatingAction.DOWN;
+      }).length === 1
+    );
+  };
 
   const scrollToItem = (index: number) => {
     if (!api) {
@@ -65,15 +120,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
           }
           setMyVotes(vts);
 
-          // update polls without reloading
-          let plls = Array.from(polls);
-          plls = plls.map(pll => {
-            if (pll.id === poll.id) {
-              return poll;
-            }
-            return pll;
-          });
-          setPolls(plls);
+          updatePolls(poll);
 
           toast.success('Vote submitted.');
         } catch (error: any) {
@@ -81,6 +128,48 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
           console.error(error.message);
         }
       }
+    }
+  };
+
+  const handleDownvotelicked = async (pollId: string) => {
+    // TODO: isAuthenticated nutzen?
+    if (!session?.user.username) {
+      router.push(routeLogin);
+    } else {
+      const isDownvoted = checkPollDownvoted(pollId);
+
+      try {
+        const poll = await createPollRating(pollId, isDownvoted ? RatingAction.REVOKE : RatingAction.DOWN, session);
+        updatePolls(poll);
+
+        toast.success(isDownvoted ? 'Downvote revoked.' : 'Downvoted.');
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
+
+      updatePollRatings(pollId, isDownvoted ? RatingAction.REVOKE : RatingAction.DOWN);
+    }
+  };
+
+  const handleUpvotelicked = async (pollId: string) => {
+    // TODO: isAuthenticated nutzen?
+    if (!session?.user.username) {
+      router.push(routeLogin);
+    } else {
+      const isUpvoted = checkPollUpvoted(pollId);
+
+      try {
+        const poll = await createPollRating(pollId, isUpvoted ? RatingAction.REVOKE : RatingAction.UP, session);
+        updatePolls(poll);
+
+        toast.success(isUpvoted ? 'Upvote revoked.' : 'Upvoted.');
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
+
+      updatePollRatings(pollId, isUpvoted ? RatingAction.REVOKE : RatingAction.UP);
     }
   };
 
@@ -109,6 +198,10 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
     if (session) {
       getVotes(session).then(votes => {
         setMyVotes(votes);
+      });
+
+      getPollRatings(session).then(ratings => {
+        setMyPollRatings(ratings);
       });
     }
   }, [session]);
@@ -196,14 +289,55 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                       {polls[i]?.deadline && moment(polls[i].deadline) > moment() ? `${t('carouselLblEnds')}: ${getShortDateString(moment(polls[i]?.deadline))}` : ''}
                     </div>
 
-                    <TextButton
-                      text={polls[i]?.deadline && moment(polls[i]?.deadline) < moment() ? t('carouselBtnVotingEnded') : t('carouselBtnVote')}
-                      disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
-                      onClick={() => {
-                        const poll = polls[i];
-                        if (poll?.id) handleVoteClicked(poll.id);
-                      }}
-                    />
+                    <div className="flex gap-2">
+                      <div className="flex">
+                        <button
+                          className="h-full flex items-center border-y border-x border-secondary-dark hover:border-primary rounded-l-lg"
+                          onClick={() => {
+                            const poll = polls[i];
+                            if (poll?.id) handleUpvotelicked(poll.id);
+                          }}
+                        >
+                          <img
+                            src={
+                              myPollRatings.filter(pollRating => {
+                                return pollRating.pollId === polls[i].id && pollRating.score === RatingAction.UP;
+                              }).length > 0
+                                ? imgArrowUp
+                                : imgArrowUpOutline
+                            }
+                            className="h-6 w-6 rounded-full object-cover"
+                          />
+                        </button>
+                        <button
+                          className="flex items-center border-y border-x border-secondary-dark hover:border-primary hover:border-l rounded-r-lg"
+                          onClick={() => {
+                            const poll = polls[i];
+                            if (poll?.id) handleDownvotelicked(poll.id);
+                          }}
+                        >
+                          <img
+                            src={
+                              myPollRatings.filter(pollRating => {
+                                return pollRating.pollId === polls[i].id && pollRating.score === RatingAction.DOWN;
+                              }).length > 0
+                                ? imgArrowDown
+                                : imgArrowDownOutline
+                            }
+                            className="h-6 w-6 rounded-full object-cover"
+                          />
+                        </button>
+                      </div>
+
+                      <TextButton
+                        text={polls[i]?.deadline && moment(polls[i]?.deadline) < moment() ? t('carouselBtnVotingEnded') : t('carouselBtnVote')}
+                        disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
+                        onClick={() => {
+                          const poll = polls[i];
+                          if (poll?.id) handleVoteClicked(poll.id);
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </CarouselItem>

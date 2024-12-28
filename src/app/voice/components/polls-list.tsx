@@ -40,6 +40,7 @@ export type UserInfo = {
 export type ColumnInfo = {
   user: UserInfo;
   question: string;
+  totalRatingScore: number;
   deadline: string | null;
   creationDate: string;
 };
@@ -133,6 +134,21 @@ export const PollsList = ({ columnData }: IPollsList) => {
       cell: ({ row }) => {
         const diffDays = moment().diff(moment(row.getValue('creationDate')), 'days');
         return diffDays === 0 ? t('tblCreationDateToday') : `${diffDays} ${t('tblCreationDateDays')}`;
+      },
+    },
+
+    {
+      accessorKey: 'totalRatingScore',
+      header: ({ column }) => {
+        return (
+          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+            {t('tblTotalRatingScore')}
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => {
+        return row.getValue('totalRatingScore');
       },
     },
   ];

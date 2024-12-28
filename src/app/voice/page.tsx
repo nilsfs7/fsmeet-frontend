@@ -27,6 +27,7 @@ export default async function Voice() {
         lastName: poll.questioner.lastName || '',
       },
       question: poll.question,
+      totalRatingScore: poll.totalRatingScore,
       deadline: poll.deadline,
       creationDate: poll.creationTime,
     });

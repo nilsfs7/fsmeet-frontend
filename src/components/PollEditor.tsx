@@ -76,6 +76,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         return { option: o, numVotes: 0 };
       }),
       totalVotes: 0,
+      totalRatingScore: 0,
       deadline: deadlineEnabled ? deadline : null,
       creationTime: moment().utc().format(),
     });
