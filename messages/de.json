@@ -421,8 +421,8 @@
     "pageTitle": "Community Voice",
     "carouselNoData": "Keine Daten",
     "carouselBtnVote": "Abstimmen",
-    "carouselLblEnds": "Endet",
     "carouselBtnVotingEnded": "Umfrage beendet",
+    "carouselBtnVotingExcluded": "Ausgeschlossen",
     "carouselTotalVotes": "Stimmen gesamt",
     "cbColumns": "Spalten",
     "tblColumnUsername": "Nutzer",
@@ -440,7 +440,7 @@
   },
   "/voice/manage": {
     "pageTitle": "Umfragen verwalten",
-    "btnCreatePoll": "Umfragen erstellen"
+    "btnCreatePoll": "Umfrage erstellen"
   },
   "/voice/manage/create": {
     "pageTitle": "Umfrage erstellen",
@@ -513,7 +513,9 @@
     "inputQuestion": "Question",
     "inputOption": "Option",
     "chbDeadlineEnabled": "Deadline aktivieren",
-    "dateDeadline": "Deadline"
+    "dateDeadline": "Deadline",
+    "sectionTargetGroup": "Zielgruppe",
+    "cbCountry": "Land"
   },
   "global/components/profile-menu": {
     "login": "Anmelden",

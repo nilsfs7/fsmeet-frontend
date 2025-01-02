@@ -27,6 +27,7 @@ export const TextButtonCreatePoll = () => {
           poll.question,
           poll.options.map(o => o.option),
           poll.deadline ? moment(poll.deadline) : null,
+          poll.targetGroup,
           session
         );
 

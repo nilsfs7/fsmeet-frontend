@@ -1,4 +1,5 @@
 import { PollOption } from './poll-option';
+import { TargetGroup } from './target-group';
 import { User } from './user';
 
 export type Poll = {
@@ -9,5 +10,6 @@ export type Poll = {
   totalVotes: number;
   totalRatingScore: number;
   deadline: string | null;
+  targetGroup: TargetGroup;
   creationTime: string;
 };

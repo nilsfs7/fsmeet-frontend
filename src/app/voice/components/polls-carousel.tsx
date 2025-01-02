@@ -16,15 +16,17 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import UserCard from '@/components/user/UserCard';
 import { Toaster, toast } from 'sonner';
 import { getShortDateString } from '@/functions/time';
-import { imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline } from '@/domain/constants/images';
+import { imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline, imgHourglassEnd, imgHourglassStart } from '@/domain/constants/images';
 import { RatingAction } from '@/domain/enums/rating-action';
 import { PollRating } from '@/types/poll-rating';
+import { User } from '@/types/user';
 
 interface IPollsCarousel {
   initPolls: Poll[];
+  actingUser?: User;
 }
 
-export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
+export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
   const t = useTranslations('/voice');
 
   const { data: session, status } = useSession();
@@ -98,6 +100,26 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
     }
 
     api.scrollTo(index);
+  };
+
+  const targetGroupMissmatch = (poll: Poll): boolean => {
+    if (poll.targetGroup?.maxAge && (!actingUser?.age || poll.targetGroup.maxAge < actingUser?.age)) {
+      return true;
+    }
+
+    if (poll.targetGroup?.country && poll.targetGroup.country !== actingUser?.country) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const voteDisabled = (poll: Poll): boolean => {
+    if (poll.deadline && moment(poll.deadline) < moment()) {
+      return true;
+    }
+
+    return targetGroupMissmatch(poll);
   };
 
   const handleVoteClicked = async (pollId: string) => {
@@ -244,100 +266,112 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                   </h1>
 
                   <div className="mt-2 max-h-full justify-center px-1">
-                    <div className="w-full mt-2">
-                      <RadioGroup
-                        value={`option-${
-                          (
-                            myVotes.filter(myVote => {
-                              return myVote.pollId === polls[i].id;
-                            })[0] || (myUnconfirmedVote?.pollId === polls[i].id ? myUnconfirmedVote : null)
-                          )?.optionIndex
-                        }`}
-                      >
-                        {polls[i].options.map((item, j: number) => {
-                          return (
-                            <div key={j.toString()} className={'flex py-1 gap-1'}>
-                              <div className="w-3/5 break-words">{`${j + 1}) ${item.option}`}</div>
+                    <RadioGroup
+                      value={`option-${
+                        (
+                          myVotes.filter(myVote => {
+                            return myVote.pollId === polls[i].id;
+                          })[0] || (myUnconfirmedVote?.pollId === polls[i].id ? myUnconfirmedVote : null)
+                        )?.optionIndex
+                      }`}
+                    >
+                      {polls[i].options.map((item, j: number) => {
+                        return (
+                          <div key={j.toString()} className={'flex py-1 gap-1'}>
+                            <div className="w-3/5 break-words">{`${j + 1}) ${item.option}`}</div>
 
-                              <div className="w-2/5 flex justify-between items-center gap-1">
-                                <RadioGroupItem
-                                  value={`option-${j}`}
-                                  id={`option-${j}`}
-                                  disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
-                                  onClick={e => {
-                                    const poll = polls[i];
-                                    if (poll?.id) handleRadioItemClicked(poll.id, j);
-                                  }}
-                                />
+                            <div className="w-2/5 flex justify-between items-center gap-1">
+                              <RadioGroupItem
+                                value={`option-${j}`}
+                                id={`option-${j}`}
+                                disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
+                                onClick={e => {
+                                  const poll = polls[i];
+                                  if (poll?.id) handleRadioItemClicked(poll.id, j);
+                                }}
+                              />
 
-                                {((polls[i].deadline && moment(polls[i].deadline) < moment()) ||
-                                  myVotes.filter(myVote => {
-                                    return myVote.pollId === polls[i].id;
-                                  }).length > 0) && <Progress className="border border-primary" value={(item.numVotes / polls[i].totalVotes) * 100} />}
-                              </div>
+                              {((polls[i].deadline && moment(polls[i].deadline) < moment()) ||
+                                myVotes.filter(myVote => {
+                                  return myVote.pollId === polls[i].id;
+                                }).length > 0) && <Progress className="border border-primary" value={(item.numVotes / polls[i].totalVotes) * 100} />}
                             </div>
-                          );
-                        })}
-                      </RadioGroup>
-                    </div>
-
-                    <div className="flex justify-end mt-2 text-xs">{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
+                          </div>
+                        );
+                      })}
+                    </RadioGroup>
                   </div>
 
-                  <div className="flex justify-between mt-2">
-                    <div className="flex items-center">
-                      {polls[i]?.deadline && moment(polls[i].deadline) > moment() ? `${t('carouselLblEnds')}: ${getShortDateString(moment(polls[i]?.deadline))}` : ''}
+                  <div className="flex justify-between mt-6 text-xs px-1">
+                    <div>
+                      {polls[i]?.deadline && (
+                        <div className="flex items-center">
+                          <img src={moment(polls[i].deadline) > moment() ? imgHourglassStart : imgHourglassEnd} className="h-4 w-4 object-fill" />
+
+                          <div>{getShortDateString(moment(polls[i]?.deadline))}</div>
+                        </div>
+                      )}
                     </div>
 
-                    <div className="flex gap-2">
-                      <div className="flex">
-                        <button
-                          className="h-full flex items-center border-y border-x border-secondary-dark hover:border-primary rounded-l-lg"
-                          onClick={() => {
-                            const poll = polls[i];
-                            if (poll?.id) handleUpvotelicked(poll.id);
-                          }}
-                        >
-                          <img
-                            src={
-                              myPollRatings.filter(pollRating => {
-                                return pollRating.pollId === polls[i].id && pollRating.score === RatingAction.UP;
-                              }).length > 0
-                                ? imgArrowUp
-                                : imgArrowUpOutline
-                            }
-                            className="h-6 w-6 rounded-full object-cover"
-                          />
-                        </button>
-                        <button
-                          className="flex items-center border-y border-x border-secondary-dark hover:border-primary hover:border-l rounded-r-lg"
-                          onClick={() => {
-                            const poll = polls[i];
-                            if (poll?.id) handleDownvotelicked(poll.id);
-                          }}
-                        >
-                          <img
-                            src={
-                              myPollRatings.filter(pollRating => {
-                                return pollRating.pollId === polls[i].id && pollRating.score === RatingAction.DOWN;
-                              }).length > 0
-                                ? imgArrowDown
-                                : imgArrowDownOutline
-                            }
-                            className="h-6 w-6 rounded-full object-cover"
-                          />
-                        </button>
-                      </div>
+                    <div>{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
+                  </div>
 
-                      <TextButton
-                        text={polls[i]?.deadline && moment(polls[i]?.deadline) < moment() ? t('carouselBtnVotingEnded') : t('carouselBtnVote')}
-                        disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
+                  <div className="flex justify-between items-center gap-2 mt-4 h-full">
+                    <div className="flex h-10 w-16">
+                      <button
+                        className={`h-full w-full flex items-center justify-center border-y border-x border-secondary-dark ${voteDisabled(polls[i]) ?? 'hover:border-primary'} rounded-l-lg`}
+                        disabled={voteDisabled(polls[i])}
                         onClick={() => {
                           const poll = polls[i];
-                          if (poll?.id) handleVoteClicked(poll.id);
+                          if (poll?.id) handleUpvotelicked(poll.id);
                         }}
-                      />
+                      >
+                        <img
+                          src={
+                            myPollRatings.filter(pollRating => {
+                              return pollRating.pollId === polls[i].id && pollRating.score === RatingAction.UP;
+                            }).length > 0
+                              ? imgArrowUp
+                              : imgArrowUpOutline
+                          }
+                          className="h-6 w-6 rounded-full object-cover"
+                        />
+                      </button>
+                      <button
+                        className={`h-full w-full flex items-center justify-center border-y border-x border-secondary-dark ${voteDisabled(polls[i]) ?? 'hover:border-primary'}hover:border-l rounded-r-lg`}
+                        disabled={voteDisabled(polls[i])}
+                        onClick={() => {
+                          const poll = polls[i];
+                          if (poll?.id) handleDownvotelicked(poll.id);
+                        }}
+                      >
+                        <img
+                          src={
+                            myPollRatings.filter(pollRating => {
+                              return pollRating.pollId === polls[i].id && pollRating.score === RatingAction.DOWN;
+                            }).length > 0
+                              ? imgArrowDown
+                              : imgArrowDownOutline
+                          }
+                          className="h-6 w-6 rounded-full object-cover"
+                        />
+                      </button>
                     </div>
+
+                    <TextButton
+                      text={
+                        polls[i]?.deadline && moment(polls[i]?.deadline) < moment()
+                          ? t('carouselBtnVotingEnded')
+                          : targetGroupMissmatch(polls[i])
+                            ? t('carouselBtnVotingExcluded')
+                            : t('carouselBtnVote')
+                      }
+                      disabled={voteDisabled(polls[i])}
+                      onClick={() => {
+                        const poll = polls[i];
+                        if (poll?.id) handleVoteClicked(poll.id);
+                      }}
+                    />
                   </div>
                 </div>
               </CarouselItem>
