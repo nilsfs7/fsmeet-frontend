@@ -421,8 +421,9 @@
     "pageTitle": "Community Voice",
     "carouselNoData": "Sin datos",
     "carouselBtnVote": "Votar",
-    "carouselLblEnds": "Termina",
     "carouselBtnVotingEnded": "Votación terminada",
+    "carouselBtnVotingExcluded": "Excluido",
+    "carouselLblDeadline": "Fecha límite",
     "carouselTotalVotes": "Votos totales",
     "cbColumns": "Columnas",
     "tblColumnUsername": "Usuarios",
@@ -513,7 +514,9 @@
     "inputQuestion": "Pregunta",
     "inputOption": "Opción",
     "chbDeadlineEnabled": "Fecha límite habilitada",
-    "dateDeadline": "Fecha límite"
+    "dateDeadline": "Fecha límite",
+    "sectionTargetGroup": "Grupo objetivo",
+    "cbCountry": "País"
   },
   "global/components/profile-menu": {
     "login": "Conectarse",

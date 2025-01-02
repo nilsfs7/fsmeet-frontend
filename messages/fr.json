@@ -421,8 +421,9 @@
     "pageTitle": "Community Voice",
     "carouselNoData": "Aucune donnée",
     "carouselBtnVote": "Voter",
-    "carouselLblEnds": "Se termine",
     "carouselBtnVotingEnded": "Vote terminé",
+    "carouselBtnVotingExcluded": "Exclu",
+    "carouselLblDeadline": "Date limite",
     "carouselTotalVotes": "Nombre total de votes",
     "cbColumns": "Colonnes",
     "tblColumnUsername": "Utilisateur",
@@ -513,7 +514,9 @@
     "inputQuestion": "Question",
     "inputOption": "Option",
     "chbDeadlineEnabled": "Date limite activée",
-    "dateDeadline": "Date limite"
+    "dateDeadline": "Date limite",
+    "sectionTargetGroup": "Groupe cible",
+    "cbCountry": "Pays"
   },
   "global/components/profile-menu": {
     "login": "Se connecter",

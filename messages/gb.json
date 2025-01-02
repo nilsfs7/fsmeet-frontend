@@ -421,8 +421,9 @@
     "pageTitle": "Community Voice",
     "carouselNoData": "No data",
     "carouselBtnVote": "Vote",
-    "carouselLblEnds": "Ends",
     "carouselBtnVotingEnded": "Voting ended",
+    "carouselBtnVotingExcluded": "Excluded",
+    "carouselLblDeadline": "Deadline",
     "carouselTotalVotes": "Total votes",
     "cbColumns": "Columns",
     "tblColumnUsername": "User",
@@ -510,10 +511,12 @@
     "chbNotifyOnComment": "Notify On Comment"
   },
   "global/components/poll-editor": {
-    "inputQuestion": "Frage",
+    "inputQuestion": "Question",
     "inputOption": "Option",
     "chbDeadlineEnabled": "Deadline enabled",
-    "dateDeadline": "Deadline"
+    "dateDeadline": "Deadline",
+    "sectionTargetGroup": "Target group",
+    "cbCountry": "Country"
   },
   "global/components/profile-menu": {
     "login": "Login",

@@ -12,6 +12,11 @@ import { Action } from '@/domain/enums/action';
 import moment from 'moment';
 import { DatePicker } from './common/DatePicker';
 import CheckBox from './common/CheckBox';
+import Separator from './Seperator';
+import SectionHeader from './common/section-header';
+import ComboBox from './common/ComboBox';
+import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
+import { TargetGroup } from '@/types/target-group';
 
 interface IPollEditorProps {
   editorMode: EditorMode;
@@ -30,6 +35,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   );
   const [deadlineEnabled, setDeadlineEnabled] = useState<boolean>(poll?.deadline ? true : false);
   const [deadline, setDeadline] = useState<string>(poll?.deadline ? poll.deadline : moment().endOf('day').add(3, 'month').utc().format());
+  const [targetGroup, setTargetGroup] = useState<TargetGroup>({ country: null, maxAge: null });
 
   const INPUT_MAX_LENGTH = 100;
 
@@ -67,6 +73,14 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
     }
   };
 
+  const handleCountryChanged = (value: string | null) => {
+    if (value == menuCountriesWithUnspecified[0].value) {
+      value = null;
+    }
+
+    setTargetGroup({ country: value, maxAge: targetGroup.maxAge });
+  };
+
   const updatePoll = () => {
     onPollUpdate({
       id: poll?.id,
@@ -78,6 +92,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
       totalVotes: 0,
       totalRatingScore: 0,
       deadline: deadlineEnabled ? deadline : null,
+      targetGroup: targetGroup,
       creationTime: moment().utc().format(),
     });
   };
@@ -85,7 +100,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   // fires back poll
   useEffect(() => {
     updatePoll();
-  }, [question, options, deadlineEnabled, deadline]);
+  }, [question, options, deadlineEnabled, deadline, targetGroup]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
@@ -115,6 +130,19 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         );
       })}
 
+      <div className="flex p-2 gap-2 justify-end">
+        {options.length > 2 && (
+          <ActionButton
+            action={Action.REMOVE}
+            onClick={() => {
+              handleRemoveQuestionClicked(options.length - 1);
+            }}
+          />
+        )}
+
+        {options.length < 12 && <ActionButton action={Action.ADD} onClick={handleAddQuestionClicked} />}
+      </div>
+
       <CheckBox
         id={'deadlineEnabled'}
         label={t('chbDeadlineEnabled')}
@@ -139,17 +167,23 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         </div>
       )}
 
-      <div className="flex p-2 gap-2 justify-end">
-        {options.length > 2 && (
-          <ActionButton
-            action={Action.REMOVE}
-            onClick={() => {
-              handleRemoveQuestionClicked(options.length - 1);
+      <div className="m-2">
+        <Separator />
+      </div>
+      <SectionHeader label={t('sectionTargetGroup')} />
+
+      <div className="m-2 grid grid-cols-2 items-center">
+        <div>{t('cbCountry')}</div>
+        <div className="flex w-full">
+          <ComboBox
+            menus={menuCountriesWithUnspecified}
+            value={targetGroup.country || menuCountriesWithUnspecified[0].value}
+            searchEnabled={true}
+            onChange={(value: any) => {
+              handleCountryChanged(value);
             }}
           />
-        )}
-
-        {options.length < 12 && <ActionButton action={Action.ADD} onClick={handleAddQuestionClicked} />}
+        </div>
       </div>
     </div>
   );

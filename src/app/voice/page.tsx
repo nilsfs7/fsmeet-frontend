@@ -10,9 +10,15 @@ import ActionButton from '@/components/common/ActionButton';
 import { PollsCarousel } from './components/polls-carousel';
 import TextButton from '@/components/common/TextButton';
 import { ColumnInfo, PollsList } from './components/polls-list';
+import { getUser } from '@/infrastructure/clients/user.client';
+import { auth } from '@/auth';
+import { User } from '@/types/user';
 
 export default async function Voice() {
   const t = await getTranslations('/voice');
+  const session = await auth();
+
+  const user: User | undefined = session?.user.username ? await getUser(session?.user.username) : undefined;
 
   const polls = await getPolls();
 
@@ -41,7 +47,7 @@ export default async function Voice() {
 
       <div className="mx-2 flex flex-col overflow-auto">
         <div className="mt-2 flex justify-center px-12">
-          <PollsCarousel initPolls={polls} />
+          <PollsCarousel initPolls={polls} actingUser={user} />
         </div>
 
         <PollsList columnData={columnData} />

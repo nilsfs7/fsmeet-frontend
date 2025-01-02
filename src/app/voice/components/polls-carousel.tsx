@@ -19,12 +19,14 @@ import { getShortDateString } from '@/functions/time';
 import { imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline } from '@/domain/constants/images';
 import { RatingAction } from '@/domain/enums/rating-action';
 import { PollRating } from '@/types/poll-rating';
+import { User } from '@/types/user';
 
 interface IPollsCarousel {
   initPolls: Poll[];
+  actingUser?: User;
 }
 
-export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
+export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
   const t = useTranslations('/voice');
 
   const { data: session, status } = useSession();
@@ -98,6 +100,26 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
     }
 
     api.scrollTo(index);
+  };
+
+  const targetGroupMissmatch = (poll: Poll): boolean => {
+    if (poll.targetGroup?.maxAge && (!actingUser?.age || poll.targetGroup.maxAge < actingUser?.age)) {
+      return true;
+    }
+
+    if (poll.targetGroup?.country && poll.targetGroup.country !== actingUser?.country) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const voteDisabled = (poll: Poll): boolean => {
+    if (poll.deadline && moment(poll.deadline) < moment()) {
+      return true;
+    }
+
+    return targetGroupMissmatch(poll);
   };
 
   const handleVoteClicked = async (pollId: string) => {
@@ -285,9 +307,7 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                   </div>
 
                   <div className="flex justify-between mt-2">
-                    <div className="flex items-center">
-                      {polls[i]?.deadline && moment(polls[i].deadline) > moment() ? `${t('carouselLblEnds')}: ${getShortDateString(moment(polls[i]?.deadline))}` : ''}
-                    </div>
+                    <div className="flex items-center">{polls[i]?.deadline ? `${t('carouselLblDeadline')}: ${getShortDateString(moment(polls[i]?.deadline))}` : ''}</div>
 
                     <div className="flex gap-2">
                       <div className="flex">
@@ -330,8 +350,14 @@ export const PollsCarousel = ({ initPolls }: IPollsCarousel) => {
                       </div>
 
                       <TextButton
-                        text={polls[i]?.deadline && moment(polls[i]?.deadline) < moment() ? t('carouselBtnVotingEnded') : t('carouselBtnVote')}
-                        disabled={polls[i].deadline && moment(polls[i].deadline) < moment() ? true : false}
+                        text={
+                          polls[i]?.deadline && moment(polls[i]?.deadline) < moment()
+                            ? t('carouselBtnVotingEnded')
+                            : targetGroupMissmatch(polls[i])
+                              ? t('carouselBtnVotingExcluded')
+                              : t('carouselBtnVote')
+                        }
+                        disabled={voteDisabled(polls[i])}
                         onClick={() => {
                           const poll = polls[i];
                           if (poll?.id) handleVoteClicked(poll.id);
