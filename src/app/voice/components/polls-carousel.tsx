@@ -313,13 +313,14 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                       )}
                     </div>
 
-                    <div className="">{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
+                    <div>{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
                   </div>
 
                   <div className="flex justify-between items-center gap-2 mt-4 h-full">
                     <div className="flex h-10 w-16">
                       <button
-                        className="h-full w-full flex items-center justify-center border-y border-x border-secondary-dark hover:border-primary rounded-l-lg"
+                        className={`h-full w-full flex items-center justify-center border-y border-x border-secondary-dark ${voteDisabled(polls[i]) ?? 'hover:border-primary'} rounded-l-lg`}
+                        disabled={voteDisabled(polls[i])}
                         onClick={() => {
                           const poll = polls[i];
                           if (poll?.id) handleUpvotelicked(poll.id);
@@ -337,7 +338,8 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                         />
                       </button>
                       <button
-                        className="h-full w-full flex items-center justify-center border-y border-x border-secondary-dark hover:border-primary hover:border-l rounded-r-lg"
+                        className={`h-full w-full flex items-center justify-center border-y border-x border-secondary-dark ${voteDisabled(polls[i]) ?? 'hover:border-primary'}hover:border-l rounded-r-lg`}
+                        disabled={voteDisabled(polls[i])}
                         onClick={() => {
                           const poll = polls[i];
                           if (poll?.id) handleDownvotelicked(poll.id);
