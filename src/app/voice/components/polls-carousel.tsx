@@ -303,20 +303,22 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                       </RadioGroup>
                     </div>
 
-                    <div className="flex justify-end mt-2 text-xs">{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
+                    <div className="flex justify-between mt-4 text-xs">
+                      <div>
+                        {polls[i]?.deadline && (
+                          <div className="flex items-center">
+                            <img src={moment(polls[i].deadline) > moment() ? imgHourglassStart : imgHourglassEnd} className="h-6 w-6 object-fill" />
+
+                            <div>{getShortDateString(moment(polls[i]?.deadline))}</div>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="">{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
+                    </div>
                   </div>
 
-                  <div className="flex justify-between items-center mt-2">
-                    <div>
-                      {polls[i]?.deadline && (
-                        <div className="flex items-center">
-                          <img src={moment(polls[i].deadline) > moment() ? imgHourglassStart : imgHourglassEnd} className="h-6 w-6 object-fill" />
-
-                          <div>{getShortDateString(moment(polls[i]?.deadline))}</div>
-                        </div>
-                      )}
-                    </div>
-
+                  <div className="flex justify-end items-center mt-2">
                     <div className="flex gap-2">
                       <div className="flex">
                         <button
