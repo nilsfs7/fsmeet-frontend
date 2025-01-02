@@ -16,7 +16,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import UserCard from '@/components/user/UserCard';
 import { Toaster, toast } from 'sonner';
 import { getShortDateString } from '@/functions/time';
-import { imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline } from '@/domain/constants/images';
+import { imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline, imgHourglassEnd, imgHourglassStart } from '@/domain/constants/images';
 import { RatingAction } from '@/domain/enums/rating-action';
 import { PollRating } from '@/types/poll-rating';
 import { User } from '@/types/user';
@@ -306,8 +306,16 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                     <div className="flex justify-end mt-2 text-xs">{`${t('carouselTotalVotes')}: ${polls[i].totalVotes}`}</div>
                   </div>
 
-                  <div className="flex justify-between mt-2">
-                    <div className="flex items-center">{polls[i]?.deadline ? `${t('carouselLblDeadline')}: ${getShortDateString(moment(polls[i]?.deadline))}` : ''}</div>
+                  <div className="flex justify-between items-center mt-2">
+                    <div>
+                      {polls[i]?.deadline && (
+                        <div className="flex items-center">
+                          <img src={moment(polls[i].deadline) > moment() ? imgHourglassStart : imgHourglassEnd} className="h-6 w-6 object-fill" />
+
+                          <div>{getShortDateString(moment(polls[i]?.deadline))}</div>
+                        </div>
+                      )}
+                    </div>
 
                     <div className="flex gap-2">
                       <div className="flex">

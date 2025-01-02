@@ -169,6 +169,10 @@ Community
 
 - [Megaphone](https://www.iconfinder.com/icons/8673485/ic_fluent_megaphone_loud_filled_icon)
 
+- [Hourglass start](https://www.iconfinder.com/icons/8665484/hourglass_start_icon)
+
+- [Hourglass end](https://www.iconfinder.com/icons/8541951/hourglass_end_icon)
+
 - [Arrow Down](https://www.iconfinder.com/icons/211613/a_down_arrow_icon)
 
 - [Arrow Down Outline](https://www.iconfinder.com/icons/9024254/arrow_fat_down_light_icon)
