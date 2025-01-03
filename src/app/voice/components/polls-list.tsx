@@ -61,52 +61,52 @@ export const PollsList = ({ columnData }: IPollsList) => {
   };
 
   const columns: ColumnDef<ColumnInfo>[] = [
-    {
-      accessorKey: 'user',
-      header: ({ column }) => {
-        return (
-          <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            {t('tblColumnName')}
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
-      cell: ({ row }) => (
-        <div className="flex items-center gap-2">
-          <Link href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}>
-            <div className="h-8 w-8">
-              <img
-                src={(row.getValue('user') as UserInfo).imageUrl ? (row.getValue('user') as UserInfo).imageUrl : imgUserDefaultImg}
-                className="h-full w-full rounded-full bg-zinc-200 object-cover"
-              />
-            </div>
-          </Link>
-          <Link href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}>
-            <div className="capitalize">{`${(row.getValue('user') as UserInfo).firstName} ${(row.getValue('user') as UserInfo).lastName}`}</div>
-          </Link>
-        </div>
-      ),
-      sortingFn: (rowA: Row<ColumnInfo>, rowB: Row<ColumnInfo>, columnId: string) => {
-        const rowAVal = `${rowA.original.user.firstName} ${rowA.original.user.lastName}`;
-        const rowBVal = `${rowB.original.user.firstName} ${rowB.original.user.lastName}`;
+    // {
+    //   accessorKey: 'user',
+    //   header: ({ column }) => {
+    //     return (
+    //       <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+    //         {t('tblColumnName')}
+    //         <ArrowUpDown className="ml-2 h-4 w-4" />
+    //       </Button>
+    //     );
+    //   },
+    //   cell: ({ row }) => (
+    //     <div className="flex items-center gap-2">
+    //       <Link href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}>
+    //         <div className="h-8 w-8">
+    //           <img
+    //             src={(row.getValue('user') as UserInfo).imageUrl ? (row.getValue('user') as UserInfo).imageUrl : imgUserDefaultImg}
+    //             className="h-full w-full rounded-full bg-zinc-200 object-cover"
+    //           />
+    //         </div>
+    //       </Link>
+    //       <Link href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}>
+    //         <div className="capitalize">{`${(row.getValue('user') as UserInfo).firstName} ${(row.getValue('user') as UserInfo).lastName}`}</div>
+    //       </Link>
+    //     </div>
+    //   ),
+    //   sortingFn: (rowA: Row<ColumnInfo>, rowB: Row<ColumnInfo>, columnId: string) => {
+    //     const rowAVal = `${rowA.original.user.firstName} ${rowA.original.user.lastName}`;
+    //     const rowBVal = `${rowB.original.user.firstName} ${rowB.original.user.lastName}`;
 
-        if (rowAVal < rowBVal) {
-          return -1;
-        }
-        if (rowAVal > rowBVal) {
-          return 1;
-        }
+    //     if (rowAVal < rowBVal) {
+    //       return -1;
+    //     }
+    //     if (rowAVal > rowBVal) {
+    //       return 1;
+    //     }
 
-        return 0;
-      },
-      filterFn: (row: Row<ColumnInfo>, columnId: string, filterValue: string): boolean => {
-        const rowVal = `${row.original.user.firstName} ${row.original.user.lastName}`;
+    //     return 0;
+    //   },
+    //   filterFn: (row: Row<ColumnInfo>, columnId: string, filterValue: string): boolean => {
+    //     const rowVal = `${row.original.user.firstName} ${row.original.user.lastName}`;
 
-        if (rowVal.toLowerCase().includes(filterValue.toLowerCase())) return true;
+    //     if (rowVal.toLowerCase().includes(filterValue.toLowerCase())) return true;
 
-        return false;
-      },
-    },
+    //     return false;
+    //   },
+    // },
 
     {
       accessorKey: 'question',
