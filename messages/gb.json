@@ -428,7 +428,7 @@
     "tblColumnUsername": "User",
     "tblColumnName": "Questioner",
     "tblColumnQuestion": "Question",
-    "tblCreationDate": "Age",
+    "tblCreationDate": "Published",
     "tblCreationDateDays": "days",
     "tblCreationDateToday": "today",
     "tblTotalRatingScore": "Score",
