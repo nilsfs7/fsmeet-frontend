@@ -43,22 +43,18 @@ export default async function Home() {
       </div>
 
       <Navigation>
-        <div className="mx-2 flex gap-1">
+        <div className="mx-2 flex gap-2">
           <Link href={routeMap}>
-            <div className="rounded-lg p-1">
-              <div className="grid grid-flow-col items-center gap-1">
-                <img src={imgWorld} className="h-8 w-8 rounded-full object-cover" />
-                <div>{t('navMap')}</div>
-              </div>
+            <div className="md:flex items-center justify-items-center gap-1">
+              <img src={imgWorld} className="h-8 w-8 rounded-full object-cover" />
+              <div>{t('navMap')}</div>
             </div>
           </Link>
 
           <Link href={routeUsers}>
-            <div className="rounded-lg p-1">
-              <div className="grid grid-flow-col items-center gap-1">
-                <img src={imgCommunity} className="h-8 w-8 rounded-full object-cover" />
-                <div>{t('navCommunity')}</div>
-              </div>
+            <div className="md:flex items-center justify-items-center gap-1">
+              <img src={imgCommunity} className="h-8 w-8 rounded-full object-cover" />
+              <div>{t('navCommunity')}</div>
             </div>
           </Link>
 
@@ -73,35 +69,27 @@ export default async function Home() {
             session?.user.username === 'hus089' ||
             session?.user.username === 'ricardo_rehlaender') && (
             <Link href={routeVoice}>
-              <div className="rounded-lg p-1">
-                <div className="grid grid-flow-col items-center gap-1">
-                  <img src={imgMegaphone} className="h-8 w-8 rounded-full object-cover" />
-                  <div>{t('navVoice')}</div>
-                </div>
+              <div className="md:flex items-center justify-items-center gap-1">
+                <img src={imgMegaphone} className="h-8 w-8 rounded-full object-cover" />
+                <div>{t('navVoice')}</div>
               </div>
             </Link>
           )}
         </div>
 
         {session?.user?.username === TechnicalUser.ADMIN && (
-          <div className="mx-2">
-            <Link href={routeAdminOverview}>
-              <div className="rounded-lg p-1">
-                <div className="grid grid-flow-col items-center gap-1">
-                  <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
-                  <div>{t('navAdminOverview')}</div>
-                </div>
-              </div>
-            </Link>
-          </div>
+          <Link href={routeAdminOverview}>
+            <div className="md:flex items-center justify-items-center gap-1">
+              <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
+              <div>{t('navAdminOverview')}</div>
+            </div>
+          </Link>
         )}
 
         <Link href={routeAbout}>
-          <div className="rounded-lg p-1">
-            <div className="grid grid-flow-col items-center">
-              <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
-              <div className="mx-1">{t('navAbout')}</div>
-            </div>
+          <div className="md:flex items-center justify-items-center gap-1">
+            <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
+            <div>{t('navAbout')}</div>
           </div>
         </Link>
       </Navigation>
