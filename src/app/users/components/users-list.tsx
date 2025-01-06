@@ -162,7 +162,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
           <div className="flex items-center gap-2">
             <div>{(row.getValue('country') as string).toUpperCase()}</div>
             {
-              <div className="mx-1 w-8 h-8">
+              <div className="w-8 h-8">
                 <ReactCountryFlag
                   className="w-full h-full"
                   countryCode={row.getValue('country')}
@@ -184,7 +184,12 @@ export const UsersList = ({ columnData }: IUsersList) => {
       header: ({ column }) => {
         return <>{t('tblColumnType')}</>;
       },
-      cell: ({ row }) => <img src={getUserTypeImages(row.getValue('userType')).path} className="mx-1 h-8 w-8" />,
+      cell: ({ row }) => (
+        <div className="w-8 h-8">
+          <img src={getUserTypeImages(row.getValue('userType')).path} />
+        </div>
+      ),
+
       enableSorting: false,
     },
 
@@ -197,8 +202,8 @@ export const UsersList = ({ columnData }: IUsersList) => {
         <div className="flex items-center gap-2">
           {(row.getValue('location') as Location).city && (
             <Link href={(row.getValue('location') as Location).mapLink}>
-              <button>
-                <img src={imgWorld} className="mx-1 h-8 w-8" />
+              <button className="w-8 h-8">
+                <img src={imgWorld} />
               </button>
             </Link>
           )}
