@@ -45,14 +45,14 @@ export default async function Home() {
       <Navigation>
         <div className="mx-2 flex gap-2">
           <Link href={routeMap}>
-            <div className="md:flex items-center justify-items-center gap-1">
+            <div className="flex flex-col md:flex-row items-center gap-1">
               <img src={imgWorld} className="h-8 w-8 rounded-full object-cover" />
               <div>{t('navMap')}</div>
             </div>
           </Link>
 
           <Link href={routeUsers}>
-            <div className="md:flex items-center justify-items-center gap-1">
+            <div className="flex flex-col md:flex-row items-center gap-1">
               <img src={imgCommunity} className="h-8 w-8 rounded-full object-cover" />
               <div>{t('navCommunity')}</div>
             </div>
@@ -69,7 +69,7 @@ export default async function Home() {
             session?.user.username === 'hus089' ||
             session?.user.username === 'ricardo_rehlaender') && (
             <Link href={routeVoice}>
-              <div className="md:flex items-center justify-items-center gap-1">
+              <div className="flex flex-col md:flex-row items-center gap-1">
                 <img src={imgMegaphone} className="h-8 w-8 rounded-full object-cover" />
                 <div>{t('navVoice')}</div>
               </div>
@@ -79,7 +79,7 @@ export default async function Home() {
 
         {session?.user?.username === TechnicalUser.ADMIN && (
           <Link href={routeAdminOverview}>
-            <div className="md:flex items-center justify-items-center gap-1">
+            <div className="flex flex-col md:flex-row items-center gap-1">
               <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
               <div>{t('navAdminOverview')}</div>
             </div>
@@ -87,7 +87,7 @@ export default async function Home() {
         )}
 
         <Link href={routeAbout}>
-          <div className="md:flex items-center justify-items-center gap-1">
+          <div className="flex flex-col md:flex-row items-center gap-1">
             <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
             <div>{t('navAbout')}</div>
           </div>
