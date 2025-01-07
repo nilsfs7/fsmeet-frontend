@@ -25,6 +25,7 @@ export const TextButtonCreatePoll = () => {
       try {
         await createPoll(
           poll.question,
+          poll.description,
           poll.options.map(o => o.option),
           poll.deadline ? moment(poll.deadline) : null,
           poll.targetGroup,

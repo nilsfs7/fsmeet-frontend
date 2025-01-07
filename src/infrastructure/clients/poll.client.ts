@@ -23,11 +23,12 @@ export async function getPolls(): Promise<Poll[]> {
   }
 }
 
-export async function createPoll(question: string, options: string[], deadline: Moment | null, targetGroup: TargetGroup, session: Session | null): Promise<void> {
+export async function createPoll(question: string, description: string, options: string[], deadline: Moment | null, targetGroup: TargetGroup, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls`;
 
   const body = new CreatePollBodyDto(
     question,
+    description,
     options.map(option => {
       return { option: option };
     }),

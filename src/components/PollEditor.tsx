@@ -28,6 +28,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   const t = useTranslations('global/components/poll-editor');
 
   const [question, setQuestion] = useState(poll?.question || '');
+  const [description, setDescription] = useState(poll?.description || '');
   const [options, setOptions] = useState(
     poll?.options.map(o => {
       return o.option;
@@ -85,6 +86,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
     onPollUpdate({
       id: poll?.id,
       question: question,
+      description: description,
       questioner: { username: sessionStorage.username, type: UserType.FREESTYLER }, // type is unnecessary
       options: options.map(o => {
         return { option: o, numVotes: 0 };
@@ -100,18 +102,29 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   // fires back poll
   useEffect(() => {
     updatePoll();
-  }, [question, options, deadlineEnabled, deadline, targetGroup]);
+  }, [question, description, options, deadlineEnabled, deadline, targetGroup]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
       <TextInputLarge
         id={'question'}
         label={t('inputQuestion')}
-        placeholder="Do you like FSMeet?"
+        placeholder="Did you land PATW?"
         value={question}
         resizable={true}
         onChange={e => {
           handleQuestionUpdated(e.currentTarget.value);
+        }}
+      />
+
+      <TextInputLarge
+        id={'description'}
+        label={t('inputDescription')}
+        placeholder="Provide some context for your question (optional)"
+        value={description}
+        resizable={true}
+        onChange={e => {
+          setDescription(e.currentTarget.value);
         }}
       />
 
