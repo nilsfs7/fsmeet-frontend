@@ -510,7 +510,8 @@
     "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
   },
   "global/components/poll-editor": {
-    "inputQuestion": "Question",
+    "inputQuestion": "Frage",
+    "inputDescription": "Beschreibung / Kontext",
     "inputOption": "Option",
     "chbDeadlineEnabled": "Deadline aktivieren",
     "dateDeadline": "Deadline",

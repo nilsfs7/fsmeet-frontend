@@ -4,8 +4,9 @@ import { User } from './user';
 
 export type Poll = {
   id?: string;
-  question: string;
   questioner: User;
+  question: string;
+  description: string;
   options: PollOption[];
   totalVotes: number;
   totalRatingScore: number;
