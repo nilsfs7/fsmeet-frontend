@@ -424,6 +424,7 @@
     "carouselBtnVotingEnded": "Vote terminé",
     "carouselBtnVotingExcluded": "Exclu",
     "carouselTotalVotes": "Nombre total de votes",
+    "carouselDlgPollDescription": "Description",
     "cbColumns": "Colonnes",
     "tblColumnUsername": "Utilisateur",
     "tblColumnName": "Questionneur",

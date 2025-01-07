@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Poll } from '@/types/poll';
 import TextButton from '@/components/common/TextButton';
 import { Progress } from '@/components/ui/progress';
-import { routeLogin } from '@/domain/constants/routes';
+import { routeLogin, routeVoice } from '@/domain/constants/routes';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
@@ -16,10 +16,12 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import UserCard from '@/components/user/UserCard';
 import { Toaster, toast } from 'sonner';
 import { getShortDateString } from '@/functions/time';
-import { imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline, imgHourglassEnd, imgHourglassStart } from '@/domain/constants/images';
+import { imgAbout, imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline, imgHourglassEnd, imgHourglassStart } from '@/domain/constants/images';
 import { RatingAction } from '@/domain/enums/rating-action';
 import { PollRating } from '@/types/poll-rating';
 import { User } from '@/types/user';
+import Dialog from '@/components/Dialog';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 interface IPollsCarousel {
   initPolls: Poll[];
@@ -40,6 +42,9 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
   const [myVotes, setMyVotes] = useState<Vote[]>([]);
   const [myUnconfirmedVote, setMyUnconfirmedVote] = useState<Vote>();
   const [myPollRatings, setMyPollRatings] = useState<PollRating[]>([]);
+
+  const [smallArrowDown, setSmallArrowDown] = useState<boolean>(false);
+  const [smallArrowUp, setSmallArrowUp] = useState<boolean>(false);
 
   const [api, setApi] = useState<CarouselApi>();
 
@@ -216,6 +221,14 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
     }
   }
 
+  const handleShowContextClicked = async (pollId: number) => {
+    router.replace(`${routeVoice}?select=${pollId}&context=1`);
+  };
+
+  const handleConfirmDialogClicked = async () => {
+    if (focus) router.replace(`${routeVoice}?select=${+focus}`);
+  };
+
   useEffect(() => {
     if (session) {
       getVotes(session).then(votes => {
@@ -229,8 +242,10 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
   }, [session]);
 
   useEffect(() => {
-    if (focus) scrollToItem(+focus);
-  }, [focus]);
+    if (focus) {
+      scrollToItem(+focus);
+    }
+  }, [focus, api]);
 
   useEffect(() => {
     if (!api) {
@@ -246,6 +261,11 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
   return (
     <>
       <Toaster richColors />
+
+      <Dialog title={t('carouselDlgPollDescription')} queryParam="context" onConfirm={handleConfirmDialogClicked}>
+        {focus && <TextareaAutosize readOnly className="resize-none overflow-hidden outline-none" value={polls[+focus].description} />}
+      </Dialog>
+
       <div className="w-full max-w-xl min-h-10 flex justify-center">
         {polls.length === 0 && <div>{t('carouselNoData')}</div>}
 
@@ -261,9 +281,24 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
             {Array.from({ length: polls.length }).map((_, i) => (
               <CarouselItem key={`poll-${i}`}>
                 <div className={'max-h-72 overflow-y-auto rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
-                  <h1 className="flex items-center gap-2 mt-2 text-2xl break-words">
-                    <UserCard user={polls[i].questioner} showName={false} /> {polls[i].question}
-                  </h1>
+                  <div className="grid grid-cols-[auto,1fr] justify-start items-start gap-2">
+                    <div className="flex flex-col items-center gap-2">
+                      <UserCard user={polls[i].questioner} showName={false} />
+
+                      {polls[i].description && (
+                        <button
+                          className="h-8"
+                          onClick={() => {
+                            handleShowContextClicked(i);
+                          }}
+                        >
+                          <img src={imgAbout} className="h-6 w-6 hover:w-7 hover:h-7 rounded-full object-cover" />
+                        </button>
+                      )}
+                    </div>
+
+                    <h1 className="flex items-center gap-2 mt-2 text-2xl break-words">{polls[i].question}</h1>
+                  </div>
 
                   <div className="mt-2 max-h-full justify-center px-1">
                     <RadioGroup
@@ -324,6 +359,13 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                         onClick={() => {
                           const poll = polls[i];
                           if (poll?.id) handleUpvotelicked(poll.id);
+                          setSmallArrowUp(false);
+                        }}
+                        onMouseOver={() => {
+                          setSmallArrowUp(true);
+                        }}
+                        onMouseOut={() => {
+                          setSmallArrowUp(false);
                         }}
                       >
                         <img
@@ -334,7 +376,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                               ? imgArrowUp
                               : imgArrowUpOutline
                           }
-                          className="h-6 w-6 rounded-full object-cover"
+                          className={`${smallArrowUp ? 'h-5 w-5' : 'h-6 w-6'} rounded-full object-cover`}
                         />
                       </button>
                       <button
@@ -343,6 +385,13 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                         onClick={() => {
                           const poll = polls[i];
                           if (poll?.id) handleDownvotelicked(poll.id);
+                          setSmallArrowDown(false);
+                        }}
+                        onMouseOver={() => {
+                          setSmallArrowDown(true);
+                        }}
+                        onMouseOut={() => {
+                          setSmallArrowDown(false);
                         }}
                       >
                         <img
@@ -353,7 +402,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                               ? imgArrowDown
                               : imgArrowDownOutline
                           }
-                          className="h-6 w-6 rounded-full object-cover"
+                          className={`${smallArrowDown ? 'h-5 w-5' : 'h-6 w-6'} rounded-full object-cover`}
                         />
                       </button>
                     </div>

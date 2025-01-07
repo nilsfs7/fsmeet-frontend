@@ -33,7 +33,7 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
   };
 
   return showDialog === '1' ? (
-    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50">
+    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50 z-50">
       <div className="min-w-[250px] max-h-[80%] flex flex-col rounded-lg bg-background">
         <div className="rounded-t-lg bg-secondary-light p-2 text-center">
           <h1 className="text-2xl">{title}</h1>
