@@ -59,7 +59,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
 
   return (
     <>
-      <Dialog title="" queryParam="state" onCancel={handleCancelDialogClicked}>
+      <Dialog title={t(`dlgEventStateTitle`)} queryParam="state" onCancel={handleCancelDialogClicked}>
         <>
           <div className="flex gap-2 items-center">
             <div>{`${t('dlgEventStateText1')}:`}</div>

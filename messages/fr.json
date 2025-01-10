@@ -437,10 +437,10 @@
     "navCurrentPage1": "Page",
     "navCurrentPage2": "de",
     "navRowsPerPage": "Lignes par page",
-    "btnManagePolls": "Gérer les sondages"
+    "btnManagePolls": "Mes sondages"
   },
   "/voice/manage": {
-    "pageTitle": "Créer un sondage",
+    "pageTitle": "Gérer Sondages",
     "btnCreatePoll": "Créer un sondage"
   },
   "/voice/manage/create": {

@@ -144,6 +144,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
 
         return false;
       },
+      enableHiding: false,
     },
 
     {
@@ -277,12 +278,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
               .filter(column => column.getCanHide())
               .map(column => {
                 return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    disabled={column.id === 'user' ? true : false}
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value: any) => column.toggleVisibility(!!value)}
-                  >
+                  <DropdownMenuCheckboxItem key={column.id} checked={column.getIsVisible()} onCheckedChange={(value: any) => column.toggleVisibility(!!value)}>
                     {getColumnNameById(column.id, t)}
                   </DropdownMenuCheckboxItem>
                 );

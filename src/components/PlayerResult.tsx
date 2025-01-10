@@ -13,7 +13,7 @@ const PlayerResult = ({ name, score, image, imageLeft }: IPlayerResultProps) => 
           <>
             <div className="pl-8">
               <div className="flex justify-center pb-4">{name}</div>
-              <div className="">
+              <div>
                 <img className="h-96 rounded-lg border border-primary object-cover shadow-2xl shadow-primary" src={image} alt="player-image" />
               </div>
             </div>
