@@ -51,9 +51,9 @@ const UserComment = ({ comment, onClickReply }: ICommentProps) => {
 
             {/* upvotes */}
             {/* <div className="mx-1 flex items-center">
-              <div className="">6</div>
+              <div>6</div>
               <IconButton size="small" className="sm hover:bg-transparent">
-                <ThumbUpIcon fontSize="inherit" className="" />
+                <ThumbUpIcon fontSize="inherit" />
               </IconButton>
             </div> */}
           </div>

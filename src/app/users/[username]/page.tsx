@@ -137,7 +137,7 @@ export default async function PublicUserProfile({ params }: { params: { username
                 <div className="flex items-start gap-1 text-lg">
                   {user.verificationState === UserVerificationState.VERIFIED && (
                     <div className="h-6 w-6 hover:p-0.5 flex items-center">
-                      <img className="" src={imgVerifiedCheckmark} alt="user verified checkmark" />
+                      <img src={imgVerifiedCheckmark} alt="user verified checkmark" />
                     </div>
                   )}
 
@@ -196,7 +196,7 @@ export default async function PublicUserProfile({ params }: { params: { username
                     <AccordionItem value="item-socials">
                       <AccordionTrigger>{t('accordionItemSocials')}</AccordionTrigger>
                       <AccordionContent>
-                        <div className="">
+                        <div>
                           {user.instagramHandle && (
                             <div className="mt-1 w-fit">
                               <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />

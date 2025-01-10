@@ -521,7 +521,6 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 <TextInput
                   id={'lastName'}
                   label={t('tabGeneralLastName')}
-                  placeholder=""
                   value={userInfo.lastName}
                   onChange={e => {
                     handleLastNameChanged(e.currentTarget.value);
@@ -531,7 +530,6 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 <TextInput
                   id={'nickName'}
                   label={t('tabGeneralArtistName')}
-                  placeholder=""
                   value={userInfo.nickName}
                   onChange={e => {
                     handleNickNameChanged(e.currentTarget.value);
