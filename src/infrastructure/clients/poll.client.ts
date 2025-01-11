@@ -8,6 +8,7 @@ import { RatingAction } from '@/domain/enums/rating-action';
 import { CreatePollRatingBodyDto } from './dtos/poll/create-poll-rating.body.dto';
 import { PollRating } from '@/types/poll-rating';
 import { TargetGroup } from '@/types/target-group';
+import { DeletePollBodyDto } from './dtos/poll/delete-poll.body.dto';
 
 export async function getPolls(questionerUsername?: string): Promise<Poll[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls?`;
@@ -51,6 +52,28 @@ export async function createPoll(question: string, description: string, options:
 
   if (response.ok) {
     console.info('Creating poll successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function deletePoll(pollId: string, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls`;
+
+  const body = new DeletePollBodyDto(pollId);
+
+  const response = await fetch(url, {
+    method: 'DELETE',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Deleting poll successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

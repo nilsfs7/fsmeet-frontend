@@ -9,7 +9,7 @@ import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { PollsCarousel } from './components/polls-carousel';
 import TextButton from '@/components/common/TextButton';
-import { ColumnInfo, PollsList } from './components/polls-list';
+import { ColumnInfo, PollsList } from '../../components/polls-list';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { auth } from '@/auth';
 import { User } from '@/types/user';
@@ -26,6 +26,7 @@ export default async function Voice() {
 
   polls.forEach(poll => {
     columnData.push({
+      pollId: poll.id || '',
       user: {
         username: poll.questioner.username,
         imageUrl: poll.questioner.imageUrl || '',

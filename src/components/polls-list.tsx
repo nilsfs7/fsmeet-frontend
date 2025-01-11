@@ -1,12 +1,14 @@
 'use client';
 
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, ChevronDown } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import Dialog from '@/components/Dialog';
 import {
   ColumnDef,
   ColumnFiltersState,
-  Row,
   SortingState,
   VisibilityState,
   flexRender,
@@ -17,17 +19,20 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useState } from 'react';
-import { routeUsers } from '@/domain/constants/routes';
-import Link from 'next/link';
-import { imgUserDefaultImg } from '@/domain/constants/images';
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import moment from 'moment';
+import ActionButton from './common/ActionButton';
+import { Action } from '@/domain/enums/action';
+import { deletePoll } from '@/infrastructure/clients/poll.client';
+import { useSession } from 'next-auth/react';
+import { Toaster, toast } from 'sonner';
 
 interface IPollsList {
   columnData: ColumnInfo[];
+  enableEditing?: boolean;
 }
 
 export type UserInfo = {
@@ -38,6 +43,7 @@ export type UserInfo = {
 };
 
 export type ColumnInfo = {
+  pollId: string;
   user: UserInfo;
   question: string;
   totalRatingScore: number;
@@ -45,19 +51,66 @@ export type ColumnInfo = {
   creationDate: string;
 };
 
-export const PollsList = ({ columnData }: IPollsList) => {
-  const t = useTranslations('/voice');
+export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => {
+  const t = useTranslations('global/components/poll-list');
+
+  const { data: session } = useSession();
 
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const focus = searchParams?.get('select');
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
+  const getColumnNameById = (columnId: string, t: any): string => {
+    let name = 'unknown';
+
+    switch (columnId) {
+      case 'question':
+        name = t('tblColumnHeaderQuestion');
+        break;
+      case 'creationDate':
+        name = t('tblColumnHeaderCreationDate');
+        break;
+      case 'totalRatingScore':
+        name = t('tblColumnHeaderTotalRatingScore');
+        break;
+    }
+
+    return name;
+  };
+
   const handlePollClicked = async (index: number) => {
-    const url = `voice?select=${index}`;
+    router.replace(`${window.location.pathname}?select=${index}`);
+  };
+
+  const handleDeletePollClicked = async (index: number) => {
+    await new Promise(resolve => setTimeout(resolve, 50)); // TODO: find better solution. delaying because handlePollClicked() modifies url, too
+
+    const url = `${window.location.pathname}?select=${index}&delete=1`;
     router.replace(url);
+  };
+
+  const handleCancelDialogClicked = async () => {
+    if (focus) {
+      router.replace(`${window.location.pathname}?select=${+focus}`);
+    }
+  };
+
+  const handleConfirmDeletePollClicked = async () => {
+    if (focus) {
+      try {
+        await deletePoll(columnData[+focus].pollId, session);
+        router.refresh();
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
+    }
   };
 
   const columns: ColumnDef<ColumnInfo>[] = [
@@ -113,12 +166,13 @@ export const PollsList = ({ columnData }: IPollsList) => {
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            {t('tblColumnQuestion')}
+            {t('tblColumnHeaderQuestion')}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
       },
       cell: ({ row }) => row.getValue('question'),
+      enableHiding: false,
     },
 
     {
@@ -126,7 +180,7 @@ export const PollsList = ({ columnData }: IPollsList) => {
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            {t('tblCreationDate')}
+            {t('tblColumnHeaderCreationDate')}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
@@ -142,7 +196,7 @@ export const PollsList = ({ columnData }: IPollsList) => {
       header: ({ column }) => {
         return (
           <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-            {t('tblTotalRatingScore')}
+            {t('tblColumnHeaderTotalRatingScore')}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         );
@@ -152,6 +206,25 @@ export const PollsList = ({ columnData }: IPollsList) => {
       },
     },
   ];
+
+  if (enableEditing) {
+    columns.unshift({
+      id: 'edit',
+      header: () => {
+        return <div className="ml-2">{t('tblColumnHeaderActions')}</div>;
+      },
+      cell: ({ row }) => (
+        <ActionButton
+          action={Action.DELETE} // todo: change to Action.EDIT and add context to edit poll
+          onClick={() => {
+            handleDeletePollClicked(row.index);
+          }}
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    });
+  }
 
   const table = useReactTable({
     data: columnData,
@@ -177,6 +250,44 @@ export const PollsList = ({ columnData }: IPollsList) => {
 
   return (
     <>
+      <Toaster richColors />
+
+      <Dialog title={t('dlgAccountDeletePollTitle')} queryParam="delete" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmDeletePollClicked}>
+        <p>{t('dlgAccountDeletePollText')}</p>
+      </Dialog>
+
+      <div className="mx-2 flex gap-2">
+        <Input
+          placeholder={t('inputSearchPlaceholder')}
+          value={(table.getColumn('question')?.getFilterValue() as string) ?? ''}
+          onChange={(event: any) => {
+            table.getColumn('question')?.setFilterValue(event.target.value);
+          }}
+          className="max-w-64"
+        />
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="ml-auto">
+              {t('cbColumns')}
+              <ChevronDown className="ml-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter(column => column.getCanHide())
+              .map(column => {
+                return (
+                  <DropdownMenuCheckboxItem key={column.id} checked={column.getIsVisible()} onCheckedChange={(value: any) => column.toggleVisibility(!!value)}>
+                    {getColumnNameById(column.id, t)}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
       <div className={'mt-2 mx-2 flex justify-center overflow-y-auto'}>
         <div className="w-full">
           <div className="rounded-md border">

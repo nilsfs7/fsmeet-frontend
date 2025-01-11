@@ -27,6 +27,10 @@ interface IPollEditorProps {
 const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   const t = useTranslations('global/components/poll-editor');
 
+  const QUESTION_MAX_LENGTH = 100;
+  const DESCRIPTION_MAX_LENGTH = 1000;
+  const OPTION_MAX_LENGTH = 100;
+
   const [question, setQuestion] = useState(poll?.question || '');
   const [description, setDescription] = useState(poll?.description || '');
   const [options, setOptions] = useState(
@@ -38,16 +42,20 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   const [deadline, setDeadline] = useState<string>(poll?.deadline ? poll.deadline : moment().endOf('day').add(3, 'month').utc().format());
   const [targetGroup, setTargetGroup] = useState<TargetGroup>({ country: null, maxAge: null });
 
-  const INPUT_MAX_LENGTH = 100;
-
   const handleQuestionUpdated = async (value: string) => {
-    if (value.length <= INPUT_MAX_LENGTH) {
+    if (value.length <= QUESTION_MAX_LENGTH) {
       setQuestion(value);
     }
   };
 
+  const handleDescriptionUpdated = async (value: string) => {
+    if (value.length <= DESCRIPTION_MAX_LENGTH) {
+      setDescription(value);
+    }
+  };
+
   const handleOptionUpdated = async (value: string, index: number) => {
-    if (value.length <= INPUT_MAX_LENGTH) {
+    if (value.length <= OPTION_MAX_LENGTH) {
       const newArray = Array.from(options);
       newArray[index] = value;
       setOptions(newArray);
@@ -111,6 +119,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         label={t('inputQuestion')}
         placeholder="Did you land PATW?"
         value={question}
+        maxInputLength={QUESTION_MAX_LENGTH}
         resizable={true}
         onChange={e => {
           handleQuestionUpdated(e.currentTarget.value);
@@ -120,11 +129,12 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
       <TextInputLarge
         id={'description'}
         label={t('inputDescription')}
-        placeholder="Provide some context for your question (optional)"
+        placeholder="Provide some context for your question"
         value={description}
+        maxInputLength={DESCRIPTION_MAX_LENGTH}
         resizable={true}
         onChange={e => {
-          setDescription(e.currentTarget.value);
+          handleDescriptionUpdated(e.currentTarget.value);
         }}
       />
 
@@ -136,6 +146,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
             label={`${t('inputOption')} ${i + 1}`}
             placeholder={`...`}
             value={option}
+            maxInputLength={OPTION_MAX_LENGTH}
             onChange={e => {
               handleOptionUpdated(e.currentTarget.value, i);
             }}
