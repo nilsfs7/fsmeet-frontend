@@ -425,18 +425,6 @@
     "carouselBtnVotingExcluded": "Ausgeschlossen",
     "carouselTotalVotes": "Stimmen gesamt",
     "carouselDlgPollDescription": "Beschreibung",
-    "cbColumns": "Spalten",
-    "tblColumnUsername": "Nutzer",
-    "tblColumnName": "Fragesteller",
-    "tblColumnQuestion": "Frage",
-    "tblCreationDate": "Veröffentlicht",
-    "tblCreationDateDays": "Tage",
-    "tblCreationDateToday": "heute",
-    "tblTotalRatingScore": "Wertung",
-    "tblNoData": "Keine Daten",
-    "navCurrentPage1": "Seite",
-    "navCurrentPage2": "von",
-    "navRowsPerPage": "Zeilen pro Seite",
     "btnManagePolls": "Meine Umfragen"
   },
   "/voice/manage": {
@@ -518,6 +506,24 @@
     "dateDeadline": "Deadline",
     "sectionTargetGroup": "Zielgruppe",
     "cbCountry": "Land"
+  },
+  "global/components/poll-list": {
+    "dlgAccountDeletePollTitle": "Umfrage löschen",
+    "dlgAccountDeletePollText": "Bist du sicher?",
+    "inputSearchPlaceholder": "Suche Frage...",
+    "cbColumns": "Spalten",
+    "tblColumnHeaderActions": "Bearbeiten",
+    "tblColumnHeaderUsername": "Nutzer",
+    "tblColumnHeaderName": "Fragesteller",
+    "tblColumnHeaderQuestion": "Frage",
+    "tblColumnHeaderCreationDate": "Veröffentlicht",
+    "tblCreationDateDays": "Tage",
+    "tblCreationDateToday": "heute",
+    "tblColumnHeaderTotalRatingScore": "Wertung",
+    "tblNoData": "Keine Daten",
+    "navCurrentPage1": "Seite",
+    "navCurrentPage2": "von",
+    "navRowsPerPage": "Zeilen pro Seite"
   },
   "global/components/profile-menu": {
     "login": "Anmelden",

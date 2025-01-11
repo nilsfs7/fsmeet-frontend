@@ -425,18 +425,6 @@
     "carouselBtnVotingExcluded": "Excluded",
     "carouselTotalVotes": "Total votes",
     "carouselDlgPollDescription": "Description",
-    "cbColumns": "Columns",
-    "tblColumnUsername": "User",
-    "tblColumnName": "Questioner",
-    "tblColumnQuestion": "Question",
-    "tblCreationDate": "Published",
-    "tblCreationDateDays": "days",
-    "tblCreationDateToday": "today",
-    "tblTotalRatingScore": "Score",
-    "tblNoData": "No data",
-    "navCurrentPage1": "Page",
-    "navCurrentPage2": "of",
-    "navRowsPerPage": "Rows per page",
     "btnManagePolls": "My Polls"
   },
   "/voice/manage": {
@@ -518,6 +506,24 @@
     "dateDeadline": "Deadline",
     "sectionTargetGroup": "Target group",
     "cbCountry": "Country"
+  },
+  "global/components/poll-list": {
+    "dlgAccountDeletePollTitle": "Delete poll",
+    "dlgAccountDeletePollText": "Are you sure?",
+    "inputSearchPlaceholder": "Search poll...",
+    "cbColumns": "Columns",
+    "tblColumnHeaderActions": "Edit",
+    "tblColumnHeaderUsername": "User",
+    "tblColumnHeaderName": "Questioner",
+    "tblColumnHeaderQuestion": "Question",
+    "tblColumnHeaderCreationDate": "Published",
+    "tblCreationDateDays": "days",
+    "tblCreationDateToday": "today",
+    "tblColumnHeaderTotalRatingScore": "Score",
+    "tblNoData": "No data",
+    "navCurrentPage1": "Page",
+    "navCurrentPage2": "of",
+    "navRowsPerPage": "Rows per page"
   },
   "global/components/profile-menu": {
     "login": "Login",

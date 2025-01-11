@@ -58,23 +58,12 @@ export default async function Home() {
             </div>
           </Link>
 
-          {(session?.user.username === 'nils' ||
-            session?.user.username === 'samu' ||
-            session?.user.username === 'ben' ||
-            session?.user.username === 'kevin' ||
-            session?.user.username === 'sera' ||
-            session?.user.username === 'maja' ||
-            session?.user.username === 'jakim' ||
-            session?.user.username === 'jule' ||
-            session?.user.username === 'hus089' ||
-            session?.user.username === 'ricardo_rehlaender') && (
-            <Link href={routeVoice}>
-              <div className="flex flex-col md:flex-row items-center gap-1">
-                <img src={imgMegaphone} className="h-8 w-8 rounded-full object-cover" />
-                <div>{t('navVoice')}</div>
-              </div>
-            </Link>
-          )}
+          <Link href={routeVoice}>
+            <div className="flex flex-col md:flex-row items-center gap-1">
+              <img src={imgMegaphone} className="h-8 w-8 rounded-full object-cover" />
+              <div>{t('navVoice')}</div>
+            </div>
+          </Link>
         </div>
 
         {session?.user?.username === TechnicalUser.ADMIN && (
