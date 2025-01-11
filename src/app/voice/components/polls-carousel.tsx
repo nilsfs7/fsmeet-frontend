@@ -297,7 +297,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                       )}
                     </div>
 
-                    <h1 className="flex items-center gap-2 mt-2 text-2xl break-words">{polls[i].question}</h1>
+                    <h1 className="flex items-center gap-2 mt-2 text-xl break-words">{polls[i].question}</h1>
                   </div>
 
                   <div className="mt-2 max-h-full justify-center px-1">
