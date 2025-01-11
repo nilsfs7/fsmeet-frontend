@@ -500,7 +500,7 @@
   },
   "global/components/poll-editor": {
     "inputQuestion": "Question",
-    "inputDescription": "Description / Contexte",
+    "inputDescription": "Contexte (facultatif)",
     "inputOption": "Option",
     "chbDeadlineEnabled": "Date limite activée",
     "dateDeadline": "Date limite",
