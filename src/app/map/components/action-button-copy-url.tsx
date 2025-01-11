@@ -6,7 +6,7 @@ import { copyToClipboard } from '@/functions/copy-to-clipboard';
 import { Toaster, toast } from 'sonner';
 
 export const ActionButtonCopyUrl = () => {
-  const handleShareClicked = async () => {
+  const handleCopyClicked = async () => {
     copyToClipboard(window.location.toString());
     toast.info('Map URL copied to clipboard.');
   };
@@ -14,8 +14,7 @@ export const ActionButtonCopyUrl = () => {
   return (
     <>
       <Toaster richColors />
-
-      <ActionButton action={Action.COPY} onClick={handleShareClicked} />
+      <ActionButton action={Action.SHARE} onClick={handleCopyClicked} />
     </>
   );
 };

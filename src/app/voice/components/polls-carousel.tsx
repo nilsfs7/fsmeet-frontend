@@ -36,7 +36,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const focus = searchParams?.get('select');
+  const selectedPollId = searchParams?.get('select') || '';
 
   const [polls, setPolls] = useState<Poll[]>(initPolls);
   const [myVotes, setMyVotes] = useState<Vote[]>([]);
@@ -47,6 +47,17 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
   const [smallArrowUp, setSmallArrowUp] = useState<boolean>(false);
 
   const [api, setApi] = useState<CarouselApi>();
+
+  const getPollIndexById = (id: string): number => {
+    const index = polls.findIndex(p => {
+      return p.id === id;
+    });
+
+    // fail save in case index is not found
+    if (index === -1) return 0;
+
+    return index;
+  };
 
   const updatePolls = (poll: Poll) => {
     let plls = Array.from(polls);
@@ -221,12 +232,12 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
     }
   }
 
-  const handleShowContextClicked = async (pollId: number) => {
+  const handleShowContextClicked = async (pollId: string) => {
     router.replace(`${routeVoice}?select=${pollId}&context=1`);
   };
 
   const handleConfirmDialogClicked = async () => {
-    if (focus) router.replace(`${routeVoice}?select=${+focus}`);
+    router.replace(`${routeVoice}?select=${selectedPollId}`);
   };
 
   useEffect(() => {
@@ -242,10 +253,10 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
   }, [session]);
 
   useEffect(() => {
-    if (focus) {
-      scrollToItem(+focus);
+    if (selectedPollId) {
+      scrollToItem(getPollIndexById(selectedPollId));
     }
-  }, [focus, api]);
+  }, [selectedPollId, api]);
 
   useEffect(() => {
     if (!api) {
@@ -253,19 +264,16 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
     }
 
     api.on('select', () => {
-      const url = `voice?select=${api.selectedScrollSnap()}`;
-      router.replace(url);
+      router.replace(`voice?select=${polls[api.selectedScrollSnap()].id}`);
     });
   }, [api]);
 
   return (
     <>
       <Toaster richColors />
-
       <Dialog title={t('carouselDlgPollDescription')} queryParam="context" onConfirm={handleConfirmDialogClicked}>
-        {focus && <TextareaAutosize readOnly className="resize-none overflow-hidden outline-none" value={polls[+focus].description} />}
+        <TextareaAutosize readOnly className="resize-none overflow-hidden outline-none" value={polls[getPollIndexById(selectedPollId)].description} />
       </Dialog>
-
       <div className="w-full max-w-xl min-h-10 flex justify-center">
         {polls.length === 0 && <div>{t('carouselNoData')}</div>}
 
@@ -289,7 +297,8 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                         <button
                           className="h-8"
                           onClick={() => {
-                            handleShowContextClicked(i);
+                            const id = polls[i].id;
+                            if (id) handleShowContextClicked(id);
                           }}
                         >
                           <img src={imgAbout} className="h-6 w-6 hover:w-7 hover:h-7 rounded-full object-cover" />

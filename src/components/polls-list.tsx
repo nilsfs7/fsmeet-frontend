@@ -59,7 +59,7 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const focus = searchParams?.get('select');
+  const selectedPollId = searchParams?.get('select');
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -84,27 +84,27 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
     return name;
   };
 
-  const handlePollClicked = async (index: number) => {
-    router.replace(`${window.location.pathname}?select=${index}`);
+  const handlePollClicked = async (pollId: string) => {
+    router.replace(`${window.location.pathname}?select=${pollId}`);
   };
 
-  const handleDeletePollClicked = async (index: number) => {
+  const handleDeletePollClicked = async (pollId: string) => {
     await new Promise(resolve => setTimeout(resolve, 50)); // TODO: find better solution. delaying because handlePollClicked() modifies url, too
 
-    const url = `${window.location.pathname}?select=${index}&delete=1`;
+    const url = `${window.location.pathname}?select=${pollId}&delete=1`;
     router.replace(url);
   };
 
   const handleCancelDialogClicked = async () => {
-    if (focus) {
-      router.replace(`${window.location.pathname}?select=${+focus}`);
+    if (selectedPollId) {
+      router.replace(`${window.location.pathname}?select=${selectedPollId}`);
     }
   };
 
   const handleConfirmDeletePollClicked = async () => {
-    if (focus) {
+    if (selectedPollId) {
       try {
-        await deletePoll(columnData[+focus].pollId, session);
+        await deletePoll(selectedPollId, session);
         router.refresh();
       } catch (error: any) {
         toast.error(error.message);
@@ -217,7 +217,7 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
         <ActionButton
           action={Action.DELETE} // todo: change to Action.EDIT and add context to edit poll
           onClick={() => {
-            handleDeletePollClicked(row.index);
+            handleDeletePollClicked(columnData[row.index].pollId);
           }}
         />
       ),
@@ -309,7 +309,7 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
                       onClick={() => {
-                        handlePollClicked(rowIndex);
+                        handlePollClicked(columnData[rowIndex].pollId);
                       }}
                     >
                       {row.getVisibleCells().map(cell => (

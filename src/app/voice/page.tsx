@@ -13,6 +13,7 @@ import { ColumnInfo, PollsList } from '../../components/polls-list';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { auth } from '@/auth';
 import { User } from '@/types/user';
+import { ActionButtonCopyPollUrl } from './components/action-button-copy-poll-url';
 
 export default async function Voice() {
   const t = await getTranslations('/voice');
@@ -61,9 +62,13 @@ export default async function Voice() {
           <ActionButton action={Action.BACK} />
         </Link>
 
-        <Link href={routeVoiceManage}>
-          <TextButton text={t('btnManagePolls')} />
-        </Link>
+        <div className="flex justify-end gap-1">
+          <ActionButtonCopyPollUrl />
+
+          <Link href={routeVoiceManage}>
+            <TextButton text={t('btnManagePolls')} />
+          </Link>
+        </div>
       </Navigation>
     </div>
   );
