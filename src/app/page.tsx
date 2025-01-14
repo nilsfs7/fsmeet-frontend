@@ -5,14 +5,14 @@ import { Event } from '@/types/event';
 import { Header } from '@/components/Header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
 import TextButton from '@/components/common/TextButton';
-import { routeAbout, routeAdminOverview, routeEvents, routeMap, routeUsers, routeVoice } from '@/domain/constants/routes';
+import { routeAbout, routeAdminOverview, routeEvents, routeEventsCreate, routeHome, routeMap, routeUsers, routeVoice } from '@/domain/constants/routes';
 import { TechnicalUser } from '@/domain/enums/technical-user';
 import { auth } from '@/auth';
 import { EventsCarousel } from './components/events-carousel';
 import { getTranslations } from 'next-intl/server';
 
 export default async function Home() {
-  const t = await getTranslations('/');
+  const t = await getTranslations(routeHome);
   const session = await auth();
 
   let upcomingEvents: Event[] = await getEventsUpcoming(1);
@@ -30,8 +30,11 @@ export default async function Home() {
       </div>
 
       <div className="flex max-h-full flex-col overflow-y-auto">
-        {/* Show all */}
-        <div className="m-2 mt-6 flex flex-shrink-0 justify-center">
+        <div className="m-2 mt-6 flex flex-shrink-0 justify-center gap-2">
+          <Link href={routeEventsCreate}>
+            <TextButton text={t('btnCreateEvent')} />
+          </Link>
+
           <Link href={routeEvents}>
             <TextButton text={t('btnShowAllEvents')} />
           </Link>

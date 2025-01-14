@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode } from 'jwt-decode';
-import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, routeVoiceCreatePoll, routeVoiceManage } from './domain/constants/routes';
+import { routeAccount, routeEventsCreate, routeEventSubs, routeFeedback, routeHome, routeLogin, routeVoiceCreatePoll, routeVoiceManage } from './domain/constants/routes';
 import { TechnicalUser } from './domain/enums/technical-user';
 
 const credentialsConfig = CredentialsProvider({
@@ -55,6 +55,7 @@ const config = {
         pathname.startsWith(routeAccount) ||
         pathname.startsWith(routeFeedback) ||
         pathname.startsWith(routeEventSubs) ||
+        pathname.startsWith(routeEventsCreate) ||
         pathname.startsWith(routeVoiceManage) ||
         pathname.startsWith(routeVoiceCreatePoll)
       ) {

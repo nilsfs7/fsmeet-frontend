@@ -2,6 +2,7 @@
   "/": {
     "pageTitle": "I tuoi eventi Freestyle",
     "slogan": "Plan | Compete | Connect",
+    "btnCreateEvent": "Create Event",
     "btnShowAllEvents": "Show All",
     "carouselCurrentEvent": "Ongoing Event",
     "carouselRecentEvent": "Recent Event",

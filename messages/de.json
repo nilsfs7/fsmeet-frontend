@@ -2,7 +2,8 @@
   "/": {
     "pageTitle": "Deine Freestyle Events",
     "slogan": "Plan | Compete | Connect",
-    "btnShowAllEvents": "Alle Anzeigen",
+    "btnCreateEvent": "Event erstellen",
+    "btnShowAllEvents": "Alle anzeigen",
     "carouselCurrentEvent": "Laufendes Event",
     "carouselRecentEvent": "Letztes Event",
     "carouselUpcomingEvent": "Anstehendes Event",
@@ -315,7 +316,7 @@
     "tabRegistrationsTextNoEvents": "Du hast dich noch für kein Event angemeldet.",
     "tabEventsHostedTitle": "Meine Events",
     "tabEventsHostedTextNoEvents": "Du hast noch kein Event erstellt.",
-    "btnCreate": "Erstelle Event"
+    "btnCreate": "Event erstellen"
   },
   "/feedback": {
     "pageGeneralFeedback": "Feedback",
