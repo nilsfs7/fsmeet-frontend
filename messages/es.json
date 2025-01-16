@@ -2,7 +2,8 @@
   "/": {
     "pageTitle": "Tus eventos de Freestyle",
     "slogan": "Planificar | Competir | Conectar",
-    "btnShowAllEvents": "Todas las pantallas",
+    "btnCreateEvent": "Crear evento",
+    "btnShowAllEvents": "Mostrar todo",
     "carouselCurrentEvent": "Evento actual",
     "carouselRecentEvent": "Último evento",
     "carouselUpcomingEvent": "Próximo evento",

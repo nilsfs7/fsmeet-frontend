@@ -2,6 +2,7 @@
   "/": {
     "pageTitle": "Tes événements de Freestyle",
     "slogan": "Organise | Participe | Connecte-toi",
+    "btnCreateEvent": "Créer événement",
     "btnShowAllEvents": "Montrer tout",
     "carouselCurrentEvent": "Évenement en cours",
     "carouselRecentEvent": "Évenement récents",
