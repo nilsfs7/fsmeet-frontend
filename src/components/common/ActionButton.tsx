@@ -8,6 +8,7 @@ import CommentIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PaidIcon from '@mui/icons-material/Paid';
 import PeopleIcon from '@mui/icons-material/PeopleAlt';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
@@ -93,6 +94,12 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
     case Action.EDIT:
       icon = <EditIcon className={className} />;
       break;
+    case Action.GOTOMAP:
+      icon = <img src={imgWorld} className={className} />;
+      break;
+    case Action.GOTOEXTERNAL:
+      icon = <OpenInNewIcon />;
+      break;
     case Action.HIDE:
       icon = <VisibilityOffIcon className={className} />;
       break;
@@ -119,9 +126,6 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
       break;
     case Action.SHOW:
       icon = <VisibilityIcon className={className} />;
-      break;
-    case Action.GOTOMAP:
-      icon = <img src={imgWorld} className={className} />;
       break;
   }
 
