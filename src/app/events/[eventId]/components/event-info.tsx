@@ -11,6 +11,8 @@ import { EventType } from '@/domain/enums/event-type';
 import { User } from '@/types/user';
 import UserCard from '../../../../components/user/UserCard';
 import { useTranslations } from 'next-intl';
+import ActionButton from '@/components/common/ActionButton';
+import { Action } from '@/domain/enums/action';
 
 interface IEventProps {
   event: Event;
@@ -121,10 +123,8 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
           />
           {showMap && (
             <div className="mt-2 flex w-full justify-center">
-              <div className="w-full max-w-xl rounded-lg border border-secondary-dark hover:border-primary">
-                <div className="aspect-square w-full">
-                  <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
-                </div>
+              <div className="w-full max-h-[60vh] aspect-square rounded-lg border border-secondary-dark hover:border-primary">
+                <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
               </div>
             </div>
           )}
