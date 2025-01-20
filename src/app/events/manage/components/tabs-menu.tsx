@@ -78,7 +78,7 @@ export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: 
         </TabsContent>
 
         <TabsContent value="myevents" className="overflow-y-auto">
-          {eventsOwning.length === 0 && <div className="flex justify-center">{t('tabEventsHostedTextNoEvents')}</div>}
+          {eventsOwning.length === 0 && eventsMaintaining.length === 0 && <div className="flex justify-center">{t('tabEventsHostedTextNoEvents')}</div>}
 
           {eventsOwning.map((event, i: number) => {
             return (
@@ -93,7 +93,7 @@ export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: 
           {eventsMaintaining.map((event, i: number) => {
             if (!isEventAdmin(event, session))
               return (
-                <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                <div key={i.toString()} className={i == 0 && eventsOwning.length === 0 ? '' : `mt-2`}>
                   <Link href={`${routeEvents}/${event.id}`}>
                     <EventCard event={event} />
                   </Link>
