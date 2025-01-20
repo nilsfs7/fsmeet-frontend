@@ -56,7 +56,7 @@
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-country-flag": "^3.1.0",
-    "react-currency-input-field": "^3.6.14",
+    "react-currency-input-field": "^3.9.0",
     "react-day-picker": "8.10.1",
     "react-dom": "^18.3.1",
     "react-tabs": "^6.0.2",
