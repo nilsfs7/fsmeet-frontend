@@ -34,10 +34,7 @@ export const ActionButtonDownloadResults = ({ event, comp, rounds_plain }: IActi
 
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [exportContainsPlayerNames, setExportContainsPlayerNames] = useState<boolean>(false);
-
-  const rounds = rounds_plain.map(r => {
-    return plainToInstance(Round, r);
-  });
+  const [rounds, setRounds] = useState<Round[]>([]);
 
   const handleCancelDialogClicked = async () => {
     router.replace(`${routeEvents}/${event.id}/comps/${comp.id}`);
@@ -86,6 +83,7 @@ export const ActionButtonDownloadResults = ({ event, comp, rounds_plain }: IActi
     for (let i = 0; i < rounds.length; i++) {
       const round = rounds[i];
       const matches = round.matchesAscending;
+
       for (let j = 0; j < matches.length; j++) {
         const match = matches[j];
         checkValueAmountMatches += getAmountDirectComparisonsOfMatch(match.matchSlots);
@@ -163,9 +161,18 @@ export const ActionButtonDownloadResults = ({ event, comp, rounds_plain }: IActi
   };
 
   useEffect(() => {
+    const rounds = rounds_plain.map(r => {
+      return plainToInstance(Round, r);
+    });
+
+    setRounds(rounds);
+  }, [rounds_plain]);
+
+  useEffect(() => {
     const getUsers = async () => {
       const usersMap = new Map();
       const requests: Promise<void>[] = [];
+
       rounds.map(round => {
         round.matches.map(match => {
           match.matchSlots.map(slot => {

@@ -23,6 +23,8 @@ import UserSection from '@/components/events/UserSection';
 import { Switch } from '@/components/ui/switch';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { UserType } from '@/domain/enums/user-type';
+import ComboBox from '@/components/common/ComboBox';
+import { MenuItem } from '@/types/menu-item';
 
 interface ITabsMenu {
   comp: Competition;
@@ -39,9 +41,11 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
   const tab = searchParams?.get('tab');
 
   const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
+  const [participantsMenu, setParticipantsMenu] = useState<MenuItem[]>([]);
   const [rounds, setRounds] = useState<Round[]>();
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
-  const [filteredByUser, setFilteredByUser] = useState<string | null>(null);
+  const [filteredByUser, setFilteredByUser] = useState<string>();
+  const [showMyBattlesOnlyEnabled, setShowMyBattlesOnlyEnabled] = useState<boolean>(false);
 
   useEffect(() => {
     if (comp.eventId && comp.id) {
@@ -52,7 +56,10 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
           // @ts-ignore
           const participants = await getCompetitionParticipants(comp.id);
 
-          const compParticipants = participants.map(participant => {
+          const compParticipants: User[] = [];
+          const participantsMenu: MenuItem[] = [{ text: t('tabScheduleComboBoxParticipantFilterItemUnselected'), value: '' }];
+
+          participants.map(participant => {
             const user: User = {
               username: participant.username,
               type: UserType.FREESTYLER,
@@ -60,11 +67,16 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
               lastName: participant.lastName,
               imageUrl: participant.imageUrl,
             };
+            compParticipants.push(user);
+
+            const participantMenuItem: MenuItem = { text: user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`, value: user.username };
+            participantsMenu.push(participantMenuItem);
 
             return user;
           });
 
           setCompetitionParticipants(compParticipants);
+          setParticipantsMenu(participantsMenu);
         })
         .catch(() => {
           router.push(routeEventNotFound);
@@ -165,15 +177,34 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
         {/* Schedule */}
         {rounds.length > 0 && (
           <TabsContent value="schedule" className="overflow-hidden overflow-y-auto">
-            {session?.user?.username && usersMap.get(session.user.username) && rounds.length > 1 && (
-              <div className="flex justify-center gap-2 p-2">
-                {t('tabScheduleSwitchMyBattlesOnly')}
-                <Switch
-                  defaultChecked={filteredByUser !== null}
-                  onCheckedChange={checked => {
-                    checked ? setFilteredByUser(session.user.username) : setFilteredByUser(null);
+            {rounds.length > 1 && (
+              <div className="m-2 flex flex-col items-center justify-center gap-4">
+                <ComboBox
+                  menus={participantsMenu}
+                  value={filteredByUser || ''}
+                  label={t('tabScheduleComboBoxParticipantFilterLabel')}
+                  searchEnabled={true}
+                  onChange={(value: any) => {
+                    setFilteredByUser(value);
+
+                    if (value !== session?.user?.username) {
+                      setShowMyBattlesOnlyEnabled(false);
+                    }
                   }}
                 />
+
+                {session?.user?.username && usersMap.get(session.user.username) && rounds.length > 1 && (
+                  <div className="mb-2 flex items-center gap-2">
+                    {t('tabScheduleSwitchMyBattlesOnly')}
+                    <Switch
+                      checked={showMyBattlesOnlyEnabled}
+                      onCheckedChange={checked => {
+                        setShowMyBattlesOnlyEnabled(checked);
+                        checked ? setFilteredByUser(session.user.username) : setFilteredByUser('');
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             )}
 
