@@ -33,6 +33,6 @@ export type User = {
   jobOfferWorkshops?: boolean;
   jobShowExperience?: ShowExperience;
   phoneCountryCode?: number;
-  phoneNumber?: number;
+  phoneNumber?: number | null;
   wffaId?: string;
 };
