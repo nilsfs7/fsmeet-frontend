@@ -13,7 +13,6 @@ interface IMapProps {
 
 const Map = ({ address }: IMapProps) => {
   const mapRef = useRef(null);
-  // const geocoder = useMemo(() => new window.google.maps.Geocoder(), []);
   const [map, setMap] = useState(null);
 
   useEffect(() => {
