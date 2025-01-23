@@ -214,12 +214,16 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const handlePhoneNumberChanged = (value: string) => {
     const regex = new RegExp('^[0-9]+$');
 
-    if (regex.test(value)) {
-      const newUserInfo = Object.assign({}, userInfo);
+    const newUserInfo = Object.assign({}, userInfo);
+
+    if (value === '') {
+      newUserInfo.phoneNumber = null;
+    } else if (regex.test(value)) {
       newUserInfo.phoneNumber = +value;
-      setUserInfo(newUserInfo);
-      cacheUserInfo(newUserInfo);
     }
+
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
   };
 
   const cacheUserInfo = async (userInfo: User) => {
@@ -767,7 +771,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                     labelOnTop={false}
                     type="tel"
                     placeholder="1516 123456"
-                    value={userInfo.phoneNumber?.toString()}
+                    value={userInfo.phoneNumber ? userInfo.phoneNumber.toString() : ''}
                     onChange={e => {
                       handlePhoneNumberChanged(e.currentTarget.value);
                     }}
