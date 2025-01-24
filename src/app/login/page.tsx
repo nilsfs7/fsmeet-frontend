@@ -5,12 +5,10 @@ import { routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 
-export default async function Page(props: { searchParams: Promise<{ callbackUrl: string }> }) {
-  const searchParams = await props.searchParams;
-
+export default async function Page() {
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
-      <LoginForm redirectUrl={searchParams.callbackUrl} />;
+      <LoginForm />;
       <Navigation>
         <Link href={routeHome}>
           <ActionButton action={Action.BACK} />

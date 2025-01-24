@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { loginUserWithCredentials } from '@/app/actions/authentication';
 import Link from 'next/link';
 import { routeHome, routePasswordForgot, routeRegistration } from '@/domain/constants/routes';
@@ -11,12 +11,11 @@ import { Toaster, toast } from 'sonner';
 import { getSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
-interface ILoginFormProps {
-  redirectUrl?: string;
-}
-
-export const LoginForm = ({ redirectUrl }: ILoginFormProps) => {
+export const LoginForm = () => {
   const t = useTranslations('/login');
+
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams?.get('callbackUrl');
 
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -50,7 +49,7 @@ export const LoginForm = ({ redirectUrl }: ILoginFormProps) => {
             localStorage.setItem('imageUrl', session.user.imageUrl);
           }
 
-          router.replace(redirectUrl ? redirectUrl : routeHome);
+          router.replace(callbackUrl ? callbackUrl : routeHome);
         }
         break;
 
@@ -79,7 +78,7 @@ export const LoginForm = ({ redirectUrl }: ILoginFormProps) => {
               label={t('inputUsername')}
               placeholder="max"
               value={usernameOrEmail}
-              onChange={(e) => {
+              onChange={e => {
                 handleInputChangeUsernameOrEmail(e);
               }}
             />
@@ -88,7 +87,7 @@ export const LoginForm = ({ redirectUrl }: ILoginFormProps) => {
               type={'password'}
               label={t('inputPassword')}
               placeholder="Ball&Chill2021"
-              onChange={(e) => {
+              onChange={e => {
                 handleInputChangePassword(e);
               }}
               onKeyDown={handleInputKeypressPassword}
