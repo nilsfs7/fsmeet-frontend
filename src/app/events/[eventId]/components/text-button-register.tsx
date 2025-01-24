@@ -27,6 +27,8 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
   const { data: session } = useSession();
   const router = useRouter();
 
+  const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`;
+
   const registrationStatus: string =
     event.eventRegistrations.filter(registration => {
       if (registration.user.username === session?.user.username) {
@@ -41,7 +43,7 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
 
   const handleRegistrationClicked = async () => {
     if (!validateSession(session)) {
-      router.push(routeLogin);
+      router.push(loginRouteWithCallbackUrl);
       return;
     }
 
@@ -54,7 +56,7 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
 
   const handleConfirmRegisterClicked = async () => {
     if (!validateSession(session)) {
-      router.push(routeLogin);
+      router.push(loginRouteWithCallbackUrl);
       return;
     }
 
@@ -74,7 +76,7 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
 
   const handleConfirmUnregisterClicked = async () => {
     if (!validateSession(session)) {
-      router.push(routeLogin);
+      router.push(loginRouteWithCallbackUrl);
       return;
     }
 
@@ -95,7 +97,7 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
 
   const handleUnregisterClicked = async () => {
     if (!validateSession(session)) {
-      router.push(routeLogin);
+      router.push(loginRouteWithCallbackUrl);
       return;
     }
 

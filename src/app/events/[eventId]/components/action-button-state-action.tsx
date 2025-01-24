@@ -25,6 +25,8 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
   const { data: session } = useSession();
   const router = useRouter();
 
+  const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`;
+
   const handleCancelDialogClicked = async () => {
     let url = `${routeEvents}/${event.id}`;
     router.replace(url);
@@ -32,7 +34,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
 
   const handleStateActionClicked = async () => {
     if (!validateSession(session)) {
-      router.push(routeLogin);
+      router.push(loginRouteWithCallbackUrl);
       return;
     }
 
@@ -41,7 +43,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
 
   const handleSendToReviewClicked = async () => {
     if (!validateSession(session)) {
-      router.push(routeLogin);
+      router.push(loginRouteWithCallbackUrl);
       return;
     }
 

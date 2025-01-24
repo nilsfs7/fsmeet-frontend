@@ -8,7 +8,7 @@ import { Toaster } from 'sonner';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { switchTab } from '@/functions/switch-tab';
 import UserSection from '@/components/events/UserSection';
-import { routeLogin } from '@/domain/constants/routes';
+import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import { EventRegistration } from '@/types/event-registration';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/animation/loading-spinner';
@@ -55,9 +55,11 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
   const [eventAdmin, setEventAdmin] = useState<User>();
   const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
 
+  const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`;
+
   const handlePostCommentClicked = async (message: string) => {
     if (!validateSession(session)) {
-      router.push(routeLogin);
+      router.push(loginRouteWithCallbackUrl);
       return;
     }
 
@@ -73,7 +75,7 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
 
   const handlePostSubCommentClicked = async (commentId: string, message: string) => {
     if (!validateSession(session)) {
-      router.push(routeLogin);
+      router.push(loginRouteWithCallbackUrl);
       return;
     }
 

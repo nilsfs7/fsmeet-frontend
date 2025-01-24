@@ -9,11 +9,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession } from 'next-auth/react';
 import { User } from '@/types/user';
 import { Toaster, toast } from 'sonner';
-import { routeAccount, routeAccountDeleted, routeHome, routeLogin, routeMap } from '@/domain/constants/routes';
+import { routeAccount, routeAccountDeleted, routeHome, routeMap } from '@/domain/constants/routes';
 import { copyToClipboard } from '@/functions/copy-to-clipboard';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { logoutUser } from '../../actions/authentication';
-import { validateSession } from '@/functions/validate-session';
 import TextInput from '@/components/common/TextInput';
 import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/functions/get-placeholder-by-user-type';
@@ -320,20 +319,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   };
 
   const handleVerificationRequestClicked = async () => {
-    if (!validateSession(session)) {
-      router.push(routeLogin);
-      return;
-    }
-
     router.replace(`${routeAccount}?tab=account&verification=1`);
   };
 
   const handleConfirmSendVerificationRequestClicked = async () => {
-    if (!validateSession(session)) {
-      router.push(routeLogin);
-      return;
-    }
-
     try {
       await updateUserVerificationState(session, session?.user?.username || '', UserVerificationState.VERIFICATION_PENDING);
       toast.success('Requesting verification successful.');

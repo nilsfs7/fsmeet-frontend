@@ -43,7 +43,7 @@ const EventCard = ({ event }: IEventProps) => {
       <div className="flex h-20 p-2">
         <p className="h-full w-2/3 overflow-hidden text-ellipsis">{event.description}</p>
         <div className="flex h-full w-1/3 items-center justify-end">
-          <img className="h-full" src={event.type === EventType.MEETING ? imgMeeting : imgCompetition} alt={'event image'}></img>
+          <img className="h-full" src={event.type === EventType.MEETING ? imgMeeting : imgCompetition} alt={'event image'} />
         </div>
       </div>
     </div>
