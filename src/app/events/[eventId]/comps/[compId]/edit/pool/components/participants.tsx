@@ -3,12 +3,10 @@
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import ActionButton from '@/components/common/ActionButton';
 import UserCard from '@/components/user/UserCard';
-import { routeLogin } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { CompetitionGender } from '@/domain/enums/competition-gender';
 import { MaxAge } from '@/domain/enums/max-age';
 import { UserType } from '@/domain/enums/user-type';
-import { validateSession } from '@/functions/validate-session';
 import { createCompetitionParticipation, deleteCompetitionParticipation, getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 import { getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { Competition } from '@/types/competition';
@@ -33,17 +31,12 @@ export const Participants = ({ competition }: IParticipants) => {
   const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>();
 
   const handleRemoveParticipantClicked = async (compId: string, username: string) => {
-    if (!validateSession(session)) {
-      router.push(routeLogin);
-      return;
-    }
-
     if (competitionParticipants) {
       try {
         await deleteCompetitionParticipation(compId, username, session);
 
         let newArray = Array.from(competitionParticipants);
-        newArray = newArray.filter((registration) => {
+        newArray = newArray.filter(registration => {
           return registration.username != username;
         });
         setCompetitionParticipants(newArray);
@@ -57,11 +50,6 @@ export const Participants = ({ competition }: IParticipants) => {
   };
 
   const handleAddParticipantClicked = async (compId: string, username: string) => {
-    if (!validateSession(session)) {
-      router.push(routeLogin);
-      return;
-    }
-
     if (competitionParticipants) {
       try {
         await createCompetitionParticipation(compId, username, session);
@@ -84,7 +72,7 @@ export const Participants = ({ competition }: IParticipants) => {
         let registrations = await getEventRegistrations(competition.eventId);
 
         // remove non-freestylers
-        registrations = registrations.filter((registration) => {
+        registrations = registrations.filter(registration => {
           if (registration.user.type === UserType.FREESTYLER) {
             return registration;
           }
@@ -92,7 +80,7 @@ export const Participants = ({ competition }: IParticipants) => {
 
         // remove wrong gender
         if (competition.gender !== CompetitionGender.MIXED) {
-          registrations = registrations.filter((registration) => {
+          registrations = registrations.filter(registration => {
             if (registration.user.gender === competition.gender.toString()) {
               return registration;
             }
@@ -101,7 +89,7 @@ export const Participants = ({ competition }: IParticipants) => {
 
         // remove participants exceeding max age
         if (competition.maxAge !== MaxAge.NONE) {
-          registrations = registrations.filter((registration) => {
+          registrations = registrations.filter(registration => {
             if (!registration.user.age || registration.user.age <= competition.maxAge) {
               return registration;
             }
@@ -144,7 +132,7 @@ export const Participants = ({ competition }: IParticipants) => {
                 </div>
                 <div className="mx-1 flex w-1/2 justify-start">
                   <div className="flex">
-                    {competitionParticipants.some((e) => e.username === registration.user.username) && (
+                    {competitionParticipants.some(e => e.username === registration.user.username) && (
                       <>
                         <div className="flex h-full w-20 items-center justify-center">{t('btnAssigned')}</div>
                         <div className="ml-1">
@@ -158,7 +146,7 @@ export const Participants = ({ competition }: IParticipants) => {
                         </div>
                       </>
                     )}
-                    {!competitionParticipants.some((e) => e.username === registration.user.username) && (
+                    {!competitionParticipants.some(e => e.username === registration.user.username) && (
                       <>
                         <div className="flex h-full w-20 items-center justify-center">{t('btnUnassigned')}</div>
                         <div className="mx-1">

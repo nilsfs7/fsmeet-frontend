@@ -26,7 +26,7 @@ export default async function Home() {
       <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
         <div className="text-center text-3xl">{t('pageTitle')}</div>
         <div className="text-center text-xl">{t('slogan')}</div>
-        <img className="h-12 mt-2" src={imgFreestyler}></img>
+        <img className="h-12 mt-2" src={imgFreestyler} />
       </div>
 
       <div className="flex max-h-full flex-col overflow-y-auto">

@@ -6,9 +6,8 @@ import { useState } from 'react';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
-import { routeEvents, routeLogin } from '@/domain/constants/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import Dialog from '@/components/Dialog';
-import { validateSession } from '@/functions/validate-session';
 import { Toaster, toast } from 'sonner';
 import { deleteEventRegistration, updateEventRegistrationStatus } from '@/infrastructure/clients/event.client';
 import UserCard from '@/components/user/UserCard';
@@ -42,11 +41,6 @@ export const ParticipantsList = ({ event }: IParticipantsList) => {
   };
 
   const handleConfirmRemoveParticipantClicked = async (username: string) => {
-    if (!validateSession(session)) {
-      router.push(routeLogin);
-      return;
-    }
-
     if (event.id) {
       try {
         await deleteEventRegistration(event.id, username, session);
@@ -60,11 +54,6 @@ export const ParticipantsList = ({ event }: IParticipantsList) => {
   };
 
   const handleApproveParticipantClicked = async (username: string, status: EventRegistrationStatus) => {
-    if (!validateSession(session)) {
-      router.push(routeLogin);
-      return;
-    }
-
     if (event.id) {
       try {
         await updateEventRegistrationStatus(event.id, username, status, session);
