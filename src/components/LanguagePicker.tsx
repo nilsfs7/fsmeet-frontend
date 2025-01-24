@@ -18,7 +18,7 @@ const LanguagePicker = () => {
   // const menuItems = ['GB', 'FR', 'ES', 'IT', 'DE'];
 
   useEffect(() => {
-    const locale = getCookie('locale');
+    const locale = getCookie('locale')?.toString();
 
     if (locale) {
       setLocale(locale.toUpperCase() || 'GB');
