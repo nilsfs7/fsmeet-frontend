@@ -48,7 +48,7 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
   const [showMyBattlesOnlyEnabled, setShowMyBattlesOnlyEnabled] = useState<boolean>(false);
 
   useEffect(() => {
-    if (comp.eventId && comp.id) {
+    if (comp.eventId && comp.id && session) {
       let p: Promise<Event>;
 
       getEvent(comp.eventId, session)
