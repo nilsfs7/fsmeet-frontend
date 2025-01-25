@@ -11,9 +11,12 @@ import { ActionButtonDownloadResults } from './components/action-button-download
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { Event } from '@/types/event';
 import { Round } from '@/types/round';
+import { auth } from '@/auth';
 
 export default async function CompetitionDetails({ params }: { params: { eventId: string; compId: string } }) {
-  const event: Event = await getEvent(params.eventId);
+  const session = await auth();
+
+  const event: Event = await getEvent(params.eventId, session);
   const comp: Competition = await getCompetition(params.compId);
   const rounds: Round[] = JSON.parse(JSON.stringify(await getRounds(params.compId)));
 
