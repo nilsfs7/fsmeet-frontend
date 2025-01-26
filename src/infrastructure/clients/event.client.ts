@@ -5,6 +5,8 @@ import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { EventState } from '@/domain/enums/event-state';
 import { notFound } from 'next/navigation';
+import { CreateEventRegistrationBodyDto } from './dtos/event/create-event-registration.body.dto';
+import { EventRegistrationType } from '@/types/event-registration-type';
 
 export async function getEvents(
   admin: string | null,
@@ -227,6 +229,28 @@ export async function createEventRegistration(eventId: string, username: string,
   const response = await fetch(url, {
     method: 'POST',
     body: body,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Creating event registration successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function createEventRegistration_v2(eventId: string, eventRegistrationType: EventRegistrationType, compSignUps: string[], session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v2/events/${eventId}/registrations`;
+
+  const body = new CreateEventRegistrationBodyDto(eventRegistrationType, compSignUps);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${session?.user?.accessToken}`,

@@ -8,7 +8,7 @@ import ActionButton from '@/components/common/ActionButton';
 export default async function Page() {
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
-      <LoginForm />;
+      <LoginForm />
       <Navigation>
         <Link href={routeHome}>
           <ActionButton action={Action.BACK} />
