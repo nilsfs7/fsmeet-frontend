@@ -18,7 +18,8 @@ const config: Config = {
         'secondary-dark': '#ccd6dd',
         secondary: '#e1e8ed',
         'secondary-light': '#f8f9fa',
-        warning: '#FFE082',
+        success: '#49B21A',
+        warning: '#FFCF40',
         critical: '#EE0000',
       },
       keyframes: {
