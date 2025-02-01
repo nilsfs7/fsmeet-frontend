@@ -25,7 +25,7 @@ export default async function Roadmap() {
               filled={0}
               description={`Choose to pay at end of process if offereed.\n\nIntegration with stripe.\nRequires event host to have stripe account.`}
             />
-            <Task title="Hotel bookings" size={TaskSize.LARGE} filled={0} />
+            <Task title="Accomotation" size={TaskSize.LARGE} filled={0} />
           </Row>
         </Section>
 
@@ -103,6 +103,7 @@ export default async function Roadmap() {
           <Row>
             <Task title="Migration to Next v15" size={TaskSize.LARGE} filled={80} description="Next v15 solves serveral problems with data loading when switching routes." />
             <Task title="Upgrade to next-auth v5" size={TaskSize.MEDIUM} filled={50} description="Mandatory upgrade when switching to next v15." />
+            <Task title="Sign up via Instagram" size={TaskSize.MEDIUM} filled={0} description="Users hate choosing passwords. Offer sign up using Instagram account." />
           </Row>
 
           <Row>
