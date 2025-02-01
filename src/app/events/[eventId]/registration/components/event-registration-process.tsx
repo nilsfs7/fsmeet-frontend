@@ -18,6 +18,7 @@ import { EventRegistrationInfo } from '@/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { createEventRegistration_v2 } from '@/infrastructure/clients/event.client';
+import { CompetitionCard } from './competition-card';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -226,6 +227,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                         <RadioGroupItem
                           value={EventRegistrationType.VISITOR}
                           id={`option-${EventRegistrationType.VISITOR}`}
+                          disabled={true}
                           onClick={e => {
                             handleRadioItemRegistrationTypeClicked(EventRegistrationType.VISITOR);
                           }}
@@ -242,31 +244,19 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
               <div className="flex flex-col items-center border border-blue-600">
                 <div>{`Select Competitions`}</div>
 
-                <div className="mt-2 border-red-600 border">
+                <div className="flex flex-col gap-2">
                   {event.competitions.map((comp, index) => {
                     return (
-                      <div key={comp.id} className={`flex justify-between rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary gap-x-4 p-2 ${index > 0 && 'mt-2'}`}>
-                        <div className="grid grid-cols-2 gap-x-2">
-                          <div>{`Name`}</div>
-                          <div>{comp.name}</div>
-
-                          <div>{`Type`}</div>
-                          <div>{comp.type}</div>
-
-                          <div>{`Gender`}</div>
-                          <div>{comp.gender}</div>
-                        </div>
-                        <div className="flex items-center">
-                          <CheckBox
-                            id={`cb-${index.toString()}`}
-                            label={''}
-                            value={comp.id && compSignUps.includes(comp.id) ? true : false}
-                            disabled={comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender}
-                            onChange={e => {
-                              if (comp.id) handleCheckBoxSignUpForCompChanged(comp.id);
-                            }}
-                          />
-                        </div>
+                      <div key={`comp-card-${index}`}>
+                        <CompetitionCard
+                          comp={comp}
+                          disabled={comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender}
+                          selectable={true}
+                          checked={comp.id && compSignUps.includes(comp.id) ? true : false}
+                          onCheckedChange={checked => {
+                            if (comp.id) handleCheckBoxSignUpForCompChanged(comp.id);
+                          }}
+                        />
                       </div>
                     );
                   })}
@@ -281,33 +271,25 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
                 <div className="mt-2 border-red-600 border">
                   <div className="flex gap-2">
-                    <div>{`Sign up as:`}</div>
+                    <div>{`Enroll as:`}</div>
                     <div className="capitalize">{`${registrationType}`}</div>
                   </div>
 
                   {registrationType === EventRegistrationType.PARTICIPANT && (
-                    <>
+                    <div>
                       <div className="mt-4">{`Participate in:`}</div>
 
-                      {event.competitions.map((comp, index) => {
-                        if (comp.id && compSignUps.includes(comp.id)) {
-                          return (
-                            <div key={comp.id} className={`flex justify-between rounded-lg border border-secondary-dark bg-secondary-light gap-x-4 p-2 ${index > 0 && 'mt-2'}`}>
-                              <div className="grid grid-cols-2 gap-x-2">
-                                <div>{`Name`}</div>
-                                <div>{comp.name}</div>
-
-                                <div>{`Type`}</div>
-                                <div>{comp.type}</div>
-
-                                <div>{`Gender`}</div>
-                                <div>{comp.gender}</div>
+                      <div className="flex flex-col gap-2">
+                        {event.competitions.map((comp, index) => {
+                          if (comp.id && compSignUps.includes(comp.id))
+                            return (
+                              <div key={`comp-card-${index}`}>
+                                <CompetitionCard comp={comp} />
                               </div>
-                            </div>
-                          );
-                        }
-                      })}
-                    </>
+                            );
+                        })}
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>
