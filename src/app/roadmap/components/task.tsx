@@ -39,7 +39,7 @@ export const Task = ({ title, size, filled, description }: ITask) => {
         <div>{`Task size: ${TaskSize[size].toLowerCase()}`}</div>
         <div className="my-2">{`Progress: ${filled}%`}</div>
         <Separator />
-        <TextareaAutosize readOnly className="resize-none overflow-hidden outline-none mt-2" value={description} />
+        <TextareaAutosize readOnly className="w-full resize-none overflow-hidden outline-none mt-2" value={description} />
       </Dialog>
 
       <div className={`h-20 w-${size} flex flex-col text-center align-bottom justify-end ${description && 'hover:cursor-pointer'}`} onClick={handleTaskClicked}>

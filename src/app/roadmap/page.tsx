@@ -25,7 +25,7 @@ export default async function Roadmap() {
               filled={0}
               description={`Choose to pay at end of process if offereed.\n\nIntegration with stripe.\nRequires event host to have stripe account.`}
             />
-            <Task title="Accomotation" size={TaskSize.LARGE} filled={0} />
+            <Task title="Accommodation" size={TaskSize.LARGE} filled={0} />
           </Row>
         </Section>
 
