@@ -206,7 +206,9 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                 <div className="mt-2">
                   <RadioGroup value={registrationType}>
                     <div className={'grid grid-cols-2 py-1 gap-1 border-red-600 border'}>
-                      <div className='capitalize'>{EventRegistrationType.PARTICIPANT} (${event.participationFee}€)`}</div>
+                      <div className="capitalize">
+                        {EventRegistrationType.PARTICIPANT} {`(${event.participationFee}€)`}
+                      </div>
 
                       <div className="flex items-center gap-1">
                         <RadioGroupItem
@@ -218,7 +220,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                         />
                       </div>
 
-                      <div className='capitalize'>{EventRegistrationType.VISITOR}</div>
+                      <div className="capitalize">{EventRegistrationType.VISITOR}</div>
 
                       <div className="flex items-center gap-1">
                         <RadioGroupItem
