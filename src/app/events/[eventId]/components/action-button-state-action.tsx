@@ -14,6 +14,7 @@ import { validateSession } from '@/functions/validate-session';
 import { isPublicEventState } from '@/functions/is-public-event-state';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
+import Label from '@/components/Label';
 
 interface IActionButtonStateAction {
   event: Event;
@@ -65,7 +66,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
         <>
           <div className="flex gap-2 items-center">
             <div>{`${t('dlgEventStateText1')}:`}</div>
-            <div className="font-extrabold p-2 rounded-lg bg-secondary">{(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}</div>
+            <Label text={event?.state} />
           </div>
 
           {!isPublicEventState(event.state) && (

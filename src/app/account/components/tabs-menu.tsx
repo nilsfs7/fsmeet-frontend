@@ -42,6 +42,7 @@ import { deleteUser, updateUserVerificationState } from '@/infrastructure/client
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
 import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
+import Label from '@/components/Label';
 
 interface ITabsMenu {
   user: User;
@@ -841,9 +842,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
               <div className="flex gap-2 items-center">
                 <div>{`${t('tabAccounVerificationStatus')}:`}</div>
-                <div className="font-extrabold p-2 rounded-lg bg-secondary">
-                  {(userInfo?.verificationState ? userInfo.verificationState.charAt(0).toUpperCase() + userInfo.verificationState.slice(1) : 'n/a').replaceAll('_', ' ')}
-                </div>
+                <Label text={userInfo?.verificationState || 'n/a'} />
               </div>
 
               {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (

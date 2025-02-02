@@ -19,13 +19,14 @@ import Link from 'next/link';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { createEventRegistration_v2 } from '@/infrastructure/clients/event.client';
 import { CompetitionCard } from './competition-card';
+import Label from '@/components/Label';
 
 interface IEventRegistrationProcess {
   event: Event;
   user: User;
 }
 
-enum RegistrationProcessPages {
+enum RegistrationProcessPage {
   REGISTRATION_TYPE = '1',
   COMPETITIONS = '2',
   OVERVIEW = '3',
@@ -79,19 +80,19 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       let previousPage: string = '';
 
       switch (page) {
-        case RegistrationProcessPages.REGISTRATION_TYPE:
+        case RegistrationProcessPage.REGISTRATION_TYPE:
           router.replace(`${pageUrl}`);
           break;
 
-        case RegistrationProcessPages.COMPETITIONS:
-          previousPage = RegistrationProcessPages.REGISTRATION_TYPE;
+        case RegistrationProcessPage.COMPETITIONS:
+          previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
           break;
 
-        case RegistrationProcessPages.OVERVIEW:
+        case RegistrationProcessPage.OVERVIEW:
           if (registrationType === EventRegistrationType.PARTICIPANT) {
-            previousPage = RegistrationProcessPages.COMPETITIONS;
+            previousPage = RegistrationProcessPage.COMPETITIONS;
           } else {
-            previousPage = RegistrationProcessPages.REGISTRATION_TYPE;
+            previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
           }
           break;
       }
@@ -104,24 +105,24 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
   const handleNextClicked = async () => {
     if (!page) {
-      router.replace(`${pageUrl}?page=${RegistrationProcessPages.REGISTRATION_TYPE}`);
+      router.replace(`${pageUrl}?page=${RegistrationProcessPage.REGISTRATION_TYPE}`);
     } else {
       let nextPage: string = '';
 
       switch (page) {
-        case RegistrationProcessPages.REGISTRATION_TYPE:
+        case RegistrationProcessPage.REGISTRATION_TYPE:
           if (registrationType === EventRegistrationType.PARTICIPANT) {
-            nextPage = RegistrationProcessPages.COMPETITIONS;
+            nextPage = RegistrationProcessPage.COMPETITIONS;
           } else {
-            nextPage = RegistrationProcessPages.OVERVIEW;
+            nextPage = RegistrationProcessPage.OVERVIEW;
           }
           break;
 
-        case RegistrationProcessPages.COMPETITIONS:
-          nextPage = RegistrationProcessPages.OVERVIEW;
+        case RegistrationProcessPage.COMPETITIONS:
+          nextPage = RegistrationProcessPage.OVERVIEW;
           break;
 
-        case RegistrationProcessPages.OVERVIEW:
+        case RegistrationProcessPage.OVERVIEW:
           if (event.id && registrationType) {
             createEventRegistration_v2(event.id, registrationType, compSignUps, session);
           }
@@ -134,6 +135,14 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
     }
 
     cacheRegistrationInfo();
+  };
+
+  const handleRegisterNowClicked = async () => {
+    if (event.id && registrationType) {
+      createEventRegistration_v2(event.id, registrationType, compSignUps, session).then(() => {
+        router.replace(`${pageUrl}/completed`);
+      });
+    }
   };
 
   const handleRadioItemRegistrationTypeClicked = (type: EventRegistrationType) => {
@@ -186,65 +195,63 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
         {page && <PageTitle title={`Registration: ${event.name}`} />}
 
         <div className="mx-2 overflow-hidden">
-          <div className="flex justify-center border border-green-600">
+          <div className="flex justify-center">
             {/* Overview */}
             {!page && (
               <div>
                 <div>{`Event: ${event.name}`}</div>
 
                 <div className="flex items-center mt-2 gap-2">
-                  <div>{`${'Event Registration Status'}:`}</div>
-                  <div className="font-extrabold p-2 rounded-lg bg-secondary">{(registrationStatus.charAt(0).toUpperCase() + registrationStatus.slice(1)).replaceAll('_', ' ')}</div>
+                  <div>{`${'Registration Status'}:`}</div>
+                  <Label text={registrationStatus} />
                 </div>
               </div>
             )}
 
             {/* Page: Registration Type */}
             {page && +page === 1 && (
-              <div className="flex flex-col items-center border border-blue-600">
-                <div>{`Select Registration Type`}</div>
+              <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
+                <div>{`Select registration type.`}</div>
 
-                <div className="mt-2">
-                  <RadioGroup value={registrationType}>
-                    <div className={'grid grid-cols-2 py-1 gap-1 border-red-600 border'}>
-                      <div className="capitalize">
-                        {EventRegistrationType.PARTICIPANT} {`(${event.participationFee}€)`}
-                      </div>
-
-                      <div className="flex items-center gap-1">
-                        <RadioGroupItem
-                          value={EventRegistrationType.PARTICIPANT}
-                          id={`option-${EventRegistrationType.PARTICIPANT}`}
-                          onClick={e => {
-                            handleRadioItemRegistrationTypeClicked(EventRegistrationType.PARTICIPANT);
-                          }}
-                        />
-                      </div>
-
-                      <div className="capitalize">{EventRegistrationType.VISITOR}</div>
-
-                      <div className="flex items-center gap-1">
-                        <RadioGroupItem
-                          value={EventRegistrationType.VISITOR}
-                          id={`option-${EventRegistrationType.VISITOR}`}
-                          disabled={true}
-                          onClick={e => {
-                            handleRadioItemRegistrationTypeClicked(EventRegistrationType.VISITOR);
-                          }}
-                        />
-                      </div>
+                <RadioGroup className="mt-4" value={registrationType}>
+                  <div className={'grid grid-cols-2 py-1 gap-1'}>
+                    <div className="capitalize">
+                      {EventRegistrationType.PARTICIPANT} {`(${event.participationFee}€)`}
                     </div>
-                  </RadioGroup>
-                </div>
+
+                    <div className="flex items-center gap-1">
+                      <RadioGroupItem
+                        value={EventRegistrationType.PARTICIPANT}
+                        id={`option-${EventRegistrationType.PARTICIPANT}`}
+                        onClick={e => {
+                          handleRadioItemRegistrationTypeClicked(EventRegistrationType.PARTICIPANT);
+                        }}
+                      />
+                    </div>
+
+                    <div className="capitalize">{EventRegistrationType.VISITOR}</div>
+
+                    <div className="flex items-center gap-1">
+                      <RadioGroupItem
+                        value={EventRegistrationType.VISITOR}
+                        id={`option-${EventRegistrationType.VISITOR}`}
+                        disabled={true}
+                        onClick={e => {
+                          handleRadioItemRegistrationTypeClicked(EventRegistrationType.VISITOR);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </RadioGroup>
               </div>
             )}
 
             {/* Page: Competitions */}
             {page && +page === 2 && (
-              <div className="flex flex-col items-center border border-blue-600">
-                <div>{`Select Competitions`}</div>
+              <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
+                <div>{`Select competitions to participate in.`}</div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col mt-4 gap-2 ">
                   {event.competitions.map((comp, index) => {
                     return (
                       <div key={`comp-card-${index}`}>
@@ -266,18 +273,18 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
             {/* Page: Overview */}
             {page && +page === 3 && (
-              <div className="flex flex-col items-center border border-blue-600">
+              <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
                 <div>{`Overview`}</div>
 
-                <div className="mt-2 border-red-600 border">
-                  <div className="flex gap-2">
+                <div className="mt-4">
+                  <div className="flex items-center gap-2">
                     <div>{`Enroll as:`}</div>
-                    <div className="capitalize">{`${registrationType}`}</div>
+                    {registrationType && <Label text={registrationType} />}
                   </div>
 
                   {registrationType === EventRegistrationType.PARTICIPANT && (
-                    <div>
-                      <div className="mt-4">{`Participate in:`}</div>
+                    <div className="mt-4">
+                      <div>{`Participate in:`}</div>
 
                       <div className="flex flex-col gap-2">
                         {event.competitions.map((comp, index) => {
@@ -308,7 +315,10 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           <div className="flex gap-1">
             {page && <TextButton text={'Back'} onClick={handleBackClicked} />}
 
-            {registrationStatus === 'Unregistered' && <TextButton text={page ? 'Next' : 'Register Now'} disabled={nextButtonDisabled()} onClick={handleNextClicked} />}
+            {page !== RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && (
+              <TextButton text={page ? 'Next' : 'Register'} disabled={nextButtonDisabled()} onClick={handleNextClicked} />
+            )}
+            {page === RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={'Enroll Now'} onClick={handleRegisterNowClicked} />}
             {registrationStatus !== 'Unregistered' && (
               <TextButton
                 text={'Unregister'}

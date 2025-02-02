@@ -16,14 +16,14 @@ export const CompetitionCard = ({ comp, disabled = false, selectable = false, ch
     <div key={comp.id} className={`rounded-lg border border-secondary-dark ${selectable ? 'hover:border-primary' : ''} bg-secondary-light gap-x-4 p-2`}>
       <div className="flex">
         <div className="w-full grid grid-cols-2 gap-x-2 ">
-          <div>{`Name`}</div>
+          <div>{`Competition`}</div>
           <div>{comp.name}</div>
 
           <div>{`Type`}</div>
-          <div>{comp.type}</div>
+          <div className="capitalize">{comp.type}</div>
 
           <div>{`Gender`}</div>
-          <div>{comp.gender}</div>
+          <div className="capitalize">{comp.gender}</div>
         </div>
 
         {selectable && (
