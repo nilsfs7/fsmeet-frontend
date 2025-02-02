@@ -300,6 +300,11 @@
     "dlgRemoveParticipantTitle": "Teilnehmer entfernen",
     "dlgRemoveParticipantText": "Möchtest du diesen Teilnehmer entfernen?"
   },
+  "/events/eventid/registration/completed": {
+    "registrationSuccess": "Registrierung erfolgreich eingereicht.",
+    "hintPayment": "Bitte denke an die Teilnahmegebühr. Die Zahlungsdetails haben wir dir per Mail geschickt.",
+    "btnBack": "Zurück zum Event"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",
     "btnCreate": "Sponsor hinzufügen"

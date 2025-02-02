@@ -299,6 +299,11 @@
     "dlgRemoveParticipantTitle": "Remove Participant",
     "dlgRemoveParticipantText": "Do you want to remove this participant?"
   },
+  "/events/eventid/registration/completed": {
+    "registrationSuccess": "Registration successfully submitted.",
+    "hintPayment": "Please remember the participation fee. We have sent you an email with the payment details.",
+    "btnBack": "Back to event"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Manage Sponsors",
     "btnCreate": "Create"
