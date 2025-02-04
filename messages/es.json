@@ -366,6 +366,7 @@
   "/map": {
     "pageTitle": "Mapa Freestyler",
     "btnAddPin": "Inscríbete",
+    "btnViewOnFSMeet": "Ver en FSMeet",
     "inputSearchPlaceholder": "Buscar nombre...",
     "drpDwnGender": "Género",
     "infoWindowGoToProfile": "Haz clic para ver el perfil"

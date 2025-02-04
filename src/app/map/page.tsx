@@ -1,52 +1,163 @@
-import { auth } from '@/auth';
+'use client';
+
 import { Header } from '@/components/Header';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ActionButton from '@/components/common/ActionButton';
 import TextButton from '@/components/common/TextButton';
 import { getUser, getUsers } from '@/infrastructure/clients/user.client';
-import { routeAccount, routeHome } from '@/domain/constants/routes';
+import { routeAccount, routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { User } from '@/types/user';
 import Link from 'next/link';
-import { MapContainer } from './components/map-container';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
+import { supportedLanguages } from '@/domain/constants/supported-languages';
+import { getCookie, setCookie } from 'cookies-next';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import MapOfFreestylers from '@/components/MapOfFreestylers';
+import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Input } from '@/components/ui/input';
+import { menuGender } from '@/domain/constants/menus/menu-gender';
+import { Gender } from '@/domain/enums/gender';
+import { ChevronDown } from 'lucide-react';
 
-export default async function Map() {
-  const t = await getTranslations('/map');
-  const session = await auth();
+export default function Map(props: { searchParams: Promise<{ iframe: string; lang: string }> }) {
+  const t = useTranslations('/map');
+  const searchParams = useSearchParams();
 
-  let actingUser: User | null = null;
-  if (session?.user?.username) {
-    actingUser = await getUser(session.user.username);
+  const { data: session } = useSession();
+
+  const paramUser = searchParams?.get('user');
+  const paramLat = searchParams?.get('lat');
+  const paramLng = searchParams?.get('lng');
+  const iframeView = searchParams?.get('iframe') === '1';
+  let language = searchParams?.get('lang');
+
+  const [users, setUsers] = useState<User[]>([]);
+  const [actingUser, setActingUser] = useState<User>();
+  const [filterName, setFilterName] = useState('');
+  const [filterGender, setFilterGender] = useState<Gender[]>([Gender.FEMALE, Gender.MALE]);
+
+  if (language) {
+    language = language.toUpperCase();
+    if (supportedLanguages.includes(language)) {
+      getCookie('locale');
+      setCookie('locale', language);
+    }
   }
 
-  const users: User[] = await getUsers();
+  useEffect(() => {
+    getUsers().then(users => {
+      setUsers(users);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (session?.user?.username) {
+      getUser(session.user.username).then(user => {
+        setActingUser(user);
+      });
+    }
+  }, [session]);
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
-      <Header />
+      {!iframeView && (
+        <>
+          <Header />
 
-      <PageTitle title={t('pageTitle')} />
+          <PageTitle title={t('pageTitle')} />
+        </>
+      )}
+      <div className="flex flex-col h-full gap-2">
+        {/* filters */}
+        {!iframeView && (
+          <div className="mx-2 flex gap-2">
+            <Input
+              placeholder={t('inputSearchPlaceholder')}
+              value={filterName}
+              onChange={(event: any) => {
+                setFilterName(event.target.value);
+              }}
+              className="max-w-40"
+            />
 
-      <MapContainer users={users} />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline">
+                  {t('drpDwnGender')}
+                  <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {menuGender.map(menuItem => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={menuItem.value}
+                      checked={filterGender.includes(menuItem.value as Gender)}
+                      onCheckedChange={(value: any) => {
+                        const genders = Array.from(filterGender);
 
-      <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+                        // add or remove gender from array
+                        if (value === true) {
+                          genders.push(menuItem.value as Gender);
+                        } else {
+                          const index = genders.indexOf(menuItem.value as Gender);
+                          if (index > -1) {
+                            genders.splice(index, 1);
+                          }
+                        }
 
-        <div className="flex justify-end gap-1">
-          <ActionButtonCopyUrl />
+                        setFilterGender(genders);
+                      }}
+                    >
+                      {menuItem.text}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )}
 
-          {(!actingUser || (actingUser && !actingUser.locLatitude)) && (
-            <Link href={`${routeAccount}?tab=map`}>
-              <TextButton text={t('btnAddPin')} />
-            </Link>
+        <div className="h-full max-h-screen overflow-hidden">
+          {paramLat && paramLng && (
+            <MapOfFreestylers lat={+paramLat} lng={+paramLng} zoom={7} users={users} selectedUsers={[paramUser ? paramUser : '']} filterName={filterName} filterGender={filterGender} />
           )}
+          {(!paramLat || !paramLng) && <MapOfFreestylers zoom={4} users={users} filterName={filterName} filterGender={filterGender} />}
         </div>
-      </Navigation>
+      </div>
+
+      {iframeView && (
+        <Navigation reverse>
+          <div className="flex justify-end gap-1">
+            <a href={routeMap} target="_blank" rel="noopener noreferrer">
+              <TextButton text={t('btnViewOnFSMeet')} />
+            </a>
+          </div>
+        </Navigation>
+      )}
+      {!iframeView && (
+        <Navigation>
+          <Link href={routeHome}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+
+          <div className="flex justify-end gap-1">
+            <ActionButtonCopyUrl />
+
+            {(!actingUser || (actingUser && !actingUser.locLatitude)) && (
+              <Link href={`${routeAccount}?tab=map`}>
+                <TextButton text={t('btnAddPin')} />
+              </Link>
+            )}
+          </div>
+        </Navigation>
+      )}
     </div>
   );
 }

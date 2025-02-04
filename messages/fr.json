@@ -366,6 +366,7 @@
   "/map": {
     "pageTitle": "Carte des Freestylers",
     "btnAddPin": "Ajoutez votre localisation",
+    "btnViewOnFSMeet": "Voir sur FSMeet",
     "inputSearchPlaceholder": "Rechercher par nom...",
     "drpDwnGender": "Genre",
     "infoWindowGoToProfile": "Cliquez pour voir le profil"

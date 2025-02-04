@@ -366,6 +366,7 @@
   "/map": {
     "pageTitle": "Freestyler Karte",
     "btnAddPin": "Trag dich ein",
+    "btnViewOnFSMeet": "Gehe zu FSMeet",
     "inputSearchPlaceholder": "Suche Name...",
     "drpDwnGender": "Geschlecht",
     "infoWindowGoToProfile": "Klicke fürs Profil"
