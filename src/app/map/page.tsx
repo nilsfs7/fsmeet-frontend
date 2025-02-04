@@ -12,7 +12,7 @@ import { User } from '@/types/user';
 import Link from 'next/link';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { supportedLanguages } from '@/domain/constants/supported-languages';
 import { getCookie, setCookie } from 'cookies-next';
 import { useSession } from 'next-auth/react';
@@ -31,9 +31,12 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; lan
 
   const { data: session } = useSession();
 
-  const paramUser = searchParams?.get('user');
-  const paramLat = searchParams?.get('lat');
-  const paramLng = searchParams?.get('lng');
+  const router = useRouter();
+
+  const username = searchParams?.get('user');
+  const Lat = searchParams?.get('lat');
+  const Lng = searchParams?.get('lng');
+  const zoom = searchParams?.get('zoom');
   const iframeView = searchParams?.get('iframe') === '1';
   let language = searchParams?.get('lang');
 
@@ -42,18 +45,20 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; lan
   const [filterName, setFilterName] = useState('');
   const [filterGender, setFilterGender] = useState<Gender[]>([Gender.FEMALE, Gender.MALE]);
 
-  if (language) {
-    language = language.toUpperCase();
-    if (supportedLanguages.includes(language)) {
-      getCookie('locale');
-      setCookie('locale', language);
-    }
-  }
-
   useEffect(() => {
     getUsers().then(users => {
       setUsers(users);
     });
+
+    if (language) {
+      language = language.toUpperCase();
+      if (supportedLanguages.includes(language)) {
+        if (getCookie('locale') !== language) {
+          setCookie('locale', language);
+          router.refresh();
+        }
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -125,10 +130,10 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; lan
         )}
 
         <div className="h-full max-h-screen overflow-hidden">
-          {paramLat && paramLng && (
-            <MapOfFreestylers lat={+paramLat} lng={+paramLng} zoom={7} users={users} selectedUsers={[paramUser ? paramUser : '']} filterName={filterName} filterGender={filterGender} />
+          {Lat && Lng && (
+            <MapOfFreestylers lat={+Lat} lng={+Lng} zoom={zoom ? +zoom : 7} users={users} selectedUsers={[username ? username : '']} filterName={filterName} filterGender={filterGender} />
           )}
-          {(!paramLat || !paramLng) && <MapOfFreestylers zoom={4} users={users} filterName={filterName} filterGender={filterGender} />}
+          {(!Lat || !Lng) && <MapOfFreestylers zoom={zoom ? +zoom : 4} users={users} filterName={filterName} filterGender={filterGender} />}
         </div>
       </div>
 
