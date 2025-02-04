@@ -45,7 +45,7 @@ export default async function Roadmap() {
           </Row>
 
           <Row>
-            <Task title="Download report for world ranks" size={TaskSize.MEDIUM} filled={90} description="Competition host can download csv containing all battle data to transmit to WFFA." />
+            <Task title="Generate report for world ranks" size={TaskSize.MEDIUM} filled={90} description="A competition host can generate and download a CSV containing all battle data to transmit to WFFA. The CSV should fit the import requirements for the ELO system." />
           </Row>
 
           <Row>
@@ -72,7 +72,7 @@ export default async function Roadmap() {
 
         <Section title={'Freestyler Map'}>
           <Row>
-            <Task title="Iframe version" size={TaskSize.SMALL} filled={70} description="Make external websites be able to integrate the freesytler map with ease" />
+            <Task title="Optimize for iframes" size={TaskSize.SMALL} filled={80} description="Enable external websites to integrate the freesytler map with ease. First implementation: https://dffb.org/community" />
           </Row>
 
           <Row>
