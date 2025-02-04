@@ -16,6 +16,7 @@ import { CashInfo } from './payment/cash-info';
 import { PayPalInfo } from './payment/paypal-info';
 import { SepaInfo } from './payment/sepa-info';
 import Separator from '@/components/Seperator';
+import Label from '@/components/Label';
 
 interface ITextButtonRegister {
   event: Event;
@@ -124,7 +125,7 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
           {isRegistered(event, session) ? (
             <div className="flex gap-2 items-center">
               <div>{`${t('dlgEventRegistrationRegistrationStatus')}:`}</div>
-              <div className="font-extrabold p-2 rounded-lg bg-secondary">{(registrationStatus.charAt(0).toUpperCase() + registrationStatus.slice(1)).replaceAll('_', ' ')}</div>
+              <Label text={registrationStatus} />
             </div>
           ) : (
             `${t('dlgEventRegistrationText1')} ${event.name}?`

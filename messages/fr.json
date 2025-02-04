@@ -300,6 +300,11 @@
     "dlgRemoveParticipantTitle": "Retirer un participant",
     "dlgRemoveParticipantText": "Voulez-vous retirer ce participant ?"
   },
+  "/events/eventid/registration/completed": {
+    "registrationSuccess": "Inscription soumise avec succès.",
+    "hintPayment": "N'oubliez pas de payer les frais de participation. Nous t'avons envoyé un e-mail avec les détails du paiement.",
+    "btnBack": "Retour à l'événement"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Gérer les partenariats",
     "btnCreate": "Créer"
@@ -361,6 +366,7 @@
   "/map": {
     "pageTitle": "Carte des Freestylers",
     "btnAddPin": "Ajoutez votre localisation",
+    "btnViewOnFSMeet": "Voir sur FSMeet",
     "inputSearchPlaceholder": "Rechercher par nom...",
     "drpDwnGender": "Genre",
     "infoWindowGoToProfile": "Cliquez pour voir le profil"

@@ -300,6 +300,11 @@
     "dlgRemoveParticipantTitle": "Eliminar participante",
     "dlgRemoveParticipantText": "¿Desea eliminar a este participante?"
   },
+  "/events/eventid/registration/completed": {
+    "registrationSuccess": "Registro enviado exitosamente.",
+    "hintPayment": "Por favor, no olvide pagar la cuota de participación. Te hemos enviado los detalles del pago por correo electrónico.",
+    "btnBack": "Volver al evento"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Gestionar patrocinadores",
     "btnCreate": "Añadir patrocinador"
@@ -361,6 +366,7 @@
   "/map": {
     "pageTitle": "Mapa Freestyler",
     "btnAddPin": "Inscríbete",
+    "btnViewOnFSMeet": "Ver en FSMeet",
     "inputSearchPlaceholder": "Buscar nombre...",
     "drpDwnGender": "Género",
     "infoWindowGoToProfile": "Haz clic para ver el perfil"

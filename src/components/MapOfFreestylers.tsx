@@ -32,10 +32,10 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
   const [markersWithInfo, setMarkersWithInfo] = useState<{ marker: google.maps.Marker; info: google.maps.InfoWindow }[]>([]);
 
   useEffect(() => {
-    markersWithInfo.forEach((markerWithInfo) => {
+    markersWithInfo.forEach(markerWithInfo => {
       const markerTitle = markerWithInfo.marker.getTitle();
       if (markerTitle) {
-        const user = users.filter((user) => {
+        const user = users.filter(user => {
           return user.username === markerTitle;
         })[0];
 
@@ -73,7 +73,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
       const newMap = new window.google.maps.Map(document.getElementById('map'), mapOptions);
 
       const markersWithInfo: { marker: google.maps.Marker; info: google.maps.InfoWindow }[] = [];
-      users.forEach((user) => {
+      users.forEach(user => {
         if (user.locLatitude && user.locLongitude && user.type !== UserType.TECHNICAL) {
           let imgPath = user.type ? getUserTypeImages(user.type).path : imgFreestyler;
           let imgSize = user.type ? getUserTypeImages(user.type).size : 40;
@@ -97,7 +97,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
               <div style="line-height:1.35;overflow:hidden;white-space:nowrap;";>
                 <div>${user.lastName ? `${user.firstName} ${user.lastName} (${user.username})` : `${user.firstName}`}</div>
                 ${tagType}
-                <div>  
+                <div>
                   <a href=${routeUsers}/${user.username}>
                     <u>${t('infoWindowGoToProfile')}</u>
                   </a>
@@ -133,7 +133,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
       // @ts-ignore
       setMap(newMap);
     });
-  }, []);
+  }, [users]);
   return <div id="map" className="h-full w-full" ref={mapRef} />;
 };
 

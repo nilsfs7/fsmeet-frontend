@@ -7,6 +7,7 @@ import ReactCountryFlag from 'react-country-flag';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { supportedLanguages } from '@/domain/constants/supported-languages';
 
 const LanguagePicker = () => {
   const router = useRouter();
@@ -14,8 +15,6 @@ const LanguagePicker = () => {
   const [locale, setLocale] = useState<string>('GB');
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
-  const menuItems = ['GB', 'FR', 'ES', 'DE'];
-  // const menuItems = ['GB', 'FR', 'ES', 'IT', 'DE'];
 
   useEffect(() => {
     const locale = getCookie('locale')?.toString();
@@ -30,8 +29,8 @@ const LanguagePicker = () => {
   };
 
   const handleLanguageChanged = (index: number) => {
-    setLocale(menuItems[index]);
-    setCookie('locale', menuItems[index]);
+    setLocale(supportedLanguages[index]);
+    setCookie('locale', supportedLanguages[index]);
     setOpened(false);
     router.refresh();
   };
@@ -67,14 +66,14 @@ const LanguagePicker = () => {
         show={opened}
       >
         <div className={`absolute right-0 top-14 mt-2 w-14 rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary`}>
-          {menuItems.map((menuItem, index) => {
+          {supportedLanguages.map((language, index) => {
             return (
               <div
                 key={index}
                 className={`flex h-14 items-center justify-center cursor-pointer
                 ${activeIndex === index ? 'bg-secondary' : ''} 
                 ${index === 0 ? 'rounded-t-[8px]' : ''} 
-                ${index === menuItems.length - 1 ? 'rounded-b-[8px]' : ''}`}
+                ${index === supportedLanguages.length - 1 ? 'rounded-b-[8px]' : ''}`}
                 onMouseEnter={() => setActiveIndex(index)}
                 onMouseLeave={() => setActiveIndex(undefined)}
                 onClick={() => {
@@ -83,7 +82,7 @@ const LanguagePicker = () => {
               >
                 <div className="h-9 w-9 rounded-full border border-secondary-dark hover:border-primary">
                   <ReactCountryFlag
-                    countryCode={menuItem}
+                    countryCode={language}
                     svg
                     style={{
                       width: '100%',
