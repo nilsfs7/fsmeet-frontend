@@ -12,7 +12,7 @@ import { User } from '@/types/user';
 import Link from 'next/link';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { supportedLanguages } from '@/domain/constants/supported-languages';
 import { getCookie, setCookie } from 'cookies-next';
 import { useSession } from 'next-auth/react';
@@ -31,6 +31,8 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; lan
 
   const { data: session } = useSession();
 
+  const router = useRouter();
+
   const username = searchParams?.get('user');
   const Lat = searchParams?.get('lat');
   const Lng = searchParams?.get('lng');
@@ -43,18 +45,20 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; lan
   const [filterName, setFilterName] = useState('');
   const [filterGender, setFilterGender] = useState<Gender[]>([Gender.FEMALE, Gender.MALE]);
 
-  if (language) {
-    language = language.toUpperCase();
-    if (supportedLanguages.includes(language)) {
-      getCookie('locale');
-      setCookie('locale', language);
-    }
-  }
-
   useEffect(() => {
     getUsers().then(users => {
       setUsers(users);
     });
+
+    if (language) {
+      language = language.toUpperCase();
+      if (supportedLanguages.includes(language)) {
+        if (getCookie('locale') !== language) {
+          setCookie('locale', language);
+          router.refresh();
+        }
+      }
+    }
   }, []);
 
   useEffect(() => {
