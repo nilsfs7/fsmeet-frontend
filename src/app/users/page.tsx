@@ -45,7 +45,7 @@ export default async function Users() {
         userType: user.type,
         location:
           user.city && user.exposeLocation && user.locLatitude && user.locLongitude
-            ? { city: user.city, mapLink: `${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}` }
+            ? { city: user.city, mapLink: `${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7` }
             : { city: '', mapLink: '' },
         socials: {
           fsm: user.username,
