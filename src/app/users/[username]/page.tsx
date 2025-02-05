@@ -178,13 +178,13 @@ export default async function PublicUserProfile({ params }: { params: { username
                 {user.city && (
                   <div className="flex items-start gap-1 mt-1">
                     <div className="w-6 hover:p-0.5">
-                      <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
+                      <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
                         <img src={imgWorld} className="rounded-full object-cover" />
                       </Link>
                     </div>
 
                     <div className="w-fit">
-                      <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}`}>
+                      <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
                         {user.city}
                       </Link>
                     </div>

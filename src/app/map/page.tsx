@@ -33,9 +33,10 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; loc
   const { data: session } = useSession();
 
   const username = searchParams?.get('user');
-  const Lat = searchParams?.get('lat');
-  const Lng = searchParams?.get('lng');
+  const lat = searchParams?.get('lat');
+  const lng = searchParams?.get('lng');
   const zoom = searchParams?.get('zoom');
+  const streetViewEnabled = searchParams?.get('streetView') === '1';
   const iframeView = searchParams?.get('iframe') === '1';
   const locale = searchParams?.get('locale');
 
@@ -127,10 +128,16 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; loc
         )}
 
         <div className="h-full max-h-screen overflow-hidden">
-          {Lat && Lng && (
-            <MapOfFreestylers lat={+Lat} lng={+Lng} zoom={zoom ? +zoom : 7} users={users} selectedUsers={[username ? username : '']} filterName={filterName} filterGender={filterGender} />
-          )}
-          {(!Lat || !Lng) && <MapOfFreestylers zoom={zoom ? +zoom : 4} users={users} filterName={filterName} filterGender={filterGender} />}
+          <MapOfFreestylers
+            lat={lat ? +lat : undefined}
+            lng={lng ? +lng : undefined}
+            zoom={zoom ? +zoom : 4}
+            streetViewEnabled={!iframeView ? true : streetViewEnabled}
+            users={users}
+            selectedUsers={[username ? username : '']}
+            filterName={filterName}
+            filterGender={filterGender}
+          />
         </div>
       </div>
 

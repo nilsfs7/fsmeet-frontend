@@ -19,12 +19,13 @@ interface IMapsProps {
   lat?: number;
   lng?: number;
   zoom?: number;
+  streetViewEnabled?: boolean;
   filterName?: string;
   filterGender?: string[];
 }
 
 // Europe = lat: 54.5259614, lng: 15.2551187
-const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, lng = 15.2551187, zoom = 6, filterName, filterGender }: IMapsProps) => {
+const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, lng = 15.2551187, zoom = 6, streetViewEnabled = false, filterName, filterGender }: IMapsProps) => {
   const t = useTranslations('/map');
 
   const mapRef = useRef(null);
@@ -67,6 +68,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
       const mapOptions: google.maps.MapOptions = {
         center: new google.maps.LatLng(lat, lng),
         zoom: zoom,
+        streetViewControl: streetViewEnabled,
       };
 
       // @ts-ignore
