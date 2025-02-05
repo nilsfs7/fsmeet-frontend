@@ -23,7 +23,7 @@ export default async function Roadmap() {
               title="Credit Card Payments"
               size={TaskSize.HUGE}
               filled={0}
-              description={`Choose to pay at end of process if offereed.\n\nIntegration with stripe.\nRequires event host to have stripe account.`}
+              description={`Choose to pay at end of process if offered.\n\nIntegration with stripe.\nRequires event host to have stripe account.`}
             />
             <Task title="Accommodation" size={TaskSize.LARGE} filled={0} />
           </Row>
@@ -39,13 +39,22 @@ export default async function Roadmap() {
           </Row>
         </Section>
 
+        <div className="p-4">
+          <Separator />
+        </div>
+
         <Section title={'Competitions'}>
           <Row>
             <Task title="Delay schedule" size={TaskSize.SMALL} filled={0} description="User has the option to pick a certain battle and delay all future battles by any amount of minutes." />
           </Row>
 
           <Row>
-            <Task title="Generate report for world ranks" size={TaskSize.MEDIUM} filled={90} description="A competition host can generate and download a CSV containing all battle data to transmit to WFFA. The CSV should fit the import requirements for the ELO system." />
+            <Task
+              title="Generate report for world ranks"
+              size={TaskSize.MEDIUM}
+              filled={90}
+              description="A competition host can generate and download a CSV containing all battle data to transmit to WFFA. The CSV should fit the import requirements for the ELO system."
+            />
           </Row>
 
           <Row>
@@ -72,7 +81,12 @@ export default async function Roadmap() {
 
         <Section title={'Freestyler Map'}>
           <Row>
-            <Task title="Optimize for iframes" size={TaskSize.SMALL} filled={80} description="Enable external websites to integrate the freesytler map with ease. First implementation: https://dffb.org/community" />
+            <Task
+              title="Optimize for iframes"
+              size={TaskSize.SMALL}
+              filled={85}
+              description="Enable external websites to integrate the freesytler map with ease. First implementation: https://dffb.org/community"
+            />
           </Row>
 
           <Row>
@@ -103,7 +117,7 @@ export default async function Roadmap() {
           <Row>
             <Task title="Migration to Next v15" size={TaskSize.LARGE} filled={80} description="Next v15 solves serveral problems with data loading when switching routes." />
             <Task title="Upgrade to next-auth v5" size={TaskSize.MEDIUM} filled={50} description="Mandatory upgrade when switching to next v15." />
-            <Task title="Sign up via Instagram" size={TaskSize.MEDIUM} filled={0} description="Users hate choosing passwords. Offer sign up using Instagram account." />
+            <Task title="Sign up via Instagram" size={TaskSize.MEDIUM} filled={0} description="Users hate passwords. Offer sign up using Instagram account." />
           </Row>
 
           <Row>

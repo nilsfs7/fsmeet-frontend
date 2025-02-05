@@ -11,10 +11,9 @@ import { Action } from '@/domain/enums/action';
 import { User } from '@/types/user';
 import Link from 'next/link';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
-import { useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { createTranslator, useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { supportedLanguages } from '@/domain/constants/supported-languages';
-import { getCookie, setCookie } from 'cookies-next';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import MapOfFreestylers from '@/components/MapOfFreestylers';
@@ -24,21 +23,29 @@ import { Input } from '@/components/ui/input';
 import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { Gender } from '@/domain/enums/gender';
 import { ChevronDown } from 'lucide-react';
+import { useMessagesForcedLocale } from '@/hooks/use-messages-forced-locale';
 
-export default function Map(props: { searchParams: Promise<{ iframe: string; lang: string }> }) {
-  const t = useTranslations('/map');
+export default function Map(props: { searchParams: Promise<{ iframe: string; locale: string }> }) {
+  let t = useTranslations('/map');
+
   const searchParams = useSearchParams();
 
   const { data: session } = useSession();
-
-  const router = useRouter();
 
   const username = searchParams?.get('user');
   const Lat = searchParams?.get('lat');
   const Lng = searchParams?.get('lng');
   const zoom = searchParams?.get('zoom');
   const iframeView = searchParams?.get('iframe') === '1';
-  let language = searchParams?.get('lang');
+  const locale = searchParams?.get('locale');
+
+  // overwrite translation
+  const messages = useMessagesForcedLocale(locale || 'gb');
+  if (locale) {
+    if (supportedLanguages.includes(locale.toUpperCase())) {
+      t = createTranslator({ locale: locale, messages, namespace: '/map' });
+    }
+  }
 
   const [users, setUsers] = useState<User[]>([]);
   const [actingUser, setActingUser] = useState<User>();
@@ -49,16 +56,6 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; lan
     getUsers().then(users => {
       setUsers(users);
     });
-
-    if (language) {
-      language = language.toUpperCase();
-      if (supportedLanguages.includes(language)) {
-        if (getCookie('locale') !== language) {
-          setCookie('locale', language);
-          router.refresh();
-        }
-      }
-    }
   }, []);
 
   useEffect(() => {
