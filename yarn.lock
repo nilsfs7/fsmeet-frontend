@@ -1226,17 +1226,17 @@
   resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.6.0.tgz#eac397f28bf1d6ae0ae081363eca2f425bedf0d5"
   integrity sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==
 
-"@types/google-maps@^3.2.6":
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/@types/google-maps/-/google-maps-3.2.6.tgz#c3608dbf18b8e6962e16e8dd85c4f9a0d9c00370"
-  integrity sha512-ySOadZErcnCnNG+Zkmv5n+QG9DyTt7Mkx5Yk1dTjjNPtD8ByFaf+klZ/CxzgYcweduWEijTP0ASkANl57D0PRQ==
+"@types/google-maps@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/google-maps/-/google-maps-4.0.0.tgz#630d36a21cf07dcd9fb76a0c7444ca5490174708"
+  integrity sha512-+G1eFImsErKTX+mh6+nDeBEJaH6/gA+uP5UOVwRWonrjoI0qxNLpkPDGV//CJq0wXSdmVw98mQsTCPpxcRkeTg==
   dependencies:
-    "@types/google.maps" "*"
+    google-maps "*"
 
-"@types/google.maps@*":
-  version "3.58.1"
-  resolved "https://registry.yarnpkg.com/@types/google.maps/-/google.maps-3.58.1.tgz#71ce3dec44de1452f56641d2c87c7dd8ea964b4d"
-  integrity sha512-X9QTSvGJ0nCfMzYOnaVs/k6/4L+7F5uCS+4iUmkLEls6J9S/Phv+m/i3mDeyc49ZBgwab3EFO1HEoBY7k98EGQ==
+"@types/googlemaps@^3.39.1":
+  version "3.43.3"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.43.3.tgz#70cf962154a160fe78bcd69d6ccc296dd9175b1f"
+  integrity sha512-ZWNoz/O8MPEpiajvj7QiqCY8tTLFNqNZ/a+s+zTV58wFVNAvvqV4bdGfnsjTb5Cs4V6wEsLrX8XRhmnyYJ2Tdg==
 
 "@types/json5@^0.0.29":
   version "0.0.29"
@@ -2577,6 +2577,13 @@ globalthis@^1.0.4:
   dependencies:
     define-properties "^1.2.1"
     gopd "^1.0.1"
+
+google-maps@*:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/google-maps/-/google-maps-4.3.3.tgz#b8026723534e04713303f80853c32a1f1f6ed3cd"
+  integrity sha512-MQbEgBNQbGyV7mfS2tlFgW4EoGKLia24BvAl4a+kgsYWt4283kyPpaay/yKIsScQLr7nSUONaLNfOdMsCuJDEw==
+  dependencies:
+    "@types/googlemaps" "^3.39.1"
 
 gopd@^1.0.1, gopd@^1.2.0:
   version "1.2.0"

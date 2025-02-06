@@ -29,7 +29,7 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
   const t = useTranslations('/map');
 
   const mapRef = useRef(null);
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState<google.maps.Map>();
   const [markersWithInfo, setMarkersWithInfo] = useState<{ marker: google.maps.Marker; info: google.maps.InfoWindow }[]>([]);
 
   useEffect(() => {
