@@ -369,7 +369,8 @@
     "btnViewOnFSMeet": "Gehe zu FSMeet",
     "inputSearchPlaceholder": "Suche Name...",
     "drpDwnGender": "Geschlecht",
-    "infoWindowGoToProfile": "Klicke fürs Profil"
+    "infoWindowGoToProfileInternal": "Klicke fürs Profil",
+    "infoWindowGoToProfileExternal": "Siehe auf FSMeet"
   },
   "/password/forgot": {
     "inputUsername": "Nutzername / E-Mail",

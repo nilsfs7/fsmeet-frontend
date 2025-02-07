@@ -134,9 +134,10 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; loc
             zoom={zoom ? +zoom : 4}
             streetViewEnabled={!iframeView ? true : streetViewEnabled}
             users={users}
-            selectedUsers={[username ? username : '']}
+            selectedUsernames={[username || '']}
             filterName={filterName}
             filterGender={filterGender}
+            isIframe={iframeView}
           />
         </div>
       </div>
