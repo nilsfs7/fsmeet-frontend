@@ -84,88 +84,103 @@ const MapOfFreestylers = ({ users = [], selectedUsernames = [], lat = 54.5259614
     <GoogleMap mapContainerStyle={containerStyle} options={mapOptions} onLoad={onLoad} onUnmount={onUnmount}>
       {users.map(user => {
         if (user.locLatitude && user.locLongitude && user.exposeLocation && user.type !== UserType.TECHNICAL) {
-          let imgPath = user.type ? getUserTypeImages(user.type).path : imgFreestyler;
-          let imgSize = user.type ? getUserTypeImages(user.type).size : 40;
+          // filter by name name
+          let nameOk: boolean = true;
+          const fullName = `${user.firstName?.toLowerCase()} ${user.lastName?.toLowerCase()}`;
+          if (filterName && !fullName.includes(filterName.toLowerCase())) {
+            nameOk = false;
+          }
 
-          const icon = {
-            url: imgPath,
-            size: new google.maps.Size(imgSize, imgSize),
-            scaledSize: new google.maps.Size(imgSize, imgSize),
-          };
+          // filter by gender
+          let genderOk: boolean = true;
+          if (user.gender && filterGender && !filterGender.includes(user.gender)) {
+            genderOk = false;
+          }
 
-          return (
-            <Marker
-              key={`marker-${user.username}`}
-              clickable={true}
-              title={user.username}
-              icon={icon}
-              position={new google.maps.LatLng(user.locLatitude, user.locLongitude)}
-              onClick={() => addToSelectedUsers(user)}
-            >
-              {selectedUsers
-                .filter(u => {
-                  if (u.username === user.username) return u;
-                })
-                .includes(user) && (
-                <InfoWindow
-                  key={`info-${user.username}`}
-                  onCloseClick={() => {
-                    removeFromSelectedUsers(user);
-                  }}
-                >
-                  <div className="bg-white shadow-lg rounded-lg">
-                    <div className="flex flex-col gap-1">
-                      <div className="grid grid-flow-col justify-start items-center gap-1">
-                        <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="h-6 w-6 rounded-full object-cover" />
+          if (nameOk && genderOk) {
+            let imgPath = user.type ? getUserTypeImages(user.type).path : imgFreestyler;
+            let imgSize = user.type ? getUserTypeImages(user.type).size : 40;
 
-                        <div className="text-md font-semibold">{user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`}</div>
+            const icon = {
+              url: imgPath,
+              size: new google.maps.Size(imgSize, imgSize),
+              scaledSize: new google.maps.Size(imgSize, imgSize),
+            };
+
+            return (
+              <Marker
+                key={`marker-${user.username}`}
+                clickable={true}
+                title={user.username}
+                icon={icon}
+                position={new google.maps.LatLng(user.locLatitude, user.locLongitude)}
+                onClick={() => addToSelectedUsers(user)}
+              >
+                {selectedUsers
+                  .filter(u => {
+                    if (u.username === user.username) return u;
+                  })
+                  .includes(user) && (
+                  <InfoWindow
+                    key={`info-${user.username}`}
+                    onCloseClick={() => {
+                      removeFromSelectedUsers(user);
+                    }}
+                  >
+                    <div className="bg-white shadow-lg rounded-lg">
+                      <div className="flex flex-col gap-1">
+                        <div className="grid grid-flow-col justify-start items-center gap-1">
+                          <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="h-6 w-6 rounded-full object-cover" />
+
+                          <div className="text-md font-semibold">{user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`}</div>
+                        </div>
+
+                        {user.type === UserType.FREESTYLER && user.country && (
+                          <div className="grid grid-flow-col justify-start items-center gap-1">
+                            <div className="h-6 w-6">
+                              <ReactCountryFlag
+                                countryCode={user.country}
+                                svg
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                }}
+                                title={user.country}
+                              />
+                            </div>
+
+                            <div>{getCountryNameByCode(user.country)}</div>
+                          </div>
+                        )}
+
+                        {user.type !== UserType.FREESTYLER && (
+                          <div className="grid grid-flow-col justify-start items-center gap-1">
+                            <img src={getUserTypeImages(user.type).path} className="h-6 w-6 object-cover" />
+
+                            {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
+                          </div>
+                        )}
                       </div>
 
-                      {user.type === UserType.FREESTYLER && user.country && (
-                        <div className="grid grid-flow-col justify-start items-center gap-1">
-                          <div className="h-6 w-6">
-                            <ReactCountryFlag
-                              countryCode={user.country}
-                              svg
-                              style={{
-                                width: '100%',
-                                height: '100%',
-                              }}
-                              title={user.country}
-                            />
-                          </div>
+                      <div className="flex justify-end mt-2">
+                        {!isIframe && (
+                          <Link href={`${routeUsers}/${user.username}`}>
+                            <u>{t('infoWindowGoToProfileInternal')}</u>
+                          </Link>
+                        )}
 
-                          <div>{getCountryNameByCode(user.country)}</div>
-                        </div>
-                      )}
-
-                      {user.type !== UserType.FREESTYLER && (
-                        <div className="grid grid-flow-col justify-start items-center gap-1">
-                          <img src={getUserTypeImages(user.type).path} className="h-6 w-6 object-cover" />
-
-                          {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
-                        </div>
-                      )}
+                        {isIframe && (
+                          <a href={`${window.location.protocol}//${window.location.host}/${routeUsers}/${user.username}`} target="_blank" rel="noopener noreferrer">
+                            <u>{t('infoWindowGoToProfileExternal')}</u>
+                          </a>
+                        )}
+                      </div>
                     </div>
-
-                    <div className="flex justify-end mt-2">
-                      {!isIframe && (
-                        <Link href={`${routeUsers}/${user.username}`}>
-                          <u>{t('infoWindowGoToProfileInternal')}</u>
-                        </Link>
-                      )}
-
-                      {isIframe && (
-                        <a href={`${window.location.protocol}//${window.location.host}/${routeUsers}/${user.username}`} target="_blank" rel="noopener noreferrer">
-                          <u>{t('infoWindowGoToProfileExternal')}</u>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </InfoWindow>
-              )}
-            </Marker>
-          );
+                  </InfoWindow>
+                )}
+              </Marker>
+            );
+          }
         }
       })}
     </GoogleMap>
