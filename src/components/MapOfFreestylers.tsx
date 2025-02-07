@@ -101,72 +101,72 @@ const MapOfFreestylers = ({ users = [], selectedUsernames = [], lat = 54.5259614
               icon={icon}
               position={new google.maps.LatLng(user.locLatitude, user.locLongitude)}
               onClick={() => addToSelectedUsers(user)}
-            />
-          );
-        }
-      })}
-
-      {selectedUsers.map(selectedUser => {
-        if (selectedUser.locLatitude && selectedUser.locLongitude)
-          return (
-            <InfoWindow
-              key={`info-${selectedUser.username}`}
-              position={new google.maps.LatLng(selectedUser.locLatitude, selectedUser.locLongitude)}
-              onCloseClick={() => {
-                removeFromSelectedUsers(selectedUser);
-              }}
             >
-              <div className="bg-white shadow-lg rounded-lg">
-                <div className="flex flex-col gap-1">
-                  <div className="grid grid-flow-col justify-start items-center gap-1">
-                    <img src={selectedUser.imageUrl ? selectedUser.imageUrl : imgUserDefaultImg} className="h-6 w-6 rounded-full object-cover" />
+              {selectedUsers
+                .filter(u => {
+                  if (u.username === user.username) return u;
+                })
+                .includes(user) && (
+                <InfoWindow
+                  key={`info-${user.username}`}
+                  onCloseClick={() => {
+                    removeFromSelectedUsers(user);
+                  }}
+                >
+                  <div className="bg-white shadow-lg rounded-lg">
+                    <div className="flex flex-col gap-1">
+                      <div className="grid grid-flow-col justify-start items-center gap-1">
+                        <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="h-6 w-6 rounded-full object-cover" />
 
-                    <div className="text-md font-semibold">{selectedUser.lastName ? `${selectedUser.firstName} ${selectedUser.lastName}` : `${selectedUser.firstName}`}</div>
-                  </div>
-
-                  {selectedUser.type === UserType.FREESTYLER && selectedUser.country && (
-                    <div className="grid grid-flow-col justify-start items-center gap-1">
-                      <div className="h-6 w-6">
-                        <ReactCountryFlag
-                          countryCode={selectedUser.country}
-                          svg
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                          }}
-                          title={selectedUser.country}
-                        />
+                        <div className="text-md font-semibold">{user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`}</div>
                       </div>
 
-                      <div>{getCountryNameByCode(selectedUser.country)}</div>
+                      {user.type === UserType.FREESTYLER && user.country && (
+                        <div className="grid grid-flow-col justify-start items-center gap-1">
+                          <div className="h-6 w-6">
+                            <ReactCountryFlag
+                              countryCode={user.country}
+                              svg
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                              }}
+                              title={user.country}
+                            />
+                          </div>
+
+                          <div>{getCountryNameByCode(user.country)}</div>
+                        </div>
+                      )}
+
+                      {user.type !== UserType.FREESTYLER && (
+                        <div className="grid grid-flow-col justify-start items-center gap-1">
+                          <img src={getUserTypeImages(user.type).path} className="h-6 w-6 object-cover" />
+
+                          {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
+                        </div>
+                      )}
                     </div>
-                  )}
 
-                  {selectedUser.type !== UserType.FREESTYLER && (
-                    <div className="grid grid-flow-col justify-start items-center gap-1">
-                      <img src={getUserTypeImages(selectedUser.type).path} className="h-6 w-6 object-cover" />
+                    <div className="flex justify-end mt-2">
+                      {!isIframe && (
+                        <Link href={`${routeUsers}/${user.username}`}>
+                          <u>{t('infoWindowGoToProfileInternal')}</u>
+                        </Link>
+                      )}
 
-                      {selectedUser.type && <div>{`${getUserTypeLabels(selectedUser.type, t)}`}</div>}
+                      {isIframe && (
+                        <a href={`${window.location.protocol}//${window.location.host}/${routeUsers}/${user.username}`} target="_blank" rel="noopener noreferrer">
+                          <u>{t('infoWindowGoToProfileExternal')}</u>
+                        </a>
+                      )}
                     </div>
-                  )}
-                </div>
-
-                <div className="flex justify-end mt-2">
-                  {!isIframe && (
-                    <Link href={`${routeUsers}/${selectedUser.username}`}>
-                      <u>{t('infoWindowGoToProfileInternal')}</u>
-                    </Link>
-                  )}
-
-                  {isIframe && (
-                    <a href={`${window.location.protocol}//${window.location.host}/${routeUsers}/${selectedUser.username}`} target="_blank" rel="noopener noreferrer">
-                      <u>{t('infoWindowGoToProfileExternal')}</u>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </InfoWindow>
+                  </div>
+                </InfoWindow>
+              )}
+            </Marker>
           );
+        }
       })}
     </GoogleMap>
   ) : (
