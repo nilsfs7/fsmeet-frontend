@@ -370,7 +370,7 @@
     "inputSearchPlaceholder": "Suche Name...",
     "drpDwnGender": "Geschlecht",
     "infoWindowGoToProfileInternal": "Klicke fürs Profil",
-    "infoWindowGoToProfileExternal": "Siehe auf FSMeet"
+    "infoWindowGoToProfileExternal": "In FSMeet öffnen"
   },
   "/password/forgot": {
     "inputUsername": "Nutzername / E-Mail",
