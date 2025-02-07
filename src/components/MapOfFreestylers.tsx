@@ -1,85 +1,91 @@
-import { useEffect, useRef, useState } from 'react';
-import { Loader } from '@googlemaps/js-api-loader';
-import { User } from '@/types/user';
-import { imgFreestyler } from '@/domain/constants/images';
-import { routeUsers } from '@/domain/constants/routes';
-import { UserType } from '@/domain/enums/user-type';
-import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
+import React, { useEffect, useState } from 'react';
+import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { useTranslations } from 'next-intl';
-
-const loader = new Loader({
-  apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',
-  version: 'weekly',
-  libraries: ['places'],
-});
+import { User } from '@/types/user';
+import { routeUsers } from '@/domain/constants/routes';
+import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
+import { UserType } from '@/domain/enums/user-type';
+import { imgFreestyler, imgUserDefaultImg } from '@/domain/constants/images';
+import Link from 'next/link';
+import ReactCountryFlag from 'react-country-flag';
+import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 
 interface IMapsProps {
   users: User[];
-  selectedUsers?: string[];
+  selectedUsernames?: string[];
   lat?: number;
   lng?: number;
   zoom?: number;
   streetViewEnabled?: boolean;
   filterName?: string;
   filterGender?: string[];
+  isIframe?: boolean;
 }
 
+const containerStyle = {
+  width: '100%',
+  height: '100%',
+};
+
 // Europe = lat: 54.5259614, lng: 15.2551187
-const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, lng = 15.2551187, zoom = 6, streetViewEnabled = false, filterName, filterGender }: IMapsProps) => {
+const MapOfFreestylers = ({ users = [], selectedUsernames = [], lat = 54.5259614, lng = 15.2551187, zoom = 6, streetViewEnabled = false, filterName, filterGender, isIframe = false }: IMapsProps) => {
   const t = useTranslations('/map');
 
-  const mapRef = useRef(null);
-  const [map, setMap] = useState<google.maps.Map>();
-  const [markersWithInfo, setMarkersWithInfo] = useState<{ marker: google.maps.Marker; info: google.maps.InfoWindow }[]>([]);
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',
+  });
 
-  useEffect(() => {
-    markersWithInfo.forEach(markerWithInfo => {
-      const markerTitle = markerWithInfo.marker.getTitle();
-      if (markerTitle) {
-        const user = users.filter(user => {
-          return user.username === markerTitle;
-        })[0];
+  const [map, setMap] = React.useState<google.maps.Map | null>();
+  const [mapOptions, setMapOptions] = useState<google.maps.MapOptions>();
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
 
-        // @ts-ignore
-        const fullName = `${user.firstName.toLowerCase()} ${user.lastName?.toLowerCase()}`;
-
-        let nameOk: boolean = true;
-        if (filterName && !fullName.includes(filterName.toLowerCase())) {
-          nameOk = false;
-        }
-
-        let genderOk: boolean = true;
-        if (user.gender && filterGender && !filterGender.includes(user.gender)) {
-          genderOk = false;
-        }
-
-        if (nameOk && genderOk) {
-          markerWithInfo.marker.setVisible(true);
-        } else {
-          markerWithInfo.marker.setVisible(false);
-          markerWithInfo.info.close();
-        }
+  const initSelectedUsers = (users: User[], selectedUsernames: string[]) => {
+    const usrs = users.filter(usr => {
+      if (selectedUsernames.includes(usr.username)) {
+        return usr;
       }
     });
-  }, [filterName, filterGender]);
+
+    setSelectedUsers(usrs);
+  };
+
+  const addToSelectedUsers = (user: User) => {
+    let users = Array.from(selectedUsers);
+    users.push(user);
+    setSelectedUsers(users);
+  };
+
+  const removeFromSelectedUsers = (user: User) => {
+    let users = Array.from(selectedUsers);
+    users = users.filter(usr => {
+      if (usr.username !== user.username) {
+        return usr;
+      }
+    });
+
+    setSelectedUsers(users);
+  };
+
+  const onLoad = React.useCallback(function callback(map: google.maps.Map) {
+    setMapOptions({ center: new google.maps.LatLng(lat, lng), streetViewControl: streetViewEnabled, zoom: zoom });
+    setMap(map);
+  }, []);
+
+  const onUnmount = React.useCallback(function callback(map: google.maps.Map) {
+    setMap(null);
+  }, []);
 
   useEffect(() => {
-    loader.load().then(async () => {
-      const mapOptions: google.maps.MapOptions = {
-        center: new google.maps.LatLng(lat, lng),
-        zoom: zoom,
-        streetViewControl: streetViewEnabled,
-      };
+    initSelectedUsers(users, selectedUsernames);
+  }, [users]);
 
-      // @ts-ignore
-      const newMap = new window.google.maps.Map(document.getElementById('map'), mapOptions);
-
-      const markersWithInfo: { marker: google.maps.Marker; info: google.maps.InfoWindow }[] = [];
-      users.forEach(user => {
-        if (user.locLatitude && user.locLongitude && user.type !== UserType.TECHNICAL) {
+  return isLoaded ? (
+    <GoogleMap mapContainerStyle={containerStyle} options={mapOptions} onLoad={onLoad} onUnmount={onUnmount}>
+      {users.map(user => {
+        if (user.locLatitude && user.locLongitude && user.exposeLocation && user.type !== UserType.TECHNICAL) {
           let imgPath = user.type ? getUserTypeImages(user.type).path : imgFreestyler;
           let imgSize = user.type ? getUserTypeImages(user.type).size : 40;
-          let tagType = user.type && user.type !== UserType.FREESTYLER ? `<p>${getUserTypeLabels(user.type, t)}</p` : '</>';
 
           const icon = {
             url: imgPath,
@@ -87,56 +93,85 @@ const MapOfFreestylers = ({ users = [], selectedUsers = [], lat = 54.5259614, ln
             scaledSize: new google.maps.Size(imgSize, imgSize),
           };
 
-          const marker = new google.maps.Marker({
-            clickable: true,
-            title: user.username,
-            position: new google.maps.LatLng(user.locLatitude, user.locLongitude),
-            map: newMap,
-            icon,
-          });
-
-          const content = `
-              <div style="line-height:1.35;overflow:hidden;white-space:nowrap;";>
-                <div>${user.lastName ? `${user.firstName} ${user.lastName} (${user.username})` : `${user.firstName}`}</div>
-                ${tagType}
-                <div>
-                  <a href=${routeUsers}/${user.username}>
-                    <u>${t('infoWindowGoToProfile')}</u>
-                  </a>
-                </div>
-              </div>`;
-
-          var infoWindow = new google.maps.InfoWindow({
-            content: content,
-          });
-
-          markersWithInfo.push({ marker: marker, info: infoWindow });
-
-          marker.addListener('mouseover', () => {
-            // infowindow.open(map, marker);
-          });
-
-          marker.addListener('mouseout', () => {
-            // infowindow.close();
-          });
-
-          marker.addListener('click', () => {
-            infoWindow.open(map, marker);
-          });
-
-          if (selectedUsers.includes(user.username)) {
-            infoWindow.open(map, marker);
-          }
+          return (
+            <Marker
+              key={`marker-${user.username}`}
+              clickable={true}
+              title={user.username}
+              icon={icon}
+              position={new google.maps.LatLng(user.locLatitude, user.locLongitude)}
+              onClick={() => addToSelectedUsers(user)}
+            />
+          );
         }
-      });
+      })}
 
-      setMarkersWithInfo(markersWithInfo);
+      {selectedUsers.map(selectedUser => {
+        if (selectedUser.locLatitude && selectedUser.locLongitude)
+          return (
+            <InfoWindow
+              key={`info-${selectedUser.username}`}
+              position={new google.maps.LatLng(selectedUser.locLatitude, selectedUser.locLongitude)}
+              onCloseClick={() => {
+                removeFromSelectedUsers(selectedUser);
+              }}
+            >
+              <div className="bg-white shadow-lg rounded-lg">
+                <div className="flex flex-col gap-1">
+                  <div className="grid grid-flow-col justify-start items-center gap-1">
+                    <img src={selectedUser.imageUrl ? selectedUser.imageUrl : imgUserDefaultImg} className="h-6 w-6 rounded-full object-cover" />
 
-      // @ts-ignore
-      setMap(newMap);
-    });
-  }, [users]);
-  return <div id="map" className="h-full w-full" ref={mapRef} />;
+                    <div className="text-md font-semibold">{selectedUser.lastName ? `${selectedUser.firstName} ${selectedUser.lastName}` : `${selectedUser.firstName}`}</div>
+                  </div>
+
+                  {selectedUser.type === UserType.FREESTYLER && selectedUser.country && (
+                    <div className="grid grid-flow-col justify-start items-center gap-1">
+                      <div className="h-6 w-6">
+                        <ReactCountryFlag
+                          countryCode={selectedUser.country}
+                          svg
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                          }}
+                          title={selectedUser.country}
+                        />
+                      </div>
+
+                      <div>{getCountryNameByCode(selectedUser.country)}</div>
+                    </div>
+                  )}
+
+                  {selectedUser.type !== UserType.FREESTYLER && (
+                    <div className="grid grid-flow-col justify-start items-center gap-1">
+                      <img src={getUserTypeImages(selectedUser.type).path} className="h-6 w-6 object-cover" />
+
+                      {selectedUser.type && <div>{`${getUserTypeLabels(selectedUser.type, t)}`}</div>}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex justify-end mt-2">
+                  {!isIframe && (
+                    <Link href={`${routeUsers}/${selectedUser.username}`}>
+                      <u>{t('infoWindowGoToProfileInternal')}</u>
+                    </Link>
+                  )}
+
+                  {isIframe && (
+                    <a href={`${window.location.protocol}//${window.location.host}/${routeUsers}/${selectedUser.username}`} target="_blank" rel="noopener noreferrer">
+                      <u>{t('infoWindowGoToProfileExternal')}</u>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </InfoWindow>
+          );
+      })}
+    </GoogleMap>
+  ) : (
+    <></>
+  );
 };
 
 export default MapOfFreestylers;

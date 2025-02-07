@@ -10,7 +10,6 @@ import { UserType } from '@/domain/enums/user-type';
 import { User } from '@/types/user';
 import Link from 'next/link';
 import ReactCountryFlag from 'react-country-flag';
-import { countries } from 'countries-list';
 import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { Header } from '@/components/Header';
@@ -29,6 +28,7 @@ import NavigateBackButton from '@/components/NavigateBackButton';
 import { ReadRoundResponseDto } from '@/infrastructure/clients/dtos/competition/read-round.response.dto';
 import { ActionButtonDeleteUser } from './components/action-button-delete-user';
 import { getTranslations } from 'next-intl/server';
+import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 
 const getCompetitionsByBattles = async (
   battleHistory: {
@@ -113,12 +113,6 @@ export default async function PublicUserProfile({ params }: { params: { username
   let displayName = user.firstName ? `${user.firstName}` : `${user.username}`;
   if (user.lastName) {
     displayName = `${displayName}`;
-  }
-
-  function getCountryNameByCode(code: string): string {
-    // @ts-ignore: next-line
-    const country = countries[code.toUpperCase()];
-    return country ? country.name : null;
   }
 
   return (

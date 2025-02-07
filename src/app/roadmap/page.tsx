@@ -84,7 +84,7 @@ export default async function Roadmap() {
             <Task
               title="Optimize for iframes"
               size={TaskSize.SMALL}
-              filled={85}
+              filled={100}
               description="Enable external websites to integrate the freesytler map with ease. First implementation: https://dffb.org/community"
             />
           </Row>
