@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
-import { useTranslations } from 'next-intl';
+import { createTranslator, useTranslations } from 'next-intl';
 import { User } from '@/types/user';
 import { routeUsers } from '@/domain/constants/routes';
 import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
@@ -9,6 +9,9 @@ import { imgFreestyler, imgUserDefaultImg } from '@/domain/constants/images';
 import Link from 'next/link';
 import ReactCountryFlag from 'react-country-flag';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
+import { useSearchParams } from 'next/navigation';
+import { useMessagesForcedLocale } from '@/hooks/use-messages-forced-locale';
+import { supportedLanguages } from '@/domain/constants/supported-languages';
 
 interface IMapsProps {
   users: User[];
@@ -29,7 +32,18 @@ const containerStyle = {
 
 // Europe = lat: 54.5259614, lng: 15.2551187
 const MapOfFreestylers = ({ users = [], selectedUsernames = [], lat = 54.5259614, lng = 15.2551187, zoom = 6, streetViewEnabled = false, filterName, filterGender, isIframe = false }: IMapsProps) => {
-  const t = useTranslations('/map');
+  let t = useTranslations('/map');
+
+  const searchParams = useSearchParams();
+  const locale = searchParams?.get('locale');
+
+  // overwrite translation
+  const messages = useMessagesForcedLocale(locale || 'gb');
+  if (locale) {
+    if (supportedLanguages.includes(locale.toUpperCase())) {
+      t = createTranslator({ locale: locale, messages, namespace: '/map' });
+    }
+  }
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',

@@ -4,14 +4,14 @@ import { routeAdminOverview } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
-import { UsersEditor } from './components/users-editor';
+import { UserStatistics } from './components/user-statistics';
 
-export default async function UserAdministration() {
+export default async function Statistics() {
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
-      <PageTitle title="Manage Users" />
+      <PageTitle title="Statistics" />
 
-      <UsersEditor />
+      <UserStatistics />
 
       <Navigation>
         <Link href={routeAdminOverview}>

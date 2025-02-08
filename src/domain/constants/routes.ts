@@ -3,7 +3,8 @@ export const routeHome = '/';
 export const routeAdminOverview = '/admin';
 export const routeAdminEvents = '/admin/events';
 export const routeAdminLicenses = '/admin/licenses';
-export const routeAdminUsers = '/admin/users';
+export const routeAdminUserVerification = '/admin/verification';
+export const routeAdminStatistics = '/admin/statistics';
 
 export const routeAbout = '/about';
 export const routeContributors = '/about/contributors';

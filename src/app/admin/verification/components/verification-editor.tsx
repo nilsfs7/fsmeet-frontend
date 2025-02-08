@@ -12,10 +12,9 @@ import { User } from '@/types/user';
 import { menuUserVerificationStates } from '@/domain/constants/menus/menu-user-verification-states';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { getUsers, updateUserVerificationState } from '@/infrastructure/clients/user.client';
-import { getUserCount } from '@/infrastructure/clients/statistic.client';
 import { useSession } from 'next-auth/react';
 
-export const UsersEditor = () => {
+export const VerificationEditor = () => {
   const { data: session, status } = useSession();
 
   const [userCountTotal, setUserCountTotal] = useState<number>(-1);
@@ -24,7 +23,7 @@ export const UsersEditor = () => {
 
   const handlUserVerificationStateChanged = async (username: string, verificationState: UserVerificationState) => {
     let usrs = Array.from(users);
-    usrs = usrs.map((usr) => {
+    usrs = usrs.map(usr => {
       if (usr.username === username) {
         usr.verificationState = verificationState;
       }
@@ -47,12 +46,7 @@ export const UsersEditor = () => {
   };
 
   useEffect(() => {
-    getUserCount().then((dto) => {
-      setUserCountTotal(dto.userCountTotal);
-      setUserCountNonTechnical(dto.userCountNonTechnical);
-    });
-
-    getUsers().then((users) => {
+    getUsers().then(users => {
       setUsers(users);
     });
   }, [users == undefined, userCountTotal == undefined, userCountNonTechnical == undefined]);
@@ -68,26 +62,6 @@ export const UsersEditor = () => {
       <div className="mx-2 overflow-y-auto">
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <div className="flex flex-col">
-            <div className="m-2 flex items-center gap-2">
-              <div className="flex w-1/2 justify-end">
-                <div>{`Total users:`}</div>
-              </div>
-
-              <div className="flex w-1/2 justify-start">
-                <div>{userCountTotal}</div>
-              </div>
-            </div>
-
-            <div className="m-2 flex items-center gap-2">
-              <div className="flex w-1/2 justify-end">
-                <div>{`Non-technical users:`}</div>
-              </div>
-
-              <div className="flex w-1/2 justify-start">
-                <div>{userCountNonTechnical}</div>
-              </div>
-            </div>
-
             {users.map((user, index) => {
               return (
                 <div key={index} className="m-1 flex items-center">

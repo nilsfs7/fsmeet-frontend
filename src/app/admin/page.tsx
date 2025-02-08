@@ -1,6 +1,6 @@
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { routeAdminEvents, routeAdminLicenses, routeAdminUsers, routeHome } from '@/domain/constants/routes';
+import { routeAdminEvents, routeAdminLicenses, routeAdminStatistics, routeAdminUserVerification, routeHome } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
@@ -20,8 +20,12 @@ export default async function AdminOverview() {
           <TextButton text={'Licences'} />
         </Link>
 
-        <Link href={routeAdminUsers}>
-          <TextButton text={'Users'} />
+        <Link href={routeAdminUserVerification}>
+          <TextButton text={'User Verification'} />
+        </Link>
+
+        <Link href={routeAdminStatistics}>
+          <TextButton text={'Statistics'} />
         </Link>
       </div>
 
