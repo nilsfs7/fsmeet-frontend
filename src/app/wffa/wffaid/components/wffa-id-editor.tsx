@@ -12,6 +12,7 @@ import { getUsers, updateUserWffaId } from '@/infrastructure/clients/user.client
 import { useSession } from 'next-auth/react';
 import { Input } from '@/components/ui/input';
 import Separator from '@/components/Seperator';
+import { UserType } from '@/domain/enums/user-type';
 
 export const WffaIdEditor = () => {
   const { data: session, status } = useSession();
@@ -47,7 +48,7 @@ export const WffaIdEditor = () => {
   };
 
   useEffect(() => {
-    getUsers().then(users => {
+    getUsers(UserType.FREESTYLER).then(users => {
       setUsersMap(
         users.map(user => {
           return { user, newWffaId: user.wffaId || '' };
