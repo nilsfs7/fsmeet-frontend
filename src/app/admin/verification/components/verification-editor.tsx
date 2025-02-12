@@ -17,8 +17,6 @@ import { useSession } from 'next-auth/react';
 export const VerificationEditor = () => {
   const { data: session, status } = useSession();
 
-  const [userCountTotal, setUserCountTotal] = useState<number>(-1);
-  const [userCountNonTechnical, setUserCountNonTechnical] = useState<number>(-1);
   const [users, setUsers] = useState<User[]>([]);
 
   const handlUserVerificationStateChanged = async (username: string, verificationState: UserVerificationState) => {
@@ -49,7 +47,7 @@ export const VerificationEditor = () => {
     getUsers().then(users => {
       setUsers(users);
     });
-  }, [users == undefined, userCountTotal == undefined, userCountNonTechnical == undefined]);
+  }, [users == undefined]);
 
   if (!users) {
     return <LoadingSpinner text="Loading..." />; // todo
