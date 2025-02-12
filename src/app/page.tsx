@@ -5,15 +5,22 @@ import { Event } from '@/types/event';
 import { Header } from '@/components/Header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
 import TextButton from '@/components/common/TextButton';
-import { routeAbout, routeAdminOverview, routeEvents, routeEventsCreate, routeHome, routeMap, routeUsers, routeVoice } from '@/domain/constants/routes';
+import { routeAbout, routeAdminOverview, routeEvents, routeEventsCreate, routeHome, routeMap, routeUsers, routeVoice, routeWffaOverview } from '@/domain/constants/routes';
 import { TechnicalUser } from '@/domain/enums/technical-user';
 import { auth } from '@/auth';
 import { EventsCarousel } from './components/events-carousel';
 import { getTranslations } from 'next-intl/server';
+import { getUser } from '@/infrastructure/clients/user.client';
+import { User } from '@/types/user';
 
 export default async function Home() {
   const t = await getTranslations(routeHome);
   const session = await auth();
+
+  let actingUser: User | undefined;
+  if (session?.user.username) {
+    actingUser = await getUser(session?.user.username);
+  }
 
   let upcomingEvents: Event[] = await getEventsUpcoming(1);
   let ongoingEvents: Event[] = await getEventsOngoing(1);
@@ -74,6 +81,15 @@ export default async function Home() {
             <div className="flex flex-col md:flex-row items-center gap-1">
               <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
               <div>{t('navAdminOverview')}</div>
+            </div>
+          </Link>
+        )}
+
+        {actingUser?.isWffaMember && (
+          <Link href={routeWffaOverview}>
+            <div className="flex flex-col md:flex-row items-center gap-1">
+              <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
+              <div>{t('navWffaOverview')}</div>
             </div>
           </Link>
         )}

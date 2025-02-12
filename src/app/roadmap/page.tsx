@@ -104,8 +104,8 @@ export default async function Roadmap() {
 
         <Section title={'WFFA'}>
           <Row>
-            <Task title="Enhance permission" size={TaskSize.SMALL} filled={0} description="Flags an account with enhanced rights when signed up with ...@wffa.org." />
-            <Task title="Assign Freestyler-ID" size={TaskSize.MEDIUM} filled={0} description="WFFA user is able to assign / manage users Freestyler-ID. FID is important for battle data." />
+            <Task title="Enhance permission" size={TaskSize.SMALL} filled={100} description="Flags an account with enhanced rights when signed up with ...@wffa.org." />
+            <Task title="Assign Freestyler-ID" size={TaskSize.MEDIUM} filled={100} description="WFFA user is able to assign / manage users Freestyler-ID. FID is important for battle data." />
           </Row>
         </Section>
 

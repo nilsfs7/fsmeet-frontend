@@ -6,6 +6,9 @@ export const routeAdminLicenses = '/admin/licenses';
 export const routeAdminUserVerification = '/admin/verification';
 export const routeAdminStatistics = '/admin/statistics';
 
+export const routeWffaOverview = '/wffa';
+export const routeWffaFreestylerIdMangement = '/wffa/wffaid';
+
 export const routeAbout = '/about';
 export const routeContributors = '/about/contributors';
 export const routeImprint = '/imprint';

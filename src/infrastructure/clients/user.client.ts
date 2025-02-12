@@ -7,6 +7,7 @@ import { Gender } from '@/domain/enums/gender';
 import { CreateUserBodyDto } from './dtos/user/create-user.body.dto';
 import { UpdateUserBodyDto } from './dtos/user/update-user.body.dto';
 import { UpdatePrivateUserInfoBodyDto } from './dtos/user/update-private-user-info.body.dto';
+import { PatchWffaIdBodyDto } from './dtos/user/patch-wffa-id.body.dto';
 
 export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
@@ -54,6 +55,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       jobShowExperience: data.private?.jobShowExperience,
       phoneNumber: data.private?.phoneNumber,
       wffaId: data.wffaId,
+      isWffaMember: data.isWffaMember,
     };
 
     return user;
@@ -122,6 +124,7 @@ export async function getUsers(type?: UserType, gender?: Gender, country?: strin
       phoneCountryCode: data.private?.phoneCountryCode,
       phoneNumber: data.private?.phoneNumber,
       wffaId: data.wffaId,
+      isWffaMember: data.isWffaMember,
     };
 
     users.push(user);
@@ -330,6 +333,28 @@ export async function updateUserVerificationState(session: Session | null, usern
 
   if (response.ok) {
     console.info('Updating user verification state successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function updateUserWffaId(session: Session | null, username: string, wffaId: string): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/wffaid`;
+
+  const body = new PatchWffaIdBodyDto(username, wffaId);
+
+  const response = await fetch(url, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating user WFFA ID successful');
   } else {
     const error = await response.json();
     throw Error(error.message);
