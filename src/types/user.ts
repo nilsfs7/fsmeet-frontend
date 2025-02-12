@@ -35,4 +35,5 @@ export type User = {
   phoneCountryCode?: number;
   phoneNumber?: number | null;
   wffaId?: string;
+  isWffaMember?: string;
 };
