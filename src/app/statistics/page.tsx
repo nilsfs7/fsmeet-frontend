@@ -1,10 +1,7 @@
-import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
-import { routeAdminOverview } from '@/domain/constants/routes';
-import ActionButton from '@/components/common/ActionButton';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { UserStatistics } from './components/user-statistics';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
 export default async function Statistics() {
   return (
@@ -14,9 +11,7 @@ export default async function Statistics() {
       <UserStatistics />
 
       <Navigation>
-        <Link href={routeAdminOverview}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <NavigateBackButton />
       </Navigation>
     </div>
   );
