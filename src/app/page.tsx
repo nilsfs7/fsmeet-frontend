@@ -85,7 +85,7 @@ export default async function Home() {
           </Link>
         )}
 
-        {actingUser?.isWffaMember && (
+        {(actingUser?.isWffaMember || session?.user?.username === TechnicalUser.ADMIN) && (
           <Link href={routeWffaOverview}>
             <div className="flex flex-col md:flex-row items-center gap-1">
               <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />

@@ -1,7 +1,18 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode } from 'jwt-decode';
-import { routeAccount, routeEventsCreate, routeEventSubs, routeFeedback, routeHome, routeLogin, routeVoiceCreatePoll, routeVoiceManage } from './domain/constants/routes';
+import {
+  routeAccount,
+  routeAdminOverview,
+  routeEventsCreate,
+  routeEventSubs,
+  routeFeedback,
+  routeHome,
+  routeLogin,
+  routeVoiceCreatePoll,
+  routeVoiceManage,
+  routeWffaOverview,
+} from './domain/constants/routes';
 import { TechnicalUser } from './domain/enums/technical-user';
 
 const credentialsConfig = CredentialsProvider({
@@ -57,7 +68,8 @@ const config = {
         pathname.startsWith(routeEventSubs) ||
         pathname.startsWith(routeEventsCreate) ||
         pathname.startsWith(routeVoiceManage) ||
-        pathname.startsWith(routeVoiceCreatePoll)
+        pathname.startsWith(routeVoiceCreatePoll) ||
+        pathname.startsWith(routeWffaOverview)
       ) {
         return !!auth;
       }
@@ -68,7 +80,7 @@ const config = {
       }
 
       // deny access to /admin routes
-      if (pathname.startsWith('/admin') && auth?.user?.username !== TechnicalUser.ADMIN) {
+      if (pathname.startsWith(routeAdminOverview) && auth?.user?.username !== TechnicalUser.ADMIN) {
         return Response.redirect(new URL(routeHome, nextUrl));
       }
 

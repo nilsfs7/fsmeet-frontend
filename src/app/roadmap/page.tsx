@@ -4,13 +4,15 @@ import { Task } from './components/task';
 import { Section } from './components/section';
 import { TaskSize } from '@/domain/enums/task-size';
 import PageTitle from '@/components/PageTitle';
+import Navigation from '@/components/Navigation';
+import NavigateBackButton from '@/components/NavigateBackButton';
 
 export default async function Roadmap() {
   return (
-    <>
+    <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title={'Roadmap'} />
 
-      <div className="flex flex-col">
+      <div className="flex flex-col overflow-auto">
         <Section title={'Event Registration Process'}>
           <Row>
             <Task
@@ -87,6 +89,8 @@ export default async function Roadmap() {
               filled={100}
               description="Enable external websites to integrate the freesytler map with ease. First implementation: https://dffb.org/community"
             />
+
+            <Task title="Provide docs for iframe" size={TaskSize.SMALL} filled={0} description="Let users know how to embed the map with all its parameters." />
           </Row>
 
           <Row>
@@ -130,6 +134,10 @@ export default async function Roadmap() {
           </Row>
         </Section>
       </div>
-    </>
+
+      <Navigation>
+        <NavigateBackButton />
+      </Navigation>
+    </div>
   );
 }
