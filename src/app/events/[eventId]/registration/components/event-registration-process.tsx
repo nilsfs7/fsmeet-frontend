@@ -11,7 +11,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Event } from '@/types/event';
 import { User } from '@/types/user';
-import CheckBox from '@/components/common/CheckBox';
 import { CompetitionGender } from '@/domain/enums/competition-gender';
 import { Toaster, toast } from 'sonner';
 import { EventRegistrationInfo } from '@/types/event-registration-info';
@@ -58,13 +57,11 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       return false;
     }
 
-    const pageIndex = +page;
-
-    if (pageIndex === 1 && !registrationType) {
+    if (page === RegistrationProcessPage.REGISTRATION_TYPE && !registrationType) {
       return true;
     }
 
-    if (pageIndex === 2 && compSignUps.length === 0) {
+    if (page === RegistrationProcessPage.COMPETITIONS && compSignUps.length === 0) {
       return true;
     }
 
@@ -140,6 +137,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   const handleRegisterNowClicked = async () => {
     if (event.id && registrationType) {
       createEventRegistration_v2(event.id, registrationType, compSignUps, session).then(() => {
+        cleanupCacheRegistrationInfo();
         router.replace(`${pageUrl}/completed`);
       });
     }
@@ -170,6 +168,15 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       };
 
       sessionStorage.setItem('registrationInfo', JSON.stringify(info));
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
+  };
+
+  const cleanupCacheRegistrationInfo = async () => {
+    try {
+      sessionStorage.removeItem('registrationInfo');
     } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
@@ -314,7 +321,6 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
           <div className="flex gap-1">
             {page && <TextButton text={'Back'} onClick={handleBackClicked} />}
-
             {page !== RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && (
               <TextButton text={page ? 'Next' : 'Register'} disabled={nextButtonDisabled()} onClick={handleNextClicked} />
             )}
