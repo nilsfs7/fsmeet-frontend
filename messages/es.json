@@ -481,6 +481,7 @@
     "datePickerTo": "Fecha final",
     "datePickerRegistrationFrom": "Apertura de inscripciones",
     "datePickerRegistrationTo": "Plazo de inscripción",
+    "inputTrailerUrl": "URL del tráiler",
     "inputLivestreamUrl": "URL de la retransmisión en directo",
     "inputMessangerInvitationUrl": "Enlace de invitación al chat de grupo (por ejemplo, WhatsApp)",
     "sectionLocation": "Lugar",

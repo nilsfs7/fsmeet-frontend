@@ -481,6 +481,7 @@
     "datePickerTo": "Date To",
     "datePickerRegistrationFrom": "Registration Open",
     "datePickerRegistrationTo": "Registration Deadline",
+    "inputTrailerUrl": "Trailer URL",
     "inputLivestreamUrl": "Livestream URL",
     "inputMessangerInvitationUrl": "Group Chat Invitation Link (e.g. WhatsApp)",
     "sectionLocation": "Venue",

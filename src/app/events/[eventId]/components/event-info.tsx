@@ -86,7 +86,20 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
       )}
 
       {/* urls */}
-      {(event.livestreamUrl || (event.messangerInvitationUrl && showMessangerInvitationUrl)) && <Separator />}
+      {(event.trailerUrl || event.livestreamUrl || (event.messangerInvitationUrl && showMessangerInvitationUrl)) && <Separator />}
+
+      {event.trailerUrl && (
+        <div className={'p-2'}>
+          <div className={'grid grid-cols-3'}>
+            <div className="col-span-1">{`Trailer`}</div>
+            <div className="col-span-2 hover:underline select-text break-words">
+              <a target="_blank" rel="noopener noreferrer" href={event.trailerUrl}>
+                {event.trailerUrl}
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {event.livestreamUrl && (
         <div className={'p-2'}>

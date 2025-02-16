@@ -57,6 +57,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const [venuePostCode, setVenuePostCode] = useState(event?.venuePostCode || '');
   const [venueCountry, setVenueCountry] = useState(event?.venueCountry || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
+  const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || '');
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
   const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || '');
   const [participationFee, setParticipationFee] = useState(event?.participationFee || 0.0);
@@ -155,6 +156,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       venueCity: venueCity,
       venuePostCode: venuePostCode,
       venueCountry: venueCountry,
+      trailerUrl: trailerUrl,
       livestreamUrl: livestreamUrl,
       messangerInvitationUrl: messangerInvitationUrl,
       participationFee: participationFee,
@@ -190,6 +192,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       setVenueCity(event.venueCity);
       setVenueCountry(event.venueCountry);
       setEventType(event.type);
+      setTrailerUrl(event.trailerUrl);
       setLivestreamUrl(event.livestreamUrl);
       setMessangerInvitationUrl(event.messangerInvitationUrl);
       setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
@@ -233,6 +236,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     venuePostCode,
     venueCountry,
     eventType,
+    trailerUrl,
     livestreamUrl,
     messangerInvitationUrl,
     participationFee,
@@ -367,6 +371,16 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           }}
         />
       </div>
+
+      <TextInput
+        id={'trailerUrl'}
+        label={t('inputTrailerUrl')}
+        placeholder="https://www.youtube.com/watch?v=JsPpmzMODQQ"
+        value={trailerUrl}
+        onChange={e => {
+          setTrailerUrl(e.currentTarget.value);
+        }}
+      />
 
       <TextInput
         id={'livestreamUrl'}

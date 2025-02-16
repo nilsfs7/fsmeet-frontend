@@ -26,6 +26,7 @@ export type Event = {
   venuePostCode: string;
   venueCountry: string;
   type: EventType;
+  trailerUrl: string;
   livestreamUrl: string;
   messangerInvitationUrl: string;
   paymentMethodCash: PaymentMethodCash;
