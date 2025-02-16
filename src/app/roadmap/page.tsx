@@ -37,6 +37,10 @@ export default async function Roadmap() {
 
         <Section title={'Event Management'}>
           <Row>
+            <Task title="Add event trailer" size={TaskSize.SMALL} filled={100} description="Preview a trailer for your event." />
+          </Row>
+
+          <Row>
             <Task title="Invite freestyler (mail)" size={TaskSize.SMALL} filled={0} description="Standardized mailing to promote your event to FSMeet users. Must be a paid feature to avoid spam." />
           </Row>
         </Section>

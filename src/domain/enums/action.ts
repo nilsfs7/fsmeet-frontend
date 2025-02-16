@@ -15,6 +15,7 @@ export enum Action {
   MANAGE_COMPETITIONS,
   MANAGE_SPONSORS,
   MANAGE_USERS,
+  PLAY,
   REMOVE,
   SAVE,
   SEND,
