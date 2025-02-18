@@ -9,6 +9,7 @@ import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PaidIcon from '@mui/icons-material/Paid';
 import PeopleIcon from '@mui/icons-material/PeopleAlt';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
@@ -111,6 +112,9 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
       break;
     case Action.MANAGE_SPONSORS:
       icon = <PaidIcon className={className} />;
+      break;
+    case Action.PLAY:
+      icon = <PlayCircleOutlineIcon className={className} />;
       break;
     case Action.REMOVE:
       icon = <RemoveCircleIcon className={className} />;
