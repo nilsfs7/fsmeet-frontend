@@ -53,7 +53,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
 
   return (
     <>
-      <VideoDialog queryParam="trailer" videoUrl={event.trailerUrl.replace('watch?v=', 'embed/')} onCancel={handleCancelDialogClicked} />
+      <VideoDialog queryParam="trailer" videoUrl={event.trailerUrl} onCancel={handleCancelDialogClicked} />
 
       <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
         {/* top */}
