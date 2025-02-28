@@ -155,6 +155,8 @@ User Types
 
 - [Freestyler (purchased)](https://www.iconfinder.com/icons/8176401/sport_freestyle_football_soccer_trick_juggling_juggle_icon?coming-from=related-results)
 
+- [Freestyler Female](https://www.iconfinder.com/icons/8176401/sport_freestyle_football_soccer_trick_juggling_juggle_icon?coming-from=related-results) (derived from "Freestyler", created by Corvin)
+
 - [MC](https://www.iconfinder.com/icons/9023701/microphone_stage_fill_icon)
 
 - [Media](https://www.iconfinder.com/icons/4632668/camera_film_movie_recorder_video_icon)
