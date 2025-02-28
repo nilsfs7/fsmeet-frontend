@@ -5,13 +5,14 @@ import { User } from '@/types/user';
 import { routeUsers } from '@/domain/constants/routes';
 import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
 import { UserType } from '@/domain/enums/user-type';
-import { imgFreestyler, imgUserDefaultImg } from '@/domain/constants/images';
+import { imgFreestyler, imgFreestylerFemale, imgUserDefaultImg } from '@/domain/constants/images';
 import Link from 'next/link';
 import ReactCountryFlag from 'react-country-flag';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { useSearchParams } from 'next/navigation';
 import { useMessagesForcedLocale } from '@/hooks/use-messages-forced-locale';
 import { supportedLanguages } from '@/domain/constants/supported-languages';
+import { Gender } from '@/domain/enums/gender';
 
 interface IMapsProps {
   users: User[];
@@ -112,7 +113,7 @@ const MapOfFreestylers = ({ users = [], selectedUsernames = [], lat = 54.5259614
           }
 
           if (nameOk && genderOk) {
-            let imgPath = user.type ? getUserTypeImages(user.type).path : imgFreestyler;
+            let imgPath = user.type ? getUserTypeImages(user.type, user.gender).path : imgFreestyler;
             let imgSize = user.type ? getUserTypeImages(user.type).size : 40;
 
             const icon = {

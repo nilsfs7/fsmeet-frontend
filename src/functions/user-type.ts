@@ -1,5 +1,6 @@
 import { UserType } from '@/domain/enums/user-type';
-import { imgAssociation, imgBrand, imgDJ, imgEventOrganizer, imgFreestyler, imgMC, imgMedia, imgTechnical } from '@/domain/constants/images';
+import { imgAssociation, imgBrand, imgDJ, imgEventOrganizer, imgFreestyler, imgFreestylerFemale, imgMC, imgMedia, imgTechnical } from '@/domain/constants/images';
+import { Gender } from '@/domain/enums/gender';
 
 // todo: t -> translation
 export function getUserTypeLabels(userType: UserType, t: any): string {
@@ -23,7 +24,7 @@ export function getUserTypeLabels(userType: UserType, t: any): string {
   }
 }
 
-export function getUserTypeImages(userType: UserType): { path: string; size: number } {
+export function getUserTypeImages(userType: UserType, gender: string = Gender.MALE): { path: string; size: number } {
   const defaultSize = 20;
 
   switch (userType) {
@@ -36,7 +37,11 @@ export function getUserTypeImages(userType: UserType): { path: string; size: num
     case UserType.EVENT_ORGANIZER:
       return { path: imgEventOrganizer, size: defaultSize };
     case UserType.FREESTYLER:
-      return { path: imgFreestyler, size: 30 };
+      if (gender === Gender.FEMALE) {
+        return { path: imgFreestylerFemale, size: 30 };
+      } else {
+        return { path: imgFreestyler, size: 30 };
+      }
     case UserType.MC:
       return { path: imgMC, size: defaultSize };
     case UserType.MEDIA:
