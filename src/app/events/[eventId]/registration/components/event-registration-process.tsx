@@ -19,6 +19,11 @@ import { EventRegistrationType } from '@/types/event-registration-type';
 import { createEventRegistration_v2 } from '@/infrastructure/clients/event.client';
 import { CompetitionCard } from './competition-card';
 import Label from '@/components/Label';
+import { PayPalInfo } from '../../components/payment/paypal-info';
+import { SepaInfo } from '../../components/payment/sepa-info';
+import { CashInfo } from '../../components/payment/cash-info';
+import Separator from '@/components/Seperator';
+import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -208,10 +213,30 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
               <div>
                 <div>{`Event: ${event.name}`}</div>
 
-                <div className="flex items-center mt-2 gap-2">
+                <div className="flex items-center mt-4 gap-2">
                   <div>{`${'Registration Status'}:`}</div>
                   <Label text={registrationStatus} />
                 </div>
+
+                {registrationStatus === EventRegistrationStatus.APPROVED ||
+                  registrationStatus === EventRegistrationStatus.DENIED ||
+                  (registrationStatus === EventRegistrationStatus.PENDING && (
+                    <div className="mt-4">
+                      <div>{`Payment details:`}</div>
+
+                      <div className="flex flex-col gap-2">
+                        {event.paymentMethodCash.enabled && <CashInfo participationFee={event.participationFee} />}
+
+                        {event.paymentMethodPayPal.enabled && (
+                          <PayPalInfo participationFee={event.participationFee} payPalInfo={event.paymentMethodPayPal} usernameForReference={session?.user.username || ''} />
+                        )}
+
+                        {event.paymentMethodSepa.enabled && (
+                          <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user.username || ''} />
+                        )}
+                      </div>
+                    </div>
+                  ))}
               </div>
             )}
 
@@ -283,14 +308,16 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
               <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
                 <div>{`Overview`}</div>
 
-                <div className="mt-4">
+                <div className="flex flex-col mt-4 gap-4">
                   <div className="flex items-center gap-2">
                     <div>{`Enroll as:`}</div>
                     {registrationType && <Label text={registrationType} />}
                   </div>
 
+                  <Separator />
+
                   {registrationType === EventRegistrationType.PARTICIPANT && (
-                    <div className="mt-4">
+                    <div className="">
                       <div>{`Participate in:`}</div>
 
                       <div className="flex flex-col gap-2">
@@ -305,6 +332,22 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                       </div>
                     </div>
                   )}
+
+                  <Separator />
+
+                  <div className="">
+                    <div>{`Payment details:`}</div>
+
+                    <div className="flex flex-col gap-2">
+                      {event.paymentMethodCash.enabled && <CashInfo participationFee={event.participationFee} />}
+
+                      {event.paymentMethodPayPal.enabled && (
+                        <PayPalInfo participationFee={event.participationFee} payPalInfo={event.paymentMethodPayPal} usernameForReference={session?.user.username || ''} />
+                      )}
+
+                      {event.paymentMethodSepa.enabled && <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user.username || ''} />}
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
