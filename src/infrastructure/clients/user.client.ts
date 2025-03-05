@@ -8,6 +8,9 @@ import { CreateUserBodyDto } from './dtos/user/create-user.body.dto';
 import { UpdateUserBodyDto } from './dtos/user/update-user.body.dto';
 import { UpdatePrivateUserInfoBodyDto } from './dtos/user/update-private-user-info.body.dto';
 import { PatchWffaIdBodyDto } from './dtos/user/patch-wffa-id.body.dto';
+import { CreateStripeAccountOnboardingLinkBodyDto } from './dtos/user/create-stripe-account-onboarding-link.body.dto';
+import { ReadAccountOnboardingLinkResponseDto } from './dtos/user/read-stripe-account-link.response.dto';
+import { ReadStripeAccountIdResponseDto } from './dtos/user/read-stripe-account-id.response.dto';
 
 export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
@@ -54,6 +57,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
       jobShowExperience: data.private?.jobShowExperience,
       phoneNumber: data.private?.phoneNumber,
+      stripeAccountId: data.private?.stripeAccountId,
       wffaId: data.wffaId,
       isWffaMember: data.isWffaMember,
     };
@@ -123,6 +127,7 @@ export async function getUsers(type?: UserType, gender?: Gender, country?: strin
       jobShowExperience: data.private?.jobShowExperience,
       phoneCountryCode: data.private?.phoneCountryCode,
       phoneNumber: data.private?.phoneNumber,
+      stripeAccountId: data.private?.stripeAccountId,
       wffaId: data.wffaId,
       isWffaMember: data.isWffaMember,
     };
@@ -395,6 +400,51 @@ export async function deleteUserImage(session: Session | null): Promise<void> {
 
   if (response.ok) {
     console.info('Deleting user image successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function createStripeAccount(session: Session | null): Promise<string> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/stripe/account`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const dto: ReadStripeAccountIdResponseDto = await response.json();
+
+    console.info('Creating Stripe account successful');
+    return dto.stripeAccountId;
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function createStripeAccountOnboardingLink(refreshUrl: string, returnUrl: string, session: Session | null): Promise<string> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/stripe/accountonboardinglink`;
+
+  const body = new CreateStripeAccountOnboardingLinkBodyDto(refreshUrl, returnUrl);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const dto: ReadAccountOnboardingLinkResponseDto = await response.json();
+    console.info('Creating Stripe account onboarding link successful');
+    return dto.onboardingUrl;
   } else {
     const error = await response.json();
     throw Error(error.message);

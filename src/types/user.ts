@@ -34,6 +34,7 @@ export type User = {
   jobShowExperience?: ShowExperience;
   phoneCountryCode?: number;
   phoneNumber?: number | null;
+  stripeAccountId?: string;
   wffaId?: string;
   isWffaMember?: string;
 };

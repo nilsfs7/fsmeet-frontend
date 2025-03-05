@@ -11,7 +11,7 @@ import { User } from '@/types/user';
 import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeHome, routeMap } from '@/domain/constants/routes';
 import { copyToClipboard } from '@/functions/copy-to-clipboard';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { logoutUser } from '../../actions/authentication';
 import TextInput from '@/components/common/TextInput';
 import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
@@ -38,7 +38,7 @@ import { menuShowExperience } from '@/domain/constants/menus/menu-show-experienc
 // import { menuTravelDistance } from '@/domain/constants/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/section-header';
-import { deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
+import { createStripeAccount, createStripeAccountOnboardingLink, deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
 import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
@@ -55,6 +55,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const { data: session, status } = useSession();
 
   const router = useRouter();
+  const pathname = usePathname();
 
   const searchParams = useSearchParams();
   const tab = searchParams?.get('tab');
@@ -284,6 +285,29 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
   const handleTermsAndConditionsClicked = async () => {
     router.replace(`${routeAccount}?tab=jobs&terms=1`);
+  };
+
+  const handleCreateStripeAccountClicked = async () => {
+    try {
+      const id = await createStripeAccount(session);
+
+      const user = structuredClone(userInfo);
+      user.stripeAccountId = id;
+      setUserInfo(user);
+
+      toast.success('Stripe account generated.');
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
+  };
+
+  const handleCreateStripeAccountOnboardingLinkClicked = async () => {
+    createStripeAccountOnboardingLink(`${window.location.origin}${pathname}?tab=account&stripeRefresh=1`, `${window.location.origin}${pathname}?tab=account&stripeReturn=1`, session).then(
+      (url: string) => {
+        router.push(url);
+      }
+    );
   };
 
   const handleDeleteAccountClicked = async () => {
@@ -841,14 +865,38 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
             <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
               <div className="flex gap-2 items-center">
-                <div>{`${t('tabAccounVerificationStatus')}:`}</div>
+                <div>{`${t('tabAccountVerificationStatus')}:`}</div>
                 <Label text={userInfo?.verificationState || 'n/a'} />
               </div>
 
               {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (
-                <TextButton text={t('tabAccounBtnVerify')} onClick={handleVerificationRequestClicked} />
+                <TextButton text={t('tabAccountBtnVerify')} onClick={handleVerificationRequestClicked} />
               )}
             </div>
+
+            {/* todo: remove visibility for nils */}
+            {session?.user.username === 'nils' && (
+              <>
+                <div className="m-2">
+                  <Separator />
+                </div>
+
+                <div className="flex justify-center text-lg">{t('tabAccountSectionPayments')}</div>
+
+                {!userInfo.stripeAccountId && (
+                  <div className="mt-4 flex justify-center">
+                    <TextButton text={t('tabAccounBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
+                  </div>
+                )}
+
+                {userInfo.stripeAccountId && (
+                  <div className="mt-4 flex flex-col items-center gap-2">
+                    <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
+                    <TextButton text={t('tabAccounBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
+                  </div>
+                )}
+              </>
+            )}
 
             <div className="m-2">
               <Separator />
