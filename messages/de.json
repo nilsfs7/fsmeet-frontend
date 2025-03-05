@@ -307,8 +307,9 @@
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registrierung erfolgreich eingereicht.",
-    "hintPayment": "Bitte denke an die Teilnahmegebühr. Die Zahlungsdetails haben wir dir per Mail geschickt.",
-    "btnBack": "Zurück zum Event"
+    "textPaymentOutstanding": "Bitte denke an die Teilnahmegebühr. Die Zahlungsdetails haben wir dir per Mail geschickt.",
+    "textPaymentCompleted": "Zahlung abgeschlossen. Wir sehen uns beim Event!",
+    "btnBack": "Zur Übersicht"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",
@@ -520,11 +521,12 @@
     "chbPayPalAccept": "PayPal akzeptieren",
     "inputPayPalUsername": "PayPal Nutzername",
     "lnkPayPalVerifyAccount": "PayPal Konto verifizieren",
-    "chbBankSepaAccept": "Banküberweisung (SEPA) akzeptieren",
+    "chbBankSepaAccept": "Banküberweisung akzeptieren (SEPA)",
     "inputBankSepaBank": "Bankname (SEPA)",
     "inputBankSepaRecipeint": "Empfänger (SEPA)",
     "inputBankSepaIban": "IBAN (SEPA)",
     "inputBankSepaReference": "Verwendungszweck (SEPA)",
+    "chbStripeAccept": "Kreditkarte akzeptieren (Stripe)",
     "sectionMaintainers": "Betreuer",
     "cbMaintainers": "Hinzugefügte Betreuer",
     "sectionOther": "Sonstiges",

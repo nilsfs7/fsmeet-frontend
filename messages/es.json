@@ -307,7 +307,8 @@
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registro enviado exitosamente.",
-    "hintPayment": "Por favor, no olvide pagar la cuota de participación. Te hemos enviado los detalles del pago por correo electrónico.",
+    "textPaymentOutstanding": "Por favor, no olvide pagar la cuota de participación. Te hemos enviado los detalles del pago por correo electrónico.",
+    "textPaymentCompleted": "Pago completado. ¡Nos vemos en el evento!",
     "btnBack": "Volver al evento"
   },
   "/events/eventid/sponsors": {
@@ -525,6 +526,7 @@
     "inputBankSepaRecipeint": "Destinatario (SEPA)",
     "inputBankSepaIban": "IBAN (SEPA)",
     "inputBankSepaReference": "Objeto (SEPA)",
+    "chbStripeAccept": "Aceptar tarjetas de crédito (Stripe)",
     "sectionMaintainers": "Mantenedores",
     "cbMaintainers": "Mantenedores añadidos",
     "sectionOther": "General",

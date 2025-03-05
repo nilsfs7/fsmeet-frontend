@@ -1,11 +1,11 @@
-interface ICashInfo {
+interface IStripeInfo {
   participationFee: number;
 }
 
-export const CashInfo = ({ participationFee }: ICashInfo) => {
+export const StripeInfo = ({ participationFee }: IStripeInfo) => {
   return (
     <div className="grid grid-cols-1 justify-between">
-      <div className="underline">Cash (pay on arrival)</div>
+      <div className="underline">{`Stripe (pay online)`}</div>
 
       <div className="grid grid-cols-2 justify-between">
         <div>{`Amount`}</div>

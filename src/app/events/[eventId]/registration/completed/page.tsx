@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-export default async function EventRegistrationCompleted({ params }: { params: { eventId: string } }) {
+export default async function EventRegistrationCompleted({ params, searchParams }: { params: { eventId: string }; searchParams: { checkout: string } }) {
   const t = await getTranslations('/events/eventid/registration/completed');
 
   return (
@@ -15,9 +15,9 @@ export default async function EventRegistrationCompleted({ params }: { params: {
           <div className="mx-2 text-center">
             <Image src={imgCelebration} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
             <div className="mt-2">{t('registrationSuccess')}</div>
-            <div className="mt-2">{t('hintPayment')}</div>
+            <div className="mt-2">{t(searchParams.checkout === '1' ? `textPaymentCompleted` : `textPaymentOutstanding`)}</div>
             <div className="mt-2">
-              <Link href={`${routeEvents}/${params.eventId}`}>
+              <Link href={`${routeEvents}/${params.eventId}/registration`}>
                 <TextButton text={t('btnBack')} />
               </Link>
             </div>

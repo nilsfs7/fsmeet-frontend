@@ -307,8 +307,9 @@
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registration successfully submitted.",
-    "hintPayment": "Please remember the participation fee. We have sent you an email with the payment details.",
-    "btnBack": "Back to event"
+    "textPaymentOutstanding": "Please remember the participation fee. We have sent you an email with the payment details.",
+    "textPaymentCompleted": "Payment completed. See you at the event!",
+    "btnBack": "Back To Overview"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Manage Sponsors",
@@ -538,6 +539,7 @@
     "inputBankSepaRecipeint": "SEPA Recipient",
     "inputBankSepaIban": "SEPA IBAN",
     "inputBankSepaReference": "SEPA Reference",
+    "chbStripeAccept": "Accept Credit Cards (Stripe)",
     "sectionMaintainers": "Maintainers",
     "cbMaintainers": "Assigned Maintainers",
     "sectionOther": "Other",
