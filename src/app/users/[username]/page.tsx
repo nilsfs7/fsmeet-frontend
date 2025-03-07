@@ -85,13 +85,22 @@ const getEventsByCompetitions = async (competitionsMap: Map<string, ReadCompetit
 
   competitionsMap.forEach(comp => {
     if (comp.eventId) {
-      const req = getEvent(comp.eventId).then((event: Event) => {
-        if (event.id) {
-          eventsMap.set(event.id, event);
-        }
-      });
+      // requests can fail or competitions can behidden. need a smarter approach for the latter.
+      try {
+        const req = getEvent(comp.eventId)
+          .then((event: Event) => {
+            if (event.id) {
+              eventsMap.set(event.id, event);
+            }
+          })
+          .catch((error: any) => {
+            console.error(error.message);
+          });
 
-      requests.push(req);
+        requests.push(req);
+      } catch (error: any) {
+        console.error(error.message);
+      }
     }
   });
   await Promise.all(requests);

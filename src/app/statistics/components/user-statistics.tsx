@@ -60,7 +60,7 @@ export const UserStatistics = () => {
           <div className="flex justify-end"> {`Total users:`}</div>
           <div className="flex justify-start">{userCount?.userCountTotal}</div>
 
-          <div className="flex justify-end">{`Non-technical users:`}</div>
+          <div className="flex justify-end">{`Real users:`}</div>
           <div className="flex justify-start">{userCount?.userCountNonTechnical}</div>
 
           <div className="flex justify-end">{`Technical users:`}</div>
