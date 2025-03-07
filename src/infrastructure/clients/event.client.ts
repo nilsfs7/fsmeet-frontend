@@ -4,7 +4,6 @@ import { Event } from '@/types/event';
 import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { EventState } from '@/domain/enums/event-state';
-import { notFound } from 'next/navigation';
 import { CreateEventRegistrationBodyDto } from './dtos/event/create-event-registration.body.dto';
 import { EventRegistrationType } from '@/types/event-registration-type';
 
@@ -106,10 +105,6 @@ export async function getEvent(eventId: string, session?: Session | null): Promi
     console.info('Getting event successful');
     return await response.json();
   } else {
-    if (response.status === 404) {
-      notFound();
-    }
-
     const error = await response.json();
     throw Error(error.message);
   }
