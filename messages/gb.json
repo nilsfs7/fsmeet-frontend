@@ -432,6 +432,25 @@
     "accordionItemCompetitionHistory": "Competition History",
     "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
   },
+  "/visa": {
+    "pageTitle": "Request Visa Invitation Letter",
+    "textUnauthorized": "You must be logged in for visa application letter.",
+    "btnGoToLogin": "Login Page",
+    "inputFirstName": "First Name",
+    "inputPlaceholderFirstName": "first name",
+    "inputLastName": "Last Name",
+    "inputPlaceholderLastName": "last name",
+    "inputCountry": "Country",
+    "inputPassportNumber": "Passport Number",
+    "inputPlaceholderPassportNumber": "C748TJ1K2",
+    "datePickerBirthday": "Birthday",
+    "btnSendRequest": "Send Request"
+  },
+  "/visa/success": {
+    "textSuccess1": "Your request was sent successfully!",
+    "textSuccess2": "Waiting for approval.",
+    "btnBackHome": "Back home"
+  },
   "/voice": {
     "pageTitle": "Community Voice",
     "carouselNoData": "No data",

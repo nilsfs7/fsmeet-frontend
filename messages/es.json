@@ -406,7 +406,7 @@
   "/registration/pending": {
     "registrationPendingText1": "Se ha enviado un enlace de confirmación a la siguiente dirección:",
     "registrationPendingText2": "El correo puede tardar un poco en llegar. Comprueba también tu correo no deseado si no has recibido nada.",
-    "btnBackHome": "Volver a casa"
+    "btnBackHome": "A la página de inicio"
   },
   "/users": {
     "pageTitle": "Escena Freestyle",
@@ -431,6 +431,25 @@
     "accordionItemBattleStatisticsWinLossRatio": "Ratio de victorias",
     "accordionItemCompetitionHistory": "Historia de la competición",
     "accordionItemCompetitionHistoryNoParticipations": "Aún no hay concursos disponibles."
+  },
+  "/visa": {
+    "pageTitle": "Solicitud de carta de invitación para visa",
+    "textUnauthorized": "Debe iniciar sesión para recibir la carta de solicitud de visa.",
+    "btnGoToLogin": "Conectarse",
+    "inputFirstName": "Nombre",
+    "inputPlaceholderFirstName": "nombre",
+    "inputLastName": "Apellidos",
+    "inputPlaceholderLastName": "apellidos",
+    "inputCountry": "Nacionalidad",
+    "inputPassportNumber": "Número de pasaporte",
+    "inputPlaceholderPassportNumber": "C748TJ1K2",
+    "datePickerBirthday": "Cumpleaños",
+    "btnSendRequest": "Enviar solicitud"
+  },
+  "/visa/success": {
+    "textSuccess1": "¡Su solicitud fue enviada exitosamente!",
+    "textSuccess2": "Esperando aprobación.",
+    "btnBackHome": "Página de inicio"
   },
   "/voice": {
     "pageTitle": "Community Voice",

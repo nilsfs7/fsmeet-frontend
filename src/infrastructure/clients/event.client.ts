@@ -6,6 +6,10 @@ import { EventRegistrationStatus } from '@/domain/enums/event-registration-statu
 import { EventState } from '@/domain/enums/event-state';
 import { CreateEventRegistrationBodyDto } from './dtos/event/create-event-registration.body.dto';
 import { EventRegistrationType } from '@/types/event-registration-type';
+import { CreateVisaInvitationRequestBodyDto } from './dtos/event/create-visa-invitation-request.body.dto';
+import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-approval-state';
+import { UpdateVisaInvitationRequestStateBodyDto } from './dtos/event/update-visa-invitation-request-state.body.dto';
+import { ReadVisaInvitationRequestResponseDto } from './dtos/event/read-visa-invitation-request.response.dto';
 
 export async function getEvents(
   admin: string | null,
@@ -485,6 +489,68 @@ export async function deleteEventRegistration(eventId: string, username: string,
 
   if (response.ok) {
     console.info('Deleting event registration successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function getVisaInvitationRequests(eventId: string | null, session: Session | null): Promise<ReadVisaInvitationRequestResponseDto[]> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/visa`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function createVisaInvitationRequest(firstName: string, lastName: string, countryCode: string, passportNumber: string, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/0000/visa`;
+
+  const body = new CreateVisaInvitationRequestBodyDto(firstName, lastName, countryCode, passportNumber);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Creating invitation request successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function updateVisaInvitationRequest(id: string, state: VisaInvitationRequestApprovalState, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/0000/visa`;
+
+  const body = new UpdateVisaInvitationRequestStateBodyDto(id, state);
+
+  const response = await fetch(url, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating invitation request successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

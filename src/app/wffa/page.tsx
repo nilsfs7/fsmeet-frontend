@@ -1,6 +1,6 @@
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { routeWffaFreestylerIdMangement, routeHome, routeRoadmap, routeStatistics } from '@/domain/constants/routes';
+import { routeWffaFreestylerIdMangement, routeHome, routeRoadmap, routeStatistics, routeVisaRequestManagement } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
@@ -22,6 +22,10 @@ export default async function AdminOverviewWFFA() {
 
         <Link href={routeRoadmap}>
           <TextButton text={'Roadmap'} />
+        </Link>
+
+        <Link href={routeVisaRequestManagement}>
+          <TextButton text={'Visa Requests'} />
         </Link>
       </div>
 

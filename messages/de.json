@@ -405,8 +405,8 @@
   },
   "/registration/pending": {
     "registrationPendingText1": "Ein Bestätigungslink wurde an folgende Adresse gesendet:",
-    "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
-    "btnBackHome": "Back home"
+    "registrationPendingText2": "Es könnte eine Weile dauern, bis die Mail versendet wird. Prüfe auch deinen Spam, solltest du nichts erhalten.",
+    "btnBackHome": "Zur Homepage"
   },
   "/users": {
     "pageTitle": "Freestyle Szene",
@@ -431,6 +431,25 @@
     "accordionItemBattleStatisticsWinLossRatio": "Siegverhältnis",
     "accordionItemCompetitionHistory": "Wettkampf Historie",
     "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
+  },
+  "/visa": {
+    "pageTitle": "Anfrage einer Visa-Einladung",
+    "textUnauthorized": "Für die Visa-Einladung musst du eingeloggt sein.",
+    "btnGoToLogin": "Login-Seite",
+    "inputFirstName": "Nachname",
+    "inputPlaceholderFirstName": "Vorname",
+    "inputLastName": "Nachname",
+    "inputPlaceholderLastName": "Nachname",
+    "inputCountry": "Land",
+    "inputPassportNumber": "Passnummer",
+    "inputPlaceholderPassportNumber": "C748TJ1K2",
+    "datePickerBirthday": "Geburtstag",
+    "btnSendRequest": "Anfrage senden"
+  },
+  "/visa/success": {
+    "textSuccess1": "Deine Anfrage wurde erfolgreich gesendet!",
+    "textSuccess2": "Warte auf Bestätigung.",
+    "btnBackHome": "Zur Homepage"
   },
   "/voice": {
     "pageTitle": "Community Voice",
