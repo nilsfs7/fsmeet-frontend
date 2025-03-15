@@ -4,12 +4,13 @@ import { Event } from '@/types/event';
 import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { EventState } from '@/domain/enums/event-state';
-import { CreateEventRegistrationBodyDto } from './dtos/event/create-event-registration.body.dto';
+import { CreateEventRegistrationBodyDto } from './dtos/event/registration/create-event-registration.body.dto';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { CreateVisaInvitationRequestBodyDto } from './dtos/event/create-visa-invitation-request.body.dto';
 import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-approval-state';
 import { UpdateVisaInvitationRequestStateBodyDto } from './dtos/event/update-visa-invitation-request-state.body.dto';
 import { ReadVisaInvitationRequestResponseDto } from './dtos/event/read-visa-invitation-request.response.dto';
+import { ReadEventRegistrationResponseDto } from './dtos/event/registration/read-event-registration.response.dto';
 
 export async function getEvents(
   admin: string | null,
@@ -141,13 +142,18 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
   }
 }
 
-export async function getEventRegistrations(eventId: string): Promise<EventRegistration[]> {
+export async function getEventRegistrations(eventId: string): Promise<ReadEventRegistrationResponseDto[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
-
   const response = await fetch(url, {
     method: 'GET',
   });
-  return await response.json();
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
 }
 
 export async function getComments(eventId: string): Promise<EventComment[]> {
