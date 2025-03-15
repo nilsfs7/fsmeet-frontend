@@ -292,9 +292,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
                 <RadioGroup className="mt-4" value={registrationType}>
                   <div className={'grid grid-cols-2 py-1 gap-1'}>
-                    <div className="capitalize">
-                      {EventRegistrationType.PARTICIPANT} {`(${event.participationFee}€)`}
-                    </div>
+                    <div className="capitalize">{EventRegistrationType.PARTICIPANT}</div>
 
                     <div className="flex items-center gap-1">
                       <RadioGroupItem
@@ -312,7 +310,6 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                       <RadioGroupItem
                         value={EventRegistrationType.VISITOR}
                         id={`option-${EventRegistrationType.VISITOR}`}
-                        disabled={true}
                         onClick={e => {
                           handleRadioItemRegistrationTypeClicked(EventRegistrationType.VISITOR);
                         }}
@@ -359,23 +356,25 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                     {registrationType && <Label text={registrationType} />}
                   </div>
 
-                  <Separator />
-
                   {registrationType === EventRegistrationType.PARTICIPANT && (
-                    <div className="">
-                      <div>{`Participate in:`}</div>
+                    <>
+                      <Separator />
 
-                      <div className="flex flex-col gap-2">
-                        {event.competitions.map((comp, index) => {
-                          if (comp.id && compSignUps.includes(comp.id))
-                            return (
-                              <div key={`comp-card-${index}`}>
-                                <CompetitionCard comp={comp} />
-                              </div>
-                            );
-                        })}
+                      <div className="">
+                        <div>{`Participate in:`}</div>
+
+                        <div className="flex flex-col gap-2">
+                          {event.competitions.map((comp, index) => {
+                            if (comp.id && compSignUps.includes(comp.id))
+                              return (
+                                <div key={`comp-card-${index}`}>
+                                  <CompetitionCard comp={comp} />
+                                </div>
+                              );
+                          })}
+                        </div>
                       </div>
-                    </div>
+                    </>
                   )}
 
                   <Separator />
