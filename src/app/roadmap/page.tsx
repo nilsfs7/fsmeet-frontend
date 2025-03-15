@@ -29,6 +29,10 @@ export default async function Roadmap() {
             />
             <Task title="Accommodation" size={TaskSize.LARGE} filled={0} />
           </Row>
+
+          <Row>
+            <Task title="Visa inviation (event hosts)" size={TaskSize.MEDIUM} filled={0} description="Enable event hosts to make use of existing visa invitation process.." />
+          </Row>
         </Section>
 
         <div className="p-4">
@@ -114,6 +118,10 @@ export default async function Roadmap() {
           <Row>
             <Task title="Enhance permission" size={TaskSize.SMALL} filled={100} description="Flags an account with enhanced rights when signed up with ...@wffa.org." />
             <Task title="Assign Freestyler-ID" size={TaskSize.MEDIUM} filled={100} description="WFFA user is able to assign / manage users Freestyler-ID. FID is important for battle data." />
+          </Row>
+
+          <Row>
+            <Task title="Visa inviation (WFFA)" size={TaskSize.MEDIUM} filled={95} description="Enable participants to request a visa invitation letter. Add approval process for WFFA members." />
           </Row>
         </Section>
 
