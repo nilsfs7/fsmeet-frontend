@@ -16,7 +16,7 @@ import { Toaster, toast } from 'sonner';
 import { EventRegistrationInfo } from '@/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/types/event-registration-type';
-import { createEventRegistration_v2 } from '@/infrastructure/clients/event.client';
+import { createEventRegistration_v2, deleteEventRegistration } from '@/infrastructure/clients/event.client';
 import { CompetitionCard } from './competition-card';
 import Label from '@/components/Label';
 import { PayPalInfo } from '../../components/payment/paypal-info';
@@ -24,6 +24,8 @@ import { SepaInfo } from '../../components/payment/sepa-info';
 import { CashInfo } from '../../components/payment/cash-info';
 import Separator from '@/components/Seperator';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
+import moment from 'moment';
+import Dialog from '@/components/Dialog';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -37,7 +39,7 @@ enum RegistrationProcessPage {
 }
 
 export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProcess) => {
-  // const t = useTranslations('/...todo');
+  const t = useTranslations('/events/eventid/registration');
 
   const { data: session } = useSession();
   const router = useRouter();
@@ -141,11 +143,44 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
   const handleRegisterNowClicked = async () => {
     if (event.id && registrationType) {
-      createEventRegistration_v2(event.id, registrationType, compSignUps, session).then(() => {
+      try {
+        await createEventRegistration_v2(event.id, registrationType, compSignUps, session);
         cleanupCacheRegistrationInfo();
         router.replace(`${pageUrl}/completed`);
-      });
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
     }
+  };
+
+  const handleUnregisterClicked = async () => {
+    if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
+      router.replace(`${routeEvents}/${event.id}/registration?unregister=1`);
+    } else {
+      console.error('Registration deadline exceeded.');
+    }
+  };
+
+  const handleConfirmUnregisterClicked = async () => {
+    if (session?.user?.username) {
+      if (event?.id && moment(event?.registrationDeadline).unix() > moment().unix()) {
+        try {
+          await deleteEventRegistration(event.id, session.user.username, session);
+          router.replace(`${routeEvents}/${event.id}/registration`);
+          router.refresh();
+        } catch (error: any) {
+          console.error(error.message);
+        }
+      } else {
+        console.error('Registration deadline exceeded.');
+      }
+    }
+  };
+
+  const handleCancelDialogClicked = async () => {
+    router.replace(`${routeEvents}/${event.id}/registration`);
+    router.refresh();
   };
 
   const handleRadioItemRegistrationTypeClicked = (type: EventRegistrationType) => {
@@ -202,8 +237,18 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
     <>
       <Toaster richColors />
 
+      <Dialog
+        title={t('dlgEventUnregisterTitle')}
+        queryParam="unregister"
+        onCancel={handleCancelDialogClicked}
+        onConfirm={handleConfirmUnregisterClicked}
+        confirmText={t('dlgEventUnregisterBtnConfirm')}
+      >
+        <p>{t('dlgEventUnregisterText')}</p>
+      </Dialog>
+
       <div className="h-[calc(100dvh)] flex flex-col">
-        {!page && <PageTitle title={'Registration Overview'} />}
+        {!page && <PageTitle title={t('pageTitleOverview')} />}
         {page && <PageTitle title={`Registration: ${event.name}`} />}
 
         <div className="mx-2 overflow-hidden">
@@ -247,9 +292,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
                 <RadioGroup className="mt-4" value={registrationType}>
                   <div className={'grid grid-cols-2 py-1 gap-1'}>
-                    <div className="capitalize">
-                      {EventRegistrationType.PARTICIPANT} {`(${event.participationFee}€)`}
-                    </div>
+                    <div className="capitalize">{EventRegistrationType.PARTICIPANT}</div>
 
                     <div className="flex items-center gap-1">
                       <RadioGroupItem
@@ -267,7 +310,6 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                       <RadioGroupItem
                         value={EventRegistrationType.VISITOR}
                         id={`option-${EventRegistrationType.VISITOR}`}
-                        disabled={true}
                         onClick={e => {
                           handleRadioItemRegistrationTypeClicked(EventRegistrationType.VISITOR);
                         }}
@@ -314,23 +356,25 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                     {registrationType && <Label text={registrationType} />}
                   </div>
 
-                  <Separator />
-
                   {registrationType === EventRegistrationType.PARTICIPANT && (
-                    <div className="">
-                      <div>{`Participate in:`}</div>
+                    <>
+                      <Separator />
 
-                      <div className="flex flex-col gap-2">
-                        {event.competitions.map((comp, index) => {
-                          if (comp.id && compSignUps.includes(comp.id))
-                            return (
-                              <div key={`comp-card-${index}`}>
-                                <CompetitionCard comp={comp} />
-                              </div>
-                            );
-                        })}
+                      <div className="">
+                        <div>{`Participate in:`}</div>
+
+                        <div className="flex flex-col gap-2">
+                          {event.competitions.map((comp, index) => {
+                            if (comp.id && compSignUps.includes(comp.id))
+                              return (
+                                <div key={`comp-card-${index}`}>
+                                  <CompetitionCard comp={comp} />
+                                </div>
+                              );
+                          })}
+                        </div>
                       </div>
-                    </div>
+                    </>
                   )}
 
                   <Separator />
@@ -357,22 +401,23 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
         <Navigation>
           {!page && (
             <Link href={`${routeEvents}/${event.id}`}>
-              <TextButton text={'Back To Event'} />
+              <TextButton text={t('btnBackToEvent')} />
             </Link>
           )}
-          {page && <TextButton text={'Back To Overview'} onClick={handleCancelClicked} />}
+          {page && <TextButton text={t('btnBackToOverview')} onClick={handleCancelClicked} />}
 
           <div className="flex gap-1">
-            {page && <TextButton text={'Back'} onClick={handleBackClicked} />}
+            {page && <TextButton text={t('btnPreviousPage')} onClick={handleBackClicked} />}
             {page !== RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && (
-              <TextButton text={page ? 'Next' : 'Register'} disabled={nextButtonDisabled()} onClick={handleNextClicked} />
+              <TextButton text={page ? t('btnNextPage') : t('btnRegister')} disabled={nextButtonDisabled()} onClick={handleNextClicked} />
             )}
-            {page === RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={'Enroll Now'} onClick={handleRegisterNowClicked} />}
+            {page === RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={t('btnEnrollNow')} onClick={handleRegisterNowClicked} />}
             {registrationStatus !== 'Unregistered' && (
               <TextButton
-                text={'Unregister'}
+                text={t('btnUnregister')}
+                disabled={(event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
                 onClick={() => {
-                  // todo
+                  handleUnregisterClicked();
                 }}
               />
             )}

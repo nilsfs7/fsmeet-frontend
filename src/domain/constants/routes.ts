@@ -7,6 +7,7 @@ export const routeAdminUserVerification = '/admin/verification';
 
 export const routeWffaOverview = '/wffa';
 export const routeWffaFreestylerIdMangement = '/wffa/wffaid';
+export const routeVisaRequestManagement = '/wffa/visa';
 
 export const routeAbout = '/about';
 export const routeContributors = '/about/contributors';
@@ -38,3 +39,6 @@ export const routeVoiceCreatePoll = '/voice/manage/create';
 
 export const routeRoadmap = '/roadmap';
 export const routeStatistics = '/statistics';
+
+export const routeVisa = '/visa';
+export const routeVisaSent = '/visa/success';
