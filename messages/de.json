@@ -193,7 +193,8 @@
     "tabCompetitionsTitle": "Wettbewerbe",
     "tabCompetitionsSectionCompetitions": "Wettbewerbe",
     "tabRegistrationsTitle": "Teilnehmer",
-    "tabRegistrationsSectionRegistrations": "Teilnehmer",
+    "tabRegistrationsSectionRegistrationParticipants": "Teilnehmer",
+    "tabRegistrationsSectionRegistrationVisitors": "Zuschauer",
     "btnRegistration": "Registrierung",
     "btnFeedback": "Feedback"
   },

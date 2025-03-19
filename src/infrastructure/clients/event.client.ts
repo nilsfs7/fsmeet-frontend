@@ -1,7 +1,6 @@
 import { EventComment } from '@/types/event-comment';
 import { Session } from 'next-auth';
 import { Event } from '@/types/event';
-import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { EventState } from '@/domain/enums/event-state';
 import { CreateEventRegistrationBodyDto } from './dtos/event/registration/create-event-registration.body.dto';
@@ -144,8 +143,13 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
   }
 }
 
-export async function getEventRegistrations(eventId: string): Promise<ReadEventRegistrationResponseDto[]> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
+export async function getEventRegistrations(eventId: string, registrationType: EventRegistrationType | null): Promise<ReadEventRegistrationResponseDto[]> {
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations?`;
+
+  if (registrationType) {
+    url = url + `type=${registrationType}`;
+  }
+
   const response = await fetch(url, {
     method: 'GET',
   });

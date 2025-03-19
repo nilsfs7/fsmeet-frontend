@@ -193,7 +193,8 @@
     "tabCompetitionsTitle": "Competiciones",
     "tabCompetitionsSectionCompetitions": "Competiciones",
     "tabRegistrationsTitle": "Participantes",
-    "tabRegistrationsSectionRegistrations": "Participantes",
+    "tabRegistrationsSectionRegistrationParticipants": "Participantes",
+    "tabRegistrationsSectionRegistrationVisitors": "Visitantes",
     "btnRegistration": "Inscripción",
     "btnFeedback": "Feedback"
   },

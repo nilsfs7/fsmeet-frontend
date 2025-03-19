@@ -70,8 +70,7 @@ export default async function EventDetails({ params }: { params: { eventId: stri
         <div className="flex justify-end gap-1">
           <ActionButtonCopyEventUrl alias={event.alias} />
 
-          {/* todo: remove nils  */}
-          {event.paymentMethodStripe.enabled === true && session?.user.username === 'nils' && (
+          {event.paymentMethodStripe.enabled === true && (
             <Link href={`${routeEvents}/${event.id}/registration`}>
               <TextButton text={t('btnRegistration')} />
             </Link>
