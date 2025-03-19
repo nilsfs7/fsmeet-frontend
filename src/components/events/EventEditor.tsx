@@ -31,6 +31,7 @@ import { getUsers } from '@/infrastructure/clients/user.client';
 import { UserType } from '@/domain/enums/user-type';
 import { isEventAdmin } from '@/functions/isEventAdmin';
 import { useSession } from 'next-auth/react';
+import { PaymentMethodStripe } from '@/types/payment-method-stripe';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -69,6 +70,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const [paymentMethodSepaRecipient, setPaymentMethodSepaRecipient] = useState<string>(event?.paymentMethodSepa?.recipient || '');
   const [paymentMethodSepaIban, setPaymentMethodSepaIban] = useState<string>(event?.paymentMethodSepa?.iban || '');
   const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
+  const [paymentMethodStripeEnabled, setPaymentMethodStripeEnabled] = useState<boolean>(event?.paymentMethodStripe?.enabled || false);
   const [maintainers, setMaintainers] = useState<EventMaintainer[]>(event?.maintainers || []);
   const [maintainerToAddUsername, setMaintainerToAddUsername] = useState<string>();
   const [users, setUsers] = useState<User[]>([]);
@@ -137,6 +139,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       iban: paymentMethodSepaIban,
       reference: paymentMethodSepaReference,
     };
+    const paymentMethodStripe: PaymentMethodStripe = { enabled: paymentMethodStripeEnabled };
 
     onEventUpdate({
       id: event?.id,
@@ -163,6 +166,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       paymentMethodCash: paymentMethodCash,
       paymentMethodPayPal: paymentMethodPayPal,
       paymentMethodSepa: paymentMethodSepa,
+      paymentMethodStripe: paymentMethodStripe,
       autoApproveRegistrations: autoApproveRegistrations,
       notifyOnRegistration: notifyOnRegistration,
       allowComments: allowComments,
@@ -203,6 +207,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       setPaymentMethodSepaRecipient(event.paymentMethodSepa.recipient);
       setPaymentMethodSepaIban(event.paymentMethodSepa.iban);
       setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
+      setPaymentMethodStripeEnabled(event.paymentMethodStripe.enabled);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
       setNotifyOnRegistration(event.notifyOnRegistration);
       setAllowComments(event.allowComments);
@@ -248,6 +253,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     paymentMethodSepaRecipient,
     paymentMethodSepaIban,
     paymentMethodSepaReference,
+    paymentMethodStripeEnabled,
     autoApproveRegistrations,
     notifyOnRegistration,
     allowComments,
@@ -496,6 +502,10 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             value={paymentMethodCashEnabled}
             onChange={() => {
               setPaymentMethodCashEnabled(!paymentMethodCashEnabled);
+
+              if (!paymentMethodCashEnabled === true) {
+                setPaymentMethodStripeEnabled(false);
+              }
             }}
           />
 
@@ -505,6 +515,10 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             value={paymentMethodPayPalEnabled}
             onChange={() => {
               setPaymentMethodPayPalEnabled(!paymentMethodPayPalEnabled);
+
+              if (!paymentMethodPayPalEnabled === true) {
+                setPaymentMethodStripeEnabled(false);
+              }
             }}
           />
 
@@ -541,6 +555,10 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             value={paymentMethodSepaEnabled}
             onChange={() => {
               setPaymentMethodSepaEnabled(!paymentMethodSepaEnabled);
+
+              if (!paymentMethodSepaEnabled === true) {
+                setPaymentMethodStripeEnabled(false);
+              }
             }}
           />
 
@@ -587,6 +605,21 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
               />
             </>
           )}
+
+          <CheckBox
+            id={'paymentMethodStripeEnabled'}
+            label={t('chbStripeAccept')}
+            value={paymentMethodStripeEnabled}
+            onChange={() => {
+              setPaymentMethodStripeEnabled(!paymentMethodStripeEnabled);
+
+              if (!paymentMethodStripeEnabled === true) {
+                setPaymentMethodCashEnabled(false);
+                setPaymentMethodPayPalEnabled(false);
+                setPaymentMethodSepaEnabled(false);
+              }
+            }}
+          />
         </>
       )}
 

@@ -874,28 +874,23 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               )}
             </div>
 
-            {/* todo: remove visibility for nils */}
-            {session?.user.username === 'nils' && (
-              <>
-                <div className="m-2">
-                  <Separator />
-                </div>
+            <div className="m-2">
+              <Separator />
+            </div>
 
-                <div className="flex justify-center text-lg">{t('tabAccountSectionPayments')}</div>
+            <div className="flex justify-center text-lg">{t('tabAccountSectionPayments')}</div>
 
-                {!userInfo.stripeAccountId && (
-                  <div className="mt-4 flex justify-center">
-                    <TextButton text={t('tabAccounBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
-                  </div>
-                )}
+            {!userInfo.stripeAccountId && (
+              <div className="mt-4 flex justify-center">
+                <TextButton text={t('tabAccounBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
+              </div>
+            )}
 
-                {userInfo.stripeAccountId && (
-                  <div className="mt-4 flex flex-col items-center gap-2">
-                    <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
-                    <TextButton text={t('tabAccounBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
-                  </div>
-                )}
-              </>
+            {userInfo.stripeAccountId && (
+              <div className="mt-4 flex flex-col items-center gap-2">
+                <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
+                <TextButton text={t('tabAccounBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
+              </div>
             )}
 
             <div className="m-2">

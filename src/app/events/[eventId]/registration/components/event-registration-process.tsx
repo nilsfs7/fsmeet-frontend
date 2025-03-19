@@ -16,7 +16,8 @@ import { Toaster, toast } from 'sonner';
 import { EventRegistrationInfo } from '@/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/types/event-registration-type';
-import { createEventRegistration_v2, deleteEventRegistration } from '@/infrastructure/clients/event.client';
+import { createEventRegistration_v2, createEventRegistrationCheckoutLink, deleteEventRegistration } from '@/infrastructure/clients/event.client';
+import {} from '@/infrastructure/clients/event.client';
 import { CompetitionCard } from './competition-card';
 import Label from '@/components/Label';
 import { PayPalInfo } from '../../components/payment/paypal-info';
@@ -26,6 +27,7 @@ import Separator from '@/components/Seperator';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import moment from 'moment';
 import Dialog from '@/components/Dialog';
+import { StripeInfo } from '../../components/payment/stripe-info';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -127,9 +129,12 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           break;
 
         case RegistrationProcessPage.OVERVIEW:
-          if (event.id && registrationType) {
-            createEventRegistration_v2(event.id, registrationType, compSignUps, session);
-          }
+          // handleRegisterNowClicked is used for this
+
+          // if (event.id && registrationType) {
+          //   // await createEventRegistration_v2(event.id, registrationType, compSignUps, session);
+          //   await createEventRegistrationCheckoutLink(event.id, `${routeEvents}/${event.id}/registration?checkout=1`, session);
+          // }
           break;
       }
 
@@ -146,7 +151,10 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       try {
         await createEventRegistration_v2(event.id, registrationType, compSignUps, session);
         cleanupCacheRegistrationInfo();
-        router.replace(`${pageUrl}/completed`);
+
+        // todo: don't redirect when user is not paying directly
+        const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, `${window.location.origin}${pageUrl}/completed?checkout=1`, session);
+        router.push(`${checkoutUrl}`);
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -263,25 +271,23 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                   <Label text={registrationStatus} />
                 </div>
 
-                {registrationStatus === EventRegistrationStatus.APPROVED ||
-                  registrationStatus === EventRegistrationStatus.DENIED ||
-                  (registrationStatus === EventRegistrationStatus.PENDING && (
-                    <div className="mt-4">
-                      <div>{`Payment details:`}</div>
+                {(registrationStatus === EventRegistrationStatus.APPROVED || registrationStatus === EventRegistrationStatus.DENIED || registrationStatus === EventRegistrationStatus.PENDING) && (
+                  <div className="mt-4">
+                    <div>{`Payment details:`}</div>
 
-                      <div className="flex flex-col gap-2">
-                        {event.paymentMethodCash.enabled && <CashInfo participationFee={event.participationFee} />}
+                    <div className="flex flex-col gap-2">
+                      {event.paymentMethodCash.enabled && <CashInfo participationFee={event.participationFee} />}
 
-                        {event.paymentMethodPayPal.enabled && (
-                          <PayPalInfo participationFee={event.participationFee} payPalInfo={event.paymentMethodPayPal} usernameForReference={session?.user.username || ''} />
-                        )}
+                      {event.paymentMethodPayPal.enabled && (
+                        <PayPalInfo participationFee={event.participationFee} payPalInfo={event.paymentMethodPayPal} usernameForReference={session?.user.username || ''} />
+                      )}
 
-                        {event.paymentMethodSepa.enabled && (
-                          <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user.username || ''} />
-                        )}
-                      </div>
+                      {event.paymentMethodSepa.enabled && <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user.username || ''} />}
+
+                      {event.paymentMethodStripe.enabled && <StripeInfo participationFee={event.participationFee} />}
                     </div>
-                  ))}
+                  </div>
+                )}
               </div>
             )}
 
@@ -390,6 +396,8 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                       )}
 
                       {event.paymentMethodSepa.enabled && <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user.username || ''} />}
+
+                      {event.paymentMethodStripe.enabled && <StripeInfo participationFee={event.participationFee} />}
                     </div>
                   </div>
                 </div>

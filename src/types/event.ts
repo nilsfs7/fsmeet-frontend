@@ -4,6 +4,7 @@ import { Competition } from './competition';
 import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
+import { PaymentMethodStripe } from './payment-method-stripe';
 import { EventState } from '../domain/enums/event-state';
 import { EventMaintainer } from './event-maintainer';
 
@@ -32,6 +33,7 @@ export type Event = {
   paymentMethodCash: PaymentMethodCash;
   paymentMethodPayPal: PaymentMethodPayPal;
   paymentMethodSepa: PaymentMethodSepa;
+  paymentMethodStripe: PaymentMethodStripe;
   autoApproveRegistrations: boolean;
   notifyOnRegistration: boolean;
   allowComments: boolean;
