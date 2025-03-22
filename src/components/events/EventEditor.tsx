@@ -496,9 +496,11 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
       {participationFee > 0 && (
         <>
+          <div className="m-2">{`${t('lblFreeMethods')}:`}</div>
+
           <CheckBox
             id={'paymentMethodCashEnabled'}
-            label={t('chbCashAccept')}
+            label={`- ${t('chbCashAccept')}`}
             value={paymentMethodCashEnabled}
             onChange={() => {
               setPaymentMethodCashEnabled(!paymentMethodCashEnabled);
@@ -511,7 +513,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <CheckBox
             id={'paymentMethodPayPalEnabled'}
-            label={t('chbPayPalAccept')}
+            label={`- ${t('chbPayPalAccept')}`}
             value={paymentMethodPayPalEnabled}
             onChange={() => {
               setPaymentMethodPayPalEnabled(!paymentMethodPayPalEnabled);
@@ -551,7 +553,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <CheckBox
             id={'paymentMethodSepaEnabled'}
-            label={t('chbBankSepaAccept')}
+            label={`- ${t('chbBankSepaAccept')}`}
             value={paymentMethodSepaEnabled}
             onChange={() => {
               setPaymentMethodSepaEnabled(!paymentMethodSepaEnabled);
@@ -606,9 +608,11 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             </>
           )}
 
+          <div className="m-2">{`${t('lblProfessionalMethods')}:`}</div>
+
           <CheckBox
             id={'paymentMethodStripeEnabled'}
-            label={t('chbStripeAccept')}
+            label={`- ${t('chbStripeAccept')}`}
             value={paymentMethodStripeEnabled}
             onChange={() => {
               setPaymentMethodStripeEnabled(!paymentMethodStripeEnabled);
