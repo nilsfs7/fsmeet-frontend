@@ -124,6 +124,7 @@
     "tabAccountLblStripeAccount": "Stripe Account",
     "tabAccounBtnRequestPaymentsAccount": "Request Account",
     "tabAccounBtnEditPaymentsAccount": "Edit Info",
+    "tabAccounBtnMonitorPayments": "View payments",
     "tabAccountSectionAccountManagement": "Account Management",
     "tabAccounBtnLogout": "Logout",
     "tabAccounBtnDeleteAccount": "Delete Account"
