@@ -499,6 +499,7 @@
     "cbType": "Type",
     "cbGender": "Gender",
     "cbMaxAge": "Max Age",
+    "inputFee": "Participation Fee",
     "inputDescription": "Description",
     "inputDescriptionPlaceHolder": "Group stage (circles) and KO (Top 16).",
     "inputRules": "Rules",

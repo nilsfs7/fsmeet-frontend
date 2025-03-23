@@ -65,6 +65,7 @@ export async function createCompetition(eventId: string, comp: Competition, sess
     type: comp.type,
     gender: comp.gender,
     maxAge: comp?.maxAge,
+    participationFee: comp.participationFee,
     description: comp?.description.trim(),
     rules: comp?.rules.trim(),
     judges: comp.judges.map(judge => {
@@ -149,6 +150,7 @@ export async function updateCompetition(comp: Competition, session: Session | nu
     id: comp.id,
     name: comp?.name.trim(),
     maxAge: comp?.maxAge,
+    participationFee: comp.participationFee,
     description: comp?.description.trim(),
     rules: comp?.rules.trim(),
     judges: comp.judges.map(judge => {

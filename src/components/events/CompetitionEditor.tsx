@@ -17,6 +17,7 @@ import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { UserType } from '@/domain/enums/user-type';
 import { useTranslations } from 'next-intl';
+import CurInput from '../common/CurrencyInput';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;
@@ -31,6 +32,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
   const [compType, setCompType] = useState(comp?.type || CompetitionType.BATTLES);
   const [compGender, setCompGender] = useState(comp?.gender || CompetitionGender.MIXED);
   const [maxAge, setMaxAge] = useState<MaxAge>(comp?.maxAge || MaxAge.NONE);
+  const [participationFee, setParticipationFee] = useState(comp?.participationFee || 0.0);
   const [description, setDescription] = useState(comp?.description || '');
   const [rules, setRules] = useState(comp?.rules || '');
   const [judges, setJudges] = useState<User[]>(comp?.judges || []);
@@ -39,7 +41,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
 
   const handleAddJudgeClicked = async (username: string) => {
     // check if judge is already in array
-    const judgesMatching = judges.filter((user) => {
+    const judgesMatching = judges.filter(user => {
       if (user.username === username) {
         return user;
       }
@@ -49,7 +51,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       console.error(`${username} already assigned in judges list.`);
     } else {
       try {
-        const judge = users.filter((user) => {
+        const judge = users.filter(user => {
           if (user.username === username) {
             return user;
           }
@@ -83,6 +85,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       type: compType,
       gender: compGender,
       maxAge: maxAge,
+      participationFee: participationFee,
       description: description,
       rules: rules,
       judges: judges,
@@ -96,13 +99,14 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       setCompType(comp.type);
       setCompGender(comp.gender);
       setMaxAge(comp.maxAge);
+      setParticipationFee(comp.participationFee);
       setDescription(comp.description);
       setRules(comp.rules);
       setJudges(comp.judges);
     }
 
-    getUsers().then((users) => {
-      users = users.filter((user) => {
+    getUsers().then(users => {
+      users = users.filter(user => {
         if (user.type !== UserType.TECHNICAL) return user;
       });
       setUsers(users);
@@ -112,7 +116,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
   // fires comp back
   useEffect(() => {
     updateComp();
-  }, [name, compType, compGender, maxAge, description, rules, judges]);
+  }, [name, compType, compGender, maxAge, participationFee, description, rules, judges]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
@@ -121,7 +125,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
         label={t('inputName')}
         placeholder={t('inputNamePlaceHolder')}
         value={name}
-        onChange={(e) => {
+        onChange={e => {
           setCompName(e.currentTarget.value);
         }}
       />
@@ -139,7 +143,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
               }}
             />
           )}
-          {editorMode === EditorMode.EDIT && <div>{menuCompTypes.find((item) => item.value === compType)?.text}</div>}
+          {editorMode === EditorMode.EDIT && <div>{menuCompTypes.find(item => item.value === compType)?.text}</div>}
         </div>
       </div>
 
@@ -156,7 +160,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
               }}
             />
           )}
-          {editorMode === EditorMode.EDIT && <div>{menuCompGenders.find((item) => item.value === compGender)?.text}</div>}
+          {editorMode === EditorMode.EDIT && <div>{menuCompGenders.find(item => item.value === compGender)?.text}</div>}
         </div>
       </div>
 
@@ -174,13 +178,25 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
         </div>
       </div>
 
+      <CurInput
+        id={'participationFee'}
+        label={t('inputFee')}
+        placeholder="15,00"
+        value={participationFee}
+        onValueChange={(value, name, values) => {
+          if (values?.float || values?.float === 0) {
+            setParticipationFee(values?.float);
+          }
+        }}
+      />
+
       <TextInputLarge
         id={'description'}
         label={t('inputDescription')}
         placeholder={t('inputDescriptionPlaceHolder')}
         value={description}
         resizable={true}
-        onChange={(e) => {
+        onChange={e => {
           setDescription(e.currentTarget.value);
         }}
       />
@@ -191,7 +207,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
         placeholder={t('inputRulesPlaceHolder')}
         value={rules}
         resizable={true}
-        onChange={(e) => {
+        onChange={e => {
           setRules(e.currentTarget.value);
         }}
       />
@@ -217,7 +233,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
 
             <div className="flex justify-between p-1 gap-2">
               <ComboBox
-                menus={users.map((user) => {
+                menus={users.map(user => {
                   return { text: `${user.firstName} (${user.username})`, value: user.username };
                 })}
                 value={judgeToAddUsername || ''}

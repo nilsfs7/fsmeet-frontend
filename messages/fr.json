@@ -486,6 +486,7 @@
     "cbType": "Type",
     "cbGender": "Genre",
     "cbMaxAge": "Âge maximum",
+    "inputFee": "Frais de participation",
     "inputDescription": "Description",
     "inputDescriptionPlaceHolder": "Phase de groupe (cercles) et KO (Top 16).",
     "inputRules": "Règles",
