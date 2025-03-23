@@ -29,6 +29,8 @@ import moment from 'moment';
 import Dialog from '@/components/Dialog';
 import { StripeInfo } from '../../components/payment/stripe-info';
 import { ButtonStyle } from '@/domain/enums/button-style';
+import ActionButton from '@/components/common/ActionButton';
+import { Action } from '@/domain/enums/action';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -82,7 +84,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
     router.replace(pageUrl);
   };
 
-  const handleBackClicked = async () => {
+  const handlePreviousClicked = async () => {
     if (page) {
       let previousPage: string = '';
 
@@ -416,7 +418,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           {page && <TextButton text={t('btnBackToOverview')} onClick={handleCancelClicked} />}
 
           <div className="flex gap-1">
-            {page && <TextButton text={t('btnPreviousPage')} onClick={handleBackClicked} />}
+            {page && <ActionButton action={Action.BACK} onClick={handlePreviousClicked} />}
             {page !== RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && (
               <TextButton
                 text={page ? t('btnNextPage') : t('btnRegister')}

@@ -329,8 +329,7 @@
     "btnBackToEvent": "Back To Event",
     "btnRegister": "Register",
     "btnUnregister": "Unregister",
-    "btnBackToOverview": "Back To Overview",
-    "btnPreviousPage": "Back",
+    "btnBackToOverview": "Cancel",
     "btnNextPage": "Next",
     "btnEnrollNow": "Enroll Now"
   },
