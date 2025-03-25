@@ -18,7 +18,6 @@ import Link from 'next/link';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { createEventRegistration_v2, createEventRegistrationCheckoutLink, deleteEventRegistration } from '@/infrastructure/clients/event.client';
 import {} from '@/infrastructure/clients/event.client';
-import { CompetitionCard } from './competition-card';
 import Label from '@/components/Label';
 import { PayPalInfo } from '../../components/payment/paypal-info';
 import { SepaInfo } from '../../components/payment/sepa-info';
@@ -32,6 +31,7 @@ import { ButtonStyle } from '@/domain/enums/button-style';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { getShortDateString } from '@/functions/time';
+import { CompetitionList } from './competition-list';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -196,6 +196,9 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   };
 
   const handleRadioItemRegistrationTypeClicked = (type: EventRegistrationType) => {
+    if (type === EventRegistrationType.VISITOR) {
+      setCompSignUps([]);
+    }
     setRegistrationType(type);
   };
 
@@ -319,9 +322,9 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
             {/* Page: Registration Type */}
             {page && +page === 1 && (
               <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-                <div>{`Select registration type.`}</div>
+                <div className="m-2">{`Select registration type.`}</div>
 
-                <RadioGroup className="mt-4" value={registrationType}>
+                <RadioGroup className="mx-2" value={registrationType}>
                   <div className={'grid grid-cols-2 py-1 gap-1'}>
                     <div className="capitalize">{EventRegistrationType.PARTICIPANT}</div>
 
@@ -354,36 +357,32 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
             {/* Page: Competitions */}
             {page && +page === 2 && (
               <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-                <div>{`Select competitions to participate in.`}</div>
+                <div className="m-2">{`Select competitions to participate in.`}</div>
 
-                <div className="flex flex-col mt-4 gap-2 ">
-                  {event.competitions.map((comp, index) => {
-                    return (
-                      <div key={`comp-card-${index}`}>
-                        <CompetitionCard
-                          comp={comp}
-                          disabled={comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender}
-                          selectable={true}
-                          checked={comp.id && compSignUps.includes(comp.id) ? true : false}
-                          onCheckedChange={checked => {
-                            if (comp.id) handleCheckBoxSignUpForCompChanged(comp.id);
-                          }}
-                        />
-                      </div>
-                    );
+                <CompetitionList
+                  comps={event.competitions}
+                  disabled={event.competitions.map(comp => {
+                    return comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender;
                   })}
-                </div>
+                  checked={event.competitions.map(comp => {
+                    return comp.id && compSignUps.includes(comp.id) ? true : false;
+                  })}
+                  selectable={true}
+                  onCheckedChange={(checked, comId) => {
+                    if (comId) handleCheckBoxSignUpForCompChanged(comId);
+                  }}
+                />
               </div>
             )}
 
             {/* Page: Overview */}
             {page && +page === 3 && (
               <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-                <div>{`Overview`}</div>
+                <div className="m-2">{`Overview`}</div>
 
                 <div className="flex flex-col mt-4 gap-4">
                   <div className="flex items-center gap-2">
-                    <div>{`Enroll as:`}</div>
+                    <div className="m-2">{`Enroll as:`}</div>
                     {registrationType && <Label text={registrationType} />}
                   </div>
 
@@ -391,38 +390,74 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                     <>
                       <Separator />
 
-                      <div className="">
-                        <div>{`Participate in:`}</div>
+                      <div>
+                        <div className="m-2">{`Participate in:`}</div>
 
-                        <div className="flex flex-col gap-2">
-                          {event.competitions.map((comp, index) => {
-                            if (comp.id && compSignUps.includes(comp.id))
-                              return (
-                                <div key={`comp-card-${index}`}>
-                                  <CompetitionCard comp={comp} />
-                                </div>
-                              );
-                          })}
-                        </div>
+                        <CompetitionList
+                          comps={event.competitions.filter(c => c.id && compSignUps.includes(c.id))}
+                          disabled={event.competitions
+                            .filter(c => c.id && compSignUps.includes(c.id))
+                            .map(comp => {
+                              return comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender;
+                            })}
+                          checked={event.competitions
+                            .filter(c => c.id && compSignUps.includes(c.id))
+                            .map(comp => {
+                              return comp.id && compSignUps.includes(comp.id) ? true : false;
+                            })}
+                          selectable={false}
+                          onCheckedChange={(checked, comId) => {
+                            if (comId) handleCheckBoxSignUpForCompChanged(comId);
+                          }}
+                        />
                       </div>
                     </>
                   )}
 
                   <Separator />
 
-                  <div className="">
-                    <div>{`Payment details:`}</div>
+                  <div>
+                    <div className="m-2">{`Payment details:`}</div>
 
-                    <div className="flex flex-col gap-2">
-                      {event.paymentMethodCash.enabled && <CashInfo participationFee={event.participationFee} />}
+                    <div className="m-2 flex flex-col gap-2 text-sm">
+                      {/* {event.paymentMethodCash.enabled && <CashInfo participationFee={event.participationFee} />}
 
                       {event.paymentMethodPayPal.enabled && (
                         <PayPalInfo participationFee={event.participationFee} payPalInfo={event.paymentMethodPayPal} usernameForReference={session?.user.username || ''} />
                       )}
 
-                      {event.paymentMethodSepa.enabled && <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user.username || ''} />}
+                      {event.paymentMethodSepa.enabled && <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user.username || ''} />} */}
 
-                      {event.paymentMethodStripe.enabled && <StripeInfo participationFee={event.participationFee} />}
+                      {/* <div className="flex justify-between">
+                        <div>{`Method`}</div>
+                        <div>{`online checkout`}</div>
+                      </div> */}
+
+                      <div className="flex justify-between">
+                        <div>{`Event fee`}</div>
+                        <div>{event.participationFee.toString().replace('.', ',')} €</div>
+                      </div>
+
+                      {registrationType === EventRegistrationType.PARTICIPANT && (
+                        <div className="flex justify-between">
+                          <div>{`Competition fee(s)`}</div>
+                          <div>
+                            {event.competitions
+                              .filter(c => c.id && compSignUps.includes(c.id))
+                              .reduce((acc, c) => acc + c.participationFee, 0)
+                              .toString()
+                              .replace('.', ',')}{' '}
+                            €
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex justify-between">
+                        <div>{`Total`}</div>
+                        <div>
+                          {(event.participationFee + event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + c.participationFee, 0)).toString().replace('.', ',')} €
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -444,7 +479,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
             {page !== RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && (
               <TextButton
                 text={page ? t('btnNextPage') : t('btnRegister')}
-                disabled={nextButtonDisabled() || (event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
+                disabled={nextButtonDisabled() || moment(event?.registrationOpen).unix() > moment().unix() || moment(event?.registrationDeadline).unix() < moment().unix() || false}
                 onClick={handleNextClicked}
               />
             )}
