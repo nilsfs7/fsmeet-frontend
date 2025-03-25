@@ -31,6 +31,7 @@ import { StripeInfo } from '../../components/payment/stripe-info';
 import { ButtonStyle } from '@/domain/enums/button-style';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
+import { getShortDateString } from '@/functions/time';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -272,6 +273,27 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                 <div className="flex items-center mt-4 gap-2">
                   <div>{`${'Registration Status'}:`}</div>
                   <Label text={registrationStatus} />
+                </div>
+
+                <div className="flex items-center mt-4 gap-2">
+                  {event?.id && moment(event?.registrationOpen).unix() > moment().unix() && (
+                    <>
+                      <div>{`${'Registration period start'}:`}</div>
+                      <div> {`${getShortDateString(moment(event?.registrationOpen))}  -  ${moment(event?.registrationOpen).diff(moment(), 'days')} day(s) left`}</div>
+                    </>
+                  )}
+                  {event?.id && moment(event?.registrationOpen).unix() < moment().unix() && event?.id && moment(event?.registrationDeadline).unix() > moment().unix() && (
+                    <>
+                      <div>{`${'Registration open until'}:`}</div>
+                      <div> {`${getShortDateString(moment(event?.registrationDeadline))}  -  ${moment(event?.registrationDeadline).diff(moment(), 'days')} day(s) left`}</div>
+                    </>
+                  )}
+                  {event?.id && moment(event?.registrationDeadline).unix() < moment().unix() && (
+                    <>
+                      <div>{`${'Registration period ended'}:`}</div>
+                      <div> {`${getShortDateString(moment(event?.registrationDeadline))}`}</div>
+                    </>
+                  )}
                 </div>
 
                 {(registrationStatus === EventRegistrationStatus.APPROVED || registrationStatus === EventRegistrationStatus.DENIED || registrationStatus === EventRegistrationStatus.PENDING) && (
