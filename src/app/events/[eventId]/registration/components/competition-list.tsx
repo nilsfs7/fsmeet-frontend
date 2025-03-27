@@ -12,7 +12,7 @@ interface ICompetitionList {
 
 export const CompetitionList = ({ comps, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
   return (
-    <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2`}>
+    <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
       {/* todo: color code for head bg*/}
       <thead className="bg-gray-200 text-primary uppercase text-sm leading-normal">
         <tr className="text-left whitespace-nowrap">

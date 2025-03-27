@@ -279,7 +279,7 @@ export async function createEventRegistration_v2(eventId: string, eventRegistrat
 }
 
 export async function createEventRegistrationCheckoutLink(eventId: string, successUrl: string, session: Session | null): Promise<string> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout`; // ##### v2
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout`;
 
   const body = new CreateStripeCheckoutLinkBodyDto(successUrl);
 

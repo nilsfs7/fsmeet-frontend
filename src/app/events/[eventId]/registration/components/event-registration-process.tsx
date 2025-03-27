@@ -17,21 +17,17 @@ import { EventRegistrationInfo } from '@/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { createEventRegistration_v2, createEventRegistrationCheckoutLink, deleteEventRegistration } from '@/infrastructure/clients/event.client';
-import {} from '@/infrastructure/clients/event.client';
 import Label from '@/components/Label';
-import { PayPalInfo } from '../../components/payment/paypal-info';
-import { SepaInfo } from '../../components/payment/sepa-info';
-import { CashInfo } from '../../components/payment/cash-info';
 import Separator from '@/components/Seperator';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import moment from 'moment';
 import Dialog from '@/components/Dialog';
-import { StripeInfo } from '../../components/payment/stripe-info';
 import { ButtonStyle } from '@/domain/enums/button-style';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { getShortDateString } from '@/functions/time';
 import { CompetitionList } from './competition-list';
+import { PaymentDetails } from './payment-details';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -41,7 +37,7 @@ interface IEventRegistrationProcess {
 enum RegistrationProcessPage {
   REGISTRATION_TYPE = '1',
   COMPETITIONS = '2',
-  OVERVIEW = '3',
+  CHECKOUT_OVERVIEW = '3',
 }
 
 export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProcess) => {
@@ -58,12 +54,18 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
 
-  const registrationStatus: string =
-    event.eventRegistrations.filter(registration => {
+  const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
+
+  useEffect(() => {
+    const status = event.eventRegistrations.filter(registration => {
       if (registration.user.username === session?.user.username) {
+        setRegistrationType(registration.type);
         return registration.status;
       }
-    })[0]?.status || 'Unregistered';
+    })[0]?.status;
+
+    setRegistrationStatus(status || 'Unregistered');
+  });
 
   const nextButtonDisabled = (): boolean => {
     if (!page) {
@@ -98,7 +100,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
           break;
 
-        case RegistrationProcessPage.OVERVIEW:
+        case RegistrationProcessPage.CHECKOUT_OVERVIEW:
           if (registrationType === EventRegistrationType.PARTICIPANT) {
             previousPage = RegistrationProcessPage.COMPETITIONS;
           } else {
@@ -124,15 +126,15 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           if (registrationType === EventRegistrationType.PARTICIPANT) {
             nextPage = RegistrationProcessPage.COMPETITIONS;
           } else {
-            nextPage = RegistrationProcessPage.OVERVIEW;
+            nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
           }
           break;
 
         case RegistrationProcessPage.COMPETITIONS:
-          nextPage = RegistrationProcessPage.OVERVIEW;
+          nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
           break;
 
-        case RegistrationProcessPage.OVERVIEW:
+        case RegistrationProcessPage.CHECKOUT_OVERVIEW:
           // handleRegisterNowClicked is used for this
 
           // if (event.id && registrationType) {
@@ -157,6 +159,18 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
         cleanupCacheRegistrationInfo();
 
         // todo: don't redirect when user is not paying directly
+        const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, `${window.location.origin}${pageUrl}/completed?checkout=1`, session);
+        router.push(`${checkoutUrl}`);
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
+    }
+  };
+
+  const handleProceedPaymentClicked = async () => {
+    if (event.id && registrationType) {
+      try {
         const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, `${window.location.origin}${pageUrl}/completed?checkout=1`, session);
         router.push(`${checkoutUrl}`);
       } catch (error: any) {
@@ -270,13 +284,8 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           <div className="flex justify-center">
             {/* Overview */}
             {!page && (
-              <div>
+              <div className="p-2 bg-secondary-light border border-secondary-dark rounded-lg">
                 <div>{`Event: ${event.name}`}</div>
-
-                <div className="flex items-center mt-4 gap-2">
-                  <div>{`${'Registration Status'}:`}</div>
-                  <Label text={registrationStatus} />
-                </div>
 
                 <div className="flex items-center mt-4 gap-2">
                   {event?.id && moment(event?.registrationOpen).unix() > moment().unix() && (
@@ -299,23 +308,10 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                   )}
                 </div>
 
-                {(registrationStatus === EventRegistrationStatus.APPROVED || registrationStatus === EventRegistrationStatus.DENIED || registrationStatus === EventRegistrationStatus.PENDING) && (
-                  <div className="mt-4">
-                    <div>{`Payment details:`}</div>
-
-                    <div className="flex flex-col gap-2">
-                      {event.paymentMethodCash.enabled && <CashInfo participationFee={event.participationFee} />}
-
-                      {event.paymentMethodPayPal.enabled && (
-                        <PayPalInfo participationFee={event.participationFee} payPalInfo={event.paymentMethodPayPal} usernameForReference={session?.user.username || ''} />
-                      )}
-
-                      {event.paymentMethodSepa.enabled && <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user.username || ''} />}
-
-                      {event.paymentMethodStripe.enabled && <StripeInfo participationFee={event.participationFee} />}
-                    </div>
-                  </div>
-                )}
+                <div className="flex items-center mt-4 gap-2">
+                  <div>{`${'Your Status'}:`}</div>
+                  <Label text={registrationStatus} />
+                </div>
               </div>
             )}
 
@@ -378,9 +374,9 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
             {/* Page: Overview */}
             {page && +page === 3 && (
               <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-                <div className="m-2">{`Overview`}</div>
+                <div className="m-2">{`Please review your selection before proceeding with checkout.`}</div>
 
-                <div className="flex flex-col mt-4 gap-4">
+                <div className="flex flex-col mt-2 gap-4">
                   <div className="flex items-center gap-2">
                     <div className="m-2">{`Enroll as:`}</div>
                     {registrationType && <Label text={registrationType} />}
@@ -416,50 +412,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
                   <Separator />
 
-                  <div>
-                    <div className="m-2">{`Payment details:`}</div>
-
-                    <div className="m-2 flex flex-col gap-2 text-sm">
-                      {/* {event.paymentMethodCash.enabled && <CashInfo participationFee={event.participationFee} />}
-
-                      {event.paymentMethodPayPal.enabled && (
-                        <PayPalInfo participationFee={event.participationFee} payPalInfo={event.paymentMethodPayPal} usernameForReference={session?.user.username || ''} />
-                      )}
-
-                      {event.paymentMethodSepa.enabled && <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session?.user.username || ''} />} */}
-
-                      {/* <div className="flex justify-between">
-                        <div>{`Method`}</div>
-                        <div>{`online checkout`}</div>
-                      </div> */}
-
-                      <div className="flex justify-between">
-                        <div>{`Event fee`}</div>
-                        <div>{event.participationFee.toString().replace('.', ',')} €</div>
-                      </div>
-
-                      {registrationType === EventRegistrationType.PARTICIPANT && (
-                        <div className="flex justify-between">
-                          <div>{`Competition fee(s)`}</div>
-                          <div>
-                            {event.competitions
-                              .filter(c => c.id && compSignUps.includes(c.id))
-                              .reduce((acc, c) => acc + c.participationFee, 0)
-                              .toString()
-                              .replace('.', ',')}{' '}
-                            €
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="flex justify-between">
-                        <div>{`Total`}</div>
-                        <div>
-                          {(event.participationFee + event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + c.participationFee, 0)).toString().replace('.', ',')} €
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  {registrationType && <PaymentDetails event={event} registrationType={registrationType} compSignUps={compSignUps} />}
                 </div>
               </div>
             )}
@@ -476,21 +429,34 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
           <div className="flex gap-1">
             {page && <ActionButton action={Action.BACK} onClick={handlePreviousClicked} />}
-            {page !== RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && (
+
+            {page !== RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && (
               <TextButton
                 text={page ? t('btnNextPage') : t('btnRegister')}
                 disabled={nextButtonDisabled() || moment(event?.registrationOpen).unix() > moment().unix() || moment(event?.registrationDeadline).unix() < moment().unix() || false}
                 onClick={handleNextClicked}
               />
             )}
-            {page === RegistrationProcessPage.OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={t('btnEnrollNow')} onClick={handleRegisterNowClicked} />}
-            {registrationStatus !== 'Unregistered' && (
+
+            {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={t('btnEnrollNow')} onClick={handleRegisterNowClicked} />}
+
+            {!page && registrationStatus === EventRegistrationStatus.PENDING && (
               <TextButton
                 text={t('btnUnregister')}
                 style={ButtonStyle.CRITICAL}
                 disabled={(event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
                 onClick={() => {
                   handleUnregisterClicked();
+                }}
+              />
+            )}
+
+            {!page && registrationStatus === EventRegistrationStatus.PENDING && (
+              <TextButton
+                text={t('btnProceedPayment')}
+                disabled={(event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
+                onClick={() => {
+                  handleProceedPaymentClicked();
                 }}
               />
             )}
