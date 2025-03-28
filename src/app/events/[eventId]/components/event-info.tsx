@@ -79,14 +79,14 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
         <Separator />
 
         <div className={'grid grid-cols-3 justify-end object-right p-2 gap-1'}>
-          <div className="col-span-1">{t('tabOverviewParticipationFee')}</div>
-          <div className="col-span-2">{event.participationFee > 0 ? `${event.participationFee.toString().replace('.', ',')}  €` : 'free'}</div>
-
           <div className="col-span-1">{t('tabOverviewRegistrationFrom')}</div>
           {event.registrationOpen && <div className="col-span-2">{getShortDateString(moment(event.registrationOpen))}</div>}
 
           <div className="col-span-1">{t('tabOverviewRegistrationTo')}</div>
           {event.registrationDeadline && <div className="col-span-2">{getShortDateString(moment(event.registrationDeadline))}</div>}
+
+          <div className="col-span-1">{t('tabOverviewParticipationFee')}</div>
+          <div className="col-span-2">{event.participationFee > 0 ? `${event.participationFee.toString().replace('.', ',')}  €` : 'free'}</div>
 
           <div className="col-span-1 flex items-center">{t('tabOverviewEventHost')}</div>
           {eventAdmin && (
