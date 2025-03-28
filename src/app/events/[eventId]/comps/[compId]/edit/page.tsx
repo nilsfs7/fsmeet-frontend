@@ -62,7 +62,7 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
   useEffect(() => {
     getEvent(params.eventId, session)
       .then((res: Event) => {
-        const comp = res.competitions.filter((c) => c.id === params.compId)[0];
+        const comp = res.competitions.filter(c => c.id === params.compId)[0];
 
         const c: Competition = {
           id: comp.id,
@@ -71,6 +71,7 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
           type: comp.type,
           gender: comp.gender,
           maxAge: comp.maxAge,
+          participationFee: comp.participationFee,
           description: comp.description,
           rules: comp.rules,
           judges: comp.judges,

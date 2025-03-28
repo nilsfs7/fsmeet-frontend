@@ -124,6 +124,7 @@
     "tabAccountLblStripeAccount": "Compte Stripe",
     "tabAccounBtnRequestPaymentsAccount": "Demande de compte",
     "tabAccounBtnEditPaymentsAccount": "Modifier info",
+    "tabAccounBtnMonitorPayments": "Voir les paiements",
     "tabAccountSectionAccountManagement": "Gestion du compte",
     "tabAccounBtnLogout": "Déconnexion",
     "tabAccounBtnDeleteAccount": "Supprimer le compte"
@@ -193,7 +194,8 @@
     "tabCompetitionsTitle": "Compétitions",
     "tabCompetitionsSectionCompetitions": "Compétitions",
     "tabRegistrationsTitle": "Participants",
-    "tabRegistrationsSectionRegistrations": "Participants",
+    "tabRegistrationsSectionRegistrationParticipants": "Participantes",
+    "tabRegistrationsSectionRegistrationVisitors": "Visiteurs",
     "btnRegistration": "Inscription",
     "btnFeedback": "Commentaires"
   },
@@ -307,8 +309,9 @@
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Inscription soumise avec succès.",
-    "hintPayment": "N'oubliez pas de payer les frais de participation. Nous t'avons envoyé un e-mail avec les détails du paiement.",
-    "btnBack": "Retour à l'événement"
+    "textPaymentOutstanding": "N'oubliez pas de payer les frais de participation. Nous t'avons envoyé un e-mail avec les détails du paiement.",
+    "textPaymentCompleted": "Paiement effectué. À bientôt à l'événement !",
+    "btnBack": "Retour à l'aperçu"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Gérer les partenariats",
@@ -483,6 +486,7 @@
     "cbType": "Type",
     "cbGender": "Genre",
     "cbMaxAge": "Âge maximum",
+    "inputFee": "Frais de participation",
     "inputDescription": "Description",
     "inputDescriptionPlaceHolder": "Phase de groupe (cercles) et KO (Top 16).",
     "inputRules": "Règles",
@@ -516,6 +520,7 @@
     "inputVenueCountry": "Pays",
     "sectionPayment": "Paiement",
     "inputFee": "Frais de participation",
+    "lblFreeMethods": "Méthodes de paiement gratuites",
     "chbCashAccept": "Accepter l'argent liquide",
     "chbPayPalAccept": "Accepter PayPal",
     "inputPayPalUsername": "Identifiant PayPal",
@@ -525,6 +530,8 @@
     "inputBankSepaRecipeint": "Bénéficiaire SEPA",
     "inputBankSepaIban": "IBAN SEPA",
     "inputBankSepaReference": "Référence SEPA",
+    "lblProfessionalMethods": "Méthodes de paiement professionnelles",
+    "chbStripeAccept": "Accepter les paiements en ligne (Stripe)",
     "sectionMaintainers": "Mainteneurs",
     "cbMaintainers": "Responsables de la maintenance",
     "sectionOther": "Autre",

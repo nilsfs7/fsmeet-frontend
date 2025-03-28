@@ -8,16 +8,18 @@ export class ReadCompetitionResponseDto {
   type: CompetitionType;
   gender: CompetitionGender;
   maxAge: MaxAge;
+  participationFee: number;
   description: string;
   rules: string;
   eventId: string;
 
-  constructor(id: string, name: string, type: CompetitionType, gender: CompetitionGender, maxAge: MaxAge, description: string, rules: string, eventId: string) {
+  constructor(id: string, name: string, type: CompetitionType, gender: CompetitionGender, maxAge: MaxAge, participationFee: number, description: string, rules: string, eventId: string) {
     this.id = id;
     this.name = name;
     this.type = type;
     this.gender = gender;
     this.maxAge = maxAge;
+    this.participationFee = participationFee;
     this.description = description;
     this.rules = rules;
     this.eventId = eventId;

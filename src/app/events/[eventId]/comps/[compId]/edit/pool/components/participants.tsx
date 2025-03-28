@@ -11,9 +11,9 @@ import { createCompetitionParticipation, deleteCompetitionParticipation, getComp
 import { getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { Competition } from '@/types/competition';
 import { EventRegistration } from '@/types/event-registration';
+import { EventRegistrationType } from '@/types/event-registration-type';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Toaster, toast } from 'sonner';
 
@@ -25,7 +25,6 @@ export const Participants = ({ competition }: IParticipants) => {
   const t = useTranslations('/events/eventid/comps/compid/edit/pool');
 
   const { data: session } = useSession();
-  const router = useRouter();
 
   const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>();
   const [competitionParticipants, setCompetitionParticipants] = useState<{ username: string }[]>();
@@ -69,7 +68,7 @@ export const Participants = ({ competition }: IParticipants) => {
   useEffect(() => {
     async function fetchEventRegistrations() {
       if (competition.eventId) {
-        let registrations = await getEventRegistrations(competition.eventId);
+        let registrations = await getEventRegistrations(competition.eventId, EventRegistrationType.PARTICIPANT);
 
         // remove non-freestylers
         registrations = registrations.filter(registration => {

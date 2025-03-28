@@ -1,7 +1,6 @@
 import { EventComment } from '@/types/event-comment';
 import { Session } from 'next-auth';
 import { Event } from '@/types/event';
-import { EventRegistration } from '@/types/event-registration';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { EventState } from '@/domain/enums/event-state';
 import { CreateEventRegistrationBodyDto } from './dtos/event/registration/create-event-registration.body.dto';
@@ -11,6 +10,8 @@ import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-
 import { UpdateVisaInvitationRequestStateBodyDto } from './dtos/event/update-visa-invitation-request-state.body.dto';
 import { ReadVisaInvitationRequestResponseDto } from './dtos/event/read-visa-invitation-request.response.dto';
 import { ReadEventRegistrationResponseDto } from './dtos/event/registration/read-event-registration.response.dto';
+import { CreateStripeCheckoutLinkBodyDto } from './dtos/event/create-stripe-checkout-link.body.dto';
+import { ReadStripeCheckoutLinkResponseDto } from './dtos/event/read-stripe-checkout-link.response.dto';
 
 export async function getEvents(
   admin: string | null,
@@ -142,8 +143,13 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
   }
 }
 
-export async function getEventRegistrations(eventId: string): Promise<ReadEventRegistrationResponseDto[]> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
+export async function getEventRegistrations(eventId: string, registrationType: EventRegistrationType | null): Promise<ReadEventRegistrationResponseDto[]> {
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations?`;
+
+  if (registrationType) {
+    url = url + `type=${registrationType}`;
+  }
+
   const response = await fetch(url, {
     method: 'GET',
   });
@@ -201,6 +207,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
       iban: event?.paymentMethodSepa.iban,
       reference: event?.paymentMethodSepa.reference,
     },
+    paymentMethodStripe: { enabled: event?.paymentMethodStripe.enabled },
     autoApproveRegistrations: event?.autoApproveRegistrations,
     notifyOnRegistration: event?.notifyOnRegistration,
     allowComments: event?.allowComments,
@@ -265,6 +272,30 @@ export async function createEventRegistration_v2(eventId: string, eventRegistrat
 
   if (response.ok) {
     console.info('Creating event registration successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function createEventRegistrationCheckoutLink(eventId: string, successUrl: string, session: Session | null): Promise<string> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout`;
+
+  const body = new CreateStripeCheckoutLinkBodyDto(successUrl);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const dto: ReadStripeCheckoutLinkResponseDto = await response.json();
+    console.info('Creating stripe checkout link for event registration successful');
+    return dto.url;
   } else {
     const error = await response.json();
     throw Error(error.message);
@@ -380,6 +411,7 @@ export async function updateEvent(event: Event, session: Session | null): Promis
       iban: event?.paymentMethodSepa.iban,
       reference: event?.paymentMethodSepa.reference,
     },
+    paymentMethodStripe: { enabled: event?.paymentMethodStripe.enabled },
     autoApproveRegistrations: event?.autoApproveRegistrations,
     notifyOnRegistration: event?.notifyOnRegistration,
     allowComments: event?.allowComments,

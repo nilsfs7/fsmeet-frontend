@@ -188,3 +188,9 @@ Misc
 - [About](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)
 
 - [Not Found](https://www.iconfinder.com/icons/9054414/bx_confused_icon)
+
+## Payments with Stripe
+
+Testing:
+
+- [Credit Cards](https://docs.stripe.com/testing?testing-method=card-numbers#visa)

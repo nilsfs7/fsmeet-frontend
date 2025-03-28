@@ -124,6 +124,7 @@
     "tabAccountLblStripeAccount": "Cuenta Stripe",
     "tabAccounBtnRequestPaymentsAccount": "Solicitar cuenta",
     "tabAccounBtnEditPaymentsAccount": "Editar info",
+    "tabAccounBtnMonitorPayments": "Ver pagos",
     "tabAccountSectionAccountManagement": "Gestión de la cuenta",
     "tabAccounBtnLogout": "Cerrar sesión",
     "tabAccounBtnDeleteAccount": "Eliminar cuenta"
@@ -193,7 +194,8 @@
     "tabCompetitionsTitle": "Competiciones",
     "tabCompetitionsSectionCompetitions": "Competiciones",
     "tabRegistrationsTitle": "Participantes",
-    "tabRegistrationsSectionRegistrations": "Participantes",
+    "tabRegistrationsSectionRegistrationParticipants": "Participantes",
+    "tabRegistrationsSectionRegistrationVisitors": "Visitantes",
     "btnRegistration": "Inscripción",
     "btnFeedback": "Feedback"
   },
@@ -307,7 +309,8 @@
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registro enviado exitosamente.",
-    "hintPayment": "Por favor, no olvide pagar la cuota de participación. Te hemos enviado los detalles del pago por correo electrónico.",
+    "textPaymentOutstanding": "Por favor, no olvide pagar la cuota de participación. Te hemos enviado los detalles del pago por correo electrónico.",
+    "textPaymentCompleted": "Pago completado. ¡Nos vemos en el evento!",
     "btnBack": "Volver al evento"
   },
   "/events/eventid/sponsors": {
@@ -483,6 +486,7 @@
     "cbType": "Tipo",
     "cbGender": "Genero",
     "cbMaxAge": "Max. Edad",
+    "inputFee": "Cuota de participación",
     "inputDescription": "Descripción",
     "inputDescriptionPlaceHolder": "Fase de grupos (Círculos) y KO (Top 16).",
     "inputRules": "Reglas",
@@ -516,6 +520,7 @@
     "inputVenueCountry": "País",
     "sectionPayment": "Pago",
     "inputFee": "Cuota de participación",
+    "lblFreeMethods": "Métodos de pago gratuitos",
     "chbCashAccept": "Aceptar efectivo",
     "chbPayPalAccept": "Aceptar PayPal",
     "inputPayPalUsername": "Nombre de usuario de PayPal",
@@ -525,6 +530,8 @@
     "inputBankSepaRecipeint": "Destinatario (SEPA)",
     "inputBankSepaIban": "IBAN (SEPA)",
     "inputBankSepaReference": "Objeto (SEPA)",
+    "lblProfessionalMethods": "Métodos de pago profesionales",
+    "chbStripeAccept": "Aceptar pagos en línea (Stripe)",
     "sectionMaintainers": "Mantenedores",
     "cbMaintainers": "Mantenedores añadidos",
     "sectionOther": "General",

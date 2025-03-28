@@ -11,6 +11,7 @@ import { PatchWffaIdBodyDto } from './dtos/user/patch-wffa-id.body.dto';
 import { CreateStripeAccountOnboardingLinkBodyDto } from './dtos/user/create-stripe-account-onboarding-link.body.dto';
 import { ReadAccountOnboardingLinkResponseDto } from './dtos/user/read-stripe-account-link.response.dto';
 import { ReadStripeAccountIdResponseDto } from './dtos/user/read-stripe-account-id.response.dto';
+import { ReadStripeLoginLinkResponseDto } from './dtos/user/read-stripe-login-link.response.dto';
 
 export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
@@ -445,6 +446,27 @@ export async function createStripeAccountOnboardingLink(refreshUrl: string, retu
     const dto: ReadAccountOnboardingLinkResponseDto = await response.json();
     console.info('Creating Stripe account onboarding link successful');
     return dto.onboardingUrl;
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function createStripeLoginLink(session: Session | null): Promise<string> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/stripe/loginlink`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const dto: ReadStripeLoginLinkResponseDto = await response.json();
+    console.info('Creating Stripe login link successful');
+    return dto.loginUrl;
   } else {
     const error = await response.json();
     throw Error(error.message);

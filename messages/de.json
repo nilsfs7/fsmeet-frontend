@@ -124,6 +124,7 @@
     "tabAccountLblStripeAccount": "Stripe Account",
     "tabAccounBtnRequestPaymentsAccount": "Account erstellen",
     "tabAccounBtnEditPaymentsAccount": "Info editieren",
+    "tabAccounBtnMonitorPayments": "Zahlungen ansehen",
     "tabAccountSectionAccountManagement": "Kontoverwaltung",
     "tabAccounBtnLogout": "Abmelden",
     "tabAccounBtnDeleteAccount": "Konto löschen"
@@ -193,7 +194,8 @@
     "tabCompetitionsTitle": "Wettbewerbe",
     "tabCompetitionsSectionCompetitions": "Wettbewerbe",
     "tabRegistrationsTitle": "Teilnehmer",
-    "tabRegistrationsSectionRegistrations": "Teilnehmer",
+    "tabRegistrationsSectionRegistrationParticipants": "Teilnehmer",
+    "tabRegistrationsSectionRegistrationVisitors": "Zuschauer",
     "btnRegistration": "Registrierung",
     "btnFeedback": "Feedback"
   },
@@ -307,8 +309,9 @@
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registrierung erfolgreich eingereicht.",
-    "hintPayment": "Bitte denke an die Teilnahmegebühr. Die Zahlungsdetails haben wir dir per Mail geschickt.",
-    "btnBack": "Zurück zum Event"
+    "textPaymentOutstanding": "Bitte denke an die Teilnahmegebühr. Die Zahlungsdetails haben wir dir per Mail geschickt.",
+    "textPaymentCompleted": "Zahlung abgeschlossen. Wir sehen uns beim Event!",
+    "btnBack": "Zur Übersicht"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",
@@ -483,6 +486,7 @@
     "cbType": "Art",
     "cbGender": "Geschlecht",
     "cbMaxAge": "Max. Alter",
+    "inputFee": "Teilnahmegebühr",
     "inputDescription": "Beschreibung",
     "inputDescriptionPlaceHolder": "Gruppenphase (Circles) und KO (Top 16).",
     "inputRules": "Regeln",
@@ -516,15 +520,18 @@
     "inputVenueCountry": "Land",
     "sectionPayment": "Bezahlung",
     "inputFee": "Teilnahmegebühr",
+    "lblFreeMethods": "Kostenlose Bezahlmethoden",
     "chbCashAccept": "Bargeld akzeptieren",
     "chbPayPalAccept": "PayPal akzeptieren",
     "inputPayPalUsername": "PayPal Nutzername",
     "lnkPayPalVerifyAccount": "PayPal Konto verifizieren",
-    "chbBankSepaAccept": "Banküberweisung (SEPA) akzeptieren",
+    "chbBankSepaAccept": "Banküberweisung akzeptieren (SEPA)",
     "inputBankSepaBank": "Bankname (SEPA)",
     "inputBankSepaRecipeint": "Empfänger (SEPA)",
     "inputBankSepaIban": "IBAN (SEPA)",
     "inputBankSepaReference": "Verwendungszweck (SEPA)",
+    "lblProfessionalMethods": "Professionelle Bezahlmethoden",
+    "chbStripeAccept": "Onlinezahlungen akzeptieren (Stripe)",
     "sectionMaintainers": "Betreuer",
     "cbMaintainers": "Hinzugefügte Betreuer",
     "sectionOther": "Sonstiges",

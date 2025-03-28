@@ -38,7 +38,7 @@ import { menuShowExperience } from '@/domain/constants/menus/menu-show-experienc
 // import { menuTravelDistance } from '@/domain/constants/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/section-header';
-import { createStripeAccount, createStripeAccountOnboardingLink, deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
+import { createStripeAccount, createStripeAccountOnboardingLink, createStripeLoginLink, deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
 import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
@@ -303,11 +303,27 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   };
 
   const handleCreateStripeAccountOnboardingLinkClicked = async () => {
-    createStripeAccountOnboardingLink(`${window.location.origin}${pathname}?tab=account&stripeRefresh=1`, `${window.location.origin}${pathname}?tab=account&stripeReturn=1`, session).then(
-      (url: string) => {
-        router.push(url);
-      }
-    );
+    try {
+      const url = await createStripeAccountOnboardingLink(
+        `${window.location.origin}${pathname}?tab=account&stripeRefresh=1`,
+        `${window.location.origin}${pathname}?tab=account&stripeReturn=1`,
+        session
+      );
+      router.push(url);
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
+  };
+
+  const handleCreateStripeLoginLinkClicked = async () => {
+    try {
+      const url = await createStripeLoginLink(session);
+      window.open(url, '_blank');
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
   };
 
   const handleDeleteAccountClicked = async () => {
@@ -874,27 +890,28 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               )}
             </div>
 
-            {/* todo: remove visibility for nils */}
-            {session?.user.username === 'nils' && (
+            <div className="m-2">
+              <Separator />
+            </div>
+
+            <div className="flex justify-center text-lg">{t('tabAccountSectionPayments')}</div>
+
+            {!userInfo.stripeAccountId && (
+              <div className="mt-4 flex justify-center">
+                <TextButton text={t('tabAccounBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
+              </div>
+            )}
+
+            {userInfo.stripeAccountId && (
               <>
-                <div className="m-2">
-                  <Separator />
+                <div className="mt-4 flex flex-col items-center gap-2">
+                  <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
+                  <TextButton text={t('tabAccounBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
                 </div>
 
-                <div className="flex justify-center text-lg">{t('tabAccountSectionPayments')}</div>
-
-                {!userInfo.stripeAccountId && (
-                  <div className="mt-4 flex justify-center">
-                    <TextButton text={t('tabAccounBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
-                  </div>
-                )}
-
-                {userInfo.stripeAccountId && (
-                  <div className="mt-4 flex flex-col items-center gap-2">
-                    <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
-                    <TextButton text={t('tabAccounBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
-                  </div>
-                )}
+                <div className="mt-4 flex flex-col items-center gap-2">
+                  <TextButton text={t('tabAccounBtnMonitorPayments')} onClick={handleCreateStripeLoginLinkClicked} />
+                </div>
               </>
             )}
 

@@ -25,6 +25,7 @@ import { EventInfo } from './event-info';
 import { CommentSection } from './comment-section';
 import { CompetitionSection } from './competition-section';
 import { isEventAdmin } from '@/functions/isEventAdmin';
+import { EventRegistrationType } from '@/types/event-registration-type';
 
 interface ITabsMenu {
   event: Event;
@@ -53,7 +54,8 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
   const tab = searchParams?.get('tab');
 
   const [eventAdmin, setEventAdmin] = useState<User>();
-  const [approvedAndPendingRegistrations, setApprovedAndPendingRegistrations] = useState<EventRegistration[]>();
+  const [participantRegistrations, setParticipantRegistrations] = useState<EventRegistration[]>();
+  const [visitorRegistrations, setVisitorRegistrations] = useState<EventRegistration[]>();
 
   const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`;
 
@@ -104,7 +106,24 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
         .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && !registration.user.imageUrl)
         .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
 
-      setApprovedAndPendingRegistrations(approvedWithImage.concat(approvedNoImage).concat(pendingWithImage).concat(pendingNoImage));
+      setParticipantRegistrations(
+        approvedWithImage
+          .concat(approvedNoImage)
+          .concat(pendingWithImage)
+          .concat(pendingNoImage)
+          .filter(visitor => {
+            if (visitor.type === EventRegistrationType.PARTICIPANT) return visitor;
+          })
+      );
+      setVisitorRegistrations(
+        approvedWithImage
+          .concat(approvedNoImage)
+          .concat(pendingWithImage)
+          .concat(pendingNoImage)
+          .filter(visitor => {
+            if (visitor.type === EventRegistrationType.VISITOR) return visitor;
+          })
+      );
 
       if (event.admin) {
         getUser(event.admin).then(user => {
@@ -116,7 +135,7 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
     loadEventInfos();
   }, [event == undefined]);
 
-  if (!approvedAndPendingRegistrations) {
+  if (!participantRegistrations || !visitorRegistrations) {
     return <LoadingSpinner text="Loading..." />; // todo: notwendig?
   }
 
@@ -144,7 +163,7 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
               {t('tabCompetitionsTitle')}
             </TabsTrigger>
           )}
-          {approvedAndPendingRegistrations.length > 0 && (
+          {(participantRegistrations.length > 0 || visitorRegistrations.length > 0) && (
             <TabsTrigger
               value="registrations"
               onClick={() => {
@@ -191,17 +210,33 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
         )}
 
         {/* Registrations */}
-        {approvedAndPendingRegistrations.length > 0 && (
+        {(participantRegistrations.length > 0 || visitorRegistrations.length > 0) && (
           <TabsContent value="registrations" className="overflow-hidden overflow-y-auto">
-            <UserSection
-              sectionTitle={t('tabRegistrationsSectionRegistrations')}
-              users={approvedAndPendingRegistrations.map(registration => {
-                return registration.user;
-              })}
-              registrationStatus={approvedAndPendingRegistrations.map(registration => {
-                return registration.status;
-              })}
-            />
+            <div className="flex flex-col gap-2">
+              {participantRegistrations.length > 0 && (
+                <UserSection
+                  sectionTitle={t('tabRegistrationsSectionRegistrationParticipants')}
+                  users={participantRegistrations.map(registration => {
+                    return registration.user;
+                  })}
+                  registrationStatus={participantRegistrations.map(registration => {
+                    return registration.status;
+                  })}
+                />
+              )}
+
+              {visitorRegistrations.length > 0 && (
+                <UserSection
+                  sectionTitle={t('tabRegistrationsSectionRegistrationVisitors')}
+                  users={visitorRegistrations.map(registration => {
+                    return registration.user;
+                  })}
+                  registrationStatus={visitorRegistrations.map(registration => {
+                    return registration.status;
+                  })}
+                />
+              )}
+            </div>
           </TabsContent>
         )}
       </Tabs>
