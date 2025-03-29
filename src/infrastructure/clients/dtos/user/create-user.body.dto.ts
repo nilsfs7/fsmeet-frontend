@@ -7,14 +7,16 @@ export class CreateUserBodyDto {
   email: string;
   password: string;
   firstName: string;
-  gender: Gender;
+  gender?: Gender;
+  country?: string;
 
-  constructor(username: string, type: UserType, email: string, password: string, firstName: string, gender: Gender) {
+  constructor(username: string, type: UserType, email: string, password: string, firstName: string, gender?: Gender, country?: string) {
     this.username = username;
     this.type = type;
     this.email = email;
     this.password = password;
     this.firstName = firstName;
     this.gender = gender;
+    this.country = country;
   }
 }

@@ -397,6 +397,7 @@
     "cbUserType": "Registrarse como",
     "inputUsername": "Nombre de usuario",
     "cbGender": "Genero",
+    "cbCountry": "País",
     "inputEmail": "correo electrónico",
     "inputPassword": "contraseña",
     "btnSignUp": "Registrarse"

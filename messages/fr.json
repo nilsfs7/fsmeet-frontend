@@ -397,6 +397,7 @@
     "cbUserType": "S'inscrire en tant que",
     "inputUsername": "Nom d'utilisateur",
     "cbGender": "Genre",
+    "cbCountry": "Pays",
     "inputEmail": "E-mail",
     "inputPassword": "Mot de passe",
     "btnSignUp": "S'inscrire"
