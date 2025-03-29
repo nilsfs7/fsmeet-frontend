@@ -17,6 +17,7 @@ import { useTranslations } from 'next-intl';
 import { Gender } from '@/domain/enums/gender';
 import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
+import { menuCountries } from '@/domain/constants/menus/menu-countries';
 
 export const RegistrationForm = () => {
   const t = useTranslations('/registration');
@@ -25,14 +26,23 @@ export const RegistrationForm = () => {
   const router = useRouter();
 
   const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);
-  const [firstName, setFirstName] = useState('');
-  const [gender, setGender] = useState(Gender.MALE);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [country, setCountry] = useState<string>('');
+  const [gender, setGender] = useState<Gender | undefined>(Gender.MALE);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const handleInputChangeFirstName = (event: any) => {
-    let firstName: string = event.currentTarget.value;
+  const handleUserTypeChanged = (value: UserType) => {
+    setUserType(value);
+  };
+
+  const handleInputChangeUsername = (value: string) => {
+    setUsername(value.toLowerCase().trim());
+  };
+
+  const handleInputChangeFirstName = (value: string) => {
+    let firstName: string = value;
     firstName = firstName.trimStart();
     firstName = firstName.replaceAll('  ', ' ');
 
@@ -45,18 +55,12 @@ export const RegistrationForm = () => {
     }
   };
 
-  const handleInputChangeUsername = (event: any) => {
-    const uname: string = event.currentTarget.value;
-    setUsername(uname.toLowerCase().trim());
+  const handleInputChangeEmail = (value: string) => {
+    setEmail(value.toLowerCase().trim());
   };
 
-  const handleInputChangeEmail = (event: any) => {
-    const email: string = event.currentTarget.value;
-    setEmail(email.toLowerCase().trim());
-  };
-
-  const handleInputChangePassword = (event: any) => {
-    setPassword(event.currentTarget.value);
+  const handleInputChangePassword = (value: string) => {
+    setPassword(value);
   };
 
   const handleInputKeypressPassword = (e: any) => {
@@ -67,7 +71,7 @@ export const RegistrationForm = () => {
 
   const handleCreateClicked = async () => {
     try {
-      await createUser(username, userType, email, password, firstName, gender);
+      await createUser(username, userType, email, password, firstName, gender, country);
       router.replace(`${routeRegistrationPending}?username=${username}&email=${email}`);
     } catch (error: any) {
       toast.error(error.message);
@@ -90,7 +94,7 @@ export const RegistrationForm = () => {
                   menus={menuUserType}
                   value={userType ? userType : menuUserType[0].value}
                   onChange={(value: any) => {
-                    setUserType(value);
+                    handleUserTypeChanged(value);
                   }}
                 />
               </div>
@@ -102,7 +106,7 @@ export const RegistrationForm = () => {
               placeholder={getPlaceholderByUserType(userType).username}
               value={username}
               onChange={e => {
-                handleInputChangeUsername(e);
+                handleInputChangeUsername(e.currentTarget.value);
               }}
             />
 
@@ -112,23 +116,42 @@ export const RegistrationForm = () => {
               placeholder={getPlaceholderByUserType(userType).firstName}
               value={firstName}
               onChange={e => {
-                handleInputChangeFirstName(e);
+                handleInputChangeFirstName(e.currentTarget.value);
               }}
             />
 
-            <div className="flex h-[100%] flex-col p-2">
-              <div>{t('cbGender')}</div>
-              <div className="flex w-full">
-                <ComboBox
-                  className="w-full"
-                  menus={menuGender}
-                  value={gender ? gender : menuGender[0].value}
-                  onChange={(value: any) => {
-                    setGender(value);
-                  }}
-                />
-              </div>
-            </div>
+            {userType !== UserType.ASSOCIATION && userType !== UserType.BRAND && (
+              <>
+                <div className="flex h-[100%] flex-col p-2">
+                  <div>{t('cbCountry')}</div>
+                  <div className="flex w-full">
+                    <ComboBox
+                      className="w-full"
+                      menus={menuCountries}
+                      value={country || ''}
+                      searchEnabled={true}
+                      onChange={(value: any) => {
+                        setCountry(value);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex h-[100%] flex-col p-2">
+                  <div>{t('cbGender')}</div>
+                  <div className="flex w-full">
+                    <ComboBox
+                      className="w-full"
+                      menus={menuGender}
+                      value={gender ? gender : menuGender[0].value}
+                      onChange={(value: any) => {
+                        setGender(value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
 
             <TextInput
               id={'email'}
@@ -136,7 +159,7 @@ export const RegistrationForm = () => {
               placeholder={getPlaceholderByUserType(userType).email}
               value={email}
               onChange={e => {
-                handleInputChangeEmail(e);
+                handleInputChangeEmail(e.currentTarget.value);
               }}
             />
 
@@ -146,7 +169,7 @@ export const RegistrationForm = () => {
               label={t('inputPassword')}
               placeholder="Ball&Chill2021"
               onChange={e => {
-                handleInputChangePassword(e);
+                handleInputChangePassword(e.currentTarget.value);
               }}
               onKeyDown={handleInputKeypressPassword}
             />

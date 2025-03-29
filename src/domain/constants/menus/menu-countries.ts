@@ -10,3 +10,5 @@ const entries = Object.values(countries).map((country: ICountry) => {
 });
 
 export const menuCountriesWithUnspecified: MenuItem[] = [{ text: 'not specified', value: '--' }].concat(entries);
+
+export const menuCountries: MenuItem[] = entries;

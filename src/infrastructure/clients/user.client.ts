@@ -157,10 +157,10 @@ export async function getConfirmUser(username: string, requestToken: string): Pr
   return false;
 }
 
-export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string, gender: Gender): Promise<void> {
+export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string, gender?: Gender, country?: string): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
 
-  const body = new CreateUserBodyDto(username, type, email, password, firstName, gender);
+  const body = new CreateUserBodyDto(username, type, email, password, firstName, gender, country);
 
   const response = await fetch(url, {
     method: 'POST',
