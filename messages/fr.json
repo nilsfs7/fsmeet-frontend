@@ -313,6 +313,25 @@
     "textPaymentCompleted": "Paiement effectué. À bientôt à l'événement !",
     "btnBack": "Retour à l'aperçu"
   },
+  "/events/eventid/registration/visa": {
+    "pageTitle": "Demande de lettre d'invitation pour un visa",
+    "textUnauthorized": "Vous devez être connecté pour la lettre de demande de visa.",
+    "btnGoToLogin": "Se connecter",
+    "inputFirstName": "Prénom",
+    "inputPlaceholderFirstName": "prénom",
+    "inputLastName": "Nom de famille",
+    "inputPlaceholderLastName": "nom de famille",
+    "inputCountry": "Nationalité",
+    "inputPassportNumber": "Numéro de passeport",
+    "inputPlaceholderPassportNumber": "C748TJ1K2",
+    "datePickerBirthday": "Date de naissance",
+    "btnSendRequest": "Envoyer une demande"
+  },
+  "/events/eventid/registration/visa/success": {
+    "textSuccess1": "Votre demande a été envoyée avec succès!",
+    "textSuccess2": "En attente d'approbation.",
+    "btnBack": "Retour"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Gérer les partenariats",
     "btnCreate": "Créer"
@@ -435,25 +454,6 @@
     "accordionItemBattleStatisticsWinLossRatio": "Ratio victoires/défaites",
     "accordionItemCompetitionHistory": "Historique des compétitions",
     "accordionItemCompetitionHistoryNoParticipations": "Pas encore de participations."
-  },
-  "/visa": {
-    "pageTitle": "Demande de lettre d'invitation pour un visa",
-    "textUnauthorized": "Vous devez être connecté pour la lettre de demande de visa.",
-    "btnGoToLogin": "Se connecter",
-    "inputFirstName": "Prénom",
-    "inputPlaceholderFirstName": "prénom",
-    "inputLastName": "Nom de famille",
-    "inputPlaceholderLastName": "nom de famille",
-    "inputCountry": "Nationalité",
-    "inputPassportNumber": "Numéro de passeport",
-    "inputPlaceholderPassportNumber": "C748TJ1K2",
-    "datePickerBirthday": "Date de naissance",
-    "btnSendRequest": "Envoyer une demande"
-  },
-  "/visa/success": {
-    "textSuccess1": "Votre demande a été envoyée avec succès!",
-    "textSuccess2": "En attente d'approbation.",
-    "btnBackHome": "Retour à l'accueil"
   },
   "/voice": {
     "pageTitle": "Community Voice",

@@ -39,6 +39,3 @@ export const routeVoiceCreatePoll = '/voice/manage/create';
 
 export const routeRoadmap = '/roadmap';
 export const routeStatistics = '/statistics';
-
-export const routeVisa = '/visa';
-export const routeVisaSent = '/visa/success';

@@ -551,8 +551,8 @@ export async function getVisaInvitationRequests(eventId: string | null, session:
   }
 }
 
-export async function createVisaInvitationRequest(firstName: string, lastName: string, countryCode: string, passportNumber: string, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/0000/visa`;
+export async function createVisaInvitationRequest(eventId: string, firstName: string, lastName: string, countryCode: string, passportNumber: string, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/visa`;
 
   const body = new CreateVisaInvitationRequestBodyDto(firstName, lastName, countryCode, passportNumber);
 

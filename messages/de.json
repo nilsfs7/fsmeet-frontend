@@ -313,6 +313,25 @@
     "textPaymentCompleted": "Zahlung abgeschlossen. Wir sehen uns beim Event!",
     "btnBack": "Zur Übersicht"
   },
+  "/events/eventid/registration/visa": {
+    "pageTitle": "Anfrage einer Visa-Einladung",
+    "textUnauthorized": "Für die Visa-Einladung musst du eingeloggt sein.",
+    "btnGoToLogin": "Login-Seite",
+    "inputFirstName": "Vorname",
+    "inputPlaceholderFirstName": "Vorname",
+    "inputLastName": "Nachname",
+    "inputPlaceholderLastName": "Nachname",
+    "inputCountry": "Land",
+    "inputPassportNumber": "Passnummer",
+    "inputPlaceholderPassportNumber": "C748TJ1K2",
+    "datePickerBirthday": "Geburtstag",
+    "btnSendRequest": "Anfrage senden"
+  },
+  "/events/eventid/registration/visa/success": {
+    "textSuccess1": "Deine Anfrage wurde erfolgreich gesendet!",
+    "textSuccess2": "Warte auf Bestätigung.",
+    "btnBack": "Zurück"
+  },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",
     "btnCreate": "Sponsor hinzufügen"
@@ -435,25 +454,6 @@
     "accordionItemBattleStatisticsWinLossRatio": "Siegverhältnis",
     "accordionItemCompetitionHistory": "Wettkampf Historie",
     "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
-  },
-  "/visa": {
-    "pageTitle": "Anfrage einer Visa-Einladung",
-    "textUnauthorized": "Für die Visa-Einladung musst du eingeloggt sein.",
-    "btnGoToLogin": "Login-Seite",
-    "inputFirstName": "Nachname",
-    "inputPlaceholderFirstName": "Vorname",
-    "inputLastName": "Nachname",
-    "inputPlaceholderLastName": "Nachname",
-    "inputCountry": "Land",
-    "inputPassportNumber": "Passnummer",
-    "inputPlaceholderPassportNumber": "C748TJ1K2",
-    "datePickerBirthday": "Geburtstag",
-    "btnSendRequest": "Anfrage senden"
-  },
-  "/visa/success": {
-    "textSuccess1": "Deine Anfrage wurde erfolgreich gesendet!",
-    "textSuccess2": "Warte auf Bestätigung.",
-    "btnBackHome": "Zur Homepage"
   },
   "/voice": {
     "pageTitle": "Community Voice",
