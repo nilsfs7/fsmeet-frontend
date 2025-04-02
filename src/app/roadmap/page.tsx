@@ -21,13 +21,25 @@ export default async function Roadmap() {
               filled={70}
               description={`Multi step registration process.\n1) Registration type (participant / visitor)\n2) Choose comps (when participant)\n3) Payment details and overview\n4) Finish registration`}
             />
+
+            <Task title="Accommodation" size={TaskSize.LARGE} filled={10} />
+
+            <Task title="Extra Products" size={TaskSize.SMALL} filled={0} />
+          </Row>
+
+          <Row>
             <Task
               title="Credit Card Payments"
               size={TaskSize.HUGE}
-              filled={0}
+              filled={100}
               description={`Choose to pay at end of process if offered.\n\nIntegration with stripe.\nRequires event host to have stripe account.`}
             />
-            <Task title="Accommodation" size={TaskSize.LARGE} filled={0} />
+
+            <Task title="Provider transaction fee" size={TaskSize.SMALL} filled={0} description={`Add extra fee to cover Stripe fees.`} />
+          </Row>
+
+          <Row>
+            <Task title="Visitor fee" size={TaskSize.SMALL} filled={0} description="Separate fee for visitors and participants." />
           </Row>
 
           <Row>
