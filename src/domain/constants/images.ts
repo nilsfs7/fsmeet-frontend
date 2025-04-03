@@ -1,5 +1,6 @@
 export const imgAbout = '/info.svg';
 export const imgNotFound = '/not-found.svg';
+export const imgImagePlaceholder = '/image-placeholder.svg';
 
 export const imgUserDefaultImg = '/jury/judge-no-img.png';
 export const imgMeeting = '/event/meeting.svg';

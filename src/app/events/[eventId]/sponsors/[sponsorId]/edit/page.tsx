@@ -73,7 +73,7 @@ export default function EditEventSponsor({ params }: { params: { eventId: string
       <Toaster richColors />
 
       <Dialog title="Delete Sponsor" queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
-        <p>Do you really want to delete this sponsor?</p>
+        <p>{`Do you really want to delete this sponsor?`}</p>
       </Dialog>
 
       <div className="h-[calc(100dvh)] flex flex-col">

@@ -46,6 +46,10 @@ export default async function EventDetails({ params }: { params: { eventId: stri
                 </Link>
               )}
 
+              <Link href={`${routeEvents}/${params.eventId}/accommodations`}>
+                <ActionButton action={Action.MANAGE_ACCOMMODATION} />
+              </Link>
+
               <Link href={`${routeEvents}/${params.eventId}/sponsors`}>
                 <ActionButton action={Action.MANAGE_SPONSORS} />
               </Link>

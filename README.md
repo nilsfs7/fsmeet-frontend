@@ -189,6 +189,8 @@ Misc
 
 - [Not Found](https://www.iconfinder.com/icons/9054414/bx_confused_icon)
 
+- [Image Placeholder](https://www.iconfinder.com/icons/216124/camera_icon)
+
 ## Payments with Stripe
 
 Testing:

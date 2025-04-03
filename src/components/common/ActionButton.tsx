@@ -8,6 +8,7 @@ import CommentIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import HotelIcon from '@mui/icons-material/Hotel';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -103,6 +104,9 @@ const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
       break;
     case Action.HIDE:
       icon = <VisibilityOffIcon className={className} />;
+      break;
+    case Action.MANAGE_ACCOMMODATION:
+      icon = <HotelIcon className={className} />;
       break;
     case Action.MANAGE_COMPETITIONS:
       icon = <TrophyIcon className={className} />;

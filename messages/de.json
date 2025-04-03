@@ -199,6 +199,14 @@
     "btnRegistration": "Registrierung",
     "btnFeedback": "Feedback"
   },
+  "/events/eventid/accommodations": {
+    "pageTitle": "Unterkunft verwalten",
+    "btnCreate": "Erstellen"
+  },
+  "/events/eventid/accommodations/create": {
+    "pageTitle": "Unterkunft erstellen",
+    "btnCreate": "Erstellen"
+  },
   "/events/eventid/comps": {
     "pageTitle": "Wettbewerbe verwalten",
     "btnEdit": "Bearbeiten",
