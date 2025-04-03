@@ -207,6 +207,14 @@
     "btnSeedingAndResults": "Seeding & Results",
     "btnAddNew": "Add new"
   },
+  "/events/eventid/accommodation": {
+    "pageTitle": "Manage Accommodations",
+    "btnCreate": "Create"
+  },
+  "/events/eventid/accommodation/create": {
+    "pageTitle": "Create Accommodation",
+    "btnCreate": "Create"
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Schedule",
     "tabScheduleComboBoxParticipantFilterLabel": "Filter by participant",
@@ -312,6 +320,25 @@
     "textPaymentOutstanding": "Please remember the participation fee. We have sent you an email with the payment details.",
     "textPaymentCompleted": "Payment completed. See you at the event!",
     "btnBack": "Back To Overview"
+  },
+  "/events/eventid/registration/visa": {
+    "pageTitle": "Request Visa Invitation Letter",
+    "textUnauthorized": "You must be logged in for visa application letter.",
+    "btnGoToLogin": "Login Page",
+    "inputFirstName": "First Name",
+    "inputPlaceholderFirstName": "first name",
+    "inputLastName": "Last Name",
+    "inputPlaceholderLastName": "last name",
+    "inputCountry": "Country",
+    "inputPassportNumber": "Passport Number",
+    "inputPlaceholderPassportNumber": "C748TJ1K2",
+    "datePickerBirthday": "Birthday",
+    "btnSendRequest": "Send Request"
+  },
+  "/events/eventid/registration/visa/success": {
+    "textSuccess1": "Your request was sent successfully!",
+    "textSuccess2": "Waiting for approval.",
+    "btnBack": "Back"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Manage Sponsors",
@@ -449,25 +476,6 @@
     "accordionItemCompetitionHistory": "Competition History",
     "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
   },
-  "/visa": {
-    "pageTitle": "Request Visa Invitation Letter",
-    "textUnauthorized": "You must be logged in for visa application letter.",
-    "btnGoToLogin": "Login Page",
-    "inputFirstName": "First Name",
-    "inputPlaceholderFirstName": "first name",
-    "inputLastName": "Last Name",
-    "inputPlaceholderLastName": "last name",
-    "inputCountry": "Country",
-    "inputPassportNumber": "Passport Number",
-    "inputPlaceholderPassportNumber": "C748TJ1K2",
-    "datePickerBirthday": "Birthday",
-    "btnSendRequest": "Send Request"
-  },
-  "/visa/success": {
-    "textSuccess1": "Your request was sent successfully!",
-    "textSuccess2": "Waiting for approval.",
-    "btnBackHome": "Back home"
-  },
   "/voice": {
     "pageTitle": "Community Voice",
     "carouselNoData": "No data",
@@ -490,6 +498,11 @@
     "firstName": "First name",
     "associationName": "Association name",
     "brandName": "Brand name"
+  },
+  "global/components/accommodation-editor": {
+    "inputDescription": "Description",
+    "inputWebsite": "Website",
+    "inputCost": "Cost"
   },
   "global/components/battle-grid": {
     "btnAddMatch": "Add Match"

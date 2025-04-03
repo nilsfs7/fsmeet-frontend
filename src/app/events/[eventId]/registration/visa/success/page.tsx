@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { imgThumbsUp } from '@/domain/constants/images';
-import { routeHome } from '@/domain/constants/routes';
+import { routeEvents, routeHome } from '@/domain/constants/routes';
 import Image from 'next/image';
 import TextButton from '@/components/common/TextButton';
 import { getTranslations } from 'next-intl/server';
 
-export default async function ThankYou() {
-  const t = await getTranslations('/visa/success');
+export default async function ThankYou({ params }: { params: { eventId: string } }) {
+  const t = await getTranslations('/events/eventid/registration/visa/success');
 
   return (
     <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
@@ -19,8 +19,8 @@ export default async function ThankYou() {
       </div>
 
       <div className="py-2">
-        <Link href={routeHome}>
-          <TextButton text={t('btnBackHome')} />
+        <Link href={`${routeEvents}/${params.eventId}/registration`}>
+          <TextButton text={t('btnBack')} />
         </Link>
       </div>
     </div>

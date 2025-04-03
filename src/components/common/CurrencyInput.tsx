@@ -24,7 +24,7 @@ const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, 
               className="h-full w-full rounded-lg border border-secondary-dark p-1"
               placeholder={placeholder}
               defaultValue={defValue}
-              value={value?.toString().replace('.', ',')}
+              value={value}
               decimalsLimit={2}
               decimalSeparator=","
               groupSeparator="."
@@ -44,7 +44,7 @@ const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, 
             className="h-full w-full rounded-lg p-1"
             placeholder={placeholder}
             defaultValue={defValue}
-            value={value?.toString().replace('.', ',')}
+            value={value}
             decimalsLimit={2}
             decimalSeparator=","
             groupSeparator="."

@@ -92,6 +92,10 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
     });
   };
 
+  const handleParticipationFeeChanged = (values: { float: number | null; formatted: string; value: string }) => {
+    setParticipationFee(values.float || 0.0);
+  };
+
   // updates inputs with given comp
   useEffect(() => {
     if (comp) {
@@ -184,9 +188,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
         placeholder="15,00"
         value={participationFee}
         onValueChange={(value, name, values) => {
-          if (values?.float || values?.float === 0) {
-            setParticipationFee(values?.float);
-          }
+          if (values) handleParticipationFeeChanged(values);
         }}
       />
 

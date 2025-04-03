@@ -33,7 +33,6 @@ import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import { menuShowExperience } from '@/domain/constants/menus/menu-show-experience';
-// import CurInput from '@/components/common/CurrencyInput';
 // import { menuMobility } from '@/domain/constants/menus/menu-mobility';
 // import { menuTravelDistance } from '@/domain/constants/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
-import { routeHome, routeLogin, routeVisa, routeVisaSent } from '@/domain/constants/routes';
+import { routeHome, routeLogin } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
@@ -22,8 +22,8 @@ import { User } from '@/types/user';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/Header';
 
-export default function VisaInvitationRequest() {
-  const t = useTranslations('/visa');
+export default function VisaInvitationRequest({ params }: { params: { eventId: string } }) {
+  const t = useTranslations('/events/eventid/registration/visa');
 
   const { data: session } = useSession();
 
@@ -37,7 +37,7 @@ export default function VisaInvitationRequest() {
   const [passportNumber, setPassportNumber] = useState<string>('');
   const [birthday, setBirthday] = useState<string>('');
 
-  const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${window.location.origin}${routeVisa}`;
+  const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${window.location}`;
 
   const checkInputs = (): boolean => {
     let valid = true;
@@ -80,8 +80,8 @@ export default function VisaInvitationRequest() {
   const handleSendClicked = async () => {
     try {
       if (checkInputs()) {
-        await createVisaInvitationRequest(firstName, lastName, country, passportNumber, session);
-        router.push(routeVisaSent);
+        await createVisaInvitationRequest(params.eventId, firstName, lastName, country, passportNumber, session);
+        router.push(`${window.location}/success`);
       }
     } catch (error: any) {
       toast.error(error.message);
