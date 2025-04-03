@@ -18,7 +18,7 @@ import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/functions/get-placeholder-by-user-type';
 import ComboBox from '@/components/common/ComboBox';
 import { menuGender, menuGenderWithUnspecified } from '@/domain/constants/menus/menu-gender';
-import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
+import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { prefixRequired } from '@/functions/prefix-required';
 import CheckBox from '@/components/common/CheckBox';
 import Link from 'next/link';
@@ -574,7 +574,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuGender}
-                      // TODO: remove menuCountriesWithUnspecified. Only here until every user has a gender set
+                      // TODO: remove menuGenderWithUnspecified. Only here until every user has a gender set
                       value={userInfo.gender ? userInfo.gender : menuGenderWithUnspecified[0].value}
                       onChange={(value: any) => {
                         handleGenderChanged(value);
@@ -587,8 +587,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <div>{t('tabGeneralCountry')}</div>
                   <div className="flex w-full">
                     <ComboBox
-                      menus={menuCountriesWithUnspecified}
-                      value={userInfo.country ? userInfo.country : menuCountriesWithUnspecified[0].value}
+                      menus={menuCountries}
+                      value={userInfo.country ? userInfo.country : ''}
                       searchEnabled={true}
                       onChange={(value: any) => {
                         handleCountryChanged(value);

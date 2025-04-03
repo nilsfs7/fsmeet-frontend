@@ -16,7 +16,7 @@ import TextInput from '@/components/common/TextInput';
 import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';
 import ComboBox from '@/components/common/ComboBox';
-import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
+import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/types/user';
 import { useRouter } from 'next/navigation';
@@ -153,8 +153,8 @@ export default function VisaInvitationRequest({ params }: { params: { eventId: s
               <div>{t('inputCountry')}</div>
               <div className="flex w-full">
                 <ComboBox
-                  menus={menuCountriesWithUnspecified}
-                  value={country ? country : menuCountriesWithUnspecified[0].value}
+                  menus={menuCountries}
+                  value={country ? country : ''}
                   searchEnabled={true}
                   onChange={(value: any) => {
                     setCountry(value);
