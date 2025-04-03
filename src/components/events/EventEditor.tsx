@@ -173,6 +173,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       notifyOnComment: notifyOnComment,
       eventRegistrations: [],
       competitions: [],
+      accommodations: [],
       state: event?.state || EventState.CREATED,
     });
   };
