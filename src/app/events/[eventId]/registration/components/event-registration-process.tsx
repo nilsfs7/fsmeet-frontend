@@ -28,6 +28,7 @@ import { Action } from '@/domain/enums/action';
 import { getShortDateString } from '@/functions/time';
 import { CompetitionList } from './competition-list';
 import { PaymentDetails } from './payment-details';
+import { AccommodationList } from './accommodation-list';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -37,7 +38,8 @@ interface IEventRegistrationProcess {
 enum RegistrationProcessPage {
   REGISTRATION_TYPE = '1',
   COMPETITIONS = '2',
-  CHECKOUT_OVERVIEW = '3',
+  ACCOMMODATIONS = '3',
+  CHECKOUT_OVERVIEW = '4',
 }
 
 export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProcess) => {
@@ -51,10 +53,10 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
   const [registrationType, setRegistrationType] = useState<EventRegistrationType>();
   const [compSignUps, setCompSignUps] = useState<string[]>([]);
+  const [accommodationOrders, setAccommodationOrders] = useState<string[]>([]);
+  const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
-
-  const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
 
   useEffect(() => {
     const status = event.eventRegistrations.filter(registration => {
@@ -100,12 +102,16 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
           break;
 
-        case RegistrationProcessPage.CHECKOUT_OVERVIEW:
+        case RegistrationProcessPage.ACCOMMODATIONS:
           if (registrationType === EventRegistrationType.PARTICIPANT) {
             previousPage = RegistrationProcessPage.COMPETITIONS;
           } else {
             previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
           }
+          break;
+
+        case RegistrationProcessPage.CHECKOUT_OVERVIEW:
+          previousPage = RegistrationProcessPage.ACCOMMODATIONS;
           break;
       }
 
@@ -126,21 +132,19 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           if (registrationType === EventRegistrationType.PARTICIPANT) {
             nextPage = RegistrationProcessPage.COMPETITIONS;
           } else {
-            nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
+            nextPage = RegistrationProcessPage.ACCOMMODATIONS;
           }
           break;
 
         case RegistrationProcessPage.COMPETITIONS:
+          nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+          break;
+
+        case RegistrationProcessPage.ACCOMMODATIONS:
           nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
           break;
 
         case RegistrationProcessPage.CHECKOUT_OVERVIEW:
-          // handleRegisterNowClicked is used for this
-
-          // if (event.id && registrationType) {
-          //   // await createEventRegistration_v2(event.id, registrationType, compSignUps, session);
-          //   await createEventRegistrationCheckoutLink(event.id, `${routeEvents}/${event.id}/registration?checkout=1`, session);
-          // }
           break;
       }
 
@@ -155,7 +159,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   const handleRegisterNowClicked = async () => {
     if (event.id && registrationType) {
       try {
-        await createEventRegistration_v2(event.id, registrationType, compSignUps, session);
+        await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, session);
         cleanupCacheRegistrationInfo();
 
         // todo: don't redirect when user is not paying directly
@@ -228,12 +232,25 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
     setCompSignUps(compIds);
   };
 
+  const handleCheckBoxOrderAccommodationChanged = (accId: string) => {
+    let accIds = Array.from(accommodationOrders);
+
+    if (accIds.includes(accId)) {
+      accIds = accIds.filter(item => item !== accId);
+    } else {
+      accIds.push(accId);
+    }
+
+    setAccommodationOrders(accIds);
+  };
+
   const cacheRegistrationInfo = async () => {
     try {
       const info: EventRegistrationInfo = {
         eventId: event.id,
         registrationType: registrationType,
         compSignUps: compSignUps,
+        accommodationOrders: accommodationOrders,
       };
 
       sessionStorage.setItem('registrationInfo', JSON.stringify(info));
@@ -259,11 +276,12 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
       setRegistrationType(registrationInfo.registrationType);
       setCompSignUps(registrationInfo.compSignUps);
+      setAccommodationOrders(registrationInfo.accommodationOrders);
     }
   }, []);
 
   return (
-    <>
+    <div className="h-[calc(100dvh)] flex flex-col">
       <Toaster richColors />
 
       <Dialog
@@ -276,193 +294,226 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
         <p>{t('dlgEventUnregisterText')}</p>
       </Dialog>
 
-      <div className="h-[calc(100dvh)] flex flex-col">
-        {!page && <PageTitle title={t('pageTitleOverview')} />}
-        {page && <PageTitle title={`Registration: ${event.name}`} />}
+      {!page && <PageTitle title={t('pageTitleOverview')} />}
+      {page && <PageTitle title={`Registration: ${event.name}`} />}
 
-        <div className="mx-2 overflow-hidden">
-          <div className="flex justify-center">
-            {/* Overview */}
-            {!page && (
-              <div className="p-2 bg-secondary-light border border-secondary-dark rounded-lg">
-                <div>{`Event: ${event.name}`}</div>
-
-                <div className="flex items-center mt-4 gap-2">
-                  {event?.id && moment(event?.registrationOpen).unix() > moment().unix() && (
-                    <>
-                      <div>{`${'Registration period start'}:`}</div>
-                      <div> {`${getShortDateString(moment(event?.registrationOpen))}  -  ${moment(event?.registrationOpen).diff(moment(), 'days')} day(s) left`}</div>
-                    </>
-                  )}
-                  {event?.id && moment(event?.registrationOpen).unix() < moment().unix() && event?.id && moment(event?.registrationDeadline).unix() > moment().unix() && (
-                    <>
-                      <div>{`${'Registration open until'}:`}</div>
-                      <div> {`${getShortDateString(moment(event?.registrationDeadline))}  -  ${moment(event?.registrationDeadline).diff(moment(), 'days')} day(s) left`}</div>
-                    </>
-                  )}
-                  {event?.id && moment(event?.registrationDeadline).unix() < moment().unix() && (
-                    <>
-                      <div>{`${'Registration period ended'}:`}</div>
-                      <div> {`${getShortDateString(moment(event?.registrationDeadline))}`}</div>
-                    </>
-                  )}
-                </div>
-
-                <div className="flex items-center mt-4 gap-2">
-                  <div>{`${'Your Status'}:`}</div>
-                  <Label text={registrationStatus} />
-                </div>
-              </div>
-            )}
-
-            {/* Page: Registration Type */}
-            {page && +page === 1 && (
-              <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-                <div className="m-2">{`Select registration type.`}</div>
-
-                <RadioGroup className="mx-2" value={registrationType}>
-                  <div className={'grid grid-cols-2 py-1 gap-1'}>
-                    <div className="capitalize">{EventRegistrationType.PARTICIPANT}</div>
-
-                    <div className="flex items-center gap-1">
-                      <RadioGroupItem
-                        value={EventRegistrationType.PARTICIPANT}
-                        id={`option-${EventRegistrationType.PARTICIPANT}`}
-                        onClick={e => {
-                          handleRadioItemRegistrationTypeClicked(EventRegistrationType.PARTICIPANT);
-                        }}
-                      />
-                    </div>
-
-                    <div className="capitalize">{EventRegistrationType.VISITOR}</div>
-
-                    <div className="flex items-center gap-1">
-                      <RadioGroupItem
-                        value={EventRegistrationType.VISITOR}
-                        id={`option-${EventRegistrationType.VISITOR}`}
-                        onClick={e => {
-                          handleRadioItemRegistrationTypeClicked(EventRegistrationType.VISITOR);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </RadioGroup>
-              </div>
-            )}
-
-            {/* Page: Competitions */}
-            {page && +page === 2 && (
-              <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-                <div className="m-2">{`Select competitions to participate in.`}</div>
-
-                <CompetitionList
-                  comps={event.competitions}
-                  disabled={event.competitions.map(comp => {
-                    return comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender;
-                  })}
-                  checked={event.competitions.map(comp => {
-                    return comp.id && compSignUps.includes(comp.id) ? true : false;
-                  })}
-                  selectable={true}
-                  onCheckedChange={(checked, comId) => {
-                    if (comId) handleCheckBoxSignUpForCompChanged(comId);
-                  }}
-                />
-              </div>
-            )}
-
-            {/* Page: Overview */}
-            {page && +page === 3 && (
-              <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-                <div className="m-2">{`Please review your selection before proceeding with checkout.`}</div>
-
-                <div className="flex flex-col mt-2 gap-4">
-                  <div className="flex items-center gap-2">
-                    <div className="m-2">{`Enroll as:`}</div>
-                    {registrationType && <Label text={registrationType} />}
-                  </div>
-
-                  {registrationType === EventRegistrationType.PARTICIPANT && (
-                    <>
-                      <Separator />
-
-                      <div>
-                        <div className="m-2">{`Participate in:`}</div>
-
-                        <CompetitionList
-                          comps={event.competitions.filter(c => c.id && compSignUps.includes(c.id))}
-                          disabled={event.competitions
-                            .filter(c => c.id && compSignUps.includes(c.id))
-                            .map(comp => {
-                              return comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender;
-                            })}
-                          checked={event.competitions
-                            .filter(c => c.id && compSignUps.includes(c.id))
-                            .map(comp => {
-                              return comp.id && compSignUps.includes(comp.id) ? true : false;
-                            })}
-                          selectable={false}
-                          onCheckedChange={(checked, comId) => {
-                            if (comId) handleCheckBoxSignUpForCompChanged(comId);
-                          }}
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  <Separator />
-
-                  {registrationType && <PaymentDetails event={event} registrationType={registrationType} compSignUps={compSignUps} />}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <Navigation>
+      <div className="mx-2 overflow-y-auto">
+        <div className="flex justify-center">
+          {/* Overview */}
           {!page && (
-            <Link href={`${routeEvents}/${event.id}`}>
-              <TextButton text={t('btnBackToEvent')} />
-            </Link>
+            <div className="p-2 bg-secondary-light border border-secondary-dark rounded-lg">
+              <div>{`Event: ${event.name}`}</div>
+
+              <div className="flex items-center mt-4 gap-2">
+                {event?.id && moment(event?.registrationOpen).unix() > moment().unix() && (
+                  <>
+                    <div>{`${'Registration period start'}:`}</div>
+                    <div> {`${getShortDateString(moment(event?.registrationOpen))}  -  ${moment(event?.registrationOpen).diff(moment(), 'days')} day(s) left`}</div>
+                  </>
+                )}
+                {event?.id && moment(event?.registrationOpen).unix() < moment().unix() && event?.id && moment(event?.registrationDeadline).unix() > moment().unix() && (
+                  <>
+                    <div>{`${'Registration open until'}:`}</div>
+                    <div> {`${getShortDateString(moment(event?.registrationDeadline))}  -  ${moment(event?.registrationDeadline).diff(moment(), 'days')} day(s) left`}</div>
+                  </>
+                )}
+                {event?.id && moment(event?.registrationDeadline).unix() < moment().unix() && (
+                  <>
+                    <div>{`${'Registration period ended'}:`}</div>
+                    <div> {`${getShortDateString(moment(event?.registrationDeadline))}`}</div>
+                  </>
+                )}
+              </div>
+
+              <div className="flex items-center mt-4 gap-2">
+                <div>{`${'Your Status'}:`}</div>
+                <Label text={registrationStatus} />
+              </div>
+            </div>
           )}
-          {page && <TextButton text={t('btnBackToOverview')} onClick={handleCancelClicked} />}
 
-          <div className="flex gap-1">
-            {page && <ActionButton action={Action.BACK} onClick={handlePreviousClicked} />}
+          {/* Page: Registration Type */}
+          {page && +page === 1 && (
+            <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
+              <div className="m-2">{`Select registration type.`}</div>
 
-            {page !== RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && (
-              <TextButton
-                text={page ? t('btnNextPage') : t('btnRegister')}
-                disabled={nextButtonDisabled() || moment(event?.registrationOpen).unix() > moment().unix() || moment(event?.registrationDeadline).unix() < moment().unix() || false}
-                onClick={handleNextClicked}
-              />
-            )}
+              <RadioGroup className="mx-2" value={registrationType}>
+                <div className={'grid grid-cols-2 py-1 gap-1'}>
+                  <div className="capitalize">{EventRegistrationType.PARTICIPANT}</div>
 
-            {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={t('btnEnrollNow')} onClick={handleRegisterNowClicked} />}
+                  <div className="flex items-center gap-1">
+                    <RadioGroupItem
+                      value={EventRegistrationType.PARTICIPANT}
+                      id={`option-${EventRegistrationType.PARTICIPANT}`}
+                      onClick={e => {
+                        handleRadioItemRegistrationTypeClicked(EventRegistrationType.PARTICIPANT);
+                      }}
+                    />
+                  </div>
 
-            {!page && registrationStatus === EventRegistrationStatus.PENDING && (
-              <TextButton
-                text={t('btnUnregister')}
-                style={ButtonStyle.CRITICAL}
-                disabled={(event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
-                onClick={() => {
-                  handleUnregisterClicked();
+                  <div className="capitalize">{EventRegistrationType.VISITOR}</div>
+
+                  <div className="flex items-center gap-1">
+                    <RadioGroupItem
+                      value={EventRegistrationType.VISITOR}
+                      id={`option-${EventRegistrationType.VISITOR}`}
+                      onClick={e => {
+                        handleRadioItemRegistrationTypeClicked(EventRegistrationType.VISITOR);
+                      }}
+                    />
+                  </div>
+                </div>
+              </RadioGroup>
+            </div>
+          )}
+
+          {/* Page: Competitions */}
+          {page && +page === 2 && (
+            <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
+              <div className="m-2">{`Select competitions to participate in.`}</div>
+
+              <CompetitionList
+                comps={event.competitions}
+                disabled={event.competitions.map(comp => {
+                  return comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender;
+                })}
+                checked={event.competitions.map(comp => {
+                  return comp.id && compSignUps.includes(comp.id) ? true : false;
+                })}
+                selectable={true}
+                onCheckedChange={(checked, comId) => {
+                  if (comId) handleCheckBoxSignUpForCompChanged(comId);
                 }}
               />
-            )}
+            </div>
+          )}
 
-            {!page && registrationStatus === EventRegistrationStatus.PENDING && (
-              <TextButton
-                text={t('btnProceedPayment')}
-                disabled={(event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
-                onClick={() => {
-                  handleProceedPaymentClicked();
+          {/* Page: Accommodations */}
+          {page && +page === 3 && (
+            <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
+              <div className="m-2">{`Select accommodation. Skip if you don't need any.`}</div>
+
+              <AccommodationList
+                accommodations={event.accommodations}
+                checked={event.accommodations.map(acc => {
+                  return acc.id && accommodationOrders.includes(acc.id) ? true : false;
+                })}
+                selectable={true}
+                onCheckedChange={(checked, accommodationId) => {
+                  if (accommodationId) handleCheckBoxOrderAccommodationChanged(accommodationId);
                 }}
               />
-            )}
-          </div>
-        </Navigation>
+            </div>
+          )}
+
+          {/* Page: Overview */}
+          {page && +page === 4 && (
+            <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
+              <div className="m-2">{`Please review your selection before proceeding with checkout.`}</div>
+
+              <div className="flex flex-col mt-2 gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="m-2">{`Enroll as:`}</div>
+                  {registrationType && <Label text={registrationType} />}
+                </div>
+
+                {registrationType === EventRegistrationType.PARTICIPANT && (
+                  <>
+                    <Separator />
+
+                    <div>
+                      <div className="m-2 text-lg">{`Competitions`}</div>
+
+                      <CompetitionList
+                        comps={event.competitions.filter(c => c.id && compSignUps.includes(c.id))}
+                        disabled={event.competitions
+                          .filter(c => c.id && compSignUps.includes(c.id))
+                          .map(comp => {
+                            return comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender;
+                          })}
+                        checked={event.competitions
+                          .filter(c => c.id && compSignUps.includes(c.id))
+                          .map(comp => {
+                            return comp.id && compSignUps.includes(comp.id) ? true : false;
+                          })}
+                        selectable={false}
+                      />
+                    </div>
+                  </>
+                )}
+
+                {accommodationOrders.length > 0 && (
+                  <>
+                    <Separator />
+
+                    <div>
+                      <div className="m-2 text-lg">{`Accommodation`}</div>
+
+                      <AccommodationList
+                        accommodations={event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id))}
+                        checked={event.accommodations
+                          .filter(a => a.id && accommodationOrders.includes(a.id))
+                          .map(acc => {
+                            return acc.id && accommodationOrders.includes(acc.id) ? true : false;
+                          })}
+                        selectable={false}
+                      />
+                    </div>
+                  </>
+                )}
+
+                <Separator />
+
+                {registrationType && <PaymentDetails event={event} registrationType={registrationType} compSignUps={compSignUps} accommodationOrders={accommodationOrders} />}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </>
+
+      <Navigation>
+        {!page && (
+          <Link href={`${routeEvents}/${event.id}`}>
+            <TextButton text={t('btnBackToEvent')} />
+          </Link>
+        )}
+        {page && <TextButton text={t('btnBackToOverview')} onClick={handleCancelClicked} />}
+
+        <div className="flex gap-1">
+          {page && <ActionButton action={Action.BACK} onClick={handlePreviousClicked} />}
+
+          {page !== RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && (
+            <TextButton
+              text={page ? t('btnNextPage') : t('btnRegister')}
+              disabled={nextButtonDisabled() || moment(event?.registrationOpen).unix() > moment().unix() || moment(event?.registrationDeadline).unix() < moment().unix() || false}
+              onClick={handleNextClicked}
+            />
+          )}
+
+          {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={t('btnEnrollNow')} onClick={handleRegisterNowClicked} />}
+
+          {!page && registrationStatus === EventRegistrationStatus.PENDING && (
+            <TextButton
+              text={t('btnUnregister')}
+              style={ButtonStyle.CRITICAL}
+              disabled={(event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
+              onClick={() => {
+                handleUnregisterClicked();
+              }}
+            />
+          )}
+
+          {!page && registrationStatus === EventRegistrationStatus.PENDING && (
+            <TextButton
+              text={t('btnProceedPayment')}
+              disabled={(event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
+              onClick={() => {
+                handleProceedPaymentClicked();
+              }}
+            />
+          )}
+        </div>
+      </Navigation>
+    </div>
   );
 };

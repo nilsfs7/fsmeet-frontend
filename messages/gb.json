@@ -501,7 +501,7 @@
   },
   "global/components/accommodation-editor": {
     "inputDescription": "Description",
-    "inputWebsite": "Website",
+    "inputWebsite": "Website (optional)",
     "inputCost": "Cost"
   },
   "global/components/battle-grid": {

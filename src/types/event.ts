@@ -7,6 +7,7 @@ import { PaymentMethodSepa } from './payment-method-sepa';
 import { PaymentMethodStripe } from './payment-method-stripe';
 import { EventState } from '../domain/enums/event-state';
 import { EventMaintainer } from './event-maintainer';
+import { Accommodation } from './accommodation';
 
 export type Event = {
   id?: string;
@@ -40,5 +41,6 @@ export type Event = {
   notifyOnComment: boolean;
   eventRegistrations: EventRegistration[];
   competitions: Competition[];
+  accommodations: Accommodation[];
   state: EventState;
 };

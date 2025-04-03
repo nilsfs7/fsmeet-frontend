@@ -7,12 +7,13 @@ interface IPaymentDetails {
   event: Event;
   registrationType: EventRegistrationType;
   compSignUps: string[];
+  accommodationOrders: string[];
 }
 
-export const PaymentDetails = ({ event, registrationType, compSignUps }: IPaymentDetails) => {
+export const PaymentDetails = ({ event, registrationType, compSignUps, accommodationOrders }: IPaymentDetails) => {
   return (
     <div>
-      <div className="m-2">{`Payment details:`}</div>
+      <div className="m-2 text-lg">{`Payment details`}</div>
 
       <div className="m-2 flex flex-col gap-2 text-sm">
         <div className="flex justify-between">
@@ -28,15 +29,38 @@ export const PaymentDetails = ({ event, registrationType, compSignUps }: IPaymen
                 .filter(c => c.id && compSignUps.includes(c.id))
                 .reduce((acc, c) => acc + c.participationFee, 0)
                 .toString()
-                .replace('.', ',')}{' '}
+                .replace('.', ',')}
               €
             </div>
           </div>
         )}
 
-        <div className="flex justify-between">
+        {accommodationOrders.length > 0 && (
+          <div className="flex justify-between">
+            <div>{`Accommodation fee(s)`}</div>
+            <div>
+              {event.accommodations
+                .filter(a => a.id && accommodationOrders.includes(a.id))
+                .reduce((acc, a) => acc + a.cost, 0)
+                .toString()
+                .replace('.', ',')}
+              €
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-between text-lg">
           <div>{`Total`}</div>
-          <div>{(event.participationFee + event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + c.participationFee, 0)).toString().replace('.', ',')} €</div>
+          <div>
+            {(
+              event.participationFee +
+              event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + c.participationFee, 0) +
+              event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + a.cost, 0)
+            )
+              .toString()
+              .replace('.', ',')}{' '}
+            €
+          </div>
         </div>
       </div>
     </div>
