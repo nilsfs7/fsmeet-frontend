@@ -199,6 +199,14 @@
     "btnRegistration": "Inscripción",
     "btnFeedback": "Feedback"
   },
+  "/events/eventid/accommodations": {
+    "pageTitle": "Administrar alojamientos",
+    "btnCreate": "Crear"
+  },
+  "/events/eventid/accommodations/create": {
+    "pageTitle": "Crear alojamientos",
+    "btnCreate": "Crear"
+  },
   "/events/eventid/comps": {
     "pageTitle": "Gestionar las competiciones",
     "btnEdit": "Editar",
