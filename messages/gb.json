@@ -353,7 +353,6 @@
     "dlgEventUnregisterTitle": "Unregister From Event",
     "dlgEventUnregisterText": "Do you really want to unregister from this event?",
     "dlgEventUnregisterBtnConfirm": "Confirm",
-    "btnBackToEvent": "Back To Event",
     "btnRegister": "Register",
     "btnUnregister": "Unregister",
     "btnProceedPayment": "Proceed Payment",

@@ -456,7 +456,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       <Navigation>
         {!page && (
           <Link href={`${routeEvents}/${event.id}`}>
-            <TextButton text={t('btnBackToEvent')} />
+            <ActionButton action={Action.BACK} />
           </Link>
         )}
         {page && <TextButton text={t('btnBackToOverview')} onClick={handleCancelClicked} />}
