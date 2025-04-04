@@ -20,7 +20,7 @@ export const CompetitionList = ({ comps, disabled = [], checked = [], selectable
           <th className="py-3 px-3">{`Name`}</th>
           <th className="py-3 px-3">{`Gender`}</th>
           <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{`Fee`}</th>
-          {selectable && <th className="py-3 px-3 rounded-r-lg">{`Enroll`}</th>}
+          {selectable && <th className="py-3 px-3 rounded-r-lg">{`Select`}</th>}
         </tr>
       </thead>
       <tbody className="text-primary text-sm">

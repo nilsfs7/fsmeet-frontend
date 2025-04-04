@@ -18,7 +18,7 @@ export const AccommodationList = ({ accommodations, disabled = [], checked = [],
         <tr className="text-left whitespace-nowrap">
           <th className="py-3 px-3 rounded-l-lg">{`Description`}</th>
           <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{`Cost`}</th>
-          {selectable && <th className="py-3 px-3 rounded-r-lg">{`Book`}</th>}
+          {selectable && <th className="py-3 px-3 rounded-r-lg">{`Select`}</th>}
         </tr>
       </thead>
       <tbody className="text-primary text-sm">
