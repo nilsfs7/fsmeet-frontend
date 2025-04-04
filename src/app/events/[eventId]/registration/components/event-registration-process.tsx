@@ -29,6 +29,7 @@ import { getShortDateString } from '@/functions/time';
 import { CompetitionList } from './competition-list';
 import { PaymentDetails } from './payment-details';
 import { AccommodationList } from './accommodation-list';
+import { AttendeeChoice } from './attendee-choice';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -337,33 +338,14 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
               <div className="m-2">{`Select registration type.`}</div>
 
-              <RadioGroup className="mx-2" value={registrationType}>
-                <div className={'grid grid-cols-2 py-1 gap-1'}>
-                  <div className="capitalize">{EventRegistrationType.PARTICIPANT}</div>
-
-                  <div className="flex items-center gap-1">
-                    <RadioGroupItem
-                      value={EventRegistrationType.PARTICIPANT}
-                      id={`option-${EventRegistrationType.PARTICIPANT}`}
-                      onClick={e => {
-                        handleRadioItemRegistrationTypeClicked(EventRegistrationType.PARTICIPANT);
-                      }}
-                    />
-                  </div>
-
-                  <div className="capitalize">{EventRegistrationType.VISITOR}</div>
-
-                  <div className="flex items-center gap-1">
-                    <RadioGroupItem
-                      value={EventRegistrationType.VISITOR}
-                      id={`option-${EventRegistrationType.VISITOR}`}
-                      onClick={e => {
-                        handleRadioItemRegistrationTypeClicked(EventRegistrationType.VISITOR);
-                      }}
-                    />
-                  </div>
-                </div>
-              </RadioGroup>
+              <AttendeeChoice
+                fees={[event.participationFee, event.participationFee]}
+                checked={registrationType}
+                selectable={true}
+                onCheckedChange={registrationType => {
+                  handleRadioItemRegistrationTypeClicked(registrationType);
+                }}
+              />
             </div>
           )}
 
@@ -474,7 +456,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       <Navigation>
         {!page && (
           <Link href={`${routeEvents}/${event.id}`}>
-            <TextButton text={t('btnBackToEvent')} />
+            <ActionButton action={Action.BACK} />
           </Link>
         )}
         {page && <TextButton text={t('btnBackToOverview')} onClick={handleCancelClicked} />}
