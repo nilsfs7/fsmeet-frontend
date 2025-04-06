@@ -11,6 +11,8 @@ interface IPaymentDetails {
 }
 
 export const PaymentDetails = ({ event, registrationType, compSignUps, accommodationOrders }: IPaymentDetails) => {
+  const eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFee : event.visitorFee;
+
   return (
     <div>
       <div className="m-2 text-lg">{`Payment details`}</div>
@@ -18,19 +20,18 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
       <div className="m-2 flex flex-col gap-2 text-sm">
         <div className="flex justify-between">
           <div>{`Event fee`}</div>
-          <div>{event.participationFee.toString().replace('.', ',')} €</div>
+          <div>{`${eventFee.toString().replace('.', ',')} €`}</div>
         </div>
 
         {registrationType === EventRegistrationType.PARTICIPANT && (
           <div className="flex justify-between">
             <div>{`Competition fee(s)`}</div>
             <div>
-              {event.competitions
+              {`${event.competitions
                 .filter(c => c.id && compSignUps.includes(c.id))
                 .reduce((acc, c) => acc + c.participationFee, 0)
                 .toString()
-                .replace('.', ',')}
-              €
+                .replace('.', ',')} €`}
             </div>
           </div>
         )}
@@ -39,12 +40,11 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
           <div className="flex justify-between">
             <div>{`Accommodation fee(s)`}</div>
             <div>
-              {event.accommodations
+              {`${event.accommodations
                 .filter(a => a.id && accommodationOrders.includes(a.id))
                 .reduce((acc, a) => acc + a.cost, 0)
                 .toString()
-                .replace('.', ',')}
-              €
+                .replace('.', ',')} €`}
             </div>
           </div>
         )}
@@ -52,14 +52,13 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
         <div className="flex justify-between text-lg">
           <div>{`Total`}</div>
           <div>
-            {(
-              event.participationFee +
+            {`${(
+              eventFee +
               event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + c.participationFee, 0) +
               event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + a.cost, 0)
             )
               .toString()
-              .replace('.', ',')}{' '}
-            €
+              .replace('.', ',')} €`}
           </div>
         </div>
       </div>
