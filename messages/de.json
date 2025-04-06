@@ -542,6 +542,7 @@
     "inputBankSepaReference": "Verwendungszweck (SEPA)",
     "lblProfessionalMethods": "Professionelle Bezahlmethoden",
     "chbStripeAccept": "Onlinezahlungen akzeptieren (Stripe)",
+    "chbStripeCoperProviderFee": "Gebühr automatisch decken",
     "sectionMaintainers": "Betreuer",
     "cbMaintainers": "Hinzugefügte Betreuer",
     "sectionOther": "Sonstiges",

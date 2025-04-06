@@ -72,6 +72,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const [paymentMethodSepaIban, setPaymentMethodSepaIban] = useState<string>(event?.paymentMethodSepa?.iban || '');
   const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
   const [paymentMethodStripeEnabled, setPaymentMethodStripeEnabled] = useState<boolean>(event?.paymentMethodStripe?.enabled || false);
+  const [paymentMethodStripeCoverProviderFee, setPaymentMethodStripeCoverProviderFee] = useState<boolean>(event?.paymentMethodStripe?.coverProviderFee || false);
   const [maintainers, setMaintainers] = useState<EventMaintainer[]>(event?.maintainers || []);
   const [maintainerToAddUsername, setMaintainerToAddUsername] = useState<string>();
   const [users, setUsers] = useState<User[]>([]);
@@ -140,7 +141,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       iban: paymentMethodSepaIban,
       reference: paymentMethodSepaReference,
     };
-    const paymentMethodStripe: PaymentMethodStripe = { enabled: paymentMethodStripeEnabled };
+    const paymentMethodStripe: PaymentMethodStripe = { enabled: paymentMethodStripeEnabled, coverProviderFee: paymentMethodStripeCoverProviderFee };
 
     onEventUpdate({
       id: event?.id,
@@ -212,6 +213,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       setPaymentMethodSepaIban(event.paymentMethodSepa.iban);
       setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
       setPaymentMethodStripeEnabled(event.paymentMethodStripe.enabled);
+      setPaymentMethodStripeCoverProviderFee(event.paymentMethodStripe.coverProviderFee);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
       setNotifyOnRegistration(event.notifyOnRegistration);
       setAllowComments(event.allowComments);
@@ -259,6 +261,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     paymentMethodSepaIban,
     paymentMethodSepaReference,
     paymentMethodStripeEnabled,
+    paymentMethodStripeCoverProviderFee,
     autoApproveRegistrations,
     notifyOnRegistration,
     allowComments,
@@ -645,6 +648,17 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
               }
             }}
           />
+
+          {paymentMethodStripeEnabled && (
+            <CheckBox
+              id={'paymentMethodStripeCoverProviderFeeEnabled'}
+              label={`${t('chbStripeCoperProviderFee')}`}
+              value={paymentMethodStripeCoverProviderFee}
+              onChange={() => {
+                setPaymentMethodStripeCoverProviderFee(!paymentMethodStripeCoverProviderFee);
+              }}
+            />
+          )}
         </>
       )}
 

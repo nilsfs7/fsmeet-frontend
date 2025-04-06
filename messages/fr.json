@@ -542,6 +542,7 @@
     "inputBankSepaReference": "Référence SEPA",
     "lblProfessionalMethods": "Méthodes de paiement professionnelles",
     "chbStripeAccept": "Accepter les paiements en ligne (Stripe)",
+    "chbStripeCoperProviderFee": "Couvrir automatiquement les frais",
     "sectionMaintainers": "Mainteneurs",
     "cbMaintainers": "Responsables de la maintenance",
     "sectionOther": "Autre",

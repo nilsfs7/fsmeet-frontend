@@ -220,7 +220,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
       event?.paymentMethodSepa.iban,
       event?.paymentMethodSepa.reference
     ),
-    new CreatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled),
+    new CreatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled, event?.paymentMethodStripe.coverProviderFee),
     event?.autoApproveRegistrations,
     event?.notifyOnRegistration,
     event?.allowComments,
@@ -430,7 +430,7 @@ export async function updateEvent(event: Event, session: Session | null): Promis
       event?.paymentMethodSepa.iban,
       event?.paymentMethodSepa.reference
     ),
-    new UpdatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled),
+    new UpdatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled, event?.paymentMethodStripe.coverProviderFee),
     event?.autoApproveRegistrations,
     event?.notifyOnRegistration,
     event?.allowComments,
