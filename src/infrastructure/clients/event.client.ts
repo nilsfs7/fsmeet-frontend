@@ -12,6 +12,19 @@ import { ReadVisaInvitationRequestResponseDto } from './dtos/event/read-visa-inv
 import { ReadEventRegistrationResponseDto } from './dtos/event/registration/read-event-registration.response.dto';
 import { CreateStripeCheckoutLinkBodyDto } from './dtos/event/create-stripe-checkout-link.body.dto';
 import { ReadStripeCheckoutLinkResponseDto } from './dtos/event/read-stripe-checkout-link.response.dto';
+import { CreateEventBodyDto } from './dtos/event/create-event.body.dto';
+import { CreateEventMaintainerBodyDto } from './dtos/event/create-event-maintainer.body.dto';
+import { CreatePaymentMethodCashBodyDto } from './dtos/event/payment/create-payment-method-cash.body.dto';
+import { CreatePaymentMethodPayPalBodyDto } from './dtos/event/payment/create-payment-method-paypal.body.dto';
+import { CreatePaymentMethodSepaBodyDto } from './dtos/event/payment/create-payment-method-sepa.body.dto';
+import { CreatePaymentMethodStripeBodyDto } from './dtos/event/payment/create-payment-method-stripe.body.dto';
+import moment from 'moment';
+import { UpdateEventBodyDto } from './dtos/event/update-event.body.dto';
+import { UpdateEventMaintainerBodyDto } from './dtos/event/update-event-maintainer.body.dto';
+import { UpdatePaymentMethodCashBodyDto } from './dtos/event/payment/update-payment-method-cash.body.dto';
+import { UpdatePaymentMethodPayPalBodyDto } from './dtos/event/payment/update-payment-method-paypal.body.dto';
+import { UpdatePaymentMethodSepaBodyDto } from './dtos/event/payment/update-payment-method-sepa.body.dto';
+import { UpdatePaymentMethodStripeBodyDto } from './dtos/event/payment/update-payment-method-stripe.body.dto';
 
 export async function getEvents(
   admin: string | null,
@@ -175,49 +188,48 @@ export async function getComments(eventId: string): Promise<EventComment[]> {
 export async function createEvent(event: Event, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`;
 
-  const body = JSON.stringify({
-    name: event?.name.trim(),
-    alias: event?.alias,
-    maintainers: event.maintainers,
-    dateFrom: event?.dateFrom,
-    dateTo: event?.dateTo,
-    registrationOpen: event?.registrationOpen,
-    registrationDeadline: event?.registrationDeadline,
-    description: event?.description.trim(),
-    venueName: event?.venueName.trim(),
-    venueHouseNo: event?.venueHouseNo.trim(),
-    venueStreet: event?.venueStreet.trim(),
-    venueCity: event?.venueCity.trim(),
-    venuePostCode: event?.venuePostCode.trim(),
-    venueCountry: event?.venueCountry.trim(),
-    participationFee: event?.participationFee,
-    type: event?.type,
-    trailerUrl: event?.trailerUrl,
-    livestreamUrl: event?.livestreamUrl,
-    messangerInvitationUrl: event?.messangerInvitationUrl,
-    paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
-    paymentMethodPayPal: {
-      enabled: event?.paymentMethodPayPal.enabled,
-      payPalHandle: event?.paymentMethodPayPal.payPalHandle,
-    },
-    paymentMethodSepa: {
-      enabled: event?.paymentMethodSepa.enabled,
-      bank: event?.paymentMethodSepa.bank,
-      recipient: event?.paymentMethodSepa.recipient,
-      iban: event?.paymentMethodSepa.iban,
-      reference: event?.paymentMethodSepa.reference,
-    },
-    paymentMethodStripe: { enabled: event?.paymentMethodStripe.enabled },
-    autoApproveRegistrations: event?.autoApproveRegistrations,
-    notifyOnRegistration: event?.notifyOnRegistration,
-    allowComments: event?.allowComments,
-    notifyOnComment: event?.notifyOnComment,
-    state: event?.state,
-  });
+  const body = new CreateEventBodyDto(
+    event?.name.trim(),
+    event?.alias,
+    event.maintainers.map(maintainer => {
+      return new CreateEventMaintainerBodyDto(maintainer.username);
+    }),
+    moment(event?.dateFrom),
+    moment(event?.dateTo),
+    event?.participationFee,
+    event?.visitorFee,
+    moment(event?.registrationOpen),
+    moment(event?.registrationDeadline),
+    event?.description.trim(),
+    event?.venueName.trim(),
+    event?.venueHouseNo.trim(),
+    event?.venueStreet.trim(),
+    event?.venuePostCode.trim(),
+    event?.venueCity.trim(),
+    event?.venueCountry.trim(),
+    event?.type,
+    event?.trailerUrl,
+    event?.livestreamUrl,
+    event?.messangerInvitationUrl,
+    new CreatePaymentMethodCashBodyDto(event?.paymentMethodCash.enabled),
+    new CreatePaymentMethodPayPalBodyDto(event?.paymentMethodPayPal.enabled, event?.paymentMethodPayPal.payPalHandle),
+    new CreatePaymentMethodSepaBodyDto(
+      event?.paymentMethodSepa.enabled,
+      event?.paymentMethodSepa.bank,
+      event?.paymentMethodSepa.recipient,
+      event?.paymentMethodSepa.iban,
+      event?.paymentMethodSepa.reference
+    ),
+    new CreatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled),
+    event?.autoApproveRegistrations,
+    event?.notifyOnRegistration,
+    event?.allowComments,
+    event?.notifyOnComment
+  );
 
   const response = await fetch(url, {
     method: 'POST',
-    body: body,
+    body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${session?.user?.accessToken}`,
@@ -385,48 +397,49 @@ export async function createEventFeedback(eventId: string, message: string, sess
 export async function updateEvent(event: Event, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`;
 
-  const body = JSON.stringify({
-    id: event.id,
-    name: event?.name.trim(),
-    alias: event?.alias,
-    maintainers: event.maintainers,
-    dateFrom: event?.dateFrom,
-    dateTo: event?.dateTo,
-    registrationOpen: event?.registrationOpen,
-    registrationDeadline: event?.registrationDeadline,
-    description: event?.description.trim(),
-    venueName: event?.venueName.trim(),
-    venueHouseNo: event?.venueHouseNo.trim(),
-    venueStreet: event?.venueStreet.trim(),
-    venuePostCode: event?.venuePostCode.trim(),
-    venueCity: event?.venueCity.trim(),
-    venueCountry: event?.venueCountry.trim(),
-    participationFee: event?.participationFee,
-    trailerUrl: event?.trailerUrl,
-    livestreamUrl: event?.livestreamUrl,
-    messangerInvitationUrl: event?.messangerInvitationUrl,
-    paymentMethodCash: { enabled: event?.paymentMethodCash.enabled },
-    paymentMethodPayPal: {
-      enabled: event?.paymentMethodPayPal.enabled,
-      payPalHandle: event?.paymentMethodPayPal.payPalHandle,
-    },
-    paymentMethodSepa: {
-      enabled: event?.paymentMethodSepa.enabled,
-      bank: event?.paymentMethodSepa.bank,
-      recipient: event?.paymentMethodSepa.recipient,
-      iban: event?.paymentMethodSepa.iban,
-      reference: event?.paymentMethodSepa.reference,
-    },
-    paymentMethodStripe: { enabled: event?.paymentMethodStripe.enabled },
-    autoApproveRegistrations: event?.autoApproveRegistrations,
-    notifyOnRegistration: event?.notifyOnRegistration,
-    allowComments: event?.allowComments,
-    notifyOnComment: event?.notifyOnComment,
-  });
+  const body = new UpdateEventBodyDto(
+    event?.id || '',
+    event?.name.trim(),
+    event?.alias,
+    event.maintainers.map(maintainer => {
+      return new UpdateEventMaintainerBodyDto(maintainer.username);
+    }),
+    moment(event?.dateFrom),
+    moment(event?.dateTo),
+    event?.participationFee,
+    event?.visitorFee,
+    moment(event?.registrationOpen),
+    moment(event?.registrationDeadline),
+    event?.description.trim(),
+    event?.venueName.trim(),
+    event?.venueHouseNo.trim(),
+    event?.venueStreet.trim(),
+    event?.venuePostCode.trim(),
+    event?.venueCity.trim(),
+    event?.venueCountry.trim(),
+    event?.trailerUrl,
+    event?.livestreamUrl,
+    event?.messangerInvitationUrl,
+    new UpdatePaymentMethodCashBodyDto(event?.paymentMethodCash.enabled),
+    new UpdatePaymentMethodPayPalBodyDto(event?.paymentMethodPayPal.enabled, event?.paymentMethodPayPal.payPalHandle),
+
+    new UpdatePaymentMethodSepaBodyDto(
+      event?.paymentMethodSepa.enabled,
+      event?.paymentMethodSepa.bank,
+      event?.paymentMethodSepa.recipient,
+      event?.paymentMethodSepa.iban,
+      event?.paymentMethodSepa.reference
+    ),
+    new UpdatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled),
+    event?.autoApproveRegistrations,
+    event?.notifyOnRegistration,
+    event?.allowComments,
+    event?.notifyOnComment
+  );
 
   const response = await fetch(url, {
     method: 'PATCH',
-    body: body,
+    body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${session?.user?.accessToken}`,

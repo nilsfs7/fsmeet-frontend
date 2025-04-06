@@ -339,7 +339,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
               <div className="m-2">{`Select registration type.`}</div>
 
               <AttendeeChoice
-                fees={[event.participationFee, event.participationFee]}
+                fees={[event.participationFee, event.visitorFee]}
                 checked={registrationType}
                 selectable={true}
                 onCheckedChange={registrationType => {
