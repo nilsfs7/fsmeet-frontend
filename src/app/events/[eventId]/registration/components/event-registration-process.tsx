@@ -112,7 +112,16 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           break;
 
         case RegistrationProcessPage.CHECKOUT_OVERVIEW:
-          previousPage = RegistrationProcessPage.ACCOMMODATIONS;
+          if (event.accommodations.length > 0) {
+            previousPage = RegistrationProcessPage.ACCOMMODATIONS;
+          } else {
+            if (registrationType === EventRegistrationType.PARTICIPANT) {
+              previousPage = RegistrationProcessPage.COMPETITIONS;
+            } else {
+              previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
+            }
+          }
+
           break;
       }
 
@@ -133,12 +142,20 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           if (registrationType === EventRegistrationType.PARTICIPANT) {
             nextPage = RegistrationProcessPage.COMPETITIONS;
           } else {
-            nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+            if (event.accommodations.length > 0) {
+              nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+            } else {
+              nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
+            }
           }
           break;
 
         case RegistrationProcessPage.COMPETITIONS:
-          nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+          if (event.accommodations.length > 0) {
+            nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+          } else {
+            nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
+          }
           break;
 
         case RegistrationProcessPage.ACCOMMODATIONS:
@@ -424,7 +441,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                   </>
                 )}
 
-                {accommodationOrders.length > 0 && (
+                {event.accommodations.length > 0 && accommodationOrders.length > 0 && (
                   <>
                     <Separator />
 
