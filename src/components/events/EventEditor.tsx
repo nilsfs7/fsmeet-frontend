@@ -498,6 +498,10 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         onValueChange={(value, name, values) => {
           if (values?.float || values?.float === 0) {
             setParticipationFee(values?.float);
+
+            if (values?.float === 0) {
+              setVisitorFee(0);
+            }
           }
         }}
       />
