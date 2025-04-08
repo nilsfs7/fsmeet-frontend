@@ -30,6 +30,7 @@ import { CompetitionList } from './competition-list';
 import { PaymentDetails } from './payment-details';
 import { AccommodationList } from './accommodation-list';
 import { AttendeeChoice } from './attendee-choice';
+import { isCompetition } from '@/functions/is-competition';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -104,7 +105,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           break;
 
         case RegistrationProcessPage.ACCOMMODATIONS:
-          if (registrationType === EventRegistrationType.PARTICIPANT) {
+          if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
             previousPage = RegistrationProcessPage.COMPETITIONS;
           } else {
             previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
@@ -115,7 +116,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           if (event.accommodations.length > 0) {
             previousPage = RegistrationProcessPage.ACCOMMODATIONS;
           } else {
-            if (registrationType === EventRegistrationType.PARTICIPANT) {
+            if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
               previousPage = RegistrationProcessPage.COMPETITIONS;
             } else {
               previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
@@ -139,7 +140,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
       switch (page) {
         case RegistrationProcessPage.REGISTRATION_TYPE:
-          if (registrationType === EventRegistrationType.PARTICIPANT) {
+          if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
             nextPage = RegistrationProcessPage.COMPETITIONS;
           } else {
             if (event.accommodations.length > 0) {
@@ -416,7 +417,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                   {registrationType && <Label text={registrationType} />}
                 </div>
 
-                {registrationType === EventRegistrationType.PARTICIPANT && (
+                {registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && (
                   <>
                     <Separator />
 
