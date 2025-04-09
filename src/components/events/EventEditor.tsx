@@ -341,6 +341,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           onChange={value => {
             if (value) {
               setDateFrom(value.startOf('day').utc().format());
+              setDateTo(value.endOf('day').utc().format()); // set dateTo to same date when dateFrom from was changed (convenience)
             }
           }}
         />
