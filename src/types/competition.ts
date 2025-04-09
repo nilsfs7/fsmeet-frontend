@@ -11,6 +11,7 @@ export type Competition = {
   gender: CompetitionGender;
   maxAge: MaxAge;
   participationFee: number;
+  participationFeeIncPaymentCosts: number;
   description: string;
   rules: string;
   judges: User[];

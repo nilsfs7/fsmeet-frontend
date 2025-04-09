@@ -2,16 +2,21 @@
 
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { Event } from '@/types/event';
+import { isCompetition } from '@/functions/is-competition';
 
 interface IPaymentDetails {
   event: Event;
   registrationType: EventRegistrationType;
   compSignUps: string[];
   accommodationOrders: string[];
+  paymentFeeCover: boolean;
 }
 
-export const PaymentDetails = ({ event, registrationType, compSignUps, accommodationOrders }: IPaymentDetails) => {
-  const eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFee : event.visitorFee;
+export const PaymentDetails = ({ event, registrationType, compSignUps, accommodationOrders, paymentFeeCover }: IPaymentDetails) => {
+  let eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFee : event.visitorFee;
+  if (paymentFeeCover) {
+    eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFeeIncPaymentCosts : event.visitorFeeIncPaymentCosts;
+  }
 
   return (
     <div>
@@ -23,13 +28,13 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
           <div>{`${eventFee.toString().replace('.', ',')} €`}</div>
         </div>
 
-        {registrationType === EventRegistrationType.PARTICIPANT && (
+        {registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && (
           <div className="flex justify-between">
             <div>{`Competition fee(s)`}</div>
             <div>
               {`${event.competitions
                 .filter(c => c.id && compSignUps.includes(c.id))
-                .reduce((acc, c) => acc + c.participationFee, 0)
+                .reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0)
                 .toString()
                 .replace('.', ',')} €`}
             </div>
@@ -42,7 +47,7 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
             <div>
               {`${event.accommodations
                 .filter(a => a.id && accommodationOrders.includes(a.id))
-                .reduce((acc, a) => acc + a.cost, 0)
+                .reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0)
                 .toString()
                 .replace('.', ',')} €`}
             </div>
@@ -53,9 +58,12 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
           <div>{`Total`}</div>
           <div>
             {`${(
-              eventFee +
-              event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + c.participationFee, 0) +
-              event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + a.cost, 0)
+              Math.round(
+                100 *
+                  (eventFee +
+                    event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0) +
+                    event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0))
+              ) / 100
             )
               .toString()
               .replace('.', ',')} €`}

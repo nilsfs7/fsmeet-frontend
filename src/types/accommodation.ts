@@ -3,6 +3,7 @@ export type Accommodation = {
   eventId: string | undefined;
   description: string;
   cost: number;
+  costIncPaymentCosts: number;
   website: string;
   imageUrlPreview?: string;
 };

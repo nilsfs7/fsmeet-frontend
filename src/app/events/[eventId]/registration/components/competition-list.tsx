@@ -4,13 +4,14 @@ import { Competition } from '@/types/competition';
 
 interface ICompetitionList {
   comps: Competition[];
+  paymentFeeCover: boolean;
   disabled?: boolean[];
   checked?: boolean[];
   selectable?: boolean;
   onCheckedChange?: (selected: boolean, compId: string) => void;
 }
 
-export const CompetitionList = ({ comps, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
+export const CompetitionList = ({ comps, paymentFeeCover, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
   return (
     <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
       {/* todo: color code for head bg*/}
@@ -29,7 +30,7 @@ export const CompetitionList = ({ comps, disabled = [], checked = [], selectable
             <td className="py-3 px-3 capitalize">{comp.type}</td>
             <td className="py-3 px-3">{comp.name}</td>
             <td className="py-3 px-3 capitalize">{comp.gender}</td>
-            <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${comp.participationFee} €`}</td>
+            <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${paymentFeeCover ? comp.participationFeeIncPaymentCosts : comp.participationFee} €`.replace('.', ',')}</td>
             {selectable && (
               <td className="py-3 px-3 text-center">
                 <input

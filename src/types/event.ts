@@ -20,7 +20,9 @@ export type Event = {
   registrationOpen: string;
   registrationDeadline: string;
   participationFee: number;
+  participationFeeIncPaymentCosts: number;
   visitorFee: number;
+  visitorFeeIncPaymentCosts: number;
   description: string;
   venueName: string;
   venueHouseNo: string;

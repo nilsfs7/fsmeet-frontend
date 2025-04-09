@@ -4,13 +4,14 @@ import { Accommodation } from '@/types/accommodation';
 
 interface IAccommodationList {
   accommodations: Accommodation[];
+  paymentFeeCover: boolean;
   disabled?: boolean[];
   checked?: boolean[];
   selectable?: boolean;
   onCheckedChange?: (selected: boolean, accommodationId: string) => void;
 }
 
-export const AccommodationList = ({ accommodations, disabled = [], checked = [], selectable = false, onCheckedChange }: IAccommodationList) => {
+export const AccommodationList = ({ accommodations, paymentFeeCover, disabled = [], checked = [], selectable = false, onCheckedChange }: IAccommodationList) => {
   return (
     <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
       {/* todo: color code for head bg*/}
@@ -25,7 +26,7 @@ export const AccommodationList = ({ accommodations, disabled = [], checked = [],
         {accommodations.map((acc, i) => (
           <tr key={i} className={`${i < accommodations.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
             <td className="py-3 px-3">{acc.description}</td>
-            <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${acc.cost} €`}</td>
+            <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${paymentFeeCover ? acc.costIncPaymentCosts : acc.cost} €`.replace('.', ',')}</td>
             {selectable && (
               <td className="py-3 px-3 text-center">
                 <input

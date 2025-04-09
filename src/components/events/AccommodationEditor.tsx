@@ -39,6 +39,7 @@ const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommoda
       website: website,
       imageUrlPreview: accommodation?.imageUrlPreview,
       cost: cost,
+      costIncPaymentCosts: -1,
     });
   };
 

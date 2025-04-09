@@ -358,7 +358,7 @@
     "btnProceedPayment": "Proceed Payment",
     "btnBackToOverview": "Cancel",
     "btnNextPage": "Next",
-    "btnEnrollNow": "Enroll Now"
+    "btnEnrollNow": "Checkout"
   },
   "/events/create": {
     "pageTitle": "Create Event",
