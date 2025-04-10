@@ -33,6 +33,7 @@ import { isEventAdmin } from '@/functions/isEventAdmin';
 import { useSession } from 'next-auth/react';
 import { PaymentMethodStripe } from '@/types/payment-method-stripe';
 import TextButton from '../common/TextButton';
+import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -484,15 +485,19 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             }}
           />
 
-          <TextInput
-            id={'venueCountry'}
-            label={t('inputVenueCountry')}
-            placeholder="Germany"
-            value={venueCountry}
-            onChange={e => {
-              setVenueCountry(e.currentTarget.value);
-            }}
-          />
+          <div className="m-2 grid grid-cols-2 items-center">
+            <div>{t('cbVenueCountry')}</div>
+            <div className="flex w-full">
+              <ComboBox
+                menus={menuCountriesWithUnspecified}
+                value={venueCountry || menuCountriesWithUnspecified[0].value}
+                searchEnabled={true}
+                onChange={(value: any) => {
+                  setVenueCountry(value);
+                }}
+              />
+            </div>
+          </div>
         </>
       )}
 
@@ -699,11 +704,11 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
             <div>{t('cbMaintainers')}</div>
 
             <div className="flex h-full">
-              <div className="flex flex-col w-full">
+              <div className="flex flex-col w-full gap-2">
                 {users.length > 0 &&
                   maintainers.map((maintainer, index) => {
                     return (
-                      <div key={`${maintainer}-${index}`} className="flex justify-between p-1 gap-2">
+                      <div key={`${maintainer}-${index}`} className="flex justify-between gap-2">
                         <UserCard
                           user={
                             users.filter(user => {
@@ -721,7 +726,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                     );
                   })}
 
-                <div className="flex justify-between p-1 gap-2">
+                <div className="flex justify-between gap-2">
                   <ComboBox
                     menus={users.map(user => {
                       return { text: `${user.firstName} (${user.username})`, value: user.username };

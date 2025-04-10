@@ -16,6 +16,7 @@ import { Action } from '@/domain/enums/action';
 import VideoDialog from '@/components/VideoDialog';
 import { useRouter } from 'next/navigation';
 import { routeEvents } from '@/domain/constants/routes';
+import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 
 interface IEventProps {
   event: Event;
@@ -159,7 +160,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
               <p>{event.venueName}</p>
               <p className="mt-1">{`${event.venueStreet} ${event.venueHouseNo}`}</p>
               <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
-              <p>{event.venueCountry}</p>
+              <p>{getCountryNameByCode(event.venueCountry)}</p>
             </div>
 
             <div className="flex p-2 gap-2">
