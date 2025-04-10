@@ -20,18 +20,19 @@ import { EditorMode } from '@/domain/enums/editor-mode';
 import Separator from '../Seperator';
 import SectionHeader from '../common/section-header';
 import Link from 'next/link';
-import { routeEvents } from '@/domain/constants/routes';
+import { routeAccount, routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 import { EventMaintainer } from '@/types/event-maintainer';
 import UserCard from '../user/UserCard';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { User } from '@/types/user';
-import { getUsers } from '@/infrastructure/clients/user.client';
+import { getUser, getUsers } from '@/infrastructure/clients/user.client';
 import { UserType } from '@/domain/enums/user-type';
 import { isEventAdmin } from '@/functions/isEventAdmin';
 import { useSession } from 'next-auth/react';
 import { PaymentMethodStripe } from '@/types/payment-method-stripe';
+import TextButton from '../common/TextButton';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -43,6 +44,8 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const t = useTranslations('global/components/event-editor');
 
   const { data: session } = useSession();
+
+  const [eventAdmin, setEventAdmin] = useState<User>();
 
   const [name, setEventName] = useState(event?.name || '');
   const [alias, setEventAlias] = useState(event?.alias || '');
@@ -221,6 +224,11 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       setAllowComments(event.allowComments);
       setNotifyOnComment(event.notifyOnComment);
     }
+
+    if (event?.admin)
+      getUser(event.admin, session).then(eventAdmin => {
+        setEventAdmin(eventAdmin);
+      });
 
     getUsers().then(users => {
       users = users.filter(user => {
@@ -639,10 +647,20 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <div className="m-2">{`${t('lblProfessionalMethods')}:`}</div>
 
+          {!eventAdmin?.stripeAccountId && (
+            <div className="grid grid-cols-2 m-2">
+              <div className="flex items-center">{t(`textCreateStripeAccount`)}</div>
+              <Link href={`${routeAccount}/?tab=account`} target="_blank">
+                <TextButton text={t(`btnCreateStripeAccount`)} />
+              </Link>
+            </div>
+          )}
+
           <CheckBox
             id={'paymentMethodStripeEnabled'}
             label={`- ${t('chbStripeAccept')}`}
             value={paymentMethodStripeEnabled}
+            disabled={!eventAdmin?.stripeAccountId}
             onChange={() => {
               setPaymentMethodStripeEnabled(!paymentMethodStripeEnabled);
 
@@ -659,7 +677,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           {paymentMethodStripeEnabled && (
             <CheckBox
               id={'paymentMethodStripeCoverProviderFeeEnabled'}
-              label={`${t('chbStripeCoperProviderFee')}`}
+              label={`${t('chbStripeCoverProviderFee')}`}
               value={paymentMethodStripeCoverProviderFee}
               onChange={() => {
                 setPaymentMethodStripeCoverProviderFee(!paymentMethodStripeCoverProviderFee);
