@@ -543,7 +543,7 @@
     "inputVenueStreet": "Street",
     "inputVenuePostCode": "Post Code",
     "inputVenueCity": "City",
-    "inputVenueCountry": "Country",
+    "cbVenueCountry": "Country",
     "sectionPayment": "Payment",
     "inputPaticipantFee": "Participation Fee",
     "inputVisitorFee": "Visitor Fee",

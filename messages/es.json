@@ -526,7 +526,7 @@
     "inputVenueStreet": "Calle",
     "inputVenuePostCode": "Código postal",
     "inputVenueCity": "Ciudad",
-    "inputVenueCountry": "País",
+    "cbVenueCountry": "País",
     "sectionPayment": "Pago",
     "inputPaticipantFee": "Cuota de participación",
     "inputVisitorFee": "Cuota de visitante",
