@@ -30,6 +30,11 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
 
   const [showMap, setShowMap] = useState<boolean>(false);
 
+  let eventFee = event.participationFee > 0 ? `${event.participationFee.toString().replace('.', ',')}  €` : 'free';
+  if (event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee) {
+    eventFee = `${event.participationFeeIncPaymentCosts.toString().replace('.', ',')}  €`;
+  }
+
   const getMapsSearchUrl = (): string => {
     let url = `https://www.google.com/maps/search/`;
 
@@ -60,7 +65,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
         <div className={'grid grid-cols-3 justify-end object-right p-2'}>
           <div className="col-span-2 text-base font-bold">{event.name}</div>
           <div className="row-span-3 flex h-20 justify-end">
-            <img className="h-full" src={event.type === 'meet' ? imgMeeting : imgCompetition} alt={'event image'} />
+            <img className="h-full" src={event.type === EventType.MEETING ? imgMeeting : imgCompetition} alt={'event image'} />
           </div>
 
           <div className="col-span-2">
@@ -86,7 +91,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
           {event.registrationDeadline && <div className="col-span-2">{getShortDateString(moment(event.registrationDeadline))}</div>}
 
           <div className="col-span-1">{t('tabOverviewParticipationFee')}</div>
-          <div className="col-span-2">{event.participationFee > 0 ? `${event.participationFee.toString().replace('.', ',')}  €` : 'free'}</div>
+          <div className="col-span-2">{eventFee}</div>
 
           <div className="col-span-1 flex items-center">{t('tabOverviewEventHost')}</div>
           {eventAdmin && (

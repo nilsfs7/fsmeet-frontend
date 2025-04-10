@@ -86,6 +86,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
       gender: compGender,
       maxAge: maxAge,
       participationFee: participationFee,
+      participationFeeIncPaymentCosts: -1,
       description: description,
       rules: rules,
       judges: judges,

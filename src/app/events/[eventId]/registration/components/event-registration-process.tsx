@@ -30,6 +30,7 @@ import { CompetitionList } from './competition-list';
 import { PaymentDetails } from './payment-details';
 import { AccommodationList } from './accommodation-list';
 import { AttendeeChoice } from './attendee-choice';
+import { isCompetition } from '@/functions/is-competition';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -104,7 +105,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           break;
 
         case RegistrationProcessPage.ACCOMMODATIONS:
-          if (registrationType === EventRegistrationType.PARTICIPANT) {
+          if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
             previousPage = RegistrationProcessPage.COMPETITIONS;
           } else {
             previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
@@ -112,7 +113,16 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           break;
 
         case RegistrationProcessPage.CHECKOUT_OVERVIEW:
-          previousPage = RegistrationProcessPage.ACCOMMODATIONS;
+          if (event.accommodations.length > 0) {
+            previousPage = RegistrationProcessPage.ACCOMMODATIONS;
+          } else {
+            if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
+              previousPage = RegistrationProcessPage.COMPETITIONS;
+            } else {
+              previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
+            }
+          }
+
           break;
       }
 
@@ -130,15 +140,23 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
       switch (page) {
         case RegistrationProcessPage.REGISTRATION_TYPE:
-          if (registrationType === EventRegistrationType.PARTICIPANT) {
+          if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
             nextPage = RegistrationProcessPage.COMPETITIONS;
           } else {
-            nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+            if (event.accommodations.length > 0) {
+              nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+            } else {
+              nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
+            }
           }
           break;
 
         case RegistrationProcessPage.COMPETITIONS:
-          nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+          if (event.accommodations.length > 0) {
+            nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+          } else {
+            nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
+          }
           break;
 
         case RegistrationProcessPage.ACCOMMODATIONS:
@@ -339,7 +357,11 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
               <div className="m-2">{`Select registration type.`}</div>
 
               <AttendeeChoice
-                fees={[event.participationFee, event.participationFee]}
+                fees={
+                  event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee
+                    ? [event.participationFeeIncPaymentCosts, event.visitorFeeIncPaymentCosts]
+                    : [event.participationFee, event.visitorFee]
+                }
                 checked={registrationType}
                 selectable={true}
                 onCheckedChange={registrationType => {
@@ -356,6 +378,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
               <CompetitionList
                 comps={event.competitions}
+                paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                 disabled={event.competitions.map(comp => {
                   return comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender;
                 })}
@@ -377,6 +400,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
               <AccommodationList
                 accommodations={event.accommodations}
+                paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                 checked={event.accommodations.map(acc => {
                   return acc.id && accommodationOrders.includes(acc.id) ? true : false;
                 })}
@@ -399,7 +423,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                   {registrationType && <Label text={registrationType} />}
                 </div>
 
-                {registrationType === EventRegistrationType.PARTICIPANT && (
+                {registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && (
                   <>
                     <Separator />
 
@@ -408,6 +432,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
                       <CompetitionList
                         comps={event.competitions.filter(c => c.id && compSignUps.includes(c.id))}
+                        paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                         disabled={event.competitions
                           .filter(c => c.id && compSignUps.includes(c.id))
                           .map(comp => {
@@ -424,7 +449,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                   </>
                 )}
 
-                {accommodationOrders.length > 0 && (
+                {event.accommodations.length > 0 && accommodationOrders.length > 0 && (
                   <>
                     <Separator />
 
@@ -433,6 +458,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
                       <AccommodationList
                         accommodations={event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id))}
+                        paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                         checked={event.accommodations
                           .filter(a => a.id && accommodationOrders.includes(a.id))
                           .map(acc => {
@@ -446,7 +472,15 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
 
                 <Separator />
 
-                {registrationType && <PaymentDetails event={event} registrationType={registrationType} compSignUps={compSignUps} accommodationOrders={accommodationOrders} />}
+                {registrationType && (
+                  <PaymentDetails
+                    event={event}
+                    registrationType={registrationType}
+                    compSignUps={compSignUps}
+                    accommodationOrders={accommodationOrders}
+                    paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                  />
+                )}
               </div>
             </div>
           )}

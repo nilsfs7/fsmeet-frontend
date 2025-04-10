@@ -20,18 +20,19 @@ import { EditorMode } from '@/domain/enums/editor-mode';
 import Separator from '../Seperator';
 import SectionHeader from '../common/section-header';
 import Link from 'next/link';
-import { routeEvents } from '@/domain/constants/routes';
+import { routeAccount, routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 import { EventMaintainer } from '@/types/event-maintainer';
 import UserCard from '../user/UserCard';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { User } from '@/types/user';
-import { getUsers } from '@/infrastructure/clients/user.client';
+import { getUser, getUsers } from '@/infrastructure/clients/user.client';
 import { UserType } from '@/domain/enums/user-type';
 import { isEventAdmin } from '@/functions/isEventAdmin';
 import { useSession } from 'next-auth/react';
 import { PaymentMethodStripe } from '@/types/payment-method-stripe';
+import TextButton from '../common/TextButton';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -43,6 +44,8 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const t = useTranslations('global/components/event-editor');
 
   const { data: session } = useSession();
+
+  const [eventAdmin, setEventAdmin] = useState<User>();
 
   const [name, setEventName] = useState(event?.name || '');
   const [alias, setEventAlias] = useState(event?.alias || '');
@@ -62,6 +65,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
   const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || '');
   const [participationFee, setParticipationFee] = useState(event?.participationFee || 0.0);
+  const [visitorFee, setVisitorFee] = useState(event?.visitorFee || 0.0);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
   const [paymentMethodPayPalEnabled, setPaymentMethodPayPalEnabled] = useState<boolean>(event?.paymentMethodPayPal?.enabled || false);
   const [paymentMethodPayPalHandle, setPaymentMethodPayPalHandle] = useState<string>(event?.paymentMethodPayPal?.payPalHandle || '');
@@ -71,6 +75,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const [paymentMethodSepaIban, setPaymentMethodSepaIban] = useState<string>(event?.paymentMethodSepa?.iban || '');
   const [paymentMethodSepaReference, setPaymentMethodSepaReference] = useState<string>(event?.paymentMethodSepa?.reference || '');
   const [paymentMethodStripeEnabled, setPaymentMethodStripeEnabled] = useState<boolean>(event?.paymentMethodStripe?.enabled || false);
+  const [paymentMethodStripeCoverProviderFee, setPaymentMethodStripeCoverProviderFee] = useState<boolean>(event?.paymentMethodStripe?.coverProviderFee || false);
   const [maintainers, setMaintainers] = useState<EventMaintainer[]>(event?.maintainers || []);
   const [maintainerToAddUsername, setMaintainerToAddUsername] = useState<string>();
   const [users, setUsers] = useState<User[]>([]);
@@ -139,7 +144,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       iban: paymentMethodSepaIban,
       reference: paymentMethodSepaReference,
     };
-    const paymentMethodStripe: PaymentMethodStripe = { enabled: paymentMethodStripeEnabled };
+    const paymentMethodStripe: PaymentMethodStripe = { enabled: paymentMethodStripeEnabled, coverProviderFee: paymentMethodStripeCoverProviderFee };
 
     onEventUpdate({
       id: event?.id,
@@ -163,6 +168,9 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       livestreamUrl: livestreamUrl,
       messangerInvitationUrl: messangerInvitationUrl,
       participationFee: participationFee,
+      participationFeeIncPaymentCosts: -1,
+      visitorFee: visitorFee,
+      visitorFeeIncPaymentCosts: -1,
       paymentMethodCash: paymentMethodCash,
       paymentMethodPayPal: paymentMethodPayPal,
       paymentMethodSepa: paymentMethodSepa,
@@ -187,6 +195,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       setDateFrom(event.dateFrom);
       setDateTo(event.dateTo);
       setParticipationFee(event.participationFee);
+      setVisitorFee(event.visitorFee);
       setRegistrationOpen(event.registrationOpen);
       setRegistrationDeadline(event.registrationDeadline);
       setDescription(event.description);
@@ -209,11 +218,17 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       setPaymentMethodSepaIban(event.paymentMethodSepa.iban);
       setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
       setPaymentMethodStripeEnabled(event.paymentMethodStripe.enabled);
+      setPaymentMethodStripeCoverProviderFee(event.paymentMethodStripe.coverProviderFee);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
       setNotifyOnRegistration(event.notifyOnRegistration);
       setAllowComments(event.allowComments);
       setNotifyOnComment(event.notifyOnComment);
     }
+
+    if (event?.admin)
+      getUser(event.admin, session).then(eventAdmin => {
+        setEventAdmin(eventAdmin);
+      });
 
     getUsers().then(users => {
       users = users.filter(user => {
@@ -246,6 +261,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     livestreamUrl,
     messangerInvitationUrl,
     participationFee,
+    visitorFee,
     paymentMethodCashEnabled,
     paymentMethodPayPalEnabled,
     paymentMethodPayPalHandle,
@@ -255,6 +271,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     paymentMethodSepaIban,
     paymentMethodSepaReference,
     paymentMethodStripeEnabled,
+    paymentMethodStripeCoverProviderFee,
     autoApproveRegistrations,
     notifyOnRegistration,
     allowComments,
@@ -332,6 +349,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           onChange={value => {
             if (value) {
               setDateFrom(value.startOf('day').utc().format());
+              setDateTo(value.endOf('day').utc().format()); // set dateTo to same date when dateFrom from was changed (convenience)
             }
           }}
         />
@@ -485,18 +503,36 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
       <CurInput
         id={'participationFee'}
-        label={t('inputFee')}
+        label={t('inputPaticipantFee')}
         placeholder="25,00"
         value={participationFee}
         onValueChange={(value, name, values) => {
           if (values?.float || values?.float === 0) {
             setParticipationFee(values?.float);
+
+            if (values?.float === 0) {
+              setVisitorFee(0);
+            }
           }
         }}
       />
 
       {participationFee > 0 && (
         <>
+          {paymentMethodStripeEnabled && (
+            <CurInput
+              id={'visitorFee'}
+              label={t('inputVisitorFee')}
+              placeholder="10,00"
+              value={visitorFee}
+              onValueChange={(value, name, values) => {
+                if (values?.float || values?.float === 0) {
+                  setVisitorFee(values?.float);
+                }
+              }}
+            />
+          )}
+
           <div className="m-2">{`${t('lblFreeMethods')}:`}</div>
 
           <CheckBox
@@ -611,10 +647,20 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
 
           <div className="m-2">{`${t('lblProfessionalMethods')}:`}</div>
 
+          {!eventAdmin?.stripeAccountId && (
+            <div className="grid grid-cols-2 m-2">
+              <div className="flex items-center">{t(`textCreateStripeAccount`)}</div>
+              <Link href={`${routeAccount}/?tab=account`} target="_blank">
+                <TextButton text={t(`btnCreateStripeAccount`)} />
+              </Link>
+            </div>
+          )}
+
           <CheckBox
             id={'paymentMethodStripeEnabled'}
             label={`- ${t('chbStripeAccept')}`}
             value={paymentMethodStripeEnabled}
+            disabled={!eventAdmin?.stripeAccountId}
             onChange={() => {
               setPaymentMethodStripeEnabled(!paymentMethodStripeEnabled);
 
@@ -622,9 +668,22 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
                 setPaymentMethodCashEnabled(false);
                 setPaymentMethodPayPalEnabled(false);
                 setPaymentMethodSepaEnabled(false);
+              } else {
+                setVisitorFee(0); // reset visitor fee, when Stripe not selected
               }
             }}
           />
+
+          {paymentMethodStripeEnabled && (
+            <CheckBox
+              id={'paymentMethodStripeCoverProviderFeeEnabled'}
+              label={`${t('chbStripeCoverProviderFee')}`}
+              value={paymentMethodStripeCoverProviderFee}
+              onChange={() => {
+                setPaymentMethodStripeCoverProviderFee(!paymentMethodStripeCoverProviderFee);
+              }}
+            />
+          )}
         </>
       )}
 
