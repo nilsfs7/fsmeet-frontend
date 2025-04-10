@@ -13,7 +13,7 @@ interface IAttendeeChoiceList {
   onCheckedChange?: (registrationType: EventRegistrationType) => void;
 }
 
-export const AttendeeChoice = ({ fees, disabled = [], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
+export const AttendeeChoice = ({ fees, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
   return (
     <RadioGroup>
       <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
@@ -36,6 +36,7 @@ export const AttendeeChoice = ({ fees, disabled = [], checked, selectable = fals
                     value={Object.values(EventRegistrationType)[i]}
                     id={`option-${Object.values(EventRegistrationType)[i]}`}
                     checked={checked === Object.values(EventRegistrationType)[i]}
+                    disabled={disabled[i]}
                     onClick={e => {
                       if (onCheckedChange && registrationType) onCheckedChange(Object.values(EventRegistrationType)[i]);
                     }}
