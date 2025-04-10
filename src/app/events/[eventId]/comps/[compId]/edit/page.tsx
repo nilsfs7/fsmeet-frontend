@@ -72,6 +72,7 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
           gender: comp.gender,
           maxAge: comp.maxAge,
           participationFee: comp.participationFee,
+          participationFeeIncPaymentCosts: -1,
           description: comp.description,
           rules: comp.rules,
           judges: comp.judges,
