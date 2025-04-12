@@ -183,6 +183,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       eventRegistrations: [],
       competitions: [],
       accommodations: [],
+      offerings: [],
       state: event?.state || EventState.CREATED,
     });
   };

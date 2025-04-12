@@ -5,4 +5,5 @@ export type EventRegistrationInfo = {
   registrationType?: EventRegistrationType;
   compSignUps: string[];
   accommodationOrders: string[];
+  offeringOrders: string[];
 };

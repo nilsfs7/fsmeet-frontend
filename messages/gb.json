@@ -307,6 +307,14 @@
     "textNotFound": "Event not found.",
     "btnBackToEvents": "Back To Overview"
   },
+  "/events/eventid/offerings": {
+    "pageTitle": "Manage Offerings",
+    "btnCreate": "Create"
+  },
+  "/events/eventid/offerings/create": {
+    "pageTitle": "Create Offering",
+    "btnCreate": "Create"
+  },
   "/events/eventid/participants": {
     "pageTitle": "Manage Participants",
     "textNoRegistrations": "No registrations, yet.",
@@ -569,6 +577,11 @@
     "chbNotifyOnRegistration": "Notify On New Registration",
     "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
     "chbNotifyOnComment": "Notify On Comment"
+  },
+  "global/components/offering-editor": {
+    "inputDescription": "Description",
+    "inputMandatoryForParticipant": "Mandatory (participant)",
+    "inputCost": "Cost"
   },
   "global/components/poll-editor": {
     "inputQuestion": "Question",

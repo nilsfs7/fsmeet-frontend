@@ -49,7 +49,14 @@ export default async function EventDetails({ params }: { params: { eventId: stri
               {/* todo: restrict im backend falls trotzdem accommodations eingestellt werden */}
               {event.paymentMethodStripe.enabled && (
                 <Link href={`${routeEvents}/${params.eventId}/accommodations`}>
-                  <ActionButton action={Action.MANAGE_ACCOMMODATION} />
+                  <ActionButton action={Action.MANAGE_ACCOMMODATIONS} />
+                </Link>
+              )}
+
+              {/* todo: restrict im backend falls trotzdem offerings eingestellt werden */}
+              {event.paymentMethodStripe.enabled && (
+                <Link href={`${routeEvents}/${params.eventId}/offerings`}>
+                  <ActionButton action={Action.MANAGE_OFFERINGS} />
                 </Link>
               )}
 

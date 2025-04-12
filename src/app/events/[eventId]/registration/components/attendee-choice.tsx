@@ -29,7 +29,7 @@ export const AttendeeChoice = ({ fees, disabled = [false, false], checked, selec
           {registrationTypes.map((registrationType, i) => (
             <tr key={i} className={`${i < registrationTypes.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
               <td className="py-3 px-3 capitalize">{registrationType.toLowerCase()}</td>
-              <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${fees[i]} €`}</td>
+              <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${fees[i]} €`.replace('.', ',')}</td>
               {selectable && (
                 <td className="py-3 px-3 text-center">
                   <RadioGroupItem

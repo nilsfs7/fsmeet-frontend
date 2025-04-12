@@ -307,6 +307,14 @@
     "textNotFound": "Event nicht gefunden.",
     "btnBackToEvents": "Zur Übersicht"
   },
+  "/events/eventid/offerings": {
+    "pageTitle": "Angebote verwalten",
+    "btnCreate": "Erstellen"
+  },
+  "/events/eventid/offerings/create": {
+    "pageTitle": "Angebot erstellen",
+    "btnCreate": "Erstellen"
+  },
   "/events/eventid/participants": {
     "pageTitle": "Teilnehmer verwalten",
     "textNoRegistrations": "Noch keine Registrierungen.",
@@ -486,6 +494,11 @@
     "associationName": "Vereinsname",
     "brandName": "Markenname"
   },
+  "global/components/accommodation-editor": {
+    "inputDescription": "Beschreibung",
+    "inputWebsite": "Website (optional)",
+    "inputCost": "Kosten"
+  },
   "global/components/battle-grid": {
     "btnAddMatch": "Match hinzufügen"
   },
@@ -552,6 +565,11 @@
     "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",
     "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
     "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
+  },
+  "global/components/offering-editor": {
+    "inputDescription": "Beschreibung",
+    "inputMandatoryForParticipant": "Obligatorisch (Teilnehmer)",
+    "inputCost": "Preis"
   },
   "global/components/poll-editor": {
     "inputQuestion": "Frage",
