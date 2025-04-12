@@ -65,7 +65,7 @@ export async function createAccommodation(eventId: string, description: string, 
 export async function updateAccommodation(id: string, description: string, cost: number, website: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations`;
 
-  const body = new PatchAccommodationBodyDto(id, description, website, cost);
+  const body = new PatchAccommodationBodyDto(id, description, cost, website);
 
   const response = await fetch(url, {
     method: 'PATCH',

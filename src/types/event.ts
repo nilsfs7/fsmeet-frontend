@@ -8,6 +8,7 @@ import { PaymentMethodStripe } from './payment-method-stripe';
 import { EventState } from '../domain/enums/event-state';
 import { EventMaintainer } from './event-maintainer';
 import { Accommodation } from './accommodation';
+import { Offering } from './offering';
 
 export type Event = {
   id?: string;
@@ -45,5 +46,6 @@ export type Event = {
   eventRegistrations: EventRegistration[];
   competitions: Competition[];
   accommodations: Accommodation[];
+  offerings: Offering[];
   state: EventState;
 };

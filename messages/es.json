@@ -295,7 +295,7 @@
   },
   "/events/eventid/comps/create": {
     "pageTitle": "Crear Competición",
-    "btnCreate": "Competición"
+    "btnCreate": "Crear"
   },
   "/events/eventid/feedback": {
     "pageTitle": "Comentarios sobre el evento",
@@ -306,6 +306,14 @@
   "/events/eventid/not-found": {
     "textNotFound": "Evento no encontrado.",
     "btnBackToEvents": "A la visión general"
+  },
+  "/events/eventid/offerings": {
+    "pageTitle": "Gestionar ofertas",
+    "btnCreate": "Crear"
+  },
+  "/events/eventid/offerings/create": {
+    "pageTitle": "Crear oferta",
+    "btnCreate": "Crear"
   },
   "/events/eventid/participants": {
     "pageTitle": "Gestionar a los participantes",
@@ -486,6 +494,11 @@
     "associationName": "Nombre del club",
     "brandName": "Nombre de marca"
   },
+  "global/components/accommodation-editor": {
+    "inputDescription": "Descripción",
+    "inputWebsite": "Sitio web (opcional)",
+    "inputCost": "Costo"
+  },
   "global/components/battle-grid": {
     "btnAddMatch": "Añadir partido"
   },
@@ -552,6 +565,11 @@
     "chbNotifyOnRegistration": "Notificar con nuevo registro",
     "chbAllowCommentsAndQuestions": "Activar la función de comentarios",
     "chbNotifyOnComment": "Notificarme un nuevo comentario"
+  },
+  "global/components/offering-editor": {
+    "inputDescription": "Descripción",
+    "inputMandatoryForParticipant": "Obligatoria (Partícipe)",
+    "inputCost": "Costo"
   },
   "global/components/poll-editor": {
     "inputQuestion": "Pregunta",

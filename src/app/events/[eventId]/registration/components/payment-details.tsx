@@ -9,10 +9,11 @@ interface IPaymentDetails {
   registrationType: EventRegistrationType;
   compSignUps: string[];
   accommodationOrders: string[];
+  offeringOrders: string[];
   paymentFeeCover: boolean;
 }
 
-export const PaymentDetails = ({ event, registrationType, compSignUps, accommodationOrders, paymentFeeCover }: IPaymentDetails) => {
+export const PaymentDetails = ({ event, registrationType, compSignUps, accommodationOrders, offeringOrders, paymentFeeCover }: IPaymentDetails) => {
   let eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFee : event.visitorFee;
   if (paymentFeeCover) {
     eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFeeIncPaymentCosts : event.visitorFeeIncPaymentCosts;
@@ -41,6 +42,19 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
           </div>
         )}
 
+        {offeringOrders.length > 0 && (
+          <div className="flex justify-between">
+            <div>{`Offering fee(s)`}</div>
+            <div>
+              {`${event.offerings
+                .filter(a => a.id && offeringOrders.includes(a.id))
+                .reduce((off, o) => off + (paymentFeeCover ? o.costIncPaymentCosts : o.cost), 0)
+                .toString()
+                .replace('.', ',')} €`}
+            </div>
+          </div>
+        )}
+
         {accommodationOrders.length > 0 && (
           <div className="flex justify-between">
             <div>{`Accommodation fee(s)`}</div>
@@ -62,7 +76,8 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
                 100 *
                   (eventFee +
                     event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0) +
-                    event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0))
+                    event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0) +
+                    event.offerings.filter(o => o.id && offeringOrders.includes(o.id)).reduce((off, o) => off + (paymentFeeCover ? o.costIncPaymentCosts : o.cost), 0))
               ) / 100
             )
               .toString()

@@ -77,6 +77,7 @@ export default function EditEventAccommodation({ params }: { params: { eventId: 
       </Dialog>
 
       <div className="h-[calc(100dvh)] flex flex-col">
+        {/* todo: translations */}
         <PageTitle title="Edit Accommodation" />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>

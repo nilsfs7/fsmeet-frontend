@@ -31,6 +31,7 @@ import { PaymentDetails } from './payment-details';
 import { AccommodationList } from './accommodation-list';
 import { AttendeeChoice } from './attendee-choice';
 import { isCompetition } from '@/functions/is-competition';
+import { OfferingList } from './offering-list';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -40,8 +41,9 @@ interface IEventRegistrationProcess {
 enum RegistrationProcessPage {
   REGISTRATION_TYPE = '1',
   COMPETITIONS = '2',
-  ACCOMMODATIONS = '3',
-  CHECKOUT_OVERVIEW = '4',
+  OFFERINGS = '3',
+  ACCOMMODATIONS = '4',
+  CHECKOUT_OVERVIEW = '5',
 }
 
 export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProcess) => {
@@ -56,6 +58,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   const [registrationType, setRegistrationType] = useState<EventRegistrationType>();
   const [compSignUps, setCompSignUps] = useState<string[]>([]);
   const [accommodationOrders, setAccommodationOrders] = useState<string[]>([]);
+  const [offeringOrders, setOfferingOrders] = useState<string[]>([]);
   const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
@@ -87,6 +90,23 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
     return false;
   };
 
+  const addMandatoryOfferings = () => {
+    // checks and adds a offerings to the orders when it's mandatory
+
+    if (registrationType === EventRegistrationType.PARTICIPANT) {
+      let offIds = Array.from(offeringOrders);
+
+      event.offerings.forEach(offering => {
+        if (offering.mandatoryForParticipant)
+          if (offering.id && !offeringOrders.includes(offering.id)) {
+            offIds.push(offering.id);
+          }
+      });
+
+      setOfferingOrders(offIds);
+    }
+  };
+
   const handleCancelClicked = async () => {
     router.replace(pageUrl);
   };
@@ -104,7 +124,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
           break;
 
-        case RegistrationProcessPage.ACCOMMODATIONS:
+        case RegistrationProcessPage.OFFERINGS:
           if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
             previousPage = RegistrationProcessPage.COMPETITIONS;
           } else {
@@ -112,9 +132,9 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           }
           break;
 
-        case RegistrationProcessPage.CHECKOUT_OVERVIEW:
-          if (event.accommodations.length > 0) {
-            previousPage = RegistrationProcessPage.ACCOMMODATIONS;
+        case RegistrationProcessPage.ACCOMMODATIONS:
+          if (event.offerings.length > 0) {
+            previousPage = RegistrationProcessPage.OFFERINGS;
           } else {
             if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
               previousPage = RegistrationProcessPage.COMPETITIONS;
@@ -122,13 +142,30 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
               previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
             }
           }
+          break;
 
+        case RegistrationProcessPage.CHECKOUT_OVERVIEW:
+          if (event.accommodations.length > 0) {
+            previousPage = RegistrationProcessPage.ACCOMMODATIONS;
+          } else {
+            if (event.offerings.length > 0) {
+              previousPage = RegistrationProcessPage.OFFERINGS;
+            } else {
+              if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
+                previousPage = RegistrationProcessPage.COMPETITIONS;
+              } else {
+                previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
+              }
+            }
+          }
           break;
       }
 
       if (previousPage) {
         router.replace(`${pageUrl}?page=${previousPage}`);
       }
+
+      cacheRegistrationInfo();
     }
   };
 
@@ -143,6 +180,22 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
             nextPage = RegistrationProcessPage.COMPETITIONS;
           } else {
+            if (event.offerings.length > 0) {
+              nextPage = RegistrationProcessPage.OFFERINGS;
+            } else {
+              if (event.accommodations.length > 0) {
+                nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+              } else {
+                nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
+              }
+            }
+          }
+          break;
+
+        case RegistrationProcessPage.COMPETITIONS:
+          if (event.offerings.length > 0) {
+            nextPage = RegistrationProcessPage.OFFERINGS;
+          } else {
             if (event.accommodations.length > 0) {
               nextPage = RegistrationProcessPage.ACCOMMODATIONS;
             } else {
@@ -151,7 +204,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           }
           break;
 
-        case RegistrationProcessPage.COMPETITIONS:
+        case RegistrationProcessPage.OFFERINGS:
           if (event.accommodations.length > 0) {
             nextPage = RegistrationProcessPage.ACCOMMODATIONS;
           } else {
@@ -178,7 +231,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   const handleRegisterNowClicked = async () => {
     if (event.id && registrationType) {
       try {
-        await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, session);
+        await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, offeringOrders, session);
         cleanupCacheRegistrationInfo();
 
         // todo: don't redirect when user is not paying directly
@@ -263,6 +316,18 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
     setAccommodationOrders(accIds);
   };
 
+  const handleCheckBoxOrderOfferingChanged = (offeringId: string) => {
+    let offIds = Array.from(offeringOrders);
+
+    if (offIds.includes(offeringId)) {
+      offIds = offIds.filter(item => item !== offeringId);
+    } else {
+      offIds.push(offeringId);
+    }
+
+    setOfferingOrders(offIds);
+  };
+
   const cacheRegistrationInfo = async () => {
     try {
       const info: EventRegistrationInfo = {
@@ -270,6 +335,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
         registrationType: registrationType,
         compSignUps: compSignUps,
         accommodationOrders: accommodationOrders,
+        offeringOrders: offeringOrders,
       };
 
       sessionStorage.setItem('registrationInfo', JSON.stringify(info));
@@ -296,8 +362,13 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       setRegistrationType(registrationInfo.registrationType);
       setCompSignUps(registrationInfo.compSignUps);
       setAccommodationOrders(registrationInfo.accommodationOrders);
+      setOfferingOrders(registrationInfo.offeringOrders);
     }
   }, []);
+
+  useEffect(() => {
+    addMandatoryOfferings();
+  }, [event]);
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
@@ -393,8 +464,28 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
             </div>
           )}
 
-          {/* Page: Accommodations */}
+          {/* Page: Offerings */}
           {page && +page === 3 && (
+            <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
+              <div className="m-2">{`Select offering.`}</div>
+
+              <OfferingList
+                offerings={event.offerings}
+                paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                registrationType={registrationType}
+                checked={event.offerings.map(off => {
+                  return off.id && offeringOrders.includes(off.id) ? true : false;
+                })}
+                selectable={true}
+                onCheckedChange={(checked, offeringId) => {
+                  if (offeringId) handleCheckBoxOrderOfferingChanged(offeringId);
+                }}
+              />
+            </div>
+          )}
+
+          {/* Page: Accommodations */}
+          {page && +page === 4 && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
               <div className="m-2">{`Select accommodation. Skip if you don't need any.`}</div>
 
@@ -413,7 +504,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           )}
 
           {/* Page: Overview */}
-          {page && +page === 4 && (
+          {page && +page === 5 && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
               <div className="m-2">{`Please review your selection before proceeding with checkout.`}</div>
 
@@ -442,6 +533,27 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                           .filter(c => c.id && compSignUps.includes(c.id))
                           .map(comp => {
                             return comp.id && compSignUps.includes(comp.id) ? true : false;
+                          })}
+                        selectable={false}
+                      />
+                    </div>
+                  </>
+                )}
+
+                {event.offerings.length > 0 && offeringOrders.length > 0 && (
+                  <>
+                    <Separator />
+
+                    <div>
+                      <div className="m-2 text-lg">{`Offering`}</div>
+
+                      <OfferingList
+                        offerings={event.offerings.filter(o => o.id && offeringOrders.includes(o.id))}
+                        paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                        checked={event.offerings
+                          .filter(o => o.id && offeringOrders.includes(o.id))
+                          .map(off => {
+                            return off.id && offeringOrders.includes(off.id) ? true : false;
                           })}
                         selectable={false}
                       />
@@ -478,6 +590,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                     registrationType={registrationType}
                     compSignUps={compSignUps}
                     accommodationOrders={accommodationOrders}
+                    offeringOrders={offeringOrders}
                     paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                   />
                 )}
