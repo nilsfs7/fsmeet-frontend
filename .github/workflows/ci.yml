@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - dev
+      - dev-ui
   pull_request:
     branches:
       - main
@@ -29,6 +30,11 @@ jobs:
               echo "TAGS=nilsfs7/fsmeet-frontend:latest,nilsfs7/fsmeet-frontend:prod" >> "$GITHUB_ENV"
               echo "AUTH_URL=https://fsmeet.com" >> "$GITHUB_ENV"
               echo "BACKEND_URL=https://api.fsmeet.dffb.org" >> "$GITHUB_ENV"
+          fi
+          if [[ $GITHUB_REF == 'refs/heads/dev-ui' ]]; then
+              echo "set values for dev-ui image"
+              
+              echo "TAGS=luisnaldo7/fsmeet-frontend:dev-ui" >> "$GITHUB_ENV"
           fi
 
       - name: Set up QEMU
