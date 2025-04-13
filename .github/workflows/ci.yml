@@ -34,7 +34,7 @@ jobs:
           if [[ $GITHUB_REF == 'refs/heads/dev-ui' ]]; then
               echo "set values for dev-ui image"
               
-              echo "TAGS=luisnaldo7/fsmeet-frontend:dev-ui" >> "$GITHUB_ENV"
+              echo "TAGS=nilsfs7/fsmeet-frontend:dev-ui" >> "$GITHUB_ENV"
           fi
 
       - name: Set up QEMU
