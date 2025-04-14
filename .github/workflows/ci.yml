@@ -35,6 +35,7 @@ jobs:
               echo "set values for dev-ui image"
               
               echo "TAGS=nilsfs7/fsmeet-frontend:dev-ui" >> "$GITHUB_ENV"
+              echo "AUTH_URL=https://dev-ui.fsmeet.dffb.org" >> "$GITHUB_ENV"
           fi
 
       - name: Set up QEMU
