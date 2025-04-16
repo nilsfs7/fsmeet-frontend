@@ -569,6 +569,7 @@
   "global/components/offering-editor": {
     "inputDescription": "Description",
     "inputMandatoryForParticipant": "Obligatoire (Participant)",
+    "inputIncludesShirt": "Est ou comprend un t-shirt",
     "inputCost": "Coût"
   },
   "global/components/poll-editor": {

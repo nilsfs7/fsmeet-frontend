@@ -20,6 +20,7 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
   const [description, setOfferingDescription] = useState(offering?.description || '');
   const [cost, setCost] = useState(offering?.cost || 0.0);
   const [mandatoryForParticipant, setMandatoryForParticipant] = useState<boolean>(offering?.mandatoryForParticipant || false);
+  const [includesShirt, setIncludesShirt] = useState<boolean>(offering?.includesShirt || false);
   const [imgPreview, setImgPreview] = useState<any>();
   const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState('');
 
@@ -38,6 +39,7 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
       eventId: offering?.eventId,
       description: description,
       mandatoryForParticipant: mandatoryForParticipant,
+      includesShirt: includesShirt,
       imageUrlPreview: offering?.imageUrlPreview,
       cost: cost,
       costIncPaymentCosts: -1,
@@ -56,15 +58,16 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
   useEffect(() => {
     if (offering) {
       setOfferingDescription(offering.description);
-      setMandatoryForParticipant(offering.mandatoryForParticipant);
       setCost(offering.cost);
+      setMandatoryForParticipant(offering.mandatoryForParticipant);
+      setIncludesShirt(offering.includesShirt);
     }
   }, [offering]);
 
   // fires offering back
   useEffect(() => {
     updateOffering();
-  }, [description, mandatoryForParticipant, cost]);
+  }, [description, cost, mandatoryForParticipant, includesShirt]);
 
   // fires offering preview back
   useEffect(() => {
@@ -84,6 +87,16 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
           }}
         />
 
+        <CurInput
+          id={'cost'}
+          label={t('inputCost')}
+          placeholder="35,00"
+          value={cost}
+          onValueChange={(value, name, values) => {
+            if (values) handleCostChanged(values);
+          }}
+        />
+
         <CheckBox
           id={'mandatoryForParticipant'}
           label={`${t('inputMandatoryForParticipant')}`}
@@ -93,13 +106,12 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
           }}
         />
 
-        <CurInput
-          id={'cost'}
-          label={t('inputCost')}
-          placeholder="35,00"
-          value={cost}
-          onValueChange={(value, name, values) => {
-            if (values) handleCostChanged(values);
+        <CheckBox
+          id={'includesShirt'}
+          label={`${t('inputIncludesShirt')}`}
+          value={includesShirt}
+          onChange={() => {
+            setIncludesShirt(!includesShirt);
           }}
         />
 
