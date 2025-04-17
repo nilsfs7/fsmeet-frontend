@@ -4,13 +4,36 @@ interface IButton {
   text: string;
   style?: ButtonStyle;
   disabled?: boolean;
+  className?: string;
   onClick?: () => void;
 }
 
-const TextButton = ({ text, style = ButtonStyle.DEFAULT, disabled = false, onClick }: IButton) => {
+const TextButton = ({ text, style = ButtonStyle.DEFAULT, disabled = false, className = '', onClick }: IButton) => {
+  const getButtonColors = () => {
+    if (disabled) {
+      return 'bg-secondary-light text-primary';
+    }
+
+    switch (style) {
+      case ButtonStyle.DEFAULT:
+        return 'bg-primary hover:bg-primary-dark text-background';
+      case ButtonStyle.CRITICAL:
+        return 'bg-critical hover:bg-critical-dark text-background';
+      default:
+    }
+  };
+
   return (
     <button
-      className={`w-36 rounded-lg border border-secondary-dark ${disabled ? 'bg-secondary-light' : style === ButtonStyle.DEFAULT ? 'bg-primary' : 'bg-critical'}  p-2 font-bold ${disabled ? 'text-primary' : 'text-background'}`}
+      className={`
+      min-w-36 p-2 rounded-lg font-medium
+      transition-all duration-20000 ease-in-out
+      transform hover:scale-[1.02] active:scale-[0.98]
+      shadow-sm hover:shadow-md
+      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
+      ${getButtonColors()}
+      ${className}
+    `}
       disabled={disabled}
       onClick={onClick}
     >

@@ -13,7 +13,7 @@ import moment from 'moment';
 import { DatePicker } from './common/DatePicker';
 import CheckBox from './common/CheckBox';
 import Separator from './Seperator';
-import SectionHeader from './common/section-header';
+import SectionHeader from './common/SectionHeader';
 import ComboBox from './common/ComboBox';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
 import { TargetGroup } from '@/types/target-group';

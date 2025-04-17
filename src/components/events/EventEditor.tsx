@@ -18,7 +18,7 @@ import { EventState } from '@/domain/enums/event-state';
 import { DatePicker } from '../common/DatePicker';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import Separator from '../Seperator';
-import SectionHeader from '../common/section-header';
+import SectionHeader from '../common/SectionHeader';
 import Link from 'next/link';
 import { routeAccount, routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';

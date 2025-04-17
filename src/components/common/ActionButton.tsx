@@ -23,128 +23,134 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/domain/enums/size';
 import { imgWorld } from '@/domain/constants/images';
+import { ButtonStyle } from '@/domain/enums/button-style';
 
 interface IButton {
   action: Action;
   size?: Size;
+  style?: ButtonStyle;
   onClick?: () => void;
-}
-
-enum IconSize {
-  S = 'h-4 w-4',
-  M = 'h-6 w-6',
-  L = 'h-8 w-8',
 }
 
 enum ButtonSize {
   S = 'h-8 w-8',
   M = 'h-10 w-10',
-  L = 'h-12 w-12',
 }
 
-const ActionButton = ({ action, size = Size.M, onClick }: IButton) => {
-  const textColor = 'text-primary';
+const ActionButton = ({ action, size = Size.M, style = ButtonStyle.DEFAULT, onClick }: IButton) => {
+  const getButtonColors = () => {
+    switch (style) {
+      case ButtonStyle.DEFAULT:
+        return 'bg-transparent hover:bg-secondary-light text-primary border-primary';
+      case ButtonStyle.WARNING:
+        return 'bg-transparent hover:bg-secondary-light text-warning border-primary';
+      case ButtonStyle.CRITICAL:
+        return 'bg-transparent hover:bg-secondary-light text-critical border-primary';
+    }
+  };
 
   let buttonSize = '';
-  let iconSize = '';
   switch (size) {
     case Size.S:
       buttonSize = ButtonSize.S;
-      iconSize = IconSize.S;
       break;
     case Size.M:
       buttonSize = ButtonSize.M;
-      iconSize = IconSize.M;
-      break;
-    case Size.L:
-      buttonSize = ButtonSize.L;
-      iconSize = IconSize.L;
       break;
   }
 
-  const className = `${textColor} ${iconSize}`;
-
-  let icon = <ArrowBackIcon className={`${className}`} />;
+  let icon = <ArrowBackIcon />;
 
   switch (action) {
     case Action.ADD:
-      icon = <AddCircleIcon className={className} />;
+      icon = <AddCircleIcon />;
       break;
     case Action.ACCEPT:
-      icon = <CheckIcon className={className} />;
+      icon = <CheckIcon />;
       break;
     case Action.BACK:
-      icon = <ArrowBackIcon className={className} />;
+      icon = <ArrowBackIcon />;
       break;
     case Action.CANCEL:
-      icon = <CancelIcon className={className} />;
+      icon = <CancelIcon />;
       break;
     case Action.COMMENT:
-      icon = <CommentIcon className={className} />;
+      icon = <CommentIcon />;
       break;
     case Action.COPY:
-      icon = <CopyIcon className={className} />;
+      icon = <CopyIcon />;
       break;
     case Action.DELETE:
-      icon = <DeleteIcon className={className} />;
+      icon = <DeleteIcon />;
       break;
     case Action.DENY:
-      icon = <CancelIcon className={className} />;
+      icon = <CancelIcon />;
       break;
     case Action.DOWNLOAD:
-      icon = <CloudDownloadIcon className={className} />;
+      icon = <CloudDownloadIcon />;
       break;
     case Action.EDIT:
-      icon = <EditIcon className={className} />;
+      icon = <EditIcon />;
       break;
     case Action.GOTOMAP:
-      icon = <img src={imgWorld} className={className} />;
+      icon = <img src={imgWorld} />;
       break;
     case Action.GOTOEXTERNAL:
       icon = <OpenInNewIcon />;
       break;
     case Action.HIDE:
-      icon = <VisibilityOffIcon className={className} />;
+      icon = <VisibilityOffIcon />;
       break;
     case Action.MANAGE_ACCOMMODATIONS:
-      icon = <HotelIcon className={className} />;
+      icon = <HotelIcon />;
       break;
     case Action.MANAGE_COMPETITIONS:
-      icon = <TrophyIcon className={className} />;
+      icon = <TrophyIcon />;
       break;
     case Action.MANAGE_OFFERINGS:
-      icon = <LocalOfferIcon className={className} />;
+      icon = <LocalOfferIcon />;
       break;
     case Action.MANAGE_USERS:
-      icon = <PeopleIcon className={className} />;
+      icon = <PeopleIcon />;
       break;
     case Action.MANAGE_SPONSORS:
-      icon = <PaidIcon className={className} />;
+      icon = <PaidIcon />;
       break;
     case Action.PLAY:
-      icon = <PlayCircleOutlineIcon className={className} />;
+      icon = <PlayCircleOutlineIcon />;
       break;
     case Action.REMOVE:
-      icon = <RemoveCircleIcon className={className} />;
+      icon = <RemoveCircleIcon />;
       break;
     case Action.SAVE:
-      icon = <SaveIcon className={className} />;
+      icon = <SaveIcon />;
       break;
     case Action.SEND:
-      icon = <SendIcon className={className} />;
+      icon = <SendIcon />;
       break;
     case Action.SHARE:
-      icon = <ShareIcon className={className} />;
+      icon = <ShareIcon />;
       break;
     case Action.SHOW:
-      icon = <VisibilityIcon className={className} />;
+      icon = <VisibilityIcon />;
       break;
   }
 
   return (
-    <div className={`rounded-lg border border-primary ${buttonSize} flex justify-center items-center hover:bg-secondary`} onClick={onClick}>
+    <button
+      className={`
+      ${buttonSize} rounded-lg border flex justify-center items-center
+      transition-all duration-200 ease-in-out
+      transform hover:scale-[1.02] active:scale-[0.98]
+      shadow-sm hover:shadow-md
+      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
+      ${getButtonColors()}
+    `}
+      onClick={onClick}
+      aria-label={action.toString().toLowerCase()}
+    >
       {icon}
-    </div>
+    </button>
   );
 };
 
