@@ -1,6 +1,5 @@
 'use client';
 
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
@@ -32,6 +31,7 @@ import { AccommodationList } from './accommodation-list';
 import { AttendeeChoice } from './attendee-choice';
 import { isCompetition } from '@/functions/is-competition';
 import { OfferingList } from './offering-list';
+import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -59,6 +59,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   const [compSignUps, setCompSignUps] = useState<string[]>([]);
   const [accommodationOrders, setAccommodationOrders] = useState<string[]>([]);
   const [offeringOrders, setOfferingOrders] = useState<string[]>([]);
+  const [offeringTShirtSize, setOfferingShirtSize] = useState<string>(user.tShirtSize || menuTShirtSizesWithUnspecified[0].value);
   const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
@@ -84,6 +85,19 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
     }
 
     if (page === RegistrationProcessPage.COMPETITIONS && compSignUps.length === 0) {
+      return true;
+    }
+
+    if (
+      page === RegistrationProcessPage.OFFERINGS &&
+      event.offerings.some(off => {
+        if (off.includesShirt && off.id && offeringOrders.includes(off.id)) {
+          return off;
+        }
+      }) &&
+      offeringTShirtSize &&
+      offeringTShirtSize === menuTShirtSizesWithUnspecified[0].value
+    ) {
       return true;
     }
 
@@ -231,7 +245,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   const handleRegisterNowClicked = async () => {
     if (event.id && registrationType) {
       try {
-        await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, offeringOrders, session);
+        await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, offeringOrders, offeringTShirtSize, session);
         cleanupCacheRegistrationInfo();
 
         // todo: don't redirect when user is not paying directly
@@ -336,6 +350,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
         compSignUps: compSignUps,
         accommodationOrders: accommodationOrders,
         offeringOrders: offeringOrders,
+        offeringTShirtSize: offeringTShirtSize,
       };
 
       sessionStorage.setItem('registrationInfo', JSON.stringify(info));
@@ -363,6 +378,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       setCompSignUps(registrationInfo.compSignUps);
       setAccommodationOrders(registrationInfo.accommodationOrders);
       setOfferingOrders(registrationInfo.offeringOrders);
+      setOfferingShirtSize(registrationInfo.offeringTShirtSize);
     }
   }, []);
 
@@ -476,9 +492,13 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                 checked={event.offerings.map(off => {
                   return off.id && offeringOrders.includes(off.id) ? true : false;
                 })}
+                tShirtSize={offeringTShirtSize}
                 selectable={true}
                 onCheckedChange={(checked, offeringId) => {
                   if (offeringId) handleCheckBoxOrderOfferingChanged(offeringId);
+                }}
+                onShirtSizeChange={size => {
+                  setOfferingShirtSize(size);
                 }}
               />
             </div>

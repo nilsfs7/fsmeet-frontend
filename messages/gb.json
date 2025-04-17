@@ -65,7 +65,7 @@
     "dlgJobsTermsDataSharingDetailsOnRequest": "Publicly listed",
     "dlgJobsTermsDataSharingDetailsPhone": "Phone number",
     "dlgJobsTermsDataSharingDetailsEmail": "Email",
-    "dlgJobsTermsDataSharingDetailsShirtSize": "Shirt size",
+    "dlgJobsTermsDataSharingDetailsShirtSize": "T-Shirt size",
     "dlgAccountVerificationTitle": "Account Verification",
     "dlgAccountVerificationStep1": "Step 1",
     "dlgAccountVerificationStep1Text1": "Provide your first name, gender and country in general info. Any other fields are optional.",
@@ -581,7 +581,11 @@
   "global/components/offering-editor": {
     "inputDescription": "Description",
     "inputMandatoryForParticipant": "Mandatory (participant)",
+    "inputIncludesShirt": "Is or includes a shirt",
     "inputCost": "Cost"
+  },
+  "global/components/offering-list": {
+    "cbShirtSize": "T-Shirt Size"
   },
   "global/components/poll-editor": {
     "inputQuestion": "Question",

@@ -569,7 +569,11 @@
   "global/components/offering-editor": {
     "inputDescription": "Beschreibung",
     "inputMandatoryForParticipant": "Obligatorisch (Teilnehmer)",
+    "inputIncludesShirt": "Ist oder beinhaltet ein T-Shirt",
     "inputCost": "Preis"
+  },
+  "global/components/offering-list": {
+    "cbShirtSize": "T-Shirt Größe"
   },
   "global/components/poll-editor": {
     "inputQuestion": "Frage",

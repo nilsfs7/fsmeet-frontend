@@ -5,5 +5,6 @@ export type Offering = {
   cost: number;
   costIncPaymentCosts: number;
   mandatoryForParticipant: boolean;
+  includesShirt: boolean;
   imageUrlPreview?: string;
 };
