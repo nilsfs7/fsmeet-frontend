@@ -572,6 +572,9 @@
     "inputIncludesShirt": "Es o incluye una camiseta",
     "inputCost": "Costo"
   },
+  "global/components/offering-list": {
+    "cbShirtSize": "Talla de camiseta"
+  },
   "global/components/poll-editor": {
     "inputQuestion": "Pregunta",
     "inputDescription": "Contexto (opcional)",
