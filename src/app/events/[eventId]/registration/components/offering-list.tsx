@@ -56,26 +56,27 @@ export const OfferingList = ({ offerings, paymentFeeCover, registrationType, tSh
         </tbody>
       </table>
 
-      {offerings.some((off, i) => {
-        if (off.includesShirt && checked[i]) {
-          return off;
-        }
-      }) && (
-        <div className="p-2">
-          <div className="grid grid-cols-2 items-center">
-            <div>{t('cbShirtSize')}</div>
-            <div className="flex w-full">
-              <ComboBox
-                menus={menuTShirtSizesWithUnspecified}
-                value={tShirtSize || menuTShirtSizesWithUnspecified[0].value}
-                onChange={value => {
-                  if (onShirtSizeChange) onShirtSizeChange(value);
-                }}
-              />
+      {tShirtSize &&
+        offerings.some((off, i) => {
+          if (off.includesShirt && checked[i]) {
+            return off;
+          }
+        }) && (
+          <div className="p-2">
+            <div className="grid grid-cols-2 items-center">
+              <div>{t('cbShirtSize')}</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuTShirtSizesWithUnspecified}
+                  value={tShirtSize || menuTShirtSizesWithUnspecified[0].value}
+                  onChange={value => {
+                    if (onShirtSizeChange) onShirtSizeChange(value);
+                  }}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 };
