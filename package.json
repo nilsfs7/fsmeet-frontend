@@ -57,7 +57,7 @@
     "react": "19.1.0",
     "react-country-flag": "^3.1.0",
     "react-currency-input-field": "^3.10.0",
-    "react-day-picker": "^9.6.7",
+    "react-day-picker": "8.10.1",
     "react-dom": "^19.1.0",
     "react-tabs": "^6.1.0",
     "react-textarea-autosize": "^8.5.9",
