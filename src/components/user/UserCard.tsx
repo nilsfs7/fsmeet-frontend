@@ -33,7 +33,7 @@ const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserTy
     <Link href={`${routeUsers}/${user.username}`}>
       <div className={'w-max rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
         <div className="grid grid-flow-col items-center">
-          <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="mx-1 h-6 w-6 rounded-full object-cover" />
+          <img src={user.imageUrl || imgUserDefaultImg} className="mx-1 h-6 w-6 rounded-full object-cover" />
 
           {showName && <div className="mx-1">{name}</div>}
 
