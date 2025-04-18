@@ -12,6 +12,7 @@ import { EventsCarousel } from './components/events-carousel';
 import { getTranslations } from 'next-intl/server';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/types/user';
+import { NavigationItem } from './components/navigation-item';
 
 export default async function Home() {
   const t = await getTranslations(routeHome);
@@ -54,52 +55,18 @@ export default async function Home() {
 
       <Navigation>
         <div className="mx-2 flex gap-2">
-          <Link href={routeMap}>
-            <div className="flex flex-col md:flex-row items-center gap-1">
-              <img src={imgWorld} className="h-8 w-8 rounded-full object-cover" />
-              <div>{t('navMap')}</div>
-            </div>
-          </Link>
+          <NavigationItem targetRoute={routeMap} image={imgWorld} label={t('navMap')} />
 
-          <Link href={routeUsers}>
-            <div className="flex flex-col md:flex-row items-center gap-1">
-              <img src={imgCommunity} className="h-8 w-8 rounded-full object-cover" />
-              <div>{t('navCommunity')}</div>
-            </div>
-          </Link>
+          <NavigationItem targetRoute={routeUsers} image={imgCommunity} label={t('navCommunity')} />
 
-          <Link href={routeVoice}>
-            <div className="flex flex-col md:flex-row items-center gap-1">
-              <img src={imgMegaphone} className="h-8 w-8 rounded-full object-cover" />
-              <div>{t('navVoice')}</div>
-            </div>
-          </Link>
+          <NavigationItem targetRoute={routeVoice} image={imgMegaphone} label={t('navVoice')} />
         </div>
 
-        {session?.user?.username === TechnicalUser.ADMIN && (
-          <Link href={routeAdminOverview}>
-            <div className="flex flex-col md:flex-row items-center gap-1">
-              <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
-              <div>{t('navAdminOverview')}</div>
-            </div>
-          </Link>
-        )}
+        {session?.user?.username === TechnicalUser.ADMIN && <NavigationItem targetRoute={routeAdminOverview} image={imgProfileSettings} label={t('navAdminOverview')} />}
 
-        {(actingUser?.isWffaMember || session?.user?.username === TechnicalUser.ADMIN) && (
-          <Link href={routeWffaOverview}>
-            <div className="flex flex-col md:flex-row items-center gap-1">
-              <img src={imgProfileSettings} className="mx-1 h-8 w-8 rounded-full object-cover" />
-              <div>{t('navWffaOverview')}</div>
-            </div>
-          </Link>
-        )}
+        {(actingUser?.isWffaMember || session?.user?.username === TechnicalUser.ADMIN) && <NavigationItem targetRoute={routeWffaOverview} image={imgProfileSettings} label={t('navWffaOverview')} />}
 
-        <Link href={routeAbout}>
-          <div className="flex flex-col md:flex-row items-center gap-1">
-            <img src={imgAbout} className="mx-1 h-8 w-8 rounded-full object-cover" />
-            <div>{t('navAbout')}</div>
-          </div>
-        </Link>
+        <NavigationItem targetRoute={routeAbout} image={imgAbout} label={t('navAbout')} />
       </Navigation>
     </div>
   );
