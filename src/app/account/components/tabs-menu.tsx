@@ -36,7 +36,7 @@ import { menuShowExperience } from '@/domain/constants/menus/menu-show-experienc
 // import { menuMobility } from '@/domain/constants/menus/menu-mobility';
 // import { menuTravelDistance } from '@/domain/constants/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
-import SectionHeader from '@/components/common/section-header';
+import SectionHeader from '@/components/common/SectionHeader';
 import { createStripeAccount, createStripeAccountOnboardingLink, createStripeLoginLink, deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';

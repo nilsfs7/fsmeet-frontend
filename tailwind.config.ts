@@ -15,12 +15,14 @@ const config: Config = {
       colors: {
         background: '#ffffff',
         primary: '#141D26',
-        'secondary-dark': '#ccd6dd',
-        secondary: '#e1e8ed',
         'secondary-light': '#f8f9fa',
+
+        secondary: '#e1e8ed',
+        'secondary-dark': '#ccd6dd',
         success: '#49B21A',
         warning: '#FFCF40',
         critical: '#EE0000',
+        'critical-dark': '#b91c1c',
       },
       keyframes: {
         'accordion-down': {
