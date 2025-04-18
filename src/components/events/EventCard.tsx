@@ -61,7 +61,8 @@ const EventCard = ({ event }: IEventProps) => {
                 <img src={eventAdmin?.imageUrl || imgUserDefaultImg} className="w-5 h-5 rounded-full object-cover" />
               </div>
 
-              <div className="mx-1">{`${eventAdmin?.firstName}  ${eventAdmin?.lastName}`}</div>
+              {eventAdmin?.lastName && <div className="mx-1">{`${eventAdmin?.firstName}  ${eventAdmin?.lastName}`}</div>}
+              {!eventAdmin?.lastName && <div className="mx-1">{`${eventAdmin?.firstName}`}</div>}
             </div>
           </div>
 
