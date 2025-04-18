@@ -141,6 +141,8 @@ Event
 
 - [Meeting](https://www.iconfinder.com/icons/7055165/meeting_consultation_partnership_communication_brainstorm_icon)
 
+- [Calendar](https://www.iconfinder.com/icons/2203551/book_calendar_date_monthly_icon)
+
 User Types
 
 - [Admin](https://www.iconfinder.com/icons/3018587/admin_administrator_ajax_options_permission_settings_user_icon)
