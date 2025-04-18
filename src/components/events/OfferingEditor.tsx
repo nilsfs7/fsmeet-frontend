@@ -21,8 +21,8 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
   const [cost, setCost] = useState(offering?.cost || 0.0);
   const [mandatoryForParticipant, setMandatoryForParticipant] = useState<boolean>(offering?.mandatoryForParticipant || false);
   const [includesShirt, setIncludesShirt] = useState<boolean>(offering?.includesShirt || false);
-  const [imgPreview, setImgPreview] = useState<any>();
-  const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState('');
+  const [imgPreview, setImgPreview] = useState<File>();
+  const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
 
   const uploadToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {

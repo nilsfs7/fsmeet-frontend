@@ -22,7 +22,7 @@ export default function CreateEventSponsor({ params }: { params: { eventId: stri
   const router = useRouter();
 
   const [sponsor, setSponsor] = useState<Sponsor>();
-  const [sponsorLogo, setSponsorLogo] = useState<any>(null);
+  const [sponsorLogo, setSponsorLogo] = useState<File>();
 
   const handleCreateClicked = async () => {
     if (params.eventId && sponsor) {

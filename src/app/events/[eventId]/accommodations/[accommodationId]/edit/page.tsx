@@ -23,7 +23,7 @@ export default function EditEventAccommodation({ params }: { params: { eventId: 
   const router = useRouter();
 
   const [accommodation, setAccommodation] = useState<Accommodation>();
-  const [accommodationPreview, setAccommodationPreview] = useState<any>(null);
+  const [accommodationPreview, setAccommodationPreview] = useState<File>();
 
   const handleSaveClicked = async () => {
     if (params.eventId && accommodation) {

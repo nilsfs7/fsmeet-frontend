@@ -23,7 +23,7 @@ export default function EditEventSponsor({ params }: { params: { eventId: string
   const router = useRouter();
 
   const [sponsor, setSponsor] = useState<Sponsor>();
-  const [sponsorLogo, setSponsorLogo] = useState<any>(null);
+  const [sponsorLogo, setSponsorLogo] = useState<File>();
 
   const handleSaveClicked = async () => {
     if (params.eventId && sponsor) {

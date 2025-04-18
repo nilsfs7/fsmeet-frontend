@@ -9,7 +9,7 @@ import { switchTab } from '@/functions/switch-tab';
 import EventCard from '@/components/events/EventCard';
 import { Event } from '@/types/event';
 import { useTranslations } from 'next-intl';
-import { isEventAdmin } from '@/functions/isEventAdmin';
+import { isEventAdmin } from '@/functions/is-event-admin';
 import { useSession } from 'next-auth/react';
 
 interface ITabsMenu {

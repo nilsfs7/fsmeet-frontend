@@ -25,6 +25,8 @@ import { UpdatePaymentMethodCashBodyDto } from './dtos/event/payment/update-paym
 import { UpdatePaymentMethodPayPalBodyDto } from './dtos/event/payment/update-payment-method-paypal.body.dto';
 import { UpdatePaymentMethodSepaBodyDto } from './dtos/event/payment/update-payment-method-sepa.body.dto';
 import { UpdatePaymentMethodStripeBodyDto } from './dtos/event/payment/update-payment-method-stripe.body.dto';
+import { PatchEventPosterBodyDto } from './dtos/event/patch-event-poster.body.dto';
+import { CreateEventResponseDto } from './dtos/event/create-event.response.dto';
 
 export async function getEvents(
   admin: string | null,
@@ -185,7 +187,7 @@ export async function getComments(eventId: string): Promise<EventComment[]> {
   return await response.json();
 }
 
-export async function createEvent(event: Event, session: Session | null): Promise<void> {
+export async function createEvent(event: Event, session: Session | null): Promise<CreateEventResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`;
 
   const body = new CreateEventBodyDto(
@@ -238,6 +240,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
 
   if (response.ok) {
     console.info('Creating event successful');
+    return await response.json();
   } else {
     const error = await response.json();
     throw Error(error.message);
@@ -500,6 +503,55 @@ export async function updateEventState(session: Session | null, eventId: string,
 
   if (response.ok) {
     console.info('Updating event state successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function updateEventPoster(eventId: string, imageBase64: string, session: Session | null): Promise<string> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/poster`;
+
+  const body = new PatchEventPosterBodyDto(imageBase64);
+
+  const response = await fetch(url, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating event poster successful');
+
+    const resBody = await response.json();
+    return resBody.imageUrl;
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function deleteEventPoster(eventId: string, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/poster`;
+
+  const body = JSON.stringify({
+    id: eventId,
+  });
+
+  const response = await fetch(url, {
+    method: 'DELETE',
+    body: body,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Deleting event successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

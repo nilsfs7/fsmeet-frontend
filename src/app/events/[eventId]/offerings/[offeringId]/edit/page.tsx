@@ -23,7 +23,7 @@ export default function EditEventOffering({ params }: { params: { eventId: strin
   const router = useRouter();
 
   const [offering, setOffering] = useState<Offering>();
-  const [offeringPreview, setOfferingPreview] = useState<any>(null);
+  const [offeringPreview, setOfferingPreview] = useState<File>();
 
   const handleSaveClicked = async () => {
     if (params.eventId && offering) {

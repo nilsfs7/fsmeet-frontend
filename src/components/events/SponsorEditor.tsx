@@ -18,8 +18,8 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
 
   const [name, setSponsorName] = useState(sponsor?.name || '');
   const [website, setSponsorWebsite] = useState(sponsor?.website || '');
-  const [imgLogo, setImgLogo] = useState<any>();
-  const [imgLogoObjectURL, setImgLogoObjectURL] = useState('');
+  const [imgLogo, setImgLogo] = useState<File>();
+  const [imgLogoObjectURL, setImgLogoObjectURL] = useState<string>();
   const [isPublic, setIsPublic] = useState<boolean>(sponsor?.isPublic || true);
 
   const uploadToClient = (event: any) => {
