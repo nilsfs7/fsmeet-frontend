@@ -88,13 +88,13 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
           }}
         />
 
-        <div className="flex justify-center py-2">
+        <div className="flex justify-center m-2 gap-2">
           <img
             src={imgLogoObjectURL ? imgLogoObjectURL : sponsor?.imageUrlLogo ? sponsor.imageUrlLogo : imgUserDefaultImg}
-            className="mx-2 flex h-12 w-12 rounded-full object-cover border border-primary"
+            className="flex h-12 w-12 rounded-full object-cover border border-primary"
           />
 
-          <div className="flex justify-center py-2">
+          <div className="flex justify-center items-center">
             <input type="file" onChange={uploadToClient} />
           </div>
         </div>
