@@ -1,7 +1,7 @@
 'use client';
 
 import TextButton from '@/components/common/TextButton';
-import { createEvent } from '@/infrastructure/clients/event.client';
+import { createEvent, updateEventPoster } from '@/infrastructure/clients/event.client';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -17,11 +17,18 @@ export const TextButtonCreateEvent = () => {
 
   const handleCreateEventClicked = async () => {
     const eventInfoObject = sessionStorage.getItem('eventInfo');
+    const imgEventPoster = sessionStorage.getItem('imgEventPoster');
+
     if (eventInfoObject) {
       const event: Event = JSON.parse(eventInfoObject);
 
       try {
-        await createEvent(event, session);
+        const response = await createEvent(event, session);
+
+        if (imgEventPoster) {
+          await updateEventPoster(response.id, imgEventPoster, session);
+        }
+
         router.push(`${routeEventSubs}/?tab=myevents`);
         router.refresh();
       } catch (error: any) {

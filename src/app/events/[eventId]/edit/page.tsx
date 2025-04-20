@@ -7,7 +7,7 @@ import { getTranslations } from 'next-intl/server';
 import { ActionButtonDeleteEvent } from './components/action-button-delete-event';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { auth } from '@/auth';
-import { isEventAdmin } from '@/functions/isEventAdmin';
+import { isEventAdmin } from '@/functions/is-event-admin';
 
 export default async function EventEditing({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/edit');

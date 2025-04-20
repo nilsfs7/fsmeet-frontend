@@ -29,19 +29,23 @@ import { Action } from '@/domain/enums/action';
 import { User } from '@/types/user';
 import { getUser, getUsers } from '@/infrastructure/clients/user.client';
 import { UserType } from '@/domain/enums/user-type';
-import { isEventAdmin } from '@/functions/isEventAdmin';
+import { isEventAdmin } from '@/functions/is-event-admin';
 import { useSession } from 'next-auth/react';
 import { PaymentMethodStripe } from '@/types/payment-method-stripe';
 import TextButton from '../common/TextButton';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
+import { imgImagePlaceholder } from '@/domain/constants/images';
+import { deleteEventPoster } from '@/infrastructure/clients/event.client';
+import { Toaster, toast } from 'sonner';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
   event?: Event;
   onEventUpdate: (event: Event) => void;
+  onEventPosterUpdate: (image: File) => void;
 }
 
-const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) => {
+const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: IEventEditorProps) => {
   const t = useTranslations('global/components/event-editor');
 
   const { data: session } = useSession();
@@ -84,6 +88,37 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
   const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
   const [notifyOnComment, setNotifyOnComment] = useState<boolean>(event?.notifyOnComment || true);
+  const [imgPoster, setImgPoster] = useState<File>();
+  const [imgPosterObjectURL, setImgPosterObjectURL] = useState<string>();
+
+  const uploadToClient = (event: any) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+
+      setImgPoster(i);
+      setImgPosterObjectURL(URL.createObjectURL(i));
+    }
+  };
+
+  const updateEventPoster = () => {
+    if (imgPoster) {
+      onEventPosterUpdate(imgPoster);
+    }
+  };
+
+  const handleDeleteEventPosterClicked = async () => {
+    if (event?.id) {
+      try {
+        await deleteEventPoster(event?.id, session);
+        setImgPoster(undefined);
+        setImgPosterObjectURL(undefined);
+        toast.info('Poster deleted');
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
+    }
+  };
 
   const handleInputChangeAlias = (event: any) => {
     let alias: string = event.currentTarget.value;
@@ -185,6 +220,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
       accommodations: [],
       offerings: [],
       state: event?.state || EventState.CREATED,
+      imageUrlPoster: event?.imageUrlPoster || '',
     });
   };
 
@@ -280,7 +316,15 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
     notifyOnComment,
   ]);
 
+  // fires event poster back
+  useEffect(() => {
+    updateEventPoster();
+  }, [imgPosterObjectURL]);
+
   return (
+    // <>
+    //   <Toaster richColors />
+
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
       <SectionHeader label={t('sectionGeneral')} />
 
@@ -330,6 +374,23 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
           </Link>
         </div>
       )}
+
+      <div className="flex m-2 gap-2 items-center justify-between">
+        <div className="flex items-center gap-2">
+          <img src={imgPosterObjectURL ? imgPosterObjectURL : event?.imageUrlPoster ? event.imageUrlPoster : imgImagePlaceholder} className="flex h-12 w-12 object-cover border border-primary" />
+
+          {event?.imageUrlPoster && (
+            <ActionButton
+              action={Action.DELETE}
+              onClick={() => {
+                handleDeleteEventPosterClicked();
+              }}
+            />
+          )}
+        </div>
+
+        <input type="file" onChange={uploadToClient} />
+      </div>
 
       <TextInputLarge
         id={'description'}
@@ -794,6 +855,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate }: IEventEditorProps) =>
         />
       )}
     </div>
+    // </>
   );
 };
 

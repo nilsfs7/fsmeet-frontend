@@ -84,7 +84,7 @@ export async function updateAccommodation(id: string, description: string, cost:
   }
 }
 
-export async function updateAccommodationPreview(id: string, image: any, session: Session | null): Promise<void> {
+export async function updateAccommodationPreview(id: string, image: File, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/${id}/logo`;
 
   const body = new FormData();

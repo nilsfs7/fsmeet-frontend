@@ -48,4 +48,5 @@ export type Event = {
   accommodations: Accommodation[];
   offerings: Offering[];
   state: EventState;
+  imageUrlPoster: string;
 };

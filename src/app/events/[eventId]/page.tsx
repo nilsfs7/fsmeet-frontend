@@ -13,7 +13,7 @@ import { ActionButtonCopyEventUrl } from './components/action-button-copy-event-
 import { TextButtonRegister } from './components/text-button-register';
 import { ActionButtonStateAction } from './components/action-button-state-action';
 import { TextButtonFeedback } from './components/text-button-feedback';
-import { isEventAdminOrMaintainer } from '@/functions/isEventAdminOrMaintrainer';
+import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
 import TextButton from '@/components/common/TextButton';
 
 export default async function EventDetails({ params }: { params: { eventId: string } }) {

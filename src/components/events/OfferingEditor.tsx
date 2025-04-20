@@ -21,8 +21,8 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
   const [cost, setCost] = useState(offering?.cost || 0.0);
   const [mandatoryForParticipant, setMandatoryForParticipant] = useState<boolean>(offering?.mandatoryForParticipant || false);
   const [includesShirt, setIncludesShirt] = useState<boolean>(offering?.includesShirt || false);
-  const [imgPreview, setImgPreview] = useState<any>();
-  const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState('');
+  const [imgPreview, setImgPreview] = useState<File>();
+  const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
 
   const uploadToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
@@ -115,13 +115,13 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
           }}
         />
 
-        <div className="flex justify-center py-2">
+        <div className="flex justify-center m-2 gap-2">
           <img
             src={imgPreviewObjectURL ? imgPreviewObjectURL : offering?.imageUrlPreview ? offering.imageUrlPreview : imgImagePlaceholder}
-            className="mx-2 flex h-12 w-12 rounded-full object-cover border border-primary"
+            className="flex h-12 w-12 object-cover border border-primary"
           />
 
-          <div className="flex justify-center py-2">
+          <div className="flex justify-center items-center">
             <input type="file" onChange={uploadToClient} />
           </div>
         </div>

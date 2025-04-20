@@ -84,7 +84,7 @@ export async function updateSponsor(id: string, name: string, website: string, i
   }
 }
 
-export async function updateSponsorLogo(id: string, image: any, session: Session | null): Promise<void> {
+export async function updateSponsorLogo(id: string, image: File, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/${id}/logo`;
 
   const body = new FormData();

@@ -18,8 +18,8 @@ export const ProfilePictureUpload = () => {
   const router = useRouter();
 
   const [imageUrl, setImageUrl] = useState('');
-  const [image, setImage] = useState<any>();
-  const [createObjectURL, setCreateObjectURL] = useState('');
+  const [image, setImage] = useState<File>();
+  const [createObjectURL, setCreateObjectURL] = useState<string>();
 
   useEffect(() => {
     const imageUrl = localStorage.getItem('imageUrl'); // TODO: get url from session, session must be uptodate

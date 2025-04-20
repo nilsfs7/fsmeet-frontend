@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import { Accommodation } from '@/types/accommodation';
-import { imgImagePlaceholder, imgUserDefaultImg } from '@/domain/constants/images';
+import { imgImagePlaceholder } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
 import CurInput from '../common/CurrencyInput';
 
@@ -19,8 +19,8 @@ const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommoda
   const [description, setAccommodationDescription] = useState(accommodation?.description || '');
   const [website, setAccommodationWebsite] = useState(accommodation?.website || '');
   const [cost, setCost] = useState(accommodation?.cost || 0.0);
-  const [imgPreview, setImgPreview] = useState<any>();
-  const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState('');
+  const [imgPreview, setImgPreview] = useState<File>();
+  const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
 
   const uploadToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
@@ -103,13 +103,13 @@ const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommoda
           }}
         />
 
-        <div className="flex justify-center py-2">
+        <div className="flex justify-center m-2 gap-2">
           <img
             src={imgPreviewObjectURL ? imgPreviewObjectURL : accommodation?.imageUrlPreview ? accommodation.imageUrlPreview : imgImagePlaceholder}
-            className="mx-2 flex h-12 w-12 rounded-full object-cover border border-primary"
+            className="flex h-12 w-12 object-cover border border-primary"
           />
 
-          <div className="flex justify-center py-2">
+          <div className="flex justify-center items-center">
             <input type="file" onChange={uploadToClient} />
           </div>
         </div>

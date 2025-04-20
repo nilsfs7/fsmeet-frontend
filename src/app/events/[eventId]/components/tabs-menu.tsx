@@ -24,7 +24,7 @@ import { SponsorSection } from './sponsor-section';
 import { EventInfo } from './event-info';
 import { CommentSection } from './comment-section';
 import { CompetitionSection } from './competition-section';
-import { isEventAdmin } from '@/functions/isEventAdmin';
+import { isEventAdmin } from '@/functions/is-event-admin';
 import { EventRegistrationType } from '@/types/event-registration-type';
 
 interface ITabsMenu {

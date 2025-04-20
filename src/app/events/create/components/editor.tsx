@@ -4,6 +4,7 @@ import { Event } from '@/types/event';
 import EventEditor from '@/components/events/EventEditor';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { toast } from 'sonner';
+import { fileToBase64 } from '@/functions/file-to-base-64';
 
 export const Editor = () => {
   const cacheEventInfo = async (event: Event) => {
@@ -15,11 +16,28 @@ export const Editor = () => {
     }
   };
 
+  const cacheEventPoster = async (imgEventPoster: File) => {
+    try {
+      const base64String = await fileToBase64(imgEventPoster);
+      sessionStorage.setItem('imgEventPoster', base64String);
+    } catch (error: any) {
+      if (error.toString().toLowerCase().includes('exceeded the quota')) {
+        toast.error('File too big for browser storage.');
+      } else {
+        toast.error(error.message);
+      }
+      console.error(error.message);
+    }
+  };
+
   return (
     <EventEditor
       editorMode={EditorMode.CREATE}
       onEventUpdate={(event: Event) => {
         cacheEventInfo(event);
+      }}
+      onEventPosterUpdate={(image: File) => {
+        cacheEventPoster(image);
       }}
     />
   );
