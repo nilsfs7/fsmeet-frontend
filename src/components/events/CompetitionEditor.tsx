@@ -185,7 +185,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
 
       <CurInput
         id={'participationFee'}
-        label={t('inputFee')}
+        label={t('inputPaticipantFee')}
         placeholder="15,00"
         value={participationFee}
         onValueChange={(value, name, values) => {
