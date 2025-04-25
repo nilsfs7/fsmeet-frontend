@@ -435,6 +435,16 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                 <div>{`${'Your Status'}:`}</div>
                 <Label text={registrationStatus} />
               </div>
+
+              {/* todo: visa requests only possible for wffa atm */}
+              {event.admin === 'wffa' && (
+                <div className="flex flex-col items-center mt-10 gap-2">
+                  <div>{`${'Need Visa?'}`}</div>
+                  <Link href={`${routeEvents}/${event.id}/registration/visa`}>
+                    <TextButton text="Request Invitation Letter" />
+                  </Link>
+                </div>
+              )}
             </div>
           )}
 
