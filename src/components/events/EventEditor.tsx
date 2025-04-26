@@ -88,6 +88,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
   const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
   const [notifyOnComment, setNotifyOnComment] = useState<boolean>(event?.notifyOnComment || true);
+  const [waiver, setWaiver] = useState(event?.waiver || '');
   const [imgPoster, setImgPoster] = useState<File>();
   const [imgPosterObjectURL, setImgPosterObjectURL] = useState<string>();
 
@@ -215,6 +216,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       notifyOnRegistration: notifyOnRegistration,
       allowComments: allowComments,
       notifyOnComment: notifyOnComment,
+      waiver: waiver,
       eventRegistrations: [],
       competitions: [],
       accommodations: [],
@@ -261,6 +263,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       setNotifyOnRegistration(event.notifyOnRegistration);
       setAllowComments(event.allowComments);
       setNotifyOnComment(event.notifyOnComment);
+      setWaiver(event.waiver);
     }
 
     if (event?.admin)
@@ -314,6 +317,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
     notifyOnRegistration,
     allowComments,
     notifyOnComment,
+    waiver,
   ]);
 
   // fires event poster back
@@ -851,6 +855,19 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
           value={notifyOnComment}
           onChange={() => {
             setNotifyOnComment(!notifyOnComment);
+          }}
+        />
+      )}
+
+      {paymentMethodStripeEnabled && (
+        <TextInputLarge
+          id={'waiver'}
+          label={t('inputWaiver')}
+          placeholder="By participating in this event, I acknowledge ..."
+          value={waiver}
+          resizable={true}
+          onChange={e => {
+            setWaiver(e.currentTarget.value);
           }}
         />
       )}

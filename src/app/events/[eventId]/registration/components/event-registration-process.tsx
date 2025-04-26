@@ -32,6 +32,7 @@ import { AttendeeChoice } from './attendee-choice';
 import { isCompetition } from '@/functions/is-competition';
 import { OfferingList } from './offering-list';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
+import TextareaAutosize from 'react-textarea-autosize';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -184,11 +185,17 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   };
 
   const handleNextClicked = async () => {
+    console.log(60);
     if (!page) {
-      router.replace(`${pageUrl}?page=${RegistrationProcessPage.REGISTRATION_TYPE}`);
+      console.log(70);
+      if (event.waiver) {
+        router.replace(`${pageUrl}?waiver=1`);
+      } else {
+        router.replace(`${pageUrl}?page=${RegistrationProcessPage.REGISTRATION_TYPE}`);
+      }
     } else {
       let nextPage: string = '';
-
+      console.log(76);
       switch (page) {
         case RegistrationProcessPage.REGISTRATION_TYPE:
           if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
@@ -276,6 +283,10 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
     } else {
       console.error('Registration deadline exceeded.');
     }
+  };
+
+  const handleConfirmWaiverClicked = async () => {
+    router.replace(`${pageUrl}?page=${RegistrationProcessPage.REGISTRATION_TYPE}`);
   };
 
   const handleConfirmUnregisterClicked = async () => {
@@ -389,6 +400,17 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <Toaster richColors />
+
+      <Dialog
+        title={t('dlgEventWaiverTitle')}
+        queryParam="waiver"
+        onCancel={handleCancelDialogClicked}
+        onConfirm={handleConfirmWaiverClicked}
+        confirmText={t('dlgEventWaiverBtnConfirm')}
+        executeCancelAfterConfirmClicked={false}
+      >
+        <TextareaAutosize readOnly className="h-[90vw] w-[90vw] resize-none overflow-hidden bg-transparent outline-none" value={event.waiver} />
+      </Dialog>
 
       <Dialog
         title={t('dlgEventUnregisterTitle')}

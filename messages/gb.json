@@ -323,6 +323,20 @@
     "dlgRemoveParticipantTitle": "Remove Participant",
     "dlgRemoveParticipantText": "Do you want to remove this participant?"
   },
+  "/events/eventid/registration": {
+    "pageTitleOverview": "Event Registration Overview",
+    "dlgEventUnregisterTitle": "Unregister From Event",
+    "dlgEventUnregisterText": "Do you really want to unregister from this event?",
+    "dlgEventUnregisterBtnConfirm": "Confirm",
+    "dlgEventWaiverTitle": "Participant Waiver and Release of Liability",
+    "dlgEventWaiverBtnConfirm": "Confirm",
+    "btnRegister": "Register",
+    "btnUnregister": "Unregister",
+    "btnProceedPayment": "Proceed Payment",
+    "btnBackToOverview": "Cancel",
+    "btnNextPage": "Next",
+    "btnEnrollNow": "Checkout"
+  },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registration successfully submitted.",
     "textPaymentOutstanding": "Please remember the participation fee. We have sent you an email with the payment details.",
@@ -355,18 +369,6 @@
   "/events/eventid/sponsors/create": {
     "pageTitle": "Create Sponsor",
     "btnCreate": "Add new"
-  },
-  "/events/eventid/registration": {
-    "pageTitleOverview": "Event Registration Overview",
-    "dlgEventUnregisterTitle": "Unregister From Event",
-    "dlgEventUnregisterText": "Do you really want to unregister from this event?",
-    "dlgEventUnregisterBtnConfirm": "Confirm",
-    "btnRegister": "Register",
-    "btnUnregister": "Unregister",
-    "btnProceedPayment": "Proceed Payment",
-    "btnBackToOverview": "Cancel",
-    "btnNextPage": "Next",
-    "btnEnrollNow": "Checkout"
   },
   "/events/create": {
     "pageTitle": "Create Event",
@@ -576,7 +578,8 @@
     "chbAutoApproveRegistration": "Auto Approve New Registrations",
     "chbNotifyOnRegistration": "Notify On New Registration",
     "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
-    "chbNotifyOnComment": "Notify On Comment"
+    "chbNotifyOnComment": "Notify On Comment",
+    "inputWaiver": "Waiver"
   },
   "global/components/offering-editor": {
     "inputDescription": "Description",

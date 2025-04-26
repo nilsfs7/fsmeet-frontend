@@ -43,6 +43,7 @@ export type Event = {
   notifyOnRegistration: boolean;
   allowComments: boolean;
   notifyOnComment: boolean;
+  waiver: string;
   eventRegistrations: EventRegistration[];
   competitions: Competition[];
   accommodations: Accommodation[];

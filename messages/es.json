@@ -564,7 +564,8 @@
     "chbAutoApproveRegistration": "Confirmar automáticamente las nuevas inscripciones",
     "chbNotifyOnRegistration": "Notificar con nuevo registro",
     "chbAllowCommentsAndQuestions": "Activar la función de comentarios",
-    "chbNotifyOnComment": "Notificarme un nuevo comentario"
+    "chbNotifyOnComment": "Notificarme un nuevo comentario",
+    "inputWaiver": "Exención"
   },
   "global/components/offering-editor": {
     "inputDescription": "Descripción",

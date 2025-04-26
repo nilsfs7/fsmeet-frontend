@@ -564,7 +564,8 @@
     "chbAutoApproveRegistration": "Neue Registrierungen automatisch bestätigen",
     "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",
     "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
-    "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen"
+    "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen",
+    "inputWaiver": "Verzichterklärung"
   },
   "global/components/offering-editor": {
     "inputDescription": "Beschreibung",

@@ -564,7 +564,8 @@
     "chbAutoApproveRegistration": "Approuver automatiquement les nouvelles inscriptions",
     "chbNotifyOnRegistration": "Notifier lors d'une nouvelle inscription",
     "chbAllowCommentsAndQuestions": "Autoriser les commentaires et questions",
-    "chbNotifyOnComment": "Notifier lors d'un commentaire"
+    "chbNotifyOnComment": "Notifier lors d'un commentaire",
+    "inputWaiver": "Renoncer"
   },
   "global/components/offering-editor": {
     "inputDescription": "Description",
