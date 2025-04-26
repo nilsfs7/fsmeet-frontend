@@ -6,6 +6,7 @@ import { Accommodation } from '@/types/accommodation';
 import { imgImagePlaceholder } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
 import CurInput from '../common/CurrencyInput';
+import CheckBox from '../common/CheckBox';
 
 interface IAccommodationEditorProps {
   accommodation?: Accommodation;
@@ -21,6 +22,7 @@ const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommoda
   const [cost, setCost] = useState(accommodation?.cost || 0.0);
   const [imgPreview, setImgPreview] = useState<File>();
   const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
+  const [enabled, setEnabled] = useState<boolean>(accommodation?.enabled || true);
 
   const uploadToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
@@ -40,6 +42,7 @@ const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommoda
       imageUrlPreview: accommodation?.imageUrlPreview,
       cost: cost,
       costIncPaymentCosts: -1,
+      enabled: enabled,
     });
   };
 
@@ -57,13 +60,14 @@ const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommoda
       setAccommodationDescription(accommodation.description);
       setAccommodationWebsite(accommodation.website);
       setCost(accommodation.cost);
+      setEnabled(accommodation.enabled);
     }
   }, [accommodation]);
 
   // fires accommodation back
   useEffect(() => {
     updateAccommodation();
-  }, [description, website, cost]);
+  }, [description, website, cost, enabled]);
 
   // fires accommodation preview back
   useEffect(() => {
@@ -113,6 +117,15 @@ const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommoda
             <input type="file" onChange={uploadToClient} />
           </div>
         </div>
+
+        <CheckBox
+          id={'enabled'}
+          label={t('chbEnabled')}
+          value={enabled}
+          onChange={() => {
+            setEnabled(!enabled);
+          }}
+        />
       </div>
     </>
   );

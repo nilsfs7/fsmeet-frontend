@@ -27,7 +27,7 @@ export default function CreateAccommodation({ params }: { params: { eventId: str
   const handleCreateClicked = async () => {
     if (params.eventId && accommodation) {
       try {
-        const accommodationId = (await createAccommodation(params.eventId, accommodation.description, accommodation.cost, accommodation.website, session)).id;
+        const accommodationId = (await createAccommodation(params.eventId, accommodation.description, accommodation.cost, accommodation.website, accommodation.enabled, session)).id;
 
         if (accommodationPreview) {
           await updateAccommodationPreview(accommodationId, accommodationPreview, session);

@@ -6,4 +6,5 @@ export type Accommodation = {
   costIncPaymentCosts: number;
   website: string;
   imageUrlPreview?: string;
+  enabled: boolean;
 };
