@@ -34,6 +34,7 @@ export class UpdateEventBodyDto {
   notifyOnRegistration: boolean;
   allowComments: boolean;
   notifyOnComment: boolean;
+  waiver: string;
 
   constructor(
     id: string,
@@ -63,7 +64,8 @@ export class UpdateEventBodyDto {
     autoApproveRegistrations: boolean,
     notifyOnRegistration: boolean,
     allowComments: boolean,
-    notifyOnComment: boolean
+    notifyOnComment: boolean,
+    waiver: string
   ) {
     this.id = id;
     this.name = name;
@@ -93,5 +95,6 @@ export class UpdateEventBodyDto {
     this.notifyOnRegistration = notifyOnRegistration;
     this.allowComments = allowComments;
     this.notifyOnComment = notifyOnComment;
+    this.waiver = waiver;
   }
 }
