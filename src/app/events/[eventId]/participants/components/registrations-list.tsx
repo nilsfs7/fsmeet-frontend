@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Event } from '@/types/event';
 import { useState } from 'react';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
@@ -13,37 +12,79 @@ import { deleteEventRegistration, updateEventRegistrationStatus } from '@/infras
 import UserCard from '@/components/user/UserCard';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
+import { EventRegistration } from '@/types/event-registration';
+import { Accommodation } from '@/types/accommodation';
+import { Offering } from '@/types/offering';
 
-interface IParticipantsList {
-  event: Event;
+interface IRegistrationsList {
+  eventId: string;
+  registrations: EventRegistration[];
+  accommodations: Accommodation[];
+  offerings: Offering[];
 }
 
-export const ParticipantsList = ({ event }: IParticipantsList) => {
+export const RegistrationsList = ({ eventId, registrations, accommodations, offerings }: IRegistrationsList) => {
   const t = useTranslations('/events/eventid/participants');
 
   const { data: session } = useSession();
   const router = useRouter();
 
   const [userSelected, setUserSelected] = useState('');
+  const [registrationSelected, setRegistrationSelected] = useState<EventRegistration>();
+
+  const getRegistrationByUsername = (username: string): EventRegistration | undefined => {
+    const results = registrations.filter(registration => {
+      return registration.user.username === username;
+    });
+
+    if (results.length > 0) {
+      return results[0];
+    }
+  };
+
+  const getAccommodationById = (id: string): Accommodation | undefined => {
+    const results = accommodations.filter(acc => {
+      return acc.id === id;
+    });
+
+    if (results.length > 0) {
+      return results[0];
+    }
+  };
+
+  const getOfferingById = (id: string): Offering | undefined => {
+    const results = offerings.filter(off => {
+      return off.id === id;
+    });
+
+    if (results.length > 0) {
+      return results[0];
+    }
+  };
+
+  const handleInfoClicked = async (username: string) => {
+    setRegistrationSelected(getRegistrationByUsername(username));
+    router.replace(`${routeEvents}/${eventId}/participants?info=1`);
+  };
 
   const handleRemoveParticipantClicked = async (username: string) => {
     setUserSelected(username);
-    router.replace(`${routeEvents}/${event.id}/participants?delete=1`);
+    router.replace(`${routeEvents}/${eventId}/participants?delete=1`);
   };
 
   const handleDenyParticipantClicked = async (username: string) => {
     setUserSelected(username);
-    router.replace(`${routeEvents}/${event.id}/participants?deny=1`);
+    router.replace(`${routeEvents}/${eventId}/participants?deny=1`);
   };
 
-  const handleCancelRemoveParticipantClicked = async () => {
-    router.replace(`${routeEvents}/${event.id}/participants`);
+  const handleCancelDialogClicked = async () => {
+    router.replace(`${routeEvents}/${eventId}/participants`);
   };
 
   const handleConfirmRemoveParticipantClicked = async (username: string) => {
-    if (event.id) {
+    if (eventId) {
       try {
-        await deleteEventRegistration(event.id, username, session);
+        await deleteEventRegistration(eventId, username, session);
         toast.success(`${username} removed`);
         router.refresh(); // TODO: remove reload, but also remove user from ui
       } catch (error: any) {
@@ -54,9 +95,9 @@ export const ParticipantsList = ({ event }: IParticipantsList) => {
   };
 
   const handleApproveParticipantClicked = async (username: string, status: EventRegistrationStatus) => {
-    if (event.id) {
+    if (eventId) {
       try {
-        await updateEventRegistrationStatus(event.id, username, status, session);
+        await updateEventRegistrationStatus(eventId, username, status, session);
         toast.success(`Status for ${username} updated`);
         router.refresh(); // TODO: remove reload, but also user status in ui
       } catch (error: any) {
@@ -70,12 +111,60 @@ export const ParticipantsList = ({ event }: IParticipantsList) => {
     <>
       <Toaster richColors />
 
+      <Dialog title={t('dlgRegistrationInfoTitle')} queryParam="info" onCancel={handleCancelDialogClicked}>
+        <p className="grid grid-cols-2 gap-2">
+          <p>{`${t('dlgRegistrationInfoType')}:`}</p>
+          <p>{`${registrationSelected?.type}`}</p>
+        </p>
+        <p className="grid grid-cols-2 gap-2">
+          <p>{`${t('dlgRegistrationInfoStatus')}:`}</p>
+          <p>{`${registrationSelected?.status}`}</p>
+        </p>
+
+        {registrationSelected?.offeringOrders && registrationSelected?.offeringOrders.length > 0 && (
+          <>
+            <br />
+
+            <p>{`${t('dlgRegistrationInfoOfferings')}:`}</p>
+            {registrationSelected?.offeringOrders.map((id, index) => {
+              const off = getOfferingById(id);
+              return (
+                <p key={`off-${index}`} className="grid grid-cols-2 gap-2">
+                  <p>{`- ${off?.description}`}</p> <p>{`${off?.cost}€`}</p>
+                </p>
+              );
+            })}
+
+            <p className="grid grid-cols-2 gap-2">
+              <p>{`${t('dlgRegistrationInfoShirtSize')}:`}</p>
+              <p>{`${registrationSelected?.offeringTShirtSize}`}</p>
+            </p>
+          </>
+        )}
+
+        {registrationSelected?.accommodationOrders && registrationSelected?.accommodationOrders.length > 0 && (
+          <>
+            <br />
+
+            <p>{`${t('dlgRegistrationInfoAccommodations')}:`}</p>
+            {registrationSelected?.accommodationOrders.map((id, index) => {
+              const acc = getAccommodationById(id);
+              return (
+                <p key={`acc-${index}`} className="grid grid-cols-2 gap-2">
+                  <p>{`- ${acc?.description}`}</p> <p>{`${acc?.cost}€`}</p>
+                </p>
+              );
+            })}
+          </>
+        )}
+      </Dialog>
+
       <Dialog
         title={t('dlgDenyParticipantTitle')}
         queryParam="deny"
-        onCancel={handleCancelRemoveParticipantClicked}
+        onCancel={handleCancelDialogClicked}
         onConfirm={() => {
-          if (event.id) {
+          if (eventId) {
             handleApproveParticipantClicked(userSelected, EventRegistrationStatus.DENIED);
             setUserSelected('');
           }
@@ -89,9 +178,9 @@ export const ParticipantsList = ({ event }: IParticipantsList) => {
       <Dialog
         title={t('dlgRemoveParticipantTitle')}
         queryParam="delete"
-        onCancel={handleCancelRemoveParticipantClicked}
+        onCancel={handleCancelDialogClicked}
         onConfirm={() => {
-          if (event.id) {
+          if (eventId) {
             handleConfirmRemoveParticipantClicked(userSelected);
             setUserSelected('');
           }
@@ -104,8 +193,8 @@ export const ParticipantsList = ({ event }: IParticipantsList) => {
 
       <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>
         <div className="flex flex-col">
-          {event.eventRegistrations.length === 0 && <div className="m-1 flex justify-center">{t('textNoRegistrations')}</div>}
-          {event.eventRegistrations.map((registration, index) => {
+          {registrations.length === 0 && <div className="m-1 flex justify-center">{t('textNoRegistrations')}</div>}
+          {registrations.map((registration, index) => {
             return (
               <div key={index} className="m-1 flex items-center">
                 <div className="mx-1 flex w-1/2 justify-end">
@@ -113,6 +202,13 @@ export const ParticipantsList = ({ event }: IParticipantsList) => {
                 </div>
 
                 <div className="mx-1 flex w-1/2 justify-start">
+                  <ActionButton
+                    action={Action.INFO}
+                    onClick={() => {
+                      handleInfoClicked(registration.user.username);
+                    }}
+                  />
+
                   {(registration.status === EventRegistrationStatus.APPROVED || registration.status === EventRegistrationStatus.DENIED) && (
                     <>
                       <div className="mr-1 flex w-24 items-center justify-center font-bold">{registration.status.toUpperCase()}</div>

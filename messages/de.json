@@ -318,6 +318,12 @@
   "/events/eventid/participants": {
     "pageTitle": "Teilnehmer verwalten",
     "textNoRegistrations": "Noch keine Registrierungen.",
+    "dlgRegistrationInfoTitle": "Info",
+    "dlgRegistrationInfoType": "Typ",
+    "dlgRegistrationInfoStatus": "Status",
+    "dlgRegistrationInfoOfferings": "Produkte",
+    "dlgRegistrationInfoShirtSize": "T-Shirt Größe",
+    "dlgRegistrationInfoAccommodations": "Unterkünfte",
     "dlgDenyParticipantTitle": "Teilnehmer ablehnen",
     "dlgDenyParticipantText": "Möchtest du diesen Teilnehmer wirklich entfernen?",
     "dlgRemoveParticipantTitle": "Teilnehmer entfernen",

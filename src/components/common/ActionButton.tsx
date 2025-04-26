@@ -9,6 +9,7 @@ import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import HotelIcon from '@mui/icons-material/Hotel';
+import InfoIcon from '@mui/icons-material/Info';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
@@ -100,6 +101,9 @@ const ActionButton = ({ action, size = Size.M, style = ButtonStyle.DEFAULT, onCl
       break;
     case Action.HIDE:
       icon = <VisibilityOffIcon />;
+      break;
+    case Action.INFO:
+      icon = <InfoIcon />;
       break;
     case Action.MANAGE_ACCOMMODATIONS:
       icon = <HotelIcon />;
