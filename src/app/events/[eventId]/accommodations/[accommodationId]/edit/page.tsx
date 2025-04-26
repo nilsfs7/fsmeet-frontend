@@ -28,7 +28,7 @@ export default function EditEventAccommodation({ params }: { params: { eventId: 
   const handleSaveClicked = async () => {
     if (params.eventId && accommodation) {
       try {
-        await updateAccommodation(params.accommodationId, accommodation.description, accommodation.cost, accommodation.website, session);
+        await updateAccommodation(params.accommodationId, accommodation.description, accommodation.cost, accommodation.website, accommodation.enabled, session);
 
         if (accommodationPreview && accommodation.id) {
           await updateAccommodationPreview(accommodation.id.toString(), accommodationPreview, session);

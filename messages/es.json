@@ -497,7 +497,8 @@
   "global/components/accommodation-editor": {
     "inputDescription": "Descripción",
     "inputWebsite": "Sitio web (opcional)",
-    "inputCost": "Costo"
+    "inputCost": "Costo",
+    "chbEnabled": "Activo"
   },
   "global/components/battle-grid": {
     "btnAddMatch": "Añadir partido"

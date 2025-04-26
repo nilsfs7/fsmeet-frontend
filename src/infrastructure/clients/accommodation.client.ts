@@ -37,10 +37,10 @@ export async function getAccommodation(accommodationId: string): Promise<ReadAcc
   }
 }
 
-export async function createAccommodation(eventId: string, description: string, cost: number, website: string, session: Session | null): Promise<CreateAccommodationResponseDto> {
+export async function createAccommodation(eventId: string, description: string, cost: number, website: string, enabled: boolean, session: Session | null): Promise<CreateAccommodationResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations`;
 
-  const body = new CreateAccommodationBodyDto(eventId, description, cost, website);
+  const body = new CreateAccommodationBodyDto(eventId, description, cost, website, enabled);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -62,10 +62,10 @@ export async function createAccommodation(eventId: string, description: string, 
   }
 }
 
-export async function updateAccommodation(id: string, description: string, cost: number, website: string, session: Session | null): Promise<void> {
+export async function updateAccommodation(id: string, description: string, cost: number, website: string, enabled: boolean, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations`;
 
-  const body = new PatchAccommodationBodyDto(id, description, cost, website);
+  const body = new PatchAccommodationBodyDto(id, description, cost, website, enabled);
 
   const response = await fetch(url, {
     method: 'PATCH',

@@ -497,7 +497,8 @@
   "global/components/accommodation-editor": {
     "inputDescription": "Description",
     "inputWebsite": "Site Web (facultatif)",
-    "inputCost": "Coût"
+    "inputCost": "Coût",
+    "chbEnabled": "Actif"
   },
   "global/components/battle-grid": {
     "btnAddMatch": "Ajouter une battle"

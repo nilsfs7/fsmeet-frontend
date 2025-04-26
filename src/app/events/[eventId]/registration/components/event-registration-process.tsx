@@ -33,6 +33,7 @@ import { isCompetition } from '@/functions/is-competition';
 import { OfferingList } from './offering-list';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import TextareaAutosize from 'react-textarea-autosize';
+import { Accommodation } from '@/types/accommodation';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -64,6 +65,18 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
+
+  const getActiveAccommodations = (): Accommodation[] => {
+    return event.accommodations.filter(acc => {
+      if (acc.enabled) return acc;
+    });
+  };
+
+  const hasActiveAccommodations = (): boolean => {
+    return event.accommodations.some(acc => {
+      if (acc.enabled) return acc;
+    });
+  };
 
   useEffect(() => {
     const status = event.eventRegistrations.filter(registration => {
@@ -160,7 +173,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           break;
 
         case RegistrationProcessPage.CHECKOUT_OVERVIEW:
-          if (event.accommodations.length > 0) {
+          if (hasActiveAccommodations()) {
             previousPage = RegistrationProcessPage.ACCOMMODATIONS;
           } else {
             if (event.offerings.length > 0) {
@@ -185,9 +198,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   };
 
   const handleNextClicked = async () => {
-    console.log(60);
     if (!page) {
-      console.log(70);
       if (event.waiver) {
         router.replace(`${pageUrl}?waiver=1`);
       } else {
@@ -195,7 +206,6 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       }
     } else {
       let nextPage: string = '';
-      console.log(76);
       switch (page) {
         case RegistrationProcessPage.REGISTRATION_TYPE:
           if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
@@ -204,7 +214,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
             if (event.offerings.length > 0) {
               nextPage = RegistrationProcessPage.OFFERINGS;
             } else {
-              if (event.accommodations.length > 0) {
+              if (hasActiveAccommodations()) {
                 nextPage = RegistrationProcessPage.ACCOMMODATIONS;
               } else {
                 nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
@@ -217,7 +227,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           if (event.offerings.length > 0) {
             nextPage = RegistrationProcessPage.OFFERINGS;
           } else {
-            if (event.accommodations.length > 0) {
+            if (hasActiveAccommodations()) {
               nextPage = RegistrationProcessPage.ACCOMMODATIONS;
             } else {
               nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
@@ -226,7 +236,7 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
           break;
 
         case RegistrationProcessPage.OFFERINGS:
-          if (event.accommodations.length > 0) {
+          if (hasActiveAccommodations()) {
             nextPage = RegistrationProcessPage.ACCOMMODATIONS;
           } else {
             nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
@@ -542,9 +552,9 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
               <div className="m-2">{`Select accommodation. Skip if you don't need any.`}</div>
 
               <AccommodationList
-                accommodations={event.accommodations}
+                accommodations={getActiveAccommodations()}
                 paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
-                checked={event.accommodations.map(acc => {
+                checked={getActiveAccommodations().map(acc => {
                   return acc.id && accommodationOrders.includes(acc.id) ? true : false;
                 })}
                 selectable={true}
