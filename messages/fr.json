@@ -318,6 +318,12 @@
   "/events/eventid/participants": {
     "pageTitle": "Gérer les participants",
     "textNoRegistrations": "Pas encore d'inscriptions.",
+    "dlgRegistrationInfoTitle": "Informations",
+    "dlgRegistrationInfoType": "Type",
+    "dlgRegistrationInfoStatus": "Statut",
+    "dlgRegistrationInfoOfferings": "Produits",
+    "dlgRegistrationInfoShirtSize": "Taille de T-shirt",
+    "dlgRegistrationInfoAccommodations": "Hébergement",
     "dlgDenyParticipantTitle": "Refuser un participant",
     "dlgDenyParticipantText": "Voulez-vous vraiment refuser ce participant ?",
     "dlgRemoveParticipantTitle": "Retirer un participant",

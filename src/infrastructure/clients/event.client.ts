@@ -158,25 +158,6 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
   }
 }
 
-export async function getEventRegistrations(eventId: string, registrationType: EventRegistrationType | null): Promise<ReadEventRegistrationResponseDto[]> {
-  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations?`;
-
-  if (registrationType) {
-    url = url + `type=${registrationType}`;
-  }
-
-  const response = await fetch(url, {
-    method: 'GET',
-  });
-
-  if (response.ok) {
-    return await response.json();
-  } else {
-    const error = await response.json();
-    throw Error(error.message);
-  }
-}
-
 export async function getComments(eventId: string): Promise<EventComment[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`;
 
@@ -241,6 +222,28 @@ export async function createEvent(event: Event, session: Session | null): Promis
 
   if (response.ok) {
     console.info('Creating event successful');
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function getEventRegistrations(eventId: string, registrationType: EventRegistrationType | null, session?: Session | null): Promise<ReadEventRegistrationResponseDto[]> {
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations?`;
+
+  if (registrationType) {
+    url = url + `type=${registrationType}`;
+  }
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
     return await response.json();
   } else {
     const error = await response.json();
