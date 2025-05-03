@@ -485,47 +485,47 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
       </Dialog>
 
       {!page && <PageTitle title={t('pageTitleOverview')} />}
-      {page && <PageTitle title={`Registration: ${event.name}`} />}
+      {page && <PageTitle title={`${t('pageTitleRegistrationFlow')}: ${event.name}`} />}
 
       <div className="mx-2 overflow-y-auto">
         <div className="flex justify-center">
           {/* Overview */}
           {!page && (
             <div className="p-2 bg-secondary-light border border-secondary-dark rounded-lg">
-              <div>{`Event: ${event.name}`}</div>
+              <div>{`${t('pageOverviewEvent')}: ${event.name}`}</div>
 
               <div className="flex items-center mt-4 gap-2">
                 {event?.id && moment(event?.registrationOpen).unix() > moment().unix() && (
                   <>
-                    <div>{`${'Registration period start'}:`}</div>
+                    <div>{`${t('pageOverviewRegistrationStart')}:`}</div>
                     <div> {`${getShortDateString(moment(event?.registrationOpen))}  -  ${moment(event?.registrationOpen).diff(moment(), 'days')} day(s) left`}</div>
                   </>
                 )}
                 {event?.id && moment(event?.registrationOpen).unix() < moment().unix() && event?.id && moment(event?.registrationDeadline).unix() > moment().unix() && (
                   <>
-                    <div>{`${'Registration open until'}:`}</div>
+                    <div>{`${t('pageOverviewRegistrationOpenUntil')}:`}</div>
                     <div> {`${getShortDateString(moment(event?.registrationDeadline))}  -  ${moment(event?.registrationDeadline).diff(moment(), 'days')} day(s) left`}</div>
                   </>
                 )}
                 {event?.id && moment(event?.registrationDeadline).unix() < moment().unix() && (
                   <>
-                    <div>{`${'Registration period ended'}:`}</div>
+                    <div>{`${'pageOverviewRegistrationOver'}:`}</div>
                     <div> {`${getShortDateString(moment(event?.registrationDeadline))}`}</div>
                   </>
                 )}
               </div>
 
               <div className="flex items-center mt-4 gap-2">
-                <div>{`${'Your Status'}:`}</div>
+                <div>{`${t('pageOverviewRegistrationStatus')}:`}</div>
                 <Label text={registrationStatus} />
               </div>
 
               {/* todo: visa requests only possible for wffa atm */}
               {event.admin === 'wffa' && (
                 <div className="flex flex-col items-center mt-10 gap-2">
-                  <div>{`${'Need Visa?'}`}</div>
+                  <div>{`${t('pageOverviewRequireVisa')}`}</div>
                   <Link href={`${routeEvents}/${event.id}/registration/visa`}>
-                    <TextButton text="Request Invitation Letter" />
+                    <TextButton text={t('pageOverviewBtnRequestVisa')} />
                   </Link>
                 </div>
               )}
@@ -535,12 +535,12 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
           {/* Page: Personal Details and Registration Type */}
           {page && +page === 1 && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-              <div className="m-2">{`Enter personal information.`}</div>
+              <div className="m-2">{t('pageParticipantSectionUserInfoDescription')}</div>
 
               <div className="flex flex-col">
                 <TextInput
                   id={'firstName'}
-                  label={t('userInfoFirstName')}
+                  label={t('pageParticipantSectionUserInfoFirstName')}
                   value={user.firstName}
                   onChange={e => {
                     handleFirstNameChanged(e.currentTarget.value);
@@ -549,7 +549,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
 
                 <TextInput
                   id={'lastName'}
-                  label={t('userInfoLastName')}
+                  label={t('pageParticipantSectionUserInfoLastName')}
                   value={user.lastName}
                   onChange={e => {
                     handleLastNameChanged(e.currentTarget.value);
@@ -557,7 +557,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                 />
 
                 <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{t('userInfoBirthday')}</div>
+                  <div>{t('pageParticipantSectionUserInfoBirthday')}</div>
                   <DatePicker
                     date={moment(user.birthday)}
                     fromDate={moment(1970)}
@@ -570,7 +570,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
 
                 <TextInput
                   id={'instagramHandle'}
-                  label={t('userInfoInstagramHandle')}
+                  label={t('pageParticipantSectionUserInfoInstagramHandle')}
                   placeholder="@fsmeet_com"
                   value={user.instagramHandle}
                   onChange={e => {
@@ -579,7 +579,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                 />
               </div>
 
-              <div className="m-2 mt-6">{`Select registration type.`}</div>
+              <div className="m-2 mt-6">{t('pageParticipantSectionRegistrationTypeDescription')}</div>
               <AttendeeChoice
                 fees={
                   event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee
@@ -598,7 +598,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
           {/* Page: Competitions */}
           {page && +page === 2 && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-              <div className="m-2">{`Select competitions to participate in.`}</div>
+              <div className="m-2">{t('pageCompetitionDescription')}</div>
 
               <CompetitionList
                 comps={event.competitions}
@@ -630,7 +630,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
           {/* Page: Offerings */}
           {page && +page === 3 && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-              <div className="m-2">{`Select offering.`}</div>
+              <div className="m-2">{t('pageOfferingDescription')}</div>
 
               <OfferingList
                 offerings={event.offerings}
@@ -654,7 +654,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
           {/* Page: Accommodations */}
           {page && +page === 4 && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-              <div className="m-2">{`Select accommodation. Skip if you don't need any.`}</div>
+              <div className="m-2">{t('pageAccommodationDescription')}</div>
 
               <AccommodationList
                 accommodations={getActiveAccommodations()}
@@ -670,14 +670,14 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
             </div>
           )}
 
-          {/* Page: Overview */}
+          {/* Page: Checkout Overview */}
           {page && +page === 5 && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-              <div className="m-2">{`Please review your selection before proceeding with checkout.`}</div>
+              <div className="m-2">{t('pageCheckoutOverviewDescription')}</div>
 
               <div className="flex flex-col mt-2 gap-4">
                 <div className="flex items-center gap-2">
-                  <div className="m-2">{`Enroll as:`}</div>
+                  <div className="m-2">{`${t('pageCheckoutOverviewSectionRegistrationType')}:`}</div>
                   {registrationType && <Label text={registrationType} />}
                 </div>
 
@@ -686,7 +686,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                     <Separator />
 
                     <div>
-                      <div className="m-2 text-lg">{`Competitions`}</div>
+                      <div className="m-2 text-lg">{t('pageCheckoutOverviewSectionCompetitions')}</div>
 
                       <CompetitionList
                         comps={event.competitions.filter(c => c.id && compSignUps.includes(c.id))}
@@ -707,7 +707,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                     <Separator />
 
                     <div>
-                      <div className="m-2 text-lg">{`Offering`}</div>
+                      <div className="m-2 text-lg">{t('pageCheckoutOverviewSectionOfferings')}</div>
 
                       <OfferingList
                         offerings={event.offerings.filter(o => o.id && offeringOrders.includes(o.id))}
@@ -728,7 +728,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                     <Separator />
 
                     <div>
-                      <div className="m-2 text-lg">{`Accommodation`}</div>
+                      <div className="m-2 text-lg">{t('pageCheckoutOverviewSectionAccommodations')}</div>
 
                       <AccommodationList
                         accommodations={event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id))}
