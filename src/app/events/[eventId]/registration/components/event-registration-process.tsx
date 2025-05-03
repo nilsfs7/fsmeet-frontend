@@ -19,7 +19,7 @@ import { createEventRegistration_v2, createEventRegistrationCheckoutLink, delete
 import Label from '@/components/Label';
 import Separator from '@/components/Seperator';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import Dialog from '@/components/Dialog';
 import { ButtonStyle } from '@/domain/enums/button-style';
 import ActionButton from '@/components/common/ActionButton';
@@ -34,10 +34,15 @@ import { OfferingList } from './offering-list';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import TextareaAutosize from 'react-textarea-autosize';
 import { Accommodation } from '@/types/accommodation';
+import TextInput from '@/components/common/TextInput';
+import { DatePicker } from '@/components/common/DatePicker';
+import { prefixRequired } from '@/functions/prefix-required';
+import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
+import { updateUser } from '@/infrastructure/clients/user.client';
 
 interface IEventRegistrationProcess {
   event: Event;
-  user: User;
+  attendee: User;
 }
 
 enum RegistrationProcessPage {
@@ -48,7 +53,7 @@ enum RegistrationProcessPage {
   CHECKOUT_OVERVIEW = '5',
 }
 
-export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProcess) => {
+export const EventRegistrationProcess = ({ event, attendee }: IEventRegistrationProcess) => {
   const t = useTranslations('/events/eventid/registration');
 
   const { data: session } = useSession();
@@ -57,6 +62,8 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   const searchParams = useSearchParams();
   const page = searchParams?.get('page');
 
+  const [user, setUser] = useState<User>(attendee);
+  const [userInfoChanged, setUserInfoChanged] = useState<boolean>(false);
   const [registrationType, setRegistrationType] = useState<EventRegistrationType>();
   const [compSignUps, setCompSignUps] = useState<string[]>([]);
   const [accommodationOrders, setAccommodationOrders] = useState<string[]>([]);
@@ -65,6 +72,37 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
   const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
+
+  const handleFirstNameChanged = (value: string) => {
+    const newUser = Object.assign({}, user);
+    newUser.firstName = capitalizeFirstChar(value);
+    setUser(newUser);
+    setUserInfoChanged(true);
+  };
+
+  const handleLastNameChanged = (value: string) => {
+    const newUser = Object.assign({}, user);
+    newUser.lastName = capitalizeFirstChar(value);
+    setUser(newUser);
+    setUserInfoChanged(true);
+  };
+
+  const handleBirthdayChanged = (value: Moment) => {
+    if (value) {
+      const newUser = Object.assign({}, user);
+      newUser.birthday = value.startOf('day').utc().format();
+      newUser.age = moment(moment().diff(newUser.birthday)).year() - 1970;
+      setUser(newUser);
+      setUserInfoChanged(true);
+    }
+  };
+
+  const handleInstagramHandleChanged = (value: string) => {
+    const newUser = Object.assign({}, user);
+    newUser.instagramHandle = prefixRequired(value.toLowerCase(), '@');
+    setUser(newUser);
+    setUserInfoChanged(true);
+  };
 
   const getActiveAccommodations = (): Accommodation[] => {
     return event.accommodations.filter(acc => {
@@ -94,8 +132,11 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       return false;
     }
 
-    if (page === RegistrationProcessPage.REGISTRATION_TYPE && !registrationType) {
-      return true;
+    if (page === RegistrationProcessPage.REGISTRATION_TYPE) {
+      if (!user.firstName) return true;
+      if (!user.lastName) return true;
+      if (!user.birthday) return true;
+      if (!registrationType) return true;
     }
 
     if (page === RegistrationProcessPage.COMPETITIONS && compSignUps.length === 0) {
@@ -208,6 +249,17 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
       let nextPage: string = '';
       switch (page) {
         case RegistrationProcessPage.REGISTRATION_TYPE:
+          if (userInfoChanged) {
+            // update user profile
+            try {
+              await updateUser(user, session);
+            } catch (error: any) {
+              console.error(error);
+            } finally {
+              setUserInfoChanged(false);
+            }
+          }
+
           if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
             nextPage = RegistrationProcessPage.COMPETITIONS;
           } else {
@@ -480,11 +532,54 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
             </div>
           )}
 
-          {/* Page: Registration Type */}
+          {/* Page: Personal Details and Registration Type */}
           {page && +page === 1 && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-              <div className="m-2">{`Select registration type.`}</div>
+              <div className="m-2">{`Enter personal information.`}</div>
 
+              <div className="flex flex-col">
+                <TextInput
+                  id={'firstName'}
+                  label={t('userInfoFirstName')}
+                  value={user.firstName}
+                  onChange={e => {
+                    handleFirstNameChanged(e.currentTarget.value);
+                  }}
+                />
+
+                <TextInput
+                  id={'lastName'}
+                  label={t('userInfoLastName')}
+                  value={user.lastName}
+                  onChange={e => {
+                    handleLastNameChanged(e.currentTarget.value);
+                  }}
+                />
+
+                <div className="m-2 grid grid-cols-2 items-center">
+                  <div>{t('userInfoBirthday')}</div>
+                  <DatePicker
+                    date={moment(user.birthday)}
+                    fromDate={moment(1970)}
+                    toDate={moment().subtract(6, 'y')}
+                    onChange={value => {
+                      handleBirthdayChanged(value);
+                    }}
+                  />
+                </div>
+
+                <TextInput
+                  id={'instagramHandle'}
+                  label={t('userInfoInstagramHandle')}
+                  placeholder="@fsmeet_com"
+                  value={user.instagramHandle}
+                  onChange={e => {
+                    handleInstagramHandleChanged(e.currentTarget.value);
+                  }}
+                />
+              </div>
+
+              <div className="m-2 mt-6">{`Select registration type.`}</div>
               <AttendeeChoice
                 fees={
                   event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee
@@ -509,7 +604,17 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                 comps={event.competitions}
                 paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                 disabled={event.competitions.map(comp => {
-                  return comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender;
+                  // check if gender does not fit
+                  if (comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender) {
+                    return true;
+                  }
+
+                  // check if age does not fit
+                  if (comp.maxAge > 0 && (!user.age || comp.maxAge < user.age)) {
+                    return true;
+                  }
+
+                  return false;
                 })}
                 checked={event.competitions.map(comp => {
                   return comp.id && compSignUps.includes(comp.id) ? true : false;
@@ -586,11 +691,6 @@ export const EventRegistrationProcess = ({ event, user }: IEventRegistrationProc
                       <CompetitionList
                         comps={event.competitions.filter(c => c.id && compSignUps.includes(c.id))}
                         paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
-                        disabled={event.competitions
-                          .filter(c => c.id && compSignUps.includes(c.id))
-                          .map(comp => {
-                            return comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender;
-                          })}
                         checked={event.competitions
                           .filter(c => c.id && compSignUps.includes(c.id))
                           .map(comp => {
