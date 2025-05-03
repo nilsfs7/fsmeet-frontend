@@ -18,5 +18,5 @@ export default async function EventRegistration({ params }: { params: { eventId:
   const event = await getEvent(params.eventId, session);
   const user = await getUser(session?.user.username ? session.user.username : '', session);
 
-  return <EventRegistrationProcess event={event} user={user} />;
+  return <EventRegistrationProcess event={event} attendee={user} />;
 }
