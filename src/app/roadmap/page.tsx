@@ -18,7 +18,7 @@ export default async function Roadmap() {
             <Task
               title="Event Registration Process v2"
               size={TaskSize.LARGE}
-              filled={95}
+              filled={100}
               description={`Multi step registration process.\n1) Registration type (participant / visitor)\n2) Choose comps (when participant)\n3) Payment details and overview\n4) Finish registration`}
             />
 
