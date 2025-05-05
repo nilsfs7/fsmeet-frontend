@@ -16,7 +16,6 @@ const config: Config = {
         background: '#ffffff',
         primary: '#141D26',
         'secondary-light': '#f8f9fa',
-
         secondary: '#e1e8ed',
         'secondary-dark': '#ccd6dd',
         success: '#49B21A',
