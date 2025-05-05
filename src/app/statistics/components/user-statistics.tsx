@@ -4,17 +4,47 @@ import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { User } from '@/types/user';
 import { getUsers } from '@/infrastructure/clients/user.client';
-import { getUserCount } from '@/infrastructure/clients/statistic.client';
+import { getUserCount, getUserNationalityCount } from '@/infrastructure/clients/statistic.client';
 import { ReadUserCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-count.response.dto';
 import Separator from '@/components/Seperator';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+import { ReadUserNationalityCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-nationality-count.response.dto';
 
 export const UserStatistics = () => {
   const [userCount, setUserCount] = useState<ReadUserCountResponseDto>();
+  const [userNationalityCount, setUserNationalityCount] = useState<ReadUserNationalityCountResponseDto[]>([]);
+  const [hexColors, setHexColors] = useState<string[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+
+  const generateRandomHexColors = (count: number) => {
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+      const color =
+        '#' +
+        Math.floor(Math.random() * 0xffffff)
+          .toString(16)
+          .padStart(6, '0');
+      colors.push(color);
+    }
+    return colors;
+  };
+
+  const renderLabel = ({ name, percent }: { name: string; percent: number }) => {
+    if (!name) {
+      name = 'unknown';
+    }
+
+    return `${name}: ${(percent * 100).toFixed(0)}%`;
+  };
 
   useEffect(() => {
     getUserCount().then(dto => {
       setUserCount(dto);
+    });
+
+    getUserNationalityCount().then(dtos => {
+      setUserNationalityCount(dtos);
+      setHexColors(generateRandomHexColors(dtos.length));
     });
 
     getUsers().then(users => {
@@ -29,7 +59,9 @@ export const UserStatistics = () => {
   return (
     <div className="mx-2 overflow-y-auto">
       <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="flex justify-center text-lg">{`User Count`}</div>
+
+        <div className="grid grid-cols-2 gap-2 mt-2">
           <div className="flex justify-end">{`Freestylers:`}</div>
           <div className="flex justify-start">{userCount?.userCountFreestylers}</div>
 
@@ -56,7 +88,9 @@ export const UserStatistics = () => {
           <Separator />
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="flex justify-center text-lg">{`Total User Count`}</div>
+
+        <div className="grid grid-cols-2 gap-2 mt-2">
           <div className="flex justify-end"> {`Total users:`}</div>
           <div className="flex justify-start">{userCount?.userCountTotal}</div>
 
@@ -65,6 +99,22 @@ export const UserStatistics = () => {
 
           <div className="flex justify-end">{`Technical users:`}</div>
           <div className="flex justify-start">{userCount?.userCountTechnical}</div>
+        </div>
+
+        <div className="m-2">
+          <Separator />
+        </div>
+
+        <div className="flex justify-center text-lg">{`User Share by Nationality`}</div>
+        <div className="flex justify-center border-primary">
+          <PieChart width={400} height={400}>
+            <Pie data={userNationalityCount} dataKey="userCount" nameKey="country" cx="50%" cy="50%" outerRadius={100} fill="#ccd6dd" label={renderLabel}>
+              {userNationalityCount.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={hexColors[index % hexColors.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
         </div>
       </div>
     </div>
