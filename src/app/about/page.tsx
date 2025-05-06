@@ -11,18 +11,17 @@ import Link from 'next/link';
 import { readFileSync } from 'fs';
 import path from 'path';
 
-export function getPackageVersion() {
-  const filePath = path.resolve(process.cwd(), 'package.json');
-  const packageJson = JSON.parse(readFileSync(filePath, 'utf-8'));
-  return packageJson.version;
-}
-
 export default async function About() {
   const t = await getTranslations('/about');
 
-  const appVersion = process.env.NEXT_PUBLIC_APP_VERSION;
   const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME;
   const shortSha = process.env.NEXT_PUBLIC_COMMIT_SHA && process.env.NEXT_PUBLIC_COMMIT_SHA?.length > 7 ? process.env.NEXT_PUBLIC_COMMIT_SHA?.substring(0, 7) : process.env.NEXT_PUBLIC_COMMIT_SHA;
+
+  const getPackageVersion = (): string => {
+    const filePath = path.resolve(process.cwd(), 'package.json');
+    const packageJson = JSON.parse(readFileSync(filePath, 'utf-8'));
+    return packageJson.version;
+  };
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
