@@ -34,26 +34,37 @@ yarn dev
 
 Pull image
 
-```
+```bash
 docker pull luisnaldo7/fsmeet-frontend:latest
 ```
 
 or build image
 
-```
+```bash
 docker buildx build --build-arg COMMIT_SHA=456 -t luisnaldo7/fsmeet-frontend:latest .
 ```
 
 Execute container
 
-```
+```bash
 docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --rm --name fsmeet-frontend luisnaldo7/fsmeet-frontend:latest
 ```
 
 or execute container on boot
 
-```
+```bash
 docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --restart always --name fsmeet-frontend luisnaldo7/fsmeet-frontend:latest
+```
+
+## Create a release
+
+```bash
+# patch version
+yarn run release:patch
+# minor / feature version
+yarn run release:minor
+# major version
+yarn run release:major
 ```
 
 ## Understanding the project structure
