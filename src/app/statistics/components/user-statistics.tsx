@@ -8,11 +8,10 @@ import { getUserCount, getUserNationalityCount } from '@/infrastructure/clients/
 import { ReadUserCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-count.response.dto';
 import Separator from '@/components/Seperator';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
-import { ReadUserNationalityCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-nationality-count.response.dto';
 
 export const UserStatistics = () => {
   const [userCount, setUserCount] = useState<ReadUserCountResponseDto>();
-  const [userNationalityCount, setUserNationalityCount] = useState<ReadUserNationalityCountResponseDto[]>([]);
+  const [userNationalityCount, setUserNationalityCount] = useState<{ country: string; userCount: number }[]>([]);
   const [hexColors, setHexColors] = useState<string[]>([]);
   const [users, setUsers] = useState<User[]>([]);
 
@@ -43,8 +42,22 @@ export const UserStatistics = () => {
     });
 
     getUserNationalityCount().then(dtos => {
-      setUserNationalityCount(dtos);
-      setHexColors(generateRandomHexColors(dtos.length));
+      const thresholdMinimumShareInPercent = 2;
+      const totalCount = dtos.reduce((sum, item) => sum + item.userCount, 0);
+      const consolidatedNatCount: { country: string; userCount: number }[] = [];
+      const minorityNatCount: { country: string; userCount: number } = { country: 'other', userCount: 0 };
+
+      dtos.map(item => {
+        if ((item.userCount / totalCount) * 100 > thresholdMinimumShareInPercent) {
+          consolidatedNatCount.push({ country: item.country, userCount: item.userCount });
+        } else {
+          minorityNatCount.userCount += item.userCount;
+        }
+      });
+      consolidatedNatCount.push(minorityNatCount);
+
+      setUserNationalityCount(consolidatedNatCount);
+      setHexColors(generateRandomHexColors(consolidatedNatCount.length));
     });
 
     getUsers().then(users => {

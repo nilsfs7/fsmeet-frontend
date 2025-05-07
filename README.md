@@ -59,7 +59,12 @@ docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --
 ## Create a release
 
 ```bash
-yarn run release
+# patch version
+yarn run release:patch
+# minor / feature version
+yarn run release:minor
+# major version
+yarn run release:major
 ```
 
 ## Understanding the project structure
