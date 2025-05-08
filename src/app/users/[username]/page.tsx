@@ -132,8 +132,8 @@ export default async function PublicUserProfile({ params }: { params: { username
         <div className="h-full overflow-y-auto">
           <div className="flex flex-col items-center justify-center ">
             <div className="w-64">
-              <div className="mt-6 flex aspect-[4/5] object-fill">
-                <img className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
+              <div className="mt-6 flex aspect-[4/5]">
+                <img className="h-full w-full object-cover rounded-lg border border-primary shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
               </div>
 
               <div className="mx-2 mt-6">
