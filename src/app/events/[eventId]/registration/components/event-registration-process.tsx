@@ -587,6 +587,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                     ? [event.participationFeeIncPaymentCosts, event.visitorFeeIncPaymentCosts]
                     : [event.participationFee, event.visitorFee]
                 }
+                eventType={event.type}
                 checked={registrationType}
                 selectable={true}
                 onCheckedChange={registrationType => {

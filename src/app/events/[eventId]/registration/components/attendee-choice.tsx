@@ -2,18 +2,27 @@
 
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { EventType } from '@/domain/enums/event-type';
 
-const registrationTypes = Object.keys(EventRegistrationType);
+const registrationTypes = Object.values(EventRegistrationType);
 
 interface IAttendeeChoiceList {
   fees: number[];
+  eventType: EventType;
   disabled?: boolean[];
   checked?: EventRegistrationType;
   selectable?: boolean;
   onCheckedChange?: (registrationType: EventRegistrationType) => void;
 }
 
-export const AttendeeChoice = ({ fees, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
+export const AttendeeChoice = ({ fees, eventType, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
+  const availableRegistrationTypes = registrationTypes.filter(regType => {
+    // remove type visitor when event is an online competition
+    if (!(eventType === EventType.COMPETITION_ONLINE && regType === EventRegistrationType.VISITOR)) {
+      return regType;
+    }
+  });
+
   return (
     <RadioGroup>
       <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
@@ -26,19 +35,19 @@ export const AttendeeChoice = ({ fees, disabled = [false, false], checked, selec
           </tr>
         </thead>
         <tbody className="text-primary text-sm">
-          {registrationTypes.map((registrationType, i) => (
-            <tr key={i} className={`${i < registrationTypes.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
-              <td className="py-3 px-3 capitalize">{registrationType.toLowerCase()}</td>
+          {availableRegistrationTypes.map((regType, i) => (
+            <tr key={i} className={`${i < availableRegistrationTypes.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
+              <td className="py-3 px-3 capitalize">{regType}</td>
               <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${fees[i]} €`.replace('.', ',')}</td>
               {selectable && (
                 <td className="py-3 px-3 text-center">
                   <RadioGroupItem
-                    value={Object.values(EventRegistrationType)[i]}
-                    id={`option-${Object.values(EventRegistrationType)[i]}`}
-                    checked={checked === Object.values(EventRegistrationType)[i]}
+                    value={regType}
+                    id={`option-${regType}`}
+                    checked={checked === regType}
                     disabled={disabled[i]}
                     onClick={e => {
-                      if (onCheckedChange && registrationType) onCheckedChange(Object.values(EventRegistrationType)[i]);
+                      if (onCheckedChange && regType) onCheckedChange(Object.values(EventRegistrationType)[i]);
                     }}
                   />
                 </td>
