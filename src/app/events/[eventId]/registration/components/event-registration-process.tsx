@@ -39,6 +39,7 @@ import { DatePicker } from '@/components/common/DatePicker';
 import { prefixRequired } from '@/functions/prefix-required';
 import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
 import { updateUser } from '@/infrastructure/clients/user.client';
+import { EventType } from '@/domain/enums/event-type';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -521,7 +522,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
               </div>
 
               {/* todo: visa requests only possible for wffa atm */}
-              {event.admin === 'wffa' && (
+              {event.type !== EventType.COMPETITION_ONLINE && event.admin === 'wffa' && (
                 <div className="flex flex-col items-center mt-10 gap-2">
                   <div>{`${t('pageOverviewRequireVisa')}`}</div>
                   <Link href={`${routeEvents}/${event.id}/registration/visa`}>
