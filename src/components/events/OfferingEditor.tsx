@@ -7,6 +7,7 @@ import { imgImagePlaceholder, imgUserDefaultImg } from '@/domain/constants/image
 import { useTranslations } from 'next-intl';
 import CurInput from '../common/CurrencyInput';
 import CheckBox from '../common/CheckBox';
+import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 
 interface IOfferingEditorProps {
   offering?: Offering;
@@ -18,7 +19,7 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
   const t = useTranslations('global/components/offering-editor');
 
   const [description, setOfferingDescription] = useState(offering?.description || '');
-  const [cost, setCost] = useState(offering?.cost || 0.0);
+  const [cost, setCost] = useState(offering?.cost || 0);
   const [mandatoryForParticipant, setMandatoryForParticipant] = useState<boolean>(offering?.mandatoryForParticipant || false);
   const [includesShirt, setIncludesShirt] = useState<boolean>(offering?.includesShirt || false);
   const [imgPreview, setImgPreview] = useState<File>();
@@ -47,7 +48,7 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
   };
 
   const handleCostChanged = (values: { float: number | null; formatted: string; value: string }) => {
-    setCost(values.float || 0.0);
+    setCost(convertCurrencyDecimalToInteger(values.float || 0, 'EUR'));
   };
 
   const updateOfferingPreview = () => {
@@ -91,7 +92,7 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
           id={'cost'}
           label={t('inputCost')}
           placeholder="35,00"
-          value={cost}
+          value={convertCurrencyIntegerToDecimal(cost, 'EUR')}
           onValueChange={(value, name, values) => {
             if (values) handleCostChanged(values);
           }}

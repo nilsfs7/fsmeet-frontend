@@ -1,5 +1,6 @@
 'use client';
 
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { Competition } from '@/types/competition';
 
 interface ICompetitionList {
@@ -30,7 +31,9 @@ export const CompetitionList = ({ comps, paymentFeeCover, disabled = [], checked
             <td className="py-3 px-3 capitalize">{comp.type}</td>
             <td className="py-3 px-3">{comp.name}</td>
             <td className="py-3 px-3 capitalize">{comp.gender}</td>
-            <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${paymentFeeCover ? comp.participationFeeIncPaymentCosts : comp.participationFee} €`.replace('.', ',')}</td>
+            <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
+              {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(comp.participationFeeIncPaymentCosts, 'EUR') : convertCurrencyIntegerToDecimal(comp.participationFee, 'EUR')} €`.replace('.', ',')}
+            </td>
             {selectable && (
               <td className="py-3 px-3 text-center">
                 <input

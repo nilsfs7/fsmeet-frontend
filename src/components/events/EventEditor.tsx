@@ -37,6 +37,7 @@ import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-coun
 import { imgImagePlaceholder } from '@/domain/constants/images';
 import { deleteEventPoster } from '@/infrastructure/clients/event.client';
 import { Toaster, toast } from 'sonner';
+import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -69,8 +70,8 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
   const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || '');
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
   const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || '');
-  const [participationFee, setParticipationFee] = useState(event?.participationFee || 0.0);
-  const [visitorFee, setVisitorFee] = useState(event?.visitorFee || 0.0);
+  const [participationFee, setParticipationFee] = useState(event?.participationFee || 0);
+  const [visitorFee, setVisitorFee] = useState(event?.visitorFee || 0);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
   const [paymentMethodPayPalEnabled, setPaymentMethodPayPalEnabled] = useState<boolean>(event?.paymentMethodPayPal?.enabled || false);
   const [paymentMethodPayPalHandle, setPaymentMethodPayPalHandle] = useState<string>(event?.paymentMethodPayPal?.payPalHandle || '');
@@ -576,10 +577,10 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
         id={'participationFee'}
         label={t('inputPaticipantFee')}
         placeholder="25,00"
-        value={participationFee}
+        value={convertCurrencyIntegerToDecimal(participationFee, 'EUR')}
         onValueChange={(value, name, values) => {
           if (values?.float || values?.float === 0) {
-            setParticipationFee(values?.float);
+            setParticipationFee(convertCurrencyDecimalToInteger(values?.float, 'EUR'));
 
             if (values?.float === 0) {
               setVisitorFee(0);
@@ -595,10 +596,10 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
               id={'visitorFee'}
               label={t('inputVisitorFee')}
               placeholder="10,00"
-              value={visitorFee}
+              value={convertCurrencyIntegerToDecimal(visitorFee, 'EUR')}
               onValueChange={(value, name, values) => {
                 if (values?.float || values?.float === 0) {
-                  setVisitorFee(values?.float);
+                  setVisitorFee(convertCurrencyDecimalToInteger(values?.float, 'EUR'));
                 }
               }}
             />

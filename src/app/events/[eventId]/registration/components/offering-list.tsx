@@ -2,6 +2,7 @@
 
 import ComboBox from '@/components/common/ComboBox';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { Offering } from '@/types/offering';
 import { useTranslations } from 'next-intl';
@@ -36,7 +37,9 @@ export const OfferingList = ({ offerings, paymentFeeCover, registrationType, tSh
           {offerings.map((offering, i) => (
             <tr key={i} className={`${i < offerings.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
               <td className="py-3 px-3">{offering.description}</td>
-              <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${paymentFeeCover ? offering.costIncPaymentCosts : offering.cost} €`.replace('.', ',')}</td>
+              <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
+                {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(offering.costIncPaymentCosts, 'EUR') : convertCurrencyIntegerToDecimal(offering.cost, 'EUR')} €`.replace('.', ',')}
+              </td>
               {selectable && (
                 <td className="py-3 px-3 text-center">
                   <input

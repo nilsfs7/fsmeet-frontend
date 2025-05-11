@@ -3,6 +3,7 @@
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { EventType } from '@/domain/enums/event-type';
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 
 const registrationTypes = Object.values(EventRegistrationType);
 
@@ -38,7 +39,7 @@ export const AttendeeChoice = ({ fees, eventType, disabled = [false, false], che
           {availableRegistrationTypes.map((regType, i) => (
             <tr key={i} className={`${i < availableRegistrationTypes.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
               <td className="py-3 px-3 capitalize">{regType}</td>
-              <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${fees[i]} €`.replace('.', ',')}</td>
+              <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${convertCurrencyIntegerToDecimal(fees[i], 'EUR')} €`.replace('.', ',')}</td>
               {selectable && (
                 <td className="py-3 px-3 text-center">
                   <RadioGroupItem

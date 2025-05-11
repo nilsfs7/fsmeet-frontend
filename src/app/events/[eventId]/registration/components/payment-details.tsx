@@ -3,6 +3,7 @@
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { Event } from '@/types/event';
 import { isCompetition } from '@/functions/is-competition';
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 
 interface IPaymentDetails {
   event: Event;
@@ -26,7 +27,7 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
       <div className="m-2 flex flex-col gap-2 text-sm">
         <div className="flex justify-between">
           <div>{`Event fee`}</div>
-          <div>{`${eventFee.toString().replace('.', ',')} €`}</div>
+          <div>{`${convertCurrencyIntegerToDecimal(eventFee, 'EUR').toString().replace('.', ',')} €`}</div>
         </div>
 
         {registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && (
@@ -35,7 +36,7 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
             <div>
               {`${event.competitions
                 .filter(c => c.id && compSignUps.includes(c.id))
-                .reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0)
+                .reduce((acc, c) => acc + (paymentFeeCover ? convertCurrencyIntegerToDecimal(c.participationFeeIncPaymentCosts, 'EUR') : convertCurrencyIntegerToDecimal(c.participationFee, 'EUR')), 0)
                 .toString()
                 .replace('.', ',')} €`}
             </div>
@@ -48,7 +49,7 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
             <div>
               {`${event.offerings
                 .filter(a => a.id && offeringOrders.includes(a.id))
-                .reduce((off, o) => off + (paymentFeeCover ? o.costIncPaymentCosts : o.cost), 0)
+                .reduce((off, o) => off + (paymentFeeCover ? convertCurrencyIntegerToDecimal(o.costIncPaymentCosts, 'EUR') : convertCurrencyIntegerToDecimal(o.cost, 'EUR')), 0)
                 .toString()
                 .replace('.', ',')} €`}
             </div>
@@ -61,7 +62,7 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
             <div>
               {`${event.accommodations
                 .filter(a => a.id && accommodationOrders.includes(a.id))
-                .reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0)
+                .reduce((acc, a) => acc + (paymentFeeCover ? convertCurrencyIntegerToDecimal(a.costIncPaymentCosts, 'EUR') : convertCurrencyIntegerToDecimal(a.cost, 'EUR')), 0)
                 .toString()
                 .replace('.', ',')} €`}
             </div>
@@ -71,14 +72,12 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
         <div className="flex justify-between text-lg">
           <div>{`Total`}</div>
           <div>
-            {`${(
-              Math.round(
-                100 *
-                  (eventFee +
-                    event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0) +
-                    event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0) +
-                    event.offerings.filter(o => o.id && offeringOrders.includes(o.id)).reduce((off, o) => off + (paymentFeeCover ? o.costIncPaymentCosts : o.cost), 0))
-              ) / 100
+            {`${convertCurrencyIntegerToDecimal(
+              eventFee +
+                event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0) +
+                event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0) +
+                event.offerings.filter(o => o.id && offeringOrders.includes(o.id)).reduce((off, o) => off + (paymentFeeCover ? o.costIncPaymentCosts : o.cost), 0),
+              'EUR'
             )
               .toString()
               .replace('.', ',')} €`}

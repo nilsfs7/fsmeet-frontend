@@ -1,5 +1,6 @@
 'use client';
 
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { Accommodation } from '@/types/accommodation';
 
 interface IAccommodationList {
@@ -26,7 +27,9 @@ export const AccommodationList = ({ accommodations, paymentFeeCover, disabled = 
         {accommodations.map((acc, i) => (
           <tr key={i} className={`${i < accommodations.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
             <td className="py-3 px-3">{acc.description}</td>
-            <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${paymentFeeCover ? acc.costIncPaymentCosts : acc.cost} €`.replace('.', ',')}</td>
+            <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
+              {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(acc.costIncPaymentCosts, 'EUR') : convertCurrencyIntegerToDecimal(acc.cost, 'EUR')} €`.replace('.', ',')}
+            </td>
             {selectable && (
               <td className="py-3 px-3 text-center">
                 <input
