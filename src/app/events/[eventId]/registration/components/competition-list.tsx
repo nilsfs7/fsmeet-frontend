@@ -28,7 +28,7 @@ export const CompetitionList = ({ comps, paymentFeeCover, disabled = [], checked
       <tbody className="text-primary text-sm">
         {comps.map((comp, i) => (
           <tr key={i} className={`${i < comps.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
-            <td className="py-3 px-3 capitalize">{comp.type}</td>
+            <td className="py-3 px-3 capitalize">{comp.type.replaceAll('_', ' ')}</td>
             <td className="py-3 px-3">{comp.name}</td>
             <td className="py-3 px-3 capitalize">{comp.gender}</td>
             <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
