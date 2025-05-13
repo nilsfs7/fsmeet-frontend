@@ -1,3 +1,4 @@
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { PaymentMethodPayPal } from '@/types/payment-method-paypal';
 
 interface IPayPalInfo {
@@ -20,7 +21,7 @@ export const PayPalInfo = ({ participationFee, payPalInfo }: IPayPalInfo) => {
 
       <div className="grid grid-cols-2 justify-between">
         <div>{`Amount`}</div>
-        <div className="select-text">{participationFee.toString().replace('.', ',')}€</div>
+        <div className="select-text">{convertCurrencyIntegerToDecimal(participationFee, 'EUR').toString().replace('.', ',')}€</div>
       </div>
     </div>
   );

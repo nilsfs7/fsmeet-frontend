@@ -17,6 +17,7 @@ import { PayPalInfo } from './payment/paypal-info';
 import { SepaInfo } from './payment/sepa-info';
 import Separator from '@/components/Seperator';
 import Label from '@/components/Label';
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 
 interface ITextButtonRegister {
   event: Event;
@@ -139,7 +140,8 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
             </div>
 
             <div className="mt-4">
-              {t('dlgEventRegistrationText2')} {event.participationFee.toString().replace('.', ',')}€. {event.autoApproveRegistrations ?? t('dlgEventRegistrationText3')}
+              {t('dlgEventRegistrationText2')} {convertCurrencyIntegerToDecimal(event.participationFee, 'EUR').toString().replace('.', ',')}€.{' '}
+              {event.autoApproveRegistrations ?? t('dlgEventRegistrationText3')}
             </div>
 
             {event.paymentMethodCash.enabled && (
