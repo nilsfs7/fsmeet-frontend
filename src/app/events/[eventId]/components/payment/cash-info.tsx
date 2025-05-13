@@ -1,3 +1,5 @@
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+
 interface ICashInfo {
   participationFee: number;
 }
@@ -9,7 +11,7 @@ export const CashInfo = ({ participationFee }: ICashInfo) => {
 
       <div className="grid grid-cols-2 justify-between">
         <div>{`Amount`}</div>
-        <div className="select-text">{participationFee.toString().replace('.', ',')}€</div>
+        <div className="select-text">{convertCurrencyIntegerToDecimal(participationFee, 'EUR').toString().replace('.', ',')}€</div>
       </div>
     </div>
   );

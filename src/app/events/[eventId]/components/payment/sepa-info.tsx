@@ -1,3 +1,4 @@
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 
 interface ISepaInfo {
@@ -28,7 +29,7 @@ export const SepaInfo = ({ participationFee, sepaInfo, usernameForReference }: I
 
       <div className="grid grid-cols-2 justify-between">
         <div>{`Amount`}</div>
-        <div className="select-text">{participationFee.toString().replace('.', ',')}€</div>
+        <div className="select-text">{convertCurrencyIntegerToDecimal(participationFee, 'EUR').toString().replace('.', ',')}€</div>
       </div>
 
       <div className="grid grid-cols-2 justify-between">
