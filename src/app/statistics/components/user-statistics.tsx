@@ -42,7 +42,7 @@ export const UserStatistics = () => {
     });
 
     getUserNationalityCount().then(dtos => {
-      const thresholdMinimumShareInPercent = 1.5;
+      const thresholdMinimumShareInPercent = 1.8;
       const totalCount = dtos.reduce((sum, item) => sum + item.userCount, 0);
       const consolidatedNatCount: { country: string; userCount: number }[] = [];
       const minorityNatCount: { country: string; userCount: number } = { country: 'other', userCount: 0 };
