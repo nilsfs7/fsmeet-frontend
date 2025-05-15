@@ -41,6 +41,8 @@ import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
 import { updateUser } from '@/infrastructure/clients/user.client';
 import { EventType } from '@/domain/enums/event-type';
 import { UserType } from '@/domain/enums/user-type';
+import ComboBox from '@/components/common/ComboBox';
+import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -64,14 +66,17 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
   const searchParams = useSearchParams();
   const page = searchParams?.get('page');
 
+  const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
   const [user, setUser] = useState<User>(attendee);
   const [userInfoChanged, setUserInfoChanged] = useState<boolean>(false);
+
+  const [phoneCountryCode, setPhoneCountryCode] = useState<number | undefined>(user.phoneCountryCode);
+  const [phoneNumber, setPhoneNumber] = useState<number | undefined | null>(user.phoneNumber);
   const [registrationType, setRegistrationType] = useState<EventRegistrationType>();
   const [compSignUps, setCompSignUps] = useState<string[]>([]);
   const [accommodationOrders, setAccommodationOrders] = useState<string[]>([]);
   const [offeringOrders, setOfferingOrders] = useState<string[]>([]);
   const [offeringTShirtSize, setOfferingShirtSize] = useState<string>(user.tShirtSize || menuTShirtSizesWithUnspecified[0].value);
-  const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
 
@@ -97,6 +102,30 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
       setUser(newUser);
       setUserInfoChanged(true);
     }
+  };
+
+  const handlePhoneCountryCodeChanged = (value: string) => {
+    const newUser = Object.assign({}, user);
+    newUser.phoneCountryCode = +value;
+
+    setPhoneCountryCode(newUser.phoneCountryCode);
+    setUser(newUser);
+    setUserInfoChanged(true);
+  };
+
+  const handlePhoneNumberChanged = (value: string) => {
+    const regex = new RegExp('^[0-9]+$');
+    const newUser = Object.assign({}, user);
+
+    if (value === '') {
+      newUser.phoneNumber = null;
+    } else if (regex.test(value)) {
+      newUser.phoneNumber = +value;
+    }
+
+    setPhoneNumber(newUser.phoneNumber);
+    setUser(newUser);
+    setUserInfoChanged(true);
   };
 
   const handleInstagramHandleChanged = (value: string) => {
@@ -138,6 +167,12 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
       if (!user.firstName) return true;
       if (!user.lastName) return true;
       if (!user.birthday) return true;
+
+      if (event.type === EventType.COMPETITION_ONLINE) {
+        if (!phoneCountryCode) return true;
+        if (!phoneNumber) return true;
+      }
+
       if (!registrationType) return true;
     }
 
@@ -316,7 +351,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
   const handleRegisterNowClicked = async () => {
     if (event.id && registrationType) {
       try {
-        await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, offeringOrders, offeringTShirtSize, session);
+        await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, offeringOrders, offeringTShirtSize, phoneCountryCode || null, phoneNumber || null, session);
         cleanupCacheRegistrationInfo();
 
         // todo: don't redirect when user is not paying directly
@@ -558,7 +593,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                   }}
                 />
 
-                <div className="m-2 grid grid-cols-2 items-center">
+                <div className="m-2 flex justify-between items-center gap-2">
                   <div>{t('pageParticipantSectionUserInfoBirthday')}</div>
                   <DatePicker
                     date={moment(user.birthday)}
@@ -569,6 +604,38 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                     }}
                   />
                 </div>
+
+                {event.type === EventType.COMPETITION_ONLINE && (
+                  <div className="flex flex-col-2 items-end">
+                    <div className="mx-2">
+                      <div>{t('pageParticipantSectionUserPhoneNumber')}</div>
+                      <div className="flex w-full">
+                        <ComboBox
+                          menus={menuPhoneCountryCodesWithUnspecified}
+                          value={user.phoneCountryCode ? user.phoneCountryCode?.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                          searchEnabled={true}
+                          onChange={(value: any) => {
+                            handlePhoneCountryCodeChanged(value);
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="h-fit">
+                      <TextInput
+                        id={'phoneNumber'}
+                        label={''}
+                        labelOnTop={true}
+                        type="tel"
+                        placeholder="1516 123456"
+                        value={user.phoneNumber?.toString() || ''}
+                        onChange={e => {
+                          handlePhoneNumberChanged(e.currentTarget.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
 
                 <TextInput
                   id={'instagramHandle'}

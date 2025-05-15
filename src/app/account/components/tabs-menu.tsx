@@ -213,7 +213,6 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
   const handlePhoneNumberChanged = (value: string) => {
     const regex = new RegExp('^[0-9]+$');
-
     const newUserInfo = Object.assign({}, userInfo);
 
     if (value === '') {
