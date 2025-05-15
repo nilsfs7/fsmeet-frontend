@@ -64,13 +64,9 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
 
       <div className={'h-fit rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
         {/* top */}
-        <div className={'grid grid-cols-3 justify-end object-right p-2'}>
-          <div className="col-span-2 text-base font-bold">{event.name}</div>
-          <div className="row-span-3 flex h-20 justify-end">
-            <img className="h-full" src={event.type === EventType.MEETING ? imgMeeting : imgCompetition} alt={'event image'} />
-          </div>
-
-          <div className="col-span-2">
+        <div className={'grid grid-cols-3 p-2'}>
+          <div className="col-span-2 flex flex-col">
+            <div className="text-base font-bold mb-2">{event.name}</div>
             {event.dateFrom && event.dateTo && (
               <div>
                 {moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
@@ -78,9 +74,13 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                   : `${getShortDateString(moment(event.dateFrom), false)} - ${getShortDateString(moment(event.dateTo))}`}
               </div>
             )}
+            <div className="col-span-2">{event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}</div>
           </div>
 
-          <div className="col-span-2">{event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}</div>
+          <div className="row-span-3 flex justify-end">
+            {event.imageUrlPoster && <img className="h-28 aspect-[4/5] object-fill" src={event.imageUrlPoster} alt={'event image'} />}
+            {!event.imageUrlPoster && <img className="h-28 aspect-[4/5]" src={event.type === EventType.MEETING ? imgMeeting : imgCompetition} alt={'event image'} />}
+          </div>
         </div>
 
         <Separator />
