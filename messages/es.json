@@ -366,8 +366,8 @@
     "btnEnrollNow": "Pagar"
   },
   "/events/eventid/registration/completed": {
-    "registrationSuccess": "Registro enviado exitosamente.",
-    "textPaymentOutstanding": "Por favor, no olvide pagar la cuota de participación. Te hemos enviado los detalles del pago por correo electrónico.",
+    "registrationSuccess": "Registro enviado con éxito.",
+    "textPaymentOutstanding": "Por favor, ¡no te olvides de pagar la cuota de participación! Te hemos enviado los detalles del pago por correo electrónico.",
     "textPaymentCompleted": "Pago completado. ¡Nos vemos en el evento!",
     "btnBack": "Volver al evento"
   },
@@ -386,7 +386,7 @@
     "btnSendRequest": "Enviar solicitud"
   },
   "/events/eventid/registration/visa/success": {
-    "textSuccess1": "¡Su solicitud fue enviada exitosamente!",
+    "textSuccess1": "¡Su solicitud fue enviada con éxito!",
     "textSuccess2": "Esperando aprobación.",
     "btnBack": "Atrás"
   },
