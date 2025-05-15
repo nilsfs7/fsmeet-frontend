@@ -4,6 +4,7 @@ import { UpdatePaymentMethodCashBodyDto } from './payment/update-payment-method-
 import { UpdatePaymentMethodPayPalBodyDto } from './payment/update-payment-method-paypal.body.dto';
 import { UpdatePaymentMethodSepaBodyDto } from './payment/update-payment-method-sepa.body.dto';
 import { UpdatePaymentMethodStripeBodyDto } from './payment/update-payment-method-stripe.body.dto';
+import { CurrencyCode } from '@/domain/enums/currency-code';
 
 export class UpdateEventBodyDto {
   id: string;
@@ -14,6 +15,7 @@ export class UpdateEventBodyDto {
   dateTo: Moment;
   participationFee: number;
   visitorFee: number;
+  currency: CurrencyCode;
   registrationOpen: Moment;
   registrationDeadline: Moment;
   description: string;
@@ -45,6 +47,7 @@ export class UpdateEventBodyDto {
     dateTo: Moment,
     participationFee: number,
     visitorFee: number,
+    currency: CurrencyCode,
     registrationOpen: Moment,
     registrationDeadline: Moment,
     description: string,
@@ -75,6 +78,7 @@ export class UpdateEventBodyDto {
     this.dateTo = dateTo;
     this.participationFee = participationFee;
     this.visitorFee = visitorFee;
+    this.currency = currency;
     this.registrationOpen = registrationOpen;
     this.registrationDeadline = registrationDeadline;
     this.description = description;

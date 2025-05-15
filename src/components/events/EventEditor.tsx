@@ -38,6 +38,8 @@ import { imgImagePlaceholder } from '@/domain/constants/images';
 import { deleteEventPoster } from '@/infrastructure/clients/event.client';
 import { Toaster, toast } from 'sonner';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { CurrencyCode } from '@/domain/enums/currency-code';
+import { menuCurrencies } from '@/domain/constants/menus/menu-currencies';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -72,6 +74,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
   const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || '');
   const [participationFee, setParticipationFee] = useState(event?.participationFee || 0);
   const [visitorFee, setVisitorFee] = useState(event?.visitorFee || 0);
+  const [currency, setCurrency] = useState(event?.currency || CurrencyCode.EUR);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
   const [paymentMethodPayPalEnabled, setPaymentMethodPayPalEnabled] = useState<boolean>(event?.paymentMethodPayPal?.enabled || false);
   const [paymentMethodPayPalHandle, setPaymentMethodPayPalHandle] = useState<string>(event?.paymentMethodPayPal?.payPalHandle || '');
@@ -209,6 +212,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       participationFeeIncPaymentCosts: -1,
       visitorFee: visitorFee,
       visitorFeeIncPaymentCosts: -1,
+      currency: currency,
       paymentMethodCash: paymentMethodCash,
       paymentMethodPayPal: paymentMethodPayPal,
       paymentMethodSepa: paymentMethodSepa,
@@ -304,6 +308,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
     messangerInvitationUrl,
     participationFee,
     visitorFee,
+    currency,
     paymentMethodCashEnabled,
     paymentMethodPayPalEnabled,
     paymentMethodPayPalHandle,
@@ -572,6 +577,19 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
         <Separator />
       </div>
       <SectionHeader label={t('sectionPayment')} />
+
+      <div className="m-2 grid grid-cols-2 items-center">
+        <div>{t('cbPaymentCurrency')}</div>
+        <div className="flex w-full">
+          <ComboBox
+            menus={[menuCurrencies[0]]} // TODO: allow multiple  ->  menus={menuCurrencies}
+            value={currency || menuCurrencies[0].value}
+            onChange={(value: any) => {
+              setCurrency(value);
+            }}
+          />
+        </div>
+      </div>
 
       <CurInput
         id={'participationFee'}
