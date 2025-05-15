@@ -584,6 +584,7 @@
     "inputVenueCity": "Stadt",
     "cbVenueCountry": "Land",
     "sectionPayment": "Bezahlung",
+    "cbPaymentCurrency": "Währung",
     "inputPaticipantFee": "Teilnahmegebühr",
     "inputVisitorFee": "Zuschauergebühr",
     "lblFreeMethods": "Kostenlose Bezahlmethoden",

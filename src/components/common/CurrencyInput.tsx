@@ -28,7 +28,6 @@ const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, 
               decimalsLimit={2}
               decimalSeparator=","
               groupSeparator="."
-              suffix=" €"
               onValueChange={onValueChange}
               onKeyDown={onKeyDown}
             />

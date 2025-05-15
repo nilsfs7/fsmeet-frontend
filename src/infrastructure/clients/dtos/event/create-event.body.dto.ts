@@ -5,6 +5,7 @@ import { CreatePaymentMethodCashBodyDto } from './payment/create-payment-method-
 import { CreatePaymentMethodPayPalBodyDto } from './payment/create-payment-method-paypal.body.dto';
 import { CreatePaymentMethodSepaBodyDto } from './payment/create-payment-method-sepa.body.dto';
 import { CreatePaymentMethodStripeBodyDto } from './payment/create-payment-method-stripe.body.dto';
+import { CurrencyCode } from '@/domain/enums/currency-code';
 
 export class CreateEventBodyDto {
   name: string;
@@ -14,6 +15,7 @@ export class CreateEventBodyDto {
   dateTo: Moment;
   participationFee: number;
   visitorFee: number;
+  currency: CurrencyCode;
   registrationOpen: Moment;
   registrationDeadline: Moment;
   description: string;
@@ -45,6 +47,7 @@ export class CreateEventBodyDto {
     dateTo: Moment,
     participationFee: number,
     visitorFee: number,
+    currency: CurrencyCode,
     registrationOpen: Moment,
     registrationDeadline: Moment,
     description: string,
@@ -75,6 +78,7 @@ export class CreateEventBodyDto {
     this.dateTo = dateTo;
     this.participationFee = participationFee;
     this.visitorFee = visitorFee;
+    this.currency = currency;
     this.registrationOpen = registrationOpen;
     this.registrationDeadline = registrationDeadline;
     this.description = description;

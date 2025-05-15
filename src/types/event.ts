@@ -9,6 +9,7 @@ import { EventState } from '../domain/enums/event-state';
 import { EventMaintainer } from './event-maintainer';
 import { Accommodation } from './accommodation';
 import { Offering } from './offering';
+import { CurrencyCode } from '@/domain/enums/currency-code';
 
 export type Event = {
   id?: string;
@@ -24,6 +25,7 @@ export type Event = {
   participationFeeIncPaymentCosts: number;
   visitorFee: number;
   visitorFeeIncPaymentCosts: number;
+  currency: CurrencyCode;
   description: string;
   venueName: string;
   venueHouseNo: string;
