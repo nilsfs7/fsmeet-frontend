@@ -9,13 +9,26 @@ export class ReadEventRegistrationResponseDto {
   accommodationOrders: string[];
   offeringOrders: string[];
   offeringTShirtSize: string;
+  phoneCountryCode?: number;
+  phoneNumber?: number;
 
-  constructor(user: ReadPartialUser2ResponseDto, type: EventRegistrationType, status: EventRegistrationStatus, accommodationOrders: string[], offeringOrders: string[], offeringTShirtSize: string) {
+  constructor(
+    user: ReadPartialUser2ResponseDto,
+    type: EventRegistrationType,
+    status: EventRegistrationStatus,
+    accommodationOrders: string[],
+    offeringOrders: string[],
+    offeringTShirtSize: string,
+    phoneCountryCode?: number,
+    phoneNumber?: number
+  ) {
     this.user = user;
     this.type = type;
     this.status = status;
     this.accommodationOrders = accommodationOrders;
     this.offeringOrders = offeringOrders;
     this.offeringTShirtSize = offeringTShirtSize;
+    this.phoneCountryCode = phoneCountryCode;
+    this.phoneNumber = phoneNumber;
   }
 }

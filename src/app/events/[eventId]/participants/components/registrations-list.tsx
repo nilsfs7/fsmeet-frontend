@@ -157,6 +157,13 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
             })}
           </>
         )}
+
+        {registrationSelected?.phoneNumber && (
+          <p className="grid grid-cols-2 gap-1">
+            <p>{`${t('dlgRegistrationInfoPhoneNumber')}:`}</p>
+            <p>{`+${registrationSelected?.phoneCountryCode} ${registrationSelected?.phoneNumber}`}</p>
+          </p>
+        )}
       </Dialog>
 
       <Dialog

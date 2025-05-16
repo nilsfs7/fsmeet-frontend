@@ -9,4 +9,6 @@ export type EventRegistration = {
   accommodationOrders: string[];
   offeringOrders: string[];
   offeringTShirtSize: string;
+  phoneCountryCode?: number;
+  phoneNumber?: number;
 };

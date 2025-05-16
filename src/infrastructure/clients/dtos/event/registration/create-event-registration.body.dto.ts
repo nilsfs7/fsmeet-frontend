@@ -6,12 +6,24 @@ export class CreateEventRegistrationBodyDto {
   accommodationOrders: string[];
   offeringOrders: string[];
   offeringTShirtSize: string;
+  phoneCountryCode: number | null;
+  phoneNumber: number | null;
 
-  constructor(eventRegistrationType: EventRegistrationType, compSignUps: string[], accommodationOrders: string[], offeringOrders: string[], offeringTShirtSize: string) {
+  constructor(
+    eventRegistrationType: EventRegistrationType,
+    compSignUps: string[],
+    accommodationOrders: string[],
+    offeringOrders: string[],
+    offeringTShirtSize: string,
+    phoneCountryCode: number | null,
+    phoneNumber: number | null
+  ) {
     this.eventRegistrationType = eventRegistrationType;
     this.compSignUps = compSignUps;
     this.accommodationOrders = accommodationOrders;
     this.offeringOrders = offeringOrders;
     this.offeringTShirtSize = offeringTShirtSize;
+    this.phoneCountryCode = phoneCountryCode;
+    this.phoneNumber = phoneNumber;
   }
 }

@@ -283,11 +283,13 @@ export async function createEventRegistration_v2(
   accommodationOrders: string[],
   offeringOrders: string[],
   offeringTShirtSize: string,
+  phoneCountryCode: number | null,
+  phoneNumber: number | null,
   session: Session | null
 ): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v2/events/${eventId}/registrations`;
 
-  const body = new CreateEventRegistrationBodyDto(eventRegistrationType, compSignUps, accommodationOrders, offeringOrders, offeringTShirtSize);
+  const body = new CreateEventRegistrationBodyDto(eventRegistrationType, compSignUps, accommodationOrders, offeringOrders, offeringTShirtSize, phoneCountryCode, phoneNumber);
 
   const response = await fetch(url, {
     method: 'POST',
