@@ -47,7 +47,7 @@ export default async function EventDetails({ params }: { params: { eventId: stri
               )}
 
               {/* todo: restrict im backend falls trotzdem accommodations eingestellt werden */}
-              {event.paymentMethodStripe.enabled && (
+              {event.paymentMethodStripe.enabled && event.type !== EventType.COMPETITION_ONLINE && (
                 <Link href={`${routeEvents}/${params.eventId}/accommodations`}>
                   <ActionButton action={Action.MANAGE_ACCOMMODATIONS} />
                 </Link>
