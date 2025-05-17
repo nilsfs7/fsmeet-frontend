@@ -4,14 +4,15 @@ import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { User } from '@/types/user';
 import { getUsers } from '@/infrastructure/clients/user.client';
-import { getUserCount, getUserNationalityCount } from '@/infrastructure/clients/statistic.client';
+import { getUserCountByNationality, getUserCountByType, getUserCountOnMap } from '@/infrastructure/clients/statistic.client';
 import { ReadUserCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-count.response.dto';
 import Separator from '@/components/Seperator';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 
 export const UserStatistics = () => {
-  const [userCount, setUserCount] = useState<ReadUserCountResponseDto>();
+  const [userCountByType, setUserCountByType] = useState<ReadUserCountResponseDto>();
   const [userNationalityCount, setUserNationalityCount] = useState<{ country: string; userCount: number }[]>([]);
+  const [userCountOnMap, setUserCountOnMap] = useState<number>(0);
   const [hexColors, setHexColors] = useState<string[]>([]);
   const [users, setUsers] = useState<User[]>([]);
 
@@ -37,11 +38,11 @@ export const UserStatistics = () => {
   };
 
   useEffect(() => {
-    getUserCount().then(dto => {
-      setUserCount(dto);
+    getUserCountByType().then(dto => {
+      setUserCountByType(dto);
     });
 
-    getUserNationalityCount().then(dtos => {
+    getUserCountByNationality().then(dtos => {
       const thresholdMinimumShareInPercent = 1.8;
       const totalCount = dtos.reduce((sum, item) => sum + item.userCount, 0);
       const consolidatedNatCount: { country: string; userCount: number }[] = [];
@@ -60,10 +61,14 @@ export const UserStatistics = () => {
       setHexColors(generateRandomHexColors(consolidatedNatCount.length));
     });
 
+    getUserCountOnMap().then(dto => {
+      setUserCountOnMap(dto.userCountOnMap);
+    });
+
     getUsers().then(users => {
       setUsers(users);
     });
-  }, [users == undefined, userCount == undefined]);
+  }, [users == undefined, userCountByType == undefined]);
 
   if (!users) {
     return <LoadingSpinner text="Loading..." />; // todo
@@ -73,51 +78,64 @@ export const UserStatistics = () => {
     <div className="mx-2 overflow-y-auto">
       <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
         <div className="flex justify-center text-lg">{`User Count`}</div>
-
         <div className="grid grid-cols-2 gap-2 mt-2">
           <div className="flex justify-end">{`Freestylers:`}</div>
-          <div className="flex justify-start">{userCount?.userCountFreestylers}</div>
+          <div className="flex justify-start">{userCountByType?.userCountFreestylers}</div>
 
           <div className="flex justify-end">{`Associations:`}</div>
-          <div className="flex justify-start">{userCount?.userCountAssociations}</div>
+          <div className="flex justify-start">{userCountByType?.userCountAssociations}</div>
 
           <div className="flex justify-end">{`Brands:`}</div>
-          <div className="flex justify-start">{userCount?.userCountBrands}</div>
+          <div className="flex justify-start">{userCountByType?.userCountBrands}</div>
 
           <div className="flex justify-end">{`DJs:`}</div>
-          <div className="flex justify-start">{userCount?.userCountDJs}</div>
+          <div className="flex justify-start">{userCountByType?.userCountDJs}</div>
 
           <div className="flex justify-end">{`Event organizers:`}</div>
-          <div className="flex justify-start">{userCount?.userCountEventOrganizers}</div>
+          <div className="flex justify-start">{userCountByType?.userCountEventOrganizers}</div>
 
           <div className="flex justify-end">{`MCs:`}</div>
-          <div className="flex justify-start">{userCount?.userCountMCs}</div>
+          <div className="flex justify-start">{userCountByType?.userCountMCs}</div>
 
           <div className="flex justify-end">{`Media:`}</div>
-          <div className="flex justify-start">{userCount?.userCountMedia}</div>
+          <div className="flex justify-start">{userCountByType?.userCountMedia}</div>
         </div>
-
         <div className="m-2">
           <Separator />
         </div>
-
         <div className="flex justify-center text-lg">{`Total User Count`}</div>
-
         <div className="grid grid-cols-2 gap-2 mt-2">
           <div className="flex justify-end"> {`Total users:`}</div>
-          <div className="flex justify-start">{userCount?.userCountTotal}</div>
+          <div className="flex justify-start">{userCountByType?.userCountTotal}</div>
 
           <div className="flex justify-end">{`Real users:`}</div>
-          <div className="flex justify-start">{userCount?.userCountNonTechnical}</div>
+          <div className="flex justify-start">{userCountByType?.userCountNonTechnical}</div>
 
           <div className="flex justify-end">{`Technical users:`}</div>
-          <div className="flex justify-start">{userCount?.userCountTechnical}</div>
+          <div className="flex justify-start">{userCountByType?.userCountTechnical}</div>
         </div>
+
+        {userCountByType?.userCountTotal && (
+          <>
+            <div className="m-2">
+              <Separator />
+            </div>
+
+            <div className="flex justify-center text-lg">{`User Share on Freestyler Map`}</div>
+
+            <div className="grid grid-cols-2 gap-2 mt-2">
+              <div className="flex justify-end">{`Users on map:`}</div>
+              <div className="flex justify-start">{`${userCountOnMap} (${((userCountOnMap / userCountByType?.userCountTotal) * 100).toFixed(1)}%)`}</div>
+
+              <div className="flex justify-end"> {`Total users:`}</div>
+              <div className="flex justify-start">{userCountByType?.userCountTotal}</div>
+            </div>
+          </>
+        )}
 
         <div className="m-2">
           <Separator />
         </div>
-
         <div className="flex justify-center text-lg">{`User Share by Nationality`}</div>
         <div className="flex justify-center border-primary">
           <PieChart width={400} height={400}>
