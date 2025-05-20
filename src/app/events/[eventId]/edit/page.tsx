@@ -9,7 +9,8 @@ import { getEvent } from '@/infrastructure/clients/event.client';
 import { auth } from '@/auth';
 import { isEventAdmin } from '@/functions/is-event-admin';
 
-export default async function EventEditing({ params }: { params: { eventId: string } }) {
+export default async function EventEditing(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/edit');
   const session = await auth();
 

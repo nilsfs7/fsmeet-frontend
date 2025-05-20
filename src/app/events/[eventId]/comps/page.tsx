@@ -9,7 +9,8 @@ import { getEvent } from '@/infrastructure/clients/event.client';
 import { getTranslations } from 'next-intl/server';
 import { auth } from '@/auth';
 
-export default async function ManageCompetitions({ params }: { params: { eventId: string } }) {
+export default async function ManageCompetitions(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/comps');
   const session = await auth();
 
