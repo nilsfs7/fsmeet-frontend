@@ -556,9 +556,8 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                 <div>{`${t('pageOverviewRegistrationStatus')}:`}</div>
                 <Label text={registrationStatus} />
               </div>
-
               {/* todo: visa requests only possible for wffa atm */}
-              {event.type !== EventType.COMPETITION_ONLINE && user.type !== UserType.ASSOCIATION && user.type !== UserType.BRAND && event.admin === 'wffa' && (
+              {event.type !== EventType.COMPETITION_ONLINE && user.type !== UserType.ASSOCIATION && user.type !== UserType.BRAND && moment(event.dateFrom) > moment() && event.admin === 'wffa' && (
                 <div className="flex flex-col items-center mt-10 gap-2">
                   <div>{`${t('pageOverviewRequireVisa')}`}</div>
                   <Link href={`${routeEvents}/${event.id}/registration/visa`}>
