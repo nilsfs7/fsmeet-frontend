@@ -43,12 +43,13 @@ import { menuCurrencies } from '@/domain/constants/menus/menu-currencies';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
+  users: User[];
   event?: Event;
   onEventUpdate: (event: Event) => void;
   onEventPosterUpdate: (image: File) => void;
 }
 
-const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: IEventEditorProps) => {
+const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpdate }: IEventEditorProps) => {
   const t = useTranslations('global/components/event-editor');
 
   const { data: session } = useSession();
@@ -87,12 +88,12 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
   const [paymentMethodStripeCoverProviderFee, setPaymentMethodStripeCoverProviderFee] = useState<boolean>(event?.paymentMethodStripe?.coverProviderFee || false);
   const [maintainers, setMaintainers] = useState<EventMaintainer[]>(event?.maintainers || []);
   const [maintainerToAddUsername, setMaintainerToAddUsername] = useState<string>();
-  const [users, setUsers] = useState<User[]>([]);
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
   const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
   const [notifyOnComment, setNotifyOnComment] = useState<boolean>(event?.notifyOnComment || true);
   const [waiver, setWaiver] = useState(event?.waiver || '');
+  const [visaInvitationRequestsEnabled, setVisaInvitationRequestsEnabled] = useState<boolean>(event?.visaInvitationRequestsEnabled || false);
   const [imgPoster, setImgPoster] = useState<File>();
   const [imgPosterObjectURL, setImgPosterObjectURL] = useState<string>();
 
@@ -222,6 +223,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       allowComments: allowComments,
       notifyOnComment: notifyOnComment,
       waiver: waiver,
+      visaInvitationRequestsEnabled: visaInvitationRequestsEnabled,
       eventRegistrations: [],
       competitions: [],
       accommodations: [],
@@ -269,20 +271,21 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       setAllowComments(event.allowComments);
       setNotifyOnComment(event.notifyOnComment);
       setWaiver(event.waiver);
+      setVisaInvitationRequestsEnabled(event.visaInvitationRequestsEnabled);
     }
 
     if (event?.admin)
       getUser(event.admin, session).then(eventAdmin => {
         setEventAdmin(eventAdmin);
       });
+  }, [editorMode === EditorMode.EDIT]);
 
-    getUsers().then(users => {
-      users = users.filter(user => {
-        if (user.type !== UserType.TECHNICAL) return user;
+  useEffect(() => {
+    if (session?.user.username)
+      getUser(session?.user.username, session).then(eventAdmin => {
+        setEventAdmin(eventAdmin);
       });
-      setUsers(users);
-    });
-  }, [event]);
+  }, [editorMode === EditorMode.CREATE]);
 
   // fires back event
   useEffect(() => {
@@ -324,6 +327,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
     allowComments,
     notifyOnComment,
     waiver,
+    visaInvitationRequestsEnabled,
   ]);
 
   // fires event poster back
@@ -778,7 +782,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       )}
 
       {/* only allow event admin to edit maintainers */}
-      {isEventAdmin(event, session) && (
+      {(EditorMode.CREATE || isEventAdmin(event, session)) && (
         <>
           <div className="m-2">
             <Separator />
@@ -843,14 +847,17 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       </div>
       <SectionHeader label={t('sectionOther')} />
 
-      <CheckBox
-        id={'autoApproveRegistrations'}
-        label={t('chbAutoApproveRegistration')}
-        value={autoApproveRegistrations}
-        onChange={() => {
-          setAutoApproveRegistrations(!autoApproveRegistrations);
-        }}
-      />
+      {!paymentMethodStripeEnabled && (
+        <CheckBox
+          id={'autoApproveRegistrations'}
+          label={t('chbAutoApproveRegistration')}
+          value={autoApproveRegistrations}
+          onChange={() => {
+            setAutoApproveRegistrations(!autoApproveRegistrations);
+          }}
+        />
+      )}
+
       <CheckBox
         id={'notifyOnRegistration'}
         label={t('chbNotifyOnRegistration')}
@@ -879,16 +886,28 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       )}
 
       {paymentMethodStripeEnabled && (
-        <TextInputLarge
-          id={'waiver'}
-          label={t('inputWaiver')}
-          placeholder="By participating in this event, I acknowledge ..."
-          value={waiver}
-          resizable={true}
-          onChange={e => {
-            setWaiver(e.currentTarget.value);
-          }}
-        />
+        <>
+          {/* TODO: if user is eligible to set this */}
+          <CheckBox
+            id={'visaInvitationRequestsEnabled'}
+            label={t('chbVisaInvitationRequestsEnabled')}
+            value={visaInvitationRequestsEnabled}
+            onChange={() => {
+              setVisaInvitationRequestsEnabled(!visaInvitationRequestsEnabled);
+            }}
+          />
+
+          <TextInputLarge
+            id={'waiver'}
+            label={t('inputWaiver')}
+            placeholder="By participating in this event, I acknowledge ..."
+            value={waiver}
+            resizable={true}
+            onChange={e => {
+              setWaiver(e.currentTarget.value);
+            }}
+          />
+        </>
       )}
     </div>
     // </>

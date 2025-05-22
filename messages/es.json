@@ -611,7 +611,8 @@
     "chbNotifyOnRegistration": "Notificar con nuevo registro",
     "chbAllowCommentsAndQuestions": "Activar la función de comentarios",
     "chbNotifyOnComment": "Notificarme un nuevo comentario",
-    "inputWaiver": "Exención"
+    "inputWaiver": "Exención",
+    "chbVisaInvitationRequestsEnabled": "Ofrecer invitaciones para visas"
   },
   "global/components/offering-editor": {
     "inputDescription": "Descripción",

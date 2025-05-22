@@ -38,6 +38,7 @@ export class CreateEventBodyDto {
   allowComments: boolean;
   notifyOnComment: boolean;
   waiver: string;
+  visaInvitationRequestsEnabled: boolean;
 
   constructor(
     name: string,
@@ -69,7 +70,8 @@ export class CreateEventBodyDto {
     notifyOnRegistration: boolean,
     allowComments: boolean,
     notifyOnComment: boolean,
-    waiver: string
+    waiver: string,
+    visaInvitationRequestsEnabled: boolean
   ) {
     this.name = name;
     this.alias = alias;
@@ -101,5 +103,6 @@ export class CreateEventBodyDto {
     this.allowComments = allowComments;
     this.notifyOnComment = notifyOnComment;
     this.waiver = waiver;
+    this.visaInvitationRequestsEnabled = visaInvitationRequestsEnabled;
   }
 }
