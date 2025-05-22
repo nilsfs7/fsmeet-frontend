@@ -611,7 +611,8 @@
     "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",
     "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
     "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen",
-    "inputWaiver": "Verzichterklärung"
+    "inputWaiver": "Verzichterklärung",
+    "chbVisaInvitationRequestsEnabled": "Visa-Einladungen anbieten"
   },
   "global/components/offering-editor": {
     "inputDescription": "Beschreibung",

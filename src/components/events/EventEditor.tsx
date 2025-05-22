@@ -93,6 +93,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
   const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
   const [notifyOnComment, setNotifyOnComment] = useState<boolean>(event?.notifyOnComment || true);
   const [waiver, setWaiver] = useState(event?.waiver || '');
+  const [visaInvitationRequestsEnabled, setVisaInvitationRequestsEnabled] = useState<boolean>(event?.visaInvitationRequestsEnabled || false);
   const [imgPoster, setImgPoster] = useState<File>();
   const [imgPosterObjectURL, setImgPosterObjectURL] = useState<string>();
 
@@ -222,6 +223,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       allowComments: allowComments,
       notifyOnComment: notifyOnComment,
       waiver: waiver,
+      visaInvitationRequestsEnabled: visaInvitationRequestsEnabled,
       eventRegistrations: [],
       competitions: [],
       accommodations: [],
@@ -269,6 +271,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       setAllowComments(event.allowComments);
       setNotifyOnComment(event.notifyOnComment);
       setWaiver(event.waiver);
+      setVisaInvitationRequestsEnabled(event.visaInvitationRequestsEnabled);
     }
 
     if (event?.admin)
@@ -324,6 +327,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
     allowComments,
     notifyOnComment,
     waiver,
+    visaInvitationRequestsEnabled,
   ]);
 
   // fires event poster back
@@ -843,14 +847,17 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       </div>
       <SectionHeader label={t('sectionOther')} />
 
-      <CheckBox
-        id={'autoApproveRegistrations'}
-        label={t('chbAutoApproveRegistration')}
-        value={autoApproveRegistrations}
-        onChange={() => {
-          setAutoApproveRegistrations(!autoApproveRegistrations);
-        }}
-      />
+      {!paymentMethodStripeEnabled && (
+        <CheckBox
+          id={'autoApproveRegistrations'}
+          label={t('chbAutoApproveRegistration')}
+          value={autoApproveRegistrations}
+          onChange={() => {
+            setAutoApproveRegistrations(!autoApproveRegistrations);
+          }}
+        />
+      )}
+
       <CheckBox
         id={'notifyOnRegistration'}
         label={t('chbNotifyOnRegistration')}
@@ -879,16 +886,28 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       )}
 
       {paymentMethodStripeEnabled && (
-        <TextInputLarge
-          id={'waiver'}
-          label={t('inputWaiver')}
-          placeholder="By participating in this event, I acknowledge ..."
-          value={waiver}
-          resizable={true}
-          onChange={e => {
-            setWaiver(e.currentTarget.value);
-          }}
-        />
+        <>
+          {/* TODO: if user is eligible to set this */}
+          <CheckBox
+            id={'visaInvitationRequestsEnabled'}
+            label={t('chbVisaInvitationRequestsEnabled')}
+            value={visaInvitationRequestsEnabled}
+            onChange={() => {
+              setVisaInvitationRequestsEnabled(!visaInvitationRequestsEnabled);
+            }}
+          />
+
+          <TextInputLarge
+            id={'waiver'}
+            label={t('inputWaiver')}
+            placeholder="By participating in this event, I acknowledge ..."
+            value={waiver}
+            resizable={true}
+            onChange={e => {
+              setWaiver(e.currentTarget.value);
+            }}
+          />
+        </>
       )}
     </div>
     // </>

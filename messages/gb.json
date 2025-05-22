@@ -609,9 +609,10 @@
     "sectionOther": "Other",
     "chbAutoApproveRegistration": "Auto Approve New Registrations",
     "chbNotifyOnRegistration": "Notify On New Registration",
-    "chbAllowCommentsAndQuestions": "Allow Comments And Questions",
+    "chbAllowCommentsAndQuestions": "Allow Comments",
     "chbNotifyOnComment": "Notify On Comment",
-    "inputWaiver": "Waiver"
+    "inputWaiver": "Waiver",
+    "chbVisaInvitationRequestsEnabled": "Offer visa invitations"
   },
   "global/components/offering-editor": {
     "inputDescription": "Description",

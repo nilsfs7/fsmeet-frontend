@@ -209,7 +209,8 @@ export async function createEvent(event: Event, session: Session | null): Promis
     event?.notifyOnRegistration,
     event?.allowComments,
     event?.notifyOnComment,
-    event?.waiver
+    event?.waiver,
+    event.visaInvitationRequestsEnabled
   );
 
   const response = await fetch(url, {
@@ -448,7 +449,8 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     event?.notifyOnRegistration,
     event?.allowComments,
     event?.notifyOnComment,
-    event?.waiver
+    event?.waiver,
+    event.visaInvitationRequestsEnabled
   );
 
   const response = await fetch(url, {
