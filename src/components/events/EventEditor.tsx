@@ -43,12 +43,13 @@ import { menuCurrencies } from '@/domain/constants/menus/menu-currencies';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
+  users: User[];
   event?: Event;
   onEventUpdate: (event: Event) => void;
   onEventPosterUpdate: (image: File) => void;
 }
 
-const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: IEventEditorProps) => {
+const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpdate }: IEventEditorProps) => {
   const t = useTranslations('global/components/event-editor');
 
   const { data: session } = useSession();
@@ -87,7 +88,6 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
   const [paymentMethodStripeCoverProviderFee, setPaymentMethodStripeCoverProviderFee] = useState<boolean>(event?.paymentMethodStripe?.coverProviderFee || false);
   const [maintainers, setMaintainers] = useState<EventMaintainer[]>(event?.maintainers || []);
   const [maintainerToAddUsername, setMaintainerToAddUsername] = useState<string>();
-  const [users, setUsers] = useState<User[]>([]);
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
   const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
@@ -278,14 +278,14 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       getUser(event.admin, session).then(eventAdmin => {
         setEventAdmin(eventAdmin);
       });
+  }, [editorMode === EditorMode.EDIT]);
 
-    getUsers().then(users => {
-      users = users.filter(user => {
-        if (user.type !== UserType.TECHNICAL) return user;
+  useEffect(() => {
+    if (session?.user.username)
+      getUser(session?.user.username, session).then(eventAdmin => {
+        setEventAdmin(eventAdmin);
       });
-      setUsers(users);
-    });
-  }, [event]);
+  }, [editorMode === EditorMode.CREATE]);
 
   // fires back event
   useEffect(() => {
@@ -782,7 +782,7 @@ const EventEditor = ({ editorMode, event, onEventUpdate, onEventPosterUpdate }: 
       )}
 
       {/* only allow event admin to edit maintainers */}
-      {isEventAdmin(event, session) && (
+      {(EditorMode.CREATE || isEventAdmin(event, session)) && (
         <>
           <div className="m-2">
             <Separator />

@@ -5,12 +5,14 @@ import EventEditor from '@/components/events/EventEditor';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import { fileToBase64 } from '@/functions/file-to-base-64';
+import { User } from '@/types/user';
 
 interface IEditor {
+  users: User[];
   event?: Event;
 }
 
-export const Editor = ({ event }: IEditor) => {
+export const Editor = ({ users, event }: IEditor) => {
   const cacheEventInfo = async (event: Event) => {
     try {
       sessionStorage.setItem('eventInfo', JSON.stringify(event));
@@ -40,6 +42,7 @@ export const Editor = ({ event }: IEditor) => {
 
       <EventEditor
         editorMode={EditorMode.EDIT}
+        users={users}
         event={event}
         onEventUpdate={(event: Event) => {
           cacheEventInfo(event);

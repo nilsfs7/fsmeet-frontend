@@ -8,11 +8,18 @@ import { ActionButtonDeleteEvent } from './components/action-button-delete-event
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { auth } from '@/auth';
 import { isEventAdmin } from '@/functions/is-event-admin';
+import { getUsers } from '@/infrastructure/clients/user.client';
+import { UserType } from '@/domain/enums/user-type';
 
 export default async function EventEditing({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/edit');
   const session = await auth();
 
+  const users = await getUsers().then(users => {
+    return users.filter(user => {
+      if (user.type !== UserType.TECHNICAL) return user;
+    });
+  });
   const event = await getEvent(params.eventId, session);
 
   return (
@@ -21,7 +28,7 @@ export default async function EventEditing({ params }: { params: { eventId: stri
 
       <div className={`mx-2 flex flex-col overflow-y-auto`}>
         <div className={'flex justify-center'}>
-          <Editor event={event} />
+          <Editor users={users} event={event} />
         </div>
       </div>
 
