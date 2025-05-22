@@ -6,6 +6,7 @@ export type EventRegistration = {
   user: User;
   type: EventRegistrationType;
   status: EventRegistrationStatus;
+  competitionSignUps: string[];
   accommodationOrders: string[];
   offeringOrders: string[];
   offeringTShirtSize: string;

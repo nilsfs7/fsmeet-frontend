@@ -4,15 +4,17 @@ import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { getTranslations } from 'next-intl/server';
 import { RegistrationsList } from './components/registrations-list';
-import { getEventRegistrations } from '@/infrastructure/clients/event.client';
+import { getEvent, getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { getAccommodations } from '@/infrastructure/clients/accommodation.client';
 import { getOfferings } from '@/infrastructure/clients/offering.client';
+import { ActionButtonDownloadList } from './components/action-button-download-list';
 
 export default async function EventParticipants({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid/participants');
   const session = await auth();
 
+  const event = await getEvent(params.eventId);
   const registrations = await getEventRegistrations(params.eventId, EventRegistrationType.PARTICIPANT, session);
   const accommodations = await getAccommodations(params.eventId);
   const offerings = await getOfferings(params.eventId);
@@ -25,6 +27,8 @@ export default async function EventParticipants({ params }: { params: { eventId:
 
       <Navigation>
         <NavigateBackButton />
+
+        <ActionButtonDownloadList event={event} registrations={registrations} offerings={offerings} accommodations={accommodations} />
       </Navigation>
     </div>
   );

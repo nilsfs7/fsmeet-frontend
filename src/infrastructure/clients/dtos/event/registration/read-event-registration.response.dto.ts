@@ -6,6 +6,7 @@ export class ReadEventRegistrationResponseDto {
   user: ReadPartialUser2ResponseDto;
   type: EventRegistrationType;
   status: EventRegistrationStatus;
+  competitionSignUps: string[];
   accommodationOrders: string[];
   offeringOrders: string[];
   offeringTShirtSize: string;
@@ -16,6 +17,7 @@ export class ReadEventRegistrationResponseDto {
     user: ReadPartialUser2ResponseDto,
     type: EventRegistrationType,
     status: EventRegistrationStatus,
+    competitionSignUps: string[],
     accommodationOrders: string[],
     offeringOrders: string[],
     offeringTShirtSize: string,
@@ -25,6 +27,7 @@ export class ReadEventRegistrationResponseDto {
     this.user = user;
     this.type = type;
     this.status = status;
+    this.competitionSignUps = competitionSignUps;
     this.accommodationOrders = accommodationOrders;
     this.offeringOrders = offeringOrders;
     this.offeringTShirtSize = offeringTShirtSize;
