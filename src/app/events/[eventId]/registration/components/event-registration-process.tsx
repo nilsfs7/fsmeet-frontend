@@ -546,7 +546,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                 )}
                 {event?.id && moment(event?.registrationDeadline).unix() < moment().unix() && (
                   <>
-                    <div>{`${'pageOverviewRegistrationOver'}:`}</div>
+                    <div>{`${t('pageOverviewRegistrationOver')}:`}</div>
                     <div> {`${getShortDateString(moment(event?.registrationDeadline))}`}</div>
                   </>
                 )}
