@@ -8,14 +8,17 @@ import { useTranslations } from 'next-intl';
 import CurInput from '../common/CurrencyInput';
 import CheckBox from '../common/CheckBox';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { CurrencyCode } from '@/domain/enums/currency-code';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 
 interface IAccommodationEditorProps {
+  currency: CurrencyCode;
   accommodation?: Accommodation;
   onAccommodationUpdate: (accommodation: Accommodation) => void;
   onAccommodationPreviewUpdate: (image: any) => void;
 }
 
-const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommodationPreviewUpdate }: IAccommodationEditorProps) => {
+const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, onAccommodationPreviewUpdate }: IAccommodationEditorProps) => {
   const t = useTranslations('global/components/accommodation-editor');
 
   const [description, setAccommodationDescription] = useState(accommodation?.description || '');
@@ -48,7 +51,7 @@ const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommoda
   };
 
   const handleCostChanged = (values: { float: number | null; formatted: string; value: string }) => {
-    setCost(convertCurrencyDecimalToInteger(values.float || 0, 'EUR'));
+    setCost(convertCurrencyDecimalToInteger(values.float || 0, currency));
   };
 
   const updateAccommodationPreview = () => {
@@ -100,9 +103,9 @@ const AccommodationEditor = ({ accommodation, onAccommodationUpdate, onAccommoda
 
         <CurInput
           id={'cost'}
-          label={t('inputCost')}
+          label={`${t('inputCost')} (${getCurrencySymbol(currency)})`}
           placeholder="35,00"
-          value={convertCurrencyIntegerToDecimal(cost, 'EUR')}
+          value={convertCurrencyIntegerToDecimal(cost, currency)}
           onValueChange={(value, name, values) => {
             if (values) handleCostChanged(values);
           }}

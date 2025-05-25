@@ -16,12 +16,16 @@ import AccommodationEditor from '@/components/events/AccommodationEditor';
 import Dialog from '@/components/Dialog';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
+import { getEvent } from '@/infrastructure/clients/event.client';
+import { Event } from '@/types/event';
+import { CurrencyCode } from '@/domain/enums/currency-code';
 
 export default function EditEventAccommodation({ params }: { params: { eventId: string; accommodationId: string } }) {
   const { data: session, status } = useSession();
 
   const router = useRouter();
 
+  const [event, setEvent] = useState<Event>();
   const [accommodation, setAccommodation] = useState<Accommodation>();
   const [accommodationPreview, setAccommodationPreview] = useState<File>();
 
@@ -63,10 +67,14 @@ export default function EditEventAccommodation({ params }: { params: { eventId: 
   };
 
   useEffect(() => {
+    getEvent(params.eventId, session).then(event => {
+      setEvent(event);
+    });
+
     getAccommodation(params.accommodationId).then(accommodation => {
       setAccommodation(accommodation);
     });
-  }, [accommodation === undefined]);
+  }, [event === undefined, accommodation === undefined]);
 
   return (
     <>
@@ -82,6 +90,7 @@ export default function EditEventAccommodation({ params }: { params: { eventId: 
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <AccommodationEditor
+            currency={event?.currency || CurrencyCode.EUR}
             accommodation={accommodation}
             onAccommodationUpdate={(accommodation: Accommodation) => {
               setAccommodation(accommodation);

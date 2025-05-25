@@ -2,7 +2,7 @@
 
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -14,6 +14,9 @@ import AccommodationEditor from '@/components/events/AccommodationEditor';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
+import { Event } from '@/types/event';
+import { CurrencyCode } from '@/domain/enums/currency-code';
+import { getEvent } from '@/infrastructure/clients/event.client';
 
 export default function CreateAccommodation({ params }: { params: { eventId: string } }) {
   const t = useTranslations('/events/eventid/accommodations/create');
@@ -21,6 +24,7 @@ export default function CreateAccommodation({ params }: { params: { eventId: str
 
   const router = useRouter();
 
+  const [event, setEvent] = useState<Event>();
   const [accommodation, setAccommodation] = useState<Accommodation>();
   const [accommodationPreview, setAccommodationPreview] = useState<File>();
 
@@ -41,6 +45,12 @@ export default function CreateAccommodation({ params }: { params: { eventId: str
     }
   };
 
+  useEffect(() => {
+    getEvent(params.eventId, session).then(event => {
+      setEvent(event);
+    });
+  }, [event === undefined]);
+
   return (
     <>
       <Toaster richColors />
@@ -50,6 +60,7 @@ export default function CreateAccommodation({ params }: { params: { eventId: str
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <AccommodationEditor
+            currency={event?.currency || CurrencyCode.EUR}
             onAccommodationUpdate={(accommodation: Accommodation) => {
               setAccommodation(accommodation);
             }}

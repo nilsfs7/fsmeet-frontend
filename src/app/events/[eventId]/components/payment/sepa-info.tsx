@@ -1,13 +1,16 @@
+import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { PaymentMethodSepa } from '@/types/payment-method-sepa';
 
 interface ISepaInfo {
   participationFee: number;
+  currency: CurrencyCode;
   sepaInfo: PaymentMethodSepa;
   usernameForReference: string;
 }
 
-export const SepaInfo = ({ participationFee, sepaInfo, usernameForReference }: ISepaInfo) => {
+export const SepaInfo = ({ participationFee, currency, sepaInfo, usernameForReference }: ISepaInfo) => {
   return (
     <div className="grid grid-cols-1 justify-between">
       <div className="underline">Bank transfer (SEPA)</div>
@@ -29,7 +32,7 @@ export const SepaInfo = ({ participationFee, sepaInfo, usernameForReference }: I
 
       <div className="grid grid-cols-2 justify-between">
         <div>{`Amount`}</div>
-        <div className="select-text">{convertCurrencyIntegerToDecimal(participationFee, 'EUR').toString().replace('.', ',')}€</div>
+        <div className="select-text">{`${convertCurrencyIntegerToDecimal(participationFee, currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(currency)}`}</div>
       </div>
 
       <div className="grid grid-cols-2 justify-between">

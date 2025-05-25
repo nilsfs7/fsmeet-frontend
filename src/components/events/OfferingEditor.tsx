@@ -8,14 +8,17 @@ import { useTranslations } from 'next-intl';
 import CurInput from '../common/CurrencyInput';
 import CheckBox from '../common/CheckBox';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { CurrencyCode } from '@/domain/enums/currency-code';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 
 interface IOfferingEditorProps {
+  currency: CurrencyCode;
   offering?: Offering;
   onOfferingUpdate: (offering: Offering) => void;
   onOfferingPreviewUpdate: (image: any) => void;
 }
 
-const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }: IOfferingEditorProps) => {
+const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPreviewUpdate }: IOfferingEditorProps) => {
   const t = useTranslations('global/components/offering-editor');
 
   const [description, setOfferingDescription] = useState(offering?.description || '');
@@ -48,7 +51,7 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
   };
 
   const handleCostChanged = (values: { float: number | null; formatted: string; value: string }) => {
-    setCost(convertCurrencyDecimalToInteger(values.float || 0, 'EUR'));
+    setCost(convertCurrencyDecimalToInteger(values.float || 0, currency));
   };
 
   const updateOfferingPreview = () => {
@@ -90,9 +93,9 @@ const OfferingEditor = ({ offering, onOfferingUpdate, onOfferingPreviewUpdate }:
 
         <CurInput
           id={'cost'}
-          label={t('inputCost')}
+          label={`${t('inputCost')} (${getCurrencySymbol(currency)})`}
           placeholder="35,00"
-          value={convertCurrencyIntegerToDecimal(cost, 'EUR')}
+          value={convertCurrencyIntegerToDecimal(cost, currency)}
           onValueChange={(value, name, values) => {
             if (values) handleCostChanged(values);
           }}

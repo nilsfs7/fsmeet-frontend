@@ -1,18 +1,21 @@
 'use client';
 
+import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { Competition } from '@/types/competition';
 
 interface ICompetitionList {
   comps: Competition[];
   paymentFeeCover: boolean;
+  currency: CurrencyCode;
   disabled?: boolean[];
   checked?: boolean[];
   selectable?: boolean;
   onCheckedChange?: (selected: boolean, compId: string) => void;
 }
 
-export const CompetitionList = ({ comps, paymentFeeCover, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
+export const CompetitionList = ({ comps, paymentFeeCover, currency, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
   return (
     <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
       {/* todo: color code for head bg*/}
@@ -32,7 +35,10 @@ export const CompetitionList = ({ comps, paymentFeeCover, disabled = [], checked
             <td className="py-3 px-3">{comp.name}</td>
             <td className="py-3 px-3 capitalize">{comp.gender}</td>
             <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
-              {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(comp.participationFeeIncPaymentCosts, 'EUR') : convertCurrencyIntegerToDecimal(comp.participationFee, 'EUR')} €`.replace('.', ',')}
+              {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(comp.participationFeeIncPaymentCosts, currency).toFixed(2) : convertCurrencyIntegerToDecimal(comp.participationFee, currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace(
+                '.',
+                ','
+              )}
             </td>
             {selectable && (
               <td className="py-3 px-3 text-center">

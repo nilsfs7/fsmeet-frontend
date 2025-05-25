@@ -16,12 +16,16 @@ import OfferingEditor from '@/components/events/OfferingEditor';
 import Dialog from '@/components/Dialog';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
+import { CurrencyCode } from '@/domain/enums/currency-code';
+import { getEvent } from '@/infrastructure/clients/event.client';
+import { Event } from '@/types/event';
 
 export default function EditEventOffering({ params }: { params: { eventId: string; offeringId: string } }) {
   const { data: session, status } = useSession();
 
   const router = useRouter();
 
+  const [event, setEvent] = useState<Event>();
   const [offering, setOffering] = useState<Offering>();
   const [offeringPreview, setOfferingPreview] = useState<File>();
 
@@ -63,10 +67,14 @@ export default function EditEventOffering({ params }: { params: { eventId: strin
   };
 
   useEffect(() => {
+    getEvent(params.eventId, session).then(event => {
+      setEvent(event);
+    });
+
     getOffering(params.offeringId).then(offering => {
       setOffering(offering);
     });
-  }, [offering === undefined]);
+  }, [event === undefined, offering === undefined]);
 
   return (
     <>
@@ -82,6 +90,7 @@ export default function EditEventOffering({ params }: { params: { eventId: strin
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <OfferingEditor
+            currency={event?.currency || CurrencyCode.EUR}
             offering={offering}
             onOfferingUpdate={(offering: Offering) => {
               setOffering(offering);

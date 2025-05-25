@@ -15,16 +15,20 @@ import { useTranslations } from 'next-intl';
 import { EventRegistration } from '@/types/event-registration';
 import { Accommodation } from '@/types/accommodation';
 import { Offering } from '@/types/offering';
+import { CurrencyCode } from '@/domain/enums/currency-code';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 
 interface IRegistrationsList {
   eventId: string;
   registrations: EventRegistration[];
   accommodations: Accommodation[];
   offerings: Offering[];
+  currency: CurrencyCode;
 }
 
-export const RegistrationsList = ({ eventId, registrations, accommodations, offerings }: IRegistrationsList) => {
+export const RegistrationsList = ({ eventId, registrations, accommodations, offerings, currency }: IRegistrationsList) => {
   const t = useTranslations('/events/eventid/participants');
+  const na = 'n/a';
 
   const { data: session } = useSession();
   const router = useRouter();
@@ -130,14 +134,14 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
               const off = getOfferingById(id);
               return (
                 <p key={`off-${index}`} className="grid grid-cols-2 gap-1">
-                  <p>{`- ${off?.description}`}</p> <p>{`${off?.cost}€`}</p>
+                  <p>{`- ${off?.description}`}</p> <p>{`${off?.cost} ${getCurrencySymbol(currency)}`}</p>
                 </p>
               );
             })}
 
             <p className="grid grid-cols-2 gap-1">
               <p>{`${t('dlgRegistrationInfoShirtSize')}:`}</p>
-              <p>{`${registrationSelected?.offeringTShirtSize}`}</p>
+              <p>{`${registrationSelected?.offeringTShirtSize || na}`}</p>
             </p>
           </>
         )}
@@ -151,7 +155,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
               const acc = getAccommodationById(id);
               return (
                 <p key={`acc-${index}`} className="grid grid-cols-2 gap-1">
-                  <p>{`- ${acc?.description}`}</p> <p>{`${acc?.cost}€`}</p>
+                  <p>{`- ${acc?.description}`}</p> <p>{`${acc?.cost} ${getCurrencySymbol(currency)}`}</p>
                 </p>
               );
             })}

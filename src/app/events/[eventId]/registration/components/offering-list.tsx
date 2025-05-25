@@ -2,7 +2,9 @@
 
 import ComboBox from '@/components/common/ComboBox';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
+import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { Offering } from '@/types/offering';
 import { useTranslations } from 'next-intl';
@@ -10,6 +12,7 @@ import { useTranslations } from 'next-intl';
 interface IOfferingList {
   offerings: Offering[];
   paymentFeeCover: boolean;
+  currency: CurrencyCode;
   registrationType?: EventRegistrationType;
   tShirtSize?: string;
   disabled?: boolean[];
@@ -19,7 +22,18 @@ interface IOfferingList {
   onShirtSizeChange?: (tShirtSize: string) => void;
 }
 
-export const OfferingList = ({ offerings, paymentFeeCover, registrationType, tShirtSize, disabled = [], checked = [], selectable = false, onCheckedChange, onShirtSizeChange }: IOfferingList) => {
+export const OfferingList = ({
+  offerings,
+  paymentFeeCover,
+  currency,
+  registrationType,
+  tShirtSize,
+  disabled = [],
+  checked = [],
+  selectable = false,
+  onCheckedChange,
+  onShirtSizeChange,
+}: IOfferingList) => {
   const t = useTranslations('global/components/offering-list');
 
   return (
@@ -38,7 +52,10 @@ export const OfferingList = ({ offerings, paymentFeeCover, registrationType, tSh
             <tr key={i} className={`${i < offerings.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
               <td className="py-3 px-3">{offering.description}</td>
               <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
-                {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(offering.costIncPaymentCosts, 'EUR') : convertCurrencyIntegerToDecimal(offering.cost, 'EUR')} €`.replace('.', ',')}
+                {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(offering.costIncPaymentCosts, currency).toFixed(2) : convertCurrencyIntegerToDecimal(offering.cost, currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace(
+                  '.',
+                  ','
+                )}
               </td>
               {selectable && (
                 <td className="py-3 px-3 text-center">

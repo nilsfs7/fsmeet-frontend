@@ -173,6 +173,26 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     }
   };
 
+  const handleParticipationFeeChanged = (float: number) => {
+    setParticipationFee(convertCurrencyDecimalToInteger(float, currency));
+
+    if (float === 0) {
+      setVisitorFee(0);
+    }
+  };
+
+  const handleVisitorFeeChanged = (float: number) => {
+    setVisitorFee(convertCurrencyDecimalToInteger(float, currency));
+  };
+
+  const handleCurrencyChanged = (newCurrency: CurrencyCode) => {
+    // recalculate fees because conversion rate may have changed
+    setParticipationFee(convertCurrencyDecimalToInteger(convertCurrencyIntegerToDecimal(participationFee, currency), newCurrency));
+    setVisitorFee(convertCurrencyDecimalToInteger(convertCurrencyIntegerToDecimal(visitorFee, currency), newCurrency));
+
+    setCurrency(newCurrency);
+  };
+
   const updateEvent = () => {
     const paymentMethodCash: PaymentMethodCash = { enabled: paymentMethodCashEnabled };
     const paymentMethodPayPal: PaymentMethodPayPal = {
@@ -586,10 +606,10 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         <div>{t('cbPaymentCurrency')}</div>
         <div className="flex w-full">
           <ComboBox
-            menus={[menuCurrencies[0]]} // TODO: allow multiple  ->  menus={menuCurrencies}
-            value={currency || menuCurrencies[0].value}
+            menus={menuCurrencies}
+            value={currency}
             onChange={(value: any) => {
-              setCurrency(value);
+              handleCurrencyChanged(value);
             }}
           />
         </div>
@@ -599,14 +619,10 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         id={'participationFee'}
         label={t('inputPaticipantFee')}
         placeholder="25,00"
-        value={convertCurrencyIntegerToDecimal(participationFee, 'EUR')}
+        value={convertCurrencyIntegerToDecimal(participationFee, currency)}
         onValueChange={(value, name, values) => {
           if (values?.float || values?.float === 0) {
-            setParticipationFee(convertCurrencyDecimalToInteger(values?.float, 'EUR'));
-
-            if (values?.float === 0) {
-              setVisitorFee(0);
-            }
+            handleParticipationFeeChanged(values.float);
           }
         }}
       />
@@ -618,10 +634,10 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
               id={'visitorFee'}
               label={t('inputVisitorFee')}
               placeholder="10,00"
-              value={convertCurrencyIntegerToDecimal(visitorFee, 'EUR')}
+              value={convertCurrencyIntegerToDecimal(visitorFee, currency)}
               onValueChange={(value, name, values) => {
                 if (values?.float || values?.float === 0) {
-                  setVisitorFee(convertCurrencyDecimalToInteger(values?.float, 'EUR'));
+                  handleVisitorFeeChanged(values.float);
                 }
               }}
             />

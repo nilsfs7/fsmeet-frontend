@@ -18,6 +18,7 @@ import { SepaInfo } from './payment/sepa-info';
 import Separator from '@/components/Seperator';
 import Label from '@/components/Label';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 
 interface ITextButtonRegister {
   event: Event;
@@ -140,25 +141,25 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
             </div>
 
             <div className="mt-4">
-              {t('dlgEventRegistrationText2')} {convertCurrencyIntegerToDecimal(event.participationFee, 'EUR').toString().replace('.', ',')}€.{' '}
+              {`${t('dlgEventRegistrationText2')} ${convertCurrencyIntegerToDecimal(event.participationFee, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}.`}
               {event.autoApproveRegistrations ?? t('dlgEventRegistrationText3')}
             </div>
 
             {event.paymentMethodCash.enabled && (
               <div className="mt-4">
-                <CashInfo participationFee={event.participationFee} />
+                <CashInfo participationFee={event.participationFee} currency={event.currency} />
               </div>
             )}
 
             {event.paymentMethodPayPal.enabled && session?.user?.username && (
               <div className="mt-4">
-                <PayPalInfo participationFee={event.participationFee} payPalInfo={event.paymentMethodPayPal} usernameForReference={session.user.username} />
+                <PayPalInfo participationFee={event.participationFee} currency={event.currency} payPalInfo={event.paymentMethodPayPal} usernameForReference={session.user.username} />
               </div>
             )}
 
             {event.paymentMethodSepa.enabled && session?.user?.username && (
               <div className="mt-4">
-                <SepaInfo participationFee={event.participationFee} sepaInfo={event.paymentMethodSepa} usernameForReference={session.user.username} />
+                <SepaInfo participationFee={event.participationFee} currency={event.currency} sepaInfo={event.paymentMethodSepa} usernameForReference={session.user.username} />
               </div>
             )}
 

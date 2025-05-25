@@ -660,6 +660,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                     : [event.participationFee, event.visitorFee]
                 }
                 eventType={event.type}
+                currency={event.currency}
                 checked={registrationType}
                 selectable={true}
                 onCheckedChange={registrationType => {
@@ -677,6 +678,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
               <CompetitionList
                 comps={event.competitions}
                 paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                currency={event.currency}
                 disabled={event.competitions.map(comp => {
                   // check if gender does not fit
                   if (comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender) {
@@ -709,6 +711,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
               <OfferingList
                 offerings={event.offerings}
                 paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                currency={event.currency}
                 registrationType={registrationType}
                 checked={event.offerings.map(off => {
                   return off.id && offeringOrders.includes(off.id) ? true : false;
@@ -733,6 +736,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
               <AccommodationList
                 accommodations={getActiveAccommodations()}
                 paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                currency={event.currency}
                 checked={getActiveAccommodations().map(acc => {
                   return acc.id && accommodationOrders.includes(acc.id) ? true : false;
                 })}
@@ -765,6 +769,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                       <CompetitionList
                         comps={event.competitions.filter(c => c.id && compSignUps.includes(c.id))}
                         paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                        currency={event.currency}
                         checked={event.competitions
                           .filter(c => c.id && compSignUps.includes(c.id))
                           .map(comp => {
@@ -786,6 +791,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                       <OfferingList
                         offerings={event.offerings.filter(o => o.id && offeringOrders.includes(o.id))}
                         paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                        currency={event.currency}
                         checked={event.offerings
                           .filter(o => o.id && offeringOrders.includes(o.id))
                           .map(off => {
@@ -807,6 +813,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                       <AccommodationList
                         accommodations={event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id))}
                         paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                        currency={event.currency}
                         checked={event.accommodations
                           .filter(a => a.id && accommodationOrders.includes(a.id))
                           .map(acc => {

@@ -19,14 +19,17 @@ import { UserType } from '@/domain/enums/user-type';
 import { useTranslations } from 'next-intl';
 import CurInput from '../common/CurrencyInput';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { CurrencyCode } from '@/domain/enums/currency-code';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;
+  currency: CurrencyCode;
   comp?: Competition;
   onCompUpdate: (comp: Competition) => void;
 }
 
-const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEditorProps) => {
+const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompetitionEditorProps) => {
   const t = useTranslations('global/components/competition-editor');
 
   const [name, setCompName] = useState(comp?.name || '');
@@ -95,7 +98,7 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
   };
 
   const handleParticipationFeeChanged = (values: { float: number | null; formatted: string; value: string }) => {
-    setParticipationFee(convertCurrencyDecimalToInteger(values.float || 0, 'EUR'));
+    setParticipationFee(convertCurrencyDecimalToInteger(values.float || 0, currency));
   };
 
   // updates inputs with given comp
@@ -186,9 +189,9 @@ const CompetitionEditor = ({ editorMode, comp, onCompUpdate }: ICompetitionEdito
 
       <CurInput
         id={'participationFee'}
-        label={t('inputPaticipantFee')}
+        label={`${t('inputPaticipantFee')} (${getCurrencySymbol(currency)})`}
         placeholder="15,00"
-        value={convertCurrencyIntegerToDecimal(participationFee, 'EUR')}
+        value={convertCurrencyIntegerToDecimal(participationFee, currency)}
         onValueChange={(value, name, values) => {
           if (values) handleParticipationFeeChanged(values);
         }}
