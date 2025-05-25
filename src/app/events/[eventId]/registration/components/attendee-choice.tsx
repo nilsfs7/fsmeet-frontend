@@ -4,11 +4,14 @@ import { EventRegistrationType } from '@/types/event-registration-type';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { EventType } from '@/domain/enums/event-type';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { CurrencyCode } from '@/domain/enums/currency-code';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 
 const registrationTypes = Object.values(EventRegistrationType);
 
 interface IAttendeeChoiceList {
   fees: number[];
+  currency: CurrencyCode;
   eventType: EventType;
   disabled?: boolean[];
   checked?: EventRegistrationType;
@@ -16,7 +19,7 @@ interface IAttendeeChoiceList {
   onCheckedChange?: (registrationType: EventRegistrationType) => void;
 }
 
-export const AttendeeChoice = ({ fees, eventType, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
+export const AttendeeChoice = ({ fees, currency, eventType, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
   const availableRegistrationTypes = registrationTypes.filter(regType => {
     // remove type visitor when event is an online competition
     if (!(eventType === EventType.COMPETITION_ONLINE && regType === EventRegistrationType.VISITOR)) {
@@ -39,7 +42,9 @@ export const AttendeeChoice = ({ fees, eventType, disabled = [false, false], che
           {availableRegistrationTypes.map((regType, i) => (
             <tr key={i} className={`${i < availableRegistrationTypes.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
               <td className="py-3 px-3 capitalize">{regType}</td>
-              <td className="py-3 px-3 text-right capitalize whitespace-nowrap">{`${convertCurrencyIntegerToDecimal(fees[i], 'EUR')} €`.replace('.', ',')}</td>
+              <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
+                {`${convertCurrencyIntegerToDecimal(fees[i], currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace('.', ',')}
+              </td>
               {selectable && (
                 <td className="py-3 px-3 text-center">
                   <RadioGroupItem

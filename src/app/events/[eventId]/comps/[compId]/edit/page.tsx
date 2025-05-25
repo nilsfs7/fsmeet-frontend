@@ -19,6 +19,7 @@ import { deleteCompetition, updateCompetition } from '@/infrastructure/clients/c
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
+import { CurrencyCode } from '@/domain/enums/currency-code';
 
 export default function CompetitionEditing({ params }: { params: { eventId: string; compId: string } }) {
   const t = useTranslations('/events/eventid/comps/edit');
@@ -26,6 +27,7 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
   const { data: session } = useSession();
   const router = useRouter();
 
+  const [event, setEvent] = useState<Event>();
   const [comp, setComp] = useState<Competition>();
 
   const handleSaveClicked = async () => {
@@ -62,6 +64,8 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
   useEffect(() => {
     getEvent(params.eventId, session)
       .then((res: Event) => {
+        setEvent(res);
+
         const comp = res.competitions.filter(c => c.id === params.compId)[0];
 
         const c: Competition = {
@@ -99,6 +103,7 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <CompetitionEditor
             editorMode={EditorMode.EDIT}
+            currency={event?.currency || CurrencyCode.EUR}
             comp={comp}
             onCompUpdate={(comp: Competition) => {
               setComp(comp);

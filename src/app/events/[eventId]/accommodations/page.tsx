@@ -4,14 +4,12 @@ import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
-import { auth } from '@/auth';
 import { getAccommodations } from '@/infrastructure/clients/accommodation.client';
 import Separator from '@/components/Seperator';
 import { getTranslations } from 'next-intl/server';
 
 export default async function EventAccommodation({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid/accommodations');
-  const session = await auth();
 
   const accommodations = await getAccommodations(params.eventId);
 

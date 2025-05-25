@@ -23,7 +23,7 @@ export default async function EventParticipants({ params }: { params: { eventId:
     <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
-      <RegistrationsList eventId={params.eventId} registrations={registrations} accommodations={accommodations} offerings={offerings} />
+      <RegistrationsList eventId={params.eventId} registrations={registrations} accommodations={accommodations} offerings={offerings} currency={event.currency} />
 
       <Navigation>
         <NavigateBackButton />

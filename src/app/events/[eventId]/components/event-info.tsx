@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { routeEvents } from '@/domain/constants/routes';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 
 interface IEventProps {
   event: Event;
@@ -32,9 +33,9 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
 
   const [showMap, setShowMap] = useState<boolean>(false);
 
-  let eventFee = event.participationFee > 0 ? `${convertCurrencyIntegerToDecimal(event.participationFee, 'EUR').toString().replace('.', ',')}  €` : 'free';
+  let eventFee = event.participationFee > 0 ? `${convertCurrencyIntegerToDecimal(event.participationFee, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}` : 'free';
   if (event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee) {
-    eventFee = `${convertCurrencyIntegerToDecimal(event.participationFeeIncPaymentCosts, 'EUR').toString().replace('.', ',')}  €`;
+    eventFee = `${convertCurrencyIntegerToDecimal(event.participationFeeIncPaymentCosts, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}`;
   }
 
   const getMapsSearchUrl = (): string => {
