@@ -1,5 +1,3 @@
-'use client';
-
 import { Header } from '@/components/Header';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
@@ -11,61 +9,33 @@ import { Action } from '@/domain/enums/action';
 import { User } from '@/types/user';
 import Link from 'next/link';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
-import { createTranslator, useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
+import { createTranslator } from 'next-intl';
 import { supportedLanguages } from '@/domain/constants/supported-languages';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-import MapOfFreestylers from '@/components/MapOfFreestylers';
-import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { menuGender } from '@/domain/constants/menus/menu-gender';
-import { Gender } from '@/domain/enums/gender';
-import { ChevronDown } from 'lucide-react';
-import { useMessagesForcedLocale } from '@/hooks/use-messages-forced-locale';
+import { getTranslations } from 'next-intl/server';
+import { auth } from '@/auth';
+import { MapOfFreestylers } from '@/components/MapOfFreestylers';
+import { getMessagesByLocale } from '@/functions/get-messages-forced-locale';
 
-export default function Map(props: { searchParams: Promise<{ iframe: string; locale: string }> }) {
-  let t = useTranslations('/map');
+export default async function Map({ searchParams }: { searchParams: { iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string } }) {
+  let t = await getTranslations(routeMap);
+  const session = await auth();
 
-  const searchParams = useSearchParams();
+  const streetViewEnabled = searchParams?.sv === '1';
+  const iframeView = searchParams?.iframe === '1';
 
-  const { data: session } = useSession();
-
-  const username = searchParams?.get('user');
-  const lat = searchParams?.get('lat');
-  const lng = searchParams?.get('lng');
-  const zoom = searchParams?.get('zoom');
-  const streetViewEnabled = searchParams?.get('streetView') === '1';
-  const iframeView = searchParams?.get('iframe') === '1';
-  const locale = searchParams?.get('locale');
-
-  // overwrite translation
-  const messages = useMessagesForcedLocale(locale || 'gb');
-  if (locale) {
-    if (supportedLanguages.includes(locale.toUpperCase())) {
-      t = createTranslator({ locale: locale, messages, namespace: '/map' });
-    }
+  const users = await getUsers();
+  let actingUser: User | undefined;
+  if (session?.user.username) {
+    actingUser = await getUser(session?.user.username);
   }
 
-  const [users, setUsers] = useState<User[]>([]);
-  const [actingUser, setActingUser] = useState<User>();
-  const [filterName, setFilterName] = useState('');
-  const [filterGender, setFilterGender] = useState<Gender[]>([Gender.FEMALE, Gender.MALE]);
-
-  useEffect(() => {
-    getUsers().then(users => {
-      setUsers(users);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (session?.user?.username) {
-      getUser(session.user.username).then(user => {
-        setActingUser(user);
-      });
+  // overwrite translation
+  const messages = await getMessagesByLocale(searchParams?.locale || 'gb');
+  if (searchParams?.locale) {
+    if (supportedLanguages.includes(searchParams?.locale.toUpperCase())) {
+      t = createTranslator({ locale: searchParams?.locale, messages, namespace: '/map' });
     }
-  }, [session]);
+  }
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
@@ -76,71 +46,18 @@ export default function Map(props: { searchParams: Promise<{ iframe: string; loc
           <PageTitle title={t('pageTitle')} />
         </>
       )}
-      <div className="flex flex-col h-full gap-2">
-        {/* filters */}
-        {!iframeView && (
-          <div className="mx-2 flex gap-2">
-            <Input
-              placeholder={t('inputSearchPlaceholder')}
-              value={filterName}
-              onChange={(event: any) => {
-                setFilterName(event.target.value);
-              }}
-              className="max-w-40"
-            />
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline">
-                  {t('drpDwnGender')}
-                  <ChevronDown className="ml-2 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {menuGender.map(menuItem => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={menuItem.value}
-                      checked={filterGender.includes(menuItem.value as Gender)}
-                      onCheckedChange={(value: any) => {
-                        const genders = Array.from(filterGender);
-
-                        // add or remove gender from array
-                        if (value === true) {
-                          genders.push(menuItem.value as Gender);
-                        } else {
-                          const index = genders.indexOf(menuItem.value as Gender);
-                          if (index > -1) {
-                            genders.splice(index, 1);
-                          }
-                        }
-
-                        setFilterGender(genders);
-                      }}
-                    >
-                      {menuItem.text}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        )}
-
-        <div className="h-full max-h-screen overflow-hidden">
-          <MapOfFreestylers
-            lat={lat ? +lat : undefined}
-            lng={lng ? +lng : undefined}
-            zoom={zoom ? +zoom : 4}
-            streetViewEnabled={!iframeView ? true : streetViewEnabled}
-            users={users}
-            selectedUsernames={[username || '']}
-            filterName={filterName}
-            filterGender={filterGender}
-            isIframe={iframeView}
-          />
-        </div>
-      </div>
+      <MapOfFreestylers
+        userList={users}
+        selectedUsernames={[searchParams?.user || '']}
+        region={actingUser?.country || searchParams?.locale || 'DE'}
+        language={actingUser?.country || searchParams?.locale || 'EN'}
+        lat={54.5259614}
+        lng={15.2551187}
+        zoom={+searchParams?.zoom || 4}
+        streetViewEnabled={streetViewEnabled}
+        isIframe={iframeView}
+      />
 
       {iframeView && (
         <Navigation reverse>
