@@ -52,8 +52,8 @@ export default async function Map({ searchParams }: { searchParams: { iframe: st
         selectedUsernames={[searchParams?.user || '']}
         region={actingUser?.country || searchParams?.locale || 'DE'}
         language={actingUser?.country || searchParams?.locale || 'EN'}
-        lat={54.5259614}
-        lng={15.2551187}
+        lat={+searchParams?.lat || 54.5259614}
+        lng={+searchParams?.lng || 15.2551187}
         zoom={+searchParams?.zoom || 4}
         streetViewEnabled={streetViewEnabled}
         isIframe={iframeView}
