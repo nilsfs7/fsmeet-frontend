@@ -798,7 +798,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       )}
 
       {/* only allow event admin to edit maintainers */}
-      {(EditorMode.CREATE || isEventAdmin(event, session)) && (
+      {(editorMode === EditorMode.CREATE || isEventAdmin(event, session)) && (
         <>
           <div className="m-2">
             <Separator />
