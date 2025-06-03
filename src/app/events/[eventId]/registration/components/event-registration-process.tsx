@@ -37,12 +37,12 @@ import { Accommodation } from '@/types/accommodation';
 import TextInput from '@/components/common/TextInput';
 import { DatePicker } from '@/components/common/DatePicker';
 import { prefixRequired } from '@/functions/prefix-required';
-import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
 import { updateUser } from '@/infrastructure/clients/user.client';
 import { EventType } from '@/domain/enums/event-type';
 import { UserType } from '@/domain/enums/user-type';
 import ComboBox from '@/components/common/ComboBox';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
+import { toTitleCase } from '@/functions/string-manipulation';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -82,14 +82,14 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
 
   const handleFirstNameChanged = (value: string) => {
     const newUser = Object.assign({}, user);
-    newUser.firstName = capitalizeFirstChar(value);
+    newUser.firstName = toTitleCase(value);
     setUser(newUser);
     setUserInfoChanged(true);
   };
 
   const handleLastNameChanged = (value: string) => {
     const newUser = Object.assign({}, user);
-    newUser.lastName = capitalizeFirstChar(value);
+    newUser.lastName = toTitleCase(value);
     setUser(newUser);
     setUserInfoChanged(true);
   };

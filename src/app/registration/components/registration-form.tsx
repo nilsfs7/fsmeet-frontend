@@ -16,8 +16,8 @@ import { createUser } from '@/infrastructure/clients/user.client';
 import { useTranslations } from 'next-intl';
 import { Gender } from '@/domain/enums/gender';
 import { menuGender } from '@/domain/constants/menus/menu-gender';
-import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
 import { menuCountries } from '@/domain/constants/menus/menu-countries';
+import { toTitleCase } from '@/functions/string-manipulation';
 
 export const RegistrationForm = () => {
   const t = useTranslations('/registration');
@@ -47,7 +47,7 @@ export const RegistrationForm = () => {
     firstName = firstName.replaceAll('  ', ' ');
 
     if (userType !== UserType.ASSOCIATION && userType !== UserType.BRAND) {
-      firstName = capitalizeFirstChar(firstName);
+      firstName = toTitleCase(firstName);
     }
 
     if (validateFirstName(firstName)) {

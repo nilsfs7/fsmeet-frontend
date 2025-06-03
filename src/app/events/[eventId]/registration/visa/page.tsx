@@ -21,6 +21,7 @@ import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/types/user';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/Header';
+import { toTitleCase } from '@/functions/string-manipulation';
 
 export default function VisaInvitationRequest({ params }: { params: { eventId: string } }) {
   const t = useTranslations('/events/eventid/registration/visa');
@@ -65,9 +66,21 @@ export default function VisaInvitationRequest({ params }: { params: { eventId: s
     return valid;
   };
 
+  const handleFirstNameChanged = (value: string) => {
+    if (value) {
+      setFirstName(toTitleCase(value));
+    }
+  };
+
+  const handleLastNameChanged = (value: string) => {
+    if (value) {
+      setLastName(toTitleCase(value));
+    }
+  };
+
   const handlePassportNumberChanged = (value: string) => {
     if (value) {
-      setPassportNumber(value.toString());
+      setPassportNumber(value.toUpperCase());
     }
   };
 
@@ -135,7 +148,7 @@ export default function VisaInvitationRequest({ params }: { params: { eventId: s
               value={firstName}
               placeholder={t('inputPlaceholderFirstName')}
               onChange={e => {
-                setFirstName(e.currentTarget.value);
+                handleFirstNameChanged(e.currentTarget.value);
               }}
             />
 
@@ -145,7 +158,7 @@ export default function VisaInvitationRequest({ params }: { params: { eventId: s
               value={lastName}
               placeholder={t('inputPlaceholderLastName')}
               onChange={e => {
-                setLastName(e.currentTarget.value);
+                handleLastNameChanged(e.currentTarget.value);
               }}
             />
 
@@ -166,9 +179,10 @@ export default function VisaInvitationRequest({ params }: { params: { eventId: s
             <TextInput
               id={'passportNumber'}
               label={t('inputPassportNumber')}
+              value={passportNumber}
               placeholder={t('inputPlaceholderPassportNumber')}
               onChange={e => {
-                handlePassportNumberChanged(e.currentTarget.value.toString());
+                handlePassportNumberChanged(e.currentTarget.value);
               }}
             />
 

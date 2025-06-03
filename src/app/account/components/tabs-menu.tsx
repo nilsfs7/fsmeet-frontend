@@ -40,8 +40,8 @@ import SectionHeader from '@/components/common/SectionHeader';
 import { createStripeAccount, createStripeAccountOnboardingLink, createStripeLoginLink, deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
-import { capitalizeFirstChar } from '@/functions/capitalize-first-char';
 import Label from '@/components/Label';
+import { toTitleCase } from '@/functions/string-manipulation';
 
 interface ITabsMenu {
   user: User;
@@ -65,7 +65,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     const newUserInfo = Object.assign({}, userInfo);
 
     if (user.type !== UserType.ASSOCIATION && user.type !== UserType.BRAND) {
-      value = capitalizeFirstChar(value);
+      value = toTitleCase(value);
     }
 
     newUserInfo.firstName = value;
@@ -75,6 +75,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
   const handleLastNameChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
+
+    if (user.type !== UserType.ASSOCIATION && user.type !== UserType.BRAND) {
+      value = toTitleCase(value);
+    }
+
     newUserInfo.lastName = value;
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);
