@@ -10,6 +10,7 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { readFileSync } from 'fs';
 import path from 'path';
+import Image from 'next/image';
 
 export default async function About() {
   const t = await getTranslations('/about');
@@ -62,6 +63,15 @@ export default async function About() {
             <div>{buildTime}</div>
           </>
         )}
+
+        <div className="mt-2">
+          <a href={'https://github.com/nilsfs7/fsmeet-frontend'} target="_blank" rel="noopener noreferrer">
+            <div className="flex flex-col items-center text-sm">
+              <Image src={'github-logo.svg'} width={0} height={0} sizes="100vw" className={`h-8 w-full`} alt={''} />
+              <div className="hover:underline">{`nilsfs7`}</div>
+            </div>
+          </a>
+        </div>
       </div>
 
       <Navigation>
