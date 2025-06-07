@@ -2,17 +2,44 @@
 
 ## Getting started for development
 
+### Understanding the project structure
+
+- `fonts`: Third party fonts that do not come with nextjs by default.
+- `messages`: All text for visible elements like inputs, dropdowns, headers, etc.
+- `public`: Directory for static images to be displayed. All images are either purchased or free to use SVGs for commercial usage. Further deatils about their origin down below in `Images` section of the readme.
+- `src`: Application source code.
+  - `src/app`: App router directory. Subdirectories with `page.tsx` files represent routes on the website. Some routes might contain an additional `components` directory that is used to store local components.
+  - `src/components`: Global components used in multiple routes. If a component is only used for a specific route it is placed within the app router.
+  - `src/domain`: Contains all domain specific definitions like classes, types, enums and constants.
+  - `src/infrastructure`: REST based clients for backend communication. Clients should be imported in routes when wanting to request data.
+
 ### Prerequisites
 
-[node.js](https://nodejs.org/en) >= 22.12.0
+- [node.js](https://nodejs.org/en) version `22.12.0` or newer
 
-[yarn](https://yarnpkg.com/)
+- [yarn](https://yarnpkg.com/)
 
-[Docker](https://docs.docker.com/manuals/) Engine, Build & Compose
+- [Docker](https://docs.docker.com/manuals/) Engine & Build
+
+- [Google Maps API key](https://console.cloud.google.com/) (optional)
+
+### The backend
+
+The FSMeet backend is not open sourced but its interface is publicly available and fully documented using [Swagger](https://swagger.io/). There are 2 environments to connect to:
+
+- Dev: An environment providing test data and the latest features that may still be in development (expect bugs 😇). Use for testing purposes especially when it comes to data creation.
+
+  Url: https://api.dev.fsmeet.dffb.org/api
+
+- Prod: A stable environment providing live data for [fsmeet.com](https://fsmeet.com).
+
+  Url: https://api.fsmeet.dffb.org/api
+
+The environments do not share any data. A user account on the production system has to be created on dev separately.
 
 ### Run app
 
-Create environment
+Create environment and adjust the variables to your needs
 
 ```bash
 cp .env.example .env
@@ -30,7 +57,7 @@ Start app
 yarn dev
 ```
 
-## Run in Docker
+### Run in Docker
 
 Pull image
 
@@ -56,27 +83,22 @@ or execute container on boot
 docker run -d -p 3001:3001 -e NEXT_PUBLIC_BACKEND_URL="http://localhost:3000" --restart always --name fsmeet-frontend nilsfs7/fsmeet-frontend:latest
 ```
 
-## Create a release
+### Manual testing
+
+- [Credit card list](https://docs.stripe.com/testing?testing-method=card-numbers#visa) for the checkout process
+
+### Create a release
 
 ```bash
 # patch version
 yarn run release:patch
+
 # minor / feature version
 yarn run release:minor
+
 # major version
 yarn run release:major
 ```
-
-## Understanding the project structure
-
-- `fonts`: Third party fonts that do not come with nextjs by default.
-- `messages`: All text for visible elements like inputs, dropdowns, headers, etc.
-- `public`: Directory for static images to be displayed. All images are either purchased or free to use SVGs for commercial usage. Further deatils about their origin down below in `Images` section of the readme.
-- `src`: Application source code.
-  - `src/app`: App router directory. Subdirectories with `page.tsx` files represent routes on the website. Some routes might contain an additional `components` directory that is used to store local components.
-  - `src/components`: Global components used in multiple routes. If a component is only used for a specific route it is placed within the app router.
-  - `src/domain`: Contains all domain specific definitions like classes, types, enums and constants.
-  - `src/infrastructure`: REST based clients for backend communication. Clients should be imported in routes when wanting to request data.
 
 ## Component Library
 
@@ -203,9 +225,3 @@ Misc
 - [Not Found](https://www.iconfinder.com/icons/9054414/bx_confused_icon)
 
 - [Image Placeholder](https://www.iconfinder.com/icons/216124/camera_icon)
-
-## Payments with Stripe
-
-Testing:
-
-- [Credit Cards](https://docs.stripe.com/testing?testing-method=card-numbers#visa)
