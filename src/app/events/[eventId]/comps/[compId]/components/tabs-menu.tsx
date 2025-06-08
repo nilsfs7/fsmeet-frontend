@@ -7,8 +7,6 @@ import { User } from '@/types/user';
 import { routeEventNotFound } from '@/domain/constants/routes';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getCompetitionParticipants, getRounds } from '@/infrastructure/clients/competition.client';
-import { Event } from '@/types/event';
-import { getUser } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
 import { getEvent } from '@/infrastructure/clients/event.client';
@@ -40,7 +38,6 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
   const searchParams = useSearchParams();
   const tab = searchParams?.get('tab');
 
-  const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
   const [participantsMenu, setParticipantsMenu] = useState<MenuItem[]>([]);
   const [rounds, setRounds] = useState<Round[]>();
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
@@ -49,13 +46,10 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
 
   useEffect(() => {
     if (comp.eventId && comp.id && session) {
-      let p: Promise<Event>;
-
       getEvent(comp.eventId, session)
-        .then(async (e: Event) => {
+        .then(async () => {
           // @ts-ignore
           const participants = await getCompetitionParticipants(comp.id);
-
           const compParticipants: User[] = [];
           const participantsMenu: MenuItem[] = [{ text: t('tabScheduleComboBoxParticipantFilterItemUnselected'), value: '' }];
 
@@ -74,9 +68,13 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
 
             return user;
           });
-
-          setCompetitionParticipants(compParticipants);
           setParticipantsMenu(participantsMenu);
+
+          const usersMap = new Map();
+          participants.map(participant => {
+            usersMap.set(participant.username, participant);
+          });
+          setUsersMap(usersMap);
         })
         .catch(() => {
           router.push(routeEventNotFound);
@@ -95,32 +93,6 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
       });
     }
   }, []);
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const usersMap = new Map();
-      const requests: Promise<void>[] = [];
-      if (rounds) {
-        rounds.map(round => {
-          round.matches.map(match => {
-            match.matchSlots.map(slot => {
-              if (!usersMap.get(slot.name)) {
-                const req = getUser(slot.name).then(user => {
-                  usersMap.set(slot.name, user);
-                });
-                requests.push(req);
-              }
-            });
-          });
-        });
-      }
-
-      await Promise.all(requests);
-      setUsersMap(usersMap);
-    };
-
-    getUsers();
-  }, [rounds]);
 
   if (!rounds) {
     return <LoadingSpinner text="Loading..." />; // todo
@@ -162,7 +134,7 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
             {t('tabInfoTitle')}
           </TabsTrigger>
 
-          {competitionParticipants.length > 0 && (
+          {usersMap.size > 0 && (
             <TabsTrigger
               value="participants"
               onClick={() => {
@@ -271,9 +243,9 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
         </TabsContent>
 
         {/* Participants */}
-        {competitionParticipants.length > 0 && (
+        {usersMap.size > 0 && (
           <TabsContent value="participants" className="overflow-hidden overflow-y-auto">
-            <UserSection sectionTitle={t('tabParticipantsSectionParticipants')} users={competitionParticipants} />
+            <UserSection sectionTitle={t('tabParticipantsSectionParticipants')} users={Array.from(usersMap.values())} />
           </TabsContent>
         )}
       </Tabs>

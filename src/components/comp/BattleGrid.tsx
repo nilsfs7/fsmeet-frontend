@@ -27,7 +27,7 @@ interface IBattleGridProps {
 
 const BattleGrid = ({
   rounds,
-  usersMap = new Map(),
+  usersMap = new Map<string, User>(),
   editingEnabled = false,
   seedingEnabled = false,
   onDeleteRound,
