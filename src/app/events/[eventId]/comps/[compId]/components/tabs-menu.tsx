@@ -45,44 +45,6 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
   const [showMyBattlesOnlyEnabled, setShowMyBattlesOnlyEnabled] = useState<boolean>(false);
 
   useEffect(() => {
-    if (comp.eventId && comp.id && session) {
-      getEvent(comp.eventId, session)
-        .then(async () => {
-          // @ts-ignore
-          const participants = await getCompetitionParticipants(comp.id);
-          const compParticipants: User[] = [];
-          const participantsMenu: MenuItem[] = [{ text: t('tabScheduleComboBoxParticipantFilterItemUnselected'), value: '' }];
-
-          participants.map(participant => {
-            const user: User = {
-              username: participant.username,
-              type: UserType.FREESTYLER,
-              firstName: participant.firstName,
-              lastName: participant.lastName,
-              imageUrl: participant.imageUrl,
-            };
-            compParticipants.push(user);
-
-            const participantMenuItem: MenuItem = { text: user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`, value: user.username };
-            participantsMenu.push(participantMenuItem);
-
-            return user;
-          });
-          setParticipantsMenu(participantsMenu);
-
-          const usersMap = new Map();
-          participants.map(participant => {
-            usersMap.set(participant.username, participant);
-          });
-          setUsersMap(usersMap);
-        })
-        .catch(() => {
-          router.push(routeEventNotFound);
-        });
-    }
-  }, []);
-
-  useEffect(() => {
     if (comp.id) {
       getRounds(comp.id).then(rounds => {
         if (rounds.length === 0) {
@@ -90,6 +52,34 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
         } else {
           setRounds(rounds);
         }
+      });
+
+      getCompetitionParticipants(comp.id).then(participants => {
+        const compParticipants: User[] = [];
+        const participantsMenu: MenuItem[] = [{ text: t('tabScheduleComboBoxParticipantFilterItemUnselected'), value: '' }];
+
+        participants.map(participant => {
+          const user: User = {
+            username: participant.username,
+            type: UserType.FREESTYLER,
+            firstName: participant.firstName,
+            lastName: participant.lastName,
+            imageUrl: participant.imageUrl,
+          };
+          compParticipants.push(user);
+
+          const participantMenuItem: MenuItem = { text: user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`, value: user.username };
+          participantsMenu.push(participantMenuItem);
+
+          return user;
+        });
+        setParticipantsMenu(participantsMenu);
+
+        const usersMap = new Map();
+        participants.map(participant => {
+          usersMap.set(participant.username, participant);
+        });
+        setUsersMap(usersMap);
       });
     }
   }, []);
