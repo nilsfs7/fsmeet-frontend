@@ -367,12 +367,14 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   };
 
   const handleConfirmSendVerificationRequestClicked = async () => {
-    try {
-      await updateUserVerificationState(session, session?.user?.username || '', UserVerificationState.VERIFICATION_PENDING);
-      toast.success('Requesting verification successful.');
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
+    if (userInfo.instagramHandle) {
+      try {
+        await updateUserVerificationState(session, session?.user?.username || '', UserVerificationState.VERIFICATION_PENDING);
+        toast.success('Requesting verification successful.');
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
     }
   };
 
@@ -474,7 +476,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
           <p className="text-lg font-bold">{t('dlgAccountVerificationStep3')}</p>
           <p>{t('dlgAccountVerificationStep3Text1')}</p>
           <div className="mt-2">
-            <TextButton text={t('dlgAccountVerificationStep3BtnRequestNow')} onClick={handleConfirmSendVerificationRequestClicked} />
+            <TextButton text={t('dlgAccountVerificationStep3BtnRequestNow')} disabled={!userInfo.instagramHandle} onClick={handleConfirmSendVerificationRequestClicked} />
           </div>
         </div>
 
