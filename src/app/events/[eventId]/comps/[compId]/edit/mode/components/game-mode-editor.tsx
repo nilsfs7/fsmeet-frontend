@@ -14,7 +14,7 @@ import DialogDeleteMatch from '@/app/events/[eventId]/comps/[compId]/edit/mode/c
 import DialogDeleteRound from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-delete-round';
 import moment, { Moment } from 'moment';
 import { Round } from '@/domain/classes/round';
-import { createRounds, deleteRounds, updateRounds } from '@/infrastructure/clients/competition.client';
+import { createRounds, deleteRounds, getCompetitionParticipants, updateRounds } from '@/infrastructure/clients/competition.client';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/Navigation';
@@ -23,6 +23,7 @@ import TextButton from '@/components/common/TextButton';
 import { routeEvents } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { plainToInstance } from 'class-transformer';
+import { User } from '@/types/user';
 
 interface IRoundEditor {
   event: Event;
@@ -43,6 +44,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   const [numParticipants] = useState<number>(participants.length);
   const [gameModeApplied, setGameModeApplied] = useState<boolean>(); // plainToInstance(Round, props.data.rounds).length > 0
   const [rounds, setRounds] = useState<Round[]>(plainToInstance(Round, roundsInit));
+  const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
 
   const handleSaveClicked = async () => {
     if (compId) {
@@ -222,6 +224,17 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     setGameModeApplied(roundsInit.length > 0);
   }, [rounds]);
 
+  useEffect(() => {
+    getCompetitionParticipants(compId).then(participants => {
+      const usersMap = new Map();
+      participants.map(participant => {
+        usersMap.set(participant.username, participant);
+      });
+
+      setUsersMap(usersMap);
+    });
+  }, []);
+
   return (
     <>
       <Toaster richColors />
@@ -308,6 +321,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
 
           <BattleGrid
             rounds={rounds}
+            usersMap={usersMap}
             editingEnabled={true}
             onEditRound={(roundIndex: number) => {
               handleEditRoundClicked(roundIndex);
