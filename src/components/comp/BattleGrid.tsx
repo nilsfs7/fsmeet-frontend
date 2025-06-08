@@ -16,7 +16,6 @@ interface IBattleGridProps {
   usersMap?: Map<string, User>;
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
-  seedingList?: User[];
   onDeleteRound?: (roundIndex: number, name: string) => void;
   onAddMatch?: (roundIndex: number) => void;
   onEditRound?: (roundIndex: number) => void;
@@ -31,7 +30,6 @@ const BattleGrid = ({
   usersMap = new Map(),
   editingEnabled = false,
   seedingEnabled = false,
-  seedingList = [],
   onDeleteRound,
   onAddMatch,
   onEditRound,
@@ -74,7 +72,6 @@ const BattleGrid = ({
                           usersMap={usersMap}
                           editingEnabled={editingEnabled}
                           seedingEnabled={seedingEnabled}
-                          seedingList={seedingList}
                           onUpdateTime={(matchIndex: number, matchId: string, time: Moment | null) => {
                             onUpdateTime && onUpdateTime(rounds[i].roundIndex, matchIndex, matchId, time);
                           }}
