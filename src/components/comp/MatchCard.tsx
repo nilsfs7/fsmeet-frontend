@@ -19,17 +19,16 @@ interface IMatchProps {
   showTime?: boolean;
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
-  seedingList?: User[];
   onUpdateTime?: (matchIndex: number, matchId: string, time: Moment | null) => void;
   onEditMatch?: (matchIndex: number) => void; // matchId: string
   onDeleteMatch?: (matchIndex: number) => void;
   onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result: number) => void;
 }
 
-const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, seedingList = [], onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
+const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
   const playerMenu: MenuItem[] = [];
   playerMenu.push({ text: 'unassigned', value: '' });
-  seedingList.map(user => {
+  usersMap.forEach(user => {
     playerMenu.push({ text: `${user.firstName} ${user.lastName} (${user.username})`, value: user.username });
   });
 
@@ -41,7 +40,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
     }
   };
 
-  const handleSlotUpdateResult = (slotIndex: number, username: string, result: number ) => {
+  const handleSlotUpdateResult = (slotIndex: number, username: string, result: number) => {
     if (match.id) {
       if (username) {
         onUpdateSlot && onUpdateSlot(match.id, slotIndex, username, !Number.isNaN(result) ? result : -1);
@@ -96,7 +95,13 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
           );
 
           const playerName = (
-            <div className="text-sm">{`${matchSlot?.name ? (usersMap?.get(matchSlot.name)?.firstName && usersMap?.get(matchSlot.name)?.lastName ? `${usersMap?.get(matchSlot.name)?.firstName} ${usersMap?.get(matchSlot.name)?.lastName}` : usersMap?.get(matchSlot.name)?.firstName || matchSlot?.name) : ''}`}</div>
+            <div className="text-sm">{`${
+              matchSlot?.name
+                ? usersMap?.get(matchSlot.name)?.firstName && usersMap?.get(matchSlot.name)?.lastName
+                  ? `${usersMap?.get(matchSlot.name)?.firstName} ${usersMap?.get(matchSlot.name)?.lastName}`
+                  : usersMap?.get(matchSlot.name)?.firstName || matchSlot?.name
+                : ''
+            }`}</div>
           );
 
           return (

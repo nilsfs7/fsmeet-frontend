@@ -11,7 +11,6 @@ import Link from 'next/link';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
 import { User } from '@/types/user';
-import { UserType } from '@/domain/enums/user-type';
 import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/infrastructure/clients/competition.client';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
@@ -21,8 +20,7 @@ export default function Seeding({ params }: { params: { eventId: string; compId:
 
   const { data: session } = useSession();
 
-  const [competitionParticipants, setCompetitionParticipants] = useState<User[]>([]);
-
+  const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [rounds, setRounds] = useState<Round[]>([]);
 
   const handleSlotUpdated = async (roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => {
@@ -65,14 +63,16 @@ export default function Seeding({ params }: { params: { eventId: string; compId:
 
   useEffect(() => {
     getCompetitionParticipants(params.compId).then(participants => {
-      const users: User[] = [];
+      const usersMap = new Map();
       participants.map(participant => {
-        users.push({ username: participant.username, type: UserType.FREESTYLER, firstName: participant.firstName, lastName: participant.lastName });
+        usersMap.set(participant.username, participant);
       });
-      setCompetitionParticipants(users);
-      getRounds(params.compId).then(rounds => {
-        setRounds(rounds);
-      });
+
+      setUsersMap(usersMap);
+    });
+
+    getRounds(params.compId).then(rounds => {
+      setRounds(rounds);
     });
   }, []);
 
@@ -89,8 +89,8 @@ export default function Seeding({ params }: { params: { eventId: string; compId:
 
             <BattleGrid
               rounds={rounds}
+              usersMap={usersMap}
               seedingEnabled={true}
-              seedingList={competitionParticipants}
               onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => {
                 handleSlotUpdated(roundIndex, matchId, slotIndex, username, result);
               }}
