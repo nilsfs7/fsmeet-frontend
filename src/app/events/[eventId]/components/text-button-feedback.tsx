@@ -21,11 +21,9 @@ export const TextButtonFeedback = ({ event }: ITextButtonFeedback) => {
   return (
     isRegistered(event, session) &&
     moment(event.dateTo).unix() < moment().unix() && (
-      <div className="ml-1">
-        <Link href={`${routeEvents}/${event.id}/feedback`}>
-          <TextButton text={t('btnFeedback')} />
-        </Link>
-      </div>
+      <Link href={`${routeEvents}/${event.id}/feedback`}>
+        <TextButton text={t('btnFeedback')} />
+      </Link>
     )
   );
 };

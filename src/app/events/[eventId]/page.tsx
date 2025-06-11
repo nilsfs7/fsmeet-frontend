@@ -15,6 +15,7 @@ import { ActionButtonStateAction } from './components/action-button-state-action
 import { TextButtonFeedback } from './components/text-button-feedback';
 import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
 import TextButton from '@/components/common/TextButton';
+import moment from 'moment';
 
 export default async function EventDetails({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid');
@@ -84,13 +85,13 @@ export default async function EventDetails({ params }: { params: { eventId: stri
         <div className="flex justify-end gap-1">
           <ActionButtonCopyEventUrl alias={event.alias} />
 
-          {event.paymentMethodStripe.enabled === true && (
+          {event.paymentMethodStripe.enabled && moment(event?.dateTo).unix() > moment().unix() && (
             <Link href={`${routeEvents}/${event.id}/registration`}>
               <TextButton text={t('btnRegistration')} />
             </Link>
           )}
 
-          {event.paymentMethodStripe.enabled === false && <TextButtonRegister event={event} />}
+          {!event.paymentMethodStripe.enabled && <TextButtonRegister event={event} />}
           <TextButtonFeedback event={event} />
         </div>
       </Navigation>
