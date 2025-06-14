@@ -77,6 +77,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
   const [accommodationOrders, setAccommodationOrders] = useState<string[]>([]);
   const [offeringOrders, setOfferingOrders] = useState<string[]>([]);
   const [offeringTShirtSize, setOfferingShirtSize] = useState<string>(user.tShirtSize || menuTShirtSizesWithUnspecified[0].value);
+  const [donationAmount, setDonationAmount] = useState<number>(0);
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
 
@@ -351,7 +352,18 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
   const handleRegisterNowClicked = async () => {
     if (event.id && registrationType) {
       try {
-        await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, offeringOrders, offeringTShirtSize, phoneCountryCode || null, phoneNumber || null, session);
+        await createEventRegistration_v2(
+          event.id,
+          registrationType,
+          compSignUps,
+          accommodationOrders,
+          offeringOrders,
+          offeringTShirtSize,
+          phoneCountryCode || null,
+          phoneNumber || null,
+          donationAmount,
+          session
+        );
         cleanupCacheRegistrationInfo();
 
         // todo: don't redirect when user is not paying directly
@@ -835,6 +847,9 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                     accommodationOrders={accommodationOrders}
                     offeringOrders={offeringOrders}
                     paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                    onDonationCheckedChange={donationAmount => {
+                      setDonationAmount(donationAmount);
+                    }}
                   />
                 )}
               </div>

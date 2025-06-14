@@ -5,6 +5,7 @@ import { Event } from '@/types/event';
 import { isCompetition } from '@/functions/is-competition';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
+import { useState } from 'react';
 
 interface IPaymentDetails {
   event: Event;
@@ -13,13 +14,35 @@ interface IPaymentDetails {
   accommodationOrders: string[];
   offeringOrders: string[];
   paymentFeeCover: boolean;
+  onDonationCheckedChange: (donationAmount: number) => void;
 }
 
-export const PaymentDetails = ({ event, registrationType, compSignUps, accommodationOrders, offeringOrders, paymentFeeCover }: IPaymentDetails) => {
+export const PaymentDetails = ({ event, registrationType, compSignUps, accommodationOrders, offeringOrders, paymentFeeCover, onDonationCheckedChange }: IPaymentDetails) => {
   let eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFee : event.visitorFee;
   if (paymentFeeCover) {
     eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFeeIncPaymentCosts : event.visitorFeeIncPaymentCosts;
   }
+
+  const [donationChecked, setDonationChecked] = useState<boolean>(false);
+
+  const getTotal = (): number => {
+    return (
+      eventFee +
+      event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0) +
+      event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0) +
+      event.offerings.filter(o => o.id && offeringOrders.includes(o.id)).reduce((off, o) => off + (paymentFeeCover ? o.costIncPaymentCosts : o.cost), 0)
+    );
+  };
+
+  const getDonationAmount = (): number => {
+    return Math.round(getTotal() * 0.01); // 1% of total sum
+  };
+
+  const handleDonationCheckedChanged = () => {
+    setDonationChecked(!donationChecked);
+
+    onDonationCheckedChange(getDonationAmount());
+  };
 
   return (
     <div>
@@ -74,19 +97,27 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
           </div>
         )}
 
+        <div className="flex justify-between">
+          <div className="flex gap-2 items-center">
+            <div>{`1% donation to FSMeet`}</div>
+            <input
+              id={`input-donation`}
+              className="h-4 w-4"
+              type="checkbox"
+              checked={donationChecked}
+              onChange={() => {
+                handleDonationCheckedChanged();
+              }}
+            />
+          </div>
+          {donationChecked && <div>{`${convertCurrencyIntegerToDecimal(getDonationAmount(), event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}`}</div>}
+        </div>
+
         <div className="flex justify-between text-lg">
           <div>{`Total`}</div>
-          <div>
-            {`${convertCurrencyIntegerToDecimal(
-              eventFee +
-                event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0) +
-                event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0) +
-                event.offerings.filter(o => o.id && offeringOrders.includes(o.id)).reduce((off, o) => off + (paymentFeeCover ? o.costIncPaymentCosts : o.cost), 0),
-              event.currency
-            )
-              .toFixed(2)
-              .replace('.', ',')} ${getCurrencySymbol(event.currency)}`}
-          </div>
+          <div>{`${convertCurrencyIntegerToDecimal(donationChecked ? getTotal() + getDonationAmount() : getTotal(), event.currency)
+            .toFixed(2)
+            .replace('.', ',')} ${getCurrencySymbol(event.currency)}`}</div>
         </div>
       </div>
     </div>
