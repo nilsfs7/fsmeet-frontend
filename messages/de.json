@@ -371,7 +371,7 @@
     "registrationSuccess": "Registrierung erfolgreich eingereicht.",
     "textPaymentOutstanding": "Bitte denke an die Teilnahmegebühr. Die Zahlungsdetails haben wir dir per Mail geschickt.",
     "textPaymentCompleted": "Zahlung abgeschlossen. Wir sehen uns beim Event!",
-    "btnBack": "Zur Übersicht"
+    "btnBack": "Zurück zum Event"
   },
   "/events/eventid/registration/visa": {
     "pageTitle": "Anfrage einer Visa-Einladung",

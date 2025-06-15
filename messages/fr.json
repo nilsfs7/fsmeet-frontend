@@ -371,7 +371,7 @@
     "registrationSuccess": "Inscription soumise avec succès.",
     "textPaymentOutstanding": "N'oubliez pas de payer les frais de participation. Nous t'avons envoyé un e-mail avec les détails du paiement.",
     "textPaymentCompleted": "Paiement effectué. À bientôt à l'événement !",
-    "btnBack": "Retour à l'aperçu"
+    "btnBack": "Retour à l'événement"
   },
   "/events/eventid/registration/visa": {
     "pageTitle": "Demande de lettre d'invitation pour un visa",

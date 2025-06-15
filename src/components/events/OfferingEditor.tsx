@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
 import { Offering } from '@/types/offering';
-import { imgImagePlaceholder, imgUserDefaultImg } from '@/domain/constants/images';
+import { imgImagePlaceholder } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
 import CurInput from '../common/CurrencyInput';
 import CheckBox from '../common/CheckBox';

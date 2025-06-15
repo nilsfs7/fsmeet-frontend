@@ -17,7 +17,7 @@ export default async function EventRegistrationCompleted({ params, searchParams 
             <div className="mt-2">{t('registrationSuccess')}</div>
             <div className="mt-2">{t(searchParams.checkout === '1' ? `textPaymentCompleted` : `textPaymentOutstanding`)}</div>
             <div className="mt-2">
-              <Link href={`${routeEvents}/${params.eventId}/registration`}>
+              <Link href={`${routeEvents}/${params.eventId}`}>
                 <TextButton text={t('btnBack')} />
               </Link>
             </div>

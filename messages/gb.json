@@ -371,7 +371,7 @@
     "registrationSuccess": "Registration successfully submitted.",
     "textPaymentOutstanding": "Please remember the participation fee. We have sent you an email with the payment details.",
     "textPaymentCompleted": "Payment completed. See you at the event!",
-    "btnBack": "Back To Overview"
+    "btnBack": "Return To Event"
   },
   "/events/eventid/registration/visa": {
     "pageTitle": "Request Visa Invitation Letter",
