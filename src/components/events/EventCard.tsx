@@ -26,7 +26,7 @@ const EventCard = ({ event }: IEventProps) => {
       getUser(event.admin).then(user => {
         setEventAdmin(user);
       });
-  });
+  }, []);
 
   return (
     <div className={'flex flex-col gap-1 rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm hover:border-primary'}>
