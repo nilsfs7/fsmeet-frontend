@@ -22,7 +22,7 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
   const t = useTranslations('global/components/accommodation-editor');
 
   const [description, setAccommodationDescription] = useState(accommodation?.description || '');
-  const [website, setAccommodationWebsite] = useState(accommodation?.website || '');
+  const [website, setAccommodationWebsite] = useState(accommodation?.website || null);
   const [cost, setCost] = useState(accommodation?.cost || 0);
   const [imgPreview, setImgPreview] = useState<File>();
   const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
@@ -52,6 +52,14 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
 
   const handleCostChanged = (values: { float: number | null; formatted: string; value: string }) => {
     setCost(convertCurrencyDecimalToInteger(values.float || 0, currency));
+  };
+
+  const handleWebsiteChanged = (value: string) => {
+    if (!value) {
+      setAccommodationWebsite(null);
+    } else {
+      setAccommodationWebsite(value);
+    }
   };
 
   const updateAccommodationPreview = () => {
@@ -95,9 +103,9 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
           id={'website'}
           label={t('inputWebsite')}
           placeholder="https://hotel.com/offering/123"
-          value={website}
+          value={website || undefined}
           onChange={e => {
-            setAccommodationWebsite(e.currentTarget.value);
+            handleWebsiteChanged(e.currentTarget.value);
           }}
         />
 
