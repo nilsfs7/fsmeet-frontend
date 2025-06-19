@@ -4,7 +4,7 @@ export type Accommodation = {
   description: string;
   cost: number;
   costIncPaymentCosts: number;
-  website: string;
+  website: string | null;
   imageUrlPreview?: string;
   enabled: boolean;
 };
