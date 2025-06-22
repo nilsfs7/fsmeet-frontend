@@ -9,6 +9,7 @@ import { getEvents } from '@/infrastructure/clients/event.client';
 import { Event } from '@/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
 import { useTranslations } from 'next-intl';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 const defaultDateFrom = moment(moment().subtract(1, 'y').year().toString()).startOf('year');
 const defaultDateTo = moment(moment().year().toString()).endOf('year');
@@ -16,6 +17,7 @@ const defaultDateTo = moment(moment().year().toString()).endOf('year');
 export const EventsList = () => {
   const t = useTranslations('/events');
 
+  const [loadingDone, setLoadingDone] = useState<boolean>(false);
   const [events, setEvents] = useState<Event[]>([]);
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
@@ -24,8 +26,10 @@ export const EventsList = () => {
     if (moment) {
       setDateFrom(moment);
 
+      setLoadingDone(false);
       getEvents(null, null, null, moment, dateTo).then(events => {
         setEvents(events);
+        setLoadingDone(true);
       });
     }
   };
@@ -34,8 +38,10 @@ export const EventsList = () => {
     if (moment) {
       setDateTo(moment);
 
+      setLoadingDone(false);
       getEvents(null, null, null, dateFrom, moment).then(events => {
         setEvents(events);
+        setLoadingDone(true);
       });
     }
   };
@@ -43,6 +49,7 @@ export const EventsList = () => {
   useEffect(() => {
     getEvents(null, null, null, dateFrom, dateTo).then(events => {
       setEvents(events);
+      setLoadingDone(true);
     });
   }, []);
 
@@ -88,7 +95,9 @@ export const EventsList = () => {
             );
           })}
 
-          {events.length === 0 && <div className="mt-2 text-center">{t('textNoEventsFound')}</div>}
+          {!loadingDone && <LoadingSpinner text="Loading..." />}
+
+          {events.length === 0 && loadingDone && <div className="mt-2 text-center">{t('textNoEventsFound')}</div>}
         </div>
       </div>
     </>
