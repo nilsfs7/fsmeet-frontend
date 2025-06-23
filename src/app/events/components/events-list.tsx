@@ -11,8 +11,8 @@ import { DatePicker } from '@/components/common/DatePicker';
 import { useTranslations } from 'next-intl';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 
-const defaultDateFrom = moment(moment().subtract(1, 'y').year().toString()).startOf('year');
-const defaultDateTo = moment(moment().year().toString()).endOf('year');
+const defaultDateFrom = moment(moment().subtract(3, 'months').toString());
+const defaultDateTo = moment(moment().add(6, 'months').toString());
 
 export const EventsList = () => {
   const t = useTranslations('/events');
