@@ -1,6 +1,7 @@
 import { CompetitionGender } from '@/domain/enums/competition-gender';
 import { CompetitionType } from '@/domain/enums/competition-type';
 import { MaxAge } from '@/domain/enums/max-age';
+import { ReadPartialUser1ResponseDto } from '../user/read-partial-user-1.response.dto';
 
 export class ReadCompetitionResponseDto {
   id: string;
@@ -12,6 +13,7 @@ export class ReadCompetitionResponseDto {
   participationFeeIncPaymentCosts: number;
   description: string;
   rules: string;
+  judges: ReadPartialUser1ResponseDto[];
   eventId: string;
 
   constructor(
@@ -24,6 +26,7 @@ export class ReadCompetitionResponseDto {
     participationFeeIncPaymentCosts: number,
     description: string,
     rules: string,
+    judges: ReadPartialUser1ResponseDto[],
     eventId: string
   ) {
     this.id = id;
@@ -35,6 +38,7 @@ export class ReadCompetitionResponseDto {
     this.participationFeeIncPaymentCosts = participationFeeIncPaymentCosts;
     this.description = description;
     this.rules = rules;
+    this.judges = judges;
     this.eventId = eventId;
   }
 }

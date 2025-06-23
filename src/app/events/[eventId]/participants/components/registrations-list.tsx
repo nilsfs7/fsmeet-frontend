@@ -116,14 +116,14 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
       <Toaster richColors />
 
       <Dialog title={t('dlgRegistrationInfoTitle')} queryParam="info" onCancel={handleCancelDialogClicked}>
-        <p className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-2 gap-1">
           <p>{`${t('dlgRegistrationInfoType')}:`}</p>
           <p>{`${registrationSelected?.type}`}</p>
-        </p>
-        <p className="grid grid-cols-2 gap-1">
+        </div>
+        <div className="grid grid-cols-2 gap-1">
           <p>{`${t('dlgRegistrationInfoStatus')}:`}</p>
           <p>{`${registrationSelected?.status}`}</p>
-        </p>
+        </div>
 
         {registrationSelected?.offeringOrders && registrationSelected?.offeringOrders.length > 0 && (
           <>

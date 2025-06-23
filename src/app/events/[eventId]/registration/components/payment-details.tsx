@@ -6,9 +6,11 @@ import { isCompetition } from '@/functions/is-competition';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { useState } from 'react';
+import { Competition } from '@/types/competition';
 
 interface IPaymentDetails {
   event: Event;
+  competitions: Competition[];
   registrationType: EventRegistrationType;
   compSignUps: string[];
   accommodationOrders: string[];
@@ -17,7 +19,7 @@ interface IPaymentDetails {
   onDonationCheckedChange: (donationAmount: number) => void;
 }
 
-export const PaymentDetails = ({ event, registrationType, compSignUps, accommodationOrders, offeringOrders, paymentFeeCover, onDonationCheckedChange }: IPaymentDetails) => {
+export const PaymentDetails = ({ event, competitions, registrationType, compSignUps, accommodationOrders, offeringOrders, paymentFeeCover, onDonationCheckedChange }: IPaymentDetails) => {
   let eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFee : event.visitorFee;
   if (paymentFeeCover) {
     eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFeeIncPaymentCosts : event.visitorFeeIncPaymentCosts;
@@ -28,7 +30,7 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
   const getTotal = (): number => {
     return (
       eventFee +
-      event.competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0) +
+      competitions.filter(c => c.id && compSignUps.includes(c.id)).reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0) +
       event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)).reduce((acc, a) => acc + (paymentFeeCover ? a.costIncPaymentCosts : a.cost), 0) +
       event.offerings.filter(o => o.id && offeringOrders.includes(o.id)).reduce((off, o) => off + (paymentFeeCover ? o.costIncPaymentCosts : o.cost), 0)
     );
@@ -58,7 +60,7 @@ export const PaymentDetails = ({ event, registrationType, compSignUps, accommoda
           <div className="flex justify-between">
             <div>{`Competition fee(s)`}</div>
             <div>
-              {`${event.competitions
+              {`${competitions
                 .filter(c => c.id && compSignUps.includes(c.id))
                 .reduce(
                   (acc, c) =>

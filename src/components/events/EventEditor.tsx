@@ -245,7 +245,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       waiver: waiver,
       visaInvitationRequestsEnabled: visaInvitationRequestsEnabled,
       eventRegistrations: [],
-      competitions: [],
       accommodations: [],
       offerings: [],
       state: event?.state || EventState.CREATED,

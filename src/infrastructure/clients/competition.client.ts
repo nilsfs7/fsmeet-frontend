@@ -7,7 +7,25 @@ import { CreateMatchBodyDto } from './dtos/competition/create-match.body.dto';
 import moment from 'moment';
 import { ReadPartialUser1ResponseDto } from './dtos/user/read-partial-user-1.response.dto';
 
-export async function getCompetition(compId: string): Promise<any> {
+export async function getCompetitions(eventId: string | null): Promise<Competition[]> {
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions?eventId=${eventId}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+  });
+
+  if (response.ok) {
+    return await response.json();
+
+    // TODO: response.json() is dto -> map dto to Competition[]
+    // const dto: ReadCompetitionResponseDto[] = await response.json();
+    // return dto
+  } else {
+    throw Error(`Error fetching competitions.`);
+  }
+}
+
+export async function getCompetition(compId: string): Promise<Competition> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}`;
 
   const response = await fetch(url, {

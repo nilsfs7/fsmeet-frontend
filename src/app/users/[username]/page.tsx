@@ -29,14 +29,15 @@ import { ReadRoundResponseDto } from '@/infrastructure/clients/dtos/competition/
 import { ActionButtonDeleteUser } from './components/action-button-delete-user';
 import { getTranslations } from 'next-intl/server';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
+import { Competition } from '@/types/competition';
 
 const getCompetitionsByBattles = async (
   battleHistory: {
     competitionId: string;
     rounds: ReadRoundResponseDto[];
   }[]
-): Promise<Map<string, ReadCompetitionResponseDto>> => {
-  const competitionsMap: Map<string, ReadCompetitionResponseDto> = new Map();
+): Promise<Map<string, Competition>> => {
+  const competitionsMap: Map<string, Competition> = new Map();
   const requests: Promise<void>[] = [];
 
   battleHistory.map(data => {
@@ -79,7 +80,7 @@ const getUsersByBattles = async (
   return usersMap;
 };
 
-const getEventsByCompetitions = async (competitionsMap: Map<string, ReadCompetitionResponseDto>): Promise<Map<string, Event>> => {
+const getEventsByCompetitions = async (competitionsMap: Map<string, Competition>): Promise<Map<string, Event>> => {
   const eventsMap: Map<string, Event> = new Map();
   const requests: Promise<void>[] = [];
 

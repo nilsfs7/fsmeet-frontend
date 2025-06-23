@@ -11,15 +11,17 @@ import { EventRegistration } from '@/types/event-registration';
 import { Offering } from '@/types/offering';
 import { Accommodation } from '@/types/accommodation';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
+import { Competition } from '@/types/competition';
 
 interface IActionButtonDownloadList {
   event: Event;
+  competitions: Competition[];
   registrations: EventRegistration[];
   offerings: Offering[];
   accommodations: Accommodation[];
 }
 
-export const ActionButtonDownloadList = ({ event, registrations, offerings, accommodations }: IActionButtonDownloadList) => {
+export const ActionButtonDownloadList = ({ event, competitions, registrations, offerings, accommodations }: IActionButtonDownloadList) => {
   const handleDownloadResultsClicked = async () => {
     const options: ConfigOptions = { filename: `${moment().format('YYYYMMDD HHmmss')} - ${event.name} -  registrations`, useKeysAsHeaders: true };
     const csvConfig = mkConfig(options);
@@ -45,7 +47,7 @@ export const ActionButtonDownloadList = ({ event, registrations, offerings, acco
 
       let competitionsCell: string = '';
       for (let i = 0; i < registration.competitionSignUps.length; i++) {
-        event.competitions.forEach(comp => {
+        competitions.forEach(comp => {
           if (comp.id === registration.competitionSignUps[i]) {
             competitionsCell = competitionsCell ? `${competitionsCell}, ${comp.name}` : comp.name;
           }

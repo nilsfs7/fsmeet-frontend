@@ -43,9 +43,11 @@ import { UserType } from '@/domain/enums/user-type';
 import ComboBox from '@/components/common/ComboBox';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
 import { toTitleCase } from '@/functions/string-manipulation';
+import { Competition } from '@/types/competition';
 
 interface IEventRegistrationProcess {
   event: Event;
+  competitions: Competition[];
   attendee: User;
 }
 
@@ -57,7 +59,7 @@ enum RegistrationProcessPage {
   CHECKOUT_OVERVIEW = '5',
 }
 
-export const EventRegistrationProcess = ({ event, attendee }: IEventRegistrationProcess) => {
+export const EventRegistrationProcess = ({ event, competitions, attendee }: IEventRegistrationProcess) => {
   const t = useTranslations('/events/eventid/registration');
 
   const { data: session } = useSession();
@@ -688,10 +690,10 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
               <div className="m-2">{t('pageCompetitionDescription')}</div>
 
               <CompetitionList
-                comps={event.competitions}
+                competitions={competitions}
                 paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                 currency={event.currency}
-                disabled={event.competitions.map(comp => {
+                disabled={competitions.map(comp => {
                   // check if gender does not fit
                   if (comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender) {
                     return true;
@@ -704,7 +706,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
 
                   return false;
                 })}
-                checked={event.competitions.map(comp => {
+                checked={competitions.map(comp => {
                   return comp.id && compSignUps.includes(comp.id) ? true : false;
                 })}
                 selectable={true}
@@ -779,10 +781,10 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                       <div className="m-2 text-lg">{t('pageCheckoutOverviewSectionCompetitions')}</div>
 
                       <CompetitionList
-                        comps={event.competitions.filter(c => c.id && compSignUps.includes(c.id))}
+                        competitions={competitions.filter(c => c.id && compSignUps.includes(c.id))}
                         paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                         currency={event.currency}
-                        checked={event.competitions
+                        checked={competitions
                           .filter(c => c.id && compSignUps.includes(c.id))
                           .map(comp => {
                             return comp.id && compSignUps.includes(comp.id) ? true : false;
@@ -842,6 +844,7 @@ export const EventRegistrationProcess = ({ event, attendee }: IEventRegistration
                 {registrationType && (
                   <PaymentDetails
                     event={event}
+                    competitions={competitions}
                     registrationType={registrationType}
                     compSignUps={compSignUps}
                     accommodationOrders={accommodationOrders}

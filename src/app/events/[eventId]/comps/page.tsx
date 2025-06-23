@@ -5,15 +5,13 @@ import Navigation from '@/components/Navigation';
 import Separator from '@/components/Seperator';
 import { routeEvents } from '@/domain/constants/routes';
 import PageTitle from '@/components/PageTitle';
-import { getEvent } from '@/infrastructure/clients/event.client';
 import { getTranslations } from 'next-intl/server';
-import { auth } from '@/auth';
+import { getCompetitions } from '@/infrastructure/clients/competition.client';
 
 export default async function ManageCompetitions({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid/comps');
-  const session = await auth();
 
-  const event = await getEvent(params.eventId, session);
+  const competitions = await getCompetitions(params.eventId);
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
@@ -23,7 +21,7 @@ export default async function ManageCompetitions({ params }: { params: { eventId
         <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
           <div className="flex flex-col">
             <>
-              {event?.competitions.map((comp, index) => {
+              {competitions.map((comp, index) => {
                 return (
                   <div key={index} className="m-1 flex flex-col gap-1">
                     <div className="flex items-center w-full gap-2">
