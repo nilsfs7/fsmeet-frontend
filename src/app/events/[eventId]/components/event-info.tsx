@@ -79,8 +79,8 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
           </div>
 
           <div className="row-span-3 flex justify-end">
-            {event.imageUrlPoster && <img className="h-28 aspect-[4/5] object-fill" src={event.imageUrlPoster} alt={'event image'} />}
-            {!event.imageUrlPoster && <img className="h-28 aspect-[4/5]" src={event.type === EventType.MEETING ? imgMeeting : imgCompetition} alt={'event image'} />}
+            {event.imageUrlPoster && <img className="h-28 aspect-[4/5] object-fill rounded-lg" src={event.imageUrlPoster} alt={'event image'} />}
+            {!event.imageUrlPoster && <img className="h-28 aspect-[4/5] rounded-lg" src={event.type === EventType.MEETING ? imgMeeting : imgCompetition} alt={'event image'} />}
           </div>
         </div>
 
