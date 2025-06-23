@@ -26,9 +26,11 @@ import { CommentSection } from './comment-section';
 import { CompetitionSection } from './competition-section';
 import { isEventAdmin } from '@/functions/is-event-admin';
 import { EventRegistrationType } from '@/types/event-registration-type';
+import { Competition } from '@/types/competition';
 
 interface ITabsMenu {
   event: Event;
+  competitions: Competition[];
   sponsors: Sponsor[];
   comments: EventComment[];
 }
@@ -44,7 +46,7 @@ export const isRegistered = (event: Event, session: Session | null) => {
   return false;
 };
 
-export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
+export const TabsMenu = ({ event, competitions, sponsors, comments }: ITabsMenu) => {
   const t = useTranslations('/events/eventid');
   const { data: session } = useSession();
 
@@ -153,7 +155,7 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
           >
             {t('tabOverviewTitle')}
           </TabsTrigger>
-          {event.competitions.length > 0 && (
+          {competitions.length > 0 && (
             <TabsTrigger
               value="competitions"
               onClick={() => {
@@ -203,9 +205,9 @@ export const TabsMenu = ({ event, sponsors, comments }: ITabsMenu) => {
         </TabsContent>
 
         {/* Competitions */}
-        {event.id && event.competitions.length > 0 && (
+        {event.id && competitions.length > 0 && (
           <TabsContent value="competitions" className="overflow-hidden overflow-y-auto">
-            <CompetitionSection competitions={event.competitions} eventId={event.id} />
+            <CompetitionSection competitions={competitions} eventId={event.id} />
           </TabsContent>
         )}
 

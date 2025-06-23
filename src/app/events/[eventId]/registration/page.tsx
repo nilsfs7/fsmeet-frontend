@@ -5,6 +5,7 @@ import { getUser } from '@/infrastructure/clients/user.client';
 import { redirect } from 'next/navigation';
 import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import { validateSession } from '@/functions/validate-session';
+import { getCompetitions } from '@/infrastructure/clients/competition.client';
 
 export default async function EventRegistration({ params }: { params: { eventId: string } }) {
   const session = await auth();
@@ -16,7 +17,8 @@ export default async function EventRegistration({ params }: { params: { eventId:
   }
 
   const event = await getEvent(params.eventId, session);
+  const competitions = await getCompetitions(params.eventId);
   const user = await getUser(session?.user.username ? session.user.username : '', session);
 
-  return <EventRegistrationProcess event={event} attendee={user} />;
+  return <EventRegistrationProcess event={event} competitions={competitions} attendee={user} />;
 }

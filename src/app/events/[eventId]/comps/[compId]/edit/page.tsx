@@ -15,7 +15,7 @@ import Navigation from '@/components/Navigation';
 import TextButton from '@/components/common/TextButton';
 import PageTitle from '@/components/PageTitle';
 import { getEvent } from '@/infrastructure/clients/event.client';
-import { deleteCompetition, updateCompetition } from '@/infrastructure/clients/competition.client';
+import { deleteCompetition, getCompetition, updateCompetition } from '@/infrastructure/clients/competition.client';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
@@ -63,30 +63,16 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
 
   useEffect(() => {
     getEvent(params.eventId, session)
-      .then((res: Event) => {
-        setEvent(res);
-
-        const comp = res.competitions.filter(c => c.id === params.compId)[0];
-
-        const c: Competition = {
-          id: comp.id,
-          eventId: params.eventId,
-          name: comp.name,
-          type: comp.type,
-          gender: comp.gender,
-          maxAge: comp.maxAge,
-          participationFee: comp.participationFee,
-          participationFeeIncPaymentCosts: -1,
-          description: comp.description,
-          rules: comp.rules,
-          judges: comp.judges,
-        };
-
-        setComp(c);
+      .then((event: Event) => {
+        setEvent(event);
       })
       .catch(() => {
         router.push(routeEventNotFound);
       });
+
+    getCompetition(params.compId).then((comp: Competition) => {
+      setComp(comp);
+    });
   }, []);
 
   return (

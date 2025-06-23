@@ -7,6 +7,7 @@ import Navigation from '@/components/Navigation';
 import { TabsMenu } from './components/tabs-menu';
 import { auth } from '@/auth';
 import { getComments, getEvent } from '@/infrastructure/clients/event.client';
+import { getCompetitions } from '@/infrastructure/clients/competition.client';
 import { getSponsors } from '@/infrastructure/clients/sponsor.client';
 import { getTranslations } from 'next-intl/server';
 import { ActionButtonCopyEventUrl } from './components/action-button-copy-event-url';
@@ -22,6 +23,7 @@ export default async function EventDetails({ params }: { params: { eventId: stri
   const session = await auth();
 
   const event = await getEvent(params.eventId, session);
+  const competitions = await getCompetitions(params.eventId);
   const sponsors = await getSponsors(params.eventId);
   const comments = await getComments(params.eventId);
 
@@ -72,7 +74,7 @@ export default async function EventDetails({ params }: { params: { eventId: stri
       </div>
 
       <div className="mx-2 overflow-hidden">
-        <TabsMenu event={event} sponsors={sponsors} comments={comments} />
+        <TabsMenu event={event} competitions={competitions} sponsors={sponsors} comments={comments} />
       </div>
 
       <Navigation>

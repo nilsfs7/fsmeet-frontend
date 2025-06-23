@@ -6,7 +6,7 @@ import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { Competition } from '@/types/competition';
 
 interface ICompetitionList {
-  comps: Competition[];
+  competitions: Competition[];
   paymentFeeCover: boolean;
   currency: CurrencyCode;
   disabled?: boolean[];
@@ -15,7 +15,7 @@ interface ICompetitionList {
   onCheckedChange?: (selected: boolean, compId: string) => void;
 }
 
-export const CompetitionList = ({ comps, paymentFeeCover, currency, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
+export const CompetitionList = ({ competitions, paymentFeeCover, currency, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
   return (
     <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
       {/* todo: color code for head bg*/}
@@ -29,8 +29,8 @@ export const CompetitionList = ({ comps, paymentFeeCover, currency, disabled = [
         </tr>
       </thead>
       <tbody className="text-primary text-sm">
-        {comps.map((comp, i) => (
-          <tr key={i} className={`${i < comps.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
+        {competitions.map((comp, i) => (
+          <tr key={i} className={`${i < competitions.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
             <td className="py-3 px-3 capitalize">{comp.type.replaceAll('_', ' ')}</td>
             <td className="py-3 px-3">{comp.name}</td>
             <td className="py-3 px-3 capitalize">{comp.gender}</td>

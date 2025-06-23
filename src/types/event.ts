@@ -48,7 +48,6 @@ export type Event = {
   waiver: string;
   visaInvitationRequestsEnabled: boolean;
   eventRegistrations: EventRegistration[];
-  competitions: Competition[];
   accommodations: Accommodation[];
   offerings: Offering[];
   state: EventState;

@@ -17,7 +17,7 @@ export default async function CompetitionDetails({ params }: { params: { eventId
   const session = await auth();
 
   const event: Event = await getEvent(params.eventId, session);
-  const comp: Competition = await getCompetition(params.compId);
+  const comp = await getCompetition(params.compId);
   const rounds: Round[] = JSON.parse(JSON.stringify(await getRounds(params.compId)));
 
   return (
