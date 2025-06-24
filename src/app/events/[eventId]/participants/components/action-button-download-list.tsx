@@ -26,19 +26,14 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
     const options: ConfigOptions = { filename: `${moment().format('YYYYMMDD HHmmss')} - ${event.name} -  registrations`, useKeysAsHeaders: true };
     const csvConfig = mkConfig(options);
 
-    const data = mapRegistrationsToCsv(event, registrations, offerings, accommodations);
+    const data = mapRegistrationsToCsv(registrations, offerings, accommodations);
     if (data.length > 0) {
       const csvOutput = generateCsv(csvConfig)(data);
       download(csvConfig)(csvOutput);
     }
   };
 
-  const mapRegistrationsToCsv = (
-    event: Event,
-    registrations: EventRegistration[],
-    offerings: Offering[],
-    accommodations: Accommodation[]
-  ): { [k: string]: AcceptedData; [k: number]: AcceptedData }[] => {
+  const mapRegistrationsToCsv = (registrations: EventRegistration[], offerings: Offering[], accommodations: Accommodation[]): { [k: string]: AcceptedData; [k: number]: AcceptedData }[] => {
     const na = '';
     const data: { [k: string]: AcceptedData; [k: number]: AcceptedData }[] = [];
 
@@ -76,6 +71,7 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
         registration_type: registration.type,
         registration_status: registration.status,
         username: registration.user.username,
+        wffa_id: registration.user.wffaId,
         first_name: registration.user.firstName,
         last_name: registration.user.lastName,
         gender: registration.user.gender,

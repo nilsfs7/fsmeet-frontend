@@ -30,7 +30,7 @@ const EventCard = ({ event }: IEventProps) => {
   return (
     <div className={'max-w-lg h-40 flex flex-col gap-1 rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
       <div className="flex justify-between">
-        <div className="w-2/3 h-full flex flex-col justify-between gap-s1">
+        <div className="w-2/3 h-full flex flex-col justify-between">
           {/* Event Title */}
           <div className="w-full h-12 text-base font-bold">{`${!isPublicEventState(event.state) ? '[NOT LISTED] ' : ''}${event.name}`}</div>
 
@@ -83,7 +83,7 @@ const EventCard = ({ event }: IEventProps) => {
         </div>
 
         {/* Event Type / Image */}
-        <div className="w-1/3 flex flex-col items-end rounded-lg">
+        <div className="w-1/3 flex flex-col items-end">
           {event.imageUrlPoster && <img className="h-36 aspect-[4/5] object-fill rounded-lg" src={event.imageUrlPoster} alt={'event image'} />}
           {!event.imageUrlPoster && <img className="h-36 aspect-[4/5] rounded-lg" src={event.type === EventType.MEETING ? imgMeeting : imgCompetition} alt={'event image'} />}
         </div>
