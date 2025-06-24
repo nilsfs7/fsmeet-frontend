@@ -176,6 +176,8 @@ Event
 
 - [Calendar](https://www.iconfinder.com/icons/2203551/book_calendar_date_monthly_icon)
 
+- [Location](https://www.iconfinder.com/icons/8665749/location_dot_icon)
+
 User Types
 
 - [Admin](https://www.iconfinder.com/icons/3018587/admin_administrator_ajax_options_permission_settings_user_icon)
