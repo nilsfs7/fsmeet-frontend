@@ -84,12 +84,12 @@ export const EventsList = () => {
 
       {/* Events */}
       <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
-        <div className="flex flex-col gap-2">
-          {events.map((item: any, i: number) => {
+        <div className="grid gap-2">
+          {events.map((event: Event, i: number) => {
             return (
-              <div key={i.toString()}>
-                <Link href={`${routeEvents}/${item.id}`}>
-                  <EventCard event={item} />
+              <div key={`event-${i.toString()}`}>
+                <Link href={`${routeEvents}/${event.id}`}>
+                  <EventCard event={event} />
                 </Link>
               </div>
             );

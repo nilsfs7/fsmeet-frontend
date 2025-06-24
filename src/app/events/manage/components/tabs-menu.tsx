@@ -60,43 +60,54 @@ export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: 
         </TabsList>
 
         <TabsContent value="registrations" className="overflow-y-auto">
-          {eventsSubscribed.length === 0 && <div className="flex justify-center">{t('tabRegistrationsTextNoEvents')}</div>}
+          {eventsSubscribed.length === 0 && <div className="flex ">{t('tabRegistrationsTextNoEvents')}</div>}
 
-          {eventsSubscribed.length > 0 &&
-            eventsSubscribed.map((event, i: number) => {
-              return (
-                <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                  <Link href={`${routeEvents}/${event.id}`}>
-                    <EventCard event={event} />
-                  </Link>
-                </div>
-              );
-            })}
+          {eventsSubscribed.length > 0 && (
+            <div className="grid gap-2 justify-center">
+              <div className="grid gap-2">
+                {eventsSubscribed.map((event: Event, i: number) => {
+                  return (
+                    <div key={`event-subscribed-${i.toString()}`}>
+                      <Link href={`${routeEvents}/${event.id}`}>
+                        <EventCard event={event} />
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </TabsContent>
 
         <TabsContent value="myevents" className="overflow-y-auto">
           {eventsOwning.length === 0 && eventsMaintaining.length === 0 && <div className="flex justify-center">{t('tabEventsHostedTextNoEvents')}</div>}
 
-          {eventsOwning.map((event, i: number) => {
-            return (
-              <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
-                <Link href={`${routeEvents}/${event.id}`}>
-                  <EventCard event={event} />
-                </Link>
-              </div>
-            );
-          })}
+          <div className="grid gap-2 justify-center">
+            <div className="grid gap-2">
+              {eventsOwning.map((event: Event, i: number) => {
+                return (
+                  <div key={`event-owning-${i.toString()}`}>
+                    <Link href={`${routeEvents}/${event.id}`}>
+                      <EventCard event={event} />
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
 
-          {eventsMaintaining.map((event, i: number) => {
-            if (!isEventAdmin(event, session))
-              return (
-                <div key={i.toString()} className={i == 0 && eventsOwning.length === 0 ? '' : `mt-2`}>
-                  <Link href={`${routeEvents}/${event.id}`}>
-                    <EventCard event={event} />
-                  </Link>
-                </div>
-              );
-          })}
+            <div className="grid gap-2">
+              {eventsMaintaining.map((event: Event, i: number) => {
+                if (!isEventAdmin(event, session))
+                  return (
+                    <div key={`event-maintaining-${i.toString()}`}>
+                      <Link href={`${routeEvents}/${event.id}`}>
+                        <EventCard event={event} />
+                      </Link>
+                    </div>
+                  );
+              })}
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </>
