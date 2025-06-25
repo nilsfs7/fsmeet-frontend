@@ -60,7 +60,7 @@ export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: 
         </TabsList>
 
         <TabsContent value="registrations" className="overflow-y-auto">
-          {eventsSubscribed.length === 0 && <div className="flex ">{t('tabRegistrationsTextNoEvents')}</div>}
+          {eventsSubscribed.length === 0 && <div className="flex  justify-center">{t('tabRegistrationsTextNoEvents')}</div>}
 
           {eventsSubscribed.length > 0 && (
             <div className="grid gap-2 justify-center">
