@@ -465,7 +465,7 @@
   },
   "/password/pending": {
     "thankYouText1": "Check your mail.",
-    "thankYouText2": "A reset link for was sent to you.",
+    "thankYouText2": "A reset link was sent to you.",
     "btnBackHome": "Back home"
   },
   "/password/reset": {
