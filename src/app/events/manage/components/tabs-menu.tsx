@@ -34,7 +34,7 @@ export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: 
   return (
     <>
       <Dialog title="License Warning" queryParam="license" onCancel={handleCancelDialogClicked}>
-        <p>Out of licenses to create new events. Contact use to get more.</p>
+        <p>Out of licenses to create new events. Contact us to get more.</p>
         <p>By deleting any event that is not listed publicly, you can reclaim 1 license. Note that once an event is public it is not eligible for a reclaim.</p>
       </Dialog>
 
