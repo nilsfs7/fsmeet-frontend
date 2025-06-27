@@ -21,6 +21,7 @@ import CurInput from '../common/CurrencyInput';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
+import CheckBox from '../common/CheckBox';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;
@@ -36,6 +37,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
   const [compType, setCompType] = useState(comp?.type || CompetitionType.BATTLES);
   const [compGender, setCompGender] = useState(comp?.gender || CompetitionGender.MIXED);
   const [maxAge, setMaxAge] = useState<MaxAge>(comp?.maxAge || MaxAge.NONE);
+  const [isFollowUpCompetition, setIsFollowUpCompetition] = useState<boolean>(comp?.isFollowUpCompetition || false);
   const [participationFee, setParticipationFee] = useState(comp?.participationFee || 0);
   const [description, setDescription] = useState(comp?.description || '');
   const [rules, setRules] = useState(comp?.rules || '');
@@ -89,6 +91,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
       type: compType,
       gender: compGender,
       maxAge: maxAge,
+      isFollowUpCompetition: isFollowUpCompetition,
       participationFee: participationFee,
       participationFeeIncPaymentCosts: -1,
       description: description,
@@ -108,6 +111,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
       setCompType(comp.type);
       setCompGender(comp.gender);
       setMaxAge(comp.maxAge);
+      setIsFollowUpCompetition(comp.isFollowUpCompetition);
       setParticipationFee(comp.participationFee);
       setDescription(comp.description);
       setRules(comp.rules);
@@ -125,7 +129,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
   // fires comp back
   useEffect(() => {
     updateComp();
-  }, [name, compType, compGender, maxAge, participationFee, description, rules, judges]);
+  }, [name, compType, compGender, maxAge, isFollowUpCompetition, participationFee, description, rules, judges]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
@@ -187,15 +191,30 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
         </div>
       </div>
 
-      <CurInput
-        id={'participationFee'}
-        label={`${t('inputPaticipantFee')} (${getCurrencySymbol(currency)})`}
-        placeholder="15,00"
-        value={convertCurrencyIntegerToDecimal(participationFee, currency)}
-        onValueChange={(value, name, values) => {
-          if (values) handleParticipationFeeChanged(values);
+      <CheckBox
+        id={'paymentMethodCashEnabled'}
+        label={t('chbIsFollowUpComp')}
+        value={isFollowUpCompetition}
+        onChange={() => {
+          setIsFollowUpCompetition(!isFollowUpCompetition);
+
+          if (!isFollowUpCompetition === true) {
+            setParticipationFee(0);
+          }
         }}
       />
+
+      {!isFollowUpCompetition && (
+        <CurInput
+          id={'participationFee'}
+          label={`${t('inputPaticipantFee')} (${getCurrencySymbol(currency)})`}
+          placeholder="15,00"
+          value={convertCurrencyIntegerToDecimal(participationFee, currency)}
+          onValueChange={(value, name, values) => {
+            if (values) handleParticipationFeeChanged(values);
+          }}
+        />
+      )}
 
       <TextInputLarge
         id={'description'}

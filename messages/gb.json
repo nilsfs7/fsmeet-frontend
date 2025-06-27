@@ -553,6 +553,7 @@
     "cbType": "Type",
     "cbGender": "Gender",
     "cbMaxAge": "Max Age",
+    "chbIsFollowUpComp": "Is follow-up comp?",
     "inputPaticipantFee": "Participation Fee",
     "inputDescription": "Description",
     "inputDescriptionPlaceHolder": "Group stage (circles) and KO (Top 16).",

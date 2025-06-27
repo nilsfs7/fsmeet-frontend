@@ -553,6 +553,7 @@
     "cbType": "Type",
     "cbGender": "Genre",
     "cbMaxAge": "Âge maximum",
+    "chbIsFollowUpComp": "Est la compétition de suivi",
     "inputPaticipantFee": "Frais de participation",
     "inputDescription": "Description",
     "inputDescriptionPlaceHolder": "Phase de groupe (cercles) et KO (Top 16).",

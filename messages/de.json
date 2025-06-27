@@ -553,6 +553,7 @@
     "cbType": "Art",
     "cbGender": "Geschlecht",
     "cbMaxAge": "Max. Alter",
+    "chbIsFollowUpComp": "Ist ein Folgewettbewerb",
     "inputPaticipantFee": "Teilnahmegebühr",
     "inputDescription": "Beschreibung",
     "inputDescriptionPlaceHolder": "Gruppenphase (Circles) und KO (Top 16).",
