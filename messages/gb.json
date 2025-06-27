@@ -465,7 +465,7 @@
   },
   "/password/pending": {
     "thankYouText1": "Check your mail.",
-    "thankYouText2": "A reset link for was sent to you.",
+    "thankYouText2": "A reset link was sent to you.",
     "btnBackHome": "Back home"
   },
   "/password/reset": {
@@ -553,6 +553,7 @@
     "cbType": "Type",
     "cbGender": "Gender",
     "cbMaxAge": "Max Age",
+    "chbIsFollowUpComp": "Is follow-up comp?",
     "inputPaticipantFee": "Participation Fee",
     "inputDescription": "Description",
     "inputDescriptionPlaceHolder": "Group stage (circles) and KO (Top 16).",

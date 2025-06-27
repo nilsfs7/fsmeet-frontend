@@ -10,6 +10,7 @@ export type Competition = {
   type: CompetitionType;
   gender: CompetitionGender;
   maxAge: MaxAge;
+  isFollowUpCompetition: boolean;
   participationFee: number;
   participationFeeIncPaymentCosts: number;
   description: string;

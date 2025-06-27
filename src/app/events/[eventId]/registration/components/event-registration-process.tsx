@@ -694,6 +694,11 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                 paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                 currency={event.currency}
                 disabled={competitions.map(comp => {
+                  // validate competition
+                  if (comp.isFollowUpCompetition) {
+                    return true;
+                  }
+
                   // check if gender does not fit
                   if (comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender) {
                     return true;

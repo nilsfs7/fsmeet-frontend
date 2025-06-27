@@ -1,7 +1,7 @@
 'use client';
 
 import TextButton from '@/components/common/TextButton';
-import { routeEventSubs, routeEventsCreate } from '@/domain/constants/routes';
+import { routeEventSubs, routeEventsCreate, routeLogin } from '@/domain/constants/routes';
 import { getLicense } from '@/infrastructure/clients/license.client';
 import { License } from '@/types/license';
 import { useSession } from 'next-auth/react';
@@ -19,17 +19,21 @@ export const TextButtonCreateEvent = () => {
 
   useEffect(() => {
     if (session) {
-      getLicense(session, session.user.username).then((lic) => {
+      getLicense(session, session.user.username).then(lic => {
         setLicense(lic);
       });
     }
   }, [session]);
 
   const handleCreateEventClicked = async () => {
-    if (license && license.amountEventLicenses > 0) {
-      router.push(routeEventsCreate);
+    if (session) {
+      if (license && license.amountEventLicenses > 0) {
+        router.push(routeEventsCreate);
+      } else {
+        router.replace(`${routeEventSubs}/?license=1`);
+      }
     } else {
-      router.replace(`${routeEventSubs}/?license=1`);
+      router.push(routeLogin);
     }
   };
 

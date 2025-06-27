@@ -9,6 +9,7 @@ export class ReadCompetitionResponseDto {
   type: CompetitionType;
   gender: CompetitionGender;
   maxAge: MaxAge;
+  isFollowUpCompetition: boolean;
   participationFee: number;
   participationFeeIncPaymentCosts: number;
   description: string;
@@ -22,6 +23,7 @@ export class ReadCompetitionResponseDto {
     type: CompetitionType,
     gender: CompetitionGender,
     maxAge: MaxAge,
+    isFollowUpCompetition: boolean,
     participationFee: number,
     participationFeeIncPaymentCosts: number,
     description: string,
@@ -34,6 +36,7 @@ export class ReadCompetitionResponseDto {
     this.type = type;
     this.gender = gender;
     this.maxAge = maxAge;
+    this.isFollowUpCompetition = isFollowUpCompetition;
     this.participationFee = participationFee;
     this.participationFeeIncPaymentCosts = participationFeeIncPaymentCosts;
     this.description = description;

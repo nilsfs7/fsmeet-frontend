@@ -405,12 +405,12 @@
     "btnCreate": "Créer"
   },
   "/events/manage": {
-    "pageTitle": "Manage Events",
-    "tabRegistrationsTitle": "Registrations",
-    "tabRegistrationsTextNoEvents": "You have not signed up for any event, yet.",
-    "tabEventsHostedTitle": "My Events",
-    "tabEventsHostedTextNoEvents": "You have not created any events, yet.",
-    "btnCreate": "Create Event"
+    "pageTitle": "Gérer les événements",
+    "tabRegistrationsTitle": "Inscriptions",
+    "tabRegistrationsTextNoEvents": "Vous n'êtes pas encore inscrit à un événement",
+    "tabEventsHostedTitle": "Mes événements",
+    "tabEventsHostedTextNoEvents": "Vous n'avez pas encore créé d'événements.",
+    "btnCreate": "Créer un événement"
   },
   "/feedback": {
     "pageGeneralFeedback": "Retour d'expérience général",
@@ -553,6 +553,7 @@
     "cbType": "Type",
     "cbGender": "Genre",
     "cbMaxAge": "Âge maximum",
+    "chbIsFollowUpComp": "Est la compétition de suivi",
     "inputPaticipantFee": "Frais de participation",
     "inputDescription": "Description",
     "inputDescriptionPlaceHolder": "Phase de groupe (cercles) et KO (Top 16).",
