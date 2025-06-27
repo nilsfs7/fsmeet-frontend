@@ -44,6 +44,7 @@ import ComboBox from '@/components/common/ComboBox';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
 import { toTitleCase } from '@/functions/string-manipulation';
 import { Competition } from '@/types/competition';
+import { isNaturalPerson } from '@/functions/is-natural-person';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -570,11 +571,11 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                 <div>{`${t('pageOverviewRegistrationStatus')}:`}</div>
                 <Label text={registrationStatus} />
               </div>
-              {/* todo: visa requests only possible for wffa atm */}
+              {/* todo: visa requests can only be offered by wffa atm */}
               {event.visaInvitationRequestsEnabled &&
                 event.type !== EventType.COMPETITION_ONLINE &&
-                user.type !== UserType.ASSOCIATION &&
-                user.type !== UserType.BRAND &&
+                isNaturalPerson(user.type) &&
+                user.type !== UserType.FAN &&
                 moment(event.dateFrom) > moment() &&
                 event.admin === 'wffa' && (
                   <div className="flex flex-col items-center mt-10 gap-2">
@@ -623,47 +624,51 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   />
                 </div>
 
-                {event.type === EventType.COMPETITION_ONLINE && (
-                  <div className="flex flex-col-2 items-end">
-                    <div className="mx-2">
-                      <div>{t('pageParticipantSectionUserPhoneNumber')}</div>
-                      <div className="flex w-full">
-                        <ComboBox
-                          menus={menuPhoneCountryCodesWithUnspecified}
-                          value={user.phoneCountryCode ? user.phoneCountryCode?.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
-                          searchEnabled={true}
-                          onChange={(value: any) => {
-                            handlePhoneCountryCodeChanged(value);
-                          }}
-                        />
+                {user.type !== UserType.FAN && (
+                  <>
+                    {event.type === EventType.COMPETITION_ONLINE && (
+                      <div className="flex flex-col-2 items-end">
+                        <div className="mx-2">
+                          <div>{t('pageParticipantSectionUserPhoneNumber')}</div>
+                          <div className="flex w-full">
+                            <ComboBox
+                              menus={menuPhoneCountryCodesWithUnspecified}
+                              value={user.phoneCountryCode ? user.phoneCountryCode?.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                              searchEnabled={true}
+                              onChange={(value: any) => {
+                                handlePhoneCountryCodeChanged(value);
+                              }}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="h-fit">
+                          <TextInput
+                            id={'phoneNumber'}
+                            label={''}
+                            labelOnTop={true}
+                            type="tel"
+                            placeholder="1516 123456"
+                            value={user.phoneNumber?.toString() || ''}
+                            onChange={e => {
+                              handlePhoneNumberChanged(e.currentTarget.value);
+                            }}
+                          />
+                        </div>
                       </div>
-                    </div>
+                    )}
 
-                    <div className="h-fit">
-                      <TextInput
-                        id={'phoneNumber'}
-                        label={''}
-                        labelOnTop={true}
-                        type="tel"
-                        placeholder="1516 123456"
-                        value={user.phoneNumber?.toString() || ''}
-                        onChange={e => {
-                          handlePhoneNumberChanged(e.currentTarget.value);
-                        }}
-                      />
-                    </div>
-                  </div>
+                    <TextInput
+                      id={'instagramHandle'}
+                      label={t('pageParticipantSectionUserInfoInstagramHandle')}
+                      placeholder="@fsmeet_com"
+                      value={user.instagramHandle}
+                      onChange={e => {
+                        handleInstagramHandleChanged(e.currentTarget.value);
+                      }}
+                    />
+                  </>
                 )}
-
-                <TextInput
-                  id={'instagramHandle'}
-                  label={t('pageParticipantSectionUserInfoInstagramHandle')}
-                  placeholder="@fsmeet_com"
-                  value={user.instagramHandle}
-                  onChange={e => {
-                    handleInstagramHandleChanged(e.currentTarget.value);
-                  }}
-                />
               </div>
 
               <div className="m-2 mt-6">{t('pageParticipantSectionRegistrationTypeDescription')}</div>
@@ -674,6 +679,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                     : [event.participationFee, event.visitorFee]
                 }
                 eventType={event.type}
+                userType={user.type}
                 currency={event.currency}
                 checked={registrationType}
                 selectable={true}

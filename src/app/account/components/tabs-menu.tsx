@@ -33,8 +33,6 @@ import { DatePicker } from '@/components/common/DatePicker';
 import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import { menuShowExperience } from '@/domain/constants/menus/menu-show-experience';
-// import { menuMobility } from '@/domain/constants/menus/menu-mobility';
-// import { menuTravelDistance } from '@/domain/constants/menus/menu-travel-distance';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
 import SectionHeader from '@/components/common/SectionHeader';
 import { createStripeAccount, createStripeAccountOnboardingLink, createStripeLoginLink, deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
@@ -42,6 +40,7 @@ import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
 import Label from '@/components/Label';
 import { toTitleCase } from '@/functions/string-manipulation';
+import { isNaturalPerson } from '@/functions/is-natural-person';
 
 interface ITabsMenu {
   user: User;
@@ -64,7 +63,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const handleFirstNameChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
 
-    if (user.type !== UserType.ASSOCIATION && user.type !== UserType.BRAND) {
+    if (isNaturalPerson(user.type)) {
       value = toTitleCase(value);
     }
 
@@ -76,7 +75,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const handleLastNameChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
 
-    if (user.type !== UserType.ASSOCIATION && user.type !== UserType.BRAND) {
+    if (isNaturalPerson(user.type)) {
       value = toTitleCase(value);
     }
 
@@ -510,16 +509,19 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             {t('tabGeneralTitle')}
           </TabsTrigger>
 
-          <TabsTrigger
-            value="map"
-            onClick={() => {
-              switchTab(router, 'map');
-            }}
-          >
-            {t('tabMaplTitle')}
-          </TabsTrigger>
+          {user.type !== UserType.FAN && (
+            <TabsTrigger
+              value="map"
+              onClick={() => {
+                switchTab(router, 'map');
+              }}
+            >
+              {t('tabMaplTitle')}
+            </TabsTrigger>
+          )}
 
-          {userInfo.type === UserType.FREESTYLER && (
+          {/* TODO: disable for now, decide what to do with it */}
+          {/* {userInfo.type === UserType.FREESTYLER && (
             <TabsTrigger
               value="jobs"
               onClick={() => {
@@ -528,7 +530,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             >
               {t('tabJobsTitle')}
             </TabsTrigger>
-          )}
+          )} */}
 
           <TabsTrigger
             value="account"
@@ -555,7 +557,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               }}
             />
 
-            {userInfo.type !== UserType.ASSOCIATION && userInfo.type !== UserType.BRAND && (
+            {isNaturalPerson(userInfo.type) && (
               <>
                 <TextInput
                   id={'lastName'}
@@ -566,14 +568,16 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   }}
                 />
 
-                <TextInput
-                  id={'nickName'}
-                  label={t('tabGeneralArtistName')}
-                  value={userInfo.nickName}
-                  onChange={e => {
-                    handleNickNameChanged(e.currentTarget.value);
-                  }}
-                />
+                {user.type !== UserType.FAN && (
+                  <TextInput
+                    id={'nickName'}
+                    label={t('tabGeneralArtistName')}
+                    value={userInfo.nickName}
+                    onChange={e => {
+                      handleNickNameChanged(e.currentTarget.value);
+                    }}
+                  />
+                )}
 
                 <div className="m-2 grid grid-cols-2 items-center">
                   <div>{t('tabGeneralGender')}</div>
@@ -615,18 +619,20 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   />
                 </div>
 
-                <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{t('tabGeneralFreestyleSince')}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      menus={menuFreestyleSinceWithUnspecified}
-                      value={userInfo.freestyleSince ? userInfo.freestyleSince.toString() : menuFreestyleSinceWithUnspecified[0].value}
-                      onChange={(value: any) => {
-                        handleFreestyleSinceChanged(value);
-                      }}
-                    />
+                {user.type !== UserType.FAN && (
+                  <div className="m-2 grid grid-cols-2 items-center">
+                    <div>{t('tabGeneralFreestyleSince')}</div>
+                    <div className="flex w-full">
+                      <ComboBox
+                        menus={menuFreestyleSinceWithUnspecified}
+                        value={userInfo.freestyleSince ? userInfo.freestyleSince.toString() : menuFreestyleSinceWithUnspecified[0].value}
+                        onChange={(value: any) => {
+                          handleFreestyleSinceChanged(value);
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className="m-2 grid grid-cols-2 items-center">
                   <div>{t('tabGeneralShirtSize')}</div>
@@ -642,287 +648,258 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </div>
               </>
             )}
-            <div className="m-2">
-              <Separator />
-            </div>
-            <SectionHeader label={t('tabGeneralSectionSocials')} />
 
-            <TextInput
-              id={'instagramHandle'}
-              label={t('tabGeneralInstagramHandle')}
-              placeholder="@dffb_org"
-              value={userInfo.instagramHandle}
-              onChange={e => {
-                handleInstagramHandleChanged(e.currentTarget.value);
-              }}
-            />
+            {user.type !== UserType.FAN && (
+              <>
+                <div className="m-2">
+                  <Separator />
+                </div>
 
-            <TextInput
-              id={'tikTokHandle'}
-              label={t('tabGeneralTikTokHandle')}
-              placeholder="@dffb_org"
-              value={userInfo.tikTokHandle}
-              onChange={e => {
-                handleTikTokHandleChanged(e.currentTarget.value);
-              }}
-            />
+                <SectionHeader label={t('tabGeneralSectionSocials')} />
 
-            <TextInput
-              id={'youTubeHandle'}
-              label={t('tabGeneralYouTubeHandle')}
-              placeholder="@dffb_org"
-              value={userInfo.youTubeHandle}
-              onChange={e => {
-                handleYouTubeHandleChanged(prefixRequired(e.currentTarget.value, '@'));
-              }}
-            />
+                <TextInput
+                  id={'instagramHandle'}
+                  label={t('tabGeneralInstagramHandle')}
+                  placeholder="@dffb_org"
+                  value={userInfo.instagramHandle}
+                  onChange={e => {
+                    handleInstagramHandleChanged(e.currentTarget.value);
+                  }}
+                />
 
-            <TextInput
-              id={'website'}
-              label={t('tabGeneralWebsite')}
-              placeholder="https://dffb.org"
-              value={userInfo.website}
-              onChange={e => {
-                handleWebsiteChanged(e.currentTarget.value);
-              }}
-            />
+                <TextInput
+                  id={'tikTokHandle'}
+                  label={t('tabGeneralTikTokHandle')}
+                  placeholder="@dffb_org"
+                  value={userInfo.tikTokHandle}
+                  onChange={e => {
+                    handleTikTokHandleChanged(e.currentTarget.value);
+                  }}
+                />
+
+                <TextInput
+                  id={'youTubeHandle'}
+                  label={t('tabGeneralYouTubeHandle')}
+                  placeholder="@dffb_org"
+                  value={userInfo.youTubeHandle}
+                  onChange={e => {
+                    handleYouTubeHandleChanged(prefixRequired(e.currentTarget.value, '@'));
+                  }}
+                />
+
+                <TextInput
+                  id={'website'}
+                  label={t('tabGeneralWebsite')}
+                  placeholder="https://dffb.org"
+                  value={userInfo.website}
+                  onChange={e => {
+                    handleWebsiteChanged(e.currentTarget.value);
+                  }}
+                />
+              </>
+            )}
           </div>
         </TabsContent>
 
         {/* Freestyler Map */}
-        <TabsContent value="map" className="overflow-hidden overflow-y-auto">
-          <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-            <SectionHeader label={t('tabMaplSectionLocation')} />
+        {user.type !== UserType.FAN && (
+          <TabsContent value="map" className="overflow-hidden overflow-y-auto">
+            <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+              <SectionHeader label={t('tabMaplSectionLocation')} />
 
-            <TextInput
-              id={'city'}
-              label={t('tabMaplCity')}
-              placeholder="Munich"
-              value={userInfo.city}
-              onChange={e => {
-                handleCityChanged(e.currentTarget.value);
-              }}
-            />
+              <TextInput
+                id={'city'}
+                label={t('tabMaplCity')}
+                placeholder="Munich"
+                value={userInfo.city}
+                onChange={e => {
+                  handleCityChanged(e.currentTarget.value);
+                }}
+              />
 
-            <CheckBox
-              id={'exposeLocation'}
-              label={t('tabMapPublish')}
-              value={userInfo.exposeLocation}
-              onChange={e => {
-                handleExposeLocationChanged(!userInfo.exposeLocation);
-              }}
-            />
+              <CheckBox
+                id={'exposeLocation'}
+                label={t('tabMapPublish')}
+                value={userInfo.exposeLocation}
+                onChange={e => {
+                  handleExposeLocationChanged(!userInfo.exposeLocation);
+                }}
+              />
 
-            {userInfo.exposeLocation && userInfo.locLatitude && userInfo.locLongitude && (
-              <div className="m-2 flex place-items-start gap-2 items-center">
-                <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}>
-                  <div className="hover:underline">{t('tabMapShowOnMap')}</div>
-                </Link>
+              {userInfo.exposeLocation && userInfo.locLatitude && userInfo.locLongitude && (
+                <div className="m-2 flex place-items-start gap-2 items-center">
+                  <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}>
+                    <div className="hover:underline">{t('tabMapShowOnMap')}</div>
+                  </Link>
 
-                <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}>
-                  <ActionButton action={Action.GOTOMAP} />
-                </Link>
-              </div>
-            )}
-          </div>
-        </TabsContent>
+                  <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}>
+                    <ActionButton action={Action.GOTOMAP} />
+                  </Link>
+                </div>
+              )}
+            </div>
+          </TabsContent>
+        )}
 
         {/* Jobs */}
-        <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
-          <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-            <div className="mx-2 text-lg underline">{t('tabJobsSectionTerms')}</div>
+        {user.type !== UserType.FAN && (
+          <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
+            <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
+              <div className="mx-2 text-lg underline">{t('tabJobsSectionTerms')}</div>
 
-            <div className="m-2 grid grid-cols-2 items-center">
-              <div>{t('tabJobsTerms')}</div>
-              <TextButton text={t('tabJobBtnReadTerms')} onClick={handleTermsAndConditionsClicked} />
-            </div>
+              <div className="m-2 grid grid-cols-2 items-center">
+                <div>{t('tabJobsTerms')}</div>
+                <TextButton text={t('tabJobBtnReadTerms')} onClick={handleTermsAndConditionsClicked} />
+              </div>
 
-            <CheckBox
-              id={'terms'}
-              label={t('tabJobAcceptTerms')}
-              value={userInfo.jobAcceptTerms}
-              onChange={e => {
-                handleAcceptTermsChanged(!userInfo.jobAcceptTerms);
-              }}
-            />
+              <CheckBox
+                id={'terms'}
+                label={t('tabJobAcceptTerms')}
+                value={userInfo.jobAcceptTerms}
+                onChange={e => {
+                  handleAcceptTermsChanged(!userInfo.jobAcceptTerms);
+                }}
+              />
 
-            {userInfo.jobAcceptTerms && (
-              <>
-                <div className="m-2">
-                  <Separator />
-                </div>
-                <div className="mx-2 text-lg underline">{t('tabJobSectionOffer')}</div>
-
-                <CheckBox
-                  id={'offeringShow'}
-                  label={t('tabJobOfferingShow')}
-                  value={userInfo.jobOfferShows}
-                  onChange={e => {
-                    handleOfferShowsChanged(!userInfo.jobOfferShows);
-                  }}
-                />
-
-                <CheckBox
-                  id={'offeringWalkAct'}
-                  label={t('tabJobOfferingWalkact')}
-                  value={userInfo.jobOfferWalkActs}
-                  onChange={e => {
-                    handleOfferWalkActsChanged(!userInfo.jobOfferWalkActs);
-                  }}
-                />
-
-                <CheckBox
-                  id={'offeringWorkshop'}
-                  label={t('tabJobOfferingWorkshop')}
-                  value={userInfo.jobOfferWorkshops}
-                  onChange={e => {
-                    handleOfferWorkshopsChanged(!userInfo.jobOfferWorkshops);
-                  }}
-                />
-
-                <div className="m-2">
-                  <Separator />
-                </div>
-                <div className="mx-2 text-lg underline">{t('tabJobSectionContact')}</div>
-
-                <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{t('tabJobPhoneCountryCode')}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      menus={menuPhoneCountryCodesWithUnspecified}
-                      value={userInfo.phoneCountryCode ? userInfo.phoneCountryCode.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
-                      searchEnabled={true}
-                      onChange={(value: any) => {
-                        handlePhoneCountryCodeChanged(value);
-                      }}
-                    />
+              {userInfo.jobAcceptTerms && (
+                <>
+                  <div className="m-2">
+                    <Separator />
                   </div>
-                </div>
+                  <div className="mx-2 text-lg underline">{t('tabJobSectionOffer')}</div>
 
-                <div className="h-fit" /* fixes safari layouting issue */>
-                  <TextInput
-                    id={'phoneNumber'}
-                    label={t('tabJobPhoneNumber')}
-                    labelOnTop={false}
-                    type="tel"
-                    placeholder="1516 123456"
-                    value={userInfo.phoneNumber ? userInfo.phoneNumber.toString() : ''}
+                  <CheckBox
+                    id={'offeringShow'}
+                    label={t('tabJobOfferingShow')}
+                    value={userInfo.jobOfferShows}
                     onChange={e => {
-                      handlePhoneNumberChanged(e.currentTarget.value);
+                      handleOfferShowsChanged(!userInfo.jobOfferShows);
                     }}
                   />
-                </div>
 
-                <div className="m-2">
-                  <Separator />
-                </div>
-                <div className="mx-2 text-lg underline">{t('tabJobSectionOther')}</div>
-
-                <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{t('tabJobExperience')}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      menus={menuShowExperience}
-                      value={userInfo.jobShowExperience ? userInfo.jobShowExperience : menuShowExperience[0].value}
-                      searchEnabled={false}
-                      onChange={(value: any) => {
-                        handleShowExperienceChanged(value);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* <div className="h-min">
-                  <CurInput
-                    id={'minimumPay'}
-                    label={'Minimum Pay'}
-                    labelOnTop={false}
-                    placeholder="300,00"
-                    value={400}
-                    onValueChange={(value, name, values) => {
-                      if (values?.float || values?.float == 0) {
-                        // setParticipationFee(values?.float);
-                      }
+                  <CheckBox
+                    id={'offeringWalkAct'}
+                    label={t('tabJobOfferingWalkact')}
+                    value={userInfo.jobOfferWalkActs}
+                    onChange={e => {
+                      handleOfferWalkActsChanged(!userInfo.jobOfferWalkActs);
                     }}
                   />
-                </div>
 
-                <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{`Travel Distance (km)`}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      menus={menuTravelDistance}
-                      value={userInfo.country ? userInfo.country : menuTravelDistance[0].value}
-                      searchEnabled={false}
-                      onChange={(value: any) => {
-                        handleCountryChanged(value);
+                  <CheckBox
+                    id={'offeringWorkshop'}
+                    label={t('tabJobOfferingWorkshop')}
+                    value={userInfo.jobOfferWorkshops}
+                    onChange={e => {
+                      handleOfferWorkshopsChanged(!userInfo.jobOfferWorkshops);
+                    }}
+                  />
+
+                  <div className="m-2">
+                    <Separator />
+                  </div>
+                  <div className="mx-2 text-lg underline">{t('tabJobSectionContact')}</div>
+
+                  <div className="m-2 grid grid-cols-2 items-center">
+                    <div>{t('tabJobPhoneCountryCode')}</div>
+                    <div className="flex w-full">
+                      <ComboBox
+                        menus={menuPhoneCountryCodesWithUnspecified}
+                        value={userInfo.phoneCountryCode ? userInfo.phoneCountryCode.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                        searchEnabled={true}
+                        onChange={(value: any) => {
+                          handlePhoneCountryCodeChanged(value);
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="h-fit" /* fixes safari layouting issue */>
+                    <TextInput
+                      id={'phoneNumber'}
+                      label={t('tabJobPhoneNumber')}
+                      labelOnTop={false}
+                      type="tel"
+                      placeholder="1516 123456"
+                      value={userInfo.phoneNumber ? userInfo.phoneNumber.toString() : ''}
+                      onChange={e => {
+                        handlePhoneNumberChanged(e.currentTarget.value);
                       }}
                     />
                   </div>
-                </div>
 
-                <div className="m-2 grid grid-cols-2 items-center">
-                  <div>{`Mobility`}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      menus={menuMobility}
-                      value={userInfo.country ? userInfo.country : menuMobility[0].value}
-                      searchEnabled={false}
-                      onChange={(value: any) => {
-                        handleCountryChanged(value);
-                      }}
-                    />
+                  <div className="m-2">
+                    <Separator />
                   </div>
-                </div> */}
-              </>
-            )}
-          </div>
-        </TabsContent>
+                  <div className="mx-2 text-lg underline">{t('tabJobSectionOther')}</div>
+
+                  <div className="m-2 grid grid-cols-2 items-center">
+                    <div>{t('tabJobExperience')}</div>
+                    <div className="flex w-full">
+                      <ComboBox
+                        menus={menuShowExperience}
+                        value={userInfo.jobShowExperience ? userInfo.jobShowExperience : menuShowExperience[0].value}
+                        searchEnabled={false}
+                        onChange={(value: any) => {
+                          handleShowExperienceChanged(value);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </TabsContent>
+        )}
 
         {/* Account */}
         <TabsContent value="account" className="overflow-hidden overflow-y-auto">
           <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-4">
-            <div className="flex justify-center text-lg">{t('tabAccountSectionVerification')}</div>
-
-            <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
-              <div className="flex gap-2 items-center">
-                <div>{`${t('tabAccountVerificationStatus')}:`}</div>
-                <Label text={userInfo?.verificationState || 'n/a'} />
-              </div>
-
-              {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (
-                <TextButton text={t('tabAccountBtnVerify')} onClick={handleVerificationRequestClicked} />
-              )}
-            </div>
-
-            <div className="m-2">
-              <Separator />
-            </div>
-
-            <div className="flex justify-center text-lg">{t('tabAccountSectionPayments')}</div>
-
-            {!userInfo.stripeAccountId && (
-              <div className="mt-4 flex justify-center">
-                <TextButton text={t('tabAccounBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
-              </div>
-            )}
-
-            {userInfo.stripeAccountId && (
+            {user.type !== UserType.FAN && (
               <>
-                <div className="mt-4 flex flex-col items-center gap-2">
-                  <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
-                  <TextButton text={t('tabAccounBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
+                <div className="flex justify-center text-lg">{t('tabAccountSectionVerification')}</div>
+
+                <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
+                  <div className="flex gap-2 items-center">
+                    <div>{`${t('tabAccountVerificationStatus')}:`}</div>
+                    <Label text={userInfo?.verificationState || 'n/a'} />
+                  </div>
+
+                  {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (
+                    <TextButton text={t('tabAccountBtnVerify')} onClick={handleVerificationRequestClicked} />
+                  )}
                 </div>
 
-                <div className="mt-4 flex flex-col items-center gap-2">
-                  <TextButton text={t('tabAccounBtnMonitorPayments')} onClick={handleCreateStripeLoginLinkClicked} />
+                <div className="m-2">
+                  <Separator />
+                </div>
+
+                <div className="flex justify-center text-lg">{t('tabAccountSectionPayments')}</div>
+
+                {!userInfo.stripeAccountId && (
+                  <div className="mt-4 flex justify-center">
+                    <TextButton text={t('tabAccounBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
+                  </div>
+                )}
+
+                {userInfo.stripeAccountId && (
+                  <>
+                    <div className="mt-4 flex flex-col items-center gap-2">
+                      <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
+                      <TextButton text={t('tabAccounBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
+                    </div>
+
+                    <div className="mt-4 flex flex-col items-center gap-2">
+                      <TextButton text={t('tabAccounBtnMonitorPayments')} onClick={handleCreateStripeLoginLinkClicked} />
+                    </div>
+                  </>
+                )}
+
+                <div className="m-2">
+                  <Separator />
                 </div>
               </>
             )}
-
-            <div className="m-2">
-              <Separator />
-            </div>
 
             <div className="flex justify-center text-lg">{t('tabAccountSectionAccountManagement')}</div>
 

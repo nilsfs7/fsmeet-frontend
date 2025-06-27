@@ -15,6 +15,7 @@ import { getTranslations } from 'next-intl/server';
 import { auth } from '@/auth';
 import { MapOfFreestylers } from '@/components/MapOfFreestylers';
 import { getMessagesByLocale } from '@/functions/get-messages-forced-locale';
+import { UserType } from '@/domain/enums/user-type';
 
 export default async function Map({ searchParams }: { searchParams: { iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string } }) {
   let t = await getTranslations(routeMap);
@@ -77,7 +78,7 @@ export default async function Map({ searchParams }: { searchParams: { iframe: st
           <div className="flex justify-end gap-1">
             <ActionButtonCopyUrl />
 
-            {(!actingUser || (actingUser && !actingUser.locLatitude)) && (
+            {(!actingUser || (actingUser && !actingUser.locLatitude)) && actingUser?.type !== UserType.FAN && (
               <Link href={`${routeAccount}?tab=map`}>
                 <TextButton text={t('btnAddPin')} />
               </Link>

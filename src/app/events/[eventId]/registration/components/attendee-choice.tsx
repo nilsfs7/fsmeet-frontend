@@ -6,6 +6,7 @@ import { EventType } from '@/domain/enums/event-type';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
+import { UserType } from '@/domain/enums/user-type';
 
 const registrationTypes = Object.values(EventRegistrationType);
 
@@ -13,16 +14,28 @@ interface IAttendeeChoiceList {
   fees: number[];
   currency: CurrencyCode;
   eventType: EventType;
+  userType: UserType;
   disabled?: boolean[];
   checked?: EventRegistrationType;
   selectable?: boolean;
   onCheckedChange?: (registrationType: EventRegistrationType) => void;
 }
 
-export const AttendeeChoice = ({ fees, currency, eventType, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
+export const AttendeeChoice = ({ fees, currency, eventType, userType, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
   const availableRegistrationTypes = registrationTypes.filter(regType => {
+    let addChoice = true;
+
     // remove type visitor when event is an online competition
-    if (!(eventType === EventType.COMPETITION_ONLINE && regType === EventRegistrationType.VISITOR)) {
+    if (eventType === EventType.COMPETITION_ONLINE && regType === EventRegistrationType.VISITOR) {
+      addChoice = false;
+    }
+
+    // remove type participant when user is visitor
+    if (userType === UserType.FAN && regType === EventRegistrationType.PARTICIPANT) {
+      addChoice = false;
+    }
+
+    if (addChoice) {
       return regType;
     }
   });
@@ -52,8 +65,8 @@ export const AttendeeChoice = ({ fees, currency, eventType, disabled = [false, f
                     id={`option-${regType}`}
                     checked={checked === regType}
                     disabled={disabled[i]}
-                    onClick={e => {
-                      if (onCheckedChange && regType) onCheckedChange(Object.values(EventRegistrationType)[i]);
+                    onClick={() => {
+                      if (onCheckedChange) onCheckedChange(regType);
                     }}
                   />
                 </td>
