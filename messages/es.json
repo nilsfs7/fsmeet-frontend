@@ -183,8 +183,7 @@
     "adminPanelTitle": "Zona de administración",
     "tabOverviewTitle": "Resumen",
     "tabOverviewParticipationFee": "Cuota de participación",
-    "tabOverviewRegistrationFrom": "Inscripción de",
-    "tabOverviewRegistrationTo": "Inscripción hasta el",
+    "tabOverviewRegistrationPeriod": "Período de inscripción",
     "tabOverviewEventHost": "Anfitrión",
     "tabOverviewVenueAddress": "Lugar",
     "tabOverviewBtnShowVenueMap": "Mostrar en el mapa",
@@ -210,7 +209,7 @@
   "/events/eventid/comps": {
     "pageTitle": "Gestionar las competiciones",
     "btnEdit": "Editar",
-    "btnPool": "el área",
+    "btnPool": "Grupo de jugadores",
     "btnGameMode": "Modo Torneo",
     "btnSeedingAndResults": "Asignación y resultados",
     "btnAddNew": "Añadir nuevo"
