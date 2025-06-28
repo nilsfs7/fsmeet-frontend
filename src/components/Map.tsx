@@ -9,6 +9,7 @@ interface IMapProps {
 const containerStyle = {
   width: '100%',
   height: '100%',
+  borderRadius: '0.5rem',
 };
 
 const Map = ({ address }: IMapProps) => {

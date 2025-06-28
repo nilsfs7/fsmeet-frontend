@@ -5,43 +5,43 @@ import { formatTs } from '@/functions/time';
 import moment from 'moment';
 import Link from 'next/link';
 
-interface ICommentProps {
+interface IUserCommentProps {
   comment: EventComment;
   onClickReply: (commentId: string) => void;
 }
 
-const UserComment = ({ comment, onClickReply }: ICommentProps) => {
+const UserComment = ({ comment, onClickReply }: IUserCommentProps) => {
   const clickReply = (commentId: string) => {
     onClickReply(commentId);
   };
 
   return (
     <>
-      <div className="grid grid-flow-col justify-start">
-        <div className="ml-1">
-          <div className="h-8 w-8">
-            <Link href={`${routeUsers}/${comment.user.username}`}>
-              <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-background object-cover" />
-            </Link>
-          </div>
+      <div className="grid grid-flow-col gap-1 justify-start text-sm">
+        <div className="h-8 w-8">
+          <Link href={`${routeUsers}/${comment.user.username}`}>
+            <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-background object-cover" />
+          </Link>
         </div>
 
-        <div className="mx-1">
-          <div className="rounded-lg bg-background px-2 py-1">
+        <div className="flex flex-col gap-1 ">
+          <div className="flex flex-col gap-1 rounded-lg bg-background p-1">
             <Link href={`${routeUsers}/${comment.user.username}`}>
-              <div className="w-max text-base font-bold">{comment.user.username}</div>
+              <div className="w-max font-bold">
+                {comment.user.firstName} {comment.user.lastName}
+              </div>
             </Link>
 
-            <div className="mt-1 text-sm">{comment.message}</div>
+            <div>{comment.message}</div>
           </div>
 
-          <div className="mt-1 flex items-center text-xs">
+          <div className="flex text-xs gap-1 px-1">
             {/* timestamp */}
-            <div className="mx-1">{`${formatTs(moment(comment.timestamp), 'DD.MM HH:mm')}`}</div>
+            <div>{`${formatTs(moment(comment.timestamp), 'DD.MM HH:mm')}`}</div>
 
             {/* reply */}
             <button
-              className="mx-1 hover:underline"
+              className="hover:underline"
               onClick={() => {
                 clickReply(comment.id);
               }}
