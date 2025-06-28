@@ -9,4 +9,5 @@ export const menuUserType: MenuItem[] = [
   { text: 'MC', value: UserType.MC },
   { text: 'Media', value: UserType.MEDIA },
   { text: 'Event Organizer', value: UserType.EVENT_ORGANIZER },
+  { text: 'Fan / Family Member / Supporter', value: UserType.FAN },
 ];

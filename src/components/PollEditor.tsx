@@ -95,7 +95,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
       id: poll?.id,
       question: question,
       description: description,
-      questioner: { username: sessionStorage.username, type: UserType.FREESTYLER }, // type is unnecessary
+      questioner: { username: sessionStorage.username, type: UserType.FREESTYLER }, // TODO: type is unnecessary
       options: options.map(o => {
         return { option: o, numVotes: 0 };
       }),

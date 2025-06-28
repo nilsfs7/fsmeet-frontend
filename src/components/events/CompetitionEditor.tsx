@@ -22,6 +22,7 @@ import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import CheckBox from '../common/CheckBox';
+import { isNaturalPerson } from '@/functions/is-natural-person';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;
@@ -120,7 +121,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
 
     getUsers().then(users => {
       users = users.filter(user => {
-        if (user.type !== UserType.TECHNICAL) return user;
+        if (user.type !== UserType.TECHNICAL && user.type !== UserType.FAN && isNaturalPerson(user.type)) return user;
       });
       setUsers(users);
     });

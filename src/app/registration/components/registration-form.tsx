@@ -18,6 +18,7 @@ import { Gender } from '@/domain/enums/gender';
 import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { toTitleCase } from '@/functions/string-manipulation';
+import { isNaturalPerson } from '@/functions/is-natural-person';
 
 export const RegistrationForm = () => {
   const t = useTranslations('/registration');
@@ -46,7 +47,7 @@ export const RegistrationForm = () => {
     firstName = firstName.trimStart();
     firstName = firstName.replaceAll('  ', ' ');
 
-    if (userType !== UserType.ASSOCIATION && userType !== UserType.BRAND) {
+    if (isNaturalPerson(userType)) {
       firstName = toTitleCase(firstName);
     }
 
@@ -120,7 +121,7 @@ export const RegistrationForm = () => {
               }}
             />
 
-            {userType !== UserType.ASSOCIATION && userType !== UserType.BRAND && (
+            {isNaturalPerson(userType) && (
               <>
                 <div className="flex h-[100%] flex-col p-2">
                   <div>{t('cbCountry')}</div>
