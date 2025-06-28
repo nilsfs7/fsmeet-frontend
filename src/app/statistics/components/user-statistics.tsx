@@ -99,6 +99,9 @@ export const UserStatistics = () => {
 
           <div className="flex justify-end">{`Media:`}</div>
           <div className="flex justify-start">{userCountByType?.userCountMedia}</div>
+
+          <div className="flex justify-end">{`Fans / Family Members / Supporters:`}</div>
+          <div className="flex justify-start">{userCountByType?.userCountFans}</div>
         </div>
         <div className="m-2">
           <Separator />
