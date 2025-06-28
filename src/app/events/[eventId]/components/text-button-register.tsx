@@ -19,6 +19,7 @@ import Separator from '@/components/Seperator';
 import Label from '@/components/Label';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
+import { useEffect, useState } from 'react';
 
 interface ITextButtonRegister {
   event: Event;
@@ -30,7 +31,7 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`;
+  const [loginRouteWithCallbackUrl, setLoginRouteWithCallbackUrl] = useState<string>('');
 
   const registrationStatus: string =
     event.eventRegistrations.filter(registration => {
@@ -110,6 +111,10 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
       console.error('Registration deadline exceeded.');
     }
   };
+
+  useEffect(() => {
+    setLoginRouteWithCallbackUrl(`${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`);
+  }, []);
 
   return (
     <>

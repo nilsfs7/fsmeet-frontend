@@ -15,6 +15,7 @@ import { isPublicEventState } from '@/functions/is-public-event-state';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Label from '@/components/Label';
+import { useEffect, useState } from 'react';
 
 interface IActionButtonStateAction {
   event: Event;
@@ -26,7 +27,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
   const { data: session } = useSession();
   const router = useRouter();
 
-  const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`;
+  const [loginRouteWithCallbackUrl, setLoginRouteWithCallbackUrl] = useState<string>('');
 
   const handleCancelDialogClicked = async () => {
     let url = `${routeEvents}/${event.id}`;
@@ -59,6 +60,10 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
       }
     }
   };
+
+  useEffect(() => {
+    setLoginRouteWithCallbackUrl(`${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`);
+  }, []);
 
   return (
     <>

@@ -59,7 +59,7 @@ export const TabsMenu = ({ event, competitions, sponsors, comments }: ITabsMenu)
   const [participantRegistrations, setParticipantRegistrations] = useState<EventRegistration[]>();
   const [visitorRegistrations, setVisitorRegistrations] = useState<EventRegistration[]>();
 
-  const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`;
+  const [loginRouteWithCallbackUrl, setLoginRouteWithCallbackUrl] = useState<string>('');
 
   const handlePostCommentClicked = async (message: string) => {
     if (!validateSession(session)) {
@@ -136,6 +136,10 @@ export const TabsMenu = ({ event, competitions, sponsors, comments }: ITabsMenu)
 
     loadEventInfos();
   }, [event == undefined]);
+
+  useEffect(() => {
+    setLoginRouteWithCallbackUrl(`${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`);
+  }, []);
 
   if (!participantRegistrations || !visitorRegistrations) {
     return <LoadingSpinner text="Loading..." />; // todo: notwendig?
