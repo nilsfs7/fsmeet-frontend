@@ -23,7 +23,7 @@ export const SponsorSection = ({ eventSponsors }: ISponsorSectionProps) => {
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2'}>
       <div className="text-base font-bold">{t('tabOverviewSectionSponsors')}</div>
 
-      <div className="mt-1 flex gap-2">
+      <div className="mt-1 flex flex-wrap gap-2">
         {eventSponsors.map((sponsor, i) => {
           if (sponsor.isPublic) {
             return <SponsorCard key={i} sponsor={sponsor} />;
