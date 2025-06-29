@@ -23,18 +23,10 @@ export const SponsorSection = ({ eventSponsors }: ISponsorSectionProps) => {
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2'}>
       <div className="text-base font-bold">{t('tabOverviewSectionSponsors')}</div>
 
-      <div className="flex flex-wrap">
+      <div className="mt-1 flex gap-2">
         {eventSponsors.map((sponsor, i) => {
           if (sponsor.isPublic) {
-            let margin = 'my-1 mx-1';
-            i === 0 ? (margin = 'm-1') : null;
-            i === eventSponsors.length - 1 ? (margin = 'ml-1') : null;
-
-            return (
-              <div key={i} className={`my-1 ${margin}`}>
-                {<SponsorCard sponsor={sponsor} />}
-              </div>
-            );
+            return <SponsorCard key={i} sponsor={sponsor} />;
           }
         })}
       </div>

@@ -59,12 +59,12 @@ export const CommentSection = ({ eventComments, username, userProfileImageUrl, o
   }, [replyTo]);
 
   return (
-    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2'}>
+    <div className={'flex flex-col gap-2 rounded-lg border border-secondary-dark bg-secondary-light p-2'}>
       <div className="text-base font-bold">{t('tabOverviewSectionComments')}</div>
 
       {/* new comment */}
       {username && (
-        <div className={`mt-2 flex w-3/4 flex-col`}>
+        <div className={`flex w-3/4 flex-col`}>
           <PostInput
             elementId="newComment"
             username={username}
@@ -78,10 +78,10 @@ export const CommentSection = ({ eventComments, username, userProfileImageUrl, o
       )}
 
       {/* posted comments */}
-      <div className="mt-2 flex flex-col">
+      <div className="mt-2 flex flex-col gap-2">
         {eventComments.map((comment: EventComment, i) => {
           return (
-            <div key={i} className={`mt-2 grid grid-cols-1`}>
+            <div key={i} className={`flex flex-col gap-1`}>
               <UserComment
                 comment={comment}
                 onClickReply={(commentId: string) => {
@@ -94,40 +94,32 @@ export const CommentSection = ({ eventComments, username, userProfileImageUrl, o
                 comment.subComments.length > 0 &&
                 comment.subComments.map((subComment: EventSubComment, j) => {
                   return (
-                    <div key={j} className={`flex`}>
-                      {/* keep same width as image of root comment */}
-                      <div className="ml-1 mt-1 w-8" />
-
-                      <div className={`mt-1 grid w-3/4`}>
-                        <UserComment
-                          comment={{ id: subComment.id, message: subComment.message, user: subComment.user, timestamp: subComment.timestamp, subComments: [] }}
-                          onClickReply={(commentId: string) => {
-                            setReplyTo(subComment.rootCommentId);
-                            focusInput();
-                          }}
-                        />
-                      </div>
+                    // ml-9: image width + gap beween image and message
+                    <div key={j} className={`ml-9 w-3/4`}>
+                      <UserComment
+                        comment={{ id: subComment.id, message: subComment.message, user: subComment.user, timestamp: subComment.timestamp, subComments: [] }}
+                        onClickReply={(commentId: string) => {
+                          setReplyTo(subComment.rootCommentId);
+                          focusInput();
+                        }}
+                      />
                     </div>
                   );
                 })}
 
               {/* reply context */}
               {replyTo === comment.id && (
-                <div className={`mt-1 flex`}>
-                  {/* keep same space as image of root comment */}
-                  <div className="ml-1 mt-1 h-8 w-8" />
-
-                  <div className={`grid w-3/4`}>
-                    <PostInput
-                      elementId="reply"
-                      username={username}
-                      userProfileImageUrl={userProfileImageUrl}
-                      onMessageChange={(message: string) => {
-                        handleReplyMessageChanged(message);
-                      }}
-                      onSendReplyClick={handlePostReplyClicked}
-                    />
-                  </div>
+                // ml-9: image width + gap beween image and message
+                <div className={`ml-9 grid w-3/4`}>
+                  <PostInput
+                    elementId="reply"
+                    username={username}
+                    userProfileImageUrl={userProfileImageUrl}
+                    onMessageChange={(message: string) => {
+                      handleReplyMessageChanged(message);
+                    }}
+                    onSendReplyClick={handlePostReplyClicked}
+                  />
                 </div>
               )}
             </div>

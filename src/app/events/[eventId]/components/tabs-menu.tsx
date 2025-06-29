@@ -215,7 +215,7 @@ export const TabsMenu = ({ event, competitions, sponsors, comments }: ITabsMenu)
           </TabsContent>
         )}
 
-        {/* Registrations */}
+        {/* Attendees */}
         {(participantRegistrations.length > 0 || visitorRegistrations.length > 0) && (
           <TabsContent value="registrations" className="overflow-hidden overflow-y-auto">
             <div className="flex flex-col gap-2">

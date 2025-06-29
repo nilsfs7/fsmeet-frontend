@@ -57,6 +57,17 @@ const EventCard = ({ event }: IEventProps) => {
               <div className="truncate">{`${event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}`}</div>
             </div>
 
+            {/* Deadline  */}
+            {/* {moment(event.dateFrom) > moment() && ( */}
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5">
+                <img src={moment(event.registrationDeadline) > moment() ? imgHourglassStart : imgHourglassEnd} className="w-full h-full object-fill" />
+              </div>
+
+              <div className="truncate">{`${getShortDateString(moment(event.registrationDeadline))}`}</div>
+            </div>
+            {/* )} */}
+
             {/* Event Host  */}
             <div className="flex gap-2 items-center">
               <div className="w-5 h-5">
@@ -68,17 +79,6 @@ const EventCard = ({ event }: IEventProps) => {
                 {!eventAdmin?.lastName && `${eventAdmin?.firstName}`}
               </div>
             </div>
-
-            {/* Deadline  */}
-            {/* {moment(event.dateFrom) > moment() && ( */}
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5">
-                <img src={moment(event.registrationDeadline) > moment() ? imgHourglassStart : imgHourglassEnd} className="w-full h-full object-fill" />
-              </div>
-
-              <div className="truncate">{`${getShortDateString(moment(event.registrationDeadline))}`}</div>
-            </div>
-            {/* )} */}
           </div>
         </div>
 
