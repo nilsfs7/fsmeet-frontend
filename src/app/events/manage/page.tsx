@@ -11,6 +11,10 @@ import { auth } from '@/auth';
 import { TabsMenu } from './components/tabs-menu';
 import { TextButtonCreateEvent } from './components/text-button-create-event';
 import { getTranslations } from 'next-intl/server';
+import { User } from '@/types/user';
+import { getUser } from '@/infrastructure/clients/user.client';
+import { UserType } from '@/domain/enums/user-type';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 export default async function MyEventsOverview() {
   const t = await getTranslations('/events/manage');
@@ -20,11 +24,17 @@ export default async function MyEventsOverview() {
   let eventsOwning: Event[] = [];
   let eventsMaintaining: Event[] = [];
   let eventsSubscribed: Event[] = [];
+  let actingUser: User | undefined;
 
   if (session) {
+    actingUser = await getUser(session?.user.username);
     eventsOwning = await getEvents(session?.user.username, null, null, null, null, session);
     eventsMaintaining = await getEvents(null, session?.user.username, null, null, null, session);
     eventsSubscribed = await getEvents(null, null, session?.user.username, null, null);
+  }
+
+  if (!actingUser) {
+    return <LoadingSpinner text="Loading..." />; // todo
   }
 
   return (
@@ -36,7 +46,7 @@ export default async function MyEventsOverview() {
 
         <div className="mx-2 flex flex-col overflow-auto">
           <div className={'w-full overflow-auto'}>
-            <TabsMenu eventsOwning={eventsOwning} eventsMaintaining={eventsMaintaining} eventsSubscribed={eventsSubscribed} />
+            <TabsMenu actingUser={actingUser} eventsOwning={eventsOwning} eventsMaintaining={eventsMaintaining} eventsSubscribed={eventsSubscribed} />
           </div>
         </div>
 
@@ -45,7 +55,7 @@ export default async function MyEventsOverview() {
             <ActionButton action={Action.BACK} />
           </Link>
 
-          <TextButtonCreateEvent />
+          {actingUser?.type !== UserType.FAN && <TextButtonCreateEvent />}
         </Navigation>
       </div>
     </>
