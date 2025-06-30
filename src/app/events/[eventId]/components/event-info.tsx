@@ -18,7 +18,7 @@ import { routeEvents, routeUsers } from '@/domain/constants/routes';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
-import { isPublicEventState } from '@/functions/is-public-event-state';
+import { isPublicEventState } from '@/functions/event-state';
 import Link from 'next/link';
 
 interface IEventProps {
