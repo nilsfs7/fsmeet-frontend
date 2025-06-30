@@ -14,6 +14,7 @@ import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/types/user';
 import { NavigationItem } from './components/navigation-item';
 import { TextButtonCreateEvent } from './components/text-button-create-event';
+import { UserType } from '@/domain/enums/user-type';
 
 export default async function Home() {
   const t = await getTranslations(routeHome);
@@ -40,7 +41,7 @@ export default async function Home() {
 
       <div className="flex max-h-full flex-col overflow-y-auto">
         <div className="m-2 mt-6 flex flex-shrink-0 justify-center gap-2">
-          <TextButtonCreateEvent />
+          {actingUser?.type !== UserType.FAN && <TextButtonCreateEvent />}
 
           <Link href={routeEvents}>
             <TextButton text={t('btnShowAllEvents')} />

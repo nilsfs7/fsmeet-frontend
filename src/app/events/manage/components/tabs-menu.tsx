@@ -11,14 +11,17 @@ import { Event } from '@/types/event';
 import { useTranslations } from 'next-intl';
 import { isEventAdmin } from '@/functions/is-event-admin';
 import { useSession } from 'next-auth/react';
+import { User } from '@/types/user';
+import { UserType } from '@/domain/enums/user-type';
 
 interface ITabsMenu {
+  actingUser: User;
   eventsOwning: Event[];
   eventsMaintaining: Event[];
   eventsSubscribed: Event[];
 }
 
-export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: ITabsMenu) => {
+export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSubscribed }: ITabsMenu) => {
   const t = useTranslations('/events/manage');
 
   const { data: session } = useSession();
@@ -49,14 +52,16 @@ export const TabsMenu = ({ eventsOwning, eventsMaintaining, eventsSubscribed }: 
             {t('tabRegistrationsTitle')}
           </TabsTrigger>
 
-          <TabsTrigger
-            value="myevents"
-            onClick={() => {
-              switchTab(router, 'myevents');
-            }}
-          >
-            {t('tabEventsHostedTitle')}
-          </TabsTrigger>
+          {actingUser.type !== UserType.FAN && (
+            <TabsTrigger
+              value="myevents"
+              onClick={() => {
+                switchTab(router, 'myevents');
+              }}
+            >
+              {t('tabEventsHostedTitle')}
+            </TabsTrigger>
+          )}
         </TabsList>
 
         <TabsContent value="registrations" className="overflow-y-auto">
