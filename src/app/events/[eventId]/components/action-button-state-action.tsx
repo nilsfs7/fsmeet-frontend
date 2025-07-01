@@ -11,11 +11,12 @@ import { Action } from '@/domain/enums/action';
 import { Event } from '@/types/event';
 import { EventState } from '@/domain/enums/event-state';
 import { validateSession } from '@/functions/validate-session';
-import { isPublicEventState } from '@/functions/is-public-event-state';
+import { isPublicEventState } from '@/functions/event-state';
 import Link from 'next/link';
 import TextButton from '@/components/common/TextButton';
 import Label from '@/components/Label';
 import { useEffect, useState } from 'react';
+import moment from 'moment';
 
 interface IActionButtonStateAction {
   event: Event;
@@ -43,7 +44,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
     router.replace(`${routeEvents}/${event.id}?state=1`);
   };
 
-  const handleSendToReviewClicked = async () => {
+  const handleUpdateStateClicked = async (state: EventState) => {
     if (!validateSession(session)) {
       router.push(loginRouteWithCallbackUrl);
       return;
@@ -51,7 +52,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
 
     if (event?.id) {
       try {
-        await updateEventState(session, event?.id, EventState.WAITING_FOR_APPROVAL);
+        await updateEventState(session, event?.id, state);
 
         // toast.success(`todo`);
         router.refresh();
@@ -76,6 +77,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
 
           {!isPublicEventState(event.state) && (
             <>
+              {/* hidden */}
               {event.state !== EventState.WAITING_FOR_APPROVAL && (
                 <>
                   <p className="mt-2">{t('dlgEventStateText2')}</p>
@@ -85,12 +87,19 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
                       <TextButton text={t('dlgEventStateBtnEditEvent')} />
                     </Link>
 
-                    <TextButton text={t('dlgEventStateBtnSendToReview')} onClick={handleSendToReviewClicked} />
+                    <TextButton
+                      text={t('dlgEventStateBtnSendToReview')}
+                      onClick={() => {
+                        handleUpdateStateClicked(EventState.WAITING_FOR_APPROVAL);
+                      }}
+                    />
                   </div>
 
                   {/* <p>why is a review necessary? todo</p> */}
                 </>
               )}
+
+              {/* hidden and waiting for approval */}
               {event.state === EventState.WAITING_FOR_APPROVAL && (
                 <>
                   <p className="mt-2">{t('dlgEventStateWaitingForApprovalText1')}</p>
@@ -108,13 +117,33 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
           )}
           {isPublicEventState(event.state) && (
             <>
-              <p className="mt-2">{t('dlgEventStateApprovedText1')}</p>
-              <p>{t('dlgEventStateApprovedText2')}</p>
-              <div className="mt-2 flex justify-between">
-                <Link href={`${routeEvents}/${event.id}/edit`}>
-                  <TextButton text={t('dlgEventStateBtnEditEvent')} />
-                </Link>
-              </div>
+              {/* public and ongoing */}
+              {event.state === EventState.APPROVED && moment(event.dateTo) > moment() && (
+                <>
+                  <p className="mt-2">{t('dlgEventStateApprovedText1')}</p>
+                  <p>{t('dlgEventStateApprovedText2')}</p>
+                  <div className="mt-2 flex justify-between">
+                    <Link href={`${routeEvents}/${event.id}/edit`}>
+                      <TextButton text={t('dlgEventStateBtnEditEvent')} />
+                    </Link>
+                  </div>
+                </>
+              )}
+
+              {/* public and over */}
+              {event.state === EventState.APPROVED && moment(event.dateTo) < moment() && (
+                <>
+                  <p className="mt-2">{t('dlgEventStateApprovedEventOverText')}</p>
+                  <div className="mt-2 flex justify-between">
+                    <TextButton
+                      text={t('dlgEventStateBtnArchive')}
+                      onClick={() => {
+                        handleUpdateStateClicked(EventState.ARCHIVED_PUBLIC);
+                      }}
+                    />
+                  </div>
+                </>
+              )}
             </>
           )}
         </>

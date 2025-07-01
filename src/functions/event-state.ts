@@ -16,3 +16,14 @@ export function isPublicEventState(eventState: EventState): boolean {
       return false;
   }
 }
+
+export function isArchivedEventState(eventState: EventState): boolean {
+  switch (eventState) {
+    case EventState.ARCHIVED_HIDDEN:
+      return true;
+    case EventState.ARCHIVED_PUBLIC:
+      return true;
+    default:
+      return false;
+  }
+}

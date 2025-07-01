@@ -5,7 +5,7 @@ import { getShortDateString } from '@/functions/time';
 import { Event } from '@/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
-import { isPublicEventState } from '@/functions/is-public-event-state';
+import { isPublicEventState } from '@/functions/event-state';
 import { useTranslations } from 'next-intl';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { useEffect, useState } from 'react';

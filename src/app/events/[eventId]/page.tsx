@@ -17,6 +17,7 @@ import { TextButtonFeedback } from './components/text-button-feedback';
 import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
 import TextButton from '@/components/common/TextButton';
 import moment from 'moment';
+import { isArchivedEventState } from '@/functions/event-state';
 
 export default async function EventDetails({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid');
@@ -35,37 +36,41 @@ export default async function EventDetails({ params }: { params: { eventId: stri
           <div className="flex justify-between rounded-lg border border-primary bg-warning p-2 gap-1">
             <div className="flex items-center">{t('adminPanelTitle')}</div>
             <div className="flex gap-1">
-              <Link href={`${routeEvents}/${params.eventId}/edit`}>
-                <ActionButton action={Action.EDIT} />
-              </Link>
+              {!isArchivedEventState(event.state) && (
+                <>
+                  <Link href={`${routeEvents}/${params.eventId}/edit`}>
+                    <ActionButton action={Action.EDIT} />
+                  </Link>
 
-              <Link href={`${routeEvents}/${params.eventId}/participants`}>
-                <ActionButton action={Action.MANAGE_USERS} />
-              </Link>
+                  <Link href={`${routeEvents}/${params.eventId}/participants`}>
+                    <ActionButton action={Action.MANAGE_USERS} />
+                  </Link>
 
-              {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
-                <Link href={`${routeEvents}/${params.eventId}/comps`}>
-                  <ActionButton action={Action.MANAGE_COMPETITIONS} />
-                </Link>
+                  {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
+                    <Link href={`${routeEvents}/${params.eventId}/comps`}>
+                      <ActionButton action={Action.MANAGE_COMPETITIONS} />
+                    </Link>
+                  )}
+
+                  {/* todo: restrict im backend falls trotzdem accommodations eingestellt werden */}
+                  {event.paymentMethodStripe.enabled && event.type !== EventType.COMPETITION_ONLINE && (
+                    <Link href={`${routeEvents}/${params.eventId}/accommodations`}>
+                      <ActionButton action={Action.MANAGE_ACCOMMODATIONS} />
+                    </Link>
+                  )}
+
+                  {/* todo: restrict im backend falls trotzdem offerings eingestellt werden */}
+                  {event.paymentMethodStripe.enabled && (
+                    <Link href={`${routeEvents}/${params.eventId}/offerings`}>
+                      <ActionButton action={Action.MANAGE_OFFERINGS} />
+                    </Link>
+                  )}
+
+                  <Link href={`${routeEvents}/${params.eventId}/sponsors`}>
+                    <ActionButton action={Action.MANAGE_SPONSORS} />
+                  </Link>
+                </>
               )}
-
-              {/* todo: restrict im backend falls trotzdem accommodations eingestellt werden */}
-              {event.paymentMethodStripe.enabled && event.type !== EventType.COMPETITION_ONLINE && (
-                <Link href={`${routeEvents}/${params.eventId}/accommodations`}>
-                  <ActionButton action={Action.MANAGE_ACCOMMODATIONS} />
-                </Link>
-              )}
-
-              {/* todo: restrict im backend falls trotzdem offerings eingestellt werden */}
-              {event.paymentMethodStripe.enabled && (
-                <Link href={`${routeEvents}/${params.eventId}/offerings`}>
-                  <ActionButton action={Action.MANAGE_OFFERINGS} />
-                </Link>
-              )}
-
-              <Link href={`${routeEvents}/${params.eventId}/sponsors`}>
-                <ActionButton action={Action.MANAGE_SPONSORS} />
-              </Link>
 
               {<ActionButtonStateAction event={event} />}
             </div>
