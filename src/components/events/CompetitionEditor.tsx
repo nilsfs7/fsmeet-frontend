@@ -23,6 +23,7 @@ import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import CheckBox from '../common/CheckBox';
 import { isNaturalPerson } from '@/functions/is-natural-person';
+import { menuMaxAmountParticipants } from '@/domain/constants/menus/menu-max-amount-participants';
 
 interface ICompetitionEditorProps {
   editorMode: EditorMode;
@@ -38,6 +39,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
   const [compType, setCompType] = useState(comp?.type || CompetitionType.BATTLES);
   const [compGender, setCompGender] = useState(comp?.gender || CompetitionGender.MIXED);
   const [maxAge, setMaxAge] = useState<MaxAge>(comp?.maxAge || MaxAge.NONE);
+  const [maxAmountParticipants, setMaxAmountParticipants] = useState<number>(comp?.maxAmountParticipants || -1);
   const [isFollowUpCompetition, setIsFollowUpCompetition] = useState<boolean>(comp?.isFollowUpCompetition || false);
   const [participationFee, setParticipationFee] = useState(comp?.participationFee || 0);
   const [description, setDescription] = useState(comp?.description || '');
@@ -92,6 +94,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
       type: compType,
       gender: compGender,
       maxAge: maxAge,
+      maxAmountParticipants: maxAmountParticipants,
       isFollowUpCompetition: isFollowUpCompetition,
       participationFee: participationFee,
       participationFeeIncPaymentCosts: -1,
@@ -112,6 +115,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
       setCompType(comp.type);
       setCompGender(comp.gender);
       setMaxAge(comp.maxAge);
+      setMaxAmountParticipants(comp.maxAmountParticipants);
       setIsFollowUpCompetition(comp.isFollowUpCompetition);
       setParticipationFee(comp.participationFee);
       setDescription(comp.description);
@@ -130,7 +134,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
   // fires comp back
   useEffect(() => {
     updateComp();
-  }, [name, compType, compGender, maxAge, isFollowUpCompetition, participationFee, description, rules, judges]);
+  }, [name, compType, compGender, maxAge, maxAmountParticipants, isFollowUpCompetition, participationFee, description, rules, judges]);
 
   return (
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
@@ -187,6 +191,20 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
             searchEnabled={false}
             onChange={(value: any) => {
               setMaxAge(+value);
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="m-2 grid grid-cols-2 items-center">
+        <div>{t('cbMaxAmountParticipants')}</div>
+        <div className="flex w-full">
+          <ComboBox
+            menus={menuMaxAmountParticipants}
+            value={maxAmountParticipants ? maxAmountParticipants.toString() : menuMaxAmountParticipants[0].value}
+            searchEnabled={false}
+            onChange={(value: any) => {
+              setMaxAmountParticipants(+value);
             }}
           />
         </div>

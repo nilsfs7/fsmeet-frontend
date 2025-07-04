@@ -7,6 +7,7 @@ import { Competition } from '@/types/competition';
 
 interface ICompetitionList {
   competitions: Competition[];
+  amountRegistrations: number[];
   paymentFeeCover: boolean;
   currency: CurrencyCode;
   disabled?: boolean[];
@@ -15,7 +16,7 @@ interface ICompetitionList {
   onCheckedChange?: (selected: boolean, compId: string) => void;
 }
 
-export const CompetitionList = ({ competitions, paymentFeeCover, currency, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
+export const CompetitionList = ({ competitions, amountRegistrations, paymentFeeCover, currency, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
   return (
     <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
       {/* todo: color code for head bg*/}
@@ -32,7 +33,7 @@ export const CompetitionList = ({ competitions, paymentFeeCover, currency, disab
         {competitions.map((comp, i) => (
           <tr key={i} className={`${i < competitions.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
             <td className="py-3 px-3 capitalize">{comp.type.replaceAll('_', ' ')}</td>
-            <td className="py-3 px-3">{comp.name}</td>
+            <td className="py-3 px-3">{comp.maxAmountParticipants > 0 ? `${comp.name} [${amountRegistrations[i]}/${comp.maxAmountParticipants}]` : `${comp.name}`}</td>
             <td className="py-3 px-3 capitalize">{comp.gender}</td>
             <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
               {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(comp.participationFeeIncPaymentCosts, currency).toFixed(2) : convertCurrencyIntegerToDecimal(comp.participationFee, currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace(

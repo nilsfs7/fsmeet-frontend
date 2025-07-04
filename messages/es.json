@@ -553,6 +553,7 @@
     "cbType": "Tipo",
     "cbGender": "Genero",
     "cbMaxAge": "Max. Edad",
+    "cbMaxAmountParticipants": "Límite de participantes",
     "chbIsFollowUpComp": "Competición que sigue a una anterior",
     "inputPaticipantFee": "Cuota de participación",
     "inputDescription": "Descripción",

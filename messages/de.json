@@ -553,6 +553,7 @@
     "cbType": "Art",
     "cbGender": "Geschlecht",
     "cbMaxAge": "Max. Alter",
+    "cbMaxAmountParticipants": "Teilnehmerlimit",
     "chbIsFollowUpComp": "Ist ein Folgewettbewerb",
     "inputPaticipantFee": "Teilnahmegebühr",
     "inputDescription": "Beschreibung",

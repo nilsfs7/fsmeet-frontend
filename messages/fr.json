@@ -553,6 +553,7 @@
     "cbType": "Type",
     "cbGender": "Genre",
     "cbMaxAge": "Âge maximum",
+    "cbMaxAmountParticipants": "Limite de participants",
     "chbIsFollowUpComp": "Est la compétition de suivi",
     "inputPaticipantFee": "Frais de participation",
     "inputDescription": "Description",

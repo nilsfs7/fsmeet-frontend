@@ -553,6 +553,7 @@
     "cbType": "Type",
     "cbGender": "Gender",
     "cbMaxAge": "Max Age",
+    "cbMaxAmountParticipants": "Participant limit",
     "chbIsFollowUpComp": "Is follow-up comp?",
     "inputPaticipantFee": "Participation Fee",
     "inputDescription": "Description",
