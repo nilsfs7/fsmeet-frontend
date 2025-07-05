@@ -45,6 +45,7 @@ import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/m
 import { toTitleCase } from '@/functions/string-manipulation';
 import { Competition } from '@/types/competition';
 import { isNaturalPerson } from '@/functions/is-natural-person';
+import { getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -72,6 +73,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   const [registrationStatus, setRegistrationStatus] = useState<string>('Unregistered');
   const [user, setUser] = useState<User>(attendee);
   const [userInfoChanged, setUserInfoChanged] = useState<boolean>(false);
+  const [existingCompetitionRegistrations, setExistingCompetitionRegistrations] = useState<Map<string, number>>(new Map());
 
   const [phoneCountryCode, setPhoneCountryCode] = useState<number | undefined>(user.phoneCountryCode);
   const [phoneNumber, setPhoneNumber] = useState<number | undefined | null>(user.phoneNumber);
@@ -150,17 +152,6 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
       if (acc.enabled) return acc;
     });
   };
-
-  useEffect(() => {
-    const status = event.eventRegistrations.filter(registration => {
-      if (registration.user.username === session?.user.username) {
-        setRegistrationType(registration.type);
-        return registration.status;
-      }
-    })[0]?.status;
-
-    setRegistrationStatus(status || 'Unregistered');
-  });
 
   const nextButtonDisabled = (): boolean => {
     if (!page) {
@@ -495,6 +486,17 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   };
 
   useEffect(() => {
+    const status = event.eventRegistrations.filter(registration => {
+      if (registration.user.username === session?.user.username) {
+        setRegistrationType(registration.type);
+        return registration.status;
+      }
+    })[0]?.status;
+
+    setRegistrationStatus(status || 'Unregistered');
+  });
+
+  useEffect(() => {
     const registrationInfoObject = sessionStorage.getItem('registrationInfo');
     if (registrationInfoObject) {
       const registrationInfo: EventRegistrationInfo = JSON.parse(registrationInfoObject);
@@ -505,6 +507,27 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
       setOfferingOrders(registrationInfo.offeringOrders);
       setOfferingShirtSize(registrationInfo.offeringTShirtSize);
     }
+  }, []);
+
+  useEffect(() => {
+    const fetchParticipants = async () => {
+      const registrations: Map<string, number> = new Map();
+
+      for (let i = 0; i < competitions.length; i++) {
+        const compId = competitions[i].id;
+        if (compId) {
+          const participants = await getCompetitionParticipants(compId);
+          registrations.set(compId, participants.length);
+          if (compId.startsWith('5f3981d2')) {
+            console.log(participants);
+          }
+        }
+      }
+
+      setExistingCompetitionRegistrations(registrations);
+    };
+
+    fetchParticipants();
   }, []);
 
   useEffect(() => {
@@ -697,6 +720,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
               <CompetitionList
                 competitions={competitions}
+                amountRegistrations={Array.from(existingCompetitionRegistrations.values())}
                 paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                 currency={event.currency}
                 disabled={competitions.map(comp => {
@@ -713,6 +737,14 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   // check if age does not fit
                   if (comp.maxAge > 0 && (!user.age || comp.maxAge < user.age)) {
                     return true;
+                  }
+
+                  // check if comp is full
+                  if (comp.id) {
+                    const amountRegs = existingCompetitionRegistrations.get(comp.id);
+                    if (comp.maxAmountParticipants > 0 && amountRegs && comp.maxAmountParticipants <= amountRegs) {
+                      return true;
+                    }
                   }
 
                   return false;
@@ -793,6 +825,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
                       <CompetitionList
                         competitions={competitions.filter(c => c.id && compSignUps.includes(c.id))}
+                        amountRegistrations={[]}
                         paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                         currency={event.currency}
                         checked={competitions
