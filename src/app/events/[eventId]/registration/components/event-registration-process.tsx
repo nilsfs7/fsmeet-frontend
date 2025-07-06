@@ -518,9 +518,6 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
         if (compId) {
           const participants = await getCompetitionParticipants(compId);
           registrations.set(compId, participants.length);
-          if (compId.startsWith('5f3981d2')) {
-            console.log(participants);
-          }
         }
       }
 

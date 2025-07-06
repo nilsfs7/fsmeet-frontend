@@ -1,12 +1,40 @@
+'use client';
+
 import TextButton from '@/components/common/TextButton';
 import { imgCelebration } from '@/domain/constants/images';
 import { routeEvents } from '@/domain/constants/routes';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
-export default async function EventRegistrationCompleted({ params, searchParams }: { params: { eventId: string }; searchParams: { checkout: string } }) {
-  const t = await getTranslations('/events/eventid/registration/completed');
+export default function EventRegistrationCompleted({ params }: { params: { eventId: string } }) {
+  const t = useTranslations('/events/eventid/registration/completed');
+
+  const searchParams = useSearchParams();
+  const checkout = searchParams?.get('checkout');
+
+  const [buttonDisabled, setButtonDisabled] = useState(checkout === '1');
+  const [secUntilEnabled, setSecondsUntilEnabled] = useState(buttonDisabled ? 4 : 0);
+
+  useEffect(() => {
+    if (buttonDisabled) {
+      const timer = setTimeout(() => {
+        if (secUntilEnabled > 0) {
+          const newSecUntilEnabled = secUntilEnabled - 1;
+
+          setSecondsUntilEnabled(newSecUntilEnabled);
+
+          if (newSecUntilEnabled <= 0) {
+            setButtonDisabled(false);
+          }
+        }
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [secUntilEnabled]);
 
   return (
     <div className={'absolute inset-0 flex flex-col'}>
@@ -15,10 +43,10 @@ export default async function EventRegistrationCompleted({ params, searchParams 
           <div className="mx-2 text-center">
             <Image src={imgCelebration} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
             <div className="mt-2">{t('registrationSuccess')}</div>
-            <div className="mt-2">{t(searchParams.checkout === '1' ? `textPaymentCompleted` : `textPaymentOutstanding`)}</div>
+            <div className="mt-2">{t(checkout === '1' ? `textPaymentCompleted` : `textPaymentOutstanding`)}</div>
             <div className="mt-2">
               <Link href={`${routeEvents}/${params.eventId}`}>
-                <TextButton text={t('btnBack')} />
+                <TextButton text={buttonDisabled ? `${secUntilEnabled.toString()} ...` : t('btnBack')} disabled={buttonDisabled} />
               </Link>
             </div>
           </div>
