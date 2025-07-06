@@ -39,35 +39,35 @@ export default async function EventDetails({ params }: { params: { eventId: stri
               {!isArchivedEventState(event.state) && (
                 <>
                   <Link href={`${routeEvents}/${params.eventId}/edit`}>
-                    <ActionButton action={Action.EDIT} />
+                    <ActionButton action={Action.EDIT} tooltip={t('adminPanelActionEditEventToolTip')} />
                   </Link>
 
                   <Link href={`${routeEvents}/${params.eventId}/participants`}>
-                    <ActionButton action={Action.MANAGE_USERS} />
+                    <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelActionManageParticipantsToolTip')} />
                   </Link>
 
                   {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
                     <Link href={`${routeEvents}/${params.eventId}/comps`}>
-                      <ActionButton action={Action.MANAGE_COMPETITIONS} />
+                      <ActionButton action={Action.MANAGE_COMPETITIONS} tooltip={t('adminPanelActionManageCompetitionsToolTip')} />
                     </Link>
                   )}
 
                   {/* todo: restrict im backend falls trotzdem accommodations eingestellt werden */}
                   {event.paymentMethodStripe.enabled && event.type !== EventType.COMPETITION_ONLINE && (
                     <Link href={`${routeEvents}/${params.eventId}/accommodations`}>
-                      <ActionButton action={Action.MANAGE_ACCOMMODATIONS} />
+                      <ActionButton action={Action.MANAGE_ACCOMMODATIONS} tooltip={t('adminPanelActionManageAccommodationsToolTip')} />
                     </Link>
                   )}
 
                   {/* todo: restrict im backend falls trotzdem offerings eingestellt werden */}
                   {event.paymentMethodStripe.enabled && (
                     <Link href={`${routeEvents}/${params.eventId}/offerings`}>
-                      <ActionButton action={Action.MANAGE_OFFERINGS} />
+                      <ActionButton action={Action.MANAGE_OFFERINGS} tooltip={t('adminPanelActionManageOfferingsToolTip')} />
                     </Link>
                   )}
 
                   <Link href={`${routeEvents}/${params.eventId}/sponsors`}>
-                    <ActionButton action={Action.MANAGE_SPONSORS} />
+                    <ActionButton action={Action.MANAGE_SPONSORS} tooltip={t('adminPanelActionManageSponsorsToolTip')} />
                   </Link>
                 </>
               )}

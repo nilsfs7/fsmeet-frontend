@@ -149,7 +149,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
         </>
       </Dialog>
 
-      <ActionButton action={isPublicEventState(event.state) ? Action.SHOW : Action.HIDE} onClick={handleStateActionClicked} />
+      <ActionButton action={isPublicEventState(event.state) ? Action.SHOW : Action.HIDE} onClick={handleStateActionClicked} tooltip={t('adminPanelActionManageEventStateToolTip')} />
     </>
   );
 };

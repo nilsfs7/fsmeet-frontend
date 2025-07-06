@@ -25,9 +25,11 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/domain/enums/size';
 import { imgWorld } from '@/domain/constants/images';
 import { ButtonStyle } from '@/domain/enums/button-style';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface IButton {
   action: Action;
+  tooltip?: string;
   size?: Size;
   style?: ButtonStyle;
   onClick?: () => void;
@@ -38,7 +40,7 @@ enum ButtonSize {
   M = 'h-10 w-10',
 }
 
-const ActionButton = ({ action, size = Size.M, style = ButtonStyle.DEFAULT, onClick }: IButton) => {
+const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, onClick }: IButton) => {
   const getButtonColors = () => {
     switch (style) {
       case ButtonStyle.DEFAULT:
@@ -141,8 +143,11 @@ const ActionButton = ({ action, size = Size.M, style = ButtonStyle.DEFAULT, onCl
   }
 
   return (
-    <button
-      className={`
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            className={`
       ${buttonSize} rounded-lg border flex justify-center items-center
       transition-all duration-200 ease-in-out
       transform hover:scale-[1.02] active:scale-[0.98]
@@ -150,11 +155,20 @@ const ActionButton = ({ action, size = Size.M, style = ButtonStyle.DEFAULT, onCl
       focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
       ${getButtonColors()}
     `}
-      onClick={onClick}
-      aria-label={action.toString().toLowerCase()}
-    >
-      {icon}
-    </button>
+            onClick={onClick}
+            aria-label={action.toString().toLowerCase()}
+          >
+            {icon}
+          </button>
+        </TooltipTrigger>
+
+        {tooltip && (
+          <TooltipContent>
+            <p>{tooltip}</p>
+          </TooltipContent>
+        )}
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 
