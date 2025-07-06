@@ -183,6 +183,13 @@
     "dlgEventUnregisterText": "Möchtest du dich wirklich vom Event abmelden?",
     "dlgEventUnregisterBtnConfirm": "Bestätigen",
     "adminPanelTitle": "Adminbereich",
+    "adminPanelActionEditEventToolTip": "Event editieren",
+    "adminPanelActionManageParticipantsToolTip": "Teilnehmer verwalten",
+    "adminPanelActionManageCompetitionsToolTip": "Wettbewerbe verwalten",
+    "adminPanelActionManageAccommodationsToolTip": "Unterkünfte verwalten",
+    "adminPanelActionManageOfferingsToolTip": "Angebote verwalten",
+    "adminPanelActionManageSponsorsToolTip": "Sponsoren verwalten",
+    "adminPanelActionManageEventStateToolTip": "Event Status",
     "tabOverviewTitle": "Übersicht",
     "tabOverviewParticipationFee": "Teilnahmegebühr",
     "tabOverviewRegistrationPeriod": "Registrierungszeittraum",
@@ -200,7 +207,7 @@
     "btnFeedback": "Feedback"
   },
   "/events/eventid/accommodations": {
-    "pageTitle": "Unterkunft verwalten",
+    "pageTitle": "Unterkünfte verwalten",
     "btnCreate": "Erstellen"
   },
   "/events/eventid/accommodations/create": {
