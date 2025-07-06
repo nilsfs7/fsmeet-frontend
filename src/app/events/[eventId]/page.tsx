@@ -43,7 +43,7 @@ export default async function EventDetails({ params }: { params: { eventId: stri
                   </Link>
 
                   <Link href={`${routeEvents}/${params.eventId}/participants`}>
-                    <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelActionManageCompetitionsToolTip')} />
+                    <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelActionManageParticipantsToolTip')} />
                   </Link>
 
                   {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
