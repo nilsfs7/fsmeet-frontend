@@ -35,7 +35,7 @@
     "@radix-ui/react-switch": "^1.1.4",
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-tooltip": "^1.2.7",
-    "@react-google-maps/api": "^2.20.6",
+    "@react-google-maps/api": "^2.20.7",
     "@tanstack/react-table": "^8.21.2",
     "@types/node": "^24.0.10",
     "@types/react": "^19.1.8",
@@ -74,7 +74,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "eslint": "8.57.0",
-    "eslint-config-next": "^15.3.0",
+    "eslint-config-next": "^15.3.5",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
