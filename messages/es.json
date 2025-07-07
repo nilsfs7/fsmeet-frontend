@@ -534,6 +534,8 @@
     "carouselBtnVotingExcluded": "Excluido",
     "carouselTotalVotes": "Votos totales",
     "carouselDlgPollDescription": "Descripción",
+    "btnCopyUrlToast": "URL de la encuesta copiada al portapapeles.",
+    "btnCopyUrlToolTip": "Copiar la URL de la encuesta",
     "btnManagePolls": "Mis encuestas"
   },
   "/voice/manage": {

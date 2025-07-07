@@ -534,6 +534,8 @@
     "carouselBtnVotingExcluded": "Ausgeschlossen",
     "carouselTotalVotes": "Stimmen gesamt",
     "carouselDlgPollDescription": "Beschreibung",
+    "btnCopyUrlToast": "Umfrage-URL kopiert",
+    "btnCopyUrlToolTip": "Kopiere Umfrage-URL",
     "btnManagePolls": "Meine Umfragen"
   },
   "/voice/manage": {

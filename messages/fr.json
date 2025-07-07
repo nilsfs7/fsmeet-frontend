@@ -534,6 +534,8 @@
     "carouselBtnVotingExcluded": "Exclu",
     "carouselTotalVotes": "Nombre total de votes",
     "carouselDlgPollDescription": "Description",
+    "btnCopyUrlToast": "URL du sondage copiée dans le presse-papiers.",
+    "btnCopyUrlToolTip": "Copier l'URL du sondage",
     "btnManagePolls": "Mes sondages"
   },
   "/voice/manage": {
