@@ -107,7 +107,8 @@ const getEventsByCompetitions = async (competitionsMap: Map<string, Competition>
   return eventsMap;
 };
 
-export default async function PublicUserProfile({ params }: { params: { username: string } }) {
+export default async function PublicUserProfile(props: { params: Promise<{ username: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/users/username');
   const session = await auth();
 
