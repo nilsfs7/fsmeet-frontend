@@ -39,35 +39,35 @@ export default async function EventDetails({ params }: { params: { eventId: stri
               {!isArchivedEventState(event.state) && (
                 <>
                   <Link href={`${routeEvents}/${params.eventId}/edit`}>
-                    <ActionButton action={Action.EDIT} tooltip={t('adminPanelActionEditEventToolTip')} />
+                    <ActionButton action={Action.EDIT} tooltip={t('adminPanelBtnEditEventToolTip')} />
                   </Link>
 
                   <Link href={`${routeEvents}/${params.eventId}/participants`}>
-                    <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelActionManageParticipantsToolTip')} />
+                    <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelBtnManageParticipantsToolTip')} />
                   </Link>
 
                   {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
                     <Link href={`${routeEvents}/${params.eventId}/comps`}>
-                      <ActionButton action={Action.MANAGE_COMPETITIONS} tooltip={t('adminPanelActionManageCompetitionsToolTip')} />
+                      <ActionButton action={Action.MANAGE_COMPETITIONS} tooltip={t('adminPanelBtnManageCompetitionsToolTip')} />
                     </Link>
                   )}
 
                   {/* todo: restrict im backend falls trotzdem accommodations eingestellt werden */}
                   {event.paymentMethodStripe.enabled && event.type !== EventType.COMPETITION_ONLINE && (
                     <Link href={`${routeEvents}/${params.eventId}/accommodations`}>
-                      <ActionButton action={Action.MANAGE_ACCOMMODATIONS} tooltip={t('adminPanelActionManageAccommodationsToolTip')} />
+                      <ActionButton action={Action.MANAGE_ACCOMMODATIONS} tooltip={t('adminPanelBtnManageAccommodationsToolTip')} />
                     </Link>
                   )}
 
                   {/* todo: restrict im backend falls trotzdem offerings eingestellt werden */}
                   {event.paymentMethodStripe.enabled && (
                     <Link href={`${routeEvents}/${params.eventId}/offerings`}>
-                      <ActionButton action={Action.MANAGE_OFFERINGS} tooltip={t('adminPanelActionManageOfferingsToolTip')} />
+                      <ActionButton action={Action.MANAGE_OFFERINGS} tooltip={t('adminPanelBtnManageOfferingsToolTip')} />
                     </Link>
                   )}
 
                   <Link href={`${routeEvents}/${params.eventId}/sponsors`}>
-                    <ActionButton action={Action.MANAGE_SPONSORS} tooltip={t('adminPanelActionManageSponsorsToolTip')} />
+                    <ActionButton action={Action.MANAGE_SPONSORS} tooltip={t('adminPanelBtnManageSponsorsToolTip')} />
                   </Link>
                 </>
               )}

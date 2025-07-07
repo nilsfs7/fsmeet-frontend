@@ -11,7 +11,8 @@ import { UserType } from '@/domain/enums/user-type';
 const registrationTypes = Object.values(EventRegistrationType);
 
 interface IAttendeeChoiceList {
-  fees: number[];
+  participantFee: number;
+  vistorFee: number;
   currency: CurrencyCode;
   eventType: EventType;
   userType: UserType;
@@ -21,7 +22,7 @@ interface IAttendeeChoiceList {
   onCheckedChange?: (registrationType: EventRegistrationType) => void;
 }
 
-export const AttendeeChoice = ({ fees, currency, eventType, userType, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
+export const AttendeeChoice = ({ participantFee, vistorFee, currency, eventType, userType, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
   const availableRegistrationTypes = registrationTypes.filter(regType => {
     let addChoice = true;
 
@@ -56,7 +57,7 @@ export const AttendeeChoice = ({ fees, currency, eventType, userType, disabled =
             <tr key={i} className={`${i < availableRegistrationTypes.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
               <td className="py-3 px-3 capitalize">{regType}</td>
               <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
-                {`${convertCurrencyIntegerToDecimal(fees[i], currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace('.', ',')}
+                {`${convertCurrencyIntegerToDecimal(regType === EventRegistrationType.PARTICIPANT ? participantFee : vistorFee, currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace('.', ',')}
               </td>
               {selectable && (
                 <td className="py-3 px-3 text-center">

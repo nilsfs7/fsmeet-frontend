@@ -693,11 +693,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
               <div className="m-2 mt-6">{t('pageParticipantSectionRegistrationTypeDescription')}</div>
               <AttendeeChoice
-                fees={
-                  event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee
-                    ? [event.participationFeeIncPaymentCosts, event.visitorFeeIncPaymentCosts]
-                    : [event.participationFee, event.visitorFee]
-                }
+                participantFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.participationFeeIncPaymentCosts : event.participationFee}
+                vistorFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.visitorFeeIncPaymentCosts : event.visitorFee}
                 eventType={event.type}
                 userType={user.type}
                 currency={event.currency}
