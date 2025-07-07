@@ -465,6 +465,8 @@
     "btnViewOnFSMeet": "Voir sur FSMeet",
     "inputSearchPlaceholder": "Rechercher par nom...",
     "drpDwnGender": "Genre",
+    "btnCopyUrlToast": "URL de la carte copiée dans le presse-papiers.",
+    "btnCopyUrlToolTip": "Copier l'URL de la carte",
     "infoWindowGoToProfileInternal": "Cliquez pour voir le profil",
     "infoWindowGoToProfileExternal": "Voir sur FSMeet"
   },
@@ -532,6 +534,8 @@
     "carouselBtnVotingExcluded": "Exclu",
     "carouselTotalVotes": "Nombre total de votes",
     "carouselDlgPollDescription": "Description",
+    "btnCopyUrlToast": "URL du sondage copiée dans le presse-papiers.",
+    "btnCopyUrlToolTip": "Copier l'URL du sondage",
     "btnManagePolls": "Mes sondages"
   },
   "/voice/manage": {

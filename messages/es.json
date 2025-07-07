@@ -465,6 +465,8 @@
     "btnViewOnFSMeet": "Ver en FSMeet",
     "inputSearchPlaceholder": "Buscar nombre...",
     "drpDwnGender": "Género",
+    "btnCopyUrlToast": "URL del mapa copiada al portapapeles.",
+    "btnCopyUrlToolTip": "Copiar la URL del mapa",
     "infoWindowGoToProfileInternal": "Haz clic para ver el perfil",
     "infoWindowGoToProfileExternal": "Ver en FSMeet"
   },
@@ -532,6 +534,8 @@
     "carouselBtnVotingExcluded": "Excluido",
     "carouselTotalVotes": "Votos totales",
     "carouselDlgPollDescription": "Descripción",
+    "btnCopyUrlToast": "URL de la encuesta copiada al portapapeles.",
+    "btnCopyUrlToolTip": "Copiar la URL de la encuesta",
     "btnManagePolls": "Mis encuestas"
   },
   "/voice/manage": {

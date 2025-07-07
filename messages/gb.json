@@ -465,6 +465,8 @@
     "btnViewOnFSMeet": "View on FSMeet",
     "inputSearchPlaceholder": "Search name...",
     "drpDwnGender": "Gender",
+    "btnCopyUrlToast": "Map URL copied to clipboard.",
+    "btnCopyUrlToolTip": "Copy map URL",
     "infoWindowGoToProfileInternal": "Click for profile",
     "infoWindowGoToProfileExternal": "View on FSMeet"
   },
@@ -532,6 +534,8 @@
     "carouselBtnVotingExcluded": "Excluded",
     "carouselTotalVotes": "Total votes",
     "carouselDlgPollDescription": "Description",
+    "btnCopyUrlToast": "Poll URL copied to clipboard.",
+    "btnCopyUrlToolTip": "Copy poll URL",
     "btnManagePolls": "My Polls"
   },
   "/voice/manage": {
