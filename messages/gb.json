@@ -465,6 +465,8 @@
     "btnViewOnFSMeet": "View on FSMeet",
     "inputSearchPlaceholder": "Search name...",
     "drpDwnGender": "Gender",
+    "btnCopyUrlToast": "Map URL copied to clipboard.",
+    "btnCopyUrlToolTip": "Copy map URL",
     "infoWindowGoToProfileInternal": "Click for profile",
     "infoWindowGoToProfileExternal": "View on FSMeet"
   },
