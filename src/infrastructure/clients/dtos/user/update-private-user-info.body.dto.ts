@@ -17,7 +17,7 @@ export class UpdatePrivateUserInfoBodyDto {
   jobOfferWorkshops: boolean;
   jobShowExperience: ShowExperience;
   phoneCountryCode: number;
-  phoneNumber: number;
+  phoneNumber: string;
 
   constructor(
     birthday: Moment,
@@ -35,7 +35,7 @@ export class UpdatePrivateUserInfoBodyDto {
     jobOfferWorkshops: boolean,
     jobShowExperience: ShowExperience,
     phoneCountryCode: number,
-    phoneNumber: number
+    phoneNumber: string
   ) {
     this.birthday = birthday;
     this.tShirtSize = tShirtSize;

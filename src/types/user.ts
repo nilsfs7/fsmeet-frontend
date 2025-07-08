@@ -33,7 +33,7 @@ export type User = {
   jobOfferWorkshops?: boolean;
   jobShowExperience?: ShowExperience;
   phoneCountryCode?: number;
-  phoneNumber?: number | null;
+  phoneNumber?: string | null;
   stripeAccountId?: string;
   wffaId?: string;
   isWffaMember?: string;

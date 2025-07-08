@@ -222,7 +222,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     if (value === '') {
       newUserInfo.phoneNumber = null;
     } else if (regex.test(value)) {
-      newUserInfo.phoneNumber = +value;
+      newUserInfo.phoneNumber = value;
     }
 
     setUserInfo(newUserInfo);
@@ -821,7 +821,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       labelOnTop={false}
                       type="tel"
                       placeholder="1516 123456"
-                      value={userInfo.phoneNumber ? userInfo.phoneNumber.toString() : ''}
+                      value={userInfo.phoneNumber ? userInfo.phoneNumber : ''}
                       onChange={e => {
                         handlePhoneNumberChanged(e.currentTarget.value);
                       }}
