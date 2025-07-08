@@ -11,7 +11,7 @@ export class ReadEventRegistrationResponseDto {
   offeringOrders: string[];
   offeringTShirtSize: string;
   phoneCountryCode?: number;
-  phoneNumber?: number;
+  phoneNumber?: string;
 
   constructor(
     user: ReadPartialUser2ResponseDto,
@@ -22,7 +22,7 @@ export class ReadEventRegistrationResponseDto {
     offeringOrders: string[],
     offeringTShirtSize: string,
     phoneCountryCode?: number,
-    phoneNumber?: number
+    phoneNumber?: string
   ) {
     this.user = user;
     this.type = type;

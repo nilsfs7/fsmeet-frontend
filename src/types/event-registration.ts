@@ -11,5 +11,5 @@ export type EventRegistration = {
   offeringOrders: string[];
   offeringTShirtSize: string;
   phoneCountryCode?: number;
-  phoneNumber?: number;
+  phoneNumber?: string;
 };

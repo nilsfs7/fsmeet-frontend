@@ -285,7 +285,7 @@ export async function createEventRegistration_v2(
   offeringOrders: string[],
   offeringTShirtSize: string,
   phoneCountryCode: number | null,
-  phoneNumber: number | null,
+  phoneNumber: string | null,
   donationAmount: number | null,
   session: Session | null
 ): Promise<void> {

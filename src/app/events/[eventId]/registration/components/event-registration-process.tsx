@@ -74,9 +74,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   const [user, setUser] = useState<User>(attendee);
   const [userInfoChanged, setUserInfoChanged] = useState<boolean>(false);
   const [existingCompetitionRegistrations, setExistingCompetitionRegistrations] = useState<Map<string, number>>(new Map());
-
-  const [phoneCountryCode, setPhoneCountryCode] = useState<number | undefined>(user.phoneCountryCode);
-  const [phoneNumber, setPhoneNumber] = useState<number | undefined | null>(user.phoneNumber);
+  const [phoneCountryCode, setPhoneCountryCode] = useState<number | undefined | null>(user.phoneCountryCode);
+  const [phoneNumber, setPhoneNumber] = useState<string | null | undefined>(user.phoneNumber);
   const [registrationType, setRegistrationType] = useState<EventRegistrationType>();
   const [compSignUps, setCompSignUps] = useState<string[]>([]);
   const [accommodationOrders, setAccommodationOrders] = useState<string[]>([]);
@@ -126,7 +125,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     if (value === '') {
       newUser.phoneNumber = null;
     } else if (regex.test(value)) {
-      newUser.phoneNumber = +value;
+      newUser.phoneNumber = value;
     }
 
     setPhoneNumber(newUser.phoneNumber);

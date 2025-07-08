@@ -7,7 +7,7 @@ export class CreateEventRegistrationBodyDto {
   offeringOrders: string[];
   offeringTShirtSize: string;
   phoneCountryCode: number | null;
-  phoneNumber: number | null;
+  phoneNumber: string | null;
   donationAmount?: number | null;
 
   constructor(
@@ -17,7 +17,7 @@ export class CreateEventRegistrationBodyDto {
     offeringOrders: string[],
     offeringTShirtSize: string,
     phoneCountryCode: number | null,
-    phoneNumber: number | null,
+    phoneNumber: string | null,
     donationAmount: number | null
   ) {
     this.eventRegistrationType = eventRegistrationType;
