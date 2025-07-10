@@ -225,6 +225,7 @@ export const TabsMenu = ({ event, competitions, sponsors, comments }: ITabsMenu)
                   users={participantRegistrations.map(registration => {
                     return registration.user;
                   })}
+                  showUserCountryFlag={event.showUserCountryFlag}
                   registrationStatus={participantRegistrations.map(registration => {
                     return registration.status;
                   })}
@@ -237,6 +238,7 @@ export const TabsMenu = ({ event, competitions, sponsors, comments }: ITabsMenu)
                   users={visitorRegistrations.map(registration => {
                     return registration.user;
                   })}
+                  showUserCountryFlag={event.showUserCountryFlag}
                   registrationStatus={visitorRegistrations.map(registration => {
                     return registration.status;
                   })}

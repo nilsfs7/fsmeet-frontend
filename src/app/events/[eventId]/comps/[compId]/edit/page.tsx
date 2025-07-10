@@ -19,7 +19,7 @@ import { deleteCompetition, getCompetition, updateCompetition } from '@/infrastr
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
-import { CurrencyCode } from '@/domain/enums/currency-code';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 export default function CompetitionEditing({ params }: { params: { eventId: string; compId: string } }) {
   const t = useTranslations('/events/eventid/comps/edit');
@@ -75,6 +75,10 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
     });
   }, []);
 
+  if (!event) {
+    return <LoadingSpinner text="Loading..." />; // todo
+  }
+
   return (
     <>
       <Toaster richColors />
@@ -88,8 +92,8 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <CompetitionEditor
+            event={event}
             editorMode={EditorMode.EDIT}
-            currency={event?.currency || CurrencyCode.EUR}
             comp={comp}
             onCompUpdate={(comp: Competition) => {
               setComp(comp);

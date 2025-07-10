@@ -16,12 +16,14 @@ import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Toaster, toast } from 'sonner';
+import { Event } from '@/types/event';
 
 interface IParticipants {
+  event: Event;
   competition: Competition;
 }
 
-export const Participants = ({ competition }: IParticipants) => {
+export const Participants = ({ event, competition }: IParticipants) => {
   const t = useTranslations('/events/eventid/comps/compid/edit/pool');
 
   const { data: session } = useSession();
@@ -127,7 +129,7 @@ export const Participants = ({ competition }: IParticipants) => {
             return (
               <div key={index} className="m-1 flex items-center">
                 <div className="mx-1 flex w-1/2 justify-end">
-                  <UserCard user={registration.user} />
+                  <UserCard user={registration.user} showUserCountryFlag={event?.showUserCountryFlag} />
                 </div>
                 <div className="mx-1 flex w-1/2 justify-start">
                   <div className="flex">

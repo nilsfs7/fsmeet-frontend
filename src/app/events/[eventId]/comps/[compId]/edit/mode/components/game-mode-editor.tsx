@@ -323,6 +323,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
             rounds={rounds}
             usersMap={usersMap}
             editingEnabled={true}
+            showUserCountryFlag={event.showUserCountryFlag}
             onEditRound={(roundIndex: number) => {
               handleEditRoundClicked(roundIndex);
             }}

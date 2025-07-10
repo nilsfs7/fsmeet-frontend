@@ -41,6 +41,7 @@ export type Event = {
   paymentMethodPayPal: PaymentMethodPayPal;
   paymentMethodSepa: PaymentMethodSepa;
   paymentMethodStripe: PaymentMethodStripe;
+  showUserCountryFlag: boolean;
   autoApproveRegistrations: boolean;
   notifyOnRegistration: boolean;
   allowComments: boolean;

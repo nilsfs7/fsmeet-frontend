@@ -21,12 +21,14 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 import { UserType } from '@/domain/enums/user-type';
 import ComboBox from '@/components/common/ComboBox';
 import { MenuItem } from '@/types/menu-item';
+import { Event } from '@/types/event';
 
 interface ITabsMenu {
   comp: Competition;
+  event: Event;
 }
 
-export const TabsMenu = ({ comp }: ITabsMenu) => {
+export const TabsMenu = ({ comp, event }: ITabsMenu) => {
   const t = useTranslations('/events/eventid/comps/compid');
 
   const { data: session } = useSession();
@@ -168,7 +170,7 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
               </div>
             )}
 
-            <BattleList rounds={rounds} usersMap={usersMap} filteredByUser={filteredByUser} />
+            <BattleList rounds={rounds} usersMap={usersMap} filteredByUser={filteredByUser} showUserCountryFlag={event.showUserCountryFlag} />
           </TabsContent>
         )}
 
@@ -176,7 +178,7 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
         {rounds.length > 1 && (
           <TabsContent value="grid" className="overflow-hidden overflow-y-auto">
             <div className="overflow-x-auto">
-              <BattleGrid rounds={rounds} usersMap={usersMap} />
+              <BattleGrid rounds={rounds} usersMap={usersMap} showUserCountryFlag={event.showUserCountryFlag} />
             </div>
           </TabsContent>
         )}
@@ -215,7 +217,7 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
 
           {comp?.judges && comp?.judges.length > 0 && (
             <div className="mt-2">
-              <UserSection sectionTitle={t('tabInfoSectionJudges')} users={comp.judges} />
+              <UserSection sectionTitle={t('tabInfoSectionJudges')} showUserCountryFlag={event.showUserCountryFlag} users={comp.judges} />
             </div>
           )}
 
@@ -233,7 +235,7 @@ export const TabsMenu = ({ comp }: ITabsMenu) => {
         {/* Participants */}
         {usersMap.size > 0 && (
           <TabsContent value="participants" className="overflow-hidden overflow-y-auto">
-            <UserSection sectionTitle={t('tabParticipantsSectionParticipants')} users={Array.from(usersMap.values())} />
+            <UserSection sectionTitle={t('tabParticipantsSectionParticipants')} showUserCountryFlag={event.showUserCountryFlag} users={Array.from(usersMap.values())} />
           </TabsContent>
         )}
       </Tabs>

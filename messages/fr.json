@@ -622,6 +622,7 @@
     "sectionMaintainers": "Mainteneurs",
     "cbMaintainers": "Responsables de la maintenance",
     "sectionOther": "Autre",
+    "chbShowUserCountryFlag": "Afficher le drapeau du pays au lieu de la photo de profil",
     "chbAutoApproveRegistration": "Approuver automatiquement les nouvelles inscriptions",
     "chbNotifyOnRegistration": "Notifier lors d'une nouvelle inscription",
     "chbAllowCommentsAndQuestions": "Autoriser les commentaires",

@@ -14,12 +14,15 @@ import { User } from '@/types/user';
 import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/infrastructure/clients/competition.client';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
+import { getEvent } from '@/infrastructure/clients/event.client';
+import { Event } from '@/types/event';
 
 export default function Seeding({ params }: { params: { eventId: string; compId: string } }) {
   const t = useTranslations('/events/eventid/comps/compid/edit/seeding');
 
   const { data: session } = useSession();
 
+  const [event, setEvent] = useState<Event>();
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [rounds, setRounds] = useState<Round[]>([]);
 
@@ -62,6 +65,10 @@ export default function Seeding({ params }: { params: { eventId: string; compId:
   };
 
   useEffect(() => {
+    getEvent(params.eventId).then(event => {
+      setEvent(event);
+    });
+
     getCompetitionParticipants(params.compId).then(participants => {
       const usersMap = new Map();
       participants.map(participant => {
@@ -91,6 +98,7 @@ export default function Seeding({ params }: { params: { eventId: string; compId:
               rounds={rounds}
               usersMap={usersMap}
               seedingEnabled={true}
+              showUserCountryFlag={event?.showUserCountryFlag}
               onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => {
                 handleSlotUpdated(roundIndex, matchId, slotIndex, username, result);
               }}

@@ -8,9 +8,10 @@ interface IBattleListProps {
   rounds: Round[];
   usersMap: Map<string, User>;
   filteredByUser?: string | null;
+  showUserCountryFlag?: boolean;
 }
 
-const BattleList = ({ rounds, usersMap, filteredByUser = null }: IBattleListProps) => {
+const BattleList = ({ rounds, usersMap, filteredByUser = null, showUserCountryFlag = false }: IBattleListProps) => {
   return (
     <div className={'flex w-full flex-col justify-center'}>
       {rounds.map((round: Round, i: number) => {
@@ -37,7 +38,7 @@ const BattleList = ({ rounds, usersMap, filteredByUser = null }: IBattleListProp
 
                 return (
                   <div key={`match-${j}`} className={`${i > 0 || j > 0 ? 'mt-1' : ''} ${i < rounds.length - 1 ? 'mb-1' : ''} `}>
-                    <MatchCard match={match} usersMap={usersMap} showTime={true} />
+                    <MatchCard match={match} usersMap={usersMap} showTime={true} showUserCountryFlag={showUserCountryFlag} />
                   </div>
                 );
               })}

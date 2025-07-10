@@ -12,6 +12,7 @@ import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
 import { Match } from '@/types/match';
+import ReactCountryFlag from 'react-country-flag';
 
 interface IMatchProps {
   match: Match;
@@ -19,13 +20,14 @@ interface IMatchProps {
   showTime?: boolean;
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
+  showUserCountryFlag?: boolean;
   onUpdateTime?: (matchIndex: number, matchId: string, time: Moment | null) => void;
   onEditMatch?: (matchIndex: number) => void; // matchId: string
   onDeleteMatch?: (matchIndex: number) => void;
   onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result: number) => void;
 }
 
-const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
+const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, showUserCountryFlag = false, onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
   const playerMenu: MenuItem[] = [];
   playerMenu.push({ text: 'unassigned', value: '' });
   usersMap.forEach(user => {
@@ -87,11 +89,24 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
             if (slot.slotIndex === i) return slot;
           })[0];
 
-          const playerImage = (
-            <img
-              src={matchSlot?.name && usersMap?.get(matchSlot.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg}
-              className="h-full w-full rounded-full bg-zinc-200 object-cover"
-            />
+          const playerImage = matchSlot?.name ? (
+            showUserCountryFlag ? (
+              <ReactCountryFlag
+                className="w-full h-full"
+                countryCode={usersMap?.get(matchSlot?.name)?.country || ''}
+                svg
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '9999px',
+                  objectFit: 'cover',
+                }}
+              />
+            ) : (
+              <img src={usersMap?.get(matchSlot?.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
+            )
+          ) : (
+            <img src={imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
           );
 
           const playerName = (
@@ -109,14 +124,12 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
               {!seedingEnabled && (
                 <div className="flex w-full justify-between">
                   <div className="flex w-full items-center">
-                    <div className="h-8 w-8 p-1">
-                      {matchSlot?.name && <Link href={`${routeUsers}/${matchSlot.name}`}>{playerImage}</Link>}
-                      {!matchSlot?.name && playerImage}
-                    </div>
+                    {/* player image */}
+                    <div className="h-8 w-8 p-1">{matchSlot?.name ? <Link href={`${routeUsers}/${matchSlot.name}`}>{playerImage}</Link> : playerImage}</div>
 
+                    {/* player name */}
                     <div className="flex h-full w-32 items-center overflow-hidden text-ellipsis px-1">
-                      {matchSlot?.name && <Link href={`${routeUsers}/${matchSlot.name}`}>{playerName}</Link>}
-                      {!matchSlot?.name && playerName}
+                      {matchSlot?.name ? <Link href={`${routeUsers}/${matchSlot.name}`}>{playerName}</Link> : playerName}
                     </div>
                   </div>
 

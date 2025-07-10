@@ -205,6 +205,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
       event?.paymentMethodSepa.reference
     ),
     new CreatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled, event?.paymentMethodStripe.coverProviderFee),
+    event?.showUserCountryFlag,
     event?.autoApproveRegistrations,
     event?.notifyOnRegistration,
     event?.allowComments,
@@ -446,6 +447,7 @@ export async function updateEvent(event: Event, session: Session | null): Promis
       event?.paymentMethodSepa.reference
     ),
     new UpdatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled, event?.paymentMethodStripe.coverProviderFee),
+    event?.showUserCountryFlag,
     event?.autoApproveRegistrations,
     event?.notifyOnRegistration,
     event?.allowComments,
