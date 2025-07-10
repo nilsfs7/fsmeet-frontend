@@ -5,11 +5,10 @@ import UserCard from '../user/UserCard';
 interface IUserSectionProps {
   sectionTitle: string;
   users: User[];
-  showUserTypeImage?: boolean;
   registrationStatus?: EventRegistrationStatus[];
 }
 
-const UserSection = ({ sectionTitle, users, showUserTypeImage = false, registrationStatus }: IUserSectionProps) => {
+const UserSection = ({ sectionTitle, users, registrationStatus }: IUserSectionProps) => {
   return (
     <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
       <div className="text-base font-bold">{sectionTitle}</div>
@@ -17,8 +16,8 @@ const UserSection = ({ sectionTitle, users, showUserTypeImage = false, registrat
         {users.map((user, i) => {
           return (
             <div key={i}>
-              {registrationStatus && <UserCard user={user} showUserTypeImage={showUserTypeImage} registrationStatus={registrationStatus[i]} />}
-              {!registrationStatus && <UserCard user={user} showUserTypeImage={showUserTypeImage} />}
+              {registrationStatus && <UserCard user={user} registrationStatus={registrationStatus[i]} />}
+              {!registrationStatus && <UserCard user={user} />}
             </div>
           );
         })}

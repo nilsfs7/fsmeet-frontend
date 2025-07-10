@@ -12,11 +12,10 @@ interface IUserCardProps {
   user: User;
   showName?: boolean;
   showFirstNameOnly?: boolean;
-  showUserTypeImage?: boolean;
   registrationStatus?: EventRegistrationStatus;
 }
 
-const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserTypeImage = false, registrationStatus }: IUserCardProps) => {
+const UserCard = ({ user, showName = true, showFirstNameOnly = false, registrationStatus }: IUserCardProps) => {
   let name: string = user.username; // Defauts to username. Guarantees there is at least some name on the UserCard.
 
   // Ideally show first name and last name.
@@ -36,8 +35,6 @@ const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserTy
           <img src={user.imageUrl || imgUserDefaultImg} className="mx-1 h-6 w-6 rounded-full object-cover" />
 
           {showName && <div className="mx-1">{name}</div>}
-
-          {showUserTypeImage && <img src={getUserTypeImages(user.type).path} className="mx-1 h-6 w-6 rounded-full object-cover" />}
 
           {registrationStatus && (
             <>
