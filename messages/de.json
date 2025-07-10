@@ -623,9 +623,9 @@
     "cbMaintainers": "Hinzugefügte Betreuer",
     "sectionOther": "Sonstiges",
     "chbAutoApproveRegistration": "Neue Registrierungen automatisch bestätigen",
-    "chbNotifyOnRegistration": "Bei neuer Registrierung benachrictigen",
+    "chbNotifyOnRegistration": "Bei neuer Registrierung benachrichtigen",
     "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
-    "chbNotifyOnComment": "Bei neuem Kommentar benachrictigen",
+    "chbNotifyOnComment": "Bei neuem Kommentar benachrichtigen",
     "inputWaiver": "Verzichterklärung",
     "chbVisaInvitationRequestsEnabled": "Visa-Einladungen anbieten"
   },
