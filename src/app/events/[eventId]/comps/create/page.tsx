@@ -16,8 +16,8 @@ import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { Event } from '@/types/event';
-import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getEvent } from '@/infrastructure/clients/event.client';
+import LoadingSpinner from '@/components/animation/loading-spinner';
 
 export default function CompetitionCreation({ params }: { params: { eventId: string } }) {
   const t = useTranslations('/events/eventid/comps/create');
@@ -46,6 +46,10 @@ export default function CompetitionCreation({ params }: { params: { eventId: str
     });
   }, [event === undefined]);
 
+  if (!event) {
+    return <LoadingSpinner text="Loading..." />; // todo
+  }
+
   return (
     <>
       <Toaster richColors />
@@ -55,8 +59,8 @@ export default function CompetitionCreation({ params }: { params: { eventId: str
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <CompetitionEditor
+            event={event}
             editorMode={EditorMode.CREATE}
-            currency={event?.currency || CurrencyCode.EUR}
             onCompUpdate={(comp: Competition) => {
               setComp(comp);
             }}

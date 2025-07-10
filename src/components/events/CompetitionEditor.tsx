@@ -19,20 +19,20 @@ import { UserType } from '@/domain/enums/user-type';
 import { useTranslations } from 'next-intl';
 import CurInput from '../common/CurrencyInput';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
-import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import CheckBox from '../common/CheckBox';
 import { isNaturalPerson } from '@/functions/is-natural-person';
 import { menuMaxAmountParticipants } from '@/domain/constants/menus/menu-max-amount-participants';
+import { Event } from '@/types/event';
 
 interface ICompetitionEditorProps {
+  event: Event;
   editorMode: EditorMode;
-  currency: CurrencyCode;
   comp?: Competition;
   onCompUpdate: (comp: Competition) => void;
 }
 
-const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompetitionEditorProps) => {
+const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetitionEditorProps) => {
   const t = useTranslations('global/components/competition-editor');
 
   const [name, setCompName] = useState(comp?.name || '');
@@ -105,7 +105,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
   };
 
   const handleParticipationFeeChanged = (values: { float: number | null; formatted: string; value: string }) => {
-    setParticipationFee(convertCurrencyDecimalToInteger(values.float || 0, currency));
+    setParticipationFee(convertCurrencyDecimalToInteger(values.float || 0, event.currency));
   };
 
   // updates inputs with given comp
@@ -226,9 +226,9 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
       {!isFollowUpCompetition && (
         <CurInput
           id={'participationFee'}
-          label={`${t('inputPaticipantFee')} (${getCurrencySymbol(currency)})`}
+          label={`${t('inputPaticipantFee')} (${getCurrencySymbol(event.currency)})`}
           placeholder="15,00"
-          value={convertCurrencyIntegerToDecimal(participationFee, currency)}
+          value={convertCurrencyIntegerToDecimal(participationFee, event.currency)}
           onValueChange={(value, name, values) => {
             if (values) handleParticipationFeeChanged(values);
           }}
@@ -265,7 +265,7 @@ const CompetitionEditor = ({ editorMode, currency, comp, onCompUpdate }: ICompet
             {judges.map((judge, index) => {
               return (
                 <div key={`${judge}-${index}`} className="flex justify-between p-1 gap-2">
-                  <UserCard user={judge} />
+                  <UserCard user={judge} showUserCountryFlag={event.showUserCountryFlag} />
                   <ActionButton
                     action={Action.DELETE}
                     onClick={() => {

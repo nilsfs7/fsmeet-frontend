@@ -8,17 +8,19 @@ import { Competition } from '@/types/competition';
 import { Participants } from './components/participants';
 import { getCompetition } from '@/infrastructure/clients/competition.client';
 import { getTranslations } from 'next-intl/server';
+import { getEvent } from '@/infrastructure/clients/event.client';
 
 export default async function CompetitionPool({ params }: { params: { eventId: string; compId: string } }) {
   const t = await getTranslations('/events/eventid/comps/compid/edit/pool');
 
+  const event = JSON.parse(JSON.stringify(await getEvent(params.eventId)));
   const competition: Competition = JSON.parse(JSON.stringify(await getCompetition(params.compId)));
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
-      <Participants competition={competition} />
+      <Participants event={event} competition={competition} />
 
       <Navigation>
         <Link href={`${routeEvents}/${params.eventId}/comps`}>

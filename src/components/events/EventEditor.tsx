@@ -87,6 +87,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [paymentMethodStripeCoverProviderFee, setPaymentMethodStripeCoverProviderFee] = useState<boolean>(event?.paymentMethodStripe?.coverProviderFee || false);
   const [maintainers, setMaintainers] = useState<EventMaintainer[]>(event?.maintainers || []);
   const [maintainerToAddUsername, setMaintainerToAddUsername] = useState<string>();
+  const [showUserCountryFlag, setShowUserCountryFlag] = useState<boolean>(event?.showUserCountryFlag || false);
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
   const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
@@ -237,6 +238,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       paymentMethodPayPal: paymentMethodPayPal,
       paymentMethodSepa: paymentMethodSepa,
       paymentMethodStripe: paymentMethodStripe,
+      showUserCountryFlag: showUserCountryFlag,
       autoApproveRegistrations: autoApproveRegistrations,
       notifyOnRegistration: notifyOnRegistration,
       allowComments: allowComments,
@@ -284,6 +286,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
       setPaymentMethodStripeEnabled(event.paymentMethodStripe.enabled);
       setPaymentMethodStripeCoverProviderFee(event.paymentMethodStripe.coverProviderFee);
+      setShowUserCountryFlag(event.showUserCountryFlag);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
       setNotifyOnRegistration(event.notifyOnRegistration);
       setAllowComments(event.allowComments);
@@ -340,6 +343,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     paymentMethodSepaReference,
     paymentMethodStripeEnabled,
     paymentMethodStripeCoverProviderFee,
+    showUserCountryFlag,
     autoApproveRegistrations,
     notifyOnRegistration,
     allowComments,
@@ -818,6 +822,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
                               return user.username === maintainer.username;
                             })[0]
                           }
+                          showUserCountryFlag={showUserCountryFlag}
                         />
                         <ActionButton
                           action={Action.DELETE}
@@ -860,6 +865,15 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         <Separator />
       </div>
       <SectionHeader label={t('sectionOther')} />
+
+      <CheckBox
+        id={'showUserCountryFlag'}
+        label={t('chbShowUserCountryFlag')}
+        value={showUserCountryFlag}
+        onChange={() => {
+          setShowUserCountryFlag(!showUserCountryFlag);
+        }}
+      />
 
       {!paymentMethodStripeEnabled && (
         <CheckBox

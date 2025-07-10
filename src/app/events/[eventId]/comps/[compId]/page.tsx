@@ -1,4 +1,3 @@
-import { Competition } from '@/types/competition';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { getCompetition, getRounds } from '@/infrastructure/clients/competition.client';
@@ -25,7 +24,7 @@ export default async function CompetitionDetails({ params }: { params: { eventId
       <div className="h-[calc(100dvh)] flex flex-col">
         <PageTitle title={comp.name} />
 
-        <TabsMenu comp={comp} />
+        <TabsMenu comp={comp} event={event} />
 
         <Navigation>
           <Link href={`${routeEvents}/${comp.eventId}?tab=competitions`}>

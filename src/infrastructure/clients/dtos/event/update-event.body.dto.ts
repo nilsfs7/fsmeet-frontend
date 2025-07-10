@@ -32,6 +32,7 @@ export class UpdateEventBodyDto {
   paymentMethodPayPal: UpdatePaymentMethodPayPalBodyDto;
   paymentMethodSepa: UpdatePaymentMethodSepaBodyDto;
   paymentMethodStripe: UpdatePaymentMethodStripeBodyDto;
+  showUserCountryFlag: boolean;
   autoApproveRegistrations: boolean;
   notifyOnRegistration: boolean;
   allowComments: boolean;
@@ -65,6 +66,7 @@ export class UpdateEventBodyDto {
     paymentMethodPayPal: UpdatePaymentMethodPayPalBodyDto,
     paymentMethodSepa: UpdatePaymentMethodSepaBodyDto,
     paymentMethodStripe: UpdatePaymentMethodStripeBodyDto,
+    showUserCountryFlag: boolean,
     autoApproveRegistrations: boolean,
     notifyOnRegistration: boolean,
     allowComments: boolean,
@@ -97,6 +99,7 @@ export class UpdateEventBodyDto {
     this.paymentMethodPayPal = paymentMethodPayPal;
     this.paymentMethodSepa = paymentMethodSepa;
     this.paymentMethodStripe = paymentMethodStripe;
+    this.showUserCountryFlag = showUserCountryFlag;
     this.autoApproveRegistrations = autoApproveRegistrations;
     this.notifyOnRegistration = notifyOnRegistration;
     this.allowComments = allowComments;

@@ -622,6 +622,7 @@
     "sectionMaintainers": "Maintainers",
     "cbMaintainers": "Assigned Maintainers",
     "sectionOther": "Other",
+    "chbShowUserCountryFlag": "Show country flag instead of profile picture",
     "chbAutoApproveRegistration": "Auto Approve New Registrations",
     "chbNotifyOnRegistration": "Notify On New Registration",
     "chbAllowCommentsAndQuestions": "Allow Comments",
