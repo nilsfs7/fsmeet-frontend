@@ -1,9 +1,9 @@
-import { ReadPartialUser2ResponseDto } from '../../user/read-partial-user-2.response.dto';
+import { ReadPartialUser3ResponseDto } from '../../user/read-partial-user-3.response.dto';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 
 export class ReadEventRegistrationResponseDto {
-  user: ReadPartialUser2ResponseDto;
+  user: ReadPartialUser3ResponseDto;
   type: EventRegistrationType;
   status: EventRegistrationStatus;
   competitionSignUps: string[];
@@ -14,7 +14,7 @@ export class ReadEventRegistrationResponseDto {
   phoneNumber?: string;
 
   constructor(
-    user: ReadPartialUser2ResponseDto,
+    user: ReadPartialUser3ResponseDto,
     type: EventRegistrationType,
     status: EventRegistrationStatus,
     competitionSignUps: string[],
