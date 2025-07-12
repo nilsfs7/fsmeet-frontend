@@ -4,14 +4,12 @@ import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
-import { auth } from '@/auth';
 import { getOfferings } from '@/infrastructure/clients/offering.client';
 import Separator from '@/components/Seperator';
 import { getTranslations } from 'next-intl/server';
 
 export default async function EventOffering({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid/offerings');
-  const session = await auth();
 
   const offerings = await getOfferings(params.eventId);
 
