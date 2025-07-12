@@ -130,19 +130,21 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentDocument
           }}
         />
 
-        <div className="m-2 grid grid-cols-2 items-center gap-2">
-          <div>{t('datePickerExpiryDate')}</div>
-          <DatePicker
-            date={moment(expiryDate)}
-            fromDate={moment('2020')}
-            toDate={moment().add(2, 'y')}
-            onChange={value => {
-              if (value) {
-                setExpiryDate(value.startOf('day').utc().format());
-              }
-            }}
-          />
-        </div>
+        {expires && (
+          <div className="m-2 grid grid-cols-2 items-center gap-2">
+            <div>{t('datePickerExpiryDate')}</div>
+            <DatePicker
+              date={moment(expiryDate)}
+              fromDate={moment('2020')}
+              toDate={moment().add(2, 'y')}
+              onChange={value => {
+                if (value) {
+                  setExpiryDate(value.startOf('day').utc().format());
+                }
+              }}
+            />
+          </div>
+        )}
 
         <CheckBox
           id={'isEnabled'}
