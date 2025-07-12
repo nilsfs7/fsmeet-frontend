@@ -579,7 +579,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   />
                 )}
 
-                <div className="m-2 grid grid-cols-2 items-center">
+                <div className="m-2 grid grid-cols-2 items-center gap-2">
                   <div>{t('tabGeneralGender')}</div>
                   <div className="flex w-full">
                     <ComboBox
@@ -593,7 +593,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 </div>
 
-                <div className="m-2 grid grid-cols-2 items-center">
+                <div className="m-2 grid grid-cols-2 items-center gap-2">
                   <div>{t('tabGeneralCountry')}</div>
                   <div className="flex w-full">
                     <ComboBox
@@ -607,7 +607,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 </div>
 
-                <div className="m-2 grid grid-cols-2 items-center">
+                <div className="m-2 grid grid-cols-2 items-center gap-2">
                   <div>{t('tabGeneralBirthday')}</div>
                   <DatePicker
                     date={moment(userInfo.birthday)}
@@ -620,7 +620,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </div>
 
                 {user.type !== UserType.FAN && (
-                  <div className="m-2 grid grid-cols-2 items-center">
+                  <div className="m-2 grid grid-cols-2 items-center gap-2">
                     <div>{t('tabGeneralFreestyleSince')}</div>
                     <div className="flex w-full">
                       <ComboBox
@@ -634,7 +634,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                 )}
 
-                <div className="m-2 grid grid-cols-2 items-center">
+                <div className="m-2 grid grid-cols-2 items-center gap-2">
                   <div>{t('tabGeneralShirtSize')}</div>
                   <div className="flex w-full">
                     <ComboBox
@@ -747,7 +747,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
               <div className="mx-2 text-lg underline">{t('tabJobsSectionTerms')}</div>
 
-              <div className="m-2 grid grid-cols-2 items-center">
+              <div className="m-2 grid grid-cols-2 items-center gap-2">
                 <div>{t('tabJobsTerms')}</div>
                 <TextButton text={t('tabJobBtnReadTerms')} onClick={handleTermsAndConditionsClicked} />
               </div>
@@ -800,7 +800,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                   <div className="mx-2 text-lg underline">{t('tabJobSectionContact')}</div>
 
-                  <div className="m-2 grid grid-cols-2 items-center">
+                  <div className="m-2 grid grid-cols-2 items-center gap-2">
                     <div>{t('tabJobPhoneCountryCode')}</div>
                     <div className="flex w-full">
                       <ComboBox
@@ -833,7 +833,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
                   <div className="mx-2 text-lg underline">{t('tabJobSectionOther')}</div>
 
-                  <div className="m-2 grid grid-cols-2 items-center">
+                  <div className="m-2 grid grid-cols-2 items-center gap-2">
                     <div>{t('tabJobExperience')}</div>
                     <div className="flex w-full">
                       <ComboBox

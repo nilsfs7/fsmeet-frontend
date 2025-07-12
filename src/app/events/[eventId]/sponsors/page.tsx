@@ -1,17 +1,15 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 import Link from 'next/link';
-import { routeEvents, routeLogin } from '@/domain/constants/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
-import { auth } from '@/auth';
 import { getSponsors } from '@/infrastructure/clients/sponsor.client';
 import Separator from '@/components/Seperator';
 import { getTranslations } from 'next-intl/server';
 
 export default async function EventSponsors({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid/sponsors');
-  const session = await auth();
 
   const sponsors = await getSponsors(params.eventId);
 

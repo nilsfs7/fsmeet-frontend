@@ -384,7 +384,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         }}
       />
 
-      <div className="m-2 grid grid-cols-2">
+      <div className="m-2 grid grid-cols-2 gap-2">
         <div>{t('cbType')}</div>
         <div className="flex w-full">
           {editorMode === EditorMode.CREATE && (
@@ -396,12 +396,13 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
               }}
             />
           )}
+
           {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find(item => item.value === eventType)?.text}</div>}
         </div>
       </div>
 
       {event?.state && (
-        <div className="m-2 grid grid-cols-2 items-center">
+        <div className="m-2 grid grid-cols-2 items-center gap-2">
           <div>{t('lblState')}</div>
           <Link href={`${routeEvents}/${event.id}?state=1`}>
             <label id={'eventState'} className="w-full hover:underline">
@@ -439,7 +440,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         }}
       />
 
-      <div className="m-2 grid grid-cols-2">
+      <div className="m-2 grid grid-cols-2 items-center gap-2">
         <div>{t('datePickerFrom')}</div>
         <DatePicker
           date={moment(dateFrom)}
@@ -454,7 +455,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         />
       </div>
 
-      <div className="m-2 grid grid-cols-2">
+      <div className="m-2 grid grid-cols-2 items-center gap-2">
         <div>{t('datePickerTo')}</div>
         <DatePicker
           date={moment(dateTo)}
@@ -468,7 +469,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         />
       </div>
 
-      <div className="m-2 grid grid-cols-2">
+      <div className="m-2 grid grid-cols-2 items-center gap-2">
         <div>{t('datePickerRegistrationFrom')}</div>
         <DatePicker
           date={moment(registrationOpen)}
@@ -482,7 +483,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         />
       </div>
 
-      <div className="m-2 grid grid-cols-2">
+      <div className="m-2 grid grid-cols-2 items-center gap-2">
         <div>{t('datePickerRegistrationTo')}</div>
         <DatePicker
           date={moment(registrationDeadline)}

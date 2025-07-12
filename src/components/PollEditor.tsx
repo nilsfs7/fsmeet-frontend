@@ -176,7 +176,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         }}
       />
       {deadlineEnabled && (
-        <div className="m-2 grid grid-cols-2">
+        <div className="m-2 grid grid-cols-2 items-center gap-2">
           <div>{t('dateDeadline')}</div>
           <DatePicker
             date={moment(deadline)}
@@ -196,7 +196,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
       </div>
       <SectionHeader label={t('sectionTargetGroup')} />
 
-      <div className="m-2 grid grid-cols-2 items-center">
+      <div className="m-2 grid grid-cols-2 items-center gap-2">
         <div>{t('cbCountry')}</div>
         <div className="flex w-full">
           <ComboBox
