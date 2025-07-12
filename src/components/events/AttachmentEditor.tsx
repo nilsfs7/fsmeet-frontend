@@ -8,6 +8,8 @@ import { useTranslations } from 'next-intl';
 import CheckBox from '../common/CheckBox';
 import { DatePicker } from '../common/DatePicker';
 import moment from 'moment';
+import FilePresentIcon from '@mui/icons-material/FilePresent';
+import { getFilenameFromUrl, truncateString } from '@/functions/string-manipulation';
 
 interface IAttachmentEditorProps {
   attachment?: Attachment;
@@ -112,8 +114,8 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentDocument
         )}
 
         {!isExternal && (
-          <div className="flex justify-center m-2 gap-2">
-            <img src={documentObjectURL ? documentObjectURL : attachment?.url ? attachment.url : imgUserDefaultImg} className="flex h-12 w-12 rounded-full object-cover border border-primary" />
+          <div className="flex justify-center m-2 items-center gap-2">
+            {attachment?.url && <div>{truncateString(getFilenameFromUrl(attachment.url), 3, 7)}</div>}
 
             <div className="flex justify-center items-center">
               <input type="file" onChange={uploadToClient} />
