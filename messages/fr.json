@@ -189,6 +189,7 @@
     "adminPanelBtnManageAccommodationsToolTip": "Gérer les hébergements",
     "adminPanelBtnManageOfferingsToolTip": "Gérer les offres",
     "adminPanelBtnManageSponsorsToolTip": "Gérer les partenariats",
+    "adminPanelBtnManageAttachmentsToolTip": "Gérer les documents",
     "adminPanelBtnManageEventStateToolTip": "État de l'événement",
     "tabOverviewTitle": "Aperçu",
     "tabOverviewParticipationFee": "Frais de participation",
@@ -197,6 +198,7 @@
     "tabOverviewBtnShowVenueMap": "Afficher la carte",
     "tabOverviewBtnHideVenueMap": "Masquer la carte",
     "tabOverviewSectionSponsors": "Partenaires",
+    "tabOverviewSectionAttachments": "Documents",
     "tabOverviewSectionComments": "Commentaires",
     "tabCompetitionsTitle": "Compétitions",
     "tabCompetitionsSectionCompetitions": "Compétitions",
@@ -214,6 +216,20 @@
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Créer des hébergements",
+    "btnCreate": "Créer"
+  },
+  "/events/eventid/attachments": {
+    "pageTitle": "Gérer les documents",
+    "btnCreate": "Créer"
+  },
+  "/events/eventid/attachments/attachmentid/edit": {
+    "pageTitle": "Modifier le document",
+    "dlgDeleteDocumentTitle": "Supprimer le document",
+    "dlgDeleteDocumentText": "Voulez-vous vraiment supprimer ce document?",
+    "btnSave": "Enregistrer"
+  },
+  "/events/eventid/attachments/create": {
+    "pageTitle": "Créer un document",
     "btnCreate": "Créer"
   },
   "/events/eventid/comps": {
@@ -555,6 +571,14 @@
     "inputDescription": "Description",
     "inputWebsite": "Site Web (facultatif)",
     "inputCost": "Coût",
+    "chbEnabled": "Actif"
+  },
+  "global/components/attachment-editor": {
+    "inputName": "Nom du document",
+    "chbIsExternal": "Est un lien externe",
+    "inputUrl": "URL",
+    "chbExpires": "Expire",
+    "datePickerExpiryDate": "Date d'expiration",
     "chbEnabled": "Actif"
   },
   "global/components/battle-grid": {
