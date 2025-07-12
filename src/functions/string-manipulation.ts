@@ -11,13 +11,26 @@ export function toTitleCase(input: string): string {
   const lowerCaseParts = input.toLowerCase().split(' ');
 
   // split by hyphon, modify case and join
-  const titleCaseParts = lowerCaseParts.map((part) =>
+  const titleCaseParts = lowerCaseParts.map(part =>
     part
       .split('-')
-      .map((subpart) => subpart.charAt(0).toUpperCase() + subpart.slice(1))
-      .join('-'),
+      .map(subpart => subpart.charAt(0).toUpperCase() + subpart.slice(1))
+      .join('-')
   );
 
   // return joined parts
   return titleCaseParts.join(' ');
+}
+
+export function getFilenameFromUrl(url: string): string {
+  return url.split('/').pop() || '';
+}
+
+export function truncateString(filename: string, amountStartingChars: number, amountEndingChars: number): string {
+  const dots = '...';
+
+  if (filename.length <= amountStartingChars + dots.length + amountEndingChars) return filename;
+  const first = filename.slice(0, amountStartingChars);
+  const last = filename.slice(0 - amountEndingChars);
+  return `${first}${dots}${last}`;
 }

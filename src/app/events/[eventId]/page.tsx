@@ -18,6 +18,7 @@ import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrai
 import TextButton from '@/components/common/TextButton';
 import moment from 'moment';
 import { isArchivedEventState } from '@/functions/event-state';
+import { getAttachments } from '@/infrastructure/clients/attachment.client';
 
 export default async function EventDetails({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid');
@@ -26,6 +27,7 @@ export default async function EventDetails({ params }: { params: { eventId: stri
   const event = await getEvent(params.eventId, session);
   const competitions = await getCompetitions(params.eventId);
   const sponsors = await getSponsors(params.eventId);
+  const attachments = await getAttachments(params.eventId);
   const comments = await getComments(params.eventId);
 
   return (
@@ -69,6 +71,10 @@ export default async function EventDetails({ params }: { params: { eventId: stri
                   <Link href={`${routeEvents}/${params.eventId}/sponsors`}>
                     <ActionButton action={Action.MANAGE_SPONSORS} tooltip={t('adminPanelBtnManageSponsorsToolTip')} />
                   </Link>
+
+                  <Link href={`${routeEvents}/${params.eventId}/attachments`}>
+                    <ActionButton action={Action.MANAGE_ATTACHMENTS} tooltip={t('adminPanelBtnManageAttachmentsToolTip')} />
+                  </Link>
                 </>
               )}
 
@@ -79,7 +85,7 @@ export default async function EventDetails({ params }: { params: { eventId: stri
       </div>
 
       <div className="mx-2 overflow-hidden">
-        <TabsMenu event={event} competitions={competitions} sponsors={sponsors} comments={comments} />
+        <TabsMenu event={event} competitions={competitions} sponsors={sponsors} attachments={attachments} comments={comments} />
       </div>
 
       <Navigation>

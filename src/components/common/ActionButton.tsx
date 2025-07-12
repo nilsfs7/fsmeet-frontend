@@ -8,6 +8,7 @@ import CommentIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import CopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import FilePresentIcon from '@mui/icons-material/FilePresent';
 import HotelIcon from '@mui/icons-material/Hotel';
 import InfoIcon from '@mui/icons-material/Info';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -109,6 +110,9 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
       break;
     case Action.MANAGE_ACCOMMODATIONS:
       icon = <HotelIcon />;
+      break;
+    case Action.MANAGE_ATTACHMENTS:
+      icon = <FilePresentIcon />;
       break;
     case Action.MANAGE_COMPETITIONS:
       icon = <TrophyIcon />;

@@ -27,10 +27,14 @@ import { CompetitionSection } from './competition-section';
 import { isEventAdmin } from '@/functions/is-event-admin';
 import { EventRegistrationType } from '@/types/event-registration-type';
 import { Competition } from '@/types/competition';
+import { AttachmentSection } from './attachment-section';
+import { Attachment } from '@/types/attachment';
+import moment from 'moment';
 
 interface ITabsMenu {
   event: Event;
   competitions: Competition[];
+  attachments: Attachment[];
   sponsors: Sponsor[];
   comments: EventComment[];
 }
@@ -46,7 +50,7 @@ export const isRegistered = (event: Event, session: Session | null) => {
   return false;
 };
 
-export const TabsMenu = ({ event, competitions, sponsors, comments }: ITabsMenu) => {
+export const TabsMenu = ({ event, competitions, sponsors, attachments, comments }: ITabsMenu) => {
   const t = useTranslations('/events/eventid');
   const { data: session } = useSession();
 
@@ -188,6 +192,18 @@ export const TabsMenu = ({ event, competitions, sponsors, comments }: ITabsMenu)
           {sponsors?.length > 0 && (
             <div className="mt-2">
               <SponsorSection eventSponsors={sponsors} />
+            </div>
+          )}
+
+          {attachments?.some(att => {
+            if (att.enabled) {
+              if (!att.expires || (att.expires && moment(att.expiryDate) > moment())) {
+                return att;
+              }
+            }
+          }) && (
+            <div className="mt-2">
+              <AttachmentSection eventAttachments={attachments} />
             </div>
           )}
 

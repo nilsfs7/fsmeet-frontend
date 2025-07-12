@@ -189,6 +189,7 @@
     "adminPanelBtnManageAccommodationsToolTip": "Manage accommodations",
     "adminPanelBtnManageOfferingsToolTip": "Manage offerings",
     "adminPanelBtnManageSponsorsToolTip": "Manage sponsors",
+    "adminPanelBtnManageAttachmentsToolTip": "Manage documents",
     "adminPanelBtnManageEventStateToolTip": "Event state",
     "tabOverviewTitle": "Overview",
     "tabOverviewParticipationFee": "Participation fee",
@@ -197,6 +198,7 @@
     "tabOverviewBtnShowVenueMap": "Show Map",
     "tabOverviewBtnHideVenueMap": "Hide Map",
     "tabOverviewSectionSponsors": "Sponsors",
+    "tabOverviewSectionAttachments": "Documents",
     "tabOverviewSectionComments": "Comments",
     "tabCompetitionsTitle": "Competitions",
     "tabCompetitionsSectionCompetitions": "Competitions",
@@ -214,6 +216,20 @@
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Create Accommodation",
+    "btnCreate": "Create"
+  },
+  "/events/eventid/attachments": {
+    "pageTitle": "Manage Documents",
+    "btnCreate": "Create"
+  },
+  "/events/eventid/attachments/attachmentid/edit": {
+    "pageTitle": "Edit Document",
+    "dlgDeleteDocumentTitle": "Eliminar documento",
+    "dlgDeleteDocumentText": "Do you really want to delete this document?",
+    "btnSave": "Save"
+  },
+  "/events/eventid/attachments/create": {
+    "pageTitle": "Create document",
     "btnCreate": "Create"
   },
   "/events/eventid/comps": {
@@ -555,6 +571,14 @@
     "inputDescription": "Description",
     "inputWebsite": "Website (optional)",
     "inputCost": "Cost",
+    "chbEnabled": "Active"
+  },
+  "global/components/attachment-editor": {
+    "inputName": "Attachment Name",
+    "chbIsExternal": "Is external link",
+    "inputUrl": "URL",
+    "chbExpires": "Expires",
+    "datePickerExpiryDate": "Expiry date",
     "chbEnabled": "Active"
   },
   "global/components/battle-grid": {

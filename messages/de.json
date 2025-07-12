@@ -189,6 +189,7 @@
     "adminPanelBtnManageAccommodationsToolTip": "Unterkünfte verwalten",
     "adminPanelBtnManageOfferingsToolTip": "Angebote verwalten",
     "adminPanelBtnManageSponsorsToolTip": "Sponsoren verwalten",
+    "adminPanelBtnManageAttachmentsToolTip": "Dokumente verwalten",
     "adminPanelBtnManageEventStateToolTip": "Event Status",
     "tabOverviewTitle": "Übersicht",
     "tabOverviewParticipationFee": "Teilnahmegebühr",
@@ -197,6 +198,7 @@
     "tabOverviewBtnShowVenueMap": "Zeige Karte",
     "tabOverviewBtnHideVenueMap": "Karte ausblenden",
     "tabOverviewSectionSponsors": "Sponsoren",
+    "tabOverviewSectionAttachments": "Dokumente",
     "tabOverviewSectionComments": "Kommentare",
     "tabCompetitionsTitle": "Wettbewerbe",
     "tabCompetitionsSectionCompetitions": "Wettbewerbe",
@@ -210,6 +212,20 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Unterkünfte verwalten",
+    "btnCreate": "Erstellen"
+  },
+  "/events/eventid/attachments": {
+    "pageTitle": "Dokumente verwalten",
+    "btnCreate": "Dokument hinzufügen"
+  },
+  "/events/eventid/attachments/attachmentid/edit": {
+    "pageTitle": "Dokument editieren",
+    "dlgDeleteDocumentTitle": "Dokument löschen",
+    "dlgDeleteDocumentText": "Möchtest du das Dokument wirklich löschen?",
+    "btnSave": "Speichern"
+  },
+  "/events/eventid/attachments/create": {
+    "pageTitle": "Dokument erstellen",
     "btnCreate": "Erstellen"
   },
   "/events/eventid/accommodations/create": {
@@ -555,6 +571,14 @@
     "inputDescription": "Beschreibung",
     "inputWebsite": "Website (optional)",
     "inputCost": "Kosten",
+    "chbEnabled": "Aktiv"
+  },
+  "global/components/attachment-editor": {
+    "inputName": "Name des Dokuments",
+    "chbIsExternal": "Ist externer Link",
+    "inputUrl": "URL",
+    "chbExpires": "Läuft ab",
+    "datePickerExpiryDate": "Ablaufdatum",
     "chbEnabled": "Aktiv"
   },
   "global/components/battle-grid": {

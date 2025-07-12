@@ -444,7 +444,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         <div>{t('datePickerFrom')}</div>
         <DatePicker
           date={moment(dateFrom)}
-          fromDate={moment(2020)}
+          fromDate={moment('2020')}
           toDate={moment().add(2, 'y')}
           onChange={value => {
             if (value) {
@@ -459,7 +459,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         <div>{t('datePickerTo')}</div>
         <DatePicker
           date={moment(dateTo)}
-          fromDate={moment(2020)}
+          fromDate={moment('2020')}
           toDate={moment().add(2, 'y')}
           onChange={value => {
             if (value) {
@@ -473,7 +473,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         <div>{t('datePickerRegistrationFrom')}</div>
         <DatePicker
           date={moment(registrationOpen)}
-          fromDate={moment(2020)}
+          fromDate={moment('2020')}
           toDate={moment().add(2, 'y')}
           onChange={value => {
             if (value) {
@@ -487,7 +487,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         <div>{t('datePickerRegistrationTo')}</div>
         <DatePicker
           date={moment(registrationDeadline)}
-          fromDate={moment(2020)}
+          fromDate={moment('2020')}
           toDate={moment().add(2, 'y')}
           onChange={value => {
             if (value) {
