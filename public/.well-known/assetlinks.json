@@ -1,0 +1,22 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.uroszivaljevic.fsmeet.dev",
+    "sha256_cert_fingerprints": [
+        "29:9D:AC:19:E1:91:40:C2:3F:51:99:7C:69:01:14:0A:87:88:A5:2C:CE:D2:F4:62:89:0D:88:4C:D5:92:8B:A8",
+        "08:E7:8B:7E:99:12:50:64:06:F3:94:17:40:35:DB:AE:1D:44:71:90:4E:1A:1C:84:44:D9:13:C6:A8:2A:4A:CA"
+    ]
+  }
+},
+{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.uroszivaljevic.fsmeet",
+    "sha256_cert_fingerprints": [
+        "08:E7:8B:7E:99:12:50:64:06:F3:94:17:40:35:DB:AE:1D:44:71:90:4E:1A:1C:84:44:D9:13:C6:A8:2A:4A:CA"
+    ]
+  }
+}
+]
