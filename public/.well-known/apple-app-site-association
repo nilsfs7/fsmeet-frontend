@@ -1,0 +1,33 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["XBDB99CNZ7.com.uroszivaljevic.fsmeet-dev", "XBDB99CNZ7.com.uroszivaljevic.fsmeet"],
+        "components": [
+          {
+            "/": "/events/*",
+            "comment": "Matches event detail pages like /events/123"
+          },
+          {
+            "/": "/events/*/comps/*",
+            "comment": "Allow /events/{eventId}/comps/{compId}"
+          },
+          {
+            "/": "/events/*/*",
+            "exclude": true,
+            "comment": "Exclude other subpaths like /events/{eventId}/anything-else"
+          },
+          {
+            "/": "/users/*",
+            "comment": "Matches user profile pages like /users/username"
+          },
+          {
+            "/": "/users/*/*",
+            "exclude": true,
+            "comment": "Exclude deeper subpaths like /users/{username}/anything-else"
+          }
+        ]
+      }
+    ]
+  }
+}
