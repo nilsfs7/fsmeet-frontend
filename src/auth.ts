@@ -74,11 +74,6 @@ const config = {
         return !!auth;
       }
 
-      // redirect from login page if user is already logged
-      if (pathname === routeLogin && isLoggedIn) {
-        return Response.redirect(new URL(routeHome, nextUrl));
-      }
-
       // deny access to /admin routes
       if (pathname.startsWith(routeAdminOverview) && auth?.user?.username !== TechnicalUser.ADMIN) {
         return Response.redirect(new URL(routeHome, nextUrl));

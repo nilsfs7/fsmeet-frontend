@@ -38,4 +38,4 @@ export const routeVoiceManage = '/voice/manage';
 export const routeVoiceCreatePoll = '/voice/manage/create';
 
 export const routeRoadmap = '/roadmap';
-export const routeStatistics = '/statistics';
+export const routeStatistics = '/stats';

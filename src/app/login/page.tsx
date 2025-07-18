@@ -5,7 +5,7 @@ import { routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/ActionButton';
 
-export default async function Page() {
+export default async function Login() {
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <LoginForm />
