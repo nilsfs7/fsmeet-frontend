@@ -12,7 +12,7 @@ interface IActionButtonCopyToClipboard {
   action?: Action;
 }
 
-export const ActionButtonCopyToClipboard = ({ value, toastMessage, toolTipMessage = undefined, action = Action.SHARE }: IActionButtonCopyToClipboard) => {
+export const ActionButtonCopyToClipboard = ({ value, toastMessage, toolTipMessage = undefined, action = Action.COPY }: IActionButtonCopyToClipboard) => {
   const handleCopyClicked = async () => {
     copyToClipboard(value);
     toast.info(toastMessage);

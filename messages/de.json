@@ -121,6 +121,7 @@
     "tabAccountSectionVerification": "Kontoverifizierung",
     "tabAccountVerificationStatus": "Verifizierungsstatus",
     "tabAccountBtnVerify": "Jetzt verifizieren",
+    "tabAccountBtnCopyMessage": "Nachricht kopiert.",
     "tabAccountSectionPayments": "Zahlungen empfangen mit Stripe",
     "tabAccountLblStripeAccount": "Stripe Account",
     "tabAccounBtnRequestPaymentsAccount": "Account erstellen",

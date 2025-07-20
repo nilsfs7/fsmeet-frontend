@@ -121,6 +121,7 @@
     "tabAccountSectionVerification": "Account Verification",
     "tabAccountVerificationStatus": "Verification Status",
     "tabAccountBtnVerify": "Verify Now",
+    "tabAccountBtnCopyMessage": "Message copied to clipboard.",
     "tabAccountSectionPayments": "Receive Payments with Stripe",
     "tabAccountLblStripeAccount": "Stripe Account",
     "tabAccounBtnRequestPaymentsAccount": "Request Account",
