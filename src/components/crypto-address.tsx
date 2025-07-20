@@ -59,7 +59,7 @@ const CryptoAddress = async ({ ticker, address }: ICryptoAddressProps) => {
         <ActionButton action={Action.GOTOEXTERNAL} tooltip={t('btnViewBlockExplorerToolTip')} />
       </a>
 
-      <ActionButtonCopyToClipboard value={address} action={Action.COPY} toastMessage={t('btnCopyAddress')} toolTipMessage={`${t('btnCopyAddressToolTip')} "${address}"`} />
+      <ActionButtonCopyToClipboard value={address} toastMessage={t('btnCopyAddress')} toolTipMessage={`${t('btnCopyAddressToolTip')} "${address}"`} />
     </div>
   );
 };

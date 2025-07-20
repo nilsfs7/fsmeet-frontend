@@ -10,7 +10,6 @@ import { useSession } from 'next-auth/react';
 import { User } from '@/types/user';
 import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeHome, routeMap } from '@/domain/constants/routes';
-import { copyToClipboard } from '@/functions/copy-to-clipboard';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { logoutUser } from '../../actions/authentication';
 import TextInput from '@/components/common/TextInput';
@@ -41,6 +40,7 @@ import { useTranslations } from 'next-intl';
 import Label from '@/components/Label';
 import { toTitleCase } from '@/functions/string-manipulation';
 import { isNaturalPerson } from '@/functions/is-natural-person';
+import { ActionButtonCopyToClipboard } from '@/components/common/action-button-copy-to-clipboard';
 
 interface ITabsMenu {
   user: User;
@@ -377,11 +377,6 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     }
   };
 
-  const handleCopyClicked = async (input: string) => {
-    copyToClipboard(input);
-    toast.info('Message copied to clipboard.');
-  };
-
   useEffect(() => {
     cacheUserInfo(user);
   }, []);
@@ -454,12 +449,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
           <div className="flex justify-center items-center gap-2">
             <div className="italic select-text bg-secondary rounded-lg py-1 px-2">{`"Hey there, please verify ${session?.user?.username} on fsmeet."`}</div>
 
-            <ActionButton
-              action={Action.COPY}
-              onClick={() => {
-                handleCopyClicked(`Hey there, please verify ${session?.user?.username} on fsmeet.`);
-              }}
-            />
+            <ActionButtonCopyToClipboard value={`Hey there, please verify ${session?.user?.username} on fsmeet.`} toastMessage={t('tabAccountBtnCopyMessage')} />
           </div>
 
           <div className="mt-2">
