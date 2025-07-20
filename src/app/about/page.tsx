@@ -3,7 +3,7 @@ import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ActionButton from '@/components/common/ActionButton';
 import SocialLink from '@/components/user/SocialLink';
-import { routeContributors, routeDataProtection, routeFeedback, routeHome, routeImprint } from '@/domain/constants/routes';
+import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { Platform } from '@/domain/enums/platform';
 import { getTranslations } from 'next-intl/server';
@@ -40,23 +40,15 @@ export default async function About() {
           {t('aboutText4')}
         </div>
 
-        <div className="mt-4">
+        <div className="mt-2">
           <SocialLink platform={Platform.INSTAGRAM} path={'@fsmeet_com'} />
         </div>
 
-        <Link className="mt-6 underline" href={routeContributors}>
-          {t('lnkContributors')}
+        <Link className="mt-6 underline" href={routeDonate}>
+          {t('lnkDonate')}
         </Link>
 
-        <Link className="mt-20 underline" href={routeImprint}>
-          {t('lnkImprint')}
-        </Link>
-
-        <Link className="underline" href={routeDataProtection}>
-          {t('lnkPrivacyPolicy')}
-        </Link>
-
-        <div className="mt-20">{`${t('build')}: ${getPackageVersion()}`}</div>
+        <div className="mt-10">{`${t('build')}: ${getPackageVersion()}`}</div>
         {shortSha && buildTime && (
           <>
             <div>{`Sha: ${shortSha}`}</div>
@@ -72,6 +64,18 @@ export default async function About() {
             </div>
           </a>
         </div>
+
+        <Link className="mt-6 underline" href={routeContributors}>
+          {t('lnkContributors')}
+        </Link>
+
+        <Link className="underline" href={routeImprint}>
+          {t('lnkImprint')}
+        </Link>
+
+        <Link className="underline" href={routeDataProtection}>
+          {t('lnkPrivacyPolicy')}
+        </Link>
       </div>
 
       <Navigation>

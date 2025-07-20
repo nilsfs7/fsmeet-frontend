@@ -26,11 +26,9 @@ export function getFilenameFromUrl(url: string): string {
   return url.split('/').pop() || '';
 }
 
-export function truncateString(filename: string, amountStartingChars: number, amountEndingChars: number): string {
-  const dots = '...';
-
-  if (filename.length <= amountStartingChars + dots.length + amountEndingChars) return filename;
+export function truncateString(filename: string, amountStartingChars: number, amountEndingChars: number, replaceChars = '...'): string {
+  if (filename.length <= amountStartingChars + replaceChars.length + amountEndingChars) return filename;
   const first = filename.slice(0, amountStartingChars);
   const last = filename.slice(0 - amountEndingChars);
-  return `${first}${dots}${last}`;
+  return `${first}${replaceChars}${last}`;
 }
