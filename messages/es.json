@@ -20,6 +20,7 @@
     "aboutText2": "Este proyecto está impulsado por la comunidad. Si te gusta el freestyle tanto como a nosotros, no dudes en dejarnos tus comentarios o enviarnos tus ideas para que podamos mejorar nuestra plataforma. Puedes ponerte en contacto con nosotros a través del enlace ",
     "aboutText3": "función de comentarios",
     "aboutText4": " o enviarnos un DM en Instagram.",
+    "lnkDonate": "Donar",
     "lnkContributors": "Colaboradores",
     "lnkImprint": "Impressum",
     "lnkPrivacyPolicy": "Política de privacidad",
@@ -138,6 +139,14 @@
     "pageTitle": "Configuración del perfil",
     "btnUpload": "Cargar",
     "btnDelete": "Eliminar"
+  },
+  "/donate": {
+    "pageTitle": "Donar",
+    "text1": "FSMeet es gratis y no tiene anuncios: está hecho con amor por y para la familia del freestyle.",
+    "text2": "Si te gusta, ¿por qué no darle apoyo con una pequeña donación? ¡Cada pequeña colaboración ayuda a mantenerlo funcionando!",
+    "btnViewBlockExplorerToolTip": "Ver en un explorador de blockchain",
+    "btnCopyAddress": "Dirección copiada al portapapeles.",
+    "btnCopyAddressToolTip": "Copiar la dirección del wallet"
   },
   "/error": {
     "textError": "Ha ocurrido un error.",
