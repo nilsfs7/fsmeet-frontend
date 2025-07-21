@@ -29,6 +29,7 @@ import { ActionButtonDeleteUser } from './components/action-button-delete-user';
 import { getTranslations } from 'next-intl/server';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { Competition } from '@/types/competition';
+import { getAchievements } from '@/infrastructure/clients/achievements';
 
 const getCompetitionsByBattles = async (
   battleHistory: {
@@ -107,6 +108,25 @@ const getEventsByCompetitions = async (competitionsMap: Map<string, Competition>
   return eventsMap;
 };
 
+const getAchievementStyle = (amountAchievements: number): string => {
+  switch (true) {
+    // bronze
+    case amountAchievements >= 3 && amountAchievements < 5:
+      return 'border border-bronze shadow-bronze shadow-inner';
+
+    // silver
+    case amountAchievements >= 5 && amountAchievements < 10:
+      return 'border border-silver shadow-silver shadow-inner';
+
+    // gold
+    case amountAchievements >= 10:
+      return 'border border-gold shadow-gold shadow-inner';
+
+    default:
+      return '';
+  }
+};
+
 export default async function PublicUserProfile({ params }: { params: { username: string } }) {
   const t = await getTranslations('/users/username');
   const session = await auth();
@@ -114,6 +134,7 @@ export default async function PublicUserProfile({ params }: { params: { username
   const user = await getUser(params.username.toString());
   const matchStats = await getTotalMatchPerformance(params.username.toString());
   const battleHistory = await getUserBattleHistory(params.username.toString());
+  const achievements = await getAchievements(params.username.toString());
 
   const usersMapOfBattles = await getUsersByBattles(battleHistory);
   const competitionsMapOfBattles = await getCompetitionsByBattles(battleHistory);
@@ -223,6 +244,26 @@ export default async function PublicUserProfile({ params }: { params: { username
                               <SocialLink platform={Platform.WEBSITE} path={user.website} />
                             </div>
                           )}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+
+                  {/* todo: enable for all users */}
+                  {(session?.user.username === 'nils' || user.isWffaMember) && achievements.length > 0 && (
+                    <AccordionItem value="item-achievements">
+                      <AccordionTrigger>{t('accordionItemAchievements')}</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid grid-cols-3 justify-center gap-2">
+                          {achievements.map((achievement, i) => {
+                            return (
+                              <div key={`achievement-${i}`} className="flex flex-col items-center w-16 justify-self-centers">
+                                <img src={achievement.imageUrl} className={`h-12 w-12 rounded-full object-cover ${getAchievementStyle(achievement.achievementTimes.length)}`} alt={achievement.name} />
+
+                                <div className="text-xs text-center">{achievement.name}</div>
+                              </div>
+                            );
+                          })}
                         </div>
                       </AccordionContent>
                     </AccordionItem>
