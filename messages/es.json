@@ -544,7 +544,8 @@
     "navRowsPerPage": "Líneas por página"
   },
   "/users/username": {
-    "accordionItemSocials": "Redes",
+    "accordionItemSocials": "Redes sociales",
+    "accordionItemAchievements": "Logros",
     "accordionItemBattleStatistics": "Estadísticas de batalla",
     "accordionItemBattleStatisticsAmountBattles": "Batallas",
     "accordionItemBattleStatisticsAmountWins": "Victorias",

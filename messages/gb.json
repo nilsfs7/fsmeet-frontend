@@ -545,6 +545,7 @@
   },
   "/users/username": {
     "accordionItemSocials": "Socials",
+    "accordionItemAchievements": "Achievements",
     "accordionItemBattleStatistics": "Battle Statistics",
     "accordionItemBattleStatisticsAmountBattles": "Battles",
     "accordionItemBattleStatisticsAmountWins": "Wins",

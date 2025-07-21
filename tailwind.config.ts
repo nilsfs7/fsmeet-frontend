@@ -22,6 +22,9 @@ const config: Config = {
         warning: '#FFCF40',
         critical: '#EE0000',
         'critical-dark': '#b91c1c',
+        bronze: '#CD7F32',
+        silver: '#C0C0C0',
+        gold: '#FFD700',
       },
       keyframes: {
         'accordion-down': {

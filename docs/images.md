@@ -132,3 +132,11 @@ Donation
 - [Solana](https://cryptologos.cc/logos/solana-sol-logo.png?v=040)
 
 - ![Sui](https://cryptologos.cc/logos/sui-sui-logo.svg?v=040)
+
+Badges:
+
+- [Donation](https://www.iconfinder.com/icons/10559916/donor_helper_contributor_supporter_sponsor_icon)
+
+- [Competition Organizer](https://www.iconfinder.com/icons/3533412/advantage_business_competition_competitive_growth_success_upward_icon)
+
+- [Jury](https://www.iconfinder.com/icons/4158577/competition_contest_cyber_expert_judge_jury_security_spot_icon)
