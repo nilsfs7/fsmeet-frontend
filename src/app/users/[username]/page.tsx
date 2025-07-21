@@ -30,6 +30,7 @@ import { getTranslations } from 'next-intl/server';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { Competition } from '@/types/competition';
 import { getAchievements } from '@/infrastructure/clients/achievements';
+import { AchievementLevel } from '../../../domain/enums/achievement-level';
 
 const getCompetitionsByBattles = async (
   battleHistory: {
@@ -108,18 +109,15 @@ const getEventsByCompetitions = async (competitionsMap: Map<string, Competition>
   return eventsMap;
 };
 
-const getAchievementStyle = (amountAchievements: number): string => {
-  switch (true) {
-    // bronze
-    case amountAchievements >= 3 && amountAchievements < 5:
+const getAchievementStyle = (level: AchievementLevel): string => {
+  switch (level) {
+    case AchievementLevel.BRONZE:
       return 'border border-bronze shadow-bronze shadow-inner';
 
-    // silver
-    case amountAchievements >= 5 && amountAchievements < 10:
+    case AchievementLevel.SILVER:
       return 'border border-silver shadow-silver shadow-inner';
 
-    // gold
-    case amountAchievements >= 10:
+    case AchievementLevel.GOLD:
       return 'border border-gold shadow-gold shadow-inner';
 
     default:
@@ -258,7 +256,7 @@ export default async function PublicUserProfile({ params }: { params: { username
                           {achievements.map((achievement, i) => {
                             return (
                               <div key={`achievement-${i}`} className="flex flex-col items-center w-16 justify-self-centers">
-                                <img src={achievement.imageUrl} className={`h-12 w-12 rounded-full object-cover ${getAchievementStyle(achievement.achievementTimes.length)}`} alt={achievement.name} />
+                                <img src={achievement.imageUrl} className={`h-12 w-12 rounded-full object-cover ${getAchievementStyle(achievement.level)}`} alt={achievement.name} />
 
                                 <div className="text-xs text-center">{achievement.name}</div>
                               </div>
