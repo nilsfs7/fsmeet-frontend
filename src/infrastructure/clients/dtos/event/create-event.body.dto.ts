@@ -26,6 +26,7 @@ export class CreateEventBodyDto {
   venueCity: string;
   venueCountry: string;
   type: EventType;
+  isWffaRanked: boolean;
   trailerUrl: string;
   livestreamUrl: string;
   messangerInvitationUrl: string;
@@ -60,6 +61,7 @@ export class CreateEventBodyDto {
     venueCity: string,
     venueCountry: string,
     type: EventType,
+    isWffaRanked: boolean,
     trailerUrl: string,
     livestreamUrl: string,
     messangerInvitationUrl: string,
@@ -93,6 +95,7 @@ export class CreateEventBodyDto {
     this.venueCity = venueCity;
     this.venueCountry = venueCountry;
     this.type = type;
+    this.isWffaRanked = isWffaRanked;
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;
     this.messangerInvitationUrl = messangerInvitationUrl;
