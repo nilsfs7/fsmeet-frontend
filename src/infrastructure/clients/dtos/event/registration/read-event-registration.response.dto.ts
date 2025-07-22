@@ -1,5 +1,5 @@
 import { ReadPartialUser3ResponseDto } from '../../user/read-partial-user-3.response.dto';
-import { EventRegistrationType } from '@/types/event-registration-type';
+import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 
 export class ReadEventRegistrationResponseDto {

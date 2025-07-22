@@ -10,15 +10,15 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
-import { Accommodation } from '@/types/accommodation';
 import { deleteAccommodation, getAccommodation, updateAccommodation, updateAccommodationPreview } from '@/infrastructure/clients/accommodation.client';
 import AccommodationEditor from '@/components/events/AccommodationEditor';
 import Dialog from '@/components/Dialog';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { getEvent } from '@/infrastructure/clients/event.client';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
+import { Accommodation } from '@/domain/types/accommodation';
 
 export default function EditEventAccommodation({ params }: { params: { eventId: string; accommodationId: string } }) {
   const { data: session, status } = useSession();

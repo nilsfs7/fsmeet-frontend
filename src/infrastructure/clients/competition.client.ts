@@ -1,4 +1,4 @@
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 import { Round } from '@/domain/classes/round';
 import { Session } from 'next-auth';
 import { Match } from '@/domain/classes/match';

@@ -1,7 +1,7 @@
 import { Round } from '@/domain/classes/round';
 import MatchCard from './MatchCard';
 import Separator from '../Seperator';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import moment from 'moment';
 
 interface IBattleListProps {

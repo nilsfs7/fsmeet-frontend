@@ -1,11 +1,10 @@
-import { EventType } from '../domain/enums/event-type';
+import { EventType } from '@/domain/enums/event-type';
 import { EventRegistration } from './event-registration';
-import { Competition } from './competition';
 import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
 import { PaymentMethodStripe } from './payment-method-stripe';
-import { EventState } from '../domain/enums/event-state';
+import { EventState } from '@/domain/enums/event-state';
 import { EventMaintainer } from './event-maintainer';
 import { Accommodation } from './accommodation';
 import { Offering } from './offering';

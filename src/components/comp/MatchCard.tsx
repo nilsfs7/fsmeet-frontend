@@ -1,7 +1,7 @@
 'use client';
 
-import { MenuItem } from '@/types/menu-item';
-import { User } from '@/types/user';
+import { MenuItem } from '@/domain/types/menu-item';
+import { User } from '@/domain/types/user';
 import Link from 'next/link';
 import { imgClock, imgUserDefaultImg } from '@/domain/constants/images';
 import moment, { Moment } from 'moment';
@@ -11,7 +11,7 @@ import { routeUsers } from '@/domain/constants/routes';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
-import { Match } from '@/types/match';
+import { Match } from '@/domain/types/match';
 import ReactCountryFlag from 'react-country-flag';
 
 interface IMatchProps {

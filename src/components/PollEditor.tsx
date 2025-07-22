@@ -5,7 +5,7 @@ import TextInputLarge from './common/TextInputLarge';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { useTranslations } from 'next-intl';
 import { UserType } from '@/domain/enums/user-type';
-import { Poll } from '@/types/poll';
+import { Poll } from '@/domain/types/poll';
 import TextInput from './common/TextInput';
 import ActionButton from './common/ActionButton';
 import { Action } from '@/domain/enums/action';
@@ -16,7 +16,7 @@ import Separator from './Seperator';
 import SectionHeader from './common/SectionHeader';
 import ComboBox from './common/ComboBox';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
-import { TargetGroup } from '@/types/target-group';
+import { TargetGroup } from '@/domain/types/target-group';
 
 interface IPollEditorProps {
   editorMode: EditorMode;

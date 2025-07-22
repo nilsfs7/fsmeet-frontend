@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import { getUserCountByNationality, getUserCountByType, getUserCountOnMap } from '@/infrastructure/clients/statistic.client';
 import { ReadUserCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-count.response.dto';

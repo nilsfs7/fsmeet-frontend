@@ -1,7 +1,7 @@
 import Navigation from '@/components/Navigation';
 import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastructure/clients/event.client';
 import Link from 'next/link';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { Header } from '@/components/Header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
 import TextButton from '@/components/common/TextButton';
@@ -11,7 +11,7 @@ import { auth } from '@/auth';
 import { EventsCarousel } from './components/events-carousel';
 import { getTranslations } from 'next-intl/server';
 import { getUser } from '@/infrastructure/clients/user.client';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { NavigationItem } from './components/navigation-item';
 import { TextButtonCreateEvent } from './components/text-button-create-event';
 import { UserType } from '@/domain/enums/user-type';

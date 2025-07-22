@@ -1,4 +1,4 @@
-import { MenuItem } from '@/types/menu-item';
+import { MenuItem } from '@/domain/types/menu-item';
 import type { ICountry } from 'countries-list';
 import { countries, getCountryCode } from 'countries-list';
 

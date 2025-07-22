@@ -5,7 +5,7 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { routeEvents } from '@/domain/constants/routes';
 import Autoplay from 'embla-carousel-autoplay';
 import Link from 'next/link';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { useTranslations } from 'next-intl';
 
 interface IEventsCarousel {

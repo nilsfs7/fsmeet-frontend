@@ -2,7 +2,7 @@
 
 import { Round } from '@/domain/classes/round';
 import MatchCard from './MatchCard';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { Moment } from 'moment';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';

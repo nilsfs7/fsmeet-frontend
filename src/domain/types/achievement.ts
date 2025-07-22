@@ -1,4 +1,4 @@
-import { AchievementLevel } from '../domain/enums/achievement-level';
+import { AchievementLevel } from '@/domain/enums/achievement-level';
 
 export type Achievement = {
   name: string;

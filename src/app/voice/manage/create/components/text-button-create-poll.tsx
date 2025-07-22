@@ -7,7 +7,7 @@ import { Toaster, toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { routeVoiceManage } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
-import { Poll } from '@/types/poll';
+import { Poll } from '@/domain/types/poll';
 import moment from 'moment';
 
 export const TextButtonCreatePoll = () => {

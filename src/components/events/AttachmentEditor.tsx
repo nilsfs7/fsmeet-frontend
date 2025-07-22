@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
-import { Attachment } from '@/types/attachment';
+import { Attachment } from '@/domain/types/attachment';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
 import CheckBox from '../common/CheckBox';

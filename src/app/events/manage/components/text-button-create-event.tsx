@@ -3,7 +3,7 @@
 import TextButton from '@/components/common/TextButton';
 import { routeEventSubs, routeEventsCreate, routeLogin } from '@/domain/constants/routes';
 import { getLicense } from '@/infrastructure/clients/license.client';
-import { License } from '@/types/license';
+import { License } from '@/domain/types/license';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';

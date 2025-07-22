@@ -1,4 +1,4 @@
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import { routeHome } from '@/domain/constants/routes';
@@ -11,7 +11,7 @@ import { auth } from '@/auth';
 import { TabsMenu } from './components/tabs-menu';
 import { TextButtonCreateEvent } from './components/text-button-create-event';
 import { getTranslations } from 'next-intl/server';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { UserType } from '@/domain/enums/user-type';
 import LoadingSpinner from '@/components/animation/loading-spinner';

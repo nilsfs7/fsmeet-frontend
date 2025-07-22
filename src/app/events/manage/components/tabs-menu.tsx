@@ -7,11 +7,11 @@ import Link from 'next/link';
 import Dialog from '@/components/Dialog';
 import { switchTab } from '@/functions/switch-tab';
 import EventCard from '@/components/events/EventCard';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { useTranslations } from 'next-intl';
 import { isEventAdmin } from '@/functions/is-event-admin';
 import { useSession } from 'next-auth/react';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { UserType } from '@/domain/enums/user-type';
 
 interface ITabsMenu {

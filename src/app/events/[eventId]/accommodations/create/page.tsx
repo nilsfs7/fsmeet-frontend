@@ -8,13 +8,13 @@ import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
-import { Accommodation } from '@/types/accommodation';
+import { Accommodation } from '@/domain/types/accommodation';
 import { createAccommodation, updateAccommodationPreview } from '@/infrastructure/clients/accommodation.client';
 import AccommodationEditor from '@/components/events/AccommodationEditor';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getEvent } from '@/infrastructure/clients/event.client';
 

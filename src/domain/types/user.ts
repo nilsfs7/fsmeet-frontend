@@ -1,6 +1,6 @@
-import { ShowExperience } from '../domain/enums/show-experience';
-import { UserType } from '../domain/enums/user-type';
-import { UserVerificationState } from '../domain/enums/user-verification-state';
+import { ShowExperience } from '@/domain/enums/show-experience';
+import { UserType } from '@/domain/enums/user-type';
+import { UserVerificationState } from '@/domain/enums/user-verification-state';
 
 export type User = {
   username: string;

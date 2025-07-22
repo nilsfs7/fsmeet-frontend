@@ -1,7 +1,7 @@
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
-import { PaymentMethodPayPal } from '@/types/payment-method-paypal';
+import { PaymentMethodPayPal } from '@/domain/types/payment-method-paypal';
 
 interface IPayPalInfo {
   participationFee: number;

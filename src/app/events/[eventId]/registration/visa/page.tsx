@@ -18,7 +18,7 @@ import moment, { Moment } from 'moment';
 import ComboBox from '@/components/common/ComboBox';
 import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { getUser } from '@/infrastructure/clients/user.client';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { useRouter } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { toTitleCase } from '@/functions/string-manipulation';

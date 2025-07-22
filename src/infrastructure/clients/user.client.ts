@@ -1,6 +1,6 @@
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { Session } from 'next-auth';
 import { DeleteUserBodyDto } from './dtos/user/delete-user.body.dto';
 import { Gender } from '@/domain/enums/gender';

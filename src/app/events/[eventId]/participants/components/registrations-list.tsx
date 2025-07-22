@@ -12,9 +12,9 @@ import { deleteEventRegistration, updateEventRegistrationStatus } from '@/infras
 import UserCard from '@/components/user/UserCard';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { EventRegistration } from '@/types/event-registration';
-import { Accommodation } from '@/types/accommodation';
-import { Offering } from '@/types/offering';
+import { EventRegistration } from '@/domain/types/event-registration';
+import { Accommodation } from '@/domain/types/accommodation';
+import { Offering } from '@/domain/types/offering';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 

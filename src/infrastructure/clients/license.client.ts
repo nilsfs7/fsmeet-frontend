@@ -1,4 +1,4 @@
-import { License } from '@/types/license';
+import { License } from '@/domain/types/license';
 import { Session } from 'next-auth';
 
 export async function getLicense(session: Session | null, username: string): Promise<any> {

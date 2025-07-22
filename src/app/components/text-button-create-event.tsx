@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import Dialog from '@/components/Dialog';
 import { routeEventsCreate, routeHome, routeLogin } from '@/domain/constants/routes';
 import { useEffect, useState } from 'react';
-import { License } from '@/types/license';
+import { License } from '@/domain/types/license';
 import { getLicense } from '@/infrastructure/clients/license.client';
 
 export const TextButtonCreateEvent = () => {

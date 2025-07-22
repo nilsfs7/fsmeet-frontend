@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import Dialog from '@/components/Dialog';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { EventState } from '@/domain/enums/event-state';
 import { validateSession } from '@/functions/validate-session';
 import { isPublicEventState } from '@/functions/event-state';

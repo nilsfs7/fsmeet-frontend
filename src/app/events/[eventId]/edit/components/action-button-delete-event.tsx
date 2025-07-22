@@ -4,7 +4,7 @@ import { deleteEvent } from '@/infrastructure/clients/event.client';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { routeEvents, routeEventSubs } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 import Dialog from '@/components/Dialog';

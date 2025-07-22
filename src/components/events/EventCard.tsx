@@ -2,14 +2,14 @@
 
 import { imgCalender, imgCompetition, imgHourglassEnd, imgHourglassStart, imgLocation, imgMeeting, imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
 import { getShortDateString } from '@/functions/time';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
 import { isPublicEventState } from '@/functions/event-state';
 import { useTranslations } from 'next-intl';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { useEffect, useState } from 'react';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 
 interface IEventProps {
   event: Event;

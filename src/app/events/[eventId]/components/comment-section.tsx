@@ -1,8 +1,8 @@
 'use client';
 
-import { EventComment } from '@/types/event-comment';
+import { EventComment } from '@/domain/types/event-comment';
 import UserComment from '../../../../components/events/comment/EventComment';
-import { EventSubComment } from '@/types/event-sub-comment';
+import { EventSubComment } from '@/domain/types/event-sub-comment';
 import { useEffect, useState } from 'react';
 import PostInput from '../../../../components/events/comment/PostInput';
 import { useTranslations } from 'next-intl';

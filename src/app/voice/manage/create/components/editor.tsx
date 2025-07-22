@@ -2,7 +2,7 @@
 
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { toast } from 'sonner';
-import { Poll } from '@/types/poll';
+import { Poll } from '@/domain/types/poll';
 import PollEditor from '@/components/PollEditor';
 
 export const Editor = () => {

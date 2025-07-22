@@ -8,7 +8,7 @@ import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
-import { Sponsor } from '@/types/sponsor';
+import { Sponsor } from '@/domain/types/sponsor';
 import { createSponsor, updateSponsorLogo } from '@/infrastructure/clients/sponsor.client';
 import SponsorEditor from '@/components/events/SponsorEditor';
 import NavigateBackButton from '@/components/NavigateBackButton';

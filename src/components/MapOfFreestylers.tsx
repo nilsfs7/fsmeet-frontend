@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { useTranslations } from 'next-intl';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { routeUsers } from '@/domain/constants/routes';
 import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
 import { UserType } from '@/domain/enums/user-type';

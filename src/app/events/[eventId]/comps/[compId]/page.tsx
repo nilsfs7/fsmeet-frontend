@@ -8,8 +8,8 @@ import { Action } from '@/domain/enums/action';
 import { routeEvents } from '@/domain/constants/routes';
 import { ActionButtonDownloadResults } from './components/action-button-download-results';
 import { getEvent } from '@/infrastructure/clients/event.client';
-import { Event } from '@/types/event';
-import { Round } from '@/types/round';
+import { Event } from '@/domain/types/event';
+import { Round } from '@/domain/types/round';
 import { auth } from '@/auth';
 
 export default async function CompetitionDetails({ params }: { params: { eventId: string; compId: string } }) {

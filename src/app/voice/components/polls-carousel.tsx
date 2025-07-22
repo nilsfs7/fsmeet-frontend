@@ -3,14 +3,14 @@
 import { Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import { Poll } from '@/types/poll';
+import { Poll } from '@/domain/types/poll';
 import TextButton from '@/components/common/TextButton';
 import { Progress } from '@/components/ui/progress';
 import { routeLogin, routeVoice } from '@/domain/constants/routes';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { Vote } from '@/types/vote';
+import { Vote } from '@/domain/types/vote';
 import { createPollRating, createVote, getPollRatings, getVotes } from '@/infrastructure/clients/poll.client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import UserCard from '@/components/user/UserCard';
@@ -18,8 +18,8 @@ import { Toaster, toast } from 'sonner';
 import { getShortDateString } from '@/functions/time';
 import { imgAbout, imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline, imgHourglassEnd, imgHourglassStart } from '@/domain/constants/images';
 import { RatingAction } from '@/domain/enums/rating-action';
-import { PollRating } from '@/types/poll-rating';
-import { User } from '@/types/user';
+import { PollRating } from '@/domain/types/poll-rating';
+import { User } from '@/domain/types/user';
 import Dialog from '@/components/Dialog';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 

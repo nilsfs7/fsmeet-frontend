@@ -1,4 +1,4 @@
-import { EventRegistrationType } from '@/types/event-registration-type';
+import { EventRegistrationType } from '@/domain/types/event-registration-type';
 
 export class CreateEventRegistrationBodyDto {
   eventRegistrationType: EventRegistrationType;

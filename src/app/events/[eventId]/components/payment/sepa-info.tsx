@@ -1,7 +1,7 @@
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
-import { PaymentMethodSepa } from '@/types/payment-method-sepa';
+import { PaymentMethodSepa } from '@/domain/types/payment-method-sepa';
 
 interface ISepaInfo {
   participationFee: number;

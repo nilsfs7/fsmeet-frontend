@@ -6,7 +6,7 @@ import Link from 'next/link';
 import EventCard from '@/components/events/EventCard';
 import { routeEvents } from '@/domain/constants/routes';
 import { getEvents } from '@/infrastructure/clients/event.client';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { DatePicker } from '@/components/common/DatePicker';
 import { useTranslations } from 'next-intl';
 import LoadingSpinner from '@/components/animation/loading-spinner';

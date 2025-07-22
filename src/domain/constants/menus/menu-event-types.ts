@@ -1,4 +1,4 @@
-import { MenuItem } from '@/types/menu-item';
+import { MenuItem } from '@/domain/types/menu-item';
 import { EventType } from '@/domain/enums/event-type';
 
 export const menuEventTypes: MenuItem[] = [

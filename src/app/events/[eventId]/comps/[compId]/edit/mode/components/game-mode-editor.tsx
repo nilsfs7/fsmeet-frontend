@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
@@ -23,7 +23,7 @@ import TextButton from '@/components/common/TextButton';
 import { routeEvents } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { plainToInstance } from 'class-transformer';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 
 interface IRoundEditor {
   event: Event;

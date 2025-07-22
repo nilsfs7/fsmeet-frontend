@@ -3,7 +3,7 @@
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 
 interface ICompetitionList {
   competitions: Competition[];

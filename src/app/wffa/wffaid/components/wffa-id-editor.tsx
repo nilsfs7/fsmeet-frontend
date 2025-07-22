@@ -7,7 +7,7 @@ import { routeUsers } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { getUsers, updateUserWffaId } from '@/infrastructure/clients/user.client';
 import { useSession } from 'next-auth/react';
 import { Input } from '@/components/ui/input';

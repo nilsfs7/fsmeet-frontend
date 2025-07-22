@@ -1,13 +1,13 @@
-import { Vote } from '@/types/vote';
-import { Poll } from '@/types/poll';
+import { Vote } from '@/domain/types/vote';
+import { Poll } from '@/domain/types/poll';
 import { CreatePollBodyDto } from './dtos/poll/create-poll.body.dto';
 import { Session } from 'next-auth';
 import { CreateVoteBodyDto } from './dtos/poll/create-vote.body.dto';
 import { Moment } from 'moment';
 import { RatingAction } from '@/domain/enums/rating-action';
 import { CreatePollRatingBodyDto } from './dtos/poll/create-poll-rating.body.dto';
-import { PollRating } from '@/types/poll-rating';
-import { TargetGroup } from '@/types/target-group';
+import { PollRating } from '@/domain/types/poll-rating';
+import { TargetGroup } from '@/domain/types/target-group';
 import { DeletePollBodyDto } from './dtos/poll/delete-poll.body.dto';
 
 export async function getPolls(questionerUsername?: string): Promise<Poll[]> {

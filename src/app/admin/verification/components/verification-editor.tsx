@@ -8,7 +8,7 @@ import ActionButton from '@/components/common/ActionButton';
 import ComboBox from '@/components/common/ComboBox';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { menuUserVerificationStates } from '@/domain/constants/menus/menu-user-verification-states';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { getUsers, updateUserVerificationState } from '@/infrastructure/clients/user.client';
