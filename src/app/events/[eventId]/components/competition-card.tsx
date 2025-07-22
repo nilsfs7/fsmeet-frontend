@@ -1,5 +1,5 @@
 import { imgCompetition } from '@/domain/constants/images';
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 
 interface ICompetitionCardProps {
   competition: Competition;

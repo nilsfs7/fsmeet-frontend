@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Toaster, toast } from 'sonner';
 import { isRegistered } from './tabs-menu';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import moment from 'moment';
 import { validateSession } from '@/functions/validate-session';
 import { useRouter } from 'next/navigation';

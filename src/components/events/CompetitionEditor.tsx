@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 import TextInputLarge from '../common/TextInputLarge';
 import { CompetitionType } from '@/domain/enums/competition-type';
 import ComboBox from '../common/ComboBox';
@@ -10,7 +10,7 @@ import { CompetitionGender } from '@/domain/enums/competition-gender';
 import { menuCompGenders } from '@/domain/constants/menus/menu-comp-genders';
 import { MaxAge } from '@/domain/enums/max-age';
 import { menuMaxAge } from '@/domain/constants/menus/menu-max-age';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import UserCard from '../user/UserCard';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import ActionButton from '../common/ActionButton';
@@ -23,7 +23,7 @@ import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import CheckBox from '../common/CheckBox';
 import { isNaturalPerson } from '@/functions/is-natural-person';
 import { menuMaxAmountParticipants } from '@/domain/constants/menus/menu-max-amount-participants';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 
 interface ICompetitionEditorProps {
   event: Event;

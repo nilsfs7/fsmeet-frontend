@@ -8,7 +8,7 @@ import PageTitle from '@/components/PageTitle';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import { ColumnInfo, UsersList } from './components/users-list';
 import { UserType } from '@/domain/enums/user-type';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { getTranslations } from 'next-intl/server';
 
 export default async function Users() {

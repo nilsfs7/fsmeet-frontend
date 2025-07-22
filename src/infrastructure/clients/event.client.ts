@@ -1,10 +1,10 @@
-import { EventComment } from '@/types/event-comment';
+import { EventComment } from '@/domain/types/event-comment';
 import { Session } from 'next-auth';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { EventState } from '@/domain/enums/event-state';
 import { CreateEventRegistrationBodyDto } from './dtos/event/registration/create-event-registration.body.dto';
-import { EventRegistrationType } from '@/types/event-registration-type';
+import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { CreateVisaInvitationRequestBodyDto } from './dtos/event/create-visa-invitation-request.body.dto';
 import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-approval-state';
 import { UpdateVisaInvitationRequestStateBodyDto } from './dtos/event/update-visa-invitation-request-state.body.dto';

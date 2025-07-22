@@ -140,3 +140,5 @@ Badges:
 - [Competition Organizer](https://www.iconfinder.com/icons/3533412/advantage_business_competition_competitive_growth_success_upward_icon)
 
 - [Jury](https://www.iconfinder.com/icons/4158577/competition_contest_cyber_expert_judge_jury_security_spot_icon)
+
+- [Tournament](https://www.iconfinder.com/search?q=tournament&price=free&license=gte__1)

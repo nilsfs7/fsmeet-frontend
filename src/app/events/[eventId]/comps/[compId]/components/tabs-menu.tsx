@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession } from 'next-auth/react';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getCompetitionParticipants, getRounds } from '@/infrastructure/clients/competition.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 import { Round } from '@/domain/classes/round';
 import Separator from '@/components/Seperator';
 import BattleList from '@/components/comp/BattleList';
@@ -20,8 +20,8 @@ import { Switch } from '@/components/ui/switch';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { UserType } from '@/domain/enums/user-type';
 import ComboBox from '@/components/common/ComboBox';
-import { MenuItem } from '@/types/menu-item';
-import { Event } from '@/types/event';
+import { MenuItem } from '@/domain/types/menu-item';
+import { Event } from '@/domain/types/event';
 
 interface ITabsMenu {
   comp: Competition;

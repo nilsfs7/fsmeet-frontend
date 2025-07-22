@@ -10,7 +10,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
-import { Sponsor } from '@/types/sponsor';
+import { Sponsor } from '@/domain/types/sponsor';
 import { deleteSponsor, getSponsor, updateSponsor, updateSponsorLogo } from '@/infrastructure/clients/sponsor.client';
 import SponsorEditor from '@/components/events/SponsorEditor';
 import Dialog from '@/components/Dialog';

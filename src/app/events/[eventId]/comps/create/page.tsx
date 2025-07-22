@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import CompetitionEditor from '@/components/events/CompetitionEditor';
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -15,7 +15,7 @@ import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 

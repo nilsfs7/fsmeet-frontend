@@ -1,12 +1,12 @@
 'use client';
 
-import { EventRegistrationType } from '@/types/event-registration-type';
-import { Event } from '@/types/event';
+import { EventRegistrationType } from '@/domain/types/event-registration-type';
+import { Event } from '@/domain/types/event';
 import { isCompetition } from '@/functions/is-competition';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { useState } from 'react';
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 
 interface IPaymentDetails {
   event: Event;

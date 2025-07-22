@@ -2,16 +2,16 @@
 
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { Toaster, toast } from 'sonner';
 import moment from 'moment';
 import { ConfigOptions, download, generateCsv, mkConfig } from 'export-to-csv';
 import { AcceptedData } from 'export-to-csv/output/lib/types';
-import { EventRegistration } from '@/types/event-registration';
-import { Offering } from '@/types/offering';
-import { Accommodation } from '@/types/accommodation';
+import { EventRegistration } from '@/domain/types/event-registration';
+import { Offering } from '@/domain/types/offering';
+import { Accommodation } from '@/domain/types/accommodation';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 
 interface IActionButtonDownloadList {
   event: Event;

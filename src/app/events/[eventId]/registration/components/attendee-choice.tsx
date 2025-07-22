@@ -1,6 +1,6 @@
 'use client';
 
-import { EventRegistrationType } from '@/types/event-registration-type';
+import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { EventType } from '@/domain/enums/event-type';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';

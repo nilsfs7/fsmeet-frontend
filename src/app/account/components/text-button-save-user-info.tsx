@@ -2,7 +2,7 @@
 
 import TextButton from '@/components/common/TextButton';
 import { updateUser } from '@/infrastructure/clients/user.client';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Toaster, toast } from 'sonner';

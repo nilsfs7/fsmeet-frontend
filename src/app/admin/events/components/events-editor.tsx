@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { Toaster, toast } from 'sonner';
 import moment from 'moment';
 import { EventState } from '@/domain/enums/event-state';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { menuEventStates } from '@/domain/constants/menus/menu-event-states';
 import ComboBox from '@/components/common/ComboBox';
 

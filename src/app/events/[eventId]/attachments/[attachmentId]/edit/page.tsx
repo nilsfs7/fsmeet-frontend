@@ -10,7 +10,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
-import { Attachment } from '@/types/attachment';
+import { Attachment } from '@/domain/types/attachment';
 import { deleteAttachment, getAttachment, updateAttachment } from '@/infrastructure/clients/attachment.client';
 import AttachmentEditor from '@/components/events/AttachmentEditor';
 import Dialog from '@/components/Dialog';

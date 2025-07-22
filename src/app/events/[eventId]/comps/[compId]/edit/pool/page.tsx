@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 import { Participants } from './components/participants';
 import { getCompetition } from '@/infrastructure/clients/competition.client';
 import { getTranslations } from 'next-intl/server';

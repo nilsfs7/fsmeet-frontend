@@ -1,4 +1,4 @@
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { validateSession } from './validate-session';
 
 export function isEventAdmin(event: Event | undefined, session: any): boolean {

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import TextInput from '../common/TextInput';
-import { Accommodation } from '@/types/accommodation';
+import { Accommodation } from '@/domain/types/accommodation';
 import { imgImagePlaceholder } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
 import CurInput from '../common/CurrencyInput';

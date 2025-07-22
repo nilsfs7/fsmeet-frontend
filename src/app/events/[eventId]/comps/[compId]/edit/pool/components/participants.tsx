@@ -9,14 +9,14 @@ import { MaxAge } from '@/domain/enums/max-age';
 import { UserType } from '@/domain/enums/user-type';
 import { createCompetitionParticipation, deleteCompetitionParticipation, getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 import { getEventRegistrations } from '@/infrastructure/clients/event.client';
-import { Competition } from '@/types/competition';
-import { EventRegistration } from '@/types/event-registration';
-import { EventRegistrationType } from '@/types/event-registration-type';
+import { Competition } from '@/domain/types/competition';
+import { EventRegistration } from '@/domain/types/event-registration';
+import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Toaster, toast } from 'sonner';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 
 interface IParticipants {
   event: Event;

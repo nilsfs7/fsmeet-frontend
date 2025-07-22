@@ -6,7 +6,7 @@ import TextButton from '@/components/common/TextButton';
 import { getUser, getUsers } from '@/infrastructure/clients/user.client';
 import { routeAccount, routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import Link from 'next/link';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
 import { createTranslator } from 'next-intl';

@@ -7,7 +7,7 @@ import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession } from 'next-auth/react';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeHome, routeMap } from '@/domain/constants/routes';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';

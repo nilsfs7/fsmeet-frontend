@@ -8,7 +8,7 @@ import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { Platform } from '@/domain/enums/platform';
 import { getUser } from '@/infrastructure/clients/user.client';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 

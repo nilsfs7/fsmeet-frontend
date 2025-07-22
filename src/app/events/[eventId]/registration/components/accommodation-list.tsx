@@ -3,7 +3,7 @@
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
-import { Accommodation } from '@/types/accommodation';
+import { Accommodation } from '@/domain/types/accommodation';
 
 interface IAccommodationList {
   accommodations: Accommodation[];

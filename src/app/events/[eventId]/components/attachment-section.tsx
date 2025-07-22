@@ -1,6 +1,6 @@
 'use client';
 
-import { Attachment } from '@/types/attachment';
+import { Attachment } from '@/domain/types/attachment';
 import AttachmentCard from './attachment-card';
 import { useTranslations } from 'next-intl';
 import moment from 'moment';

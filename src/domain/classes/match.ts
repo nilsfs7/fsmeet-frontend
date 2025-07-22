@@ -1,4 +1,4 @@
-import { MatchSlot } from '../../types/match-slot';
+import { MatchSlot } from '../types/match-slot';
 
 export class Match {
   id?: string;

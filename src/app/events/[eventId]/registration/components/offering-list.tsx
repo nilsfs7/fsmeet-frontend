@@ -5,8 +5,8 @@ import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
-import { EventRegistrationType } from '@/types/event-registration-type';
-import { Offering } from '@/types/offering';
+import { EventRegistrationType } from '@/domain/types/event-registration-type';
+import { Offering } from '@/domain/types/offering';
 import { useTranslations } from 'next-intl';
 
 interface IOfferingList {

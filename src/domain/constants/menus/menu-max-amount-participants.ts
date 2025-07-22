@@ -1,4 +1,4 @@
-import { MenuItem } from '@/types/menu-item';
+import { MenuItem } from '@/domain/types/menu-item';
 import { MaxAmountParticipants } from '@/domain/enums/max-amount-participants';
 
 export const menuMaxAmountParticipants: MenuItem[] = [

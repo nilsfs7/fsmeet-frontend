@@ -8,7 +8,7 @@ import { Toaster, toast } from 'sonner';
 import { useSession } from 'next-auth/react';
 import Separator from '@/components/Seperator';
 import { getVisaInvitationRequests, updateVisaInvitationRequest } from '@/infrastructure/clients/event.client';
-import { VisaInvitationRequest } from '@/types/visa-invitation-request';
+import { VisaInvitationRequest } from '@/domain/types/visa-invitation-request';
 import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-approval-state';
 
 export const VisaRequestManagement = () => {

@@ -1,4 +1,4 @@
-import { MenuItem } from '@/types/menu-item';
+import { MenuItem } from '@/domain/types/menu-item';
 
 export const menuTShirtSizesWithUnspecified: MenuItem[] = [
   { text: 'not specified', value: '--' },

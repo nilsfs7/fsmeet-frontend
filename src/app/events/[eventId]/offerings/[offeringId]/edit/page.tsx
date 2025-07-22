@@ -10,7 +10,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
-import { Offering } from '@/types/offering';
+import { Offering } from '@/domain/types/offering';
 import { deleteOffering, getOffering, updateOffering, updateOfferingPreview } from '@/infrastructure/clients/offering.client';
 import OfferingEditor from '@/components/events/OfferingEditor';
 import Dialog from '@/components/Dialog';
@@ -18,7 +18,7 @@ import NavigateBackButton from '@/components/NavigateBackButton';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getEvent } from '@/infrastructure/clients/event.client';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 
 export default function EditEventOffering({ params }: { params: { eventId: string; offeringId: string } }) {
   const { data: session, status } = useSession();

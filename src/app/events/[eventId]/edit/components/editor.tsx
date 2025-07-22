@@ -1,11 +1,11 @@
 'use client';
 
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import EventEditor from '@/components/events/EventEditor';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import { fileToBase64 } from '@/functions/file-to-base-64';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 
 interface IEditor {
   users: User[];

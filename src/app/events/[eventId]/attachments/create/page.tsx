@@ -8,7 +8,7 @@ import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
-import { Attachment } from '@/types/attachment';
+import { Attachment } from '@/domain/types/attachment';
 import AttachmentEditor from '@/components/events/AttachmentEditor';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';

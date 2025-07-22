@@ -1,4 +1,4 @@
-import { Sponsor } from '@/types/sponsor';
+import { Sponsor } from '@/domain/types/sponsor';
 
 interface ISponsorCardProps {
   sponsor: Sponsor;

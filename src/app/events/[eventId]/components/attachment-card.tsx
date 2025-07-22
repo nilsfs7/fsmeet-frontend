@@ -1,4 +1,4 @@
-import { Attachment } from '@/types/attachment';
+import { Attachment } from '@/domain/types/attachment';
 import FilePresentIcon from '@mui/icons-material/FilePresent';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 

@@ -5,7 +5,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { getLicenses, updateLicense } from '@/infrastructure/clients/license.client';
-import { License } from '@/types/license';
+import { License } from '@/domain/types/license';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -19,7 +19,7 @@ export const LicensesEditor = () => {
     const newAmount = license.amountEventLicenses + diff;
     if (newAmount >= 0 && newAmount < 100) {
       let lics = Array.from(licenses);
-      lics = lics.map((lic) => {
+      lics = lics.map(lic => {
         if (lic.username === license.username) {
           lic.amountEventLicenses = newAmount;
         }
@@ -40,7 +40,7 @@ export const LicensesEditor = () => {
 
   useEffect(() => {
     if (session) {
-      getLicenses(session).then((licenses) => {
+      getLicenses(session).then(licenses => {
         setLicenses(licenses);
       });
     }

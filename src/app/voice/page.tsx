@@ -12,7 +12,7 @@ import TextButton from '@/components/common/TextButton';
 import { ColumnInfo, PollsList } from '../../components/polls-list';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { auth } from '@/auth';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { ActionButtonCopyPollUrl } from './components/action-button-copy-poll-url';
 
 export default async function Voice() {

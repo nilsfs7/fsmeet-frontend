@@ -1,6 +1,6 @@
 'use client';
 
-import { Competition } from '@/types/competition';
+import { Competition } from '@/domain/types/competition';
 import CompetitionCard from './competition-card';
 import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';

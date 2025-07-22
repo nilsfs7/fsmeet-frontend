@@ -1,5 +1,5 @@
 import { CurrencyCode } from '@/domain/enums/currency-code';
-import { MenuItem } from '@/types/menu-item';
+import { MenuItem } from '@/domain/types/menu-item';
 
 const entries = Object.entries(CurrencyCode).map(([key, value]) => {
   return {

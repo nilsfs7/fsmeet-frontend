@@ -5,7 +5,7 @@ import { createEvent, updateEventPoster } from '@/infrastructure/clients/event.c
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import { routeEventSubs } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 

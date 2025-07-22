@@ -1,4 +1,4 @@
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 import CheckIcon from '@mui/icons-material/Check';

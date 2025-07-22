@@ -1,6 +1,6 @@
 'use client';
 
-import { Sponsor } from '@/types/sponsor';
+import { Sponsor } from '@/domain/types/sponsor';
 import SponsorCard from './sponsor-card';
 import { useTranslations } from 'next-intl';
 

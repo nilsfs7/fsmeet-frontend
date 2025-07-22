@@ -4,7 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { isRegistered } from './tabs-menu';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 import moment from 'moment';
 import { routeEvents } from '@/domain/constants/routes';
 import Link from 'next/link';

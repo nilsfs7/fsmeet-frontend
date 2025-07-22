@@ -10,12 +10,12 @@ import BattleGrid from '@/components/comp/BattleGrid';
 import Link from 'next/link';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/PageTitle';
-import { User } from '@/types/user';
+import { User } from '@/domain/types/user';
 import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/infrastructure/clients/competition.client';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { getEvent } from '@/infrastructure/clients/event.client';
-import { Event } from '@/types/event';
+import { Event } from '@/domain/types/event';
 
 export default function Seeding({ params }: { params: { eventId: string; compId: string } }) {
   const t = useTranslations('/events/eventid/comps/compid/edit/seeding');
