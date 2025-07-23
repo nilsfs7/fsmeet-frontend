@@ -71,4 +71,4 @@ jobs:
             BACKEND_URL=${{ env.BACKEND_URL }}
             BUILD_TIME=${{ env.BUILD_TIME }}
             COMMIT_SHA=${{ env.SHA }}
-            GOOGLE_MAPS_API_KEY=${{ env.MAPS_API_KEY }}
+            GMAPS_API_KEY=${{ env.MAPS_API_KEY }}

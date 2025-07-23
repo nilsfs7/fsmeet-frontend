@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { imgCalender, imgCompetition, imgHourglassEnd, imgHourglassStart, imgLocation, imgMeeting, imgUserDefaultImg } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
-import Map from '../../../../components/Map';
 import { getShortDateString } from '@/functions/time';
 import Separator from '../../../../components/Seperator';
 import TextButton from '../../../../components/common/TextButton';
@@ -20,6 +19,7 @@ import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { isPublicEventState } from '@/functions/event-state';
 import Link from 'next/link';
+import { LocationMap } from '../../../../components/location-map';
 
 interface IEventProps {
   event: Event;
@@ -210,7 +210,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
             {showMap && (
               <div className="mt-2 flex w-full justify-center">
                 <div className="w-full max-h-[60vh] aspect-square rounded-lg border border-secondary-dark hover:border-primary">
-                  <Map address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
+                  <LocationMap address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
                 </div>
               </div>
             )}

@@ -13,9 +13,9 @@ import { createTranslator } from 'next-intl';
 import { supportedLanguages } from '@/domain/constants/supported-languages';
 import { getTranslations } from 'next-intl/server';
 import { auth } from '@/auth';
-import { MapOfFreestylers } from '@/components/MapOfFreestylers';
 import { getMessagesByLocale } from '@/functions/get-messages-forced-locale';
 import { UserType } from '@/domain/enums/user-type';
+import { FreestylerMap } from '@/components/freestyler-map';
 
 export default async function Map({ searchParams }: { searchParams: { iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string } }) {
   let t = await getTranslations(routeMap);
@@ -48,7 +48,7 @@ export default async function Map({ searchParams }: { searchParams: { iframe: st
         </>
       )}
 
-      <MapOfFreestylers
+      <FreestylerMap
         userList={users}
         selectedUsernames={[searchParams?.user || '']}
         region={actingUser?.country || searchParams?.locale || 'DE'}

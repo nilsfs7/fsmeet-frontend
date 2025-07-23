@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { useTranslations } from 'next-intl';
 import { User } from '@/domain/types/user';
@@ -17,8 +17,67 @@ import { Input } from '@/components/ui/input';
 import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { ChevronDown } from 'lucide-react';
 import { Gender } from '@/domain/enums/gender';
+import LoadingSpinner from './animation/loading-spinner';
 
-interface IMapsProps {
+interface IMapWrapperProps {
+  userList: User[];
+  selectedUsernames?: string[];
+  region?: string;
+  language?: string;
+  lat?: number;
+  lng?: number;
+  zoom?: number;
+  streetViewEnabled?: boolean;
+  filterName?: string;
+  filterGender?: string[];
+  isIframe?: boolean;
+}
+
+const MapWrapper = ({
+  userList = [],
+  selectedUsernames = [],
+  region = 'DE',
+  language = 'EN',
+  lat = 54.5259614, // Central Europe
+  lng = 15.2551187, // Central Europe
+  zoom = 6,
+  streetViewEnabled = false,
+  isIframe = false,
+}: IMapWrapperProps) => {
+  const [apiKey, setApiKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchApiKey = async () => {
+      const res = await fetch('/api/maps-api-key');
+      const data = await res.json();
+      setApiKey(data.apiKey);
+    };
+
+    fetchApiKey();
+  }, []);
+
+  if (!apiKey) return <LoadingSpinner text="Loading..." />; // todo
+
+  return (
+    <Map
+      googleMapsApiKey={apiKey}
+      userList={userList}
+      selectedUsernames={selectedUsernames}
+      region={region}
+      language={language}
+      lat={lat}
+      lng={lng}
+      zoom={zoom}
+      streetViewEnabled={streetViewEnabled}
+      // filterName={filterName}
+      // filterGender={filterGender}
+      isIframe={isIframe}
+    />
+  );
+};
+
+interface IMapProps {
+  googleMapsApiKey: string;
   userList: User[];
   selectedUsernames?: string[];
   region?: string;
@@ -45,7 +104,8 @@ const getSelectedUsers = (users: User[], selectedUsernames: string[]): User[] =>
   });
 };
 
-export const MapOfFreestylers = ({
+const Map = ({
+  googleMapsApiKey,
   userList = [],
   selectedUsernames = [],
   region = 'DE',
@@ -55,7 +115,7 @@ export const MapOfFreestylers = ({
   zoom = 6,
   streetViewEnabled = false,
   isIframe = false,
-}: IMapsProps) => {
+}: IMapProps) => {
   let t = useTranslations('/map');
 
   const [users] = useState<User[]>(userList);
@@ -67,7 +127,7 @@ export const MapOfFreestylers = ({
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',
+    googleMapsApiKey,
     region,
     language,
   });
@@ -261,3 +321,5 @@ export const MapOfFreestylers = ({
     <></>
   );
 };
+
+export { MapWrapper as FreestylerMap };
