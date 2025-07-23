@@ -33,7 +33,7 @@ If you enjoy it, consider supporting with a small donation. Every bit helps keep
 
 - [Docker](https://docs.docker.com/manuals/) Engine & Build
 
-- [Google Maps API key](https://console.cloud.google.com/) (optional)
+- [Google Maps API key](https://console.cloud.google.com/) with access to `Maps Embed API` and `Maps JavaScript API` (optional)
 
 ### The backend
 
