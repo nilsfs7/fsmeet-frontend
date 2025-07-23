@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { useTranslations } from 'next-intl';
+import LoadingSpinner from './animation/loading-spinner';
+
+interface IMapWrapperProps {
+  address: string;
+}
 
 interface IMapProps {
+  googleMapsApiKey: string;
   address: string;
 }
 
@@ -12,12 +18,30 @@ const containerStyle = {
   borderRadius: '0.5rem',
 };
 
-const Map = ({ address }: IMapProps) => {
+const MapWrapper = ({ address }: IMapWrapperProps) => {
+  const [apiKey, setApiKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchApiKey = async () => {
+      const res = await fetch('/api/maps-api-key');
+      const data = await res.json();
+      setApiKey(data.apiKey);
+    };
+
+    fetchApiKey();
+  }, []);
+
+  if (!apiKey) return <LoadingSpinner text="Loading..." />; // todo
+
+  return <Map googleMapsApiKey={apiKey} address={address} />;
+};
+
+const Map = ({ googleMapsApiKey, address }: IMapProps) => {
   const t = useTranslations('/map');
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'maps-api-key',
+    googleMapsApiKey,
   });
 
   const [map, setMap] = React.useState<google.maps.Map | null>();
@@ -52,4 +76,4 @@ const Map = ({ address }: IMapProps) => {
   );
 };
 
-export default Map;
+export { MapWrapper as LocationMap };
