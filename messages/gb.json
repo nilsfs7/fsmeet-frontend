@@ -625,6 +625,7 @@
     "datePickerTo": "Date To",
     "datePickerRegistrationFrom": "Registration Open",
     "datePickerRegistrationTo": "Registration Deadline",
+    "chbIsWffaRanked": "Ranked competition (WFFA)",
     "inputTrailerUrl": "Trailer URL",
     "inputLivestreamUrl": "Livestream URL",
     "inputMessangerInvitationUrl": "Group Chat Invitation Link (e.g. WhatsApp)",

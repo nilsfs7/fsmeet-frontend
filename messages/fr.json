@@ -625,6 +625,7 @@
     "datePickerTo": "Date de fin",
     "datePickerRegistrationFrom": "Inscription ouverte",
     "datePickerRegistrationTo": "Date limite d'inscription",
+    "chbIsWffaRanked": "Compétition classée (WFFA)",
     "inputTrailerUrl": "URL de la bande-annonce",
     "inputLivestreamUrl": "URL du livestream",
     "inputMessangerInvitationUrl": "Lien d'invitation au chat (ex. WhatsApp)",

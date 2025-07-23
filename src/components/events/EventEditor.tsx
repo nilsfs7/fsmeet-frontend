@@ -69,6 +69,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [venuePostCode, setVenuePostCode] = useState(event?.venuePostCode || '');
   const [venueCountry, setVenueCountry] = useState(event?.venueCountry || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
+  const [isWffaRanked, setIsWffaRanked] = useState(event?.isWffaRanked || false);
   const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || '');
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
   const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || '');
@@ -135,30 +136,47 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     }
   };
 
-  const handleAddMaintainerClicked = async (username: string) => {
-    // check if maintainer is already in array
-    const maintainersMatching = maintainers.filter(maintainer => {
+  const checkUserInMaintainerList = (username: string): boolean => {
+    return maintainers.some(maintainer => {
       if (maintainer.username === username) {
         return maintainer;
       }
     });
+  };
 
-    if (maintainersMatching.length > 0) {
+  const addUserToMaintainerList = (username: string) => {
+    try {
+      const maintainer = users.filter(user => {
+        if (user.username === username) {
+          return user;
+        }
+      })[0];
+
+      const newArray = Array.from(maintainers);
+      newArray.push({ username: maintainer.username });
+      setMaintainers(newArray);
+    } catch (error: any) {
+      console.error(error.message);
+    }
+  };
+
+  const handleCheckBoxIsWffaRankedClicked = async () => {
+    setIsWffaRanked(!isWffaRanked);
+
+    // add wffa to maintainers list
+    const username = 'wffa';
+    if (!isWffaRanked === true && session?.user.username !== 'wffa') {
+      if (!checkUserInMaintainerList(username)) {
+        addUserToMaintainerList(username);
+      }
+    }
+  };
+
+  const handleAddMaintainerClicked = async (username: string) => {
+    if (checkUserInMaintainerList(username)) {
       console.error(`${username} already assigned in maintainers list.`);
     } else {
-      try {
-        const maintainer = users.filter(user => {
-          if (user.username === username) {
-            return user;
-          }
-        })[0];
-
-        const newArray = Array.from(maintainers);
-        newArray.push({ username: maintainer.username });
-        setMaintainers(newArray);
-      } catch (error: any) {
-        console.error(error.message);
-      }
+      addUserToMaintainerList(username);
     }
   };
 
@@ -226,6 +244,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       venueCity: venueCity,
       venuePostCode: venuePostCode,
       venueCountry: venueCountry,
+      isWffaRanked: isWffaRanked,
       trailerUrl: trailerUrl,
       livestreamUrl: livestreamUrl,
       messangerInvitationUrl: messangerInvitationUrl,
@@ -273,6 +292,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       setVenueCity(event.venueCity);
       setVenueCountry(event.venueCountry);
       setEventType(event.type);
+      setIsWffaRanked(event.isWffaRanked);
       setTrailerUrl(event.trailerUrl);
       setLivestreamUrl(event.livestreamUrl);
       setMessangerInvitationUrl(event.messangerInvitationUrl);
@@ -327,6 +347,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     venuePostCode,
     venueCountry,
     eventType,
+    isWffaRanked,
     trailerUrl,
     livestreamUrl,
     messangerInvitationUrl,
@@ -393,6 +414,10 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
               value={eventType}
               onChange={(value: EventType) => {
                 setEventType(value);
+
+                if (value !== EventType.COMPETITION) {
+                  setIsWffaRanked(false);
+                }
               }}
             />
           )}
@@ -400,6 +425,17 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find(item => item.value === eventType)?.text}</div>}
         </div>
       </div>
+
+      {eventType === EventType.COMPETITION && (
+        <CheckBox
+          id={'isWffaRanked'}
+          label={t('chbIsWffaRanked')}
+          value={isWffaRanked}
+          onChange={() => {
+            handleCheckBoxIsWffaRankedClicked();
+          }}
+        />
+      )}
 
       {event?.state && (
         <div className="m-2 grid grid-cols-2 items-center gap-2">

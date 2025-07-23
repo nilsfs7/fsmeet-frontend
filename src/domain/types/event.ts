@@ -33,6 +33,7 @@ export type Event = {
   venuePostCode: string;
   venueCountry: string;
   type: EventType;
+  isWffaRanked: boolean;
   trailerUrl: string;
   livestreamUrl: string;
   messangerInvitationUrl: string;
