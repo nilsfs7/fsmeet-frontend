@@ -28,8 +28,6 @@ interface IMapWrapperProps {
   lng?: number;
   zoom?: number;
   streetViewEnabled?: boolean;
-  filterName?: string;
-  filterGender?: string[];
   isIframe?: boolean;
 }
 
@@ -69,8 +67,6 @@ const MapWrapper = ({
       lng={lng}
       zoom={zoom}
       streetViewEnabled={streetViewEnabled}
-      // filterName={filterName}
-      // filterGender={filterGender}
       isIframe={isIframe}
     />
   );
@@ -86,8 +82,6 @@ interface IMapProps {
   lng?: number;
   zoom?: number;
   streetViewEnabled?: boolean;
-  filterName?: string;
-  filterGender?: string[];
   isIframe?: boolean;
 }
 
