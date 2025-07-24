@@ -445,7 +445,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         </div>
       </div>
 
-      {eventType === EventType.COMPETITION && (
+      {session?.user.username === eventAdmin && eventType === EventType.COMPETITION && (
         <CheckBox
           id={'isWffaRanked'}
           label={t('chbIsWffaRanked')}
