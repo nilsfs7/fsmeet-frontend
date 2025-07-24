@@ -6,6 +6,7 @@ import { CreatePaymentMethodPayPalBodyDto } from './payment/create-payment-metho
 import { CreatePaymentMethodSepaBodyDto } from './payment/create-payment-method-sepa.body.dto';
 import { CreatePaymentMethodStripeBodyDto } from './payment/create-payment-method-stripe.body.dto';
 import { CurrencyCode } from '@/domain/enums/currency-code';
+import { EventCategory } from '@/domain/enums/event-category';
 
 export class CreateEventBodyDto {
   name: string;
@@ -26,6 +27,7 @@ export class CreateEventBodyDto {
   venueCity: string;
   venueCountry: string;
   type: EventType;
+  category: EventCategory;
   isWffaRanked: boolean;
   trailerUrl: string;
   livestreamUrl: string;
@@ -61,6 +63,7 @@ export class CreateEventBodyDto {
     venueCity: string,
     venueCountry: string,
     type: EventType,
+    category: EventCategory,
     isWffaRanked: boolean,
     trailerUrl: string,
     livestreamUrl: string,
@@ -95,6 +98,7 @@ export class CreateEventBodyDto {
     this.venueCity = venueCity;
     this.venueCountry = venueCountry;
     this.type = type;
+    this.category = category;
     this.isWffaRanked = isWffaRanked;
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;

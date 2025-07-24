@@ -9,6 +9,7 @@ import { EventMaintainer } from './event-maintainer';
 import { Accommodation } from './accommodation';
 import { Offering } from './offering';
 import { CurrencyCode } from '@/domain/enums/currency-code';
+import { EventCategory } from '../enums/event-category';
 
 export type Event = {
   id?: string;
@@ -33,6 +34,7 @@ export type Event = {
   venuePostCode: string;
   venueCountry: string;
   type: EventType;
+  category: EventCategory;
   isWffaRanked: boolean;
   trailerUrl: string;
   livestreamUrl: string;
