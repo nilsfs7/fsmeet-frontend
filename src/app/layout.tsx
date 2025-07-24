@@ -11,6 +11,9 @@ const fontRoboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 export const metadata: Metadata = {
   title: 'FSMeet',
   description: 'Freestyle Football community and event tool.',
+  itunes: {
+    appId: "6747213184",
+  },
 };
 
 export default async function RootLayout({
