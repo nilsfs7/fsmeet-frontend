@@ -445,11 +445,12 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         </div>
       </div>
 
-      {session?.user.username === eventAdmin && eventType === EventType.COMPETITION && (
+      {eventType === EventType.COMPETITION && (
         <CheckBox
           id={'isWffaRanked'}
           label={t('chbIsWffaRanked')}
           value={isWffaRanked}
+          disabled={session?.user.username !== eventAdmin}
           onChange={() => {
             handleCheckBoxIsWffaRankedClicked();
           }}
