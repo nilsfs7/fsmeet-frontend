@@ -450,7 +450,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           id={'isWffaRanked'}
           label={t('chbIsWffaRanked')}
           value={isWffaRanked}
-          disabled={session?.user.username !== eventAdmin}
+          disabled={!isEventAdmin(event, session)}
           onChange={() => {
             handleCheckBoxIsWffaRankedClicked();
           }}
