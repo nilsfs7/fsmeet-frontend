@@ -5,6 +5,7 @@ import { UpdatePaymentMethodPayPalBodyDto } from './payment/update-payment-metho
 import { UpdatePaymentMethodSepaBodyDto } from './payment/update-payment-method-sepa.body.dto';
 import { UpdatePaymentMethodStripeBodyDto } from './payment/update-payment-method-stripe.body.dto';
 import { CurrencyCode } from '@/domain/enums/currency-code';
+import { EventCategory } from '@/domain/enums/event-category';
 
 export class UpdateEventBodyDto {
   id: string;
@@ -25,6 +26,7 @@ export class UpdateEventBodyDto {
   venuePostCode: string;
   venueCity: string;
   venueCountry: string;
+  category: EventCategory;
   isWffaRanked: boolean;
   trailerUrl: string;
   livestreamUrl: string;
@@ -60,6 +62,7 @@ export class UpdateEventBodyDto {
     venuePostCode: string,
     venueCity: string,
     venueCountry: string,
+    category: EventCategory,
     isWffaRanked: boolean,
     trailerUrl: string,
     livestreamUrl: string,
@@ -94,6 +97,7 @@ export class UpdateEventBodyDto {
     this.venuePostCode = venuePostCode;
     this.venueCity = venueCity;
     this.venueCountry = venueCountry;
+    this.category = category;
     this.isWffaRanked = isWffaRanked;
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;

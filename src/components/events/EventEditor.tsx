@@ -39,6 +39,8 @@ import { Toaster, toast } from 'sonner';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { menuCurrencies } from '@/domain/constants/menus/menu-currencies';
+import { EventCategory } from '@/domain/enums/event-category';
+import { menuEventCategories } from '@/domain/constants/menus/menu-event-categories';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -69,6 +71,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [venuePostCode, setVenuePostCode] = useState(event?.venuePostCode || '');
   const [venueCountry, setVenueCountry] = useState(event?.venueCountry || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
+  const [category, setEventCategory] = useState<EventCategory>(event?.category || EventCategory.NATIONAL);
   const [isWffaRanked, setIsWffaRanked] = useState(event?.isWffaRanked || false);
   const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || '');
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
@@ -244,6 +247,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       venueCity: venueCity,
       venuePostCode: venuePostCode,
       venueCountry: venueCountry,
+      category: category,
       isWffaRanked: isWffaRanked,
       trailerUrl: trailerUrl,
       livestreamUrl: livestreamUrl,
@@ -292,6 +296,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       setVenueCity(event.venueCity);
       setVenueCountry(event.venueCountry);
       setEventType(event.type);
+      setEventCategory(event.category);
       setIsWffaRanked(event.isWffaRanked);
       setTrailerUrl(event.trailerUrl);
       setLivestreamUrl(event.livestreamUrl);
@@ -347,6 +352,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     venuePostCode,
     venueCountry,
     eventType,
+    category,
     isWffaRanked,
     trailerUrl,
     livestreamUrl,
@@ -405,7 +411,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         }}
       />
 
-      <div className="m-2 grid grid-cols-2 gap-2">
+      <div className="m-2 grid grid-cols-2 items-center gap-2">
         <div>{t('cbType')}</div>
         <div className="flex w-full">
           {editorMode === EditorMode.CREATE && (
@@ -423,6 +429,19 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           )}
 
           {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find(item => item.value === eventType)?.text}</div>}
+        </div>
+      </div>
+
+      <div className="m-2 grid grid-cols-2 items-center gap-2">
+        <div>{t('cbCategory')}</div>
+        <div className="flex w-full">
+          <ComboBox
+            menus={menuEventCategories}
+            value={category}
+            onChange={(value: EventCategory) => {
+              setEventCategory(value);
+            }}
+          />
         </div>
       </div>
 
