@@ -4,15 +4,18 @@ import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { User } from '@/domain/types/user';
 import { getUsers } from '@/infrastructure/clients/user.client';
-import { getUserCountByNationality, getUserCountByType, getUserCountOnMap } from '@/infrastructure/clients/statistic.client';
+import { getUserCountByNationality, getUserCountByType, getUserCountOnMap, getUserGrowth } from '@/infrastructure/clients/statistic.client';
 import { ReadUserCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-count.response.dto';
 import Separator from '@/components/Seperator';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+import { ReadUserGrowthResponseDto } from '../../../infrastructure/clients/dtos/event/read-user-growth.response.dto';
+import { ChartArea } from '../../../components/charts/chart-area';
 
 export const UserStatistics = () => {
   const [userCountByType, setUserCountByType] = useState<ReadUserCountResponseDto>();
   const [userNationalityCount, setUserNationalityCount] = useState<{ country: string; userCount: number }[]>([]);
   const [userCountOnMap, setUserCountOnMap] = useState<number>(0);
+  const [userGrowth, setUserGrowth] = useState<ReadUserGrowthResponseDto[]>([]);
   const [hexColors, setHexColors] = useState<string[]>([]);
   const [users, setUsers] = useState<User[]>([]);
 
@@ -63,6 +66,10 @@ export const UserStatistics = () => {
 
     getUserCountOnMap().then(dto => {
       setUserCountOnMap(dto.userCountOnMap);
+    });
+
+    getUserGrowth().then(dto => {
+      setUserGrowth(dto);
     });
 
     getUsers().then(users => {
@@ -140,7 +147,7 @@ export const UserStatistics = () => {
           <Separator />
         </div>
         <div className="flex justify-center text-lg">{`User Share by Nationality`}</div>
-        <div className="flex justify-center border-primary">
+        <div className="flex justify-center">
           <PieChart width={400} height={400}>
             <Pie data={userNationalityCount} dataKey="userCount" nameKey="country" cx="50%" cy="50%" outerRadius={100} fill="#ccd6dd" label={renderLabel}>
               {userNationalityCount.map((entry, index) => (
@@ -149,6 +156,21 @@ export const UserStatistics = () => {
             </Pie>
             <Tooltip />
           </PieChart>
+        </div>
+
+        <div className="m-2">
+          <Separator />
+        </div>
+
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
+          <ChartArea
+            data={userGrowth.map(ds => {
+              return { date: ds.date.toString(), l1: ds.userCount };
+            })}
+            labels={['User count']}
+            title={'User Growth'}
+            description={'Cumulative user count'}
+          />
         </div>
       </div>
     </div>

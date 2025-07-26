@@ -1,3 +1,4 @@
+import { ReadUserGrowthResponseDto } from './dtos/event/read-user-growth.response.dto';
 import { ReadTotalMatchPerfromanceResponseDto } from './dtos/statistics/read-total-match-performance.response.dto';
 import { ReadUserCountOnMapResponseDto } from './dtos/statistics/read-user-count-on-map.response.dto';
 import { ReadUserCountResponseDto } from './dtos/statistics/read-user-count.response.dto';
@@ -42,6 +43,20 @@ export async function getUserCountOnMap(): Promise<ReadUserCountOnMapResponseDto
     return await response.json();
   } else {
     throw Error(`Error fetching user count on map.`);
+  }
+}
+
+export async function getUserGrowth(): Promise<ReadUserGrowthResponseDto[]> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/statistics/users/growth`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw Error(`Error fetching user growth.`);
   }
 }
 
