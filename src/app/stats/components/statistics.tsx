@@ -4,18 +4,20 @@ import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { User } from '@/domain/types/user';
 import { getUsers } from '@/infrastructure/clients/user.client';
-import { getUserCountByNationality, getUserCountByType, getUserCountOnMap, getUserGrowth } from '@/infrastructure/clients/statistic.client';
+import { getEventCount, getUserCountByNationality, getUserCountByType, getUserCountOnMap, getUserGrowth } from '@/infrastructure/clients/statistic.client';
 import { ReadUserCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-count.response.dto';
 import Separator from '@/components/Seperator';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
-import { ReadUserGrowthResponseDto } from '../../../infrastructure/clients/dtos/event/read-user-growth.response.dto';
 import { ChartArea } from '../../../components/charts/chart-area';
+import { ReadEventCountResponseDto } from '../../../infrastructure/clients/dtos/event/read-event-count.response.dto';
+import { ReadUserGrowthResponseDto } from '../../../infrastructure/clients/dtos/event/read-user-growth.response.dto';
 
-export const UserStatistics = () => {
+export const Statistics = () => {
   const [userCountByType, setUserCountByType] = useState<ReadUserCountResponseDto>();
   const [userNationalityCount, setUserNationalityCount] = useState<{ country: string; userCount: number }[]>([]);
   const [userCountOnMap, setUserCountOnMap] = useState<number>(0);
   const [userGrowth, setUserGrowth] = useState<ReadUserGrowthResponseDto[]>([]);
+  const [eventCount, setEventCount] = useState<ReadEventCountResponseDto[]>([]);
   const [hexColors, setHexColors] = useState<string[]>([]);
   const [users, setUsers] = useState<User[]>([]);
 
@@ -70,6 +72,10 @@ export const UserStatistics = () => {
 
     getUserGrowth().then(dto => {
       setUserGrowth(dto);
+    });
+
+    getEventCount().then(dto => {
+      setEventCount(dto);
     });
 
     getUsers().then(users => {
@@ -170,6 +176,53 @@ export const UserStatistics = () => {
             labels={['User count']}
             title={'User Growth'}
             description={'Cumulative user count'}
+          />
+
+          {/* todo: all in one attempts */}
+          {/* <ChartArea
+            data={eventCount.map(ds => {
+              return { date: ds.date.toString(), l1: ds.total, l2: ds.compsCount, l3: ds.onlineCompsCount, l4: ds.meetingsCount };
+            })}
+            labels={['Total', 'Comps', 'Online Comps', 'Meetings']}
+            colors={['--chart-1', '--chart-5', '--chart-2', '--chart-4']}
+            title={'Events created'}
+            description={'Cumulative event count'}
+          /> */}
+
+          <ChartArea
+            data={eventCount.map(ds => {
+              return { date: ds.date.toString(), l1: ds.total };
+            })}
+            labels={['Total']}
+            title={'Events created'}
+            description={'Cumulative event count'}
+          />
+
+          <ChartArea
+            data={eventCount.map(ds => {
+              return { date: ds.date.toString(), l1: ds.compsCount };
+            })}
+            labels={['Competitions']}
+            title={'Competitions created'}
+            description={'Cumulative competition count'}
+          />
+
+          <ChartArea
+            data={eventCount.map(ds => {
+              return { date: ds.date.toString(), l1: ds.onlineCompsCount };
+            })}
+            labels={['Online Competitions']}
+            title={'Online competitions created'}
+            description={'Cumulative online competition count'}
+          />
+
+          <ChartArea
+            data={eventCount.map(ds => {
+              return { date: ds.date.toString(), l1: ds.meetingsCount };
+            })}
+            labels={['Meetings']}
+            title={'Meetings created'}
+            description={'Cumulative meeting count'}
           />
         </div>
       </div>

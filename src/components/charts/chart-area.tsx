@@ -21,19 +21,19 @@ export function ChartArea({ data, labels, colors = [], title, description, tickL
     },
     l2: {
       label: labels[1],
-      color: data[0]?.l2 ? (colors[1] ? `var(${colors[1]})` : 'var(--chart-2)') : undefined,
+      color: data[data.length - 1]?.l2 ? (colors[1] ? `var(${colors[1]})` : 'var(--chart-2)') : undefined,
     },
     l3: {
       label: labels[2],
-      color: data[0]?.l3 ? (colors[2] ? `var(${colors[2]})` : 'var(--chart-3)') : undefined,
+      color: data[data.length - 1]?.l3 ? (colors[2] ? `var(${colors[2]})` : 'var(--chart-3)') : undefined,
     },
     l4: {
       label: labels[3],
-      color: data[0]?.l4 ? (colors[3] ? `var(${colors[3]})` : 'var(--chart-4)') : undefined,
+      color: data[data.length - 1]?.l4 ? (colors[3] ? `var(${colors[3]})` : 'var(--chart-4)') : undefined,
     },
     l5: {
       label: labels[4],
-      color: data[0]?.l5 ? (colors[4] ? `var(${colors[4]})` : 'var(--chart-5)') : undefined,
+      color: data[data.length - 1]?.l5 ? (colors[4] ? `var(${colors[4]})` : 'var(--chart-5)') : undefined,
     },
   } satisfies ChartConfig;
 
@@ -57,11 +57,11 @@ export function ChartArea({ data, labels, colors = [], title, description, tickL
             <XAxis dataKey="date" tickLine={tickLine} axisLine={false} tickMargin={8} tickFormatter={value => value.slice(0, 10)} />
             <YAxis dataKey="l1" tickLine={tickLine} axisLine={false} tickMargin={8} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" hideLabel />} />
-            <Area dataKey="l1" type="natural" fill="var(--color-l1)" fillOpacity={0.2} stroke="var(--color-l1)" stackId={'1'} />
-            {data[1] && <Area dataKey="l2" type="natural" fill="var(--color-l2)" fillOpacity={0.4} stroke="var(--color-l2)" stackId={'2'} />}
-            {data[2] && <Area dataKey="l3" type="natural" fill="var(--color-l3)" fillOpacity={0.6} stroke="var(--color-l3)" stackId={'3'} />}
-            {data[3] && <Area dataKey="l4" type="natural" fill="var(--color-l4)" fillOpacity={0.8} stroke="var(--color-l4)" stackId={'4'} />}
-            {data[4] && <Area dataKey="l5" type="natural" fill="var(--color-l5)" fillOpacity={1} stroke="var(--color-l5)" stackId={'5'} />}
+            <Area dataKey="l1" type="linear" fill="var(--color-l1)" fillOpacity={0.2} stroke="var(--color-l1)" stackId={'1'} />
+            {data[1] && <Area dataKey="l2" type="linear" fill="var(--color-l2)" fillOpacity={0.4} stroke="var(--color-l2)" stackId={'2'} />}
+            {data[2] && <Area dataKey="l3" type="linear" fill="var(--color-l3)" fillOpacity={0.6} stroke="var(--color-l3)" stackId={'3'} />}
+            {data[3] && <Area dataKey="l4" type="linear" fill="var(--color-l4)" fillOpacity={0.8} stroke="var(--color-l4)" stackId={'4'} />}
+            {data[4] && <Area dataKey="l5" type="linear" fill="var(--color-l5)" fillOpacity={1} stroke="var(--color-l5)" stackId={'5'} />}
 
             <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>
