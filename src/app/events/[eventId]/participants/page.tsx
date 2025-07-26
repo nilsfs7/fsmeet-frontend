@@ -25,7 +25,14 @@ export default async function EventParticipants({ params }: { params: { eventId:
     <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
-      <RegistrationsList eventId={params.eventId} registrations={registrations} accommodations={accommodations} offerings={offerings} currency={event.currency} />
+      <RegistrationsList
+        eventId={params.eventId}
+        registrations={registrations}
+        accommodations={accommodations}
+        offerings={offerings}
+        currency={event.currency}
+        paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+      />
 
       <Navigation>
         <NavigateBackButton />

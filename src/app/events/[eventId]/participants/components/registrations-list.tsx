@@ -17,6 +17,7 @@ import { Accommodation } from '@/domain/types/accommodation';
 import { Offering } from '@/domain/types/offering';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
+import { convertCurrencyIntegerToDecimal } from '../../../../../functions/currency-conversion';
 
 interface IRegistrationsList {
   eventId: string;
@@ -24,9 +25,10 @@ interface IRegistrationsList {
   accommodations: Accommodation[];
   offerings: Offering[];
   currency: CurrencyCode;
+  paymentFeeCover: boolean;
 }
 
-export const RegistrationsList = ({ eventId, registrations, accommodations, offerings, currency }: IRegistrationsList) => {
+export const RegistrationsList = ({ eventId, registrations, accommodations, offerings, currency, paymentFeeCover }: IRegistrationsList) => {
   const t = useTranslations('/events/eventid/participants');
   const na = 'n/a';
 
@@ -132,11 +134,15 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
             <p>{`${t('dlgRegistrationInfoOfferings')}:`}</p>
             {registrationSelected?.offeringOrders.map((id, index) => {
               const off = getOfferingById(id);
-              return (
-                <p key={`off-${index}`} className="grid grid-cols-2 gap-1">
-                  <p>{`- ${off?.description}`}</p> <p>{`${off?.cost} ${getCurrencySymbol(currency)}`}</p>
-                </p>
-              );
+              if (off)
+                return (
+                  <p key={`off-${index}`} className="grid grid-cols-2 gap-1">
+                    <p>{`- ${off?.description}`}</p>
+                    <p>
+                      {convertCurrencyIntegerToDecimal(paymentFeeCover ? off.costIncPaymentCosts : off.cost, currency)} {getCurrencySymbol(currency)}
+                    </p>
+                  </p>
+                );
             })}
 
             <p className="grid grid-cols-2 gap-1">
@@ -153,11 +159,15 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
             <p>{`${t('dlgRegistrationInfoAccommodations')}:`}</p>
             {registrationSelected?.accommodationOrders.map((id, index) => {
               const acc = getAccommodationById(id);
-              return (
-                <p key={`acc-${index}`} className="grid grid-cols-2 gap-1">
-                  <p>{`- ${acc?.description}`}</p> <p>{`${acc?.cost} ${getCurrencySymbol(currency)}`}</p>
-                </p>
-              );
+              if (acc)
+                return (
+                  <p key={`acc-${index}`} className="grid grid-cols-2 gap-1">
+                    <p>{`- ${acc?.description}`}</p>
+                    <p>
+                      {convertCurrencyIntegerToDecimal(paymentFeeCover ? acc.costIncPaymentCosts : acc.cost, currency)} {getCurrencySymbol(currency)}
+                    </p>
+                  </p>
+                );
             })}
           </>
         )}
