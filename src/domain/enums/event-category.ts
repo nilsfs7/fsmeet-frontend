@@ -4,6 +4,5 @@ export enum EventCategory {
   NATIONAL = 'national',
   PULSE = 'pulse',
   SUPERBALL = 'superball',
-  RBSS = 'rbss',
   WFFC = 'wffc',
 }
