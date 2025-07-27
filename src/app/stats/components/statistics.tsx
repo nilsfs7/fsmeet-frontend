@@ -171,9 +171,10 @@ export const Statistics = () => {
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
           <ChartArea
             data={userGrowth.map(ds => {
-              return { date: ds.date.toString(), l1: ds.userCount };
+              return { date: ds.date.toString(), l1: ds.total, l2: ds.malesCount, l3: ds.femalesCount };
             })}
-            labels={['User count']}
+            labels={['Total', 'Male', 'Female']}
+            colors={['--chart-1', '--chart-2', '--chart-5']}
             title={'User Growth'}
             description={'Cumulative user count'}
           />
