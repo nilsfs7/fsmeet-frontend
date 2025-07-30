@@ -86,6 +86,10 @@ export default async function EventDetails({ params }: { params: { eventId: stri
                     <Link href={`${routeEvents}/${params.eventId}/attachments`}>
                       <ActionButton action={Action.MANAGE_ATTACHMENTS} tooltip={t('adminPanelBtnManageAttachmentsToolTip')} />
                     </Link>
+
+                    <Link href={`${routeEvents}/${params.eventId}/stats`}>
+                      <ActionButton action={Action.STATISTICS} tooltip={t('adminPanelBtnViewStatisticsToolTip')} />
+                    </Link>
                   </>
                 )}
               </div>
