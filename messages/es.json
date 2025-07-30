@@ -201,6 +201,7 @@
     "adminPanelBtnManageSponsorsToolTip": "Gestionar patrocinadores",
     "adminPanelBtnManageAttachmentsToolTip": "Gestionar documentos",
     "adminPanelBtnManageEventStateToolTip": "Estado del evento",
+    "adminPanelBtnViewStatisticsToolTip": "Estadística",
     "tabOverviewTitle": "Resumen",
     "tabOverviewParticipationFee": "Cuota de participación",
     "tabOverviewRegistrationPeriod": "Período de inscripción",
@@ -434,6 +435,9 @@
   "/events/eventid/sponsors/create": {
     "pageTitle": "Crear patrocinador",
     "btnCreate": "Crear"
+  },
+  "/events/eventid/stats": {
+    "pageTitle": "Estadística"
   },
   "/events/create": {
     "pageTitle": "Crear evento",

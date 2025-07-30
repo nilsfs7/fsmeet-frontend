@@ -25,4 +25,5 @@ export enum Action {
   SEND,
   SHARE,
   SHOW,
+  STATISTICS,
 }

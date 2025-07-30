@@ -1,6 +1,7 @@
 import { Action } from '@/domain/enums/action';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
+import BarChartIcon from '@mui/icons-material/BarChart';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckIcon from '@mui/icons-material/CheckCircle';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
@@ -143,6 +144,9 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
       break;
     case Action.SHOW:
       icon = <VisibilityIcon />;
+      break;
+    case Action.STATISTICS:
+      icon = <BarChartIcon />;
       break;
   }
 
