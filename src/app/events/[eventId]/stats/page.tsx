@@ -9,8 +9,9 @@ import { getTranslations } from 'next-intl/server';
 import { getEventRegistrations } from '../../../../infrastructure/clients/event.client';
 import { EventRegistrationType } from '../../../../domain/types/event-registration-type';
 import { auth } from '../../../../auth';
-import { ChartPie } from './chart-pie';
+import { ChartPie } from '../../../../components/charts/chart-pie';
 import { Gender } from '../../../../domain/enums/gender';
+import { ChartParticipantAge } from './chart-participant-age';
 
 export default async function Statistics({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid/stats');
@@ -30,14 +31,38 @@ export default async function Statistics({ params }: { params: { eventId: string
     }
   });
 
+  const particpantAges = [0, 0, 0, 0, 0];
+  registeredParticipants.forEach(p => {
+    if (p.user.age) {
+      switch (true) {
+        case p.user.age < 16:
+          particpantAges[0] += 1;
+          break;
+        case p.user.age >= 16 && p.user.age <= 20:
+          particpantAges[1] += 1;
+          break;
+        case p.user.age >= 21 && p.user.age <= 25:
+          particpantAges[2] += 1;
+          break;
+        case p.user.age >= 26 && p.user.age <= 30:
+          particpantAges[3] += 1;
+          break;
+        case p.user.age > 30:
+          particpantAges[4] += 1;
+          break;
+      }
+    }
+  });
+
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
-          <ChartPie data={[maleParticipants.length, femaleParticipants.length]} labels={['Male', 'Female']} colors={['--chart-1', '--chart-5']} title={'Participant Gender Share'} />
-          <ChartPie data={[registeredParticipants.length, registeredVisitors.length]} labels={['Participants', 'Visitors']} colors={['--chart-1', '--chart-2']} title={'Participant / Visitor Share'} />
+          <ChartPie data={[maleParticipants.length, femaleParticipants.length]} labels={['Male', 'Female']} colors={['--chart-1', '--chart-5']} title={'Participants by Gender'} />
+          <ChartPie data={[registeredParticipants.length, registeredVisitors.length]} labels={['Participants', 'Visitors']} colors={['--chart-1', '--chart-2']} title={'Amount of Attendees'} />
+          <ChartParticipantAge data={particpantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participant Age'} />
         </div>
       </div>
 
