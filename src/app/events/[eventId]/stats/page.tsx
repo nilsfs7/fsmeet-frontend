@@ -12,6 +12,7 @@ import { auth } from '../../../../auth';
 import { ChartPie } from '../../../../components/charts/chart-pie';
 import { Gender } from '../../../../domain/enums/gender';
 import { ChartParticipantAge } from './chart-participant-age';
+import { getCountryNameByCode } from '../../../../functions/get-country-name-by-code';
 
 export default async function Statistics({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid/stats');
@@ -54,14 +55,44 @@ export default async function Statistics({ params }: { params: { eventId: string
     }
   });
 
+  const countryCount = new Map<string, number>([]);
+  registeredParticipants.forEach(p => {
+    if (p.user.country) {
+      if (countryCount.has(p.user.country)) {
+        const curVal = countryCount.get(p.user.country);
+        if (curVal) countryCount.set(p.user.country, curVal + 1);
+      } else {
+        countryCount.set(p.user.country, 1);
+      }
+    }
+  });
+
+  const countryCountSorted = new Map([...countryCount.entries()].sort((a, b) => b[1] - a[1]));
+
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
-      <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>
+      <div className={'grid mx-2 gap-2 p-2 rounded-lg  border border-primary bg-secondary-light  text-sm overflow-y-auto'}>
+        {/* Attendees */}
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
+          <ChartPie data={[registeredParticipants.length, registeredVisitors.length]} labels={['Participants', 'Visitors']} colors={['--chart-1', '--chart-2']} title={'Amount of Attendees'} />
+        </div>
+
+        <Separator />
+
+        {/* Participants */}
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
           <ChartPie data={[maleParticipants.length, femaleParticipants.length]} labels={['Male', 'Female']} colors={['--chart-1', '--chart-5']} title={'Participants by Gender'} />
-          <ChartPie data={[registeredParticipants.length, registeredVisitors.length]} labels={['Participants', 'Visitors']} colors={['--chart-1', '--chart-2']} title={'Amount of Attendees'} />
+          <ChartPie
+            data={Array.from(countryCountSorted.values())}
+            labels={Array.from(
+              countryCountSorted.keys().map(countryCode => {
+                return getCountryNameByCode(countryCode);
+              })
+            )}
+            title={'Participants by Country'}
+          />
           <ChartParticipantAge data={particpantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participant Age'} />
         </div>
       </div>
