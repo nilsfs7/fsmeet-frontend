@@ -67,9 +67,27 @@ export default async function Statistics({ params }: { params: { eventId: string
     }
   });
 
-  const countryCountSorted = new Map([...countryCount.entries()].sort((a, b) => b[1] - a[1]));
+  let countryCountSorted = new Map<string, number>([...countryCount.entries()].sort((a, b) => b[1] - a[1]));
+
+  if (countryCountSorted.size > 5) {
+    let countryCountSortedReduced = new Map<string, number>();
+    let otherCount = 0;
+    let index = 0;
+    for (const [key, value] of countryCountSorted) {
+      if (index < 5) {
+        countryCountSortedReduced.set(key, value);
+      } else {
+        otherCount += value;
+      }
+      index++;
+    }
+
+    countryCountSortedReduced.set('other', otherCount);
+    countryCountSorted = countryCountSortedReduced;
+  }
+
   const countryLabels = Array.from(countryCountSorted.keys()).map(countryCode => {
-    return getCountryNameByCode(countryCode);
+    return getCountryNameByCode(countryCode) || 'other';
   });
 
   return (
@@ -102,7 +120,7 @@ export default async function Statistics({ params }: { params: { eventId: string
 
           <ChartPie key={'country-participants'} data={Array.from(countryCountSorted.values())} labels={countryLabels} title={'Participants by Country'} />
 
-          <ChartParticipantAge key={'age-participants'} data={particpantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participant Age'} />
+          <ChartParticipantAge key={'age-participants'} data={particpantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participants by Age'} />
         </div>
       </div>
 
