@@ -6,13 +6,13 @@ import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import Separator from '@/components/Seperator';
 import { getTranslations } from 'next-intl/server';
-import { getEventRegistrations } from '../../../../infrastructure/clients/event.client';
-import { EventRegistrationType } from '../../../../domain/types/event-registration-type';
-import { auth } from '../../../../auth';
-import { ChartPie } from '../../../../components/charts/chart-pie';
-import { Gender } from '../../../../domain/enums/gender';
+import { getEventRegistrations } from '@/infrastructure/clients/event.client';
+import { EventRegistrationType } from '@/domain/types/event-registration-type';
+import { auth } from '@/auth';
+import { ChartPie } from '@/components/charts/chart-pie';
+import { Gender } from '@/domain/enums/gender';
 import { ChartParticipantAge } from './chart-participant-age';
-import { getCountryNameByCode } from '../../../../functions/get-country-name-by-code';
+import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 
 export default async function Statistics({ params }: { params: { eventId: string } }) {
   const t = await getTranslations('/events/eventid/stats');
@@ -68,6 +68,9 @@ export default async function Statistics({ params }: { params: { eventId: string
   });
 
   const countryCountSorted = new Map([...countryCount.entries()].sort((a, b) => b[1] - a[1]));
+  const countryLabels = Array.from(countryCountSorted.keys()).map(countryCode => {
+    return getCountryNameByCode(countryCode);
+  });
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
@@ -76,24 +79,30 @@ export default async function Statistics({ params }: { params: { eventId: string
       <div className={'grid mx-2 gap-2 p-2 rounded-lg  border border-primary bg-secondary-light  text-sm overflow-y-auto'}>
         {/* Attendees */}
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
-          <ChartPie data={[registeredParticipants.length, registeredVisitors.length]} labels={['Participants', 'Visitors']} colors={['--chart-1', '--chart-2']} title={'Amount of Attendees'} />
+          <ChartPie
+            key={'amount-attendees'}
+            data={[registeredParticipants.length, registeredVisitors.length]}
+            labels={['Participants', 'Visitors']}
+            colors={['--chart-1', '--chart-2']}
+            title={'Amount of Attendees'}
+          />
         </div>
 
         <Separator />
 
         {/* Participants */}
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
-          <ChartPie data={[maleParticipants.length, femaleParticipants.length]} labels={['Male', 'Female']} colors={['--chart-1', '--chart-5']} title={'Participants by Gender'} />
           <ChartPie
-            data={Array.from(countryCountSorted.values())}
-            labels={Array.from(
-              countryCountSorted.keys().map(countryCode => {
-                return getCountryNameByCode(countryCode);
-              })
-            )}
-            title={'Participants by Country'}
+            key={'gender-participants'}
+            data={[maleParticipants.length, femaleParticipants.length]}
+            labels={['Male', 'Female']}
+            colors={['--chart-1', '--chart-5']}
+            title={'Participants by Gender'}
           />
-          <ChartParticipantAge data={particpantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participant Age'} />
+
+          <ChartPie key={'country-participants'} data={Array.from(countryCountSorted.values())} labels={countryLabels} title={'Participants by Country'} />
+
+          <ChartParticipantAge key={'age-participants'} data={particpantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participant Age'} />
         </div>
       </div>
 
