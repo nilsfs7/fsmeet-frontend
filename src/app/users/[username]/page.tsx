@@ -247,26 +247,24 @@ export default async function PublicUserProfile({ params }: { params: { username
                     </AccordionItem>
                   )}
 
-                  {/* todo: enable for all users */}
-                  {(session?.user.username === 'nils' || session?.user.username === 'showballs' || session?.user.username === 'wffa' || session?.user.username === 'jay_vng') &&
-                    achievements.length > 0 && (
-                      <AccordionItem value="item-achievements">
-                        <AccordionTrigger>{t('accordionItemAchievements')}</AccordionTrigger>
-                        <AccordionContent>
-                          <div className="grid grid-cols-3 justify-center gap-2">
-                            {achievements.map((achievement, i) => {
-                              return (
-                                <div key={`achievement-${i}`} className="flex flex-col items-center w-16 justify-self-centers">
-                                  <img src={achievement.imageUrl} className={`h-12 w-12 rounded-full object-cover ${getAchievementStyle(achievement.level)}`} alt={achievement.name} />
+                  {achievements.length > 0 && (
+                    <AccordionItem value="item-achievements">
+                      <AccordionTrigger>{t('accordionItemAchievements')}</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid grid-cols-3 justify-center gap-2">
+                          {achievements.map((achievement, i) => {
+                            return (
+                              <div key={`achievement-${i}`} className="flex flex-col items-center w-16 justify-self-centers">
+                                <img src={achievement.imageUrl} className={`h-12 w-12 rounded-full object-cover ${getAchievementStyle(achievement.level)}`} alt={achievement.name} />
 
-                                  <div className="text-xs text-center">{achievement.name}</div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    )}
+                                <div className="text-xs text-center">{achievement.name}</div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
 
                   {user.type === UserType.FREESTYLER && (
                     <AccordionItem value="item-matches">
