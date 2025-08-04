@@ -295,7 +295,7 @@ const Map = ({
                             )}
 
                             {isIframe && (
-                              <a href={`${window.location.protocol}//${window.location.host}/${routeUsers}/${user.username}`} target="_blank" rel="noopener noreferrer">
+                              <a href={`${window.location.origin}/${routeUsers}/${user.username}`} target="_blank" rel="noopener noreferrer">
                                 <u>{t('infoWindowGoToProfileExternal')}</u>
                               </a>
                             )}

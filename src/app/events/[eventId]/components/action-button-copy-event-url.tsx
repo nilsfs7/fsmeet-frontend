@@ -17,7 +17,7 @@ export const ActionButtonCopyEventUrl = ({ alias }: IActionButtonCopyEventUrl) =
     let eventUrl: string;
 
     if (alias) {
-      eventUrl = `${window.location.host.toString()}/e/${alias}`;
+      eventUrl = `${window.location.origin}/e/${alias}`;
     } else {
       eventUrl = window.location.toString();
     }
