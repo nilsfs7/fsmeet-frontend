@@ -158,7 +158,7 @@ export default async function PublicUserProfile({ params }: { params: { username
               <div className="mx-2 mt-6">
                 <div className="flex items-start gap-1 text-lg">
                   {user.verificationState === UserVerificationState.VERIFIED && (
-                    <div className="h-6 w-6 hover:p-0.5 flex items-center">
+                    <div className="h-6 w-6 flex items-center">
                       <img src={imgVerifiedCheckmark} alt="user verified checkmark" />
                     </div>
                   )}
@@ -172,8 +172,8 @@ export default async function PublicUserProfile({ params }: { params: { username
 
                 {user.type !== UserType.FREESTYLER && (
                   <div className="flex items-start gap-1 mt-1">
-                    <div className="w-6 hover:p-0.5">
-                      <img src={getUserTypeImages(user.type).path} className="rounded-full object-cover" />
+                    <div className="w-6">
+                      <img src={getUserTypeImages(user.type, user.gender).path} className="rounded-full object-cover" />
                     </div>
 
                     <div className="w-fit">{getUserTypeLabels(user.type, t)}</div>
@@ -182,7 +182,7 @@ export default async function PublicUserProfile({ params }: { params: { username
 
                 {user.country && user.country != '--' && (
                   <div className="flex items-center gap-1 mt-1">
-                    <div className="flex w-6 hover:p-0.5">
+                    <div className="flex w-6">
                       <ReactCountryFlag
                         countryCode={user.country}
                         svg
@@ -199,7 +199,7 @@ export default async function PublicUserProfile({ params }: { params: { username
 
                 {user.city && (
                   <div className="flex items-start gap-1 mt-1">
-                    <div className="w-6 hover:p-0.5">
+                    <div className="w-6">
                       <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
                         <img src={imgWorld} className="rounded-full object-cover" />
                       </Link>
