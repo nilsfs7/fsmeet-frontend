@@ -170,15 +170,13 @@ export default async function PublicUserProfile({ params }: { params: { username
                   </div>
                 </div>
 
-                {user.type !== UserType.FREESTYLER && (
-                  <div className="flex items-start gap-1 mt-1">
-                    <div className="w-6">
-                      <img src={getUserTypeImages(user.type, user.gender).path} className="rounded-full object-cover" />
-                    </div>
-
-                    <div className="w-fit">{getUserTypeLabels(user.type, t)}</div>
+                <div className="flex items-start gap-1 mt-1">
+                  <div className="w-6">
+                    <img src={getUserTypeImages(user.type, user.gender).path} className="object-cover" />
                   </div>
-                )}
+
+                  <div className="w-fit">{getUserTypeLabels(user.type, t)}</div>
+                </div>
 
                 {user.country && user.country != '--' && (
                   <div className="flex items-center gap-1 mt-1">
