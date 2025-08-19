@@ -353,7 +353,9 @@
   },
   "/events/eventid/participants": {
     "pageTitle": "Teilnehmer verwalten",
-    "textNoRegistrations": "Noch keine Registrierungen.",
+    "sectionParticipantsTitle": "Teilnehmer",
+    "textNoParticipants": "Noch keine Registrierungen.",
+    "sectionVisitorsTitle": "Zuschauer",
     "dlgRegistrationInfoTitle": "Info",
     "dlgRegistrationInfoType": "Typ",
     "dlgRegistrationInfoStatus": "Status",

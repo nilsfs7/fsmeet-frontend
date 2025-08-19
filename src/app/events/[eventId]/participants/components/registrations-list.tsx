@@ -18,6 +18,7 @@ import { Offering } from '@/domain/types/offering';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { convertCurrencyIntegerToDecimal } from '../../../../../functions/currency-conversion';
+import { EventRegistrationType } from '../../../../../domain/types/event-registration-type';
 
 interface IRegistrationsList {
   eventId: string;
@@ -212,58 +213,118 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
         </p>
       </Dialog>
 
-      <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>
+      <div className={'mx-2 flex flex-col gap-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>
         <div className="flex flex-col">
-          {registrations.length === 0 && <div className="m-1 flex justify-center">{t('textNoRegistrations')}</div>}
+          <div className="text-center text-lg">{t('sectionParticipantsTitle')}</div>
+          {registrations.length === 0 && <div className="m-1 flex justify-center">{t('textNoParticipants')}</div>}
           {registrations.map((registration, index) => {
-            return (
-              <div key={index} className="m-1 flex items-center gap-1">
-                <div className="mx-1 flex w-1/2 justify-end">
-                  <UserCard user={registration.user} registrationStatus={registration.status} />
+            if (registration.type === EventRegistrationType.PARTICIPANT)
+              return (
+                <div key={index} className="m-1 flex items-center gap-1">
+                  <div className="mx-1 flex w-1/2 justify-end">
+                    <UserCard user={registration.user} registrationStatus={registration.status} />
+                  </div>
+
+                  <div className="flex w-1/2 justify-start gap-1">
+                    <ActionButton
+                      action={Action.INFO}
+                      onClick={() => {
+                        handleInfoClicked(registration.user.username);
+                      }}
+                    />
+
+                    {(registration.status === EventRegistrationStatus.APPROVED || registration.status === EventRegistrationStatus.DENIED) && (
+                      <div className="flex gap-1">
+                        <div className="flex w-24 items-center justify-center font-bold">{registration.status.toUpperCase()}</div>
+                        <ActionButton
+                          action={Action.DELETE}
+                          onClick={() => {
+                            handleRemoveParticipantClicked(registration.user.username);
+                          }}
+                        />
+                      </div>
+                    )}
+
+                    {registration.status == EventRegistrationStatus.PENDING && (
+                      <div className="flex gap-1">
+                        <ActionButton
+                          action={Action.ACCEPT}
+                          onClick={() => {
+                            handleApproveParticipantClicked(registration.user.username, EventRegistrationStatus.APPROVED);
+                          }}
+                        />
+
+                        <ActionButton
+                          action={Action.DENY}
+                          onClick={() => {
+                            handleDenyParticipantClicked(registration.user.username);
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
-
-                <div className="flex w-1/2 justify-start gap-1">
-                  <ActionButton
-                    action={Action.INFO}
-                    onClick={() => {
-                      handleInfoClicked(registration.user.username);
-                    }}
-                  />
-
-                  {(registration.status === EventRegistrationStatus.APPROVED || registration.status === EventRegistrationStatus.DENIED) && (
-                    <div className="flex gap-1">
-                      <div className="flex w-24 items-center justify-center font-bold">{registration.status.toUpperCase()}</div>
-                      <ActionButton
-                        action={Action.DELETE}
-                        onClick={() => {
-                          handleRemoveParticipantClicked(registration.user.username);
-                        }}
-                      />
-                    </div>
-                  )}
-
-                  {registration.status == EventRegistrationStatus.PENDING && (
-                    <div className="flex gap-1">
-                      <ActionButton
-                        action={Action.ACCEPT}
-                        onClick={() => {
-                          handleApproveParticipantClicked(registration.user.username, EventRegistrationStatus.APPROVED);
-                        }}
-                      />
-
-                      <ActionButton
-                        action={Action.DENY}
-                        onClick={() => {
-                          handleDenyParticipantClicked(registration.user.username);
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
+              );
           })}
         </div>
+
+        {registrations.some(r => {
+          return r.type === EventRegistrationType.VISITOR;
+        }) && (
+          <div className="flex flex-col">
+            <div className="text-center text-lg">{t('sectionVisitorsTitle')}</div>
+            {registrations.length === 0 && <div className="m-1 flex justify-center">{t('textNoRegistrations')}</div>}
+            {registrations.map((registration, index) => {
+              if (registration.type === EventRegistrationType.VISITOR)
+                return (
+                  <div key={index} className="m-1 flex items-center gap-1">
+                    <div className="mx-1 flex w-1/2 justify-end">
+                      <UserCard user={registration.user} registrationStatus={registration.status} />
+                    </div>
+
+                    <div className="flex w-1/2 justify-start gap-1">
+                      <ActionButton
+                        action={Action.INFO}
+                        onClick={() => {
+                          handleInfoClicked(registration.user.username);
+                        }}
+                      />
+
+                      {(registration.status === EventRegistrationStatus.APPROVED || registration.status === EventRegistrationStatus.DENIED) && (
+                        <div className="flex gap-1">
+                          <div className="flex w-24 items-center justify-center font-bold">{registration.status.toUpperCase()}</div>
+                          <ActionButton
+                            action={Action.DELETE}
+                            onClick={() => {
+                              handleRemoveParticipantClicked(registration.user.username);
+                            }}
+                          />
+                        </div>
+                      )}
+
+                      {registration.status == EventRegistrationStatus.PENDING && (
+                        <div className="flex gap-1">
+                          <ActionButton
+                            action={Action.ACCEPT}
+                            onClick={() => {
+                              handleApproveParticipantClicked(registration.user.username, EventRegistrationStatus.APPROVED);
+                            }}
+                          />
+
+                          <ActionButton
+                            action={Action.DENY}
+                            onClick={() => {
+                              handleDenyParticipantClicked(registration.user.username);
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+            })}
+          </div>
+        )}
       </div>
     </>
   );

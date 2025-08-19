@@ -353,7 +353,9 @@
   },
   "/events/eventid/participants": {
     "pageTitle": "Manage Participants",
-    "textNoRegistrations": "No registrations, yet.",
+    "sectionParticipantsTitle": "Participants",
+    "textNoParticipants": "No registrations, yet.",
+    "sectionVisitorsTitle": "Visitors",
     "dlgRegistrationInfoTitle": "Info",
     "dlgRegistrationInfoType": "Type",
     "dlgRegistrationInfoStatus": "Status",
