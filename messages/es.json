@@ -353,7 +353,9 @@
   },
   "/events/eventid/participants": {
     "pageTitle": "Gestionar a los participantes",
-    "textNoRegistrations": "Aún no hay inscripciones.",
+    "sectionParticipantsTitle": "Participantes",
+    "textNoParticipants": "Aún no hay inscripciones.",
+    "sectionVisitorsTitle": "Espectadores",
     "dlgRegistrationInfoTitle": "Información",
     "dlgRegistrationInfoType": "Tipo",
     "dlgRegistrationInfoStatus": "Estado",

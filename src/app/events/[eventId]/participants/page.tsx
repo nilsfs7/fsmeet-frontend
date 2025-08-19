@@ -5,7 +5,6 @@ import PageTitle from '@/components/PageTitle';
 import { getTranslations } from 'next-intl/server';
 import { RegistrationsList } from './components/registrations-list';
 import { getEvent, getEventRegistrations } from '@/infrastructure/clients/event.client';
-import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { getAccommodations } from '@/infrastructure/clients/accommodation.client';
 import { getOfferings } from '@/infrastructure/clients/offering.client';
 import { ActionButtonDownloadList } from './components/action-button-download-list';
@@ -17,7 +16,7 @@ export default async function EventParticipants({ params }: { params: { eventId:
 
   const event = await getEvent(params.eventId);
   const competitions = await getCompetitions(params.eventId);
-  const registrations = await getEventRegistrations(params.eventId, EventRegistrationType.PARTICIPANT, session);
+  const registrations = await getEventRegistrations(params.eventId, null, session);
   const accommodations = await getAccommodations(params.eventId);
   const offerings = await getOfferings(params.eventId);
 
