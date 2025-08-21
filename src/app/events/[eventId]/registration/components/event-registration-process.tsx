@@ -382,10 +382,11 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   };
 
   const handleUnregisterClicked = async () => {
-    if (event && moment(event?.registrationDeadline).unix() > moment().unix()) {
-      router.replace(`${routeEvents}/${event.id}/registration?unregister=1`);
+    if (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix()) {
+      console.error('Registration deadline for participants exceeded.');
+      return;
     } else {
-      console.error('Registration deadline exceeded.');
+      router.replace(`${routeEvents}/${event.id}/registration?unregister=1`);
     }
   };
 
@@ -395,7 +396,10 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
   const handleConfirmUnregisterClicked = async () => {
     if (session?.user?.username) {
-      if (event?.id && moment(event?.registrationDeadline).unix() > moment().unix()) {
+      if (!event?.id || (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix())) {
+        console.error('Registration deadline for participants exceeded.');
+        return;
+      } else {
         try {
           await deleteEventRegistration(event.id, session.user.username, session);
           router.replace(`${routeEvents}/${event.id}/registration`);
@@ -403,8 +407,6 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
         } catch (error: any) {
           console.error(error.message);
         }
-      } else {
-        console.error('Registration deadline exceeded.');
       }
     }
   };
@@ -696,6 +698,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                 vistorFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.visitorFeeIncPaymentCosts : event.visitorFee}
                 eventType={event.type}
                 userType={user.type}
+                disabled={[moment().unix() > moment(event.registrationDeadline).unix(), moment().unix() > moment(event.dateTo).unix()]}
                 currency={event.currency}
                 checked={registrationType}
                 selectable={true}
@@ -912,7 +915,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           {page !== RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && (
             <TextButton
               text={page ? t('btnNextPage') : t('btnRegister')}
-              disabled={nextButtonDisabled() || moment(event?.registrationOpen).unix() > moment().unix() || moment(event?.registrationDeadline).unix() < moment().unix() || false}
+              disabled={nextButtonDisabled() || moment(event?.registrationOpen).unix() > moment().unix() || moment(event?.dateTo).unix() < moment().unix() || false}
               onClick={handleNextClicked}
             />
           )}
@@ -923,7 +926,11 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
             <TextButton
               text={t('btnUnregister')}
               style={ButtonStyle.CRITICAL}
-              disabled={(event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
+              disabled={
+                (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix()) ||
+                (registrationType === EventRegistrationType.VISITOR && moment(event?.dateTo).unix() < moment().unix()) ||
+                false
+              }
               onClick={() => {
                 handleUnregisterClicked();
               }}
@@ -933,7 +940,11 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           {!page && registrationStatus === EventRegistrationStatus.PENDING && (
             <TextButton
               text={t('btnProceedPayment')}
-              disabled={(event?.id && moment(event?.registrationDeadline).unix() < moment().unix()) || false}
+              disabled={
+                (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix()) ||
+                (registrationType === EventRegistrationType.VISITOR && moment(event?.dateTo).unix() < moment().unix()) ||
+                false
+              }
               onClick={() => {
                 handleProceedPaymentClicked();
               }}
