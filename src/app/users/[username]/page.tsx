@@ -129,19 +129,18 @@ export default async function PublicUserProfile({ params }: { params: { username
   const t = await getTranslations('/users/username');
   const session = await auth();
 
-  const user = await getUser(params.username.toString());
-  const matchStats = await getTotalMatchPerformance(params.username.toString());
-  const battleHistory = await getUserBattleHistory(params.username.toString());
-  const achievements = await getAchievements(params.username.toString());
+  const [user, matchStats, battleHistory, achievements] = await Promise.all([
+    getUser(params.username),
+    getTotalMatchPerformance(params.username),
+    getUserBattleHistory(params.username),
+    getAchievements(params.username),
+  ]);
 
-  const usersMapOfBattles = await getUsersByBattles(battleHistory);
-  const competitionsMapOfBattles = await getCompetitionsByBattles(battleHistory);
+  // depend on battleHistory
+  const [usersMapOfBattles, competitionsMapOfBattles] = await Promise.all([getUsersByBattles(battleHistory), getCompetitionsByBattles(battleHistory)]);
+
+  // depends on competitionsMapOfBattles
   const eventsMapOfCompetitions = await getEventsByCompetitions(competitionsMapOfBattles);
-
-  let displayName = user.firstName ? `${user.firstName}` : `${user.username}`;
-  if (user.lastName) {
-    displayName = `${displayName}`;
-  }
 
   return (
     <>
