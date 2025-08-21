@@ -24,11 +24,13 @@ export default async function EventDetails({ params }: { params: { eventId: stri
   const t = await getTranslations('/events/eventid');
   const session = await auth();
 
-  const event = await getEvent(params.eventId, session);
-  const competitions = await getCompetitions(params.eventId);
-  const sponsors = await getSponsors(params.eventId);
-  const attachments = await getAttachments(params.eventId);
-  const comments = await getComments(params.eventId);
+  const [event, competitions, sponsors, attachments, comments] = await Promise.all([
+    getEvent(params.eventId, session),
+    getCompetitions(params.eventId),
+    getSponsors(params.eventId),
+    getAttachments(params.eventId),
+    getComments(params.eventId),
+  ]);
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
