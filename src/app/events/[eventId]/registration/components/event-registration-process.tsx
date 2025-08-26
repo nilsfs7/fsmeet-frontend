@@ -99,6 +99,13 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     setUserInfoChanged(true);
   };
 
+  const handleNickNameChanged = (value: string) => {
+    const newUser = Object.assign({}, user);
+    newUser.nickName = value;
+    setUser(newUser);
+    setUserInfoChanged(true);
+  };
+
   const handleBirthdayChanged = (value: Moment) => {
     if (value) {
       const newUser = Object.assign({}, user);
@@ -632,6 +639,17 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                     handleLastNameChanged(e.currentTarget.value);
                   }}
                 />
+
+                {user.type !== UserType.FAN && (
+                  <TextInput
+                    id={'nickName'}
+                    label={t('pageParticipantSectionUserInfoArtistName')}
+                    value={user.nickName}
+                    onChange={e => {
+                      handleNickNameChanged(e.currentTarget.value);
+                    }}
+                  />
+                )}
 
                 <div className="m-2 flex justify-between items-center gap-2">
                   <div>{t('pageParticipantSectionUserInfoBirthday')}</div>
