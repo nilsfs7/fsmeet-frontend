@@ -74,6 +74,7 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
         wffa_id: registration.user.wffaId || na,
         first_name: registration.user.firstName,
         last_name: registration.user.lastName,
+        nickname: registration.user.nickName || na,
         gender: registration.user.gender,
         country_code: registration.user.country || na,
         country: registration.user.country ? getCountryNameByCode(registration.user.country) : na,
