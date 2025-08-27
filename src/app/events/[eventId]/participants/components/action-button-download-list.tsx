@@ -40,32 +40,53 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
     for (let i = 0; i < registrations.length; i++) {
       const registration = registrations[i];
 
-      let competitionsCell: string = '';
-      for (let i = 0; i < registration.competitionSignUps.length; i++) {
-        competitions.forEach(comp => {
-          if (comp.id === registration.competitionSignUps[i]) {
-            competitionsCell = competitionsCell ? `${competitionsCell}, ${comp.name}` : comp.name;
-          }
-        });
-      }
+      const competitionsData = competitions.reduce(
+        (acc, value) => {
+          let cellValue: string = na;
 
-      let offeringsCell: string = '';
-      for (let i = 0; i < registration.offeringOrders.length; i++) {
-        offerings.forEach(off => {
-          if (off.id === registration.offeringOrders[i]) {
-            offeringsCell = offeringsCell ? `${offeringsCell}, ${off.description}` : off.description;
+          if (value.id) {
+            if (registration.competitionSignUps.includes(value.id)) {
+              cellValue = `x`;
+            }
           }
-        });
-      }
 
-      let accommodationsCell: string = '';
-      for (let i = 0; i < registration.accommodationOrders.length; i++) {
-        accommodations.forEach(acc => {
-          if (acc.id === registration.accommodationOrders[i]) {
-            accommodationsCell = accommodationsCell ? `${accommodationsCell}, ${acc.description}` : acc.description;
+          acc[value.name] = cellValue;
+          return acc;
+        },
+        {} as Record<string, string>
+      );
+
+      const offeringsData = offerings.reduce(
+        (acc, value) => {
+          let cellValue: string = na;
+
+          if (value.id) {
+            if (registration.offeringOrders.includes(value.id)) {
+              cellValue = `x`;
+            }
           }
-        });
-      }
+
+          acc[value.description] = cellValue;
+          return acc;
+        },
+        {} as Record<string, string>
+      );
+
+      const accommodationsData = accommodations.reduce(
+        (acc, value) => {
+          let cellValue: string = na;
+
+          if (value.id) {
+            if (registration.accommodationOrders.includes(value.id)) {
+              cellValue = `x`;
+            }
+          }
+
+          acc[value.description] = cellValue;
+          return acc;
+        },
+        {} as Record<string, string>
+      );
 
       data.push({
         registration_type: registration.type,
@@ -81,9 +102,9 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
         t_shirt_size: registration.offeringTShirtSize || na,
         phone_country_code: registration.phoneCountryCode || na,
         phone_number: registration.phoneNumber || na,
-        competitions: competitionsCell || na,
-        offerings: offeringsCell || na,
-        accommodations: accommodationsCell || na,
+        ...competitionsData,
+        ...offeringsData,
+        ...accommodationsData,
       });
     }
 
