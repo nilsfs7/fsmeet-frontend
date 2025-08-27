@@ -126,7 +126,8 @@
     "tabAccountLblStripeAccount": "Stripe Account",
     "tabAccounBtnRequestPaymentsAccount": "Request Account",
     "tabAccounBtnEditPaymentsAccount": "Edit Info",
-    "tabAccounBtnMonitorPayments": "View payments",
+    "tabAccounBtnManagePayments": "Manage payments",
+    "tabAccounBtnViewPaymentsInStripe": "View payments (Stripe)",
     "tabAccountSectionAccountManagement": "Account Management",
     "tabAccounBtnLogout": "Logout",
     "tabAccounBtnDeleteAccount": "Delete Account"
@@ -140,6 +141,21 @@
     "pageTitle": "Account Settings",
     "btnUpload": "Upload",
     "btnDelete": "Delete"
+  },
+  "/account/payments": {
+    "pageTitle": "Manage Payments",
+    "inputSearchPlaceholder": "Search Username...",
+    "cbColumns": "Columns",
+    "tblColumnUsername": "Username",
+    "tblColumnAmount": "Amount",
+    "tblColumnDate": "Date",
+    "tblColumnActionsCopyPaymentId": "Copy payment ID",
+    "tblColumnActionsViewPaymentDetails": "View payment details (upcoming)",
+    "tblColumnActionsRefundPayment": "Refund (upcoming)",
+    "tblNoData": "No data",
+    "navCurrentPage1": "Page",
+    "navCurrentPage2": "of",
+    "navRowsPerPage": "Rows per page"
   },
   "/donate": {
     "pageTitle": "Donate",

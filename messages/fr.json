@@ -126,7 +126,8 @@
     "tabAccountLblStripeAccount": "Compte Stripe",
     "tabAccounBtnRequestPaymentsAccount": "Demande de compte",
     "tabAccounBtnEditPaymentsAccount": "Modifier info",
-    "tabAccounBtnMonitorPayments": "Voir les paiements",
+    "tabAccounBtnManagePayments": "Gérer les paiements",
+    "tabAccounBtnViewPaymentsInStripe": "Voir les paiements (Stripe)",
     "tabAccountSectionAccountManagement": "Gestion du compte",
     "tabAccounBtnLogout": "Déconnexion",
     "tabAccounBtnDeleteAccount": "Supprimer le compte"
