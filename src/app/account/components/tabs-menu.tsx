@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession } from 'next-auth/react';
 import { User } from '@/domain/types/user';
 import { Toaster, toast } from 'sonner';
-import { routeAccount, routeAccountDeleted, routeHome, routeMap } from '@/domain/constants/routes';
+import { routeAccount, routeAccountDeleted, routeAccountPayments, routeHome, routeMap } from '@/domain/constants/routes';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { logoutUser } from '../../actions/authentication';
 import TextInput from '@/components/common/TextInput';
@@ -874,13 +874,15 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
                 {userInfo.stripeAccountId && (
                   <>
-                    <div className="mt-4 flex flex-col items-center gap-2">
+                    <div className="mt-4 flex flex-col items-center gap-4">
                       <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
                       <TextButton text={t('tabAccounBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
-                    </div>
 
-                    <div className="mt-4 flex flex-col items-center gap-2">
-                      <TextButton text={t('tabAccounBtnMonitorPayments')} onClick={handleCreateStripeLoginLinkClicked} />
+                      <TextButton text={t('tabAccounBtnViewPaymentsInStripe')} onClick={handleCreateStripeLoginLinkClicked} />
+
+                      <Link href={routeAccountPayments}>
+                        <TextButton text={t('tabAccounBtnManagePayments')} />
+                      </Link>
                     </div>
                   </>
                 )}
