@@ -151,7 +151,7 @@
     "tblColumnDate": "Date",
     "tblColumnActionsCopyPaymentId": "Copy payment ID",
     "tblColumnActionsViewPaymentDetails": "View payment details (upcoming)",
-    "tblColumnActionsRefundPayment": "Refund (upcoming)",
+    "tblColumnActionsRefundPayment": "Initiate refund - CAUTION!!!",
     "tblNoData": "No data",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "of",

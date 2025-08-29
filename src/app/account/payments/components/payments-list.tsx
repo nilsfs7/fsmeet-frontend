@@ -28,6 +28,9 @@ import { CurrencyCode } from '../../../../domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '../../../../functions/currency-conversion';
 import { Moment } from 'moment';
 import moment from 'moment';
+import { createRefund } from '../../../../infrastructure/clients/payment.client';
+import { useSession } from 'next-auth/react';
+import { toast, Toaster } from 'sonner';
 
 interface IUsersList {
   columnData: ColumnInfo[];
@@ -36,6 +39,7 @@ interface IUsersList {
 export type Amount = {
   amount: number;
   currency: CurrencyCode;
+  amountRefunded: number;
 };
 
 export type ColumnInfo = {
@@ -47,6 +51,7 @@ export type ColumnInfo = {
 
 export const PaymentsList = ({ columnData }: IUsersList) => {
   const t = useTranslations('/account/payments');
+  const { data: session } = useSession();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -130,10 +135,14 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
           </Button>
         );
       },
-      cell: ({ row }) =>
-        `${convertCurrencyIntegerToDecimal((row.getValue('amount') as Amount).amount, (row.getValue('amount') as Amount).currency)
-          .toFixed(2)
-          .replace('.', ',')} ${(row.getValue('amount') as Amount).currency.toUpperCase()}`,
+      cell: ({ row }) => (
+        <div className={(row.getValue('amount') as Amount).amountRefunded === (row.getValue('amount') as Amount).amount ? 'line-through' : ''}>
+          {convertCurrencyIntegerToDecimal((row.getValue('amount') as Amount).amount, (row.getValue('amount') as Amount).currency)
+            .toFixed(2)
+            .replace('.', ',')}
+          {(row.getValue('amount') as Amount).currency.toUpperCase()}
+        </div>
+      ),
     },
 
     {
@@ -155,7 +164,12 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
               <DropdownMenuItem onClick={() => console.log('view details')} disabled>
                 {t('tblColumnActionsViewPaymentDetails')}
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => console.log('refund')} disabled>
+              <DropdownMenuItem
+                onClick={() => {
+                  handleInitiateRefundClicked(payment.intentId);
+                }}
+                disabled={payment.amount.amountRefunded > 0}
+              >
                 {t('tblColumnActionsRefundPayment')}
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -187,8 +201,20 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
     },
   });
 
+  const handleInitiateRefundClicked = async (intentId: string) => {
+    try {
+      await createRefund(intentId, session);
+      toast.success('Refund initiated.');
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
+  };
+
   return (
     <>
+      <Toaster richColors />
+
       <div className="mx-2 flex gap-2">
         <Input
           placeholder={t('inputSearchPlaceholder')}
