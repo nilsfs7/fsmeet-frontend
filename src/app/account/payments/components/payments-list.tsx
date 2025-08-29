@@ -39,6 +39,7 @@ interface IUsersList {
 export type Amount = {
   amount: number;
   currency: CurrencyCode;
+  amountRefunded: number;
 };
 
 export type ColumnInfo = {
@@ -134,10 +135,14 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
           </Button>
         );
       },
-      cell: ({ row }) =>
-        `${convertCurrencyIntegerToDecimal((row.getValue('amount') as Amount).amount, (row.getValue('amount') as Amount).currency)
-          .toFixed(2)
-          .replace('.', ',')} ${(row.getValue('amount') as Amount).currency.toUpperCase()}`,
+      cell: ({ row }) => (
+        <div className={(row.getValue('amount') as Amount).amountRefunded === (row.getValue('amount') as Amount).amount ? 'line-through' : ''}>
+          {convertCurrencyIntegerToDecimal((row.getValue('amount') as Amount).amount, (row.getValue('amount') as Amount).currency)
+            .toFixed(2)
+            .replace('.', ',')}
+          {(row.getValue('amount') as Amount).currency.toUpperCase()}
+        </div>
+      ),
     },
 
     {
@@ -163,6 +168,7 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
                 onClick={() => {
                   handleInitiateRefundClicked(payment.intentId);
                 }}
+                disabled={payment.amount.amountRefunded > 0}
               >
                 {t('tblColumnActionsRefundPayment')}
               </DropdownMenuItem>

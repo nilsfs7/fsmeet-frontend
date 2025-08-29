@@ -7,6 +7,7 @@ export class ReadPaymentResponseDto {
   amount: number;
   appFeeAmount: number;
   donationAmount: number;
+  amountRefunded: number;
   currency: CurrencyCode;
   status: string;
   refPaymentProduct: PaymentProduct;
@@ -19,6 +20,7 @@ export class ReadPaymentResponseDto {
     amount: number,
     appFeeAmount: number,
     donationAmount: number,
+    amountRefunded: number,
     currency: CurrencyCode,
     status: string,
     refPaymentProduct: PaymentProduct,
@@ -30,6 +32,7 @@ export class ReadPaymentResponseDto {
     this.amount = amount;
     this.appFeeAmount = appFeeAmount;
     this.donationAmount = donationAmount;
+    this.amountRefunded = amountRefunded;
     this.currency = currency;
     this.status = status;
     this.refPaymentProduct = refPaymentProduct;
