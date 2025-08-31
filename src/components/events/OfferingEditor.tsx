@@ -27,6 +27,7 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
   const [includesShirt, setIncludesShirt] = useState<boolean>(offering?.includesShirt || false);
   const [imgPreview, setImgPreview] = useState<File>();
   const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
+  const [enabled, setEnabled] = useState<boolean>(offering?.enabled || true);
 
   const uploadToClient = (event: any) => {
     if (event.target.files && event.target.files[0]) {
@@ -47,6 +48,7 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
       imageUrlPreview: offering?.imageUrlPreview,
       cost: cost,
       costIncPaymentCosts: -1,
+      enabled,
     });
   };
 
@@ -65,13 +67,14 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
       setCost(offering.cost);
       setMandatoryForParticipant(offering.mandatoryForParticipant);
       setIncludesShirt(offering.includesShirt);
+      setEnabled(offering.enabled);
     }
   }, [offering]);
 
   // fires offering back
   useEffect(() => {
     updateOffering();
-  }, [description, cost, mandatoryForParticipant, includesShirt]);
+  }, [description, cost, mandatoryForParticipant, includesShirt, enabled]);
 
   // fires offering preview back
   useEffect(() => {
@@ -129,6 +132,15 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
             <input type="file" onChange={uploadToClient} />
           </div>
         </div>
+
+        <CheckBox
+          id={'enabled'}
+          label={t('chbEnabled')}
+          value={enabled}
+          onChange={() => {
+            setEnabled(!enabled);
+          }}
+        />
       </div>
     </>
   );

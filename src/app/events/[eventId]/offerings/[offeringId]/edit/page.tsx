@@ -32,7 +32,7 @@ export default function EditEventOffering({ params }: { params: { eventId: strin
   const handleSaveClicked = async () => {
     if (params.eventId && offering) {
       try {
-        await updateOffering(params.offeringId, offering.description, offering.cost, offering.mandatoryForParticipant, offering.includesShirt, session);
+        await updateOffering(params.offeringId, offering.description, offering.cost, offering.mandatoryForParticipant, offering.includesShirt, offering.enabled, session);
 
         if (offeringPreview && offering.id) {
           await updateOfferingPreview(offering.id.toString(), offeringPreview, session);

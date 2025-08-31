@@ -43,11 +43,12 @@ export async function createOffering(
   cost: number,
   mandatoryForParticipant: boolean,
   includesShirt: boolean,
+  enabled: boolean,
   session: Session | null
 ): Promise<CreateOfferingResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings`;
 
-  const body = new CreateOfferingBodyDto(eventId, description, cost, mandatoryForParticipant, includesShirt);
+  const body = new CreateOfferingBodyDto(eventId, description, cost, mandatoryForParticipant, includesShirt, enabled);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -69,10 +70,18 @@ export async function createOffering(
   }
 }
 
-export async function updateOffering(id: string, description: string, cost: number, mandatoryForParticipant: boolean, includesShirt: boolean, session: Session | null): Promise<void> {
+export async function updateOffering(
+  id: string,
+  description: string,
+  cost: number,
+  mandatoryForParticipant: boolean,
+  includesShirt: boolean,
+  enabled: boolean,
+  session: Session | null
+): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings`;
 
-  const body = new PatchOfferingBodyDto(id, description, cost, mandatoryForParticipant, includesShirt);
+  const body = new PatchOfferingBodyDto(id, description, cost, mandatoryForParticipant, includesShirt, enabled);
 
   const response = await fetch(url, {
     method: 'PATCH',

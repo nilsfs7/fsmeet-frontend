@@ -31,7 +31,7 @@ export default function CreateOffering({ params }: { params: { eventId: string }
   const handleCreateClicked = async () => {
     if (params.eventId && offering) {
       try {
-        const offeringId = (await createOffering(params.eventId, offering.description, offering.cost, offering.mandatoryForParticipant, offering.includesShirt, session)).id;
+        const offeringId = (await createOffering(params.eventId, offering.description, offering.cost, offering.mandatoryForParticipant, offering.includesShirt, offering.enabled, session)).id;
 
         if (offeringPreview) {
           await updateOfferingPreview(offeringId, offeringPreview, session);

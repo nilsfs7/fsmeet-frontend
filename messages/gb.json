@@ -694,7 +694,8 @@
     "inputDescription": "Description",
     "inputMandatoryForParticipant": "Mandatory (participant)",
     "inputIncludesShirt": "Is or includes a shirt",
-    "inputCost": "Cost"
+    "inputCost": "Cost",
+    "chbEnabled": "Active"
   },
   "global/components/offering-list": {
     "cbShirtSize": "T-Shirt Size"

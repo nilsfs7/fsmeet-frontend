@@ -46,6 +46,7 @@ import { toTitleCase } from '@/functions/string-manipulation';
 import { Competition } from '@/domain/types/competition';
 import { isNaturalPerson } from '@/functions/is-natural-person';
 import { getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
+import { Offering } from '../../../../../domain/types/offering';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -147,6 +148,18 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     setUserInfoChanged(true);
   };
 
+  const getActiveOfferings = (): Offering[] => {
+    return event.offerings.filter(off => {
+      if (off.enabled) return off;
+    });
+  };
+
+  const hasActiveOfferings = (): boolean => {
+    return event.offerings.some(off => {
+      if (off.enabled) return off;
+    });
+  };
+
   const getActiveAccommodations = (): Accommodation[] => {
     return event.accommodations.filter(acc => {
       if (acc.enabled) return acc;
@@ -240,7 +253,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           break;
 
         case RegistrationProcessPage.ACCOMMODATIONS:
-          if (event.offerings.length > 0) {
+          if (hasActiveOfferings()) {
             previousPage = RegistrationProcessPage.OFFERINGS;
           } else {
             if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
@@ -255,7 +268,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           if (hasActiveAccommodations()) {
             previousPage = RegistrationProcessPage.ACCOMMODATIONS;
           } else {
-            if (event.offerings.length > 0) {
+            if (hasActiveOfferings()) {
               previousPage = RegistrationProcessPage.OFFERINGS;
             } else {
               if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
@@ -301,7 +314,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
             nextPage = RegistrationProcessPage.COMPETITIONS;
           } else {
-            if (event.offerings.length > 0) {
+            if (hasActiveOfferings()) {
               nextPage = RegistrationProcessPage.OFFERINGS;
             } else {
               if (hasActiveAccommodations()) {
@@ -314,7 +327,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           break;
 
         case RegistrationProcessPage.COMPETITIONS:
-          if (event.offerings.length > 0) {
+          if (hasActiveOfferings()) {
             nextPage = RegistrationProcessPage.OFFERINGS;
           } else {
             if (hasActiveAccommodations()) {
@@ -780,11 +793,11 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
               <div className="m-2">{t('pageOfferingDescription')}</div>
 
               <OfferingList
-                offerings={event.offerings}
+                offerings={getActiveOfferings()}
                 paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                 currency={event.currency}
                 registrationType={registrationType}
-                checked={event.offerings.map(off => {
+                checked={getActiveOfferings().map(off => {
                   return off.id && offeringOrders.includes(off.id) ? true : false;
                 })}
                 tShirtSize={offeringTShirtSize}
@@ -853,7 +866,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   </>
                 )}
 
-                {event.offerings.length > 0 && offeringOrders.length > 0 && (
+                {hasActiveOfferings() && offeringOrders.length > 0 && (
                   <>
                     <Separator />
 
@@ -875,7 +888,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   </>
                 )}
 
-                {event.accommodations.length > 0 && accommodationOrders.length > 0 && (
+                {hasActiveAccommodations() && accommodationOrders.length > 0 && (
                   <>
                     <Separator />
 
