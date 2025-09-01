@@ -6,9 +6,20 @@ export class ReadOfferingResponseDto {
   mandatoryForParticipant: boolean;
   includesShirt: boolean;
   imageUrlPreview: string;
+  enabled: boolean;
   eventId: string;
 
-  constructor(id: string, description: string, cost: number, costIncPaymentCosts: number, mandatoryForParticipant: boolean, includesShirt: boolean, imageUrlPreview: string, eventId: string) {
+  constructor(
+    id: string,
+    description: string,
+    cost: number,
+    costIncPaymentCosts: number,
+    mandatoryForParticipant: boolean,
+    includesShirt: boolean,
+    imageUrlPreview: string,
+    enabled: boolean,
+    eventId: string
+  ) {
     this.id = id;
     this.description = description;
     this.cost = cost;
@@ -16,6 +27,7 @@ export class ReadOfferingResponseDto {
     this.mandatoryForParticipant = mandatoryForParticipant;
     this.includesShirt = includesShirt;
     this.imageUrlPreview = imageUrlPreview;
+    this.enabled = enabled;
     this.eventId = eventId;
   }
 }

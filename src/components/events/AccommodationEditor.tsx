@@ -46,7 +46,7 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
       imageUrlPreview: accommodation?.imageUrlPreview,
       cost: cost,
       costIncPaymentCosts: -1,
-      enabled: enabled,
+      enabled,
     });
   };
 

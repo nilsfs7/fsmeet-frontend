@@ -151,7 +151,7 @@
     "tblColumnDate": "Date",
     "tblColumnActionsCopyPaymentId": "Copy payment ID",
     "tblColumnActionsViewPaymentDetails": "View payment details (upcoming)",
-    "tblColumnActionsRefundPayment": "Refund (upcoming)",
+    "tblColumnActionsRefundPayment": "Initiate refund - CAUTION!!!",
     "tblNoData": "No data",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "of",
@@ -694,7 +694,8 @@
     "inputDescription": "Description",
     "inputMandatoryForParticipant": "Mandatory (participant)",
     "inputIncludesShirt": "Is or includes a shirt",
-    "inputCost": "Cost"
+    "inputCost": "Cost",
+    "chbEnabled": "Active"
   },
   "global/components/offering-list": {
     "cbShirtSize": "T-Shirt Size"

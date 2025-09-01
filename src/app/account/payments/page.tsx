@@ -21,7 +21,7 @@ export default async function Payments() {
     columnData.push({
       intentId: payment.intentId,
       username: payment.refUsername,
-      amount: { amount: payment.amount, currency: payment.currency },
+      amount: { amount: payment.amount, currency: payment.currency, amountRefunded: payment.amountRefunded },
       date: payment.date,
     });
   });

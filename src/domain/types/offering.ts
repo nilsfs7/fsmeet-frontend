@@ -7,4 +7,5 @@ export type Offering = {
   mandatoryForParticipant: boolean;
   includesShirt: boolean;
   imageUrlPreview?: string;
+  enabled: boolean;
 };
