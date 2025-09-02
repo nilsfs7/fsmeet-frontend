@@ -1,4 +1,4 @@
-export class ReadTotalMatchPerfromanceResponseDto {
+export class ReadTotalMatchPerformanceResponseDto {
   username: string;
   matches: number;
   wins: number;
