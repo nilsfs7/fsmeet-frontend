@@ -49,7 +49,7 @@ export const AccordionContentAchievements = ({ username }: IAccordionContentAchi
 
   return (
     <AccordionContent>
-      {achievements.length === 0 && <div className="flex flex-col">{t('accordionItemCompetitionHistoryNoParticipations')}</div>}
+      {achievements.length === 0 && <div className="flex flex-col">{t('accordionItemAchievementsNoAchievements')}</div>}
 
       {achievements.length > 0 && (
         <div className="grid grid-cols-3 justify-center gap-2">
