@@ -554,6 +554,7 @@
   "/users/username": {
     "accordionItemSocials": "Réseaux sociaux",
     "accordionItemAchievements": "Réalisations",
+    "accordionItemAchievementsNoAchievements": "Aucune réalisation pour l'instant.",
     "accordionItemBattleStatistics": "Statistiques de battles",
     "accordionItemBattleStatisticsAmountBattles": "Battles",
     "accordionItemBattleStatisticsAmountWins": "Victoires",
