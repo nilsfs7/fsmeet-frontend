@@ -554,6 +554,7 @@
   "/users/username": {
     "accordionItemSocials": "Socials",
     "accordionItemAchievements": "Erfolge",
+    "accordionItemAchievementsNoAchievements": "Noch keine Erfolge vorhanden.",
     "accordionItemBattleStatistics": "Battle Statistiken",
     "accordionItemBattleStatisticsAmountBattles": "Battles",
     "accordionItemBattleStatisticsAmountWins": "Siege",

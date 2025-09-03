@@ -19,32 +19,15 @@ import NavigateBackButton from '@/components/NavigateBackButton';
 import { ActionButtonDeleteUser } from './components/action-button-delete-user';
 import { getTranslations } from 'next-intl/server';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
-import { getAchievements } from '@/infrastructure/clients/achievements';
-import { AchievementLevel } from '@/domain/enums/achievement-level';
 import { AccordionContentBattleHistory } from './components/accordion-content-battle-history';
 import { AccordionContentMatchStats } from './components/accordion-content-match-stats';
-
-const getAchievementStyle = (level: AchievementLevel): string => {
-  switch (level) {
-    case AchievementLevel.BRONZE:
-      return 'border border-bronze shadow-bronze shadow-inner';
-
-    case AchievementLevel.SILVER:
-      return 'border border-silver shadow-silver shadow-inner';
-
-    case AchievementLevel.GOLD:
-      return 'border border-gold shadow-gold shadow-inner';
-
-    default:
-      return '';
-  }
-};
+import { AccordionContentAchievements } from './components/accordion-content-achievements';
 
 export default async function PublicUserProfile({ params }: { params: { username: string } }) {
   const t = await getTranslations('/users/username');
   const session = await auth();
 
-  const [user, achievements] = await Promise.all([getUser(params.username), getAchievements(params.username)]);
+  const [user] = await Promise.all([getUser(params.username)]);
 
   return (
     <>
@@ -148,24 +131,10 @@ export default async function PublicUserProfile({ params }: { params: { username
                     </AccordionItem>
                   )}
 
-                  {achievements.length > 0 && (
-                    <AccordionItem value="item-achievements">
-                      <AccordionTrigger>{t('accordionItemAchievements')}</AccordionTrigger>
-                      <AccordionContent>
-                        <div className="grid grid-cols-3 justify-center gap-2">
-                          {achievements.map((achievement, i) => {
-                            return (
-                              <div key={`achievement-${i}`} className="flex flex-col items-center w-16 justify-self-centers">
-                                <img src={achievement.imageUrl} className={`h-12 w-12 rounded-full object-cover ${getAchievementStyle(achievement.level)}`} alt={achievement.name} />
-
-                                <div className="text-xs text-center">{achievement.name}</div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  )}
+                  <AccordionItem value="item-achievements">
+                    <AccordionTrigger>{t('accordionItemAchievements')}</AccordionTrigger>
+                    <AccordionContentAchievements username={params.username} />
+                  </AccordionItem>
 
                   {user.type === UserType.FREESTYLER && (
                     <AccordionItem value="item-matches">
