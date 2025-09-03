@@ -15,7 +15,6 @@ import { Header } from '@/components/Header';
 import { auth } from '@/auth';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { TechnicalUser } from '@/domain/enums/technical-user';
-import { getTotalMatchPerformance } from '@/infrastructure/clients/statistic.client';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { ActionButtonDeleteUser } from './components/action-button-delete-user';
 import { getTranslations } from 'next-intl/server';
@@ -23,6 +22,7 @@ import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { getAchievements } from '@/infrastructure/clients/achievements';
 import { AchievementLevel } from '@/domain/enums/achievement-level';
 import { AccordionContentBattleHistory } from './components/accordion-content-battle-history';
+import { AccordionContentMatchStats } from './components/accordion-content-match-stats';
 
 const getAchievementStyle = (level: AchievementLevel): string => {
   switch (level) {
@@ -44,7 +44,7 @@ export default async function PublicUserProfile({ params }: { params: { username
   const t = await getTranslations('/users/username');
   const session = await auth();
 
-  const [user, matchStats, achievements] = await Promise.all([getUser(params.username), getTotalMatchPerformance(params.username), getAchievements(params.username)]);
+  const [user, achievements] = await Promise.all([getUser(params.username), getAchievements(params.username)]);
 
   return (
     <>
@@ -170,22 +170,7 @@ export default async function PublicUserProfile({ params }: { params: { username
                   {user.type === UserType.FREESTYLER && (
                     <AccordionItem value="item-matches">
                       <AccordionTrigger>{t('accordionItemBattleStatistics')}</AccordionTrigger>
-                      <AccordionContent>
-                        <div className="grid grid-cols-2">
-                          <div>{t('accordionItemBattleStatisticsAmountBattles')}</div>
-                          <div>{matchStats.matches}</div>
-
-                          {matchStats.matches > 0 && (
-                            <>
-                              <div>{t('accordionItemBattleStatisticsAmountWins')}</div>
-                              <div>{`${matchStats.wins} `}</div>
-
-                              <div>{t('accordionItemBattleStatisticsWinLossRatio')}</div>
-                              <div>{`${(matchStats.ratio * 100).toFixed(2)}%`}</div>
-                            </>
-                          )}
-                        </div>
-                      </AccordionContent>
+                      <AccordionContentMatchStats username={params.username} />
                     </AccordionItem>
                   )}
 
