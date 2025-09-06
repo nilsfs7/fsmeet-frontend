@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
@@ -17,9 +17,9 @@ import { useSession } from 'next-auth/react';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { Event } from '@/domain/types/event';
 
-export default function Seeding({ params }: { params: { eventId: string; compId: string } }) {
+export default function Seeding(props: { params: Promise<{ eventId: string; compId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/comps/compid/edit/seeding');
-
   const { data: session } = useSession();
 
   const [event, setEvent] = useState<Event>();
