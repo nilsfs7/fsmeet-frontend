@@ -1,5 +1,4 @@
 import { EventType } from '@/domain/enums/event-type';
-import { EventRegistration } from './event-registration';
 import { PaymentMethodCash } from './payment-method-cash';
 import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
@@ -50,7 +49,6 @@ export type Event = {
   notifyOnComment: boolean;
   waiver: string;
   visaInvitationRequestsEnabled: boolean;
-  eventRegistrations: EventRegistration[];
   accommodations: Accommodation[];
   offerings: Offering[];
   state: EventState;

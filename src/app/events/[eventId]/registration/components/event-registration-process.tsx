@@ -47,9 +47,11 @@ import { Competition } from '@/domain/types/competition';
 import { isNaturalPerson } from '@/functions/is-natural-person';
 import { getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 import { Offering } from '../../../../../domain/types/offering';
+import { EventRegistration } from '../../../../../domain/types/event-registration';
 
 interface IEventRegistrationProcess {
   event: Event;
+  eventRegistrations: EventRegistration[];
   competitions: Competition[];
   attendee: User;
 }
@@ -62,7 +64,7 @@ enum RegistrationProcessPage {
   CHECKOUT_OVERVIEW = '5',
 }
 
-export const EventRegistrationProcess = ({ event, competitions, attendee }: IEventRegistrationProcess) => {
+export const EventRegistrationProcess = ({ event, eventRegistrations, competitions, attendee }: IEventRegistrationProcess) => {
   const t = useTranslations('/events/eventid/registration');
 
   const { data: session } = useSession();
@@ -509,7 +511,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   };
 
   useEffect(() => {
-    const status = event.eventRegistrations.filter(registration => {
+    const status = eventRegistrations.filter(registration => {
       if (registration.user.username === session?.user.username) {
         setRegistrationType(registration.type);
         return registration.status;

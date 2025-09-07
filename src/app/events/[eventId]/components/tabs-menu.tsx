@@ -18,7 +18,7 @@ import { User } from '@/domain/types/user';
 import { EventComment } from '@/domain/types/event-comment';
 import { Sponsor } from '@/domain/types/sponsor';
 import { validateSession } from '@/functions/validate-session';
-import { createComment, createSubComment } from '@/infrastructure/clients/event.client';
+import { createComment, createSubComment, getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { Session } from 'next-auth';
 import { SponsorSection } from './sponsor-section';
 import { EventInfo } from './event-info';
@@ -30,6 +30,7 @@ import { Competition } from '@/domain/types/competition';
 import { AttachmentSection } from './attachment-section';
 import { Attachment } from '@/domain/types/attachment';
 import moment from 'moment';
+import { isInEventRegistrations } from '../../../../functions/is-in-event-registrations';
 
 interface ITabsMenu {
   event: Event;
@@ -38,17 +39,6 @@ interface ITabsMenu {
   sponsors: Sponsor[];
   comments: EventComment[];
 }
-
-// todo: must be global
-export const isRegistered = (event: Event, session: Session | null) => {
-  if (validateSession(session)) {
-    if (event && event.eventRegistrations.some(registration => registration.user.username === session?.user?.username)) {
-      return true;
-    }
-  }
-
-  return false;
-};
 
 export const TabsMenu = ({ event, competitions, sponsors, attachments, comments }: ITabsMenu) => {
   const t = useTranslations('/events/eventid');
@@ -60,8 +50,9 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
   const tab = searchParams?.get('tab');
 
   const [eventAdmin, setEventAdmin] = useState<User>();
-  const [participantRegistrations, setParticipantRegistrations] = useState<EventRegistration[]>();
-  const [visitorRegistrations, setVisitorRegistrations] = useState<EventRegistration[]>();
+  const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>([]);
+  const [participantRegistrations, setParticipantRegistrations] = useState<EventRegistration[]>([]);
+  const [visitorRegistrations, setVisitorRegistrations] = useState<EventRegistration[]>([]);
 
   const [loginRouteWithCallbackUrl, setLoginRouteWithCallbackUrl] = useState<string>('');
 
@@ -98,17 +89,24 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
   };
 
   useEffect(() => {
+    if (event.id)
+      getEventRegistrations(event.id, null, session).then(registrations => {
+        setEventRegistrations(registrations);
+      });
+  }, []);
+
+  useEffect(() => {
     async function loadEventInfos() {
-      const approvedWithImage = event.eventRegistrations
+      const approvedWithImage = eventRegistrations
         .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && registration.user.imageUrl)
         .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
-      const approvedNoImage = event.eventRegistrations
+      const approvedNoImage = eventRegistrations
         .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.APPROVED && !registration.user.imageUrl)
         .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
-      const pendingWithImage = event.eventRegistrations
+      const pendingWithImage = eventRegistrations
         .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && registration.user.imageUrl)
         .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
-      const pendingNoImage = event.eventRegistrations
+      const pendingNoImage = eventRegistrations
         .filter((registration: EventRegistration) => registration.status == EventRegistrationStatus.PENDING && !registration.user.imageUrl)
         .sort((a, b) => (a.user.username > b.user.username ? 1 : -1));
 
@@ -139,7 +137,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
     }
 
     loadEventInfos();
-  }, [event == undefined]);
+  }, [eventRegistrations]);
 
   useEffect(() => {
     setLoginRouteWithCallbackUrl(`${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`);
@@ -187,7 +185,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
         {/* Details */}
         <TabsContent value="overview" className="overflow-hidden overflow-y-auto">
-          {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessangerInvitationUrl={isEventAdmin(event, session) || isRegistered(event, session)} />}
+          {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessangerInvitationUrl={isEventAdmin(event, session) || isInEventRegistrations(eventRegistrations, session)} />}
 
           {sponsors?.length > 0 && (
             <div className="mt-2">
