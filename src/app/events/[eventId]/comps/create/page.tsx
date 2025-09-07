@@ -47,7 +47,7 @@ export default function CompetitionCreation({ params }: { params: { eventId: str
   }, [event === undefined]);
 
   if (!event) {
-    return <LoadingSpinner text="Loading..." />; // todo
+    return <LoadingSpinner />;
   }
 
   return (

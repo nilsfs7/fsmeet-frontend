@@ -85,7 +85,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
   }, []);
 
   if (!rounds) {
-    return <LoadingSpinner text="Loading..." />; // todo
+    return <LoadingSpinner />;
   }
 
   return (

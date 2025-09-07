@@ -34,7 +34,7 @@ export default async function MyEventsOverview() {
   }
 
   if (!actingUser) {
-    return <LoadingSpinner text="Loading..." />; // todo
+    return <LoadingSpinner />;
   }
 
   return (

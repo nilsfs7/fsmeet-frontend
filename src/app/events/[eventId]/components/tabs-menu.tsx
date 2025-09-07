@@ -144,7 +144,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
   }, []);
 
   if (!participantRegistrations || !visitorRegistrations) {
-    return <LoadingSpinner text="Loading..." />; // todo: notwendig?
+    return <LoadingSpinner />; // todo: notwendig?
   }
 
   return (

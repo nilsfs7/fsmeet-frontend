@@ -483,9 +483,6 @@
     "thankYouText2": "Votre retour d'expérience est grandement apprécié !",
     "btnBackHome": "Retour à l'accueil"
   },
-  "/loading": {
-    "textLoading": "Chargement..."
-  },
   "/login": {
     "inputUsername": "Nom d'utilisateur / E-mail",
     "inputPassword": "Mot de passe",
@@ -675,6 +672,9 @@
     "chbNotifyOnComment": "Notifier lors d'un commentaire",
     "inputWaiver": "Renoncer",
     "chbVisaInvitationRequestsEnabled": "Proposer des invitations de visa"
+  },
+  "global/components/loading-spinner": {
+    "textLoading": "Chargement.."
   },
   "global/components/offering-editor": {
     "inputDescription": "Description",

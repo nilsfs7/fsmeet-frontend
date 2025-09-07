@@ -25,7 +25,7 @@ export const AccordionContentMatchStats = ({ username }: IAccordionContentMatchS
   if (!matchStats) {
     return (
       <AccordionContent>
-        <LoadingSpinner text="Loading..." centerScreen={false} />
+        <LoadingSpinner centerScreen={false} />
       </AccordionContent>
     );
   }

@@ -18,7 +18,7 @@ export default async function EventRegistration({ params }: { params: { eventId:
 
   const [event, eventRegistrations, competitions, user] = await Promise.all([
     getEvent(params.eventId, session),
-    getEventRegistrations(params.eventId, null, session), // TODO: getEventRegistration(username) aus performancegründen anlegen
+    getEventRegistrations(params.eventId, null, session), // TODO: add isRegisered(username) for performance reasons
     getCompetitions(params.eventId),
     getUser(session?.user.username ? session.user.username : '', session),
   ]);

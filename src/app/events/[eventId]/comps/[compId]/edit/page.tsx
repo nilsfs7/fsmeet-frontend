@@ -76,7 +76,7 @@ export default function CompetitionEditing({ params }: { params: { eventId: stri
   }, []);
 
   if (!event) {
-    return <LoadingSpinner text="Loading..." />; // todo
+    return <LoadingSpinner />;
   }
 
   return (
