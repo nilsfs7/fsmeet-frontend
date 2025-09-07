@@ -95,7 +95,7 @@ export const EventsList = () => {
             );
           })}
 
-          {!loadingDone && <LoadingSpinner text="Loading..." />}
+          {!loadingDone && <LoadingSpinner />}
 
           {events.length === 0 && loadingDone && <div className="mt-2 text-center">{t('textNoEventsFound')}</div>}
         </div>

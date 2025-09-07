@@ -137,7 +137,7 @@ export const AccordionContentBattleHistory = ({ username }: IAccordionContentBat
   if (!battleHistory || !usersMapOfBattles || !competitionsMapOfBattles || !eventsMapOfCompetitions) {
     return (
       <AccordionContent className="flex items-start">
-        <LoadingSpinner text="Loading..." centerScreen={false} />
+        <LoadingSpinner centerScreen={false} />
       </AccordionContent>
     );
   }

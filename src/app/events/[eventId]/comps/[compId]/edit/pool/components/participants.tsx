@@ -113,7 +113,7 @@ export const Participants = ({ event, competition }: IParticipants) => {
   }, [eventRegistrations == undefined, competitionParticipants == undefined]);
 
   if (!eventRegistrations || !competitionParticipants) {
-    return <LoadingSpinner text="Loading..." />; // todo
+    return <LoadingSpinner />;
   }
 
   return (

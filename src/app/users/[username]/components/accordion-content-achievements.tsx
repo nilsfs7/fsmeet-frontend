@@ -42,7 +42,7 @@ export const AccordionContentAchievements = ({ username }: IAccordionContentAchi
   if (!achievements) {
     return (
       <AccordionContent>
-        <LoadingSpinner text="Loading..." centerScreen={false} />
+        <LoadingSpinner centerScreen={false} />
       </AccordionContent>
     );
   }

@@ -498,9 +498,6 @@
     "thankYouText2": "Your feedback is highly appreciated!",
     "btnBackHome": "Back home"
   },
-  "/loading": {
-    "textLoading": "Loading..."
-  },
   "/login": {
     "inputUsername": "Username / Email",
     "inputPassword": "Password",
@@ -690,6 +687,9 @@
     "chbNotifyOnComment": "Notify On Comment",
     "inputWaiver": "Waiver",
     "chbVisaInvitationRequestsEnabled": "Offer visa invitations"
+  },
+  "global/components/loading-spinner": {
+    "textLoading": "Loading..."
   },
   "global/components/offering-editor": {
     "inputDescription": "Description",

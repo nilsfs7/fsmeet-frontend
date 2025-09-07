@@ -31,7 +31,7 @@ const MapWrapper = ({ address }: IMapWrapperProps) => {
     fetchApiKey();
   }, []);
 
-  if (!apiKey) return <LoadingSpinner text="Loading..." />; // todo
+  if (!apiKey) return <LoadingSpinner />;
 
   return <Map googleMapsApiKey={apiKey} address={address} />;
 };

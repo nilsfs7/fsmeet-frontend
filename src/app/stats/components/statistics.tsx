@@ -84,7 +84,7 @@ export const Statistics = () => {
   }, [users == undefined, userCountByType == undefined]);
 
   if (!users) {
-    return <LoadingSpinner text="Loading..." />; // todo
+    return <LoadingSpinner />;
   }
 
   return (

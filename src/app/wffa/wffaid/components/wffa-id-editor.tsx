@@ -58,7 +58,7 @@ export const WffaIdEditor = () => {
   }, [usersMap === undefined]);
 
   if (!usersMap) {
-    return <LoadingSpinner text="Loading..." />; // todo
+    return <LoadingSpinner />;
   }
 
   return (

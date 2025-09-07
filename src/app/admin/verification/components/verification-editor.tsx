@@ -50,7 +50,7 @@ export const VerificationEditor = () => {
   }, [users == undefined]);
 
   if (!users) {
-    return <LoadingSpinner text="Loading..." />; // todo
+    return <LoadingSpinner />;
   }
 
   return (

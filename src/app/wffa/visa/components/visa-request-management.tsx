@@ -43,7 +43,7 @@ export const VisaRequestManagement = () => {
   }, [visaInvitationRequestsMap === undefined, session]);
 
   if (!visaInvitationRequestsMap) {
-    return <LoadingSpinner text="Loading..." />; // todo
+    return <LoadingSpinner />;
   }
 
   return (

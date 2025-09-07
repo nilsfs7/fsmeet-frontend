@@ -54,7 +54,7 @@ const MapWrapper = ({
     fetchApiKey();
   }, []);
 
-  if (!apiKey) return <LoadingSpinner text="Loading..." />; // todo
+  if (!apiKey) return <LoadingSpinner />;
 
   return (
     <Map

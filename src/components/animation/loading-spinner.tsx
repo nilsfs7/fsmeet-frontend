@@ -1,9 +1,15 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
+
 interface ILoadingSpinner {
-  text: string;
+  text?: string;
   centerScreen?: boolean;
 }
 
 const LoadingSpinner = ({ text, centerScreen = true }: ILoadingSpinner) => {
+  const t = useTranslations('global/components/loading-spinner');
+
   return (
     <div role="status" className={`w-full flex flex-col items-center justify-center ${centerScreen && 'h-screen'}`}>
       <svg aria-hidden="true" className="w-10 h-10 text-secondary animate-spin dark:text-secondary fill-primary" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -16,7 +22,7 @@ const LoadingSpinner = ({ text, centerScreen = true }: ILoadingSpinner) => {
           fill="currentFill"
         />
       </svg>
-      <div className="mt-1">{text}</div>
+      <div className="mt-1">{text ? text : t('textLoading')}</div>
     </div>
   );
 };

@@ -483,9 +483,6 @@
     "thankYouText2": "Dein Feedback ist sehr wichtig für uns!",
     "btnBackHome": "Zur Homepage"
   },
-  "/loading": {
-    "textLoading": "Lädt..."
-  },
   "/login": {
     "inputUsername": "Nutzername / E-Mail",
     "inputPassword": "Passwort",
@@ -675,6 +672,9 @@
     "chbNotifyOnComment": "Bei neuem Kommentar benachrichtigen",
     "inputWaiver": "Verzichterklärung",
     "chbVisaInvitationRequestsEnabled": "Visa-Einladungen anbieten"
+  },
+  "global/components/loading-spinner": {
+    "textLoading": "Lädt..."
   },
   "global/components/offering-editor": {
     "inputDescription": "Beschreibung",
