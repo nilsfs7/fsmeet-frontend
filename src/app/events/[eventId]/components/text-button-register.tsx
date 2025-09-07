@@ -4,13 +4,12 @@ import TextButton from '@/components/common/TextButton';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Toaster, toast } from 'sonner';
-import { isRegistered } from './tabs-menu';
 import { Event } from '@/domain/types/event';
 import moment from 'moment';
 import { validateSession } from '@/functions/validate-session';
 import { useRouter } from 'next/navigation';
 import { routeEvents, routeLogin } from '@/domain/constants/routes';
-import { createEventRegistration, deleteEventRegistration } from '@/infrastructure/clients/event.client';
+import { createEventRegistration, deleteEventRegistration, getEventRegistrations } from '@/infrastructure/clients/event.client';
 import Dialog from '@/components/Dialog';
 import { CashInfo } from './payment/cash-info';
 import { PayPalInfo } from './payment/paypal-info';
@@ -20,6 +19,8 @@ import Label from '@/components/Label';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { useEffect, useState } from 'react';
+import { EventRegistration } from '../../../../domain/types/event-registration';
+import { isInEventRegistrations } from '../../../../functions/is-in-event-registrations';
 
 interface ITextButtonRegister {
   event: Event;
@@ -31,10 +32,11 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
   const { data: session } = useSession();
   const router = useRouter();
 
+  const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>([]);
   const [loginRouteWithCallbackUrl, setLoginRouteWithCallbackUrl] = useState<string>('');
 
   const registrationStatus: string =
-    event.eventRegistrations.filter(registration => {
+    eventRegistrations.filter(registration => {
       if (registration.user.username === session?.user.username) {
         return registration.status;
       }
@@ -113,6 +115,13 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
   };
 
   useEffect(() => {
+    if (event.id)
+      getEventRegistrations(event.id, null, session).then(registrations => {
+        setEventRegistrations(registrations);
+      });
+  }, []);
+
+  useEffect(() => {
     setLoginRouteWithCallbackUrl(`${routeLogin}?callbackUrl=${window.location.origin}${routeEvents}%2F${event.id}`);
   }, []);
 
@@ -124,12 +133,12 @@ export const TextButtonRegister = ({ event }: ITextButtonRegister) => {
         title={t('dlgEventRegistrationTitle')}
         queryParam="registration"
         onCancel={handleCancelDialogClicked}
-        onConfirm={isRegistered(event, session) ? handleUnregisterClicked : handleConfirmRegisterClicked}
-        confirmText={isRegistered(event, session) ? t('dlgEventRegistrationBtnUnregister') : t('dlgEventRegistrationBtnRegister')}
+        onConfirm={isInEventRegistrations(eventRegistrations, session) ? handleUnregisterClicked : handleConfirmRegisterClicked}
+        confirmText={isInEventRegistrations(eventRegistrations, session) ? t('dlgEventRegistrationBtnUnregister') : t('dlgEventRegistrationBtnRegister')}
         executeCancelAfterConfirmClicked={false}
       >
         <div>
-          {isRegistered(event, session) ? (
+          {isInEventRegistrations(eventRegistrations, session) ? (
             <div className="flex gap-2 items-center">
               <div>{`${t('dlgEventRegistrationRegistrationStatus')}:`}</div>
               <Label text={registrationStatus} />

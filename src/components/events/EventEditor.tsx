@@ -268,7 +268,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       notifyOnComment: notifyOnComment,
       waiver: waiver,
       visaInvitationRequestsEnabled: visaInvitationRequestsEnabled,
-      eventRegistrations: [],
       accommodations: [],
       offerings: [],
       state: event?.state || EventState.CREATED,
