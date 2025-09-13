@@ -27,10 +27,12 @@ export default async function MyEventsOverview() {
   let actingUser: User | undefined;
 
   if (session) {
-    actingUser = await getUser(session?.user.username);
-    eventsOwning = await getEvents(session?.user.username, null, null, null, null, session);
-    eventsMaintaining = await getEvents(null, session?.user.username, null, null, null, session);
-    eventsSubscribed = await getEvents(null, null, session?.user.username, null, null);
+    [actingUser, eventsOwning, eventsMaintaining, eventsSubscribed] = await Promise.all([
+      getUser(session?.user.username),
+      getEvents(session?.user.username, null, null, null, null, session),
+      getEvents(null, session?.user.username, null, null, null, session),
+      getEvents(null, null, session?.user.username, null, null),
+    ]);
   }
 
   if (!actingUser) {
