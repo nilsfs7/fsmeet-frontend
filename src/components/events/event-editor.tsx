@@ -582,13 +582,13 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         }}
       />
 
-      <div className="m-2">
-        <Separator />
-      </div>
-      <SectionHeader label={t('sectionLocation')} />
-
       {eventType != EventType.COMPETITION_ONLINE && (
         <>
+          <div className="m-2">
+            <Separator />
+          </div>
+          <SectionHeader label={t('sectionLocation')} />
+
           <TextInput
             id={'venueName'}
             label={t('inputVenueName')}

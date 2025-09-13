@@ -1,7 +1,7 @@
 'use client';
 
 import { Event } from '@/domain/types/event';
-import EventEditor from '@/components/events/EventEditor';
+import EventEditor from '@/components/events/event-editor';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { toast } from 'sonner';
 import { fileToBase64 } from '@/functions/file-to-base-64';
