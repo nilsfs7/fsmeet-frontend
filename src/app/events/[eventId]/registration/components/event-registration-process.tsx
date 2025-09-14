@@ -15,7 +15,7 @@ import { Toaster, toast } from 'sonner';
 import { EventRegistrationInfo } from '@/domain/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
-import { createEventRegistration_v2, createEventRegistrationCheckoutLink, deleteEventRegistration } from '@/infrastructure/clients/event.client';
+import { createEventRegistration_v2, createEventRegistrationCheckoutLink, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
 import Label from '@/components/Label';
 import Separator from '@/components/Seperator';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
@@ -51,7 +51,6 @@ import { EventRegistration } from '../../../../../domain/types/event-registratio
 
 interface IEventRegistrationProcess {
   event: Event;
-  eventRegistrations: EventRegistration[];
   competitions: Competition[];
   attendee: User;
 }
@@ -64,7 +63,7 @@ enum RegistrationProcessPage {
   CHECKOUT_OVERVIEW = '5',
 }
 
-export const EventRegistrationProcess = ({ event, eventRegistrations, competitions, attendee }: IEventRegistrationProcess) => {
+export const EventRegistrationProcess = ({ event, competitions, attendee }: IEventRegistrationProcess) => {
   const t = useTranslations('/events/eventid/registration');
 
   const { data: session } = useSession();
@@ -511,14 +510,16 @@ export const EventRegistrationProcess = ({ event, eventRegistrations, competitio
   };
 
   useEffect(() => {
-    const status = eventRegistrations.filter(registration => {
-      if (registration.user.username === session?.user.username) {
-        setRegistrationType(registration.type);
-        return registration.status;
-      }
-    })[0]?.status;
-
-    setRegistrationStatus(status || 'Unregistered');
+    if (event.id && session?.user.username) {
+      getEventRegistration(event.id, session.user.username, session).then(registration => {
+        if (registration) {
+          setRegistrationType(registration.type);
+          setRegistrationStatus(registration.status.toString());
+        } else {
+          setRegistrationStatus('Unregistered');
+        }
+      });
+    }
   });
 
   useEffect(() => {

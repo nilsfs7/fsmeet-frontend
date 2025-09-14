@@ -256,6 +256,29 @@ export async function getEventRegistrations(eventId: string, registrationType: E
   }
 }
 
+export async function getEventRegistration(eventId: string, username: string | null, session?: Session | null): Promise<ReadEventRegistrationResponseDto | null> {
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations/${username}`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    if (error.statusCode === 404) {
+      // 404 means unregistered
+      return null;
+    }
+
+    throw Error(error.message);
+  }
+}
+
 export async function createEventRegistration(eventId: string, username: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
 
