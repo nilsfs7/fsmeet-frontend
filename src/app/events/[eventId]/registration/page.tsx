@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { getEvent, getEventRegistrations } from '@/infrastructure/clients/event.client';
+import { getEvent, getEventRegistration } from '@/infrastructure/clients/event.client';
 import { EventRegistrationProcess } from './components/event-registration-process';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { redirect } from 'next/navigation';
@@ -16,12 +16,7 @@ export default async function EventRegistration({ params }: { params: { eventId:
     redirect(loginRouteWithCallbackUrl);
   }
 
-  const [event, eventRegistrations, competitions, user] = await Promise.all([
-    getEvent(params.eventId, session),
-    getEventRegistrations(params.eventId, null, session), // TODO: add isRegisered(username) for performance reasons
-    getCompetitions(params.eventId),
-    getUser(session?.user.username ? session.user.username : '', session),
-  ]);
+  const [event, competitions, user] = await Promise.all([getEvent(params.eventId, session), getCompetitions(params.eventId), getUser(session?.user.username ? session.user.username : '', session)]);
 
-  return <EventRegistrationProcess event={event} eventRegistrations={eventRegistrations} competitions={competitions} attendee={user} />;
+  return <EventRegistrationProcess event={event} competitions={competitions} attendee={user} />;
 }
