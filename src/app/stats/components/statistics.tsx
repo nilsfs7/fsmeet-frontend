@@ -179,6 +179,16 @@ export const Statistics = () => {
             description={'Cumulative user count'}
           />
 
+          <ChartArea
+            data={userGrowth.map(ds => {
+              return { date: ds.date.toString(), l1: ds.maleFreestylersCount + ds.femaleFreestylersCount, l2: ds.maleFreestylersCount, l3: ds.femaleFreestylersCount };
+            })}
+            labels={['Total', 'Male Freestylers', 'Female Freestylers']}
+            colors={['--chart-1', '--chart-2', '--chart-5']}
+            title={'User Growth (Freestyler)'}
+            description={'Cumulative user count (freestylers)'}
+          />
+
           {/* todo: all in one attempts */}
           {/* <ChartArea
             data={eventCount.map(ds => {
