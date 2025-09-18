@@ -14,7 +14,7 @@ export default async function EventParticipants({ params }: { params: { eventId:
   const t = await getTranslations('/events/eventid/participants');
   const session = await auth();
 
-  const event = await getEvent(params.eventId);
+  const event = await getEvent(params.eventId, session);
   const competitions = await getCompetitions(params.eventId);
   const registrations = await getEventRegistrations(params.eventId, null, session);
   const accommodations = await getAccommodations(params.eventId);
