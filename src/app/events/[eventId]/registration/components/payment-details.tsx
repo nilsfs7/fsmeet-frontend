@@ -100,18 +100,21 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
         )}
 
         <div className="flex justify-between">
-          <div className="flex gap-2 items-center">
-            <div>{`1% donation to FSMeet`}</div>
-            <input
-              id={`input-donation`}
-              className="h-4 w-4"
-              type="checkbox"
-              checked={donationChecked}
-              onChange={() => {
-                handleDonationCheckedChanged();
-              }}
-            />
-          </div>
+          {event.paymentMethodStripe.enabled && getTotal() > 0 && (
+            <div className="flex gap-2 items-center">
+              <div>{`1% donation to FSMeet`}</div>
+              <input
+                id={`input-donation`}
+                className="h-4 w-4"
+                type="checkbox"
+                checked={donationChecked}
+                onChange={() => {
+                  handleDonationCheckedChanged();
+                }}
+              />
+            </div>
+          )}
+
           {donationChecked && <div>{`${convertCurrencyIntegerToDecimal(getDonationAmount(), event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}`}</div>}
         </div>
 

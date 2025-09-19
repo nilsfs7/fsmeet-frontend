@@ -19,12 +19,29 @@ interface IAttendeeChoiceList {
   disabled?: boolean[];
   checked?: EventRegistrationType;
   selectable?: boolean;
+  hideVisitorOption?: boolean;
   onCheckedChange?: (registrationType: EventRegistrationType) => void;
 }
 
-export const AttendeeChoice = ({ participantFee, vistorFee, currency, eventType, userType, disabled = [false, false], checked, selectable = false, onCheckedChange }: IAttendeeChoiceList) => {
+export const AttendeeChoice = ({
+  participantFee,
+  vistorFee,
+  currency,
+  eventType,
+  userType,
+  disabled = [false, false],
+  checked,
+  selectable = false,
+  hideVisitorOption = false,
+  onCheckedChange,
+}: IAttendeeChoiceList) => {
   const availableRegistrationTypes = registrationTypes.filter(regType => {
     let addChoice = true;
+
+    // remove type visitor
+    if (hideVisitorOption && regType === EventRegistrationType.VISITOR) {
+      addChoice = false;
+    }
 
     // remove type visitor when event is an online competition
     if (eventType === EventType.COMPETITION_ONLINE && regType === EventRegistrationType.VISITOR) {

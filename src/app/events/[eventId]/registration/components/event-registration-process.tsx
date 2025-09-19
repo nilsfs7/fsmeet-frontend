@@ -15,7 +15,7 @@ import { Toaster, toast } from 'sonner';
 import { EventRegistrationInfo } from '@/domain/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
-import { createEventRegistration_v2, createEventRegistrationCheckoutLink, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
+import { createEventRegistration, createEventRegistration_v2, createEventRegistrationCheckoutLink, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
 import Label from '@/components/Label';
 import Separator from '@/components/Seperator';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
@@ -149,6 +149,38 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     setUserInfoChanged(true);
   };
 
+  const registrationFeeExists = () => {
+    // check event fee
+    const eventWithFee = (registrationType === EventRegistrationType.PARTICIPANT && event.participationFee > 0) || (registrationType === EventRegistrationType.VISITOR && event.visitorFee > 0);
+    if (eventWithFee) return true;
+
+    // check competition fees
+    const compsWithCost = competitions.some((comp, i) => {
+      if (comp.id && comp.participationFee > 0 && compSignUps.includes(comp.id)) {
+        return comp;
+      }
+    });
+    if (compsWithCost) return true;
+
+    // check offering fees
+    const offsWithCost = event.offerings.some((off, i) => {
+      if (off.id && off.cost > 0 && offeringOrders.includes(off.id)) {
+        return off;
+      }
+    });
+    if (offsWithCost) return true;
+
+    // check accommodation fees
+    const accsWithCost = event.accommodations.some((acc, i) => {
+      if (acc.id && acc.cost > 0 && accommodationOrders.includes(acc.id)) {
+        return acc;
+      }
+    });
+    if (accsWithCost) return true;
+
+    return false;
+  };
+
   const getActiveOfferings = (): Offering[] => {
     return event.offerings.filter(off => {
       if (off.enabled) return off;
@@ -213,6 +245,30 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     return false;
   };
 
+  const nextButtonShown = (): boolean => {
+    if (page !== RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered') {
+      return true;
+    }
+
+    return false;
+  };
+
+  const proceedPaymentButtonShown = (): boolean => {
+    if (!page && event.paymentMethodStripe.enabled && registrationStatus === EventRegistrationStatus.PENDING && registrationFeeExists()) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const getTextButtonCheckout = (): string => {
+    if (event.paymentMethodStripe.enabled && registrationFeeExists()) {
+      return t('btnEnrollNowWithCheckout');
+    }
+
+    return t('btnEnrollNow');
+  };
+
   const addMandatoryOfferings = () => {
     // checks and adds a offerings to the orders when it's mandatory
 
@@ -268,18 +324,23 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           break;
 
         case RegistrationProcessPage.CHECKOUT_OVERVIEW:
-          if (hasActiveAccommodations()) {
-            previousPage = RegistrationProcessPage.ACCOMMODATIONS;
-          } else {
-            if (hasActiveOfferings()) {
-              previousPage = RegistrationProcessPage.OFFERINGS;
+          if (event.paymentMethodStripe.enabled) {
+            if (hasActiveAccommodations()) {
+              previousPage = RegistrationProcessPage.ACCOMMODATIONS;
             } else {
-              if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
-                previousPage = RegistrationProcessPage.COMPETITIONS;
+              if (hasActiveOfferings()) {
+                previousPage = RegistrationProcessPage.OFFERINGS;
               } else {
-                previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
+                if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
+                  previousPage = RegistrationProcessPage.COMPETITIONS;
+                } else {
+                  previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
+                }
               }
             }
+          } else {
+            // only allow REGISTRATION_TYPE selection and CHECKOUT_OVERVIEW for non-stripe events
+            previousPage = RegistrationProcessPage.REGISTRATION_TYPE;
           }
           break;
       }
@@ -314,19 +375,25 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
             }
           }
 
-          if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
-            nextPage = RegistrationProcessPage.COMPETITIONS;
-          } else {
-            if (hasActiveOfferings()) {
-              nextPage = RegistrationProcessPage.OFFERINGS;
+          if (event.paymentMethodStripe.enabled) {
+            if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
+              nextPage = RegistrationProcessPage.COMPETITIONS;
             } else {
-              if (hasActiveAccommodations()) {
-                nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+              if (hasActiveOfferings()) {
+                nextPage = RegistrationProcessPage.OFFERINGS;
               } else {
-                nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
+                if (hasActiveAccommodations()) {
+                  nextPage = RegistrationProcessPage.ACCOMMODATIONS;
+                } else {
+                  nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
+                }
               }
             }
+          } else {
+            // only allow REGISTRATION_TYPE selection and CHECKOUT_OVERVIEW for non-stripe events
+            nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
           }
+
           break;
 
         case RegistrationProcessPage.COMPETITIONS:
@@ -366,25 +433,48 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   };
 
   const handleRegisterNowClicked = async () => {
-    if (event.id && registrationType) {
-      try {
-        await createEventRegistration_v2(
-          event.id,
-          registrationType,
-          compSignUps,
-          accommodationOrders,
-          offeringOrders,
-          offeringTShirtSize,
-          phoneCountryCode || null,
-          phoneNumber || null,
-          donationAmount,
-          session
-        );
-        cleanupCacheRegistrationInfo();
+    if (event.id) {
+      const useRegistrationV2 = event.paymentMethodStripe.enabled && registrationType;
+      const redirectToCheckout = useRegistrationV2 && registrationFeeExists();
 
-        // todo: don't redirect when user is not paying directly
-        const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, `${window.location.origin}${pageUrl}/completed?checkout=1`, session);
-        router.push(`${checkoutUrl}`);
+      let successUrl = `${window.location.origin}${pageUrl}/completed?`;
+      if (registrationFeeExists()) {
+        successUrl += 'fee=1';
+      } else {
+        successUrl += 'fee=0';
+      }
+
+      try {
+        if (useRegistrationV2) {
+          await createEventRegistration_v2(
+            event.id,
+            registrationType,
+            compSignUps,
+            accommodationOrders,
+            offeringOrders,
+            offeringTShirtSize,
+            phoneCountryCode || null,
+            phoneNumber || null,
+            donationAmount,
+            session
+          );
+          cleanupCacheRegistrationInfo();
+
+          if (redirectToCheckout) {
+            successUrl += '&checkout=1';
+            const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, successUrl, session);
+            router.push(`${checkoutUrl}`);
+          } else {
+            router.push(successUrl);
+          }
+        } else {
+          // use registration v1
+          if (session) {
+            await createEventRegistration(event.id, session.user.username, session);
+            cleanupCacheRegistrationInfo();
+            router.push(successUrl);
+          }
+        }
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -738,6 +828,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                 currency={event.currency}
                 checked={registrationType}
                 selectable={true}
+                hideVisitorOption={event.paymentMethodStripe.enabled === false}
                 onCheckedChange={registrationType => {
                   handleRadioItemRegistrationTypeClicked(registrationType);
                 }}
@@ -943,12 +1034,15 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
             <ActionButton action={Action.BACK} />
           </Link>
         )}
+        {/* Button Cancel Process */}
         {page && <TextButton text={t('btnBackToOverview')} onClick={handleCancelClicked} />}
 
         <div className="flex gap-1">
+          {/* Button Back One Page */}
           {page && <ActionButton action={Action.BACK} onClick={handlePreviousClicked} />}
 
-          {page !== RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && (
+          {/* Button Continue */}
+          {nextButtonShown() && (
             <TextButton
               text={page ? t('btnNextPage') : t('btnRegister')}
               disabled={nextButtonDisabled() || moment(event?.registrationOpen).unix() > moment().unix() || moment(event?.dateTo).unix() < moment().unix() || false}
@@ -956,8 +1050,10 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
             />
           )}
 
-          {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={t('btnEnrollNow')} onClick={handleRegisterNowClicked} />}
+          {/* Button Checkout */}
+          {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={getTextButtonCheckout()} onClick={handleRegisterNowClicked} />}
 
+          {/* Button Unregister */}
           {!page && registrationStatus === EventRegistrationStatus.PENDING && (
             <TextButton
               text={t('btnUnregister')}
@@ -973,7 +1069,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
             />
           )}
 
-          {!page && registrationStatus === EventRegistrationStatus.PENDING && (
+          {/* Button Proceed Payment */}
+          {proceedPaymentButtonShown() && (
             <TextButton
               text={t('btnProceedPayment')}
               disabled={

@@ -166,18 +166,6 @@
     "btnSave": "Guardar"
   },
   "/events/eventid": {
-    "dlgEventRegistrationTitle": "Información sobre la inscripción",
-    "dlgEventRegistrationRegistrationStatus": "Estado de la inscripción",
-    "dlgEventRegistrationText1": "¿Desea inscribirte en este evento?",
-    "dlgEventRegistrationText2": "Tenga en cuenta que la cuota de participación de",
-    "dlgEventRegistrationText3": "La inscripción se confirmará en cuanto se reciba el pago.",
-    "dlgEventRegistrationText4": "Si te has registrado, también recibirás los datos de pago por correo electrónico.",
-    "dlgEventRegistrationBtnRegister": "Regístrese ahora",
-    "dlgEventRegistrationBtnUnregister": "Anulaciones",
-    "dlgEventRegistrationSuccessfulTitle": "Estado del evento",
-    "dlgEventRegistrationSuccessfulText1": "Solicitud enviada correctamente.",
-    "dlgEventRegistrationSuccessfulText2": "Por favor, no olvide pagar la cuota de participación. Te hemos enviado los detalles del pago por correo electrónico.",
-    "dlgEventRegistrationSuccessfulBtnOk": "Ok",
     "dlgEventStateTitle": "Visibilidad del evento",
     "dlgEventStateText1": "Estado del evento",
     "dlgEventStateText2": "Tu evento aún no es público.",
@@ -405,7 +393,8 @@
     "btnProceedPayment": "Continuar pagando",
     "btnBackToOverview": "Cancelar",
     "btnNextPage": "Siguiente",
-    "btnEnrollNow": "Pagar"
+    "btnEnrollNow": "Inscríbete ahora",
+    "btnEnrollNowWithCheckout": "Pagar"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registro enviado con éxito.",

@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { getEvent, getEventRegistration } from '@/infrastructure/clients/event.client';
+import { getEvent } from '@/infrastructure/clients/event.client';
 import { EventRegistrationProcess } from './components/event-registration-process';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { redirect } from 'next/navigation';

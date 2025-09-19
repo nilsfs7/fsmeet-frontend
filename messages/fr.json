@@ -166,18 +166,6 @@
     "btnSave": "Enregistrer"
   },
   "/events/eventid": {
-    "dlgEventRegistrationTitle": "Confirmer l'inscription",
-    "dlgEventRegistrationRegistrationStatus": "Statut d'enregistrement",
-    "dlgEventRegistrationText1": "Souhaitez-vous vous inscrire à",
-    "dlgEventRegistrationText2": "Veuillez prendre connaissance des frais de participation de",
-    "dlgEventRegistrationText3": "Votre inscription sera confirmée une fois le paiement effectué.",
-    "dlgEventRegistrationText4": "En confirmant votre inscription, nous vous enverrons également les détails de paiement par e-mail.",
-    "dlgEventRegistrationBtnRegister": "S'inscrire",
-    "dlgEventRegistrationBtnUnregister": "Désinscription",
-    "dlgEventRegistrationSuccessfulTitle": "Statut d'enregistrement",
-    "dlgEventRegistrationSuccessfulText1": "L'enregistrement a été effectué avec succès",
-    "dlgEventRegistrationSuccessfulText2": "N'oubliez pas de payer les frais de participation. Nous t'avons envoyé un e-mail avec les détails du paiement.",
-    "dlgEventRegistrationSuccessfulBtnOk": "Ok",
     "dlgEventStateTitle": "Visibilité de l'événement",
     "dlgEventStateText1": "État de l'événement",
     "dlgEventStateText2": "Votre événement n'est pas encore public.",
@@ -405,7 +393,8 @@
     "btnProceedPayment": "Continuer à payer",
     "btnBackToOverview": "Annuler",
     "btnNextPage": "Continuer",
-    "btnEnrollNow": "Payer"
+    "btnEnrollNow": "Iinscrire",
+    "btnEnrollNowWithCheckout": "Payer"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Inscription soumise avec succès.",
