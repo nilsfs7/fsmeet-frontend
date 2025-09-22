@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Dialog from '@/components/Dialog';
 import { switchTab } from '@/functions/switch-tab';
-import EventCard from '@/components/events/EventCard';
+import EventCard from '@/components/events/event-card';
 import { Event } from '@/domain/types/event';
 import { useTranslations } from 'next-intl';
 import { isEventAdmin } from '@/functions/is-event-admin';

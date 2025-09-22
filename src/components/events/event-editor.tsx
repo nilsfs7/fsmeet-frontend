@@ -116,6 +116,18 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     }
   };
 
+  const handleEventTypeChanged = async (type: EventType) => {
+    setEventType(type);
+
+    if (type === EventType.MEETING) {
+      setEventCategory(EventCategory.INTERNATIONAL);
+    }
+
+    if (type !== EventType.COMPETITION) {
+      setIsWffaRanked(false);
+    }
+  };
+
   const handleDeleteEventPosterClicked = async () => {
     if (event?.id) {
       try {
@@ -418,11 +430,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
               menus={menuEventTypes}
               value={eventType}
               onChange={(value: EventType) => {
-                setEventType(value);
-
-                if (value !== EventType.COMPETITION) {
-                  setIsWffaRanked(false);
-                }
+                handleEventTypeChanged(value);
               }}
             />
           )}
@@ -431,18 +439,20 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         </div>
       </div>
 
-      <div className="m-2 grid grid-cols-2 items-center gap-2">
-        <div>{t('cbCategory')}</div>
-        <div className="flex w-full">
-          <ComboBox
-            menus={menuEventCategories}
-            value={category}
-            onChange={(value: EventCategory) => {
-              setEventCategory(value);
-            }}
-          />
+      {eventType !== EventType.MEETING && (
+        <div className="m-2 grid grid-cols-2 items-center gap-2">
+          <div>{t('cbCategory')}</div>
+          <div className="flex w-full">
+            <ComboBox
+              menus={menuEventCategories}
+              value={category}
+              onChange={(value: EventCategory) => {
+                setEventCategory(value);
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {eventType === EventType.COMPETITION && (
         <CheckBox

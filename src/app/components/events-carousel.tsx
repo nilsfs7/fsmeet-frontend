@@ -1,6 +1,6 @@
 'use client';
 
-import EventCard from '@/components/events/EventCard';
+import EventCard from '@/components/events/event-card';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { routeEvents } from '@/domain/constants/routes';
 import Autoplay from 'embla-carousel-autoplay';
