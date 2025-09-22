@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
 import Link from 'next/link';
-import EventCard from '@/components/events/EventCard';
+import EventCard from '@/components/events/event-card';
 import { routeEvents } from '@/domain/constants/routes';
 import { getEvents } from '@/infrastructure/clients/event.client';
 import { Event } from '@/domain/types/event';
