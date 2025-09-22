@@ -166,18 +166,6 @@
     "btnSave": "Speichern"
   },
   "/events/eventid": {
-    "dlgEventRegistrationTitle": "Anmeldeinfo",
-    "dlgEventRegistrationRegistrationStatus": "Registrierungsstatus",
-    "dlgEventRegistrationText1": "Möchtest du dich für dieses Event registrieren:",
-    "dlgEventRegistrationText2": "Bitte beachte die Teilnahmegebühr von",
-    "dlgEventRegistrationText3": "Deine Registrierung wird bestätigt sobald deine Zahlung eingegangen ist.",
-    "dlgEventRegistrationText4": "Wenn du dich registriert hast, bekommst du die Zahlungsdetails auch per Mail.",
-    "dlgEventRegistrationBtnRegister": "Jetzt anmelden",
-    "dlgEventRegistrationBtnUnregister": "Absagen",
-    "dlgEventRegistrationSuccessfulTitle": "Anmeldestatus",
-    "dlgEventRegistrationSuccessfulText1": "Anmeldung erfolgreich eingereicht.",
-    "dlgEventRegistrationSuccessfulText2": "Bitte denke an die Teilnahmegebühr. Die Zahlungsdetails haben wir dir per Mail geschickt.",
-    "dlgEventRegistrationSuccessfulBtnOk": "Ok",
     "dlgEventStateTitle": "Event Sichtbarkeit",
     "dlgEventStateText1": "Event Status",
     "dlgEventStateText2": "Dein Event ist noch nicht öffentlich.",
@@ -405,7 +393,8 @@
     "btnProceedPayment": "Bezahlen fortsetzen",
     "btnBackToOverview": "Abbrechen",
     "btnNextPage": "Weiter",
-    "btnEnrollNow": "Bezahlen"
+    "btnEnrollNow": "Jetzt Anmelden",
+    "btnEnrollNowWithCheckout": "Bezahlen"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registrierung erfolgreich eingereicht.",

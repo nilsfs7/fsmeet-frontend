@@ -13,9 +13,10 @@ export default function EventRegistrationCompleted({ params }: { params: { event
   const t = useTranslations('/events/eventid/registration/completed');
 
   const searchParams = useSearchParams();
-  const checkout = searchParams?.get('checkout');
+  const checkout = searchParams?.get('checkout') === '1';
+  const eventHasFee = searchParams?.get('fee') === '1';
 
-  const [buttonDisabled, setButtonDisabled] = useState(checkout === '1');
+  const [buttonDisabled, setButtonDisabled] = useState(checkout);
   const [secUntilEnabled, setSecondsUntilEnabled] = useState(buttonDisabled ? 4 : 0);
 
   useEffect(() => {
@@ -43,7 +44,10 @@ export default function EventRegistrationCompleted({ params }: { params: { event
           <div className="mx-2 text-center">
             <Image src={imgCelebration} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
             <div className="mt-2">{t('registrationSuccess')}</div>
-            <div className="mt-2">{t(checkout === '1' ? `textPaymentCompleted` : `textPaymentOutstanding`)}</div>
+
+            {checkout && <div className="mt-2">{t(`textPaymentCompleted`)}</div>}
+            {!checkout && eventHasFee && <div className="mt-2">{t(`textPaymentOutstanding`)}</div>}
+
             <div className="mt-2">
               <Link href={`${routeEvents}/${params.eventId}`}>
                 <TextButton text={buttonDisabled ? `${secUntilEnabled.toString()} ...` : t('btnBack')} disabled={buttonDisabled} />
