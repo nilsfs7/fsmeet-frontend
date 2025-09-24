@@ -7,6 +7,7 @@ on:
       - dev
       - dev-ui
       - dev-mobile
+      - dev-next15
   pull_request:
     branches:
       - main
@@ -43,6 +44,12 @@ jobs:
               
               echo "TAGS=nilsfs7/fsmeet-frontend:dev-mobile" >> "$GITHUB_ENV"
               echo "AUTH_URL=https://dev-mobile.fsmeet.dffb.org" >> "$GITHUB_ENV"
+          fi
+          if [[ $GITHUB_REF == 'refs/heads/dev-next15' ]]; then
+              echo "set values for dev-next15 image"
+              
+              echo "TAGS=nilsfs7/fsmeet-frontend:dev-next15" >> "$GITHUB_ENV"
+              echo "AUTH_URL=https://dev-next15.fsmeet.dffb.org" >> "$GITHUB_ENV"
           fi
 
       - name: Set up QEMU
