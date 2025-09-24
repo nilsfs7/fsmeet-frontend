@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { Vote } from '@/domain/types/vote';
 import { createPollRating, createVote, getPollRatings, getVotes } from '@/infrastructure/clients/poll.client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import UserCard from '@/components/user/UserCard';
+import UserCard from '@/components/user/user-card';
 import { Toaster, toast } from 'sonner';
 import { getShortDateString } from '@/functions/time';
 import { imgAbout, imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutline, imgHourglassEnd, imgHourglassStart } from '@/domain/constants/images';

@@ -1,6 +1,6 @@
 import LanguagePicker from './LanguagePicker';
 import { LogoFSMeet } from './Logo';
-import ProfileMenu from './user/ProfileMenu';
+import ProfileMenu from './user/profile-menu';
 
 interface IHeaderProps {
   showMenu?: boolean;

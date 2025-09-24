@@ -2,7 +2,7 @@
 
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import ActionButton from '@/components/common/ActionButton';
-import UserCard from '@/components/user/UserCard';
+import UserCard from '@/components/user/user-card';
 import { Action } from '@/domain/enums/action';
 import { CompetitionGender } from '@/domain/enums/competition-gender';
 import { MaxAge } from '@/domain/enums/max-age';

@@ -25,7 +25,7 @@ import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { ButtonStyle } from '@/domain/enums/button-style';
 import Dialog from '@/components/Dialog';
-import SocialLink from '@/components/user/SocialLink';
+import SocialLink from '@/components/user/social-link';
 import { Platform } from '@/domain/enums/platform';
 import { menuFreestyleSinceWithUnspecified } from '@/domain/constants/menus/menu-freestyle-since';
 import { DatePicker } from '@/components/common/DatePicker';

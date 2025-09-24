@@ -25,7 +25,7 @@ import { routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
 import { getUserTypeImages } from '@/functions/user-type';
-import SocialLink from '@/components/user/SocialLink';
+import SocialLink from '@/components/user/social-link';
 import { Platform } from '@/domain/enums/platform';
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';

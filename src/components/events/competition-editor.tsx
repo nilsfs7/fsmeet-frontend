@@ -11,7 +11,7 @@ import { menuCompGenders } from '@/domain/constants/menus/menu-comp-genders';
 import { MaxAge } from '@/domain/enums/max-age';
 import { menuMaxAge } from '@/domain/constants/menus/menu-max-age';
 import { User } from '@/domain/types/user';
-import UserCard from '../user/UserCard';
+import UserCard from '../user/user-card';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
