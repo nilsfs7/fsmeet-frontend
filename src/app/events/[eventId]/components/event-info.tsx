@@ -11,7 +11,7 @@ import { User } from '@/domain/types/user';
 import { useTranslations } from 'next-intl';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';
-import VideoDialog from '@/components/VideoDialog';
+import VideoDialog from '@/components/video-dialog';
 import { useRouter } from 'next/navigation';
 import { routeEvents, routeUsers } from '@/domain/constants/routes';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
