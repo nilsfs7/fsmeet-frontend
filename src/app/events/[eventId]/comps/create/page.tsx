@@ -4,7 +4,7 @@ import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
-import CompetitionEditor from '@/components/events/CompetitionEditor';
+import CompetitionEditor from '@/components/events/competition-editor';
 import { Competition } from '@/domain/types/competition';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';

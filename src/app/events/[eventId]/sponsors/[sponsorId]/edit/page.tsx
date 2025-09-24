@@ -12,7 +12,7 @@ import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Sponsor } from '@/domain/types/sponsor';
 import { deleteSponsor, getSponsor, updateSponsor, updateSponsorLogo } from '@/infrastructure/clients/sponsor.client';
-import SponsorEditor from '@/components/events/SponsorEditor';
+import SponsorEditor from '@/components/events/sponsor-editor';
 import Dialog from '@/components/Dialog';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';

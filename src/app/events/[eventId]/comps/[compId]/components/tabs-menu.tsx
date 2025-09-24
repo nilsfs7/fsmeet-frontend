@@ -15,7 +15,7 @@ import BattleList from '@/components/comp/BattleList';
 import BattleGrid from '@/components/comp/BattleGrid';
 import TextareaAutosize from 'react-textarea-autosize';
 import { MaxAge } from '@/domain/enums/max-age';
-import UserSection from '@/components/events/UserSection';
+import UserSection from '@/components/events/user-section';
 import { Switch } from '@/components/ui/switch';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { UserType } from '@/domain/enums/user-type';

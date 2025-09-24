@@ -10,7 +10,7 @@ import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Offering } from '@/domain/types/offering';
 import { createOffering, updateOfferingPreview } from '@/infrastructure/clients/offering.client';
-import OfferingEditor from '@/components/events/OfferingEditor';
+import OfferingEditor from '@/components/events/offering-editor';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';

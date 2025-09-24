@@ -7,7 +7,7 @@ import { Event } from '@/domain/types/event';
 import { Toaster } from 'sonner';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { switchTab } from '@/functions/switch-tab';
-import UserSection from '@/components/events/UserSection';
+import UserSection from '@/components/events/user-section';
 import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import { EventRegistration } from '@/domain/types/event-registration';
 import { useEffect, useState } from 'react';

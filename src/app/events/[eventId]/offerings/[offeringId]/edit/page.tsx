@@ -12,7 +12,7 @@ import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Offering } from '@/domain/types/offering';
 import { deleteOffering, getOffering, updateOffering, updateOfferingPreview } from '@/infrastructure/clients/offering.client';
-import OfferingEditor from '@/components/events/OfferingEditor';
+import OfferingEditor from '@/components/events/offering-editor';
 import Dialog from '@/components/Dialog';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';

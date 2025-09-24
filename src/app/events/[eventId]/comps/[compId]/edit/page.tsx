@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { routeEventNotFound, routeEvents } from '@/domain/constants/routes';
-import CompetitionEditor from '@/components/events/CompetitionEditor';
+import CompetitionEditor from '@/components/events/competition-editor';
 import { Competition } from '@/domain/types/competition';
 import ActionButton from '@/components/common/ActionButton';
 import { Action } from '@/domain/enums/action';

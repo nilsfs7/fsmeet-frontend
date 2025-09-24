@@ -10,7 +10,7 @@ interface ICashInfo {
 export const CashInfo = ({ participationFee, currency }: ICashInfo) => {
   return (
     <div className="grid grid-cols-1 justify-between">
-      <div className="underline">Cash (pay on arrival)</div>
+      <div className="underline">{`Cash (pay on arrival)`}</div>
 
       <div className="grid grid-cols-2 justify-between">
         <div>{`Amount`}</div>

@@ -12,7 +12,7 @@ import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Attachment } from '@/domain/types/attachment';
 import { deleteAttachment, getAttachment, updateAttachment } from '@/infrastructure/clients/attachment.client';
-import AttachmentEditor from '@/components/events/AttachmentEditor';
+import AttachmentEditor from '@/components/events/attachment-editor';
 import Dialog from '@/components/Dialog';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
