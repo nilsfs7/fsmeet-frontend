@@ -2,7 +2,7 @@
 
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -18,7 +18,8 @@ import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getEvent } from '@/infrastructure/clients/event.client';
 
-export default function CreateAccommodation({ params }: { params: { eventId: string } }) {
+export default function CreateAccommodation(props: { params: Promise<{ eventId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/accommodations/create');
   const { data: session } = useSession();
 
@@ -29,7 +30,7 @@ export default function CreateAccommodation({ params }: { params: { eventId: str
   const [accommodationPreview, setAccommodationPreview] = useState<File>();
 
   const handleCreateClicked = async () => {
-    if (params.eventId && accommodation) {
+    if (accommodation) {
       try {
         const accommodationId = (await createAccommodation(params.eventId, accommodation.description, accommodation.cost, accommodation.website, accommodation.enabled, session)).id;
 

@@ -1,8 +1,8 @@
 'use client';
 
 import TextButton from '@/components/common/TextButton';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useRouter, useParams } from 'next/navigation';
+import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -20,7 +20,8 @@ import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { Accommodation } from '@/domain/types/accommodation';
 
-export default function EditEventAccommodation({ params }: { params: { eventId: string; accommodationId: string } }) {
+export default function EditEventAccommodation(props: { params: Promise<{ eventId: string; accommodationId: string }> }) {
+  const params = use(props.params);
   const { data: session, status } = useSession();
 
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function EditEventAccommodation({ params }: { params: { eventId: 
   const [accommodationPreview, setAccommodationPreview] = useState<File>();
 
   const handleSaveClicked = async () => {
-    if (params.eventId && accommodation) {
+    if (accommodation) {
       try {
         await updateAccommodation(params.accommodationId, accommodation.description, accommodation.cost, accommodation.website, accommodation.enabled, session);
 
@@ -55,7 +56,7 @@ export default function EditEventAccommodation({ params }: { params: { eventId: 
   };
 
   const handleConfirmDeleteClicked = async () => {
-    if (params.eventId && accommodation) {
+    if (accommodation) {
       try {
         await deleteAccommodation(params.accommodationId, session);
         router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/accommodations`));
@@ -74,7 +75,7 @@ export default function EditEventAccommodation({ params }: { params: { eventId: 
     getAccommodation(params.accommodationId).then(accommodation => {
       setAccommodation(accommodation);
     });
-  }, [event === undefined, accommodation === undefined]);
+  }, [session]);
 
   return (
     <>

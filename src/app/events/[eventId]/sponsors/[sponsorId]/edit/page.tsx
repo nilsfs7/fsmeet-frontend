@@ -27,7 +27,7 @@ export default function EditEventSponsor(props: { params: Promise<{ eventId: str
   const [sponsorLogo, setSponsorLogo] = useState<File>();
 
   const handleSaveClicked = async () => {
-    if (params.eventId && sponsor) {
+    if (sponsor) {
       try {
         await updateSponsor(params.sponsorId, sponsor.name, sponsor.website, sponsor.isPublic, session);
 
@@ -52,7 +52,7 @@ export default function EditEventSponsor(props: { params: Promise<{ eventId: str
   };
 
   const handleConfirmDeleteClicked = async () => {
-    if (params.eventId && sponsor) {
+    if (sponsor) {
       try {
         await deleteSponsor(params.sponsorId, session);
         router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/sponsors`));

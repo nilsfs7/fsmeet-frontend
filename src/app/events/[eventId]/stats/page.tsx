@@ -14,7 +14,8 @@ import { Gender } from '@/domain/enums/gender';
 import { ChartParticipantAge } from './chart-participant-age';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 
-export default async function Statistics({ params }: { params: { eventId: string } }) {
+export default async function Statistics(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/stats');
   const session = await auth();
 

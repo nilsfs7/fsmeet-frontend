@@ -5,7 +5,8 @@ import Image from 'next/image';
 import TextButton from '@/components/common/TextButton';
 import { getTranslations } from 'next-intl/server';
 
-export default async function ThankYou({ params }: { params: { eventId: string } }) {
+export default async function ThankYou(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/registration/visa/success');
 
   return (

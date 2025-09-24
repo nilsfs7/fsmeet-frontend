@@ -26,7 +26,7 @@ export default function CreateEventSponsor(props: { params: Promise<{ eventId: s
   const [sponsorLogo, setSponsorLogo] = useState<File>();
 
   const handleCreateClicked = async () => {
-    if (params.eventId && sponsor) {
+    if (sponsor) {
       try {
         const sponsorId = (await createSponsor(params.eventId, sponsor.name, sponsor.website, sponsor.isPublic, session)).id;
 

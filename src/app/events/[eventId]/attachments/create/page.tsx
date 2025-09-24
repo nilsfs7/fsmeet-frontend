@@ -2,7 +2,7 @@
 
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -16,7 +16,8 @@ import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { createAttachment } from '@/infrastructure/clients/attachment.client';
 import { fileToBase64 } from '@/functions/file-to-base-64';
 
-export default function CreateEventAttachment({ params }: { params: { eventId: string } }) {
+export default function CreateEventAttachment(props: { params: Promise<{ eventId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/attachments/create');
   const { data: session } = useSession();
 
@@ -26,7 +27,7 @@ export default function CreateEventAttachment({ params }: { params: { eventId: s
   const [attachmentDocument, setAttachmentDocument] = useState<string>();
 
   const handleCreateClicked = async () => {
-    if (params.eventId && attachment) {
+    if (attachment) {
       try {
         await createAttachment(
           params.eventId,

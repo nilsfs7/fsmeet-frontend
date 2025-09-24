@@ -7,7 +7,8 @@ import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import { validateSession } from '@/functions/validate-session';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
 
-export default async function EventRegistration({ params }: { params: { eventId: string } }) {
+export default async function EventRegistration(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const session = await auth();
 
   const loginRouteWithCallbackUrl = `${routeLogin}?callbackUrl=${routeEvents}%2F${params.eventId}%2Fregistration`;
