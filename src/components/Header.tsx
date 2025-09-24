@@ -1,4 +1,4 @@
-import LanguagePicker from './LanguagePicker';
+import LanguagePicker from './language-picker';
 import { LogoFSMeet } from './Logo';
 import ProfileMenu from './user/profile-menu';
 
