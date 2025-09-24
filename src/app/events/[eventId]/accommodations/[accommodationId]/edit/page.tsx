@@ -11,7 +11,7 @@ import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { deleteAccommodation, getAccommodation, updateAccommodation, updateAccommodationPreview } from '@/infrastructure/clients/accommodation.client';
-import AccommodationEditor from '@/components/events/AccommodationEditor';
+import AccommodationEditor from '@/components/events/accommodation-editor';
 import Dialog from '@/components/Dialog';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';

@@ -10,7 +10,7 @@ import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Accommodation } from '@/domain/types/accommodation';
 import { createAccommodation, updateAccommodationPreview } from '@/infrastructure/clients/accommodation.client';
-import AccommodationEditor from '@/components/events/AccommodationEditor';
+import AccommodationEditor from '@/components/events/accommodation-editor';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';

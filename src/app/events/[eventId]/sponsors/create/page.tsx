@@ -10,7 +10,7 @@ import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Sponsor } from '@/domain/types/sponsor';
 import { createSponsor, updateSponsorLogo } from '@/infrastructure/clients/sponsor.client';
-import SponsorEditor from '@/components/events/SponsorEditor';
+import SponsorEditor from '@/components/events/sponsor-editor';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';

@@ -9,7 +9,7 @@ import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import { useSession } from 'next-auth/react';
 import { Attachment } from '@/domain/types/attachment';
-import AttachmentEditor from '@/components/events/AttachmentEditor';
+import AttachmentEditor from '@/components/events/attachment-editor';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { useTranslations } from 'next-intl';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';

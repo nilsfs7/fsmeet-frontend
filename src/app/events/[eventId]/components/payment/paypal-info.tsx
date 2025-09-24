@@ -13,10 +13,10 @@ interface IPayPalInfo {
 export const PayPalInfo = ({ participationFee, currency, payPalInfo }: IPayPalInfo) => {
   return (
     <div className="grid grid-cols-1 justify-between">
-      <div className="underline">PayPal</div>
+      <div className="underline">{`PayPal`}</div>
 
       <div className="grid grid-cols-2 justify-between">
-        <div>Recipient</div>
+        <div>{`Recipient`}</div>
         <div className="select-text">
           <a target="_blank" rel="noopener noreferrer" href={`https://paypal.me/${payPalInfo.payPalHandle}`} className="hover:underline">{`paypal.me/${payPalInfo.payPalHandle}`}</a>
         </div>
