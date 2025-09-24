@@ -1,6 +1,6 @@
 import { User } from '@/domain/types/user';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
-import UserCard from '../user/UserCard';
+import UserCard from '../user/user-card';
 
 interface IUserSectionProps {
   sectionTitle: string;

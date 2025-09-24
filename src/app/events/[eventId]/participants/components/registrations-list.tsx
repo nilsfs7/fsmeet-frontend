@@ -9,7 +9,7 @@ import { routeEvents } from '@/domain/constants/routes';
 import Dialog from '@/components/Dialog';
 import { Toaster, toast } from 'sonner';
 import { deleteEventRegistration, updateEventRegistrationStatus } from '@/infrastructure/clients/event.client';
-import UserCard from '@/components/user/UserCard';
+import UserCard from '@/components/user/user-card';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { EventRegistration } from '@/domain/types/event-registration';

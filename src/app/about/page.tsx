@@ -2,7 +2,7 @@ import { Header } from '@/components/Header';
 import Navigation from '@/components/Navigation';
 import PageTitle from '@/components/PageTitle';
 import ActionButton from '@/components/common/ActionButton';
-import SocialLink from '@/components/user/SocialLink';
+import SocialLink from '@/components/user/social-link';
 import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { Platform } from '@/domain/enums/platform';

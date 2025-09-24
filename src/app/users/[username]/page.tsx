@@ -1,7 +1,7 @@
 import Navigation from '@/components/Navigation';
 import ActionButton from '@/components/common/ActionButton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import SocialLink from '@/components/user/SocialLink';
+import SocialLink from '@/components/user/social-link';
 import { imgUserDefaultImg, imgVerifiedCheckmark, imgWorld } from '@/domain/constants/images';
 import { routeAccount, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';

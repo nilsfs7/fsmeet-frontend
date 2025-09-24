@@ -23,7 +23,7 @@ import Link from 'next/link';
 import { routeAccount, routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 import { EventMaintainer } from '@/domain/types/event-maintainer';
-import UserCard from '../user/UserCard';
+import UserCard from '../user/user-card';
 import ActionButton from '../common/ActionButton';
 import { Action } from '@/domain/enums/action';
 import { User } from '@/domain/types/user';
