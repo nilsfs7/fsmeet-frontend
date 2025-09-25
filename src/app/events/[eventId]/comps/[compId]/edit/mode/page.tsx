@@ -5,7 +5,8 @@ import { getCompetitionParticipants, getRounds } from '@/infrastructure/clients/
 import { getTranslations } from 'next-intl/server';
 import { GameModeEditor } from './components/game-mode-editor';
 
-export default async function ModeEditing({ params }: { params: { eventId: string; compId: string } }) {
+export default async function ModeEditing(props: { params: Promise<{ eventId: string; compId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/comps/compid/edit/mode');
   const session = await auth();
 

@@ -2,7 +2,7 @@
 
 import TextButton from '@/components/common/TextButton';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -20,7 +20,8 @@ import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { Event } from '@/domain/types/event';
 
-export default function EditEventOffering({ params }: { params: { eventId: string; offeringId: string } }) {
+export default function EditEventOffering(props: { params: Promise<{ eventId: string; offeringId: string }> }) {
+  const params = use(props.params);
   const { data: session, status } = useSession();
 
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function EditEventOffering({ params }: { params: { eventId: strin
   const [offeringPreview, setOfferingPreview] = useState<File>();
 
   const handleSaveClicked = async () => {
-    if (params.eventId && offering) {
+    if (offering) {
       try {
         await updateOffering(params.offeringId, offering.description, offering.cost, offering.mandatoryForParticipant, offering.includesShirt, offering.enabled, session);
 
@@ -55,7 +56,7 @@ export default function EditEventOffering({ params }: { params: { eventId: strin
   };
 
   const handleConfirmDeleteClicked = async () => {
-    if (params.eventId && offering) {
+    if (offering) {
       try {
         await deleteOffering(params.offeringId, session);
         router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/offerings`));

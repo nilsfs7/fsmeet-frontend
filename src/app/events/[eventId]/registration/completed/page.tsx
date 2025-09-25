@@ -7,9 +7,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
-export default function EventRegistrationCompleted({ params }: { params: { eventId: string } }) {
+export default function EventRegistrationCompleted(props: { params: Promise<{ eventId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/registration/completed');
 
   const searchParams = useSearchParams();

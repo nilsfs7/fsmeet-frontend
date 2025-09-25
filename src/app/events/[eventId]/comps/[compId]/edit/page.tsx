@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { routeEventNotFound, routeEvents } from '@/domain/constants/routes';
 import CompetitionEditor from '@/components/events/competition-editor';
 import { Competition } from '@/domain/types/competition';
@@ -21,9 +21,9 @@ import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 
-export default function CompetitionEditing({ params }: { params: { eventId: string; compId: string } }) {
+export default function CompetitionEditing(props: { params: Promise<{ eventId: string; compId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/comps/edit');
-
   const { data: session } = useSession();
   const router = useRouter();
 

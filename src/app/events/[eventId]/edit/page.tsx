@@ -11,7 +11,8 @@ import { isEventAdmin } from '@/functions/is-event-admin';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import { UserType } from '@/domain/enums/user-type';
 
-export default async function EventEditing({ params }: { params: { eventId: string } }) {
+export default async function EventEditing(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/edit');
   const session = await auth();
 

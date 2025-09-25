@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import TextButton from '@/components/common/TextButton';
 import { routeHome, routeLogin } from '@/domain/constants/routes';
 import Navigation from '@/components/Navigation';
@@ -23,7 +23,8 @@ import { useRouter } from 'next/navigation';
 import { Header } from '@/components/Header';
 import { toTitleCase } from '@/functions/string-manipulation';
 
-export default function VisaInvitationRequest({ params }: { params: { eventId: string } }) {
+export default function VisaInvitationRequest(props: { params: Promise<{ eventId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/registration/visa');
 
   const { data: session } = useSession();

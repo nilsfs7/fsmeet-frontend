@@ -1,13 +1,7 @@
 'use server';
 
-import { signIn, signOut } from '@/auth';
-import { routeHome } from '@/domain/constants/routes';
+import { signIn } from '@/auth';
 import { AccessDenied } from '@auth/core/errors';
-
-export async function logoutUser() {
-  // TODO: pass redirect params in function signature
-  await signOut({ redirectTo: routeHome, redirect: true }); // TODO: redirect won't work for some reason
-}
 
 export async function loginUserWithCredentials(username: string, password: string): Promise<{ status: number; message: string }> {
   try {

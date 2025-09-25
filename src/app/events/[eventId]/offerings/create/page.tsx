@@ -1,8 +1,8 @@
 'use client';
 
 import TextButton from '@/components/common/TextButton';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -18,8 +18,10 @@ import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getEvent } from '@/infrastructure/clients/event.client';
 
-export default function CreateOffering({ params }: { params: { eventId: string } }) {
+export default function CreateOffering(props: { params: Promise<{ eventId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/offerings/create');
+
   const { data: session } = useSession();
 
   const router = useRouter();
@@ -29,7 +31,7 @@ export default function CreateOffering({ params }: { params: { eventId: string }
   const [offeringPreview, setOfferingPreview] = useState<File>();
 
   const handleCreateClicked = async () => {
-    if (params.eventId && offering) {
+    if (offering) {
       try {
         const offeringId = (await createOffering(params.eventId, offering.description, offering.cost, offering.mandatoryForParticipant, offering.includesShirt, offering.enabled, session)).id;
 

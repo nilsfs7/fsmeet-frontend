@@ -1,13 +1,12 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/domain/constants/routes';
 import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
-import { logoutUser } from '@/app/actions/authentication';
 import { useTranslations } from 'next-intl';
 
 const ProfileMenu = () => {
@@ -52,14 +51,29 @@ const ProfileMenu = () => {
   };
 
   const onLogoutClicked = async () => {
-    await logoutUser();
-    localStorage.removeItem('username');
-    localStorage.removeItem('imageUrl');
+    console.info('Logging out...');
 
-    setUsername(null);
-    setImageUrl(null);
+    try {
+      // Sign out from NextAuth first
+      await signOut({
+        redirect: false,
+        callbackUrl: routeHome,
+      });
 
-    router.push(routeHome); // TODO: remove once redirect works
+      // Clear data after successful logout
+      localStorage.removeItem('username');
+      localStorage.removeItem('imageUrl');
+
+      // Update local state
+      setUsername(null);
+      setImageUrl(null);
+
+      // Navigate to home page
+      router.push(routeHome);
+      router.refresh(); // Force refresh to update session state
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   const menuItemActions = [onEventsClicked, onPublicProfileClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];
