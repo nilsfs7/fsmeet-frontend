@@ -1,8 +1,8 @@
 'use client';
 
 import TextButton from '@/components/common/TextButton';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/Navigation';
@@ -19,7 +19,8 @@ import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { fileToBase64 } from '@/functions/file-to-base-64';
 import { useTranslations } from 'next-intl';
 
-export default function EditEventAttachment({ params }: { params: { eventId: string; attachmentId: string } }) {
+export default function EditEventAttachment(props: { params: Promise<{ eventId: string; attachmentId: string }> }) {
+  const params = use(props.params);
   const t = useTranslations('/events/eventid/attachments/attachmentid/edit');
   const { data: session, status } = useSession();
 
@@ -29,7 +30,7 @@ export default function EditEventAttachment({ params }: { params: { eventId: str
   const [attachmentDocument, setAttachmentDocument] = useState<string>();
 
   const handleSaveClicked = async () => {
-    if (params.eventId && attachment) {
+    if (attachment) {
       try {
         await updateAttachment(
           params.attachmentId,
@@ -60,7 +61,7 @@ export default function EditEventAttachment({ params }: { params: { eventId: str
   };
 
   const handleConfirmDeleteClicked = async () => {
-    if (params.eventId && attachment) {
+    if (attachment) {
       try {
         await deleteAttachment(params.attachmentId, session);
         router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/attachments`));

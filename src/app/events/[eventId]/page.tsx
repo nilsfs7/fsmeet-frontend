@@ -19,7 +19,8 @@ import moment from 'moment';
 import { isArchivedEventState } from '@/functions/event-state';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
 
-export default async function EventDetails({ params }: { params: { eventId: string } }) {
+export default async function EventDetails(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid');
   const session = await auth();
 

@@ -8,7 +8,8 @@ import Separator from '@/components/Seperator';
 import { getTranslations } from 'next-intl/server';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
 
-export default async function EventAttachments({ params }: { params: { eventId: string } }) {
+export default async function EventAttachments(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/attachments');
 
   const attachments = await getAttachments(params.eventId);

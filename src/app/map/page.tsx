@@ -17,7 +17,8 @@ import { getMessagesByLocale } from '@/functions/get-messages-forced-locale';
 import { UserType } from '@/domain/enums/user-type';
 import { FreestylerMap } from '@/components/freestyler-map';
 
-export default async function Map({ searchParams }: { searchParams: { iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string } }) {
+export default async function Map(props: { searchParams: Promise<{ iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string }> }) {
+  const searchParams = await props.searchParams;
   let t = await getTranslations(routeMap);
   const session = await auth();
 

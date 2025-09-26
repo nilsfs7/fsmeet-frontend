@@ -8,7 +8,8 @@ import { getAccommodations } from '@/infrastructure/clients/accommodation.client
 import Separator from '@/components/Seperator';
 import { getTranslations } from 'next-intl/server';
 
-export default async function EventAccommodation({ params }: { params: { eventId: string } }) {
+export default async function EventAccommodation(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/accommodations');
 
   const accommodations = await getAccommodations(params.eventId);

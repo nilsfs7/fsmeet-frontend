@@ -6,12 +6,11 @@ import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { User } from '@/domain/types/user';
 import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeAccountPayments, routeHome, routeMap } from '@/domain/constants/routes';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { logoutUser } from '../../actions/authentication';
 import TextInput from '@/components/common/TextInput';
 import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/functions/get-placeholder-by-user-type';
@@ -336,9 +335,13 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     try {
       await deleteUser(session?.user?.username || '', session);
 
-      await logoutUser();
+      // Sign out from NextAuth
+      await signOut({ redirect: false });
+
+      // Clear localStorage after successful logout
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
+
       router.push(routeAccountDeleted);
     } catch (error: any) {
       toast.error(error.message);
@@ -355,10 +358,19 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   };
 
   const handleConfirmLogoutClicked = async () => {
-    await logoutUser();
-    localStorage.removeItem('username');
-    localStorage.removeItem('imageUrl');
-    router.push(routeHome);
+    try {
+      // Sign out from NextAuth first
+      await signOut({ redirect: false });
+
+      // Clear localStorage after successful logout
+      localStorage.removeItem('username');
+      localStorage.removeItem('imageUrl');
+
+      router.push(routeHome);
+    } catch (error) {
+      console.error('Logout failed:', error);
+      // Handle logout error
+    }
   };
 
   const handleVerificationRequestClicked = async () => {

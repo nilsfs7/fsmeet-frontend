@@ -8,7 +8,8 @@ import { getOfferings } from '@/infrastructure/clients/offering.client';
 import Separator from '@/components/Seperator';
 import { getTranslations } from 'next-intl/server';
 
-export default async function EventOffering({ params }: { params: { eventId: string } }) {
+export default async function EventOffering(props: { params: Promise<{ eventId: string }> }) {
+  const params = await props.params;
   const t = await getTranslations('/events/eventid/offerings');
 
   const offerings = await getOfferings(params.eventId);
