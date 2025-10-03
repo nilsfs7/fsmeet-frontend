@@ -29,9 +29,9 @@ export class CreateEventBodyDto {
   type: EventType;
   category: EventCategory;
   isWffaRanked: boolean;
-  trailerUrl: string;
-  livestreamUrl: string;
-  messangerInvitationUrl: string;
+  trailerUrl: string | null;
+  livestreamUrl: string | null;
+  messangerInvitationUrl: string | null;
   paymentMethodCash: CreatePaymentMethodCashBodyDto;
   paymentMethodPayPal: CreatePaymentMethodPayPalBodyDto;
   paymentMethodSepa: CreatePaymentMethodSepaBodyDto;
@@ -65,9 +65,9 @@ export class CreateEventBodyDto {
     type: EventType,
     category: EventCategory,
     isWffaRanked: boolean,
-    trailerUrl: string,
-    livestreamUrl: string,
-    messangerInvitationUrl: string,
+    trailerUrl: string | null,
+    livestreamUrl: string | null,
+    messangerInvitationUrl: string | null,
     paymentMethodCash: CreatePaymentMethodCashBodyDto,
     paymentMethodPayPal: CreatePaymentMethodPayPalBodyDto,
     paymentMethodSepa: CreatePaymentMethodSepaBodyDto,

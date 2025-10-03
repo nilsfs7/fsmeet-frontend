@@ -73,9 +73,9 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
   const [category, setEventCategory] = useState<EventCategory>(event?.category || EventCategory.NATIONAL);
   const [isWffaRanked, setIsWffaRanked] = useState(event?.isWffaRanked || false);
-  const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || '');
-  const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || '');
-  const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || '');
+  const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || null);
+  const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || null);
+  const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || null);
   const [participationFee, setParticipationFee] = useState(event?.participationFee || 0);
   const [visitorFee, setVisitorFee] = useState(event?.visitorFee || 0);
   const [currency, setCurrency] = useState(event?.currency || CurrencyCode.EUR);
@@ -566,7 +566,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         id={'trailerUrl'}
         label={t('inputTrailerUrl')}
         placeholder="https://www.youtube.com/watch?v=JsPpmzMODQQ"
-        value={trailerUrl}
+        value={trailerUrl || undefined}
         onChange={e => {
           setTrailerUrl(e.currentTarget.value);
         }}
@@ -576,7 +576,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         id={'livestreamUrl'}
         label={t('inputLivestreamUrl')}
         placeholder="https://www.youtube.com/watch?v=gwiE0fXnByg"
-        value={livestreamUrl}
+        value={livestreamUrl || undefined}
         onChange={e => {
           setLivestreamUrl(e.currentTarget.value);
         }}
@@ -586,7 +586,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         id={'messangerInvitationUrl'}
         label={t('inputMessangerInvitationUrl')}
         placeholder="https://chat.whatsapp.com/FcFFSq0ybgT4tsk48ZQoxJ"
-        value={messangerInvitationUrl}
+        value={messangerInvitationUrl || undefined}
         onChange={e => {
           setMessangerInvitationUrl(e.currentTarget.value);
         }}
