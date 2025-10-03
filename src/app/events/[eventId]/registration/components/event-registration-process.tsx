@@ -446,18 +446,16 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
       try {
         if (useRegistrationV2) {
-          await createEventRegistration_v2(
-            event.id,
-            registrationType,
-            compSignUps,
-            accommodationOrders,
-            offeringOrders,
-            offeringTShirtSize,
-            phoneCountryCode || null,
-            phoneNumber || null,
-            donationAmount,
-            session
-          );
+          let phoneCode: number | null = null;
+          let phoneNum: string | null = null;
+
+          // collect phone number only for participants
+          if (registrationType === EventRegistrationType.PARTICIPANT) {
+            phoneCode = phoneCountryCode || null;
+            phoneNum = phoneNumber || null;
+          }
+
+          await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, offeringOrders, offeringTShirtSize, phoneCode, phoneNum, donationAmount, session);
           cleanupCacheRegistrationInfo();
 
           if (redirectToCheckout) {
@@ -727,8 +725,23 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           {/* Page: Personal Details and Registration Type */}
           {page && +page === 1 && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-              <div className="m-2">{t('pageParticipantSectionUserInfoDescription')}</div>
+              <div className="m-2">{t('pageParticipantSectionRegistrationTypeDescription')}</div>
+              <AttendeeChoice
+                participantFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.participationFeeIncPaymentCosts : event.participationFee}
+                vistorFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.visitorFeeIncPaymentCosts : event.visitorFee}
+                eventType={event.type}
+                userType={user.type}
+                disabled={[moment().unix() > moment(event.registrationDeadline).unix(), moment().unix() > moment(event.dateTo).unix()]}
+                currency={event.currency}
+                checked={registrationType}
+                selectable={true}
+                hideVisitorOption={event.paymentMethodStripe.enabled === false}
+                onCheckedChange={registrationType => {
+                  handleRadioItemRegistrationTypeClicked(registrationType);
+                }}
+              />
 
+              <div className="m-2 mt-6">{t('pageParticipantSectionUserInfoDescription')}</div>
               <div className="flex flex-col">
                 <TextInput
                   id={'firstName'}
@@ -771,39 +784,37 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   />
                 </div>
 
-                {user.type !== UserType.FAN && (
+                {user.type !== UserType.FAN && registrationType !== EventRegistrationType.VISITOR && (
                   <>
-                    {event.type === EventType.COMPETITION_ONLINE && (
-                      <div className="flex flex-col-2 items-end">
-                        <div className="mx-2">
-                          <div>{t('pageParticipantSectionUserPhoneNumber')}</div>
-                          <div className="flex w-full">
-                            <ComboBox
-                              menus={menuPhoneCountryCodesWithUnspecified}
-                              value={user.phoneCountryCode ? user.phoneCountryCode?.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
-                              searchEnabled={true}
-                              onChange={(value: any) => {
-                                handlePhoneCountryCodeChanged(value);
-                              }}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="h-fit">
-                          <TextInput
-                            id={'phoneNumber'}
-                            label={''}
-                            labelOnTop={true}
-                            type="tel"
-                            placeholder="1516 123456"
-                            value={user.phoneNumber?.toString() || ''}
-                            onChange={e => {
-                              handlePhoneNumberChanged(e.currentTarget.value);
+                    <div className="flex flex-col-2 items-end">
+                      <div className="mx-2">
+                        <div>{t('pageParticipantSectionUserPhoneNumber')}</div>
+                        <div className="flex w-full">
+                          <ComboBox
+                            menus={menuPhoneCountryCodesWithUnspecified}
+                            value={user.phoneCountryCode ? user.phoneCountryCode?.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                            searchEnabled={true}
+                            onChange={(value: any) => {
+                              handlePhoneCountryCodeChanged(value);
                             }}
                           />
                         </div>
                       </div>
-                    )}
+
+                      <div className="h-fit">
+                        <TextInput
+                          id={'phoneNumber'}
+                          label={''}
+                          labelOnTop={true}
+                          type="tel"
+                          placeholder="1516 123456"
+                          value={user.phoneNumber?.toString() || ''}
+                          onChange={e => {
+                            handlePhoneNumberChanged(e.currentTarget.value);
+                          }}
+                        />
+                      </div>
+                    </div>
 
                     <TextInput
                       id={'instagramHandle'}
@@ -817,22 +828,6 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   </>
                 )}
               </div>
-
-              <div className="m-2 mt-6">{t('pageParticipantSectionRegistrationTypeDescription')}</div>
-              <AttendeeChoice
-                participantFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.participationFeeIncPaymentCosts : event.participationFee}
-                vistorFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.visitorFeeIncPaymentCosts : event.visitorFee}
-                eventType={event.type}
-                userType={user.type}
-                disabled={[moment().unix() > moment(event.registrationDeadline).unix(), moment().unix() > moment(event.dateTo).unix()]}
-                currency={event.currency}
-                checked={registrationType}
-                selectable={true}
-                hideVisitorOption={event.paymentMethodStripe.enabled === false}
-                onCheckedChange={registrationType => {
-                  handleRadioItemRegistrationTypeClicked(registrationType);
-                }}
-              />
             </div>
           )}
 
