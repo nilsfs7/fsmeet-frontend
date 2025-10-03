@@ -35,9 +35,9 @@ export type Event = {
   type: EventType;
   category: EventCategory;
   isWffaRanked: boolean;
-  trailerUrl: string;
-  livestreamUrl: string;
-  messangerInvitationUrl: string;
+  trailerUrl: string | null;
+  livestreamUrl: string | null;
+  messangerInvitationUrl: string | null;
   paymentMethodCash: PaymentMethodCash;
   paymentMethodPayPal: PaymentMethodPayPal;
   paymentMethodSepa: PaymentMethodSepa;

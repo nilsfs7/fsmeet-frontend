@@ -28,9 +28,9 @@ export class UpdateEventBodyDto {
   venueCountry: string;
   category: EventCategory;
   isWffaRanked: boolean;
-  trailerUrl: string;
-  livestreamUrl: string;
-  messangerInvitationUrl: string;
+  trailerUrl: string | null;
+  livestreamUrl: string | null;
+  messangerInvitationUrl: string | null;
   paymentMethodCash: UpdatePaymentMethodCashBodyDto;
   paymentMethodPayPal: UpdatePaymentMethodPayPalBodyDto;
   paymentMethodSepa: UpdatePaymentMethodSepaBodyDto;
@@ -64,9 +64,9 @@ export class UpdateEventBodyDto {
     venueCountry: string,
     category: EventCategory,
     isWffaRanked: boolean,
-    trailerUrl: string,
-    livestreamUrl: string,
-    messangerInvitationUrl: string,
+    trailerUrl: string | null,
+    livestreamUrl: string | null,
+    messangerInvitationUrl: string | null,
     paymentMethodCash: UpdatePaymentMethodCashBodyDto,
     paymentMethodPayPal: UpdatePaymentMethodPayPalBodyDto,
     paymentMethodSepa: UpdatePaymentMethodSepaBodyDto,
