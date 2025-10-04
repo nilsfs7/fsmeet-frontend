@@ -655,6 +655,7 @@
     "cbMaintainers": "Gestores añadidos",
     "sectionOther": "General",
     "chbShowUserCountryFlag": "Mostrar la bandera del país en lugar de la foto de perfil",
+    "chbRegistrationCollectPhoneNumber": "Solicite el número de teléfono del participante",
     "chbAutoApproveRegistration": "Confirmar automáticamente las nuevas inscripciones",
     "chbNotifyOnRegistration": "Notificarme cada nuevo registro",
     "chbAllowCommentsAndQuestions": "Activar la función de comentarios",

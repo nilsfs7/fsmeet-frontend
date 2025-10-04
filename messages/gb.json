@@ -670,6 +670,7 @@
     "cbMaintainers": "Assigned Maintainers",
     "sectionOther": "Other",
     "chbShowUserCountryFlag": "Show country flag instead of profile picture",
+    "chbRegistrationCollectPhoneNumber": "Ask for participant phone number",
     "chbAutoApproveRegistration": "Auto Approve New Registrations",
     "chbNotifyOnRegistration": "Notify On New Registration",
     "chbAllowCommentsAndQuestions": "Allow Comments",

@@ -43,6 +43,7 @@ export type Event = {
   paymentMethodSepa: PaymentMethodSepa;
   paymentMethodStripe: PaymentMethodStripe;
   showUserCountryFlag: boolean;
+  registrationCollectPhoneNumber: boolean;
   autoApproveRegistrations: boolean;
   notifyOnRegistration: boolean;
   allowComments: boolean;

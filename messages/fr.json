@@ -655,6 +655,7 @@
     "cbMaintainers": "Responsables de la maintenance",
     "sectionOther": "Autre",
     "chbShowUserCountryFlag": "Afficher le drapeau du pays au lieu de la photo de profil",
+    "chbRegistrationCollectPhoneNumber": "Demandez le numéro de téléphone des participants",
     "chbAutoApproveRegistration": "Approuver automatiquement les nouvelles inscriptions",
     "chbNotifyOnRegistration": "Notifier lors d'une nouvelle inscription",
     "chbAllowCommentsAndQuestions": "Autoriser les commentaires",

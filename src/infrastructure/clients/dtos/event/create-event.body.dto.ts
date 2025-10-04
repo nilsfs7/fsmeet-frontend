@@ -37,6 +37,7 @@ export class CreateEventBodyDto {
   paymentMethodSepa: CreatePaymentMethodSepaBodyDto;
   paymentMethodStripe: CreatePaymentMethodStripeBodyDto;
   showUserCountryFlag: boolean;
+  registrationCollectPhoneNumber: boolean;
   autoApproveRegistrations: boolean;
   notifyOnRegistration: boolean;
   allowComments: boolean;
@@ -73,6 +74,7 @@ export class CreateEventBodyDto {
     paymentMethodSepa: CreatePaymentMethodSepaBodyDto,
     paymentMethodStripe: CreatePaymentMethodStripeBodyDto,
     showUserCountryFlag: boolean,
+    registrationCollectPhoneNumber: boolean,
     autoApproveRegistrations: boolean,
     notifyOnRegistration: boolean,
     allowComments: boolean,
@@ -108,6 +110,7 @@ export class CreateEventBodyDto {
     this.paymentMethodStripe = paymentMethodStripe;
     this.paymentMethodPayPal = paymentMethodPayPal;
     this.showUserCountryFlag = showUserCountryFlag;
+    this.registrationCollectPhoneNumber = registrationCollectPhoneNumber;
     this.autoApproveRegistrations = autoApproveRegistrations;
     this.notifyOnRegistration = notifyOnRegistration;
     this.allowComments = allowComments;
