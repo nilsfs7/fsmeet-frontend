@@ -784,37 +784,39 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   />
                 </div>
 
-                {user.type !== UserType.FAN && registrationType !== EventRegistrationType.VISITOR && (
+                {user.type !== UserType.FAN && (
                   <>
-                    <div className="flex flex-col-2 items-end">
-                      <div className="mx-2">
-                        <div>{t('pageParticipantSectionUserPhoneNumber')}</div>
-                        <div className="flex w-full">
-                          <ComboBox
-                            menus={menuPhoneCountryCodesWithUnspecified}
-                            value={user.phoneCountryCode ? user.phoneCountryCode?.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
-                            searchEnabled={true}
-                            onChange={(value: any) => {
-                              handlePhoneCountryCodeChanged(value);
+                    {event.registrationCollectPhoneNumber && registrationType !== EventRegistrationType.VISITOR && (
+                      <div className="flex flex-col-2 items-end">
+                        <div className="mx-2">
+                          <div>{t('pageParticipantSectionUserPhoneNumber')}</div>
+                          <div className="flex w-full">
+                            <ComboBox
+                              menus={menuPhoneCountryCodesWithUnspecified}
+                              value={user.phoneCountryCode ? user.phoneCountryCode?.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                              searchEnabled={true}
+                              onChange={(value: any) => {
+                                handlePhoneCountryCodeChanged(value);
+                              }}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="h-fit">
+                          <TextInput
+                            id={'phoneNumber'}
+                            label={''}
+                            labelOnTop={true}
+                            type="tel"
+                            placeholder="1516 123456"
+                            value={user.phoneNumber?.toString() || ''}
+                            onChange={e => {
+                              handlePhoneNumberChanged(e.currentTarget.value);
                             }}
                           />
                         </div>
                       </div>
-
-                      <div className="h-fit">
-                        <TextInput
-                          id={'phoneNumber'}
-                          label={''}
-                          labelOnTop={true}
-                          type="tel"
-                          placeholder="1516 123456"
-                          value={user.phoneNumber?.toString() || ''}
-                          onChange={e => {
-                            handlePhoneNumberChanged(e.currentTarget.value);
-                          }}
-                        />
-                      </div>
-                    </div>
+                    )}
 
                     <TextInput
                       id={'instagramHandle'}

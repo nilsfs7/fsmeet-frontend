@@ -655,6 +655,7 @@
     "cbMaintainers": "Hinzugefügte Betreuer",
     "sectionOther": "Sonstiges",
     "chbShowUserCountryFlag": "Länderflagge statt Profilbild anzeigen",
+    "chbRegistrationCollectPhoneNumber": "Handynummer des Teilnehmers abfragen",
     "chbAutoApproveRegistration": "Neue Registrierungen automatisch bestätigen",
     "chbNotifyOnRegistration": "Bei neuer Registrierung benachrichtigen",
     "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",

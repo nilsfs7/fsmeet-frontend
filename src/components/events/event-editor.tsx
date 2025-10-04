@@ -41,6 +41,7 @@ import { CurrencyCode } from '@/domain/enums/currency-code';
 import { menuCurrencies } from '@/domain/constants/menus/menu-currencies';
 import { EventCategory } from '@/domain/enums/event-category';
 import { menuEventCategories } from '@/domain/constants/menus/menu-event-categories';
+import { UserVerificationState } from '../../domain/enums/user-verification-state';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -92,6 +93,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [maintainers, setMaintainers] = useState<EventMaintainer[]>(event?.maintainers || []);
   const [maintainerToAddUsername, setMaintainerToAddUsername] = useState<string>();
   const [showUserCountryFlag, setShowUserCountryFlag] = useState<boolean>(event?.showUserCountryFlag || true);
+  const [registrationCollectPhoneNumber, setRegistrationCollectPhoneNumber] = useState<boolean>(event?.registrationCollectPhoneNumber || false);
   const [autoApproveRegistrations, setAutoApproveRegistrations] = useState<boolean>(event?.autoApproveRegistrations || false);
   const [notifyOnRegistration, setNotifyOnRegistration] = useState<boolean>(event?.notifyOnRegistration || true);
   const [allowComments, setAllowComments] = useState<boolean>(event?.allowComments || true);
@@ -243,43 +245,44 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
     onEventUpdate({
       id: event?.id,
-      name: name,
-      alias: alias,
+      name,
+      alias,
       admin: event?.admin,
-      maintainers: maintainers,
+      maintainers,
       type: eventType,
-      description: description,
-      dateFrom: dateFrom,
-      dateTo: dateTo,
-      registrationOpen: registrationOpen,
-      registrationDeadline: registrationDeadline,
-      venueName: venueName,
-      venueHouseNo: venueHouseNo,
-      venueStreet: venueStreet,
-      venueCity: venueCity,
-      venuePostCode: venuePostCode,
-      venueCountry: venueCountry,
-      category: category,
-      isWffaRanked: isWffaRanked,
-      trailerUrl: trailerUrl,
-      livestreamUrl: livestreamUrl,
-      messangerInvitationUrl: messangerInvitationUrl,
-      participationFee: participationFee,
+      description,
+      dateFrom,
+      dateTo,
+      registrationOpen,
+      registrationDeadline,
+      venueName,
+      venueHouseNo,
+      venueStreet,
+      venueCity,
+      venuePostCode,
+      venueCountry,
+      category,
+      isWffaRanked,
+      trailerUrl,
+      livestreamUrl,
+      messangerInvitationUrl,
+      participationFee,
       participationFeeIncPaymentCosts: -1,
-      visitorFee: visitorFee,
+      visitorFee,
       visitorFeeIncPaymentCosts: -1,
-      currency: currency,
-      paymentMethodCash: paymentMethodCash,
-      paymentMethodPayPal: paymentMethodPayPal,
-      paymentMethodSepa: paymentMethodSepa,
-      paymentMethodStripe: paymentMethodStripe,
-      showUserCountryFlag: showUserCountryFlag,
-      autoApproveRegistrations: autoApproveRegistrations,
-      notifyOnRegistration: notifyOnRegistration,
-      allowComments: allowComments,
-      notifyOnComment: notifyOnComment,
-      waiver: waiver,
-      visaInvitationRequestsEnabled: visaInvitationRequestsEnabled,
+      currency,
+      paymentMethodCash,
+      paymentMethodPayPal,
+      paymentMethodSepa,
+      paymentMethodStripe,
+      showUserCountryFlag,
+      registrationCollectPhoneNumber,
+      autoApproveRegistrations,
+      notifyOnRegistration,
+      allowComments,
+      notifyOnComment,
+      waiver,
+      visaInvitationRequestsEnabled,
       accommodations: [],
       offerings: [],
       state: event?.state || EventState.CREATED,
@@ -323,6 +326,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       setPaymentMethodStripeEnabled(event.paymentMethodStripe.enabled);
       setPaymentMethodStripeCoverProviderFee(event.paymentMethodStripe.coverProviderFee);
       setShowUserCountryFlag(event.showUserCountryFlag);
+      setRegistrationCollectPhoneNumber(event.registrationCollectPhoneNumber);
       setAutoApproveRegistrations(event.autoApproveRegistrations);
       setNotifyOnRegistration(event.notifyOnRegistration);
       setAllowComments(event.allowComments);
@@ -382,6 +386,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     paymentMethodStripeEnabled,
     paymentMethodStripeCoverProviderFee,
     showUserCountryFlag,
+    registrationCollectPhoneNumber,
     autoApproveRegistrations,
     notifyOnRegistration,
     allowComments,
@@ -940,6 +945,18 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           setShowUserCountryFlag(!showUserCountryFlag);
         }}
       />
+
+      {paymentMethodStripeEnabled && (
+        <CheckBox
+          id={'registrationCollectPhoneNumber'}
+          label={t('chbRegistrationCollectPhoneNumber')}
+          value={registrationCollectPhoneNumber}
+          disabled={eventAdmin?.verificationState !== UserVerificationState.VERIFIED}
+          onChange={() => {
+            setRegistrationCollectPhoneNumber(!registrationCollectPhoneNumber);
+          }}
+        />
+      )}
 
       {!paymentMethodStripeEnabled && (
         <CheckBox
