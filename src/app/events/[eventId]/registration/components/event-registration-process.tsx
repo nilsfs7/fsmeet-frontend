@@ -786,7 +786,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
                 {user.type !== UserType.FAN && (
                   <>
-                    {event.registrationCollectPhoneNumber && registrationType !== EventRegistrationType.VISITOR && (
+                    {(event.type == EventType.COMPETITION_ONLINE || event.registrationCollectPhoneNumber) && registrationType !== EventRegistrationType.VISITOR && (
                       <div className="flex flex-col-2 items-end">
                         <div className="mx-2">
                           <div>{t('pageParticipantSectionUserPhoneNumber')}</div>
