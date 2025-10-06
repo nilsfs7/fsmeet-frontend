@@ -14,7 +14,7 @@ import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { Header } from '@/components/Header';
 import { auth } from '@/auth';
 import { getUser } from '@/infrastructure/clients/user.client';
-import { TechnicalUser } from '@/domain/enums/technical-user';
+import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import NavigateBackButton from '@/components/NavigateBackButton';
 import { ActionButtonDeleteUser } from './components/action-button-delete-user';
 import { getTranslations } from 'next-intl/server';
@@ -160,7 +160,7 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
           <NavigateBackButton />
 
           <div className="flex justify-end gap-1">
-            {session?.user?.username === TechnicalUser.ADMIN && <ActionButtonDeleteUser username={user.username} />}
+            {session?.user?.username === AdministrativeUser.ADMIN && <ActionButtonDeleteUser username={user.username} />}
 
             {session?.user?.username === user.username && (
               <Link href={routeAccount}>

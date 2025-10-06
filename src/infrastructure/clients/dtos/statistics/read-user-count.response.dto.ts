@@ -8,8 +8,8 @@ export class ReadUserCountResponseDto {
   userCountFreestylers: number;
   userCountMCs: number;
   userCountMedia: number;
-  userCountTechnical: number;
-  userCountNonTechnical: number;
+  userCountAdministrative: number;
+  userCountNonAdministrative: number;
 
   constructor(
     userCountTotal: number,
@@ -21,8 +21,8 @@ export class ReadUserCountResponseDto {
     userCountFreestylers: number,
     userCountMCs: number,
     userCountMedia: number,
-    userCountTechnical: number,
-    userCountNonTechnical: number
+    userCountAdministrative: number,
+    userCountNonAdministrative: number
   ) {
     this.userCountTotal = userCountTotal;
     this.userCountAssociations = userCountAssociations;
@@ -33,7 +33,7 @@ export class ReadUserCountResponseDto {
     this.userCountFreestylers = userCountFreestylers;
     this.userCountMCs = userCountMCs;
     this.userCountMedia = userCountMedia;
-    this.userCountTechnical = userCountTechnical;
-    this.userCountNonTechnical = userCountNonTechnical;
+    this.userCountAdministrative = userCountAdministrative;
+    this.userCountNonAdministrative = userCountNonAdministrative;
   }
 }

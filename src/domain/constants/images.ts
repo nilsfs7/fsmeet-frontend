@@ -32,7 +32,7 @@ export const imgFreestyler = '/user/user-types/freestyler.svg';
 export const imgFreestylerFemale = '/user/user-types/freestyler_female.svg';
 export const imgMC = '/user/user-types/mc.svg';
 export const imgMedia = '/user/user-types/video.svg';
-export const imgTechnical = '/user/user-types/technical.svg';
+export const imgAdministrative = '/user/user-types/administrative.svg';
 
 export const imgBug = '/feedback/bug.svg';
 export const imgFeature = '/feedback/feature.svg';

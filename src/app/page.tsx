@@ -6,7 +6,7 @@ import { Header } from '@/components/Header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
 import TextButton from '@/components/common/TextButton';
 import { routeAbout, routeAdminOverview, routeEvents, routeEventsCreate, routeHome, routeMap, routeUsers, routeVoice, routeWffaOverview } from '@/domain/constants/routes';
-import { TechnicalUser } from '@/domain/enums/technical-user';
+import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { auth } from '@/auth';
 import { EventsCarousel } from './components/events-carousel';
 import { getTranslations } from 'next-intl/server';
@@ -62,9 +62,11 @@ export default async function Home() {
           <NavigationItem targetRoute={routeVoice} image={imgMegaphone} label={t('navVoice')} />
         </div>
 
-        {session?.user?.username === TechnicalUser.ADMIN && <NavigationItem targetRoute={routeAdminOverview} image={imgProfileSettings} label={t('navAdminOverview')} />}
+        {session?.user?.username === AdministrativeUser.ADMIN && <NavigationItem targetRoute={routeAdminOverview} image={imgProfileSettings} label={t('navAdminOverview')} />}
 
-        {(actingUser?.isWffaMember || session?.user?.username === TechnicalUser.ADMIN) && <NavigationItem targetRoute={routeWffaOverview} image={imgProfileSettings} label={t('navWffaOverview')} />}
+        {(actingUser?.isWffaMember || session?.user?.username === AdministrativeUser.ADMIN) && (
+          <NavigationItem targetRoute={routeWffaOverview} image={imgProfileSettings} label={t('navWffaOverview')} />
+        )}
 
         <NavigationItem targetRoute={routeAbout} image={imgAbout} label={t('navAbout')} />
       </Navigation>

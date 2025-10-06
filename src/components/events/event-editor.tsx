@@ -573,7 +573,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         placeholder="https://www.youtube.com/watch?v=JsPpmzMODQQ"
         value={trailerUrl || undefined}
         onChange={e => {
-          setTrailerUrl(e.currentTarget.value);
+          setTrailerUrl(e.currentTarget.value || null);
         }}
       />
 
@@ -583,7 +583,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         placeholder="https://www.youtube.com/watch?v=gwiE0fXnByg"
         value={livestreamUrl || undefined}
         onChange={e => {
-          setLivestreamUrl(e.currentTarget.value);
+          setLivestreamUrl(e.currentTarget.value || null);
         }}
       />
 
@@ -593,7 +593,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         placeholder="https://chat.whatsapp.com/FcFFSq0ybgT4tsk48ZQoxJ"
         value={messangerInvitationUrl || undefined}
         onChange={e => {
-          setMessangerInvitationUrl(e.currentTarget.value);
+          setMessangerInvitationUrl(e.currentTarget.value || null);
         }}
       />
 

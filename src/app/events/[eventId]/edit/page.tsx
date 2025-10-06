@@ -18,7 +18,7 @@ export default async function EventEditing(props: { params: Promise<{ eventId: s
 
   const users = await getUsers().then(users => {
     return users.filter(user => {
-      if (user.type !== UserType.TECHNICAL) return user;
+      if (user.type !== UserType.ADMINISTRATIVE) return user;
     });
   });
   const event = await getEvent(params.eventId, session);

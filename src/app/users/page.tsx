@@ -33,7 +33,7 @@ export default async function Users() {
   });
 
   userSorted.forEach(user => {
-    if (user.type !== UserType.TECHNICAL && user.type !== UserType.FAN) {
+    if (user.type !== UserType.ADMINISTRATIVE && user.type !== UserType.FAN) {
       columnData.push({
         user: {
           username: user.username,
