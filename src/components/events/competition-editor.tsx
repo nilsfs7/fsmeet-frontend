@@ -125,7 +125,7 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
 
     getUsers().then(users => {
       users = users.filter(user => {
-        if (user.type !== UserType.TECHNICAL && user.type !== UserType.FAN && isNaturalPerson(user.type)) return user;
+        if (user.type !== UserType.ADMINISTRATIVE && user.type !== UserType.FAN && isNaturalPerson(user.type)) return user;
       });
       setUsers(users);
     });

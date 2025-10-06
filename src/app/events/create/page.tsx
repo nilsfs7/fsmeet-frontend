@@ -12,7 +12,7 @@ export default async function EventCreation() {
 
   const users = await getUsers().then(users => {
     return users.filter(user => {
-      if (user.type !== UserType.TECHNICAL) return user;
+      if (user.type !== UserType.ADMINISTRATIVE) return user;
     });
   });
 

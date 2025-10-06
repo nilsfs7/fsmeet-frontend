@@ -125,10 +125,10 @@ export const Statistics = () => {
           <div className="flex justify-start">{userCountByType?.userCountTotal}</div>
 
           <div className="flex justify-end">{`Real users:`}</div>
-          <div className="flex justify-start">{userCountByType?.userCountNonTechnical}</div>
+          <div className="flex justify-start">{userCountByType?.userCountNonAdministrative}</div>
 
-          <div className="flex justify-end">{`Technical users:`}</div>
-          <div className="flex justify-start">{userCountByType?.userCountTechnical}</div>
+          <div className="flex justify-end">{`Administrative users:`}</div>
+          <div className="flex justify-start">{userCountByType?.userCountAdministrative}</div>
         </div>
 
         {userCountByType?.userCountTotal && (

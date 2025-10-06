@@ -206,7 +206,7 @@ const Map = ({
       <div className="h-full max-h-screen overflow-hidden">
         <GoogleMap mapContainerStyle={containerStyle} options={mapOptions} onLoad={onLoad} onUnmount={onUnmount}>
           {users.map(user => {
-            if (user.locLatitude && user.locLongitude && user.exposeLocation && user.type !== UserType.TECHNICAL) {
+            if (user.locLatitude && user.locLongitude && user.exposeLocation && user.type !== UserType.ADMINISTRATIVE) {
               // filter by name name
               let nameOk: boolean = true;
               const fullName = `${user.firstName?.toLowerCase()} ${user.lastName?.toLowerCase()}`;

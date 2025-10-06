@@ -1,4 +1,4 @@
-export enum TechnicalUser {
+export enum AdministrativeUser {
   ADMIN = 'admin',
   FSMEET = 'fsmeet',
 }

@@ -13,7 +13,7 @@ import {
   routeVoiceManage,
   routeWffaOverview,
 } from './domain/constants/routes';
-import { TechnicalUser } from './domain/enums/technical-user';
+import { AdministrativeUser } from './domain/enums/administrative-user';
 
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',
@@ -75,7 +75,7 @@ const config = {
       }
 
       // deny access to /admin routes
-      if (pathname.startsWith(routeAdminOverview) && auth?.user?.username !== TechnicalUser.ADMIN) {
+      if (pathname.startsWith(routeAdminOverview) && auth?.user?.username !== AdministrativeUser.ADMIN) {
         return Response.redirect(new URL(routeHome, nextUrl));
       }
 

@@ -7,5 +7,5 @@ export enum UserType {
   FREESTYLER = 'freestyler',
   MC = 'mc',
   MEDIA = 'media',
-  TECHNICAL = 'technical',
+  ADMINISTRATIVE = 'administrative',
 }
