@@ -56,7 +56,7 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
           <div>{`${convertCurrencyIntegerToDecimal(eventFee, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}`}</div>
         </div>
 
-        {registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && (
+        {registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && compSignUps.length > 0 && (
           <div className="flex justify-between">
             <div>{`Competition fee(s)`}</div>
             <div>
