@@ -723,7 +723,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           )}
 
           {/* Page: Personal Details and Registration Type */}
-          {page && +page === 1 && (
+          {page && page === RegistrationProcessPage.REGISTRATION_TYPE && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
               <div className="m-2">{t('pageParticipantSectionRegistrationTypeDescription')}</div>
               <AttendeeChoice
@@ -834,7 +834,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           )}
 
           {/* Page: Competitions */}
-          {page && +page === 2 && (
+          {page && page === RegistrationProcessPage.COMPETITIONS && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
               <div className="m-2">{t('pageCompetitionDescription')}</div>
 
@@ -881,7 +881,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           )}
 
           {/* Page: Offerings */}
-          {page && +page === 3 && (
+          {page && page === RegistrationProcessPage.OFFERINGS && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
               <div className="m-2">{t('pageOfferingDescription')}</div>
 
@@ -906,7 +906,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           )}
 
           {/* Page: Accommodations */}
-          {page && +page === 4 && (
+          {page && page === RegistrationProcessPage.ACCOMMODATIONS && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
               <div className="m-2">{t('pageAccommodationDescription')}</div>
 
@@ -926,7 +926,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           )}
 
           {/* Page: Checkout Overview */}
-          {page && +page === 5 && (
+          {page && page === RegistrationProcessPage.CHECKOUT_OVERVIEW && (
             <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
               <div className="m-2">{t('pageCheckoutOverviewDescription')}</div>
 
@@ -936,7 +936,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   {registrationType && <Label text={registrationType} />}
                 </div>
 
-                {registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && (
+                {registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && compSignUps.length > 0 && (
                   <>
                     <Separator />
 
