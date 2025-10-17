@@ -91,11 +91,7 @@ const containerStyle = {
 };
 
 const getSelectedUsers = (users: User[], selectedUsernames: string[]): User[] => {
-  return users.filter(usr => {
-    if (selectedUsernames.includes(usr.username)) {
-      return usr;
-    }
-  });
+  return users.filter(usr => selectedUsernames.includes(usr.username));
 };
 
 const Map = ({
@@ -241,11 +237,7 @@ const Map = ({
                     position={new google.maps.LatLng(user.locLatitude, user.locLongitude)}
                     onClick={() => addToSelectedUsers(user)}
                   >
-                    {selectedUsers
-                      .filter(u => {
-                        if (u.username === user.username) return u;
-                      })
-                      .includes(user) && (
+                    {selectedUsers.filter(u => u.username === user.username).includes(user) && (
                       <InfoWindow
                         key={`info-${user.username}`}
                         onCloseClick={() => {
