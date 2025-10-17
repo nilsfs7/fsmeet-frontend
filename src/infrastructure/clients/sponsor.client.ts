@@ -9,7 +9,7 @@ export async function getSponsors(eventId: string | null): Promise<ReadSponsorRe
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/?`;
 
   if (eventId) {
-    url = url + `eventId=${eventId}`;
+    url += `eventId=${eventId}`;
   }
 
   const response = await fetch(url, {

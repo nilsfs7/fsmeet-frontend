@@ -40,25 +40,25 @@ export async function getEvents(
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?`;
 
   if (admin) {
-    url = url + `admin=${admin}`;
+    url += `admin=${admin}`;
   }
 
   if (maintainer) {
-    url = url + `&maintainer=${maintainer}`;
+    url += `&maintainer=${maintainer}`;
   }
 
   if (participant) {
-    url = url + `&participant=${participant}`;
+    url += `&participant=${participant}`;
   }
 
   if (from) {
     const fromString = `${from.format(format)}Z`;
-    url = url + `&dateFrom=${fromString}`;
+    url += `&dateFrom=${fromString}`;
   }
 
   if (to) {
     const toString = `${to.format(format)}Z`;
-    url = url + `&dateTo=${toString}`;
+    url += `&dateTo=${toString}`;
   }
 
   let response;
@@ -239,7 +239,7 @@ export async function getEventRegistrations(eventId: string, registrationType: E
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations?`;
 
   if (registrationType) {
-    url = url + `type=${registrationType}`;
+    url += `type=${registrationType}`;
   }
 
   const response = await fetch(url, {

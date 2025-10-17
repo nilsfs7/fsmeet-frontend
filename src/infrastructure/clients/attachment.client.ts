@@ -9,7 +9,7 @@ export async function getAttachments(eventId: string | null): Promise<ReadAttach
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments/?`;
 
   if (eventId) {
-    url = url + `eventId=${eventId}`;
+    url += `eventId=${eventId}`;
   }
 
   const response = await fetch(url, {

@@ -69,23 +69,27 @@ export async function getUser(username: string, session?: Session | null): Promi
   }
 }
 
-export async function getUsers(type?: UserType, gender?: Gender, country?: string, hasWffaId?: boolean): Promise<User[]> {
+export async function getUsers(type?: UserType, gender?: Gender, country?: string, hasWffaId?: boolean, hasLocation?: boolean): Promise<User[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users?`;
 
   if (type) {
-    url = url + `type=${type}`;
+    url += `type=${type}`;
   }
 
   if (gender) {
-    url = url + `gender=${gender}`;
+    url += `&gender=${gender}`;
   }
 
   if (country) {
-    url = url + `country=${country}`;
+    url += `&country=${country}`;
   }
 
   if (hasWffaId !== undefined) {
-    url = url + `&hasWffaId=${hasWffaId}`;
+    url += `&hasWffaId=${hasWffaId}`;
+  }
+
+  if (hasLocation) {
+    url += `&hasLocation=${hasLocation}`;
   }
 
   const response = await fetch(url, {

@@ -9,7 +9,7 @@ export async function getAccommodations(eventId: string | null): Promise<ReadAcc
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/?`;
 
   if (eventId) {
-    url = url + `eventId=${eventId}`;
+    url += `eventId=${eventId}`;
   }
 
   const response = await fetch(url, {

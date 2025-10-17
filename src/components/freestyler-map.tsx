@@ -123,7 +123,7 @@ const Map = ({
   });
 
   const addToSelectedUsers = (user: User) => {
-    let users = Array.from(selectedUsers);
+    const users = Array.from(selectedUsers);
     users.push(user);
     setSelectedUsers(users);
   };
