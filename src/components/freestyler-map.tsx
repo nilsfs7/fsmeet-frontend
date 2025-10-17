@@ -108,8 +108,7 @@ const Map = ({
 }: IMapProps) => {
   let t = useTranslations('/map');
 
-  const [users] = useState<User[]>(userList);
-  const [selectedUsers, setSelectedUsers] = useState<User[]>(getSelectedUsers(users, selectedUsernames));
+  const [selectedUsers, setSelectedUsers] = useState<User[]>(getSelectedUsers(userList, selectedUsernames));
   const [filterName, setFilterName] = useState('');
   const [filterGender, setFilterGender] = useState<Gender[]>([Gender.FEMALE, Gender.MALE]);
   const [map, setMap] = React.useState<google.maps.Map | null>();
@@ -201,7 +200,7 @@ const Map = ({
 
       <div className="h-full max-h-screen overflow-hidden">
         <GoogleMap mapContainerStyle={containerStyle} options={mapOptions} onLoad={onLoad} onUnmount={onUnmount}>
-          {users.map(user => {
+          {userList.map(user => {
             if (user.locLatitude && user.locLongitude && user.exposeLocation && user.type !== UserType.ADMINISTRATIVE) {
               // filter by name name
               let nameOk: boolean = true;
@@ -272,7 +271,7 @@ const Map = ({
 
                             {user.type !== UserType.FREESTYLER && (
                               <div className="grid grid-flow-col justify-start items-center gap-1">
-                                <img src={getUserTypeImages(user.type).path} className="h-6 w-6 object-cover" />
+                                <img src={img.path} className="h-6 w-6 object-cover" />
 
                                 {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
                               </div>
