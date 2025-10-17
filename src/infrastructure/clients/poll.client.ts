@@ -14,7 +14,7 @@ export async function getPolls(questionerUsername?: string): Promise<Poll[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls?`;
 
   if (questionerUsername) {
-    url = url + `questioner=${questionerUsername}`;
+    url += `questioner=${questionerUsername}`;
   }
 
   const response = await fetch(url, {

@@ -9,7 +9,7 @@ export async function getOfferings(eventId: string | null): Promise<ReadOffering
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings/?`;
 
   if (eventId) {
-    url = url + `eventId=${eventId}`;
+    url += `eventId=${eventId}`;
   }
 
   const response = await fetch(url, {
