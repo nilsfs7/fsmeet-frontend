@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { GoogleMap, InfoWindow, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 import { useTranslations } from 'next-intl';
 import { User } from '@/domain/types/user';
 import { routeUsers } from '@/domain/constants/routes';
@@ -228,7 +228,7 @@ const Map = ({
                 };
 
                 return (
-                  <Marker
+                  <MarkerF
                     key={`marker-${user.username}`}
                     clickable={true}
                     title={user.username}
@@ -294,7 +294,7 @@ const Map = ({
                         </div>
                       </InfoWindow>
                     )}
-                  </Marker>
+                  </MarkerF>
                 );
               }
             }
