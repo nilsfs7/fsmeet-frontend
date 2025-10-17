@@ -53,6 +53,4 @@ export function getUserTypeImages(userType: UserType, gender: string = Gender.MA
     case UserType.ADMINISTRATIVE:
       return { path: imgAdministrative, size: defaultSize };
   }
-
-  return { path: '', size: 0 };
 }
