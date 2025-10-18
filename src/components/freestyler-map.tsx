@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { GoogleMap, InfoWindow, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 import { useTranslations } from 'next-intl';
 import { User } from '@/domain/types/user';
@@ -121,6 +121,95 @@ const Map = ({
     language,
   });
 
+  // prepare icons
+  const iconAssociation = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.ASSOCIATION);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconBrand = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.BRAND);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconDJ = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.DJ);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconEventOrganizer = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.EVENT_ORGANIZER);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconFreestylerMale = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.FREESTYLER, Gender.MALE);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconFreestylerFemale = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.FREESTYLER, Gender.FEMALE);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconMC = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.MC);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconMedia = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.MEDIA);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
   const addToSelectedUsers = (user: User) => {
     const users = Array.from(selectedUsers);
     users.push(user);
@@ -147,7 +236,7 @@ const Map = ({
     setMap(null);
   }, []);
 
-  return isLoaded ? (
+  return isLoaded && iconFreestylerMale && iconFreestylerFemale ? (
     <div className="flex flex-col h-full gap-2">
       {!isIframe && (
         <div className="mx-2 flex gap-2">
@@ -215,16 +304,28 @@ const Map = ({
             }
 
             if (nameOk && genderOk) {
-              const img: {
-                path: string;
-                size: number;
-              } = getUserTypeImages(user.type, user.gender);
+              let icon = user.gender === Gender.MALE ? iconFreestylerMale : iconFreestylerFemale;
 
-              const icon = {
-                url: img.path,
-                size: new google.maps.Size(img.size, img.size),
-                scaledSize: new google.maps.Size(img.size, img.size),
-              };
+              switch (user.type) {
+                case UserType.ASSOCIATION:
+                  if (iconAssociation) icon = iconAssociation;
+                  break;
+                case UserType.BRAND:
+                  if (iconBrand) icon = iconBrand;
+                  break;
+                case UserType.DJ:
+                  if (iconDJ) icon = iconDJ;
+                  break;
+                case UserType.EVENT_ORGANIZER:
+                  if (iconEventOrganizer) icon = iconEventOrganizer;
+                  break;
+                case UserType.MC:
+                  if (iconMC) icon = iconMC;
+                  break;
+                case UserType.MEDIA:
+                  if (iconMedia) icon = iconMedia;
+                  break;
+              }
 
               return (
                 <MarkerF
@@ -270,7 +371,7 @@ const Map = ({
 
                           {user.type !== UserType.FREESTYLER && (
                             <div className="grid grid-flow-col justify-start items-center gap-1">
-                              <img src={img.path} className="h-6 w-6 object-cover" />
+                              <img src={iconFreestylerMale.url} className="h-6 w-6 object-cover" />
 
                               {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
                             </div>
