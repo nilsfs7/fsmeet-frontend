@@ -236,7 +236,9 @@ const Map = ({
     setMap(null);
   }, []);
 
-  return isLoaded && iconFreestylerMale && iconFreestylerFemale ? (
+  if (!isLoaded || !iconFreestylerMale || !iconFreestylerFemale) return <LoadingSpinner />;
+
+  return (
     <div className="flex flex-col h-full gap-2">
       {!isIframe && (
         <div className="mx-2 flex gap-2">
@@ -401,8 +403,6 @@ const Map = ({
         </GoogleMap>
       </div>
     </div>
-  ) : (
-    <></>
   );
 };
 
