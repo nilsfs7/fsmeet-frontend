@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { GoogleMap, InfoWindow, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 import { useTranslations } from 'next-intl';
 import { User } from '@/domain/types/user';
@@ -121,6 +121,110 @@ const Map = ({
     language,
   });
 
+  // prepare icons
+  const iconAssociation = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.ASSOCIATION);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconBrand = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.BRAND);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconDJ = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.DJ);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconEventOrganizer = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.EVENT_ORGANIZER);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconFreestylerMale = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.FREESTYLER, Gender.MALE);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconFreestylerFemale = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.FREESTYLER, Gender.FEMALE);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconMC = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.MC);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  const iconMedia = useMemo(() => {
+    if (!isLoaded) return null;
+
+    const img = getUserTypeImages(UserType.MEDIA);
+    return {
+      url: img.path,
+      size: new window.google.maps.Size(img.size, img.size),
+      scaledSize: new window.google.maps.Size(img.size, img.size),
+    };
+  }, [isLoaded]);
+
+  // Memoize filtered users to avoid filtering on every render
+  const filteredUsers = useMemo(() => {
+    return userList.filter(user => {
+      // filter by name
+      let fullName = user.firstName?.toLowerCase() || '';
+      if (user.lastName) fullName += ` ${user.lastName.toLowerCase()}`; // append last name if exists
+      const nameOk = fullName.includes(filterName.toLowerCase());
+
+      // filter by gender
+      const genderOk = filterGender.includes(user.gender as Gender);
+
+      return nameOk && genderOk;
+    });
+  }, [userList, filterName, filterGender]);
+
   const addToSelectedUsers = (user: User) => {
     const users = Array.from(selectedUsers);
     users.push(user);
@@ -129,11 +233,7 @@ const Map = ({
 
   const removeFromSelectedUsers = (user: User) => {
     let users = Array.from(selectedUsers);
-    users = users.filter(usr => {
-      if (usr.username !== user.username) {
-        return usr;
-      }
-    });
+    users = users.filter(usr => usr.username !== user.username);
 
     setSelectedUsers(users);
   };
@@ -147,7 +247,9 @@ const Map = ({
     setMap(null);
   }, []);
 
-  return isLoaded ? (
+  if (!isLoaded || !iconFreestylerMale || !iconFreestylerFemale) return <LoadingSpinner />;
+
+  return (
     <div className="flex flex-col h-full gap-2">
       {!isIframe && (
         <div className="mx-2 flex gap-2">
@@ -200,108 +302,103 @@ const Map = ({
 
       <div className="h-full max-h-screen overflow-hidden">
         <GoogleMap mapContainerStyle={containerStyle} options={mapOptions} onLoad={onLoad} onUnmount={onUnmount}>
-          {userList.map(user => {
-            // filter by name name
-            let nameOk: boolean = true;
-            const fullName = `${user.firstName?.toLowerCase()} ${user.lastName?.toLowerCase()}`;
-            if (filterName && !fullName.includes(filterName.toLowerCase())) {
-              nameOk = false;
+          {filteredUsers.map(user => {
+            let icon = user.gender === Gender.MALE ? iconFreestylerMale : iconFreestylerFemale;
+
+            switch (user.type) {
+              case UserType.ASSOCIATION:
+                if (iconAssociation) icon = iconAssociation;
+                break;
+              case UserType.BRAND:
+                if (iconBrand) icon = iconBrand;
+                break;
+              case UserType.DJ:
+                if (iconDJ) icon = iconDJ;
+                break;
+              case UserType.EVENT_ORGANIZER:
+                if (iconEventOrganizer) icon = iconEventOrganizer;
+                break;
+              case UserType.MC:
+                if (iconMC) icon = iconMC;
+                break;
+              case UserType.MEDIA:
+                if (iconMedia) icon = iconMedia;
+                break;
             }
 
-            // filter by gender
-            let genderOk: boolean = true;
-            if (user.gender && filterGender && !filterGender.includes(user.gender as Gender)) {
-              genderOk = false;
-            }
+            return (
+              <MarkerF
+                key={`marker-${user.username}`}
+                clickable={true}
+                title={user.username}
+                icon={icon}
+                position={new google.maps.LatLng(user.locLatitude || 0, user.locLongitude)}
+                onClick={() => addToSelectedUsers(user)}
+              >
+                {selectedUsers.filter(u => u.username === user.username).includes(user) && (
+                  <InfoWindow
+                    key={`info-${user.username}`}
+                    onCloseClick={() => {
+                      removeFromSelectedUsers(user);
+                    }}
+                  >
+                    <div className="bg-white shadow-lg rounded-lg">
+                      <div className="flex flex-col gap-1">
+                        <div className="grid grid-flow-col justify-start items-center gap-1">
+                          <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="h-6 w-6 rounded-full object-cover" />
 
-            if (nameOk && genderOk) {
-              const img: {
-                path: string;
-                size: number;
-              } = getUserTypeImages(user.type, user.gender);
+                          <div className="text-md font-semibold">{user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`}</div>
+                        </div>
 
-              const icon = {
-                url: img.path,
-                size: new google.maps.Size(img.size, img.size),
-                scaledSize: new google.maps.Size(img.size, img.size),
-              };
-
-              return (
-                <MarkerF
-                  key={`marker-${user.username}`}
-                  clickable={true}
-                  title={user.username}
-                  icon={icon}
-                  position={new google.maps.LatLng(user.locLatitude || 0, user.locLongitude)}
-                  onClick={() => addToSelectedUsers(user)}
-                >
-                  {selectedUsers.filter(u => u.username === user.username).includes(user) && (
-                    <InfoWindow
-                      key={`info-${user.username}`}
-                      onCloseClick={() => {
-                        removeFromSelectedUsers(user);
-                      }}
-                    >
-                      <div className="bg-white shadow-lg rounded-lg">
-                        <div className="flex flex-col gap-1">
+                        {user.type === UserType.FREESTYLER && user.country && (
                           <div className="grid grid-flow-col justify-start items-center gap-1">
-                            <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="h-6 w-6 rounded-full object-cover" />
+                            <div className="h-6 w-6">
+                              <ReactCountryFlag
+                                countryCode={user.country}
+                                svg
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                }}
+                                title={user.country}
+                              />
+                            </div>
 
-                            <div className="text-md font-semibold">{user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`}</div>
+                            <div>{getCountryNameByCode(user.country)}</div>
                           </div>
+                        )}
 
-                          {user.type === UserType.FREESTYLER && user.country && (
-                            <div className="grid grid-flow-col justify-start items-center gap-1">
-                              <div className="h-6 w-6">
-                                <ReactCountryFlag
-                                  countryCode={user.country}
-                                  svg
-                                  style={{
-                                    width: '100%',
-                                    height: '100%',
-                                  }}
-                                  title={user.country}
-                                />
-                              </div>
+                        {user.type !== UserType.FREESTYLER && (
+                          <div className="grid grid-flow-col justify-start items-center gap-1">
+                            <img src={iconFreestylerMale.url} className="h-6 w-6 object-cover" />
 
-                              <div>{getCountryNameByCode(user.country)}</div>
-                            </div>
-                          )}
-
-                          {user.type !== UserType.FREESTYLER && (
-                            <div className="grid grid-flow-col justify-start items-center gap-1">
-                              <img src={img.path} className="h-6 w-6 object-cover" />
-
-                              {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="flex justify-end mt-2">
-                          {!isIframe && (
-                            <Link href={`${routeUsers}/${user.username}`}>
-                              <u>{t('infoWindowGoToProfileInternal')}</u>
-                            </Link>
-                          )}
-
-                          {isIframe && (
-                            <a href={`${window.location.origin}/${routeUsers}/${user.username}`} target="_blank" rel="noopener noreferrer">
-                              <u>{t('infoWindowGoToProfileExternal')}</u>
-                            </a>
-                          )}
-                        </div>
+                            {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
+                          </div>
+                        )}
                       </div>
-                    </InfoWindow>
-                  )}
-                </MarkerF>
-              );
-            }
+
+                      <div className="flex justify-end mt-2">
+                        {!isIframe && (
+                          <Link href={`${routeUsers}/${user.username}`}>
+                            <u>{t('infoWindowGoToProfileInternal')}</u>
+                          </Link>
+                        )}
+
+                        {isIframe && (
+                          <a href={`${window.location.origin}/${routeUsers}/${user.username}`} target="_blank" rel="noopener noreferrer">
+                            <u>{t('infoWindowGoToProfileExternal')}</u>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </InfoWindow>
+                )}
+              </MarkerF>
+            );
           })}
         </GoogleMap>
       </div>
     </div>
-  ) : (
-    <></>
   );
 };
 
