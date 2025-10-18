@@ -46,7 +46,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
       )}
 
       <FreestylerMap
-        userList={users}
+        userList={users.filter(u => u.type !== UserType.ADMINISTRATIVE)}
         selectedUsernames={[searchParams?.user || '']}
         region={actingUser?.country || searchParams?.locale || 'DE'}
         language={actingUser?.country || searchParams?.locale || 'EN'}
