@@ -18,6 +18,7 @@ import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { ChevronDown } from 'lucide-react';
 import { Gender } from '@/domain/enums/gender';
 import LoadingSpinner from './animation/loading-spinner';
+import { isNaturalPerson } from '../functions/is-natural-person';
 
 interface IMapWrapperProps {
   userList: User[];
@@ -219,7 +220,7 @@ const Map = ({
       const nameOk = fullName.includes(filterName.toLowerCase());
 
       // filter by gender
-      const genderOk = filterGender.includes(user.gender as Gender);
+      const genderOk = !isNaturalPerson(user.type) || filterGender.includes(user.gender as Gender);
 
       return nameOk && genderOk;
     });
