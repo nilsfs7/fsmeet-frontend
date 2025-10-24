@@ -4,4 +4,5 @@ import { MenuItem } from '@/domain/types/menu-item';
 export const menuCompTypes: MenuItem[] = [
   { text: 'Battles', value: CompetitionType.BATTLES },
   // { text: 'Sick 3', value: CompetitionType.SICK_3 },
+  { text: 'Other', value: CompetitionType.OTHER },
 ];
