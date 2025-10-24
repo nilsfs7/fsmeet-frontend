@@ -5,4 +5,5 @@ export enum CompetitionType {
   // SHOW_FLOW
   // KILL_THE_BEAT
   // ...
+  OTHER = 'other',
 }
