@@ -1,5 +1,26 @@
 import { UserType } from '@/domain/enums/user-type';
-import { imgAssociation, imgBrand, imgDJ, imgEventOrganizer, imgFan, imgFreestyler, imgFreestylerFemale, imgMC, imgMedia, imgAdministrative } from '@/domain/constants/images';
+import {
+  imgAssociation,
+  imgBrand,
+  imgDJ,
+  imgEventOrganizer,
+  imgFan,
+  imgFreestyler,
+  imgFreestylerFemale,
+  imgMC,
+  imgMedia,
+  imgAdministrative,
+  imgFreestylerPng,
+  imgMCPng,
+  imgMediaPng,
+  imgAdministrativePng,
+  imgFreestylerFemalePng,
+  imgFanPng,
+  imgEventOrganizerPng,
+  imgDJPng,
+  imgBrandPng,
+  imgAssociationPng,
+} from '@/domain/constants/images';
 import { Gender } from '@/domain/enums/gender';
 
 // todo: t -> translation
@@ -26,31 +47,46 @@ export function getUserTypeLabels(userType: UserType, t: any): string {
   }
 }
 
-export function getUserTypeImages(userType: UserType, gender: string = Gender.MALE): { path: string; size: number } {
+export function getUserTypeImages(userType: UserType, gender: string = Gender.MALE, png = false): { path: string; size: number } {
   const defaultSize = 20;
+  let size = defaultSize;
+  let path = 'unknown';
 
   switch (userType) {
     case UserType.ASSOCIATION:
-      return { path: imgAssociation, size: 30 };
+      size = 30;
+      path = png ? imgAssociationPng : imgAssociation;
+      break;
     case UserType.BRAND:
-      return { path: imgBrand, size: defaultSize };
+      path = png ? imgBrandPng : imgBrand;
+      break;
     case UserType.DJ:
-      return { path: imgDJ, size: defaultSize };
+      path = png ? imgDJPng : imgDJ;
+      break;
     case UserType.EVENT_ORGANIZER:
-      return { path: imgEventOrganizer, size: defaultSize };
+      path = png ? imgEventOrganizerPng : imgEventOrganizer;
+      break;
     case UserType.FAN:
-      return { path: imgFan, size: defaultSize };
+      path = png ? imgFanPng : imgFan;
+      break;
     case UserType.FREESTYLER:
+      size = 30;
       if (gender === Gender.FEMALE) {
-        return { path: imgFreestylerFemale, size: 30 };
+        path = png ? imgFreestylerFemalePng : imgFreestylerFemale;
       } else {
-        return { path: imgFreestyler, size: 30 };
+        path = png ? imgFreestylerPng : imgFreestyler;
       }
+      break;
     case UserType.MC:
-      return { path: imgMC, size: defaultSize };
+      path = png ? imgMCPng : imgMC;
+      break;
     case UserType.MEDIA:
-      return { path: imgMedia, size: defaultSize };
+      path = png ? imgMediaPng : imgMedia;
+      break;
     case UserType.ADMINISTRATIVE:
-      return { path: imgAdministrative, size: defaultSize };
+      path = png ? imgAdministrativePng : imgAdministrative;
+      break;
   }
+
+  return { path, size };
 }

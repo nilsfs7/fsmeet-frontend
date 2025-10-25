@@ -24,15 +24,25 @@ export const imgYouTubeLogo = '/user/logo_youtube.svg';
 export const imgWebsiteLogo = '/user/website.svg';
 
 export const imgAssociation = '/user/user-types/association.svg';
+export const imgAssociationPng = '/user/user-types/association.png';
 export const imgBrand = '/user/user-types/brand.svg';
+export const imgBrandPng = '/user/user-types/brand.png';
 export const imgDJ = '/user/user-types/dj.svg';
+export const imgDJPng = '/user/user-types/dj.png';
 export const imgEventOrganizer = '/user/user-types/organizer.svg';
+export const imgEventOrganizerPng = '/user/user-types/organizer.png';
 export const imgFan = '/user/user-types/fan.svg';
+export const imgFanPng = '/user/user-types/fan.png';
 export const imgFreestyler = '/user/user-types/freestyler.svg';
+export const imgFreestylerPng = '/user/user-types/freestyler.png';
 export const imgFreestylerFemale = '/user/user-types/freestyler_female.svg';
+export const imgFreestylerFemalePng = '/user/user-types/freestyler_female.png';
 export const imgMC = '/user/user-types/mc.svg';
+export const imgMCPng = '/user/user-types/mc.png';
 export const imgMedia = '/user/user-types/video.svg';
+export const imgMediaPng = '/user/user-types/video.png';
 export const imgAdministrative = '/user/user-types/administrative.svg';
+export const imgAdministrativePng = '/user/user-types/administrative.png';
 
 export const imgBug = '/feedback/bug.svg';
 export const imgFeature = '/feedback/feature.svg';

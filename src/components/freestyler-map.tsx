@@ -126,7 +126,7 @@ const Map = ({
   const iconAssociation = useMemo(() => {
     if (!isLoaded) return null;
 
-    const img = getUserTypeImages(UserType.ASSOCIATION);
+    const img = getUserTypeImages(UserType.ASSOCIATION, undefined, true);
     return {
       url: img.path,
       size: new window.google.maps.Size(img.size, img.size),
@@ -137,7 +137,7 @@ const Map = ({
   const iconBrand = useMemo(() => {
     if (!isLoaded) return null;
 
-    const img = getUserTypeImages(UserType.BRAND);
+    const img = getUserTypeImages(UserType.BRAND, undefined, true);
     return {
       url: img.path,
       size: new window.google.maps.Size(img.size, img.size),
@@ -148,7 +148,7 @@ const Map = ({
   const iconDJ = useMemo(() => {
     if (!isLoaded) return null;
 
-    const img = getUserTypeImages(UserType.DJ);
+    const img = getUserTypeImages(UserType.DJ, undefined, true);
     return {
       url: img.path,
       size: new window.google.maps.Size(img.size, img.size),
@@ -159,7 +159,7 @@ const Map = ({
   const iconEventOrganizer = useMemo(() => {
     if (!isLoaded) return null;
 
-    const img = getUserTypeImages(UserType.EVENT_ORGANIZER);
+    const img = getUserTypeImages(UserType.EVENT_ORGANIZER, undefined, true);
     return {
       url: img.path,
       size: new window.google.maps.Size(img.size, img.size),
@@ -170,7 +170,7 @@ const Map = ({
   const iconFreestylerMale = useMemo(() => {
     if (!isLoaded) return null;
 
-    const img = getUserTypeImages(UserType.FREESTYLER, Gender.MALE);
+    const img = getUserTypeImages(UserType.FREESTYLER, Gender.MALE, true);
     return {
       url: img.path,
       size: new window.google.maps.Size(img.size, img.size),
@@ -181,7 +181,7 @@ const Map = ({
   const iconFreestylerFemale = useMemo(() => {
     if (!isLoaded) return null;
 
-    const img = getUserTypeImages(UserType.FREESTYLER, Gender.FEMALE);
+    const img = getUserTypeImages(UserType.FREESTYLER, Gender.FEMALE, true);
     return {
       url: img.path,
       size: new window.google.maps.Size(img.size, img.size),
@@ -192,7 +192,7 @@ const Map = ({
   const iconMC = useMemo(() => {
     if (!isLoaded) return null;
 
-    const img = getUserTypeImages(UserType.MC);
+    const img = getUserTypeImages(UserType.MC, undefined, true);
     return {
       url: img.path,
       size: new window.google.maps.Size(img.size, img.size),
@@ -203,7 +203,7 @@ const Map = ({
   const iconMedia = useMemo(() => {
     if (!isLoaded) return null;
 
-    const img = getUserTypeImages(UserType.MEDIA);
+    const img = getUserTypeImages(UserType.MEDIA, undefined, true);
     return {
       url: img.path,
       size: new window.google.maps.Size(img.size, img.size),
@@ -371,7 +371,7 @@ const Map = ({
 
                         {user.type !== UserType.FREESTYLER && (
                           <div className="grid grid-flow-col justify-start items-center gap-1">
-                            <img src={iconFreestylerMale.url} className="h-6 w-6 object-cover" />
+                            <img src={getUserTypeImages(user.type, undefined).path} className="h-6 w-6 object-cover" />
 
                             {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
                           </div>
