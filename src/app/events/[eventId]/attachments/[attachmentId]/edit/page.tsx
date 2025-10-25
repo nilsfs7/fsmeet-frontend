@@ -1,20 +1,20 @@
 'use client';
 
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { useParams, useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
+import Navigation from '@/components/navigation';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/page-title';
 import { useSession } from 'next-auth/react';
 import { Attachment } from '@/domain/types/attachment';
 import { deleteAttachment, getAttachment, updateAttachment } from '@/infrastructure/clients/attachment.client';
 import AttachmentEditor from '@/components/events/attachment-editor';
-import Dialog from '@/components/Dialog';
-import NavigateBackButton from '@/components/NavigateBackButton';
+import Dialog from '@/components/dialog';
+import NavigateBackButton from '@/components/navigate-back-button';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { fileToBase64 } from '@/functions/file-to-base-64';
 import { useTranslations } from 'next-intl';

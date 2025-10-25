@@ -1,14 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import TextInput from '../common/TextInput';
+import TextInput from '../common/text-input';
 import { Attachment } from '@/domain/types/attachment';
-import { imgUserDefaultImg } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
-import CheckBox from '../common/CheckBox';
-import { DatePicker } from '../common/DatePicker';
+import CheckBox from '../common/check-box';
+import { DatePicker } from '../common/date-picker';
 import moment from 'moment';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
 import { getFilenameFromUrl, truncateString } from '@/functions/string-manipulation';
 
 interface IAttachmentEditorProps {

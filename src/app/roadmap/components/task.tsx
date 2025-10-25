@@ -1,13 +1,13 @@
 'use client';
 
-import Dialog from '@/components/Dialog';
+import Dialog from '@/components/dialog';
 import { routeRoadmap } from '@/domain/constants/routes';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { imgAbout } from '@/domain/constants/images';
 import { TaskSize } from '@/domain/enums/task-size';
-import Separator from '@/components/Seperator';
+import Separator from '@/components/seperator';
 
 interface ITask {
   title: string;

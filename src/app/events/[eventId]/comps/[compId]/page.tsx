@@ -1,9 +1,9 @@
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
 import { getCompetition, getRounds } from '@/infrastructure/clients/competition.client';
 import { TabsMenu } from './components/tabs-menu';
 import Link from 'next/link';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { routeEvents } from '@/domain/constants/routes';
 import { ActionButtonDownloadResults } from './components/action-button-download-results';

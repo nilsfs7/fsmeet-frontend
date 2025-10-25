@@ -1,7 +1,7 @@
 'use client';
 
 import { Toaster, toast } from 'sonner';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { copyToClipboard } from '@/functions/copy-to-clipboard';
 import { useTranslations } from 'next-intl';

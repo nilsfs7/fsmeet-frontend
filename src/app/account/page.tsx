@@ -1,11 +1,11 @@
 import { routeHome, routeLogin } from '@/domain/constants/routes';
 import { auth } from '@/auth';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { ProfilePicture } from './components/profile-picture';
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
 import { TabsMenu } from './components/tabs-menu';
 import { TextButtonSaveUserInfo } from './components/text-button-save-user-info';
 import { RedirectType, redirect } from 'next/navigation';

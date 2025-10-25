@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { imgThumbsUp } from '@/domain/constants/images';
 import { routeHome } from '@/domain/constants/routes';
 import Image from 'next/image';
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { getTranslations } from 'next-intl/server';
 
 export default async function ThankYou() {

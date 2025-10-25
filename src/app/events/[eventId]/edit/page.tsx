@@ -1,6 +1,6 @@
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
-import NavigateBackButton from '@/components/NavigateBackButton';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
+import NavigateBackButton from '@/components/navigate-back-button';
 import { TextButtonSaveEvent } from './components/text-button-save-event';
 import { Editor } from './components/editor';
 import { getTranslations } from 'next-intl/server';

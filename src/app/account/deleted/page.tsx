@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import Image from 'next/image';
 import { routeHome } from '@/domain/constants/routes';
 import { imgGoodBye } from '@/domain/constants/images';

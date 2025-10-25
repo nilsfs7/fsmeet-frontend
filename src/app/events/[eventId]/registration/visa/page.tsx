@@ -1,26 +1,26 @@
 'use client';
 
 import { use, useEffect, useState } from 'react';
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { routeHome, routeLogin } from '@/domain/constants/routes';
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
+import Navigation from '@/components/navigation';
+import ActionButton from '@/components/common/action-button';
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/page-title';
 import { Toaster, toast } from 'sonner';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { createVisaInvitationRequest } from '@/infrastructure/clients/event.client';
-import TextInput from '@/components/common/TextInput';
-import { DatePicker } from '@/components/common/DatePicker';
+import TextInput from '@/components/common/text-input';
+import { DatePicker } from '@/components/common/date-picker';
 import moment, { Moment } from 'moment';
-import ComboBox from '@/components/common/ComboBox';
+import ComboBox from '@/components/common/combo-box';
 import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/domain/types/user';
 import { useRouter } from 'next/navigation';
-import { Header } from '@/components/Header';
+import { Header } from '@/components/header';
 import { toTitleCase } from '@/functions/string-manipulation';
 
 export default function VisaInvitationRequest(props: { params: Promise<{ eventId: string }> }) {

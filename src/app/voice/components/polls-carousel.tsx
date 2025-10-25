@@ -4,7 +4,7 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, Car
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { Poll } from '@/domain/types/poll';
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { Progress } from '@/components/ui/progress';
 import { routeLogin, routeVoice } from '@/domain/constants/routes';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -20,7 +20,7 @@ import { imgAbout, imgArrowDown, imgArrowDownOutline, imgArrowUp, imgArrowUpOutl
 import { RatingAction } from '@/domain/enums/rating-action';
 import { PollRating } from '@/domain/types/poll-rating';
 import { User } from '@/domain/types/user';
-import Dialog from '@/components/Dialog';
+import Dialog from '@/components/dialog';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 interface IPollsCarousel {

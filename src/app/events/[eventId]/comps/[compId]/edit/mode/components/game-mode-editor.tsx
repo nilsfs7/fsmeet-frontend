@@ -15,11 +15,11 @@ import DialogDeleteRound from '@/app/events/[eventId]/comps/[compId]/edit/mode/c
 import moment, { Moment } from 'moment';
 import { Round } from '@/domain/classes/round';
 import { createRounds, deleteRounds, getCompetitionParticipants, updateRounds } from '@/infrastructure/clients/competition.client';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import Navigation from '@/components/Navigation';
-import BattleGrid from '@/components/comp/BattleGrid';
-import TextButton from '@/components/common/TextButton';
+import Navigation from '@/components/navigation';
+import BattleGrid from '@/components/comp/battle-grid';
+import TextButton from '@/components/common/text-button';
 import { routeEvents } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { plainToInstance } from 'class-transformer';

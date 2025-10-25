@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { routeEventSubs, routeEvents } from '@/domain/constants/routes';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import Dialog from '@/components/Dialog';
+import Dialog from '@/components/dialog';
 import { switchTab } from '@/functions/switch-tab';
 import EventCard from '@/components/events/event-card';
 import { Event } from '@/domain/types/event';

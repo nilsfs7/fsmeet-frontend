@@ -7,7 +7,7 @@ import EventCard from '@/components/events/event-card';
 import { routeEvents } from '@/domain/constants/routes';
 import { getEvents } from '@/infrastructure/clients/event.client';
 import { Event } from '@/domain/types/event';
-import { DatePicker } from '@/components/common/DatePicker';
+import { DatePicker } from '@/components/common/date-picker';
 import { useTranslations } from 'next-intl';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 

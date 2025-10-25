@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import TextInput from '../common/TextInput';
+import TextInput from '../common/text-input';
 import { Sponsor } from '@/domain/types/sponsor';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
-import CheckBox from '../common/CheckBox';
+import CheckBox from '../common/check-box';
 
 interface ISponsorEditorProps {
   sponsor?: Sponsor;

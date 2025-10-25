@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ArrowUpDown, ChevronDown } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import Dialog from '@/components/Dialog';
+import Dialog from '@/components/dialog';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -24,7 +24,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import moment from 'moment';
-import ActionButton from './common/ActionButton';
+import ActionButton from './common/action-button';
 import { Action } from '@/domain/enums/action';
 import { deletePoll } from '@/infrastructure/clients/poll.client';
 import { useSession } from 'next-auth/react';

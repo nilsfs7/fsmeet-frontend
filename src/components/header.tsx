@@ -1,5 +1,5 @@
 import LanguagePicker from './language-picker';
-import { LogoFSMeet } from './Logo';
+import { LogoFSMeet } from './logo';
 import ProfileMenu from './user/profile-menu';
 
 interface IHeaderProps {

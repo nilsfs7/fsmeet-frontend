@@ -1,10 +1,10 @@
 'use client';
 
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import Dialog from '@/components/Dialog';
+import Dialog from '@/components/dialog';
 import { routeEventsCreate, routeHome, routeLogin } from '@/domain/constants/routes';
 import { useEffect, useState } from 'react';
 import { License } from '@/domain/types/license';

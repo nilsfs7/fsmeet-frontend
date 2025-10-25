@@ -1,7 +1,7 @@
 'use client';
 
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import UserCard from '@/components/user/user-card';
 import { Action } from '@/domain/enums/action';
 import { CompetitionGender } from '@/domain/enums/competition-gender';

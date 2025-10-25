@@ -2,14 +2,14 @@
 
 import { useEffect, useState, use } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import { Round } from '@/domain/classes/round';
-import BattleGrid from '@/components/comp/BattleGrid';
+import BattleGrid from '@/components/comp/battle-grid';
 import Link from 'next/link';
 import { Toaster, toast } from 'sonner';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/page-title';
 import { User } from '@/domain/types/user';
 import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/infrastructure/clients/competition.client';
 import { useTranslations } from 'next-intl';

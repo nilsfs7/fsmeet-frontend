@@ -1,7 +1,7 @@
-import { Header } from '@/components/Header';
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
-import ActionButton from '@/components/common/ActionButton';
+import { Header } from '@/components/header';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
+import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';

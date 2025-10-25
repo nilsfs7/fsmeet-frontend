@@ -1,8 +1,8 @@
 import { routeLogin } from '@/domain/constants/routes';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { RegistrationForm } from './components/registration-form';
 
 export default function Registration() {

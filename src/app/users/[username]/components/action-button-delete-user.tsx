@@ -1,6 +1,6 @@
 'use client';
 
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { deleteUser } from '@/infrastructure/clients/user.client';
 import { useSession } from 'next-auth/react';

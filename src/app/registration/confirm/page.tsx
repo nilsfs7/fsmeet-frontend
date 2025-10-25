@@ -1,4 +1,4 @@
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import Link from 'next/link';
 import { routeLogin } from '@/domain/constants/routes';
 import Image from 'next/image';

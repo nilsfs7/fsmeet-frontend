@@ -2,10 +2,10 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ActionButton from '../../../../../../../../components/common/ActionButton';
+import ActionButton from '../../../../../../../../components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import TextButton from '../../../../../../../../components/common/TextButton';
-import ComboBox from '@/components/common/ComboBox';
+import TextButton from '../../../../../../../../components/common/text-button';
+import ComboBox from '@/components/common/combo-box';
 import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';

@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { routeUsers } from '@/domain/constants/routes';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import { User } from '@/domain/types/user';
 import { getUsers, updateUserWffaId } from '@/infrastructure/clients/user.client';
 import { useSession } from 'next-auth/react';
 import { Input } from '@/components/ui/input';
-import Separator from '@/components/Seperator';
+import Separator from '@/components/seperator';
 import { UserType } from '@/domain/enums/user-type';
 
 export const WffaIdEditor = () => {

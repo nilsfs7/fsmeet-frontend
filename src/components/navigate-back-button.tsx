@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import ActionButton from './common/ActionButton';
+import ActionButton from './common/action-button';
 import { Action } from '@/domain/enums/action';
 
 export default function NavigateBackButton() {

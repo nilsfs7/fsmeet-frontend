@@ -1,10 +1,10 @@
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
+import Navigation from '@/components/navigation';
+import ActionButton from '@/components/common/action-button';
 import { routeAccount } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { Header } from '@/components/Header';
-import PageTitle from '@/components/PageTitle';
+import { Header } from '@/components/header';
+import PageTitle from '@/components/page-title';
 import { ColumnInfo, PaymentsList } from './components/payments-list';
 import { getTranslations } from 'next-intl/server';
 import { getPayments } from '../../../infrastructure/clients/payment.client';

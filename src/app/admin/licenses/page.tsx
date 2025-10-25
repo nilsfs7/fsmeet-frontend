@@ -1,9 +1,9 @@
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { routeAdminOverview } from '@/domain/constants/routes';
-import ActionButton from '@/components/common/ActionButton';
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
+import ActionButton from '@/components/common/action-button';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
 import { LicensesEditor } from './components/licenses-editor';
 
 export default async function LicenseAdministration() {

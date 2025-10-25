@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import TextInput from '../common/TextInput';
+import TextInput from '../common/text-input';
 import { Accommodation } from '@/domain/types/accommodation';
 import { imgImagePlaceholder } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
-import CurInput from '../common/CurrencyInput';
-import CheckBox from '../common/CheckBox';
+import CurInput from '../common/currency-input';
+import CheckBox from '../common/check-box';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';

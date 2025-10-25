@@ -1,6 +1,6 @@
 'use client';
 
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { Event } from '@/domain/types/event';
 import { Toaster, toast } from 'sonner';

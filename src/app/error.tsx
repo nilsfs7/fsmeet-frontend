@@ -4,7 +4,7 @@ import { imgNotFound } from '@/domain/constants/images';
 import { routeHome } from '@/domain/constants/routes';
 import { useEffect } from 'react';
 import Image from 'next/image';
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 

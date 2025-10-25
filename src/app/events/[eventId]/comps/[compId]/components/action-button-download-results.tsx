@@ -1,13 +1,13 @@
 'use client';
 
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { Event } from '@/domain/types/event';
-import CheckBox from '@/components/common/CheckBox';
-import Dialog from '@/components/Dialog';
+import CheckBox from '@/components/common/check-box';
+import Dialog from '@/components/dialog';
 import { Toaster, toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import moment from 'moment';

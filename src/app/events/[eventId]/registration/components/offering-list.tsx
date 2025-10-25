@@ -1,6 +1,6 @@
 'use client';
 
-import ComboBox from '@/components/common/ComboBox';
+import ComboBox from '@/components/common/combo-box';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';

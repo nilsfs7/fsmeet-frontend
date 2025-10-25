@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
-import NavigateBackButton from '@/components/NavigateBackButton';
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
+import NavigateBackButton from '@/components/navigate-back-button';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
 import { getTranslations } from 'next-intl/server';
 import { RegistrationsList } from './components/registrations-list';
 import { getEvent, getEventRegistrations } from '@/infrastructure/clients/event.client';

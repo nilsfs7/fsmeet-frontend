@@ -1,7 +1,7 @@
 'use client';
 
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { routeEvents, routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { getEvents, updateEventState } from '@/infrastructure/clients/event.client';
@@ -13,7 +13,7 @@ import moment from 'moment';
 import { EventState } from '@/domain/enums/event-state';
 import { Event } from '@/domain/types/event';
 import { menuEventStates } from '@/domain/constants/menus/menu-event-states';
-import ComboBox from '@/components/common/ComboBox';
+import ComboBox from '@/components/common/combo-box';
 
 export const EventsEditor = () => {
   const { data: session } = useSession();

@@ -1,10 +1,10 @@
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastructure/clients/event.client';
 import Link from 'next/link';
 import { Event } from '@/domain/types/event';
-import { Header } from '@/components/Header';
+import { Header } from '@/components/header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { routeAbout, routeAdminOverview, routeEvents, routeEventsCreate, routeHome, routeMap, routeUsers, routeVoice, routeWffaOverview } from '@/domain/constants/routes';
 import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { auth } from '@/auth';

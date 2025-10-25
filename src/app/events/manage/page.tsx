@@ -1,11 +1,11 @@
 import { Event } from '@/domain/types/event';
 import Link from 'next/link';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import { routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
-import { Header } from '@/components/Header';
-import PageTitle from '@/components/PageTitle';
+import ActionButton from '@/components/common/action-button';
+import { Header } from '@/components/header';
+import PageTitle from '@/components/page-title';
 import { getEvents } from '@/infrastructure/clients/event.client';
 import { auth } from '@/auth';
 import { TabsMenu } from './components/tabs-menu';

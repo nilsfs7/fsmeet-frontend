@@ -1,10 +1,10 @@
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { routeAdminEvents, routeAdminLicenses, routeStatistics, routeAdminUserVerification, routeHome, routeRoadmap } from '@/domain/constants/routes';
-import ActionButton from '@/components/common/ActionButton';
-import Navigation from '@/components/Navigation';
-import TextButton from '@/components/common/TextButton';
-import PageTitle from '@/components/PageTitle';
+import ActionButton from '@/components/common/action-button';
+import Navigation from '@/components/navigation';
+import TextButton from '@/components/common/text-button';
+import PageTitle from '@/components/page-title';
 
 export default async function AdminOverview() {
   return (

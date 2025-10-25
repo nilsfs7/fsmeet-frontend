@@ -1,20 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import TextInputLarge from './common/TextInputLarge';
+import TextInputLarge from './common/text-input-large';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { useTranslations } from 'next-intl';
 import { UserType } from '@/domain/enums/user-type';
 import { Poll } from '@/domain/types/poll';
-import TextInput from './common/TextInput';
-import ActionButton from './common/ActionButton';
+import TextInput from './common/text-input';
+import ActionButton from './common/action-button';
 import { Action } from '@/domain/enums/action';
 import moment from 'moment';
-import { DatePicker } from './common/DatePicker';
-import CheckBox from './common/CheckBox';
-import Separator from './Seperator';
-import SectionHeader from './common/SectionHeader';
-import ComboBox from './common/ComboBox';
+import { DatePicker } from './common/date-picker';
+import CheckBox from './common/check-box';
+import Separator from './seperator';
+import SectionHeader from './common/section-header';
+import ComboBox from './common/combo-box';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
 import { TargetGroup } from '@/domain/types/target-group';
 

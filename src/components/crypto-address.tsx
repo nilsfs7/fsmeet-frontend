@@ -1,5 +1,5 @@
 import { Action } from '@/domain/enums/action';
-import ActionButton from './common/ActionButton';
+import ActionButton from './common/action-button';
 import { CryptoCurrencyCode } from '@/domain/enums/crypto-currency-code';
 import { ActionButtonCopyToClipboard } from '@/components/common/action-button-copy-to-clipboard';
 import { truncateString } from '@/functions/string-manipulation';

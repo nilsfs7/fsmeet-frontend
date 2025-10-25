@@ -1,14 +1,14 @@
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import Link from 'next/link';
-import { Header } from '@/components/Header';
+import { Header } from '@/components/header';
 import { routeVoice, routeVoiceCreatePoll } from '@/domain/constants/routes';
 import { auth } from '@/auth';
 import { getTranslations } from 'next-intl/server';
 import { getPolls } from '@/infrastructure/clients/poll.client';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/page-title';
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
-import TextButton from '@/components/common/TextButton';
+import ActionButton from '@/components/common/action-button';
+import TextButton from '@/components/common/text-button';
 import { ColumnInfo, PollsList } from '../../../components/polls-list';
 
 export default async function ManagePolls() {

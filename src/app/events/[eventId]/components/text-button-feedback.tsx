@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Event } from '@/domain/types/event';

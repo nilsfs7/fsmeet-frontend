@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import { useSession } from 'next-auth/react';
-import Separator from '@/components/Seperator';
+import Separator from '@/components/seperator';
 import { getVisaInvitationRequests, updateVisaInvitationRequest } from '@/infrastructure/clients/event.client';
 import { VisaInvitationRequest } from '@/domain/types/visa-invitation-request';
 import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-approval-state';

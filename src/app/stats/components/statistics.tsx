@@ -6,7 +6,7 @@ import { User } from '@/domain/types/user';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import { getEventCount, getUserCountByNationality, getUserCountByType, getUserCountOnMap, getUserGrowth } from '@/infrastructure/clients/statistic.client';
 import { ReadUserCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-count.response.dto';
-import Separator from '@/components/Seperator';
+import Separator from '@/components/seperator';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { ChartArea } from '../../../components/charts/chart-area';
 import { ReadEventCountResponseDto } from '../../../infrastructure/clients/dtos/event/read-event-count.response.dto';

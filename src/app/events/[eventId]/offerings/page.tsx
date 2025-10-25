@@ -1,11 +1,11 @@
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
 import { getOfferings } from '@/infrastructure/clients/offering.client';
-import Separator from '@/components/Seperator';
+import Separator from '@/components/seperator';
 import { getTranslations } from 'next-intl/server';
 
 export default async function EventOffering(props: { params: Promise<{ eventId: string }> }) {

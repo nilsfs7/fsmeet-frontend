@@ -1,16 +1,16 @@
 'use client';
 
 import { useState, use } from 'react';
-import TextButton from '@/components/common/TextButton';
-import TextInputLarge from '@/components/common/TextInputLarge';
+import TextButton from '@/components/common/text-button';
+import TextInputLarge from '@/components/common/text-input-large';
 import { useRouter } from 'next/navigation';
 import { routeEvents, routeFeedbackThankyou } from '@/domain/constants/routes';
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
+import Navigation from '@/components/navigation';
+import ActionButton from '@/components/common/action-button';
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import { Toaster, toast } from 'sonner';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/page-title';
 import { createEventFeedback } from '@/infrastructure/clients/event.client';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
@@ -50,7 +50,7 @@ export default function EventFeedback(props: { params: Promise<{ eventId: string
               id={'message'}
               label={t('inputMessage')}
               placeholder={t('inputMessagePlaceholder')}
-              onChange={(e) => {
+              onChange={e => {
                 handleInputChangeMessage(e);
               }}
             />

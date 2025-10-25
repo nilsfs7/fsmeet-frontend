@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 import { Event } from '@/domain/types/event';
 import { routeEvents, routeEventSubs } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
-import Dialog from '@/components/Dialog';
-import ActionButton from '@/components/common/ActionButton';
+import Dialog from '@/components/dialog';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 
 export const ActionButtonDeleteEvent = () => {
