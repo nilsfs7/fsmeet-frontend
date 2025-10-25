@@ -1,11 +1,11 @@
-import Separator from '@/components/Seperator';
+import Separator from '@/components/seperator';
 import { Row } from './components/row';
 import { Task } from './components/task';
 import { Section } from './components/section';
 import { TaskSize } from '@/domain/enums/task-size';
-import PageTitle from '@/components/PageTitle';
-import Navigation from '@/components/Navigation';
-import NavigateBackButton from '@/components/NavigateBackButton';
+import PageTitle from '@/components/page-title';
+import Navigation from '@/components/navigation';
+import NavigateBackButton from '@/components/navigate-back-button';
 
 export default async function Roadmap() {
   return (

@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { imgCalender, imgCompetition, imgHourglassEnd, imgHourglassStart, imgLocation, imgMeeting, imgUserDefaultImg } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getShortDateString } from '@/functions/time';
-import Separator from '../../../../components/Seperator';
-import TextButton from '../../../../components/common/TextButton';
+import TextButton from '../../../../components/common/text-button';
 import { Event } from '@/domain/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
 import { User } from '@/domain/types/user';
 import { useTranslations } from 'next-intl';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import VideoDialog from '@/components/video-dialog';
 import { useRouter } from 'next/navigation';
@@ -20,6 +19,7 @@ import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { isPublicEventState } from '@/functions/event-state';
 import Link from 'next/link';
 import { LocationMap } from '../../../../components/location-map';
+import Separator from '@/components/seperator';
 
 interface IEventProps {
   event: Event;

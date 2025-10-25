@@ -1,16 +1,16 @@
 'use client';
 
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { useRouter } from 'next/navigation';
 import { use, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
 import { useSession } from 'next-auth/react';
 import { Attachment } from '@/domain/types/attachment';
 import AttachmentEditor from '@/components/events/attachment-editor';
-import NavigateBackButton from '@/components/NavigateBackButton';
+import NavigateBackButton from '@/components/navigate-back-button';
 import { useTranslations } from 'next-intl';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { createAttachment } from '@/infrastructure/clients/attachment.client';

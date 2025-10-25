@@ -1,9 +1,9 @@
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import { LoginForm } from './components/login-form';
 import Link from 'next/link';
 import { routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 
 export default async function Login() {
   return (

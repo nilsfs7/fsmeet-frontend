@@ -1,10 +1,10 @@
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import Link from 'next/link';
-import Navigation from '@/components/Navigation';
-import Separator from '@/components/Seperator';
+import Navigation from '@/components/navigation';
+import Separator from '@/components/seperator';
 import { routeEvents } from '@/domain/constants/routes';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/page-title';
 import { getTranslations } from 'next-intl/server';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
 

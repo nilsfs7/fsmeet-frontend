@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { routeEventSubs, routeEventsCreate, routeLogin } from '@/domain/constants/routes';
 import { getLicense } from '@/infrastructure/clients/license.client';
 import { License } from '@/domain/types/license';

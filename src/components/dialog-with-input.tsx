@@ -2,9 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import ActionButton from './common/ActionButton';
+import ActionButton from './common/action-button';
 import { Action } from '@/domain/enums/action';
-import TextButton from './common/TextButton';
+import TextButton from './common/text-button';
 
 interface IDialogProps {
   title: string;

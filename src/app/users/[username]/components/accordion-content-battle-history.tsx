@@ -6,7 +6,7 @@ import { getUserBattleHistory } from '../../../../infrastructure/clients/history
 import { useEffect, useState } from 'react';
 import { ReadUserBattleHistoryResponseDto } from '../../../../infrastructure/clients/dtos/history/read-user-battle-history.response.dto';
 import { AccordionContent } from '@/components/ui/accordion';
-import MatchCard from '../../../../components/comp/MatchCard';
+import MatchCard from '../../../../components/comp/match-card';
 import moment from 'moment';
 import Link from 'next/link';
 import { routeEvents } from '../../../../domain/constants/routes';

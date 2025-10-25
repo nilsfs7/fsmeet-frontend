@@ -2,9 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ActionButton from '../../../../../../../../components/common/ActionButton';
+import ActionButton from '../../../../../../../../components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import TextButton from '../../../../../../../../components/common/TextButton';
+import TextButton from '../../../../../../../../components/common/text-button';
 import moment from 'moment';
 import { TimePicker } from '@mui/x-date-pickers';
 import { useTranslations } from 'next-intl';

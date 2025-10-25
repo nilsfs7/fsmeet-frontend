@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { routeHome } from '@/domain/constants/routes';
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
+import Navigation from '@/components/navigation';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import { Header } from '@/components/Header';
+import { Header } from '@/components/header';
 import { EventsList } from './components/events-list';
 
 export default async function EventsOverview() {

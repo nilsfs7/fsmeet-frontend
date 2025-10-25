@@ -2,7 +2,7 @@ import { imgNotFound } from '@/domain/constants/images';
 import Link from 'next/link';
 import Image from 'next/image';
 import { routeEvents } from '@/domain/constants/routes';
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { getTranslations } from 'next-intl/server';
 
 export default async function NotFound() {

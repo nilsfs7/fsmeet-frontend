@@ -1,6 +1,6 @@
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
-import NavigateBackButton from '@/components/NavigateBackButton';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
+import NavigateBackButton from '@/components/navigate-back-button';
 import { Statistics } from './components/statistics';
 
 export default async function StatisticsOverview() {

@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
+import Navigation from '@/components/navigation';
+import ActionButton from '@/components/common/action-button';
 import { routeAccount, routeLogin } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { auth } from '@/auth';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/page-title';
 import { RedirectType, redirect } from 'next/navigation';
 import { ProfilePictureUpload } from './components/profile-picture-upload';
 import { getTranslations } from 'next-intl/server';

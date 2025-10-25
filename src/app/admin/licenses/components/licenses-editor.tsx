@@ -1,7 +1,7 @@
 'use client';
 
 import LoadingSpinner from '@/components/animation/loading-spinner';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { getLicenses, updateLicense } from '@/infrastructure/clients/license.client';

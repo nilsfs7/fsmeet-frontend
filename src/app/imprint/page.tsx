@@ -1,8 +1,8 @@
-import { Header } from '@/components/Header';
+import { Header } from '@/components/header';
 import { ImprintText } from '@/app/imprint/components/imprint-text';
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
-import ActionButton from '@/components/common/ActionButton';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
+import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';

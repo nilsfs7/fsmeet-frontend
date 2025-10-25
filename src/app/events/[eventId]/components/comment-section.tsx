@@ -1,10 +1,10 @@
 'use client';
 
 import { EventComment } from '@/domain/types/event-comment';
-import UserComment from '../../../../components/events/comment/EventComment';
+import UserComment from '../../../../components/events/comment/event-comment';
 import { EventSubComment } from '@/domain/types/event-sub-comment';
 import { useEffect, useState } from 'react';
-import PostInput from '../../../../components/events/comment/PostInput';
+import PostInput from '../../../../components/events/comment/post-input';
 import { useTranslations } from 'next-intl';
 
 interface ICommentSectionProps {

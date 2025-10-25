@@ -1,4 +1,4 @@
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/page-title';
 import { auth } from '@/auth';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { getCompetitionParticipants, getRounds } from '@/infrastructure/clients/competition.client';

@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { deleteUserImage, updateUserImage } from '@/infrastructure/clients/user.client';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeAccount } from '@/domain/constants/routes';

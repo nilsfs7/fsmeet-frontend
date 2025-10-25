@@ -1,15 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import TextButton from '@/components/common/TextButton';
-import TextInputLarge from '@/components/common/TextInputLarge';
+import TextButton from '@/components/common/text-button';
+import TextInputLarge from '@/components/common/text-input-large';
 import { useRouter } from 'next/navigation';
 import { routeFeedback, routeFeedbackThankyou } from '@/domain/constants/routes';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
-import PageTitle from '@/components/PageTitle';
+import ActionButton from '@/components/common/action-button';
+import PageTitle from '@/components/page-title';
 import { Toaster, toast } from 'sonner';
 import { createFeedbackFeature } from '@/infrastructure/clients/feedback.client';
 import { useSession } from 'next-auth/react';
@@ -50,7 +50,7 @@ export default function RequestFeature() {
               id={'message'}
               label={t('inputMessage')}
               placeholder={t('inputMessagePlaceholder')}
-              onChange={(e) => {
+              onChange={e => {
                 handleInputChangeMessage(e);
               }}
             />

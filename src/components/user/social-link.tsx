@@ -1,5 +1,5 @@
 import { Platform } from '@/domain/enums/platform';
-import { LogoFSM } from '../Logo';
+import { LogoFSM } from '../logo';
 import { imgInstagramLogo, imgTikTokLogo, imgWebsiteLogo, imgYouTubeLogo } from '@/domain/constants/images';
 import { routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';

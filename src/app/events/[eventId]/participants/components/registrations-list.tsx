@@ -3,10 +3,10 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { routeEvents } from '@/domain/constants/routes';
-import Dialog from '@/components/Dialog';
+import Dialog from '@/components/dialog';
 import { Toaster, toast } from 'sonner';
 import { deleteEventRegistration, updateEventRegistrationStatus } from '@/infrastructure/clients/event.client';
 import UserCard from '@/components/user/user-card';

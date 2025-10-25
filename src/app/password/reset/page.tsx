@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import TextButton from '@/components/common/TextButton';
-import TextInput from '@/components/common/TextInput';
+import TextButton from '@/components/common/text-button';
+import TextInput from '@/components/common/text-input';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { routeLogin } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';

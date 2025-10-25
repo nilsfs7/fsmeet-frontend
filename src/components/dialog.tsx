@@ -1,9 +1,9 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import ActionButton from './common/ActionButton';
+import ActionButton from './common/action-button';
 import { Action } from '@/domain/enums/action';
-import TextButton from './common/TextButton';
+import TextButton from './common/text-button';
 
 interface IDialogProps {
   title: string;

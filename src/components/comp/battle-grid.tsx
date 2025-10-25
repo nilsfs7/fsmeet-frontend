@@ -1,13 +1,13 @@
 'use client';
 
 import { Round } from '@/domain/classes/round';
-import MatchCard from './MatchCard';
+import MatchCard from './match-card';
 import { User } from '@/domain/types/user';
 import { Moment } from 'moment';
-import ActionButton from '../common/ActionButton';
+import ActionButton from '../common/action-button';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
-import TextButton from '../common/TextButton';
+import TextButton from '../common/text-button';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 

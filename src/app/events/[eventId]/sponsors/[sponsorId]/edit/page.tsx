@@ -1,20 +1,20 @@
 'use client';
 
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, use } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
+import Navigation from '@/components/navigation';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import PageTitle from '@/components/PageTitle';
+import PageTitle from '@/components/page-title';
 import { useSession } from 'next-auth/react';
 import { Sponsor } from '@/domain/types/sponsor';
 import { deleteSponsor, getSponsor, updateSponsor, updateSponsorLogo } from '@/infrastructure/clients/sponsor.client';
 import SponsorEditor from '@/components/events/sponsor-editor';
-import Dialog from '@/components/Dialog';
-import NavigateBackButton from '@/components/NavigateBackButton';
+import Dialog from '@/components/dialog';
+import NavigateBackButton from '@/components/navigate-back-button';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 
 export default function EditEventSponsor(props: { params: Promise<{ eventId: string; sponsorId: string }> }) {

@@ -1,14 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import TextButton from '@/components/common/TextButton';
-import TextInput from '@/components/common/TextInput';
+import TextButton from '@/components/common/text-button';
+import TextInput from '@/components/common/text-input';
 import { useRouter } from 'next/navigation';
 import { routeLogin, routePasswordPending } from '@/domain/constants/routes';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Toaster, toast } from 'sonner';
 import { createPasswordReset } from '@/infrastructure/clients/user.client';
 import { useTranslations } from 'next-intl';
@@ -53,7 +53,7 @@ export default function ForgotPassword() {
                 label={t('inputUsername')}
                 placeholder="max"
                 value={usernameOrEmail}
-                onChange={(e) => {
+                onChange={e => {
                   handleInputChangeUsername(e);
                 }}
                 onKeyDown={handleInputKeypressUsername}

@@ -1,4 +1,4 @@
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';

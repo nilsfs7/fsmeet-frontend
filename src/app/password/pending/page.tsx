@@ -1,4 +1,4 @@
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { imgMailIncoming } from '@/domain/constants/images';
 import { routeHome } from '@/domain/constants/routes';
 import { getTranslations } from 'next-intl/server';

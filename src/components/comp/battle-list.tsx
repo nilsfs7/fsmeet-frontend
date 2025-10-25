@@ -1,6 +1,6 @@
 import { Round } from '@/domain/classes/round';
-import MatchCard from './MatchCard';
-import Separator from '../Seperator';
+import MatchCard from './match-card';
+import Separator from '../seperator';
 import { User } from '@/domain/types/user';
 import moment from 'moment';
 

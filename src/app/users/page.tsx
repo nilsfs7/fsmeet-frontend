@@ -1,10 +1,10 @@
-import Navigation from '@/components/Navigation';
-import ActionButton from '@/components/common/ActionButton';
+import Navigation from '@/components/navigation';
+import ActionButton from '@/components/common/action-button';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { Header } from '@/components/Header';
-import PageTitle from '@/components/PageTitle';
+import { Header } from '@/components/header';
+import PageTitle from '@/components/page-title';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import { ColumnInfo, UsersList } from './components/users-list';
 import { UserType } from '@/domain/enums/user-type';

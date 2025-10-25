@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import { useRouter } from 'next/navigation';
 import { useState, use, useEffect } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
@@ -8,10 +8,10 @@ import CompetitionEditor from '@/components/events/competition-editor';
 import { Competition } from '@/domain/types/competition';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
-import Navigation from '@/components/Navigation';
-import PageTitle from '@/components/PageTitle';
+import Navigation from '@/components/navigation';
+import PageTitle from '@/components/page-title';
 import { createCompetition } from '@/infrastructure/clients/competition.client';
-import NavigateBackButton from '@/components/NavigateBackButton';
+import NavigateBackButton from '@/components/navigate-back-button';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';

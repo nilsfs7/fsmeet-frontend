@@ -1,9 +1,9 @@
 import { Action } from '@/domain/enums/action';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import { EventType } from '@/domain/enums/event-type';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import { TabsMenu } from './components/tabs-menu';
 import { auth } from '@/auth';
 import { getComments, getEvent } from '@/infrastructure/clients/event.client';
@@ -14,7 +14,7 @@ import { ActionButtonCopyEventUrl } from './components/action-button-copy-event-
 import { ActionButtonStateAction } from './components/action-button-state-action';
 import { TextButtonFeedback } from './components/text-button-feedback';
 import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
-import TextButton from '@/components/common/TextButton';
+import TextButton from '@/components/common/text-button';
 import moment from 'moment';
 import { isArchivedEventState } from '@/functions/event-state';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';

@@ -1,9 +1,9 @@
-import TextAndImageButton from '@/components/common/TextAndImageButton';
+import TextAndImageButton from '@/components/common/text-and-image-button';
 import Link from 'next/link';
 import { imgBug, imgFeature, imgFeedback } from '@/domain/constants/images';
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/navigation';
 import { routeHome } from '@/domain/constants/routes';
-import ActionButton from '@/components/common/ActionButton';
+import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { getTranslations } from 'next-intl/server';
 

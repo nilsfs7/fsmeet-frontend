@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import TextButton from '@/components/common/TextButton';
-import TextInput from '@/components/common/TextInput';
+import TextButton from '@/components/common/text-button';
+import TextInput from '@/components/common/text-input';
 import { useRouter } from 'next/navigation';
 import { validateFirstName } from '@/functions/validation/validation-user';
 import { routeRegistrationPending } from '@/domain/constants/routes';
 import { UserType } from '@/domain/enums/user-type';
-import ComboBox from '@/components/common/ComboBox';
+import ComboBox from '@/components/common/combo-box';
 import { menuUserType } from '@/domain/constants/menus/menu-user-type';
 import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/functions/get-placeholder-by-user-type';
