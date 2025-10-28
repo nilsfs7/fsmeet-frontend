@@ -5,8 +5,12 @@ import ActionButton from '@/components/common/action-button';
 import Navigation from '@/components/navigation';
 import TextButton from '@/components/common/text-button';
 import PageTitle from '@/components/page-title';
+import { auth } from '../../auth';
+import { TextButtonCreatePushNotification } from './components/text-button-create-push-notification';
 
 export default async function AdminOverview() {
+  const session = await auth();
+
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title="Admin Overview" />
@@ -15,22 +19,20 @@ export default async function AdminOverview() {
         <Link href={routeAdminEvents}>
           <TextButton text={'Events'} />
         </Link>
-
         <Link href={routeAdminLicenses}>
           <TextButton text={'Licences'} />
         </Link>
-
         <Link href={routeAdminUserVerification}>
           <TextButton text={'User Verification'} />
         </Link>
-
         <Link href={routeStatistics}>
           <TextButton text={'App Statistics'} />
         </Link>
-
         <Link href={routeRoadmap}>
           <TextButton text={'Roadmap'} />
         </Link>
+
+        <TextButtonCreatePushNotification />
       </div>
 
       <Navigation>
