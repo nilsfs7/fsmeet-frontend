@@ -19,6 +19,7 @@ import { ChevronDown } from 'lucide-react';
 import { Gender } from '@/domain/enums/gender';
 import LoadingSpinner from './animation/loading-spinner';
 import { isNaturalPerson } from '../functions/is-natural-person';
+import { menuUserType } from '../domain/constants/menus/menu-user-type';
 
 interface IMapWrapperProps {
   userList: User[];
@@ -112,6 +113,7 @@ const Map = ({
   const [selectedUsers, setSelectedUsers] = useState<User[]>(getSelectedUsers(userList, selectedUsernames));
   const [filterName, setFilterName] = useState('');
   const [filterGender, setFilterGender] = useState<Gender[]>([Gender.FEMALE, Gender.MALE]);
+  const [filterUserType, setFilterUserType] = useState<UserType[]>([UserType.FREESTYLER, UserType.ASSOCIATION, UserType.BRAND, UserType.DJ, UserType.EVENT_ORGANIZER, UserType.MC, UserType.MEDIA]);
   const [map, setMap] = React.useState<google.maps.Map | null>();
   const [mapOptions, setMapOptions] = useState<google.maps.MapOptions>();
 
@@ -222,9 +224,12 @@ const Map = ({
       // filter by gender
       const genderOk = !isNaturalPerson(user.type) || filterGender.includes(user.gender as Gender);
 
-      return nameOk && genderOk;
+      // filter by type
+      const typeOk = filterUserType.includes(user.type);
+
+      return nameOk && genderOk && typeOk;
     });
-  }, [userList, filterName, filterGender]);
+  }, [userList, filterName, filterGender, filterUserType]);
 
   const addToSelectedUsers = (user: User) => {
     const users = Array.from(selectedUsers);
@@ -296,6 +301,44 @@ const Map = ({
                   </DropdownMenuCheckboxItem>
                 );
               })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                {t('drpDwnUserTypes')}
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {menuUserType
+                .filter(type => type.value !== UserType.FAN)
+                .map(menuItem => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={menuItem.value}
+                      checked={filterUserType.includes(menuItem.value as UserType)}
+                      onCheckedChange={(value: any) => {
+                        const types = Array.from(filterUserType);
+
+                        // add or remove user type from array
+                        if (value === true) {
+                          types.push(menuItem.value as UserType);
+                        } else {
+                          const index = types.indexOf(menuItem.value as UserType);
+                          if (index > -1) {
+                            types.splice(index, 1);
+                          }
+                        }
+
+                        setFilterUserType(types);
+                      }}
+                    >
+                      {menuItem.text}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

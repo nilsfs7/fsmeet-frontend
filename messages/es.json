@@ -485,6 +485,7 @@
     "btnViewOnFSMeet": "Ver en FSMeet",
     "inputSearchPlaceholder": "Buscar nombre...",
     "drpDwnGender": "Género",
+    "drpDwnUserTypes": "Tipo",
     "btnCopyUrlToast": "URL del mapa copiada al portapapeles.",
     "btnCopyUrlToolTip": "Copiar la URL del mapa",
     "infoWindowGoToProfileInternal": "Haz clic para ver el perfil",
