@@ -195,7 +195,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
                 <div>{t('tabInfoMaxAge')}</div>
               </div>
               <div className="capitalize">
-                <div>{comp?.type}</div>
+                <div>{comp?.type.replace('_', ' ')}</div>
                 <div>{comp?.gender}</div>
                 <div>{comp?.maxAge !== MaxAge.NONE ? comp?.maxAge : `none`}</div>
               </div>
