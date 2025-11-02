@@ -64,7 +64,7 @@ Event
 
 - [Competition](https://www.iconfinder.com/icons/6843056/achievement_award_competition_reward_success_trophy_winner_icon)
 
-- [Meeting](https://www.iconfinder.com/icons/7055165/meeting_consultation_partnership_communication_brainstorm_icon)
+- [Meeting (purchased)](https://www.iconfinder.com/icons/1624094/crowd_friends_group_heads_people_user_users_icon)
 
 - [Calendar](https://www.iconfinder.com/icons/2203551/book_calendar_date_monthly_icon)
 
@@ -142,19 +142,3 @@ Badges:
 - [Jury](https://www.iconfinder.com/icons/4158577/competition_contest_cyber_expert_judge_jury_security_spot_icon)
 
 - [Tournament](https://www.iconfinder.com/search?q=tournament&price=free&license=gte__1)
-
-https://www.iconfinder.com/icons/6358082/browser_earth_global_globe_internet_website_world_icon
-https://www.iconfinder.com/icons/9023583/map_pin_fill_icon
-https://www.iconfinder.com/icons/353397/circle_map_marker_pin_icon
-https://www.iconfinder.com/icons/1564524/adress_gps_location_pin_position_icon
-
-https://www.iconfinder.com/icons/9215081/internet_network_web_global_connection_online_world_icon
-https://www.iconfinder.com/icons/5305164/play_video_youtube_youtube_logo_icon
-https://www.iconfinder.com/icons/211929/social_youtube_icon
-https://www.iconfinder.com/icons/216502/video_icon
-https://www.iconfinder.com/icons/2559773/camera_media_video_icon
-https://www.iconfinder.com/icons/10523204/video_camera_icon
-
-https://www.iconfinder.com/icons/216232/group_icon
-https://www.iconfinder.com/icons/9075816/team_teamwork_meeting_work_business_support_leadership_collaboration_collaborate_icon
-https://www.iconfinder.com/icons/1624094/crowd_friends_group_heads_people_user_users_icon (paid)
