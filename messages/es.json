@@ -433,8 +433,29 @@
     "pageTitle": "Estadística"
   },
   "/events/create": {
-    "pageTitle": "Crear evento",
-    "btnCreate": "Crear"
+    "pageTitleEventCreationFlow": "Creación de eventos",
+    "pageEventTypeDescription": "Seleccione el tipo de evento.",
+    "pageEventTypeCompetition": "Competencia",
+    "pageEventTypeMeeting": "Reunión",
+    "pageCompTypeDescription": "Seleccione el tipo de competición.",
+    "pageCompTypeOnsite": "En el sitio",
+    "pageCompTypeOnline": "En línea",
+    "pageGeneralDetailsDescription": "Introduzca los detalles del evento.",
+    "pageGeneralDetailsInputName": "Nombre del evento",
+    "pageGeneralDetailsCbCategory": "Categoría",
+    "pageGeneralDetailsCbVenueCountry": "País",
+    "pageGeneralDetailsDatePickerFrom": "Fecha de inicio",
+    "pageGeneralDetailsDatePickerTo": "Fecha de finalización",
+    "pageGeneralDetailsDatePickerRegistrationFrom": "Inscripciones abiertas",
+    "pageGeneralDetailsDatePickerRegistrationTo": "Fecha límite de inscripción",
+    "pageCheckoutOverviewDescription": "Por favor, revise su selección antes de continuar.",
+    "pageSuccessSuccessText1": "¡Evento creado!",
+    "pageSuccessSuccessText2": "Revísalo o añade más detalles.",
+    "pageSuccessBtnEditEvent": "Editar",
+    "pageSuccessBtnShowEvent": "Espectáculo",
+    "btnBackToOverview": "Cancelar",
+    "btnNextPage": "Siguiente",
+    "btnCreateEvent": "Crear"
   },
   "/events/manage": {
     "pageTitle": "Gestionar eventos",

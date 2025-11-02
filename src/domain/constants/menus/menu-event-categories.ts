@@ -4,7 +4,7 @@ import { EventCategory } from '@/domain/enums/event-category';
 export const menuEventCategories = (showWffaOptions: boolean): MenuItem[] => {
   const base = [
     { text: 'Continental', value: EventCategory.CONTINENTAL },
-    { text: 'International Open', value: EventCategory.INTERNATIONAL },
+    { text: 'International', value: EventCategory.INTERNATIONAL },
     { text: 'National', value: EventCategory.NATIONAL },
   ];
 

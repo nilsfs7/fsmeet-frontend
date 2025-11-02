@@ -1,40 +1,18 @@
-import Navigation from '@/components/navigation';
-import PageTitle from '@/components/page-title';
-import NavigateBackButton from '@/components/navigate-back-button';
-import { TextButtonCreateEvent } from './components/text-button-create-event';
-import { Editor } from './components/editor';
-import { getTranslations } from 'next-intl/server';
-import { getUsers } from '@/infrastructure/clients/user.client';
-import { UserType } from '@/domain/enums/user-type';
+import { EventCreationProcess } from './components/event-creation-process';
+import { getLicense } from '../../../infrastructure/clients/license.client';
+import { auth } from '../../../auth';
+import LoadingSpinner from '../../../components/animation/loading-spinner';
+import { getUser } from '../../../infrastructure/clients/user.client';
 
 export default async function EventCreation() {
-  const t = await getTranslations('/events/create');
+  const session = await auth();
 
-  const users = await getUsers().then(users => {
-    return users.filter(user => {
-      if (user.type !== UserType.ADMINISTRATIVE) return user;
-    });
-  });
+  if (!session?.user.username) {
+    return <LoadingSpinner />;
+  }
 
-  return (
-    <div className="h-[calc(100dvh)] flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+  const eventAdmin = await getUser(session.user.username, session);
+  const license = await getLicense(session, session.user.username);
 
-      <div className={`mx-2 flex flex-col overflow-y-auto`}>
-        <div className={'flex justify-center'}>
-          <Editor users={users} />
-        </div>
-      </div>
-
-      <Navigation>
-        <div className="mr-1">
-          <NavigateBackButton />
-        </div>
-
-        <div className="ml-1">
-          <TextButtonCreateEvent />
-        </div>
-      </Navigation>
-    </div>
-  );
+  return <EventCreationProcess eventAdmin={eventAdmin} licenses={license.amountEventLicenses} />;
 }

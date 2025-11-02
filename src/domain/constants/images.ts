@@ -3,8 +3,11 @@ export const imgNotFound = '/not-found.svg';
 export const imgImagePlaceholder = '/image-placeholder.svg';
 
 export const imgUserDefaultImg = '/jury/judge-no-img.png';
+
 export const imgMeeting = '/event/meeting.svg';
 export const imgCompetition = '/event/competition.svg';
+export const imgCompetitionOnsite = '/event/competition_onsite.svg';
+export const imgCompetitionOnline = '/event/competition_online.svg';
 export const imgCalender = '/event/calendar.svg';
 export const imgLocation = '/event/location.svg';
 
