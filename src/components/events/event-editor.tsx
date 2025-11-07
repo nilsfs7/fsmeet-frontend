@@ -292,61 +292,64 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
   // updates inputs with given event
   useEffect(() => {
-    if (event) {
-      setEventName(event.name);
-      setEventAlias(event.alias);
-      setMaintainers(event.maintainers);
-      setDateFrom(event.dateFrom);
-      setDateTo(event.dateTo);
-      setParticipationFee(event.participationFee);
-      setVisitorFee(event.visitorFee);
-      setRegistrationOpen(event.registrationOpen);
-      setRegistrationDeadline(event.registrationDeadline);
-      setDescription(event.description);
-      setVenueName(event.venueName);
-      setVenueHouseNo(event.venueHouseNo);
-      setVenueStreet(event.venueStreet);
-      setVenuePostCode(event.venuePostCode);
-      setVenueCity(event.venueCity);
-      setVenueCountry(event.venueCountry);
-      setEventType(event.type);
-      setEventCategory(event.category);
-      setIsWffaRanked(event.isWffaRanked);
-      setTrailerUrl(event.trailerUrl);
-      setLivestreamUrl(event.livestreamUrl);
-      setMessangerInvitationUrl(event.messangerInvitationUrl);
-      setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
-      setPaymentMethodPayPalEnabled(event.paymentMethodPayPal.enabled);
-      setPaymentMethodPayPalHandle(event.paymentMethodPayPal.payPalHandle);
-      setPaymentMethodSepaEnabled(event.paymentMethodSepa.enabled);
-      setPaymentMethodSepaBank(event.paymentMethodSepa.bank);
-      setPaymentMethodSepaRecipient(event.paymentMethodSepa.recipient);
-      setPaymentMethodSepaIban(event.paymentMethodSepa.iban);
-      setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
-      setPaymentMethodStripeEnabled(event.paymentMethodStripe.enabled);
-      setPaymentMethodStripeCoverProviderFee(event.paymentMethodStripe.coverProviderFee);
-      setShowUserCountryFlag(event.showUserCountryFlag);
-      setRegistrationCollectPhoneNumber(event.registrationCollectPhoneNumber);
-      setAutoApproveRegistrations(event.autoApproveRegistrations);
-      setNotifyOnRegistration(event.notifyOnRegistration);
-      setAllowComments(event.allowComments);
-      setNotifyOnComment(event.notifyOnComment);
-      setWaiver(event.waiver);
-      setVisaInvitationRequestsEnabled(event.visaInvitationRequestsEnabled);
-    }
+    if (editorMode === EditorMode.EDIT) {
+      if (event) {
+        setEventName(event.name);
+        setEventAlias(event.alias);
+        setMaintainers(event.maintainers);
+        setDateFrom(event.dateFrom);
+        setDateTo(event.dateTo);
+        setParticipationFee(event.participationFee);
+        setVisitorFee(event.visitorFee);
+        setRegistrationOpen(event.registrationOpen);
+        setRegistrationDeadline(event.registrationDeadline);
+        setDescription(event.description);
+        setVenueName(event.venueName);
+        setVenueHouseNo(event.venueHouseNo);
+        setVenueStreet(event.venueStreet);
+        setVenuePostCode(event.venuePostCode);
+        setVenueCity(event.venueCity);
+        setVenueCountry(event.venueCountry);
+        setEventType(event.type);
+        setEventCategory(event.category);
+        setIsWffaRanked(event.isWffaRanked);
+        setTrailerUrl(event.trailerUrl);
+        setLivestreamUrl(event.livestreamUrl);
+        setMessangerInvitationUrl(event.messangerInvitationUrl);
+        setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
+        setPaymentMethodPayPalEnabled(event.paymentMethodPayPal.enabled);
+        setPaymentMethodPayPalHandle(event.paymentMethodPayPal.payPalHandle);
+        setPaymentMethodSepaEnabled(event.paymentMethodSepa.enabled);
+        setPaymentMethodSepaBank(event.paymentMethodSepa.bank);
+        setPaymentMethodSepaRecipient(event.paymentMethodSepa.recipient);
+        setPaymentMethodSepaIban(event.paymentMethodSepa.iban);
+        setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
+        setPaymentMethodStripeEnabled(event.paymentMethodStripe.enabled);
+        setPaymentMethodStripeCoverProviderFee(event.paymentMethodStripe.coverProviderFee);
+        setShowUserCountryFlag(event.showUserCountryFlag);
+        setRegistrationCollectPhoneNumber(event.registrationCollectPhoneNumber);
+        setAutoApproveRegistrations(event.autoApproveRegistrations);
+        setNotifyOnRegistration(event.notifyOnRegistration);
+        setAllowComments(event.allowComments);
+        setNotifyOnComment(event.notifyOnComment);
+        setWaiver(event.waiver);
+        setVisaInvitationRequestsEnabled(event.visaInvitationRequestsEnabled);
+      }
 
-    if (event?.admin)
-      getUser(event.admin, session).then(eventAdmin => {
-        setEventAdmin(eventAdmin);
-      });
-  }, [editorMode === EditorMode.EDIT]);
+      if (event?.admin)
+        getUser(event.admin, session).then(eventAdmin => {
+          setEventAdmin(eventAdmin);
+        });
+    }
+  }, [session]);
 
   useEffect(() => {
-    if (session?.user.username)
+    if (editorMode === EditorMode.CREATE && session?.user.username) {
       getUser(session?.user.username, session).then(eventAdmin => {
         setEventAdmin(eventAdmin);
       });
-  }, [editorMode === EditorMode.CREATE]);
+    }
+  }, [session]);
 
   // fires back event
   useEffect(() => {
@@ -449,7 +452,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           <div>{t('cbCategory')}</div>
           <div className="flex w-full">
             <ComboBox
-              menus={menuEventCategories}
+              menus={menuEventCategories(eventAdmin?.isWffaMember || false)}
               value={category}
               onChange={(value: EventCategory) => {
                 setEventCategory(value);
