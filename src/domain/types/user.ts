@@ -36,5 +36,5 @@ export type User = {
   phoneNumber?: string | null;
   stripeAccountId?: string;
   wffaId?: string;
-  isWffaMember?: string;
+  isWffaMember?: boolean;
 };
