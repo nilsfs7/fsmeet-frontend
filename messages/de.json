@@ -433,8 +433,29 @@
     "pageTitle": "Statistiken"
   },
   "/events/create": {
-    "pageTitle": "Event erstellen",
-    "btnCreate": "Erstellen"
+    "pageTitleEventCreationFlow": "Eventerstellung",
+    "pageEventTypeDescription": "Wähle Eventart.",
+    "pageEventTypeCompetition": "Wettbewerb",
+    "pageEventTypeMeeting": "Meeting",
+    "pageCompTypeDescription": "Wähle Wettbewerbsart.",
+    "pageCompTypeOnsite": "Vor Ort",
+    "pageCompTypeOnline": "Online",
+    "pageGeneralDetailsDescription": "Eventdetails eingeben.",
+    "pageGeneralDetailsInputName": "Eventname",
+    "pageGeneralDetailsCbCategory": "Kategorie",
+    "pageGeneralDetailsCbVenueCountry": "Land",
+    "pageGeneralDetailsDatePickerFrom": "Startdatum",
+    "pageGeneralDetailsDatePickerTo": "Enddatum",
+    "pageGeneralDetailsDatePickerRegistrationFrom": "Öffnung Registrierung",
+    "pageGeneralDetailsDatePickerRegistrationTo": "Deadline Registrierung",
+    "pageCheckoutOverviewDescription": "Bitte überprüfe Deine Auswahl, bevor du weitermachst.",
+    "pageSuccessSuccessText1": "Event erstellt!",
+    "pageSuccessSuccessText2": "Schau es dir an oder füge weitere Details hinzu.",
+    "pageSuccessBtnEditEvent": "Weiter bearbeiten",
+    "pageSuccessBtnShowEvent": "Event anzeigen",
+    "btnBackToOverview": "Abbrechen",
+    "btnNextPage": "Weiter",
+    "btnCreateEvent": "Erstellen"
   },
   "/events/manage": {
     "pageTitle": "Events verwalten",

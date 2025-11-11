@@ -448,8 +448,29 @@
     "pageTitle": "Statistics"
   },
   "/events/create": {
-    "pageTitle": "Create Event",
-    "btnCreate": "Create"
+    "pageTitleEventCreationFlow": "Event Creation",
+    "pageEventTypeDescription": "Select event type.",
+    "pageEventTypeCompetition": "Competition",
+    "pageEventTypeMeeting": "Meeting",
+    "pageCompTypeDescription": "Select competition type.",
+    "pageCompTypeOnsite": "Onsite",
+    "pageCompTypeOnline": "Online",
+    "pageGeneralDetailsDescription": "Enter event details.",
+    "pageGeneralDetailsInputName": "Event Name",
+    "pageGeneralDetailsCbCategory": "Category",
+    "pageGeneralDetailsCbVenueCountry": "Country",
+    "pageGeneralDetailsDatePickerFrom": "Start Date",
+    "pageGeneralDetailsDatePickerTo": "End Date",
+    "pageGeneralDetailsDatePickerRegistrationFrom": "Registration Open",
+    "pageGeneralDetailsDatePickerRegistrationTo": "Registration Deadline",
+    "pageCheckoutOverviewDescription": "Please review your selection before proceeding.",
+    "pageSuccessSuccessText1": "Event created!",
+    "pageSuccessSuccessText2": "Check it out or add further details.",
+    "pageSuccessBtnEditEvent": "Continue Editing",
+    "pageSuccessBtnShowEvent": "Show Event",
+    "btnBackToOverview": "Cancel",
+    "btnNextPage": "Next",
+    "btnCreateEvent": "Create"
   },
   "/events/manage": {
     "pageTitle": "Manage Events",
