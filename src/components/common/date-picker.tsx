@@ -11,7 +11,7 @@ import { Moment } from 'moment';
 import moment from 'moment';
 
 interface IDatePicker {
-  date: Moment;
+  date: Moment | undefined;
   fromDate: Moment;
   toDate: Moment;
   onChange?: (date: Moment) => void;
@@ -34,7 +34,7 @@ export const DatePicker = ({ date, fromDate, toDate, onChange }: IDatePicker) =>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" captionLayout="dropdown-buttons" selected={date.toDate()} onSelect={handleValueChanged} fromDate={fromDate.toDate()} toDate={toDate.toDate()} />
+        <Calendar mode="single" captionLayout="dropdown-buttons" selected={date?.toDate()} onSelect={handleValueChanged} fromDate={fromDate.toDate()} toDate={toDate.toDate()} />
       </PopoverContent>
     </Popover>
   );
