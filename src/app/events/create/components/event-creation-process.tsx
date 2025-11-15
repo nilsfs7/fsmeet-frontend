@@ -305,8 +305,6 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       router.replace(`${pageUrl}?page=${CreationProcessPage.SUCCESS_PAGE}`);
 
       return response.id;
-      router.push(`${routeEvents}/${response.id}`);
-      // router.refresh();
     } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);

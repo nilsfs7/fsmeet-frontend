@@ -5,10 +5,10 @@ export class CreateAttachmentBodyDto {
   url: string | null;
   documentBase64: string | null;
   expires: boolean;
-  expiryDate: string;
+  expiryDate: string | null;
   enabled: boolean;
 
-  constructor(eventId: string, name: string, isExternal: boolean, url: string | null, documentBase64: string | null, expires: boolean, expiryDate: string, enabled: boolean) {
+  constructor(eventId: string, name: string, isExternal: boolean, url: string | null, documentBase64: string | null, expires: boolean, expiryDate: string | null, enabled: boolean) {
     this.eventId = eventId;
     this.name = name;
     this.isExternal = isExternal;

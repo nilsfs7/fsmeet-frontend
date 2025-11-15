@@ -5,6 +5,6 @@ export type Attachment = {
   isExternal: boolean;
   url: string | null;
   expires: boolean;
-  expiryDate: string;
+  expiryDate: string | null;
   enabled: boolean;
 };

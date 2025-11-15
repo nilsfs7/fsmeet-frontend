@@ -44,7 +44,7 @@ export async function createAttachment(
   documentUrl: string | null,
   documentBase64: string | null,
   expires: boolean,
-  expiryDate: string,
+  expiryDate: string | null,
   enabled: boolean,
   session: Session | null
 ): Promise<CreateAttachmentResponseDto> {
@@ -79,7 +79,7 @@ export async function updateAttachment(
   documentUrl: string | null,
   documentBase64: string | null,
   expires: boolean,
-  expiryDate: string,
+  expiryDate: string | null,
   enabled: boolean,
   session: Session | null
 ): Promise<void> {
