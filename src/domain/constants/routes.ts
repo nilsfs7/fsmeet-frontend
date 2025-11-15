@@ -4,6 +4,7 @@ export const routeAdminOverview = '/admin';
 export const routeAdminEvents = '/admin/events';
 export const routeAdminLicenses = '/admin/licenses';
 export const routeAdminUserVerification = '/admin/verification';
+export const routeAdminBroadcast = '/admin/broadcast';
 
 export const routeWffaOverview = '/wffa';
 export const routeWffaFreestylerIdMangement = '/wffa/wffaid';
