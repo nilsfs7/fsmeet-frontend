@@ -4,11 +4,11 @@ export class ReadAttachmentResponseDto {
   isExternal: boolean;
   url: string;
   expires: boolean;
-  expiryDate: string;
+  expiryDate: string | null;
   enabled: boolean;
   eventId: string;
 
-  constructor(id: string, name: string, isExternal: boolean, url: string, expires: boolean, expiryDate: string, enabled: boolean, eventId: string) {
+  constructor(id: string, name: string, isExternal: boolean, url: string, expires: boolean, expiryDate: string | null, enabled: boolean, eventId: string) {
     this.id = id;
     this.name = name;
     this.isExternal = isExternal;

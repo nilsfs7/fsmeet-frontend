@@ -24,7 +24,7 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentDocument
   const [document, setDocument] = useState<File>();
   const [documentObjectURL, setDocumentObjectURL] = useState<string>();
   const [expires, setExpires] = useState<boolean>(attachment?.expires || false);
-  const [expiryDate, setExpiryDate] = useState<string>(attachment?.expiryDate || '');
+  const [expiryDate, setExpiryDate] = useState<string | null>(attachment?.expiryDate || null);
   const [enabled, setEnabled] = useState<boolean>(attachment?.enabled || true);
 
   const uploadToClient = (event: any) => {
