@@ -1,10 +1,11 @@
 import { Session } from 'next-auth';
 import { CreateBroadcastBodyDto } from './dtos/notification/create-broadcast-notification.body.dto';
+import { NotificationAction } from '../../domain/enums/notification-action';
 
-export async function createBroadcast(title: string, message: string, session: Session | null): Promise<void> {
+export async function createBroadcast(title: string, message: string, action: NotificationAction, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/notification/broadcast`;
 
-  const body = new CreateBroadcastBodyDto(title, message);
+  const body = new CreateBroadcastBodyDto(title, message, action);
 
   const response = await fetch(url, {
     method: 'POST',

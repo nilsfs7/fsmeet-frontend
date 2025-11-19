@@ -11,15 +11,18 @@ import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/page-title';
 import { Toaster, toast } from 'sonner';
 import { useSession } from 'next-auth/react';
-
 import { createBroadcast } from '../../../infrastructure/clients/notification.client';
 import TextInput from '../../../components/common/text-input';
+import { NotificationAction } from '../../../domain/enums/notification-action';
+import ComboBox from '../../../components/common/combo-box';
+import { menuNotificationActions } from '../../../domain/constants/menus/menu-notification-action';
 
 export default function Broadcast() {
   const { data: session } = useSession();
 
   const [title, setTitle] = useState('Admin Announcement');
   const [message, setMessage] = useState('');
+  const [action, setAction] = useState(NotificationAction.HOME);
 
   const handleInputTitleChanged = (value: string) => {
     setTitle(value);
@@ -31,7 +34,7 @@ export default function Broadcast() {
 
   const handleSubmitClicked = async () => {
     try {
-      await createBroadcast(title, message, session);
+      await createBroadcast(title, message, action, session);
     } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
@@ -45,7 +48,7 @@ export default function Broadcast() {
       <div className="h-[calc(100dvh)] flex flex-col">
         <PageTitle title={'Broadcast'} />
 
-        <div className="mx-2 flex flex-col rounded-lg border border-primary bg-secondary-light overflow-y-auto gap-2">
+        <div className="mx-2 flex flex-col rounded-lg border border-primary bg-secondary-light overflow-y-auto gap-2 p-2">
           <div>
             <TextInput
               id={'title'}
@@ -66,6 +69,21 @@ export default function Broadcast() {
                 handleInputMessageChanged(e.currentTarget.value);
               }}
             />
+          </div>
+
+          <div className="mx-2 flex items-center gap-2">
+            <div>{`Action`}</div>
+            <div className="flex w-full">
+              <ComboBox
+                label="dncj"
+                menus={menuNotificationActions}
+                value={action}
+                searchEnabled={false}
+                onChange={(value: NotificationAction) => {
+                  setAction(value);
+                }}
+              />
+            </div>
           </div>
         </div>
 
