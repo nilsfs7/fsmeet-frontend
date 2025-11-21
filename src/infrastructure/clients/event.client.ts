@@ -10,8 +10,8 @@ import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-
 import { UpdateVisaInvitationRequestStateBodyDto } from './dtos/event/update-visa-invitation-request-state.body.dto';
 import { ReadVisaInvitationRequestResponseDto } from './dtos/event/read-visa-invitation-request.response.dto';
 import { ReadEventRegistrationResponseDto } from './dtos/event/registration/read-event-registration.response.dto';
-import { CreateStripeCheckoutLinkBodyDto } from './dtos/event/create-stripe-checkout-link.body.dto';
-import { ReadStripeCheckoutLinkResponseDto } from './dtos/event/read-stripe-checkout-link.response.dto';
+import { CreateStripeCheckoutBodyDto } from './dtos/event/create-stripe-checkout.body.dto';
+import { ReadStripeCheckoutResponseDto } from './dtos/event/read-stripe-checkout.response.dto';
 import { CreateEventBodyDto } from './dtos/event/create-event.body.dto';
 import { CreateEventMaintainerBodyDto } from './dtos/event/create-event-maintainer.body.dto';
 import { CreatePaymentMethodCashBodyDto } from './dtos/event/payment/create-payment-method-cash.body.dto';
@@ -338,9 +338,9 @@ export async function createEventRegistration_v2(
 }
 
 export async function createEventRegistrationCheckoutLink(eventId: string, successUrl: string, session: Session | null): Promise<string> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout/link`;
 
-  const body = new CreateStripeCheckoutLinkBodyDto(successUrl);
+  const body = new CreateStripeCheckoutBodyDto(successUrl);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -352,9 +352,13 @@ export async function createEventRegistrationCheckoutLink(eventId: string, succe
   });
 
   if (response.ok) {
-    const dto: ReadStripeCheckoutLinkResponseDto = await response.json();
+    const dto: ReadStripeCheckoutResponseDto = await response.json();
     console.info('Creating stripe checkout link for event registration successful');
-    return dto.url;
+
+    if (!dto.checkoutUrl) {
+      throw Error('Unknown error. Missing checkout URL.');
+    }
+    return dto.checkoutUrl;
   } else {
     const error = await response.json();
     throw Error(error.message);

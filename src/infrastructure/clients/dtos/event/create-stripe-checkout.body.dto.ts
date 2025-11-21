@@ -1,4 +1,4 @@
-export class CreateStripeCheckoutLinkBodyDto {
+export class CreateStripeCheckoutBodyDto {
   successUrl: string;
 
   constructor(successUrl: string) {
