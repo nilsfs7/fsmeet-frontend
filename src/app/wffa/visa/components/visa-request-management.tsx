@@ -10,6 +10,8 @@ import Separator from '@/components/seperator';
 import { getVisaInvitationRequests, updateVisaInvitationRequest } from '@/infrastructure/clients/event.client';
 import { VisaInvitationRequest } from '@/domain/types/visa-invitation-request';
 import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-approval-state';
+import Link from 'next/link';
+import { routeUsers } from '../../../../domain/constants/routes';
 
 export const VisaRequestManagement = () => {
   const { data: session, status } = useSession();
@@ -60,9 +62,11 @@ export const VisaRequestManagement = () => {
                 return (
                   <div key={index} className="m-1 flex items-center">
                     <div className="mx-1 flex w-1/2 justify-end gap-1">
-                      <div className="flex-col flex">
-                        {item.firstName} {item.lastName}
-                      </div>
+                      <Link href={`${routeUsers}/${item.username}`}>
+                        <div className="flex-col flex">
+                          {item.firstName} {item.lastName}
+                        </div>
+                      </Link>
 
                       <div>{`(${item.id.substring(0, 3)}..${item.id.substring(item.id.length - 3)})`}</div>
                     </div>
@@ -98,9 +102,11 @@ export const VisaRequestManagement = () => {
                 return (
                   <div key={index} className="m-1 flex items-center">
                     <div className="mx-1 flex w-1/2 justify-end gap-1">
-                      <div className="flex-col flex">
-                        {item.firstName} {item.lastName}
-                      </div>
+                      <Link href={`${routeUsers}/${item.username}`}>
+                        <div className="flex-col flex">
+                          {item.firstName} {item.lastName}
+                        </div>
+                      </Link>
 
                       <div>{`(${item.id.substring(0, 3)}..${item.id.substring(item.id.length - 3)})`}</div>
                     </div>
@@ -111,7 +117,13 @@ export const VisaRequestManagement = () => {
                           <ActionButton action={Action.GOTOEXTERNAL} />
                         </a>
 
-                        <div>{`Action: ${item.approver}`}</div>
+                        <div className="flex gap-1">
+                          <div>{`Action:`}</div>
+
+                          <Link href={`${routeUsers}/${item.approver}`}>
+                            <div>{`${item.approver}`}</div>
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -129,9 +141,11 @@ export const VisaRequestManagement = () => {
                 return (
                   <div key={index} className="m-1 flex items-center">
                     <div className="mx-1 flex w-1/2 justify-end gap-1">
-                      <div className="flex-col flex">
-                        {item.firstName} {item.lastName}
-                      </div>
+                      <Link href={`${routeUsers}/${item.username}`}>
+                        <div className="flex-col flex">
+                          {item.firstName} {item.lastName}
+                        </div>
+                      </Link>
 
                       <div>{`(${item.id.substring(0, 3)}..${item.id.substring(item.id.length - 3)})`}</div>
                     </div>
