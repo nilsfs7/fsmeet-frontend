@@ -2,6 +2,7 @@ import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-
 
 export type VisaInvitationRequest = {
   id: string;
+  username: string;
   firstName: string;
   lastName: string;
   countryCode: string;
