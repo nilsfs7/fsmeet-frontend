@@ -12,6 +12,8 @@ import { updateUserWffaId } from '@/infrastructure/clients/user.client';
 import { useSession } from 'next-auth/react';
 import { Input } from '@/components/ui/input';
 import Separator from '@/components/seperator';
+import { imgVerifiedCheckmark } from '../../../../domain/constants/images';
+import { UserVerificationState } from '../../../../domain/enums/user-verification-state';
 
 interface IWffaIdEditorProps {
   users: User[];
@@ -61,7 +63,8 @@ export const WffaIdEditor = ({ users }: IWffaIdEditorProps) => {
   const row = (item: { user: User; newWffaId: string }, index: number) => {
     return (
       <div key={index} className="m-1 flex items-center">
-        <div className="mx-1 flex w-1/2 justify-end gap-1">
+        {/* User Info */}
+        <div className="mx-1 flex w-1/2 justify-end items-center gap-1">
           <Link className="float-right" href={`${routeUsers}/${item.user.username}`}>
             {item.user.username}
           </Link>
@@ -69,7 +72,11 @@ export const WffaIdEditor = ({ users }: IWffaIdEditorProps) => {
           <Link className="float-right" href={`${routeUsers}/${item.user.username}`}>
             {`(${item.user.firstName})`}
           </Link>
+
+          <div className="h-6 w-6 flex items-center">{item.user.verificationState === UserVerificationState.VERIFIED && <img src={imgVerifiedCheckmark} alt="user verified checkmark" />}</div>
         </div>
+
+        {/* Inputs & Actions */}
         <div className="mx-1 flex w-1/2 justify-start">
           <>
             <Input
