@@ -1000,29 +1000,27 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       )}
 
       {paymentMethodStripeEnabled && (
-        <>
-          {/* TODO: if user is eligible to set this */}
-          <CheckBox
-            id={'visaInvitationRequestsEnabled'}
-            label={t('chbVisaInvitationRequestsEnabled')}
-            value={visaInvitationRequestsEnabled}
-            onChange={() => {
-              setVisaInvitationRequestsEnabled(!visaInvitationRequestsEnabled);
-            }}
-          />
-
-          <TextInputLarge
-            id={'waiver'}
-            label={t('inputWaiver')}
-            placeholder="By participating in this event, I acknowledge ..."
-            value={waiver}
-            resizable={true}
-            onChange={e => {
-              setWaiver(e.currentTarget.value);
-            }}
-          />
-        </>
+        //    TODO: if user is eligible to set this
+        <CheckBox
+          id={'visaInvitationRequestsEnabled'}
+          label={t('chbVisaInvitationRequestsEnabled')}
+          value={visaInvitationRequestsEnabled}
+          onChange={() => {
+            setVisaInvitationRequestsEnabled(!visaInvitationRequestsEnabled);
+          }}
+        />
       )}
+
+      <TextInputLarge
+        id={'waiver'}
+        label={t('inputWaiver')}
+        placeholder="By participating in this event, I acknowledge ..."
+        value={waiver}
+        resizable={true}
+        onChange={e => {
+          setWaiver(e.currentTarget.value);
+        }}
+      />
     </div>
     // </>
   );
