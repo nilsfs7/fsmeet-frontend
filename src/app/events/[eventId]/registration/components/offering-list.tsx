@@ -42,9 +42,9 @@ export const OfferingList = ({
         {/* todo: color code for head bg */}
         <thead className="bg-gray-200 text-primary uppercase text-sm leading-normal">
           <tr className="text-left whitespace-nowrap">
-            <th className="py-3 px-3 rounded-l-lg">{`Description`}</th>
-            <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{`Cost`}</th>
-            {selectable && <th className="py-3 px-3 rounded-r-lg">{`Select`}</th>}
+            <th className="py-3 px-3 rounded-l-lg">{t('columnTitleDescription')}</th>
+            <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{t('columnTitleCost')}</th>
+            {selectable && <th className="py-3 px-3 rounded-r-lg">{t('columnTitleSelection')}</th>}
           </tr>
         </thead>
         <tbody className="text-primary text-sm">

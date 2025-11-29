@@ -4,6 +4,7 @@ import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { Accommodation } from '@/domain/types/accommodation';
+import { useTranslations } from 'next-intl';
 
 interface IAccommodationList {
   accommodations: Accommodation[];
@@ -16,14 +17,16 @@ interface IAccommodationList {
 }
 
 export const AccommodationList = ({ accommodations, paymentFeeCover, currency, disabled = [], checked = [], selectable = false, onCheckedChange }: IAccommodationList) => {
+  const t = useTranslations('global/components/accommodation-list');
+
   return (
     <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
       {/* todo: color code for head bg*/}
       <thead className="bg-gray-200 text-primary uppercase text-sm leading-normal">
         <tr className="text-left whitespace-nowrap">
-          <th className="py-3 px-3 rounded-l-lg">{`Description`}</th>
-          <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{`Cost`}</th>
-          {selectable && <th className="py-3 px-3 rounded-r-lg">{`Select`}</th>}
+          <th className="py-3 px-3 rounded-l-lg">{t('columnTitleDescription')}</th>
+          <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{t('columnTitleCost')}</th>
+          {selectable && <th className="py-3 px-3 rounded-r-lg">{t('columnTitleSelection')}</th>}
         </tr>
       </thead>
       <tbody className="text-primary text-sm">

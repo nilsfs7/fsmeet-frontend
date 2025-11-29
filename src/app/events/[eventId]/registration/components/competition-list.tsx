@@ -4,6 +4,7 @@ import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { Competition } from '@/domain/types/competition';
+import { useTranslations } from 'next-intl';
 
 interface ICompetitionList {
   competitions: Competition[];
@@ -17,16 +18,18 @@ interface ICompetitionList {
 }
 
 export const CompetitionList = ({ competitions, amountRegistrations, paymentFeeCover, currency, disabled = [], checked = [], selectable = false, onCheckedChange }: ICompetitionList) => {
+  const t = useTranslations('global/components/competition-list');
+
   return (
     <table className={`border-secondary-dark bg-secondary-light gap-x-4 p-2 w-full`}>
       {/* todo: color code for head bg*/}
       <thead className="bg-gray-200 text-primary uppercase text-sm leading-normal">
         <tr className="text-left whitespace-nowrap">
-          <th className="py-3 px-3 rounded-l-lg">{`Type`}</th>
-          <th className="py-3 px-3">{`Name`}</th>
-          <th className="py-3 px-3">{`Gender`}</th>
-          <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{`Fee`}</th>
-          {selectable && <th className="py-3 px-3 rounded-r-lg">{`Select`}</th>}
+          <th className="py-3 px-3 rounded-l-lg">{t('columnTitleCompType')}</th>
+          <th className="py-3 px-3">{t('columnTitleName')}</th>
+          <th className="py-3 px-3">{t('columnTitleGender')}</th>
+          <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{t('columnTitleCost')}</th>
+          {selectable && <th className="py-3 px-3 rounded-r-lg">{t('columnTitleSelection')}</th>}
         </tr>
       </thead>
       <tbody className="text-primary text-sm">
