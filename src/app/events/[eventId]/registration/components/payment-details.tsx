@@ -7,6 +7,7 @@ import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { useState } from 'react';
 import { Competition } from '@/domain/types/competition';
+import { useTranslations } from 'next-intl';
 
 interface IPaymentDetails {
   event: Event;
@@ -20,6 +21,8 @@ interface IPaymentDetails {
 }
 
 export const PaymentDetails = ({ event, competitions, registrationType, compSignUps, accommodationOrders, offeringOrders, paymentFeeCover, onDonationCheckedChange }: IPaymentDetails) => {
+  const t = useTranslations('global/components/payment-details');
+
   let eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFee : event.visitorFee;
   if (paymentFeeCover) {
     eventFee = registrationType === EventRegistrationType.PARTICIPANT ? event.participationFeeIncPaymentCosts : event.visitorFeeIncPaymentCosts;
@@ -48,17 +51,17 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
 
   return (
     <div>
-      <div className="m-2 text-lg">{`Payment details`}</div>
+      <div className="m-2 text-lg">{t('title')}</div>
 
       <div className="m-2 flex flex-col gap-2 text-sm">
         <div className="flex justify-between">
-          <div>{`Event fee`}</div>
+          <div>{t('feeEvent')}</div>
           <div>{`${convertCurrencyIntegerToDecimal(eventFee, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}`}</div>
         </div>
 
         {registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && compSignUps.length > 0 && (
           <div className="flex justify-between">
-            <div>{`Competition fee(s)`}</div>
+            <div>{t('feeCompetitions')}</div>
             <div>
               {`${competitions
                 .filter(c => c.id && compSignUps.includes(c.id))
@@ -75,7 +78,7 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
 
         {offeringOrders.length > 0 && (
           <div className="flex justify-between">
-            <div>{`Offering fee(s)`}</div>
+            <div>{t('feeOfferings')}</div>
             <div>
               {`${event.offerings
                 .filter(a => a.id && offeringOrders.includes(a.id))
@@ -88,7 +91,7 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
 
         {accommodationOrders.length > 0 && (
           <div className="flex justify-between">
-            <div>{`Accommodation fee(s)`}</div>
+            <div>{t('feeAccommodations')}</div>
             <div>
               {`${event.accommodations
                 .filter(a => a.id && accommodationOrders.includes(a.id))
@@ -102,7 +105,7 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
         <div className="flex justify-between">
           {event.paymentMethodStripe.enabled && getTotal() > 0 && (
             <div className="flex gap-2 items-center">
-              <div>{`1% donation to FSMeet`}</div>
+              <div>{t('chbDonation')}</div>
               <input
                 id={`input-donation`}
                 className="h-4 w-4"
@@ -119,7 +122,7 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
         </div>
 
         <div className="flex justify-between text-lg">
-          <div>{`Total`}</div>
+          <div>{t('feeTotal')}</div>
           <div>{`${convertCurrencyIntegerToDecimal(donationChecked ? getTotal() + getDonationAmount() : getTotal(), event.currency)
             .toFixed(2)
             .replace('.', ',')} ${getCurrencySymbol(event.currency)}`}</div>

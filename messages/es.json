@@ -601,6 +601,11 @@
     "inputCost": "Costo",
     "chbEnabled": "Activo"
   },
+  "global/components/accommodation-list": {
+    "columnTitleDescription": "Descripción",
+    "columnTitleCost": "Costo",
+    "columnTitleSelection": "Selección"
+  },
   "global/components/attachment-editor": {
     "inputName": "Nombre del documento",
     "chbIsExternal": "Es un enlace externo",
@@ -608,6 +613,11 @@
     "chbExpires": "Expira",
     "datePickerExpiryDate": "Fecha de caducidad",
     "chbEnabled": "Activo"
+  },
+  "global/components/attendee-choice": {
+    "columnTitleAttendeeType": "Tipo",
+    "columnTitleFee": "Costo",
+    "columnTitleSelection": "Selección"
   },
   "global/components/battle-grid": {
     "btnAddMatch": "Añadir partido"
@@ -626,6 +636,13 @@
     "inputRules": "Reglas",
     "inputRulesPlaceHolder": "3 rondas, 30 segundos, 1 pelota.",
     "cbJudges": "Juez"
+  },
+  "global/components/competition-list": {
+    "columnTitleCompType": "Tipo",
+    "columnTitleName": "Nombre",
+    "columnTitleGender": "Genero",
+    "columnTitleCost": "Costo",
+    "columnTitleSelection": "Selección"
   },
   "global/components/event-card": {
     "lblHost": "Organizador",
@@ -696,7 +713,19 @@
     "chbEnabled": "Activo"
   },
   "global/components/offering-list": {
+    "columnTitleDescription": "Descripción",
+    "columnTitleCost": "Costo",
+    "columnTitleSelection": "Selección",
     "cbShirtSize": "Talla de camiseta"
+  },
+  "global/components/payment-details": {
+    "title": "Payment Details",
+    "feeEvent": "Evento",
+    "feeCompetitions": "Competiciones",
+    "feeOfferings": "Ofertas",
+    "feeAccommodations": "Alojamientos",
+    "chbDonation": "Donación del 1% a FSMeet",
+    "feeTotal": "Suma total"
   },
   "global/components/poll-editor": {
     "inputQuestion": "Pregunta",

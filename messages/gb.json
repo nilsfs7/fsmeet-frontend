@@ -616,6 +616,11 @@
     "inputCost": "Cost",
     "chbEnabled": "Active"
   },
+  "global/components/accommodation-list": {
+    "columnTitleDescription": "Description",
+    "columnTitleCost": "Cost",
+    "columnTitleSelection": "Selection"
+  },
   "global/components/attachment-editor": {
     "inputName": "Attachment Name",
     "chbIsExternal": "Is external link",
@@ -623,6 +628,11 @@
     "chbExpires": "Expires",
     "datePickerExpiryDate": "Expiry date",
     "chbEnabled": "Active"
+  },
+  "global/components/attendee-choice": {
+    "columnTitleAttendeeType": "Type",
+    "columnTitleFee": "Fee",
+    "columnTitleSelection": "Selection"
   },
   "global/components/battle-grid": {
     "btnAddMatch": "Add Match"
@@ -641,6 +651,13 @@
     "inputRules": "Rules",
     "inputRulesPlaceHolder": "3 rounds, 30 seconds, 1 ball.",
     "cbJudges": "Judges"
+  },
+  "global/components/competition-list": {
+    "columnTitleCompType": "Type",
+    "columnTitleName": "Name",
+    "columnTitleGender": "Gender",
+    "columnTitleCost": "Fee",
+    "columnTitleSelection": "Selection"
   },
   "global/components/event-card": {
     "lblHost": "Host",
@@ -711,7 +728,19 @@
     "chbEnabled": "Active"
   },
   "global/components/offering-list": {
+    "columnTitleDescription": "Description",
+    "columnTitleCost": "Cost",
+    "columnTitleSelection": "Selection",
     "cbShirtSize": "T-Shirt Size"
+  },
+  "global/components/payment-details": {
+    "title": "Payment Details",
+    "feeEvent": "Event",
+    "feeCompetitions": "Competitions",
+    "feeOfferings": "Offerings",
+    "feeAccommodations": "Accommodations",
+    "chbDonation": "1% donation to FSMeet",
+    "feeTotal": "Total"
   },
   "global/components/poll-editor": {
     "inputQuestion": "Question",

@@ -7,6 +7,7 @@ import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { UserType } from '@/domain/enums/user-type';
+import { useTranslations } from 'next-intl';
 
 const registrationTypes = Object.values(EventRegistrationType);
 
@@ -35,6 +36,8 @@ export const AttendeeChoice = ({
   hideVisitorOption = false,
   onCheckedChange,
 }: IAttendeeChoiceList) => {
+  const t = useTranslations('global/components/attendee-choice');
+
   const availableRegistrationTypes = registrationTypes.filter(regType => {
     let addChoice = true;
 
@@ -64,9 +67,9 @@ export const AttendeeChoice = ({
         {/* todo: color code for head bg*/}
         <thead className="bg-gray-200 text-primary uppercase text-sm leading-normal">
           <tr className="text-left whitespace-nowrap">
-            <th className="py-3 px-3 rounded-l-lg">{`Type`}</th>
-            <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{`Fee`}</th>
-            {selectable && <th className="py-3 px-3 rounded-r-lg">{`Select`}</th>}
+            <th className="py-3 px-3 rounded-l-lg">{t('columnTitleAttendeeType')}</th>
+            <th className={`py-3 px-3 ${selectable ? '' : 'rounded-r-lg'}`}>{t('columnTitleFee')}</th>
+            {selectable && <th className="py-3 px-3 rounded-r-lg">{t('columnTitleSelection')}</th>}
           </tr>
         </thead>
         <tbody className="text-primary text-sm">
