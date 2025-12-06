@@ -42,7 +42,7 @@ export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSu
       </Dialog>
 
       <Tabs defaultValue={tab || `registrations`} className="flex flex-col h-full">
-        <TabsList className="mb-2">
+        <TabsList>
           <TabsTrigger
             value="registrations"
             onClick={() => {

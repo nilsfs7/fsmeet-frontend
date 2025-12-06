@@ -16,8 +16,8 @@ import { TextButtonFeedback } from './components/text-button-feedback';
 import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
 import TextButton from '@/components/common/text-button';
 import moment from 'moment';
-import { isArchivedEventState } from '@/functions/event-state';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
+import AdminPanel from './components/admin-panel';
 
 export default async function EventDetails(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -35,72 +35,13 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       {/* admin panel */}
-      <div className="mx-2 my-2">
-        {isEventAdminOrMaintainer(event, session) && (
-          <div className="flex justify-between rounded-lg border border-primary bg-warning p-2 gap-1">
-            <div>{t('adminPanelTitle')}</div>
-            <div className="flex flex-col sm:flex-row gap-1">
-              {/* row 1 */}
-              <div className="flex justify-end gap-1">
-                {!isArchivedEventState(event.state) && (
-                  <>
-                    <Link href={`${routeEvents}/${params.eventId}/edit`}>
-                      <ActionButton action={Action.EDIT} tooltip={t('adminPanelBtnEditEventToolTip')} />
-                    </Link>
+      {isEventAdminOrMaintainer(event, session) && (
+        <div className="mt-2 mx-2">
+          <AdminPanel event={event} />
+        </div>
+      )}
 
-                    <Link href={`${routeEvents}/${params.eventId}/participants`}>
-                      <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelBtnManageParticipantsToolTip')} />
-                    </Link>
-
-                    {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
-                      <Link href={`${routeEvents}/${params.eventId}/comps`}>
-                        <ActionButton action={Action.MANAGE_COMPETITIONS} tooltip={t('adminPanelBtnManageCompetitionsToolTip')} />
-                      </Link>
-                    )}
-                  </>
-                )}
-
-                <ActionButtonStateAction event={event} />
-              </div>
-
-              {/* row 2 */}
-              <div className="flex justify-end gap-1">
-                {!isArchivedEventState(event.state) && (
-                  <>
-                    {/* todo: restrict im backend falls trotzdem accommodations eingestellt werden */}
-                    {event.paymentMethodStripe.enabled && event.type !== EventType.COMPETITION_ONLINE && (
-                      <Link href={`${routeEvents}/${params.eventId}/accommodations`}>
-                        <ActionButton action={Action.MANAGE_ACCOMMODATIONS} tooltip={t('adminPanelBtnManageAccommodationsToolTip')} />
-                      </Link>
-                    )}
-
-                    {/* todo: restrict im backend falls trotzdem offerings eingestellt werden */}
-                    {event.paymentMethodStripe.enabled && (
-                      <Link href={`${routeEvents}/${params.eventId}/offerings`}>
-                        <ActionButton action={Action.MANAGE_OFFERINGS} tooltip={t('adminPanelBtnManageOfferingsToolTip')} />
-                      </Link>
-                    )}
-
-                    <Link href={`${routeEvents}/${params.eventId}/sponsors`}>
-                      <ActionButton action={Action.MANAGE_SPONSORS} tooltip={t('adminPanelBtnManageSponsorsToolTip')} />
-                    </Link>
-
-                    <Link href={`${routeEvents}/${params.eventId}/attachments`}>
-                      <ActionButton action={Action.MANAGE_ATTACHMENTS} tooltip={t('adminPanelBtnManageAttachmentsToolTip')} />
-                    </Link>
-
-                    <Link href={`${routeEvents}/${params.eventId}/stats`}>
-                      <ActionButton action={Action.STATISTICS} tooltip={t('adminPanelBtnViewStatisticsToolTip')} />
-                    </Link>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="mx-2 overflow-hidden">
+      <div className="mt-2 mx-2 overflow-hidden">
         <TabsMenu event={event} competitions={competitions} sponsors={sponsors} attachments={attachments} comments={comments} />
       </div>
 
