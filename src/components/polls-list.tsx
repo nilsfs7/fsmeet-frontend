@@ -18,7 +18,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslations } from 'next-intl';
@@ -66,6 +66,10 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
+  const setPollUrl = (pollId: string) => {
+    router.replace(`${window.location.pathname}?select=${pollId}`);
+  };
+
   const getColumnNameById = (columnId: string, t: any): string => {
     let name = 'unknown';
 
@@ -85,7 +89,7 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
   };
 
   const handlePollClicked = async (pollId: string) => {
-    router.replace(`${window.location.pathname}?select=${pollId}`);
+    setPollUrl(pollId);
   };
 
   const handleDeletePollClicked = async (pollId: string) => {
@@ -97,7 +101,7 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
 
   const handleCancelDialogClicked = async () => {
     if (selectedPollId) {
-      router.replace(`${window.location.pathname}?select=${selectedPollId}`);
+      setPollUrl(selectedPollId);
     }
   };
 
@@ -112,6 +116,13 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
       }
     }
   };
+
+  useEffect(() => {
+    // set start url if no poll is selected
+    if (columnData.length > 0 && !selectedPollId) {
+      setPollUrl(columnData[0].pollId);
+    }
+  }, []);
 
   const columns: ColumnDef<ColumnInfo>[] = [
     // {
