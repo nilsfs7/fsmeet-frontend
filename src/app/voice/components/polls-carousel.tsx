@@ -272,11 +272,9 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
     <>
       <Toaster richColors />
       <Dialog title={t('carouselDlgPollDescription')} queryParam="context" onConfirm={handleConfirmDialogClicked}>
-        <TextareaAutosize readOnly className="resize-none overflow-hidden outline-none" value={polls[getPollIndexById(selectedPollId)].description} />
+        <TextareaAutosize readOnly className="resize-none overflow-hidden outline-none" value={polls[getPollIndexById(selectedPollId)]?.description} />
       </Dialog>
       <div className="w-full max-w-xl min-h-10 flex justify-center">
-        {polls.length === 0 && <div>{t('carouselNoData')}</div>}
-
         <Carousel
           setApi={setApi}
           opts={{

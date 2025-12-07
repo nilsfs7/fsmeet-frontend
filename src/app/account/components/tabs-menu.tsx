@@ -501,7 +501,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       </Dialog>
 
       <Tabs defaultValue={tab || `general`} className="flex flex-col h-full">
-        <TabsList className="mb-2">
+        <TabsList>
           <TabsTrigger
             value="general"
             onClick={() => {

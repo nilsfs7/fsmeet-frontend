@@ -92,7 +92,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
     <div className="mx-2 overflow-hidden">
       {/* TODO: comp serverseitig laden und tabs so wählen ->    {tab || rounds.length > 0 ? `schedule`: `info`} */}
       <Tabs defaultValue={tab || `schedule`} className="flex flex-col h-full">
-        <TabsList className="mb-2">
+        <TabsList>
           {rounds.length > 0 && (
             <TabsTrigger
               value="schedule"

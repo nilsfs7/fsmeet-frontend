@@ -5,12 +5,9 @@ import ActionButton from '@/components/common/action-button';
 import Navigation from '@/components/navigation';
 import TextButton from '@/components/common/text-button';
 import PageTitle from '@/components/page-title';
-import { auth } from '../../auth';
 import { TextButtonCreatePushNotification } from './components/text-button-create-push-notification';
 
 export default async function AdminOverview() {
-  const session = await auth();
-
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
       <PageTitle title="Admin Overview" />

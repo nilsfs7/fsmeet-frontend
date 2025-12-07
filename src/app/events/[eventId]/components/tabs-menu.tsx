@@ -152,7 +152,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
       <Toaster richColors />
 
       <Tabs defaultValue={tab || `overview`} className="flex flex-col h-full">
-        <TabsList className="mb-2">
+        <TabsList>
           <TabsTrigger
             value="overview"
             onClick={() => {
