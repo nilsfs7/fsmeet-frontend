@@ -146,9 +146,19 @@
     "pageTitle": "Spenden",
     "text1": "FSMeet ist ein kostenloser Service und frei von Werbung — gebaut für die Freestyle Family.",
     "text2": "Wenn er Dir gefällt, spende gerne etwas. Jede kleine Spende hilft, ihn weiter zu betreiben!",
+    "textUseCard": "Spende per Karte...",
+    "inputAmount": "Beitrag",
+    "btnInitiateDonation": "Spenden",
+    "btnDonate": "Spende bestätigen",
+    "textUseCrypto": "...oder nutze Krypto",
     "btnViewBlockExplorerToolTip": "In Blockexplorer ansehen",
     "btnCopyAddress": "Addresse kopiert.",
     "btnCopyAddressToolTip": "Kopiere Wallet-Addresse"
+  },
+  "/donate/thankyou": {
+    "thankYouText1": "Vielen Dank!",
+    "thankYouText2": "Wir wissen Deine Spende sehr zu schätzen!",
+    "btnBackHome": "Zur Homepage"
   },
   "/error": {
     "textError": "Ein Fehler ist aufgetreten.",

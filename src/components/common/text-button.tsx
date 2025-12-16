@@ -4,11 +4,12 @@ interface IButton {
   text: string;
   style?: ButtonStyle;
   disabled?: boolean;
+  id?: string;
   className?: string;
   onClick?: () => void;
 }
 
-const TextButton = ({ text, style = ButtonStyle.DEFAULT, disabled = false, className = '', onClick }: IButton) => {
+const TextButton = ({ text, style = ButtonStyle.DEFAULT, disabled = false, id, className = '', onClick }: IButton) => {
   const getButtonColors = () => {
     if (disabled) {
       return 'bg-secondary-light text-primary';
@@ -25,6 +26,7 @@ const TextButton = ({ text, style = ButtonStyle.DEFAULT, disabled = false, class
 
   return (
     <button
+      id={id}
       className={`
       min-w-36 p-2 rounded-lg font-medium
       transition-all duration-20000 ease-in-out

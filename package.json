@@ -36,6 +36,8 @@
     "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@react-google-maps/api": "^2.20.7",
+    "@stripe/react-stripe-js": "^5.4.1",
+    "@stripe/stripe-js": "^8.5.3",
     "@tanstack/react-table": "^8.21.2",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.2",
