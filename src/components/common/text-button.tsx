@@ -9,7 +9,7 @@ interface IButton {
   onClick?: () => void;
 }
 
-const TextButton = ({ text, style = ButtonStyle.DEFAULT, disabled = false, id, className = '', onClick }: IButton) => {
+const TextButton = ({ text, style = ButtonStyle.DEFAULT, disabled = false, id = '', className = '', onClick }: IButton) => {
   const getButtonColors = () => {
     if (disabled) {
       return 'bg-secondary-light text-primary';
