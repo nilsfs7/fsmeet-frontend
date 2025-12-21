@@ -161,9 +161,19 @@
     "pageTitle": "Donate",
     "text1": "FSMeet is free to use and ad-free — built with love for the freestyle family.",
     "text2": "If you enjoy it, consider supporting with a small donation. Every bit helps keep it running!",
+    "textUseCard": "Donate by card...",
+    "inputAmount": "Donation amount",
+    "btnInitiateDonation": "Donate",
+    "btnDonate": "Submit Donation",
+    "textUseCrypto": "...or use crypto.",
     "btnViewBlockExplorerToolTip": "View in blockchain explorer",
     "btnCopyAddress": "Address copied to clipboard.",
     "btnCopyAddressToolTip": "Copy wallet address"
+  },
+  "/donate/thankyou": {
+    "thankYouText1": "Thank you!",
+    "thankYouText2": "Your donation is highly appreciated!",
+    "btnBackHome": "Back home"
   },
   "/error": {
     "textError": "Some error occurred.",

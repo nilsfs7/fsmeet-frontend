@@ -13,6 +13,7 @@ export const routeVisaRequestManagement = '/wffa/visa';
 export const routeAbout = '/about';
 export const routeContributors = '/about/contributors';
 export const routeDonate = '/donate';
+export const routeDonateThankyou = '/donate/thankyou';
 export const routeImprint = '/imprint';
 export const routeDataProtection = '/dataprotection';
 export const routeRegistration = '/registration';

@@ -8,6 +8,7 @@ import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import CryptoAddress from '@/components/crypto-address';
 import { CryptoCurrencyCode } from '@/domain/enums/crypto-currency-code';
+import DonationForm from './components/donation-form';
 
 export default async function Donate() {
   const t = await getTranslations('/donate');
@@ -23,6 +24,12 @@ export default async function Donate() {
       </div>
 
       <div className="p-2 flex flex-col gap-2 items-center overflow-y-auto">
+        <div className="italic">{t('textUseCard')}</div>
+
+        <DonationForm />
+
+        <div className="italic">{t('textUseCrypto')}</div>
+
         <CryptoAddress ticker={CryptoCurrencyCode.BTC} address={'bc1qe0yujtzhgjqkmnxuta0wtrpme53et9q3st083p'} />
         <CryptoAddress ticker={CryptoCurrencyCode.ETH} address={'0x3b6F25F4E16F2Dd7208961D60a2934FBc01e2799'} />
         <CryptoAddress ticker={CryptoCurrencyCode.SOL} address={'3TxQGtepnYypVYjfaDQHjSydfNnohTWJfMdGvCUMDT9i'} />

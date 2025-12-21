@@ -146,9 +146,19 @@
     "pageTitle": "Faire un don",
     "text1": "FSMeet est gratuit et sans publicité : il est conçu avec amour, par et pour la famille du freestyle.",
     "text2": "Si tu l’aimes bien, pourquoi ne pas le soutenir avec un petit don ? Chaque contribution nous aide à le maintenir en fonctionnement !",
+    "textUseCard": "Faire un don par carte...",
+    "inputAmount": "Montant du don",
+    "btnInitiateDonation": "Faire un don",
+    "btnDonate": "Confirmer le don",
+    "textUseCrypto": "...ou utiliser des cryptomonnaies.",
     "btnViewBlockExplorerToolTip": "Voir dans un explorateur blockchain",
     "btnCopyAddress": "Adresse copiée dans le presse-papiers.",
     "btnCopyAddressToolTip": "Copier l’adresse du portefeuille"
+  },
+  "/donate/thankyou": {
+    "thankYouText1": "Merci !",
+    "thankYouText2": "Votre don est grandement apprécié !",
+    "btnBackHome": "Retour à l'accueil"
   },
   "/error": {
     "textError": "Une erreur est survenue.",
