@@ -512,6 +512,9 @@
   },
   "/map": {
     "pageTitle": "Mapa del Freestyle",
+    "dlgAddPinTitle": "Inscríbete",
+    "dlgAddPinCornfirmText": "Confirmar",
+    "dlgAddPinInputCity": "Ciudad",
     "btnAddPin": "Inscríbete",
     "btnViewOnFSMeet": "Ver en FSMeet",
     "inputSearchPlaceholder": "Buscar nombre...",

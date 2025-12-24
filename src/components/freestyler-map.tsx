@@ -118,7 +118,7 @@ const Map = ({
   const [mapOptions, setMapOptions] = useState<google.maps.MapOptions>();
 
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
+    id: 'google-map-script-fs-map',
     googleMapsApiKey,
     region,
     language,

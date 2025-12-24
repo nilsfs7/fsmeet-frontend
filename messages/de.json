@@ -512,6 +512,9 @@
   },
   "/map": {
     "pageTitle": "Freestyler Karte",
+    "dlgAddPinTitle": "Trag dich ein",
+    "dlgAddPinCornfirmText": "Bestätigen",
+    "dlgAddPinInputCity": "Stadt",
     "btnAddPin": "Trag dich ein",
     "btnViewOnFSMeet": "Gehe zu FSMeet",
     "inputSearchPlaceholder": "Suche Name...",

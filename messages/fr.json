@@ -512,6 +512,9 @@
   },
   "/map": {
     "pageTitle": "Carte des Freestylers",
+    "dlgAddPinTitle": "Ajoutez votre localisation",
+    "dlgAddPinCornfirmText": "Confirmer",
+    "dlgAddPinInputCity": "Ville",
     "btnAddPin": "Ajoutez votre localisation",
     "btnViewOnFSMeet": "Voir sur FSMeet",
     "inputSearchPlaceholder": "Rechercher par nom...",
