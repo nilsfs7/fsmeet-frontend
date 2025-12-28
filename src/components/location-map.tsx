@@ -40,7 +40,7 @@ const Map = ({ googleMapsApiKey, address }: IMapProps) => {
   const t = useTranslations('/map');
 
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
+    id: 'google-map-script-location-map',
     googleMapsApiKey,
   });
 

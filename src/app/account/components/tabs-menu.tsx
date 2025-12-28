@@ -366,7 +366,12 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
 
-      router.push(routeHome);
+      /* 
+      Navigate to home page with full reload.
+      Use "router.push(routeHome);" when google maps issue is resolved.
+      More details in login-form.tsx
+      */
+      window.location.href = routeHome;
     } catch (error) {
       console.error('Logout failed:', error);
       // Handle logout error
@@ -518,7 +523,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 switchTab(router, 'map');
               }}
             >
-              {t('tabMaplTitle')}
+              {t('tabMapTitle')}
             </TabsTrigger>
           )}
 
@@ -707,11 +712,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {user.type !== UserType.FAN && (
           <TabsContent value="map" className="overflow-hidden overflow-y-auto">
             <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-              <SectionHeader label={t('tabMaplSectionLocation')} />
+              <SectionHeader label={t('tabMapSectionLocation')} />
 
               <TextInput
                 id={'city'}
-                label={t('tabMaplCity')}
+                label={t('tabMapCity')}
                 placeholder="Munich"
                 value={userInfo.city}
                 onChange={e => {

@@ -4,9 +4,8 @@ import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
 import TextButton from '@/components/common/text-button';
 import { getUser, getUsers } from '@/infrastructure/clients/user.client';
-import { routeAccount, routeHome, routeMap } from '@/domain/constants/routes';
+import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import { User } from '@/domain/types/user';
 import Link from 'next/link';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
 import { createTranslator } from 'next-intl';
@@ -16,10 +15,11 @@ import { auth } from '@/auth';
 import { getMessagesByLocale } from '@/functions/get-messages-forced-locale';
 import { UserType } from '@/domain/enums/user-type';
 import { FreestylerMap } from '@/components/freestyler-map';
+import { TextButtonAddPin } from './components/text-button-add-pin';
 
 export default async function Map(props: { searchParams: Promise<{ iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string }> }) {
   const searchParams = await props.searchParams;
-  let t = await getTranslations(routeMap);
+  let t = await getTranslations('/map');
   const session = await auth();
 
   const streetViewEnabled = searchParams?.sv === '1';
@@ -48,8 +48,8 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
       <FreestylerMap
         userList={users.filter(u => u.type !== UserType.ADMINISTRATIVE)}
         selectedUsernames={[searchParams?.user || '']}
-        region={actingUser?.country || searchParams?.locale || 'DE'}
-        language={actingUser?.country || searchParams?.locale || 'EN'}
+        region={actingUser?.country || searchParams?.locale || 'DE'} // todo: causes second map render
+        language={actingUser?.country || searchParams?.locale || 'EN'} // todo: causes second map render
         lat={+searchParams?.lat || 54.5259614}
         lng={+searchParams?.lng || 15.2551187}
         zoom={+searchParams?.zoom || 4}
@@ -75,11 +75,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
           <div className="flex justify-end gap-1">
             <ActionButtonCopyUrl />
 
-            {(!actingUser || (actingUser && !actingUser.locLatitude)) && actingUser?.type !== UserType.FAN && (
-              <Link href={`${routeAccount}?tab=map`}>
-                <TextButton text={t('btnAddPin')} />
-              </Link>
-            )}
+            {(!actingUser || (actingUser && !actingUser.locLatitude)) && actingUser?.type !== UserType.FAN && <TextButtonAddPin />}
           </div>
         </Navigation>
       )}

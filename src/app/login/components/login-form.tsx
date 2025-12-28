@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { loginUserWithCredentials } from '@/app/actions/authentication';
 import Link from 'next/link';
 import { routeHome, routePasswordForgot, routeRegistration } from '@/domain/constants/routes';
@@ -19,7 +19,6 @@ export const LoginForm = () => {
 
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
 
   const handleInputChangeUsernameOrEmail = (event: any) => {
     const usernameOrEmail: string = event.target.value;
@@ -49,7 +48,15 @@ export const LoginForm = () => {
             localStorage.setItem('imageUrl', session.user.imageUrl);
           }
 
+          /*
+          Use window.location.href for full page reload.
+          Helps to reset all states and contexts after login, 
+          specifically important for google maps as it uses global state for its loader.
+          When google maps issue is resolved this should be used:
           router.replace(callbackUrl ? callbackUrl : routeHome);
+          */
+          const redirectUrl = callbackUrl ? decodeURIComponent(callbackUrl) : routeHome;
+          window.location.href = redirectUrl;
         }
         break;
 
