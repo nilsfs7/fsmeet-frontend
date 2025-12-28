@@ -366,7 +366,12 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       localStorage.removeItem('username');
       localStorage.removeItem('imageUrl');
 
-      router.push(routeHome);
+      /* 
+      Navigate to home page with full reload.
+      Use "router.push(routeHome);" when google maps issue is resolved.
+      More details in login-form.tsx
+      */
+      window.location.href = routeHome;
     } catch (error) {
       console.error('Logout failed:', error);
       // Handle logout error

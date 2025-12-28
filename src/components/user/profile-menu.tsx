@@ -68,9 +68,12 @@ const ProfileMenu = () => {
       setUsername(null);
       setImageUrl(null);
 
-      // Navigate to home page
-      router.push(routeHome);
-      router.refresh(); // Force refresh to update session state
+      /* 
+      Navigate to home page with full reload.
+      Use "router.push(routeHome);" when google maps issue is resolved.
+      More details in login-form.tsx
+      */
+      window.location.href = routeHome;
     } catch (error) {
       console.error('Logout failed:', error);
     }
