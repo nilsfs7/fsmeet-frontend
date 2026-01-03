@@ -1,7 +1,7 @@
 'use client';
 
 import TextButton from '@/components/common/text-button';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
