@@ -19,7 +19,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useState } from 'react';
-import { routeUsers } from '@/domain/constants/routes';
+import { routeAccountPayments, routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -31,6 +31,8 @@ import moment from 'moment';
 import { createRefund } from '../../../../infrastructure/clients/payment.client';
 import { useSession } from 'next-auth/react';
 import { toast, Toaster } from 'sonner';
+import Dialog from '@/components/dialog';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface IUsersList {
   columnData: ColumnInfo[];
@@ -52,6 +54,9 @@ export type ColumnInfo = {
 export const PaymentsList = ({ columnData }: IUsersList) => {
   const t = useTranslations('/account/payments');
   const { data: session } = useSession();
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -201,7 +206,7 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
     },
   });
 
-  const handleInitiateRefundClicked = async (intentId: string) => {
+  const initiateRefund = async (intentId: string) => {
     try {
       await createRefund(intentId, session);
       toast.success('Refund initiated.');
@@ -211,9 +216,31 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
     }
   };
 
+  const handleInitiateRefundClicked = async (intentId: string) => {
+    router.replace(`${routeAccountPayments}?refund=1&intentId=${intentId}`);
+  };
+
+  const handleConfirmRefundClicked = async () => {
+    const intentId = searchParams.get('intentId');
+    if (intentId) {
+      initiateRefund(intentId);
+    } else {
+      toast.error('Missing intent ID in URL.');
+    }
+  };
+
+  const handleCancelDialogClicked = async () => {
+    router.replace(`${routeAccountPayments}`);
+  };
+
   return (
     <>
       <Toaster richColors />
+
+      <Dialog title={t('dlgInitiateRefundTitle')} queryParam="refund" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmRefundClicked}>
+        <p>{t('dlgInitiateRefundText1')}</p>
+        <p>{t('dlgInitiateRefundText2')}</p>
+      </Dialog>
 
       <div className="mx-2 flex gap-2">
         <Input

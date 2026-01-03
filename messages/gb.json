@@ -144,6 +144,9 @@
   },
   "/account/payments": {
     "pageTitle": "Manage Payments",
+    "dlgInitiateRefundTitle": "Initiate Refund",
+    "dlgInitiateRefundText1": "Do you want to fully refund for this payment? This cannot be reverted!",
+    "dlgInitiateRefundText2": "In order to protect accounts against drainage, you can only initiate 1 refund per day.",
     "inputSearchPlaceholder": "Search Username...",
     "cbColumns": "Columns",
     "tblColumnUsername": "Username",
@@ -151,7 +154,7 @@
     "tblColumnDate": "Date",
     "tblColumnActionsCopyPaymentId": "Copy payment ID",
     "tblColumnActionsViewPaymentDetails": "View payment details (upcoming)",
-    "tblColumnActionsRefundPayment": "Initiate refund - CAUTION!!!",
+    "tblColumnActionsRefundPayment": "Initiate refund",
     "tblNoData": "No data",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "of",
