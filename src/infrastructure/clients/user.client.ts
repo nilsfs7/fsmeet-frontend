@@ -35,6 +35,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       nickName: data.nickName,
       gender: data.gender,
       country: data.country,
+      continentalCode: data.continentalCode,
       age: data.age,
       freestyleSince: data.freestyleSince,
       instagramHandle: data.instagramHandle,
@@ -69,7 +70,7 @@ export async function getUser(username: string, session?: Session | null): Promi
   }
 }
 
-export async function getUsers(type?: UserType, gender?: Gender, country?: string, hasWffaId?: boolean, hasLocation?: boolean): Promise<User[]> {
+export async function getUsers(type?: UserType, gender?: Gender, country?: string, continentalCode?: string, hasWffaId?: boolean, hasLocation?: boolean): Promise<User[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users?`;
 
   if (type) {
@@ -82,6 +83,10 @@ export async function getUsers(type?: UserType, gender?: Gender, country?: strin
 
   if (country) {
     url += `&country=${country}`;
+  }
+
+  if (continentalCode) {
+    url += `&continentalCode=${country}`;
   }
 
   if (hasWffaId !== undefined) {
@@ -109,6 +114,7 @@ export async function getUsers(type?: UserType, gender?: Gender, country?: strin
       nickName: data.nickName,
       gender: data.gender,
       country: data.country,
+      continentalCode: data.continentalCode,
       age: data.age,
       freestyleSince: data.freestyleSince,
       instagramHandle: data.instagramHandle,

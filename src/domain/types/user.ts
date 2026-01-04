@@ -11,6 +11,7 @@ export type User = {
   nickName?: string;
   gender?: string;
   country?: string;
+  continentalCode?: string;
   age?: number;
   freestyleSince?: number;
   instagramHandle?: string;
