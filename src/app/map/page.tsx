@@ -25,7 +25,10 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
   const streetViewEnabled = searchParams?.sv === '1';
   const iframeView = searchParams?.iframe === '1';
 
-  const [users, actingUser] = await Promise.all([getUsers(undefined, undefined, undefined, undefined, true), session?.user.username ? getUser(session.user.username) : Promise.resolve(undefined)]);
+  const [users, actingUser] = await Promise.all([
+    getUsers(undefined, undefined, undefined, undefined, undefined, true),
+    session?.user.username ? getUser(session.user.username) : Promise.resolve(undefined),
+  ]);
 
   // overwrite translation
   const messages = await getMessagesByLocale(searchParams?.locale || 'gb');
