@@ -1,12 +1,25 @@
+'use client';
+
 import Link from 'next/link';
 import TextButton from '@/components/common/text-button';
 import Image from 'next/image';
 import { routeHome } from '@/domain/constants/routes';
 import { imgGoodBye } from '@/domain/constants/images';
-import { getTranslations } from 'next-intl/server';
+import { signOut } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
 
-export default async function AccountDeleted() {
-  const t = await getTranslations('/account/deleted');
+export default function AccountDeleted() {
+  const t = useTranslations('/account/deleted');
+
+  useEffect(() => {
+    // Sign out from NextAuth
+    signOut({ redirect: false });
+
+    // Clear localStorage after successful logout
+    localStorage.removeItem('username');
+    localStorage.removeItem('imageUrl');
+  }, []);
 
   return (
     <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
