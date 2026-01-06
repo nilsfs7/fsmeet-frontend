@@ -70,7 +70,7 @@ export async function getUser(username: string, session?: Session | null): Promi
   }
 }
 
-export async function getUsers(type?: UserType, gender?: Gender, country?: string, continentalCode?: string, hasWffaId?: boolean, hasLocation?: boolean): Promise<User[]> {
+export async function getUsers(type?: UserType, gender?: Gender, country?: string, continentalCode?: string, hasWffaId?: boolean, hasLocation?: boolean, withDeleted?: boolean): Promise<User[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users?`;
 
   if (type) {
@@ -95,6 +95,10 @@ export async function getUsers(type?: UserType, gender?: Gender, country?: strin
 
   if (hasLocation) {
     url += `&hasLocation=${hasLocation}`;
+  }
+
+  if (withDeleted) {
+    url += `&withDeleted=${withDeleted}`;
   }
 
   const response = await fetch(url, {
