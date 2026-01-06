@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { jwtDecode } from 'jwt-decode';
 import {
   routeAccount,
+  routeAccountDeleted,
   routeAdminOverview,
   routeEventsCreate,
   routeEventSubs,
@@ -63,7 +64,7 @@ const config = {
       // deny access to routes that require a session
       // TODO: add more protected routes
       if (
-        pathname.startsWith(routeAccount) ||
+        (pathname.startsWith(routeAccount) && pathname !== routeAccountDeleted) ||
         pathname.startsWith(routeFeedback) ||
         pathname.startsWith(routeEventSubs) ||
         pathname.startsWith(routeEventsCreate) ||

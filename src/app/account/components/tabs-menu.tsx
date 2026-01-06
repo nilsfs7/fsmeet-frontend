@@ -333,14 +333,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
   const handleConfirmDeleteAccountClicked = async () => {
     try {
+      // Delete user but do not sign out, yet. Fetching the user wil fail after deletion. Handle after router.push().
       await deleteUser(session?.user?.username || '', session);
-
-      // Sign out from NextAuth
-      await signOut({ redirect: false });
-
-      // Clear localStorage after successful logout
-      localStorage.removeItem('username');
-      localStorage.removeItem('imageUrl');
 
       router.push(routeAccountDeleted);
     } catch (error: any) {
