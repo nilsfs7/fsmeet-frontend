@@ -31,7 +31,7 @@ export type Event = {
   venueStreet: string;
   venueCity: string;
   venuePostCode: string;
-  venueCountry: string;
+  venueCountryCode: string;
   type: EventType;
   category: EventCategory;
   isWffaRanked: boolean;

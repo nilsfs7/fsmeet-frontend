@@ -9,11 +9,11 @@ export class ReadPartialUser3ResponseDto {
   lastName: string;
   nickName: string;
   gender: Gender;
-  country: string;
+  countryCode: string;
   age: number;
   wffaId: string;
 
-  constructor(username: string, type: UserType, imageUrl: string, firstName: string, lastName: string, nickName: string, gender: Gender, country: string, age: number, wffaId: string) {
+  constructor(username: string, type: UserType, imageUrl: string, firstName: string, lastName: string, nickName: string, gender: Gender, countryCode: string, age: number, wffaId: string) {
     this.username = username;
     this.type = type;
     this.imageUrl = imageUrl;
@@ -21,7 +21,7 @@ export class ReadPartialUser3ResponseDto {
     this.lastName = lastName;
     this.nickName = nickName;
     this.gender = gender;
-    this.country = country;
+    this.countryCode = countryCode;
     this.age = age;
     this.wffaId = wffaId;
   }

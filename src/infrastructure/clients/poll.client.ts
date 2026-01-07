@@ -38,7 +38,7 @@ export async function createPoll(question: string, description: string, options:
       return { option: option };
     }),
     deadline,
-    { maxAge: targetGroup.maxAge, country: targetGroup.country }
+    { maxAge: targetGroup.maxAge, countryCode: targetGroup.countryCode }
   );
 
   const response = await fetch(url, {

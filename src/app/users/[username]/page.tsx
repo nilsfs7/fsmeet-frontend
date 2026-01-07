@@ -65,20 +65,20 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
                   <div className="w-fit">{getUserTypeLabels(user.type, t)}</div>
                 </div>
 
-                {user.country && user.country != '--' && (
+                {user.countryCode && user.countryCode != '--' && (
                   <div className="flex items-center gap-1 mt-1">
                     <div className="flex w-6">
                       <ReactCountryFlag
-                        countryCode={user.country}
+                        countryCode={user.countryCode}
                         svg
                         style={{
                           width: '100%',
                         }}
-                        title={user.country}
+                        title={user.countryCode}
                       />
                     </div>
 
-                    <div>{getCountryNameByCode(user.country)}</div>
+                    <div>{getCountryNameByCode(user.countryCode)}</div>
                   </div>
                 )}
 

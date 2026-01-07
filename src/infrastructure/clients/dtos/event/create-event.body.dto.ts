@@ -25,7 +25,7 @@ export class CreateEventBodyDto {
   venueStreet: string;
   venuePostCode: string;
   venueCity: string;
-  venueCountry: string;
+  venueCountryCode: string;
   type: EventType;
   category: EventCategory;
   isWffaRanked: boolean;
@@ -62,7 +62,7 @@ export class CreateEventBodyDto {
     venueStreet: string,
     venuePostCode: string,
     venueCity: string,
-    venueCountry: string,
+    venueCountryCode: string,
     type: EventType,
     category: EventCategory,
     isWffaRanked: boolean,
@@ -98,7 +98,7 @@ export class CreateEventBodyDto {
     this.venueStreet = venueStreet;
     this.venuePostCode = venuePostCode;
     this.venueCity = venueCity;
-    this.venueCountry = venueCountry;
+    this.venueCountryCode = venueCountryCode;
     this.type = type;
     this.category = category;
     this.isWffaRanked = isWffaRanked;

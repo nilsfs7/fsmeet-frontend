@@ -29,7 +29,7 @@ export const RegistrationForm = () => {
   const [userType, setUserType] = useState<UserType>(UserType.FREESTYLER);
   const [username, setUsername] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
-  const [country, setCountry] = useState<string>('');
+  const [countryCode, setCountryCode] = useState<string>('');
   const [gender, setGender] = useState<Gender | undefined>(Gender.MALE);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -72,7 +72,7 @@ export const RegistrationForm = () => {
 
   const handleCreateClicked = async () => {
     try {
-      await createUser(username, userType, email, password, firstName, gender, country);
+      await createUser(username, userType, email, password, firstName, gender, countryCode);
       router.replace(`${routeRegistrationPending}?username=${username}&email=${email}`);
     } catch (error: any) {
       toast.error(error.message);
@@ -129,10 +129,10 @@ export const RegistrationForm = () => {
                     <ComboBox
                       className="w-full"
                       menus={menuCountries}
-                      value={country || ''}
+                      value={countryCode || ''}
                       searchEnabled={true}
                       onChange={(value: any) => {
-                        setCountry(value);
+                        setCountryCode(value);
                       }}
                     />
                   </div>

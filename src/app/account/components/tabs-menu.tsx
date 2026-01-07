@@ -97,9 +97,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(newUserInfo);
   };
 
-  const handleCountryChanged = (value: any) => {
+  const handleCountryCodeChanged = (value: any) => {
     const newUserInfo = Object.assign({}, userInfo);
-    newUserInfo.country = value;
+    newUserInfo.countryCode = value;
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);
   };
@@ -251,7 +251,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       lastName: lastNameAdjusted,
       nickName: nickNameAdjusted,
       gender: userInfo.gender,
-      country: userInfo.country,
+      countryCode: userInfo.countryCode,
       freestyleSince: userInfo.freestyleSince,
       instagramHandle: userInfo.instagramHandle,
       tikTokHandle: userInfo.tikTokHandle,
@@ -599,10 +599,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuCountries}
-                      value={userInfo.country ? userInfo.country : ''}
+                      value={userInfo.countryCode ? userInfo.countryCode : ''}
                       searchEnabled={true}
                       onChange={(value: any) => {
-                        handleCountryChanged(value);
+                        handleCountryCodeChanged(value);
                       }}
                     />
                   </div>

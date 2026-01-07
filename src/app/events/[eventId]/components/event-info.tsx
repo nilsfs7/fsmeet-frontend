@@ -46,7 +46,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
     if (event.venueHouseNo) url = `${url}${event.venueHouseNo}+`;
     if (event.venuePostCode) url = `${url}${event.venuePostCode}+`;
     if (event.venueCity) url = `${url}${event.venueCity}+`;
-    if (event.venueCountry) url = `${url}${event.venueCountry}+`;
+    if (event.venueCountryCode) url = `${url}${event.venueCountryCode}+`;
 
     return url;
   };
@@ -191,7 +191,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
               <p>{event.venueName}</p>
               <p className="mt-1">{`${event.venueStreet} ${event.venueHouseNo}`}</p>
               <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
-              <p>{getCountryNameByCode(event.venueCountry)}</p>
+              <p>{getCountryNameByCode(event.venueCountryCode)}</p>
             </div>
 
             <div className="flex gap-2">

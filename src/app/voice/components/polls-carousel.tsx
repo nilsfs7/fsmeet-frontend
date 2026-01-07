@@ -123,7 +123,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
       return true;
     }
 
-    if (poll.targetGroup?.country && poll.targetGroup.country !== actingUser?.country) {
+    if (poll.targetGroup?.countryCode && poll.targetGroup.countryCode !== actingUser?.countryCode) {
       return true;
     }
 

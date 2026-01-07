@@ -70,7 +70,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [venueStreet, setVenueStreet] = useState(event?.venueStreet || '');
   const [venueCity, setVenueCity] = useState(event?.venueCity || '');
   const [venuePostCode, setVenuePostCode] = useState(event?.venuePostCode || '');
-  const [venueCountry, setVenueCountry] = useState(event?.venueCountry || '');
+  const [venueCountryCode, setVenueCountryCode] = useState(event?.venueCountryCode || '');
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
   const [category, setEventCategory] = useState<EventCategory>(event?.category || EventCategory.NATIONAL);
   const [isWffaRanked, setIsWffaRanked] = useState(event?.isWffaRanked || false);
@@ -260,7 +260,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       venueStreet,
       venueCity,
       venuePostCode,
-      venueCountry,
+      venueCountryCode,
       category,
       isWffaRanked,
       trailerUrl,
@@ -309,7 +309,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         setVenueStreet(event.venueStreet);
         setVenuePostCode(event.venuePostCode);
         setVenueCity(event.venueCity);
-        setVenueCountry(event.venueCountry);
+        setVenueCountryCode(event.venueCountryCode);
         setEventType(event.type);
         setEventCategory(event.category);
         setIsWffaRanked(event.isWffaRanked);
@@ -368,7 +368,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     venueStreet,
     venueCity,
     venuePostCode,
-    venueCountry,
+    venueCountryCode,
     eventType,
     category,
     isWffaRanked,
@@ -662,10 +662,10 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
             <div className="flex w-full">
               <ComboBox
                 menus={menuCountriesWithUnspecified}
-                value={venueCountry || menuCountriesWithUnspecified[0].value}
+                value={venueCountryCode || menuCountriesWithUnspecified[0].value}
                 searchEnabled={true}
                 onChange={(value: any) => {
-                  setVenueCountry(value);
+                  setVenueCountryCode(value);
                 }}
               />
             </div>

@@ -93,7 +93,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
             showUserCountryFlag ? (
               <ReactCountryFlag
                 className="w-full h-full"
-                countryCode={usersMap?.get(matchSlot?.name)?.country || ''}
+                countryCode={usersMap?.get(matchSlot?.name)?.countryCode || ''}
                 svg
                 style={{
                   width: '100%',

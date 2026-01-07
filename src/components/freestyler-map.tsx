@@ -394,21 +394,21 @@ const Map = ({
                           <div className="text-md font-semibold">{user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`}</div>
                         </div>
 
-                        {user.type === UserType.FREESTYLER && user.country && (
+                        {user.type === UserType.FREESTYLER && user.countryCode && (
                           <div className="grid grid-flow-col justify-start items-center gap-1">
                             <div className="h-6 w-6">
                               <ReactCountryFlag
-                                countryCode={user.country}
+                                countryCode={user.countryCode}
                                 svg
                                 style={{
                                   width: '100%',
                                   height: '100%',
                                 }}
-                                title={user.country}
+                                title={user.countryCode}
                               />
                             </div>
 
-                            <div>{getCountryNameByCode(user.country)}</div>
+                            <div>{getCountryNameByCode(user.countryCode)}</div>
                           </div>
                         )}
 

@@ -14,7 +14,7 @@ import { ReadUserGrowthResponseDto } from '../../../infrastructure/clients/dtos/
 
 export const Statistics = () => {
   const [userCountByType, setUserCountByType] = useState<ReadUserCountResponseDto>();
-  const [userNationalityCount, setUserNationalityCount] = useState<{ country: string; userCount: number }[]>([]);
+  const [userNationalityCount, setUserNationalityCount] = useState<{ countryCode: string; userCount: number }[]>([]);
   const [userCountOnMap, setUserCountOnMap] = useState<number>(0);
   const [userGrowth, setUserGrowth] = useState<ReadUserGrowthResponseDto[]>([]);
   const [eventCount, setEventCount] = useState<ReadEventCountResponseDto[]>([]);
@@ -50,12 +50,12 @@ export const Statistics = () => {
     getUserCountByNationality().then(dtos => {
       const thresholdMinimumShareInPercent = 1.8;
       const totalCount = dtos.reduce((sum, item) => sum + item.userCount, 0);
-      const consolidatedNatCount: { country: string; userCount: number }[] = [];
-      const minorityNatCount: { country: string; userCount: number } = { country: 'other', userCount: 0 };
+      const consolidatedNatCount: { countryCode: string; userCount: number }[] = [];
+      const minorityNatCount: { countryCode: string; userCount: number } = { countryCode: 'other', userCount: 0 };
 
       dtos.map(item => {
         if ((item.userCount / totalCount) * 100 > thresholdMinimumShareInPercent) {
-          consolidatedNatCount.push({ country: item.country, userCount: item.userCount });
+          consolidatedNatCount.push({ countryCode: item.countryCode, userCount: item.userCount });
         } else {
           minorityNatCount.userCount += item.userCount;
         }
@@ -155,7 +155,7 @@ export const Statistics = () => {
         <div className="flex justify-center text-lg">{`User Share by Nationality`}</div>
         <div className="flex justify-center">
           <PieChart width={400} height={400}>
-            <Pie data={userNationalityCount} dataKey="userCount" nameKey="country" cx="50%" cy="50%" outerRadius={100} fill="#ccd6dd" label={renderLabel}>
+            <Pie data={userNationalityCount} dataKey="userCount" nameKey="countryCode" cx="50%" cy="50%" outerRadius={100} fill="#ccd6dd" label={renderLabel}>
               {userNationalityCount.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={hexColors[index % hexColors.length]} />
               ))}

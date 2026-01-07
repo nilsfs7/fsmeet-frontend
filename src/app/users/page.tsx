@@ -41,7 +41,7 @@ export default async function Users() {
           firstName: user.firstName || '',
           lastName: user.lastName || '',
         },
-        country: user.country || '',
+        country: user.countryCode || '',
         userType: user.type,
         location:
           user.city && user.exposeLocation && user.locLatitude && user.locLongitude

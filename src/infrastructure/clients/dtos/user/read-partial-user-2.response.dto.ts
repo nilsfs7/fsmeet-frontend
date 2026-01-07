@@ -6,14 +6,14 @@ export class ReadPartialUser2ResponseDto {
   firstName: string;
   lastName: string;
   gender: Gender;
-  country: string;
+  countryCode: string;
 
-  constructor(username: string, imageUrl: string, firstName: string, lastName: string, gender: Gender, country: string) {
+  constructor(username: string, imageUrl: string, firstName: string, lastName: string, gender: Gender, countryCode: string) {
     this.username = username;
     this.imageUrl = imageUrl;
     this.firstName = firstName;
     this.lastName = lastName;
     this.gender = gender;
-    this.country = country;
+    this.countryCode = countryCode;
   }
 }

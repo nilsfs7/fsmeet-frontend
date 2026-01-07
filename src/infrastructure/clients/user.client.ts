@@ -34,7 +34,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       lastName: data.lastName,
       nickName: data.nickName,
       gender: data.gender,
-      country: data.country,
+      countryCode: data.countryCode,
       continentalCode: data.continentalCode,
       age: data.age,
       freestyleSince: data.freestyleSince,
@@ -70,7 +70,7 @@ export async function getUser(username: string, session?: Session | null): Promi
   }
 }
 
-export async function getUsers(type?: UserType, gender?: Gender, country?: string, continentalCode?: string, hasWffaId?: boolean, hasLocation?: boolean, withDeleted?: boolean): Promise<User[]> {
+export async function getUsers(type?: UserType, gender?: Gender, countryCode?: string, continentalCode?: string, hasWffaId?: boolean, hasLocation?: boolean, withDeleted?: boolean): Promise<User[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users?`;
 
   if (type) {
@@ -81,12 +81,12 @@ export async function getUsers(type?: UserType, gender?: Gender, country?: strin
     url += `&gender=${gender}`;
   }
 
-  if (country) {
-    url += `&country=${country}`;
+  if (countryCode) {
+    url += `&countryCode=${countryCode}`;
   }
 
   if (continentalCode) {
-    url += `&continentalCode=${country}`;
+    url += `&continentalCode=${continentalCode}`;
   }
 
   if (hasWffaId !== undefined) {
@@ -117,7 +117,7 @@ export async function getUsers(type?: UserType, gender?: Gender, country?: strin
       lastName: data.lastName,
       nickName: data.nickName,
       gender: data.gender,
-      country: data.country,
+      countryCode: data.countryCode,
       continentalCode: data.continentalCode,
       age: data.age,
       freestyleSince: data.freestyleSince,
@@ -171,10 +171,10 @@ export async function getConfirmUser(username: string, requestToken: string): Pr
   return false;
 }
 
-export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string, gender?: Gender, country?: string): Promise<void> {
+export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string, gender?: Gender, countryCode?: string): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
 
-  const body = new CreateUserBodyDto(username, type, email, password, firstName, gender, country);
+  const body = new CreateUserBodyDto(username, type, email, password, firstName, gender, countryCode);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -225,7 +225,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     user.lastName,
     user.nickName,
     user.gender,
-    user.country,
+    user.countryCode,
     user.freestyleSince,
     user.instagramHandle,
     user.tikTokHandle,
