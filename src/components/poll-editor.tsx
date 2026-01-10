@@ -40,7 +40,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   );
   const [deadlineEnabled, setDeadlineEnabled] = useState<boolean>(poll?.deadline ? true : false);
   const [deadline, setDeadline] = useState<string>(poll?.deadline ? poll.deadline : moment().endOf('day').add(3, 'month').utc().format());
-  const [targetGroup, setTargetGroup] = useState<TargetGroup>({ country: null, maxAge: null });
+  const [targetGroup, setTargetGroup] = useState<TargetGroup>({ countryCode: null, maxAge: null });
 
   const handleQuestionUpdated = async (value: string) => {
     if (value.length <= QUESTION_MAX_LENGTH) {
@@ -82,12 +82,12 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
     }
   };
 
-  const handleCountryChanged = (value: string | null) => {
+  const handleCountryCodeChanged = (value: string | null) => {
     if (value == menuCountriesWithUnspecified[0].value) {
       value = null;
     }
 
-    setTargetGroup({ country: value, maxAge: targetGroup.maxAge });
+    setTargetGroup({ countryCode: value, maxAge: targetGroup.maxAge });
   };
 
   const updatePoll = () => {
@@ -201,10 +201,10 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         <div className="flex w-full">
           <ComboBox
             menus={menuCountriesWithUnspecified}
-            value={targetGroup.country || menuCountriesWithUnspecified[0].value}
+            value={targetGroup.countryCode || menuCountriesWithUnspecified[0].value}
             searchEnabled={true}
             onChange={(value: any) => {
-              handleCountryChanged(value);
+              handleCountryCodeChanged(value);
             }}
           />
         </div>

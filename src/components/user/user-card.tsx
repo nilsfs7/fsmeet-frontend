@@ -37,7 +37,7 @@ const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserCo
             <div className="mx-1 h-6 w-6">
               <ReactCountryFlag
                 className="w-full h-full"
-                countryCode={user.country || ''}
+                countryCode={user.countryCode || ''}
                 svg
                 style={{
                   width: '100%',

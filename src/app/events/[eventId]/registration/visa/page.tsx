@@ -35,7 +35,7 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
 
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
-  const [country, setCountry] = useState<string>('');
+  const [countryCode, setCountryCode] = useState<string>('');
   const [passportNumber, setPassportNumber] = useState<string>('');
   const [birthday, setBirthday] = useState<string>('');
 
@@ -52,7 +52,7 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
       valid = false;
     }
 
-    if (country === '') {
+    if (countryCode === '') {
       valid = false;
     }
 
@@ -94,7 +94,7 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
   const handleSendClicked = async () => {
     try {
       if (checkInputs()) {
-        await createVisaInvitationRequest(params.eventId, firstName, lastName, country, passportNumber, session);
+        await createVisaInvitationRequest(params.eventId, firstName, lastName, countryCode, passportNumber, session);
         router.push(`${window.location}/success`);
       }
     } catch (error: any) {
@@ -110,7 +110,7 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
 
         setFirstName(user?.firstName ? user.firstName : '');
         setLastName(user?.lastName ? user.lastName : '');
-        setCountry(user?.country ? user.country : '');
+        setCountryCode(user?.countryCode ? user.countryCode : '');
         setPassportNumber('');
         setBirthday(user?.birthday ? user.birthday : '');
       });
@@ -168,10 +168,10 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
               <div className="flex w-full">
                 <ComboBox
                   menus={menuCountries}
-                  value={country ? country : ''}
+                  value={countryCode ? countryCode : ''}
                   searchEnabled={true}
                   onChange={(value: any) => {
-                    setCountry(value);
+                    setCountryCode(value);
                   }}
                 />
               </div>

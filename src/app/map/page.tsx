@@ -51,8 +51,8 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
       <FreestylerMap
         userList={users.filter(u => u.type !== UserType.ADMINISTRATIVE)}
         selectedUsernames={[searchParams?.user || '']}
-        region={actingUser?.country || searchParams?.locale || 'DE'} // todo: causes second map render
-        language={actingUser?.country || searchParams?.locale || 'EN'} // todo: causes second map render
+        region={actingUser?.countryCode || searchParams?.locale || 'DE'} // todo: causes second map render
+        language={actingUser?.countryCode || searchParams?.locale || 'EN'} // todo: causes second map render
         lat={+searchParams?.lat || 54.5259614}
         lng={+searchParams?.lng || 15.2551187}
         zoom={+searchParams?.zoom || 4}

@@ -60,7 +60,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
   const [eventName, setEventName] = useState<string>();
   const [eventType, setEventType] = useState<EventType>();
   const [eventCategory, setEventCategory] = useState<EventCategory>(EventCategory.INTERNATIONAL);
-  const [venueCountry, setVenueCountry] = useState<string>();
+  const [venueCountryCode, setVenueCountryCode] = useState<string>();
   const [dateFrom, setDateFrom] = useState<string>();
   const [dateTo, setDateTo] = useState<string>();
   const [registrationDateFrom, setRegistrationDateFrom] = useState<string>(moment().startOf('day').utc().format());
@@ -90,7 +90,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       venueStreet: '',
       venueCity: '',
       venuePostCode: '',
-      venueCountry: venueCountry || '',
+      venueCountryCode: venueCountryCode || '',
       category: eventCategory,
       isWffaRanked: false,
       trailerUrl: null,
@@ -133,8 +133,8 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
     setEventName(value);
   };
 
-  const handleVenueCountryChanged = (value: string) => {
-    setVenueCountry(value);
+  const handleVenueCountryCodeChanged = (value: string) => {
+    setVenueCountryCode(value);
   };
 
   const handleEventCatergoryChanged = (value: EventCategory) => {
@@ -171,7 +171,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       if (!eventName || eventName.length < 3) return true;
 
       // type
-      if (eventType !== EventType.COMPETITION_ONLINE && (!venueCountry || venueCountry === menuCountriesWithUnspecified[0].value)) return true;
+      if (eventType !== EventType.COMPETITION_ONLINE && (!venueCountryCode || venueCountryCode === menuCountriesWithUnspecified[0].value)) return true;
 
       //dates
       if (!dateFrom || !dateTo || !registrationDateFrom || !registrationDateTo) return true;
@@ -338,7 +338,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       setDateTo(eventInfo?.dateFrom);
       setRegistrationDateFrom(eventInfo?.registrationOpen);
       setRegistrationDateTo(eventInfo?.registrationDeadline);
-      setVenueCountry(eventInfo?.venueCountry);
+      setVenueCountryCode(eventInfo?.venueCountryCode);
     } else {
       router.push(`${routeEventsCreate}`);
     }
@@ -450,10 +450,10 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
                     <div className="flex w-full">
                       <ComboBox
                         menus={menuCountriesWithUnspecified}
-                        value={venueCountry || menuCountriesWithUnspecified[0].value} // todo: set user country, remove '--'
+                        value={venueCountryCode || menuCountriesWithUnspecified[0].value} // todo: set user country, remove '--'
                         searchEnabled={true}
                         onChange={(value: any) => {
-                          handleVenueCountryChanged(value);
+                          handleVenueCountryCodeChanged(value);
                         }}
                       />
                     </div>
@@ -539,7 +539,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
                 {eventType !== EventType.COMPETITION_ONLINE && (
                   <div className="flex items-center gap-2">
                     <img src={imgLocation} className="h-6 w-6 object-fill" />
-                    {venueCountry && <>{getCountryNameByCode(venueCountry)}</>}
+                    {venueCountryCode && <>{getCountryNameByCode(venueCountryCode)}</>}
                   </div>
                 )}
 

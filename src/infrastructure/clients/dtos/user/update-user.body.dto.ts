@@ -7,7 +7,7 @@ export class UpdateUserBodyDto {
   lastName: string;
   nickName: string;
   gender: Gender;
-  country: string;
+  countryCode: string;
   freestyleSince: number;
   instagramHandle: string;
   tikTokHandle: string;
@@ -21,7 +21,7 @@ export class UpdateUserBodyDto {
     lastName: string,
     nickName: string,
     gender: Gender,
-    country: string,
+    countryCode: string,
     freestyleSince: number,
     instagramHandle: string,
     tikTokHandle: string,
@@ -34,7 +34,7 @@ export class UpdateUserBodyDto {
     this.lastName = lastName;
     this.nickName = nickName;
     this.gender = gender;
-    this.country = country;
+    this.countryCode = countryCode;
     this.freestyleSince = freestyleSince;
     this.instagramHandle = instagramHandle;
     this.tikTokHandle = tikTokHandle;

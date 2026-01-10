@@ -10,7 +10,7 @@ export type User = {
   lastName?: string;
   nickName?: string;
   gender?: string;
-  country?: string;
+  countryCode?: string;
   continentalCode?: string;
   age?: number;
   freestyleSince?: number;

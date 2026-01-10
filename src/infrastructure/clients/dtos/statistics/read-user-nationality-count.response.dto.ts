@@ -1,9 +1,9 @@
 export class ReadUserNationalityCountResponseDto {
-  country: string;
+  countryCode: string;
   userCount: number;
 
-  constructor(country: string, userCount: number) {
-    this.country = country;
+  constructor(countryCode: string, userCount: number) {
+    this.countryCode = countryCode;
     this.userCount = userCount;
   }
 }

@@ -58,12 +58,12 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
 
   const countryCount = new Map<string, number>([]);
   registeredParticipants.forEach(p => {
-    if (p.user.country) {
-      if (countryCount.has(p.user.country)) {
-        const curVal = countryCount.get(p.user.country);
-        if (curVal) countryCount.set(p.user.country, curVal + 1);
+    if (p.user.countryCode) {
+      if (countryCount.has(p.user.countryCode)) {
+        const curVal = countryCount.get(p.user.countryCode);
+        if (curVal) countryCount.set(p.user.countryCode, curVal + 1);
       } else {
-        countryCount.set(p.user.country, 1);
+        countryCount.set(p.user.countryCode, 1);
       }
     }
   });
