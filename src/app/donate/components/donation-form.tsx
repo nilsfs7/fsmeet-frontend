@@ -10,6 +10,7 @@ import { getCurrencySymbol } from '../../../functions/get-currency-symbol';
 import CheckoutForm from '../../../components/stripe-checkout';
 import { useSession } from 'next-auth/react';
 import { createCheckout } from '../../../infrastructure/clients/donation.client';
+import { routeDonateThankyou } from '../../../domain/constants/routes';
 
 export default function DonationForm() {
   const t = useTranslations('/donate');
@@ -69,7 +70,9 @@ export default function DonationForm() {
         />
       )}
 
-      {!showInitiateDonationButton && clientSecret && <CheckoutForm key={clientSecret} clientSecret={clientSecret} />}
+      {!showInitiateDonationButton && clientSecret && (
+        <CheckoutForm key={clientSecret} clientSecret={clientSecret} confirmPaymentBtnText={t('btnDonate')} returnUrl={`${window.location.origin}${routeDonateThankyou}`} />
+      )}
     </div>
   );
 }
