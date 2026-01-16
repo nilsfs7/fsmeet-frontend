@@ -4,17 +4,18 @@ import { useState } from 'react';
 import { PaymentElement, useStripe, useElements, Elements } from '@stripe/react-stripe-js';
 import { Appearance, loadStripe, StripePaymentElementOptions } from '@stripe/stripe-js';
 import TextButton from './common/text-button';
-import { routeDonateThankyou } from '../domain/constants/routes';
-import { useTranslations } from 'next-intl';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 
-function PaymentForm() {
-  const t = useTranslations('/donate');
+interface IPaymentForm {
+  confirmPaymentBtnText: string;
+  returnUrl: string;
+}
 
+function PaymentForm({ confirmPaymentBtnText, returnUrl }: IPaymentForm) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -35,7 +36,7 @@ function PaymentForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}${routeDonateThankyou}`,
+        return_url: returnUrl,
       },
     });
 
@@ -62,7 +63,7 @@ function PaymentForm() {
       <PaymentElement id="payment-element" options={paymentElementOptions} />
 
       <div className="p-2 flex justify-center w-full">
-        {isLoading ? <div className="spinner" id="spinner" /> : <TextButton disabled={isLoading || !stripe || !elements} id="submit" text={t('btnDonate')} />}
+        {isLoading ? <div className="spinner" id="spinner" /> : <TextButton disabled={isLoading || !stripe || !elements} id="submit" text={confirmPaymentBtnText} />}
       </div>
 
       {/* Show any error or success messages */}
@@ -73,16 +74,19 @@ function PaymentForm() {
 
 interface ICheckoutForm {
   clientSecret: string;
+  stripeAccount?: string;
+  confirmPaymentBtnText: string;
+  returnUrl: string;
 }
 
-export default function CheckoutForm({ clientSecret }: ICheckoutForm) {
+export default function CheckoutForm({ clientSecret, stripeAccount, confirmPaymentBtnText, returnUrl }: ICheckoutForm) {
   const appearance: Appearance = {
     theme: 'stripe',
   };
 
   return (
     <Elements stripe={stripePromise} options={{ appearance, clientSecret }}>
-      <PaymentForm />
+      <PaymentForm confirmPaymentBtnText={confirmPaymentBtnText} returnUrl={returnUrl} />
     </Elements>
   );
 }
