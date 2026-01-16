@@ -34,7 +34,7 @@ export default function DonationForm() {
   const handleInitiateDonationClicked = async () => {
     await createCheckout(amount, session)
       .then(res => {
-        setClientSecret(res.piClientSecret);
+        setClientSecret(res.clientSecret);
         setShowInitiateDonationButton(false);
       })
       .catch((error: any) => {
