@@ -1,6 +1,7 @@
 import { Session } from 'next-auth';
 import { ReadPaymentResponseDto } from './dtos/payment/read-payment.response.dto';
 import { CreateRefundBodyDto } from './dtos/payment/create-refund.body.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function getPayments(session: Session | null): Promise<ReadPaymentResponseDto[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/payments`;
@@ -8,7 +9,7 @@ export async function getPayments(session: Session | null): Promise<ReadPaymentR
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -29,7 +30,7 @@ export async function createRefund(intentId: string, session: Session | null): P
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

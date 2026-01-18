@@ -1,4 +1,5 @@
 import { Session } from 'next-auth';
+import { defaultHeaders } from './default-headers';
 
 export async function createFeedbackBug(message: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/feedback/bugs`;
@@ -11,7 +12,7 @@ export async function createFeedbackBug(message: string, session: Session | null
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -35,7 +36,7 @@ export async function createFeedbackFeature(message: string, session: Session | 
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -59,7 +60,7 @@ export async function createFeedbackGeneral(message: string, session: Session | 
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

@@ -1,7 +1,5 @@
 export enum Platform {
-  INSTAGRAM,
-  TIKTOK,
-  YOUTUBE,
-  WEBSITE,
-  FSMEET,
+  WEB = 'web',
+  IOS = 'ios',
+  ANDROID = 'android',
 }

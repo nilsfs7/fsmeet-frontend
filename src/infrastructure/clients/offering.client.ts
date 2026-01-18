@@ -4,6 +4,7 @@ import { CreateOfferingBodyDto } from './dtos/offering/create-offering.body.dto'
 import { ReadOfferingResponseDto } from './dtos/offering/read-offering.response.dto';
 import { PatchOfferingBodyDto } from './dtos/offering/patch-offering.body.dto';
 import { DeleteOfferingBodyDto } from './dtos/offering/delete-offering.body.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function getOfferings(eventId: string | null): Promise<ReadOfferingResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings/?`;
@@ -54,7 +55,7 @@ export async function createOffering(
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -87,7 +88,7 @@ export async function updateOffering(
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -131,7 +132,7 @@ export async function deleteOffering(id: string, session: Session | null): Promi
     method: 'DELETE',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

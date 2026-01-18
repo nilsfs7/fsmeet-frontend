@@ -1,6 +1,7 @@
 import { Session } from 'next-auth';
 import { CreateDonationCheckoutBodyDto } from './dtos/donation/create-donation-checkout.body.dto';
 import { ReadStripeCheckoutResponseDto } from './dtos/donation/read-stripe-checkout.response.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function createCheckout(amount: number, session: Session | null): Promise<ReadStripeCheckoutResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/donations/checkout`;
@@ -11,7 +12,7 @@ export async function createCheckout(amount: number, session: Session | null): P
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

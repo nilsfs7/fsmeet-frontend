@@ -12,6 +12,7 @@ import { CreateStripeAccountOnboardingLinkBodyDto } from './dtos/user/create-str
 import { ReadAccountOnboardingLinkResponseDto } from './dtos/user/read-stripe-account-link.response.dto';
 import { ReadStripeAccountIdResponseDto } from './dtos/user/read-stripe-account-id.response.dto';
 import { ReadStripeLoginLinkResponseDto } from './dtos/user/read-stripe-login-link.response.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
@@ -160,7 +161,7 @@ export async function getConfirmUser(username: string, requestToken: string): Pr
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
     },
   });
 
@@ -180,7 +181,7 @@ export async function createUser(username: string, type: UserType, email: string
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
     },
   });
 
@@ -203,7 +204,7 @@ export async function createPasswordReset(usernameOrEmail: string): Promise<void
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
     },
   });
 
@@ -256,7 +257,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -322,7 +323,7 @@ export async function updateUserPassword(requestToken: string, password: string)
     method: 'PATCH',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
     },
   });
 
@@ -346,7 +347,7 @@ export async function updateUserVerificationState(session: Session | null, usern
     method: 'PATCH',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -368,7 +369,7 @@ export async function updateUserWffaId(session: Session | null, username: string
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -390,7 +391,7 @@ export async function deleteUser(username: string, session: Session | null): Pro
     method: 'DELETE',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -451,7 +452,7 @@ export async function createStripeAccountOnboardingLink(refreshUrl: string, retu
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -472,7 +473,7 @@ export async function createStripeLoginLink(session: Session | null): Promise<st
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

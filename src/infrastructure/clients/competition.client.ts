@@ -6,6 +6,7 @@ import { CreateRoundBodyDto } from './dtos/competition/create-round.body.dto';
 import { CreateMatchBodyDto } from './dtos/competition/create-match.body.dto';
 import moment from 'moment';
 import { ReadPartialUser1ResponseDto } from './dtos/user/read-partial-user-1.response.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function getCompetitions(eventId: string | null): Promise<Competition[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions?eventId=${eventId}`;
@@ -31,7 +32,7 @@ export async function getCompetition(compId: string): Promise<Competition> {
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
     },
   });
 
@@ -97,7 +98,7 @@ export async function createCompetition(eventId: string, comp: Competition, sess
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -121,7 +122,7 @@ export async function createCompetitionParticipation(compId: string, username: s
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -150,7 +151,7 @@ export async function createRounds(compId: string, rounds: Round[], session: Ses
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -184,7 +185,7 @@ export async function updateCompetition(comp: Competition, session: Session | nu
     method: 'PATCH',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -206,7 +207,7 @@ export async function updateRounds(compId: string, rounds: Round[], session: Ses
     method: 'PUT',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -233,7 +234,7 @@ export async function updateMatchSlots(eventId: string, compId: string, matchId:
     method: 'PUT',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -258,7 +259,7 @@ export async function deleteCompetition(compId: string, session: Session | null)
     method: 'DELETE',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -282,7 +283,7 @@ export async function deleteCompetitionParticipation(compId: string, username: s
     method: 'DELETE',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
