@@ -26,7 +26,7 @@ import Link from 'next/link';
 import { imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
 import { getUserTypeImages } from '@/functions/user-type';
 import SocialLink from '@/components/user/social-link';
-import { Platform } from '@/domain/enums/platform';
+import { SocialPlatform } from '@/domain/enums/social-platform';
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslations } from 'next-intl';
@@ -220,11 +220,11 @@ export const UsersList = ({ columnData }: IUsersList) => {
       },
       cell: ({ row }) => (
         <div className="flex gap-2">
-          {(row.getValue('socials') as Socials).fsm && <SocialLink platform={Platform.FSMEET} path={(row.getValue('socials') as Socials).fsm} showPath={false} />}
-          {(row.getValue('socials') as Socials).insta && <SocialLink platform={Platform.INSTAGRAM} path={(row.getValue('socials') as Socials).insta} showPath={false} />}
-          {(row.getValue('socials') as Socials).tikTok && <SocialLink platform={Platform.TIKTOK} path={(row.getValue('socials') as Socials).tikTok} showPath={false} />}
-          {(row.getValue('socials') as Socials).youTube && <SocialLink platform={Platform.YOUTUBE} path={(row.getValue('socials') as Socials).youTube} showPath={false} />}
-          {(row.getValue('socials') as Socials).website && <SocialLink platform={Platform.WEBSITE} path={(row.getValue('socials') as Socials).website} showPath={false} />}
+          {(row.getValue('socials') as Socials).fsm && <SocialLink platform={SocialPlatform.FSMEET} path={(row.getValue('socials') as Socials).fsm} showPath={false} />}
+          {(row.getValue('socials') as Socials).insta && <SocialLink platform={SocialPlatform.INSTAGRAM} path={(row.getValue('socials') as Socials).insta} showPath={false} />}
+          {(row.getValue('socials') as Socials).tikTok && <SocialLink platform={SocialPlatform.TIKTOK} path={(row.getValue('socials') as Socials).tikTok} showPath={false} />}
+          {(row.getValue('socials') as Socials).youTube && <SocialLink platform={SocialPlatform.YOUTUBE} path={(row.getValue('socials') as Socials).youTube} showPath={false} />}
+          {(row.getValue('socials') as Socials).website && <SocialLink platform={SocialPlatform.WEBSITE} path={(row.getValue('socials') as Socials).website} showPath={false} />}
         </div>
       ),
       enableSorting: false,

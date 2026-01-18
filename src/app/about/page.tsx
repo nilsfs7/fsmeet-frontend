@@ -5,7 +5,7 @@ import ActionButton from '@/components/common/action-button';
 import SocialLink from '@/components/user/social-link';
 import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import { Platform } from '@/domain/enums/platform';
+import { SocialPlatform } from '@/domain/enums/social-platform';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { readFileSync } from 'fs';
@@ -41,7 +41,7 @@ export default async function About() {
         </div>
 
         <div className="mt-2">
-          <SocialLink platform={Platform.INSTAGRAM} path={'@fsmeet_com'} />
+          <SocialLink platform={SocialPlatform.INSTAGRAM} path={'@fsmeet_com'} />
         </div>
 
         <Link className="mt-6 underline" href={routeDonate}>

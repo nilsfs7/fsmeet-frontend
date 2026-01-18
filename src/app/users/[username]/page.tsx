@@ -5,7 +5,7 @@ import SocialLink from '@/components/user/social-link';
 import { imgUserDefaultImg, imgVerifiedCheckmark, imgWorld } from '@/domain/constants/images';
 import { routeAccount, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import { Platform } from '@/domain/enums/platform';
+import { SocialPlatform } from '@/domain/enums/social-platform';
 import { UserType } from '@/domain/enums/user-type';
 import Link from 'next/link';
 import ReactCountryFlag from 'react-country-flag';
@@ -106,25 +106,25 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
                         <div>
                           {user.instagramHandle && (
                             <div className="mt-1 w-fit">
-                              <SocialLink platform={Platform.INSTAGRAM} path={user.instagramHandle} />
+                              <SocialLink platform={SocialPlatform.INSTAGRAM} path={user.instagramHandle} />
                             </div>
                           )}
 
                           {user.tikTokHandle && (
                             <div className="mt-1 w-fit">
-                              <SocialLink platform={Platform.TIKTOK} path={user.tikTokHandle} />
+                              <SocialLink platform={SocialPlatform.TIKTOK} path={user.tikTokHandle} />
                             </div>
                           )}
 
                           {user.youTubeHandle && (
                             <div className="mt-1 w-fit">
-                              <SocialLink platform={Platform.YOUTUBE} path={user.youTubeHandle} />
+                              <SocialLink platform={SocialPlatform.YOUTUBE} path={user.youTubeHandle} />
                             </div>
                           )}
 
                           {user.website && (
                             <div className="mt-1 w-fit">
-                              <SocialLink platform={Platform.WEBSITE} path={user.website} />
+                              <SocialLink platform={SocialPlatform.WEBSITE} path={user.website} />
                             </div>
                           )}
                         </div>

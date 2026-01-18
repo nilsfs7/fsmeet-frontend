@@ -6,7 +6,7 @@ import SocialLink from '@/components/user/social-link';
 import UserCard from '@/components/user/user-card';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import { Platform } from '@/domain/enums/platform';
+import { SocialPlatform } from '@/domain/enums/social-platform';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/domain/types/user';
 import { getTranslations } from 'next-intl/server';
@@ -61,7 +61,7 @@ export default async function About() {
           <div className="mt-4 flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
             {t('textSpanishTranslation')} <UserCard user={userNikolaj} />
-            <SocialLink platform={Platform.INSTAGRAM} path="p/DDEp2gZsB7e" pathNameOverride={t('lnkAnnouncement')} />
+            <SocialLink platform={SocialPlatform.INSTAGRAM} path="p/DDEp2gZsB7e" pathNameOverride={t('lnkAnnouncement')} />
           </div>
         )}
 
@@ -69,7 +69,7 @@ export default async function About() {
           <div className="mt-4 flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
             {t('textFrenchTranslation')} <UserCard user={userGaby} />
-            <SocialLink platform={Platform.INSTAGRAM} path="p/DDP0vnBMLBy" pathNameOverride={t('lnkAnnouncement')} />
+            <SocialLink platform={SocialPlatform.INSTAGRAM} path="p/DDP0vnBMLBy" pathNameOverride={t('lnkAnnouncement')} />
           </div>
         )}
 
@@ -79,7 +79,7 @@ export default async function About() {
           <div className="flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
             {t('textPersonalSchedule')} <UserCard user={userCbb} />
-            <SocialLink platform={Platform.INSTAGRAM} path="p/C4P5MiQr9Uj" pathNameOverride={t('lnkAnnouncement')} />
+            <SocialLink platform={SocialPlatform.INSTAGRAM} path="p/C4P5MiQr9Uj" pathNameOverride={t('lnkAnnouncement')} />
           </div>
         )}
 
@@ -87,7 +87,7 @@ export default async function About() {
           <div className="mt-4 flex flex-col gap-1 items-center">
             {/* @ts-ignore */}
             {t('textSearchByGender')} <UserCard user={userJule} />
-            <SocialLink platform={Platform.INSTAGRAM} path="p/C5scnaRrIo9" pathNameOverride={t('lnkAnnouncement')} />
+            <SocialLink platform={SocialPlatform.INSTAGRAM} path="p/C5scnaRrIo9" pathNameOverride={t('lnkAnnouncement')} />
           </div>
         )}
       </div>
