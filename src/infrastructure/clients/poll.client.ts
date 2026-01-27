@@ -9,6 +9,7 @@ import { CreatePollRatingBodyDto } from './dtos/poll/create-poll-rating.body.dto
 import { PollRating } from '@/domain/types/poll-rating';
 import { TargetGroup } from '@/domain/types/target-group';
 import { DeletePollBodyDto } from './dtos/poll/delete-poll.body.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function getPolls(questionerUsername?: string): Promise<Poll[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls?`;
@@ -45,7 +46,7 @@ export async function createPoll(question: string, description: string, options:
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -67,7 +68,7 @@ export async function deletePoll(pollId: string, session: Session | null): Promi
     method: 'DELETE',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -86,7 +87,7 @@ export async function getVotes(session: Session | null): Promise<Vote[]> {
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -107,7 +108,7 @@ export async function createVote(vote: Vote, session: Session | null): Promise<P
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -129,7 +130,7 @@ export async function getPollRatings(session: Session | null): Promise<PollRatin
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -150,7 +151,7 @@ export async function createPollRating(pollId: string, ratingAction: RatingActio
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

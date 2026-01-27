@@ -1,3 +1,4 @@
+import { defaultHeaders } from './default-headers';
 import { ReadAchievementResponseDto } from './dtos/achievements/read-achievement.response.dto';
 
 export async function getAchievements(username: string): Promise<ReadAchievementResponseDto[]> {
@@ -5,6 +6,9 @@ export async function getAchievements(username: string): Promise<ReadAchievement
 
   const response = await fetch(url, {
     method: 'GET',
+    headers: {
+      ...defaultHeaders,
+    },
   });
   return await response.json();
 }

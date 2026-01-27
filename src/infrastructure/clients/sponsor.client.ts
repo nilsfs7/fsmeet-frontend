@@ -4,6 +4,7 @@ import { CreateSponsorBodyDto } from './dtos/sponsor/create-sponsor.body.dto';
 import { PatchSponsorBodyDto } from './dtos/sponsor/patch-sponsor.body.dto';
 import { DeleteSponsorBodyDto } from './dtos/sponsor/delete-sponsor.body.dto';
 import { CreateSponsorResponseDto } from './dtos/sponsor/create-sponsor.response.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function getSponsors(eventId: string | null): Promise<ReadSponsorResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/?`;
@@ -46,7 +47,7 @@ export async function createSponsor(eventId: string, name: string, website: stri
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -71,7 +72,7 @@ export async function updateSponsor(id: string, name: string, website: string, i
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -115,7 +116,7 @@ export async function deleteSponsor(id: string, session: Session | null): Promis
     method: 'DELETE',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

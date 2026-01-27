@@ -1,6 +1,7 @@
 import { Session } from 'next-auth';
 import { CreateBroadcastBodyDto } from './dtos/notification/create-broadcast-notification.body.dto';
 import { NotificationAction } from '../../domain/enums/notification-action';
+import { defaultHeaders } from './default-headers';
 
 export async function createBroadcast(title: string, message: string, action: NotificationAction, arbitraryData: Record<string, string> = {}, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/notification/broadcast`;
@@ -11,7 +12,7 @@ export async function createBroadcast(title: string, message: string, action: No
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

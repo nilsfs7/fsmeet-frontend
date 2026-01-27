@@ -4,6 +4,7 @@ import { CreateAccommodationBodyDto } from './dtos/accommodation/create-accommod
 import { ReadAccommodationResponseDto } from './dtos/accommodation/read-accommodation.response.dto';
 import { PatchAccommodationBodyDto } from './dtos/accommodation/patch-accommodation.body.dto';
 import { DeleteAccommodationBodyDto } from './dtos/accommodation/delete-accommodation.body.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function getAccommodations(eventId: string | null): Promise<ReadAccommodationResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/?`;
@@ -14,6 +15,9 @@ export async function getAccommodations(eventId: string | null): Promise<ReadAcc
 
   const response = await fetch(url, {
     method: 'GET',
+    headers: {
+      ...defaultHeaders,
+    },
   });
 
   if (response.ok) {
@@ -28,6 +32,9 @@ export async function getAccommodation(accommodationId: string): Promise<ReadAcc
 
   const response = await fetch(url, {
     method: 'GET',
+    headers: {
+      ...defaultHeaders,
+    },
   });
 
   if (response.ok) {
@@ -54,7 +61,7 @@ export async function createAccommodation(
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -80,7 +87,7 @@ export async function updateAccommodation(id: string, description: string, cost:
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -103,6 +110,7 @@ export async function updateAccommodationPreview(id: string, image: File, sessio
     method: 'PATCH',
     body: body,
     headers: {
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -124,7 +132,7 @@ export async function deleteAccommodation(id: string, session: Session | null): 
     method: 'DELETE',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

@@ -1,5 +1,6 @@
 import { License } from '@/domain/types/license';
 import { Session } from 'next-auth';
+import { defaultHeaders } from './default-headers';
 
 export async function getLicense(session: Session | null, username: string): Promise<License> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/licenses/${username}`;
@@ -7,7 +8,7 @@ export async function getLicense(session: Session | null, username: string): Pro
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -40,7 +41,7 @@ export async function updateLicense(session: Session | null, license: License): 
     method: 'PATCH',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

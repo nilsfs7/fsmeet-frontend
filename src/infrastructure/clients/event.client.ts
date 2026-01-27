@@ -27,6 +27,7 @@ import { UpdatePaymentMethodSepaBodyDto } from './dtos/event/payment/update-paym
 import { UpdatePaymentMethodStripeBodyDto } from './dtos/event/payment/update-payment-method-stripe.body.dto';
 import { PatchEventPosterBodyDto } from './dtos/event/patch-event-poster.body.dto';
 import { CreateEventResponseDto } from './dtos/event/create-event.response.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function getEvents(
   admin: string | null,
@@ -221,7 +222,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -291,7 +292,7 @@ export async function createEventRegistration(eventId: string, username: string,
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -324,7 +325,7 @@ export async function createEventRegistration_v2(
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -346,7 +347,7 @@ export async function createEventRegistrationCheckoutLink(eventId: string, succe
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -377,7 +378,7 @@ export async function createComment(eventId: string, message: string, session: S
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -402,7 +403,7 @@ export async function createSubComment(eventId: string, rootCommentId: string, m
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -426,7 +427,7 @@ export async function createEventFeedback(eventId: string, message: string, sess
     method: 'POST',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -493,7 +494,7 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -518,7 +519,7 @@ export async function updateEventRegistrationStatus(eventId: string, username: s
     method: 'PATCH',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -543,7 +544,7 @@ export async function updateEventState(session: Session | null, eventId: string,
     method: 'PATCH',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -565,7 +566,7 @@ export async function updateEventPoster(eventId: string, imageBase64: string, se
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -592,7 +593,7 @@ export async function deleteEventPoster(eventId: string, session: Session | null
     method: 'DELETE',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -616,7 +617,7 @@ export async function deleteEvent(eventId: string, session: Session | null): Pro
     method: 'DELETE',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -640,7 +641,7 @@ export async function deleteEventRegistration(eventId: string, username: string,
     method: 'DELETE',
     body: body,
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -680,7 +681,7 @@ export async function createVisaInvitationRequest(eventId: string, firstName: st
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -702,7 +703,7 @@ export async function updateVisaInvitationRequest(id: string, state: VisaInvitat
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

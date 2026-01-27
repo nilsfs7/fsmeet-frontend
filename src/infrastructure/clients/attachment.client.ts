@@ -4,6 +4,7 @@ import { CreateAttachmentBodyDto } from './dtos/attachment/create-attachment.bod
 import { ReadAttachmentResponseDto } from './dtos/attachment/read-attachment.response.dto';
 import { PatchAttachmentBodyDto } from './dtos/attachment/patch-attachment.body.dto';
 import { DeleteAttachmentBodyDto } from './dtos/attachment/delete-attachment.body.dto';
+import { defaultHeaders } from './default-headers';
 
 export async function getAttachments(eventId: string | null): Promise<ReadAttachmentResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments/?`;
@@ -56,7 +57,7 @@ export async function createAttachment(
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -91,7 +92,7 @@ export async function updateAttachment(
     method: 'PATCH',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
@@ -113,7 +114,7 @@ export async function deleteAttachment(id: string, session: Session | null): Pro
     method: 'DELETE',
     body: JSON.stringify(body),
     headers: {
-      'Content-Type': 'application/json',
+      ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

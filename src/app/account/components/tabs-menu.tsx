@@ -24,7 +24,7 @@ import { Action } from '@/domain/enums/action';
 import { ButtonStyle } from '@/domain/enums/button-style';
 import Dialog from '@/components/dialog';
 import SocialLink from '@/components/user/social-link';
-import { Platform } from '@/domain/enums/platform';
+import { SocialPlatform } from '@/domain/enums/social-platform';
 import { menuFreestyleSinceWithUnspecified } from '@/domain/constants/menus/menu-freestyle-since';
 import { DatePicker } from '@/components/common/date-picker';
 import moment, { Moment } from 'moment';
@@ -464,7 +464,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
           </div>
 
           <div className="mt-2">
-            <SocialLink platform={Platform.INSTAGRAM} path="@fsmeet_com" />
+            <SocialLink platform={SocialPlatform.INSTAGRAM} path="@fsmeet_com" />
           </div>
         </div>
 

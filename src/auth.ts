@@ -15,6 +15,7 @@ import {
   routeWffaOverview,
 } from './domain/constants/routes';
 import { AdministrativeUser } from './domain/enums/administrative-user';
+import { defaultHeaders } from './infrastructure/clients/default-headers';
 
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',
@@ -31,7 +32,7 @@ const credentialsConfig = CredentialsProvider({
         method: 'POST',
         body: body,
         headers: {
-          'Content-Type': 'application/json',
+          ...defaultHeaders,
         },
       });
 
