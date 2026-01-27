@@ -911,7 +911,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
                 <div className="flex justify-between gap-2">
                   <ComboBox
                     menus={users.map(user => {
-                      return { text: `${user.firstName} (${user.username})`, value: user.username };
+                      return { text: `${user.firstName} ${user.lastName} (${user.username})`, value: user.username };
                     })}
                     value={maintainerToAddUsername || ''}
                     searchEnabled={true}
