@@ -191,6 +191,8 @@
     "dlgEventUnregisterTitle": "Vom Event abmelden",
     "dlgEventUnregisterText": "Möchtest du dich wirklich vom Event abmelden?",
     "dlgEventUnregisterBtnConfirm": "Bestätigen",
+    "dlgDeleteCommentTitle": "Kommentar löschen",
+    "dlgDeleteCommentText": "Kommentar löschen? Dies kann nicht rückgängig gemacht werden.",
     "adminPanelTitle": "Adminbereich",
     "adminPanelBtnEditEventToolTip": "Event editieren",
     "adminPanelBtnManageParticipantsToolTip": "Teilnehmer verwalten",

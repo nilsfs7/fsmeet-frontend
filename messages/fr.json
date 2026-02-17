@@ -191,6 +191,8 @@
     "dlgEventUnregisterTitle": "Se désinscrire de l'événement",
     "dlgEventUnregisterText": "Voulez-vous vraiment vous désinscrire de cet événement ?",
     "dlgEventUnregisterBtnConfirm": "Confirmer",
+    "dlgDeleteCommentTitle": "Supprimer le commentaire",
+    "dlgDeleteCommentText": "Supprimer le commentaire ? Cela ne peut pas être annulé.",
     "adminPanelTitle": "Vue Administrateur",
     "adminPanelBtnEditEventToolTip": "Modifier l'événement",
     "adminPanelBtnManageParticipantsToolTip": "Gérer les participants",

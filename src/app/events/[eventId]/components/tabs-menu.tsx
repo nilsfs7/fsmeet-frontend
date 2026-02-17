@@ -32,6 +32,7 @@ import { Attachment } from '@/domain/types/attachment';
 import moment from 'moment';
 import { isInEventRegistrations } from '../../../../functions/is-in-event-registrations';
 import { isEventAdminOrMaintainer } from '../../../../functions/is-event-admin-or-maintrainer';
+import Dialog from '@/components/dialog';
 
 interface ITabsMenu {
   event: Event;
@@ -49,6 +50,8 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
   const searchParams = useSearchParams();
   const tab = searchParams?.get('tab');
+  const commentDeletionCommentId = searchParams?.get('comment');
+  const commentDeletionIsSubComment = searchParams?.get('sub');
 
   const [eventAdmin, setEventAdmin] = useState<User>();
   const [eventRegistrations, setEventRegistrations] = useState<EventRegistration[]>([]);
@@ -89,20 +92,27 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
     }
   };
 
-  const handleDeleteCommentClicked = async (commentId: string, isSubComment: boolean) => {
+  const handleDeleteCommentClicked = (commentId: string, isSubComment: boolean) => {
+    router.replace(`${routeEvents}/${event.id}?comment=${commentId}&sub=${isSubComment ? '1' : '0'}&delete=1`);
+  };
+
+  const handleCancelDeleteClicked = async () => {
+    router.replace(`${routeEvents}/${event.id}`);
+  };
+
+  const handleConfirmDeleteClicked = async () => {
     if (!validateSession(session)) {
       router.push(loginRouteWithCallbackUrl);
       return;
     }
 
-    if (event.id) {
+    if (event.id && commentDeletionCommentId && commentDeletionIsSubComment !== undefined) {
       try {
-        if (isSubComment) {
-          await deleteSubComment(event.id, commentId, session);
+        if (commentDeletionIsSubComment === '1') {
+          await deleteSubComment(event.id, commentDeletionCommentId, session);
         } else {
-          await deleteComment(event.id, commentId, session);
+          await deleteComment(event.id, commentDeletionCommentId, session);
         }
-
         router.refresh();
       } catch (error: any) {
         toast.error(error.message);
@@ -173,6 +183,10 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
   return (
     <>
       <Toaster richColors />
+
+      <Dialog title={t('dlgDeleteCommentTitle')} queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
+        <p>{t('dlgDeleteCommentText')}</p>
+      </Dialog>
 
       <Tabs defaultValue={tab || `overview`} className="flex flex-col h-full">
         <TabsList>
