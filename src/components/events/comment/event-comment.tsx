@@ -14,11 +14,12 @@ import { useSession } from 'next-auth/react';
 
 interface IUserCommentProps {
   comment: EventComment;
+  canDelete: boolean;
   onClickReply: (commentId: string) => void;
   onClickDelete: (commentId: string) => void;
 }
 
-const UserComment = ({ comment, onClickReply, onClickDelete }: IUserCommentProps) => {
+const UserComment = ({ comment, canDelete, onClickReply, onClickDelete }: IUserCommentProps) => {
   const { data: session, status } = useSession();
 
   const handleReplyClicked = (commentId: string) => {
@@ -64,7 +65,7 @@ const UserComment = ({ comment, onClickReply, onClickDelete }: IUserCommentProps
             </button>
 
             {/* delete */}
-            {session?.user.username === AdministrativeUser.ADMIN && (
+            {(canDelete || session?.user.username === comment.user.username || session?.user.username === AdministrativeUser.ADMIN) && (
               <div className="mx-1 flex items-center">
                 <ActionButton
                   size={Size.XS}

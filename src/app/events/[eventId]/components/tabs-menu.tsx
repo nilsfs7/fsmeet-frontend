@@ -31,6 +31,7 @@ import { AttachmentSection } from './attachment-section';
 import { Attachment } from '@/domain/types/attachment';
 import moment from 'moment';
 import { isInEventRegistrations } from '../../../../functions/is-in-event-registrations';
+import { isEventAdminOrMaintainer } from '../../../../functions/is-event-admin-or-maintrainer';
 
 interface ITabsMenu {
   event: Event;
@@ -231,6 +232,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
             <div className="mt-2">
               <CommentSection
                 username={session.user.username}
+                canDelete={isEventAdminOrMaintainer(event, session)}
                 userProfileImageUrl={session?.user.imageUrl}
                 eventComments={comments || []}
                 onPostComment={(message: string) => {
