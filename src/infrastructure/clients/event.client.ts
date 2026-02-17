@@ -28,6 +28,8 @@ import { UpdatePaymentMethodStripeBodyDto } from './dtos/event/payment/update-pa
 import { PatchEventPosterBodyDto } from './dtos/event/patch-event-poster.body.dto';
 import { CreateEventResponseDto } from './dtos/event/create-event.response.dto';
 import { defaultHeaders } from './default-headers';
+import { DeleteEventCommentBodyDto } from './dtos/event/delete-comment.body.dto';
+import { DeleteEventSubCommentBodyDto } from './dtos/event/delete-sub-comment.body.dto';
 
 export async function getEvents(
   admin: string | null,
@@ -35,7 +37,7 @@ export async function getEvents(
   participant: string | null,
   from: moment.Moment | null,
   to: moment.Moment | null,
-  session?: Session | null
+  session?: Session | null,
 ): Promise<Event[]> {
   const format = 'YYYY-MM-DDTHH:mm:ss.SSS';
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?`;
@@ -205,7 +207,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
       event?.paymentMethodSepa.bank,
       event?.paymentMethodSepa.recipient,
       event?.paymentMethodSepa.iban,
-      event?.paymentMethodSepa.reference
+      event?.paymentMethodSepa.reference,
     ),
     new CreatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled, event?.paymentMethodStripe.coverProviderFee),
     event?.showUserCountryFlag,
@@ -215,7 +217,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
     event?.allowComments,
     event?.notifyOnComment,
     event?.waiver,
-    event.visaInvitationRequestsEnabled
+    event.visaInvitationRequestsEnabled,
   );
 
   const response = await fetch(url, {
@@ -315,7 +317,7 @@ export async function createEventRegistration_v2(
   phoneCountryCode: number | null,
   phoneNumber: string | null,
   donationAmount: number | null,
-  session: Session | null
+  session: Session | null,
 ): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v2/events/${eventId}/registrations`;
 
@@ -416,6 +418,50 @@ export async function createSubComment(eventId: string, rootCommentId: string, m
   }
 }
 
+export async function deleteComment(eventId: string, commentId: string, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`;
+
+  const body = new DeleteEventCommentBodyDto(commentId);
+
+  const response = await fetch(url, {
+    method: 'DELETE',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Deleting comment successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function deleteSubComment(eventId: string, subCommentId: string, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments/subs`;
+
+  const body = new DeleteEventSubCommentBodyDto(subCommentId);
+
+  const response = await fetch(url, {
+    method: 'DELETE',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Deleting sub comment successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
 export async function createEventFeedback(eventId: string, message: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/feedback`;
 
@@ -477,7 +523,7 @@ export async function updateEvent(event: Event, session: Session | null): Promis
       event?.paymentMethodSepa.bank,
       event?.paymentMethodSepa.recipient,
       event?.paymentMethodSepa.iban,
-      event?.paymentMethodSepa.reference
+      event?.paymentMethodSepa.reference,
     ),
     new UpdatePaymentMethodStripeBodyDto(event?.paymentMethodStripe.enabled, event?.paymentMethodStripe.coverProviderFee),
     event?.showUserCountryFlag,
@@ -487,7 +533,7 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     event?.allowComments,
     event?.notifyOnComment,
     event?.waiver,
-    event.visaInvitationRequestsEnabled
+    event.visaInvitationRequestsEnabled,
   );
 
   const response = await fetch(url, {

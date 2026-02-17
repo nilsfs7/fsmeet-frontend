@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Event } from '@/domain/types/event';
-import { Toaster } from 'sonner';
+import { toast, Toaster } from 'sonner';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { switchTab } from '@/functions/switch-tab';
 import UserSection from '@/components/events/user-section';
@@ -18,7 +18,7 @@ import { User } from '@/domain/types/user';
 import { EventComment } from '@/domain/types/event-comment';
 import { Sponsor } from '@/domain/types/sponsor';
 import { validateSession } from '@/functions/validate-session';
-import { createComment, createSubComment, getEventRegistrations } from '@/infrastructure/clients/event.client';
+import { createComment, createSubComment, deleteComment, deleteSubComment, getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { Session } from 'next-auth';
 import { SponsorSection } from './sponsor-section';
 import { EventInfo } from './event-info';
@@ -88,6 +88,28 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
     }
   };
 
+  const handleDeleteCommentClicked = async (commentId: string, isSubComment: boolean) => {
+    if (!validateSession(session)) {
+      router.push(loginRouteWithCallbackUrl);
+      return;
+    }
+
+    if (event.id) {
+      try {
+        if (isSubComment) {
+          await deleteSubComment(event.id, commentId, session);
+        } else {
+          await deleteComment(event.id, commentId, session);
+        }
+
+        router.refresh();
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
+    }
+  };
+
   useEffect(() => {
     if (event.id)
       getEventRegistrations(event.id, null, session).then(registrations => {
@@ -117,7 +139,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
           .concat(pendingNoImage)
           .filter(visitor => {
             if (visitor.type === EventRegistrationType.PARTICIPANT) return visitor;
-          })
+          }),
       );
       setVisitorRegistrations(
         approvedWithImage
@@ -126,7 +148,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
           .concat(pendingNoImage)
           .filter(visitor => {
             if (visitor.type === EventRegistrationType.VISITOR) return visitor;
-          })
+          }),
       );
 
       if (event.admin) {
@@ -216,6 +238,9 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
                 }}
                 onPostReply={(commentId: string, message: string) => {
                   handlePostSubCommentClicked(commentId, message);
+                }}
+                onDeleteComment={(commentId: string, isSubComment: boolean) => {
+                  handleDeleteCommentClicked(commentId, isSubComment);
                 }}
               />
             </div>

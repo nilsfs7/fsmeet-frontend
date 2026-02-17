@@ -13,9 +13,10 @@ interface ICommentSectionProps {
   userProfileImageUrl?: string;
   onPostComment: (message: string) => void;
   onPostReply: (commentId: string, message: string) => void;
+  onDeleteComment: (commentId: string, isSubComment: boolean) => void;
 }
 
-export const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostComment, onPostReply }: ICommentSectionProps) => {
+export const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostComment, onPostReply, onDeleteComment }: ICommentSectionProps) => {
   const t = useTranslations('/events/eventid');
 
   const [newComment, setNewComment] = useState<string>();
@@ -88,6 +89,9 @@ export const CommentSection = ({ eventComments, username, userProfileImageUrl, o
                   setReplyTo(commentId);
                   focusInput();
                 }}
+                onClickDelete={(commentId: string) => {
+                  onDeleteComment(commentId, false);
+                }}
               />
 
               {comment.subComments &&
@@ -101,6 +105,9 @@ export const CommentSection = ({ eventComments, username, userProfileImageUrl, o
                         onClickReply={(commentId: string) => {
                           setReplyTo(subComment.rootCommentId);
                           focusInput();
+                        }}
+                        onClickDelete={(commentId: string) => {
+                          onDeleteComment(commentId, true);
                         }}
                       />
                     </div>
