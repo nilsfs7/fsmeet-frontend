@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 
 interface ICommentSectionProps {
   eventComments: EventComment[];
+  canDelete: boolean;
   username: string;
   userProfileImageUrl?: string;
   onPostComment: (message: string) => void;
@@ -16,7 +17,7 @@ interface ICommentSectionProps {
   onDeleteComment: (commentId: string, isSubComment: boolean) => void;
 }
 
-export const CommentSection = ({ eventComments, username, userProfileImageUrl, onPostComment, onPostReply, onDeleteComment }: ICommentSectionProps) => {
+export const CommentSection = ({ eventComments, canDelete, username, userProfileImageUrl, onPostComment, onPostReply, onDeleteComment }: ICommentSectionProps) => {
   const t = useTranslations('/events/eventid');
 
   const [newComment, setNewComment] = useState<string>();
@@ -83,8 +84,10 @@ export const CommentSection = ({ eventComments, username, userProfileImageUrl, o
         {eventComments.map((comment: EventComment, i) => {
           return (
             <div key={i} className={`flex flex-col gap-1`}>
+              {/* root comments */}
               <UserComment
                 comment={comment}
+                canDelete={canDelete}
                 onClickReply={(commentId: string) => {
                   setReplyTo(commentId);
                   focusInput();
@@ -94,6 +97,7 @@ export const CommentSection = ({ eventComments, username, userProfileImageUrl, o
                 }}
               />
 
+              {/* sub comments */}
               {comment.subComments &&
                 comment.subComments.length > 0 &&
                 comment.subComments.map((subComment: EventSubComment, j) => {
@@ -102,6 +106,7 @@ export const CommentSection = ({ eventComments, username, userProfileImageUrl, o
                     <div key={j} className={`ml-9 w-3/4`}>
                       <UserComment
                         comment={{ id: subComment.id, message: subComment.message, user: subComment.user, timestamp: subComment.timestamp, subComments: [] }}
+                        canDelete={canDelete}
                         onClickReply={(commentId: string) => {
                           setReplyTo(subComment.rootCommentId);
                           focusInput();
