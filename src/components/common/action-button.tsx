@@ -38,6 +38,7 @@ interface IButton {
 }
 
 enum ButtonSize {
+  XS = 'h-4 w-4',
   S = 'h-8 w-8',
   M = 'h-10 w-10',
 }
@@ -56,6 +57,9 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
 
   let buttonSize = '';
   switch (size) {
+    case Size.XS:
+      buttonSize = ButtonSize.XS;
+      break;
     case Size.S:
       buttonSize = ButtonSize.S;
       break;
@@ -64,89 +68,86 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
       break;
   }
 
-  let icon = <ArrowBackIcon />;
+  let Icon = ArrowBackIcon;
 
   switch (action) {
     case Action.ADD:
-      icon = <AddCircleIcon />;
+      Icon = AddCircleIcon;
       break;
     case Action.ACCEPT:
-      icon = <CheckIcon />;
+      Icon = CheckIcon;
       break;
     case Action.BACK:
-      icon = <ArrowBackIcon />;
+      Icon = ArrowBackIcon;
       break;
     case Action.CANCEL:
-      icon = <CancelIcon />;
+      Icon = CancelIcon;
       break;
     case Action.COMMENT:
-      icon = <CommentIcon />;
+      Icon = CommentIcon;
       break;
     case Action.COPY:
-      icon = <CopyIcon />;
+      Icon = CopyIcon;
       break;
     case Action.DELETE:
-      icon = <DeleteIcon />;
+      Icon = DeleteIcon;
       break;
     case Action.DENY:
-      icon = <CancelIcon />;
+      Icon = CancelIcon;
       break;
     case Action.DOWNLOAD:
-      icon = <CloudDownloadIcon />;
+      Icon = CloudDownloadIcon;
       break;
     case Action.EDIT:
-      icon = <EditIcon />;
-      break;
-    case Action.GOTOMAP:
-      icon = <img src={imgWorld} />;
+      Icon = EditIcon;
       break;
     case Action.GOTOEXTERNAL:
-      icon = <OpenInNewIcon />;
+      Icon = OpenInNewIcon;
       break;
     case Action.HIDE:
-      icon = <VisibilityOffIcon />;
+      Icon = VisibilityOffIcon;
       break;
     case Action.INFO:
-      icon = <InfoIcon />;
+      Icon = InfoIcon;
       break;
     case Action.MANAGE_ACCOMMODATIONS:
-      icon = <HotelIcon />;
+      Icon = HotelIcon;
       break;
     case Action.MANAGE_ATTACHMENTS:
-      icon = <FilePresentIcon />;
+      Icon = FilePresentIcon;
       break;
     case Action.MANAGE_COMPETITIONS:
-      icon = <TrophyIcon />;
+      Icon = TrophyIcon;
       break;
     case Action.MANAGE_OFFERINGS:
-      icon = <LocalOfferIcon />;
+      Icon = LocalOfferIcon;
       break;
     case Action.MANAGE_USERS:
-      icon = <PeopleIcon />;
+      Icon = PeopleIcon;
       break;
     case Action.MANAGE_SPONSORS:
-      icon = <PaidIcon />;
+      Icon = PaidIcon;
       break;
     case Action.PLAY:
-      icon = <PlayCircleOutlineIcon />;
+      Icon = PlayCircleOutlineIcon;
       break;
     case Action.REMOVE:
-      icon = <RemoveCircleIcon />;
+      Icon = RemoveCircleIcon;
       break;
     case Action.SAVE:
-      icon = <SaveIcon />;
+      Icon = SaveIcon;
       break;
     case Action.SEND:
-      icon = <SendIcon />;
+      Icon = SendIcon;
       break;
     case Action.SHARE:
-      icon = <ShareIcon />;
+      Icon = ShareIcon;
       break;
     case Action.SHOW:
-      icon = <VisibilityIcon />;
+      Icon = VisibilityIcon;
       break;
     case Action.STATISTICS:
-      icon = <BarChartIcon />;
+      Icon = BarChartIcon;
       break;
   }
 
@@ -156,7 +157,7 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
         <TooltipTrigger asChild>
           <button
             className={`
-      ${buttonSize} rounded-lg border flex justify-center items-center
+      ${buttonSize} rounded-lg ${size !== Size.XS && 'border'} flex justify-center items-center
       transition-all duration-200 ease-in-out
       transform hover:scale-[1.02] active:scale-[0.98]
       shadow-sm hover:shadow-md
@@ -166,7 +167,8 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
             onClick={onClick}
             aria-label={action.toString().toLowerCase()}
           >
-            {icon}
+            {/* todo: add map for non default icons */}
+            {action === Action.GOTOMAP ? <img src={imgWorld} className={buttonSize} /> : <Icon sx={{ width: Size.XS === size ? '100%' : '63%', height: Size.XS === size ? '100%' : '63%' }} />}
           </button>
         </TooltipTrigger>
 

@@ -1,18 +1,32 @@
+'use client';
+
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeUsers } from '@/domain/constants/routes';
 import { EventComment } from '@/domain/types/event-comment';
 import { formatTs } from '@/functions/time';
 import moment from 'moment';
 import Link from 'next/link';
+import ActionButton from '../../common/action-button';
+import { Action } from '../../../domain/enums/action';
+import { Size } from '../../../domain/enums/size';
+import { AdministrativeUser } from '../../../domain/enums/administrative-user';
+import { useSession } from 'next-auth/react';
 
 interface IUserCommentProps {
   comment: EventComment;
   onClickReply: (commentId: string) => void;
+  onClickDelete: (commentId: string) => void;
 }
 
-const UserComment = ({ comment, onClickReply }: IUserCommentProps) => {
-  const clickReply = (commentId: string) => {
+const UserComment = ({ comment, onClickReply, onClickDelete }: IUserCommentProps) => {
+  const { data: session, status } = useSession();
+
+  const handleReplyClicked = (commentId: string) => {
     onClickReply(commentId);
+  };
+
+  const handleDeleteClicked = (commentId: string) => {
+    onClickDelete(commentId);
   };
 
   return (
@@ -43,19 +57,24 @@ const UserComment = ({ comment, onClickReply }: IUserCommentProps) => {
             <button
               className="hover:underline"
               onClick={() => {
-                clickReply(comment.id);
+                handleReplyClicked(comment.id);
               }}
             >
               {`Reply`}
             </button>
 
-            {/* upvotes */}
-            {/* <div className="mx-1 flex items-center">
-              <div>6</div>
-              <IconButton size="small" className="sm hover:bg-transparent">
-                <ThumbUpIcon fontSize="inherit" />
-              </IconButton>
-            </div> */}
+            {/* delete */}
+            {session?.user.username === AdministrativeUser.ADMIN && (
+              <div className="mx-1 flex items-center">
+                <ActionButton
+                  size={Size.XS}
+                  action={Action.DELETE}
+                  onClick={() => {
+                    handleDeleteClicked(comment.id);
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
