@@ -2621,10 +2621,10 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-countries-list@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/countries-list/-/countries-list-3.2.0.tgz#900136450733a22554e569fd048e49e67d30c77c"
-  integrity sha512-HYHAo2fwEsG3TmbsNdVmIQPHizRlqeYMTtLEAl0IANG/3jRYX7p3NR6VapDqKP0n60TmsRy1dyRjVN5JbywDbA==
+countries-list@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/countries-list/-/countries-list-3.2.2.tgz#34ded4d3c8ebe715306cb5658c34f73a0c8f01cb"
+  integrity sha512-ABJ/RWQBrPWy+hRuZoW+0ooK8p65Eo3WmUZwHm6v4wmfSPznNAKzjy3+UUYrJK2v3182BVsgWxdB6ROidj39kw==
 
 cross-spawn@^7.0.2:
   version "7.0.6"
