@@ -191,6 +191,8 @@
     "dlgEventUnregisterTitle": "Darse de baja del evento",
     "dlgEventUnregisterText": "¿De verdad quieres darte de baja del evento?",
     "dlgEventUnregisterBtnConfirm": "Confirmar",
+    "dlgDeleteCommentTitle": "Eliminar comentario",
+    "dlgDeleteCommentText": "¿Eliminar comentario? Esto no se puede deshacer.",
     "adminPanelTitle": "Zona de administración",
     "adminPanelBtnEditEventToolTip": "Editar evento",
     "adminPanelBtnManageParticipantsToolTip": "Gestionar a los participantes",
