@@ -214,7 +214,7 @@
     "adminPanelTitle": "管理パネル",
     "adminPanelBtnEditEventToolTip": "イベントを編集",
     "adminPanelBtnManageParticipantsToolTip": "参加者を管理",
-    "adminPanelBtnManageCompetitionsToolTip": "競技を管理",
+    "adminPanelBtnManageCompetitionsToolTip": "カテゴリを管理",
     "adminPanelBtnManageAccommodationsToolTip": "宿泊を管理",
     "adminPanelBtnManageOfferingsToolTip": "提供内容を管理",
     "adminPanelBtnManageSponsorsToolTip": "スポンサーを管理",
@@ -230,8 +230,8 @@
     "tabOverviewSectionSponsors": "スポンサー",
     "tabOverviewSectionAttachments": "ドキュメント",
     "tabOverviewSectionComments": "コメント",
-    "tabCompetitionsTitle": "競技",
-    "tabCompetitionsSectionCompetitions": "競技",
+    "tabCompetitionsTitle": "カテゴリ",
+    "tabCompetitionsSectionCompetitions": "カテゴリ",
     "tabRegistrationsTitle": "参加者",
     "tabRegistrationsSectionRegistrationParticipants": "参加者",
     "tabRegistrationsSectionRegistrationVisitors": "観客",
@@ -263,7 +263,7 @@
     "btnCreate": "作成"
   },
   "/events/eventid/comps": {
-    "pageTitle": "競技を管理",
+    "pageTitle": "カテゴリを管理",
     "btnEdit": "編集",
     "btnPool": "選手一覧",
     "btnGameMode": "ゲームモード",
@@ -287,7 +287,7 @@
     "tabParticipantsTitle": "参加者",
     "tabParticipantsSectionParticipants": "参加者",
     "dlgDownloadResultsTitle": "結果をダウンロード",
-    "dlgDownloadResultsText": "世界ランキング用に競技結果を書き出します。",
+    "dlgDownloadResultsText": "世界ランキング用にカテゴリ結果を書き出します。",
     "dlgDownloadResultsCbAddPlayerNames": "選手名を追加",
     "dlgDownloadResultsBtnDownload": "ダウンロード"
   },
@@ -343,13 +343,13 @@
     "textNoGameMode": "トーナメントがまだ設定されていません。"
   },
   "/events/eventid/comps/edit": {
-    "pageTitle": "競技を編集",
+    "pageTitle": "カテゴリを編集",
     "btnSave": "保存",
-    "dlgDeleteCompetitionTitle": "競技を削除",
-    "dlgDeleteCompetitionText": "この競技を本当に削除しますか？"
+    "dlgDeleteCompetitionTitle": "カテゴリを削除",
+    "dlgDeleteCompetitionText": "このカテゴリを本当に削除しますか？"
   },
   "/events/eventid/comps/create": {
-    "pageTitle": "競技を作成",
+    "pageTitle": "カテゴリを作成",
     "btnCreate": "作成"
   },
   "/events/eventid/feedback": {
@@ -410,12 +410,12 @@
     "pageParticipantSectionUserPhoneNumber": "電話番号",
     "pageParticipantSectionUserInfoInstagramHandle": "Instagramハンドル",
     "pageParticipantSectionRegistrationTypeDescription": "登録種別を選択してください。",
-    "pageCompetitionDescription": "参加する競技を選択してください。",
+    "pageCompetitionDescription": "参加するカテゴリを選択してください。",
     "pageOfferingDescription": "提供内容を選択してください。",
     "pageAccommodationDescription": "宿泊を選択してください。不要ならスキップできます。",
     "pageCheckoutOverviewDescription": "お支払いへ進む前に、選択内容を確認してください。",
     "pageCheckoutOverviewSectionRegistrationType": "登録区分",
-    "pageCheckoutOverviewSectionCompetitions": "競技",
+    "pageCheckoutOverviewSectionCompetitions": "カテゴリ",
     "pageCheckoutOverviewSectionOfferings": "提供内容",
     "pageCheckoutOverviewSectionAccommodations": "宿泊",
     "btnRegister": "登録",
@@ -656,13 +656,13 @@
     "btnAddMatch": "試合を追加"
   },
   "global/components/competition-editor": {
-    "inputName": "競技名",
+    "inputName": "カテゴリ名",
     "inputNamePlaceHolder": "男子バトル",
     "cbType": "種類",
     "cbGender": "性別",
     "cbMaxAge": "年齢上限",
     "cbMaxAmountParticipants": "参加上限",
-    "chbIsFollowUpComp": "続編の競技ですか？",
+    "chbIsFollowUpComp": "続編のカテゴリですか？",
     "inputPaticipantFee": "参加費",
     "inputDescription": "説明",
     "inputDescriptionPlaceHolder": "予選（サークル）とKO（Top16）。",
@@ -754,7 +754,7 @@
   "global/components/payment-details": {
     "title": "支払い詳細",
     "feeEvent": "イベント",
-    "feeCompetitions": "競技",
+    "feeCompetitions": "カテゴリ",
     "feeOfferings": "提供内容",
     "feeAccommodations": "宿泊",
     "chbDonation": "FSMeetへの1%寄付",
