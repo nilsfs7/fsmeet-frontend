@@ -7,7 +7,7 @@ import ReactCountryFlag from 'react-country-flag';
 import { getCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { supportedLanguages } from '@/domain/constants/supported-languages';
+import { getSupportedlanguages } from '../functions/get-supported-languages';
 
 const LanguagePicker = () => {
   const router = useRouter();
@@ -15,6 +15,8 @@ const LanguagePicker = () => {
   const [locale, setLocale] = useState<string>('GB');
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
+
+  const supportedLanguages = getSupportedlanguages();
 
   useEffect(() => {
     const locale = getCookie('locale')?.toString();
