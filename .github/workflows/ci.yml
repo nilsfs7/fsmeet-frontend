@@ -72,6 +72,7 @@ jobs:
         with:
           push: true
           file: ./Dockerfile
+          no-cache: true
           tags: ${{ env.TAGS }}
           build-args: |
             AUTH_URL=${{ env.AUTH_URL }}
