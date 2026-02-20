@@ -497,7 +497,7 @@
   },
   "/feedback": {
     "pageGeneralFeedback": "Maklum Balas Umum",
-    "btnFeatures": "Mohon Ciri",
+    "btnFeatures": "Cadangan Ciri",
     "btnBugs": "Lapor Pepijat"
   },
   "/feedback/bugs": {
