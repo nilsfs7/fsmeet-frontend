@@ -9,18 +9,20 @@ import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
 import { createTranslator } from 'next-intl';
-import { supportedLanguages } from '@/domain/constants/supported-languages';
 import { getTranslations } from 'next-intl/server';
 import { auth } from '@/auth';
 import { getMessagesByLocale } from '@/functions/get-messages-forced-locale';
 import { UserType } from '@/domain/enums/user-type';
 import { FreestylerMap } from '@/components/freestyler-map';
 import { TextButtonAddPin } from './components/text-button-add-pin';
+import { getSupportedlanguages } from '../../functions/get-supported-languages';
 
 export default async function Map(props: { searchParams: Promise<{ iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string }> }) {
   const searchParams = await props.searchParams;
   let t = await getTranslations('/map');
   const session = await auth();
+
+  const supportedLanguages = getSupportedlanguages();
 
   const streetViewEnabled = searchParams?.sv === '1';
   const iframeView = searchParams?.iframe === '1';
