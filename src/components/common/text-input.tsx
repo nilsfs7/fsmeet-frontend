@@ -7,11 +7,12 @@ interface ITextInput {
   value?: string;
   maxInputLength?: number;
   type?: string;
+  readOnly?: boolean;
   onChange?: (event: any) => void;
   onKeyDown?: (event: any) => void;
 }
 
-const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, maxInputLength, type, onChange, onKeyDown }: ITextInput) => {
+const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, maxInputLength, type, readOnly = false, onChange, onKeyDown }: ITextInput) => {
   return (
     <>
       {labelOnTop && (
@@ -20,11 +21,12 @@ const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value,
           <div className="flex h-full">
             <input
               id={id}
-              className="h-full w-full rounded-lg border border-secondary-dark p-1"
+              className={`h-full w-full rounded-lg border border-secondary-dark p-1 ${readOnly && 'bg-secondary-light'}`}
               type={type}
               placeholder={placeholder}
               defaultValue={defValue}
               value={value}
+              readOnly={readOnly}
               onChange={onChange}
               onKeyDown={onKeyDown}
             />
@@ -37,7 +39,17 @@ const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value,
       {!labelOnTop && (
         <div className="m-2 grid h-[100%] grid-cols-2">
           <div>{label}</div>
-          <input id={id} className="h-full w-full rounded-lg p-1" type={type} placeholder={placeholder} defaultValue={defValue} value={value} onChange={onChange} onKeyDown={onKeyDown} />
+          <input
+            id={id}
+            className={`h-full w-full rounded-lg border-secondary-dark p-1 ${readOnly && 'bg-secondary-light'}`}
+            type={type}
+            placeholder={placeholder}
+            defaultValue={defValue}
+            value={value}
+            readOnly={readOnly}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+          />
 
           <div></div>
           {maxInputLength && <div className="flex justify-end p-1 text-xs">{`(${value?.length || 0}/${maxInputLength})`}</div>}
