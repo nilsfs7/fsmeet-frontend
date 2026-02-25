@@ -61,6 +61,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       jobShowExperience: data.private?.jobShowExperience,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
+      preferredLanguageCode: data.private?.preferredLanguageCode,
       wffaId: data.wffaId,
       isWffaMember: data.isWffaMember,
     };
@@ -144,6 +145,7 @@ export async function getUsers(type?: UserType, gender?: Gender, countryCode?: s
       phoneCountryCode: data.private?.phoneCountryCode,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
+      preferredLanguageCode: data.private?.preferredLanguageCode,
       wffaId: data.wffaId,
       isWffaMember: data.isWffaMember,
     };
@@ -249,8 +251,9 @@ export async function updateUser(user: User, session: Session | null): Promise<U
       user.jobOfferWorkshops,
       user.jobShowExperience,
       user.phoneCountryCode,
-      user.phoneNumber
-    )
+      user.phoneNumber,
+      user.preferredLanguageCode,
+    ),
   );
 
   const response = await fetch(url, {
@@ -279,6 +282,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     user.jobShowExperience = user.private?.jobShowExperience;
     user.phoneCountryCode = user.private?.phoneCountryCode;
     user.phoneNumber = user.private?.phoneNumber;
+    user.preferredLanguageCode = user.private?.preferredLanguageCode;
 
     console.info('Updating user info successful');
 

@@ -118,6 +118,8 @@
     "tabJobSectionOther": "その他",
     "tabJobExperience": "経験（ショー回数）",
     "tabAccountTitle": "アカウント",
+    "tabAccountSectionNotification": "Notifications",
+    "tabAccountLanguagePreference": "Language",
     "tabAccountSectionVerification": "アカウント認証",
     "tabAccountVerificationStatus": "認証ステータス",
     "tabAccountBtnVerify": "今すぐ認証",

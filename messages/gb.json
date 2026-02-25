@@ -118,6 +118,8 @@
     "tabJobSectionOther": "Other",
     "tabJobExperience": "Experience (Amount Shows)",
     "tabAccountTitle": "Account",
+    "tabAccountSectionNotification": "Notifications",
+    "tabAccountLanguagePreference": "Language",
     "tabAccountSectionVerification": "Account Verification",
     "tabAccountVerificationStatus": "Verification Status",
     "tabAccountBtnVerify": "Verify Now",

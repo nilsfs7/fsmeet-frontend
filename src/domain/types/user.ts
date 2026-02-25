@@ -36,6 +36,7 @@ export type User = {
   phoneCountryCode?: number;
   phoneNumber?: string | null;
   stripeAccountId?: string;
+  preferredLanguageCode?: string;
   wffaId?: string;
   isWffaMember?: boolean;
 };

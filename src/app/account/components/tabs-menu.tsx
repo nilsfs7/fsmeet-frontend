@@ -40,6 +40,7 @@ import { toTitleCase } from '@/functions/string-manipulation';
 import { isNaturalPerson } from '@/functions/is-natural-person';
 import Separator from '@/components/seperator';
 import { ActionButtonCopyToClipboard } from '@/components/common/action-button-copy-to-clipboard';
+import { menuSupportedLanguages } from '../../../domain/constants/menus/menu-supported-languages';
 
 interface ITabsMenu {
   user: User;
@@ -58,6 +59,63 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const tab = searchParams?.get('tab');
 
   const [userInfo, setUserInfo] = useState<User>(user);
+
+  const cacheUserInfo = async (userInfo: User) => {
+    let firstNameAdjusted = userInfo.firstName;
+    let lastNameAdjusted = userInfo.lastName;
+    let nickNameAdjusted = userInfo.nickName;
+    let websiteAdjusted = userInfo.website;
+
+    if (userInfo.firstName) firstNameAdjusted = userInfo.firstName.trim();
+    if (userInfo.lastName) lastNameAdjusted = userInfo.lastName.trim();
+    if (userInfo.nickName) nickNameAdjusted = userInfo.nickName.trim();
+    if (userInfo.website) {
+      websiteAdjusted = userInfo.website.trim();
+      if (websiteAdjusted.endsWith('/')) {
+        websiteAdjusted = websiteAdjusted.substring(0, websiteAdjusted.length - 1);
+      }
+    }
+
+    const user: User = {
+      username: userInfo.username,
+      type: userInfo.type,
+      firstName: firstNameAdjusted,
+      lastName: lastNameAdjusted,
+      nickName: nickNameAdjusted,
+      gender: userInfo.gender,
+      countryCode: userInfo.countryCode,
+      freestyleSince: userInfo.freestyleSince,
+      instagramHandle: userInfo.instagramHandle,
+      tikTokHandle: userInfo.tikTokHandle,
+      youTubeHandle: userInfo.youTubeHandle,
+      website: websiteAdjusted,
+      verificationState: userInfo.verificationState,
+      birthday: userInfo.birthday,
+      tShirtSize: userInfo.tShirtSize,
+      houseNumber: userInfo.houseNumber,
+      street: userInfo.street,
+      postCode: userInfo.postCode,
+      city: userInfo.city,
+      exposeLocation: userInfo.exposeLocation,
+      locLatitude: userInfo.locLatitude,
+      locLongitude: userInfo.locLongitude,
+      jobAcceptTerms: userInfo.jobAcceptTerms,
+      jobOfferShows: userInfo.jobOfferShows,
+      jobOfferWalkActs: userInfo.jobOfferWalkActs,
+      jobOfferWorkshops: userInfo.jobOfferWorkshops,
+      jobShowExperience: userInfo.jobShowExperience,
+      phoneCountryCode: userInfo.phoneCountryCode,
+      phoneNumber: userInfo.phoneNumber,
+      preferredLanguageCode: userInfo.preferredLanguageCode,
+    };
+
+    try {
+      sessionStorage.setItem('userInfo', JSON.stringify(user));
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
+  };
 
   const handleFirstNameChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
@@ -228,60 +286,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(newUserInfo);
   };
 
-  const cacheUserInfo = async (userInfo: User) => {
-    let firstNameAdjusted = userInfo.firstName;
-    let lastNameAdjusted = userInfo.lastName;
-    let nickNameAdjusted = userInfo.nickName;
-    let websiteAdjusted = userInfo.website;
-
-    if (userInfo.firstName) firstNameAdjusted = userInfo.firstName.trim();
-    if (userInfo.lastName) lastNameAdjusted = userInfo.lastName.trim();
-    if (userInfo.nickName) nickNameAdjusted = userInfo.nickName.trim();
-    if (userInfo.website) {
-      websiteAdjusted = userInfo.website.trim();
-      if (websiteAdjusted.endsWith('/')) {
-        websiteAdjusted = websiteAdjusted.substring(0, websiteAdjusted.length - 1);
-      }
-    }
-
-    const user: User = {
-      username: userInfo.username,
-      type: userInfo.type,
-      firstName: firstNameAdjusted,
-      lastName: lastNameAdjusted,
-      nickName: nickNameAdjusted,
-      gender: userInfo.gender,
-      countryCode: userInfo.countryCode,
-      freestyleSince: userInfo.freestyleSince,
-      instagramHandle: userInfo.instagramHandle,
-      tikTokHandle: userInfo.tikTokHandle,
-      youTubeHandle: userInfo.youTubeHandle,
-      website: websiteAdjusted,
-      verificationState: userInfo.verificationState,
-      birthday: userInfo.birthday,
-      tShirtSize: userInfo.tShirtSize,
-      houseNumber: userInfo.houseNumber,
-      street: userInfo.street,
-      postCode: userInfo.postCode,
-      city: userInfo.city,
-      exposeLocation: userInfo.exposeLocation,
-      locLatitude: userInfo.locLatitude,
-      locLongitude: userInfo.locLongitude,
-      jobAcceptTerms: userInfo.jobAcceptTerms,
-      jobOfferShows: userInfo.jobOfferShows,
-      jobOfferWalkActs: userInfo.jobOfferWalkActs,
-      jobOfferWorkshops: userInfo.jobOfferWorkshops,
-      jobShowExperience: userInfo.jobShowExperience,
-      phoneCountryCode: userInfo.phoneCountryCode,
-      phoneNumber: userInfo.phoneNumber,
-    };
-
-    try {
-      sessionStorage.setItem('userInfo', JSON.stringify(user));
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
-    }
+  const handlePreferredLanguageCodeChanged = (value: string) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.preferredLanguageCode = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
   };
 
   const handleTermsAndConditionsClicked = async () => {
@@ -308,7 +317,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       const url = await createStripeAccountOnboardingLink(
         `${window.location.origin}${pathname}?tab=account&stripeRefresh=1`,
         `${window.location.origin}${pathname}?tab=account&stripeReturn=1`,
-        session
+        session,
       );
       router.push(url);
     } catch (error: any) {
@@ -856,6 +865,30 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Account */}
         <TabsContent value="account" className="overflow-hidden overflow-y-auto">
           <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-4">
+            {(session?.user.username === 'mai' || session?.user.username === 'nils') && (
+              <>
+                <div className="flex justify-center text-lg">{t('tabAccountSectionNotification')}</div>
+
+                <div className="m-2 grid grid-cols-2 items-center gap-2">
+                  <div>{t('tabAccountLanguagePreference')}</div>
+                  <div className="flex w-full">
+                    <ComboBox
+                      menus={menuSupportedLanguages}
+                      value={userInfo.preferredLanguageCode || menuSupportedLanguages[0].value}
+                      searchEnabled={false}
+                      onChange={(value: any) => {
+                        handlePreferredLanguageCodeChanged(value);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="m-2">
+                  <Separator />
+                </div>
+              </>
+            )}
+
             {user.type !== UserType.FAN && (
               <>
                 <div className="flex justify-center text-lg">{t('tabAccountSectionVerification')}</div>
