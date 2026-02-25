@@ -18,6 +18,7 @@ export class UpdatePrivateUserInfoBodyDto {
   jobShowExperience: ShowExperience;
   phoneCountryCode: number;
   phoneNumber: string;
+  preferredLanguageCode: string;
 
   constructor(
     birthday: Moment,
@@ -35,7 +36,8 @@ export class UpdatePrivateUserInfoBodyDto {
     jobOfferWorkshops: boolean,
     jobShowExperience: ShowExperience,
     phoneCountryCode: number,
-    phoneNumber: string
+    phoneNumber: string,
+    preferredLanguageCode: string,
   ) {
     this.birthday = birthday;
     this.tShirtSize = tShirtSize;
@@ -53,5 +55,6 @@ export class UpdatePrivateUserInfoBodyDto {
     this.jobShowExperience = jobShowExperience;
     this.phoneCountryCode = phoneCountryCode;
     this.phoneNumber = phoneNumber;
+    this.preferredLanguageCode = preferredLanguageCode;
   }
 }

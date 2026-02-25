@@ -118,6 +118,8 @@
     "tabJobSectionOther": "Autres",
     "tabJobExperience": "Expérience (nombre de spectacles)",
     "tabAccountTitle": "Compte",
+    "tabAccountSectionNotification": "Notifications",
+    "tabAccountLanguagePreference": "Langue",
     "tabAccountSectionVerification": "Vérification du compte",
     "tabAccountVerificationStatus": "Statut de vérification",
     "tabAccountBtnVerify": "Vérifier maintenant",
