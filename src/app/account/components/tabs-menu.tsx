@@ -865,29 +865,25 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {/* Account */}
         <TabsContent value="account" className="overflow-hidden overflow-y-auto">
           <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-4">
-            {(session?.user.username === 'mai' || session?.user.username === 'nils') && (
-              <>
-                <div className="flex justify-center text-lg">{t('tabAccountSectionNotification')}</div>
+            <div className="flex justify-center text-lg">{t('tabAccountSectionNotification')}</div>
 
-                <div className="m-2 grid grid-cols-2 items-center gap-2">
-                  <div>{t('tabAccountLanguagePreference')}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      menus={menuSupportedLanguages}
-                      value={userInfo.preferredLanguageCode || menuSupportedLanguages[0].value}
-                      searchEnabled={false}
-                      onChange={(value: any) => {
-                        handlePreferredLanguageCodeChanged(value);
-                      }}
-                    />
-                  </div>
-                </div>
+            <div className="m-2 grid grid-cols-2 items-center gap-2">
+              <div>{t('tabAccountLanguagePreference')}</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuSupportedLanguages}
+                  value={userInfo.preferredLanguageCode || menuSupportedLanguages[0].value}
+                  searchEnabled={false}
+                  onChange={(value: any) => {
+                    handlePreferredLanguageCodeChanged(value);
+                  }}
+                />
+              </div>
+            </div>
 
-                <div className="m-2">
-                  <Separator />
-                </div>
-              </>
-            )}
+            <div className="m-2">
+              <Separator />
+            </div>
 
             {user.type !== UserType.FAN && (
               <>
