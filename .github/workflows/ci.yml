@@ -7,7 +7,6 @@ on:
       - dev
       - dev-ui
       - dev-mobile
-      - dev-next15
   pull_request:
     branches:
       - main
