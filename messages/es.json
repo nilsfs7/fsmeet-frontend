@@ -367,7 +367,7 @@
     "dlgRegistrationInfoShirtSize": "Talla de camiseta",
     "dlgRegistrationInfoAccommodations": "Alojamientos",
     "dlgDenyParticipantTitle": "Rechazar participante",
-    "dlgDenyParticipantText": "¿De verdad quieres eliminar a este participante?",
+    "dlgDenyParticipantText": "¿Realmente quieres no aceptar a este participante?",
     "dlgRemoveParticipantTitle": "Eliminar participante",
     "dlgRemoveParticipantText": "¿Desea eliminar a este participante?"
   },
