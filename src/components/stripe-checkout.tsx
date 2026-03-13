@@ -8,7 +8,7 @@ import TextButton from './common/text-button';
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
+// const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '',  { stripeAccount })
 
 interface IPaymentForm {
   confirmPaymentBtnText: string;
@@ -80,6 +80,8 @@ interface ICheckoutForm {
 }
 
 export default function CheckoutForm({ clientSecret, stripeAccount, confirmPaymentBtnText, returnUrl }: ICheckoutForm) {
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '', { stripeAccount });
+
   const appearance: Appearance = {
     theme: 'stripe',
   };

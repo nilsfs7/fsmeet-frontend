@@ -15,7 +15,15 @@ import { Toaster, toast } from 'sonner';
 import { EventRegistrationInfo } from '@/domain/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
-import { createEventRegistration, createEventRegistration_v2, createEventRegistrationCheckoutLink, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
+import {
+  createEventRegistration,
+  createEventRegistration_v2,
+  createEventRegistrationCheckoutLink,
+  createEventRegistrationCheckoutSession,
+  createEventRegistrationPaymentIntent,
+  deleteEventRegistration,
+  getEventRegistration,
+} from '@/infrastructure/clients/event.client';
 import Label from '@/components/label';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import moment, { Moment } from 'moment';
@@ -47,6 +55,8 @@ import { isNaturalPerson } from '@/functions/is-natural-person';
 import { getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 import { Offering } from '../../../../../domain/types/offering';
 import Separator from '@/components/seperator';
+import CheckoutForm from '../../../../../components/stripe-checkout';
+import StripeEmbeddedCheckout from '../../../../../components/stripe-embedded-checkout';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -60,6 +70,7 @@ enum RegistrationProcessPage {
   OFFERINGS = '3',
   ACCOMMODATIONS = '4',
   CHECKOUT_OVERVIEW = '5',
+  CHECKOUT = '6',
 }
 
 export const EventRegistrationProcess = ({ event, competitions, attendee }: IEventRegistrationProcess) => {
@@ -83,6 +94,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   const [offeringOrders, setOfferingOrders] = useState<string[]>([]);
   const [offeringTShirtSize, setOfferingShirtSize] = useState<string>(user.tShirtSize || menuTShirtSizesWithUnspecified[0].value);
   const [donationAmount, setDonationAmount] = useState<number>(0);
+  const [clientSecret, setClientSecret] = useState<string>();
+  const [stripeAccountId, setStripeAccountId] = useState<string>();
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
 
@@ -147,6 +160,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     setUser(newUser);
     setUserInfoChanged(true);
   };
+
+  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
   const registrationFeeExists = () => {
     // check event fee
@@ -461,6 +476,22 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
             successUrl += '&checkout=1';
             const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, successUrl, session);
             router.push(`${checkoutUrl}`);
+
+            // const res = await createEventRegistrationPaymentIntent(event.id, session);
+            // console.log(res);
+
+            // if (res?.clientSecret) {
+            //   setClientSecret(res.clientSecret);
+            //   setStripeAccountId(res.stripeAccountId);
+
+            //   await sleep(1000);
+
+            //   router.replace(`${pageUrl}?page=${RegistrationProcessPage.CHECKOUT}`);
+            // } else {
+            //   const msg = 'No client secret received';
+            //   toast.error(msg);
+            //   console.error(msg);
+            // }
           } else {
             router.push(successUrl);
           }
@@ -482,8 +513,27 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   const handleProceedPaymentClicked = async () => {
     if (event.id && registrationType) {
       try {
-        const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, `${window.location.origin}${pageUrl}/completed?checkout=1`, session);
-        router.push(`${checkoutUrl}`);
+        // const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, `${window.location.origin}${pageUrl}/completed?checkout=1`, session);
+        // router.push(`${checkoutUrl}`);
+
+        const res = await createEventRegistrationCheckoutSession(event.id, `${window.location.origin}${pageUrl}/completed?checkout=1`, session);
+        console.log(res);
+
+        // const res = await createEventRegistrationPaymentIntent(event.id, session);
+        // console.log(res);
+
+        if (res?.clientSecret) {
+          setClientSecret(res.clientSecret);
+          setStripeAccountId(res.stripeAccountId);
+
+          await sleep(1000);
+
+          router.replace(`${pageUrl}?page=${RegistrationProcessPage.CHECKOUT}`);
+        } else {
+          const msg = 'No client secret received';
+          toast.error(msg);
+          console.error(msg);
+        }
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -705,19 +755,14 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                 <Label text={registrationStatus} />
               </div>
               {/* todo: visa requests can only be offered by wffa atm */}
-              {event.visaInvitationRequestsEnabled &&
-                event.type !== EventType.COMPETITION_ONLINE &&
-                isNaturalPerson(user.type) &&
-                user.type !== UserType.FAN &&
-                moment(event.dateFrom) > moment() &&
-                event.admin === 'wffa' && (
-                  <div className="flex flex-col items-center mt-10 gap-2">
-                    <div>{`${t('pageOverviewRequireVisa')}`}</div>
-                    <Link href={`${routeEvents}/${event.id}/registration/visa`}>
-                      <TextButton text={t('pageOverviewBtnRequestVisa')} />
-                    </Link>
-                  </div>
-                )}
+              {event.visaInvitationRequestsEnabled && event.type !== EventType.COMPETITION_ONLINE && isNaturalPerson(user.type) && user.type !== UserType.FAN && moment(event.dateFrom) > moment() && (
+                <div className="flex flex-col items-center mt-10 gap-2">
+                  <div>{`${t('pageOverviewRequireVisa')}`}</div>
+                  <Link href={`${routeEvents}/${event.id}/registration/visa`}>
+                    <TextButton text={t('pageOverviewBtnRequestVisa')} />
+                  </Link>
+                </div>
+              )}
             </div>
           )}
 
@@ -1018,6 +1063,18 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                     }}
                   />
                 )}
+              </div>
+            </div>
+          )}
+
+          {page && page === RegistrationProcessPage.CHECKOUT && (
+            <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
+              <div className="m-2">{t('pageCheckoutOverviewDescription')}</div>
+
+              <div className="flex flex-col mt-2 gap-4">
+                <div className="flex items-center justify-center gap-2">
+                  {clientSecret && <StripeEmbeddedCheckout key={clientSecret} clientSecret={clientSecret} stripeAccount={stripeAccountId} />}
+                </div>
               </div>
             </div>
           )}

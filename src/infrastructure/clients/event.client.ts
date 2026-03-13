@@ -368,6 +368,59 @@ export async function createEventRegistrationCheckoutLink(eventId: string, succe
   }
 }
 
+export async function createEventRegistrationCheckoutSession(eventId: string, successUrl: string, session: Session | null): Promise<ReadStripeCheckoutResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout/embedded`;
+
+  const body = new CreateStripeCheckoutBodyDto(successUrl);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const dto: ReadStripeCheckoutResponseDto = await response.json();
+    console.info('Creating stripe checkout session for event registration successful');
+
+    if (!dto.clientSecret) {
+      throw Error('Unknown error. Missing client secret.');
+    }
+    return dto;
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function createEventRegistrationPaymentIntent(eventId: string, session: Session | null): Promise<ReadStripeCheckoutResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout/payment_intent`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const dto: ReadStripeCheckoutResponseDto = await response.json();
+    console.info('Creating stripe checkout link for event registration successful');
+
+    if (!dto.clientSecret) {
+      throw Error('Unknown error. Missing client secret.');
+    }
+    return dto;
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
 export async function createComment(eventId: string, message: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`;
 
