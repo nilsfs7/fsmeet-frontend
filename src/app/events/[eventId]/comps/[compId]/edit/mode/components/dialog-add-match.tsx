@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import ActionButton from '../../../../../../../../components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import TextButton from '../../../../../../../../components/common/text-button';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { TimePicker } from '@/components/common/time-picker';
 import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
@@ -67,28 +67,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
 
             <div className="grid grid-cols-2 gap-2 items-center">
               <div>{t('dlgAddMatchTime')}</div>
-              <TimePicker
-                className="rounded-lg"
-                slotProps={{
-                  textField: {
-                    size: 'small',
-                    sx: {
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: '8px',
-                      },
-                    },
-                  },
-                }}
-                value={undefined}
-                format={'HH:mm'}
-                onChange={value => {
-                  if (value && value.isValid()) {
-                    setMatchTime(value.format());
-                  } else if (!value) {
-                    setMatchTime(value);
-                  }
-                }}
-              />
+              <TimePicker value={matchTime} onChange={setMatchTime} className="rounded-lg" />
             </div>
 
             <div className="grid grid-cols-2 gap-2">
