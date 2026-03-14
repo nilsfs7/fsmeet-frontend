@@ -98,12 +98,12 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     return diff;
   }
 
-  function getRoundDateForMatchTime(roundDate: string | null, matchTime: string | null) {
+  function setRoundDateToMatchTime(roundDate: string | null, matchTime: string | null) {
     if (roundDate && matchTime) {
       const r = moment(roundDate).utc();
-      const m = moment(matchTime).utc();
-      const format = `${r.format('YYYY-MM-DD')}T${m.format('HH:mm')}:00.000Z`;
-
+      // Support "HH:mm" from TimePicker; otherwise parse as full datetime (e.g. ISO from server)
+      const timePart = /^\d{1,2}:\d{2}$/.test(matchTime.trim()) ? matchTime.trim() : moment(matchTime).utc().format('HH:mm');
+      const format = `${r.format('YYYY-MM-DD')}T${timePart}:00.000Z`;
       return moment(format).utc().format();
     }
 
@@ -186,7 +186,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
 
   const handleConfirmAddMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, amountSlots: number, isExtraMatch: boolean) => {
     const rnds = Array.from(rounds);
-    matchTime = getRoundDateForMatchTime(rnds[roundIndex].date, matchTime);
+    matchTime = setRoundDateToMatchTime(rnds[roundIndex].date, matchTime);
     rnds[roundIndex].addMatch(matchName, matchTime, isExtraMatch, amountSlots);
     setRounds(rnds);
   };
@@ -194,7 +194,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   const handleConfirmEditMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, slots: number, isExtraMatch: boolean) => {
     const rnds = Array.from(rounds);
     const mtchs = Array.from(rnds[roundIndex].matches);
-    matchTime = getRoundDateForMatchTime(rnds[roundIndex].date, matchTime);
+    matchTime = setRoundDateToMatchTime(rnds[roundIndex].date, matchTime);
 
     mtchs[matchIndex].name = matchName;
     mtchs[matchIndex].time = matchTime;
