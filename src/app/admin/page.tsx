@@ -1,11 +1,10 @@
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { routeAdminEvents, routeAdminLicenses, routeStatistics, routeAdminUserVerification, routeHome, routeRoadmap, routeAdminBroadcast } from '@/domain/constants/routes';
+import { routeAdminEvents, routeAdminLicenses, routeStatistics, routeAdminUserVerification, routeHome, routeRoadmap, routeAdminBroadcast, routePushNotification } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/action-button';
 import Navigation from '@/components/navigation';
 import TextButton from '@/components/common/text-button';
 import PageTitle from '@/components/page-title';
-import { TextButtonCreatePushNotification } from './components/text-button-create-push-notification';
 
 export default async function AdminOverview() {
   return (
@@ -22,7 +21,9 @@ export default async function AdminOverview() {
         <Link href={routeAdminUserVerification}>
           <TextButton text={'User Verification'} />
         </Link>
-        <TextButtonCreatePushNotification />
+        <Link href={routePushNotification}>
+          <TextButton text={'Push Notification'} />
+        </Link>
         <Link href={routeAdminBroadcast}>
           <TextButton text={'Broadcast'} />
         </Link>
