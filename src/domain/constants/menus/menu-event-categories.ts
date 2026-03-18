@@ -9,7 +9,7 @@ export const menuEventCategories = (showWffaOptions: boolean): MenuItem[] => {
   ];
 
   const wffaSpecific = [
-    { text: 'Pulse', value: EventCategory.PULSE },
+    { text: 'Pulse Event', value: EventCategory.PULSE },
     { text: 'Super Ball', value: EventCategory.SUPERBALL },
     { text: 'WFFC', value: EventCategory.WFFC },
   ];
