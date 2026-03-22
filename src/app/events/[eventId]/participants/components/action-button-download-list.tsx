@@ -3,7 +3,7 @@
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { Event } from '@/domain/types/event';
-import { Toaster, toast } from 'sonner';
+import { Toaster } from 'sonner';
 import moment from 'moment';
 import { ConfigOptions, download, generateCsv, mkConfig } from 'export-to-csv';
 import { AcceptedData } from 'export-to-csv/output/lib/types';
@@ -12,6 +12,7 @@ import { Offering } from '@/domain/types/offering';
 import { Accommodation } from '@/domain/types/accommodation';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { Competition } from '@/domain/types/competition';
+import { getShortDateString } from '../../../../../functions/time';
 
 interface IActionButtonDownloadList {
   event: Event;
@@ -53,7 +54,7 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
           acc[value.name] = cellValue;
           return acc;
         },
-        {} as Record<string, string>
+        {} as Record<string, string>,
       );
 
       const offeringsData = offerings.reduce(
@@ -69,7 +70,7 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
           acc[value.description] = cellValue;
           return acc;
         },
-        {} as Record<string, string>
+        {} as Record<string, string>,
       );
 
       const accommodationsData = accommodations.reduce(
@@ -85,7 +86,7 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
           acc[value.description] = cellValue;
           return acc;
         },
-        {} as Record<string, string>
+        {} as Record<string, string>,
       );
 
       data.push({
@@ -102,6 +103,8 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
         'T-Shirt Size': registration.offeringTShirtSize || na,
         'Phone Country Code': registration.phoneCountryCode || na,
         'Phone Number': registration.phoneNumber || na,
+        'Arrival Date': registration.arrivalDate ? getShortDateString(moment(registration.arrivalDate)) : na,
+        'Departure Date': registration.departureDate ? getShortDateString(moment(registration.departureDate)) : na,
         ...competitionsData,
         ...offeringsData,
         ...accommodationsData,

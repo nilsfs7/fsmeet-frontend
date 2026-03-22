@@ -77,6 +77,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   const [existingCompetitionRegistrations, setExistingCompetitionRegistrations] = useState<Map<string, number>>(new Map());
   const [phoneCountryCode, setPhoneCountryCode] = useState<number | undefined | null>(user.phoneCountryCode);
   const [phoneNumber, setPhoneNumber] = useState<string | null | undefined>(user.phoneNumber);
+  const [arrivalDate, setArrivalDate] = useState<Moment | undefined>();
+  const [departureDate, setDepartureDate] = useState<Moment | undefined>();
   const [registrationType, setRegistrationType] = useState<EventRegistrationType>();
   const [compSignUps, setCompSignUps] = useState<string[]>([]);
   const [accommodationOrders, setAccommodationOrders] = useState<string[]>([]);
@@ -146,6 +148,25 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     newUser.instagramHandle = prefixRequired(value.toLowerCase(), '@');
     setUser(newUser);
     setUserInfoChanged(true);
+  };
+
+  const handleArrivalChanged = (value: Moment) => {
+    if (value) {
+      setArrivalDate(value);
+    }
+  };
+
+  const handleDepartureChanged = (value: Moment) => {
+    if (value) {
+      setDepartureDate(value);
+    }
+  };
+
+  const handleRadioItemRegistrationTypeClicked = (type: EventRegistrationType) => {
+    if (type === EventRegistrationType.VISITOR) {
+      setCompSignUps([]);
+    }
+    setRegistrationType(type);
   };
 
   const registrationFeeExists = () => {
@@ -454,7 +475,20 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
             phoneNum = phoneNumber || null;
           }
 
-          await createEventRegistration_v2(event.id, registrationType, compSignUps, accommodationOrders, offeringOrders, offeringTShirtSize, phoneCode, phoneNum, donationAmount, session);
+          await createEventRegistration_v2(
+            event.id,
+            registrationType,
+            arrivalDate || null,
+            departureDate || null,
+            compSignUps,
+            accommodationOrders,
+            offeringOrders,
+            offeringTShirtSize,
+            phoneCode,
+            phoneNum,
+            donationAmount,
+            session,
+          );
           cleanupCacheRegistrationInfo();
 
           if (redirectToCheckout) {
@@ -526,13 +560,6 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     router.refresh();
   };
 
-  const handleRadioItemRegistrationTypeClicked = (type: EventRegistrationType) => {
-    if (type === EventRegistrationType.VISITOR) {
-      setCompSignUps([]);
-    }
-    setRegistrationType(type);
-  };
-
   const handleCheckBoxSignUpForCompChanged = (compId: string) => {
     let compIds = Array.from(compSignUps);
 
@@ -574,6 +601,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
       const info: EventRegistrationInfo = {
         eventId: event.id,
         registrationType: registrationType,
+        arrivalDate,
+        departureDate,
         compSignUps: compSignUps,
         accommodationOrders: accommodationOrders,
         offeringOrders: offeringOrders,
@@ -739,6 +768,37 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   handleRadioItemRegistrationTypeClicked(registrationType);
                 }}
               />
+
+              {event.paymentMethodStripe.enabled && (
+                <>
+                  <div className="m-2 mt-6">{t('pageParticipantSectionTravelInfoDescription')}</div>
+                  <div className="flex flex-col">
+                    <div className="m-2 flex justify-between items-center gap-2">
+                      <div>{t('pageParticipantSectionTravelInfoArrivalDate')}</div>
+                      <DatePicker
+                        date={arrivalDate}
+                        fromDate={moment(event.dateFrom).subtract(14, 'd')}
+                        toDate={moment(event.dateTo)}
+                        onChange={value => {
+                          handleArrivalChanged(value);
+                        }}
+                      />
+                    </div>
+
+                    <div className="m-2 flex justify-between items-center gap-2">
+                      <div>{t('pageParticipantSectionTravelInfoDepartureDate')}</div>
+                      <DatePicker
+                        date={departureDate}
+                        fromDate={moment(event.dateFrom)}
+                        toDate={moment(event.dateTo).add(14, 'd')}
+                        onChange={value => {
+                          handleDepartureChanged(value);
+                        }}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
 
               <div className="m-2 mt-6">{t('pageParticipantSectionUserInfoDescription')}</div>
               <div className="flex flex-col">
