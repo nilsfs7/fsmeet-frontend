@@ -18,7 +18,7 @@ import { CreatePaymentMethodCashBodyDto } from './dtos/event/payment/create-paym
 import { CreatePaymentMethodPayPalBodyDto } from './dtos/event/payment/create-payment-method-paypal.body.dto';
 import { CreatePaymentMethodSepaBodyDto } from './dtos/event/payment/create-payment-method-sepa.body.dto';
 import { CreatePaymentMethodStripeBodyDto } from './dtos/event/payment/create-payment-method-stripe.body.dto';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { UpdateEventBodyDto } from './dtos/event/update-event.body.dto';
 import { UpdateEventMaintainerBodyDto } from './dtos/event/update-event-maintainer.body.dto';
 import { UpdatePaymentMethodCashBodyDto } from './dtos/event/payment/update-payment-method-cash.body.dto';
@@ -310,6 +310,8 @@ export async function createEventRegistration(eventId: string, username: string,
 export async function createEventRegistration_v2(
   eventId: string,
   eventRegistrationType: EventRegistrationType,
+  arrivalDate: Moment | null,
+  departureDate: Moment | null,
   compSignUps: string[],
   accommodationOrders: string[],
   offeringOrders: string[],
@@ -321,7 +323,18 @@ export async function createEventRegistration_v2(
 ): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v2/events/${eventId}/registrations`;
 
-  const body = new CreateEventRegistrationBodyDto(eventRegistrationType, compSignUps, accommodationOrders, offeringOrders, offeringTShirtSize, phoneCountryCode, phoneNumber, donationAmount);
+  const body = new CreateEventRegistrationBodyDto(
+    eventRegistrationType,
+    arrivalDate,
+    departureDate,
+    compSignUps,
+    accommodationOrders,
+    offeringOrders,
+    offeringTShirtSize,
+    phoneCountryCode,
+    phoneNumber,
+    donationAmount,
+  );
 
   const response = await fetch(url, {
     method: 'POST',

@@ -17,6 +17,7 @@ import TextButton from '@/components/common/text-button';
 import Label from '@/components/label';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
+import { toast } from 'sonner';
 
 interface IActionButtonStateAction {
   event: Event;
@@ -57,7 +58,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
         // toast.success(`todo`);
         router.refresh();
       } catch (error: any) {
-        // toast.error(error.message);
+        toast.error(error.message);
       }
     }
   };

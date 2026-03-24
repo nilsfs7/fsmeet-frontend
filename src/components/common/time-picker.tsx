@@ -6,6 +6,8 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import ActionButton from './action-button';
+import { Action } from '../../domain/enums/action';
 
 /**
  * Parses a value that may be ISO string, "HH:mm", or other date string
@@ -55,16 +57,26 @@ export function TimePicker({ value, onChange, className, disabled, id }: TimePic
     }
   }, [value, open]);
 
-  const handleHoursChange = (value: string) => {
+  const handleHoursChanged = (value: string) => {
     const v = parseInt(value, 10);
     setHours(v);
     onChange?.(formatTime(v, minutes));
   };
 
-  const handleMinutesChange = (value: string) => {
+  const handleMinutesChanged = (value: string) => {
     const v = parseInt(value, 10);
     setMinutes(v);
     onChange?.(formatTime(hours, v));
+  };
+
+  const handleClearTimeClicked = () => {
+    onChange?.(null);
+    setOpen(false);
+  };
+
+  const handleSaveTimeClicked = () => {
+    onChange?.(formatTime(hours, minutes));
+    setOpen(false);
   };
 
   const hourOptions = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'));
@@ -83,50 +95,47 @@ export function TimePicker({ value, onChange, className, disabled, id }: TimePic
           className={cn(
             'min-w-[100px] justify-start text-left font-normal border-secondary-dark bg-background text-primary hover:border-primary hover:bg-background',
             !parsed && 'text-muted-foreground',
-            className
+            className,
           )}
         >
           <Clock className="mr-2 h-4 w-4" />
           {displayLabel}
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        className="w-auto p-3 border-secondary-dark bg-background text-primary"
-        align="start"
-        onOpenAutoFocus={e => e.preventDefault()}
-      >
-        <div className="flex items-center gap-2">
-          <Select value={String(hours).padStart(2, '0')} onValueChange={handleHoursChange}>
-            <SelectTrigger
-              id="time-picker-hours"
-              className="w-16 h-9 border-secondary-dark bg-background text-primary focus:ring-primary focus:ring-offset-0"
-            >
-              <SelectValue placeholder="HH" />
-            </SelectTrigger>
-            <SelectContent className="border-secondary-dark bg-background text-primary max-h-48">
-              {hourOptions.map(h => (
-                <SelectItem key={h} value={h} className="focus:bg-secondary focus:text-primary">
-                  {h}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <span className="text-primary font-medium">:</span>
-          <Select value={String(minutes).padStart(2, '0')} onValueChange={handleMinutesChange}>
-            <SelectTrigger
-              id="time-picker-minutes"
-              className="w-16 h-9 border-secondary-dark bg-background text-primary focus:ring-primary focus:ring-offset-0"
-            >
-              <SelectValue placeholder="mm" />
-            </SelectTrigger>
-            <SelectContent className="border-secondary-dark bg-background text-primary max-h-48">
-              {minuteOptions.map(m => (
-                <SelectItem key={m} value={m} className="focus:bg-secondary focus:text-primary">
-                  {m}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      <PopoverContent className="w-auto p-3 border-secondary-dark bg-background text-primary" align="start" onOpenAutoFocus={e => e.preventDefault()}>
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <Select value={String(hours).padStart(2, '0')} onValueChange={handleHoursChanged}>
+              <SelectTrigger id="time-picker-hours" className="w-16 h-9 border-secondary-dark bg-background text-primary focus:ring-primary focus:ring-offset-0">
+                <SelectValue placeholder="HH" />
+              </SelectTrigger>
+              <SelectContent className="border-secondary-dark bg-background text-primary max-h-48">
+                {hourOptions.map(h => (
+                  <SelectItem key={h} value={h} className="focus:bg-secondary focus:text-primary">
+                    {h}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <span className="text-primary font-medium">:</span>
+            <Select value={String(minutes).padStart(2, '0')} onValueChange={handleMinutesChanged}>
+              <SelectTrigger id="time-picker-minutes" className="w-16 h-9 border-secondary-dark bg-background text-primary focus:ring-primary focus:ring-offset-0">
+                <SelectValue placeholder="mm" />
+              </SelectTrigger>
+              <SelectContent className="border-secondary-dark bg-background text-primary max-h-48">
+                {minuteOptions.map(m => (
+                  <SelectItem key={m} value={m} className="focus:bg-secondary focus:text-primary">
+                    {m}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex justify-between">
+            <ActionButton action={Action.DELETE} disabled={!parsed} onClick={handleClearTimeClicked} />
+            <ActionButton action={Action.SAVE} onClick={handleSaveTimeClicked} />
+          </div>
         </div>
       </PopoverContent>
     </Popover>

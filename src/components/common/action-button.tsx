@@ -34,6 +34,7 @@ interface IButton {
   tooltip?: string;
   size?: Size;
   style?: ButtonStyle;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -43,8 +44,12 @@ enum ButtonSize {
   M = 'h-10 w-10',
 }
 
-const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, onClick }: IButton) => {
+const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, disabled = false, onClick }: IButton) => {
   const getButtonColors = () => {
+    if (disabled) {
+      return 'bg-secondary-light text-secondary-dark';
+    }
+
     switch (style) {
       case ButtonStyle.DEFAULT:
         return 'bg-transparent hover:bg-secondary-light text-primary border-primary';
@@ -164,6 +169,7 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
       focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
       ${getButtonColors()}
     `}
+            disabled={disabled}
             onClick={onClick}
             aria-label={action.toString().toLowerCase()}
           >
