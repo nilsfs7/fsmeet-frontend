@@ -7,8 +7,8 @@ export type EventRegistration = {
   user: User;
   type: EventRegistrationType;
   status: EventRegistrationStatus;
-  arrivalDate?: Moment;
-  departureDate?: Moment;
+  arrivalDate?: Moment | null;
+  departureDate?: Moment | null;
   competitionSignUps: string[];
   accommodationOrders: string[];
   offeringOrders: string[];
