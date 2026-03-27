@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import { routeUsers } from '@/domain/constants/routes';
@@ -14,7 +14,9 @@ import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { getUsers, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { useSession } from 'next-auth/react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 
 /** Align with /wffa/visa and /admin/licenses table layout */
 const VERIFICATION_TABLE_CLASS = 'table-fixed w-full min-w-[40rem] border-separate border-spacing-x-3 border-spacing-y-0';
@@ -27,6 +29,25 @@ const verificationCol = {
   state: 'w-[42%] min-w-[14rem]',
   actions: 'w-[18%] min-w-[6.5rem]',
 } as const;
+
+function matchesUserFilter(user: User, query: string): boolean {
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+  const u = user.username.toLowerCase();
+  const first = (user.firstName ?? '').toLowerCase();
+  const last = (user.lastName ?? '').toLowerCase();
+  return u.includes(q) || first.includes(q) || last.includes(q) || `${first} ${last}`.trim().includes(q);
+}
+
+function sortUsersByUserColumn(users: User[], descending: boolean): User[] {
+  const list = [...users];
+  list.sort((a, b) => {
+    const cmp = a.username.localeCompare(b.username);
+    if (cmp !== 0) return descending ? -cmp : cmp;
+    return (a.firstName ?? '').localeCompare(b.firstName ?? '');
+  });
+  return list;
+}
 
 function UserCell({ user }: { user: User }) {
   const profileHref = `${routeUsers}/${user.username}`;
@@ -48,12 +69,16 @@ function VerificationTableSection({
   draftVerificationByUsername,
   onDraftStateChange,
   onSave,
+  userSortDescending,
+  onUserSortClick,
 }: {
   title: string;
   items: User[];
   draftVerificationByUsername: Record<string, UserVerificationState | undefined>;
   onDraftStateChange: (username: string, verificationState: UserVerificationState) => void;
   onSave: (user: User) => void;
+  userSortDescending: boolean;
+  onUserSortClick: () => void;
 }) {
   if (items.length === 0) {
     return (
@@ -71,7 +96,21 @@ function VerificationTableSection({
         <Table className={VERIFICATION_TABLE_CLASS}>
           <TableHeader>
             <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-              <TableHead className={cn('text-primary', VERIFICATION_HEAD_PAD, verificationCol.user)}>User</TableHead>
+              <TableHead className={cn('text-primary', VERIFICATION_HEAD_PAD, verificationCol.user)}>
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-1.5 text-left font-medium hover:text-primary/80"
+                  onClick={onUserSortClick}
+                  title={userSortDescending ? 'Sort user ascending' : 'Sort user descending'}
+                >
+                  User
+                  {userSortDescending ? (
+                    <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
+                  ) : (
+                    <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
+                  )}
+                </button>
+              </TableHead>
               <TableHead className={cn('text-primary', VERIFICATION_HEAD_PAD, verificationCol.state)}>Verification state</TableHead>
               <TableHead className={cn('text-right text-primary', VERIFICATION_HEAD_PAD, verificationCol.actions)}>Actions</TableHead>
             </TableRow>
@@ -115,6 +154,8 @@ export const VerificationEditor = () => {
     Record<string, UserVerificationState | undefined>
   >({});
   const [loading, setLoading] = useState(true);
+  const [filterUser, setFilterUser] = useState('');
+  const [userSortDescending, setUserSortDescending] = useState(false);
 
   const loadUsers = useCallback(async (showInitialSpinner: boolean) => {
     if (showInitialSpinner) setLoading(true);
@@ -156,19 +197,56 @@ export const VerificationEditor = () => {
     }
   };
 
+  const handleUserSortClick = useCallback(() => {
+    setUserSortDescending(d => !d);
+  }, []);
+
   useEffect(() => {
     if (status === 'loading') return;
     loadUsers(true);
   }, [status, loadUsers]);
 
+  const filteredUsers = useMemo(
+    () => users.filter(u => matchesUserFilter(u, filterUser)),
+    [users, filterUser],
+  );
+
+  const pending = useMemo(
+    () =>
+      sortUsersByUserColumn(
+        filteredUsers.filter(u => u.verificationState === UserVerificationState.VERIFICATION_PENDING),
+        userSortDescending,
+      ),
+    [filteredUsers, userSortDescending],
+  );
+  const denied = useMemo(
+    () =>
+      sortUsersByUserColumn(
+        filteredUsers.filter(u => u.verificationState === UserVerificationState.DENIED),
+        userSortDescending,
+      ),
+    [filteredUsers, userSortDescending],
+  );
+  const notVerified = useMemo(
+    () =>
+      sortUsersByUserColumn(
+        filteredUsers.filter(u => u.verificationState === UserVerificationState.NOT_VERIFIED),
+        userSortDescending,
+      ),
+    [filteredUsers, userSortDescending],
+  );
+  const verified = useMemo(
+    () =>
+      sortUsersByUserColumn(
+        filteredUsers.filter(u => u.verificationState === UserVerificationState.VERIFIED),
+        userSortDescending,
+      ),
+    [filteredUsers, userSortDescending],
+  );
+
   if (loading || status === 'loading') {
     return <LoadingSpinner />;
   }
-
-  const pending = users.filter(u => u.verificationState === UserVerificationState.VERIFICATION_PENDING);
-  const denied = users.filter(u => u.verificationState === UserVerificationState.DENIED);
-  const notVerified = users.filter(u => u.verificationState === UserVerificationState.NOT_VERIFIED);
-  const verified = users.filter(u => u.verificationState === UserVerificationState.VERIFIED);
 
   return (
     <>
@@ -176,12 +254,21 @@ export const VerificationEditor = () => {
 
       <div className="mx-2 overflow-y-auto pb-4">
         <div className="rounded-lg border border-primary bg-secondary-light p-2 text-sm">
+          {users.length > 0 && (
+            <div className="mb-4 flex flex-col gap-1 sm:max-w-[14rem]">
+              <span className="text-xs font-medium text-primary/80">User</span>
+              <Input placeholder="Search…" value={filterUser} onChange={e => setFilterUser(e.target.value)} className="w-full" />
+            </div>
+          )}
+
           <VerificationTableSection
             title="Verification pending"
             items={pending}
             draftVerificationByUsername={draftVerificationByUsername}
             onDraftStateChange={handleDraftVerificationStateChanged}
             onSave={handleSaveUserClicked}
+            userSortDescending={userSortDescending}
+            onUserSortClick={handleUserSortClick}
           />
           <VerificationTableSection
             title="Denied"
@@ -189,6 +276,8 @@ export const VerificationEditor = () => {
             draftVerificationByUsername={draftVerificationByUsername}
             onDraftStateChange={handleDraftVerificationStateChanged}
             onSave={handleSaveUserClicked}
+            userSortDescending={userSortDescending}
+            onUserSortClick={handleUserSortClick}
           />
           <VerificationTableSection
             title="Not verified"
@@ -196,6 +285,8 @@ export const VerificationEditor = () => {
             draftVerificationByUsername={draftVerificationByUsername}
             onDraftStateChange={handleDraftVerificationStateChanged}
             onSave={handleSaveUserClicked}
+            userSortDescending={userSortDescending}
+            onUserSortClick={handleUserSortClick}
           />
           <VerificationTableSection
             title="Verified"
@@ -203,6 +294,8 @@ export const VerificationEditor = () => {
             draftVerificationByUsername={draftVerificationByUsername}
             onDraftStateChange={handleDraftVerificationStateChanged}
             onSave={handleSaveUserClicked}
+            userSortDescending={userSortDescending}
+            onUserSortClick={handleUserSortClick}
           />
         </div>
       </div>
