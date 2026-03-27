@@ -16,7 +16,7 @@ export default async function AdminOverview() {
           <TextButton text={'Events'} />
         </Link>
         <Link href={routeAdminLicenses}>
-          <TextButton text={'Licences'} />
+          <TextButton text={'Licenses'} />
         </Link>
         <Link href={routeAdminUserVerification}>
           <TextButton text={'User Verification'} />
