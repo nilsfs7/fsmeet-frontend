@@ -5,6 +5,7 @@ import ActionButton from '@/components/common/action-button';
 import { routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { getLicenses, updateLicense } from '@/infrastructure/clients/license.client';
+import { getUsers } from '@/infrastructure/clients/user.client';
 import { License } from '@/domain/types/license';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -27,10 +28,20 @@ const licenseCol = {
   actions: 'w-[22%] min-w-[8.5rem]',
 } as const;
 
-function matchesUserFilter(license: License, query: string): boolean {
+type UserNameMeta = { firstName?: string; lastName?: string };
+
+function formatLicenseUserLabel(username: string, meta?: UserNameMeta): string {
+  const name = [meta?.firstName, meta?.lastName].filter(Boolean).join(' ').trim();
+  return name ? `${username} (${name})` : username;
+}
+
+function matchesUserFilter(license: License, query: string, meta?: UserNameMeta): boolean {
   const q = query.trim().toLowerCase();
   if (!q) return true;
-  return license.username.toLowerCase().includes(q);
+  if (license.username.toLowerCase().includes(q)) return true;
+  const first = (meta?.firstName ?? '').toLowerCase();
+  const last = (meta?.lastName ?? '').toLowerCase();
+  return first.includes(q) || last.includes(q) || `${first} ${last}`.trim().includes(q);
 }
 
 type LicenseSortColumn = 'user' | 'amount';
@@ -53,6 +64,7 @@ function sortLicenses(licenses: License[], column: LicenseSortColumn, descending
 export const LicensesEditor = () => {
   const { data: session, status } = useSession();
   const [licenses, setLicenses] = useState<License[]>([]);
+  const [userMetaByUsername, setUserMetaByUsername] = useState<Record<string, UserNameMeta>>({});
   const [loading, setLoading] = useState(true);
   const [filterUser, setFilterUser] = useState('');
   const [sort, setSort] = useState<{ column: LicenseSortColumn; descending: boolean }>({ column: 'user', descending: false });
@@ -67,6 +79,17 @@ export const LicensesEditor = () => {
       try {
         const data = await getLicenses(session);
         setLicenses(data);
+        try {
+          const allUsers = await getUsers();
+          const meta: Record<string, UserNameMeta> = {};
+          for (const u of allUsers) {
+            meta[u.username] = { firstName: u.firstName, lastName: u.lastName };
+          }
+          setUserMetaByUsername(meta);
+        } catch (err) {
+          console.error(err);
+          setUserMetaByUsername({});
+        }
       } catch (e: any) {
         console.error(e);
         toast.error(e?.message ?? 'Failed to load licenses.');
@@ -109,8 +132,8 @@ export const LicensesEditor = () => {
   }, [status, loadLicenses]);
 
   const filteredLicenses = useMemo(
-    () => licenses.filter(lic => matchesUserFilter(lic, filterUser)),
-    [licenses, filterUser],
+    () => licenses.filter(lic => matchesUserFilter(lic, filterUser, userMetaByUsername[lic.username])),
+    [licenses, filterUser, userMetaByUsername],
   );
 
   const sortedFilteredLicenses = useMemo(
@@ -196,7 +219,7 @@ export const LicensesEditor = () => {
                     <TableRow key={license.username} className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
                       <TableCell className={cn(LICENSE_CELL_PAD, 'text-primary align-top', licenseCol.user)}>
                         <Link href={`${routeUsers}/${license.username}`} className="underline hover:text-primary/80">
-                          {license.username}
+                          {formatLicenseUserLabel(license.username, userMetaByUsername[license.username])}
                         </Link>
                       </TableCell>
                       <TableCell className={cn(LICENSE_CELL_PAD, 'text-primary align-top tabular-nums', licenseCol.amount)}>{license.amountEventLicenses}</TableCell>
