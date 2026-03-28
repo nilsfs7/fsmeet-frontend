@@ -717,9 +717,9 @@
     "chbRegistrationCollectPhoneNumber": "Handynummer des Teilnehmers abfragen",
     "chbAutoApproveRegistration": "Neue Registrierungen automatisch bestätigen",
     "chbNotifyOnRegistration": "Bei neuer Registrierung benachrichtigen",
-    "chbAllowCommentsAndQuestions": "Kommentarfunkion einschalten",
+    "chbAllowCommentsAndQuestions": "Kommentarfunktion einschalten",
     "chbNotifyOnComment": "Bei neuem Kommentar benachrichtigen",
-    "inputWaiver": "Verzichterklärung",
+    "inputWaiver": "Verzichtserklärung",
     "chbVisaInvitationRequestsEnabled": "Visa-Einladungen anbieten"
   },
   "global/components/loading-spinner": {
