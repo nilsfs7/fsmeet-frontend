@@ -501,7 +501,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
         } else {
           // use registration v1
           if (session) {
-            await createEventRegistration(event.id, session.user.username, session);
+            await createEventRegistration(event.id, session);
             cleanupCacheRegistrationInfo();
             router.push(successUrl);
           }

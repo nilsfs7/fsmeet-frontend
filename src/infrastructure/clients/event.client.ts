@@ -283,16 +283,11 @@ export async function getEventRegistration(eventId: string, username: string | n
   }
 }
 
-export async function createEventRegistration(eventId: string, username: string, session: Session | null): Promise<void> {
+export async function createEventRegistration(eventId: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
-
-  const body = JSON.stringify({
-    username: `${username}`,
-  });
 
   const response = await fetch(url, {
     method: 'POST',
-    body: body,
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
