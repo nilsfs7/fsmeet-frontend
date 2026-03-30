@@ -32,6 +32,7 @@ import { menuEventCategories } from '../../../../domain/constants/menus/menu-eve
 import { getNameByEventType } from '../../../../functions/get-name-by-event-type';
 import { toTitleCase } from '../../../../functions/string-manipulation';
 import { getShortDateString } from '../../../../functions/time';
+import { LicenseType } from '../../../../domain/enums/license-type';
 
 interface IEventCreationProcess {
   eventAdmin: User;
@@ -71,6 +72,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
   const generateEvent = (): Event => {
     return {
       id: eventId,
+      licenseType: LicenseType.FREE,
       type: eventType || EventType.COMPETITION,
       name: eventName || '',
       alias: '',

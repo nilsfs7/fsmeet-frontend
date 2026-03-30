@@ -9,9 +9,11 @@ import { Accommodation } from './accommodation';
 import { Offering } from './offering';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { EventCategory } from '../enums/event-category';
+import { LicenseType } from '../enums/license-type';
 
 export type Event = {
   id?: string;
+  licenseType: LicenseType;
   name: string;
   alias: string;
   admin?: string;
