@@ -42,6 +42,7 @@ import { menuCurrencies } from '@/domain/constants/menus/menu-currencies';
 import { EventCategory } from '@/domain/enums/event-category';
 import { menuEventCategories } from '@/domain/constants/menus/menu-event-categories';
 import { UserVerificationState } from '../../domain/enums/user-verification-state';
+import { LicenseType } from '../../domain/enums/license-type';
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -245,6 +246,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
     onEventUpdate({
       id: event?.id,
+      licenseType: event?.licenseType || LicenseType.FREE,
       name,
       alias,
       admin: event?.admin,
@@ -288,6 +290,15 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       state: event?.state || EventState.CREATED,
       imageUrlPoster: event?.imageUrlPoster || '',
     });
+  };
+
+  const disableStripe = () => {
+    setPaymentMethodStripeEnabled(false);
+    setVisitorFee(0); // reset visitor fee, when Stripe not selected
+
+    if (event?.licenseType === LicenseType.FREE) {
+      setRegistrationCollectPhoneNumber(false);
+    }
   };
 
   // updates inputs with given event
@@ -729,7 +740,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
               setPaymentMethodCashEnabled(!paymentMethodCashEnabled);
 
               if (!paymentMethodCashEnabled === true) {
-                setPaymentMethodStripeEnabled(false);
+                disableStripe();
               }
             }}
           />
@@ -742,7 +753,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
               setPaymentMethodPayPalEnabled(!paymentMethodPayPalEnabled);
 
               if (!paymentMethodPayPalEnabled === true) {
-                setPaymentMethodStripeEnabled(false);
+                disableStripe();
               }
             }}
           />
@@ -782,7 +793,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
               setPaymentMethodSepaEnabled(!paymentMethodSepaEnabled);
 
               if (!paymentMethodSepaEnabled === true) {
-                setPaymentMethodStripeEnabled(false);
+                disableStripe();
               }
             }}
           />
@@ -855,7 +866,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
                 setPaymentMethodPayPalEnabled(false);
                 setPaymentMethodSepaEnabled(false);
               } else {
-                setVisitorFee(0); // reset visitor fee, when Stripe not selected
+                disableStripe();
               }
             }}
           />
@@ -950,7 +961,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         }}
       />
 
-      {paymentMethodStripeEnabled && (
+      {(event?.licenseType === LicenseType.PRO || paymentMethodStripeEnabled) && (
         <CheckBox
           id={'registrationCollectPhoneNumber'}
           label={t('chbRegistrationCollectPhoneNumber')}
