@@ -30,6 +30,7 @@ import { CreateEventResponseDto } from './dtos/event/create-event.response.dto';
 import { defaultHeaders } from './default-headers';
 import { DeleteEventCommentBodyDto } from './dtos/event/delete-comment.body.dto';
 import { DeleteEventSubCommentBodyDto } from './dtos/event/delete-sub-comment.body.dto';
+import { TShirtSize } from '../../domain/enums/t-shirt-size';
 
 export async function getEvents(
   admin: string | null,
@@ -286,8 +287,11 @@ export async function getEventRegistration(eventId: string, username: string | n
 export async function createEventRegistration(eventId: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
 
+  const body = new CreateEventRegistrationBodyDto(EventRegistrationType.PARTICIPANT, null, null, [], [], [], null, null, null, 0);
+
   const response = await fetch(url, {
     method: 'POST',
+    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
@@ -310,7 +314,7 @@ export async function createEventRegistration_v2(
   compSignUps: string[],
   accommodationOrders: string[],
   offeringOrders: string[],
-  offeringTShirtSize: string,
+  offeringTShirtSize: TShirtSize | null,
   phoneCountryCode: number | null,
   phoneNumber: string | null,
   donationAmount: number | null,

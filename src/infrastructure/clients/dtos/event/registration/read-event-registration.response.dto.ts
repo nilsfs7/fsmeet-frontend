@@ -2,6 +2,7 @@ import { ReadPartialUser3ResponseDto } from '../../user/read-partial-user-3.resp
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { Moment } from 'moment';
+import { TShirtSize } from '../../../../../domain/enums/t-shirt-size';
 
 export class ReadEventRegistrationResponseDto {
   user: ReadPartialUser3ResponseDto;
@@ -12,7 +13,7 @@ export class ReadEventRegistrationResponseDto {
   competitionSignUps: string[];
   accommodationOrders: string[];
   offeringOrders: string[];
-  offeringTShirtSize: string;
+  offeringTShirtSize: TShirtSize | null;
   phoneCountryCode?: number;
   phoneNumber?: string;
 
@@ -25,7 +26,7 @@ export class ReadEventRegistrationResponseDto {
     competitionSignUps: string[],
     accommodationOrders: string[],
     offeringOrders: string[],
-    offeringTShirtSize: string,
+    offeringTShirtSize: TShirtSize | null,
     phoneCountryCode?: number,
     phoneNumber?: string,
   ) {

@@ -2,6 +2,7 @@ import { EventRegistrationStatus } from '@/domain/enums/event-registration-statu
 import { EventRegistrationType } from './event-registration-type';
 import { User } from './user';
 import { Moment } from 'moment';
+import { TShirtSize } from '../enums/t-shirt-size';
 
 export type EventRegistration = {
   user: User;
@@ -12,7 +13,7 @@ export type EventRegistration = {
   competitionSignUps: string[];
   accommodationOrders: string[];
   offeringOrders: string[];
-  offeringTShirtSize: string;
+  offeringTShirtSize: TShirtSize | null;
   phoneCountryCode?: number;
   phoneNumber?: string;
 };
