@@ -144,7 +144,7 @@ export async function createRounds(compId: string, rounds: Round[], session: Ses
         return new CreateMatchBodyDto(match.matchIndex, match.name, moment(match.time), match.isExtraMatch, match.slots);
       });
       return new CreateRoundBodyDto(round.roundIndex, round.name, moment(round.date), round.timeLimit, matchDtos, round.advancingTotal);
-    })
+    }),
   );
 
   const response = await fetch(url, {
