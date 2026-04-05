@@ -22,6 +22,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import SendIcon from '@mui/icons-material/Send';
 import ShareIcon from '@mui/icons-material/Share';
 import TrophyIcon from '@mui/icons-material/EmojiEvents';
+import TvIcon from '@mui/icons-material/Tv';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/domain/enums/size';
@@ -117,6 +118,9 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
       break;
     case Action.MANAGE_ACCOMMODATIONS:
       Icon = HotelIcon;
+      break;
+    case Action.MANAGE_ARENA_SCREEN:
+      Icon = TvIcon;
       break;
     case Action.MANAGE_ATTACHMENTS:
       Icon = FilePresentIcon;

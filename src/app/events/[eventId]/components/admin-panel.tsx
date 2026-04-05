@@ -76,6 +76,18 @@ const AdminPanel = async ({ event }: IAttachmentCardProps) => {
             </>
           )}
         </div>
+
+        {/* row 3 */}
+        <div className="flex justify-end gap-1">
+          {!isArchivedEventState(event.state) && (
+            <>
+              <Link href={`${routeEvents}/${event.id}/arena-screen`}>
+                {/* todo: remove disabled = true */}
+                <ActionButton disabled={true} action={Action.MANAGE_ARENA_SCREEN} tooltip={t('adminPanelBtnManageArenaScreenToolTip')} />
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
