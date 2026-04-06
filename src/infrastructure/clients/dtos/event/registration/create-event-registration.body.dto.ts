@@ -1,5 +1,6 @@
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { Moment } from 'moment';
+import { TShirtSize } from '../../../../../domain/enums/t-shirt-size';
 
 export class CreateEventRegistrationBodyDto {
   eventRegistrationType: EventRegistrationType;
@@ -8,7 +9,7 @@ export class CreateEventRegistrationBodyDto {
   compSignUps: string[];
   accommodationOrders: string[];
   offeringOrders: string[];
-  offeringTShirtSize: string;
+  offeringTShirtSize: TShirtSize | null;
   phoneCountryCode: number | null;
   phoneNumber: string | null;
   donationAmount?: number | null;
@@ -20,7 +21,7 @@ export class CreateEventRegistrationBodyDto {
     compSignUps: string[],
     accommodationOrders: string[],
     offeringOrders: string[],
-    offeringTShirtSize: string,
+    offeringTShirtSize: TShirtSize | null,
     phoneCountryCode: number | null,
     phoneNumber: string | null,
     donationAmount: number | null,

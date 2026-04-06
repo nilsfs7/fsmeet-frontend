@@ -30,6 +30,9 @@ import { CreateEventResponseDto } from './dtos/event/create-event.response.dto';
 import { defaultHeaders } from './default-headers';
 import { DeleteEventCommentBodyDto } from './dtos/event/delete-comment.body.dto';
 import { DeleteEventSubCommentBodyDto } from './dtos/event/delete-sub-comment.body.dto';
+import { TShirtSize } from '../../domain/enums/t-shirt-size';
+import { PutArenaScreenBodyDto } from './dtos/event/put-arena-screen.body.dto';
+import { ReadArenaScreenResponseDto } from './dtos/event/read-arena-screen.response.dto';
 
 export async function getEvents(
   admin: string | null,
@@ -286,8 +289,11 @@ export async function getEventRegistration(eventId: string, username: string | n
 export async function createEventRegistration(eventId: string, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
 
+  const body = new CreateEventRegistrationBodyDto(EventRegistrationType.PARTICIPANT, null, null, [], [], [], null, null, null, 0);
+
   const response = await fetch(url, {
     method: 'POST',
+    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
@@ -310,7 +316,7 @@ export async function createEventRegistration_v2(
   compSignUps: string[],
   accommodationOrders: string[],
   offeringOrders: string[],
-  offeringTShirtSize: string,
+  offeringTShirtSize: TShirtSize | null,
   phoneCountryCode: number | null,
   phoneNumber: string | null,
   donationAmount: number | null,
@@ -764,6 +770,55 @@ export async function updateVisaInvitationRequest(id: string, state: VisaInvitat
 
   if (response.ok) {
     console.info('Updating invitation request successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function getArenaScreen(eventId: string): Promise<ReadArenaScreenResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/arena-screen`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      ...defaultHeaders,
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function putArenaScreen(
+  eventId: string,
+  activeMatchId: string | null,
+  backgroundImageUrl: string | null,
+  backgroundOverlayOpacity: number | null,
+  showPositions: boolean,
+  reversePositionLabels: boolean,
+  showFlags: boolean,
+  session: Session | null,
+): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/arena-screen`;
+
+  const body = new PutArenaScreenBodyDto(activeMatchId, backgroundImageUrl, backgroundOverlayOpacity, showPositions, reversePositionLabels, showFlags);
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating arena screen successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

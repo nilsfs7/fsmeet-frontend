@@ -47,6 +47,7 @@ import { isNaturalPerson } from '@/functions/is-natural-person';
 import { getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 import { Offering } from '../../../../../domain/types/offering';
 import Separator from '@/components/seperator';
+import { TShirtSize } from '../../../../../domain/enums/t-shirt-size';
 
 interface IEventRegistrationProcess {
   event: Event;
@@ -483,7 +484,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
             compSignUps,
             accommodationOrders,
             offeringOrders,
-            offeringTShirtSize,
+            offeringTShirtSize === menuTShirtSizesWithUnspecified[0].value ? null : (offeringTShirtSize as TShirtSize),
             phoneCode,
             phoneNum,
             donationAmount,
@@ -606,7 +607,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
         compSignUps: compSignUps,
         accommodationOrders: accommodationOrders,
         offeringOrders: offeringOrders,
-        offeringTShirtSize: offeringTShirtSize,
+        offeringTShirtSize: offeringTShirtSize === menuTShirtSizesWithUnspecified[0].value ? null : (offeringTShirtSize as TShirtSize),
       };
 
       sessionStorage.setItem('registrationInfo', JSON.stringify(info));
@@ -647,8 +648,9 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
       setCompSignUps(registrationInfo.compSignUps);
       setAccommodationOrders(registrationInfo.accommodationOrders);
       setOfferingOrders(registrationInfo.offeringOrders);
-      setOfferingShirtSize(registrationInfo.offeringTShirtSize);
+      setOfferingShirtSize(registrationInfo.offeringTShirtSize ? registrationInfo.offeringTShirtSize : menuTShirtSizesWithUnspecified[0].value);
     }
+    menuTShirtSizesWithUnspecified[0].value ? null : (offeringTShirtSize as TShirtSize);
   }, []);
 
   useEffect(() => {

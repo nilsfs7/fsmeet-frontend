@@ -148,7 +148,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
 
             <p className="grid grid-cols-2 gap-1">
               <p>{`${t('dlgRegistrationInfoShirtSize')}:`}</p>
-              <p>{`${registrationSelected?.offeringTShirtSize || na}`}</p>
+              <p>{`${registrationSelected.offeringTShirtSize || na}`}</p>
             </p>
           </>
         )}

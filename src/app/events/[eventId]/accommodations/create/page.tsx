@@ -9,7 +9,7 @@ import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { useSession } from 'next-auth/react';
 import { Accommodation } from '@/domain/types/accommodation';
-import { createAccommodation, updateAccommodationPreview } from '@/infrastructure/clients/accommodation.client';
+import { createAccommodation } from '@/infrastructure/clients/accommodation.client';
 import AccommodationEditor from '@/components/events/accommodation-editor';
 import NavigateBackButton from '@/components/navigate-back-button';
 import { useTranslations } from 'next-intl';
@@ -17,6 +17,7 @@ import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getEvent } from '@/infrastructure/clients/event.client';
+import { fileToBase64 } from '../../../../../functions/file-to-base-64';
 
 export default function CreateAccommodation(props: { params: Promise<{ eventId: string }> }) {
   const params = use(props.params);
@@ -27,16 +28,12 @@ export default function CreateAccommodation(props: { params: Promise<{ eventId: 
 
   const [event, setEvent] = useState<Event>();
   const [accommodation, setAccommodation] = useState<Accommodation>();
-  const [accommodationPreview, setAccommodationPreview] = useState<File>();
+  const [accommodationPreview, setAccommodationPreview] = useState<string>();
 
   const handleCreateClicked = async () => {
     if (accommodation) {
       try {
-        const accommodationId = (await createAccommodation(params.eventId, accommodation.description, accommodation.cost, accommodation.website, accommodation.enabled, session)).id;
-
-        if (accommodationPreview) {
-          await updateAccommodationPreview(accommodationId, accommodationPreview, session);
-        }
+        await createAccommodation(params.eventId, accommodation.description, accommodation.cost, accommodation.website, accommodationPreview || null, accommodation.enabled, session);
 
         router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/accommodations`));
       } catch (error: any) {
@@ -65,8 +62,9 @@ export default function CreateAccommodation(props: { params: Promise<{ eventId: 
             onAccommodationUpdate={(accommodation: Accommodation) => {
               setAccommodation(accommodation);
             }}
-            onAccommodationPreviewUpdate={(image: any) => {
-              setAccommodationPreview(image);
+            onAccommodationPreviewUpdate={async (file: File) => {
+              const base64String = await fileToBase64(file);
+              setAccommodationPreview(base64String);
             }}
           />
         </div>

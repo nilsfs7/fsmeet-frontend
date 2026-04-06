@@ -49,13 +49,14 @@ export async function createAccommodation(
   description: string,
   cost: number,
   website: string | null,
+  previewBase64: string | null,
   enabled: boolean,
-  session: Session | null
+  session: Session | null,
 ): Promise<CreateAccommodationResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations`;
 
   //@ts-ignore TODO
-  const body = new CreateAccommodationBodyDto(eventId, description, cost, website, enabled);
+  const body = new CreateAccommodationBodyDto(eventId, description, cost, website, previewBase64, enabled);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -77,11 +78,19 @@ export async function createAccommodation(
   }
 }
 
-export async function updateAccommodation(id: string, description: string, cost: number, website: string | null, enabled: boolean, session: Session | null): Promise<void> {
+export async function updateAccommodation(
+  id: string,
+  description: string,
+  cost: number,
+  website: string | null,
+  previewBase64: string | null,
+  enabled: boolean,
+  session: Session | null,
+): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations`;
 
   //@ts-ignore TODO
-  const body = new PatchAccommodationBodyDto(id, description, cost, website, enabled);
+  const body = new PatchAccommodationBodyDto(id, description, cost, website, previewBase64, enabled);
 
   const response = await fetch(url, {
     method: 'PATCH',
