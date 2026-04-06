@@ -135,9 +135,7 @@ export function ArenaMatchScreen({ competitionName, match, participants, backgro
       <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 text-center text-white">
         <ArenaBackdrop imageUrl={bgUrl} overlayOpacity={overlayOpacity} />
         <div className="relative z-10">
-          <p className="text-sm font-medium uppercase tracking-[0.3em] text-amber-400/90">{competitionName}</p>
-          <h1 className="mt-4 max-w-2xl text-3xl font-bold md:text-4xl">Match not found</h1>
-          <p className="mt-3 max-w-md text-lg text-zinc-300">This match is not available for this competition.</p>
+          <h1 className="mt-4 max-w-2xl text-3xl font-bold md:text-4xl">Select a match to display</h1>
         </div>
       </div>
     );
