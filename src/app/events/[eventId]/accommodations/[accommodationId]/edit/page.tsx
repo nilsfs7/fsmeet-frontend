@@ -1,7 +1,7 @@
 'use client';
 
 import TextButton from '@/components/common/text-button';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
 import { Toaster, toast } from 'sonner';
@@ -19,6 +19,7 @@ import { getEvent } from '@/infrastructure/clients/event.client';
 import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { Accommodation } from '@/domain/types/accommodation';
+import { fileToBase64 } from '../../../../../../functions/file-to-base-64';
 
 export default function EditEventAccommodation(props: { params: Promise<{ eventId: string; accommodationId: string }> }) {
   const params = use(props.params);
@@ -28,16 +29,12 @@ export default function EditEventAccommodation(props: { params: Promise<{ eventI
 
   const [event, setEvent] = useState<Event>();
   const [accommodation, setAccommodation] = useState<Accommodation>();
-  const [accommodationPreview, setAccommodationPreview] = useState<File>();
+  const [accommodationPreview, setAccommodationPreview] = useState<string>();
 
   const handleSaveClicked = async () => {
     if (accommodation) {
       try {
-        await updateAccommodation(params.accommodationId, accommodation.description, accommodation.cost, accommodation.website, accommodation.enabled, session);
-
-        if (accommodationPreview && accommodation.id) {
-          await updateAccommodationPreview(accommodation.id.toString(), accommodationPreview, session);
-        }
+        await updateAccommodation(params.accommodationId, accommodation.description, accommodation.cost, accommodation.website, accommodationPreview || null, accommodation.enabled, session);
 
         router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/accommodations`));
       } catch (error: any) {
@@ -96,8 +93,9 @@ export default function EditEventAccommodation(props: { params: Promise<{ eventI
             onAccommodationUpdate={(accommodation: Accommodation) => {
               setAccommodation(accommodation);
             }}
-            onAccommodationPreviewUpdate={(image: any) => {
-              setAccommodationPreview(image);
+            onAccommodationPreviewUpdate={async (file: File) => {
+              const base64String = await fileToBase64(file);
+              setAccommodationPreview(base64String);
             }}
           />
         </div>

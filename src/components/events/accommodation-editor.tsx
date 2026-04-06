@@ -15,7 +15,7 @@ interface IAccommodationEditorProps {
   currency: CurrencyCode;
   accommodation?: Accommodation;
   onAccommodationUpdate: (accommodation: Accommodation) => void;
-  onAccommodationPreviewUpdate: (image: any) => void;
+  onAccommodationPreviewUpdate: (image: File) => void;
 }
 
 const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, onAccommodationPreviewUpdate }: IAccommodationEditorProps) => {
@@ -63,7 +63,9 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
   };
 
   const updateAccommodationPreview = () => {
-    onAccommodationPreviewUpdate(imgPreview);
+    if (imgPreview) {
+      onAccommodationPreviewUpdate(imgPreview);
+    }
   };
 
   // updates inputs with given accommodation
