@@ -228,7 +228,12 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
   const nextButtonDisabled = (): boolean => {
     if (!page) {
-      if (event.type === EventType.COMPETITION_ONLINE && moment(event?.registrationDeadline).unix() < moment().unix()) return true; // disable registration when deadline is exceeded since only participants can join online competitions
+      // participant deadline exceeded
+      if (moment(event?.registrationDeadline).unix() < moment().unix()) {
+        if (event.type === EventType.COMPETITION_ONLINE) return true; // disable since only participants can join online competitions
+
+        if (!event.paymentMethodStripe.enabled) return true; // disable since visitors can not can join non-stripe events
+      }
 
       return false;
     }
