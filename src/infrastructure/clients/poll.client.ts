@@ -8,7 +8,6 @@ import { RatingAction } from '@/domain/enums/rating-action';
 import { CreatePollRatingBodyDto } from './dtos/poll/create-poll-rating.body.dto';
 import { PollRating } from '@/domain/types/poll-rating';
 import { TargetGroup } from '@/domain/types/target-group';
-import { DeletePollBodyDto } from './dtos/poll/delete-poll.body.dto';
 import { defaultHeaders } from './default-headers';
 
 export async function getPolls(questionerUsername?: string): Promise<Poll[]> {
@@ -39,7 +38,7 @@ export async function createPoll(question: string, description: string, options:
       return { option: option };
     }),
     deadline,
-    { maxAge: targetGroup.maxAge, countryCode: targetGroup.countryCode }
+    { maxAge: targetGroup.maxAge, countryCode: targetGroup.countryCode },
   );
 
   const response = await fetch(url, {
@@ -60,13 +59,10 @@ export async function createPoll(question: string, description: string, options:
 }
 
 export async function deletePoll(pollId: string, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls`;
-
-  const body = new DeletePollBodyDto(pollId);
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/polls/${pollId}`;
 
   const response = await fetch(url, {
     method: 'DELETE',
-    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
