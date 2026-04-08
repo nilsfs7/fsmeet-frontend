@@ -2,7 +2,6 @@ import { Session } from 'next-auth';
 import { ReadSponsorResponseDto } from './dtos/sponsor/read-sponsor.response.dto';
 import { CreateSponsorBodyDto } from './dtos/sponsor/create-sponsor.body.dto';
 import { PatchSponsorBodyDto } from './dtos/sponsor/patch-sponsor.body.dto';
-import { DeleteSponsorBodyDto } from './dtos/sponsor/delete-sponsor.body.dto';
 import { CreateSponsorResponseDto } from './dtos/sponsor/create-sponsor.response.dto';
 import { defaultHeaders } from './default-headers';
 
@@ -64,9 +63,9 @@ export async function createSponsor(eventId: string, name: string, website: stri
 }
 
 export async function updateSponsor(id: string, name: string, website: string, isPublic: boolean, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/${id}`;
 
-  const body = new PatchSponsorBodyDto(id, name, website, isPublic);
+  const body = new PatchSponsorBodyDto(name, website, isPublic);
 
   const response = await fetch(url, {
     method: 'PATCH',
@@ -108,13 +107,10 @@ export async function updateSponsorLogo(id: string, image: File, session: Sessio
 }
 
 export async function deleteSponsor(id: string, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors`;
-
-  const body = new DeleteSponsorBodyDto(id);
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/${id}`;
 
   const response = await fetch(url, {
     method: 'DELETE',
-    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
