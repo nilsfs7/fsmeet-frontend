@@ -63,9 +63,9 @@ export async function createSponsor(eventId: string, name: string, website: stri
 }
 
 export async function updateSponsor(id: string, name: string, website: string, isPublic: boolean, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/${id}`;
 
-  const body = new PatchSponsorBodyDto(id, name, website, isPublic);
+  const body = new PatchSponsorBodyDto(name, website, isPublic);
 
   const response = await fetch(url, {
     method: 'PATCH',
