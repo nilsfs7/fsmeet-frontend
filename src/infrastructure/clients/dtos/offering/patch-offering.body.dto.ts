@@ -1,13 +1,11 @@
 export class PatchOfferingBodyDto {
-  id: string;
   description: string;
   cost: number;
   mandatoryForParticipant: boolean;
   includesShirt: boolean;
   enabled: boolean;
 
-  constructor(id: string, description: string, cost: number, mandatoryForParticipant: boolean, includesShirt: boolean, enabled: boolean) {
-    this.id = id;
+  constructor(description: string, cost: number, mandatoryForParticipant: boolean, includesShirt: boolean, enabled: boolean) {
     this.description = description;
     this.cost = cost;
     this.mandatoryForParticipant = mandatoryForParticipant;

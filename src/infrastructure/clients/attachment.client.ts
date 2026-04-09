@@ -3,7 +3,6 @@ import { CreateAttachmentResponseDto } from './dtos/attachment/create-attachment
 import { CreateAttachmentBodyDto } from './dtos/attachment/create-attachment.body.dto';
 import { ReadAttachmentResponseDto } from './dtos/attachment/read-attachment.response.dto';
 import { PatchAttachmentBodyDto } from './dtos/attachment/patch-attachment.body.dto';
-import { DeleteAttachmentBodyDto } from './dtos/attachment/delete-attachment.body.dto';
 import { defaultHeaders } from './default-headers';
 
 export async function getAttachments(eventId: string | null): Promise<ReadAttachmentResponseDto[]> {
@@ -47,7 +46,7 @@ export async function createAttachment(
   expires: boolean,
   expiryDate: string | null,
   enabled: boolean,
-  session: Session | null
+  session: Session | null,
 ): Promise<CreateAttachmentResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments`;
 
@@ -82,11 +81,11 @@ export async function updateAttachment(
   expires: boolean,
   expiryDate: string | null,
   enabled: boolean,
-  session: Session | null
+  session: Session | null,
 ): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments/${id}`;
 
-  const body = new PatchAttachmentBodyDto(id, name, isExternal, documentUrl, documentBase64, expires, expiryDate, enabled);
+  const body = new PatchAttachmentBodyDto(name, isExternal, documentUrl, documentBase64, expires, expiryDate, enabled);
 
   const response = await fetch(url, {
     method: 'PATCH',
@@ -106,13 +105,10 @@ export async function updateAttachment(
 }
 
 export async function deleteAttachment(id: string, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments`;
-
-  const body = new DeleteAttachmentBodyDto(id);
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments/${id}`;
 
   const response = await fetch(url, {
     method: 'DELETE',
-    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
