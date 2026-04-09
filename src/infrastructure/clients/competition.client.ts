@@ -165,10 +165,9 @@ export async function createRounds(compId: string, rounds: Round[], session: Ses
 }
 
 export async function updateCompetition(comp: Competition, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${comp.id}`;
 
   const body = JSON.stringify({
-    id: comp.id,
     name: comp?.name.trim(),
     maxAge: comp?.maxAge,
     maxAmountParticipants: comp.maxAmountParticipants,
@@ -249,15 +248,10 @@ export async function updateMatchSlots(eventId: string, compId: string, matchId:
 }
 
 export async function deleteCompetition(compId: string, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions`;
-
-  const body = JSON.stringify({
-    id: `${compId}`,
-  });
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/${compId}`;
 
   const response = await fetch(url, {
     method: 'DELETE',
-    body: body,
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
