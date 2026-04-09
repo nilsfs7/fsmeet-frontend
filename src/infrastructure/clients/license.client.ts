@@ -30,16 +30,15 @@ export async function getLicenses(session: Session | null): Promise<License[]> {
 }
 
 export async function updateLicense(session: Session | null, license: License): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/licenses`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/licenses/${license.username}`;
 
   const body = JSON.stringify({
-    username: license.username,
     amountEventLicenses: license.amountEventLicenses,
   });
 
   const response = await fetch(url, {
     method: 'PATCH',
-    body: body,
+    body,
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
