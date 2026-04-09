@@ -3,7 +3,6 @@ import { CreateOfferingResponseDto } from './dtos/offering/create-offering.respo
 import { CreateOfferingBodyDto } from './dtos/offering/create-offering.body.dto';
 import { ReadOfferingResponseDto } from './dtos/offering/read-offering.response.dto';
 import { PatchOfferingBodyDto } from './dtos/offering/patch-offering.body.dto';
-import { DeleteOfferingBodyDto } from './dtos/offering/delete-offering.body.dto';
 import { defaultHeaders } from './default-headers';
 
 export async function getOfferings(eventId: string | null): Promise<ReadOfferingResponseDto[]> {

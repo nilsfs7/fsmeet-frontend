@@ -1,5 +1,4 @@
 export class PatchAttachmentBodyDto {
-  id: string;
   name: string;
   isExternal: boolean;
   url: string | null;
@@ -8,8 +7,7 @@ export class PatchAttachmentBodyDto {
   expiryDate: string | null;
   enabled: boolean;
 
-  constructor(id: string, name: string, isExternal: boolean, url: string | null, documentBase64: string | null, expires: boolean, expiryDate: string | null, enabled: boolean) {
-    this.id = id;
+  constructor(name: string, isExternal: boolean, url: string | null, documentBase64: string | null, expires: boolean, expiryDate: string | null, enabled: boolean) {
     this.name = name;
     this.isExternal = isExternal;
     this.url = url;
