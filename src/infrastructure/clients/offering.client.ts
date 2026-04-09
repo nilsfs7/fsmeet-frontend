@@ -45,7 +45,7 @@ export async function createOffering(
   mandatoryForParticipant: boolean,
   includesShirt: boolean,
   enabled: boolean,
-  session: Session | null
+  session: Session | null,
 ): Promise<CreateOfferingResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings`;
 
@@ -78,11 +78,11 @@ export async function updateOffering(
   mandatoryForParticipant: boolean,
   includesShirt: boolean,
   enabled: boolean,
-  session: Session | null
+  session: Session | null,
 ): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings/${id}`;
 
-  const body = new PatchOfferingBodyDto(id, description, cost, mandatoryForParticipant, includesShirt, enabled);
+  const body = new PatchOfferingBodyDto(description, cost, mandatoryForParticipant, includesShirt, enabled);
 
   const response = await fetch(url, {
     method: 'PATCH',
@@ -124,13 +124,10 @@ export async function updateOfferingPreview(id: string, image: File, session: Se
 }
 
 export async function deleteOffering(id: string, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings`;
-
-  const body = new DeleteOfferingBodyDto(id);
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings/${id}`;
 
   const response = await fetch(url, {
     method: 'DELETE',
-    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
