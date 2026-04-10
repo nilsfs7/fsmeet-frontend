@@ -3,7 +3,6 @@ import { CreateAccommodationResponseDto } from './dtos/accommodation/create-acco
 import { CreateAccommodationBodyDto } from './dtos/accommodation/create-accommodation.body.dto';
 import { ReadAccommodationResponseDto } from './dtos/accommodation/read-accommodation.response.dto';
 import { PatchAccommodationBodyDto } from './dtos/accommodation/patch-accommodation.body.dto';
-import { DeleteAccommodationBodyDto } from './dtos/accommodation/delete-accommodation.body.dto';
 import { defaultHeaders } from './default-headers';
 
 export async function getAccommodations(eventId: string | null): Promise<ReadAccommodationResponseDto[]> {
@@ -87,10 +86,10 @@ export async function updateAccommodation(
   enabled: boolean,
   session: Session | null,
 ): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/${id}`;
 
   //@ts-ignore TODO
-  const body = new PatchAccommodationBodyDto(id, description, cost, website, previewBase64, enabled);
+  const body = new PatchAccommodationBodyDto(description, cost, website, previewBase64, enabled);
 
   const response = await fetch(url, {
     method: 'PATCH',
@@ -133,13 +132,10 @@ export async function updateAccommodationPreview(id: string, image: File, sessio
 }
 
 export async function deleteAccommodation(id: string, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations`;
-
-  const body = new DeleteAccommodationBodyDto(id);
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/${id}`;
 
   const response = await fetch(url, {
     method: 'DELETE',
-    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
