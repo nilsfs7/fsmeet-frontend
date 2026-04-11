@@ -8,7 +8,6 @@ import { CurrencyCode } from '@/domain/enums/currency-code';
 import { EventCategory } from '@/domain/enums/event-category';
 
 export class UpdateEventBodyDto {
-  id: string;
   name: string;
   alias: string;
   maintainers: UpdateEventMaintainerBodyDto[];
@@ -45,7 +44,6 @@ export class UpdateEventBodyDto {
   visaInvitationRequestsEnabled: boolean;
 
   constructor(
-    id: string,
     name: string,
     alias: string,
     maintainers: UpdateEventMaintainerBodyDto[],
@@ -79,9 +77,8 @@ export class UpdateEventBodyDto {
     allowComments: boolean,
     notifyOnComment: boolean,
     waiver: string,
-    visaInvitationRequestsEnabled: boolean
+    visaInvitationRequestsEnabled: boolean,
   ) {
-    this.id = id;
     this.name = name;
     this.alias = alias;
     this.maintainers = maintainers;

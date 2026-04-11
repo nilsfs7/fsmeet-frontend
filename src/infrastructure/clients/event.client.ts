@@ -501,10 +501,9 @@ export async function createEventFeedback(eventId: string, message: string, sess
 }
 
 export async function updateEvent(event: Event, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${event?.id}`;
 
   const body = new UpdateEventBodyDto(
-    event?.id || '',
     event?.name.trim(),
     event?.alias,
     event.maintainers.map(maintainer => {
@@ -593,11 +592,10 @@ export async function updateEventRegistrationStatus(eventId: string, username: s
 }
 
 export async function updateEventState(session: Session | null, eventId: string, state: EventState): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/state`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/state`;
 
   const body = JSON.stringify({
-    id: eventId,
-    state: state,
+    state,
   });
 
   const response = await fetch(url, {
@@ -667,15 +665,10 @@ export async function deleteEventPoster(eventId: string, session: Session | null
 }
 
 export async function deleteEvent(eventId: string, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`;
-
-  const body = JSON.stringify({
-    id: eventId,
-  });
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`;
 
   const response = await fetch(url, {
     method: 'DELETE',
-    body: body,
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
