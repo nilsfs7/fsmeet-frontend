@@ -27,6 +27,7 @@ export class UpdateEventBodyDto {
   venueCountryCode: string;
   category: EventCategory;
   isWffaRanked: boolean;
+  priceMoney: number;
   trailerUrl: string | null;
   livestreamUrl: string | null;
   messangerInvitationUrl: string | null;
@@ -63,6 +64,7 @@ export class UpdateEventBodyDto {
     venueCountryCode: string,
     category: EventCategory,
     isWffaRanked: boolean,
+    priceMoney: number,
     trailerUrl: string | null,
     livestreamUrl: string | null,
     messangerInvitationUrl: string | null,
@@ -98,6 +100,7 @@ export class UpdateEventBodyDto {
     this.venueCountryCode = venueCountryCode;
     this.category = category;
     this.isWffaRanked = isWffaRanked;
+    this.priceMoney = priceMoney;
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;
     this.messangerInvitationUrl = messangerInvitationUrl;

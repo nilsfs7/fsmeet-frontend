@@ -75,6 +75,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
   const [category, setEventCategory] = useState<EventCategory>(event?.category || EventCategory.NATIONAL);
   const [isWffaRanked, setIsWffaRanked] = useState(event?.isWffaRanked || false);
+  const [priceMoney, setPriceMoney] = useState(event?.priceMoney || 0);
   const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || null);
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || null);
   const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || null);
@@ -124,6 +125,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
     if (type === EventType.MEETING) {
       setEventCategory(EventCategory.INTERNATIONAL);
+      setPriceMoney(0);
     }
 
     if (type !== EventType.COMPETITION) {
@@ -209,6 +211,14 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     }
   };
 
+  const handlePriceMoneyChanged = (float: number) => {
+    setPriceMoney(convertCurrencyDecimalToInteger(float, currency));
+
+    if (float === 0) {
+      setPriceMoney(0);
+    }
+  };
+
   const handleParticipationFeeChanged = (float: number) => {
     setParticipationFee(convertCurrencyDecimalToInteger(float, currency));
 
@@ -265,6 +275,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       venueCountryCode,
       category,
       isWffaRanked,
+      priceMoney,
       trailerUrl,
       livestreamUrl,
       messangerInvitationUrl,
@@ -324,6 +335,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         setEventType(event.type);
         setEventCategory(event.category);
         setIsWffaRanked(event.isWffaRanked);
+        setPriceMoney(event.priceMoney);
         setTrailerUrl(event.trailerUrl);
         setLivestreamUrl(event.livestreamUrl);
         setMessangerInvitationUrl(event.messangerInvitationUrl);
@@ -383,6 +395,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     eventType,
     category,
     isWffaRanked,
+    priceMoney,
     trailerUrl,
     livestreamUrl,
     messangerInvitationUrl,
@@ -580,6 +593,18 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           }}
         />
       </div>
+
+      <CurInput
+        id={'priceMoney'}
+        label={t('inputPriceMoney')}
+        placeholder="2500"
+        value={convertCurrencyIntegerToDecimal(priceMoney, currency)}
+        onValueChange={(value, name, values) => {
+          if (values?.float || values?.float === 0) {
+            handlePriceMoneyChanged(values.float);
+          }
+        }}
+      />
 
       <TextInput
         id={'trailerUrl'}

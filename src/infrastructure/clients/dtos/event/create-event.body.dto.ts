@@ -29,6 +29,7 @@ export class CreateEventBodyDto {
   type: EventType;
   category: EventCategory;
   isWffaRanked: boolean;
+  priceMoney: number;
   trailerUrl: string | null;
   livestreamUrl: string | null;
   messangerInvitationUrl: string | null;
@@ -66,6 +67,7 @@ export class CreateEventBodyDto {
     type: EventType,
     category: EventCategory,
     isWffaRanked: boolean,
+    priceMoney: number,
     trailerUrl: string | null,
     livestreamUrl: string | null,
     messangerInvitationUrl: string | null,
@@ -80,7 +82,7 @@ export class CreateEventBodyDto {
     allowComments: boolean,
     notifyOnComment: boolean,
     waiver: string,
-    visaInvitationRequestsEnabled: boolean
+    visaInvitationRequestsEnabled: boolean,
   ) {
     this.name = name;
     this.alias = alias;
@@ -102,6 +104,7 @@ export class CreateEventBodyDto {
     this.type = type;
     this.category = category;
     this.isWffaRanked = isWffaRanked;
+    this.priceMoney = priceMoney;
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;
     this.messangerInvitationUrl = messangerInvitationUrl;

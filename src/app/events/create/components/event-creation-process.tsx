@@ -95,6 +95,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       venueCountryCode: venueCountryCode || '',
       category: eventCategory,
       isWffaRanked: false,
+      priceMoney: 0,
       trailerUrl: null,
       livestreamUrl: null,
       messangerInvitationUrl: null,
