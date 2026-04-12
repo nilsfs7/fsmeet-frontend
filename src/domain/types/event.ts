@@ -37,6 +37,7 @@ export type Event = {
   type: EventType;
   category: EventCategory;
   isWffaRanked: boolean;
+  priceMoney: number;
   trailerUrl: string | null;
   livestreamUrl: string | null;
   messangerInvitationUrl: string | null;
