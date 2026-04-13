@@ -10,8 +10,8 @@ export default async function ModeEditing(props: { params: Promise<{ eventId: st
   const t = await getTranslations('/events/eventid/comps/compid/edit/mode');
   const session = await auth();
 
-  const event = JSON.parse(JSON.stringify(await getEvent(params.eventId, session)));
-  const rounds = JSON.parse(JSON.stringify(await getRounds(params.compId)));
+  const event = await getEvent(params.eventId, session);
+  const rounds = await getRounds(params.compId);
   const participants = await getCompetitionParticipants(params.compId);
 
   return (
