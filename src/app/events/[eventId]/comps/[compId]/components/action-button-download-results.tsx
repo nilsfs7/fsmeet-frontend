@@ -17,14 +17,12 @@ import { MatchSlot } from '@/domain/types/match-slot';
 import { User } from '@/domain/types/user';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { Competition } from '@/domain/types/competition';
-import { Round as Round_Type } from '@/domain/types/round';
-import { plainToInstance } from 'class-transformer';
-import { Round } from '@/domain/classes/round';
+import { roundMatchesAscending, type Round } from '@/domain/types/round';
 
 interface IActionButtonDownloadResults {
   event: Event;
   comp: Competition;
-  rounds_plain: Round_Type[];
+  rounds_plain: Round[];
 }
 
 export const ActionButtonDownloadResults = ({ event, comp, rounds_plain }: IActionButtonDownloadResults) => {
@@ -82,7 +80,7 @@ export const ActionButtonDownloadResults = ({ event, comp, rounds_plain }: IActi
 
     for (let i = 0; i < rounds.length; i++) {
       const round = rounds[i];
-      const matches = round.matchesAscending;
+      const matches = roundMatchesAscending(round);
 
       for (let j = 0; j < matches.length; j++) {
         const match = matches[j];
@@ -161,11 +159,7 @@ export const ActionButtonDownloadResults = ({ event, comp, rounds_plain }: IActi
   };
 
   useEffect(() => {
-    const rounds = rounds_plain.map(r => {
-      return plainToInstance(Round, r);
-    });
-
-    setRounds(rounds);
+    setRounds(structuredClone(rounds_plain));
   }, [rounds_plain]);
 
   useEffect(() => {

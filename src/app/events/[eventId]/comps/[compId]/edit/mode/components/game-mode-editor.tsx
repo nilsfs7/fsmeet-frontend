@@ -13,7 +13,7 @@ import DialogEditMatch from '@/app/events/[eventId]/comps/[compId]/edit/mode/com
 import DialogDeleteMatch from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-delete-match';
 import DialogDeleteRound from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-delete-round';
 import moment, { Moment } from 'moment';
-import { Round } from '@/domain/classes/round';
+import { createRound, roundAddMatch, type Round } from '@/domain/types/round';
 import { createRounds, deleteRounds, getCompetitionParticipants, updateRounds } from '@/infrastructure/clients/competition.client';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
@@ -22,7 +22,6 @@ import BattleGrid from '@/components/comp/battle-grid';
 import TextButton from '@/components/common/text-button';
 import { routeEvents } from '@/domain/constants/routes';
 import Link from 'next/link';
-import { plainToInstance } from 'class-transformer';
 import { User } from '@/domain/types/user';
 
 interface IRoundEditor {
@@ -43,7 +42,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
 
   const [numParticipants] = useState<number>(participants.length);
   const [gameModeApplied, setGameModeApplied] = useState<boolean>(); // plainToInstance(Round, props.data.rounds).length > 0
-  const [rounds, setRounds] = useState<Round[]>(plainToInstance(Round, roundsInit));
+  const [rounds, setRounds] = useState<Round[]>(() => structuredClone(roundsInit));
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
 
   const handleSaveClicked = async () => {
@@ -154,10 +153,10 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   const handleConfirmAddRoundClicked = async (slotsPerMatch: number, advancingTotal: number, roundName: string, roundDate: string, roundTimeLimit: boolean) => {
     const rnds = Array.from(rounds);
 
-    const newRound = new Round(rnds.length, roundName, roundDate, roundTimeLimit, advancingTotal);
+    const newRound = createRound(rnds.length, roundName, roundDate, roundTimeLimit, advancingTotal, []);
 
     for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
-      newRound.addMatch(`Match ${i + 1}`, null, false, slotsPerMatch);
+      roundAddMatch(newRound, `Match ${i + 1}`, null, false, slotsPerMatch);
     }
 
     rnds.push(newRound);
@@ -187,7 +186,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   const handleConfirmAddMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, amountSlots: number, isExtraMatch: boolean) => {
     const rnds = Array.from(rounds);
     matchTime = setRoundDateToMatchTime(rnds[roundIndex].date, matchTime);
-    rnds[roundIndex].addMatch(matchName, matchTime, isExtraMatch, amountSlots);
+    roundAddMatch(rnds[roundIndex], matchName, matchTime, isExtraMatch, amountSlots);
     setRounds(rnds);
   };
 

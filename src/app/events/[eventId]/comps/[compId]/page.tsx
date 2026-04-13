@@ -18,7 +18,7 @@ export default async function CompetitionDetails(props: { params: Promise<{ even
 
   const event: Event = await getEvent(params.eventId, session);
   const comp = await getCompetition(params.compId);
-  const rounds: Round[] = JSON.parse(JSON.stringify(await getRounds(params.compId)));
+  const rounds: Round[] = await getRounds(params.compId);
 
   return (
     <>

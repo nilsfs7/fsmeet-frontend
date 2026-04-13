@@ -9,7 +9,7 @@ import { getCompetitionParticipants, getRounds } from '@/infrastructure/clients/
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
 import { Competition } from '@/domain/types/competition';
-import { Round } from '@/domain/classes/round';
+import type { Round } from '@/domain/types/round';
 import Separator from '@/components/seperator';
 import BattleList from '@/components/comp/battle-list';
 import BattleGrid from '@/components/comp/battle-grid';

@@ -5,7 +5,7 @@ import { routeEvents } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/navigation';
-import { Round } from '@/domain/classes/round';
+import type { Round } from '@/domain/types/round';
 import BattleGrid from '@/components/comp/battle-grid';
 import Link from 'next/link';
 import { Toaster, toast } from 'sonner';

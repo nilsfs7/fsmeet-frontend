@@ -1,6 +1,6 @@
 'use client';
 
-import { Round } from '@/domain/classes/round';
+import type { Round } from '@/domain/types/round';
 import MatchCard from './match-card';
 import { User } from '@/domain/types/user';
 import { Moment } from 'moment';
