@@ -562,7 +562,8 @@
   },
   "/password/reset": {
     "inputPassword": "New password",
-    "btnSave": "Save"
+    "btnSave": "Save",
+    "errorMissingResetLink": "This reset link is invalid or incomplete. Open the link from your password reset email."
   },
   "/registration": {
     "cbUserType": "Sign up as",

@@ -29,8 +29,12 @@ export default function ResetPassword() {
   };
 
   const handleSaveClicked = async () => {
+    if (!requestToken) {
+      toast.error(t('errorMissingResetLink'));
+      return;
+    }
+
     try {
-      // @ts-ignore
       await updateUserPassword(requestToken, password);
       router.replace(routeLogin);
     } catch (error: any) {

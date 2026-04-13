@@ -41,7 +41,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   const router = useRouter();
 
   const [numParticipants] = useState<number>(participants.length);
-  const [gameModeApplied, setGameModeApplied] = useState<boolean>(); // plainToInstance(Round, props.data.rounds).length > 0
+  const [gameModeApplied, setGameModeApplied] = useState<boolean>();
   const [rounds, setRounds] = useState<Round[]>(() => structuredClone(roundsInit));
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
 

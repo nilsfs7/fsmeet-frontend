@@ -14,8 +14,8 @@ export default async function CompetitionPool(props: { params: Promise<{ eventId
   const params = await props.params;
   const t = await getTranslations('/events/eventid/comps/compid/edit/pool');
 
-  const event = JSON.parse(JSON.stringify(await getEvent(params.eventId)));
-  const competition: Competition = JSON.parse(JSON.stringify(await getCompetition(params.compId)));
+  const event = await getEvent(params.eventId);
+  const competition: Competition = await getCompetition(params.compId);
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">

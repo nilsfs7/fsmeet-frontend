@@ -17,10 +17,6 @@ export async function getCompetitions(eventId: string | null): Promise<Competiti
 
   if (response.ok) {
     return await response.json();
-
-    // TODO: response.json() is dto -> map dto to Competition[]
-    // const dto: ReadCompetitionResponseDto[] = await response.json();
-    // return dto
   } else {
     throw Error(`Error fetching competitions.`);
   }

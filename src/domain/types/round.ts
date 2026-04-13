@@ -29,7 +29,3 @@ export function roundContainsParticipant(round: { matches: Match[] }, username: 
 export function roundAddMatch(round: { matches: Match[] }, name: string, matchTime: string | null, isExtraMatch: boolean, amountSlots: number): void {
   round.matches.push(createMatch(round.matches.length, name, matchTime, isExtraMatch, amountSlots, []));
 }
-
-export function roundAmountSlots(round: { matches: Array<{ slots: number }> }): number {
-  return round.matches.reduce((accumulator, currentValue) => accumulator + currentValue.slots, 0);
-}
