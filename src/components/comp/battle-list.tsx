@@ -1,8 +1,9 @@
-import { Round } from '@/domain/classes/round';
+import { roundContainsParticipant, roundMatchesAscending, type Round } from '@/domain/types/round';
 import MatchCard from './match-card';
 import Separator from '../seperator';
 import { User } from '@/domain/types/user';
 import moment from 'moment';
+import { matchContainsParticipant } from '@/domain/types/match';
 
 interface IBattleListProps {
   rounds: Round[];
@@ -15,7 +16,7 @@ const BattleList = ({ rounds, usersMap, filteredByUser = null, showUserCountryFl
   return (
     <div className={'flex w-full flex-col justify-center'}>
       {rounds.map((round: Round, i: number) => {
-        if (filteredByUser && !round.containsParticipant(filteredByUser)) {
+        if (filteredByUser && !roundContainsParticipant(round, filteredByUser)) {
           return;
         }
 
@@ -31,9 +32,9 @@ const BattleList = ({ rounds, usersMap, filteredByUser = null, showUserCountryFl
                 <div className={`text-center text-sm`}>{moment(round.date).isValid() && moment(round.date).locale('en').format(`dddd, MMMM D`)}</div>
               </div>
 
-              {round.matchesAscending.map((match, j) => {
+              {roundMatchesAscending(round).map((match, j) => {
                 if (filteredByUser) {
-                  if (!match.containsParticipant(filteredByUser)) return;
+                  if (!matchContainsParticipant(match, filteredByUser)) return;
                 }
 
                 return (
@@ -51,7 +52,7 @@ const BattleList = ({ rounds, usersMap, filteredByUser = null, showUserCountryFl
                     </div>
                   )}
 
-                  {filteredByUser && rounds[i + 1].containsParticipant(filteredByUser) && (
+                  {filteredByUser && roundContainsParticipant(rounds[i + 1], filteredByUser) && (
                     <div className="my-2">
                       <Separator />
                     </div>

@@ -1,12 +1,12 @@
 import { Competition } from '@/domain/types/competition';
-import { Round } from '@/domain/classes/round';
+import { createRound, type Round } from '@/domain/types/round';
 import { Session } from 'next-auth';
-import { Match } from '@/domain/classes/match';
 import { CreateRoundBodyDto } from './dtos/competition/create-round.body.dto';
 import { CreateMatchBodyDto } from './dtos/competition/create-match.body.dto';
 import moment from 'moment';
 import { ReadPartialUser1ResponseDto } from './dtos/user/read-partial-user-1.response.dto';
 import { defaultHeaders } from './default-headers';
+import { createMatch } from '@/domain/types/match';
 
 export async function getCompetitions(eventId: string | null): Promise<Competition[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions?eventId=${eventId}`;
@@ -59,17 +59,11 @@ export async function getRounds(compId: string): Promise<Round[]> {
   const rnds: Round[] = await response.json();
 
   const rounds: Round[] = rnds.map((rnd: Round) => {
-    const round = new Round(rnd.roundIndex, rnd.name, rnd.date, rnd.timeLimit, rnd.advancingTotal);
-    round.matches = rnd.matches;
+    const matches = [...rnd.matches]
+      .map(mtch => createMatch(mtch.matchIndex, mtch.name, mtch.time, mtch.isExtraMatch, mtch.slots, mtch.matchSlots, mtch.id))
+      .sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser) TODO #2: keine ahnung ob das hier überhaupt noch gebraucht wird
 
-    let matches: Match[] = round.matches.map(mtch => {
-      return new Match(mtch.matchIndex, mtch.name, mtch.time, mtch.isExtraMatch, mtch.slots, mtch.matchSlots, mtch.id);
-    });
-
-    matches = matches.sort((a, b) => (a.matchIndex > b.matchIndex ? 1 : -1)); // override auto generated matches (TODO: geht besser) TODO #2: keine ahnung ob das hier überhaupt noch gebraucht wird
-    round.matches = matches;
-
-    return round;
+    return createRound(rnd.roundIndex, rnd.name, rnd.date, rnd.timeLimit, rnd.advancingTotal, matches);
   });
 
   return rounds;
