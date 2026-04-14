@@ -4,6 +4,7 @@ import { CreateAccommodationBodyDto } from './dtos/accommodation/create-accommod
 import { ReadAccommodationResponseDto } from './dtos/accommodation/read-accommodation.response.dto';
 import { PatchAccommodationBodyDto } from './dtos/accommodation/patch-accommodation.body.dto';
 import { defaultHeaders } from './default-headers';
+import { Platform } from '@/domain/enums/platform';
 
 export async function getAccommodations(eventId: string | null): Promise<ReadAccommodationResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/?`;
@@ -118,7 +119,7 @@ export async function updateAccommodationPreview(id: string, image: File, sessio
     method: 'PATCH',
     body: body,
     headers: {
-      ...defaultHeaders,
+      'x-platform': Platform.WEB,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

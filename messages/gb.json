@@ -257,8 +257,8 @@
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Edit Document",
-    "dlgDeleteDocumentTitle": "Delete Document",
-    "dlgDeleteDocumentText": "Do you really want to delete this document?",
+    "dlgDeleteFileTitle": "Delete Document",
+    "dlgDeleteFileText": "Do you really want to delete this document?",
     "btnSave": "Save"
   },
   "/events/eventid/attachments/create": {

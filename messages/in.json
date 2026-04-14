@@ -256,8 +256,8 @@
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "दस्तावेज़ संपादित करें",
-    "dlgDeleteDocumentTitle": "दस्तावेज़ हटाएं",
-    "dlgDeleteDocumentText": "क्या आप वास्तव में इस दस्तावेज़ को हटाना चाहते हैं?",
+    "dlgDeleteFileTitle": "दस्तावेज़ हटाएं",
+    "dlgDeleteFileText": "क्या आप वास्तव में इस दस्तावेज़ को हटाना चाहते हैं?",
     "btnSave": "सहेजें"
   },
   "/events/eventid/attachments/create": {

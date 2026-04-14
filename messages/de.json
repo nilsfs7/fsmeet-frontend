@@ -234,8 +234,8 @@
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Dokument editieren",
-    "dlgDeleteDocumentTitle": "Dokument löschen",
-    "dlgDeleteDocumentText": "Möchtest du das Dokument wirklich löschen?",
+    "dlgDeleteFileTitle": "Dokument löschen",
+    "dlgDeleteFileText": "Möchtest du das Dokument wirklich löschen?",
     "btnSave": "Speichern"
   },
   "/events/eventid/attachments/create": {

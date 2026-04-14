@@ -4,6 +4,7 @@ import { CreateSponsorBodyDto } from './dtos/sponsor/create-sponsor.body.dto';
 import { PatchSponsorBodyDto } from './dtos/sponsor/patch-sponsor.body.dto';
 import { CreateSponsorResponseDto } from './dtos/sponsor/create-sponsor.response.dto';
 import { defaultHeaders } from './default-headers';
+import { Platform } from '@/domain/enums/platform';
 
 export async function getSponsors(eventId: string | null): Promise<ReadSponsorResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/?`;
@@ -94,6 +95,7 @@ export async function updateSponsorLogo(id: string, image: File, session: Sessio
     method: 'PATCH',
     body: body,
     headers: {
+      'x-platform': Platform.WEB,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

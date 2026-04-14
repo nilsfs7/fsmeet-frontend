@@ -238,8 +238,8 @@
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Modifier le document",
-    "dlgDeleteDocumentTitle": "Supprimer le document",
-    "dlgDeleteDocumentText": "Voulez-vous vraiment supprimer ce document?",
+    "dlgDeleteFileTitle": "Supprimer le document",
+    "dlgDeleteFileText": "Voulez-vous vraiment supprimer ce document?",
     "btnSave": "Enregistrer"
   },
   "/events/eventid/attachments/create": {

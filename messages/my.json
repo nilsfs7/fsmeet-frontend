@@ -256,8 +256,8 @@
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Edit Dokumen",
-    "dlgDeleteDocumentTitle": "Padam Dokumen",
-    "dlgDeleteDocumentText": "Adakah anda benar-benar mahu memadam dokumen ini?",
+    "dlgDeleteFileTitle": "Padam Dokumen",
+    "dlgDeleteFileText": "Adakah anda benar-benar mahu memadam dokumen ini?",
     "btnSave": "Simpan"
   },
   "/events/eventid/attachments/create": {
