@@ -17,7 +17,7 @@ import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getEvent } from '@/infrastructure/clients/event.client';
-import { fileToBase64 } from '../../../../../functions/file-to-base-64';
+import { fileToBase64 } from '../../../../../functions/base-64';
 
 export default function CreateAccommodation(props: { params: Promise<{ eventId: string }> }) {
   const params = use(props.params);

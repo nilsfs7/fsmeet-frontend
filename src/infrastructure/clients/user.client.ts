@@ -301,7 +301,7 @@ export async function updateUserImage(image: any, session: Session | null): Prom
   body.append('file', image);
 
   const response = await fetch(url, {
-    method: 'PATCH',
+    method: 'PUT',
     body: body,
     headers: {
       'x-platform': Platform.WEB,

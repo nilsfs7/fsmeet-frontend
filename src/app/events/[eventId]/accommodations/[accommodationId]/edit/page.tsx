@@ -19,7 +19,7 @@ import { getEvent } from '@/infrastructure/clients/event.client';
 import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { Accommodation } from '@/domain/types/accommodation';
-import { fileToBase64 } from '../../../../../../functions/file-to-base-64';
+import { fileToBase64 } from '../../../../../../functions/base-64';
 
 export default function EditEventAccommodation(props: { params: Promise<{ eventId: string; accommodationId: string }> }) {
   const params = use(props.params);
