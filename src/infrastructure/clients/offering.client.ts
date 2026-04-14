@@ -101,13 +101,13 @@ export async function updateOffering(
 }
 
 export async function updateOfferingPreview(id: string, image: File, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings/${id}/logo`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings/${id}/preview`;
 
   const body = new FormData();
   body.append('file', image);
 
   const response = await fetch(url, {
-    method: 'PATCH',
+    method: 'PUT',
     body: body,
     headers: {
       Authorization: `Bearer ${session?.user?.accessToken}`,
