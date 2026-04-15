@@ -623,7 +623,7 @@ export async function updateEventPoster(eventId: string, imageBase64: string, se
   const body = new PatchEventPosterBodyDto(imageBase64);
 
   const response = await fetch(url, {
-    method: 'PATCH',
+    method: 'PUT',
     body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
