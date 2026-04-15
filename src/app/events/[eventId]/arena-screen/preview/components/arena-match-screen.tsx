@@ -98,10 +98,15 @@ export type ArenaMatchScreenProps = {
   reversePositionLabels: boolean;
   /** Arena style: show country flags. */
   showFlags: boolean;
+  /** Arena style: include last name in participant display (`ReadArenaScreenStyleResponseDto.showLastName`). */
+  showLastName: boolean;
 };
 
-function displayNameForUser(user?: ArenaParticipantPlain): string {
+function displayNameForUser(user: ArenaParticipantPlain | undefined, showLastName: boolean): string {
   if (!user) return '—';
+  if (!showLastName) {
+    return user.firstName.trim() || '—';
+  }
   const full = [user.firstName, user.lastName].filter(Boolean).join(' ').trim();
   return full || '—';
 }
@@ -125,7 +130,17 @@ function ArenaBackdrop({ imageUrl, overlayOpacity }: { imageUrl: string; overlay
   );
 }
 
-export function ArenaMatchScreen({ competitionName, match, participants, backgroundImageUrl, backgroundOverlayOpacity, showPositions, reversePositionLabels, showFlags }: ArenaMatchScreenProps) {
+export function ArenaMatchScreen({
+  competitionName,
+  match,
+  participants,
+  backgroundImageUrl,
+  backgroundOverlayOpacity,
+  showPositions,
+  reversePositionLabels,
+  showFlags,
+  showLastName,
+}: ArenaMatchScreenProps) {
   const userByUsername = new Map(participants.map(p => [p.username, p]));
   const bgUrl = backgroundImageUrl.trim();
   const overlayOpacity = Math.min(1, Math.max(0, backgroundOverlayOpacity));
@@ -170,7 +185,7 @@ export function ArenaMatchScreen({ competitionName, match, participants, backgro
           {slotRows.map((slot, index) => {
             const user = slot.name ? userByUsername.get(slot.name) : undefined;
             const imageSrc = user?.imageUrl || imgUserDefaultImg;
-            const name = slot.name ? displayNameForUser(user) : 'Open slot';
+            const name = slot.name ? displayNameForUser(user, showLastName) : 'Open slot';
             const countryCode = user?.countryCode;
             const showFlag = Boolean(countryCode && countryCode.length >= 2);
             const avatarClass = isDuel ? AVATAR_SIZE_DUEL : AVATAR_SIZE;

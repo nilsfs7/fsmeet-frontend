@@ -9,6 +9,7 @@ import { EventType } from '../../../../domain/enums/event-type';
 import { ActionButtonStateAction } from './action-button-state-action';
 import { Event } from '@/domain/types/event';
 import { getTranslations } from 'next-intl/server';
+import { LicenseType } from '@/domain/enums/license-type';
 
 interface IAttachmentCardProps {
   event: Event;
@@ -82,8 +83,7 @@ const AdminPanel = async ({ event }: IAttachmentCardProps) => {
           {!isArchivedEventState(event.state) && (
             <>
               <Link href={`${routeEvents}/${event.id}/arena-screen`}>
-                {/* todo: remove disabled = true */}
-                <ActionButton disabled={true} action={Action.MANAGE_ARENA_SCREEN} tooltip={t('adminPanelBtnManageArenaScreenToolTip')} />
+                <ActionButton disabled={event.licenseType !== LicenseType.PRO} action={Action.MANAGE_ARENA_SCREEN} tooltip={t('adminPanelBtnManageArenaScreenToolTip')} />
               </Link>
             </>
           )}

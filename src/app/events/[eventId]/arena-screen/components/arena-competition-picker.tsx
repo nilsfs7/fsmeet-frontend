@@ -1,7 +1,7 @@
 'use client';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { putArenaScreen } from '@/infrastructure/clients/event.client';
+import { upsertArenaScreen } from '@/infrastructure/clients/event.client';
 import { useSession } from 'next-auth/react';
 import { useCallback, useState } from 'react';
 
@@ -111,7 +111,7 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
               }
               setSavingArena(true);
               try {
-                await putArenaScreen(eventId, matchId, null, null, true, true, true, session);
+                await upsertArenaScreen(eventId, matchId, null, true, true, true, true, session);
               } catch (e) {
                 setArenaSaveError(e instanceof Error ? e.message : 'Failed to update arena screen.');
               } finally {
