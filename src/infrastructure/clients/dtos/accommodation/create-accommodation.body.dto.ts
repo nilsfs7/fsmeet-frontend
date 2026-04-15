@@ -2,10 +2,10 @@ export class CreateAccommodationBodyDto {
   eventId: string;
   description: string;
   cost: number;
-  website: string;
+  website: string | null;
   enabled: boolean;
 
-  constructor(eventId: string, description: string, cost: number, website: string, enabled: boolean) {
+  constructor(eventId: string, description: string, cost: number, website: string | null, enabled: boolean) {
     this.eventId = eventId;
     this.description = description;
     this.cost = cost;
