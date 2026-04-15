@@ -33,6 +33,7 @@ import { DeleteEventSubCommentBodyDto } from './dtos/event/delete-sub-comment.bo
 import { TShirtSize } from '../../domain/enums/t-shirt-size';
 import { PutArenaScreenBodyDto } from './dtos/event/put-arena-screen.body.dto';
 import { ReadArenaScreenResponseDto } from './dtos/event/read-arena-screen.response.dto';
+import { Platform } from '@/domain/enums/platform';
 
 export async function getEvents(
   admin: string | null,
@@ -814,6 +815,29 @@ export async function upsertArenaScreen(
 
   if (response.ok) {
     console.info('Updating arena screen successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function updateArenaScreenBackgroundImage(eventId: string, image: File, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/arena-screen/image`;
+
+  const body = new FormData();
+  body.append('file', image);
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    body: body,
+    headers: {
+      'x-platform': Platform.WEB,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating arena screen background image successful');
   } else {
     const error = await response.json();
     throw Error(error.message);
