@@ -92,7 +92,7 @@ export async function updateSponsorLogo(id: string, image: File, session: Sessio
   body.append('file', image);
 
   const response = await fetch(url, {
-    method: 'PATCH',
+    method: 'PUT',
     body: body,
     headers: {
       'x-platform': Platform.WEB,
