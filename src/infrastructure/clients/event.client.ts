@@ -789,10 +789,9 @@ export async function getArenaScreen(eventId: string): Promise<ReadArenaScreenRe
   }
 }
 
-export async function putArenaScreen(
+export async function upsertArenaScreen(
   eventId: string,
   activeMatchId: string | null,
-  backgroundImageUrl: string | null,
   backgroundOverlayOpacity: number | null,
   showPositions: boolean,
   reversePositionLabels: boolean,
@@ -802,7 +801,7 @@ export async function putArenaScreen(
 ): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/arena-screen`;
 
-  const body = new PutArenaScreenBodyDto(activeMatchId, backgroundImageUrl, backgroundOverlayOpacity, showPositions, reversePositionLabels, showFlags, showLastName);
+  const body = new PutArenaScreenBodyDto(activeMatchId, backgroundOverlayOpacity, showPositions, reversePositionLabels, showFlags, showLastName);
 
   const response = await fetch(url, {
     method: 'PUT',
