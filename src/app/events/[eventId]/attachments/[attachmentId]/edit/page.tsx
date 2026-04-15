@@ -11,12 +11,11 @@ import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/page-title';
 import { useSession } from 'next-auth/react';
 import { Attachment } from '@/domain/types/attachment';
-import { deleteAttachment, getAttachment, updateAttachment } from '@/infrastructure/clients/attachment.client';
+import { deleteAttachment, getAttachment, updateAttachment, updateAttachmentFile } from '@/infrastructure/clients/attachment.client';
 import AttachmentEditor from '@/components/events/attachment-editor';
 import Dialog from '@/components/dialog';
 import NavigateBackButton from '@/components/navigate-back-button';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
-import { fileToBase64 } from '@/functions/file-to-base-64';
 import { useTranslations } from 'next-intl';
 
 export default function EditEventAttachment(props: { params: Promise<{ eventId: string; attachmentId: string }> }) {
@@ -27,22 +26,15 @@ export default function EditEventAttachment(props: { params: Promise<{ eventId: 
   const router = useRouter();
 
   const [attachment, setAttachment] = useState<Attachment>();
-  const [attachmentDocument, setAttachmentDocument] = useState<string>();
+  const [attachmentFile, setAttachmentFile] = useState<File>();
 
   const handleSaveClicked = async () => {
     if (attachment) {
       try {
-        await updateAttachment(
-          params.attachmentId,
-          attachment.name,
-          attachment.isExternal,
-          attachment.url,
-          attachmentDocument || null,
-          attachment.expires,
-          attachment.expiryDate,
-          attachment.enabled,
-          session
-        );
+        await updateAttachment(params.attachmentId, attachment.name, attachment.isExternal, attachment.url, attachment.expires, attachment.expiryDate, attachment.enabled, session);
+        if (attachmentFile) {
+          await updateAttachmentFile(params.attachmentId, attachmentFile, session);
+        }
 
         router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/attachments`));
       } catch (error: any) {
@@ -82,8 +74,8 @@ export default function EditEventAttachment(props: { params: Promise<{ eventId: 
     <>
       <Toaster richColors />
 
-      <Dialog title={t('dlgDeleteDocumentTitle')} queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
-        <p>{t('dlgDeleteDocumentText')}</p>
+      <Dialog title={t('dlgDeleteFileTitle')} queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
+        <p>{t('dlgDeleteFileText')}</p>
       </Dialog>
 
       <div className="h-[calc(100dvh)] flex flex-col">
@@ -95,9 +87,8 @@ export default function EditEventAttachment(props: { params: Promise<{ eventId: 
             onAttachmentUpdate={(attachment: Attachment) => {
               setAttachment(attachment);
             }}
-            onAttachmentDocumentUpdate={async (file: File) => {
-              const base64String = await fileToBase64(file);
-              setAttachmentDocument(base64String);
+            onAttachmentFileUpdate={async (file: File) => {
+              setAttachmentFile(file);
             }}
           />
         </div>

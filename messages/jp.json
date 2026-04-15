@@ -256,8 +256,8 @@
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "ドキュメントを編集",
-    "dlgDeleteDocumentTitle": "ドキュメントを削除",
-    "dlgDeleteDocumentText": "このドキュメントを本当に削除しますか？",
+    "dlgDeleteFileTitle": "ドキュメントを削除",
+    "dlgDeleteFileText": "このドキュメントを本当に削除しますか？",
     "btnSave": "保存"
   },
   "/events/eventid/attachments/create": {

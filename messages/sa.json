@@ -256,8 +256,8 @@
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "تعديل المستند",
-    "dlgDeleteDocumentTitle": "حذف المستند",
-    "dlgDeleteDocumentText": "هل تريد حقاً حذف هذا المستند؟",
+    "dlgDeleteFileTitle": "حذف المستند",
+    "dlgDeleteFileText": "هل تريد حقاً حذف هذا المستند؟",
     "btnSave": "حفظ"
   },
   "/events/eventid/attachments/create": {

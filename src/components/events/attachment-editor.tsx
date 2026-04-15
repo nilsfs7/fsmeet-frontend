@@ -12,17 +12,17 @@ import { getFilenameFromUrl, truncateString } from '@/functions/string-manipulat
 interface IAttachmentEditorProps {
   attachment?: Attachment;
   onAttachmentUpdate: (attachment: Attachment) => void;
-  onAttachmentDocumentUpdate: (file: File) => void;
+  onAttachmentFileUpdate: (file: File) => void;
 }
 
-const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentDocumentUpdate }: IAttachmentEditorProps) => {
+const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentFileUpdate }: IAttachmentEditorProps) => {
   const t = useTranslations('global/components/attachment-editor');
 
   const [name, setAttachmentName] = useState(attachment?.name || '');
   const [isExternal, setIsExternal] = useState<boolean>(attachment?.isExternal || false);
   const [url, setUrl] = useState<string | null>(attachment?.url || null);
-  const [document, setDocument] = useState<File>();
-  const [documentObjectURL, setDocumentObjectURL] = useState<string>();
+  const [file, setFile] = useState<File>();
+  const [fileObjectURL, setfileObjectURL] = useState<string>();
   const [expires, setExpires] = useState<boolean>(attachment?.expires || false);
   const [expiryDate, setExpiryDate] = useState<string | null>(attachment?.expiryDate || null);
   const [enabled, setEnabled] = useState<boolean>(attachment?.enabled || true);
@@ -31,8 +31,8 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentDocument
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
 
-      setDocument(i);
-      setDocumentObjectURL(URL.createObjectURL(i));
+      setFile(i);
+      setfileObjectURL(URL.createObjectURL(i));
     }
   };
 
@@ -49,9 +49,9 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentDocument
     });
   };
 
-  const updateAttachmentDocument = () => {
-    if (document) {
-      onAttachmentDocumentUpdate(document);
+  const updateAttachmentFile = () => {
+    if (file) {
+      onAttachmentFileUpdate(file);
     }
   };
 
@@ -72,10 +72,10 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentDocument
     updateAttachment();
   }, [name, isExternal, url, expires, expiryDate, enabled]);
 
-  // fires attachment document back
+  // fires attachment file back
   useEffect(() => {
-    updateAttachmentDocument();
-  }, [documentObjectURL]);
+    updateAttachmentFile();
+  }, [fileObjectURL]);
 
   return (
     <>

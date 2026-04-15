@@ -4,6 +4,7 @@ import { CreateAttachmentBodyDto } from './dtos/attachment/create-attachment.bod
 import { ReadAttachmentResponseDto } from './dtos/attachment/read-attachment.response.dto';
 import { PatchAttachmentBodyDto } from './dtos/attachment/patch-attachment.body.dto';
 import { defaultHeaders } from './default-headers';
+import { Platform } from '@/domain/enums/platform';
 
 export async function getAttachments(eventId: string | null): Promise<ReadAttachmentResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments/?`;
@@ -42,7 +43,6 @@ export async function createAttachment(
   name: string,
   isExternal: boolean,
   documentUrl: string | null,
-  documentBase64: string | null,
   expires: boolean,
   expiryDate: string | null,
   enabled: boolean,
@@ -50,7 +50,7 @@ export async function createAttachment(
 ): Promise<CreateAttachmentResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments`;
 
-  const body = new CreateAttachmentBodyDto(eventId, name, isExternal, documentUrl, documentBase64, expires, expiryDate, enabled);
+  const body = new CreateAttachmentBodyDto(eventId, name, isExternal, documentUrl, expires, expiryDate, enabled);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -77,7 +77,6 @@ export async function updateAttachment(
   name: string,
   isExternal: boolean,
   documentUrl: string | null,
-  documentBase64: string | null,
   expires: boolean,
   expiryDate: string | null,
   enabled: boolean,
@@ -85,7 +84,7 @@ export async function updateAttachment(
 ): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments/${id}`;
 
-  const body = new PatchAttachmentBodyDto(name, isExternal, documentUrl, documentBase64, expires, expiryDate, enabled);
+  const body = new PatchAttachmentBodyDto(name, isExternal, documentUrl, expires, expiryDate, enabled);
 
   const response = await fetch(url, {
     method: 'PATCH',
@@ -98,6 +97,29 @@ export async function updateAttachment(
 
   if (response.ok) {
     console.info('Updating attachment successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function updateAttachmentFile(id: string, file: File, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments/${id}/file`;
+
+  const body = new FormData();
+  body.append('file', file);
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    body,
+    headers: {
+      'x-platform': Platform.WEB,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating attachment file successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

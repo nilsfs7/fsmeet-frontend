@@ -4,6 +4,7 @@ import { CreateOfferingBodyDto } from './dtos/offering/create-offering.body.dto'
 import { ReadOfferingResponseDto } from './dtos/offering/read-offering.response.dto';
 import { PatchOfferingBodyDto } from './dtos/offering/patch-offering.body.dto';
 import { defaultHeaders } from './default-headers';
+import { Platform } from '@/domain/enums/platform';
 
 export async function getOfferings(eventId: string | null): Promise<ReadOfferingResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings/?`;
@@ -110,12 +111,13 @@ export async function updateOfferingPreview(id: string, image: File, session: Se
     method: 'PUT',
     body: body,
     headers: {
+      'x-platform': Platform.WEB,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
 
   if (response.ok) {
-    console.info('Updating offering logo successful');
+    console.info('Updating offering preview successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

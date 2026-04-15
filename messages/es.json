@@ -238,8 +238,8 @@
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Editar documento",
-    "dlgDeleteDocumentTitle": "Eliminar documento",
-    "dlgDeleteDocumentText": "¿Realmente quieres eliminar este documento?",
+    "dlgDeleteFileTitle": "Eliminar documento",
+    "dlgDeleteFileText": "¿Realmente quieres eliminar este documento?",
     "btnSave": "Guardar"
   },
   "/events/eventid/attachments/create": {

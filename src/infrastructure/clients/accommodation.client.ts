@@ -4,6 +4,7 @@ import { CreateAccommodationBodyDto } from './dtos/accommodation/create-accommod
 import { ReadAccommodationResponseDto } from './dtos/accommodation/read-accommodation.response.dto';
 import { PatchAccommodationBodyDto } from './dtos/accommodation/patch-accommodation.body.dto';
 import { defaultHeaders } from './default-headers';
+import { Platform } from '@/domain/enums/platform';
 
 export async function getAccommodations(eventId: string | null): Promise<ReadAccommodationResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/?`;
@@ -48,14 +49,13 @@ export async function createAccommodation(
   description: string,
   cost: number,
   website: string | null,
-  previewBase64: string | null,
   enabled: boolean,
   session: Session | null,
 ): Promise<CreateAccommodationResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations`;
 
   //@ts-ignore TODO
-  const body = new CreateAccommodationBodyDto(eventId, description, cost, website, previewBase64, enabled);
+  const body = new CreateAccommodationBodyDto(eventId, description, cost, website, enabled);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -77,15 +77,7 @@ export async function createAccommodation(
   }
 }
 
-export async function updateAccommodation(
-  id: string,
-  description: string,
-  cost: number,
-  website: string | null,
-  previewBase64: string | null,
-  enabled: boolean,
-  session: Session | null,
-): Promise<void> {
+export async function updateAccommodation(id: string, description: string, cost: number, website: string | null, enabled: boolean, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/${id}`;
 
   //@ts-ignore TODO
@@ -109,22 +101,22 @@ export async function updateAccommodation(
 }
 
 export async function updateAccommodationPreview(id: string, image: File, session: Session | null): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/${id}/logo`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/${id}/preview`;
 
   const body = new FormData();
   body.append('file', image);
 
   const response = await fetch(url, {
-    method: 'PATCH',
+    method: 'PUT',
     body: body,
     headers: {
-      ...defaultHeaders,
+      'x-platform': Platform.WEB,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });
 
   if (response.ok) {
-    console.info('Updating accommodation logo successful');
+    console.info('Updating accommodation preview successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

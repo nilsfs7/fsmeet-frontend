@@ -4,7 +4,7 @@ import { Event } from '@/domain/types/event';
 import EventEditor from '@/components/events/event-editor';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
-import { fileToBase64 } from '@/functions/file-to-base-64';
+import { fileToBase64 } from '@/functions/base-64';
 import { User } from '@/domain/types/user';
 
 interface IEditor {

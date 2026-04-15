@@ -27,16 +27,14 @@ export const AttachmentSection = ({ eventAttachments }: IAttachmentSectionProps)
       <div className="mt-1 flex flex-wrap gap-2">
         {eventAttachments
           .filter(att => {
-            if (att.enabled) {
+            if (att.enabled && att.url) {
               if (!att.expires || (att.expires && moment(att.expiryDate) > moment())) {
                 return att;
               }
             }
           })
           .map((attachment, i) => {
-            if (attachment.enabled) {
-              return <AttachmentCard key={i} attachment={attachment} />;
-            }
+            return <AttachmentCard key={i} attachment={attachment} />;
           })}
       </div>
     </div>

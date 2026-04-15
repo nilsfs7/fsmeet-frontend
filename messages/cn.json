@@ -256,8 +256,8 @@
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "编辑文档",
-    "dlgDeleteDocumentTitle": "删除文档",
-    "dlgDeleteDocumentText": "你确定要删除这个文档吗？",
+    "dlgDeleteFileTitle": "删除文档",
+    "dlgDeleteFileText": "你确定要删除这个文档吗？",
     "btnSave": "保存"
   },
   "/events/eventid/attachments/create": {

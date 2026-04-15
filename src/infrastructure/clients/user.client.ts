@@ -13,6 +13,7 @@ import { ReadAccountOnboardingLinkResponseDto } from './dtos/user/read-stripe-ac
 import { ReadStripeAccountIdResponseDto } from './dtos/user/read-stripe-account-id.response.dto';
 import { ReadStripeLoginLinkResponseDto } from './dtos/user/read-stripe-login-link.response.dto';
 import { defaultHeaders } from './default-headers';
+import { Platform } from '@/domain/enums/platform';
 
 export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
@@ -300,9 +301,10 @@ export async function updateUserImage(image: any, session: Session | null): Prom
   body.append('file', image);
 
   const response = await fetch(url, {
-    method: 'PATCH',
+    method: 'PUT',
     body: body,
     headers: {
+      'x-platform': Platform.WEB,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

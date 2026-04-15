@@ -13,8 +13,7 @@ import AttachmentEditor from '@/components/events/attachment-editor';
 import NavigateBackButton from '@/components/navigate-back-button';
 import { useTranslations } from 'next-intl';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
-import { createAttachment } from '@/infrastructure/clients/attachment.client';
-import { fileToBase64 } from '@/functions/file-to-base-64';
+import { createAttachment, updateAttachmentFile } from '@/infrastructure/clients/attachment.client';
 
 export default function CreateEventAttachment(props: { params: Promise<{ eventId: string }> }) {
   const params = use(props.params);
@@ -24,22 +23,15 @@ export default function CreateEventAttachment(props: { params: Promise<{ eventId
   const router = useRouter();
 
   const [attachment, setAttachment] = useState<Attachment>();
-  const [attachmentDocument, setAttachmentDocument] = useState<string>();
+  const [attachmentFile, setAttachmentFile] = useState<File>();
 
   const handleCreateClicked = async () => {
     if (attachment) {
       try {
-        await createAttachment(
-          params.eventId,
-          attachment.name,
-          attachment.isExternal,
-          attachment.url,
-          attachmentDocument || null,
-          attachment.expires,
-          attachment.expiryDate,
-          attachment.enabled,
-          session
-        );
+        const res = await createAttachment(params.eventId, attachment.name, attachment.isExternal, attachment.url, attachment.expires, attachment.expiryDate, attachment.enabled, session);
+        if (attachmentFile) {
+          await updateAttachmentFile(res.id, attachmentFile, session);
+        }
 
         router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/attachments`));
       } catch (error: any) {
@@ -61,9 +53,8 @@ export default function CreateEventAttachment(props: { params: Promise<{ eventId
             onAttachmentUpdate={(attachment: Attachment) => {
               setAttachment(attachment);
             }}
-            onAttachmentDocumentUpdate={async (file: File) => {
-              const base64String = await fileToBase64(file);
-              setAttachmentDocument(base64String);
+            onAttachmentFileUpdate={async (file: File) => {
+              setAttachmentFile(file);
             }}
           />
         </div>
