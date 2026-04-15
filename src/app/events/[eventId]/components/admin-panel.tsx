@@ -82,8 +82,7 @@ const AdminPanel = async ({ event }: IAttachmentCardProps) => {
           {!isArchivedEventState(event.state) && (
             <>
               <Link href={`${routeEvents}/${event.id}/arena-screen`}>
-                {/* todo: remove disabled = true */}
-                <ActionButton disabled={true} action={Action.MANAGE_ARENA_SCREEN} tooltip={t('adminPanelBtnManageArenaScreenToolTip')} />
+                <ActionButton action={Action.MANAGE_ARENA_SCREEN} tooltip={t('adminPanelBtnManageArenaScreenToolTip')} />
               </Link>
             </>
           )}

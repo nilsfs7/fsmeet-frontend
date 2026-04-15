@@ -111,7 +111,7 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
               }
               setSavingArena(true);
               try {
-                await putArenaScreen(eventId, matchId, null, null, true, true, true, session);
+                await putArenaScreen(eventId, matchId, null, null, true, true, true, true, session);
               } catch (e) {
                 setArenaSaveError(e instanceof Error ? e.message : 'Failed to update arena screen.');
               } finally {

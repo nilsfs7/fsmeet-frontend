@@ -41,6 +41,7 @@ function styleToScreenProps(style: ReadArenaScreenStyleResponseDto) {
     showPositions: style.showPositions,
     reversePositionLabels: style.reversePositionLabels,
     showFlags: style.showFlags,
+    showLastName: style.showLastName,
   };
 }
 

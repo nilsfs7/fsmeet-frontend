@@ -797,11 +797,12 @@ export async function putArenaScreen(
   showPositions: boolean,
   reversePositionLabels: boolean,
   showFlags: boolean,
+  showLastName: boolean,
   session: Session | null,
 ): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/arena-screen`;
 
-  const body = new PutArenaScreenBodyDto(activeMatchId, backgroundImageUrl, backgroundOverlayOpacity, showPositions, reversePositionLabels, showFlags);
+  const body = new PutArenaScreenBodyDto(activeMatchId, backgroundImageUrl, backgroundOverlayOpacity, showPositions, reversePositionLabels, showFlags, showLastName);
 
   const response = await fetch(url, {
     method: 'PUT',
