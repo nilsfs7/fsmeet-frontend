@@ -21,7 +21,7 @@ export default async function Account() {
     redirect(routeLogin, RedirectType.replace);
   }
 
-  const user = await getUser(session?.user?.username, session);
+  const user = await getUser(session.user.username, session);
 
   return (
     <div className="h-[calc(100dvh)] flex flex-col">
