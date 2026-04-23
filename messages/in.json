@@ -250,6 +250,12 @@
     "pageTitle": "आवास बनाएं",
     "btnCreate": "बनाएं"
   },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "आवास संपादित करें",
+    "dlgDeleteTitle": "आवास हटाएं",
+    "dlgDeleteText": "क्या आप वाकई इस आवास को हटाना चाहते हैं?",
+    "btnSave": "सहेजें"
+  },
   "/events/eventid/attachments": {
     "pageTitle": "दस्तावेज़ प्रबंधित करें",
     "btnCreate": "बनाएं"

@@ -251,6 +251,12 @@
     "pageTitle": "Create Accommodation",
     "btnCreate": "Create"
   },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "Edit Accommodation",
+    "dlgDeleteTitle": "Delete Accommodation",
+    "dlgDeleteText": "Do you really want to delete this accommodation?",
+    "btnSave": "Save"
+  },
   "/events/eventid/attachments": {
     "pageTitle": "Manage Documents",
     "btnCreate": "Create"

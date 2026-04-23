@@ -250,6 +250,12 @@
     "pageTitle": "创建住宿",
     "btnCreate": "创建"
   },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "编辑住宿",
+    "dlgDeleteTitle": "删除住宿",
+    "dlgDeleteText": "确定要删除此住宿吗？",
+    "btnSave": "保存"
+  },
   "/events/eventid/attachments": {
     "pageTitle": "管理文档",
     "btnCreate": "创建"

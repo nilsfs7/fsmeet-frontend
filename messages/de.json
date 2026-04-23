@@ -246,6 +246,12 @@
     "pageTitle": "Unterkunft erstellen",
     "btnCreate": "Erstellen"
   },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "Unterkunft bearbeiten",
+    "dlgDeleteTitle": "Unterkunft löschen",
+    "dlgDeleteText": "Möchten Sie diese Unterkunft wirklich löschen?",
+    "btnSave": "Speichern"
+  },
   "/events/eventid/comps": {
     "pageTitle": "Wettbewerbe verwalten",
     "btnEdit": "Bearbeiten",

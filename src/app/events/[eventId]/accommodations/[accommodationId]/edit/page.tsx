@@ -19,8 +19,10 @@ import { getEvent } from '@/infrastructure/clients/event.client';
 import { Event } from '@/domain/types/event';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { Accommodation } from '@/domain/types/accommodation';
+import { useTranslations } from 'next-intl';
 
 export default function EditEventAccommodation(props: { params: Promise<{ eventId: string; accommodationId: string }> }) {
+  const t = useTranslations('/events/eventid/accommodations/edit');
   const params = use(props.params);
   const { data: session, status } = useSession();
 
@@ -81,13 +83,12 @@ export default function EditEventAccommodation(props: { params: Promise<{ eventI
     <>
       <Toaster richColors />
 
-      <Dialog title="Delete Accommodation" queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
-        <p>{`Do you really want to delete this accommodation?`}</p>
+      <Dialog title={t('dlgDeleteTitle')} queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
+        <p>{t('dlgDeleteText')}</p>
       </Dialog>
 
       <div className="h-[calc(100dvh)] flex flex-col">
-        {/* todo: translations */}
-        <PageTitle title="Edit Accommodation" />
+        <PageTitle title={t('pageTitle')} />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <AccommodationEditor
@@ -107,7 +108,7 @@ export default function EditEventAccommodation(props: { params: Promise<{ eventI
 
           <div className="flex gap-1">
             <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-            <TextButton text={'Save'} onClick={handleSaveClicked} />
+            <TextButton text={t('btnSave')} onClick={handleSaveClicked} />
           </div>
         </Navigation>
       </div>

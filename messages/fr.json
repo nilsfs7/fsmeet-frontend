@@ -232,6 +232,12 @@
     "pageTitle": "Créer des hébergements",
     "btnCreate": "Créer"
   },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "Modifier l'hébergement",
+    "dlgDeleteTitle": "Supprimer l'hébergement",
+    "dlgDeleteText": "Voulez-vous vraiment supprimer cet hébergement ?",
+    "btnSave": "Enregistrer"
+  },
   "/events/eventid/attachments": {
     "pageTitle": "Gérer les documents",
     "btnCreate": "Créer"

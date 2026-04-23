@@ -250,6 +250,12 @@
     "pageTitle": "إنشاء إقامة",
     "btnCreate": "إنشاء"
   },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "تعديل الإقامة",
+    "dlgDeleteTitle": "حذف الإقامة",
+    "dlgDeleteText": "هل تريد حقاً حذف هذه الإقامة؟",
+    "btnSave": "حفظ"
+  },
   "/events/eventid/attachments": {
     "pageTitle": "إدارة المستندات",
     "btnCreate": "إنشاء"

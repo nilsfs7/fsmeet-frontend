@@ -232,6 +232,12 @@
     "pageTitle": "Crear alojamientos",
     "btnCreate": "Crear"
   },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "Editar alojamiento",
+    "dlgDeleteTitle": "Eliminar alojamiento",
+    "dlgDeleteText": "¿Desea realmente eliminar este alojamiento?",
+    "btnSave": "Guardar"
+  },
   "/events/eventid/attachments": {
     "pageTitle": "Gestionar documentos",
     "btnCreate": "Crear"

@@ -250,6 +250,12 @@
     "pageTitle": "宿泊を作成",
     "btnCreate": "作成"
   },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "宿泊を編集",
+    "dlgDeleteTitle": "宿泊を削除",
+    "dlgDeleteText": "この宿泊を本当に削除しますか？",
+    "btnSave": "保存"
+  },
   "/events/eventid/attachments": {
     "pageTitle": "ドキュメントを管理",
     "btnCreate": "作成"

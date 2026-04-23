@@ -250,6 +250,12 @@
     "pageTitle": "Cipta Penginapan",
     "btnCreate": "Cipta"
   },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "Edit Penginapan",
+    "dlgDeleteTitle": "Padam Penginapan",
+    "dlgDeleteText": "Adakah anda benar-benar mahu memadamkan penginapan ini?",
+    "btnSave": "Simpan"
+  },
   "/events/eventid/attachments": {
     "pageTitle": "Urus Dokumen",
     "btnCreate": "Cipta"
