@@ -1,6 +1,5 @@
 import { Attachment } from '@/domain/types/attachment';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { IconExternalLink, IconFile } from '@tabler/icons-react';
 
 interface IAttachmentCardProps {
   attachment: Attachment;
@@ -13,7 +12,7 @@ const AttachmentCard = ({ attachment }: IAttachmentCardProps) => {
         <div className="grid grid-flow-col items-center justify-between">
           <div className="flex items-center mx-1">{attachment.name}</div>
 
-          {attachment.isExternal ? <OpenInNewIcon /> : <FilePresentIcon />}
+          {attachment.isExternal ? <IconExternalLink className="h-4 w-4" stroke={2.0} /> : <IconFile className="h-4 w-4" stroke={2.0} />}
         </div>
       </div>
     </a>

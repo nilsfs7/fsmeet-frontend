@@ -1,73 +1,72 @@
 import type { ComponentType } from 'react';
-import type { SvgIconProps } from '@mui/material/SvgIcon';
+import {
+  IconArrowLeft,
+  IconBuilding,
+  IconChartBar,
+  IconCircleCheck,
+  IconCircleMinus,
+  IconCirclePlus,
+  IconCircleX,
+  IconCloudDownload,
+  IconCoin,
+  IconCopy,
+  IconDeviceFloppy,
+  IconDeviceTv,
+  IconExternalLink,
+  IconEye,
+  IconEyeOff,
+  IconFile,
+  IconInfoCircle,
+  IconMessage2,
+  IconPencil,
+  IconPlayerPlay,
+  IconSend,
+  IconShare,
+  IconTag,
+  IconTrash,
+  IconTrophy,
+  IconUsers,
+} from '@tabler/icons-react';
 import { Action } from '@/domain/enums/action';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import CancelIcon from '@mui/icons-material/Cancel';
-import CheckIcon from '@mui/icons-material/CheckCircle';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-import CommentIcon from '@mui/icons-material/QuestionAnswerOutlined';
-import CopyIcon from '@mui/icons-material/ContentCopy';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
-import HotelIcon from '@mui/icons-material/Hotel';
-import InfoIcon from '@mui/icons-material/Info';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import PaidIcon from '@mui/icons-material/Paid';
-import PeopleIcon from '@mui/icons-material/PeopleAlt';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import SaveIcon from '@mui/icons-material/Save';
-import SendIcon from '@mui/icons-material/Send';
-import ShareIcon from '@mui/icons-material/Share';
-import TrophyIcon from '@mui/icons-material/EmojiEvents';
-import TvIcon from '@mui/icons-material/Tv';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/domain/enums/size';
 import { imgWorld } from '@/domain/constants/images';
 import { ButtonStyle } from '@/domain/enums/button-style';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
-type MuiSvgIcon = ComponentType<SvgIconProps>;
+type TablerActionIcon = ComponentType<{ className?: string; stroke?: number }>;
 
-type ActionIconConfig =
-  | { kind: 'mui'; Icon: MuiSvgIcon }
-  | { kind: 'img'; src: string; alt: string };
+type ActionIconConfig = { kind: 'icon'; Icon: TablerActionIcon } | { kind: 'img'; src: string; alt: string };
 
-/** MUI icon for each action; `GOTOMAP` uses a raster asset. */
+/** Tabler icon for each action; `GOTOMAP` uses a raster asset. */
 const ACTION_ICON: Record<Action, ActionIconConfig> = {
-  [Action.ADD]: { kind: 'mui', Icon: AddCircleIcon },
-  [Action.ACCEPT]: { kind: 'mui', Icon: CheckIcon },
-  [Action.BACK]: { kind: 'mui', Icon: ArrowBackIcon },
-  [Action.CANCEL]: { kind: 'mui', Icon: CancelIcon },
-  [Action.COMMENT]: { kind: 'mui', Icon: CommentIcon },
-  [Action.COPY]: { kind: 'mui', Icon: CopyIcon },
-  [Action.DENY]: { kind: 'mui', Icon: CancelIcon },
-  [Action.DELETE]: { kind: 'mui', Icon: DeleteIcon },
-  [Action.DOWNLOAD]: { kind: 'mui', Icon: CloudDownloadIcon },
-  [Action.EDIT]: { kind: 'mui', Icon: EditIcon },
+  [Action.ADD]: { kind: 'icon', Icon: IconCirclePlus },
+  [Action.ACCEPT]: { kind: 'icon', Icon: IconCircleCheck },
+  [Action.BACK]: { kind: 'icon', Icon: IconArrowLeft },
+  [Action.CANCEL]: { kind: 'icon', Icon: IconCircleX },
+  [Action.COMMENT]: { kind: 'icon', Icon: IconMessage2 },
+  [Action.COPY]: { kind: 'icon', Icon: IconCopy },
+  [Action.DENY]: { kind: 'icon', Icon: IconCircleX },
+  [Action.DELETE]: { kind: 'icon', Icon: IconTrash },
+  [Action.DOWNLOAD]: { kind: 'icon', Icon: IconCloudDownload },
+  [Action.EDIT]: { kind: 'icon', Icon: IconPencil },
   [Action.GOTOMAP]: { kind: 'img', src: imgWorld, alt: '' },
-  [Action.GOTOEXTERNAL]: { kind: 'mui', Icon: OpenInNewIcon },
-  [Action.HIDE]: { kind: 'mui', Icon: VisibilityOffIcon },
-  [Action.INFO]: { kind: 'mui', Icon: InfoIcon },
-  [Action.MANAGE_ACCOMMODATIONS]: { kind: 'mui', Icon: HotelIcon },
-  [Action.MANAGE_ARENA_SCREEN]: { kind: 'mui', Icon: TvIcon },
-  [Action.MANAGE_ATTACHMENTS]: { kind: 'mui', Icon: FilePresentIcon },
-  [Action.MANAGE_COMPETITIONS]: { kind: 'mui', Icon: TrophyIcon },
-  [Action.MANAGE_OFFERINGS]: { kind: 'mui', Icon: LocalOfferIcon },
-  [Action.MANAGE_USERS]: { kind: 'mui', Icon: PeopleIcon },
-  [Action.MANAGE_SPONSORS]: { kind: 'mui', Icon: PaidIcon },
-  [Action.PLAY]: { kind: 'mui', Icon: PlayCircleOutlineIcon },
-  [Action.REMOVE]: { kind: 'mui', Icon: RemoveCircleIcon },
-  [Action.SAVE]: { kind: 'mui', Icon: SaveIcon },
-  [Action.SEND]: { kind: 'mui', Icon: SendIcon },
-  [Action.SHARE]: { kind: 'mui', Icon: ShareIcon },
-  [Action.SHOW]: { kind: 'mui', Icon: VisibilityIcon },
-  [Action.STATISTICS]: { kind: 'mui', Icon: BarChartIcon },
+  [Action.GOTOEXTERNAL]: { kind: 'icon', Icon: IconExternalLink },
+  [Action.HIDE]: { kind: 'icon', Icon: IconEyeOff },
+  [Action.INFO]: { kind: 'icon', Icon: IconInfoCircle },
+  [Action.MANAGE_ACCOMMODATIONS]: { kind: 'icon', Icon: IconBuilding },
+  [Action.MANAGE_ARENA_SCREEN]: { kind: 'icon', Icon: IconDeviceTv },
+  [Action.MANAGE_ATTACHMENTS]: { kind: 'icon', Icon: IconFile },
+  [Action.MANAGE_COMPETITIONS]: { kind: 'icon', Icon: IconTrophy },
+  [Action.MANAGE_OFFERINGS]: { kind: 'icon', Icon: IconTag },
+  [Action.MANAGE_USERS]: { kind: 'icon', Icon: IconUsers },
+  [Action.MANAGE_SPONSORS]: { kind: 'icon', Icon: IconCoin },
+  [Action.PLAY]: { kind: 'icon', Icon: IconPlayerPlay },
+  [Action.REMOVE]: { kind: 'icon', Icon: IconCircleMinus },
+  [Action.SAVE]: { kind: 'icon', Icon: IconDeviceFloppy },
+  [Action.SEND]: { kind: 'icon', Icon: IconSend },
+  [Action.SHARE]: { kind: 'icon', Icon: IconShare },
+  [Action.SHOW]: { kind: 'icon', Icon: IconEye },
+  [Action.STATISTICS]: { kind: 'icon', Icon: IconChartBar },
 };
 
 interface IButton {
@@ -115,7 +114,7 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
   }
 
   const iconConfig = ACTION_ICON[action];
-  const muiSx = { width: Size.XS === size ? '100%' : '63%', height: Size.XS === size ? '100%' : '63%' } as const;
+  const iconClassName = size === Size.XS ? 'h-full w-full' : 'h-[63%] w-[63%]';
 
   return (
     <TooltipProvider>
@@ -134,11 +133,7 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
             onClick={onClick}
             aria-label={action.toString().toLowerCase()}
           >
-            {iconConfig.kind === 'img' ? (
-              <img src={iconConfig.src} alt={iconConfig.alt} className={buttonSize} />
-            ) : (
-              <iconConfig.Icon sx={muiSx} />
-            )}
+            {iconConfig.kind === 'img' ? <img src={iconConfig.src} alt={iconConfig.alt} className={buttonSize} /> : <iconConfig.Icon className={iconClassName} stroke={2.0} />}
           </button>
         </TooltipTrigger>
 

@@ -21,7 +21,7 @@ import { RatingAction } from '@/domain/enums/rating-action';
 import { PollRating } from '@/domain/types/poll-rating';
 import { User } from '@/domain/types/user';
 import Dialog from '@/components/dialog';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
+import TextareaAutosize from 'react-textarea-autosize';
 
 interface IPollsCarousel {
   initPolls: Poll[];

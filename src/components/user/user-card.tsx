@@ -1,8 +1,6 @@
 import { User } from '@/domain/types/user';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
-import HourglassTopIcon from '@mui/icons-material/HourglassTop';
-import CheckIcon from '@mui/icons-material/Check';
-import BlockIcon from '@mui/icons-material/Block';
+import { IconBan, IconCheck, IconHourglass } from '@tabler/icons-react';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';
@@ -55,9 +53,9 @@ const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserCo
 
           {registrationStatus && (
             <>
-              {registrationStatus == EventRegistrationStatus.APPROVED && <CheckIcon />}
-              {registrationStatus == EventRegistrationStatus.PENDING && <HourglassTopIcon />}
-              {registrationStatus == EventRegistrationStatus.DENIED && <BlockIcon />}
+              {registrationStatus == EventRegistrationStatus.APPROVED && <IconCheck className="h-4 w-4" stroke={2.0} />}
+              {registrationStatus == EventRegistrationStatus.PENDING && <IconHourglass className="h-4 w-4" stroke={2.0} />}
+              {registrationStatus == EventRegistrationStatus.DENIED && <IconBan className="h-4 w-4" stroke={2.0} />}
             </>
           )}
         </div>
