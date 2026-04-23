@@ -1,5 +1,12 @@
 import type { Config } from 'tailwindcss';
 
+/** Maps CSS variables (RGB triplet) to utilities with opacity, e.g. `text-primary/80` */
+const channel = (name: string) => `rgb(var(${name}) / <alpha-value>)` as const;
+
+const neutral = Object.fromEntries(
+  (['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] as const).map(n => [n, channel(`--neutral-${n}`)]),
+) as Record<string, string>;
+
 const config: Config = {
   darkMode: ['class'],
   content: ['./src/pages/**/*.{js,ts,jsx,tsx,mdx}', './src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -13,18 +20,66 @@ const config: Config = {
     },
     extend: {
       colors: {
-        background: '#ffffff',
-        primary: '#141D26',
-        'secondary-light': '#f8f9fa',
-        secondary: '#e1e8ed',
-        'secondary-dark': '#ccd6dd',
-        success: '#49B21A',
-        warning: '#FFCF40',
-        critical: '#EE0000',
-        'critical-dark': '#b91c1c',
-        bronze: '#CD7F32',
-        silver: '#C0C0C0',
-        gold: '#FFD700',
+        /* Core (see src/app/globals.css) */
+        background: channel('--background'),
+        foreground: channel('--foreground'),
+        primary: channel('--primary'),
+        'primary-foreground': channel('--primary-foreground'),
+        border: channel('--border'),
+        input: channel('--input'),
+        ring: channel('--ring'),
+        muted: channel('--muted'),
+        'muted-foreground': channel('--muted-foreground'),
+
+        /* Legacy names — keep for existing classNames */
+        secondary: channel('--secondary'),
+        'secondary-light': channel('--secondary-light'),
+        'secondary-dark': channel('--secondary-dark'),
+
+        success: channel('--success'),
+        'success-foreground': channel('--success-foreground'),
+        warning: channel('--warning'),
+        'warning-foreground': channel('--warning-foreground'),
+        critical: channel('--critical'),
+        'critical-dark': channel('--critical-dark'),
+        'critical-foreground': channel('--critical-foreground'),
+        destructive: channel('--destructive'),
+        'destructive-foreground': channel('--destructive-foreground'),
+
+        bronze: channel('--bronze'),
+        silver: channel('--silver'),
+        gold: channel('--gold'),
+
+        neutral,
+      },
+      fontFamily: {
+        sans: ['"Roboto"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+      },
+      fontSize: {
+        '2xs': ['0.625rem', { lineHeight: '0.875rem' }],
+        xs: ['0.75rem', { lineHeight: '1rem' }],
+        sm: ['0.875rem', { lineHeight: '1.25rem' }],
+        base: ['1rem', { lineHeight: '1.5rem' }],
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],
+        xl: ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+      },
+      borderRadius: {
+        sm: 'var(--radius-sm)',
+        md: 'var(--radius-md)',
+        lg: 'var(--radius-lg)',
+        xl: 'var(--radius-xl)',
+        '2xl': 'var(--radius-2xl)',
+        full: 'var(--radius-full)',
+      },
+      boxShadow: {
+        xs: 'var(--shadow-xs)',
+        sm: 'var(--shadow-sm)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
       },
       keyframes: {
         'accordion-down': {
