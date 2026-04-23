@@ -11,6 +11,5 @@ export class PatchOfferingBodyDto {
     this.mandatoryForParticipant = mandatoryForParticipant;
     this.includesShirt = includesShirt;
     this.enabled = enabled;
-    // TODO: imageUrlPreview
   }
 }

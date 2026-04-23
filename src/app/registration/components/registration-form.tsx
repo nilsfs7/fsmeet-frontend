@@ -72,7 +72,7 @@ export const RegistrationForm = () => {
 
   const handleCreateClicked = async () => {
     try {
-      await createUser(username, userType, email, password, firstName, gender, countryCode);
+      await createUser(username, userType, email, password, firstName, gender || null, countryCode || null);
       router.replace(`${routeRegistrationPending}?username=${username}&email=${email}`);
     } catch (error: any) {
       toast.error(error.message);

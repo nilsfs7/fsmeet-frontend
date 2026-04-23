@@ -14,7 +14,7 @@ import TextInput from '@/components/common/text-input';
 import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
 import { getPlaceholderByUserType } from '@/functions/get-placeholder-by-user-type';
 import ComboBox from '@/components/common/combo-box';
-import { menuGender, menuGenderWithUnspecified } from '@/domain/constants/menus/menu-gender';
+import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { prefixRequired } from '@/functions/prefix-required';
 import CheckBox from '@/components/common/check-box';
@@ -594,8 +594,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <div className="flex w-full">
                     <ComboBox
                       menus={menuGender}
-                      // TODO: remove menuGenderWithUnspecified. Only here until every user has a gender set
-                      value={userInfo.gender ? userInfo.gender : menuGenderWithUnspecified[0].value}
+                      value={userInfo.gender || ''}
                       onChange={(value: any) => {
                         handleGenderChanged(value);
                       }}

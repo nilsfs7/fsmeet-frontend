@@ -637,12 +637,14 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
         if (registration) {
           setRegistrationType(registration.type);
           setRegistrationStatus(registration.status.toString());
+          setOfferingOrders(registration.offeringOrders);
+          setAccommodationOrders(registration.accommodationOrders);
         } else {
           setRegistrationStatus('Unregistered');
         }
       });
     }
-  });
+  }, [session?.user.username]);
 
   useEffect(() => {
     const registrationInfoObject = sessionStorage.getItem('registrationInfo');

@@ -175,7 +175,7 @@ export async function getConfirmUser(username: string, requestToken: string): Pr
   return false;
 }
 
-export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string, gender?: Gender, countryCode?: string): Promise<void> {
+export async function createUser(username: string, type: UserType, email: string, password: string, firstName: string, gender: Gender | null, countryCode: string | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users`;
 
   const body = new CreateUserBodyDto(username, type, email, password, firstName, gender, countryCode);
