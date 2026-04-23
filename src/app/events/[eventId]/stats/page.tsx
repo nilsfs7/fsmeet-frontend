@@ -33,24 +33,24 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
     }
   });
 
-  const particpantAges = [0, 0, 0, 0, 0];
+  const participantAges = [0, 0, 0, 0, 0];
   registeredParticipants.forEach(p => {
     if (p.user.age) {
       switch (true) {
         case p.user.age < 16:
-          particpantAges[0] += 1;
+          participantAges[0] += 1;
           break;
         case p.user.age >= 16 && p.user.age <= 20:
-          particpantAges[1] += 1;
+          participantAges[1] += 1;
           break;
         case p.user.age >= 21 && p.user.age <= 25:
-          particpantAges[2] += 1;
+          participantAges[2] += 1;
           break;
         case p.user.age >= 26 && p.user.age <= 30:
-          particpantAges[3] += 1;
+          participantAges[3] += 1;
           break;
         case p.user.age > 30:
-          particpantAges[4] += 1;
+          participantAges[4] += 1;
           break;
       }
     }
@@ -121,7 +121,7 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
 
           <ChartPie key={'country-participants'} data={Array.from(countryCountSorted.values())} labels={countryLabels} title={'Participants by Country'} />
 
-          <ChartParticipantAge key={'age-participants'} data={particpantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participants by Age'} />
+          <ChartParticipantAge key={'age-participants'} data={participantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participants by Age'} />
         </div>
       </div>
 

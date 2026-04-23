@@ -8,7 +8,7 @@ export const routePushNotification = '/admin/notification';
 export const routeAdminBroadcast = '/admin/broadcast';
 
 export const routeWffaOverview = '/wffa';
-export const routeWffaFreestylerIdMangement = '/wffa/wffaid';
+export const routeWffaFreestylerIdManagement = '/wffa/wffaid';
 export const routeVisaRequestManagement = '/wffa/visa';
 
 export const routeAbout = '/about';

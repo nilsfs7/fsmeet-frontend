@@ -13,7 +13,7 @@ const registrationTypes = Object.values(EventRegistrationType);
 
 interface IAttendeeChoiceList {
   participantFee: number;
-  vistorFee: number;
+  visitorFee: number;
   currency: CurrencyCode;
   eventType: EventType;
   userType: UserType;
@@ -26,7 +26,7 @@ interface IAttendeeChoiceList {
 
 export const AttendeeChoice = ({
   participantFee,
-  vistorFee,
+  visitorFee,
   currency,
   eventType,
   userType,
@@ -77,7 +77,7 @@ export const AttendeeChoice = ({
             <tr key={i} className={`${i < availableRegistrationTypes.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
               <td className="py-3 px-3 capitalize">{regType}</td>
               <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
-                {`${convertCurrencyIntegerToDecimal(regType === EventRegistrationType.PARTICIPANT ? participantFee : vistorFee, currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace('.', ',')}
+                {`${convertCurrencyIntegerToDecimal(regType === EventRegistrationType.PARTICIPANT ? participantFee : visitorFee, currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace('.', ',')}
               </td>
               {selectable && (
                 <td className="py-3 px-3 text-center">

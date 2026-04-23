@@ -102,7 +102,7 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
                 comment.subComments.length > 0 &&
                 comment.subComments.map((subComment: EventSubComment, j) => {
                   return (
-                    // ml-9: image width + gap beween image and message
+                    // ml-9: image width + gap between image and message
                     <div key={j} className={`ml-9 w-3/4`}>
                       <UserComment
                         comment={{ id: subComment.id, message: subComment.message, user: subComment.user, timestamp: subComment.timestamp, subComments: [] }}
@@ -121,7 +121,7 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
 
               {/* reply context */}
               {replyTo === comment.id && (
-                // ml-9: image width + gap beween image and message
+                // ml-9: image width + gap between image and message
                 <div className={`ml-9 grid w-3/4`}>
                   <PostInput
                     elementId="reply"
