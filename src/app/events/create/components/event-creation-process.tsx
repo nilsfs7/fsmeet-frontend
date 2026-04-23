@@ -24,7 +24,7 @@ import { imgCalender, imgCelebration, imgCompetition, imgCompetitionOnline, imgC
 import { CurrencyCode } from '../../../../domain/enums/currency-code';
 import { EventCategory } from '../../../../domain/enums/event-category';
 import { EventState } from '../../../../domain/enums/event-state';
-import { menuCountriesWithUnspecified } from '../../../../domain/constants/menus/menu-countries';
+import { menuCountries } from '../../../../domain/constants/menus/menu-countries';
 import { getCountryNameByCode } from '../../../../functions/get-country-name-by-code';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -173,10 +173,10 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       // event name
       if (!eventName || eventName.length < 3) return true;
 
-      // type
-      if (eventType !== EventType.COMPETITION_ONLINE && (!venueCountryCode || venueCountryCode === menuCountriesWithUnspecified[0].value)) return true;
+      // event type
+      if (eventType !== EventType.COMPETITION_ONLINE && (!venueCountryCode || venueCountryCode === '')) return true;
 
-      //dates
+      // dates
       if (!dateFrom || !dateTo || !registrationDateFrom || !registrationDateTo) return true;
       if (dateFrom > dateTo) return true;
       if (registrationDateFrom > registrationDateTo) return true;
@@ -452,8 +452,8 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
                     <div>{t('pageGeneralDetailsCbVenueCountry')}</div>
                     <div className="flex w-full">
                       <ComboBox
-                        menus={menuCountriesWithUnspecified}
-                        value={venueCountryCode || menuCountriesWithUnspecified[0].value} // todo: set user country, remove '--'
+                        menus={menuCountries}
+                        value={venueCountryCode || eventAdmin?.countryCode || ''}
                         searchEnabled={true}
                         onChange={(value: any) => {
                           handleVenueCountryCodeChanged(value);
