@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import TextInputLarge from './common/text-input-large';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { useTranslations } from 'next-intl';
-import { UserType } from '@/domain/enums/user-type';
 import { Poll } from '@/domain/types/poll';
 import TextInput from './common/text-input';
 import ActionButton from './common/action-button';
@@ -17,15 +16,17 @@ import SectionHeader from './common/section-header';
 import ComboBox from './common/combo-box';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
 import { TargetGroup } from '@/domain/types/target-group';
+import { useSession } from 'next-auth/react';
 
 interface IPollEditorProps {
   editorMode: EditorMode;
   poll?: Poll;
-  onPollUpdate: (poll: Poll) => void;
+  onPollUpdate: (pollData: { question: string; description: string; options: string[]; deadline: string | null; targetGroup: TargetGroup }) => void;
 }
 
 const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   const t = useTranslations('global/components/poll-editor');
+  const { data: session } = useSession();
 
   const QUESTION_MAX_LENGTH = 100;
   const DESCRIPTION_MAX_LENGTH = 1000;
@@ -36,7 +37,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   const [options, setOptions] = useState(
     poll?.options.map(o => {
       return o.option;
-    }) || ['', '']
+    }) || ['', ''],
   );
   const [deadlineEnabled, setDeadlineEnabled] = useState<boolean>(poll?.deadline ? true : false);
   const [deadline, setDeadline] = useState<string>(poll?.deadline ? poll.deadline : moment().endOf('day').add(3, 'month').utc().format());
@@ -91,20 +92,15 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   };
 
   const updatePoll = () => {
-    onPollUpdate({
-      id: poll?.id,
-      question: question,
-      description: description,
-      questioner: { username: sessionStorage.username, type: UserType.FREESTYLER }, // TODO: type is unnecessary
-      options: options.map(o => {
-        return { option: o, numVotes: 0 };
-      }),
-      totalVotes: 0,
-      totalRatingScore: 0,
-      deadline: deadlineEnabled ? deadline : null,
-      targetGroup: targetGroup,
-      creationTime: moment().utc().format(),
-    });
+    if (session?.user.username) {
+      onPollUpdate({
+        question,
+        description,
+        options,
+        deadline: deadlineEnabled ? deadline : null,
+        targetGroup,
+      });
+    }
   };
 
   // fires back poll
