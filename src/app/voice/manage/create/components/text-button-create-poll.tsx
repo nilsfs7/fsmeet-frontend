@@ -7,7 +7,6 @@ import { Toaster, toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { routeVoiceManage } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
-import { Poll } from '@/domain/types/poll';
 import moment from 'moment';
 
 export const TextButtonCreatePoll = () => {
@@ -20,17 +19,10 @@ export const TextButtonCreatePoll = () => {
     const pollInfoObject = sessionStorage.getItem('pollInfo');
 
     if (pollInfoObject) {
-      const poll: Poll = JSON.parse(pollInfoObject);
+      const pollInfo = JSON.parse(pollInfoObject);
 
       try {
-        await createPoll(
-          poll.question,
-          poll.description,
-          poll.options.map(o => o.option),
-          poll.deadline ? moment(poll.deadline) : null,
-          poll.targetGroup,
-          session
-        );
+        await createPoll(pollInfo.question, pollInfo.description, pollInfo.options, pollInfo.deadline ? moment(pollInfo.deadline) : null, pollInfo.targetGroup, session);
 
         router.push(`${routeVoiceManage}`);
         router.refresh();
