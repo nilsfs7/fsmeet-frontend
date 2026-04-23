@@ -126,13 +126,13 @@
     "tabAccountBtnCopyMessage": "Message copié dans le presse-papiers.",
     "tabAccountSectionPayments": "Recevez des paiements avec Stripe",
     "tabAccountLblStripeAccount": "Compte Stripe",
-    "tabAccounBtnRequestPaymentsAccount": "Demande de compte",
-    "tabAccounBtnEditPaymentsAccount": "Modifier info",
-    "tabAccounBtnManagePayments": "Gérer les paiements",
-    "tabAccounBtnViewPaymentsInStripe": "Voir les paiements (Stripe)",
+    "tabAccountBtnRequestPaymentsAccount": "Demande de compte",
+    "tabAccountBtnEditPaymentsAccount": "Modifier info",
+    "tabAccountBtnManagePayments": "Gérer les paiements",
+    "tabAccountBtnViewPaymentsInStripe": "Voir les paiements (Stripe)",
     "tabAccountSectionAccountManagement": "Gestion du compte",
-    "tabAccounBtnLogout": "Déconnexion",
-    "tabAccounBtnDeleteAccount": "Supprimer le compte"
+    "tabAccountBtnLogout": "Déconnexion",
+    "tabAccountBtnDeleteAccount": "Supprimer le compte"
   },
   "/account/deleted": {
     "textGoodbye": "Au revoir !",

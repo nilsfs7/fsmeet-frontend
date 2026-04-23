@@ -126,13 +126,13 @@
     "tabAccountBtnCopyMessage": "संदेश क्लिपबोर्ड में कॉपी किया गया।",
     "tabAccountSectionPayments": "Stripe के माध्यम से भुगतान प्राप्त करें",
     "tabAccountLblStripeAccount": "Stripe खाता",
-    "tabAccounBtnRequestPaymentsAccount": "खाता अनुरोध करें",
-    "tabAccounBtnEditPaymentsAccount": "जानकारी संपादित करें",
-    "tabAccounBtnManagePayments": "भुगतान प्रबंधित करें",
-    "tabAccounBtnViewPaymentsInStripe": "भुगतान देखें (Stripe)",
+    "tabAccountBtnRequestPaymentsAccount": "खाता अनुरोध करें",
+    "tabAccountBtnEditPaymentsAccount": "जानकारी संपादित करें",
+    "tabAccountBtnManagePayments": "भुगतान प्रबंधित करें",
+    "tabAccountBtnViewPaymentsInStripe": "भुगतान देखें (Stripe)",
     "tabAccountSectionAccountManagement": "खाता प्रबंधन",
-    "tabAccounBtnLogout": "लॉगआउट",
-    "tabAccounBtnDeleteAccount": "खाता हटाएं"
+    "tabAccountBtnLogout": "लॉगआउट",
+    "tabAccountBtnDeleteAccount": "खाता हटाएं"
   },
   "/account/deleted": {
     "textGoodbye": "अलविदा!",

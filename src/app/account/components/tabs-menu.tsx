@@ -907,7 +907,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
                 {!userInfo.stripeAccountId && (
                   <div className="mt-4 flex justify-center">
-                    <TextButton text={t('tabAccounBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
+                    <TextButton text={t('tabAccountBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
                   </div>
                 )}
 
@@ -915,12 +915,12 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <>
                     <div className="mt-4 flex flex-col items-center gap-4">
                       <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
-                      <TextButton text={t('tabAccounBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
+                      <TextButton text={t('tabAccountBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
 
-                      <TextButton text={t('tabAccounBtnViewPaymentsInStripe')} onClick={handleCreateStripeLoginLinkClicked} />
+                      <TextButton text={t('tabAccountBtnViewPaymentsInStripe')} onClick={handleCreateStripeLoginLinkClicked} />
 
                       <Link href={routeAccountPayments}>
-                        <TextButton text={t('tabAccounBtnManagePayments')} />
+                        <TextButton text={t('tabAccountBtnManagePayments')} />
                       </Link>
                     </div>
                   </>
@@ -935,11 +935,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             <div className="flex justify-center text-lg">{t('tabAccountSectionAccountManagement')}</div>
 
             <div className="mt-4 flex justify-center">
-              <TextButton text={t('tabAccounBtnLogout')} onClick={handleLogoutClicked} />
+              <TextButton text={t('tabAccountBtnLogout')} onClick={handleLogoutClicked} />
             </div>
 
             <div className="mt-4 flex justify-center">
-              <TextButton text={t('tabAccounBtnDeleteAccount')} style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
+              <TextButton text={t('tabAccountBtnDeleteAccount')} style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
             </div>
           </div>
         </TabsContent>

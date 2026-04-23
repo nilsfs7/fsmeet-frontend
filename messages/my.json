@@ -126,13 +126,13 @@
     "tabAccountBtnCopyMessage": "Mesej telah disalin ke papan klip.",
     "tabAccountSectionPayments": "Terima Pembayaran dengan Stripe",
     "tabAccountLblStripeAccount": "Akaun Stripe",
-    "tabAccounBtnRequestPaymentsAccount": "Mohon Akaun",
-    "tabAccounBtnEditPaymentsAccount": "Edit Maklumat",
-    "tabAccounBtnManagePayments": "Urus pembayaran",
-    "tabAccounBtnViewPaymentsInStripe": "Lihat pembayaran (Stripe)",
+    "tabAccountBtnRequestPaymentsAccount": "Mohon Akaun",
+    "tabAccountBtnEditPaymentsAccount": "Edit Maklumat",
+    "tabAccountBtnManagePayments": "Urus pembayaran",
+    "tabAccountBtnViewPaymentsInStripe": "Lihat pembayaran (Stripe)",
     "tabAccountSectionAccountManagement": "Pengurusan Akaun",
-    "tabAccounBtnLogout": "Log keluar",
-    "tabAccounBtnDeleteAccount": "Padam Akaun"
+    "tabAccountBtnLogout": "Log keluar",
+    "tabAccountBtnDeleteAccount": "Padam Akaun"
   },
   "/account/deleted": {
     "textGoodbye": "Selamat tinggal!",

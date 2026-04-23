@@ -17,7 +17,7 @@ interface IUserCardProps {
 }
 
 const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserCountryFlag = false, registrationStatus }: IUserCardProps) => {
-  let name: string = user.username; // Defauts to username. Guarantees there is at least some name on the UserCard.
+  let name: string = user.username; // Defaults to username. Guarantees there is at least some name on the UserCard.
 
   // Ideally show first name and last name.
   if (user.firstName && user.lastName) {

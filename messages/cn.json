@@ -126,13 +126,13 @@
     "tabAccountBtnCopyMessage": "消息已复制到剪贴板。",
     "tabAccountSectionPayments": "通过 Stripe 收款",
     "tabAccountLblStripeAccount": "Stripe 账户",
-    "tabAccounBtnRequestPaymentsAccount": "申请账户",
-    "tabAccounBtnEditPaymentsAccount": "编辑信息",
-    "tabAccounBtnManagePayments": "管理收款",
-    "tabAccounBtnViewPaymentsInStripe": "在 Stripe 中查看收款",
+    "tabAccountBtnRequestPaymentsAccount": "申请账户",
+    "tabAccountBtnEditPaymentsAccount": "编辑信息",
+    "tabAccountBtnManagePayments": "管理收款",
+    "tabAccountBtnViewPaymentsInStripe": "在 Stripe 中查看收款",
     "tabAccountSectionAccountManagement": "账户管理",
-    "tabAccounBtnLogout": "退出登录",
-    "tabAccounBtnDeleteAccount": "删除账户"
+    "tabAccountBtnLogout": "退出登录",
+    "tabAccountBtnDeleteAccount": "删除账户"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",
