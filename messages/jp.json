@@ -126,13 +126,13 @@
     "tabAccountBtnCopyMessage": "メッセージをクリップボードにコピーしました。",
     "tabAccountSectionPayments": "Stripeで支払いを受け取る",
     "tabAccountLblStripeAccount": "Stripeアカウント",
-    "tabAccounBtnRequestPaymentsAccount": "アカウント申請",
-    "tabAccounBtnEditPaymentsAccount": "情報を編集",
-    "tabAccounBtnManagePayments": "支払いを管理",
-    "tabAccounBtnViewPaymentsInStripe": "支払いを表示（Stripe）",
+    "tabAccountBtnRequestPaymentsAccount": "アカウント申請",
+    "tabAccountBtnEditPaymentsAccount": "情報を編集",
+    "tabAccountBtnManagePayments": "支払いを管理",
+    "tabAccountBtnViewPaymentsInStripe": "支払いを表示（Stripe）",
     "tabAccountSectionAccountManagement": "アカウント管理",
-    "tabAccounBtnLogout": "ログアウト",
-    "tabAccounBtnDeleteAccount": "アカウント削除"
+    "tabAccountBtnLogout": "ログアウト",
+    "tabAccountBtnDeleteAccount": "アカウント削除"
   },
   "/account/deleted": {
     "textGoodbye": "さようなら！",
@@ -249,6 +249,12 @@
   "/events/eventid/accommodations/create": {
     "pageTitle": "宿泊を作成",
     "btnCreate": "作成"
+  },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "宿泊を編集",
+    "dlgDeleteTitle": "宿泊を削除",
+    "dlgDeleteText": "この宿泊を本当に削除しますか？",
+    "btnSave": "保存"
   },
   "/events/eventid/attachments": {
     "pageTitle": "ドキュメントを管理",

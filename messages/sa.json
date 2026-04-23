@@ -126,13 +126,13 @@
     "tabAccountBtnCopyMessage": "تم نسخ الرسالة إلى الحافظة.",
     "tabAccountSectionPayments": "استلام المدفوعات عبر Stripe",
     "tabAccountLblStripeAccount": "حساب Stripe",
-    "tabAccounBtnRequestPaymentsAccount": "طلب حساب",
-    "tabAccounBtnEditPaymentsAccount": "تعديل المعلومات",
-    "tabAccounBtnManagePayments": "إدارة المدفوعات",
-    "tabAccounBtnViewPaymentsInStripe": "عرض المدفوعات (Stripe)",
+    "tabAccountBtnRequestPaymentsAccount": "طلب حساب",
+    "tabAccountBtnEditPaymentsAccount": "تعديل المعلومات",
+    "tabAccountBtnManagePayments": "إدارة المدفوعات",
+    "tabAccountBtnViewPaymentsInStripe": "عرض المدفوعات (Stripe)",
     "tabAccountSectionAccountManagement": "إدارة الحساب",
-    "tabAccounBtnLogout": "تسجيل الخروج",
-    "tabAccounBtnDeleteAccount": "حذف الحساب"
+    "tabAccountBtnLogout": "تسجيل الخروج",
+    "tabAccountBtnDeleteAccount": "حذف الحساب"
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",
@@ -249,6 +249,12 @@
   "/events/eventid/accommodations/create": {
     "pageTitle": "إنشاء إقامة",
     "btnCreate": "إنشاء"
+  },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "تعديل الإقامة",
+    "dlgDeleteTitle": "حذف الإقامة",
+    "dlgDeleteText": "هل تريد حقاً حذف هذه الإقامة؟",
+    "btnSave": "حفظ"
   },
   "/events/eventid/attachments": {
     "pageTitle": "إدارة المستندات",

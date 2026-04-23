@@ -43,7 +43,7 @@ export default async function Roadmap() {
           </Row>
 
           <Row>
-            <Task title="Visa inviation (event hosts)" size={TaskSize.MEDIUM} filled={0} description="Enable event hosts to make use of existing visa invitation process.." />
+            <Task title="Visa invitation (event hosts)" size={TaskSize.MEDIUM} filled={0} description="Enable event hosts to make use of existing visa invitation process.." />
           </Row>
         </Section>
 
@@ -133,7 +133,7 @@ export default async function Roadmap() {
           </Row>
 
           <Row>
-            <Task title="Visa inviation (WFFA)" size={TaskSize.MEDIUM} filled={95} description="Enable participants to request a visa invitation letter. Add approval process for WFFA members." />
+            <Task title="Visa invitation (WFFA)" size={TaskSize.MEDIUM} filled={95} description="Enable participants to request a visa invitation letter. Add approval process for WFFA members." />
           </Row>
         </Section>
 
@@ -143,7 +143,7 @@ export default async function Roadmap() {
 
         <Section title={'Technical'}>
           <Row>
-            <Task title="Migration to Next v15" size={TaskSize.LARGE} filled={80} description="Next v15 solves serveral problems with data loading when switching routes." />
+            <Task title="Migration to Next v15" size={TaskSize.LARGE} filled={80} description="Next v15 solves several problems with data loading when switching routes." />
             <Task title="Upgrade to next-auth v5" size={TaskSize.MEDIUM} filled={50} description="Mandatory upgrade when switching to next v15." />
             <Task title="Sign up via Instagram" size={TaskSize.MEDIUM} filled={0} description="Users hate passwords. Offer sign up using Instagram account." />
           </Row>

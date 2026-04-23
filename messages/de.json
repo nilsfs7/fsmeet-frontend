@@ -126,13 +126,13 @@
     "tabAccountBtnCopyMessage": "Nachricht kopiert.",
     "tabAccountSectionPayments": "Zahlungen empfangen mit Stripe",
     "tabAccountLblStripeAccount": "Stripe Account",
-    "tabAccounBtnRequestPaymentsAccount": "Account erstellen",
-    "tabAccounBtnEditPaymentsAccount": "Info editieren",
-    "tabAccounBtnManagePayments": "Zahlungen verwalten",
-    "tabAccounBtnViewPaymentsInStripe": "Zahlungen ansehen (Stripe)",
+    "tabAccountBtnRequestPaymentsAccount": "Account erstellen",
+    "tabAccountBtnEditPaymentsAccount": "Info editieren",
+    "tabAccountBtnManagePayments": "Zahlungen verwalten",
+    "tabAccountBtnViewPaymentsInStripe": "Zahlungen ansehen (Stripe)",
     "tabAccountSectionAccountManagement": "Kontoverwaltung",
-    "tabAccounBtnLogout": "Abmelden",
-    "tabAccounBtnDeleteAccount": "Konto löschen"
+    "tabAccountBtnLogout": "Abmelden",
+    "tabAccountBtnDeleteAccount": "Konto löschen"
   },
   "/account/deleted": {
     "textGoodbye": "Mach's gut!",
@@ -245,6 +245,12 @@
   "/events/eventid/accommodations/create": {
     "pageTitle": "Unterkunft erstellen",
     "btnCreate": "Erstellen"
+  },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "Unterkunft bearbeiten",
+    "dlgDeleteTitle": "Unterkunft löschen",
+    "dlgDeleteText": "Möchten Sie diese Unterkunft wirklich löschen?",
+    "btnSave": "Speichern"
   },
   "/events/eventid/comps": {
     "pageTitle": "Wettbewerbe verwalten",

@@ -126,13 +126,13 @@
     "tabAccountBtnCopyMessage": "消息已复制到剪贴板。",
     "tabAccountSectionPayments": "通过 Stripe 收款",
     "tabAccountLblStripeAccount": "Stripe 账户",
-    "tabAccounBtnRequestPaymentsAccount": "申请账户",
-    "tabAccounBtnEditPaymentsAccount": "编辑信息",
-    "tabAccounBtnManagePayments": "管理收款",
-    "tabAccounBtnViewPaymentsInStripe": "在 Stripe 中查看收款",
+    "tabAccountBtnRequestPaymentsAccount": "申请账户",
+    "tabAccountBtnEditPaymentsAccount": "编辑信息",
+    "tabAccountBtnManagePayments": "管理收款",
+    "tabAccountBtnViewPaymentsInStripe": "在 Stripe 中查看收款",
     "tabAccountSectionAccountManagement": "账户管理",
-    "tabAccounBtnLogout": "退出登录",
-    "tabAccounBtnDeleteAccount": "删除账户"
+    "tabAccountBtnLogout": "退出登录",
+    "tabAccountBtnDeleteAccount": "删除账户"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",
@@ -249,6 +249,12 @@
   "/events/eventid/accommodations/create": {
     "pageTitle": "创建住宿",
     "btnCreate": "创建"
+  },
+  "/events/eventid/accommodations/edit": {
+    "pageTitle": "编辑住宿",
+    "dlgDeleteTitle": "删除住宿",
+    "dlgDeleteText": "确定要删除此住宿吗？",
+    "btnSave": "保存"
   },
   "/events/eventid/attachments": {
     "pageTitle": "管理文档",
