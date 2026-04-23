@@ -1,3 +1,5 @@
+import type { ComponentType } from 'react';
+import type { SvgIconProps } from '@mui/material/SvgIcon';
 import { Action } from '@/domain/enums/action';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
@@ -29,6 +31,44 @@ import { Size } from '@/domain/enums/size';
 import { imgWorld } from '@/domain/constants/images';
 import { ButtonStyle } from '@/domain/enums/button-style';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
+type MuiSvgIcon = ComponentType<SvgIconProps>;
+
+type ActionIconConfig =
+  | { kind: 'mui'; Icon: MuiSvgIcon }
+  | { kind: 'img'; src: string; alt: string };
+
+/** MUI icon for each action; `GOTOMAP` uses a raster asset. */
+const ACTION_ICON: Record<Action, ActionIconConfig> = {
+  [Action.ADD]: { kind: 'mui', Icon: AddCircleIcon },
+  [Action.ACCEPT]: { kind: 'mui', Icon: CheckIcon },
+  [Action.BACK]: { kind: 'mui', Icon: ArrowBackIcon },
+  [Action.CANCEL]: { kind: 'mui', Icon: CancelIcon },
+  [Action.COMMENT]: { kind: 'mui', Icon: CommentIcon },
+  [Action.COPY]: { kind: 'mui', Icon: CopyIcon },
+  [Action.DENY]: { kind: 'mui', Icon: CancelIcon },
+  [Action.DELETE]: { kind: 'mui', Icon: DeleteIcon },
+  [Action.DOWNLOAD]: { kind: 'mui', Icon: CloudDownloadIcon },
+  [Action.EDIT]: { kind: 'mui', Icon: EditIcon },
+  [Action.GOTOMAP]: { kind: 'img', src: imgWorld, alt: '' },
+  [Action.GOTOEXTERNAL]: { kind: 'mui', Icon: OpenInNewIcon },
+  [Action.HIDE]: { kind: 'mui', Icon: VisibilityOffIcon },
+  [Action.INFO]: { kind: 'mui', Icon: InfoIcon },
+  [Action.MANAGE_ACCOMMODATIONS]: { kind: 'mui', Icon: HotelIcon },
+  [Action.MANAGE_ARENA_SCREEN]: { kind: 'mui', Icon: TvIcon },
+  [Action.MANAGE_ATTACHMENTS]: { kind: 'mui', Icon: FilePresentIcon },
+  [Action.MANAGE_COMPETITIONS]: { kind: 'mui', Icon: TrophyIcon },
+  [Action.MANAGE_OFFERINGS]: { kind: 'mui', Icon: LocalOfferIcon },
+  [Action.MANAGE_USERS]: { kind: 'mui', Icon: PeopleIcon },
+  [Action.MANAGE_SPONSORS]: { kind: 'mui', Icon: PaidIcon },
+  [Action.PLAY]: { kind: 'mui', Icon: PlayCircleOutlineIcon },
+  [Action.REMOVE]: { kind: 'mui', Icon: RemoveCircleIcon },
+  [Action.SAVE]: { kind: 'mui', Icon: SaveIcon },
+  [Action.SEND]: { kind: 'mui', Icon: SendIcon },
+  [Action.SHARE]: { kind: 'mui', Icon: ShareIcon },
+  [Action.SHOW]: { kind: 'mui', Icon: VisibilityIcon },
+  [Action.STATISTICS]: { kind: 'mui', Icon: BarChartIcon },
+};
 
 interface IButton {
   action: Action;
@@ -74,91 +114,8 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
       break;
   }
 
-  let Icon = ArrowBackIcon;
-
-  switch (action) {
-    case Action.ADD:
-      Icon = AddCircleIcon;
-      break;
-    case Action.ACCEPT:
-      Icon = CheckIcon;
-      break;
-    case Action.BACK:
-      Icon = ArrowBackIcon;
-      break;
-    case Action.CANCEL:
-      Icon = CancelIcon;
-      break;
-    case Action.COMMENT:
-      Icon = CommentIcon;
-      break;
-    case Action.COPY:
-      Icon = CopyIcon;
-      break;
-    case Action.DELETE:
-      Icon = DeleteIcon;
-      break;
-    case Action.DENY:
-      Icon = CancelIcon;
-      break;
-    case Action.DOWNLOAD:
-      Icon = CloudDownloadIcon;
-      break;
-    case Action.EDIT:
-      Icon = EditIcon;
-      break;
-    case Action.GOTOEXTERNAL:
-      Icon = OpenInNewIcon;
-      break;
-    case Action.HIDE:
-      Icon = VisibilityOffIcon;
-      break;
-    case Action.INFO:
-      Icon = InfoIcon;
-      break;
-    case Action.MANAGE_ACCOMMODATIONS:
-      Icon = HotelIcon;
-      break;
-    case Action.MANAGE_ARENA_SCREEN:
-      Icon = TvIcon;
-      break;
-    case Action.MANAGE_ATTACHMENTS:
-      Icon = FilePresentIcon;
-      break;
-    case Action.MANAGE_COMPETITIONS:
-      Icon = TrophyIcon;
-      break;
-    case Action.MANAGE_OFFERINGS:
-      Icon = LocalOfferIcon;
-      break;
-    case Action.MANAGE_USERS:
-      Icon = PeopleIcon;
-      break;
-    case Action.MANAGE_SPONSORS:
-      Icon = PaidIcon;
-      break;
-    case Action.PLAY:
-      Icon = PlayCircleOutlineIcon;
-      break;
-    case Action.REMOVE:
-      Icon = RemoveCircleIcon;
-      break;
-    case Action.SAVE:
-      Icon = SaveIcon;
-      break;
-    case Action.SEND:
-      Icon = SendIcon;
-      break;
-    case Action.SHARE:
-      Icon = ShareIcon;
-      break;
-    case Action.SHOW:
-      Icon = VisibilityIcon;
-      break;
-    case Action.STATISTICS:
-      Icon = BarChartIcon;
-      break;
-  }
+  const iconConfig = ACTION_ICON[action];
+  const muiSx = { width: Size.XS === size ? '100%' : '63%', height: Size.XS === size ? '100%' : '63%' } as const;
 
   return (
     <TooltipProvider>
@@ -177,8 +134,11 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
             onClick={onClick}
             aria-label={action.toString().toLowerCase()}
           >
-            {/* todo: add map for non default icons */}
-            {action === Action.GOTOMAP ? <img src={imgWorld} className={buttonSize} /> : <Icon sx={{ width: Size.XS === size ? '100%' : '63%', height: Size.XS === size ? '100%' : '63%' }} />}
+            {iconConfig.kind === 'img' ? (
+              <img src={iconConfig.src} alt={iconConfig.alt} className={buttonSize} />
+            ) : (
+              <iconConfig.Icon sx={muiSx} />
+            )}
           </button>
         </TooltipTrigger>
 
