@@ -1036,8 +1036,9 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         />
       )}
 
-      {paymentMethodStripeEnabled && (
-        //    TODO: if user is eligible to set this
+      {/* TODO: for now only wffa is eligible to activate */}
+      {/* commented because it's only available for superball atm. activate manually. */}
+      {/* {paymentMethodStripeEnabled && event?.admin === 'wffa' && (
         <CheckBox
           id={'visaInvitationRequestsEnabled'}
           label={t('chbVisaInvitationRequestsEnabled')}
@@ -1046,7 +1047,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
             setVisaInvitationRequestsEnabled(!visaInvitationRequestsEnabled);
           }}
         />
-      )}
+      )} */}
 
       <TextInputLarge
         id={'waiver'}

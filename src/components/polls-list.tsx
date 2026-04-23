@@ -92,9 +92,7 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
     setPollUrl(pollId);
   };
 
-  const handleDeletePollClicked = async (pollId: string) => {
-    await new Promise(resolve => setTimeout(resolve, 50)); // TODO: find better solution. delaying because handlePollClicked() modifies url, too
-
+  const handleDeletePollClicked = (pollId: string) => {
     const url = `${window.location.pathname}?select=${pollId}&delete=1`;
     router.replace(url);
   };
@@ -178,12 +176,19 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
         return <div className="ml-2">{t('tblColumnHeaderActions')}</div>;
       },
       cell: ({ row }) => (
-        <ActionButton
-          action={Action.DELETE} // todo: change to Action.EDIT and add context to edit poll
-          onClick={() => {
-            handleDeletePollClicked(columnData[row.index].pollId);
-          }}
-        />
+        <div
+          role="presentation"
+          className="inline-flex"
+          onClick={e => e.stopPropagation()}
+          onKeyDown={e => e.stopPropagation()}
+        >
+          <ActionButton
+            action={Action.DELETE} // todo: change to Action.EDIT and add context to edit poll
+            onClick={() => {
+              handleDeletePollClicked(columnData[row.index].pollId);
+            }}
+          />
+        </div>
       ),
       enableSorting: false,
       enableHiding: false,

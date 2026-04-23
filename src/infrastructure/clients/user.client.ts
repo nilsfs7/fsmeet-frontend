@@ -14,6 +14,7 @@ import { ReadStripeAccountIdResponseDto } from './dtos/user/read-stripe-account-
 import { ReadStripeLoginLinkResponseDto } from './dtos/user/read-stripe-login-link.response.dto';
 import { defaultHeaders } from './default-headers';
 import { Platform } from '@/domain/enums/platform';
+import { CreateUserConfirmBodyDto } from './dtos/user/create-user-confirm.body.dto';
 
 export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
@@ -157,18 +158,20 @@ export async function getUsers(type?: UserType, gender?: Gender, countryCode?: s
   return users;
 }
 
-// todo: turn into post
-export async function getConfirmUser(username: string, requestToken: string): Promise<boolean> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/confirm/user?username=${username}&requestToken=${requestToken}`;
+export async function createConfirmUser(username: string, requestToken: string): Promise<boolean> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}/confirm`;
+
+  const body = new CreateUserConfirmBodyDto(requestToken);
 
   const response = await fetch(url, {
-    method: 'GET',
+    method: 'POST',
+    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
     },
   });
 
-  if (response.status == 200) {
+  if (response.status == 201) {
     return true;
   }
 

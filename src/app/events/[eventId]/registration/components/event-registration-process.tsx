@@ -742,20 +742,15 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                 <div>{`${t('pageOverviewRegistrationStatus')}:`}</div>
                 <Label text={registrationStatus} />
               </div>
-              {/* todo: visa requests can only be offered by wffa atm */}
-              {event.visaInvitationRequestsEnabled &&
-                event.type !== EventType.COMPETITION_ONLINE &&
-                isNaturalPerson(user.type) &&
-                user.type !== UserType.FAN &&
-                moment(event.dateFrom) > moment() &&
-                event.admin === 'wffa' && (
-                  <div className="flex flex-col items-center mt-10 gap-2">
-                    <div>{`${t('pageOverviewRequireVisa')}`}</div>
-                    <Link href={`${routeEvents}/${event.id}/registration/visa`}>
-                      <TextButton text={t('pageOverviewBtnRequestVisa')} />
-                    </Link>
-                  </div>
-                )}
+
+              {event.visaInvitationRequestsEnabled && isNaturalPerson(user.type) && user.type !== UserType.FAN && moment(event.dateFrom) > moment() && (
+                <div className="flex flex-col items-center mt-10 gap-2">
+                  <div>{`${t('pageOverviewRequireVisa')}`}</div>
+                  <Link href={`${routeEvents}/${event.id}/registration/visa`}>
+                    <TextButton text={t('pageOverviewBtnRequestVisa')} />
+                  </Link>
+                </div>
+              )}
             </div>
           )}
 
