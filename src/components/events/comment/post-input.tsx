@@ -5,7 +5,7 @@ import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
 import Link from 'next/link';
 
-interface IReplyConextProps {
+interface IReplyContextProps {
   elementId: string;
   username: string;
   userProfileImageUrl?: string;
@@ -13,7 +13,7 @@ interface IReplyConextProps {
   onSendReplyClick: () => void;
 }
 
-const PostInput = ({ elementId, username, userProfileImageUrl, onMessageChange, onSendReplyClick }: IReplyConextProps) => {
+const PostInput = ({ elementId, username, userProfileImageUrl, onMessageChange, onSendReplyClick }: IReplyContextProps) => {
   const handleChange = (event: any) => {
     onMessageChange(event.target.value);
   };

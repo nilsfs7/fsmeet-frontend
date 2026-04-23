@@ -82,7 +82,7 @@ const ProfileMenu = () => {
   const menuItemActions = [onEventsClicked, onPublicProfileClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];
 
   const isAuthenticated = () => {
-    // workaround because session does not update and will be undefined unsless page is refreshed manually
+    // workaround because session does not update and will be undefined unless page is refreshed manually
     if (username) {
       return true;
     }

@@ -34,7 +34,7 @@ export const EventsList = () => {
     }
   };
 
-  const hanldeDateToChanged = (moment: Moment | null) => {
+  const handleDateToChanged = (moment: Moment | null) => {
     if (moment) {
       setDateTo(moment);
 
@@ -76,7 +76,7 @@ export const EventsList = () => {
             fromDate={dateFrom}
             toDate={moment().add(2, 'y')}
             onChange={newDate => {
-              hanldeDateToChanged(newDate);
+              handleDateToChanged(newDate);
             }}
           />
         </div>

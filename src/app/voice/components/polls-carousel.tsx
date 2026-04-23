@@ -118,7 +118,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
     api.scrollTo(index);
   };
 
-  const targetGroupMissmatch = (poll: Poll): boolean => {
+  const targetGroupMismatch = (poll: Poll): boolean => {
     if (poll.targetGroup?.maxAge && (!actingUser?.age || poll.targetGroup.maxAge < actingUser?.age)) {
       return true;
     }
@@ -135,7 +135,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
       return true;
     }
 
-    return targetGroupMissmatch(poll);
+    return targetGroupMismatch(poll);
   };
 
   const handleVoteClicked = async (pollId: string) => {
@@ -418,7 +418,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                       text={
                         polls[i]?.deadline && moment(polls[i]?.deadline) < moment()
                           ? t('carouselBtnVotingEnded')
-                          : targetGroupMissmatch(polls[i])
+                          : targetGroupMismatch(polls[i])
                             ? t('carouselBtnVotingExcluded')
                             : t('carouselBtnVote')
                       }

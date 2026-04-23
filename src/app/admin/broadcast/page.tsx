@@ -60,7 +60,7 @@ export default function Broadcast() {
     setMessage(value);
   };
 
-  const handleCheckBoxIsAnnounementChanged = () => {
+  const handleCheckBoxIsAnnouncementChanged = () => {
     const hasKey = Object.prototype.hasOwnProperty.call(arbitraryData, 'isAnnouncement');
     if (hasKey) {
       removeArbData('isAnnouncement');
@@ -150,7 +150,7 @@ export default function Broadcast() {
             label={'Is Announcement'}
             value={isAnnouncement}
             onChange={e => {
-              handleCheckBoxIsAnnounementChanged();
+              handleCheckBoxIsAnnouncementChanged();
             }}
           />
 
