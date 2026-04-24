@@ -243,7 +243,7 @@
     "dlgDeleteCommentText": "Padam komen? Ini tidak boleh dibatalkan.",
     "adminPanelTitle": "Panel Admin",
     "adminPanelBtnEditEventToolTip": "Edit acara",
-    "adminPanelBtnManageParticipantsToolTip": "Urus peserta",
+    "adminPanelBtnManageAttendeesToolTip": "Urus hadirin",
     "adminPanelBtnManageCompetitionsToolTip": "Urus pertandingan",
     "adminPanelBtnManageAccommodationsToolTip": "Urus penginapan",
     "adminPanelBtnManageOfferingsToolTip": "Urus tawaran",

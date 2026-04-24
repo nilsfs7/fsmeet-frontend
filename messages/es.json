@@ -225,7 +225,7 @@
     "dlgDeleteCommentText": "¿Eliminar comentario? Esto no se puede deshacer.",
     "adminPanelTitle": "Zona de administración",
     "adminPanelBtnEditEventToolTip": "Editar evento",
-    "adminPanelBtnManageParticipantsToolTip": "Gestionar a los participantes",
+    "adminPanelBtnManageAttendeesToolTip": "Gestionar asistentes",
     "adminPanelBtnManageCompetitionsToolTip": "Gestionar las competiciones",
     "adminPanelBtnManageAccommodationsToolTip": "Administrar alojamientos",
     "adminPanelBtnManageOfferingsToolTip": "Gestionar ofertas",

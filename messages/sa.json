@@ -243,7 +243,7 @@
     "dlgDeleteCommentText": "حذف التعليق؟ لا يمكن التراجع عن ذلك.",
     "adminPanelTitle": "لوحة الإدارة",
     "adminPanelBtnEditEventToolTip": "تعديل الفعالية",
-    "adminPanelBtnManageParticipantsToolTip": "إدارة المشاركين",
+    "adminPanelBtnManageAttendeesToolTip": "إدارة الحاضرين",
     "adminPanelBtnManageCompetitionsToolTip": "إدارة المنافسات",
     "adminPanelBtnManageAccommodationsToolTip": "إدارة الإقامات",
     "adminPanelBtnManageOfferingsToolTip": "إدارة العروض",

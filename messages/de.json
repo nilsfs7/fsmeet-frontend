@@ -225,7 +225,7 @@
     "dlgDeleteCommentText": "Kommentar löschen? Dies kann nicht rückgängig gemacht werden.",
     "adminPanelTitle": "Adminbereich",
     "adminPanelBtnEditEventToolTip": "Event editieren",
-    "adminPanelBtnManageParticipantsToolTip": "Teilnehmer verwalten",
+    "adminPanelBtnManageAttendeesToolTip": "Teilnehmer verwalten",
     "adminPanelBtnManageCompetitionsToolTip": "Wettbewerbe verwalten",
     "adminPanelBtnManageAccommodationsToolTip": "Unterkünfte verwalten",
     "adminPanelBtnManageOfferingsToolTip": "Angebote verwalten",

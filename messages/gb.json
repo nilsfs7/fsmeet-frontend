@@ -243,7 +243,7 @@
     "dlgDeleteCommentText": "Delete comment? This cannot be undone.",
     "adminPanelTitle": "Admin Panel",
     "adminPanelBtnEditEventToolTip": "Edit event",
-    "adminPanelBtnManageParticipantsToolTip": "Manage participants",
+    "adminPanelBtnManageAttendeesToolTip": "Manage attendees",
     "adminPanelBtnManageCompetitionsToolTip": "Manage competitions",
     "adminPanelBtnManageAccommodationsToolTip": "Manage accommodations",
     "adminPanelBtnManageOfferingsToolTip": "Manage offerings",

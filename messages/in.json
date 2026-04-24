@@ -243,7 +243,7 @@
     "dlgDeleteCommentText": "टिप्पणी हटाएं? इसे वापस नहीं किया जा सकता।",
     "adminPanelTitle": "एडमिन पैनल",
     "adminPanelBtnEditEventToolTip": "इवेंट संपादित करें",
-    "adminPanelBtnManageParticipantsToolTip": "प्रतिभागियों को प्रबंधित करें",
+    "adminPanelBtnManageAttendeesToolTip": "उपस्थित लोगों को प्रबंधित करें",
     "adminPanelBtnManageCompetitionsToolTip": "प्रतियोगिताएं प्रबंधित करें",
     "adminPanelBtnManageAccommodationsToolTip": "आवास प्रबंधित करें",
     "adminPanelBtnManageOfferingsToolTip": "सेवाएं प्रबंधित करें",

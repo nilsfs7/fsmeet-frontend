@@ -31,7 +31,7 @@ const AdminPanel = async ({ event }: IAttachmentCardProps) => {
               </Link>
 
               <Link href={`${routeEvents}/${event.id}/attendees`}>
-                <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelBtnManageParticipantsToolTip')} />
+                <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelBtnManageAttendeesToolTip')} />
               </Link>
 
               {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (

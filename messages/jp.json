@@ -243,7 +243,7 @@
     "dlgDeleteCommentText": "コメントを削除しますか？この操作は取り消せません。",
     "adminPanelTitle": "管理パネル",
     "adminPanelBtnEditEventToolTip": "イベントを編集",
-    "adminPanelBtnManageParticipantsToolTip": "参加者を管理",
+    "adminPanelBtnManageAttendeesToolTip": "出席者を管理",
     "adminPanelBtnManageCompetitionsToolTip": "カテゴリを管理",
     "adminPanelBtnManageAccommodationsToolTip": "宿泊を管理",
     "adminPanelBtnManageOfferingsToolTip": "提供内容を管理",

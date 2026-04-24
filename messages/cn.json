@@ -243,7 +243,7 @@
     "dlgDeleteCommentText": "删除评论？此操作无法撤销。",
     "adminPanelTitle": "管理面板",
     "adminPanelBtnEditEventToolTip": "编辑活动",
-    "adminPanelBtnManageParticipantsToolTip": "管理参与者",
+    "adminPanelBtnManageAttendeesToolTip": "管理与会者",
     "adminPanelBtnManageCompetitionsToolTip": "管理比赛项目",
     "adminPanelBtnManageAccommodationsToolTip": "管理住宿",
     "adminPanelBtnManageOfferingsToolTip": "管理选项/套餐",
