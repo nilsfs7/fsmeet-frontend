@@ -280,9 +280,9 @@
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "スケジュール",
-    "tabScheduleComboBoxParticipantFilterLabel": "参加者で絞り込み",
+    "tabScheduleComboBoxParticipantFilterLabel": "参加者フィルター",
     "tabScheduleComboBoxParticipantFilterItemUnselected": "すべて表示",
-    "tabScheduleSwitchMyBattlesOnly": "自分のバトルのみ",
+    "tabScheduleSwitchMyBattlesOnly": "自分のみ",
     "tabBattlGridTitle": "バトルグリッド",
     "tabInfoTitle": "情報",
     "tabInfoSectionGeneral": "基本情報",

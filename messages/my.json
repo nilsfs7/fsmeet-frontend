@@ -280,9 +280,9 @@
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Jadual",
-    "tabScheduleComboBoxParticipantFilterLabel": "Tapis mengikut peserta",
+    "tabScheduleComboBoxParticipantFilterLabel": "Tapis peserta",
     "tabScheduleComboBoxParticipantFilterItemUnselected": "Tunjukkan semua",
-    "tabScheduleSwitchMyBattlesOnly": "Hanya battle saya",
+    "tabScheduleSwitchMyBattlesOnly": "Hanya saya",
     "tabBattlGridTitle": "Grid Battle",
     "tabInfoTitle": "Info",
     "tabInfoSectionGeneral": "Maklumat Umum",

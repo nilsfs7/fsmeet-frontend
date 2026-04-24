@@ -280,9 +280,9 @@
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "शेड्यूल",
-    "tabScheduleComboBoxParticipantFilterLabel": "प्रतिभागी के अनुसार फ़िल्टर करें",
+    "tabScheduleComboBoxParticipantFilterLabel": "प्रतिभागी फ़िल्टर",
     "tabScheduleComboBoxParticipantFilterItemUnselected": "सभी दिखाएं",
-    "tabScheduleSwitchMyBattlesOnly": "केवल मेरी बैटल्स",
+    "tabScheduleSwitchMyBattlesOnly": "केवल मैं",
     "tabBattlGridTitle": "बैटल ग्रिड",
     "tabInfoTitle": "जानकारी",
     "tabInfoSectionGeneral": "सामान्य जानकारी",

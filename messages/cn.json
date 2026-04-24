@@ -280,9 +280,9 @@
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "赛程",
-    "tabScheduleComboBoxParticipantFilterLabel": "按参赛者筛选",
+    "tabScheduleComboBoxParticipantFilterLabel": "筛选参赛者",
     "tabScheduleComboBoxParticipantFilterItemUnselected": "显示全部",
-    "tabScheduleSwitchMyBattlesOnly": "只看我的对战",
+    "tabScheduleSwitchMyBattlesOnly": "只看我",
     "tabBattlGridTitle": "对战表",
     "tabInfoTitle": "信息",
     "tabInfoSectionGeneral": "基本信息",

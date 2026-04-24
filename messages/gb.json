@@ -281,9 +281,9 @@
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Schedule",
-    "tabScheduleComboBoxParticipantFilterLabel": "Filter by participant",
+    "tabScheduleComboBoxParticipantFilterLabel": "Filter participant",
     "tabScheduleComboBoxParticipantFilterItemUnselected": "Show all",
-    "tabScheduleSwitchMyBattlesOnly": "My battles only",
+    "tabScheduleSwitchMyBattlesOnly": "Show me",
     "tabBattlGridTitle": "Battle Grid",
     "tabInfoTitle": "Info",
     "tabInfoSectionGeneral": "General Info",

@@ -262,9 +262,9 @@
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Spielplan",
-    "tabScheduleComboBoxParticipantFilterLabel": "Nach Teilnehmer filtern",
+    "tabScheduleComboBoxParticipantFilterLabel": "Filter Teilnehmer",
     "tabScheduleComboBoxParticipantFilterItemUnselected": "Zeige alle",
-    "tabScheduleSwitchMyBattlesOnly": "Nur meine Battles",
+    "tabScheduleSwitchMyBattlesOnly": "Zeige mich",
     "tabBattlGridTitle": "Turnierbaum",
     "tabInfoTitle": "Info",
     "tabInfoSectionGeneral": "Allgemeines",
