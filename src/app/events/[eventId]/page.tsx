@@ -16,6 +16,9 @@ import TextButton from '@/components/common/text-button';
 import moment from 'moment';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
 import AdminPanel from './components/admin-panel';
+import { cn } from '@/lib/utils';
+
+const eventDetailsContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventDetails(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -31,37 +34,38 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
   ]);
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
-      {/* admin panel */}
+    <div className="flex min-h-0 flex-1 flex-col">
       {isEventAdminOrMaintainer(event, session) && (
-        <div className="mt-2 mx-2">
+        <div className={cn('mt-2', eventDetailsContentClass)}>
           <AdminPanel event={event} />
         </div>
       )}
 
-      <div className="mt-2 mx-2 overflow-hidden">
+      <div className={cn('mt-2 flex-1 overflow-hidden', eventDetailsContentClass)}>
         <TabsMenu event={event} competitions={competitions} sponsors={sponsors} attachments={attachments} comments={comments} />
       </div>
 
-      <Navigation>
-        <div className="flex justify-start gap-1">
-          <Link href={routeEvents}>
-            <ActionButton action={Action.BACK} />
-          </Link>
-        </div>
-
-        <div className="flex justify-end gap-1">
-          <ActionButtonCopyEventUrl alias={event.alias} />
-
-          {moment(event?.dateTo).unix() > moment().unix() && (
-            <Link href={`${routeEvents}/${event.id}/registration`}>
-              <TextButton text={t('btnRegistration')} />
+      <div className={eventDetailsContentClass}>
+        <Navigation>
+          <div className="flex justify-start gap-1">
+            <Link href={routeEvents}>
+              <ActionButton action={Action.BACK} />
             </Link>
-          )}
+          </div>
 
-          <TextButtonFeedback event={event} />
-        </div>
-      </Navigation>
+          <div className="flex min-w-0 flex-wrap justify-end gap-1">
+            <ActionButtonCopyEventUrl alias={event.alias} />
+
+            {moment(event?.dateTo).unix() > moment().unix() && (
+              <Link href={`${routeEvents}/${event.id}/registration`}>
+                <TextButton text={t('btnRegistration')} />
+              </Link>
+            )}
+
+            <TextButtonFeedback event={event} />
+          </div>
+        </Navigation>
+      </div>
     </div>
   );
 }
