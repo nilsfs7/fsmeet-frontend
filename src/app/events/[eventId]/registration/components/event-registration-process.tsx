@@ -1088,11 +1088,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
       </div>
 
       <Navigation>
-        {!page && (
-          <Link href={`${routeEvents}/${event.id}`}>
-            <ActionButton action={Action.BACK} />
-          </Link>
-        )}
+        {!page && <ActionButton href={`${routeEvents}/${event.id}`} action={Action.BACK} />}
         {/* Button Cancel Process */}
         {page && (
           <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCancelClicked}>

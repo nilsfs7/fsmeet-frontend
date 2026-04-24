@@ -21,7 +21,6 @@ import Navigation from '@/components/navigation';
 import BattleGrid from '@/components/comp/battle-grid';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { routeEvents } from '@/domain/constants/routes';
-import Link from 'next/link';
 import { User } from '@/domain/types/user';
 
 interface IRoundEditor {
@@ -350,9 +349,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
 
       {/* TODO: move navigation to page.tsx */}
       <Navigation>
-        <Link href={`${routeEvents}/${event.id}/comps`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${event.id}/comps`} action={Action.BACK} />
 
         {!gameModeApplied && rounds.length > 0 && (
           <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveClicked}>

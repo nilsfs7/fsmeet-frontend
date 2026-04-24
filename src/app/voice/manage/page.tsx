@@ -46,9 +46,7 @@ export default async function ManagePolls() {
       </div>
 
       <Navigation>
-        <Link href={routeVoice}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeVoice} action={Action.BACK} />
 
         <Button asChild variant="action" className={ctaActionButtonClassName}>
           <Link href={routeVoiceCreatePoll}>{t('btnCreatePoll')}</Link>

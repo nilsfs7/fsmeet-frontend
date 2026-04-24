@@ -163,9 +163,7 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
             {session?.user?.username === AdministrativeUser.ADMIN && <ActionButtonDeleteUser username={user.username} />}
 
             {session?.user?.username === user.username && (
-              <Link href={routeAccount}>
-                <ActionButton action={Action.EDIT} />
-              </Link>
+              <ActionButton href={routeAccount} action={Action.EDIT} />
             )}
           </div>
         </Navigation>

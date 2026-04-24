@@ -1,6 +1,5 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
@@ -28,9 +27,10 @@ export default async function EventOffering(props: { params: Promise<{ eventId: 
                 </div>
 
                 <div className="mx-1 flex w-1/2 justify-start">
-                  <Link href={`${routeEvents}/${params.eventId}/offerings/${offering.id}/edit`}>
-                    <ActionButton action={Action.EDIT} />
-                  </Link>
+                  <ActionButton
+                    href={`${routeEvents}/${params.eventId}/offerings/${offering.id}/edit`}
+                    action={Action.EDIT}
+                  />
                 </div>
               </div>
             );
@@ -45,18 +45,14 @@ export default async function EventOffering(props: { params: Promise<{ eventId: 
           <div className="m-1 flex items-center gap-2">
             <div className="flex w-1/2 justify-end">{t('btnCreate')}</div>
             <div className="flex w-1/2">
-              <Link href={`${routeEvents}/${params.eventId}/offerings/create`}>
-                <ActionButton action={Action.ADD} />
-              </Link>
+              <ActionButton href={`${routeEvents}/${params.eventId}/offerings/create`} action={Action.ADD} />
             </div>
           </div>
         </div>
       </div>
 
       <Navigation>
-        <Link href={`${routeEvents}/${params.eventId}`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${params.eventId}`} action={Action.BACK} />
       </Navigation>
     </div>
   );

@@ -214,9 +214,7 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
         </div>
 
         <Navigation>
-          <Link href={routeHome}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeHome} action={Action.BACK} />
         </Navigation>
       </div>
     </>

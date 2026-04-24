@@ -2,7 +2,6 @@ import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { routeAccount } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { Header } from '@/components/header';
 import PageTitle from '@/components/page-title';
 import { ColumnInfo, PaymentsList } from './components/payments-list';
@@ -35,9 +34,7 @@ export default async function Payments() {
       <PaymentsList columnData={columnData} />
 
       <Navigation>
-        <Link href={`${routeAccount}/?tab=account`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeAccount}/?tab=account`} action={Action.BACK} />
       </Navigation>
     </div>
   );

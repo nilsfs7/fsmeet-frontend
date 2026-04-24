@@ -10,7 +10,6 @@ import { SocialPlatform } from '@/domain/enums/social-platform';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/domain/types/user';
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
 
 export default async function About() {
   const t = await getTranslations('/about/contributors');
@@ -93,9 +92,7 @@ export default async function About() {
       </div>
 
       <Navigation>
-        <Link href={routeAbout}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeAbout} action={Action.BACK} />
       </Navigation>
     </div>
   );

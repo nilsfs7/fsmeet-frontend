@@ -80,9 +80,7 @@ export default async function About() {
       </PageInset>
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
       </Navigation>
     </div>
   );

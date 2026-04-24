@@ -1,6 +1,5 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
@@ -126,9 +125,7 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
       </div>
 
       <Navigation>
-        <Link href={`${routeEvents}/${params.eventId}`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${params.eventId}`} action={Action.BACK} />
       </Navigation>
     </div>
   );

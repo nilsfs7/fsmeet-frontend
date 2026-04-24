@@ -7,7 +7,6 @@ import TextInputLarge from '@/components/common/text-input-large';
 import { routeAdminOverview } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/page-title';
 import { Toaster, toast } from 'sonner';
@@ -189,9 +188,7 @@ export default function Broadcast() {
         </div>
 
         <Navigation>
-          <Link href={routeAdminOverview}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeAdminOverview} action={Action.BACK} />
 
           <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSubmitClicked}>
             Submit

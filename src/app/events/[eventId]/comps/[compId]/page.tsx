@@ -2,7 +2,6 @@ import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { getCompetition, getRounds } from '@/infrastructure/clients/competition.client';
 import { TabsMenu } from './components/tabs-menu';
-import Link from 'next/link';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { routeEvents } from '@/domain/constants/routes';
@@ -28,9 +27,10 @@ export default async function CompetitionDetails(props: { params: Promise<{ even
         <TabsMenu comp={comp} event={event} />
 
         <Navigation>
-          <Link href={`${routeEvents}/${comp.eventId}?tab=competitions`}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton
+            href={`${routeEvents}/${comp.eventId}?tab=competitions`}
+            action={Action.BACK}
+          />
 
           <ActionButtonDownloadResults event={event} comp={comp} rounds={rounds} />
         </Navigation>

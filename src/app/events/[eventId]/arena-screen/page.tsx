@@ -4,7 +4,6 @@ import Navigation from '@/components/navigation';
 import { routeEvents } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
-import Link from 'next/link';
 import { ArenaCompetitionPicker } from './components/arena-competition-picker';
 import { ArenaScreenSettings } from './components/arena-screen-settings';
 import { OpenArenaPreviewButton } from './components/open-arena-preview-button';
@@ -29,9 +28,7 @@ export default async function ArenaScreen(props: { params: Promise<{ eventId: st
       </div>
 
       <Navigation>
-        <Link href={`${routeEvents}/${params.eventId}`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${params.eventId}`} action={Action.BACK} />
       </Navigation>
     </div>
   );

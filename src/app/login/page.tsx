@@ -1,6 +1,5 @@
 import Navigation from '@/components/navigation';
 import { LoginForm } from './components/login-form';
-import Link from 'next/link';
 import { routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
@@ -10,9 +9,7 @@ export default async function Login() {
     <div className="min-h-0 flex-1 flex flex-col">
       <LoginForm />
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
       </Navigation>
     </div>
   );

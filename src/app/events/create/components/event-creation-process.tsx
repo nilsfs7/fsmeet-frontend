@@ -583,17 +583,9 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       </div>
 
       <Navigation>
-        {!page && (
-          <Link href={`${routeEventsCreate}`}>
-            <ActionButton action={Action.BACK} />
-          </Link>
-        )}
+        {!page && <ActionButton href={`${routeEventsCreate}`} action={Action.BACK} />}
         {/* Button Cancel Process */}
-        {page && page === CreationProcessPage.EVENT_TYPE && (
-          <Link href={`${routeHome}`}>
-            <ActionButton action={Action.BACK} />
-          </Link>
-        )}
+        {page && page === CreationProcessPage.EVENT_TYPE && <ActionButton href={`${routeHome}`} action={Action.BACK} />}
 
         {/* Button Cancel Process */}
         {cancelButtonShown() && (

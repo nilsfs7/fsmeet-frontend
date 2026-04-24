@@ -6,7 +6,6 @@ import TextInput from '@/components/common/text-input';
 import { useRouter } from 'next/navigation';
 import { routeLogin, routePasswordPending } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
-import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
 import { Toaster, toast } from 'sonner';
@@ -69,9 +68,7 @@ export default function ForgotPassword() {
         </div>
 
         <Navigation>
-          <Link href={routeLogin}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeLogin} action={Action.BACK} />
         </Navigation>
       </div>
     </>

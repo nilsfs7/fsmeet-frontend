@@ -6,7 +6,6 @@ import TextInputLarge from '@/components/common/text-input-large';
 import { routeFeedback, routeFeedbackThankyou } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/page-title';
 import { Toaster, toast } from 'sonner';
@@ -58,9 +57,7 @@ export default function GeneralFeedback() {
         </div>
 
         <Navigation>
-          <Link href={routeFeedback}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeFeedback} action={Action.BACK} />
 
           <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSubmitClicked}>
             {t('btnSubmit')}

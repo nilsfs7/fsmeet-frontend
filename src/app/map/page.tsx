@@ -6,7 +6,6 @@ import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { getUser, getUsers } from '@/infrastructure/clients/user.client';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
 import { createTranslator } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
@@ -75,9 +74,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
       )}
       {!iframeView && (
         <Navigation>
-          <Link href={routeHome}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeHome} action={Action.BACK} />
 
           <div className="flex justify-end gap-1">
             <ActionButtonCopyUrl />

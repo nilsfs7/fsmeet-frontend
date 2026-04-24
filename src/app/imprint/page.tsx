@@ -5,7 +5,6 @@ import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { PageInset } from '@/components/layout/page-inset';
 
 export default function Imprint() {
@@ -20,9 +19,7 @@ export default function Imprint() {
       </PageInset>
 
       <Navigation>
-        <Link href={routeAbout}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeAbout} action={Action.BACK} />
       </Navigation>
     </div>
   );

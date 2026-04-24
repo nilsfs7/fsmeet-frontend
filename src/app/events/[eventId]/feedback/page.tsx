@@ -58,9 +58,7 @@ export default function EventFeedback(props: { params: Promise<{ eventId: string
         </div>
 
         <Navigation>
-          <Link href={`${routeEvents}/${params.eventId}`}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={`${routeEvents}/${params.eventId}`} action={Action.BACK} />
 
           <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSubmitClicked}>
             {t('btnSubmit')}

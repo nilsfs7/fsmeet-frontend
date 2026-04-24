@@ -2,7 +2,6 @@ import { routeHome, routeLogin } from '@/domain/constants/routes';
 import { auth } from '@/auth';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { ProfilePicture } from './components/profile-picture';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
@@ -38,9 +37,7 @@ export default async function Account() {
       </div>
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
 
         <SaveUserInfoButton />
       </Navigation>

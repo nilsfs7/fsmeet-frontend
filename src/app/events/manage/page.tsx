@@ -1,5 +1,4 @@
 import { Event } from '@/domain/types/event';
-import Link from 'next/link';
 import Navigation from '@/components/navigation';
 import { routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
@@ -64,9 +63,7 @@ export default async function MyEventsOverview() {
       </div>
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
 
         {actingUser?.type !== UserType.FAN && <EventManageCreateEventButton />}
       </Navigation>

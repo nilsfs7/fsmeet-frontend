@@ -47,9 +47,7 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
 
       <Navigation>
         <div className="flex justify-start gap-1">
-          <Link href={routeEvents}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeEvents} action={Action.BACK} />
         </div>
 
         <div className="flex min-w-0 flex-wrap justify-end gap-1">

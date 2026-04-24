@@ -58,9 +58,7 @@ export default async function Voice() {
       </div>
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
 
         <div className="flex justify-end gap-1">
           <ActionButtonCopyPollUrl />

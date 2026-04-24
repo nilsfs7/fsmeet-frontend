@@ -6,7 +6,6 @@ import TextInputLarge from '@/components/common/text-input-large';
 import { useRouter } from 'next/navigation';
 import { routeFeedback, routeFeedbackThankyou } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
-import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
 import PageTitle from '@/components/page-title';
@@ -58,9 +57,7 @@ export default function RequestFeature() {
         </div>
 
         <Navigation>
-          <Link href={routeFeedback}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeFeedback} action={Action.BACK} />
 
           <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSubmitClicked}>
             {t('btnSubmit')}

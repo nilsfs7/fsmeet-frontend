@@ -29,9 +29,7 @@ export default async function Feedback() {
       </div>
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
       </Navigation>
     </div>
   );

@@ -19,9 +19,7 @@ export default async function EventsOverview() {
 
       <Navigation>
         <div className="flex min-w-0 flex-wrap justify-start gap-1">
-          <Link href={routeHome}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeHome} action={Action.BACK} />
         </div>
 
         <div className="flex min-w-0 flex-wrap justify-end gap-1">

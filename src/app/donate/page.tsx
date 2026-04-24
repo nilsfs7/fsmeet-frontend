@@ -5,7 +5,6 @@ import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
 import CryptoAddress from '@/components/crypto-address';
 import { CryptoCurrencyCode } from '@/domain/enums/crypto-currency-code';
 import DonationForm from './components/donation-form';
@@ -37,9 +36,7 @@ export default async function Donate() {
       </div>
 
       <Navigation>
-        <Link href={routeAbout}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeAbout} action={Action.BACK} />
       </Navigation>
     </div>
   );

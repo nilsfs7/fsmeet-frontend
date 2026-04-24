@@ -748,9 +748,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                     <div className="hover:underline">{t('tabMapShowOnMap')}</div>
                   </Link>
 
-                  <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}>
-                    <ActionButton action={Action.GOTOMAP} />
-                  </Link>
+                  <ActionButton
+                    href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}
+                    action={Action.GOTOMAP}
+                  />
                 </div>
               )}
             </div>

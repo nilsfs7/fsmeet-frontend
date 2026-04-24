@@ -4,7 +4,6 @@ import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { DataProtectionText } from './components/data-protection-text';
 
 export default function DataProtection() {
@@ -19,9 +18,7 @@ export default function DataProtection() {
       </div>
 
       <Navigation>
-        <Link href={routeAbout}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeAbout} action={Action.BACK} />
       </Navigation>
     </div>
   );

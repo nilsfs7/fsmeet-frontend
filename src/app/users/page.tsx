@@ -2,7 +2,6 @@ import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { Header } from '@/components/header';
 import PageTitle from '@/components/page-title';
 import { getUsers } from '@/infrastructure/clients/user.client';
@@ -67,9 +66,7 @@ export default async function Users() {
       <UsersList columnData={columnData} />
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
       </Navigation>
     </div>
   );

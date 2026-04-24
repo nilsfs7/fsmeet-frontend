@@ -27,6 +27,7 @@ import {
   IconTrophy,
   IconUsers,
 } from '@tabler/icons-react';
+import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
 import { imgWorld } from '@/domain/constants/images';
@@ -122,35 +123,38 @@ interface IButton {
   style?: ButtonStyle;
   disabled?: boolean;
   onClick?: () => void;
+  /** In-app route: `Button asChild` + `Link` = one styled anchor (avoids `a` wrapping `button`). Ignored when `disabled`. */
+  href?: string;
 }
 
-const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, disabled = false, onClick }: IButton) => {
+const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, disabled = false, onClick, href }: IButton) => {
   const variant = styleToVariant(style, disabled);
   const buttonSize = sizeToButtonSize(size);
   const boxClass = sizeToBoxClass(size);
   const iconConfig = ACTION_ICON[action];
   const iconClassName = size === Size.XS ? 'h-full w-full' : 'h-[63%] w-[63%]';
+  const ariaLabel = action.toString().toLowerCase();
+  const sizeClass = cn(size === Size.XS && 'border-0 shadow-none hover:shadow-none');
+
+  const icon = iconConfig.kind === 'img' ? <img src={iconConfig.src} alt={iconConfig.alt} className={boxClass} /> : <iconConfig.Icon className={iconClassName} stroke={2.0} />;
+
+  const trigger =
+    href && !disabled ? (
+      <Button asChild variant={variant} size={buttonSize} className={sizeClass}>
+        <Link href={href} aria-label={ariaLabel}>
+          {icon}
+        </Link>
+      </Button>
+    ) : (
+      <Button type="button" variant={variant} size={buttonSize} className={sizeClass} disabled={disabled} onClick={onClick} aria-label={ariaLabel}>
+        {icon}
+      </Button>
+    );
 
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            type="button"
-            variant={variant}
-            size={buttonSize}
-            className={cn(size === Size.XS && 'border-0 shadow-none hover:shadow-none')}
-            disabled={disabled}
-            onClick={onClick}
-            aria-label={action.toString().toLowerCase()}
-          >
-            {iconConfig.kind === 'img' ? (
-              <img src={iconConfig.src} alt={iconConfig.alt} className={boxClass} />
-            ) : (
-              <iconConfig.Icon className={iconClassName} stroke={2.0} />
-            )}
-          </Button>
-        </TooltipTrigger>
+        <TooltipTrigger asChild>{trigger}</TooltipTrigger>
 
         {tooltip && (
           <TooltipContent>

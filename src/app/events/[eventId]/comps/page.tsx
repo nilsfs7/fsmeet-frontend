@@ -1,6 +1,5 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import Navigation from '@/components/navigation';
 import Separator from '@/components/separator';
 import { routeEvents } from '@/domain/constants/routes';
@@ -29,9 +28,10 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
                       <div className="flex w-1/2 justify-end">{comp.name}</div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit`}>
-                            <ActionButton action={Action.EDIT} />
-                          </Link>
+                          <ActionButton
+                            href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit`}
+                            action={Action.EDIT}
+                          />
                           <div>{t('btnEdit')}</div>
                         </div>
                       </div>
@@ -41,9 +41,10 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/pool`}>
-                            <ActionButton action={Action.MANAGE_USERS} />
-                          </Link>
+                          <ActionButton
+                            href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/pool`}
+                            action={Action.MANAGE_USERS}
+                          />
                           <div>{t('btnPool')}</div>
                         </div>
                       </div>
@@ -53,9 +54,10 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/mode`}>
-                            <ActionButton action={Action.MANAGE_COMPETITIONS} />
-                          </Link>
+                          <ActionButton
+                            href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/mode`}
+                            action={Action.MANAGE_COMPETITIONS}
+                          />
                           <div>{t('btnGameMode')}</div>
                         </div>
                       </div>
@@ -65,9 +67,10 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/seeding`}>
-                            <ActionButton action={Action.MANAGE_USERS} />
-                          </Link>
+                          <ActionButton
+                            href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/seeding`}
+                            action={Action.MANAGE_USERS}
+                          />
                           <div>{t('btnSeedingAndResults')}</div>
                         </div>
                       </div>
@@ -83,9 +86,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
               <div className="m-1 flex items-center gap-2">
                 <div className="flex w-1/2 justify-end">{t('btnAddNew')}</div>
                 <div className="flex w-1/2">
-                  <Link href={`${routeEvents}/${params.eventId}/comps/create`}>
-                    <ActionButton action={Action.ADD} />
-                  </Link>
+                  <ActionButton href={`${routeEvents}/${params.eventId}/comps/create`} action={Action.ADD} />
                 </div>
               </div>
             </>
@@ -94,9 +95,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
       </div>
 
       <Navigation>
-        <Link href={`${routeEvents}/${params.eventId}`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${params.eventId}`} action={Action.BACK} />
       </Navigation>
     </div>
   );
