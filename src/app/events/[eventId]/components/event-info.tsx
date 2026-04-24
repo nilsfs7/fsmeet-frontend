@@ -19,7 +19,7 @@ import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { isPublicEventState } from '@/functions/event-state';
 import Link from 'next/link';
 import { LocationMap } from '../../../../components/location-map';
-import Separator from '@/components/seperator';
+import Separator from '@/components/separator';
 
 interface IEventProps {
   event: Event;

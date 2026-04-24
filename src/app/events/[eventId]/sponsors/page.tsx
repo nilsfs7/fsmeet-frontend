@@ -5,7 +5,7 @@ import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { getSponsors } from '@/infrastructure/clients/sponsor.client';
-import Separator from '@/components/seperator';
+import Separator from '@/components/separator';
 import { getTranslations } from 'next-intl/server';
 
 export default async function EventSponsors(props: { params: Promise<{ eventId: string }> }) {

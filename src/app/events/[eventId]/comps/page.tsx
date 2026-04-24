@@ -2,7 +2,7 @@ import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
 import Link from 'next/link';
 import Navigation from '@/components/navigation';
-import Separator from '@/components/seperator';
+import Separator from '@/components/separator';
 import { routeEvents } from '@/domain/constants/routes';
 import PageTitle from '@/components/page-title';
 import { getTranslations } from 'next-intl/server';

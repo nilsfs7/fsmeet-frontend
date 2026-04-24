@@ -5,7 +5,7 @@ import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { getOfferings } from '@/infrastructure/clients/offering.client';
-import Separator from '@/components/seperator';
+import Separator from '@/components/separator';
 import { getTranslations } from 'next-intl/server';
 
 export default async function EventOffering(props: { params: Promise<{ eventId: string }> }) {

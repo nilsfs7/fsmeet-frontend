@@ -11,7 +11,7 @@ import { Action } from '@/domain/enums/action';
 import moment from 'moment';
 import { DatePicker } from './common/date-picker';
 import CheckBox from './common/check-box';
-import Separator from './seperator';
+import Separator from './separator';
 import SectionHeader from './common/section-header';
 import ComboBox from './common/combo-box';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';

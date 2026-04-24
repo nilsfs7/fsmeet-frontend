@@ -7,7 +7,7 @@ import { useState } from 'react';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { imgAbout } from '@/domain/constants/images';
 import { TaskSize } from '@/domain/enums/task-size';
-import Separator from '@/components/seperator';
+import Separator from '@/components/separator';
 
 interface ITask {
   title: string;
