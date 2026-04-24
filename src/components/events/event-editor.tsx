@@ -654,22 +654,22 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           />
 
           <TextInput
-            id={'venueHouseNo'}
-            label={t('inputVenueHouseNumber')}
-            placeholder="40/1"
-            value={venueHouseNo}
-            onChange={e => {
-              setVenueHouseNo(e.currentTarget.value);
-            }}
-          />
-
-          <TextInput
             id={'venueStreet'}
             label={t('inputVenueStreet')}
             placeholder="Hofwiesenstraße"
             value={venueStreet}
             onChange={e => {
               setVenueStreet(e.currentTarget.value);
+            }}
+          />
+
+          <TextInput
+            id={'venueHouseNo'}
+            label={t('inputVenueHouseNumber')}
+            placeholder="40/1"
+            value={venueHouseNo}
+            onChange={e => {
+              setVenueHouseNo(e.currentTarget.value);
             }}
           />
 
