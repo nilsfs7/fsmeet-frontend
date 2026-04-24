@@ -2,7 +2,7 @@
 
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/domain/constants/routes';
@@ -19,6 +19,7 @@ const ProfileMenu = () => {
 
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
+  const containerRef = useRef<HTMLDivElement>(null);
   const menuItems = [t('menuItemMyEvents'), t('menuItemPublicProfile'), t('menuItemSettings'), t('menuItemFeedback'), t('menuItemLogout')];
   const menuItemIcons = [imgProfileEvents, imgUserNoImg, imgProfileSettings, imgProfileFeedback, imgProfileLogout];
 
@@ -29,6 +30,18 @@ const ProfileMenu = () => {
     const url = localStorage.getItem('imageUrl');
     setImageUrl(url ? url : null);
   }, [username, imageUrl, session]);
+
+  useEffect(() => {
+    if (!opened) return;
+    const onPointerDown = (event: PointerEvent) => {
+      const el = containerRef.current;
+      if (el && !el.contains(event.target as Node)) {
+        setOpened(false);
+      }
+    };
+    document.addEventListener('pointerdown', onPointerDown, true);
+    return () => document.removeEventListener('pointerdown', onPointerDown, true);
+  }, [opened]);
 
   const onClickProfile = () => {
     !isAuthenticated() ? router.push(routeLogin) : setOpened(!opened);
@@ -91,7 +104,7 @@ const ProfileMenu = () => {
   };
 
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative">
       {/* picture and name  */}
       <div className="static flex h-14 min-w-[100px] max-w-[180px] p-1 items-center justify-center cursor-pointer rounded-lg border border-secondary-dark bg-secondary-light hover:border-primary">
         <button className="flex gap-2 items-center" onClick={onClickProfile}>
