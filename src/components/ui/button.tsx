@@ -55,7 +55,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, va
 });
 Button.displayName = 'Button';
 
-/** Sizing/animation for primary CTA buttons (replaces the former TextButton shell). */
+/** Sizing/animation for primary CTA-style `Button` variants (`action*`). */
 export const ctaActionButtonClassName =
   'min-w-36 rounded-lg text-base font-medium transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100';
 

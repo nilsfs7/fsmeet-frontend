@@ -9,7 +9,7 @@ import { Event } from '@/domain/types/event';
 import { routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 
-export const TextButtonSaveEvent = () => {
+export const SaveEventButton = () => {
   const t = useTranslations('/events/edit');
 
   const { data: session } = useSession();

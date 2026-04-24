@@ -1,7 +1,7 @@
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import NavigateBackButton from '@/components/navigate-back-button';
-import { TextButtonCreatePoll } from './components/text-button-create-poll';
+import { CreatePollButton } from './components/create-poll-button';
 import { Editor } from './components/editor';
 import { getTranslations } from 'next-intl/server';
 
@@ -24,7 +24,7 @@ export default async function EventCreation() {
         </div>
 
         <div className="ml-1">
-          <TextButtonCreatePoll />
+          <CreatePollButton />
         </div>
       </Navigation>
     </div>

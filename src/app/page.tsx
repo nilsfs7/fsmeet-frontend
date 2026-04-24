@@ -13,7 +13,7 @@ import { getTranslations } from 'next-intl/server';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/domain/types/user';
 import { NavigationItem } from './components/navigation-item';
-import { TextButtonCreateEvent } from './components/text-button-create-event';
+import { CreateEventButton } from './components/create-event-button';
 import { UserType } from '@/domain/enums/user-type';
 
 export default async function Home() {
@@ -41,7 +41,7 @@ export default async function Home() {
 
       <div className="flex min-h-0 max-h-full flex-col overflow-y-auto scrollbar-none">
         <div className="m-2 mt-6 flex flex-shrink-0 justify-center gap-2">
-          {actingUser?.type !== UserType.FAN && <TextButtonCreateEvent />}
+          {actingUser?.type !== UserType.FAN && <CreateEventButton />}
 
           <Button asChild variant="action" className={ctaActionButtonClassName}>
             <Link href={routeEvents}>{t('btnShowAllEvents')}</Link>

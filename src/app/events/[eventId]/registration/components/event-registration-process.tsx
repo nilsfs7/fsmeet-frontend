@@ -286,7 +286,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     return false;
   };
 
-  const getTextButtonCheckout = (): string => {
+  const getEnrollmentCtaLabel = (): string => {
     if (event.paymentMethodStripe.enabled && registrationFeeExists()) {
       return t('btnEnrollNowWithCheckout');
     }
@@ -1120,7 +1120,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           {/* Button Checkout */}
           {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && (
             <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleRegisterNowClicked}>
-              {getTextButtonCheckout()}
+              {getEnrollmentCtaLabel()}
             </Button>
           )}
 

@@ -9,7 +9,7 @@ import PageTitle from '@/components/page-title';
 import { getEvents } from '@/infrastructure/clients/event.client';
 import { auth } from '@/auth';
 import { TabsMenu } from './components/tabs-menu';
-import { TextButtonCreateEvent } from './components/text-button-create-event';
+import { EventManageCreateEventButton } from './components/create-event-button';
 import { getTranslations } from 'next-intl/server';
 import { User } from '@/domain/types/user';
 import { getUser } from '@/infrastructure/clients/user.client';
@@ -69,7 +69,7 @@ export default async function MyEventsOverview() {
             <ActionButton action={Action.BACK} />
           </Link>
 
-          {actingUser?.type !== UserType.FAN && <TextButtonCreateEvent />}
+          {actingUser?.type !== UserType.FAN && <EventManageCreateEventButton />}
         </Navigation>
       </div>
     </>

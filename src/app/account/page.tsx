@@ -7,7 +7,7 @@ import { ProfilePicture } from './components/profile-picture';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { TabsMenu } from './components/tabs-menu';
-import { TextButtonSaveUserInfo } from './components/text-button-save-user-info';
+import { SaveUserInfoButton } from './components/save-user-info-button';
 import { RedirectType, redirect } from 'next/navigation';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { getTranslations } from 'next-intl/server';
@@ -42,7 +42,7 @@ export default async function Account() {
           <ActionButton action={Action.BACK} />
         </Link>
 
-        <TextButtonSaveUserInfo />
+        <SaveUserInfoButton />
       </Navigation>
     </div>
   );

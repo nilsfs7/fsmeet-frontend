@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { License } from '@/domain/types/license';
 import { getLicense } from '@/infrastructure/clients/license.client';
 
-export const TextButtonCreateEvent = () => {
+export const CreateEventButton = () => {
   const t = useTranslations('/');
 
   const { data: session } = useSession();

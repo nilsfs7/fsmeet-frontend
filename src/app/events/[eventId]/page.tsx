@@ -10,7 +10,7 @@ import { getCompetitions } from '@/infrastructure/clients/competition.client';
 import { getSponsors } from '@/infrastructure/clients/sponsor.client';
 import { getTranslations } from 'next-intl/server';
 import { ActionButtonCopyEventUrl } from './components/action-button-copy-event-url';
-import { TextButtonFeedback } from './components/text-button-feedback';
+import { EventFeedbackButton } from './components/event-feedback-button';
 import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import moment from 'moment';
@@ -61,7 +61,7 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
             </Button>
           )}
 
-          <TextButtonFeedback event={event} />
+          <EventFeedbackButton event={event} />
         </div>
       </Navigation>
     </div>

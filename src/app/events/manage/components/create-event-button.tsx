@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export const TextButtonCreateEvent = () => {
+export const EventManageCreateEventButton = () => {
   const t = useTranslations('/events/manage');
 
   const { data: session } = useSession();

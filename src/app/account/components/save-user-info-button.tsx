@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Toaster, toast } from 'sonner';
 
-export const TextButtonSaveUserInfo = () => {
+export const SaveUserInfoButton = () => {
   const t = useTranslations('/account');
 
   const { data: session } = useSession();

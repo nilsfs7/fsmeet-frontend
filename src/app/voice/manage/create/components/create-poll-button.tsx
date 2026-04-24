@@ -9,7 +9,7 @@ import { routeVoiceManage } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 import moment from 'moment';
 
-export const TextButtonCreatePoll = () => {
+export const CreatePollButton = () => {
   const t = useTranslations('/voice/manage/create');
 
   const { data: session } = useSession();

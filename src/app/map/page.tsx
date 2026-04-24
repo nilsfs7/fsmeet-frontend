@@ -14,7 +14,7 @@ import { auth } from '@/auth';
 import { getMessagesByLocale } from '@/functions/get-messages-forced-locale';
 import { UserType } from '@/domain/enums/user-type';
 import { FreestylerMap } from '@/components/freestyler-map';
-import { TextButtonAddPin } from './components/text-button-add-pin';
+import { AddMapPinButton } from './components/add-map-pin-button';
 import { getSupportedlanguages } from '../../functions/get-supported-languages';
 
 export default async function Map(props: { searchParams: Promise<{ iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string }> }) {
@@ -82,7 +82,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
           <div className="flex justify-end gap-1">
             <ActionButtonCopyUrl />
 
-            {(!actingUser || (actingUser && !actingUser.locLatitude)) && actingUser?.type !== UserType.FAN && <TextButtonAddPin />}
+            {(!actingUser || (actingUser && !actingUser.locLatitude)) && actingUser?.type !== UserType.FAN && <AddMapPinButton />}
           </div>
         </Navigation>
       )}

@@ -8,15 +8,15 @@ import moment from 'moment';
 import { routeEvents } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { getEventRegistrations } from '../../../../infrastructure/clients/event.client';
-import { EventRegistration } from '../../../../domain/types/event-registration';
-import { isInEventRegistrations } from '../../../../functions/is-in-event-registrations';
+import { getEventRegistrations } from '@/infrastructure/clients/event.client';
+import { EventRegistration } from '@/domain/types/event-registration';
+import { isInEventRegistrations } from '@/functions/is-in-event-registrations';
 
-interface ITextButtonFeedback {
+export interface EventFeedbackButtonProps {
   event: Event;
 }
 
-export const TextButtonFeedback = ({ event }: ITextButtonFeedback) => {
+export const EventFeedbackButton = ({ event }: EventFeedbackButtonProps) => {
   const t = useTranslations('/events/eventid');
   const { data: session } = useSession();
 
