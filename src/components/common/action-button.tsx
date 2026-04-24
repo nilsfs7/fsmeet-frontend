@@ -138,7 +138,7 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
 
   const icon = iconConfig.kind === 'img' ? <img src={iconConfig.src} alt={iconConfig.alt} className={boxClass} /> : <iconConfig.Icon className={iconClassName} stroke={2.0} />;
 
-  const trigger =
+  const control =
     href && !disabled ? (
       <Button asChild variant={variant} size={buttonSize} className={sizeClass}>
         <Link href={href} aria-label={ariaLabel}>
@@ -150,6 +150,9 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
         {icon}
       </Button>
     );
+
+  // Disabled buttons do not receive pointer events; wrap so the tooltip can still show on hover/focus.
+  const trigger = disabled && tooltip ? <span className="inline-flex cursor-default">{control}</span> : control;
 
   return (
     <TooltipProvider>
