@@ -62,12 +62,10 @@ const LanguagePicker = () => {
     <div ref={containerRef} className="relative">
       <div
         className={cn(
-          'static flex h-14 w-14 cursor-pointer items-center justify-center rounded-xl border border-border/60 p-1',
-          'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-          'supports-[backdrop-filter]:bg-secondary-light/70',
+          'static flex h-14 w-14 cursor-pointer items-center justify-center rounded-xl border border-border/60 bg-secondary-light p-1 shadow-xs',
           'transition-all duration-200',
           'hover:border-primary/50 hover:shadow-md',
-          'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+          'dark:border-border/50 dark:bg-background dark:hover:border-primary/40',
           opened && 'border-primary/50 shadow-md',
         )}
       >
@@ -98,10 +96,8 @@ const LanguagePicker = () => {
         <div
           role="listbox"
           className={cn(
-            'absolute right-0 top-14 z-50 mt-2 w-14 overflow-hidden rounded-xl border border-border/60',
-            'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-            'supports-[backdrop-filter]:bg-secondary-light/70',
-            'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+            'absolute right-0 top-14 z-50 mt-2 w-14 overflow-hidden rounded-xl border border-border/60 bg-secondary-light shadow-xs',
+            'dark:border-border/50 dark:bg-background',
           )}
         >
           {supportedLanguages.map((language, index) => {
