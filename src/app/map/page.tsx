@@ -41,7 +41,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
   }
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       {!iframeView && (
         <>
           <Header />

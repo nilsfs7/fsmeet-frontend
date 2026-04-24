@@ -5,6 +5,7 @@ import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import LocalizationProvider from '@/lib/providers';
+import { AppShellColumn } from '@/components/layout/app-shell-column';
 
 const fontRoboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
@@ -26,7 +27,9 @@ export default async function RootLayout({
       <body className={fontRoboto.className}>
         <SessionProvider>
           <LocalizationProvider>
-            <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+            <NextIntlClientProvider messages={messages}>
+              <AppShellColumn>{children}</AppShellColumn>
+            </NextIntlClientProvider>
           </LocalizationProvider>
         </SessionProvider>
       </body>

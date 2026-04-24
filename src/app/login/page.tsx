@@ -7,7 +7,7 @@ import ActionButton from '@/components/common/action-button';
 
 export default async function Login() {
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <LoginForm />
       <Navigation>
         <Link href={routeHome}>

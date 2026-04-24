@@ -47,7 +47,7 @@ export default function ResetPassword() {
     <>
       <Toaster richColors />
 
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         <div className="p-2 h-full grid overflow-y-auto">
           <div className="h-full flex flex-col items-center justify-center">
             <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">

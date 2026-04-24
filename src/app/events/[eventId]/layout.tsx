@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-/** Event detail routes are wrapped by `app/events/layout` (`AppShellColumn`); do not nest another shell here. */
+/** Event detail routes use the single viewport shell from `app/layout` (`AppShellColumn`); do not add another shell here. */
 export default function EventIdLayout({ children }: { children: ReactNode }) {
   return children;
 }

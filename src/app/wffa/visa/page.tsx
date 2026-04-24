@@ -8,7 +8,7 @@ import { VisaRequestManagement } from './components/visa-request-management';
 
 export default async function UserWffaId() {
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title="Visa Request Management" />
 
       <VisaRequestManagement />

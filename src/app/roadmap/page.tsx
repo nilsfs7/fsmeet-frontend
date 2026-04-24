@@ -9,7 +9,7 @@ import NavigateBackButton from '@/components/navigate-back-button';
 
 export default async function Roadmap() {
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={'Roadmap'} />
 
       <div className="flex flex-col overflow-auto">

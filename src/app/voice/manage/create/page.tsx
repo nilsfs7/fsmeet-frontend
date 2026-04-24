@@ -9,7 +9,7 @@ export default async function EventCreation() {
   const t = await getTranslations('/voice/manage/create');
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <div className={`mx-2 flex flex-col overflow-y-auto`}>

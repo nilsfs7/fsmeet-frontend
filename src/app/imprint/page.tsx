@@ -10,7 +10,7 @@ import { PageInset } from '@/components/layout/page-inset';
 
 export default function Imprint() {
   return (
-    <div className="flex h-[calc(100dvh)] min-h-0 flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <Header />
 
       <PageTitle title="Impressum" />

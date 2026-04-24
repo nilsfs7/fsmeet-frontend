@@ -10,7 +10,7 @@ export default async function RegistrationPending(props: { searchParams: Promise
   const searchParams = await props.searchParams;
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <div className="p-2 h-full grid overflow-y-auto">
         <div className={'h-full flex flex-col items-center justify-center'}>
           <div className="mx-2 text-center">

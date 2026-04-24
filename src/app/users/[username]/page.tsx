@@ -32,7 +32,7 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
 
   return (
     <>
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         <Header />
 
         <div className="h-full overflow-y-auto">
