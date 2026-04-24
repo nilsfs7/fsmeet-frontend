@@ -1,6 +1,6 @@
 ## Tech stack
 
-- **Framework:** Next.js 16+ (App Router)
+- **Framework:** Next.js 15+ (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **UI components:** shadcn/ui
@@ -19,7 +19,7 @@
 ## Architecture
 
 - `app/`: pages and layouts
-- **App shell (P1):** `app/events/[eventId]/layout`, `app/account/layout`, and `app/admin/layout` wrap routes in `AppShellColumn` (`@/components/layout/app-shell-column`): full-height column, `relative` for `absolute` children, `min-h-0` for scroll. Pages under those trees use `className="min-h-0 flex-1 flex flex-col"` for the main column instead of repeating `h-[calc(100dvh)]` on every page.
+- **App shell (P1):** `app/events/layout`, `app/account/layout`, and `app/admin/layout` wrap their route trees in `AppShellColumn` (`@/components/layout/app-shell-column`): full-height column, `relative` for `absolute` children, `min-h-0` for scroll. All of `/events/*` (list, manage, create, and `events/[eventId]/…`) uses the single shell from `app/events/layout`; `app/events/[eventId]/layout` only passes `children` through so the shell is not nested twice. Pages under these trees use `className="min-h-0 flex-1 flex flex-col"` for the main column instead of repeating `h-[calc(100dvh)]` on every page.
 - `components/ui/`: shadcn/ui components
 - `components/shared/`: reusable components
 - `components/layout/`: page chrome helpers (e.g. `PageInset`)
