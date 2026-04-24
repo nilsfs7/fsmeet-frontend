@@ -357,7 +357,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
   });
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <Toaster richColors />
 
       {page && <PageTitle title={`${t('pageTitleEventCreationFlow')}`} />}

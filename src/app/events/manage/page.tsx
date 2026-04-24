@@ -52,26 +52,24 @@ export default async function MyEventsOverview() {
   }
 
   return (
-    <>
-      <div className="h-[calc(100dvh)] flex flex-col">
-        <Header />
+    <div className="min-h-0 flex-1 flex flex-col">
+      <Header />
 
-        <PageTitle title={t('pageTitle')} />
+      <PageTitle title={t('pageTitle')} />
 
-        <div className="mx-2 flex flex-col overflow-auto">
-          <div className={'w-full overflow-auto'}>
-            <TabsMenu actingUser={actingUser} eventsOwning={eventsOwning} eventsMaintaining={eventsMaintaining} eventsSubscribed={eventsSubscribed} />
-          </div>
+      <div className="mx-2 flex flex-col overflow-auto">
+        <div className={'w-full overflow-auto'}>
+          <TabsMenu actingUser={actingUser} eventsOwning={eventsOwning} eventsMaintaining={eventsMaintaining} eventsSubscribed={eventsSubscribed} />
         </div>
-
-        <Navigation>
-          <Link href={routeHome}>
-            <ActionButton action={Action.BACK} />
-          </Link>
-
-          {actingUser?.type !== UserType.FAN && <EventManageCreateEventButton />}
-        </Navigation>
       </div>
-    </>
+
+      <Navigation>
+        <Link href={routeHome}>
+          <ActionButton action={Action.BACK} />
+        </Link>
+
+        {actingUser?.type !== UserType.FAN && <EventManageCreateEventButton />}
+      </Navigation>
+    </div>
   );
 }
