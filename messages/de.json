@@ -388,7 +388,7 @@
     "pageTitle": "Angebot erstellen",
     "btnCreate": "Erstellen"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "Teilnehmer verwalten",
     "sectionParticipantsTitle": "Teilnehmer",
     "textNoParticipants": "Noch keine Registrierungen.",

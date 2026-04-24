@@ -406,7 +406,7 @@
     "pageTitle": "Cipta Tawaran",
     "btnCreate": "Cipta"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "Urus Peserta",
     "sectionParticipantsTitle": "Peserta",
     "textNoParticipants": "Belum ada pendaftaran.",

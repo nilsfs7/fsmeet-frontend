@@ -406,7 +406,7 @@
     "pageTitle": "创建选项/套餐",
     "btnCreate": "创建"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "管理参与者",
     "sectionParticipantsTitle": "参与者",
     "textNoParticipants": "暂无报名。",

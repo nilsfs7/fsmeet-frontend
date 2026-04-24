@@ -407,8 +407,8 @@
     "pageTitle": "Create Offering",
     "btnCreate": "Create"
   },
-  "/events/eventid/participants": {
-    "pageTitle": "Manage Participants",
+  "/events/eventid/attendees": {
+    "pageTitle": "Manage Attendees",
     "sectionParticipantsTitle": "Participants",
     "textNoParticipants": "No registrations, yet.",
     "sectionVisitorsTitle": "Visitors",

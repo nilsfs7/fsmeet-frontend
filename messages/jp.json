@@ -406,7 +406,7 @@
     "pageTitle": "提供内容を作成",
     "btnCreate": "作成"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "参加者を管理",
     "sectionParticipantsTitle": "参加者",
     "textNoParticipants": "参加登録はまだありません。",

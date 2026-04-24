@@ -388,7 +388,7 @@
     "pageTitle": "Créer une offre",
     "btnCreate": "Créer"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "Gérer les participants",
     "sectionParticipantsTitle": "Participants",
     "textNoParticipants": "Pas encore d'inscriptions.",

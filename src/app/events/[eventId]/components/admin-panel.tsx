@@ -30,7 +30,7 @@ const AdminPanel = async ({ event }: IAttachmentCardProps) => {
                 <ActionButton action={Action.EDIT} tooltip={t('adminPanelBtnEditEventToolTip')} />
               </Link>
 
-              <Link href={`${routeEvents}/${event.id}/participants`}>
+              <Link href={`${routeEvents}/${event.id}/attendees`}>
                 <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelBtnManageParticipantsToolTip')} />
               </Link>
 

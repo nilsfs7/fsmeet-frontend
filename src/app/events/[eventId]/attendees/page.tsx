@@ -10,9 +10,9 @@ import { getOfferings } from '@/infrastructure/clients/offering.client';
 import { ActionButtonDownloadList } from './components/action-button-download-list';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
 
-export default async function EventParticipants(props: { params: Promise<{ eventId: string }> }) {
+export default async function EventAttendees(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/participants');
+  const t = await getTranslations('/events/eventid/attendees');
   const session = await auth();
 
   const event = await getEvent(params.eventId, session);

@@ -406,7 +406,7 @@
     "pageTitle": "إنشاء عرض",
     "btnCreate": "إنشاء"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "إدارة المشاركين",
     "sectionParticipantsTitle": "المشاركون",
     "textNoParticipants": "لا توجد تسجيلات بعد.",

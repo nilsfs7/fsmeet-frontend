@@ -30,7 +30,7 @@ interface IRegistrationsList {
 }
 
 export const RegistrationsList = ({ eventId, registrations, accommodations, offerings, currency, paymentFeeCover }: IRegistrationsList) => {
-  const t = useTranslations('/events/eventid/participants');
+  const t = useTranslations('/events/eventid/attendees');
   const na = 'n/a';
 
   const { data: session } = useSession();
@@ -71,21 +71,21 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
 
   const handleInfoClicked = async (username: string) => {
     setRegistrationSelected(getRegistrationByUsername(username));
-    router.replace(`${routeEvents}/${eventId}/participants?info=1`);
+    router.replace(`${routeEvents}/${eventId}/attendees?info=1`);
   };
 
   const handleRemoveParticipantClicked = async (username: string) => {
     setUserSelected(username);
-    router.replace(`${routeEvents}/${eventId}/participants?delete=1`);
+    router.replace(`${routeEvents}/${eventId}/attendees?delete=1`);
   };
 
   const handleDenyParticipantClicked = async (username: string) => {
     setUserSelected(username);
-    router.replace(`${routeEvents}/${eventId}/participants?deny=1`);
+    router.replace(`${routeEvents}/${eventId}/attendees?deny=1`);
   };
 
   const handleCancelDialogClicked = async () => {
-    router.replace(`${routeEvents}/${eventId}/participants`);
+    router.replace(`${routeEvents}/${eventId}/attendees`);
   };
 
   const handleConfirmRemoveParticipantClicked = async (username: string) => {

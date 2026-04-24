@@ -406,7 +406,7 @@
     "pageTitle": "सेवा बनाएं",
     "btnCreate": "बनाएं"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "प्रतिभागी प्रबंधित करें",
     "sectionParticipantsTitle": "प्रतिभागी",
     "textNoParticipants": "अभी तक कोई पंजीकरण नहीं है।",
