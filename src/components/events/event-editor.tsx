@@ -434,15 +434,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
       <SectionHeader label={t('sectionGeneral')} />
 
-      <TextInput
-        id={'name'}
-        label={t('inputName')}
-        placeholder="German Freestyle Football Championship 2023"
-        value={name}
-        onChange={e => {
-          setEventName(e.currentTarget.value);
-        }}
-      />
+      <TextInput id={'name'} label={t('inputName')} placeholder="German Freestyle Football Championship 2023" value={name} onChange={e => setEventName(e.currentTarget.value)} />
 
       <TextInput
         id={'alias'}

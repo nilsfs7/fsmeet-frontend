@@ -19,51 +19,49 @@ interface ITextInput {
 }
 
 const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, maxInputLength, type, readOnly = false, onChange, onKeyDown }: ITextInput) => {
-  const inputClass = cn('h-full min-h-10 w-full', readOnly && 'bg-secondary-light');
+  const inputClass = cn('w-full', readOnly && 'bg-secondary-light');
+
+  const input = (
+    <Input
+      id={id}
+      className={inputClass}
+      type={type}
+      placeholder={placeholder}
+      defaultValue={defValue}
+      value={value}
+      readOnly={readOnly}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+    />
+  );
+
+  const lengthHint =
+    maxInputLength != null ? (
+      <p className="text-end text-xs text-muted-foreground">{`(${value?.length ?? 0}/${maxInputLength})`}</p>
+    ) : null;
+
+  if (!labelOnTop) {
+    return (
+      <div className="m-2 grid grid-cols-2 items-start gap-x-2 gap-y-1">
+        <label htmlFor={id} className="pt-2 text-sm font-medium leading-none">
+          {label}
+        </label>
+        <div className="flex min-w-0 flex-col gap-1">
+          {input}
+          {lengthHint}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      {labelOnTop && (
-        <div className="m-2 flex h-[100%] flex-col">
-          <div>{label}</div>
-          <div className="flex h-full">
-            <Input
-              id={id}
-              className={inputClass}
-              type={type}
-              placeholder={placeholder}
-              defaultValue={defValue}
-              value={value}
-              readOnly={readOnly}
-              onChange={onChange}
-              onKeyDown={onKeyDown}
-            />
-          </div>
-
-          {maxInputLength && <div className="flex justify-end p-1 text-xs">{`(${value?.length || 0}/${maxInputLength})`}</div>}
-        </div>
-      )}
-
-      {!labelOnTop && (
-        <div className="m-2 grid h-[100%] grid-cols-2">
-          <div>{label}</div>
-          <Input
-            id={id}
-            className={inputClass}
-            type={type}
-            placeholder={placeholder}
-            defaultValue={defValue}
-            value={value}
-            readOnly={readOnly}
-            onChange={onChange}
-            onKeyDown={onKeyDown}
-          />
-
-          <div></div>
-          {maxInputLength && <div className="flex justify-end p-1 text-xs">{`(${value?.length || 0}/${maxInputLength})`}</div>}
-        </div>
-      )}
-    </>
+    <div className="m-2 flex flex-col gap-1.5">
+      <label htmlFor={id} className="text-sm font-medium leading-none">
+        {label}
+      </label>
+      {input}
+      {lengthHint}
+    </div>
   );
 };
 
