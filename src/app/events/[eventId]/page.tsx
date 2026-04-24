@@ -45,27 +45,25 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
         <TabsMenu event={event} competitions={competitions} sponsors={sponsors} attachments={attachments} comments={comments} />
       </div>
 
-      <div className={eventDetailsContentClass}>
-        <Navigation>
-          <div className="flex justify-start gap-1">
-            <Link href={routeEvents}>
-              <ActionButton action={Action.BACK} />
-            </Link>
-          </div>
+      <Navigation>
+        <div className="flex justify-start gap-1">
+          <Link href={routeEvents}>
+            <ActionButton action={Action.BACK} />
+          </Link>
+        </div>
 
-          <div className="flex min-w-0 flex-wrap justify-end gap-1">
-            <ActionButtonCopyEventUrl alias={event.alias} />
+        <div className="flex min-w-0 flex-wrap justify-end gap-1">
+          <ActionButtonCopyEventUrl alias={event.alias} />
 
-            {moment(event?.dateTo).unix() > moment().unix() && (
-              <Button asChild variant="action" className={ctaActionButtonClassName}>
-                <Link href={`${routeEvents}/${event.id}/registration`}>{t('btnRegistration')}</Link>
-              </Button>
-            )}
+          {moment(event?.dateTo).unix() > moment().unix() && (
+            <Button asChild variant="action" className={ctaActionButtonClassName}>
+              <Link href={`${routeEvents}/${event.id}/registration`}>{t('btnRegistration')}</Link>
+            </Button>
+          )}
 
-            <TextButtonFeedback event={event} />
-          </div>
-        </Navigation>
-      </div>
+          <TextButtonFeedback event={event} />
+        </div>
+      </Navigation>
     </div>
   );
 }

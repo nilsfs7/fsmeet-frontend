@@ -39,7 +39,7 @@ export default async function Home() {
         <img className="h-12 mt-2" src={imgFreestyler} />
       </div>
 
-      <div className="flex max-h-full flex-col overflow-y-auto">
+      <div className="flex min-h-0 max-h-full flex-col overflow-y-auto scrollbar-none">
         <div className="m-2 mt-6 flex flex-shrink-0 justify-center gap-2">
           {actingUser?.type !== UserType.FAN && <TextButtonCreateEvent />}
 
@@ -54,7 +54,7 @@ export default async function Home() {
       </div>
 
       <Navigation>
-        <div className="mx-2 flex gap-2">
+        <div className="flex min-w-0 flex-wrap gap-2">
           <NavigationItem targetRoute={routeMap} image={imgWorld} label={t('navMap')} />
 
           <NavigationItem targetRoute={routeUsers} image={imgCommunity} label={t('navCommunity')} />
