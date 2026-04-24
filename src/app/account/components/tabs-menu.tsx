@@ -38,7 +38,7 @@ import { useTranslations } from 'next-intl';
 import Label from '@/components/label';
 import { toTitleCase } from '@/functions/string-manipulation';
 import { isNaturalPerson } from '@/functions/is-natural-person';
-import Separator from '@/components/seperator';
+import Separator from '@/components/separator';
 import { ActionButtonCopyToClipboard } from '@/components/common/action-button-copy-to-clipboard';
 import { menuSupportedLanguages } from '../../../domain/constants/menus/menu-supported-languages';
 

@@ -46,7 +46,7 @@ import { Competition } from '@/domain/types/competition';
 import { isNaturalPerson } from '@/functions/is-natural-person';
 import { getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 import { Offering } from '../../../../../domain/types/offering';
-import Separator from '@/components/seperator';
+import Separator from '@/components/separator';
 import { TShirtSize } from '../../../../../domain/enums/t-shirt-size';
 
 interface IEventRegistrationProcess {

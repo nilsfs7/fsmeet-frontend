@@ -17,7 +17,7 @@ import CurInput from '../common/currency-input';
 import { EventState } from '@/domain/enums/event-state';
 import { DatePicker } from '../common/date-picker';
 import { EditorMode } from '@/domain/enums/editor-mode';
-import Separator from '../seperator';
+import Separator from '../separator';
 import SectionHeader from '../common/section-header';
 import Link from 'next/link';
 import { routeAccount, routeEvents } from '@/domain/constants/routes';

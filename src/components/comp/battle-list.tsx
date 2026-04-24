@@ -1,6 +1,6 @@
 import { roundContainsParticipant, roundMatchesAscending, type Round } from '@/domain/types/round';
 import MatchCard from './match-card';
-import Separator from '../seperator';
+import Separator from '../separator';
 import { User } from '@/domain/types/user';
 import moment from 'moment';
 import { matchContainsParticipant } from '@/domain/types/match';

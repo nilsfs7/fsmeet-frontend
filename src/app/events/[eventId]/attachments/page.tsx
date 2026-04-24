@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
-import Separator from '@/components/seperator';
+import Separator from '@/components/separator';
 import { getTranslations } from 'next-intl/server';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
 

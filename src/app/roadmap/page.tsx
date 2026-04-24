@@ -1,4 +1,4 @@
-import Separator from '@/components/seperator';
+import Separator from '@/components/separator';
 import { Row } from './components/row';
 import { Task } from './components/task';
 import { Section } from './components/section';
