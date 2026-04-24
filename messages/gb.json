@@ -636,6 +636,11 @@
     "pageTitle": "Create Poll",
     "btnCreate": "Create"
   },
+  "global/data-states": {
+    "errorTitle": "Something went wrong",
+    "loadFailed": "The data could not be loaded. Check your connection and try again.",
+    "btnRetry": "Try again"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "First name",
     "associationName": "Association name",

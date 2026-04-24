@@ -33,6 +33,12 @@
 - **Modal UIs:** Prefer Radix `Dialog` from `@/components/ui/dialog` for state-driven modals. The custom `Dialog` in `components/dialog.tsx` is for **URL query–param** flows only.
 - **Data tables:** Prefer `@/components/ui/table` with TanStack as used in list screens.
 
+## Data states (P1)
+
+- **Loading / empty / error** use shared building blocks: `AppDataStateListSkeleton`, `AppDataStateEmpty`, `AppDataStateError` from `@/components/shared/…`, with copy under `global/data-states` in messages.
+- Primitives: `Skeleton` (`@/components/ui/skeleton`), `Alert` (`@/components/ui/alert`).
+- Client fetches (e.g. `getEvents`) that fail should throw on non-OK HTTP so UIs can catch; server pages that batch calls should use `Promise.allSettled` or `try`/`catch` as needed.
+
 ## Spacing & layout contract (P0)
 
 - **Rhythm:** Use the Tailwind spacing scale (4px base: `gap-2` = 8px, `p-4` = 16px, `mb-6` = 24px, etc.). Prefer 4/8/12/16/24px steps over arbitrary values.

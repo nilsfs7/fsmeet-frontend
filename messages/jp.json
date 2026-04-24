@@ -634,6 +634,11 @@
     "pageTitle": "投票を作成",
     "btnCreate": "作成"
   },
+  "global/data-states": {
+    "errorTitle": "エラーが発生しました",
+    "loadFailed": "データを読み込めませんでした。接続を確認して再試行してください。",
+    "btnRetry": "再試行"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "名",
     "associationName": "団体名",

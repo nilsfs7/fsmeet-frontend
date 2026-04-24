@@ -616,6 +616,11 @@
     "pageTitle": "Créer un sondage",
     "btnCreate": "Créer"
   },
+  "global/data-states": {
+    "errorTitle": "Une erreur s'est produite",
+    "loadFailed": "Impossible de charger les données. Vérifiez la connexion et réessayez.",
+    "btnRetry": "Réessayer"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Prénom",
     "associationName": "Nom de l'association",

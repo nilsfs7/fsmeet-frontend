@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import moment, { Moment } from 'moment';
 import Link from 'next/link';
 import EventCard from '@/components/events/event-card';
@@ -9,53 +9,63 @@ import { getEvents } from '@/infrastructure/clients/event.client';
 import { Event } from '@/domain/types/event';
 import { DatePicker } from '@/components/common/date-picker';
 import { useTranslations } from 'next-intl';
-import LoadingSpinner from '@/components/animation/loading-spinner';
+import { AppDataStateEmpty } from '@/components/shared/app-data-state-empty';
+import { AppDataStateError } from '@/components/shared/app-data-state-error';
+import { AppDataStateListSkeleton } from '@/components/shared/app-data-state-list-skeleton';
 
 const defaultDateFrom = moment(moment().subtract(3, 'months').toString());
 const defaultDateTo = moment(moment().add(6, 'months').toString());
 
+type LoadState = 'loading' | 'ok' | 'error';
+
 export const EventsList = () => {
   const t = useTranslations('/events');
+  const tData = useTranslations('global/data-states');
+  const tDataRef = useRef(tData);
+  tDataRef.current = tData;
 
-  const [loadingDone, setLoadingDone] = useState<boolean>(false);
+  const [loadState, setLoadState] = useState<LoadState>('loading');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
 
-  const handleDateFromChanged = (moment: Moment | null) => {
-    if (moment) {
-      setDateFrom(moment);
-
-      setLoadingDone(false);
-      getEvents(null, null, null, moment, dateTo).then(events => {
-        setEvents(events);
-        setLoadingDone(true);
+  const loadForRange = useCallback((from: Moment, to: Moment) => {
+    setLoadState('loading');
+    setErrorMessage(null);
+    return getEvents(null, null, null, from, to)
+      .then((data) => {
+        setEvents(Array.isArray(data) ? data : []);
+        setLoadState('ok');
+      })
+      .catch((e: unknown) => {
+        const msg = e instanceof Error ? e.message : tDataRef.current('loadFailed');
+        setErrorMessage(msg);
+        setEvents([]);
+        setLoadState('error');
       });
-    }
-  };
-
-  const handleDateToChanged = (moment: Moment | null) => {
-    if (moment) {
-      setDateTo(moment);
-
-      setLoadingDone(false);
-      getEvents(null, null, null, dateFrom, moment).then(events => {
-        setEvents(events);
-        setLoadingDone(true);
-      });
-    }
-  };
+  }, []);
 
   useEffect(() => {
-    getEvents(null, null, null, dateFrom, dateTo).then(events => {
-      setEvents(events);
-      setLoadingDone(true);
-    });
-  }, []);
+    void loadForRange(defaultDateFrom, defaultDateTo);
+  }, [loadForRange]);
+
+  const handleDateFromChanged = (m: Moment | null) => {
+    if (m) {
+      setDateFrom(m);
+      void loadForRange(m, dateTo);
+    }
+  };
+
+  const handleDateToChanged = (m: Moment | null) => {
+    if (m) {
+      setDateTo(m);
+      void loadForRange(dateFrom, m);
+    }
+  };
 
   return (
     <>
-      {/* Filters */}
       <div className="mt-2 flex justify-center gap-2">
         <div>
           <div className="mx-2">{t('datePickerFrom')}</div>
@@ -82,22 +92,34 @@ export const EventsList = () => {
         </div>
       </div>
 
-      {/* Events */}
       <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
-        <div className="grid gap-2">
-          {events.map((event: Event, i: number) => {
-            return (
-              <div key={`event-${i.toString()}`}>
-                <Link href={`${routeEvents}/${event.id}`}>
-                  <EventCard event={event} />
-                </Link>
-              </div>
-            );
-          })}
+        <div className="grid w-full max-w-lg justify-items-center gap-2">
+          {loadState === 'loading' && <AppDataStateListSkeleton />}
 
-          {!loadingDone && <LoadingSpinner />}
+          {loadState === 'error' && errorMessage && (
+            <div className="w-full min-w-0 max-w-lg">
+              <AppDataStateError
+                title={tData('errorTitle')}
+                message={errorMessage}
+                onRetry={() => void loadForRange(dateFrom, dateTo)}
+                retryLabel={tData('btnRetry')}
+              />
+            </div>
+          )}
 
-          {events.length === 0 && loadingDone && <div className="mt-2 text-center">{t('textNoEventsFound')}</div>}
+          {loadState === 'ok' && events.length === 0 && <AppDataStateEmpty description={t('textNoEventsFound')} />}
+
+          {loadState === 'ok' &&
+            events.length > 0 &&
+            events.map((event, i) => {
+              return (
+                <div key={`event-${i.toString()}`} className="w-full max-w-lg">
+                  <Link href={`${routeEvents}/${event.id}`}>
+                    <EventCard event={event} />
+                  </Link>
+                </div>
+              );
+            })}
         </div>
       </div>
     </>

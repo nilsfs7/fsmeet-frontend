@@ -616,6 +616,11 @@
     "pageTitle": "Umfrage erstellen",
     "btnCreate": "Erstellen"
   },
+  "global/data-states": {
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "loadFailed": "Daten konnten nicht geladen werden. Bitte Verbindung prüfen und erneut versuchen.",
+    "btnRetry": "Erneut versuchen"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Vorname",
     "associationName": "Vereinsname",

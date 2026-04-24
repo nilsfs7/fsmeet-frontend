@@ -83,6 +83,11 @@ export async function getEvents(
     });
   }
 
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({} as { message?: string }));
+    throw new Error(typeof err?.message === 'string' && err.message.length > 0 ? err.message : `Request failed (${response.status})`);
+  }
+
   return await response.json();
 }
 

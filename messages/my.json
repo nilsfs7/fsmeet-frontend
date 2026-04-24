@@ -634,6 +634,11 @@
     "pageTitle": "Cipta Undian",
     "btnCreate": "Cipta"
   },
+  "global/data-states": {
+    "errorTitle": "Ralat berlaku",
+    "loadFailed": "Data tidak dapat dimuatkan. Semak sambungan dan cuba lagi.",
+    "btnRetry": "Cuba lagi"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Nama depan",
     "associationName": "Nama persatuan",

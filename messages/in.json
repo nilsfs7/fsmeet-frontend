@@ -634,6 +634,11 @@
     "pageTitle": "पोल बनाएं",
     "btnCreate": "बनाएं"
   },
+  "global/data-states": {
+    "errorTitle": "कुछ गलत हो गया",
+    "loadFailed": "डेटा लोड नहीं हो सका। कृपया कनेक्शन जांचें और पुनः प्रयास करें।",
+    "btnRetry": "पुनः प्रयास करें"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "पहला नाम",
     "associationName": "एसोसिएशन का नाम",

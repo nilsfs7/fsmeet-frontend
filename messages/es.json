@@ -616,6 +616,11 @@
     "pageTitle": "Crear encuesta",
     "btnCreate": "Crear"
   },
+  "global/data-states": {
+    "errorTitle": "Algo salió mal",
+    "loadFailed": "No se pudieron cargar los datos. Comprueba la conexión e inténtalo de nuevo.",
+    "btnRetry": "Reintentar"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Nombre",
     "associationName": "Nombre del club",

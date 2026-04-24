@@ -634,6 +634,11 @@
     "pageTitle": "إنشاء استطلاع",
     "btnCreate": "إنشاء"
   },
+  "global/data-states": {
+    "errorTitle": "حدث خطأ",
+    "loadFailed": "تعذر تحميل البيانات. تحقق من الاتصال وحاول مرة أخرى.",
+    "btnRetry": "إعادة المحاولة"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "الاسم الأول",
     "associationName": "اسم الجمعية",

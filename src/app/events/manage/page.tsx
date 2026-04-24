@@ -27,12 +27,24 @@ export default async function MyEventsOverview() {
   let actingUser: User | undefined;
 
   if (session) {
-    [actingUser, eventsOwning, eventsMaintaining, eventsSubscribed] = await Promise.all([
-      getUser(session?.user.username),
-      getEvents(session?.user.username, null, null, null, null, session),
-      getEvents(null, session?.user.username, null, null, null, session),
-      getEvents(null, null, session?.user.username, null, null),
-    ]);
+    const u = await getUser(session.user.username, session);
+    actingUser = u;
+    if (u) {
+      const [a, b, c] = await Promise.allSettled([
+        getEvents(session.user.username, null, null, null, null, session),
+        getEvents(null, session.user.username, null, null, null, session),
+        getEvents(null, null, session.user.username, null, null, session),
+      ]);
+      if (a.status === 'fulfilled' && Array.isArray(a.value)) {
+        eventsOwning = a.value;
+      }
+      if (b.status === 'fulfilled' && Array.isArray(b.value)) {
+        eventsMaintaining = b.value;
+      }
+      if (c.status === 'fulfilled' && Array.isArray(c.value)) {
+        eventsSubscribed = c.value;
+      }
+    }
   }
 
   if (!actingUser) {
