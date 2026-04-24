@@ -1,7 +1,9 @@
 export const ImprintText = () => {
+  const email = 'nils.effinghausen@gmail.com';
   return (
     <div className="prose-flow select-text w-full break-words">
-      <h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
+      <h2>Allgemeine Informationspflichten (§&nbsp;5&nbsp;DDG)</h2>
+      <h3 className="mt-4 text-base font-semibold">Anbieter</h3>
       <p>
         Nils Effinghausen
         <br />
@@ -10,47 +12,8 @@ export const ImprintText = () => {
         80639 M&uuml;nchen
       </p>
 
-      <h2>Kontakt</h2>
-      <p>
-        Telefon: +49 (0) 15161996348
-        <br />
-        E-Mail: nils.effinghausen@gmail.com
-      </p>
-
-      <h2>Berufsbezeichnung und berufsrechtliche Regelungen</h2>
-      <p>
-        Berufsbezeichnung:
-        <br />
-        Fachinformatiker f&uuml;r Anwendungsentwicklung
-      </p>
-      <p>
-        Zust&auml;ndige Kammer:
-        <br />
-        Industrie- und Handelskammer L&uuml;neburg-Wolfsburg
-        <br />
-        Am Sande 1<br />
-        21332 L&uuml;neburg
-      </p>
-      <p>
-        Verliehen in:
-        <br />
-        Niedersachsen
-      </p>
-      <h2>EU-Streitschlichtung</h2>
-      <p>
-        Die Europ&auml;ische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{' '}
-        <a className="underline" href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">
-          https://ec.europa.eu/consumers/odr/
-        </a>
-        .<br /> Unsere E-Mail-Adresse finden Sie oben im Impressum.
-      </p>
-
-      <h2>Verbraucher&shy;streit&shy;beilegung / Universal&shy;schlichtungs&shy;stelle</h2>
-      <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-
-      <p>
-        Quelle: <a href="https://www.e-recht24.de">https://www.e-recht24.de</a>
-      </p>
+      <h3 className="mt-4 text-base font-semibold">Elektronischer Kontakt</h3>
+      <p>E-Mail: {email}</p>
     </div>
   );
 };
