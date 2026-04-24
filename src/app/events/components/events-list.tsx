@@ -28,14 +28,7 @@ const defaultDateTo = moment(moment().add(6, 'months').toString());
 const ALL = '__all__' as const;
 
 const EVENT_TYPES: EventType[] = [EventType.COMPETITION, EventType.COMPETITION_ONLINE, EventType.MEETING];
-const EVENT_CATS: EventCategory[] = [
-  EventCategory.CONTINENTAL,
-  EventCategory.INTERNATIONAL,
-  EventCategory.NATIONAL,
-  EventCategory.PULSE,
-  EventCategory.SUPERBALL,
-  EventCategory.WFFC,
-];
+const EVENT_CATS: EventCategory[] = [EventCategory.CONTINENTAL, EventCategory.INTERNATIONAL, EventCategory.NATIONAL, EventCategory.PULSE, EventCategory.SUPERBALL, EventCategory.WFFC];
 
 type LoadState = 'loading' | 'ok' | 'error';
 
@@ -102,18 +95,8 @@ export const EventsList = () => {
     if (isMeetingTypeFilter) {
       return Boolean(nameQuery.trim() || filterVenue || filterType);
     }
-    return Boolean(
-      nameQuery.trim() || filterVenue || filterType || filterCategory || wffaRankedOnly || prizeMoneyOnly,
-    );
-  }, [
-    isMeetingTypeFilter,
-    nameQuery,
-    filterVenue,
-    filterType,
-    filterCategory,
-    wffaRankedOnly,
-    prizeMoneyOnly,
-  ]);
+    return Boolean(nameQuery.trim() || filterVenue || filterType || filterCategory || wffaRankedOnly || prizeMoneyOnly);
+  }, [isMeetingTypeFilter, nameQuery, filterVenue, filterType, filterCategory, wffaRankedOnly, prizeMoneyOnly]);
 
   const filteredEvents = useMemo(() => {
     const nq = nameQuery.trim().toLowerCase();
@@ -301,24 +284,14 @@ export const EventsList = () => {
                 </div>
 
                 <div className="flex items-start gap-2 py-0.5">
-                  <Checkbox
-                    id="events-filter-wffa"
-                    checked={wffaRankedOnly}
-                    onCheckedChange={c => setWffaRankedOnly(c === true)}
-                    className="mt-0.5"
-                  />
+                  <Checkbox id="events-filter-wffa" checked={wffaRankedOnly} onCheckedChange={c => setWffaRankedOnly(c === true)} className="mt-0.5" />
                   <label htmlFor="events-filter-wffa" className="type-body-sm cursor-pointer leading-snug text-foreground/90">
                     {t('filterWffa')}
                   </label>
                 </div>
 
                 <div className="flex items-start gap-2 py-0.5">
-                  <Checkbox
-                    id="events-filter-prize-money"
-                    checked={prizeMoneyOnly}
-                    onCheckedChange={c => setPrizeMoneyOnly(c === true)}
-                    className="mt-0.5"
-                  />
+                  <Checkbox id="events-filter-prize-money" checked={prizeMoneyOnly} onCheckedChange={c => setPrizeMoneyOnly(c === true)} className="mt-0.5" />
                   <label htmlFor="events-filter-prize-money" className="type-body-sm cursor-pointer leading-snug text-foreground/90">
                     {t('filterPrizeWith')}
                   </label>
@@ -327,21 +300,10 @@ export const EventsList = () => {
             )}
 
             <div className="flex w-full min-w-0 flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
-              <Button
-                type="button"
-                variant="action"
-                className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm')}
-                onClick={clearAllFilters}
-                disabled={!hasActiveFilters}
-              >
+              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm')} onClick={clearAllFilters} disabled={!hasActiveFilters}>
                 {t('filterClearAll')}
               </Button>
-              <Button
-                type="button"
-                variant="action"
-                className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm sm:self-end')}
-                onClick={() => setAdvancedOpen(false)}
-              >
+              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
                 {t('filterApply')}
               </Button>
             </div>
@@ -349,7 +311,7 @@ export const EventsList = () => {
         )}
       </div>
 
-      <div className="mt-2 flex max-h-full justify-center overflow-y-auto px-2">
+      <div className="mt-2 flex min-h-0 max-h-full justify-center overflow-y-auto px-2 scrollbar-none">
         <div className="grid w-full max-w-lg justify-items-center gap-2">
           {loadState === 'loading' && <AppDataStateListSkeleton />}
 

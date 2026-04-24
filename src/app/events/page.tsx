@@ -17,14 +17,23 @@ export default async function EventsOverview() {
 
       <EventsList />
 
-      <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
-        <Button asChild variant="action" className={ctaActionButtonClassName}>
-          <Link href={routeEventsCreate}>{t('btnCreateEvent')}</Link>
-        </Button>
-      </Navigation>
+      <div className="mt-auto w-full px-2">
+        <div className="mx-auto w-full min-w-0 max-w-lg">
+          <Navigation>
+            <div className="flex min-w-0 flex-wrap justify-start gap-1">
+              <Link href={routeHome}>
+                <ActionButton action={Action.BACK} />
+              </Link>
+            </div>
+
+            <div className="flex min-w-0 flex-wrap justify-end gap-1">
+              <Button asChild variant="action" className={ctaActionButtonClassName}>
+                <Link href={routeEventsCreate}>{t('btnCreateEvent')}</Link>
+              </Button>
+            </div>
+          </Navigation>
+        </div>
+      </div>
     </div>
   );
 }
