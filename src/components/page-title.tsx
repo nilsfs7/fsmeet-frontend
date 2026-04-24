@@ -3,7 +3,7 @@ interface IPageTitle {
 }
 
 const PageTitle = ({ title }: IPageTitle) => {
-  return <h1 className="m-2 text-center text-xl">{`${title}`}</h1>;
+  return <h1 className="m-2 text-center text-heading-1">{`${title}`}</h1>;
 };
 
 export default PageTitle;

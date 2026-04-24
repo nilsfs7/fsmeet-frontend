@@ -30,7 +30,7 @@ export default async function About() {
 
       <PageTitle title={t('pageTitle')} />
 
-      <div className="mx-2 mt-2 flex flex-col items-center text-center overflow-y-auto">
+      <div className="mx-auto mt-2 flex w-full max-w-prose flex-col items-center overflow-y-auto px-4 text-center">
         <div>{t('aboutText1')}</div>
         <div className="mt-2">
           {t('aboutText2')}

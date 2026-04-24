@@ -59,13 +59,38 @@ const config: Config = {
       fontSize: {
         '2xs': ['0.625rem', { lineHeight: '0.875rem' }],
         xs: ['0.75rem', { lineHeight: '1rem' }],
-        sm: ['0.875rem', { lineHeight: '1.25rem' }],
-        base: ['1rem', { lineHeight: '1.5rem' }],
+        sm: ['0.875rem', { lineHeight: '1.45' }],
+        base: ['1rem', { lineHeight: '1.625' }],
+        /* Semantic aliases (same as base / sm) */
+        body: ['1rem', { lineHeight: '1.625' }],
+        'body-sm': ['0.875rem', { lineHeight: '1.45' }],
+        'body-xs': ['0.8125rem', { lineHeight: '1.4' }],
+        lead: ['1.125rem', { lineHeight: '1.6' }],
+        /* Legacy scale (unchanged line steps — prefer `text-heading-*` / `text-lead` for new UI) */
         lg: ['1.125rem', { lineHeight: '1.75rem' }],
         xl: ['1.25rem', { lineHeight: '1.75rem' }],
         '2xl': ['1.5rem', { lineHeight: '2rem' }],
         '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
         '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        display: ['2.25rem', { lineHeight: '1.2', fontWeight: '700' }],
+        'heading-1': ['1.875rem', { lineHeight: '1.25', fontWeight: '600' }],
+        'heading-2': ['1.5rem', { lineHeight: '1.3', fontWeight: '600' }],
+        'heading-3': ['1.25rem', { lineHeight: '1.4', fontWeight: '600' }],
+        'heading-4': ['1.125rem', { lineHeight: '1.45', fontWeight: '600' }],
+      },
+      maxWidth: {
+        /** ~65ch; same idea as `max-w-prose`, useful for `mx-auto` copy blocks */
+        copy: '65ch',
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: 'rgb(var(--foreground) / 1)',
+            a: { color: 'rgb(var(--primary) / 1)' },
+            'a:hover': { textDecoration: 'underline' },
+            'h2, h3, h4': { color: 'rgb(var(--foreground) / 1)' },
+          },
+        },
       },
       borderRadius: {
         sm: 'var(--radius-sm)',
@@ -97,7 +122,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 };
 
 export default config;

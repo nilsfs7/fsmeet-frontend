@@ -14,7 +14,7 @@ export default function DataProtection() {
 
       <PageTitle title="Datenschutzerklärung" />
 
-      <div className="mx-2 mt-2 flex flex-col items-center text-center overflow-y-auto">
+      <div className="mx-2 mt-2 flex flex-1 flex-col items-center overflow-y-auto px-2 pb-4">
         <DataProtectionText />
       </div>
 

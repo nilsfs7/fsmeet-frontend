@@ -125,6 +125,16 @@
   }
 
   body {
-    @apply min-h-dvh bg-background text-foreground antialiased;
+    @apply min-h-dvh bg-background text-foreground text-base antialiased;
+  }
+}
+
+@layer components {
+  /**
+   * Long-form / legal / article copy: readable measure + @tailwindcss/typography defaults.
+   * Use with `w-full` + `mx-auto` in the parent, or on the element directly.
+   */
+  .prose-flow {
+    @apply prose w-full max-w-prose text-pretty text-left;
   }
 }
