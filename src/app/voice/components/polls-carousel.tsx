@@ -4,7 +4,7 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, Car
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { Poll } from '@/domain/types/poll';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { routeLogin, routeVoice } from '@/domain/constants/routes';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -414,20 +414,22 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                       </button>
                     </div>
 
-                    <TextButton
-                      text={
-                        polls[i]?.deadline && moment(polls[i]?.deadline) < moment()
-                          ? t('carouselBtnVotingEnded')
-                          : targetGroupMismatch(polls[i])
-                            ? t('carouselBtnVotingExcluded')
-                            : t('carouselBtnVote')
-                      }
+                    <Button
+                      type="button"
+                      variant="action"
+                      className={ctaActionButtonClassName}
                       disabled={voteDisabled(polls[i])}
                       onClick={() => {
                         const poll = polls[i];
                         if (poll?.id) handleVoteClicked(poll.id);
                       }}
-                    />
+                    >
+                      {polls[i]?.deadline && moment(polls[i]?.deadline) < moment()
+                        ? t('carouselBtnVotingEnded')
+                        : targetGroupMismatch(polls[i])
+                          ? t('carouselBtnVotingExcluded')
+                          : t('carouselBtnVote')}
+                    </Button>
                   </div>
                 </div>
               </CarouselItem>

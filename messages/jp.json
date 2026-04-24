@@ -214,7 +214,8 @@
     "eventCatNational": "National",
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
-    "eventCatWffc": "WFFC"
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "イベントを作成"
   },
   "/events/edit": {
     "pageTitle": "イベントを編集",

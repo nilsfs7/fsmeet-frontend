@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { useEffect, useState } from 'react';
@@ -21,7 +21,6 @@ import CheckBox from '@/components/common/check-box';
 import Link from 'next/link';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import { ButtonStyle } from '@/domain/enums/button-style';
 import Dialog from '@/components/dialog';
 import SocialLink from '@/components/user/social-link';
 import { SocialPlatform } from '@/domain/enums/social-platform';
@@ -485,7 +484,15 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
           <p className="text-lg font-bold">{t('dlgAccountVerificationStep3')}</p>
           <p>{t('dlgAccountVerificationStep3Text1')}</p>
           <div className="mt-2">
-            <TextButton text={t('dlgAccountVerificationStep3BtnRequestNow')} disabled={!userInfo.instagramHandle} onClick={handleConfirmSendVerificationRequestClicked} />
+            <Button
+              type="button"
+              variant="action"
+              className={ctaActionButtonClassName}
+              disabled={!userInfo.instagramHandle}
+              onClick={handleConfirmSendVerificationRequestClicked}
+            >
+              {t('dlgAccountVerificationStep3BtnRequestNow')}
+            </Button>
           </div>
         </div>
 
@@ -758,7 +765,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
               <div className="m-2 grid grid-cols-2 items-center gap-2">
                 <div>{t('tabJobsTerms')}</div>
-                <TextButton text={t('tabJobBtnReadTerms')} onClick={handleTermsAndConditionsClicked} />
+                <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleTermsAndConditionsClicked}>
+                  {t('tabJobBtnReadTerms')}
+                </Button>
               </div>
 
               <CheckBox
@@ -895,7 +904,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
 
                   {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (
-                    <TextButton text={t('tabAccountBtnVerify')} onClick={handleVerificationRequestClicked} />
+                    <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleVerificationRequestClicked}>
+                      {t('tabAccountBtnVerify')}
+                    </Button>
                   )}
                 </div>
 
@@ -907,7 +918,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
                 {!userInfo.stripeAccountId && (
                   <div className="mt-4 flex justify-center">
-                    <TextButton text={t('tabAccountBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
+                    <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateStripeAccountClicked}>
+                      {t('tabAccountBtnRequestPaymentsAccount')}
+                    </Button>
                   </div>
                 )}
 
@@ -915,13 +928,17 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <>
                     <div className="mt-4 flex flex-col items-center gap-4">
                       <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
-                      <TextButton text={t('tabAccountBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
+                      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateStripeAccountOnboardingLinkClicked}>
+                        {t('tabAccountBtnEditPaymentsAccount')}
+                      </Button>
 
-                      <TextButton text={t('tabAccountBtnViewPaymentsInStripe')} onClick={handleCreateStripeLoginLinkClicked} />
+                      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateStripeLoginLinkClicked}>
+                        {t('tabAccountBtnViewPaymentsInStripe')}
+                      </Button>
 
-                      <Link href={routeAccountPayments}>
-                        <TextButton text={t('tabAccountBtnManagePayments')} />
-                      </Link>
+                      <Button asChild variant="action" className={ctaActionButtonClassName}>
+                        <Link href={routeAccountPayments}>{t('tabAccountBtnManagePayments')}</Link>
+                      </Button>
                     </div>
                   </>
                 )}
@@ -935,11 +952,20 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             <div className="flex justify-center text-lg">{t('tabAccountSectionAccountManagement')}</div>
 
             <div className="mt-4 flex justify-center">
-              <TextButton text={t('tabAccountBtnLogout')} onClick={handleLogoutClicked} />
+              <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleLogoutClicked}>
+                {t('tabAccountBtnLogout')}
+              </Button>
             </div>
 
             <div className="mt-4 flex justify-center">
-              <TextButton text={t('tabAccountBtnDeleteAccount')} style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
+              <Button
+                type="button"
+                variant="actionCritical"
+                className={ctaActionButtonClassName}
+                onClick={handleDeleteAccountClicked}
+              >
+                {t('tabAccountBtnDeleteAccount')}
+              </Button>
             </div>
           </div>
         </TabsContent>

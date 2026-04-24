@@ -8,7 +8,7 @@ import PageTitle from '@/components/page-title';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
 import { PollsCarousel } from './components/polls-carousel';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { ColumnInfo, PollsList } from '../../components/polls-list';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { auth } from '@/auth';
@@ -65,9 +65,9 @@ export default async function Voice() {
         <div className="flex justify-end gap-1">
           <ActionButtonCopyPollUrl />
 
-          <Link href={routeVoiceManage}>
-            <TextButton text={t('btnManagePolls')} />
-          </Link>
+          <Button asChild variant="action" className={ctaActionButtonClassName}>
+            <Link href={routeVoiceManage}>{t('btnManagePolls')}</Link>
+          </Button>
         </div>
       </Navigation>
     </div>

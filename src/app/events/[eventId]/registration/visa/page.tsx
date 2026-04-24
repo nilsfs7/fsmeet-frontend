@@ -1,7 +1,7 @@
 'use client';
 
 import { use, useEffect, useState } from 'react';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { routeHome, routeLogin } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
@@ -123,9 +123,9 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
         <div className="h-full flex flex-col justify-center">
           <div className="flex flex-col items-center gap-2">
             <div>{t('textUnauthorized')}</div>
-            <Link href={loginRouteWithCallbackUrl}>
-              <TextButton text={t('btnGoToLogin')} />
-            </Link>
+            <Button asChild variant="action" className={ctaActionButtonClassName}>
+              <Link href={loginRouteWithCallbackUrl}>{t('btnGoToLogin')}</Link>
+            </Button>
           </div>
         </div>
       </div>
@@ -201,7 +201,15 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
           </div>
 
           <div className="flex justify-center py-2">
-            <TextButton text={t('btnSendRequest')} disabled={!checkInputs()} onClick={handleSendClicked} />
+            <Button
+              type="button"
+              variant="action"
+              className={ctaActionButtonClassName}
+              disabled={!checkInputs()}
+              onClick={handleSendClicked}
+            >
+              {t('btnSendRequest')}
+            </Button>
           </div>
         </div>
 

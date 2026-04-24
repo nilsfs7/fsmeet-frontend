@@ -214,7 +214,8 @@
     "eventCatNational": "National",
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
-    "eventCatWffc": "WFFC"
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "इवेंट बनाएं"
   },
   "/events/edit": {
     "pageTitle": "इवेंट संपादित करें",

@@ -4,7 +4,7 @@ import { useState, useEffect, type ReactNode } from 'react';
 import { imgCalender, imgCompetition, imgHourglassEnd, imgHourglassStart, imgLocation, imgMeeting, imgUserDefaultImg } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getShortDateString } from '@/functions/time';
-import TextButton from '../../../../components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { Event } from '@/domain/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
@@ -222,12 +222,16 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
             </div>
 
             <div className="flex gap-2">
-              <TextButton
-                text={showMap ? t('tabOverviewBtnHideVenueMap') : t('tabOverviewBtnShowVenueMap')}
+              <Button
+                type="button"
+                variant="action"
+                className={ctaActionButtonClassName}
                 onClick={() => {
                   setShowMap(showMap ? false : true);
                 }}
-              />
+              >
+                {showMap ? t('tabOverviewBtnHideVenueMap') : t('tabOverviewBtnShowVenueMap')}
+              </Button>
 
               <a href={getMapsSearchUrl()} target="_blank" rel="noopener noreferrer">
                 <ActionButton action={Action.GOTOEXTERNAL} />

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import TextInput from '@/components/common/text-input';
 import { useRouter } from 'next/navigation';
 import { validateFirstName } from '@/functions/validation/validation-user';
@@ -177,7 +177,9 @@ export const RegistrationForm = () => {
           </div>
 
           <div className="flex justify-center py-2">
-            <TextButton text={t('btnSignUp')} onClick={handleCreateClicked} />
+            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateClicked}>
+              {t('btnSignUp')}
+            </Button>
           </div>
         </div>
       </div>

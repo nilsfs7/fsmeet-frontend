@@ -15,7 +15,7 @@ const buttonVariants = cva(
         secondary: 'bg-zinc-100 text-zinc-900 ring-offset-white hover:bg-zinc-100/80 focus-visible:ring-zinc-950 dark:bg-zinc-800 dark:text-zinc-50 dark:ring-offset-zinc-950 dark:hover:bg-zinc-800/80 dark:focus-visible:ring-zinc-300',
         ghost: 'ring-offset-white hover:bg-zinc-100 hover:text-zinc-900 focus-visible:ring-zinc-950 dark:ring-offset-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:focus-visible:ring-zinc-300',
         link: 'text-zinc-900 underline-offset-4 ring-offset-white hover:underline focus-visible:ring-zinc-950 dark:text-zinc-50 dark:ring-offset-zinc-950 dark:focus-visible:ring-zinc-300',
-        /** App CTA: design tokens (use via `TextButton` or `variant="action"`) */
+        /** App CTA: design tokens (`variant="action" | "actionCritical" | "actionWarning"`) */
         action:
           'bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 focus-visible:ring-primary',
         actionCritical: 'bg-critical text-critical-foreground shadow-sm hover:bg-critical-dark focus-visible:ring-critical',
@@ -45,5 +45,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ className, va
   return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
 });
 Button.displayName = 'Button';
+
+/** Sizing/animation for primary CTA buttons (replaces the former TextButton shell). */
+export const ctaActionButtonClassName =
+  'min-w-36 rounded-lg text-base font-medium transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100';
 
 export { Button, buttonVariants };

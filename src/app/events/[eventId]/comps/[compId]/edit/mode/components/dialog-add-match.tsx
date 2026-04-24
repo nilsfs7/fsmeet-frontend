@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ActionButton from '../../../../../../../../components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import TextButton from '../../../../../../../../components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { TimePicker } from '@/components/common/time-picker';
 import { useTranslations } from 'next-intl';
 
@@ -103,7 +103,11 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
             {onCancel && (
               <>
                 {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
-                {cancelText && <TextButton text={cancelText} onClick={clickCancel} />}
+                {cancelText && (
+                  <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={clickCancel}>
+                    {cancelText}
+                  </Button>
+                )}
               </>
             )}
             {!onCancel && <div />}
@@ -111,7 +115,11 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
             {onConfirm && (
               <>
                 {!confirmText && <ActionButton action={Action.ACCEPT} onClick={clickConfirm} />}
-                {confirmText && <TextButton text={confirmText} onClick={clickConfirm} />}
+                {confirmText && (
+                  <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={clickConfirm}>
+                    {confirmText}
+                  </Button>
+                )}
               </>
             )}
           </div>

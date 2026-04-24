@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import TextInputLarge from '@/components/common/text-input-large';
 import { routeAdminOverview } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
@@ -192,7 +192,9 @@ export default function Broadcast() {
             <ActionButton action={Action.BACK} />
           </Link>
 
-          <TextButton text={'Submit'} onClick={handleSubmitClicked} />
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSubmitClicked}>
+            Submit
+          </Button>
         </Navigation>
       </div>
     </>

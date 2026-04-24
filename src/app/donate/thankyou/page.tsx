@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { imgThumbsUp } from '@/domain/constants/images';
 import { routeHome } from '@/domain/constants/routes';
 import Image from 'next/image';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { getTranslations } from 'next-intl/server';
 
 export default async function ThankYou() {
@@ -19,9 +19,9 @@ export default async function ThankYou() {
       </div>
 
       <div className="py-2">
-        <Link href={routeHome}>
-          <TextButton text={t('btnBackHome')} />
-        </Link>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeHome}>{t('btnBackHome')}</Link>
+        </Button>
       </div>
     </div>
   );

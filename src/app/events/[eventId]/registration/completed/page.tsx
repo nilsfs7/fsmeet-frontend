@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { imgCelebration } from '@/domain/constants/images';
 import { routeEvents } from '@/domain/constants/routes';
 import Image from 'next/image';
@@ -50,9 +50,15 @@ export default function EventRegistrationCompleted(props: { params: Promise<{ ev
             {!checkout && eventHasFee && <div className="mt-2">{t(`textPaymentOutstanding`)}</div>}
 
             <div className="mt-2">
-              <Link href={`${routeEvents}/${params.eventId}`}>
-                <TextButton text={buttonDisabled ? `${secUntilEnabled.toString()} ...` : t('btnBack')} disabled={buttonDisabled} />
-              </Link>
+              {buttonDisabled ? (
+                <Button type="button" variant="action" className={ctaActionButtonClassName} disabled>
+                  {`${secUntilEnabled.toString()} ...`}
+                </Button>
+              ) : (
+                <Button asChild variant="action" className={ctaActionButtonClassName}>
+                  <Link href={`${routeEvents}/${params.eventId}`}>{t('btnBack')}</Link>
+                </Button>
+              )}
             </div>
           </div>
         </div>

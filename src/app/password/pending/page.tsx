@@ -1,4 +1,4 @@
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { imgMailIncoming } from '@/domain/constants/images';
 import { routeHome } from '@/domain/constants/routes';
 import { getTranslations } from 'next-intl/server';
@@ -19,9 +19,9 @@ export default async function PasswordResetRequestPending() {
             <div>{t('thankYouText2')}</div>
 
             <div className="mt-2">
-              <Link href={routeHome}>
-                <TextButton text={t('btnBackHome')} />
-              </Link>
+              <Button asChild variant="action" className={ctaActionButtonClassName}>
+                <Link href={routeHome}>{t('btnBackHome')}</Link>
+              </Button>
             </div>
           </div>
         </div>

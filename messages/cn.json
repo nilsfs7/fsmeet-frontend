@@ -214,7 +214,8 @@
     "eventCatNational": "National",
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
-    "eventCatWffc": "WFFC"
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "创建活动"
   },
   "/events/edit": {
     "pageTitle": "编辑活动",

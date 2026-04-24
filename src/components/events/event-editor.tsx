@@ -31,7 +31,7 @@ import { getUser } from '@/infrastructure/clients/user.client';
 import { isEventAdmin } from '@/functions/is-event-admin';
 import { useSession } from 'next-auth/react';
 import { PaymentMethodStripe } from '@/domain/types/payment-method-stripe';
-import TextButton from '../common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
 import { imgImagePlaceholder } from '@/domain/constants/images';
 import { deleteEventPoster } from '@/infrastructure/clients/event.client';
@@ -872,9 +872,11 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           {!eventAdmin?.stripeAccountId && (
             <div className="grid grid-cols-2 m-2">
               <div className="flex items-center">{t(`textCreateStripeAccount`)}</div>
-              <Link href={`${routeAccount}/?tab=account`} target="_blank">
-                <TextButton text={t(`btnCreateStripeAccount`)} />
-              </Link>
+              <Button asChild variant="action" className={ctaActionButtonClassName}>
+                <Link href={`${routeAccount}/?tab=account`} target="_blank">
+                  {t(`btnCreateStripeAccount`)}
+                </Link>
+              </Button>
             </div>
           )}
 

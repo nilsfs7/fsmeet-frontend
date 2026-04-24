@@ -214,7 +214,8 @@
     "eventCatNational": "National",
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
-    "eventCatWffc": "WFFC"
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "Cipta Acara"
   },
   "/events/edit": {
     "pageTitle": "Edit Acara",

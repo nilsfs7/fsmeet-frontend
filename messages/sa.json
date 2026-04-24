@@ -214,7 +214,8 @@
     "eventCatNational": "National",
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
-    "eventCatWffc": "WFFC"
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "إنشاء فعالية"
   },
   "/events/edit": {
     "pageTitle": "تعديل الفعالية",

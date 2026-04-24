@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { updateEvent, updateEventPoster } from '@/infrastructure/clients/event.client';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
@@ -42,7 +42,9 @@ export const TextButtonSaveEvent = () => {
     <>
       <Toaster richColors />
 
-      <TextButton text={t('btnSave')} onClick={handleSaveClicked} />
+      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveClicked}>
+        {t('btnSave')}
+      </Button>
     </>
   );
 };

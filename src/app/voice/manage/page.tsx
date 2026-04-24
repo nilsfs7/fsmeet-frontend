@@ -8,7 +8,7 @@ import { getPolls } from '@/infrastructure/clients/poll.client';
 import PageTitle from '@/components/page-title';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { ColumnInfo, PollsList } from '../../../components/polls-list';
 
 export default async function ManagePolls() {
@@ -50,9 +50,9 @@ export default async function ManagePolls() {
           <ActionButton action={Action.BACK} />
         </Link>
 
-        <Link href={routeVoiceCreatePoll}>
-          <TextButton text={t('btnCreatePoll')} />
-        </Link>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeVoiceCreatePoll}>{t('btnCreatePoll')}</Link>
+        </Button>
       </Navigation>
     </div>
   );

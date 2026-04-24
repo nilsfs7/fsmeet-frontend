@@ -2,7 +2,7 @@ import { Header } from '@/components/header';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { getUser, getUsers } from '@/infrastructure/clients/user.client';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
@@ -65,9 +65,11 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
       {iframeView && (
         <Navigation reverse>
           <div className="flex justify-end gap-1">
-            <a href={routeMap} target="_blank" rel="noopener noreferrer">
-              <TextButton text={t('btnViewOnFSMeet')} />
-            </a>
+            <Button asChild variant="action" className={ctaActionButtonClassName}>
+              <a href={routeMap} target="_blank" rel="noopener noreferrer">
+                {t('btnViewOnFSMeet')}
+              </a>
+            </Button>
           </div>
         </Navigation>
       )}

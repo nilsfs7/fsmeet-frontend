@@ -12,7 +12,7 @@ import Dialog from '@/components/dialog';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
 import Navigation from '@/components/navigation';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import PageTitle from '@/components/page-title';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { deleteCompetition, getCompetition, updateCompetition } from '@/infrastructure/clients/competition.client';
@@ -107,7 +107,9 @@ export default function CompetitionEditing(props: { params: Promise<{ eventId: s
           <div className="flex gap-1">
             <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
 
-            <TextButton text={t('btnSave')} onClick={handleSaveClicked} />
+            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveClicked}>
+              {t('btnSave')}
+            </Button>
           </div>
         </Navigation>
       </div>

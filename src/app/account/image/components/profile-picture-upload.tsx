@@ -1,10 +1,9 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { deleteUserImage, updateUserImage } from '@/infrastructure/clients/user.client';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeAccount } from '@/domain/constants/routes';
-import { ButtonStyle } from '@/domain/enums/button-style';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -81,13 +80,22 @@ export const ProfilePictureUpload = () => {
       <div className="flex justify-center py-2">
         {imageUrl && imageUrl.length > 0 && (
           <div className="mx-1">
-            <TextButton text={t('btnDelete')} onClick={handleDeleteImageClicked} style={ButtonStyle.CRITICAL} />
+            <Button
+              type="button"
+              variant="actionCritical"
+              className={ctaActionButtonClassName}
+              onClick={handleDeleteImageClicked}
+            >
+              {t('btnDelete')}
+            </Button>
           </div>
         )}
 
         {createObjectURL && createObjectURL.length > 0 && (
           <div className="mx-1">
-            <TextButton text={t('btnUpload')} onClick={handleUploadImageClicked} />
+            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleUploadImageClicked}>
+              {t('btnUpload')}
+            </Button>
           </div>
         )}
       </div>

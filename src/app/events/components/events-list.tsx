@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl';
 import { AppDataStateEmpty } from '@/components/shared/app-data-state-empty';
 import { AppDataStateError } from '@/components/shared/app-data-state-error';
 import { AppDataStateListSkeleton } from '@/components/shared/app-data-state-list-skeleton';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -327,17 +327,23 @@ export const EventsList = () => {
             )}
 
             <div className="flex w-full min-w-0 flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
-              <TextButton
-                text={t('filterClearAll')}
+              <Button
+                type="button"
+                variant="action"
+                className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm')}
                 onClick={clearAllFilters}
                 disabled={!hasActiveFilters}
-                className="!min-w-0 px-3 text-sm"
-              />
-              <TextButton
-                text={t('filterApply')}
+              >
+                {t('filterClearAll')}
+              </Button>
+              <Button
+                type="button"
+                variant="action"
+                className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm sm:self-end')}
                 onClick={() => setAdvancedOpen(false)}
-                className="!min-w-0 px-3 text-sm sm:self-end"
-              />
+              >
+                {t('filterApply')}
+              </Button>
             </div>
           </div>
         )}

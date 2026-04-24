@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import TextButton from '../../../components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import CurInput from '../../../components/common/currency-input';
 import { useTranslations } from 'next-intl';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '../../../functions/currency-conversion';
@@ -60,14 +60,18 @@ export default function DonationForm() {
       />
 
       {showInitiateDonationButton && (
-        <TextButton
-          text={t('btnInitiateDonation')}
+        <Button
+          type="button"
+          variant="action"
+          className={ctaActionButtonClassName}
           disabled={!enableInitiateDonationButton()}
           onClick={() => {
             setShowInitiateDonationButton(false);
             handleInitiateDonationClicked();
           }}
-        />
+        >
+          {t('btnInitiateDonation')}
+        </Button>
       )}
 
       {!showInitiateDonationButton && clientSecret && (

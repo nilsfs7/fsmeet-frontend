@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import TextInput from '@/components/common/text-input';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { routeLogin } from '@/domain/constants/routes';
@@ -64,7 +64,9 @@ export default function ResetPassword() {
             </div>
 
             <div className="flex justify-center py-2">
-              <TextButton text={t('btnSave')} onClick={handleSaveClicked} />
+              <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveClicked}>
+                {t('btnSave')}
+              </Button>
             </div>
           </div>
         </div>

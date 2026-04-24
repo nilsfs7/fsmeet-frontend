@@ -1,4 +1,4 @@
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import Link from 'next/link';
 import { imgMailIncoming } from '@/domain/constants/images';
 import Image from 'next/image';
@@ -20,9 +20,9 @@ export default async function RegistrationPending(props: { searchParams: Promise
             <div>{t('registrationPendingText2')}</div>
 
             <div className="mt-2">
-              <Link href={routeHome}>
-                <TextButton text={t('btnBackHome')} />
-              </Link>
+              <Button asChild variant="action" className={ctaActionButtonClassName}>
+                <Link href={routeHome}>{t('btnBackHome')}</Link>
+              </Button>
             </div>
           </div>
         </div>

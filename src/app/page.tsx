@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Event } from '@/domain/types/event';
 import { Header } from '@/components/header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { routeAbout, routeAdminOverview, routeEvents, routeEventsCreate, routeHome, routeMap, routeUsers, routeVoice, routeWffaOverview } from '@/domain/constants/routes';
 import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { auth } from '@/auth';
@@ -43,9 +43,9 @@ export default async function Home() {
         <div className="m-2 mt-6 flex flex-shrink-0 justify-center gap-2">
           {actingUser?.type !== UserType.FAN && <TextButtonCreateEvent />}
 
-          <Link href={routeEvents}>
-            <TextButton text={t('btnShowAllEvents')} />
-          </Link>
+          <Button asChild variant="action" className={ctaActionButtonClassName}>
+            <Link href={routeEvents}>{t('btnShowAllEvents')}</Link>
+          </Button>
         </div>
 
         <div className="mt-6 flex justify-center">

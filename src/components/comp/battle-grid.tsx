@@ -7,7 +7,7 @@ import { Moment } from 'moment';
 import ActionButton from '../common/action-button';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
-import TextButton from '../common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 
@@ -95,7 +95,14 @@ const BattleGrid = ({
 
                 {editingEnabled && onAddMatch && (
                   <div className="flex justify-center mt-2 gap-2 items-center">
-                    <TextButton text={t('btnAddMatch')} onClick={() => onAddMatch(round.roundIndex)} />
+                    <Button
+                      type="button"
+                      variant="action"
+                      className={ctaActionButtonClassName}
+                      onClick={() => onAddMatch(round.roundIndex)}
+                    >
+                      {t('btnAddMatch')}
+                    </Button>
                   </div>
                 )}
               </div>

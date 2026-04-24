@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Event } from '@/domain/types/event';
@@ -32,9 +32,9 @@ export const TextButtonFeedback = ({ event }: ITextButtonFeedback) => {
   return (
     isInEventRegistrations(eventRegistrations, session) &&
     moment(event.dateTo).unix() < moment().unix() && (
-      <Link href={`${routeEvents}/${event.id}/feedback`}>
-        <TextButton text={t('btnFeedback')} />
-      </Link>
+      <Button asChild variant="action" className={ctaActionButtonClassName}>
+        <Link href={`${routeEvents}/${event.id}/feedback`}>{t('btnFeedback')}</Link>
+      </Button>
     )
   );
 };

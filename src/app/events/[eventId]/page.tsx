@@ -12,7 +12,7 @@ import { getTranslations } from 'next-intl/server';
 import { ActionButtonCopyEventUrl } from './components/action-button-copy-event-url';
 import { TextButtonFeedback } from './components/text-button-feedback';
 import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import moment from 'moment';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
 import AdminPanel from './components/admin-panel';
@@ -57,9 +57,9 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
             <ActionButtonCopyEventUrl alias={event.alias} />
 
             {moment(event?.dateTo).unix() > moment().unix() && (
-              <Link href={`${routeEvents}/${event.id}/registration`}>
-                <TextButton text={t('btnRegistration')} />
-              </Link>
+              <Button asChild variant="action" className={ctaActionButtonClassName}>
+                <Link href={`${routeEvents}/${event.id}/registration`}>{t('btnRegistration')}</Link>
+              </Button>
             )}
 
             <TextButtonFeedback event={event} />

@@ -196,7 +196,8 @@
     "eventCatNational": "Nacional",
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
-    "eventCatWffc": "WFFC"
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "Crear evento"
   },
   "/events/edit": {
     "pageTitle": "Editar evento",

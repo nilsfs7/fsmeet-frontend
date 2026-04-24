@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, use } from 'react';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import TextInputLarge from '@/components/common/text-input-large';
 import { useRouter } from 'next/navigation';
 import { routeEvents, routeFeedbackThankyou } from '@/domain/constants/routes';
@@ -62,7 +62,9 @@ export default function EventFeedback(props: { params: Promise<{ eventId: string
             <ActionButton action={Action.BACK} />
           </Link>
 
-          <TextButton text={t('btnSubmit')} onClick={handleSubmitClicked} />
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSubmitClicked}>
+            {t('btnSubmit')}
+          </Button>
         </Navigation>
       </div>
     </>

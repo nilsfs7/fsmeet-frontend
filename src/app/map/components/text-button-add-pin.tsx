@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Toaster, toast } from 'sonner';
-import TextButton from '../../../components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import Dialog from '../../../components/dialog';
 import { routeLogin, routeMap } from '../../../domain/constants/routes';
 import { useSession } from 'next-auth/react';
@@ -75,7 +75,9 @@ export const TextButtonAddPin = () => {
       </Dialog>
 
       <Toaster richColors />
-      <TextButton text={t('btnAddPin')} onClick={handleAddPinClicked} />
+      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleAddPinClicked}>
+        {t('btnAddPin')}
+      </Button>
     </>
   );
 };

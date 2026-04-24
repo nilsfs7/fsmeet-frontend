@@ -2,7 +2,7 @@
 
 import { routeEvents, routeEventsCreate, routeHome } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import PageTitle from '@/components/page-title';
@@ -566,13 +566,13 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
                     <div className="">{t(`pageSuccessSuccessText2`)}</div>
 
                     <div className="mt-10 flex justify-center gap-2">
-                      <Link href={`${routeEvents}/${eventId}/edit`}>
-                        <TextButton text={t('pageSuccessBtnEditEvent')} />
-                      </Link>
+                      <Button asChild variant="action" className={ctaActionButtonClassName}>
+                        <Link href={`${routeEvents}/${eventId}/edit`}>{t('pageSuccessBtnEditEvent')}</Link>
+                      </Button>
 
-                      <Link href={`${routeEvents}/${eventId}`}>
-                        <TextButton text={t('pageSuccessBtnShowEvent')} />
-                      </Link>
+                      <Button asChild variant="action" className={ctaActionButtonClassName}>
+                        <Link href={`${routeEvents}/${eventId}`}>{t('pageSuccessBtnShowEvent')}</Link>
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -596,7 +596,11 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
         )}
 
         {/* Button Cancel Process */}
-        {cancelButtonShown() && <TextButton text={t('btnBackToOverview')} onClick={handleCancelClicked} />}
+        {cancelButtonShown() && (
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCancelClicked}>
+            {t('btnBackToOverview')}
+          </Button>
+        )}
 
         <div className="flex gap-1">
           {/* Button Back One Page */}
@@ -604,17 +608,25 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
 
           {/* Button Continue */}
           {nextButtonShown() && (
-            <TextButton
-              text={t('btnNextPage')}
+            <Button
+              type="button"
+              variant="action"
+              className={ctaActionButtonClassName}
               disabled={nextButtonDisabled() || false}
               onClick={() => {
                 handleNextClicked();
               }}
-            />
+            >
+              {t('btnNextPage')}
+            </Button>
           )}
 
           {/* Button Create Event */}
-          {page === CreationProcessPage.OVERVIEW && <TextButton text={t('btnCreateEvent')} onClick={handleCreateEventClicked} />}
+          {page === CreationProcessPage.OVERVIEW && (
+            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateEventClicked}>
+              {t('btnCreateEvent')}
+            </Button>
+          )}
         </div>
       </Navigation>
     </div>

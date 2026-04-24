@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { routeEventSubs, routeEventsCreate, routeLogin } from '@/domain/constants/routes';
 import { getLicense } from '@/infrastructure/clients/license.client';
 import { License } from '@/domain/types/license';
@@ -37,5 +37,9 @@ export const TextButtonCreateEvent = () => {
     }
   };
 
-  return <TextButton text={t('btnCreate')} onClick={handleCreateEventClicked} />;
+  return (
+    <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateEventClicked}>
+      {t('btnCreate')}
+    </Button>
+  );
 };

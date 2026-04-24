@@ -2,7 +2,7 @@
 
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import PageTitle from '@/components/page-title';
@@ -20,7 +20,6 @@ import Label from '@/components/label';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import moment, { Moment } from 'moment';
 import Dialog from '@/components/dialog';
-import { ButtonStyle } from '@/domain/enums/button-style';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { getShortDateString } from '@/functions/time';
@@ -746,9 +745,9 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
               {event.visaInvitationRequestsEnabled && isNaturalPerson(user.type) && user.type !== UserType.FAN && moment(event.dateFrom) > moment() && (
                 <div className="flex flex-col items-center mt-10 gap-2">
                   <div>{`${t('pageOverviewRequireVisa')}`}</div>
-                  <Link href={`${routeEvents}/${event.id}/registration/visa`}>
-                    <TextButton text={t('pageOverviewBtnRequestVisa')} />
-                  </Link>
+                  <Button asChild variant="action" className={ctaActionButtonClassName}>
+                    <Link href={`${routeEvents}/${event.id}/registration/visa`}>{t('pageOverviewBtnRequestVisa')}</Link>
+                  </Button>
                 </div>
               )}
             </div>
@@ -1095,7 +1094,11 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           </Link>
         )}
         {/* Button Cancel Process */}
-        {page && <TextButton text={t('btnBackToOverview')} onClick={handleCancelClicked} />}
+        {page && (
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCancelClicked}>
+            {t('btnBackToOverview')}
+          </Button>
+        )}
 
         <div className="flex gap-1">
           {/* Button Back One Page */}
@@ -1103,21 +1106,30 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
           {/* Button Continue */}
           {nextButtonShown() && (
-            <TextButton
-              text={page ? t('btnNextPage') : t('btnRegister')}
+            <Button
+              type="button"
+              variant="action"
+              className={ctaActionButtonClassName}
               disabled={nextButtonDisabled() || moment(event?.registrationOpen).unix() > moment().unix() || moment(event?.dateTo).unix() < moment().unix() || false}
               onClick={handleNextClicked}
-            />
+            >
+              {page ? t('btnNextPage') : t('btnRegister')}
+            </Button>
           )}
 
           {/* Button Checkout */}
-          {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && <TextButton text={getTextButtonCheckout()} onClick={handleRegisterNowClicked} />}
+          {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && (
+            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleRegisterNowClicked}>
+              {getTextButtonCheckout()}
+            </Button>
+          )}
 
           {/* Button Unregister */}
           {!page && registrationStatus === EventRegistrationStatus.PENDING && (
-            <TextButton
-              text={t('btnUnregister')}
-              style={ButtonStyle.CRITICAL}
+            <Button
+              type="button"
+              variant="actionCritical"
+              className={ctaActionButtonClassName}
               disabled={
                 (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix()) ||
                 (registrationType === EventRegistrationType.VISITOR && moment(event?.dateTo).unix() < moment().unix()) ||
@@ -1126,13 +1138,17 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
               onClick={() => {
                 handleUnregisterClicked();
               }}
-            />
+            >
+              {t('btnUnregister')}
+            </Button>
           )}
 
           {/* Button Proceed Payment */}
           {proceedPaymentButtonShown() && (
-            <TextButton
-              text={t('btnProceedPayment')}
+            <Button
+              type="button"
+              variant="action"
+              className={ctaActionButtonClassName}
               disabled={
                 (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix()) ||
                 (registrationType === EventRegistrationType.VISITOR && moment(event?.dateTo).unix() < moment().unix()) ||
@@ -1141,7 +1157,9 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
               onClick={() => {
                 handleProceedPaymentClicked();
               }}
-            />
+            >
+              {t('btnProceedPayment')}
+            </Button>
           )}
         </div>
       </Navigation>

@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { loginUserWithCredentials } from '@/app/actions/authentication';
 import Link from 'next/link';
 import { routeHome, routePasswordForgot, routeRegistration } from '@/domain/constants/routes';
-import TextButton from '../../../components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import TextInput from '../../../components/common/text-input';
 import { Toaster, toast } from 'sonner';
 import { getSession } from 'next-auth/react';
@@ -102,7 +102,9 @@ export const LoginForm = () => {
           </div>
 
           <div className="flex justify-center py-2">
-            <TextButton text={t('btnLogin')} onClick={handleLoginClicked} />
+            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleLoginClicked}>
+              {t('btnLogin')}
+            </Button>
           </div>
 
           <div className="flex justify-center py-2">
