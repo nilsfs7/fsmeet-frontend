@@ -13,6 +13,16 @@ import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
 import { Match } from '@/domain/types/match';
 import ReactCountryFlag from 'react-country-flag';
+import { cn } from '@/lib/utils';
+
+const cardSurface = cn(
+  'group min-w-0 overflow-hidden rounded-xl border border-border/60',
+  'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'transition-all duration-200',
+  'hover:border-primary/50 hover:shadow-md',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+);
 
 interface IMatchProps {
   match: Match;
@@ -54,36 +64,58 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
     }
   };
 
+  const isEditSingleSlot = editingEnabled && match.slots === 1;
+
   return (
-    <div className={`rounded-lg border border-secondary-dark ${!editingEnabled || match.slots > 1 ? 'bg-secondary-light' : 'bg-warning'} p-2`}>
-      {/* Header */}
-      <div className={`${editingEnabled && 'mb-2'}`}>
-        <div className={`flex justify-between items-center`}>
-          <div className={`w-full flex ${editingEnabled ? 'justify-between' : 'justify-center'} items-center`}>
-            <div className={`flex px-1 ${match.name.length === 0 ? 'bg-critical' : 'bg-transparent'}`}>{match.name}</div>
+    <div
+      className={cn(
+        cardSurface,
+        isEditSingleSlot && 'border-warning/50 bg-warning/20 supports-[backdrop-filter]:bg-warning/15 dark:border-warning/40 dark:bg-warning/10 dark:supports-[backdrop-filter]:bg-warning/10',
+      )}
+    >
+      <div className="p-2.5 sm:p-3">
+        <div className={cn('min-w-0', editingEnabled && 'mb-2')}>
+          <div
+            className={cn(
+              'flex w-full min-w-0 items-center gap-2',
+              !editingEnabled && !showTime && 'justify-center',
+              (editingEnabled || showTime) && 'justify-between',
+            )}
+          >
+            <div
+              className={cn(
+                'type-body-sm min-w-0 font-medium text-foreground',
+                !editingEnabled && !showTime && 'text-center',
+                !editingEnabled && showTime && 'flex-1',
+                match.name.length === 0 && 'rounded-md border border-destructive/50 bg-destructive/10 px-1.5 py-0.5 text-destructive dark:border-destructive/40 dark:bg-destructive/15',
+              )}
+            >
+              {match.name}
+            </div>
             {editingEnabled && (
-              <div className="flex gap-1 justify-end w-fit">
+              <div className="flex w-fit shrink-0 gap-1">
                 {onEditMatch && <ActionButton action={Action.EDIT} size={Size.S} onClick={() => onEditMatch(match.matchIndex)} />}
                 {onDeleteMatch && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteMatch(match.matchIndex)} />}
               </div>
             )}
-
-            {!editingEnabled && showTime && <div className="text-sm flex items-center">{match.time && getTimeString(moment(match.time).utc())}</div>}
+            {!editingEnabled && showTime && (
+              <div className="shrink-0 type-body-sm tabular-nums text-muted-foreground">{match.time && getTimeString(moment(match.time).utc())}</div>
+            )}
           </div>
+
+          {editingEnabled && (
+            <div className="mt-2 flex items-center gap-2">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center [&>img]:h-full [&>img]:w-full [&>img]:object-contain">
+                <img src={imgClock} alt="" />
+              </div>
+              <div className="type-body-sm tabular-nums text-foreground/90">
+                {match.time ? getTimeString(moment(match.time).utc()) : '--:--'}
+              </div>
+            </div>
+          )}
         </div>
 
-        {editingEnabled && (
-          <div className="flex items-center">
-            <img src={imgClock} className="mx-1 h-4 w-4 rounded-full object-cover" />
-            <div className="text-xs flex px-1">{match.time ? getTimeString(moment(match.time).utc()) : '--:--'} </div>{' '}
-          </div>
-        )}
-      </div>
-
-      <hr />
-
-      {/* Slots */}
-      <div className="mt-2">
+        <div className="mt-2 border-t border-border/50 pt-2.5 sm:pt-3">
         {[...Array(match.slots)].map((val: number, i: number) => {
           const matchSlot = match.matchSlots.filter(slot => {
             if (slot.slotIndex === i) return slot;
@@ -103,44 +135,60 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                 }}
               />
             ) : (
-              <img src={usersMap?.get(matchSlot?.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
+              <img
+                src={usersMap?.get(matchSlot?.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg}
+                className="h-full w-full rounded-full bg-muted object-cover"
+                alt=""
+              />
             )
           ) : (
-            <img src={imgUserDefaultImg} className="h-full w-full rounded-full bg-zinc-200 object-cover" />
+            <img src={imgUserDefaultImg} className="h-full w-full rounded-full bg-muted object-cover" alt="" />
           );
 
-          const playerName = (
-            <div className="text-sm">{`${
-              matchSlot?.name
-                ? usersMap?.get(matchSlot.name)?.firstName && usersMap?.get(matchSlot.name)?.lastName
-                  ? `${usersMap?.get(matchSlot.name)?.firstName} ${usersMap?.get(matchSlot.name)?.lastName}`
-                  : usersMap?.get(matchSlot.name)?.firstName || matchSlot?.name
-                : ''
-            }`}</div>
-          );
+          const playerNameText = matchSlot?.name
+            ? usersMap?.get(matchSlot.name)?.firstName && usersMap?.get(matchSlot.name)?.lastName
+              ? `${usersMap?.get(matchSlot.name)?.firstName} ${usersMap?.get(matchSlot.name)?.lastName}`
+              : usersMap?.get(matchSlot.name)?.firstName || matchSlot?.name || ''
+            : '';
 
           return (
-            <div key={`slot-${i}`} className="flex items-center justify-between">
+            <div key={`slot-${i}`} className={cn('flex items-center justify-between', i > 0 && 'mt-1.5')}>
               {!seedingEnabled && (
-                <div className="flex w-full justify-between">
-                  <div className="flex w-full items-center">
-                    {/* player image */}
-                    <div className="h-8 w-8 p-1">{matchSlot?.name ? <Link href={`${routeUsers}/${matchSlot.name}`}>{playerImage}</Link> : playerImage}</div>
-
-                    {/* player name */}
-                    <div className="flex h-full w-32 items-center overflow-hidden text-ellipsis px-1">
-                      {matchSlot?.name ? <Link href={`${routeUsers}/${matchSlot.name}`}>{playerName}</Link> : playerName}
+                <div className="flex w-full min-w-0 items-center justify-between gap-2">
+                  <div className="flex min-w-0 flex-1 items-center gap-2">
+                    <div className="h-7 w-7 shrink-0 overflow-hidden rounded-full">
+                      {matchSlot?.name ? (
+                        <Link className="block h-full w-full" href={`${routeUsers}/${matchSlot.name}`}>
+                          {playerImage}
+                        </Link>
+                      ) : (
+                        playerImage
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1 items-center overflow-hidden text-ellipsis">
+                      {matchSlot?.name ? (
+                        <Link
+                          className="type-body-sm min-w-0 truncate text-foreground/90 no-underline hover:underline"
+                          href={`${routeUsers}/${matchSlot.name}`}
+                        >
+                          {playerNameText}
+                        </Link>
+                      ) : (
+                        <span className="type-body-sm min-w-0 text-foreground/90">{playerNameText}</span>
+                      )}
                     </div>
                   </div>
 
-                  <div className="flex w-4 items-center justify-end text-base font-bold">{matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : '-'}</div>
+                  <div className="shrink-0 min-w-[1.5ch] text-right text-base font-semibold tabular-nums text-foreground">
+                    {matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : '-'}
+                  </div>
                 </div>
               )}
 
               {seedingEnabled && (
-                <div className={`flex w-full justify-between ${i > 0 ? 'mt-1' : ''} gap-1`}>
+                <div className={cn('flex w-full min-w-0 items-stretch justify-between gap-2', i > 0 && 'mt-1')}>
                   <ComboBox
-                    className="w-full"
+                    className="w-full min-w-0"
                     menus={playerMenu}
                     value={matchSlot && matchSlot?.name ? matchSlot.name : ''}
                     searchEnabled={true}
@@ -151,7 +199,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                   />
 
                   <input
-                    className="flex bg-transparent text-right border-secondary-dark border rounded-md hover:border-primary"
+                    className="h-9 w-[4.5rem] shrink-0 rounded-md border border-border/60 bg-background/80 px-2 text-right text-sm font-medium tabular-nums text-foreground shadow-sm transition-colors hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:bg-background/50"
                     id={`input-max-passing-${match.id}-${i}`}
                     type="number"
                     min={-1}
@@ -166,6 +214,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
             </div>
           );
         })}
+        </div>
       </div>
     </div>
   );

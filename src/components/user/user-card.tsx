@@ -45,14 +45,9 @@ const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserCo
       )}
     >
       <div className={cardSurface}>
-        <div
-          className={cn(
-            'flex min-w-0 items-center gap-2.5 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3',
-            !showName && !registrationStatus && 'px-2.5 py-2 sm:px-3 sm:py-2.5',
-          )}
-        >
+        <div className={cn('flex min-w-0 items-center gap-2.5 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3', !showName && !registrationStatus && 'px-2.5 py-2 sm:px-3 sm:py-2.5')}>
           {showUserCountryFlag ? (
-            <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full border border-border/50 bg-muted/20 ring-1 ring-border/30">
+            <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full">
               <ReactCountryFlag
                 className="!h-full !w-full"
                 countryCode={user.countryCode || ''}
@@ -65,28 +60,18 @@ const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserCo
               />
             </div>
           ) : (
-            <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full border border-border/50 ring-1 ring-border/30">
+            <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full">
               <img src={user.imageUrl || imgUserDefaultImg} className="h-full w-full object-cover" alt="" />
             </div>
           )}
 
-          {showName && (
-            <span className="type-body-sm min-w-0 flex-1 font-medium leading-snug text-foreground">
-              {name}
-            </span>
-          )}
+          {showName && <span className="type-body-sm min-w-0 flex-1 font-medium leading-snug text-foreground">{name}</span>}
 
           {registrationStatus && (
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border/40 bg-muted/50">
-              {registrationStatus === EventRegistrationStatus.APPROVED && (
-                <IconCheck className="h-4 w-4 text-success" stroke={2} aria-hidden />
-              )}
-              {registrationStatus === EventRegistrationStatus.PENDING && (
-                <IconHourglass className="h-4 w-4 text-amber-600 dark:text-amber-400" stroke={2} aria-hidden />
-              )}
-              {registrationStatus === EventRegistrationStatus.DENIED && (
-                <IconBan className="h-4 w-4 text-destructive" stroke={2} aria-hidden />
-              )}
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center">
+              {registrationStatus === EventRegistrationStatus.APPROVED && <IconCheck className="h-4 w-4 text-success" stroke={2} aria-hidden />}
+              {registrationStatus === EventRegistrationStatus.PENDING && <IconHourglass className="h-4 w-4 text-amber-600 dark:text-amber-400" stroke={2} aria-hidden />}
+              {registrationStatus === EventRegistrationStatus.DENIED && <IconBan className="h-4 w-4 text-destructive" stroke={2} aria-hidden />}
             </div>
           )}
         </div>

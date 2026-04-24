@@ -29,7 +29,7 @@ const SponsorCard = ({ sponsor }: ISponsorCardProps) => {
     >
       <div className={cardSurface}>
         <div className="inline-flex w-max min-w-0 max-w-full items-center gap-2.5 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3">
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border/50 bg-muted/20 ring-1 ring-border/30">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-md">
             {sponsor.imageUrlLogo ? (
               <img
                 src={sponsor.imageUrlLogo}

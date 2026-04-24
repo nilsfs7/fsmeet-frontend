@@ -6,17 +6,18 @@ import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
+import { PageInset } from '@/components/layout/page-inset';
 
 export default function Imprint() {
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="flex h-[calc(100dvh)] min-h-0 flex-col">
       <Header />
 
       <PageTitle title="Impressum" />
 
-      <div className="mx-2 mt-2 flex flex-1 flex-col items-center overflow-y-auto px-2 pb-4">
+      <PageInset variant="prose" className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
         <ImprintText />
-      </div>
+      </PageInset>
 
       <Navigation>
         <Link href={routeAbout}>

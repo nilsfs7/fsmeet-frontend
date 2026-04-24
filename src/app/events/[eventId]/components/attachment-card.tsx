@@ -29,7 +29,7 @@ const AttachmentCard = ({ attachment }: IAttachmentCardProps) => {
     >
       <div className={cardSurface}>
         <div className="inline-flex w-max min-w-0 max-w-full items-center gap-2.5 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3">
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border/40 bg-muted/50 text-foreground">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center text-foreground">
             {attachment.isExternal ? (
               <IconExternalLink className="h-4 w-4" stroke={2} aria-hidden />
             ) : (
