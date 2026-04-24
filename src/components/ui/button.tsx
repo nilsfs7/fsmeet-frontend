@@ -21,12 +21,21 @@ const buttonVariants = cva(
         actionCritical: 'bg-critical text-critical-foreground shadow-sm hover:bg-critical-dark focus-visible:ring-critical',
         actionWarning:
           'border border-warning bg-background text-foreground shadow-sm hover:bg-warning/10 focus-visible:ring-warning',
+        /** Bordered tool / toolbar icon (see `ActionButton`); pair with `size` icon / iconSm / iconXs. */
+        actionIcon:
+          'border border-primary bg-transparent text-primary shadow-sm transition-all duration-200 ease-in-out hover:scale-[1.02] active:scale-[0.98] hover:shadow-md hover:bg-secondary-light focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:bg-secondary-light disabled:text-secondary-dark disabled:opacity-100 disabled:hover:scale-100',
+        actionIconWarning:
+          'border border-primary bg-transparent text-warning shadow-sm transition-all duration-200 ease-in-out hover:scale-[1.02] active:scale-[0.98] hover:shadow-md hover:bg-secondary-light focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:bg-secondary-light disabled:text-secondary-dark disabled:opacity-100 disabled:hover:scale-100',
+        actionIconCritical:
+          'border border-primary bg-transparent text-critical shadow-sm transition-all duration-200 ease-in-out hover:scale-[1.02] active:scale-[0.98] hover:shadow-md hover:bg-secondary-light focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:bg-secondary-light disabled:text-secondary-dark disabled:opacity-100 disabled:hover:scale-100',
       },
       size: {
         default: 'h-10 px-4 py-2',
         sm: 'h-9 rounded-md px-3',
         lg: 'h-11 rounded-md px-8',
-        icon: 'h-10 w-10',
+        icon: 'h-10 w-10 rounded-lg p-0',
+        iconSm: 'h-8 w-8 rounded-lg p-0',
+        iconXs: 'h-4 w-4 rounded-lg p-0',
       },
     },
     defaultVariants: {

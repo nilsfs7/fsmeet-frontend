@@ -31,6 +31,8 @@ import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
 import { imgWorld } from '@/domain/constants/images';
 import { ButtonStyle } from '@/domain/enums/button-style';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 type TablerActionIcon = ComponentType<{ className?: string; stroke?: number }>;
@@ -69,6 +71,50 @@ const ACTION_ICON: Record<Action, ActionIconConfig> = {
   [Action.STATISTICS]: { kind: 'icon', Icon: IconChartBar },
 };
 
+type ActionIconSize = 'icon' | 'iconSm' | 'iconXs';
+type ActionIconVariant = 'actionIcon' | 'actionIconWarning' | 'actionIconCritical';
+
+function styleToVariant(style: ButtonStyle, disabled: boolean): ActionIconVariant {
+  if (disabled) {
+    return 'actionIcon';
+  }
+  switch (style) {
+    case ButtonStyle.WARNING:
+      return 'actionIconWarning';
+    case ButtonStyle.CRITICAL:
+      return 'actionIconCritical';
+    case ButtonStyle.DEFAULT:
+    default:
+      return 'actionIcon';
+  }
+}
+
+function sizeToButtonSize(size: Size): ActionIconSize {
+  switch (size) {
+    case Size.XS:
+      return 'iconXs';
+    case Size.S:
+      return 'iconSm';
+    case Size.M:
+    case Size.L:
+    default:
+      return 'icon';
+  }
+}
+
+function sizeToBoxClass(size: Size) {
+  switch (size) {
+    case Size.XS:
+      return 'h-4 w-4';
+    case Size.S:
+      return 'h-8 w-8';
+    case Size.M:
+    case Size.L:
+    default:
+      return 'h-10 w-10';
+  }
+}
+
 interface IButton {
   action: Action;
   tooltip?: string;
@@ -78,41 +124,10 @@ interface IButton {
   onClick?: () => void;
 }
 
-enum ButtonSize {
-  XS = 'h-4 w-4',
-  S = 'h-8 w-8',
-  M = 'h-10 w-10',
-}
-
 const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, disabled = false, onClick }: IButton) => {
-  const getButtonColors = () => {
-    if (disabled) {
-      return 'bg-secondary-light text-secondary-dark';
-    }
-
-    switch (style) {
-      case ButtonStyle.DEFAULT:
-        return 'bg-transparent hover:bg-secondary-light text-primary border-primary';
-      case ButtonStyle.WARNING:
-        return 'bg-transparent hover:bg-secondary-light text-warning border-primary';
-      case ButtonStyle.CRITICAL:
-        return 'bg-transparent hover:bg-secondary-light text-critical border-primary';
-    }
-  };
-
-  let buttonSize = '';
-  switch (size) {
-    case Size.XS:
-      buttonSize = ButtonSize.XS;
-      break;
-    case Size.S:
-      buttonSize = ButtonSize.S;
-      break;
-    case Size.M:
-      buttonSize = ButtonSize.M;
-      break;
-  }
-
+  const variant = styleToVariant(style, disabled);
+  const buttonSize = sizeToButtonSize(size);
+  const boxClass = sizeToBoxClass(size);
   const iconConfig = ACTION_ICON[action];
   const iconClassName = size === Size.XS ? 'h-full w-full' : 'h-[63%] w-[63%]';
 
@@ -120,21 +135,21 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <button
-            className={`
-      ${buttonSize} rounded-lg ${size !== Size.XS && 'border'} flex justify-center items-center
-      transition-all duration-200 ease-in-out
-      transform hover:scale-[1.02] active:scale-[0.98]
-      shadow-sm hover:shadow-md
-      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
-      ${getButtonColors()}
-    `}
+          <Button
+            type="button"
+            variant={variant}
+            size={buttonSize}
+            className={cn(size === Size.XS && 'border-0 shadow-none hover:shadow-none')}
             disabled={disabled}
             onClick={onClick}
             aria-label={action.toString().toLowerCase()}
           >
-            {iconConfig.kind === 'img' ? <img src={iconConfig.src} alt={iconConfig.alt} className={buttonSize} /> : <iconConfig.Icon className={iconClassName} stroke={2.0} />}
-          </button>
+            {iconConfig.kind === 'img' ? (
+              <img src={iconConfig.src} alt={iconConfig.alt} className={boxClass} />
+            ) : (
+              <iconConfig.Icon className={iconClassName} stroke={2.0} />
+            )}
+          </Button>
         </TooltipTrigger>
 
         {tooltip && (
