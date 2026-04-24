@@ -262,9 +262,9 @@
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Programme",
-    "tabScheduleComboBoxParticipantFilterLabel": "Filtrer par participant",
+    "tabScheduleComboBoxParticipantFilterLabel": "Filtre participant",
     "tabScheduleComboBoxParticipantFilterItemUnselected": "Montrer tout",
-    "tabScheduleSwitchMyBattlesOnly": "Mes battles uniquement",
+    "tabScheduleSwitchMyBattlesOnly": "Moi",
     "tabBattlGridTitle": "Tableau des battles",
     "tabInfoTitle": "Infos",
     "tabInfoSectionGeneral": "Informations générales",

@@ -140,7 +140,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
         {rounds.length > 0 && (
           <TabsContent value="schedule" className="overflow-hidden overflow-y-auto">
             {rounds.length > 1 && (
-              <div className="m-2 flex flex-col items-center justify-center gap-4">
+              <div className="m-2 flex w-full flex-row flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-4">
                 <ComboBox
                   menus={participantsMenu}
                   value={filteredByUser || ''}
@@ -155,8 +155,8 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
                   }}
                 />
 
-                {session?.user?.username && usersMap.get(session.user.username) && rounds.length > 1 && (
-                  <div className="mb-2 flex items-center gap-2">
+                {session?.user?.username && usersMap.get(session.user.username) && (
+                  <div className="flex shrink-0 items-center gap-2">
                     {t('tabScheduleSwitchMyBattlesOnly')}
                     <Switch
                       checked={showMyBattlesOnlyEnabled}

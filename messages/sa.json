@@ -280,9 +280,9 @@
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "الجدول",
-    "tabScheduleComboBoxParticipantFilterLabel": "تصفية حسب المشارك",
+    "tabScheduleComboBoxParticipantFilterLabel": "تصفية مشارك",
     "tabScheduleComboBoxParticipantFilterItemUnselected": "عرض الكل",
-    "tabScheduleSwitchMyBattlesOnly": "نزالاتي فقط",
+    "tabScheduleSwitchMyBattlesOnly": "أنا فقط",
     "tabBattlGridTitle": "شبكة النزالات",
     "tabInfoTitle": "معلومات",
     "tabInfoSectionGeneral": "معلومات عامة",
