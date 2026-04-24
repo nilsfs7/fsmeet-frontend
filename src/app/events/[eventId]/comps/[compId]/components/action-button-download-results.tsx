@@ -22,17 +22,16 @@ import { roundMatchesAscending, type Round } from '@/domain/types/round';
 interface IActionButtonDownloadResults {
   event: Event;
   comp: Competition;
-  rounds_plain: Round[];
+  rounds: Round[];
 }
 
-export const ActionButtonDownloadResults = ({ event, comp, rounds_plain }: IActionButtonDownloadResults) => {
+export const ActionButtonDownloadResults = ({ event, comp, rounds }: IActionButtonDownloadResults) => {
   const t = useTranslations('/events/eventid/comps/compid');
 
   const router = useRouter();
 
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [exportContainsPlayerNames, setExportContainsPlayerNames] = useState<boolean>(false);
-  const [rounds, setRounds] = useState<Round[]>([]);
 
   const handleCancelDialogClicked = async () => {
     router.replace(`${routeEvents}/${event.id}/comps/${comp.id}`);
@@ -157,10 +156,6 @@ export const ActionButtonDownloadResults = ({ event, comp, rounds_plain }: IActi
     }
     return data;
   };
-
-  useEffect(() => {
-    setRounds(structuredClone(rounds_plain));
-  }, [rounds_plain]);
 
   useEffect(() => {
     const getUsers = async () => {
