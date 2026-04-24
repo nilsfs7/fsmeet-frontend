@@ -137,4 +137,20 @@
   .prose-flow {
     @apply prose w-full max-w-prose text-pretty text-left;
   }
+
+  /**
+   * Spacing & layout contract (P0):
+   * - Rhythm: prefer Tailwind spacing scale (4px base: 1=4px, 2=8px, 3=12px, 4=16px, 6=24px, 8=32px…).
+   * - Page horizontal padding: px-4 sm:px-6 md:px-8 (matches `PageTitle` defaults).
+   * - Use `PageInset` or these classes so main content shares one max-width + padding.
+   */
+  .page-inset {
+    @apply mx-auto w-full max-w-content px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
+  }
+  .page-inset-narrow {
+    @apply mx-auto w-full max-w-form px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
+  }
+  .page-inset-prose {
+    @apply mx-auto w-full max-w-prose px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
+  }
 }

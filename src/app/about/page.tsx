@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { readFileSync } from 'fs';
 import path from 'path';
 import Image from 'next/image';
+import { PageInset } from '@/components/layout/page-inset';
 
 export default async function About() {
   const t = await getTranslations('/about');
@@ -30,7 +31,7 @@ export default async function About() {
 
       <PageTitle title={t('pageTitle')} />
 
-      <div className="mx-auto mt-2 flex w-full max-w-prose flex-col items-center overflow-y-auto px-4 text-center">
+      <PageInset variant="prose" className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto text-center">
         <div>{t('aboutText1')}</div>
         <div className="mt-2">
           {t('aboutText2')}
@@ -76,7 +77,7 @@ export default async function About() {
         <Link className="underline" href={routeDataProtection}>
           {t('lnkPrivacyPolicy')}
         </Link>
-      </div>
+      </PageInset>
 
       <Navigation>
         <Link href={routeHome}>

@@ -81,6 +81,10 @@ const config: Config = {
       maxWidth: {
         /** ~65ch; same idea as `max-w-prose`, useful for `mx-auto` copy blocks */
         copy: '65ch',
+        /** P0 layout: main app column (1152px) — use with `PageInset` / `.page-inset` */
+        content: '72rem',
+        /** P0 layout: forms & settings-style pages (640px) */
+        form: '40rem',
       },
       typography: {
         DEFAULT: {
