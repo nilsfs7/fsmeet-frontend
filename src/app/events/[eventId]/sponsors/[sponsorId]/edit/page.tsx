@@ -77,7 +77,7 @@ export default function EditEventSponsor(props: { params: Promise<{ eventId: str
         <p>{`Do you really want to delete this sponsor?`}</p>
       </Dialog>
 
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title="Edit Sponsor" />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>

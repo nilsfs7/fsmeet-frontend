@@ -8,7 +8,7 @@ import { LicensesEditor } from './components/licenses-editor';
 
 export default async function LicenseAdministration() {
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title="Manage Licenses" />
 
       <LicensesEditor />

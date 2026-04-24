@@ -22,7 +22,7 @@ export default async function EventParticipants(props: { params: Promise<{ event
   const offerings = await getOfferings(params.eventId);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <RegistrationsList

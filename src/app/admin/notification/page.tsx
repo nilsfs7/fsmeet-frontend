@@ -107,7 +107,7 @@ export default function PushNotification() {
     <>
       <Toaster richColors />
 
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title={'Push Notification'} />
 
         <div className="mx-2 rounded-lg border border-primary bg-secondary-light overflow-y-auto gap-2 p-2">

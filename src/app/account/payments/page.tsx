@@ -27,7 +27,7 @@ export default async function Payments() {
   });
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <Header />
 
       <PageTitle title={t('pageTitle')} />

@@ -24,7 +24,7 @@ export default async function EventEditing(props: { params: Promise<{ eventId: s
   const event = await getEvent(params.eventId, session);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <div className={`mx-2 flex flex-col overflow-y-auto`}>

@@ -31,7 +31,7 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
   ]);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       {/* admin panel */}
       {isEventAdminOrMaintainer(event, session) && (
         <div className="mt-2 mx-2">

@@ -15,7 +15,7 @@ export default async function EventSponsors(props: { params: Promise<{ eventId: 
   const sponsors = await getSponsors(params.eventId);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>

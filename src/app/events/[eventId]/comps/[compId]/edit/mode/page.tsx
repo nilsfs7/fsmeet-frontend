@@ -15,7 +15,7 @@ export default async function ModeEditing(props: { params: Promise<{ eventId: st
   const participants = await getCompetitionParticipants(params.compId);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <GameModeEditor event={event} compId={params.compId} roundsInit={rounds} participants={participants} />

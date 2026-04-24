@@ -16,7 +16,7 @@ export default async function ArenaScreen(props: { params: Promise<{ eventId: st
   const options = competitions.filter((c): c is typeof c & { id: string } => Boolean(c.id)).map(c => ({ id: c.id, name: c.name }));
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <Header showMenu={true} />
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-4 py-8">
         <h1 className="text-xl font-semibold text-primary">Arena screen</h1>

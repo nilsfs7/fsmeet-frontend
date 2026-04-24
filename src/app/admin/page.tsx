@@ -8,7 +8,7 @@ import PageTitle from '@/components/page-title';
 
 export default async function AdminOverview() {
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title="Admin Overview" />
 
       <div className="mx-2 flex items-center flex-col gap-2">

@@ -92,7 +92,7 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
   });
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <div className={'grid mx-2 gap-2 p-2 rounded-lg  border border-primary bg-secondary-light  text-sm overflow-y-auto'}>

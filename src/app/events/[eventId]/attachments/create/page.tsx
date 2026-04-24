@@ -45,7 +45,7 @@ export default function CreateEventAttachment(props: { params: Promise<{ eventId
     <>
       <Toaster richColors />
 
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title={t('pageTitle')} />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>

@@ -85,7 +85,7 @@ export default function EditEventOffering(props: { params: Promise<{ eventId: st
         <p>{`Do you really want to delete this offering?`}</p>
       </Dialog>
 
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         {/* todo: translations */}
         <PageTitle title="Edit Offering" />
 
