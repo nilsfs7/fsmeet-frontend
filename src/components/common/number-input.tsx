@@ -1,3 +1,6 @@
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+
 interface INumberInput {
   id: string;
   label: string;
@@ -18,9 +21,9 @@ const NumberInput = ({ id, label, labelOnTop = true, placeholder, defValue, valu
           <div>{label}</div>
 
           <div className="flex h-full">
-            <input
+            <Input
               id={id}
-              className="h-full w-full rounded-lg border border-secondary-dark p-1"
+              className={cn('h-full min-h-10 w-full p-1')}
               type="number"
               placeholder={placeholder}
               defaultValue={defValue}
@@ -36,7 +39,17 @@ const NumberInput = ({ id, label, labelOnTop = true, placeholder, defValue, valu
       {!labelOnTop && (
         <div className="m-2 grid h-[100%] grid-cols-2">
           <div>{label}</div>
-          <input id={id} className="h-full w-full rounded-lg p-1" type="number" placeholder={placeholder} defaultValue={defValue} value={value} step={step} onChange={onChange} onKeyDown={onKeyDown} />
+          <Input
+            id={id}
+            className={cn('h-full min-h-10 w-full p-1')}
+            type="number"
+            placeholder={placeholder}
+            defaultValue={defValue}
+            value={value}
+            step={step}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+          />
         </div>
       )}
     </>

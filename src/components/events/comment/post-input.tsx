@@ -1,4 +1,6 @@
 import ActionButton from '@/components/common/action-button';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
@@ -27,7 +29,12 @@ const PostInput = ({ elementId, username, userProfileImageUrl, onMessageChange, 
       </div>
 
       <div className="min-w-[50vw]">
-        <input id={elementId} className="h-full w-full rounded-lg border border-secondary-dark bg-background p-1 text-sm hover:border-primary" maxLength={255} onChange={handleChange} />
+        <Input
+          id={elementId}
+          className={cn('h-8 w-full', 'bg-background')}
+          maxLength={255}
+          onChange={handleChange}
+        />
       </div>
 
       <ActionButton action={Action.SEND} size={Size.S} onClick={onSendReplyClick} />

@@ -13,6 +13,7 @@ import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
 import { Match } from '@/domain/types/match';
 import ReactCountryFlag from 'react-country-flag';
+import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
 const cardSurface = cn(
@@ -198,8 +199,11 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                     }}
                   />
 
-                  <input
-                    className="h-9 w-[4.5rem] shrink-0 rounded-md border border-border/60 bg-background/80 px-2 text-right text-sm font-medium tabular-nums text-foreground shadow-sm transition-colors hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:bg-background/50"
+                  <Input
+                    className={cn(
+                      'h-9 w-[4.5rem] shrink-0 text-right text-sm font-medium tabular-nums',
+                      'border-border/60 bg-background/80 shadow-sm hover:border-primary/50 dark:bg-background/50',
+                    )}
                     id={`input-max-passing-${match.id}-${i}`}
                     type="number"
                     min={-1}

@@ -6,6 +6,7 @@ import ActionButton from '../../../../../../../../components/common/action-butto
 import { Action } from '@/domain/enums/action';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { TimePicker } from '@/components/common/time-picker';
+import { Input } from '@/components/ui/input';
 import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
@@ -62,14 +63,7 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
           <div className="p-2 grid gap-1">
             <div className="grid grid-cols-2 gap-2">
               <div>{t('dlgEditMatchName')}</div>
-              <input
-                id={`input-round-name`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
-                value={matchName}
-                onChange={e => {
-                  setMatchName(e.currentTarget.value);
-                }}
-              />
+              <Input id={`input-round-name`} value={matchName} onChange={e => setMatchName(e.currentTarget.value)} />
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center">
@@ -79,9 +73,8 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
 
             <div className="grid grid-cols-2 gap-2">
               <div>{t('dlgEditMatchAmountPlayers')}</div>
-              <input
+              <Input
                 id={`input-slots-per-match`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                 type="number"
                 min={1}
                 max={999}

@@ -8,6 +8,7 @@ import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import ComboBox from '@/components/common/combo-box';
 import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
 import moment from 'moment';
+import { Input } from '@/components/ui/input';
 import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
@@ -65,14 +66,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
           <div className="p-2 grid gap-1">
             <div className="grid grid-cols-2 justify-between gap-2">
               <div>{t('dlgEditRoundName')}</div>
-              <input
-                id={`input-round-name`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
-                value={roundName}
-                onChange={e => {
-                  setRoundName(e.currentTarget.value);
-                }}
-              />
+              <Input id={`input-round-name`} value={roundName} onChange={e => setRoundName(e.currentTarget.value)} />
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center relative z-60">
@@ -90,9 +84,8 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
 
             <div className="grid grid-cols-2 gap-2">
               <div>{t('dlgEditRoundPlayersAdvancing')}</div>
-              <input
+              <Input
                 id={`input-advancingTotal`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                 type="number"
                 min={1}
                 value={advancingTotal}

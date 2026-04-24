@@ -8,6 +8,7 @@ import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import ComboBox from '@/components/common/combo-box';
 import moment from 'moment';
 import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
+import { Input } from '@/components/ui/input';
 import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
@@ -73,14 +74,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
           <div className="p-2 grid gap-1">
             <div className="grid grid-cols-2 justify-between gap-2">
               <div>{t('dlgAddRoundName')}</div>
-              <input
-                id={`input-round-name`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
-                value={roundName}
-                onChange={e => {
-                  setRoundName(e.currentTarget.value);
-                }}
-              />
+              <Input id={`input-round-name`} value={roundName} onChange={e => setRoundName(e.currentTarget.value)} />
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center relative z-60">
@@ -103,9 +97,8 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
 
             <div className="grid grid-cols-2 gap-2">
               <div>{t('dlgAddRoundPlayersAdvancing')}</div>
-              <input
+              <Input
                 id={`input-advancingTotal`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                 type="number"
                 min={1}
                 max={availablePlayers}
@@ -119,9 +112,8 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
 
             <div className="grid grid-cols-2 gap-2">
               <div>{t('dlgAddRoundPlayersPerMatch')}</div>
-              <input
+              <Input
                 id={`input-slots-per-match`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                 type="number"
                 min={2}
                 max={availablePlayers}

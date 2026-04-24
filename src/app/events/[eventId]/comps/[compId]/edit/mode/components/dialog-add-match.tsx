@@ -6,6 +6,7 @@ import ActionButton from '../../../../../../../../components/common/action-butto
 import { Action } from '@/domain/enums/action';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { TimePicker } from '@/components/common/time-picker';
+import { Input } from '@/components/ui/input';
 import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
@@ -55,14 +56,7 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
           <div className="p-2 grid gap-1">
             <div className="grid grid-cols-2 gap-2">
               <div>{t('dlgAddMatchName')}</div>
-              <input
-                id={`input-match-name`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
-                value={matchName}
-                onChange={e => {
-                  setMatchName(e.currentTarget.value);
-                }}
-              />
+              <Input id={`input-match-name`} value={matchName} onChange={e => setMatchName(e.currentTarget.value)} />
             </div>
 
             <div className="grid grid-cols-2 gap-2 items-center">
@@ -72,9 +66,8 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
 
             <div className="grid grid-cols-2 gap-2">
               <div>{t('dlgAddMatchAmountPlayers')}</div>
-              <input
+              <Input
                 id={`input-slots-per-match`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
                 type="number"
                 min={2}
                 max={99} // TODO: maximum is players in round

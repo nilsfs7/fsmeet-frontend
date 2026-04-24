@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import TextInputLarge from '@/components/common/text-input-large';
 import { routeAdminOverview } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
@@ -174,9 +175,9 @@ export default function PushNotification() {
                   <div className="w-1/4">{item}</div>
 
                   <div className="flex w-full gap-2 items-center">
-                    <input
+                    <Input
                       id={`inputArbData-${item}`}
-                      className="h-full w-full rounded-lg border border-secondary-dark p-1"
+                      className="h-full w-full p-1"
                       onChange={e => {
                         handleInputArbitraryDataChanged(item, e.currentTarget.value);
                       }}
