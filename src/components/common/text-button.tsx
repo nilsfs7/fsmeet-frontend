@@ -1,4 +1,9 @@
+'use client';
+
+import { Button, buttonVariants } from '@/components/ui/button';
 import { ButtonStyle } from '@/domain/enums/button-style';
+import { cn } from '@/lib/utils';
+import type { VariantProps } from 'class-variance-authority';
 
 interface IButton {
   text: string;
@@ -9,38 +14,36 @@ interface IButton {
   onClick?: () => void;
 }
 
+function styleToVariant(style: ButtonStyle): NonNullable<VariantProps<typeof buttonVariants>['variant']> {
+  switch (style) {
+    case ButtonStyle.CRITICAL:
+      return 'actionCritical';
+    case ButtonStyle.WARNING:
+      return 'actionWarning';
+    case ButtonStyle.DEFAULT:
+    default:
+      return 'action';
+  }
+}
+
+/**
+ * Primary app text CTA. Implemented on top of {@link Button} (`@/components/ui/button`) for a single button system.
+ */
 const TextButton = ({ text, style = ButtonStyle.DEFAULT, disabled = false, id = '', className = '', onClick }: IButton) => {
-  const getButtonColors = () => {
-    if (disabled) {
-      return 'bg-secondary-light text-primary';
-    }
-
-    switch (style) {
-      case ButtonStyle.DEFAULT:
-        return 'bg-primary hover:bg-primary-dark text-background';
-      case ButtonStyle.CRITICAL:
-        return 'bg-critical hover:bg-critical-dark text-background';
-      default:
-    }
-  };
-
   return (
-    <button
+    <Button
       id={id}
-      className={`
-      min-w-36 p-2 rounded-lg font-medium
-      transition-all duration-20000 ease-in-out
-      transform hover:scale-[1.02] active:scale-[0.98]
-      shadow-sm hover:shadow-md
-      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
-      ${getButtonColors()}
-      ${className}
-    `}
+      type="button"
+      variant={styleToVariant(style)}
       disabled={disabled}
       onClick={onClick}
+      className={cn(
+        'min-w-36 rounded-lg text-base font-medium transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100',
+        className,
+      )}
     >
       {text}
-    </button>
+    </Button>
   );
 };
 

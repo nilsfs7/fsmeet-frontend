@@ -25,6 +25,13 @@
 - `lib/`: helper utilities
 - `actions/`: Next.js Server Actions
 
+## Standardized components (P1)
+
+- **Buttons:** Use `Button` from `@/components/ui/button`. App CTAs that need the legacy “filled primary / red” look use `variant="action" | "actionCritical" | "actionWarning"`, or use `TextButton` (wraps `Button` with the same styles).
+- **Text fields:** Use `Input` from `@/components/ui/input` for single-line fields. The labeled `TextInput` in `components/common` composes `Input` for layout + label.
+- **Modal UIs:** Prefer Radix `Dialog` from `@/components/ui/dialog` for state-driven modals. The custom `Dialog` in `components/dialog.tsx` is for **URL query–param** flows only.
+- **Data tables:** Prefer `@/components/ui/table` with TanStack as used in list screens.
+
 ## Spacing & layout contract (P0)
 
 - **Rhythm:** Use the Tailwind spacing scale (4px base: `gap-2` = 8px, `p-4` = 16px, `mb-6` = 24px, etc.). Prefer 4/8/12/16/24px steps over arbitrary values.

@@ -1,5 +1,8 @@
 'use client';
 
+/**
+ * URL query–driven modal (e.g. `?delete=1`). For standard in-page dialogs, prefer `@/components/ui/dialog` (Radix).
+ */
 import { useSearchParams } from 'next/navigation';
 import ActionButton from './common/action-button';
 import { Action } from '@/domain/enums/action';

@@ -1,3 +1,9 @@
+'use client';
+
+import type { ChangeEvent, KeyboardEvent } from 'react';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+
 interface ITextInput {
   id: string;
   label: string;
@@ -8,20 +14,22 @@ interface ITextInput {
   maxInputLength?: number;
   type?: string;
   readOnly?: boolean;
-  onChange?: (event: any) => void;
-  onKeyDown?: (event: any) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, maxInputLength, type, readOnly = false, onChange, onKeyDown }: ITextInput) => {
+  const inputClass = cn('h-full min-h-10 w-full', readOnly && 'bg-secondary-light');
+
   return (
     <>
       {labelOnTop && (
         <div className="m-2 flex h-[100%] flex-col">
           <div>{label}</div>
           <div className="flex h-full">
-            <input
+            <Input
               id={id}
-              className={`h-full w-full rounded-lg border border-secondary-dark p-1 ${readOnly && 'bg-secondary-light'}`}
+              className={inputClass}
               type={type}
               placeholder={placeholder}
               defaultValue={defValue}
@@ -39,9 +47,9 @@ const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value,
       {!labelOnTop && (
         <div className="m-2 grid h-[100%] grid-cols-2">
           <div>{label}</div>
-          <input
+          <Input
             id={id}
-            className={`h-full w-full rounded-lg border-secondary-dark p-1 ${readOnly && 'bg-secondary-light'}`}
+            className={inputClass}
             type={type}
             placeholder={placeholder}
             defaultValue={defValue}
