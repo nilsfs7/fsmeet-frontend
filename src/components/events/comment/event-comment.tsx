@@ -15,51 +15,39 @@ import { useSession } from 'next-auth/react';
 interface IUserCommentProps {
   comment: EventComment;
   canDelete: boolean;
-  onClickReply: (commentId: string) => void;
+  /** Parent decides target (e.g. root id for a subcomment thread). */
+  onClickReply: () => void;
   onClickDelete: (commentId: string) => void;
 }
 
 const UserComment = ({ comment, canDelete, onClickReply, onClickDelete }: IUserCommentProps) => {
-  const { data: session, status } = useSession();
-
-  const handleReplyClicked = (commentId: string) => {
-    onClickReply(commentId);
-  };
+  const { data: session } = useSession();
 
   const handleDeleteClicked = (commentId: string) => {
     onClickDelete(commentId);
   };
   return (
-    <div className="grid grid-flow-col gap-1 justify-start text-sm">
-      <div className="h-8 w-8">
-        <Link href={`${routeUsers}/${comment.user.username}`}>
+    <div className="flex w-full min-w-0 gap-2 text-sm">
+      <div className="h-8 w-8 shrink-0">
+        <Link href={`${routeUsers}/${comment.user.username}`} className="block h-full w-full">
           <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-background object-cover" />
         </Link>
       </div>
 
-      <div className="flex flex-col gap-1 ">
-        <div className="flex flex-col gap-1 rounded-lg bg-background p-1">
-          <Link href={`${routeUsers}/${comment.user.username}`}>
-            <div className="w-max font-bold">
-              {comment.user.firstName} {comment.user.lastName}
-            </div>
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        <div className="flex min-w-0 flex-col gap-1 rounded-lg bg-background p-1">
+          <Link href={`${routeUsers}/${comment.user.username}`} className="w-fit min-w-0 font-bold">
+            {comment.user.firstName} {comment.user.lastName}
           </Link>
 
-          <div>{comment.message}</div>
+          <div className="break-words whitespace-pre-wrap text-foreground/90">{comment.message}</div>
         </div>
 
-        <div className="flex text-xs gap-1 px-1">
-          {/* timestamp */}
-          <div>{`${formatTs(moment(comment.timestamp), 'DD.MM HH:mm')}`}</div>
+        <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 px-1 text-xs">
+          <div className="text-muted-foreground">{`${formatTs(moment(comment.timestamp), 'DD.MM HH:mm')}`}</div>
 
-          {/* reply */}
-          <button
-            className="hover:underline"
-            onClick={() => {
-              handleReplyClicked(comment.id);
-            }}
-          >
-            {`Reply`}
+          <button type="button" className="text-foreground/90 hover:underline" onClick={onClickReply}>
+            Reply
           </button>
 
           {/* delete */}
