@@ -43,7 +43,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {!iframeView && (
         <>
           <Header />

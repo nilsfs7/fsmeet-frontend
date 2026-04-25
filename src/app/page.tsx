@@ -30,7 +30,7 @@ export default async function Home() {
   let recentEvents: Event[] = await getEventsRecent(1);
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col overflow-hidden">
       <Header showMenu={true} />
 
       <div className="flex flex-col px-4 pt-4 pb-1 justify-center">

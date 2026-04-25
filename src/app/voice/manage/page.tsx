@@ -10,6 +10,9 @@ import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { ColumnInfo, PollsList } from '../../../components/polls-list';
+import { cn } from '@/lib/utils';
+
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function ManagePolls() {
   const t = await getTranslations('/voice/manage');
@@ -36,12 +39,14 @@ export default async function ManagePolls() {
   });
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header />
 
-      <PageTitle title={t('pageTitle')} />
+      <div className={cn('mt-2', constrainedContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <div className="mx-2 flex flex-col overflow-auto">
+      <div className={cn('mt-2 flex min-h-0 flex-1 min-w-0 flex-col overflow-hidden', constrainedContentClass)}>
         <PollsList columnData={columnData} enableEditing />
       </div>
 

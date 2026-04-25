@@ -29,6 +29,7 @@ import { Action } from '@/domain/enums/action';
 import { deletePoll } from '@/infrastructure/clients/poll.client';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
+import { cn } from '@/lib/utils';
 
 interface IPollsList {
   columnData: ColumnInfo[];
@@ -218,14 +219,14 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
   });
 
   return (
-    <>
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col text-sm">
       <Toaster richColors />
 
       <Dialog title={t('dlgAccountDeletePollTitle')} queryParam="delete" onCancel={handleCancelDialogClicked} onConfirm={handleConfirmDeletePollClicked}>
         <p>{t('dlgAccountDeletePollText')}</p>
       </Dialog>
 
-      <div className="mx-2 flex gap-2">
+      <div className="flex w-full min-w-0 gap-2">
         <Input
           placeholder={t('inputSearchPlaceholder')}
           value={(table.getColumn('question')?.getFilterValue() as string) ?? ''}
@@ -257,9 +258,9 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
         </DropdownMenu>
       </div>
 
-      <div className={'mt-2 mx-2 flex justify-center overflow-y-auto'}>
-        <div className="w-full">
-          <div className="rounded-md border">
+      <div className={cn('mt-2 flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto scrollbar-none')}>
+        <div className="w-full min-w-0">
+          <div className="w-full min-w-0 max-w-full overflow-x-auto scrollbar-none">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map(headerGroup => (
@@ -297,7 +298,7 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
             </Table>
           </div>
 
-          <div className="flex items-center justify-end space-x-2 mt-4">
+          <div className="mt-4 flex items-center justify-end space-x-2">
             <div className="flex min-w-max items-center justify-center text-sm font-medium">{`${t('navCurrentPage1')} ${table.getState().pagination.pageIndex + 1} ${t('navCurrentPage2')} ${table.getPageCount()} `}</div>
 
             <div className="flex items-center space-x-2">
@@ -342,6 +343,6 @@ export const PollsList = ({ columnData, enableEditing = false }: IPollsList) => 
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

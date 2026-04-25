@@ -14,6 +14,9 @@ import { getUser } from '@/infrastructure/clients/user.client';
 import { auth } from '@/auth';
 import { User } from '@/domain/types/user';
 import { ActionButtonCopyPollUrl } from './components/action-button-copy-poll-url';
+import { cn } from '@/lib/utils';
+
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function Voice() {
   const t = await getTranslations('/voice');
@@ -42,17 +45,19 @@ export default async function Voice() {
   });
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header />
 
-      <PageTitle title={t('pageTitle')} />
+      <div className={cn('mt-2 shrink-0', constrainedContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <div className="mx-2 flex flex-col overflow-auto">
-        <div className="flex justify-center px-12">
+      <div className={cn('mt-2 flex min-h-0 flex-1 min-w-0 flex-col gap-3 overflow-hidden', constrainedContentClass)}>
+        <div className="flex w-full shrink-0 justify-center">
           <PollsCarousel initPolls={polls} actingUser={user} />
         </div>
 
-        <div className="mt-2">
+        <div className="min-h-0 min-w-0 flex-1 flex flex-col">
           <PollsList columnData={columnData} />
         </div>
       </div>

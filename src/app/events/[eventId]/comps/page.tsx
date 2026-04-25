@@ -17,7 +17,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
   const competitions = await getCompetitions(params.eventId);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className={cn('mt-2', constrainedContentClass)}>
         <PageTitle title={t('pageTitle')} />
       </div>
