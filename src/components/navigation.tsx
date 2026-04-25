@@ -29,9 +29,12 @@ const Navigation = ({ reverse = false, className, children }: INavigationProps) 
   );
 
   return (
-    <nav className={cn('mt-auto w-full shrink-0', navShellClass, className)} aria-label="App">
-      <div className={appShellContentClass}>{bar}</div>
-    </nav>
+    <div className={cn('mt-auto w-full shrink-0 flex min-w-0 flex-col', className)} role="presentation">
+      <div className="h-4 w-full min-h-4 shrink-0" aria-hidden />
+      <nav className={navShellClass} aria-label="App">
+        <div className={appShellContentClass}>{bar}</div>
+      </nav>
+    </div>
   );
 };
 
