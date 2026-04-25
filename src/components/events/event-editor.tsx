@@ -610,7 +610,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         id={'trailerUrl'}
         label={t('inputTrailerUrl')}
         placeholder="https://www.youtube.com/watch?v=JsPpmzMODQQ"
-        value={trailerUrl || undefined}
+        value={trailerUrl || ''}
         onChange={e => {
           setTrailerUrl(e.currentTarget.value || null);
         }}
@@ -620,7 +620,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         id={'livestreamUrl'}
         label={t('inputLivestreamUrl')}
         placeholder="https://www.youtube.com/watch?v=gwiE0fXnByg"
-        value={livestreamUrl || undefined}
+        value={livestreamUrl || ''}
         onChange={e => {
           setLivestreamUrl(e.currentTarget.value || null);
         }}
@@ -630,7 +630,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         id={'messangerInvitationUrl'}
         label={t('inputMessangerInvitationUrl')}
         placeholder="https://chat.whatsapp.com/FcFFSq0ybgT4tsk48ZQoxJ"
-        value={messangerInvitationUrl || undefined}
+        value={messangerInvitationUrl || ''}
         onChange={e => {
           setMessangerInvitationUrl(e.currentTarget.value || null);
         }}

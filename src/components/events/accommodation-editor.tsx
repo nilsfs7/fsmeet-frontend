@@ -54,14 +54,6 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
     setCost(convertCurrencyDecimalToInteger(values.float || 0, currency));
   };
 
-  const handleWebsiteChanged = (value: string) => {
-    if (!value) {
-      setAccommodationWebsite(null);
-    } else {
-      setAccommodationWebsite(value);
-    }
-  };
-
   const updateAccommodationPreview = () => {
     if (imgPreview) {
       onAccommodationPreviewUpdate(imgPreview);
@@ -105,9 +97,9 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
           id={'website'}
           label={t('inputWebsite')}
           placeholder="https://hotel.com/offering/123"
-          value={website || undefined}
+          value={website ?? ''}
           onChange={e => {
-            handleWebsiteChanged(e.currentTarget.value);
+            setAccommodationWebsite(e.currentTarget.value || null);
           }}
         />
 
