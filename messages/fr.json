@@ -40,6 +40,7 @@
   "/account": {
     "pageTitle": "Paramètres du compte",
     "profilePictureAddPicture": "Ajouter une photo",
+    "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Enregistrer",
     "dlgJobsTermsTitle": "Conditions générales",
     "dlgJobsTermsDate": "Dernière mise à jour : 02 août 2024",

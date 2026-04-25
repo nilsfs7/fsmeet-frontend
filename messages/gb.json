@@ -40,6 +40,7 @@
   "/account": {
     "pageTitle": "Account Settings",
     "profilePictureAddPicture": "Add picture",
+    "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Save",
     "dlgJobsTermsTitle": "Terms And Conditions",
     "dlgJobsTermsDate": "Last updated: August 02, 2024",

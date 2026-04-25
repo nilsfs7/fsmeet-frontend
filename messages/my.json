@@ -40,6 +40,7 @@
   "/account": {
     "pageTitle": "Tetapan Akaun",
     "profilePictureAddPicture": "Tambah gambar",
+    "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Simpan",
     "dlgJobsTermsTitle": "Terma Dan Syarat",
     "dlgJobsTermsDate": "Kemas kini terakhir: 02 Ogos 2024",

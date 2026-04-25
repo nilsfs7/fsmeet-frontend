@@ -40,6 +40,7 @@
   "/account": {
     "pageTitle": "账户设置",
     "profilePictureAddPicture": "添加图片",
+    "profilePictureNoFileChosen": "未选择文件",
     "btnSave": "保存",
     "dlgJobsTermsTitle": "条款与条件",
     "dlgJobsTermsDate": "最后更新：2024 年 8 月 02 日",

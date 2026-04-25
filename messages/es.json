@@ -40,6 +40,7 @@
   "/account": {
     "pageTitle": "Configuración del perfil",
     "profilePictureAddPicture": "Subir foto",
+    "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Guardar",
     "dlgJobsTermsTitle": "Términos",
     "dlgJobsTermsDate": "Actualizado: 02 agosto 2024",

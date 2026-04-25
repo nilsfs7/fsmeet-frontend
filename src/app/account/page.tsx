@@ -26,11 +26,11 @@ export default async function Account() {
     <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
-      <div className="mx-2 flex flex-col overflow-auto">
+      <div className="flex min-h-0 flex-1 flex-col overflow-auto px-4 sm:px-6 md:px-8">
         <ProfilePicture />
 
-        <div className="flex flex-col overflow-hidden">
-          <div className={'flex flex-col items-center overflow-auto'}>
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col items-center overflow-auto">
             <TabsMenu user={user} />
           </div>
         </div>

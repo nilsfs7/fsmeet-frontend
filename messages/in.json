@@ -40,6 +40,7 @@
   "/account": {
     "pageTitle": "खाता सेटिंग्स",
     "profilePictureAddPicture": "तस्वीर जोड़ें",
+    "profilePictureNoFileChosen": "कोई फ़ाइल नहीं चुनी गई",
     "btnSave": "सहेजें",
     "dlgJobsTermsTitle": "नियम और शर्तें",
     "dlgJobsTermsDate": "अंतिम अपडेट: 02 अगस्त 2024",

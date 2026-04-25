@@ -40,6 +40,7 @@
   "/account": {
     "pageTitle": "アカウント設定",
     "profilePictureAddPicture": "写真を追加",
+    "profilePictureNoFileChosen": "ファイルが選択されていません",
     "btnSave": "保存",
     "dlgJobsTermsTitle": "利用規約",
     "dlgJobsTermsDate": "最終更新日: 2024年8月2日",
