@@ -15,6 +15,9 @@ import { UserType } from '@/domain/enums/user-type';
 import { FreestylerMap } from '@/components/freestyler-map';
 import { AddMapPinButton } from './components/add-map-pin-button';
 import { getSupportedlanguages } from '../../functions/get-supported-languages';
+import { cn } from '@/lib/utils';
+
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function Map(props: { searchParams: Promise<{ iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string }> }) {
   const searchParams = await props.searchParams;
@@ -40,26 +43,30 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
   }
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       {!iframeView && (
         <>
           <Header />
 
-          <PageTitle title={t('pageTitle')} />
+          <div className={cn('mt-2', constrainedContentClass)}>
+            <PageTitle title={t('pageTitle')} />
+          </div>
         </>
       )}
 
-      <FreestylerMap
-        userList={users.filter(u => u.type !== UserType.ADMINISTRATIVE)}
-        selectedUsernames={[searchParams?.user || '']}
-        region={actingUser?.countryCode || searchParams?.locale || 'DE'} // todo: causes second map render
-        language={actingUser?.countryCode || searchParams?.locale || 'EN'} // todo: causes second map render
-        lat={+searchParams?.lat || 54.5259614}
-        lng={+searchParams?.lng || 15.2551187}
-        zoom={+searchParams?.zoom || 4}
-        streetViewEnabled={streetViewEnabled}
-        isIframe={iframeView}
-      />
+      <div className={cn('min-h-0 flex flex-1 flex-col', !iframeView && 'mt-2')}>
+        <FreestylerMap
+          userList={users.filter(u => u.type !== UserType.ADMINISTRATIVE)}
+          selectedUsernames={[searchParams?.user || '']}
+          region={actingUser?.countryCode || searchParams?.locale || 'DE'} // todo: causes second map render
+          language={actingUser?.countryCode || searchParams?.locale || 'EN'} // todo: causes second map render
+          lat={+searchParams?.lat || 54.5259614}
+          lng={+searchParams?.lng || 15.2551187}
+          zoom={+searchParams?.zoom || 4}
+          streetViewEnabled={streetViewEnabled}
+          isIframe={iframeView}
+        />
+      </div>
 
       {iframeView && (
         <Navigation reverse>

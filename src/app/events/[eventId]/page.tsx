@@ -18,7 +18,7 @@ import { getAttachments } from '@/infrastructure/clients/attachment.client';
 import AdminPanel from './components/admin-panel';
 import { cn } from '@/lib/utils';
 
-const eventDetailsContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventDetails(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -36,12 +36,12 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       {isEventAdminOrMaintainer(event, session) && (
-        <div className={cn('mt-2', eventDetailsContentClass)}>
+        <div className={cn('mt-2', constrainedContentClass)}>
           <AdminPanel event={event} />
         </div>
       )}
 
-      <div className={cn('mt-2 flex-1 overflow-hidden', eventDetailsContentClass)}>
+      <div className={cn('mt-2 flex-1 overflow-hidden', constrainedContentClass)}>
         <TabsMenu event={event} competitions={competitions} sponsors={sponsors} attachments={attachments} comments={comments} />
       </div>
 

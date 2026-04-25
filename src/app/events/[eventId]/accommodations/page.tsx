@@ -14,7 +14,7 @@ import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import Link from 'next/link';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 
-const eventDetailsContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventAccommodation(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -26,11 +26,11 @@ export default async function EventAccommodation(props: { params: Promise<{ even
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className={cn('mt-2', eventDetailsContentClass)}>
+      <div className={cn('mt-2', constrainedContentClass)}>
         <PageTitle title={t('pageTitle')} />
       </div>
 
-      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', eventDetailsContentClass)}>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
         <div className="flex flex-col gap-3 text-sm">
           <div className="min-h-0 min-w-0 overflow-x-auto">
             <Table>

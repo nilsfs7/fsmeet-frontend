@@ -11,7 +11,7 @@ import { ActionButtonDownloadList } from './components/action-button-download-li
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
 import { cn } from '@/lib/utils';
 
-const eventDetailsContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventAttendees(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -26,11 +26,11 @@ export default async function EventAttendees(props: { params: Promise<{ eventId:
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className={cn('mt-2', eventDetailsContentClass)}>
+      <div className={cn('mt-2', constrainedContentClass)}>
         <PageTitle title={t('pageTitle')} />
       </div>
 
-      <div className={cn('mt-2 flex-1 min-h-0 flex flex-col overflow-hidden', eventDetailsContentClass)}>
+      <div className={cn('mt-2 flex-1 min-h-0 flex flex-col overflow-hidden', constrainedContentClass)}>
         <RegistrationsList
           eventId={params.eventId}
           registrations={registrations}
