@@ -1,3 +1,7 @@
+'use client';
+
+import { Checkbox } from '@/components/ui/checkbox';
+
 interface ICheckBoxInput {
   id: string;
   label: string;
@@ -8,9 +12,19 @@ interface ICheckBoxInput {
 
 const CheckBox = ({ id, label, value, disabled = false, onChange }: ICheckBoxInput) => {
   return (
-    <div className="m-2 grid grid-cols-2 place-items-start items-center gap-2">
-      <div className="py-1">{label}</div>
-      <input id={id} className="h-4 w-4" type="checkbox" checked={value} disabled={disabled} onChange={onChange} />
+    <div className="m-2 flex min-w-0 w-full flex-col gap-1.5 sm:grid sm:grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] sm:items-center sm:gap-3">
+      <label htmlFor={id} className="min-w-0 text-sm font-medium leading-none">
+        {label}
+      </label>
+      <div className="flex min-h-10 w-full min-w-0 items-center sm:min-w-0">
+        <Checkbox
+          id={id}
+          checked={value}
+          disabled={disabled}
+          onCheckedChange={() => onChange?.({})}
+          className="shrink-0"
+        />
+      </div>
     </div>
   );
 };
