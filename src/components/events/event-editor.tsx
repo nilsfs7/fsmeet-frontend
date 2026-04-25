@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent, type ReactNode } from 'react';
 import TextInput from '../common/text-input';
 import moment from 'moment';
 import { Event } from '@/domain/types/event';
@@ -18,7 +18,6 @@ import { EventState } from '@/domain/enums/event-state';
 import { DatePicker } from '../common/date-picker';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import Separator from '../separator';
-import SectionHeader from '../common/section-header';
 import Link from 'next/link';
 import { routeAccount, routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
@@ -35,7 +34,7 @@ import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
 import { imgImagePlaceholder } from '@/domain/constants/images';
 import { deleteEventPoster } from '@/infrastructure/clients/event.client';
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { menuCurrencies } from '@/domain/constants/menus/menu-currencies';
@@ -43,6 +42,32 @@ import { EventCategory } from '@/domain/enums/event-category';
 import { menuEventCategories } from '@/domain/constants/menus/menu-event-categories';
 import { UserVerificationState } from '../../domain/enums/user-verification-state';
 import { LicenseType } from '../../domain/enums/license-type';
+import { cn } from '@/lib/utils';
+
+const EDITOR_CARD_CLASS = cn(
+  'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
+  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  '[&>div.m-2]:!m-0',
+);
+const FIELD_ROW_CLASS = 'flex min-w-0 flex-col gap-1.5 sm:grid sm:grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] sm:items-center sm:gap-3';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_CONTROL_CLASS = 'min-w-0 w-full sm:min-w-0';
+const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
+const READONLY_VALUE_CLASS = 'min-w-0 text-sm text-foreground/90';
+const FILE_INPUT_CLASS =
+  'w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground';
+const SECTION_H2 = 'text-sm font-semibold leading-tight text-foreground/90';
+
+function FieldRow({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className={FIELD_ROW_CLASS}>
+      <div className={FIELD_LABEL_CLASS}>{label}</div>
+      <div className={FIELD_CONTROL_CLASS}>{children}</div>
+    </div>
+  );
+}
 
 interface IEventEditorProps {
   editorMode: EditorMode;
@@ -105,10 +130,9 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [imgPoster, setImgPoster] = useState<File>();
   const [imgPosterObjectURL, setImgPosterObjectURL] = useState<string>();
 
-  const uploadToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-
+  const uploadToClient = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      const i = e.target.files[0];
       setImgPoster(i);
       setImgPosterObjectURL(URL.createObjectURL(i));
     }
@@ -428,11 +452,8 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   }, [imgPosterObjectURL]);
 
   return (
-    // <>
-    //   <Toaster richColors />
-
-    <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
-      <SectionHeader label={t('sectionGeneral')} />
+    <div className={EDITOR_CARD_CLASS}>
+      <h2 className={cn(SECTION_H2, 'pt-0.5')}>{t('sectionGeneral')}</h2>
 
       <TextInput id={'name'} label={t('inputName')} placeholder="German Freestyle Football Championship 2023" value={name} onChange={e => setEventName(e.currentTarget.value)} />
 
@@ -446,36 +467,30 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         }}
       />
 
-      <div className="m-2 grid grid-cols-2 items-center gap-2">
-        <div>{t('cbType')}</div>
-        <div className="flex w-full">
-          {editorMode === EditorMode.CREATE && (
-            <ComboBox
-              menus={menuEventTypes}
-              value={eventType}
-              onChange={(value: EventType) => {
-                handleEventTypeChanged(value);
-              }}
-            />
-          )}
-
-          {editorMode === EditorMode.EDIT && <div>{menuEventTypes.find(item => item.value === eventType)?.text}</div>}
-        </div>
-      </div>
+      <FieldRow label={t('cbType')}>
+        {editorMode === EditorMode.CREATE ? (
+          <ComboBox
+            menus={menuEventTypes}
+            value={eventType}
+            onChange={(value: EventType) => {
+              handleEventTypeChanged(value);
+            }}
+          />
+        ) : (
+          <div className={READONLY_VALUE_CLASS}>{menuEventTypes.find(item => item.value === eventType)?.text}</div>
+        )}
+      </FieldRow>
 
       {eventType !== EventType.MEETING && (
-        <div className="m-2 grid grid-cols-2 items-center gap-2">
-          <div>{t('cbCategory')}</div>
-          <div className="flex w-full">
-            <ComboBox
-              menus={menuEventCategories(eventAdmin?.isWffaMember || false)}
-              value={category}
-              onChange={(value: EventCategory) => {
-                setEventCategory(value);
-              }}
-            />
-          </div>
-        </div>
+        <FieldRow label={t('cbCategory')}>
+          <ComboBox
+            menus={menuEventCategories(eventAdmin?.isWffaMember || false)}
+            value={category}
+            onChange={(value: EventCategory) => {
+              setEventCategory(value);
+            }}
+          />
+        </FieldRow>
       )}
 
       {eventType === EventType.COMPETITION && (
@@ -491,20 +506,22 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       )}
 
       {event?.state && (
-        <div className="m-2 grid grid-cols-2 items-center gap-2">
-          <div>{t('lblState')}</div>
-          <Link href={`${routeEvents}/${event.id}?state=1`}>
-            <label id={'eventState'} className="w-full hover:underline">
+        <FieldRow label={t('lblState')}>
+          <Link href={`${routeEvents}/${event.id}?state=1`} className="min-w-0">
+            <span id={'eventState'} className={cn(READONLY_VALUE_CLASS, 'hover:underline')}>
               {(event?.state.charAt(0).toUpperCase() + event?.state.slice(1)).replaceAll('_', ' ')}
-            </label>
+            </span>
           </Link>
-        </div>
+        </FieldRow>
       )}
 
-      <div className="flex m-2 gap-2 items-center justify-between">
-        <div className="flex items-center gap-2">
-          <img src={imgPosterObjectURL ? imgPosterObjectURL : event?.imageUrlPoster ? event.imageUrlPoster : imgImagePlaceholder} className="flex h-12 w-12 object-cover border border-primary" />
-
+      <div className="flex min-w-0 flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <div className="flex min-w-0 items-center gap-2">
+          <img
+            src={imgPosterObjectURL ? imgPosterObjectURL : event?.imageUrlPoster ? event.imageUrlPoster : imgImagePlaceholder}
+            alt=""
+            className="h-12 w-12 shrink-0 rounded-lg border border-border/60 object-cover"
+          />
           {event?.imageUrlPoster && (
             <ActionButton
               action={Action.DELETE}
@@ -514,8 +531,9 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
             />
           )}
         </div>
-
-        <input type="file" onChange={uploadToClient} />
+        <div className="min-w-0 flex-1">
+          <input type="file" accept="image/*" className={FILE_INPUT_CLASS} onChange={uploadToClient} />
+        </div>
       </div>
 
       <TextInputLarge
@@ -529,62 +547,66 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         }}
       />
 
-      <div className="m-2 grid grid-cols-2 items-center gap-2">
-        <div>{t('datePickerFrom')}</div>
-        <DatePicker
-          date={moment(dateFrom)}
-          fromDate={moment('2020')}
-          toDate={moment().add(2, 'y')}
-          onChange={value => {
-            if (value) {
-              setDateFrom(value.startOf('day').utc().format());
-              setDateTo(value.endOf('day').utc().format()); // set dateTo to same date when dateFrom from was changed (convenience)
-            }
-          }}
-        />
-      </div>
+      <FieldRow label={t('datePickerFrom')}>
+        <div className={FIELD_CONTROL_TALL_INNER}>
+          <DatePicker
+            date={moment(dateFrom)}
+            fromDate={moment('2020')}
+            toDate={moment().add(2, 'y')}
+            onChange={value => {
+              if (value) {
+                setDateFrom(value.startOf('day').utc().format());
+                setDateTo(value.endOf('day').utc().format());
+              }
+            }}
+          />
+        </div>
+      </FieldRow>
 
-      <div className="m-2 grid grid-cols-2 items-center gap-2">
-        <div>{t('datePickerTo')}</div>
-        <DatePicker
-          date={moment(dateTo)}
-          fromDate={moment('2020')}
-          toDate={moment().add(2, 'y')}
-          onChange={value => {
-            if (value) {
-              setDateTo(value.endOf('day').utc().format());
-            }
-          }}
-        />
-      </div>
+      <FieldRow label={t('datePickerTo')}>
+        <div className={FIELD_CONTROL_TALL_INNER}>
+          <DatePicker
+            date={moment(dateTo)}
+            fromDate={moment('2020')}
+            toDate={moment().add(2, 'y')}
+            onChange={value => {
+              if (value) {
+                setDateTo(value.endOf('day').utc().format());
+              }
+            }}
+          />
+        </div>
+      </FieldRow>
 
-      <div className="m-2 grid grid-cols-2 items-center gap-2">
-        <div>{t('datePickerRegistrationFrom')}</div>
-        <DatePicker
-          date={moment(registrationOpen)}
-          fromDate={moment('2020')}
-          toDate={moment().add(2, 'y')}
-          onChange={value => {
-            if (value) {
-              setRegistrationOpen(value.startOf('day').utc().format());
-            }
-          }}
-        />
-      </div>
+      <FieldRow label={t('datePickerRegistrationFrom')}>
+        <div className={FIELD_CONTROL_TALL_INNER}>
+          <DatePicker
+            date={moment(registrationOpen)}
+            fromDate={moment('2020')}
+            toDate={moment().add(2, 'y')}
+            onChange={value => {
+              if (value) {
+                setRegistrationOpen(value.startOf('day').utc().format());
+              }
+            }}
+          />
+        </div>
+      </FieldRow>
 
-      <div className="m-2 grid grid-cols-2 items-center gap-2">
-        <div>{t('datePickerRegistrationTo')}</div>
-        <DatePicker
-          date={moment(registrationDeadline)}
-          fromDate={moment('2020')}
-          toDate={moment().add(2, 'y')}
-          onChange={value => {
-            if (value) {
-              setRegistrationDeadline(value.endOf('day').utc().format());
-            }
-          }}
-        />
-      </div>
+      <FieldRow label={t('datePickerRegistrationTo')}>
+        <div className={FIELD_CONTROL_TALL_INNER}>
+          <DatePicker
+            date={moment(registrationDeadline)}
+            fromDate={moment('2020')}
+            toDate={moment().add(2, 'y')}
+            onChange={value => {
+              if (value) {
+                setRegistrationDeadline(value.endOf('day').utc().format());
+              }
+            }}
+          />
+        </div>
+      </FieldRow>
 
       <CurInput
         id={'priceMoney'}
@@ -630,10 +652,10 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
       {eventType != EventType.COMPETITION_ONLINE && (
         <>
-          <div className="m-2">
+          <div className="py-1">
             <Separator />
           </div>
-          <SectionHeader label={t('sectionLocation')} />
+          <h2 className={SECTION_H2}>{t('sectionLocation')}</h2>
 
           <TextInput
             id={'venueName'}
@@ -685,39 +707,33 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
             }}
           />
 
-          <div className="m-2 grid grid-cols-2 items-center">
-            <div>{t('cbVenueCountry')}</div>
-            <div className="flex w-full">
-              <ComboBox
-                menus={menuCountriesWithUnspecified}
-                value={venueCountryCode || menuCountriesWithUnspecified[0].value}
-                searchEnabled={true}
-                onChange={(value: any) => {
-                  setVenueCountryCode(value);
-                }}
-              />
-            </div>
-          </div>
+          <FieldRow label={t('cbVenueCountry')}>
+            <ComboBox
+              menus={menuCountriesWithUnspecified}
+              value={venueCountryCode || menuCountriesWithUnspecified[0].value}
+              searchEnabled={true}
+              onChange={(value: any) => {
+                setVenueCountryCode(value);
+              }}
+            />
+          </FieldRow>
         </>
       )}
 
-      <div className="m-2">
+      <div className="py-1">
         <Separator />
       </div>
-      <SectionHeader label={t('sectionPayment')} />
+      <h2 className={SECTION_H2}>{t('sectionPayment')}</h2>
 
-      <div className="m-2 grid grid-cols-2 items-center">
-        <div>{t('cbPaymentCurrency')}</div>
-        <div className="flex w-full">
-          <ComboBox
-            menus={menuCurrencies}
-            value={currency}
-            onChange={(value: any) => {
-              handleCurrencyChanged(value);
-            }}
-          />
-        </div>
-      </div>
+      <FieldRow label={t('cbPaymentCurrency')}>
+        <ComboBox
+          menus={menuCurrencies}
+          value={currency}
+          onChange={(value: any) => {
+            handleCurrencyChanged(value);
+          }}
+        />
+      </FieldRow>
 
       <CurInput
         id={'participationFee'}
@@ -747,7 +763,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
             />
           )}
 
-          <div className="m-2">{`${t('lblFreeMethods')}:`}</div>
+          <p className="min-w-0 text-sm font-medium text-foreground/90">{`${t('lblFreeMethods')}:`}</p>
 
           <CheckBox
             id={'paymentMethodCashEnabled'}
@@ -788,16 +804,14 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
               />
 
               {paymentMethodPayPalHandle && (
-                <div className="m-2 grid h-[100%] grid-cols-2">
-                  <div>{t('lnkPayPalVerifyAccount')}</div>
-
+                <FieldRow label={t('lnkPayPalVerifyAccount')}>
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href={`https://paypal.me/${paymentMethodPayPalHandle}`}
-                    className="h-full w-full hover:underline break-all"
+                    className={cn(READONLY_VALUE_CLASS, 'min-w-0 break-all hover:underline')}
                   >{`https://paypal.me/${paymentMethodPayPalHandle}`}</a>
-                </div>
+                </FieldRow>
               )}
             </>
           )}
@@ -859,17 +873,16 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
             </>
           )}
 
-          <div className="m-2">{`${t('lblProfessionalMethods')}:`}</div>
+          <p className="min-w-0 text-sm font-medium text-foreground/90">{`${t('lblProfessionalMethods')}:`}</p>
 
           {!eventAdmin?.stripeAccountId && (
-            <div className="grid grid-cols-2 m-2">
-              <div className="flex items-center">{t(`textCreateStripeAccount`)}</div>
-              <Button asChild variant="action" className={ctaActionButtonClassName}>
+            <FieldRow label={t('textCreateStripeAccount')}>
+              <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-auto sm:justify-self-end')}>
                 <Link href={`${routeAccount}/?tab=account`} target="_blank">
                   {t(`btnCreateStripeAccount`)}
                 </Link>
               </Button>
-            </div>
+            </FieldRow>
           )}
 
           <CheckBox
@@ -906,70 +919,67 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       {/* only allow event admin to edit maintainers */}
       {(editorMode === EditorMode.CREATE || isEventAdmin(event, session)) && (
         <>
-          <div className="m-2">
+          <div className="py-1">
             <Separator />
           </div>
-          <SectionHeader label={t('sectionMaintainers')} />
-
-          <div className="flex h-[100%] flex-col p-2">
-            <div>{t('cbMaintainers')}</div>
-
-            <div className="flex h-full">
-              <div className="flex flex-col w-full gap-2">
-                {users.length > 0 &&
-                  maintainers.map((maintainer, index) => {
-                    return (
-                      <div key={`${maintainer}-${index}`} className="flex justify-between gap-2">
-                        <UserCard
-                          user={
-                            users.filter(user => {
-                              return user.username === maintainer.username;
-                            })[0]
-                          }
-                          showUserCountryFlag={showUserCountryFlag}
-                        />
-                        <ActionButton
-                          action={Action.DELETE}
-                          onClick={() => {
-                            handleDeleteMaintainerClicked(maintainer);
-                          }}
-                        />
-                      </div>
-                    );
-                  })}
-
-                <div className="flex justify-between gap-2">
-                  <ComboBox
-                    menus={users.map(user => {
-                      const displayName = user.lastName ? `${user.firstName} ${user.lastName} (${user.username})` : `${user.firstName} (${user.username})`;
-                      return { text: displayName, value: user.username };
-                    })}
-                    value={maintainerToAddUsername || ''}
-                    searchEnabled={true}
-                    onChange={(value: string) => {
-                      setMaintainerToAddUsername(value);
-                    }}
-                  />
-
-                  <ActionButton
-                    action={Action.ADD}
-                    onClick={() => {
-                      if (maintainerToAddUsername) {
-                        handleAddMaintainerClicked(maintainerToAddUsername);
+          <h2 className={SECTION_H2}>{t('sectionMaintainers')}</h2>
+          <p className="min-w-0 text-sm text-foreground/90">{t('cbMaintainers')}</p>
+          <div className="flex min-w-0 flex-col gap-3">
+            {users.length > 0 &&
+              maintainers.map((maintainer, index) => (
+                <div key={`maintainer-${maintainer.username}-${index}`} className="flex min-w-0 items-center justify-between gap-2 py-0.5">
+                  <div className="min-w-0 flex-1">
+                    <UserCard
+                      user={
+                        users.filter(user => {
+                          return user.username === maintainer.username;
+                        })[0]
                       }
+                      showUserCountryFlag={showUserCountryFlag}
+                    />
+                  </div>
+                  <ActionButton
+                    action={Action.DELETE}
+                    onClick={() => {
+                      handleDeleteMaintainerClicked(maintainer);
                     }}
                   />
                 </div>
+              ))}
+
+            <div className="flex min-w-0 flex-col items-stretch gap-2 sm:flex-row sm:items-end sm:gap-2">
+              <div className="min-w-0 w-full flex-1">
+                <ComboBox
+                  menus={users.map(user => {
+                    const displayName = user.lastName ? `${user.firstName} ${user.lastName} (${user.username})` : `${user.firstName} (${user.username})`;
+                    return { text: displayName, value: user.username };
+                  })}
+                  value={maintainerToAddUsername || ''}
+                  searchEnabled={true}
+                  onChange={(value: string) => {
+                    setMaintainerToAddUsername(value);
+                  }}
+                />
+              </div>
+              <div className="flex shrink-0 justify-end sm:pb-0.5">
+                <ActionButton
+                  action={Action.ADD}
+                  onClick={() => {
+                    if (maintainerToAddUsername) {
+                      handleAddMaintainerClicked(maintainerToAddUsername);
+                    }
+                  }}
+                />
               </div>
             </div>
           </div>
         </>
       )}
 
-      <div className="m-2">
+      <div className="py-1">
         <Separator />
       </div>
-      <SectionHeader label={t('sectionOther')} />
+      <h2 className={SECTION_H2}>{t('sectionOther')}</h2>
 
       <CheckBox
         id={'showUserCountryFlag'}
@@ -1054,7 +1064,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         }}
       />
     </div>
-    // </>
   );
 };
 

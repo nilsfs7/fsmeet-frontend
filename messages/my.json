@@ -841,7 +841,7 @@
     "inputQuestion": "Soalan",
     "inputDescription": "Konteks (pilihan)",
     "inputOption": "Pilihan",
-    "chbDeadlineEnabled": "Tarikh akhir diaktifkan",
+    "chbDeadlineEnabled": "Tarikh akhir",
     "dateDeadline": "Tarikh akhir",
     "sectionTargetGroup": "Kumpulan sasaran",
     "cbCountry": "Negara"

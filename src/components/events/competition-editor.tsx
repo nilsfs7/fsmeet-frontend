@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+'use client';
+
+import { useEffect, useState, type ReactNode } from 'react';
 import TextInput from '../common/text-input';
 import { Competition } from '@/domain/types/competition';
 import TextInputLarge from '../common/text-input-large';
@@ -24,6 +26,30 @@ import CheckBox from '../common/check-box';
 import { isNaturalPerson } from '@/functions/is-natural-person';
 import { menuMaxAmountParticipants } from '@/domain/constants/menus/menu-max-amount-participants';
 import { Event } from '@/domain/types/event';
+import { cn } from '@/lib/utils';
+import Separator from '../separator';
+
+const EDITOR_CARD_CLASS = cn(
+  'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
+  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  '[&>div.m-2]:!m-0',
+);
+
+const FIELD_ROW_CLASS = 'flex min-w-0 flex-col gap-1.5 sm:grid sm:grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] sm:items-center sm:gap-3';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_CONTROL_CLASS = 'min-w-0 w-full sm:min-w-0';
+const READONLY_VALUE_CLASS = 'min-w-0 text-sm text-foreground/90';
+
+function FieldRow({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className={FIELD_ROW_CLASS}>
+      <div className={FIELD_LABEL_CLASS}>{label}</div>
+      <div className={FIELD_CONTROL_CLASS}>{children}</div>
+    </div>
+  );
+}
 
 interface ICompetitionEditorProps {
   event: Event;
@@ -39,8 +65,8 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
   const [compType, setCompType] = useState(comp?.type || CompetitionType.BATTLES);
   const [compGender, setCompGender] = useState(comp?.gender || CompetitionGender.MIXED);
   const [maxAge, setMaxAge] = useState<MaxAge>(comp?.maxAge || MaxAge.NONE);
-  const [maxAmountParticipants, setMaxAmountParticipants] = useState<number>(comp?.maxAmountParticipants || -1);
-  const [isFollowUpCompetition, setIsFollowUpCompetition] = useState<boolean>(comp?.isFollowUpCompetition || false);
+  const [maxAmountParticipants, setMaxAmountParticipants] = useState(comp?.maxAmountParticipants || -1);
+  const [isFollowUpCompetition, setIsFollowUpCompetition] = useState(!!comp?.isFollowUpCompetition);
   const [participationFee, setParticipationFee] = useState(comp?.participationFee || 0);
   const [description, setDescription] = useState(comp?.description || '');
   const [rules, setRules] = useState(comp?.rules || '');
@@ -48,67 +74,43 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
   const [judgeToAddUsername, setJudgeToAddUsername] = useState<string>();
   const [users, setUsers] = useState<User[]>([]);
 
-  const handleAddJudgeClicked = async (username: string) => {
-    // check if judge is already in array
-    const judgesMatching = judges.filter(user => {
-      if (user.username === username) {
-        return user;
-      }
-    });
-
-    if (judgesMatching.length > 0) {
+  const addJudge = (username: string) => {
+    if (judges.some(j => j.username === username)) {
       console.error(`${username} already assigned in judges list.`);
-    } else {
-      try {
-        const judge = users.filter(user => {
-          if (user.username === username) {
-            return user;
-          }
-        })[0];
-
-        const newArray = Array.from(judges);
-        newArray.push(judge);
-        setJudges(newArray);
-      } catch (error: any) {
-        console.error(error.message);
-      }
+      return;
     }
+    const next = users.find(u => u.username === username);
+    if (next) setJudges(prev => [...prev, next]);
   };
 
-  const handleDeleteJudgeClicked = async (judge: User) => {
-    try {
-      const newArray = Array.from(judges);
-      const index = newArray.indexOf(judge);
-      newArray.splice(index, 1);
-      setJudges(newArray);
-    } catch (error: any) {
-      console.error(error.message);
-    }
+  const removeJudge = (judge: User) => {
+    setJudges(prev => prev.filter(j => j !== judge));
   };
 
   const updateComp = () => {
     onCompUpdate({
       id: comp?.id,
       eventId: comp?.eventId,
-      name: name,
+      name,
       type: compType,
       gender: compGender,
-      maxAge: maxAge,
-      maxAmountParticipants: maxAmountParticipants,
-      isFollowUpCompetition: isFollowUpCompetition,
-      participationFee: participationFee,
+      maxAge,
+      maxAmountParticipants,
+      isFollowUpCompetition,
+      participationFee,
       participationFeeIncPaymentCosts: -1,
-      description: description,
-      rules: rules,
-      judges: judges,
+      description,
+      rules,
+      judges,
     });
   };
 
-  const handleParticipationFeeChanged = (values: { float: number | null; formatted: string; value: string }) => {
-    setParticipationFee(convertCurrencyDecimalToInteger(values.float || 0, event.currency));
+  const onParticipationFeeValueChange = (_v: string | undefined, _n: string | undefined, values?: { float: number | null; formatted: string; value: string }) => {
+    if (values) {
+      setParticipationFee(convertCurrencyDecimalToInteger(values.float || 0, event.currency));
+    }
   };
 
-  // updates inputs with given comp
   useEffect(() => {
     if (comp) {
       setCompName(comp.name);
@@ -123,180 +125,108 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
       setJudges(comp.judges);
     }
 
-    getUsers().then(users => {
-      users = users.filter(user => {
-        if (user.type !== UserType.ADMINISTRATIVE && user.type !== UserType.FAN && isNaturalPerson(user.type)) return user;
-      });
-      setUsers(users);
+    getUsers().then(allUsers => {
+      setUsers(allUsers.filter(u => u.type !== UserType.ADMINISTRATIVE && u.type !== UserType.FAN && isNaturalPerson(u.type)));
     });
   }, [comp]);
 
-  // fires comp back
   useEffect(() => {
     updateComp();
   }, [name, compType, compGender, maxAge, maxAmountParticipants, isFollowUpCompetition, participationFee, description, rules, judges]);
 
   return (
-    <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-      <TextInput
-        id={'name'}
-        label={t('inputName')}
-        placeholder={t('inputNamePlaceHolder')}
-        value={name}
-        onChange={e => {
-          setCompName(e.currentTarget.value);
-        }}
-      />
+    <div className={EDITOR_CARD_CLASS}>
+      <TextInput id="comp-name" label={t('inputName')} placeholder={t('inputNamePlaceHolder')} value={name} onChange={e => setCompName(e.currentTarget.value)} />
 
-      <div className="m-2 grid grid-cols-2 items-center">
-        <div>{t('cbType')}</div>
+      <FieldRow label={t('cbType')}>
+        {editorMode === EditorMode.CREATE ? (
+          <ComboBox menus={menuCompTypes} value={compType} onChange={setCompType} />
+        ) : (
+          <div className={READONLY_VALUE_CLASS}>{menuCompTypes.find(m => m.value === compType)?.text}</div>
+        )}
+      </FieldRow>
 
-        <div className="flex w-full">
-          {editorMode === EditorMode.CREATE && (
-            <ComboBox
-              menus={menuCompTypes}
-              value={compType}
-              onChange={(value: CompetitionType) => {
-                setCompType(value);
-              }}
-            />
-          )}
-          {editorMode === EditorMode.EDIT && <div>{menuCompTypes.find(item => item.value === compType)?.text}</div>}
-        </div>
-      </div>
+      <FieldRow label={t('cbGender')}>
+        {editorMode === EditorMode.CREATE ? (
+          <ComboBox menus={menuCompGenders} value={compGender} onChange={setCompGender} />
+        ) : (
+          <div className={READONLY_VALUE_CLASS}>{menuCompGenders.find(m => m.value === compGender)?.text}</div>
+        )}
+      </FieldRow>
 
-      <div className="m-2 grid grid-cols-2 items-center">
-        <div>{t('cbGender')}</div>
+      <FieldRow label={t('cbMaxAge')}>
+        <ComboBox menus={menuMaxAge} value={maxAge ? maxAge.toString() : menuMaxAge[0].value} searchEnabled={false} onChange={v => setMaxAge(+v)} />
+      </FieldRow>
 
-        <div className="flex w-full">
-          {editorMode === EditorMode.CREATE && (
-            <ComboBox
-              menus={menuCompGenders}
-              value={compGender}
-              onChange={(value: CompetitionGender) => {
-                setCompGender(value);
-              }}
-            />
-          )}
-          {editorMode === EditorMode.EDIT && <div>{menuCompGenders.find(item => item.value === compGender)?.text}</div>}
-        </div>
-      </div>
-
-      <div className="m-2 grid grid-cols-2 items-center">
-        <div>{t('cbMaxAge')}</div>
-        <div className="flex w-full">
-          <ComboBox
-            menus={menuMaxAge}
-            value={maxAge ? maxAge.toString() : menuMaxAge[0].value}
-            searchEnabled={false}
-            onChange={(value: any) => {
-              setMaxAge(+value);
-            }}
-          />
-        </div>
-      </div>
-
-      <div className="m-2 grid grid-cols-2 items-center">
-        <div>{t('cbMaxAmountParticipants')}</div>
-        <div className="flex w-full">
-          <ComboBox
-            menus={menuMaxAmountParticipants}
-            value={maxAmountParticipants ? maxAmountParticipants.toString() : menuMaxAmountParticipants[0].value}
-            searchEnabled={false}
-            onChange={(value: any) => {
-              setMaxAmountParticipants(+value);
-            }}
-          />
-        </div>
-      </div>
+      <FieldRow label={t('cbMaxAmountParticipants')}>
+        <ComboBox
+          menus={menuMaxAmountParticipants}
+          value={maxAmountParticipants ? String(maxAmountParticipants) : menuMaxAmountParticipants[0].value}
+          searchEnabled={false}
+          onChange={v => setMaxAmountParticipants(+v)}
+        />
+      </FieldRow>
 
       <CheckBox
-        id={'paymentMethodCashEnabled'}
+        id="comp-follow-up"
         label={t('chbIsFollowUpComp')}
         value={isFollowUpCompetition}
         onChange={() => {
-          setIsFollowUpCompetition(!isFollowUpCompetition);
-
-          if (!isFollowUpCompetition === true) {
-            setParticipationFee(0);
-          }
+          setIsFollowUpCompetition(prev => {
+            if (!prev) setParticipationFee(0);
+            return !prev;
+          });
         }}
       />
 
       {!isFollowUpCompetition && (
         <CurInput
-          id={'participationFee'}
+          id="comp-participation-fee"
           label={`${t('inputPaticipantFee')} (${getCurrencySymbol(event.currency)})`}
           placeholder="15,00"
           value={convertCurrencyIntegerToDecimal(participationFee, event.currency)}
-          onValueChange={(value, name, values) => {
-            if (values) handleParticipationFeeChanged(values);
-          }}
+          onValueChange={onParticipationFeeValueChange}
         />
       )}
 
       <TextInputLarge
-        id={'description'}
+        id="comp-description"
         label={t('inputDescription')}
         placeholder={t('inputDescriptionPlaceHolder')}
         value={description}
-        resizable={true}
-        onChange={e => {
-          setDescription(e.currentTarget.value);
-        }}
+        resizable
+        onChange={e => setDescription(e.currentTarget.value)}
       />
 
-      <TextInputLarge
-        id={'rules'}
-        label={t('inputRules')}
-        placeholder={t('inputRulesPlaceHolder')}
-        value={rules}
-        resizable={true}
-        onChange={e => {
-          setRules(e.currentTarget.value);
-        }}
-      />
+      <TextInputLarge id="comp-rules" label={t('inputRules')} placeholder={t('inputRulesPlaceHolder')} value={rules} resizable onChange={e => setRules(e.currentTarget.value)} />
 
-      <div className="flex h-[100%] flex-col p-2">
-        <div>{t('cbJudges')}</div>
+      <div className="py-1">
+        <Separator />
+      </div>
 
-        <div className="flex h-full">
-          <div className="flex flex-col w-full">
-            {judges.map((judge, index) => {
-              return (
-                <div key={`${judge}-${index}`} className="flex justify-between p-1 gap-2">
-                  <UserCard user={judge} showUserCountryFlag={event.showUserCountryFlag} />
-                  <ActionButton
-                    action={Action.DELETE}
-                    onClick={() => {
-                      handleDeleteJudgeClicked(judge);
-                    }}
-                  />
-                </div>
-              );
-            })}
+      <h2 className="text-sm font-semibold leading-tight text-foreground/90">{t('cbJudges')}</h2>
 
-            <div className="flex justify-between p-1 gap-2">
-              <ComboBox
-                menus={users.map(user => {
-                  return { text: `${user.firstName} (${user.username})`, value: user.username };
-                })}
-                value={judgeToAddUsername || ''}
-                searchEnabled={true}
-                onChange={(value: string) => {
-                  setJudgeToAddUsername(value);
-                }}
-              />
-
-              <ActionButton
-                action={Action.ADD}
-                onClick={() => {
-                  if (judgeToAddUsername) {
-                    handleAddJudgeClicked(judgeToAddUsername);
-                  }
-                }}
-              />
+      <div className="flex min-w-0 flex-col gap-3">
+        {judges.map((judge, index) => (
+          <div key={`judge-${judge.username}-${index}`} className="flex min-w-0 items-center justify-between gap-2 py-0.5">
+            <div className="min-w-0 flex-1">
+              <UserCard user={judge} showUserCountryFlag={event.showUserCountryFlag} />
             </div>
+            <ActionButton action={Action.DELETE} onClick={() => removeJudge(judge)} />
+          </div>
+        ))}
+
+        <div className="flex min-w-0 flex-col items-stretch gap-2 sm:flex-row sm:items-end sm:gap-2">
+          <div className="min-w-0 w-full flex-1">
+            <ComboBox menus={users.map(u => ({ text: `${u.firstName} (${u.username})`, value: u.username }))} value={judgeToAddUsername || ''} searchEnabled onChange={setJudgeToAddUsername} />
+          </div>
+          <div className="flex shrink-0 justify-end sm:pb-0.5">
+            <ActionButton
+              action={Action.ADD}
+              onClick={() => {
+                if (judgeToAddUsername) addJudge(judgeToAddUsername);
+              }}
+            />
           </div>
         </div>
       </div>

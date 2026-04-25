@@ -841,7 +841,7 @@
     "inputQuestion": "السؤال",
     "inputDescription": "سياق (اختياري)",
     "inputOption": "خيار",
-    "chbDeadlineEnabled": "تفعيل الموعد النهائي",
+    "chbDeadlineEnabled": "الموعد النهائي",
     "dateDeadline": "الموعد النهائي",
     "sectionTargetGroup": "الفئة المستهدفة",
     "cbCountry": "البلد"

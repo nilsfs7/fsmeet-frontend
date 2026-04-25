@@ -841,8 +841,8 @@
     "inputQuestion": "質問",
     "inputDescription": "背景（任意）",
     "inputOption": "選択肢",
-    "chbDeadlineEnabled": "締切を有効化",
-    "dateDeadline": "締切",
+    "chbDeadlineEnabled": "締切",
+    "dateDeadline": "締切日",
     "sectionTargetGroup": "対象グループ",
     "cbCountry": "国"
   },

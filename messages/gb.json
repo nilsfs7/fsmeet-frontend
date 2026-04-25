@@ -842,8 +842,8 @@
     "inputQuestion": "Question",
     "inputDescription": "Context (optional)",
     "inputOption": "Option",
-    "chbDeadlineEnabled": "Deadline enabled",
-    "dateDeadline": "Deadline",
+    "chbDeadlineEnabled": "Deadline",
+    "dateDeadline": "Deadline Date",
     "sectionTargetGroup": "Target group",
     "cbCountry": "Country"
   },

@@ -823,7 +823,7 @@
     "inputQuestion": "Pregunta",
     "inputDescription": "Contexto (opcional)",
     "inputOption": "Opción",
-    "chbDeadlineEnabled": "Fecha límite habilitada",
+    "chbDeadlineEnabled": "Fecha límite",
     "dateDeadline": "Fecha límite",
     "sectionTargetGroup": "Grupo objetivo",
     "cbCountry": "País"

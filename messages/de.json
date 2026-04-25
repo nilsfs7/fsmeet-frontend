@@ -823,8 +823,8 @@
     "inputQuestion": "Frage",
     "inputDescription": "Kontext (optional)",
     "inputOption": "Option",
-    "chbDeadlineEnabled": "Deadline aktivieren",
-    "dateDeadline": "Deadline",
+    "chbDeadlineEnabled": "Deadline",
+    "dateDeadline": "Frist-Datum",
     "sectionTargetGroup": "Zielgruppe",
     "cbCountry": "Land"
   },

@@ -823,8 +823,8 @@
     "inputQuestion": "Question",
     "inputDescription": "Contexte (facultatif)",
     "inputOption": "Option",
-    "chbDeadlineEnabled": "Date limite activée",
-    "dateDeadline": "Date limite",
+    "chbDeadlineEnabled": "Date limite",
+    "dateDeadline": "Date d’échéance",
     "sectionTargetGroup": "Groupe cible",
     "cbCountry": "Pays"
   },

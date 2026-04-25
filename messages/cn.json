@@ -841,7 +841,7 @@
     "inputQuestion": "问题",
     "inputDescription": "背景（可选）",
     "inputOption": "选项",
-    "chbDeadlineEnabled": "启用截止时间",
+    "chbDeadlineEnabled": "截止时间",
     "dateDeadline": "截止日期",
     "sectionTargetGroup": "目标群体",
     "cbCountry": "国家"

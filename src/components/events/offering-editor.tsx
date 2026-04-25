@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import TextInput from '../common/text-input';
 import { Offering } from '@/domain/types/offering';
 import { imgImagePlaceholder } from '@/domain/constants/images';
@@ -10,6 +10,16 @@ import CheckBox from '../common/check-box';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
+import { cn } from '@/lib/utils';
+import Separator from '../separator';
+
+const EDITOR_CARD_CLASS = cn(
+  'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
+  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  '[&>div.m-2]:!m-0',
+);
 
 interface IOfferingEditorProps {
   currency: CurrencyCode;
@@ -23,18 +33,27 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
 
   const [description, setOfferingDescription] = useState(offering?.description || '');
   const [cost, setCost] = useState(offering?.cost || 0);
-  const [mandatoryForParticipant, setMandatoryForParticipant] = useState<boolean>(offering?.mandatoryForParticipant || false);
-  const [includesShirt, setIncludesShirt] = useState<boolean>(offering?.includesShirt || false);
+  const [mandatoryForParticipant, setMandatoryForParticipant] = useState(!!offering?.mandatoryForParticipant);
+  const [includesShirt, setIncludesShirt] = useState(!!offering?.includesShirt);
   const [imgPreview, setImgPreview] = useState<File>();
   const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
-  const [enabled, setEnabled] = useState<boolean>(offering?.enabled || true);
+  const [enabled, setEnabled] = useState(offering?.enabled ?? true);
 
-  const uploadToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
+  const uploadToClient = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.[0]) {
+      const f = event.target.files[0];
+      setImgPreview(f);
+      setImgPreviewObjectURL(URL.createObjectURL(f));
+    }
+  };
 
-      setImgPreview(i);
-      setImgPreviewObjectURL(URL.createObjectURL(i));
+  const onCostValueChange = (
+    _v: string | undefined,
+    _n: string | undefined,
+    values?: { float: number | null; formatted: string; value: string },
+  ) => {
+    if (values) {
+      setCost(convertCurrencyDecimalToInteger(values.float || 0, currency));
     }
   };
 
@@ -42,25 +61,20 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
     onOfferingUpdate({
       id: offering?.id,
       eventId: offering?.eventId,
-      description: description,
-      mandatoryForParticipant: mandatoryForParticipant,
-      includesShirt: includesShirt,
+      description,
+      mandatoryForParticipant,
+      includesShirt,
       imageUrlPreview: offering?.imageUrlPreview,
-      cost: cost,
+      cost,
       costIncPaymentCosts: -1,
       enabled,
     });
-  };
-
-  const handleCostChanged = (values: { float: number | null; formatted: string; value: string }) => {
-    setCost(convertCurrencyDecimalToInteger(values.float || 0, currency));
   };
 
   const updateOfferingPreview = () => {
     onOfferingPreviewUpdate(imgPreview);
   };
 
-  // updates inputs with given offering
   useEffect(() => {
     if (offering) {
       setOfferingDescription(offering.description);
@@ -71,78 +85,67 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
     }
   }, [offering]);
 
-  // fires offering back
   useEffect(() => {
     updateOffering();
   }, [description, cost, mandatoryForParticipant, includesShirt, enabled]);
 
-  // fires offering preview back
   useEffect(() => {
     updateOfferingPreview();
   }, [imgPreviewObjectURL]);
 
+  const imageSrc = imgPreviewObjectURL ?? (offering?.imageUrlPreview ? offering.imageUrlPreview : imgImagePlaceholder);
+
   return (
-    <>
-      <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-        <TextInput
-          id={'description'}
-          label={t('inputDescription')}
-          placeholder="Welcome package"
-          value={description}
-          onChange={e => {
-            setOfferingDescription(e.currentTarget.value);
-          }}
-        />
+    <div className={EDITOR_CARD_CLASS}>
+      <TextInput
+        id="offering-description"
+        label={t('inputDescription')}
+        placeholder="Welcome package"
+        value={description}
+        onChange={e => setOfferingDescription(e.currentTarget.value)}
+      />
 
-        <CurInput
-          id={'cost'}
-          label={`${t('inputCost')} (${getCurrencySymbol(currency)})`}
-          placeholder="35,00"
-          value={convertCurrencyIntegerToDecimal(cost, currency)}
-          onValueChange={(value, name, values) => {
-            if (values) handleCostChanged(values);
-          }}
-        />
+      <CurInput
+        id="offering-cost"
+        label={`${t('inputCost')} (${getCurrencySymbol(currency)})`}
+        placeholder="35,00"
+        value={convertCurrencyIntegerToDecimal(cost, currency)}
+        onValueChange={onCostValueChange}
+      />
 
-        <CheckBox
-          id={'mandatoryForParticipant'}
-          label={`${t('inputMandatoryForParticipant')}`}
-          value={mandatoryForParticipant}
-          onChange={() => {
-            setMandatoryForParticipant(!mandatoryForParticipant);
-          }}
-        />
+      <CheckBox
+        id="offering-mandatory"
+        label={t('inputMandatoryForParticipant')}
+        value={mandatoryForParticipant}
+        onChange={() => setMandatoryForParticipant(v => !v)}
+      />
 
-        <CheckBox
-          id={'includesShirt'}
-          label={`${t('inputIncludesShirt')}`}
-          value={includesShirt}
-          onChange={() => {
-            setIncludesShirt(!includesShirt);
-          }}
-        />
+      <CheckBox id="offering-includes-shirt" label={t('inputIncludesShirt')} value={includesShirt} onChange={() => setIncludesShirt(v => !v)} />
 
-        <div className="flex justify-center m-2 gap-2">
-          <img
-            src={imgPreviewObjectURL ? imgPreviewObjectURL : offering?.imageUrlPreview ? offering.imageUrlPreview : imgImagePlaceholder}
-            className="flex h-12 w-12 object-cover border border-primary"
-          />
-
-          <div className="flex justify-center items-center">
-            <input type="file" onChange={uploadToClient} />
-          </div>
-        </div>
-
-        <CheckBox
-          id={'enabled'}
-          label={t('chbEnabled')}
-          value={enabled}
-          onChange={() => {
-            setEnabled(!enabled);
-          }}
-        />
+      <div className="py-1">
+        <Separator />
       </div>
-    </>
+
+      <div className="flex min-w-0 flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <div className="shrink-0">
+          <img
+            src={imageSrc}
+            alt=""
+            className="h-12 w-12 rounded-lg border border-border/60 object-cover"
+          />
+        </div>
+        <div className="min-w-0 flex-1">
+          <input
+            type="file"
+            accept="image/*"
+            className="w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground"
+            onChange={uploadToClient}
+          />
+        </div>
+      </div>
+
+      <CheckBox id="offering-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(v => !v)} />
+    </div>
   );
 };
 
