@@ -273,7 +273,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "आवास प्रबंधित करें",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "tableColDescription": "विवरण",
+    "tableColCost": "लागत",
+    "tableColActions": "कार्य",
+    "tooltipEditAccommodation": "आवास संपादित करें",
+    "textNoAccommodations": "अभी तक कोई आवास नहीं है।"
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "आवास बनाएं",
@@ -287,7 +292,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "दस्तावेज़ प्रबंधित करें",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "tooltipEditDocument": "दस्तावेज़ संपादित करें",
+    "textNoAttachments": "अभी तक कोई दस्तावेज़ नहीं है।"
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "दस्तावेज़ संपादित करें",
@@ -301,8 +308,6 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "प्रतियोगिताएं प्रबंधित करें",
-    "tableColCompetition": "प्रतियोगिता",
-    "textNoCompetitions": "अभी तक कोई प्रतियोगिता नहीं।",
     "btnEdit": "संपादित करें",
     "btnPool": "पूल",
     "btnGameMode": "मोड",
@@ -403,7 +408,9 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "सेवाएं प्रबंधित करें",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "tooltipEditOffering": "सेवा संपादित करें",
+    "textNoOfferings": "अभी तक कोई सेवाएं नहीं हैं।"
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "सेवा बनाएं",
@@ -513,7 +520,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "प्रायोजक प्रबंधित करें",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "tooltipEditSponsor": "प्रायोजक संपादित करें",
+    "textNoSponsors": "अभी तक कोई प्रायोजक नहीं है।"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "प्रायोजक बनाएं",

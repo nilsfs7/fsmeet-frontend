@@ -273,7 +273,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Manage Accommodations",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "tableColDescription": "Description",
+    "tableColCost": "Cost",
+    "tableColActions": "Actions",
+    "tooltipEditAccommodation": "Edit accommodation",
+    "textNoAccommodations": "No accommodations yet."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Create Accommodation",
@@ -287,7 +292,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "Manage Documents",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "tooltipEditDocument": "Edit document",
+    "textNoAttachments": "No documents yet."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Edit Document",
@@ -301,8 +308,6 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "Manage Competitions",
-    "tableColCompetition": "Competition",
-    "textNoCompetitions": "No competitions yet.",
     "btnEdit": "Edit",
     "btnPool": "Pool",
     "btnGameMode": "Mode",
@@ -403,7 +408,9 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "Manage Offerings",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "tooltipEditOffering": "Edit offering",
+    "textNoOfferings": "No offerings yet."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "Create Offering",
@@ -513,7 +520,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Manage Sponsors",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "tooltipEditSponsor": "Edit sponsor",
+    "textNoSponsors": "No sponsors yet."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Create Sponsor",

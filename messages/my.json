@@ -273,7 +273,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Urus Penginapan",
-    "btnCreate": "Cipta"
+    "btnCreate": "Cipta",
+    "tableColDescription": "Penerangan",
+    "tableColCost": "Kos",
+    "tableColActions": "Tindakan",
+    "tooltipEditAccommodation": "Edit Penginapan",
+    "textNoAccommodations": "Belum ada penginapan."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Cipta Penginapan",
@@ -287,7 +292,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "Urus Dokumen",
-    "btnCreate": "Cipta"
+    "btnCreate": "Cipta",
+    "tooltipEditDocument": "Edit Dokumen",
+    "textNoAttachments": "Belum ada dokumen."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Edit Dokumen",
@@ -301,8 +308,6 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "Urus Pertandingan",
-    "tableColCompetition": "Pertandingan",
-    "textNoCompetitions": "Belum ada pertandingan.",
     "btnEdit": "Edit",
     "btnPool": "Pool",
     "btnGameMode": "Mod",
@@ -403,7 +408,9 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "Urus Tawaran",
-    "btnCreate": "Cipta"
+    "btnCreate": "Cipta",
+    "tooltipEditOffering": "Edit Tawaran",
+    "textNoOfferings": "Belum ada tawaran."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "Cipta Tawaran",
@@ -513,7 +520,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Urus Penaja",
-    "btnCreate": "Cipta"
+    "btnCreate": "Cipta",
+    "tooltipEditSponsor": "Edit Penaja",
+    "textNoSponsors": "Belum ada penaja."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Cipta Penaja",

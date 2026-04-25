@@ -255,7 +255,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Gérer les hébergements",
-    "btnCreate": "Créer"
+    "btnCreate": "Créer",
+    "tableColDescription": "Description",
+    "tableColCost": "Coût",
+    "tableColActions": "Actions",
+    "tooltipEditAccommodation": "Modifier l'hébergement",
+    "textNoAccommodations": "Aucun hébergement pour le moment."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Créer des hébergements",
@@ -269,7 +274,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "Gérer les documents",
-    "btnCreate": "Créer"
+    "btnCreate": "Créer",
+    "tooltipEditDocument": "Modifier le document",
+    "textNoAttachments": "Aucun document pour le moment."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Modifier le document",
@@ -283,8 +290,6 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "Gérer les compétitions",
-    "tableColCompetition": "Compétition",
-    "textNoCompetitions": "Aucune compétition pour l’instant.",
     "btnEdit": "Modifier",
     "btnPool": "Joueurs",
     "btnGameMode": "Mode",
@@ -385,7 +390,9 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "Gérer les offres",
-    "btnCreate": "Créer"
+    "btnCreate": "Créer",
+    "tooltipEditOffering": "Modifier l'offre",
+    "textNoOfferings": "Aucune offre pour le moment."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "Créer une offre",
@@ -495,7 +502,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Gérer les partenariats",
-    "btnCreate": "Créer"
+    "btnCreate": "Créer",
+    "tooltipEditSponsor": "Modifier le partenaire",
+    "textNoSponsors": "Aucun sponsor pour le moment."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Créer un partenaire",

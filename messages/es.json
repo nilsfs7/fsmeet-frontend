@@ -255,7 +255,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Administrar alojamientos",
-    "btnCreate": "Crear"
+    "btnCreate": "Crear",
+    "tableColDescription": "Descripción",
+    "tableColCost": "Costo",
+    "tableColActions": "Acciones",
+    "tooltipEditAccommodation": "Editar alojamiento",
+    "textNoAccommodations": "Todavia no hay alojamientos."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Crear alojamientos",
@@ -269,7 +274,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "Gestionar documentos",
-    "btnCreate": "Crear"
+    "btnCreate": "Crear",
+    "tooltipEditDocument": "Editar documento",
+    "textNoAttachments": "Todavia no hay documentos."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Editar documento",
@@ -283,8 +290,6 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "Gestionar las competiciones",
-    "tableColCompetition": "Competición",
-    "textNoCompetitions": "Aún no hay competiciones.",
     "btnEdit": "Editar",
     "btnPool": "Grupo de jugadores",
     "btnGameMode": "Modo",
@@ -385,7 +390,9 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "Gestionar ofertas",
-    "btnCreate": "Crear"
+    "btnCreate": "Crear",
+    "tooltipEditOffering": "Editar oferta",
+    "textNoOfferings": "Todavia no hay ofertas."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "Crear oferta",
@@ -495,7 +502,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Gestionar patrocinadores",
-    "btnCreate": "Añadir patrocinador"
+    "btnCreate": "Añadir patrocinador",
+    "tooltipEditSponsor": "Editar patrocinador",
+    "textNoSponsors": "Todavia no hay patrocinadores."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Crear patrocinador",

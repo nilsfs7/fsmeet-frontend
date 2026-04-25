@@ -273,7 +273,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "宿泊を管理",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "tableColDescription": "説明",
+    "tableColCost": "費用",
+    "tableColActions": "操作",
+    "tooltipEditAccommodation": "宿泊を編集",
+    "textNoAccommodations": "まだ宿泊がありません。"
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "宿泊を作成",
@@ -287,7 +292,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "ドキュメントを管理",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "tooltipEditDocument": "ドキュメントを編集",
+    "textNoAttachments": "まだドキュメントがありません。"
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "ドキュメントを編集",
@@ -301,8 +308,6 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "カテゴリを管理",
-    "tableColCompetition": "カテゴリ",
-    "textNoCompetitions": "まだカテゴリがありません。",
     "btnEdit": "編集",
     "btnPool": "選手一覧",
     "btnGameMode": "モード",
@@ -403,7 +408,9 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "提供内容を管理",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "tooltipEditOffering": "提供内容を編集",
+    "textNoOfferings": "まだ提供内容がありません。"
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "提供内容を作成",
@@ -513,7 +520,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "スポンサーを管理",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "tooltipEditSponsor": "スポンサーを編集",
+    "textNoSponsors": "まだスポンサーがありません。"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "スポンサーを作成",

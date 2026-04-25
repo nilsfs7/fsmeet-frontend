@@ -41,10 +41,10 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
     onAccommodationUpdate({
       id: accommodation?.id,
       eventId: accommodation?.eventId,
-      description: description,
-      website: website,
+      description,
+      website,
       imageUrlPreview: accommodation?.imageUrlPreview,
-      cost: cost,
+      cost,
       costIncPaymentCosts: -1,
       enabled,
     });

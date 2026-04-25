@@ -273,7 +273,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "管理住宿",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "tableColDescription": "描述",
+    "tableColCost": "费用",
+    "tableColActions": "操作",
+    "tooltipEditAccommodation": "编辑住宿",
+    "textNoAccommodations": "暂无住宿。"
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "创建住宿",
@@ -287,7 +292,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "管理文档",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "tooltipEditDocument": "编辑文档",
+    "textNoAttachments": "暂无文档。"
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "编辑文档",
@@ -301,8 +308,6 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "管理比赛项目",
-    "tableColCompetition": "比赛项目",
-    "textNoCompetitions": "暂无比赛项目。",
     "btnEdit": "编辑",
     "btnPool": "选手池",
     "btnGameMode": "模式",
@@ -403,7 +408,9 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "管理选项/套餐",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "tooltipEditOffering": "编辑选项/套餐",
+    "textNoOfferings": "暂无选项/套餐。"
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "创建选项/套餐",
@@ -513,7 +520,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "管理赞助商",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "tooltipEditSponsor": "编辑赞助商",
+    "textNoSponsors": "暂无赞助商。"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",

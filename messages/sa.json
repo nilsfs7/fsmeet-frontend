@@ -273,7 +273,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "إدارة الإقامات",
-    "btnCreate": "إنشاء"
+    "btnCreate": "إنشاء",
+    "tableColDescription": "الوصف",
+    "tableColCost": "التكلفة",
+    "tableColActions": "إجراءات",
+    "tooltipEditAccommodation": "تعديل الإقامة",
+    "textNoAccommodations": "لا توجد إقامات بعد."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "إنشاء إقامة",
@@ -287,7 +292,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "إدارة المستندات",
-    "btnCreate": "إنشاء"
+    "btnCreate": "إنشاء",
+    "tooltipEditDocument": "تعديل المستند",
+    "textNoAttachments": "لا توجد مستندات بعد."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "تعديل المستند",
@@ -301,11 +308,9 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "إدارة المنافسات",
-    "tableColCompetition": "المنافسة",
-    "textNoCompetitions": "لا توجد منافسات بعد.",
     "btnEdit": "تعديل",
     "btnPool": "القائمة",
-    "btnGameMode": "نمط",
+    "btnGameMode": "الوضع",
     "btnSeedingAndResults": "التصنيف والنتائج",
     "btnAddNew": "إضافة جديد"
   },
@@ -403,7 +408,9 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "إدارة العروض",
-    "btnCreate": "إنشاء"
+    "btnCreate": "إنشاء",
+    "tooltipEditOffering": "تعديل العرض",
+    "textNoOfferings": "لا توجد عروض بعد."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "إنشاء عرض",
@@ -513,7 +520,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "إدارة الرعاة",
-    "btnCreate": "إنشاء"
+    "btnCreate": "إنشاء",
+    "tooltipEditSponsor": "تعديل الراعي",
+    "textNoSponsors": "لا يوجد رعاة بعد."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",

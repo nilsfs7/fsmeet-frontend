@@ -255,11 +255,18 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Unterkünfte verwalten",
-    "btnCreate": "Erstellen"
+    "btnCreate": "Erstellen",
+    "tableColDescription": "Beschreibung",
+    "tableColCost": "Kosten",
+    "tableColActions": "Aktionen",
+    "tooltipEditAccommodation": "Unterkunft bearbeiten",
+    "textNoAccommodations": "Noch keine Unterkünfte."
   },
   "/events/eventid/attachments": {
     "pageTitle": "Dokumente verwalten",
-    "btnCreate": "Dokument hinzufügen"
+    "btnCreate": "Dokument hinzufügen",
+    "tooltipEditDocument": "Dokument bearbeiten",
+    "textNoAttachments": "Noch keine Dokumente."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Dokument editieren",
@@ -283,8 +290,6 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "Wettbewerbe verwalten",
-    "tableColCompetition": "Wettbewerb",
-    "textNoCompetitions": "Noch keine Wettbewerbe.",
     "btnEdit": "Bearbeiten",
     "btnPool": "Pool",
     "btnGameMode": "Modus",
@@ -385,7 +390,9 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "Angebote verwalten",
-    "btnCreate": "Erstellen"
+    "btnCreate": "Erstellen",
+    "tooltipEditOffering": "Angebot bearbeiten",
+    "textNoOfferings": "Noch keine Angebote."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "Angebot erstellen",
@@ -495,7 +502,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",
-    "btnCreate": "Sponsor hinzufügen"
+    "btnCreate": "Sponsor hinzufügen",
+    "tooltipEditSponsor": "Sponsor bearbeiten",
+    "textNoSponsors": "Noch keine Sponsoren."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Sponsor erstellen",
