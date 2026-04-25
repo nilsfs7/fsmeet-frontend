@@ -14,6 +14,57 @@ import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { Competition } from '@/domain/types/competition';
 import { getShortDateString } from '../../../../../functions/time';
 
+const CSV_EMPTY = '';
+const CSV_MARK = 'x';
+
+type CsvRow = Record<string, AcceptedData>;
+
+/** One column per item: "x" when `item.id` is in `selectedIds`, else empty. */
+function markSelectedColumns<T extends { id?: string }>(
+  items: T[],
+  selectedIds: readonly string[],
+  columnKey: (item: T) => string,
+): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const item of items) {
+    out[columnKey(item)] = item.id && selectedIds.includes(item.id) ? CSV_MARK : CSV_EMPTY;
+  }
+  return out;
+}
+
+function mapRegistrationsToCsv(
+  competitions: Competition[],
+  registrations: EventRegistration[],
+  offerings: Offering[],
+  accommodations: Accommodation[],
+): CsvRow[] {
+  return registrations.map((registration) => {
+    const { user } = registration;
+    const code = user.countryCode;
+
+    return {
+      'Registration Type': registration.type,
+      'Registration Status': registration.status,
+      Username: user.username,
+      'WFFA ID': user.wffaId || CSV_EMPTY,
+      'First Name': user.firstName,
+      'Last Name': user.lastName,
+      Nickname: user.nickName || CSV_EMPTY,
+      Gender: user.gender,
+      'Country Code': user.countryCode || CSV_EMPTY,
+      Country: code ? getCountryNameByCode(code) : CSV_EMPTY,
+      'T-Shirt Size': registration.offeringTShirtSize || CSV_EMPTY,
+      'Phone Country Code': registration.phoneCountryCode || CSV_EMPTY,
+      'Phone Number': registration.phoneNumber || CSV_EMPTY,
+      'Arrival Date': registration.arrivalDate ? getShortDateString(moment(registration.arrivalDate)) : CSV_EMPTY,
+      'Departure Date': registration.departureDate ? getShortDateString(moment(registration.departureDate)) : CSV_EMPTY,
+      ...markSelectedColumns(competitions, registration.competitionSignUps, (c) => c.name),
+      ...markSelectedColumns(offerings, registration.offeringOrders, (o) => o.description),
+      ...markSelectedColumns(accommodations, registration.accommodationOrders, (a) => a.description),
+    };
+  });
+}
+
 interface IActionButtonDownloadList {
   event: Event;
   competitions: Competition[];
@@ -27,91 +78,11 @@ export const ActionButtonDownloadList = ({ event, competitions, registrations, o
     const options: ConfigOptions = { filename: `${moment().format('YYYYMMDD HHmmss')} - ${event.name} -  registrations`, useKeysAsHeaders: true };
     const csvConfig = mkConfig(options);
 
-    const data = mapRegistrationsToCsv(registrations, offerings, accommodations);
+    const data = mapRegistrationsToCsv(competitions, registrations, offerings, accommodations);
     if (data.length > 0) {
       const csvOutput = generateCsv(csvConfig)(data);
       download(csvConfig)(csvOutput);
     }
-  };
-
-  const mapRegistrationsToCsv = (registrations: EventRegistration[], offerings: Offering[], accommodations: Accommodation[]): { [k: string]: AcceptedData; [k: number]: AcceptedData }[] => {
-    const na = '';
-    const data: { [k: string]: AcceptedData; [k: number]: AcceptedData }[] = [];
-
-    for (let i = 0; i < registrations.length; i++) {
-      const registration = registrations[i];
-
-      const competitionsData = competitions.reduce(
-        (acc, value) => {
-          let cellValue: string = na;
-
-          if (value.id) {
-            if (registration.competitionSignUps.includes(value.id)) {
-              cellValue = `x`;
-            }
-          }
-
-          acc[value.name] = cellValue;
-          return acc;
-        },
-        {} as Record<string, string>,
-      );
-
-      const offeringsData = offerings.reduce(
-        (acc, value) => {
-          let cellValue: string = na;
-
-          if (value.id) {
-            if (registration.offeringOrders.includes(value.id)) {
-              cellValue = `x`;
-            }
-          }
-
-          acc[value.description] = cellValue;
-          return acc;
-        },
-        {} as Record<string, string>,
-      );
-
-      const accommodationsData = accommodations.reduce(
-        (acc, value) => {
-          let cellValue: string = na;
-
-          if (value.id) {
-            if (registration.accommodationOrders.includes(value.id)) {
-              cellValue = `x`;
-            }
-          }
-
-          acc[value.description] = cellValue;
-          return acc;
-        },
-        {} as Record<string, string>,
-      );
-
-      data.push({
-        'Registration Type': registration.type,
-        'Registration Status': registration.status,
-        Username: registration.user.username,
-        'WFFA ID': registration.user.wffaId || na,
-        'First Name': registration.user.firstName,
-        'Last Name': registration.user.lastName,
-        Nickname: registration.user.nickName || na,
-        Gender: registration.user.gender,
-        'Country Code': registration.user.countryCode || na,
-        Country: registration.user.countryCode ? getCountryNameByCode(registration.user.countryCode) : na,
-        'T-Shirt Size': registration.offeringTShirtSize || na,
-        'Phone Country Code': registration.phoneCountryCode || na,
-        'Phone Number': registration.phoneNumber || na,
-        'Arrival Date': registration.arrivalDate ? getShortDateString(moment(registration.arrivalDate)) : na,
-        'Departure Date': registration.departureDate ? getShortDateString(moment(registration.departureDate)) : na,
-        ...competitionsData,
-        ...offeringsData,
-        ...accommodationsData,
-      });
-    }
-
-    return data;
   };
 
   return (
