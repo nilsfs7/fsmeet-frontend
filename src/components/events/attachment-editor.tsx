@@ -104,9 +104,9 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentFileUpda
             id={'url'}
             label={t('inputUrl')}
             placeholder="https://dffb.org/form.pdf"
-            value={url || undefined}
+            value={url ?? ''}
             onChange={e => {
-              setUrl(e.currentTarget.value);
+              setUrl(e.currentTarget.value || null);
             }}
           />
         )}
