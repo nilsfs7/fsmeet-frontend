@@ -565,6 +565,8 @@
     "btnCreate": "创建活动"
   },
   "/feedback": {
+    "pageTitle": "反馈",
+    "pageDescription": "请选择一项，向我们发送反馈。",
     "pageGeneralFeedback": "通用反馈",
     "btnFeatures": "功能建议",
     "btnBugs": "报告问题"

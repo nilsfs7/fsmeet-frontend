@@ -547,6 +547,8 @@
     "btnCreate": "Event erstellen"
   },
   "/feedback": {
+    "pageTitle": "Feedback",
+    "pageDescription": "Wähle unten eine Kategorie, um uns dein Feedback zu schicken.",
     "pageGeneralFeedback": "Feedback",
     "btnFeatures": "Feature anfragen",
     "btnBugs": "Fehler melden"

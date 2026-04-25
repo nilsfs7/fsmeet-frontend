@@ -15,7 +15,7 @@ const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, 
   return (
     <>
       {labelOnTop && (
-        <div className="m-2 flex h-[100%] flex-col gap-1.5">
+        <div className="flex h-[100%] flex-col gap-1.5">
           <label htmlFor={id} className="text-sm font-medium leading-none">
             {label}
           </label>
@@ -38,7 +38,7 @@ const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, 
       )}
 
       {!labelOnTop && (
-        <div className="m-2 grid h-[100%] grid-cols-2 items-start gap-x-2 gap-y-1">
+        <div className="grid h-[100%] grid-cols-2 items-start gap-x-2 gap-y-1">
           <label htmlFor={id} className="pt-2 text-sm font-medium leading-none">
             {label}
           </label>

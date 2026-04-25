@@ -565,6 +565,8 @@
     "btnCreate": "इवेंट बनाएं"
   },
   "/feedback": {
+    "pageTitle": "प्रतिक्रिया",
+    "pageDescription": "नीचे एक विकल्प चुनकर हमें अपनी प्रतिक्रिया भेजें।",
     "pageGeneralFeedback": "सामान्य फीडबैक",
     "btnFeatures": "फीचर अनुरोध",
     "btnBugs": "बग रिपोर्ट करें"

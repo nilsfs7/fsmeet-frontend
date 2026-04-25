@@ -565,6 +565,8 @@
     "btnCreate": "إنشاء فعالية"
   },
   "/feedback": {
+    "pageTitle": "الملاحظات",
+    "pageDescription": "اختر أدناه نوع الملاحظات التي تريد إرسالها.",
     "pageGeneralFeedback": "ملاحظات عامة",
     "btnFeatures": "طلب ميزة",
     "btnBugs": "الإبلاغ عن خلل"

@@ -547,6 +547,8 @@
     "btnCreate": "Crear evento"
   },
   "/feedback": {
+    "pageTitle": "Comentarios",
+    "pageDescription": "Elige una categoría para enviarnos tus comentarios.",
     "pageGeneralFeedback": "Feedback",
     "btnFeatures": "Solicitud de funcionesn",
     "btnBugs": "Informar de un error"

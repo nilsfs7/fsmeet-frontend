@@ -565,6 +565,8 @@
     "btnCreate": "Create Event"
   },
   "/feedback": {
+    "pageTitle": "Feedback",
+    "pageDescription": "Pick a category below to share your thoughts with us.",
     "pageGeneralFeedback": "General Feedback",
     "btnFeatures": "Request Feature",
     "btnBugs": "Report Bug"

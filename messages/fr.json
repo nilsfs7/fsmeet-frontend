@@ -547,6 +547,8 @@
     "btnCreate": "Créer un événement"
   },
   "/feedback": {
+    "pageTitle": "Avis",
+    "pageDescription": "Choisis une catégorie ci-dessous pour nous envoyer ton retour.",
     "pageGeneralFeedback": "Retour d'expérience général",
     "btnFeatures": "Proposer une fonctionnalité",
     "btnBugs": "Signaler un bug"

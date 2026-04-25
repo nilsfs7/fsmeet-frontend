@@ -20,7 +20,7 @@ interface ITextInput {
 const labelClass = 'text-sm font-medium leading-none';
 
 const TextInputLarge = ({ id, label, labelOnTop = true, placeholder, defValue, value, maxInputLength, resizable = false, onChange, onKeyDown }: ITextInput) => {
-  const inputClass = cn('h-full min-h-20 w-full', resizable ? 'resize-y' : 'resize-none');
+  const inputClass = cn('min-h-20 w-full', resizable ? 'resize-y' : 'resize-none');
 
   const input = (
     <Textarea
@@ -41,7 +41,7 @@ const TextInputLarge = ({ id, label, labelOnTop = true, placeholder, defValue, v
 
   return (
     <div
-      className={cn('m-2', labelOnTop ? 'flex flex-col gap-1.5' : 'grid grid-cols-2 items-start gap-x-2 gap-y-1')}
+      className={cn(labelOnTop ? 'flex flex-col gap-1.5' : 'grid grid-cols-2 items-start gap-x-2 gap-y-1')}
     >
       {labelOnTop ? (
         <>

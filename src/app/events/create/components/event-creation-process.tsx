@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import PageTitle from '@/components/page-title';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Event } from '@/domain/types/event';
 import { User } from '@/domain/types/user';
 import { Toaster, toast } from 'sonner';
@@ -33,6 +33,38 @@ import { getNameByEventType } from '../../../../functions/get-name-by-event-type
 import { toTitleCase } from '../../../../functions/string-manipulation';
 import { getShortDateString } from '../../../../functions/time';
 import { LicenseType } from '../../../../domain/enums/license-type';
+import { cn } from '@/lib/utils';
+
+const EDITOR_CARD_CLASS = cn(
+  'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
+  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+);
+const FIELD_ROW_CLASS = 'flex min-w-0 flex-col gap-1.5 sm:grid sm:grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] sm:items-center sm:gap-3';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_CONTROL_CLASS = 'min-w-0 w-full sm:min-w-0';
+const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
+const SECTION_H2 = 'text-sm font-semibold leading-tight text-foreground/90';
+
+function FieldRow({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className={FIELD_ROW_CLASS}>
+      <div className={FIELD_LABEL_CLASS}>{label}</div>
+      <div className={FIELD_CONTROL_CLASS}>{children}</div>
+    </div>
+  );
+}
+
+/** Matches `MetaRow` on the event details page (`event-info.tsx`). */
+function MetaRow({ icon, children, className }: { icon: ReactNode; children: ReactNode; className?: string }) {
+  return (
+    <div className={cn('flex min-w-0 items-center gap-2', className)}>
+      <div className="flex h-7 w-7 shrink-0 items-center justify-center [&>img]:h-full [&>img]:w-full [&>img]:object-contain">{icon}</div>
+      <div className="type-body-sm min-w-0 flex-1 break-words text-foreground/90 leading-snug">{children}</div>
+    </div>
+  );
+}
 
 interface IEventCreationProcess {
   eventAdmin: User;
@@ -362,66 +394,60 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
 
       {page && <PageTitle title={`${t('pageTitleEventCreationFlow')}`} />}
 
-      <div className="mx-2 overflow-y-auto">
-        <div className="flex justify-center">
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="mx-auto flex w-full max-w-content flex-col items-center px-4 py-4 sm:px-6 md:px-8">
           {/* Page: General Event Type Choice */}
           {page && page === CreationProcessPage.EVENT_TYPE && (
-            <div className="flex flex-col p-2">
-              <div className="flex justify-center m-2">{t('pageEventTypeDescription')}</div>
-
-              <div className="p-2 h-full grid overflow-y-auto">
-                <div className="h-full flex flex-col items-center justify-center gap-2">
-                  <TextAndImageButton
-                    text={t('pageEventTypeCompetition')}
-                    image={imgCompetition}
-                    onClick={() => {
-                      handleEventTypeChoiceClicked(EventType.COMPETITION);
-                    }}
-                  />
-                  <TextAndImageButton
-                    text={t('pageEventTypeMeeting')}
-                    image={imgMeeting}
-                    onClick={() => {
-                      handleEventTypeChoiceClicked(EventType.MEETING);
-                    }}
-                  />
-                </div>
+            <div className="flex w-full max-w-2xl min-w-0 flex-col items-center gap-4">
+              <p className="w-full text-balance text-center text-foreground">{t('pageEventTypeDescription')}</p>
+              <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
+                <TextAndImageButton
+                  text={t('pageEventTypeCompetition')}
+                  image={imgCompetition}
+                  onClick={() => {
+                    handleEventTypeChoiceClicked(EventType.COMPETITION);
+                  }}
+                />
+                <TextAndImageButton
+                  text={t('pageEventTypeMeeting')}
+                  image={imgMeeting}
+                  onClick={() => {
+                    handleEventTypeChoiceClicked(EventType.MEETING);
+                  }}
+                />
               </div>
             </div>
           )}
 
           {/* Page: Comp Type Choice */}
           {page && page === CreationProcessPage.COMP_TYPE && (
-            <div className="flex flex-col p-2">
-              <div className="flex justify-center m-2">{t('pageCompTypeDescription')}</div>
-
-              <div className="p-2 h-full grid overflow-y-auto">
-                <div className="h-full flex flex-col items-center justify-center gap-2">
-                  <TextAndImageButton
-                    text={t('pageCompTypeOnsite')}
-                    image={imgCompetitionOnsite}
-                    onClick={() => {
-                      handleCompTypeChoiceClicked(EventType.COMPETITION);
-                    }}
-                  />
-                  <TextAndImageButton
-                    text={t('pageCompTypeOnline')}
-                    image={imgCompetitionOnline}
-                    onClick={() => {
-                      handleCompTypeChoiceClicked(EventType.COMPETITION_ONLINE);
-                    }}
-                  />
-                </div>
+            <div className="flex w-full max-w-2xl min-w-0 flex-col items-center gap-4">
+              <p className="w-full text-balance text-center text-foreground">{t('pageCompTypeDescription')}</p>
+              <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
+                <TextAndImageButton
+                  text={t('pageCompTypeOnsite')}
+                  image={imgCompetitionOnsite}
+                  onClick={() => {
+                    handleCompTypeChoiceClicked(EventType.COMPETITION);
+                  }}
+                />
+                <TextAndImageButton
+                  text={t('pageCompTypeOnline')}
+                  image={imgCompetitionOnline}
+                  onClick={() => {
+                    handleCompTypeChoiceClicked(EventType.COMPETITION_ONLINE);
+                  }}
+                />
               </div>
             </div>
           )}
 
           {/* Page: General Details */}
           {page && page === CreationProcessPage.GENERAL_DETAILS && (
-            <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-2">
-              <div className="m-2">{t('pageGeneralDetailsDescription')}</div>
+            <div className={EDITOR_CARD_CLASS}>
+              <h2 className={cn(SECTION_H2, 'text-center sm:text-left')}>{t('pageGeneralDetailsDescription')}</h2>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-3">
                 <TextInput
                   id={'name'}
                   label={t('pageGeneralDetailsInputName')}
@@ -433,149 +459,127 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
                 />
 
                 {eventType !== EventType.MEETING && (
-                  <div className="m-2 grid grid-cols-2 items-center gap-2">
-                    <div>{t('pageGeneralDetailsCbCategory')}</div>
-                    <div className="flex w-full">
-                      <ComboBox
-                        menus={menuEventCategories(eventAdmin?.isWffaMember || false)}
-                        value={eventCategory}
-                        onChange={(value: EventCategory) => {
-                          handleEventCatergoryChanged(value);
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <FieldRow label={t('pageGeneralDetailsCbCategory')}>
+                    <ComboBox
+                      menus={menuEventCategories(eventAdmin?.isWffaMember || false)}
+                      value={eventCategory}
+                      onChange={(value: EventCategory) => {
+                        handleEventCatergoryChanged(value);
+                      }}
+                    />
+                  </FieldRow>
                 )}
 
                 {eventType !== EventType.COMPETITION_ONLINE && (
-                  <div className="m-2 grid grid-cols-2 items-center gap-2">
-                    <div>{t('pageGeneralDetailsCbVenueCountry')}</div>
-                    <div className="flex w-full">
-                      <ComboBox
-                        menus={menuCountries}
-                        value={venueCountryCode || eventAdmin?.countryCode || ''}
-                        searchEnabled={true}
-                        onChange={(value: any) => {
-                          handleVenueCountryCodeChanged(value);
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <FieldRow label={t('pageGeneralDetailsCbVenueCountry')}>
+                    <ComboBox
+                      menus={menuCountries}
+                      value={venueCountryCode || eventAdmin?.countryCode || ''}
+                      searchEnabled={true}
+                      onChange={(value: any) => {
+                        handleVenueCountryCodeChanged(value);
+                      }}
+                    />
+                  </FieldRow>
                 )}
 
-                <div className="m-2 grid grid-cols-2 items-center gap-2">
-                  <div>{t('pageGeneralDetailsDatePickerFrom')}</div>
-                  <DatePicker
-                    date={dateFrom ? moment(dateFrom) : undefined}
-                    fromDate={moment('2020')}
-                    toDate={moment().add(2, 'y')}
-                    onChange={value => {
-                      if (value) {
-                        handleDateFromChanged(value);
-                      }
-                    }}
-                  />
-                </div>
+                <FieldRow label={t('pageGeneralDetailsDatePickerFrom')}>
+                  <div className={FIELD_CONTROL_TALL_INNER}>
+                    <DatePicker
+                      date={dateFrom ? moment(dateFrom) : undefined}
+                      fromDate={moment('2020')}
+                      toDate={moment().add(2, 'y')}
+                      onChange={value => {
+                        if (value) {
+                          handleDateFromChanged(value);
+                        }
+                      }}
+                    />
+                  </div>
+                </FieldRow>
 
-                <div className="m-2 grid grid-cols-2 items-center gap-2">
-                  <div>{t('pageGeneralDetailsDatePickerTo')}</div>
-                  <DatePicker
-                    date={dateTo ? moment(dateTo) : undefined}
-                    fromDate={moment('2020')}
-                    toDate={moment().add(2, 'y')}
-                    onChange={value => {
-                      if (value) {
-                        handleDateToChanged(value);
-                      }
-                    }}
-                  />
-                </div>
+                <FieldRow label={t('pageGeneralDetailsDatePickerTo')}>
+                  <div className={FIELD_CONTROL_TALL_INNER}>
+                    <DatePicker
+                      date={dateTo ? moment(dateTo) : undefined}
+                      fromDate={moment('2020')}
+                      toDate={moment().add(2, 'y')}
+                      onChange={value => {
+                        if (value) {
+                          handleDateToChanged(value);
+                        }
+                      }}
+                    />
+                  </div>
+                </FieldRow>
 
-                <div className="m-2 grid grid-cols-2 items-center gap-2">
-                  <div>{t('pageGeneralDetailsDatePickerRegistrationFrom')}</div>
-                  <DatePicker
-                    date={registrationDateFrom ? moment(registrationDateFrom) : undefined}
-                    fromDate={moment('2020')}
-                    toDate={moment().add(2, 'y')}
-                    onChange={value => {
-                      if (value) {
-                        handleDateRegistrationFromChanged(value);
-                      }
-                    }}
-                  />
-                </div>
+                <FieldRow label={t('pageGeneralDetailsDatePickerRegistrationFrom')}>
+                  <div className={FIELD_CONTROL_TALL_INNER}>
+                    <DatePicker
+                      date={registrationDateFrom ? moment(registrationDateFrom) : undefined}
+                      fromDate={moment('2020')}
+                      toDate={moment().add(2, 'y')}
+                      onChange={value => {
+                        if (value) {
+                          handleDateRegistrationFromChanged(value);
+                        }
+                      }}
+                    />
+                  </div>
+                </FieldRow>
 
-                <div className="m-2 grid grid-cols-2 items-center gap-2">
-                  <div>{t('pageGeneralDetailsDatePickerRegistrationTo')}</div>
-                  <DatePicker
-                    date={registrationDateTo ? moment(registrationDateTo) : undefined}
-                    fromDate={moment('2020')}
-                    toDate={moment().add(2, 'y')}
-                    onChange={value => {
-                      if (value) {
-                        handleDateRegistrationToChanged(value);
-                      }
-                    }}
-                  />
-                </div>
+                <FieldRow label={t('pageGeneralDetailsDatePickerRegistrationTo')}>
+                  <div className={FIELD_CONTROL_TALL_INNER}>
+                    <DatePicker
+                      date={registrationDateTo ? moment(registrationDateTo) : undefined}
+                      fromDate={moment('2020')}
+                      toDate={moment().add(2, 'y')}
+                      onChange={value => {
+                        if (value) {
+                          handleDateRegistrationToChanged(value);
+                        }
+                      }}
+                    />
+                  </div>
+                </FieldRow>
               </div>
             </div>
           )}
 
           {/* Page: Overview */}
           {page && page === CreationProcessPage.OVERVIEW && (
-            <div className="flex flex-col bg-secondary-light rounded-lg border border-secondary-dark p-4 gap-2">
-              <div className="">{t('pageCheckoutOverviewDescription')}</div>
+            <div className={EDITOR_CARD_CLASS}>
+              <h2 className={cn(SECTION_H2, 'text-center sm:text-left')}>{t('pageCheckoutOverviewDescription')}</h2>
 
-              <div className="flex flex-col mt-4 gap-4">
-                <div className="flex items-center gap-2">{<div>{eventName}</div>}</div>
+              <div className="flex flex-col gap-4">
+                <div className="min-w-0 text-base font-medium text-foreground">{eventName}</div>
 
                 {eventType && (
-                  <div className="flex items-center gap-2">
-                    <img src={eventType === EventType.MEETING ? imgMeeting : imgCompetition} className=" h-6 w-6 object-fill" />
-
-                    {eventType === EventType.MEETING && <>{getNameByEventType(eventType)}</>}
-                    {eventType !== EventType.MEETING && <>{`${getNameByEventType(eventType)} (${toTitleCase(eventCategory)})`}</>}
-                  </div>
+                  <MetaRow icon={<img src={eventType === EventType.MEETING ? imgMeeting : imgCompetition} alt="" />}>
+                    {eventType === EventType.MEETING ? getNameByEventType(eventType) : `${getNameByEventType(eventType)} (${toTitleCase(eventCategory)})`}
+                  </MetaRow>
                 )}
 
-                {eventType !== EventType.COMPETITION_ONLINE && (
-                  <div className="flex items-center gap-2">
-                    <img src={imgLocation} className="h-6 w-6 object-fill" />
-                    {venueCountryCode && <>{getCountryNameByCode(venueCountryCode)}</>}
-                  </div>
-                )}
+                {eventType !== EventType.COMPETITION_ONLINE && venueCountryCode && <MetaRow icon={<img src={imgLocation} alt="" />}>{getCountryNameByCode(venueCountryCode)}</MetaRow>}
 
-                <div className="flex items-center gap-2">
-                  <img src={imgCalender} className="h-6 w-6 object-fill" />
-                  {dateFrom && dateTo && <>{`${getShortDateString(moment(dateFrom), false)} -  ${getShortDateString(moment(dateTo))}`}</>}
-                </div>
+                {dateFrom && dateTo && <MetaRow icon={<img src={imgCalender} alt="" />}>{`${getShortDateString(moment(dateFrom), false)} – ${getShortDateString(moment(dateTo))}`}</MetaRow>}
               </div>
             </div>
           )}
 
-          {/* Page: Success Page */}
+          {/* Page: Success */}
           {page && page === CreationProcessPage.SUCCESS_PAGE && (
-            <div className={'absolute inset-0 flex flex-col'}>
-              <div className="p-2 h-full grid overflow-y-auto">
-                <div className={'h-full flex flex-col justify-center'}>
-                  <div className="mx-2 text-center">
-                    <Image src={imgCelebration} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
-
-                    <div className="mt-2">{t(`pageSuccessSuccessText1`)}</div>
-                    <div className="">{t(`pageSuccessSuccessText2`)}</div>
-
-                    <div className="mt-10 flex justify-center gap-2">
-                      <Button asChild variant="action" className={ctaActionButtonClassName}>
-                        <Link href={`${routeEvents}/${eventId}/edit`}>{t('pageSuccessBtnEditEvent')}</Link>
-                      </Button>
-
-                      <Button asChild variant="action" className={ctaActionButtonClassName}>
-                        <Link href={`${routeEvents}/${eventId}`}>{t('pageSuccessBtnShowEvent')}</Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+            <div className="flex w-full max-w-lg flex-col items-center gap-4 py-6 text-center">
+              <Image src={imgCelebration} width={0} height={0} sizes="100vw" className="h-12 w-full max-w-xs object-contain" alt="" />
+              <p className="type-body-sm text-foreground/90">{t(`pageSuccessSuccessText1`)}</p>
+              <p className="type-body-sm text-foreground/90">{t(`pageSuccessSuccessText2`)}</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                <Button asChild variant="action" className={ctaActionButtonClassName}>
+                  <Link href={`${routeEvents}/${eventId}/edit`}>{t('pageSuccessBtnEditEvent')}</Link>
+                </Button>
+                <Button asChild variant="action" className={ctaActionButtonClassName}>
+                  <Link href={`${routeEvents}/${eventId}`}>{t('pageSuccessBtnShowEvent')}</Link>
+                </Button>
               </div>
             </div>
           )}

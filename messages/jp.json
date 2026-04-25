@@ -565,6 +565,8 @@
     "btnCreate": "イベントを作成"
   },
   "/feedback": {
+    "pageTitle": "フィードバック",
+    "pageDescription": "下の種類を選んで、フィードバックを送ってください。",
     "pageGeneralFeedback": "一般フィードバック",
     "btnFeatures": "機能リクエスト",
     "btnBugs": "不具合報告"

@@ -49,7 +49,6 @@ const EDITOR_CARD_CLASS = cn(
   'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-sm',
   'supports-[backdrop-filter]:bg-secondary-light/70',
   'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
-  '[&>div.m-2]:!m-0',
 );
 const FIELD_ROW_CLASS = 'flex min-w-0 flex-col gap-1.5 sm:grid sm:grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] sm:items-center sm:gap-3';
 const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';

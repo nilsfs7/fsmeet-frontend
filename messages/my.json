@@ -565,6 +565,8 @@
     "btnCreate": "Cipta Acara"
   },
   "/feedback": {
+    "pageTitle": "Maklum balas",
+    "pageDescription": "Pilih kategori di bawah untuk menghantar maklum balas anda.",
     "pageGeneralFeedback": "Maklum Balas Umum",
     "btnFeatures": "Cadangan Ciri",
     "btnBugs": "Lapor Pepijat"
