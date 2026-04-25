@@ -9,6 +9,9 @@ import { getAccommodations } from '@/infrastructure/clients/accommodation.client
 import { getOfferings } from '@/infrastructure/clients/offering.client';
 import { ActionButtonDownloadList } from './components/action-button-download-list';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
+import { cn } from '@/lib/utils';
+
+const eventDetailsContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventAttendees(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -22,17 +25,21 @@ export default async function EventAttendees(props: { params: Promise<{ eventId:
   const offerings = await getOfferings(params.eventId);
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+    <div className="flex min-h-0 flex-1 flex-col">
+      <div className={cn('mt-2', eventDetailsContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <RegistrationsList
-        eventId={params.eventId}
-        registrations={registrations}
-        accommodations={accommodations}
-        offerings={offerings}
-        currency={event.currency}
-        paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
-      />
+      <div className={cn('mt-2 flex-1 min-h-0 flex flex-col overflow-hidden', eventDetailsContentClass)}>
+        <RegistrationsList
+          eventId={params.eventId}
+          registrations={registrations}
+          accommodations={accommodations}
+          offerings={offerings}
+          currency={event.currency}
+          paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+        />
+      </div>
 
       <Navigation>
         <NavigateBackButton />
