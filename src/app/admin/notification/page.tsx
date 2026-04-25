@@ -11,7 +11,6 @@ import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/page-title';
 import { Toaster, toast } from 'sonner';
 import { useSession } from 'next-auth/react';
-import { createBroadcast } from '../../../infrastructure/clients/notification.client';
 import TextInput from '../../../components/common/text-input';
 import { NotificationAction } from '../../../domain/enums/notification-action';
 import ComboBox from '../../../components/common/combo-box';
