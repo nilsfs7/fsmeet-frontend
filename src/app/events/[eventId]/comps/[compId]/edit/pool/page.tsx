@@ -8,12 +8,14 @@ import { Participants } from './components/participants';
 import { getCompetition } from '@/infrastructure/clients/competition.client';
 import { getTranslations } from 'next-intl/server';
 import { getEvent } from '@/infrastructure/clients/event.client';
+import { auth } from '@/auth';
 
 export default async function CompetitionPool(props: { params: Promise<{ eventId: string; compId: string }> }) {
   const params = await props.params;
   const t = await getTranslations('/events/eventid/comps/compid/edit/pool');
+  const session = await auth();
 
-  const event = await getEvent(params.eventId);
+  const event = await getEvent(params.eventId, session);
   const competition: Competition = await getCompetition(params.compId);
 
   return (
