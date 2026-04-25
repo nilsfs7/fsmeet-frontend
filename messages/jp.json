@@ -301,9 +301,11 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "カテゴリを管理",
+    "tableColCompetition": "カテゴリ",
+    "textNoCompetitions": "まだカテゴリがありません。",
     "btnEdit": "編集",
     "btnPool": "選手一覧",
-    "btnGameMode": "ゲームモード",
+    "btnGameMode": "モード",
     "btnSeedingAndResults": "シード＆結果",
     "btnAddNew": "新規追加"
   },

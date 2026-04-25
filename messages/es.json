@@ -283,9 +283,11 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "Gestionar las competiciones",
+    "tableColCompetition": "Competición",
+    "textNoCompetitions": "Aún no hay competiciones.",
     "btnEdit": "Editar",
     "btnPool": "Grupo de jugadores",
-    "btnGameMode": "Modo Torneo",
+    "btnGameMode": "Modo",
     "btnSeedingAndResults": "Asignación y resultados",
     "btnAddNew": "Añadir nuevo"
   },

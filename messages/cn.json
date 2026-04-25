@@ -301,9 +301,11 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "管理比赛项目",
+    "tableColCompetition": "比赛项目",
+    "textNoCompetitions": "暂无比赛项目。",
     "btnEdit": "编辑",
     "btnPool": "选手池",
-    "btnGameMode": "比赛模式",
+    "btnGameMode": "模式",
     "btnSeedingAndResults": "种子位与结果",
     "btnAddNew": "新增"
   },

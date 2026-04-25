@@ -301,9 +301,11 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "إدارة المنافسات",
+    "tableColCompetition": "المنافسة",
+    "textNoCompetitions": "لا توجد منافسات بعد.",
     "btnEdit": "تعديل",
     "btnPool": "القائمة",
-    "btnGameMode": "نمط اللعب",
+    "btnGameMode": "نمط",
     "btnSeedingAndResults": "التصنيف والنتائج",
     "btnAddNew": "إضافة جديد"
   },

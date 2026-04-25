@@ -283,9 +283,11 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "Wettbewerbe verwalten",
+    "tableColCompetition": "Wettbewerb",
+    "textNoCompetitions": "Noch keine Wettbewerbe.",
     "btnEdit": "Bearbeiten",
     "btnPool": "Pool",
-    "btnGameMode": "Turniermodus",
+    "btnGameMode": "Modus",
     "btnSeedingAndResults": "Zuweisung & Ergebnisse",
     "btnAddNew": "Neuen hinzufügen"
   },

@@ -301,9 +301,11 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "प्रतियोगिताएं प्रबंधित करें",
+    "tableColCompetition": "प्रतियोगिता",
+    "textNoCompetitions": "अभी तक कोई प्रतियोगिता नहीं।",
     "btnEdit": "संपादित करें",
     "btnPool": "पूल",
-    "btnGameMode": "गेम मोड",
+    "btnGameMode": "मोड",
     "btnSeedingAndResults": "सीडिंग और परिणाम",
     "btnAddNew": "नया जोड़ें"
   },

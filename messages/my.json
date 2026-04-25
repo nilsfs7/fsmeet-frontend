@@ -301,9 +301,11 @@
   },
   "/events/eventid/comps": {
     "pageTitle": "Urus Pertandingan",
+    "tableColCompetition": "Pertandingan",
+    "textNoCompetitions": "Belum ada pertandingan.",
     "btnEdit": "Edit",
     "btnPool": "Pool",
-    "btnGameMode": "Mod Permainan",
+    "btnGameMode": "Mod",
     "btnSeedingAndResults": "Seeding & Keputusan",
     "btnAddNew": "Tambah baharu"
   },
