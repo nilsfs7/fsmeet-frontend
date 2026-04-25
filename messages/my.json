@@ -649,6 +649,8 @@
   "/users": {
     "pageTitle": "Komuniti",
     "inputSearchPlaceholder": "Cari nama...",
+    "tableSortByName": "Isih mengikut nama",
+    "tableSortByCountry": "Isih mengikut negara",
     "cbColumns": "Lajur",
     "tblColumnUsername": "Pengguna",
     "tblColumnName": "Nama",

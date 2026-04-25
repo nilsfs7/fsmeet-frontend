@@ -649,6 +649,8 @@
   "/users": {
     "pageTitle": "コミュニティ",
     "inputSearchPlaceholder": "名前を検索...",
+    "tableSortByName": "氏名で並べ替え",
+    "tableSortByCountry": "国で並べ替え",
     "cbColumns": "列",
     "tblColumnUsername": "ユーザー",
     "tblColumnName": "名前",

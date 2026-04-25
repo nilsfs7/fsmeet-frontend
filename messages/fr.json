@@ -631,6 +631,8 @@
   "/users": {
     "pageTitle": "Communauté",
     "inputSearchPlaceholder": "Rechercher par nom...",
+    "tableSortByName": "Trier par nom",
+    "tableSortByCountry": "Trier par pays",
     "cbColumns": "Colonnes",
     "tblColumnUsername": "Utilisateur",
     "tblColumnName": "Nom",

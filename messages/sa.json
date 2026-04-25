@@ -649,6 +649,8 @@
   "/users": {
     "pageTitle": "المجتمع",
     "inputSearchPlaceholder": "ابحث عن الاسم...",
+    "tableSortByName": "ترتيب حسب الاسم",
+    "tableSortByCountry": "ترتيب حسب البلد",
     "cbColumns": "الأعمدة",
     "tblColumnUsername": "المستخدم",
     "tblColumnName": "الاسم",

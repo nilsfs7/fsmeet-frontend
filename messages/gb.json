@@ -650,6 +650,8 @@
   "/users": {
     "pageTitle": "Community",
     "inputSearchPlaceholder": "Search name...",
+    "tableSortByName": "Sort by name",
+    "tableSortByCountry": "Sort by country",
     "cbColumns": "Columns",
     "tblColumnUsername": "User",
     "tblColumnName": "Name",

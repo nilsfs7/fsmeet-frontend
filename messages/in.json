@@ -649,6 +649,8 @@
   "/users": {
     "pageTitle": "कम्युनिटी",
     "inputSearchPlaceholder": "नाम खोजें...",
+    "tableSortByName": "नाम के अनुसार क्रम",
+    "tableSortByCountry": "देश के अनुसार क्रम",
     "cbColumns": "कॉलम",
     "tblColumnUsername": "यूज़र",
     "tblColumnName": "नाम",

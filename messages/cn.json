@@ -649,6 +649,8 @@
   "/users": {
     "pageTitle": "社区",
     "inputSearchPlaceholder": "搜索姓名…",
+    "tableSortByName": "按姓名排序",
+    "tableSortByCountry": "按国家排序",
     "cbColumns": "列",
     "tblColumnUsername": "用户",
     "tblColumnName": "姓名",

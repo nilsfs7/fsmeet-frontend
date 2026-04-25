@@ -9,6 +9,9 @@ import { ColumnInfo, UsersList } from './components/users-list';
 import { UserType } from '@/domain/enums/user-type';
 import { User } from '@/domain/types/user';
 import { getTranslations } from 'next-intl/server';
+import { cn } from '@/lib/utils';
+
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function Users() {
   const t = await getTranslations('/users');
@@ -58,12 +61,16 @@ export default async function Users() {
   });
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       <Header />
 
-      <PageTitle title={t('pageTitle')} />
+      <div className={cn('mt-2', constrainedContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <UsersList columnData={columnData} />
+      <div className={cn('mt-2 flex min-h-0 flex-1 flex-col overflow-hidden', constrainedContentClass)}>
+        <UsersList columnData={columnData} />
+      </div>
 
       <Navigation>
         <ActionButton href={routeHome} action={Action.BACK} />

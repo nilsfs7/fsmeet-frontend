@@ -631,6 +631,8 @@
   "/users": {
     "pageTitle": "Escena del Freestyle",
     "inputSearchPlaceholder": "Buscar nombre...",
+    "tableSortByName": "Ordenar por nombre",
+    "tableSortByCountry": "Ordenar por país",
     "cbColumns": "Columnas",
     "tblColumnUsername": "Usuarios",
     "tblColumnName": "Nombre",
