@@ -403,7 +403,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
         </p>
       </Dialog>
 
-      <div className={cn('text-sm flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-y-auto')}>
+      <div className={cn('text-sm flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-y-auto scrollbar-none')}>
         {registrations.length > 0 && (
           <>
             {pendingCount > 0 && (
@@ -443,7 +443,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
         {registrations.length > 0 && filteredRegistrations.length === 0 && <div className="m-1 flex justify-center text-zinc-600">{t('textNoFilterMatch')}</div>}
 
         {registrations.length > 0 && displayedRegistrations.length > 0 && (
-          <div className="min-h-0 min-w-0 max-w-full overflow-x-auto">
+          <div className="min-h-0 min-w-0 max-w-full overflow-x-auto scrollbar-none">
             <Table>
               <TableHeader>
                 <TableRow>

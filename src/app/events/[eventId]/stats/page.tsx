@@ -14,7 +14,7 @@ import { ChartParticipantAge } from './chart-participant-age';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { cn } from '@/lib/utils';
 
-const eventDetailsContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function Statistics(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -95,11 +95,11 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className={cn('mt-2', eventDetailsContentClass)}>
+      <div className={cn('mt-2', constrainedContentClass)}>
         <PageTitle title={t('pageTitle')} />
       </div>
 
-      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', eventDetailsContentClass)}>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
         <div className="grid gap-2 p-2 text-sm">
           {/* Attendees */}
           <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
