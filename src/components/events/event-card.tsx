@@ -53,7 +53,7 @@ const EventCard = ({ event }: IEventProps) => {
         <div className="flex min-w-0 min-h-0 flex-1 flex-col gap-1.5 sm:gap-2">
           <h3 className="line-clamp-2 min-h-0 text-left text-sm font-semibold leading-tight tracking-tight text-foreground sm:text-body sm:leading-snug">
             {!isPublicEventState(event.state) && (
-              <span className="mb-0.5 mr-1.5 inline-block align-middle rounded-md border border-border/50 bg-muted/40 px-1.5 py-0.5 text-2xs text-muted-foreground sm:text-xs">[NOT LISTED] </span>
+              <span className="mb-0.5 mr-1.5 inline-block align-middle rounded-md border border-border/50 bg-muted/40 px-1.5 py-0.5 text-2xs text-muted-foreground sm:text-xs">NOT LISTED </span>
             )}
             <span className="align-middle">{event.name}</span>
           </h3>

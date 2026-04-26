@@ -14,6 +14,10 @@ import { User } from '@/domain/types/user';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { UserType } from '@/domain/enums/user-type';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { appShellContentClass } from '@/components/layout/app-shell-content';
+import { cn } from '@/lib/utils';
+
+const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function MyEventsOverview() {
   const t = await getTranslations('/events/manage');
@@ -51,21 +55,27 @@ export default async function MyEventsOverview() {
   }
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
-      <Header />
+    <div className="min-h-0 flex-1 flex flex-col overflow-hidden">
+      <Header showMenu />
 
-      <PageTitle title={t('pageTitle')} />
+      <div className={cn('mt-2', constrainedContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <div className="mx-2 flex flex-col overflow-auto">
-        <div className={'w-full overflow-auto'}>
+      <div className={cn('mt-2 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden', constrainedContentClass)}>
+        <div className="min-h-0 w-full min-w-0 flex-1 overflow-y-auto scrollbar-none">
           <TabsMenu actingUser={actingUser} eventsOwning={eventsOwning} eventsMaintaining={eventsMaintaining} eventsSubscribed={eventsSubscribed} />
         </div>
       </div>
 
-      <Navigation>
-        <ActionButton href={routeHome} action={Action.BACK} />
+      <Navigation noTopGap>
+        <div className="flex min-w-0 flex-wrap justify-start gap-1">
+          <ActionButton href={routeHome} action={Action.BACK} />
+        </div>
 
-        {actingUser?.type !== UserType.FAN && <EventManageCreateEventButton />}
+        <div className="flex min-w-0 flex-wrap justify-end gap-1">
+          {actingUser?.type !== UserType.FAN && <EventManageCreateEventButton />}
+        </div>
       </Navigation>
     </div>
   );
