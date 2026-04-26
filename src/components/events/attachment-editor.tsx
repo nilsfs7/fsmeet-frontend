@@ -18,9 +18,10 @@ const EDITOR_CARD_CLASS = cn(
   'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
 );
 
-const FIELD_ROW_CLASS = 'flex min-w-0 flex-col gap-1.5 sm:grid sm:grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] sm:items-center sm:gap-3';
+const FIELD_ROW_CLASS =
+  'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
 const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
-const FIELD_CONTROL_CLASS = 'min-w-0 w-full sm:min-w-0';
+const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
 
 const FILE_INPUT_CLASS =
