@@ -69,7 +69,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
       </div>
 
       {iframeView && (
-        <Navigation reverse>
+        <Navigation reverse noTopGap>
           <div className="flex justify-end gap-1">
             <Button asChild variant="action" className={ctaActionButtonClassName}>
               <a href={routeMap} target="_blank" rel="noopener noreferrer">
@@ -80,7 +80,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
         </Navigation>
       )}
       {!iframeView && (
-        <Navigation>
+        <Navigation noTopGap>
           <ActionButton href={routeHome} action={Action.BACK} />
 
           <div className="flex justify-end gap-1">
