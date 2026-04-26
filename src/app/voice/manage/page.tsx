@@ -11,8 +11,9 @@ import ActionButton from '@/components/common/action-button';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { ColumnInfo, PollsList } from '../../../components/polls-list';
 import { cn } from '@/lib/utils';
+import { appShellContentClass } from '@/components/layout/app-shell-content';
 
-const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function ManagePolls() {
   const t = await getTranslations('/voice/manage');

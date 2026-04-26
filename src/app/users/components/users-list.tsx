@@ -29,7 +29,6 @@ import { getUserTypeImages } from '@/functions/user-type';
 import SocialLink from '@/components/user/social-link';
 import { SocialPlatform } from '@/domain/enums/social-platform';
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
@@ -291,12 +290,10 @@ export const UsersList = ({ columnData }: IUsersList) => {
     <div className={cn('text-sm flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-y-auto scrollbar-none')}>
       <div className="flex w-full min-w-0 max-w-lg flex-col gap-2 self-center">
         <div className="w-full min-w-0">
-          <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="users-filter-name">
-            {t('tblColumnName')}
-          </label>
           <Input
             id="users-filter-name"
             type="search"
+            aria-label={t('tblColumnName')}
             placeholder={t('inputSearchPlaceholder')}
             value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
             onChange={e => {
@@ -393,27 +390,6 @@ export const UsersList = ({ columnData }: IUsersList) => {
         <div className="mt-1 flex shrink-0 flex-wrap items-center gap-2">
           <div className="mr-auto text-xs text-zinc-600 sm:text-sm">
             {`${t('navCurrentPage1')} ${table.getState().pagination.pageIndex + 1} ${t('navCurrentPage2')} ${Math.max(1, table.getPageCount())}`}
-          </div>
-
-          <div className="flex items-center gap-1">
-            <p className="text-xs text-zinc-600 sm:text-sm">{t('navRowsPerPage')}</p>
-            <Select
-              value={`${table.getState().pagination.pageSize}`}
-              onValueChange={value => {
-                table.setPageSize(Number(value));
-              }}
-            >
-              <SelectTrigger className="h-8 w-[4.25rem]">
-                <SelectValue placeholder={table.getState().pagination.pageSize} />
-              </SelectTrigger>
-              <SelectContent side="top">
-                {[50, 100, 200].map(pageSize => (
-                  <SelectItem key={pageSize} value={`${pageSize}`}>
-                    {pageSize}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
           </div>
 
           <div className="flex items-center gap-1">
