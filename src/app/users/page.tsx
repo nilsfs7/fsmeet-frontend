@@ -10,8 +10,9 @@ import { UserType } from '@/domain/enums/user-type';
 import { User } from '@/domain/types/user';
 import { getTranslations } from 'next-intl/server';
 import { cn } from '@/lib/utils';
+import { appShellContentClass } from '@/components/layout/app-shell-content';
 
-const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function Users() {
   const t = await getTranslations('/users');

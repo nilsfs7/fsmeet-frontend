@@ -390,11 +390,33 @@ export const UsersList = ({ columnData }: IUsersList) => {
       )}
 
       {columnData.length > 0 && (
-        <div className="mt-1 flex shrink-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
-          <div className="text-center text-sm text-zinc-600 sm:mr-auto sm:text-left">
+        <div className="mt-1 flex shrink-0 flex-wrap items-center gap-2">
+          <div className="mr-auto text-xs text-zinc-600 sm:text-sm">
             {`${t('navCurrentPage1')} ${table.getState().pagination.pageIndex + 1} ${t('navCurrentPage2')} ${Math.max(1, table.getPageCount())}`}
           </div>
-          <div className="flex items-center justify-center gap-1">
+
+          <div className="flex items-center gap-1">
+            <p className="text-xs text-zinc-600 sm:text-sm">{t('navRowsPerPage')}</p>
+            <Select
+              value={`${table.getState().pagination.pageSize}`}
+              onValueChange={value => {
+                table.setPageSize(Number(value));
+              }}
+            >
+              <SelectTrigger className="h-8 w-[4.25rem]">
+                <SelectValue placeholder={table.getState().pagination.pageSize} />
+              </SelectTrigger>
+              <SelectContent side="top">
+                {[50, 100, 200].map(pageSize => (
+                  <SelectItem key={pageSize} value={`${pageSize}`}>
+                    {pageSize}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex items-center gap-1">
             <Button variant="outline" size="sm" className="hidden h-8 w-8 p-0 sm:inline-flex" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
               <span className="sr-only">First page</span>
               <DoubleArrowLeftIcon className="h-4 w-4" />
@@ -412,29 +434,6 @@ export const UsersList = ({ columnData }: IUsersList) => {
               <DoubleArrowRightIcon className="h-4 w-4" />
             </Button>
           </div>
-        </div>
-      )}
-
-      {columnData.length > 0 && (
-        <div className="flex shrink-0 flex-col gap-1 sm:flex-row sm:items-center sm:justify-end">
-          <p className="text-sm text-zinc-600">{t('navRowsPerPage')}</p>
-          <Select
-            value={`${table.getState().pagination.pageSize}`}
-            onValueChange={value => {
-              table.setPageSize(Number(value));
-            }}
-          >
-            <SelectTrigger className="h-9 w-[4.5rem]">
-              <SelectValue placeholder={table.getState().pagination.pageSize} />
-            </SelectTrigger>
-            <SelectContent side="top">
-              {[50, 100, 200].map(pageSize => (
-                <SelectItem key={pageSize} value={`${pageSize}`}>
-                  {pageSize}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
         </div>
       )}
     </div>
