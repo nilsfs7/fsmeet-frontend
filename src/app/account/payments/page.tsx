@@ -8,6 +8,10 @@ import { ColumnInfo, PaymentsList } from './components/payments-list';
 import { getTranslations } from 'next-intl/server';
 import { getPayments } from '../../../infrastructure/clients/payment.client';
 import { auth } from '../../../auth';
+import { cn } from '@/lib/utils';
+import { appShellContentClass } from '@/components/layout/app-shell-content';
+
+const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function Payments() {
   const t = await getTranslations('/account/payments');
@@ -29,9 +33,13 @@ export default async function Payments() {
     <div className="min-h-0 flex-1 flex flex-col">
       <Header />
 
-      <PageTitle title={t('pageTitle')} />
+      <div className={cn('mt-2', constrainedContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <PaymentsList columnData={columnData} />
+      <div className={cn('mt-2 flex min-h-0 flex-1 min-w-0 flex-col overflow-hidden', constrainedContentClass)}>
+        <PaymentsList columnData={columnData} />
+      </div>
 
       <Navigation>
         <ActionButton href={`${routeAccount}/?tab=account`} action={Action.BACK} />
