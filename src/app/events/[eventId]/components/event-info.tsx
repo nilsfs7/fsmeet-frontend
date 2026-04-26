@@ -21,6 +21,7 @@ import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { isPublicEventState } from '@/functions/event-state';
 import Link from 'next/link';
 import { LocationMap } from '../../../../components/location-map';
+import { NotListedLabel } from '@/components/events/not-listed-label';
 import { cn } from '@/lib/utils';
 
 const cardSurface = cn(
@@ -114,11 +115,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5 md:gap-6">
             <div className="order-2 flex min-w-0 flex-1 flex-col gap-2.5 sm:order-1 sm:gap-3">
               <h1 className="min-w-0 text-balance text-lg font-semibold leading-tight tracking-tight text-foreground sm:text-xl">
-                {!isPublicEventState(event.state) && (
-                  <span className="mb-1 mr-1.5 inline-block align-middle rounded-md border border-border/50 bg-muted/50 px-1.5 py-0.5 text-2xs font-medium text-muted-foreground sm:mb-0 sm:text-xs">
-                    NOT LISTED
-                  </span>
-                )}
+                {!isPublicEventState(event.state) && <NotListedLabel className="mb-1 sm:mb-0" />}
                 <span className="align-middle">{event.name}</span>
               </h1>
 
