@@ -8,6 +8,7 @@ import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { Offering } from '@/domain/types/offering';
 import { useTranslations } from 'next-intl';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface IOfferingList {
   offerings: Offering[];
@@ -48,31 +49,36 @@ export const OfferingList = ({
           </tr>
         </thead>
         <tbody className="text-primary text-sm">
-          {offerings.map((offering, i) => (
-            <tr key={i} className={`${i < offerings.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
-              <td className="py-3 px-3">{offering.description}</td>
-              <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
-                {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(offering.costIncPaymentCosts, currency).toFixed(2) : convertCurrencyIntegerToDecimal(offering.cost, currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace(
-                  '.',
-                  ','
-                )}
-              </td>
-              {selectable && (
-                <td className="py-3 px-3 text-center">
-                  <input
-                    id={`input-${i}`}
-                    className="h-4 w-4"
-                    type="checkbox"
-                    checked={checked[i] || (registrationType === EventRegistrationType.PARTICIPANT && offerings[i].mandatoryForParticipant)}
-                    disabled={disabled[i] || (registrationType === EventRegistrationType.PARTICIPANT && offerings[i].mandatoryForParticipant)}
-                    onChange={() => {
-                      if (onCheckedChange && offering.id) onCheckedChange(!checked, offering.id);
-                    }}
-                  />
+          {offerings.map((offering, i) => {
+            const isMandatory =
+              registrationType === EventRegistrationType.PARTICIPANT && offering.mandatoryForParticipant;
+            return (
+              <tr key={i} className={`${i < offerings.length - 1 ? 'border-b border-secondary-dark' : ''} hover:bg-secondary-light`}>
+                <td className="py-3 px-3">{offering.description}</td>
+                <td className="py-3 px-3 text-right capitalize whitespace-nowrap">
+                  {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(offering.costIncPaymentCosts, currency).toFixed(2) : convertCurrencyIntegerToDecimal(offering.cost, currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace(
+                    '.',
+                    ','
+                  )}
                 </td>
-              )}
-            </tr>
-          ))}
+                {selectable && (
+                  <td className="py-3 px-3 text-center">
+                    <div className="flex justify-center">
+                      <Checkbox
+                        id={`input-offering-${i}`}
+                        checked={!!checked[i] || isMandatory}
+                        disabled={!!disabled[i] || isMandatory}
+                        onCheckedChange={v => {
+                          if (onCheckedChange && offering.id) onCheckedChange(v === true, offering.id);
+                        }}
+                        className="shrink-0"
+                      />
+                    </div>
+                  </td>
+                )}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
 

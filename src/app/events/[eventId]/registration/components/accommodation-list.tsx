@@ -5,6 +5,7 @@ import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { Accommodation } from '@/domain/types/accommodation';
 import { useTranslations } from 'next-intl';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface IAccommodationList {
   accommodations: Accommodation[];
@@ -41,16 +42,17 @@ export const AccommodationList = ({ accommodations, paymentFeeCover, currency, d
             </td>
             {selectable && (
               <td className="py-3 px-3 text-center">
-                <input
-                  id={`input-${i}`}
-                  className="h-4 w-4"
-                  type="checkbox"
-                  checked={checked[i]}
-                  disabled={disabled[i]}
-                  onChange={() => {
-                    if (onCheckedChange && acc.id) onCheckedChange(!checked, acc.id);
-                  }}
-                />
+                <div className="flex justify-center">
+                  <Checkbox
+                    id={`input-accommodation-${i}`}
+                    checked={!!checked[i]}
+                    disabled={!!disabled[i]}
+                    onCheckedChange={v => {
+                      if (onCheckedChange && acc.id) onCheckedChange(v === true, acc.id);
+                    }}
+                    className="shrink-0"
+                  />
+                </div>
               </td>
             )}
           </tr>

@@ -8,6 +8,7 @@ import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { useState } from 'react';
 import { Competition } from '@/domain/types/competition';
 import { useTranslations } from 'next-intl';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface IPaymentDetails {
   event: Event;
@@ -41,12 +42,6 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
 
   const getDonationAmount = (): number => {
     return Math.round(getTotal() * 0.01); // 1% of total sum
-  };
-
-  const handleDonationCheckedChanged = () => {
-    setDonationChecked(!donationChecked);
-
-    onDonationCheckedChange(getDonationAmount());
   };
 
   return (
@@ -104,16 +99,16 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
 
         <div className="flex justify-between">
           {event.paymentMethodStripe.enabled && getTotal() > 0 && (
-            <div className="flex gap-2 items-center">
+            <div className="flex items-center gap-2">
               <div>{t('chbDonation')}</div>
-              <input
-                id={`input-donation`}
-                className="h-4 w-4"
-                type="checkbox"
+              <Checkbox
+                id="input-donation"
                 checked={donationChecked}
-                onChange={() => {
-                  handleDonationCheckedChanged();
+                onCheckedChange={v => {
+                  setDonationChecked(v === true);
+                  onDonationCheckedChange(getDonationAmount());
                 }}
+                className="shrink-0"
               />
             </div>
           )}

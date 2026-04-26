@@ -5,6 +5,7 @@ import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { Competition } from '@/domain/types/competition';
 import { useTranslations } from 'next-intl';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface ICompetitionList {
   competitions: Competition[];
@@ -46,16 +47,17 @@ export const CompetitionList = ({ competitions, amountRegistrations, paymentFeeC
             </td>
             {selectable && (
               <td className="py-3 px-3 text-center">
-                <input
-                  id={`input-${i}`}
-                  className="h-4 w-4"
-                  type="checkbox"
-                  checked={checked[i]}
-                  disabled={disabled[i]}
-                  onChange={() => {
-                    if (onCheckedChange && comp.id) onCheckedChange(!checked, comp.id);
-                  }}
-                />
+                <div className="flex justify-center">
+                  <Checkbox
+                    id={`input-competition-${i}`}
+                    checked={!!checked[i]}
+                    disabled={!!disabled[i]}
+                    onCheckedChange={v => {
+                      if (onCheckedChange && comp.id) onCheckedChange(v === true, comp.id);
+                    }}
+                    className="shrink-0"
+                  />
+                </div>
               </td>
             )}
           </tr>
