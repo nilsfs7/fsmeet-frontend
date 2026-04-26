@@ -2,9 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ActionButton from '../../../../../../../../components/common/action-button';
-import { Action } from '@/domain/enums/action';
-import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import Dialog from '@/components/dialog';
 import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
@@ -31,56 +29,24 @@ const DialogDeleteMatch = ({ title, queryParam, onCancel, onConfirm, cancelText,
     if (showDialog === '1') {
       setMatchName(mname);
     }
-  }, [showDialog]);
+  }, [showDialog, mname]);
 
-  const clickCancel = () => {
-    onCancel && onCancel();
-  };
-
-  const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex, matchIndex);
-    onCancel && onCancel();
-  };
-
-  return showDialog === '1' ? (
-    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50 z-50">
-      <div className="min-w-[250px] rounded-lg bg-background">
-        <div className="rounded-t-lg bg-secondary-light p-2 text-center">
-          <h1 className="text-2xl">{title}</h1>
-        </div>
-        <div className="rounded-b-lg bg-background p-2">
-          <div className="p-2 flex flex-col">
-            <div>{`${matchName} - ${t('dlgDeleteMatchText')}`}</div>
-          </div>
-
-          <div className="flex flex-row justify-between p-2">
-            {onCancel && (
-              <>
-                {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
-                {cancelText && (
-                  <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={clickCancel}>
-                    {cancelText}
-                  </Button>
-                )}
-              </>
-            )}
-            {!onCancel && <div />}
-
-            {onConfirm && (
-              <>
-                {!confirmText && <ActionButton action={Action.ACCEPT} onClick={clickConfirm} />}
-                {confirmText && (
-                  <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={clickConfirm}>
-                    {confirmText}
-                  </Button>
-                )}
-              </>
-            )}
-          </div>
-        </div>
+  return (
+    <Dialog
+      title={title}
+      queryParam={queryParam}
+      onCancel={onCancel}
+      onConfirm={() => {
+        onConfirm && onConfirm(roundIndex, matchIndex);
+      }}
+      cancelText={cancelText}
+      confirmText={confirmText}
+    >
+      <div className="flex min-w-0 flex-col">
+        <div className="min-w-0">{`${matchName} - ${t('dlgDeleteMatchText')}`}</div>
       </div>
-    </div>
-  ) : null;
+    </Dialog>
+  );
 };
 
 export default DialogDeleteMatch;

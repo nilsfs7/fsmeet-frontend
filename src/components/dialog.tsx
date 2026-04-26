@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import ActionButton from './common/action-button';
 import { Action } from '@/domain/enums/action';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface IDialogProps {
   title: string;
@@ -18,6 +19,8 @@ interface IDialogProps {
   executeCancelAfterConfirmClicked?: boolean;
   children: React.ReactNode;
 }
+
+const dialogFooterClassName = 'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end';
 
 const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText, executeCancelAfterConfirmClicked = true, children }: IDialogProps) => {
   const searchParams = useSearchParams();
@@ -36,17 +39,35 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
   };
 
   return showDialog === '1' ? (
-    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50 z-50">
-      <div className="min-w-[250px] max-h-[80%] flex flex-col rounded-lg bg-background">
-        <div className="rounded-t-lg bg-secondary-light p-2 text-center">
-          <h1 className="text-2xl">{title}</h1>
+    <div className="fixed inset-0 z-50">
+      <div
+        className="fixed inset-0 z-50 bg-white/80 backdrop-blur-sm dark:bg-zinc-950/80"
+        aria-hidden
+      />
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 pt-[max(1rem,env(safe-area-inset-top))] max-md:px-3"
+        role="presentation"
+      >
+        <div
+          className={cn(
+            'flex max-h-[min(85dvh,calc(100dvh-2rem))] w-full max-w-lg min-h-0 flex-col gap-4 overflow-hidden p-6',
+            'border border-zinc-200 bg-white shadow-lg',
+            'sm:rounded-lg',
+            'dark:border-zinc-800 dark:bg-zinc-950',
+          )}
+          role="dialog"
+          aria-modal
+          aria-labelledby="url-query-dialog-title"
+        >
+        <div className="shrink-0 text-center sm:text-left">
+          <h2 id="url-query-dialog-title" className="text-lg font-semibold leading-none tracking-tight">
+            {title}
+          </h2>
         </div>
 
-        <div className="p-2 bg-background overflow-hidden">
-          <div className="h-full overflow-y-auto">{children}</div>
-        </div>
+        <div className="min-h-0 min-w-0 flex-1 overflow-y-auto pr-0.5 text-sm">{children}</div>
 
-        <div className="flex flex-row justify-between p-2">
+        <div className={cn('shrink-0', dialogFooterClassName)}>
           {onCancel && (
             <>
               {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
@@ -57,7 +78,6 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
               )}
             </>
           )}
-          {!onCancel && <div />}
 
           {onConfirm && (
             <>
@@ -69,6 +89,7 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
               )}
             </>
           )}
+        </div>
         </div>
       </div>
     </div>

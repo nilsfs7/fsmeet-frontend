@@ -2,13 +2,12 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ActionButton from '../../../../../../../../components/common/action-button';
-import { Action } from '@/domain/enums/action';
-import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import Dialog from '@/components/dialog';
 import ComboBox from '@/components/common/combo-box';
 import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
 import moment from 'moment';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
@@ -45,98 +44,65 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
       setAdvancingTotal(radvancing);
       setRoundTimeLimit(rTimeLimit);
     }
-  }, [showDialog]);
+  }, [showDialog, rname, rdate, rTimeLimit, radvancing]);
 
-  const clickCancel = () => {
-    onCancel && onCancel();
-  };
-
-  const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex, roundName, roundDate, roundTimeLimit, advancingTotal);
-    onCancel && onCancel();
-  };
-
-  return showDialog === '1' ? (
-    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50 z-50">
-      <div className="min-w-[250px] rounded-lg bg-background">
-        <div className="rounded-t-lg bg-secondary-light p-2 text-center">
-          <h1 className="text-2xl">{title}</h1>
+  return (
+    <Dialog
+      title={title}
+      queryParam={queryParam}
+      onCancel={onCancel}
+      onConfirm={() => {
+        onConfirm && onConfirm(roundIndex, roundName, roundDate, roundTimeLimit, advancingTotal);
+      }}
+      cancelText={cancelText}
+      confirmText={confirmText}
+    >
+      <div className="grid gap-1">
+        <div className="grid grid-cols-2 items-center gap-2">
+          <div className="min-w-0">{t('dlgEditRoundName')}</div>
+          <Input id="input-round-name" value={roundName} onChange={e => setRoundName(e.currentTarget.value)} />
         </div>
-        <div className="rounded-b-lg bg-background p-2">
-          <div className="p-2 grid gap-1">
-            <div className="grid grid-cols-2 justify-between gap-2">
-              <div>{t('dlgEditRoundName')}</div>
-              <Input id={`input-round-name`} value={roundName} onChange={e => setRoundName(e.currentTarget.value)} />
-            </div>
 
-            <div className="grid grid-cols-2 gap-2 items-center relative z-60">
-              <div>{t('dlgEditRoundDay')}</div>
-              <div className="flex w-full">
-                <ComboBox
-                  menus={getMenuAvailableDays(dateFrom, dateTo)}
-                  value={moment(roundDate).format('YYYY-MM-DD') || getMenuAvailableDays(dateFrom, dateTo)[0].value}
-                  onChange={(value: any) => {
-                    setRoundDate(moment(value).startOf('day').utc().format());
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              <div>{t('dlgEditRoundPlayersAdvancing')}</div>
-              <Input
-                id={`input-advancingTotal`}
-                type="number"
-                min={1}
-                value={advancingTotal}
-                onChange={e => {
-                  setAdvancingTotal(+e.currentTarget.value);
-                }}
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 items-center">
-              <div>{t('dlgEditRoundTimeLimit')}</div>
-              <input
-                id={'input-time-limit'}
-                className="h-4 w-4"
-                type="checkbox"
-                checked={roundTimeLimit}
-                onChange={e => {
-                  setRoundTimeLimit(!roundTimeLimit);
-                }}
-              />
-            </div>
+        <div className="relative z-[60] grid grid-cols-2 items-center gap-2">
+          <div className="min-w-0">{t('dlgEditRoundDay')}</div>
+          <div className="flex w-full">
+            <ComboBox
+              menus={getMenuAvailableDays(dateFrom, dateTo)}
+              value={moment(roundDate).format('YYYY-MM-DD') || getMenuAvailableDays(dateFrom, dateTo)[0].value}
+              onChange={(value: unknown) => {
+                setRoundDate(moment(value as string).startOf('day').utc().format());
+              }}
+            />
           </div>
+        </div>
 
-          <div className="flex flex-row justify-between p-2">
-            {onCancel && (
-              <>
-                {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
-                {cancelText && (
-                  <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={clickCancel}>
-                    {cancelText}
-                  </Button>
-                )}
-              </>
-            )}
-            {!onCancel && <div />}
+        <div className="grid grid-cols-2 items-center gap-2">
+          <div className="min-w-0">{t('dlgEditRoundPlayersAdvancing')}</div>
+          <Input
+            id="input-advancingTotal"
+            type="number"
+            min={1}
+            value={advancingTotal}
+            onChange={e => {
+              setAdvancingTotal(+e.currentTarget.value);
+            }}
+          />
+        </div>
 
-            {onConfirm && (
-              <>
-                {!confirmText && <ActionButton action={Action.ACCEPT} onClick={clickConfirm} />}
-                {confirmText && (
-                  <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={clickConfirm}>
-                    {confirmText}
-                  </Button>
-                )}
-              </>
-            )}
-          </div>
+        <div className="grid grid-cols-2 items-center gap-2">
+          <div className="min-w-0">{t('dlgEditRoundTimeLimit')}</div>
+          <Checkbox
+            id="input-time-limit"
+            checked={roundTimeLimit}
+            onCheckedChange={v => {
+              setRoundTimeLimit(v === true);
+            }}
+            className="shrink-0"
+          />
         </div>
       </div>
-    </div>
-  ) : null;
+    </Dialog>
+  );
 };
 
 export default DialogEditRound;
