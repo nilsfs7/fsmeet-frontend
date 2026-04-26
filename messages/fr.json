@@ -297,6 +297,10 @@
     "btnSeedingAndResults": "Classement & Résultats",
     "btnAddNew": "Ajouter"
   },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Écran arène",
+    "pageDescription": "Choisis une compétition pour l'aperçu en direct. L'écran de l'arène se met à jour dès la sélection."
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Programme",
     "tabScheduleComboBoxParticipantFilterLabel": "Filtre participant",

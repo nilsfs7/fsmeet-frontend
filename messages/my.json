@@ -315,6 +315,10 @@
     "btnSeedingAndResults": "Seeding & Keputusan",
     "btnAddNew": "Tambah baharu"
   },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Skrin arena",
+    "pageDescription": "Pilih pertandingan untuk pratayang langsung. Skrin arena dikemas kini apabila anda memilih."
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Jadual",
     "tabScheduleComboBoxParticipantFilterLabel": "Tapis peserta",

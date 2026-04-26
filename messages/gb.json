@@ -315,6 +315,10 @@
     "btnSeedingAndResults": "Seeding & Results",
     "btnAddNew": "Add new"
   },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Arena screen",
+    "pageDescription": "Choose a match for the live preview. The arena screen updates when you select one."
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Schedule",
     "tabScheduleComboBoxParticipantFilterLabel": "Filter participant",

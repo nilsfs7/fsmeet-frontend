@@ -297,6 +297,10 @@
     "btnSeedingAndResults": "Asignación y resultados",
     "btnAddNew": "Añadir nuevo"
   },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Pantalla arena",
+    "pageDescription": "Elige una competición para la vista previa en directo. La pantalla de la arena se actualiza al seleccionar."
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Plan de juego",
     "tabScheduleComboBoxParticipantFilterLabel": "Filtro participante",

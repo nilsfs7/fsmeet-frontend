@@ -297,6 +297,10 @@
     "btnSeedingAndResults": "Zuweisung & Ergebnisse",
     "btnAddNew": "Neuen hinzufügen"
   },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Arena-Screen",
+    "pageDescription": "Wähle einen Wettbewerb für die Live-Vorschau. Die Arena-Anzeige aktualisiert sich bei der Auswahl."
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Spielplan",
     "tabScheduleComboBoxParticipantFilterLabel": "Filter Teilnehmer",

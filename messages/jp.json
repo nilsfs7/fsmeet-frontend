@@ -315,6 +315,10 @@
     "btnSeedingAndResults": "シード＆結果",
     "btnAddNew": "新規追加"
   },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "アリーナ画面",
+    "pageDescription": "ライブプレビュー用の大会を選んでください。選択するとアリーナ画面が更新されます。"
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "スケジュール",
     "tabScheduleComboBoxParticipantFilterLabel": "参加者フィルター",

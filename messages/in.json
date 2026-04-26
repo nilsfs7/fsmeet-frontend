@@ -315,6 +315,10 @@
     "btnSeedingAndResults": "सीडिंग और परिणाम",
     "btnAddNew": "नया जोड़ें"
   },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Arena screen",
+    "pageDescription": "लाइव पूर्वावलोकन के लिए एक मैच चुनें। चुनते ही अखाड़ा स्क्रीन अपडेट हो जाती है।"
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "शेड्यूल",
     "tabScheduleComboBoxParticipantFilterLabel": "प्रतिभागी फ़िल्टर",

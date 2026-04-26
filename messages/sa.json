@@ -315,6 +315,10 @@
     "btnSeedingAndResults": "التصنيف والنتائج",
     "btnAddNew": "إضافة جديد"
   },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "شاشة الساحة",
+    "pageDescription": "اختر مباراة للمعاينة المباشرة. تُحدَّث شاشة الملعب عند الاختيار."
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "الجدول",
     "tabScheduleComboBoxParticipantFilterLabel": "تصفية مشارك",

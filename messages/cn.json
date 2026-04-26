@@ -315,6 +315,10 @@
     "btnSeedingAndResults": "种子位与结果",
     "btnAddNew": "新增"
   },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "赛场大屏",
+    "pageDescription": "选择要在实时预览中显示的比赛项目。选择后竞技场屏幕会立即更新。"
+  },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "赛程",
     "tabScheduleComboBoxParticipantFilterLabel": "筛选参赛者",
