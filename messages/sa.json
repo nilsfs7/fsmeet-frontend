@@ -648,6 +648,9 @@
     "btnSave": "حفظ"
   },
   "/registration": {
+    "headlineCreateAccount": "أنشئ حسابًا",
+    "sublineSignUp": "سجّل بخطوات بسيطة",
+    "legalSignUp": "بإنشاء حساب فإنك توافق على <terms>شروط الخدمة</terms> و<privacy>سياسة الخصوصية</privacy> لدينا.",
     "cbUserType": "سجّل كـ",
     "inputUsername": "اسم المستخدم",
     "cbGender": "الجنس",

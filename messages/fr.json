@@ -630,6 +630,9 @@
     "btnSave": "Enregistrer"
   },
   "/registration": {
+    "headlineCreateAccount": "Créer un compte",
+    "sublineSignUp": "Inscrivez-vous en quelques étapes",
+    "legalSignUp": "En créant un compte, tu acceptes nos <terms>conditions d'utilisation</terms> et notre <privacy>politique de confidentialité</privacy>.",
     "cbUserType": "S'inscrire en tant que",
     "inputUsername": "Nom d'utilisateur",
     "cbGender": "Genre",

@@ -648,6 +648,9 @@
     "btnSave": "保存"
   },
   "/registration": {
+    "headlineCreateAccount": "アカウントを作成",
+    "sublineSignUp": "数ステップでサインアップ",
+    "legalSignUp": "アカウントを作成することで、<terms>利用規約</terms> および <privacy>プライバシーポリシー</privacy> に同意したことになります。",
     "cbUserType": "登録区分",
     "inputUsername": "ユーザー名",
     "cbGender": "性別",

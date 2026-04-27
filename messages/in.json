@@ -648,6 +648,9 @@
     "btnSave": "सेव करें"
   },
   "/registration": {
+    "headlineCreateAccount": "अकाउंट बनाएं",
+    "sublineSignUp": "कुछ चरणों में साइन अप करें",
+    "legalSignUp": "अकाउंट बनाते ही आप हमारे <terms>सेवा की शर्तें</terms> व <privacy>गोपनीयता नीति</privacy> से सहमत होते हैं।",
     "cbUserType": "इस रूप में साइन अप करें",
     "inputUsername": "यूज़रनेम",
     "cbGender": "लिंग",

@@ -19,6 +19,10 @@ import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { toTitleCase } from '@/functions/string-manipulation';
 import { isNaturalPerson } from '@/functions/is-natural-person';
+import { cn } from '@/lib/utils';
+
+const comboBlockClass = 'flex flex-col gap-1.5';
+const comboLabelClass = 'text-sm font-medium leading-none';
 
 export const RegistrationForm = () => {
   const t = useTranslations('/registration');
@@ -84,103 +88,100 @@ export const RegistrationForm = () => {
     <>
       <Toaster richColors />
 
-      <div className="p-2 h-full grid overflow-y-auto">
-        <div className="h-full flex flex-col items-center justify-center">
-          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
-            <div className="flex h-[100%] flex-col p-2">
-              <div>{t('cbUserType')}</div>
-              <div className="flex w-full">
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5 sm:gap-2">
+        <div className={comboBlockClass}>
+          <div className={comboLabelClass}>{t('cbUserType')}</div>
+          <div className="w-full min-w-0">
+            <ComboBox
+              className="w-full"
+              menus={menuUserType}
+              value={userType ? userType : menuUserType[0].value}
+              onChange={(value: any) => {
+                handleUserTypeChanged(value);
+              }}
+            />
+          </div>
+        </div>
+
+        <TextInput
+          id={'username'}
+          label={t('inputUsername')}
+          placeholder={getPlaceholderByUserType(userType).username}
+          value={username}
+          onChange={e => {
+            handleInputChangeUsername(e.currentTarget.value);
+          }}
+        />
+
+        <TextInput
+          id={'firstName'}
+          label={getLabelForFirstName(userType, tf)}
+          placeholder={getPlaceholderByUserType(userType).firstName}
+          value={firstName}
+          onChange={e => {
+            handleInputChangeFirstName(e.currentTarget.value);
+          }}
+        />
+
+        {isNaturalPerson(userType) && (
+          <>
+            <div className={comboBlockClass}>
+              <div className={comboLabelClass}>{t('cbCountry')}</div>
+              <div className="w-full min-w-0">
                 <ComboBox
                   className="w-full"
-                  menus={menuUserType}
-                  value={userType ? userType : menuUserType[0].value}
+                  menus={menuCountries}
+                  value={countryCode || ''}
+                  searchEnabled={true}
                   onChange={(value: any) => {
-                    handleUserTypeChanged(value);
+                    setCountryCode(value);
                   }}
                 />
               </div>
             </div>
 
-            <TextInput
-              id={'username'}
-              label={t('inputUsername')}
-              placeholder={getPlaceholderByUserType(userType).username}
-              value={username}
-              onChange={e => {
-                handleInputChangeUsername(e.currentTarget.value);
-              }}
-            />
+            <div className={comboBlockClass}>
+              <div className={comboLabelClass}>{t('cbGender')}</div>
+              <div className="w-full min-w-0">
+                <ComboBox
+                  className="w-full"
+                  menus={menuGender}
+                  value={gender ? gender : menuGender[0].value}
+                  onChange={(value: any) => {
+                    setGender(value);
+                  }}
+                />
+              </div>
+            </div>
+          </>
+        )}
 
-            <TextInput
-              id={'firstName'}
-              label={getLabelForFirstName(userType, tf)}
-              placeholder={getPlaceholderByUserType(userType).firstName}
-              value={firstName}
-              onChange={e => {
-                handleInputChangeFirstName(e.currentTarget.value);
-              }}
-            />
+        <TextInput
+          id={'email'}
+          label={t('inputEmail')}
+          placeholder={getPlaceholderByUserType(userType).email}
+          value={email}
+          onChange={e => {
+            handleInputChangeEmail(e.currentTarget.value);
+          }}
+        />
 
-            {isNaturalPerson(userType) && (
-              <>
-                <div className="flex h-[100%] flex-col p-2">
-                  <div>{t('cbCountry')}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      className="w-full"
-                      menus={menuCountries}
-                      value={countryCode || ''}
-                      searchEnabled={true}
-                      onChange={(value: any) => {
-                        setCountryCode(value);
-                      }}
-                    />
-                  </div>
-                </div>
+        <TextInput
+          id={'password'}
+          type={'password'}
+          label={t('inputPassword')}
+          placeholder="Ball&Chill2021"
+          value={password}
+          onChange={e => {
+            handleInputChangePassword(e.currentTarget.value);
+          }}
+          onKeyDown={handleInputKeypressPassword}
+        />
 
-                <div className="flex h-[100%] flex-col p-2">
-                  <div>{t('cbGender')}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      className="w-full"
-                      menus={menuGender}
-                      value={gender ? gender : menuGender[0].value}
-                      onChange={(value: any) => {
-                        setGender(value);
-                      }}
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-
-            <TextInput
-              id={'email'}
-              label={t('inputEmail')}
-              placeholder={getPlaceholderByUserType(userType).email}
-              value={email}
-              onChange={e => {
-                handleInputChangeEmail(e.currentTarget.value);
-              }}
-            />
-
-            <TextInput
-              id={'password'}
-              type={'password'}
-              label={t('inputPassword')}
-              placeholder="Ball&Chill2021"
-              onChange={e => {
-                handleInputChangePassword(e.currentTarget.value);
-              }}
-              onKeyDown={handleInputKeypressPassword}
-            />
-          </div>
-
-          <div className="flex justify-center py-2">
-            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateClicked}>
-              {t('btnSignUp')}
-            </Button>
-          </div>
+        <div className="w-full min-w-0 pt-1">
+          <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full min-w-0')} onClick={handleCreateClicked}>
+            {t('btnSignUp')}
+          </Button>
         </div>
       </div>
     </>

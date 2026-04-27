@@ -648,6 +648,9 @@
     "btnSave": "保存"
   },
   "/registration": {
+    "headlineCreateAccount": "创建账户",
+    "sublineSignUp": "简单几步完成注册",
+    "legalSignUp": "创建账户即表示你同意我们的 <terms>服务条款</terms> 和 <privacy>隐私政策</privacy>。",
     "cbUserType": "注册身份",
     "inputUsername": "用户名",
     "cbGender": "性别",

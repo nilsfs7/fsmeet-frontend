@@ -630,6 +630,9 @@
     "btnSave": "Speichern"
   },
   "/registration": {
+    "headlineCreateAccount": "Konto anlegen",
+    "sublineSignUp": "In wenigen Schritten registrieren",
+    "legalSignUp": "Mit der Kontoerstellung stimmst du unseren <terms>Nutzungsbedingungen</terms> und der <privacy>Datenschutzerklärung</privacy> zu.",
     "cbUserType": "Anmelden als",
     "inputUsername": "Nutzername",
     "cbGender": "Geschlecht",

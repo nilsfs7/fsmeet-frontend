@@ -649,6 +649,9 @@
     "errorMissingResetLink": "This reset link is invalid or incomplete. Open the link from your password reset email."
   },
   "/registration": {
+    "headlineCreateAccount": "Create your account",
+    "sublineSignUp": "Sign up in a few quick steps",
+    "legalSignUp": "By creating an account, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
     "cbUserType": "Sign up as",
     "inputUsername": "Username",
     "cbGender": "Gender",

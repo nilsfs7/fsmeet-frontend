@@ -648,6 +648,9 @@
     "btnSave": "Simpan"
   },
   "/registration": {
+    "headlineCreateAccount": "Cipta akaun",
+    "sublineSignUp": "Daftar dalam beberapa langkah",
+    "legalSignUp": "Dengan mewujudkan akaun, anda bersetuju dengan <terms>terma perkhidmatan</terms> dan <privacy>dasar privasi</privacy> kami.",
     "cbUserType": "Daftar sebagai",
     "inputUsername": "Nama pengguna",
     "cbGender": "Jantina",
