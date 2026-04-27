@@ -605,11 +605,14 @@
     "btnBackHome": "العودة إلى الرئيسية"
   },
   "/login": {
+    "headlineWelcome": "مرحبا بعودتك",
+    "sublineSignIn": "سجّل الدخول إلى حسابك",
     "inputUsername": "اسم المستخدم / البريد الإلكتروني",
     "inputPassword": "كلمة المرور",
     "btnLogin": "تسجيل الدخول",
     "lnkResetPassword": "إعادة تعيين كلمة المرور",
-    "lnkNewAccount": "لا يوجد حساب بعد؟"
+    "lnkNewAccount": "لا يوجد حساب بعد؟",
+    "legalSignIn": "بتسجيل الدخول، فإنك توافق على <terms>شروط الخدمة</terms> و<privacy>سياسة الخصوصية</privacy>."
   },
   "/map": {
     "pageTitle": "خريطة لاعبي الفريستايل",
@@ -635,7 +638,7 @@
     "inputUsername": "اسم المستخدم / البريد الإلكتروني",
     "btnResetPassword": "إعادة تعيين كلمة المرور"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "تحقق من بريدك.",
     "thankYouText2": "تم إرسال رابط إعادة التعيين.",
     "btnBackHome": "العودة إلى الرئيسية"

@@ -605,11 +605,14 @@
     "btnBackHome": "होम पर वापस"
   },
   "/login": {
+    "headlineWelcome": "वापसी पर स्वागत है",
+    "sublineSignIn": "अपने अकाउंट में साइन इन करें",
     "inputUsername": "यूज़रनेम / ईमेल",
     "inputPassword": "पासवर्ड",
     "btnLogin": "लॉगिन",
     "lnkResetPassword": "पासवर्ड रीसेट करें",
-    "lnkNewAccount": "अभी तक अकाउंट नहीं है?"
+    "lnkNewAccount": "अभी तक अकाउंट नहीं है?",
+    "legalSignIn": "साइन इन करते ही आप हमारे <terms>सेवा की शर्तें</terms> व <privacy>गोपनीयता नीति</privacy> से सहमत होते हैं।"
   },
   "/map": {
     "pageTitle": "फ्रीस्टाइलर मैप",
@@ -635,7 +638,7 @@
     "inputUsername": "यूज़रनेम / ईमेल",
     "btnResetPassword": "पासवर्ड रीसेट करें"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "अपना मेल चेक करें।",
     "thankYouText2": "रीसेट लिंक भेज दिया गया है।",
     "btnBackHome": "होम पर वापस"

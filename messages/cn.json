@@ -605,11 +605,14 @@
     "btnBackHome": "返回首页"
   },
   "/login": {
+    "headlineWelcome": "欢迎回来",
+    "sublineSignIn": "登录你的账户",
     "inputUsername": "用户名 / 邮箱",
     "inputPassword": "密码",
     "btnLogin": "登录",
     "lnkResetPassword": "重置密码",
-    "lnkNewAccount": "还没有账户？"
+    "lnkNewAccount": "还没有账户？",
+    "legalSignIn": "登录即表示你同意我们的 <terms>服务条款</terms> 和 <privacy>隐私政策</privacy>。"
   },
   "/map": {
     "pageTitle": "自由式选手地图",
@@ -635,7 +638,7 @@
     "inputUsername": "用户名 / 邮箱",
     "btnResetPassword": "重置密码"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "请查看你的邮箱。",
     "thankYouText2": "重置链接已发送给你。",
     "btnBackHome": "返回首页"

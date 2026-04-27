@@ -587,11 +587,14 @@
     "btnBackHome": "Retour à l'accueil"
   },
   "/login": {
+    "headlineWelcome": "Content de te revoir",
+    "sublineSignIn": "Connecte-toi à ton compte",
     "inputUsername": "Nom d'utilisateur / E-mail",
     "inputPassword": "Mot de passe",
     "btnLogin": "Se connecter",
     "lnkResetPassword": "Réinitialiser le mot de passe",
-    "lnkNewAccount": "Pas encore de compte ?"
+    "lnkNewAccount": "Pas encore de compte ?",
+    "legalSignIn": "En te connectant, tu acceptes nos <terms>conditions d'utilisation</terms> et notre <privacy>politique de confidentialité</privacy>."
   },
   "/map": {
     "pageTitle": "Carte des Freestylers",
@@ -617,7 +620,7 @@
     "inputUsername": "Nom d'utilisateur / E-mail",
     "btnResetPassword": "Réinitialiser le mot de passe"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "Vérifiez votre e-mail.",
     "thankYouText2": "Un lien de réinitialisation vous a été envoyé.",
     "btnBackHome": "Retour à l'accueil"

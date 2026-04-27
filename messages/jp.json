@@ -605,11 +605,14 @@
     "btnBackHome": "ホームに戻る"
   },
   "/login": {
+    "headlineWelcome": "おかえりなさい",
+    "sublineSignIn": "アカウントにサインイン",
     "inputUsername": "ユーザー名／メール",
     "inputPassword": "パスワード",
     "btnLogin": "ログイン",
     "lnkResetPassword": "パスワードをリセット",
-    "lnkNewAccount": "アカウントがありませんか？"
+    "lnkNewAccount": "アカウントがありませんか？",
+    "legalSignIn": "ログインすることで、<terms>利用規約</terms> および <privacy>プライバシーポリシー</privacy> に同意したことになります。"
   },
   "/map": {
     "pageTitle": "フリースタイラーマップ",
@@ -635,7 +638,7 @@
     "inputUsername": "ユーザー名／メール",
     "btnResetPassword": "パスワードをリセット"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "メールを確認してください。",
     "thankYouText2": "リセット用リンクを送信しました。",
     "btnBackHome": "ホームに戻る"

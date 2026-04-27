@@ -6,6 +6,7 @@ import { loginUserWithCredentials } from '@/app/actions/authentication';
 import Link from 'next/link';
 import { routeHome, routePasswordForgot, routeRegistration } from '@/domain/constants/routes';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import TextInput from '../../../components/common/text-input';
 import { Toaster, toast } from 'sonner';
 import { getSession } from 'next-auth/react';
@@ -77,47 +78,45 @@ export const LoginForm = () => {
     <>
       <Toaster richColors />
 
-      <div className="p-2 h-full grid overflow-y-auto">
-        <div className="h-full flex flex-col items-center justify-center">
-          <div className="m-2 flex flex-col rounded-lg bg-secondary-light p-1">
-            <TextInput
-              id={'usernameOrEmail'}
-              label={t('inputUsername')}
-              placeholder="max"
-              value={usernameOrEmail}
-              onChange={e => {
-                handleInputChangeUsernameOrEmail(e);
-              }}
-            />
-            <TextInput
-              id={'password'}
-              type={'password'}
-              label={t('inputPassword')}
-              placeholder="Ball&Chill2021"
-              onChange={e => {
-                handleInputChangePassword(e);
-              }}
-              onKeyDown={handleInputKeypressPassword}
-            />
-          </div>
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5 sm:gap-2">
+        <TextInput
+          id={'usernameOrEmail'}
+          label={t('inputUsername')}
+          placeholder="max"
+          value={usernameOrEmail}
+          onChange={e => {
+            handleInputChangeUsernameOrEmail(e);
+          }}
+        />
+        <TextInput
+          id={'password'}
+          type={'password'}
+          label={t('inputPassword')}
+          placeholder="Ball&Chill2021"
+          onChange={e => {
+            handleInputChangePassword(e);
+          }}
+          onKeyDown={handleInputKeypressPassword}
+        />
 
-          <div className="flex justify-center py-2">
-            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleLoginClicked}>
-              {t('btnLogin')}
-            </Button>
-          </div>
+        <div className="w-full min-w-0 pt-1">
+          <Button
+            type="button"
+            variant="action"
+            className={cn(ctaActionButtonClassName, 'w-full min-w-0')}
+            onClick={handleLoginClicked}
+          >
+            {t('btnLogin')}
+          </Button>
+        </div>
 
-          <div className="flex justify-center py-2">
-            <Link href={`${routePasswordForgot}`}>
-              <label className="cursor-pointer pr-4 underline">{t('lnkResetPassword')}</label>
-            </Link>
-          </div>
-
-          <div className="flex justify-center py-2">
-            <Link href={`${routeRegistration}`}>
-              <label className="cursor-pointer pr-4 underline">{t('lnkNewAccount')}</label>
-            </Link>
-          </div>
+        <div className="flex w-full min-w-0 items-center justify-between gap-3 pt-1 sm:pt-2">
+          <Link href={`${routePasswordForgot}`} className="type-body-sm min-w-0 shrink text-foreground/90 no-underline hover:underline">
+            {t('lnkResetPassword')}
+          </Link>
+          <Link href={`${routeRegistration}`} className="type-body-sm min-w-0 shrink text-right text-foreground/90 no-underline hover:underline">
+            {t('lnkNewAccount')}
+          </Link>
         </div>
       </div>
     </>

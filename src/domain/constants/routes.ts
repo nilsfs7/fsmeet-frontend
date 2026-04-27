@@ -16,12 +16,13 @@ export const routeContributors = '/about/contributors';
 export const routeDonate = '/donate';
 export const routeDonateThankyou = '/donate/thankyou';
 export const routeImprint = '/imprint';
+export const routeTermsOfService = '/imprint';
 export const routeDataProtection = '/dataprotection';
 export const routeRegistration = '/registration';
 export const routeRegistrationPending = '/registration/pending';
 export const routeLogin = '/login';
-export const routePasswordPending = '/password/pending';
 export const routePasswordForgot = '/password/forgot';
+export const routePasswordPending = '/password/forgot/pending';
 export const routeAccount = '/account';
 export const routeAccountImage = '/account/image';
 export const routeAccountDeleted = '/account/deleted';
@@ -33,6 +34,7 @@ export const routeEvents = '/events';
 export const routeEventSubs = '/events/manage';
 export const routeEventNotFound = '/events/notfound';
 export const routeEventsCreate = '/events/create';
+export const routeEventsCreateSuccess = '/events/create/success';
 
 export const routeUsers = '/users';
 

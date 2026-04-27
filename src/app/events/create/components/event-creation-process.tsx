@@ -1,6 +1,6 @@
 'use client';
 
-import { routeEvents, routeEventsCreate, routeHome } from '@/domain/constants/routes';
+import { routeEventsCreate, routeEventsCreateSuccess, routeHome } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
@@ -20,14 +20,12 @@ import { DatePicker } from '@/components/common/date-picker';
 import { EventType } from '@/domain/enums/event-type';
 import ComboBox from '@/components/common/combo-box';
 import TextAndImageButton from '../../../../components/common/text-and-image-button';
-import { imgCalender, imgCelebration, imgCompetition, imgCompetitionOnline, imgCompetitionOnsite, imgLocation, imgMeeting } from '../../../../domain/constants/images';
+import { imgCalender, imgCompetition, imgCompetitionOnline, imgCompetitionOnsite, imgLocation, imgMeeting } from '../../../../domain/constants/images';
 import { CurrencyCode } from '../../../../domain/enums/currency-code';
 import { EventCategory } from '../../../../domain/enums/event-category';
 import { EventState } from '../../../../domain/enums/event-state';
 import { menuCountries } from '../../../../domain/constants/menus/menu-countries';
 import { getCountryNameByCode } from '../../../../functions/get-country-name-by-code';
-import Image from 'next/image';
-import Link from 'next/link';
 import { menuEventCategories } from '../../../../domain/constants/menus/menu-event-categories';
 import { getNameByEventType } from '../../../../functions/get-name-by-event-type';
 import { toTitleCase } from '../../../../functions/string-manipulation';
@@ -41,8 +39,7 @@ const EDITOR_CARD_CLASS = cn(
   'supports-[backdrop-filter]:bg-secondary-light/70',
   'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
 );
-const FIELD_ROW_CLASS =
-  'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
 const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
@@ -77,7 +74,6 @@ enum CreationProcessPage {
   COMP_TYPE = '2',
   GENERAL_DETAILS = '3',
   OVERVIEW = '4',
-  SUCCESS_PAGE = '5',
 }
 
 export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationProcess) => {
@@ -220,7 +216,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
   };
 
   const cancelButtonShown = (): boolean => {
-    if (page && page && page !== CreationProcessPage.EVENT_TYPE && page !== CreationProcessPage.SUCCESS_PAGE) {
+    if (page && page && page !== CreationProcessPage.EVENT_TYPE) {
       return true;
     }
 
@@ -228,7 +224,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
   };
 
   const backButtonShown = (): boolean => {
-    if (page && page !== CreationProcessPage.EVENT_TYPE && page !== CreationProcessPage.COMP_TYPE && page !== CreationProcessPage.SUCCESS_PAGE) {
+    if (page && page !== CreationProcessPage.EVENT_TYPE && page !== CreationProcessPage.COMP_TYPE) {
       return true;
     }
 
@@ -236,7 +232,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
   };
 
   const nextButtonShown = (): boolean => {
-    if (page !== CreationProcessPage.EVENT_TYPE && page !== CreationProcessPage.COMP_TYPE && page !== CreationProcessPage.OVERVIEW && page !== CreationProcessPage.SUCCESS_PAGE) {
+    if (page !== CreationProcessPage.EVENT_TYPE && page !== CreationProcessPage.COMP_TYPE && page !== CreationProcessPage.OVERVIEW) {
       return true;
     }
 
@@ -338,7 +334,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
 
       cacheEventInfo(undefined, response.id);
 
-      router.replace(`${pageUrl}?page=${CreationProcessPage.SUCCESS_PAGE}`);
+      router.replace(`${routeEventsCreateSuccess}?eventId=${encodeURIComponent(response.id)}`);
 
       return response.id;
     } catch (error: any) {
@@ -568,22 +564,6 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
             </div>
           )}
 
-          {/* Page: Success */}
-          {page && page === CreationProcessPage.SUCCESS_PAGE && (
-            <div className="flex w-full max-w-lg flex-col items-center gap-4 py-6 text-center">
-              <Image src={imgCelebration} width={0} height={0} sizes="100vw" className="h-12 w-full max-w-xs object-contain" alt="" />
-              <p className="type-body-sm text-foreground/90">{t(`pageSuccessSuccessText1`)}</p>
-              <p className="type-body-sm text-foreground/90">{t(`pageSuccessSuccessText2`)}</p>
-              <div className="flex flex-wrap justify-center gap-2">
-                <Button asChild variant="action" className={ctaActionButtonClassName}>
-                  <Link href={`${routeEvents}/${eventId}/edit`}>{t('pageSuccessBtnEditEvent')}</Link>
-                </Button>
-                <Button asChild variant="action" className={ctaActionButtonClassName}>
-                  <Link href={`${routeEvents}/${eventId}`}>{t('pageSuccessBtnShowEvent')}</Link>
-                </Button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 

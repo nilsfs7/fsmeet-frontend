@@ -587,11 +587,14 @@
     "btnBackHome": "Zur Homepage"
   },
   "/login": {
+    "headlineWelcome": "Willkommen zurück",
+    "sublineSignIn": "Melde dich in deinem Konto an",
     "inputUsername": "Nutzername / E-Mail",
     "inputPassword": "Passwort",
     "btnLogin": "Anmelden",
     "lnkResetPassword": "Password zurücksetzen",
-    "lnkNewAccount": "Noch keinen Account?"
+    "lnkNewAccount": "Noch keinen Account?",
+    "legalSignIn": "Mit der Anmeldung stimmst du unseren <terms>Nutzungsbedingungen</terms> und der <privacy>Datenschutzerklärung</privacy> zu."
   },
   "/map": {
     "pageTitle": "Freestyler Karte",
@@ -617,7 +620,7 @@
     "inputUsername": "Nutzername / E-Mail",
     "btnResetPassword": "Passwort zurücksetzen"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "Prüfe dein Mailpostfach.",
     "thankYouText2": "Wir haben dir einen Link geschickt.",
     "btnBackHome": "Zur Homepage"

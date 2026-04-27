@@ -605,11 +605,14 @@
     "btnBackHome": "Back home"
   },
   "/login": {
+    "headlineWelcome": "Welcome Back",
+    "sublineSignIn": "Sign in to your account",
     "inputUsername": "Username / Email",
     "inputPassword": "Password",
     "btnLogin": "Login",
     "lnkResetPassword": "Reset password",
-    "lnkNewAccount": "No account yet?"
+    "lnkNewAccount": "No account yet?",
+    "legalSignIn": "By signing in, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>."
   },
   "/map": {
     "pageTitle": "Freestyler Map",
@@ -635,7 +638,7 @@
     "inputUsername": "Username / Email",
     "btnResetPassword": "Reset Password"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "Check your mail.",
     "thankYouText2": "A reset link was sent to you.",
     "btnBackHome": "Back home"

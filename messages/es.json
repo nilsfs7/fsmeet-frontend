@@ -587,11 +587,14 @@
     "btnBackHome": "A la página de inicio"
   },
   "/login": {
+    "headlineWelcome": "Bienvenido de nuevo",
+    "sublineSignIn": "Inicia sesión en tu cuenta",
     "inputUsername": "Nombre de usuario / e-mail",
     "inputPassword": "contraseña",
     "btnLogin": "Acceder",
     "lnkResetPassword": "Restaurar contraseña",
-    "lnkNewAccount": "¿Aún no tienes cuenta?"
+    "lnkNewAccount": "¿Aún no tienes cuenta?",
+    "legalSignIn": "Al iniciar sesión, aceptas nuestros <terms>términos de servicio</terms> y la <privacy>política de privacidad</privacy>."
   },
   "/map": {
     "pageTitle": "Mapa del Freestyle",
@@ -617,7 +620,7 @@
     "inputUsername": "Nombre de usuario / e-mail",
     "btnResetPassword": "Restaurar contraseña"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "Comprueba tu buzón.",
     "thankYouText2": "Te hemos enviado un enlace.",
     "btnBackHome": "A la página de inicio"

@@ -605,11 +605,14 @@
     "btnBackHome": "Kembali ke laman utama"
   },
   "/login": {
+    "headlineWelcome": "Selamat kembali",
+    "sublineSignIn": "Log masuk ke akaun anda",
     "inputUsername": "Nama pengguna / E-mel",
     "inputPassword": "Kata laluan",
     "btnLogin": "Log masuk",
     "lnkResetPassword": "Tetapkan semula kata laluan",
-    "lnkNewAccount": "Belum ada akaun?"
+    "lnkNewAccount": "Belum ada akaun?",
+    "legalSignIn": "Dengan log masuk, anda bersetuju dengan <terms>terma perkhidmatan</terms> dan <privacy>dasar privasi</privacy> kami."
   },
   "/map": {
     "pageTitle": "Peta Freestyler",
@@ -635,7 +638,7 @@
     "inputUsername": "Nama pengguna / E-mel",
     "btnResetPassword": "Tetapkan Semula Kata Laluan"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "Semak e-mel anda.",
     "thankYouText2": "Pautan tetapan semula telah dihantar kepada anda.",
     "btnBackHome": "Kembali ke laman utama"
