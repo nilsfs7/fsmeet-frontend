@@ -50,14 +50,12 @@ const EDITOR_CARD_CLASS = cn(
   'supports-[backdrop-filter]:bg-secondary-light/70',
   'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
 );
-const FIELD_ROW_CLASS =
-  'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
 const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
 const READONLY_VALUE_CLASS = 'min-w-0 text-sm text-foreground/90';
-const FILE_INPUT_CLASS =
-  'w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground';
+const FILE_INPUT_CLASS = 'w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground';
 const SECTION_H2 = 'text-sm font-semibold leading-tight text-foreground/90';
 
 function FieldRow({ label, children }: { label: string; children: ReactNode }) {
@@ -209,7 +207,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
     // add wffa to maintainers list
     const username = 'wffa';
-    if (!isWffaRanked === true && session?.user.username !== 'wffa') {
+    if (!isWffaRanked === true && session?.user.username !== username) {
       if (!checkUserInMaintainerList(username)) {
         addUserToMaintainerList(username);
       }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, type ReactNode } from 'react';
-import { imgCalender, imgCompetition, imgHourglassEnd, imgHourglassStart, imgLocation, imgMeeting, imgUserDefaultImg } from '@/domain/constants/images';
+import { imgAccommodation, imgCalender, imgCompetition, imgHourglassEnd, imgHourglassStart, imgLocation, imgMeeting, imgPriceMoney, imgRanked, imgUserDefaultImg } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getShortDateString } from '@/functions/time';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
@@ -110,10 +110,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
           <img
             src={posterSrc}
             alt=""
-            className={cn(
-              'max-h-[min(100dvh-2rem,100%)] max-w-[min(100vw-2rem,100%)]',
-              isCustomPoster ? 'object-contain' : 'object-contain p-8',
-            )}
+            className={cn('max-h-[min(100dvh-2rem,100%)] max-w-[min(100vw-2rem,100%)]', isCustomPoster ? 'object-contain' : 'object-contain p-8')}
             onClick={e => e.stopPropagation()}
           />
         </div>
@@ -154,12 +151,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
               </div>
             </div>
 
-            <div
-              className={cn(
-                'order-1 w-full shrink-0 sm:order-2 sm:w-48 md:w-56 lg:w-64',
-                !isCustomPoster && 'hidden sm:block',
-              )}
-            >
+            <div className={cn('order-1 w-full shrink-0 sm:order-2 sm:w-48 md:w-56 lg:w-64', !isCustomPoster && 'hidden sm:block')}>
               <div className="mx-auto w-full max-w-sm overflow-hidden rounded-lg sm:mx-0 sm:max-w-none">
                 <button
                   type="button"
@@ -167,12 +159,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                   className="group relative w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label="Event poster, open preview"
                 >
-                  <div
-                    className={cn(
-                      'relative w-full aspect-[4/5] overflow-hidden rounded-lg',
-                      !isCustomPoster && 'bg-muted/25 dark:bg-muted/20',
-                    )}
-                  >
+                  <div className={cn('relative w-full aspect-[4/5] overflow-hidden rounded-lg', !isCustomPoster && 'bg-muted/25 dark:bg-muted/20')}>
                     <img
                       src={posterSrc}
                       alt=""
@@ -187,6 +174,31 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
             </div>
           </div>
         </div>
+
+        {(event.isWffaRanked || event.priceMoney > 0 || event.accommodations.length > 0) && (
+          <div className="border-t border-border/50 px-2.5 py-2.5 sm:px-3 sm:py-3 md:px-4">
+            <div className="flex min-w-0 flex-wrap items-start gap-3">
+              {event.isWffaRanked && (
+                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
+                  <img src={imgRanked} alt="" className="h-7 w-7 object-contain" />
+                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkWffaRanked')}</div>
+                </div>
+              )}
+              {event.priceMoney > 0 && (
+                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
+                  <img src={imgPriceMoney} alt="" className="h-7 w-7 object-contain" />
+                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkPriceMoney')}</div>
+                </div>
+              )}
+              {event.accommodations.length > 0 && (
+                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
+                  <img src={imgAccommodation} alt="" className="h-7 w-7 object-contain" />
+                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkAccommodation')}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {event.description && (
           <div className="border-t border-border/50 px-2.5 sm:px-3 md:px-4 py-2.5 sm:py-3">
@@ -236,29 +248,31 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
 
         {event.type !== EventType.COMPETITION_ONLINE && event.venueCity && (
           <div className="border-t border-border/50 px-2.5 sm:px-3 md:px-4 py-2.5 sm:py-3">
-            <div className="type-body-sm font-medium text-foreground">{t('tabOverviewVenueAddress')}</div>
-            <div className="type-body-sm mt-1 select-text text-foreground/90">
-              <p>{event.venueName}</p>
-              <p className="mt-1">{`${event.venueStreet} ${event.venueHouseNo}`}</p>
-              <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
-              <p>{getCountryNameByCode(event.venueCountryCode)}</p>
-            </div>
+            <div className="text-base font-bold">{t('tabOverviewVenueAddress')}</div>
+            <div className="mt-1 flex min-w-0 flex-col gap-2 sm:flex-row sm:items-end sm:gap-2">
+              <div className="type-body-sm min-w-0 select-text text-foreground/90">
+                <p className="mb-2">{event.venueName}</p>
+                <p>{`${event.venueStreet} ${event.venueHouseNo}`}</p>
+                <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
+                <p>{getCountryNameByCode(event.venueCountryCode)}</p>
+              </div>
 
-            <div className="flex gap-2">
-              <Button
-                type="button"
-                variant="action"
-                className={ctaActionButtonClassName}
-                onClick={() => {
-                  setShowMap(showMap ? false : true);
-                }}
-              >
-                {showMap ? t('tabOverviewBtnHideVenueMap') : t('tabOverviewBtnShowVenueMap')}
-              </Button>
+              <div className="flex shrink-0 gap-2">
+                <Button
+                  type="button"
+                  variant="action"
+                  className={ctaActionButtonClassName}
+                  onClick={() => {
+                    setShowMap(showMap ? false : true);
+                  }}
+                >
+                  {showMap ? t('tabOverviewBtnHideVenueMap') : t('tabOverviewBtnShowVenueMap')}
+                </Button>
 
-              <a href={getMapsSearchUrl()} target="_blank" rel="noopener noreferrer">
-                <ActionButton action={Action.GOTOEXTERNAL} />
-              </a>
+                <a href={getMapsSearchUrl()} target="_blank" rel="noopener noreferrer">
+                  <ActionButton action={Action.GOTOEXTERNAL} />
+                </a>
+              </div>
             </div>
 
             {showMap && (
