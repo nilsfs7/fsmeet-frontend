@@ -2,43 +2,100 @@ import { Header } from '@/components/header';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
-import SocialLink from '@/components/user/social-link';
-import UserCard from '@/components/user/user-card';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import { SocialPlatform } from '@/domain/enums/social-platform';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/domain/types/user';
 import { getTranslations } from 'next-intl/server';
+import { PageInset } from '@/components/layout/page-inset';
+import { ContributorsTable, type ContributorsTableRow } from './components/contributors-table';
 
-export default async function About() {
+async function getUserOptional(username: string): Promise<User | undefined> {
+  try {
+    return await getUser(username);
+  } catch {
+    return undefined;
+  }
+}
+
+export default async function Contributors() {
   const t = await getTranslations('/about/contributors');
 
-  let userCbb: User | undefined;
-  let userGaby: User | undefined;
-  let userJule: User | undefined;
-  let userNikolaj: User | undefined;
-  let userNils: User | undefined;
+  const [userCbb, userJayVng, userGaby, userMai, userJule, userNikolaj, showballs, userUros, userNils] = await Promise.all([
+    getUserOptional('cbb'),
+    getUserOptional('jay_vng'),
+    getUserOptional('gabymassif'),
+    getUserOptional('mai'),
+    getUserOptional('jule'),
+    getUserOptional('nikolaj.jb'),
+    getUserOptional('showballs'),
+    getUserOptional('urosfs'),
+    getUserOptional('nils'),
+  ]);
 
-  try {
-    userCbb = await getUser('cbb');
-  } catch (e) {}
+  const mainRows: ContributorsTableRow[] = [];
+  if (userNils) {
+    mainRows.push({ user: userNils, contribution: t('textHeadOfDevelopment') });
+  }
+  if (userUros) {
+    mainRows.push({ user: userUros, contribution: t('textMobileAppDevelopment'), instagramPath: 'p/DLzNpvktDG3' });
+  }
+  if (userNikolaj) {
+    mainRows.push({
+      user: userNikolaj,
+      contribution: t('textSpanishTranslation'),
+      instagramPath: 'p/DDEp2gZsB7e',
+    });
+  }
+  if (userJayVng) {
+    mainRows.push({
+      user: userJayVng,
+      contribution: t('textSpanishTranslation'),
+      instagramPath: 'p/DDEp2gZsB7e',
+    });
+  }
+  if (userGaby) {
+    mainRows.push({
+      user: userGaby,
+      contribution: t('textFrenchTranslation'),
+      instagramPath: 'p/DDP0vnBMLBy',
+    });
+  }
+  if (userMai) {
+    mainRows.push({
+      user: userMai,
+      contribution: t('textJapaneseAndOtherLanguagesTranslation'),
+      instagramPath: 'p/DU8QA_XDLXf',
+    });
+  }
+  if (showballs) {
+    mainRows.push({
+      user: showballs,
+      contribution: t('textUxAdvisor'),
+    });
+  }
 
-  try {
-    userGaby = await getUser('gabymassif');
-  } catch (e) {}
+  const communityRows: ContributorsTableRow[] = [];
+  if (userCbb) {
+    communityRows.push({
+      user: userCbb,
+      contribution: t('textPersonalSchedule'),
+      instagramPath: 'p/C4P5MiQr9Uj',
+    });
+  }
+  if (userJule) {
+    communityRows.push({
+      user: userJule,
+      contribution: t('textSearchByGender'),
+      instagramPath: 'p/C5scnaRrIo9',
+    });
+  }
 
-  try {
-    userJule = await getUser('jule');
-  } catch (e) {}
-
-  try {
-    userNikolaj = await getUser('nikolaj.jb');
-  } catch (e) {}
-
-  try {
-    userNils = await getUser('nils');
-  } catch (e) {}
+  const colName = t('tableColName');
+  const colContribution = t('tableColContribution');
+  const colProposal = t('tableColProposal');
+  const colAnnouncement = t('tableColAnnouncement');
+  const noAnnouncement = t('tableNoAnnouncement');
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">
@@ -46,50 +103,28 @@ export default async function About() {
 
       <PageTitle title={t('pageTitle')} />
 
-      <div className="mx-2 mt-2 flex flex-col items-center text-center overflow-y-auto">
-        <div className="mt-2 text-lg">{t('sectionMainContributors')}</div>
-
-        {userNils && (
-          <div className="flex flex-col gap-1 items-center">
-            {/* @ts-ignore */}
-            {t('textHeadOfDevelopment')} <UserCard user={userNils} />
-          </div>
-        )}
-
-        {userNikolaj && (
-          <div className="mt-4 flex flex-col gap-1 items-center">
-            {/* @ts-ignore */}
-            {t('textSpanishTranslation')} <UserCard user={userNikolaj} />
-            <SocialLink platform={SocialPlatform.INSTAGRAM} path="p/DDEp2gZsB7e" pathNameOverride={t('lnkAnnouncement')} />
-          </div>
-        )}
-
-        {userGaby && (
-          <div className="mt-4 flex flex-col gap-1 items-center">
-            {/* @ts-ignore */}
-            {t('textFrenchTranslation')} <UserCard user={userGaby} />
-            <SocialLink platform={SocialPlatform.INSTAGRAM} path="p/DDP0vnBMLBy" pathNameOverride={t('lnkAnnouncement')} />
-          </div>
-        )}
-
-        <div className="mt-6 text-lg">{t('sectionCommunityProposals')}</div>
-
-        {userCbb && (
-          <div className="flex flex-col gap-1 items-center">
-            {/* @ts-ignore */}
-            {t('textPersonalSchedule')} <UserCard user={userCbb} />
-            <SocialLink platform={SocialPlatform.INSTAGRAM} path="p/C4P5MiQr9Uj" pathNameOverride={t('lnkAnnouncement')} />
-          </div>
-        )}
-
-        {userJule && (
-          <div className="mt-4 flex flex-col gap-1 items-center">
-            {/* @ts-ignore */}
-            {t('textSearchByGender')} <UserCard user={userJule} />
-            <SocialLink platform={SocialPlatform.INSTAGRAM} path="p/C5scnaRrIo9" pathNameOverride={t('lnkAnnouncement')} />
-          </div>
-        )}
-      </div>
+      <PageInset variant="prose" className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
+        <div className="flex w-full min-w-0 flex-col items-center gap-6 text-center sm:gap-8">
+          <ContributorsTable
+            title={t('sectionMainContributors')}
+            rows={mainRows}
+            colName={colName}
+            colContribution={colContribution}
+            colAnnouncement={colAnnouncement}
+            noAnnouncement={noAnnouncement}
+            className="self-center"
+          />
+          <ContributorsTable
+            title={t('sectionCommunityProposals')}
+            rows={communityRows}
+            colName={colName}
+            colContribution={colProposal}
+            colAnnouncement={colAnnouncement}
+            noAnnouncement={noAnnouncement}
+            className="self-center"
+          />
+        </div>
+      </PageInset>
 
       <Navigation>
         <ActionButton href={routeAbout} action={Action.BACK} />

@@ -30,12 +30,20 @@
     "pageTitle": "Mitwirkende",
     "sectionMainContributors": "Hauptbeitragende",
     "textHeadOfDevelopment": "Leiter Entwicklung",
+    "textMobileAppDevelopment": "Mobile-App-Entwicklung",
     "textSpanishTranslation": "Übersetzer - Spanisch",
     "textFrenchTranslation": "Übersetzer - Französisch",
+    "textJapaneseAndOtherLanguagesTranslation": "Übersetzer - Japanisch und weitere Sprachen",
+    "textUxAdvisor": "UX-Berater",
     "sectionCommunityProposals": "Vorschläge der Community",
     "textPersonalSchedule": "Persönlicher Zeitplan für Athlethen",
     "textSearchByGender": "Freestyler map nach Geschlecht filtern",
-    "lnkAnnouncement": "Post"
+    "lnkAnnouncement": "Post",
+    "tableColName": "Name",
+    "tableColContribution": "Beitrag",
+    "tableColProposal": "Vorschlag",
+    "tableColAnnouncement": "Ankündigung",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "Profileinstellungen",

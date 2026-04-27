@@ -30,12 +30,20 @@
     "pageTitle": "Colaboradores",
     "sectionMainContributors": "Principales colaboradores",
     "textHeadOfDevelopment": "Jefe de desarrollo",
+    "textMobileAppDevelopment": "Desarrollo de aplicaciones móviles",
     "textSpanishTranslation": "Traductor - Español",
     "textFrenchTranslation": "Traductor - Francés",
+    "textJapaneseAndOtherLanguagesTranslation": "Traductor - Japonés y otras lenguas",
+    "textUxAdvisor": "Asesor de UX",
     "sectionCommunityProposals": "Propuestas comunitarias",
     "textPersonalSchedule": "Horario personal para deportistas",
     "textSearchByGender": "Buscar en el mapa de freestyler por género",
-    "lnkAnnouncement": "Anuncio"
+    "lnkAnnouncement": "Anuncio",
+    "tableColName": "Nombre",
+    "tableColContribution": "Contribución",
+    "tableColProposal": "Propuesta",
+    "tableColAnnouncement": "Anuncio",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "Configuración del perfil",

@@ -30,12 +30,20 @@
     "pageTitle": "योगदानकर्ता",
     "sectionMainContributors": "मुख्य योगदानकर्ता",
     "textHeadOfDevelopment": "विकास प्रमुख",
+    "textMobileAppDevelopment": "मोबाइल ऐप विकास",
     "textSpanishTranslation": "अनुवादक - स्पेनिश",
     "textFrenchTranslation": "अनुवादक - फ्रेंच",
+    "textJapaneseAndOtherLanguagesTranslation": "अनुवादक - जापानी व अन्य भाषाएँ",
+    "textUxAdvisor": "यूएक्स सलाहकार",
     "sectionCommunityProposals": "समुदाय प्रस्ताव",
     "textPersonalSchedule": "एथलीट्स के लिए व्यक्तिगत शेड्यूल",
     "textSearchByGender": "लिंग के अनुसार फ्रीस्टाइलर मैप खोजें",
-    "lnkAnnouncement": "घोषणा"
+    "lnkAnnouncement": "घोषणा",
+    "tableColName": "नाम",
+    "tableColContribution": "योगदान",
+    "tableColProposal": "प्रस्ताव",
+    "tableColAnnouncement": "घोषणा",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "खाता सेटिंग्स",

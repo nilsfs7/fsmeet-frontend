@@ -30,12 +30,20 @@
     "pageTitle": "Penyumbang",
     "sectionMainContributors": "Penyumbang Utama",
     "textHeadOfDevelopment": "Ketua pembangunan",
+    "textMobileAppDevelopment": "Pembangunan aplikasi mudah alih",
     "textSpanishTranslation": "Penterjemah - Sepanyol",
     "textFrenchTranslation": "Penterjemah - Perancis",
+    "textJapaneseAndOtherLanguagesTranslation": "Penterjemah - Jepun dan bahasa lain",
+    "textUxAdvisor": "Penasihat UX",
     "sectionCommunityProposals": "Cadangan Komuniti",
     "textPersonalSchedule": "Jadual peribadi untuk atlet",
     "textSearchByGender": "Cari peta freestyler mengikut jantina",
-    "lnkAnnouncement": "Pengumuman"
+    "lnkAnnouncement": "Pengumuman",
+    "tableColName": "Nama",
+    "tableColContribution": "Sumbangan",
+    "tableColProposal": "Cadangan",
+    "tableColAnnouncement": "Pengumuman",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "Tetapan Akaun",

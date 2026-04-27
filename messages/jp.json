@@ -30,12 +30,20 @@
     "pageTitle": "協力者",
     "sectionMainContributors": "主要協力者",
     "textHeadOfDevelopment": "開発責任者",
+    "textMobileAppDevelopment": "モバイルアプリ開発",
     "textSpanishTranslation": "翻訳者 - スペイン語",
     "textFrenchTranslation": "翻訳者 - フランス語",
+    "textJapaneseAndOtherLanguagesTranslation": "翻訳 - 日本語とその他の言語",
+    "textUxAdvisor": "UXアドバイザー",
     "sectionCommunityProposals": "コミュニティ提案",
     "textPersonalSchedule": "選手向け個人スケジュール",
     "textSearchByGender": "性別でフリースタイラーマップを検索",
-    "lnkAnnouncement": "お知らせ"
+    "lnkAnnouncement": "お知らせ",
+    "tableColName": "氏名",
+    "tableColContribution": "貢献",
+    "tableColProposal": "提案",
+    "tableColAnnouncement": "お知らせ",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "アカウント設定",

@@ -30,12 +30,20 @@
     "pageTitle": "贡献者",
     "sectionMainContributors": "主要贡献者",
     "textHeadOfDevelopment": "开发负责人",
+    "textMobileAppDevelopment": "移动应用开发",
     "textSpanishTranslation": "翻译 - 西班牙语",
     "textFrenchTranslation": "翻译 - 法语",
+    "textJapaneseAndOtherLanguagesTranslation": "翻译 - 日语及其他语言",
+    "textUxAdvisor": "用户体验顾问",
     "sectionCommunityProposals": "社区提案",
     "textPersonalSchedule": "运动员个人日程",
     "textSearchByGender": "按性别搜索自由式选手地图",
-    "lnkAnnouncement": "公告"
+    "lnkAnnouncement": "公告",
+    "tableColName": "姓名",
+    "tableColContribution": "贡献",
+    "tableColProposal": "提案",
+    "tableColAnnouncement": "公告",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "账户设置",

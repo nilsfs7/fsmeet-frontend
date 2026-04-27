@@ -30,12 +30,20 @@
     "pageTitle": "المساهمون",
     "sectionMainContributors": "المساهمون الرئيسيون",
     "textHeadOfDevelopment": "رئيس التطوير",
+    "textMobileAppDevelopment": "تطوير تطبيقات الجوال",
     "textSpanishTranslation": "مترجم - الإسبانية",
     "textFrenchTranslation": "مترجم - الفرنسية",
+    "textJapaneseAndOtherLanguagesTranslation": "مترجم - اليابانية وغيرها",
+    "textUxAdvisor": "مستشار تجربة المستخدم",
     "sectionCommunityProposals": "اقتراحات المجتمع",
     "textPersonalSchedule": "جدول شخصي للرياضيين",
     "textSearchByGender": "البحث في خريطة الفريستايل حسب الجنس",
-    "lnkAnnouncement": "إعلان"
+    "lnkAnnouncement": "إعلان",
+    "tableColName": "الاسم",
+    "tableColContribution": "المساهمة",
+    "tableColProposal": "المقترح",
+    "tableColAnnouncement": "إعلان",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "إعدادات الحساب",

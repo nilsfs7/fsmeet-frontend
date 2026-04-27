@@ -31,52 +31,54 @@ export default async function About() {
 
       <PageTitle title={t('pageTitle')} />
 
-      <PageInset variant="prose" className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto text-center">
-        <div>{t('aboutText1')}</div>
-        <div className="mt-2">
-          {t('aboutText2')}
-          <Link href={routeFeedback} className="underline">
-            {t('aboutText3')}
+      <PageInset variant="prose" className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
+        <div className="flex w-full min-w-0 flex-col items-center text-center">
+          <div>{t('aboutText1')}</div>
+          <div className="mt-2">
+            {t('aboutText2')}
+            <Link href={routeFeedback} className="underline">
+              {t('aboutText3')}
+            </Link>
+            {t('aboutText4')}
+          </div>
+
+          <div className="mt-2">
+            <SocialLink platform={SocialPlatform.INSTAGRAM} path={'@fsmeet_com'} />
+          </div>
+
+          <Link className="mt-6 underline" href={routeDonate}>
+            {t('lnkDonate')}
           </Link>
-          {t('aboutText4')}
+
+          <div className="mt-10">{`${t('build')}: ${getPackageVersion()}`}</div>
+          {shortSha && buildTime && (
+            <>
+              <div>{`Sha: ${shortSha}`}</div>
+              <div>{buildTime}</div>
+            </>
+          )}
+
+          <div className="mt-2">
+            <a href={'https://github.com/nilsfs7/fsmeet-frontend'} target="_blank" rel="noopener noreferrer">
+              <div className="flex flex-col items-center text-sm">
+                <Image src={'github-logo.svg'} width={0} height={0} sizes="100vw" className="h-8 w-full" alt="" />
+                <div className="hover:underline">{`nilsfs7`}</div>
+              </div>
+            </a>
+          </div>
+
+          <Link className="mt-6 underline" href={routeContributors}>
+            {t('lnkContributors')}
+          </Link>
+
+          <Link className="underline" href={routeImprint}>
+            {t('lnkImprint')}
+          </Link>
+
+          <Link className="underline" href={routeDataProtection}>
+            {t('lnkPrivacyPolicy')}
+          </Link>
         </div>
-
-        <div className="mt-2">
-          <SocialLink platform={SocialPlatform.INSTAGRAM} path={'@fsmeet_com'} />
-        </div>
-
-        <Link className="mt-6 underline" href={routeDonate}>
-          {t('lnkDonate')}
-        </Link>
-
-        <div className="mt-10">{`${t('build')}: ${getPackageVersion()}`}</div>
-        {shortSha && buildTime && (
-          <>
-            <div>{`Sha: ${shortSha}`}</div>
-            <div>{buildTime}</div>
-          </>
-        )}
-
-        <div className="mt-2">
-          <a href={'https://github.com/nilsfs7/fsmeet-frontend'} target="_blank" rel="noopener noreferrer">
-            <div className="flex flex-col items-center text-sm">
-              <Image src={'github-logo.svg'} width={0} height={0} sizes="100vw" className={`h-8 w-full`} alt={''} />
-              <div className="hover:underline">{`nilsfs7`}</div>
-            </div>
-          </a>
-        </div>
-
-        <Link className="mt-6 underline" href={routeContributors}>
-          {t('lnkContributors')}
-        </Link>
-
-        <Link className="underline" href={routeImprint}>
-          {t('lnkImprint')}
-        </Link>
-
-        <Link className="underline" href={routeDataProtection}>
-          {t('lnkPrivacyPolicy')}
-        </Link>
       </PageInset>
 
       <Navigation>

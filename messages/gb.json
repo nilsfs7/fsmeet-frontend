@@ -30,12 +30,20 @@
     "pageTitle": "Contributors",
     "sectionMainContributors": "Main Contributors",
     "textHeadOfDevelopment": "Head of development",
+    "textMobileAppDevelopment": "Mobile app development",
     "textSpanishTranslation": "Translator - Spanish",
     "textFrenchTranslation": "Translator - French",
+    "textJapaneseAndOtherLanguagesTranslation": "Translator - Japanese and other languages",
+    "textUxAdvisor": "UX advisor",
     "sectionCommunityProposals": "Community Proposals",
     "textPersonalSchedule": "Personal schedule for athletes",
     "textSearchByGender": "Search freestyler map by gender",
-    "lnkAnnouncement": "Announcement"
+    "lnkAnnouncement": "Announcement",
+    "tableColName": "Name",
+    "tableColContribution": "Contribution",
+    "tableColProposal": "Proposal",
+    "tableColAnnouncement": "Announcement",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "Account Settings",

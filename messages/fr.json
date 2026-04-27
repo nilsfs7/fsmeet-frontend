@@ -30,12 +30,20 @@
     "pageTitle": "Contributeurs",
     "sectionMainContributors": "Contributeurs Principaux",
     "textHeadOfDevelopment": "Responsable du développement",
+    "textMobileAppDevelopment": "Développement d’applications mobiles",
     "textSpanishTranslation": "Traducteur - espagnol",
     "textFrenchTranslation": "Traducteur - Français",
+    "textJapaneseAndOtherLanguagesTranslation": "Traducteur - Japonais et autres langues",
+    "textUxAdvisor": "Conseiller UX",
     "sectionCommunityProposals": "Propositions communautaires",
     "textPersonalSchedule": "Calendrier personnel pour les athlètes",
     "textSearchByGender": "Recherchedes freestylers par genre sur la carte",
-    "lnkAnnouncement": "Annonce"
+    "lnkAnnouncement": "Annonce",
+    "tableColName": "Nom",
+    "tableColContribution": "Contribution",
+    "tableColProposal": "Proposition",
+    "tableColAnnouncement": "Annonce",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "Paramètres du compte",
