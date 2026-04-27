@@ -1,8 +1,5 @@
-'server component';
-
 import ActionButton from '../../../../components/common/action-button';
 import { isArchivedEventState } from '../../../../functions/event-state';
-import Link from 'next/link';
 import { Action } from '../../../../domain/enums/action';
 import { routeEvents } from '../../../../domain/constants/routes';
 import { EventType } from '../../../../domain/enums/event-type';
@@ -26,18 +23,20 @@ const AdminPanel = async ({ event }: IAttachmentCardProps) => {
         <div className="flex justify-end gap-1">
           {!isArchivedEventState(event.state) && (
             <>
-              <Link href={`${routeEvents}/${event.id}/edit`}>
-                <ActionButton action={Action.EDIT} tooltip={t('adminPanelBtnEditEventToolTip')} />
-              </Link>
+              <ActionButton href={`${routeEvents}/${event.id}/edit`} action={Action.EDIT} tooltip={t('adminPanelBtnEditEventToolTip')} />
 
-              <Link href={`${routeEvents}/${event.id}/participants`}>
-                <ActionButton action={Action.MANAGE_USERS} tooltip={t('adminPanelBtnManageParticipantsToolTip')} />
-              </Link>
+              <ActionButton
+                href={`${routeEvents}/${event.id}/attendees`}
+                action={Action.MANAGE_USERS}
+                tooltip={t('adminPanelBtnManageAttendeesToolTip')}
+              />
 
               {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
-                <Link href={`${routeEvents}/${event.id}/comps`}>
-                  <ActionButton action={Action.MANAGE_COMPETITIONS} tooltip={t('adminPanelBtnManageCompetitionsToolTip')} />
-                </Link>
+                <ActionButton
+                  href={`${routeEvents}/${event.id}/comps`}
+                  action={Action.MANAGE_COMPETITIONS}
+                  tooltip={t('adminPanelBtnManageCompetitionsToolTip')}
+                />
               )}
             </>
           )}
@@ -51,29 +50,35 @@ const AdminPanel = async ({ event }: IAttachmentCardProps) => {
             <>
               {/* todo: restrict im backend falls trotzdem accommodations eingestellt werden */}
               {event.paymentMethodStripe.enabled && event.type !== EventType.COMPETITION_ONLINE && (
-                <Link href={`${routeEvents}/${event.id}/accommodations`}>
-                  <ActionButton action={Action.MANAGE_ACCOMMODATIONS} tooltip={t('adminPanelBtnManageAccommodationsToolTip')} />
-                </Link>
+                <ActionButton
+                  href={`${routeEvents}/${event.id}/accommodations`}
+                  action={Action.MANAGE_ACCOMMODATIONS}
+                  tooltip={t('adminPanelBtnManageAccommodationsToolTip')}
+                />
               )}
 
               {/* todo: restrict im backend falls trotzdem offerings eingestellt werden */}
               {event.paymentMethodStripe.enabled && (
-                <Link href={`${routeEvents}/${event.id}/offerings`}>
-                  <ActionButton action={Action.MANAGE_OFFERINGS} tooltip={t('adminPanelBtnManageOfferingsToolTip')} />
-                </Link>
+                <ActionButton
+                  href={`${routeEvents}/${event.id}/offerings`}
+                  action={Action.MANAGE_OFFERINGS}
+                  tooltip={t('adminPanelBtnManageOfferingsToolTip')}
+                />
               )}
 
-              <Link href={`${routeEvents}/${event.id}/sponsors`}>
-                <ActionButton action={Action.MANAGE_SPONSORS} tooltip={t('adminPanelBtnManageSponsorsToolTip')} />
-              </Link>
+              <ActionButton
+                href={`${routeEvents}/${event.id}/sponsors`}
+                action={Action.MANAGE_SPONSORS}
+                tooltip={t('adminPanelBtnManageSponsorsToolTip')}
+              />
 
-              <Link href={`${routeEvents}/${event.id}/attachments`}>
-                <ActionButton action={Action.MANAGE_ATTACHMENTS} tooltip={t('adminPanelBtnManageAttachmentsToolTip')} />
-              </Link>
+              <ActionButton
+                href={`${routeEvents}/${event.id}/attachments`}
+                action={Action.MANAGE_ATTACHMENTS}
+                tooltip={t('adminPanelBtnManageAttachmentsToolTip')}
+              />
 
-              <Link href={`${routeEvents}/${event.id}/stats`}>
-                <ActionButton action={Action.STATISTICS} tooltip={t('adminPanelBtnViewStatisticsToolTip')} />
-              </Link>
+              <ActionButton href={`${routeEvents}/${event.id}/stats`} action={Action.STATISTICS} tooltip={t('adminPanelBtnViewStatisticsToolTip')} />
             </>
           )}
         </div>
@@ -82,9 +87,12 @@ const AdminPanel = async ({ event }: IAttachmentCardProps) => {
         <div className="flex justify-end gap-1">
           {!isArchivedEventState(event.state) && (
             <>
-              <Link href={`${routeEvents}/${event.id}/arena-screen`}>
-                <ActionButton disabled={event.licenseType !== LicenseType.PRO} action={Action.MANAGE_ARENA_SCREEN} tooltip={t('adminPanelBtnManageArenaScreenToolTip')} />
-              </Link>
+              <ActionButton
+                href={event.licenseType === LicenseType.PRO ? `${routeEvents}/${event.id}/arena-screen` : undefined}
+                disabled={event.licenseType !== LicenseType.PRO}
+                action={Action.MANAGE_ARENA_SCREEN}
+                tooltip={t('adminPanelBtnManageArenaScreenToolTip')}
+              />
             </>
           )}
         </div>

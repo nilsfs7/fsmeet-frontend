@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { License } from '@/domain/types/license';
 import { getLicense } from '@/infrastructure/clients/license.client';
 
-export const TextButtonCreateEvent = () => {
+export const CreateEventButton = () => {
   const t = useTranslations('/');
 
   const { data: session } = useSession();
@@ -49,7 +49,9 @@ export const TextButtonCreateEvent = () => {
         <p>By deleting any event that is not listed publicly, you can reclaim 1 license. Note that once an event is public it is not eligible for a reclaim.</p>
       </Dialog>
 
-      <TextButton text={t('btnCreateEvent')} onClick={handleCreateClicked} />
+      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateClicked}>
+        {t('btnCreateEvent')}
+      </Button>
     </>
   );
 };

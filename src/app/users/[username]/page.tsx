@@ -22,6 +22,10 @@ import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { AccordionContentBattleHistory } from './components/accordion-content-battle-history';
 import { AccordionContentMatchStats } from './components/accordion-content-match-stats';
 import { AccordionContentAchievements } from './components/accordion-content-achievements';
+import { cn } from '@/lib/utils';
+import { appShellContentClass } from '@/components/layout/app-shell-content';
+
+const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function PublicUserProfile(props: { params: Promise<{ username: string }> }) {
   const params = await props.params;
@@ -31,145 +35,139 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
   const [user] = await Promise.all([getUser(params.username)]);
 
   return (
-    <>
-      <div className="h-[calc(100dvh)] flex flex-col">
-        <Header />
+    <div className="min-h-0 flex-1 flex flex-col">
+      <Header />
 
-        <div className="h-full overflow-y-auto">
-          <div className="flex flex-col items-center justify-center ">
-            <div className="w-64">
-              <div className="mt-6 flex aspect-[4/5]">
-                <img className="h-full w-full object-cover rounded-lg border border-primary shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
+      <div className={cn('mt-2 flex min-h-0 flex-1 flex-col overflow-y-auto scrollbar-none', constrainedContentClass)}>
+        <div className="flex w-full min-w-0 flex-col items-center">
+          <div className="w-full max-w-xs min-w-0">
+            <div className="mt-6 flex aspect-[4/5]">
+              <img className="h-full w-full object-cover rounded-lg border border-primary shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
+            </div>
+
+            <div className="mx-2 mt-6">
+              <div className="flex items-start gap-1 text-lg">
+                {user.verificationState === UserVerificationState.VERIFIED && (
+                  <div className="h-6 w-6 flex items-center">
+                    <img src={imgVerifiedCheckmark} alt="user verified checkmark" />
+                  </div>
+                )}
+
+                <div className="w-fit">
+                  {user.nickName && <div>{user.nickName}</div>}
+                  {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
+                  {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
+                </div>
               </div>
 
-              <div className="mx-2 mt-6">
-                <div className="flex items-start gap-1 text-lg">
-                  {user.verificationState === UserVerificationState.VERIFIED && (
-                    <div className="h-6 w-6 flex items-center">
-                      <img src={imgVerifiedCheckmark} alt="user verified checkmark" />
-                    </div>
-                  )}
-
-                  <div className="w-fit">
-                    {user.nickName && <div>{user.nickName}</div>}
-                    {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
-                    {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
-                  </div>
+              <div className="flex items-start gap-1 mt-1">
+                <div className="w-6">
+                  <img src={getUserTypeImages(user.type, user.gender).path} className="object-cover" />
                 </div>
 
+                <div className="w-fit">{getUserTypeLabels(user.type, t)}</div>
+              </div>
+
+              {user.countryCode && user.countryCode != '--' && (
+                <div className="flex items-center gap-1 mt-1">
+                  <div className="flex w-6">
+                    <ReactCountryFlag
+                      countryCode={user.countryCode}
+                      svg
+                      style={{
+                        width: '100%',
+                      }}
+                      title={user.countryCode}
+                    />
+                  </div>
+
+                  <div>{getCountryNameByCode(user.countryCode)}</div>
+                </div>
+              )}
+
+              {user.city && (
                 <div className="flex items-start gap-1 mt-1">
                   <div className="w-6">
-                    <img src={getUserTypeImages(user.type, user.gender).path} className="object-cover" />
+                    <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
+                      <img src={imgWorld} className="rounded-full object-cover" />
+                    </Link>
                   </div>
 
-                  <div className="w-fit">{getUserTypeLabels(user.type, t)}</div>
+                  <div className="w-fit">
+                    <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
+                      {user.city}
+                    </Link>
+                  </div>
                 </div>
+              )}
 
-                {user.countryCode && user.countryCode != '--' && (
-                  <div className="flex items-center gap-1 mt-1">
-                    <div className="flex w-6">
-                      <ReactCountryFlag
-                        countryCode={user.countryCode}
-                        svg
-                        style={{
-                          width: '100%',
-                        }}
-                        title={user.countryCode}
-                      />
-                    </div>
+              <Accordion className="mt-1" type="single" collapsible>
+                {(user.instagramHandle || user.tikTokHandle || user.youTubeHandle || user.website) && (
+                  <AccordionItem value="item-socials">
+                    <AccordionTrigger>{t('accordionItemSocials')}</AccordionTrigger>
+                    <AccordionContent>
+                      <div>
+                        {user.instagramHandle && (
+                          <div className="mt-1 w-fit">
+                            <SocialLink platform={SocialPlatform.INSTAGRAM} path={user.instagramHandle} />
+                          </div>
+                        )}
 
-                    <div>{getCountryNameByCode(user.countryCode)}</div>
-                  </div>
-                )}
+                        {user.tikTokHandle && (
+                          <div className="mt-1 w-fit">
+                            <SocialLink platform={SocialPlatform.TIKTOK} path={user.tikTokHandle} />
+                          </div>
+                        )}
 
-                {user.city && (
-                  <div className="flex items-start gap-1 mt-1">
-                    <div className="w-6">
-                      <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
-                        <img src={imgWorld} className="rounded-full object-cover" />
-                      </Link>
-                    </div>
+                        {user.youTubeHandle && (
+                          <div className="mt-1 w-fit">
+                            <SocialLink platform={SocialPlatform.YOUTUBE} path={user.youTubeHandle} />
+                          </div>
+                        )}
 
-                    <div className="w-fit">
-                      <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
-                        {user.city}
-                      </Link>
-                    </div>
-                  </div>
-                )}
-
-                <Accordion className="mt-1" type="single" collapsible>
-                  {(user.instagramHandle || user.tikTokHandle || user.youTubeHandle || user.website) && (
-                    <AccordionItem value="item-socials">
-                      <AccordionTrigger>{t('accordionItemSocials')}</AccordionTrigger>
-                      <AccordionContent>
-                        <div>
-                          {user.instagramHandle && (
-                            <div className="mt-1 w-fit">
-                              <SocialLink platform={SocialPlatform.INSTAGRAM} path={user.instagramHandle} />
-                            </div>
-                          )}
-
-                          {user.tikTokHandle && (
-                            <div className="mt-1 w-fit">
-                              <SocialLink platform={SocialPlatform.TIKTOK} path={user.tikTokHandle} />
-                            </div>
-                          )}
-
-                          {user.youTubeHandle && (
-                            <div className="mt-1 w-fit">
-                              <SocialLink platform={SocialPlatform.YOUTUBE} path={user.youTubeHandle} />
-                            </div>
-                          )}
-
-                          {user.website && (
-                            <div className="mt-1 w-fit">
-                              <SocialLink platform={SocialPlatform.WEBSITE} path={user.website} />
-                            </div>
-                          )}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  )}
-
-                  <AccordionItem value="item-achievements">
-                    <AccordionTrigger>{t('accordionItemAchievements')}</AccordionTrigger>
-                    <AccordionContentAchievements username={params.username} />
+                        {user.website && (
+                          <div className="mt-1 w-fit">
+                            <SocialLink platform={SocialPlatform.WEBSITE} path={user.website} />
+                          </div>
+                        )}
+                      </div>
+                    </AccordionContent>
                   </AccordionItem>
+                )}
 
-                  {user.type === UserType.FREESTYLER && (
-                    <AccordionItem value="item-matches">
-                      <AccordionTrigger>{t('accordionItemBattleStatistics')}</AccordionTrigger>
-                      <AccordionContentMatchStats username={params.username} />
-                    </AccordionItem>
-                  )}
+                <AccordionItem value="item-achievements">
+                  <AccordionTrigger>{t('accordionItemAchievements')}</AccordionTrigger>
+                  <AccordionContentAchievements username={params.username} />
+                </AccordionItem>
 
-                  {user.type === UserType.FREESTYLER && (
-                    <AccordionItem value="item-history">
-                      <AccordionTrigger>{t('accordionItemCompetitionHistory')}</AccordionTrigger>
-                      <AccordionContentBattleHistory username={params.username} />
-                    </AccordionItem>
-                  )}
-                </Accordion>
-              </div>
+                {user.type === UserType.FREESTYLER && (
+                  <AccordionItem value="item-matches">
+                    <AccordionTrigger>{t('accordionItemBattleStatistics')}</AccordionTrigger>
+                    <AccordionContentMatchStats username={params.username} />
+                  </AccordionItem>
+                )}
+
+                {user.type === UserType.FREESTYLER && (
+                  <AccordionItem value="item-history">
+                    <AccordionTrigger>{t('accordionItemCompetitionHistory')}</AccordionTrigger>
+                    <AccordionContentBattleHistory username={params.username} />
+                  </AccordionItem>
+                )}
+              </Accordion>
             </div>
           </div>
         </div>
-
-        <Navigation>
-          <NavigateBackButton />
-
-          <div className="flex justify-end gap-1">
-            {session?.user?.username === AdministrativeUser.ADMIN && <ActionButtonDeleteUser username={user.username} />}
-
-            {session?.user?.username === user.username && (
-              <Link href={routeAccount}>
-                <ActionButton action={Action.EDIT} />
-              </Link>
-            )}
-          </div>
-        </Navigation>
       </div>
-    </>
+
+      <Navigation>
+        <NavigateBackButton />
+
+        <div className="flex justify-end gap-1">
+          {session?.user?.username === AdministrativeUser.ADMIN && <ActionButtonDeleteUser username={user.username} />}
+
+          {session?.user?.username === user.username && <ActionButton href={routeAccount} action={Action.EDIT} />}
+        </div>
+      </Navigation>
+    </div>
   );
 }

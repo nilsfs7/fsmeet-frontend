@@ -1,6 +1,5 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
@@ -13,6 +12,9 @@ import { ChartPie } from '@/components/charts/chart-pie';
 import { Gender } from '@/domain/enums/gender';
 import { ChartParticipantAge } from './chart-participant-age';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
+import { cn } from '@/lib/utils';
+
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function Statistics(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -92,43 +94,45 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
   });
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className={cn('mt-2', constrainedContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <div className={'grid mx-2 gap-2 p-2 rounded-lg  border border-primary bg-secondary-light  text-sm overflow-y-auto'}>
-        {/* Attendees */}
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
-          <ChartPie
-            key={'amount-attendees'}
-            data={[registeredParticipants.length, registeredVisitors.length]}
-            labels={['Participants', 'Visitors']}
-            colors={['--chart-1', '--chart-2']}
-            title={'Amount of Attendees'}
-          />
-        </div>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
+        <div className="grid gap-2 p-2 text-sm">
+          {/* Attendees */}
+          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
+            <ChartPie
+              key={'amount-attendees'}
+              data={[registeredParticipants.length, registeredVisitors.length]}
+              labels={['Participants', 'Visitors']}
+              colors={['--chart-1', '--chart-2']}
+              title={'Amount of Attendees'}
+            />
+          </div>
 
-        <Separator />
+          <Separator />
 
-        {/* Participants */}
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
-          <ChartPie
-            key={'gender-participants'}
-            data={[maleParticipants.length, femaleParticipants.length]}
-            labels={['Male', 'Female']}
-            colors={['--chart-1', '--chart-5']}
-            title={'Participants by Gender'}
-          />
+          {/* Participants */}
+          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
+            <ChartPie
+              key={'gender-participants'}
+              data={[maleParticipants.length, femaleParticipants.length]}
+              labels={['Male', 'Female']}
+              colors={['--chart-1', '--chart-5']}
+              title={'Participants by Gender'}
+            />
 
-          <ChartPie key={'country-participants'} data={Array.from(countryCountSorted.values())} labels={countryLabels} title={'Participants by Country'} />
+            <ChartPie key={'country-participants'} data={Array.from(countryCountSorted.values())} labels={countryLabels} title={'Participants by Country'} />
 
-          <ChartParticipantAge key={'age-participants'} data={participantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participants by Age'} />
+            <ChartParticipantAge key={'age-participants'} data={participantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participants by Age'} />
+          </div>
         </div>
       </div>
 
       <Navigation>
-        <Link href={`${routeEvents}/${params.eventId}`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${params.eventId}`} action={Action.BACK} />
       </Navigation>
     </div>
   );

@@ -1,62 +1,72 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { getSponsors } from '@/infrastructure/clients/sponsor.client';
-import Separator from '@/components/separator';
 import { getTranslations } from 'next-intl/server';
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventSponsors(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
   const t = await getTranslations('/events/eventid/sponsors');
+  const tAccommodation = await getTranslations('/events/eventid/accommodations');
 
   const sponsors = await getSponsors(params.eventId);
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className={cn('mt-2', constrainedContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>
-        <div className="flex flex-col">
-          {sponsors.map((sponsor, index) => {
-            return (
-              <div key={index} className="m-1 flex items-center">
-                <div className="mx-1 flex w-1/2 justify-end">
-                  <div>{sponsor.name}</div>
-                </div>
-
-                <div className="mx-1 flex w-1/2 justify-start">
-                  <Link href={`${routeEvents}/${params.eventId}/sponsors/${sponsor.id}/edit`}>
-                    <ActionButton action={Action.EDIT} />
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-
-          {sponsors.length > 0 && (
-            <div className="my-1">
-              <Separator />
-            </div>
-          )}
-
-          <div className="m-1 flex items-center gap-2">
-            <div className="flex w-1/2 justify-end">{t('btnCreate')}</div>
-            <div className="flex w-1/2">
-              <Link href={`${routeEvents}/${params.eventId}/sponsors/create`}>
-                <ActionButton action={Action.ADD} />
-              </Link>
-            </div>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
+        <div className="flex flex-col gap-3 text-sm">
+          <div className="min-h-0 min-w-0 overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{tAccommodation('tableColDescription')}</TableHead>
+                  <TableHead className="w-[1%] whitespace-nowrap text-right">{tAccommodation('tableColActions')}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {sponsors.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={2} className="py-6 text-center text-muted-foreground">
+                      {t('textNoSponsors')}
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  sponsors.map((sponsor, index) => (
+                    <TableRow key={sponsor.id ?? index}>
+                      <TableCell className="font-medium">{sponsor.name}</TableCell>
+                      <TableCell className="text-right">
+                        <ActionButton
+                          href={`${routeEvents}/${params.eventId}/sponsors/${sponsor.id}/edit`}
+                          action={Action.EDIT}
+                          tooltip={t('tooltipEditSponsor')}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
           </div>
         </div>
       </div>
 
       <Navigation>
-        <Link href={`${routeEvents}/${params.eventId}`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${params.eventId}`} action={Action.BACK} />
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={`${routeEvents}/${params.eventId}/sponsors/create`}>{t('btnCreate')}</Link>
+        </Button>
       </Navigation>
     </div>
   );

@@ -19,9 +19,8 @@ import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/navigation';
 import BattleGrid from '@/components/comp/battle-grid';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { routeEvents } from '@/domain/constants/routes';
-import Link from 'next/link';
 import { User } from '@/domain/types/user';
 
 interface IRoundEditor {
@@ -312,7 +311,13 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
 
       <div className={`mx-2 flex flex-col overflow-hidden`}>
         {numParticipants > 1 && (
-          <div className={'mt-2 flex flex-col items-center'}>{(rounds.length === 0 || getLastRound().advancingTotal > 1) && <TextButton text={`Add Round`} onClick={handleAddRoundClicked} />}</div>
+          <div className={'mt-2 flex flex-col items-center'}>
+            {(rounds.length === 0 || getLastRound().advancingTotal > 1) && (
+              <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleAddRoundClicked}>
+                Add Round
+              </Button>
+            )}
+          </div>
         )}
 
         <div className={'mt-2 flex justify-center overflow-y-auto'}>
@@ -344,13 +349,23 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
 
       {/* TODO: move navigation to page.tsx */}
       <Navigation>
-        <Link href={`${routeEvents}/${event.id}/comps`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${event.id}/comps`} action={Action.BACK} />
 
-        {!gameModeApplied && rounds.length > 0 && <TextButton text={t('btnSave')} onClick={handleSaveClicked} />}
-        {gameModeApplied && rounds.length > 0 && <TextButton text={t(`btnUpdate`)} onClick={handleUpdateClicked} />}
-        {gameModeApplied && rounds.length === 0 && <TextButton text={t('btnDelete')} onClick={handleDeleteClicked} />}
+        {!gameModeApplied && rounds.length > 0 && (
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveClicked}>
+            {t('btnSave')}
+          </Button>
+        )}
+        {gameModeApplied && rounds.length > 0 && (
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleUpdateClicked}>
+            {t(`btnUpdate`)}
+          </Button>
+        )}
+        {gameModeApplied && rounds.length === 0 && (
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleDeleteClicked}>
+            {t('btnDelete')}
+          </Button>
+        )}
       </Navigation>
     </>
   );

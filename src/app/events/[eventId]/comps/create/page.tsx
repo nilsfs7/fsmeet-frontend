@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState, use, useEffect } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
@@ -69,7 +69,9 @@ export default function CompetitionCreation(props: { params: Promise<{ eventId: 
 
         <Navigation>
           <NavigateBackButton />
-          <TextButton text={t('btnCreate')} onClick={handleCreateClicked} />
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateClicked}>
+            {t('btnCreate')}
+          </Button>
         </Navigation>
       </div>
     </>

@@ -1,12 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import TextInputLarge from '@/components/common/text-input-large';
 import { routeAdminOverview } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/page-title';
 import { Toaster, toast } from 'sonner';
@@ -161,9 +161,9 @@ export default function Broadcast() {
                   <div className="w-1/4">{item}</div>
 
                   <div className="flex w-full gap-2 items-center">
-                    <input
+                    <Input
                       id={`inputArbData-${item}`}
-                      className="h-full w-full rounded-lg border border-secondary-dark p-1"
+                      className="h-full w-full p-1"
                       onChange={e => {
                         handleInputArbitraryDataChanged(item, e.currentTarget.value);
                       }}
@@ -188,11 +188,11 @@ export default function Broadcast() {
         </div>
 
         <Navigation>
-          <Link href={routeAdminOverview}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeAdminOverview} action={Action.BACK} />
 
-          <TextButton text={'Submit'} onClick={handleSubmitClicked} />
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSubmitClicked}>
+            Submit
+          </Button>
         </Navigation>
       </div>
     </>

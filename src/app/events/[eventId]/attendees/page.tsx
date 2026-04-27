@@ -9,10 +9,13 @@ import { getAccommodations } from '@/infrastructure/clients/accommodation.client
 import { getOfferings } from '@/infrastructure/clients/offering.client';
 import { ActionButtonDownloadList } from './components/action-button-download-list';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
+import { cn } from '@/lib/utils';
 
-export default async function EventParticipants(props: { params: Promise<{ eventId: string }> }) {
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+
+export default async function EventAttendees(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/participants');
+  const t = await getTranslations('/events/eventid/attendees');
   const session = await auth();
 
   const event = await getEvent(params.eventId, session);
@@ -22,17 +25,21 @@ export default async function EventParticipants(props: { params: Promise<{ event
   const offerings = await getOfferings(params.eventId);
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className={cn('mt-2', constrainedContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <RegistrationsList
-        eventId={params.eventId}
-        registrations={registrations}
-        accommodations={accommodations}
-        offerings={offerings}
-        currency={event.currency}
-        paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
-      />
+      <div className={cn('mt-2 flex-1 min-h-0 flex flex-col overflow-hidden', constrainedContentClass)}>
+        <RegistrationsList
+          eventId={params.eventId}
+          registrations={registrations}
+          accommodations={accommodations}
+          offerings={offerings}
+          currency={event.currency}
+          paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+        />
+      </div>
 
       <Navigation>
         <NavigateBackButton />

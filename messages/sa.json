@@ -30,16 +30,25 @@
     "pageTitle": "المساهمون",
     "sectionMainContributors": "المساهمون الرئيسيون",
     "textHeadOfDevelopment": "رئيس التطوير",
+    "textMobileAppDevelopment": "تطوير تطبيقات الجوال",
     "textSpanishTranslation": "مترجم - الإسبانية",
     "textFrenchTranslation": "مترجم - الفرنسية",
+    "textJapaneseAndOtherLanguagesTranslation": "مترجم - اليابانية وغيرها",
+    "textUxAdvisor": "مستشار تجربة المستخدم",
     "sectionCommunityProposals": "اقتراحات المجتمع",
     "textPersonalSchedule": "جدول شخصي للرياضيين",
     "textSearchByGender": "البحث في خريطة الفريستايل حسب الجنس",
-    "lnkAnnouncement": "إعلان"
+    "lnkAnnouncement": "إعلان",
+    "tableColName": "الاسم",
+    "tableColContribution": "المساهمة",
+    "tableColProposal": "المقترح",
+    "tableColAnnouncement": "إعلان",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "إعدادات الحساب",
     "profilePictureAddPicture": "إضافة صورة",
+    "profilePictureNoFileChosen": "لم يتم اختيار ملف",
     "btnSave": "حفظ",
     "dlgJobsTermsTitle": "الشروط والأحكام",
     "dlgJobsTermsDate": "آخر تحديث: 02 أغسطس 2024",
@@ -187,7 +196,35 @@
   "/events": {
     "datePickerFrom": "من",
     "datePickerTo": "إلى",
-    "textNoEventsFound": "لا توجد فعاليات ضمن نطاق التاريخ المحدد."
+    "searchAdvancedLabel": "بحث متقدم",
+    "searchNamePlaceholder": "البحث باسم الفعالية",
+    "textNoEventsFound": "لا توجد فعاليات ضمن نطاق التاريخ المحدد.",
+    "textNoNameMatch": "لا يوجد اسم فعالية مطابق.",
+    "textNoFilterMatch": "لا توجد فعاليات تطابق عوامل التصفية المختارة.",
+    "filterVenueCountry": "دولة المكان",
+    "filterType": "نوع الفعالية",
+    "filterCategory": "الفئة",
+    "filterWffa": "تصنيف WFFA",
+    "filterPriceMoney": "جائزة نقدية",
+    "filterAll": "الكل",
+    "filterClearAll": "إعادة تعيين عوامل التصفية",
+    "filterApply": "تطبيق",
+    "filterYes": "نعم",
+    "filterNo": "لا",
+    "filterPrizeWith": "مع جائزة نقدية",
+    "filterPrizeNone": "بدون جائزة نقدية",
+    "filterWffaYes": "مُصنّف WFFA",
+    "filterWffaNo": "غير مُصنّف WFFA",
+    "eventTypeComp": "مسابقة",
+    "eventTypeCompOnline": "مسابقة عبر الإنترنت",
+    "eventTypeMeet": "لقاء",
+    "eventCatContinental": "Continental",
+    "eventCatInternational": "International",
+    "eventCatNational": "National",
+    "eventCatPulse": "Pulse",
+    "eventCatSuperball": "Superball",
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "إنشاء فعالية"
   },
   "/events/edit": {
     "pageTitle": "تعديل الفعالية",
@@ -214,15 +251,16 @@
     "dlgDeleteCommentTitle": "حذف التعليق",
     "dlgDeleteCommentText": "حذف التعليق؟ لا يمكن التراجع عن ذلك.",
     "adminPanelTitle": "لوحة الإدارة",
-    "adminPanelBtnEditEventToolTip": "تعديل الفعالية",
-    "adminPanelBtnManageParticipantsToolTip": "إدارة المشاركين",
-    "adminPanelBtnManageCompetitionsToolTip": "إدارة المنافسات",
-    "adminPanelBtnManageAccommodationsToolTip": "إدارة الإقامات",
-    "adminPanelBtnManageOfferingsToolTip": "إدارة العروض",
-    "adminPanelBtnManageSponsorsToolTip": "إدارة الرعاة",
-    "adminPanelBtnManageAttachmentsToolTip": "إدارة المستندات",
+    "adminPanelBtnEditEventToolTip": "معلومات الفعالية",
+    "adminPanelBtnManageAttendeesToolTip": "الحاضرون",
+    "adminPanelBtnManageCompetitionsToolTip": "المنافسات",
+    "adminPanelBtnManageAccommodationsToolTip": "الإقامات",
+    "adminPanelBtnManageOfferingsToolTip": "العروض",
+    "adminPanelBtnManageSponsorsToolTip": "الرعاة",
+    "adminPanelBtnManageAttachmentsToolTip": "المستندات",
     "adminPanelBtnManageEventStateToolTip": "حالة الفعالية",
     "adminPanelBtnViewStatisticsToolTip": "الإحصائيات",
+    "adminPanelBtnManageArenaScreenToolTip": "شاشة الأرينا",
     "tabOverviewTitle": "نظرة عامة",
     "tabOverviewParticipationFee": "رسوم المشاركة",
     "tabOverviewRegistrationPeriod": "فترة التسجيل",
@@ -232,6 +270,11 @@
     "tabOverviewSectionSponsors": "الرعاة",
     "tabOverviewSectionAttachments": "المستندات",
     "tabOverviewSectionComments": "التعليقات",
+    "tabOverviewPerkWffaRanked": "مُصنّف WFFA",
+    "tabOverviewPerkPriceMoney": "جائزة نقدية",
+    "tabOverviewPerkAccommodation": "إقامة",
+    "tabOverviewBtnShowMoreDescription": "إظهار المزيد",
+    "tabOverviewBtnShowLessDescription": "إظهار أقل",
     "tabCompetitionsTitle": "المنافسات",
     "tabCompetitionsSectionCompetitions": "المنافسات",
     "tabRegistrationsTitle": "المشاركون",
@@ -244,7 +287,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "إدارة الإقامات",
-    "btnCreate": "إنشاء"
+    "btnCreate": "إنشاء",
+    "tableColDescription": "الوصف",
+    "tableColCost": "التكلفة",
+    "tableColActions": "إجراءات",
+    "tooltipEditAccommodation": "تعديل الإقامة",
+    "textNoAccommodations": "لا توجد إقامات بعد."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "إنشاء إقامة",
@@ -258,7 +306,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "إدارة المستندات",
-    "btnCreate": "إنشاء"
+    "btnCreate": "إنشاء",
+    "tooltipEditDocument": "تعديل المستند",
+    "textNoAttachments": "لا توجد مستندات بعد."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "تعديل المستند",
@@ -274,9 +324,13 @@
     "pageTitle": "إدارة المنافسات",
     "btnEdit": "تعديل",
     "btnPool": "القائمة",
-    "btnGameMode": "نمط اللعب",
+    "btnGameMode": "الوضع",
     "btnSeedingAndResults": "التصنيف والنتائج",
     "btnAddNew": "إضافة جديد"
+  },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "شاشة الساحة",
+    "pageDescription": "اختر مباراة للمعاينة المباشرة. تُحدَّث شاشة الملعب عند الاختيار."
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "الجدول",
@@ -372,13 +426,15 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "إدارة العروض",
-    "btnCreate": "إنشاء"
+    "btnCreate": "إنشاء",
+    "tooltipEditOffering": "تعديل العرض",
+    "textNoOfferings": "لا توجد عروض بعد."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "إنشاء عرض",
     "btnCreate": "إنشاء"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "إدارة المشاركين",
     "sectionParticipantsTitle": "المشاركون",
     "textNoParticipants": "لا توجد تسجيلات بعد.",
@@ -393,7 +449,25 @@
     "dlgDenyParticipantTitle": "رفض المشارك",
     "dlgDenyParticipantText": "هل تريد حقاً رفض هذا المشارك؟",
     "dlgRemoveParticipantTitle": "إزالة المشارك",
-    "dlgRemoveParticipantText": "هل تريد إزالة هذا المشارك؟"
+    "dlgRemoveParticipantText": "هل تريد إزالة هذا المشارك؟",
+    "filterNameLabel": "الاسم",
+    "filterNamePlaceholder": "البحث بالاسم",
+    "filterStatusLabel": "الحالة",
+    "filterStatusAll": "الكل",
+    "statusPending": "قيد المراجعة",
+    "statusApproved": "مقبول",
+    "statusDenied": "مرفوض",
+    "regTypeParticipant": "مشارك",
+    "regTypeVisitor": "زائر",
+    "tableColFullName": "الاسم",
+    "tableColType": "النوع",
+    "tableColStatus": "الحالة",
+    "tableColActions": "إجراءات",
+    "tableSortByName": "ترتيب حسب الاسم",
+    "tableSortByType": "ترتيب حسب النوع",
+    "tableSortByStatus": "ترتيب حسب الحالة",
+    "textNoFilterMatch": "لا يوجد حضور يطابق عوامل التصفية.",
+    "alertPendingRegistrations": "توجد {count} تسجيلات بانتظار موافقتك."
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "نظرة عامة على تسجيل الفعالية",
@@ -464,7 +538,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "إدارة الرعاة",
-    "btnCreate": "إنشاء"
+    "btnCreate": "إنشاء",
+    "tooltipEditSponsor": "تعديل الراعي",
+    "textNoSponsors": "لا يوجد رعاة بعد."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",
@@ -507,6 +583,8 @@
     "btnCreate": "إنشاء فعالية"
   },
   "/feedback": {
+    "pageTitle": "الملاحظات",
+    "pageDescription": "اختر أدناه نوع الملاحظات التي تريد إرسالها.",
     "pageGeneralFeedback": "ملاحظات عامة",
     "btnFeatures": "طلب ميزة",
     "btnBugs": "الإبلاغ عن خلل"
@@ -535,11 +613,14 @@
     "btnBackHome": "العودة إلى الرئيسية"
   },
   "/login": {
+    "headlineWelcome": "مرحبا بعودتك",
+    "sublineSignIn": "سجّل الدخول إلى حسابك",
     "inputUsername": "اسم المستخدم / البريد الإلكتروني",
     "inputPassword": "كلمة المرور",
     "btnLogin": "تسجيل الدخول",
     "lnkResetPassword": "إعادة تعيين كلمة المرور",
-    "lnkNewAccount": "لا يوجد حساب بعد؟"
+    "lnkNewAccount": "لا يوجد حساب بعد؟",
+    "legalSignIn": "بتسجيل الدخول، فإنك توافق على <terms>شروط الخدمة</terms> و<privacy>سياسة الخصوصية</privacy>."
   },
   "/map": {
     "pageTitle": "خريطة لاعبي الفريستايل",
@@ -551,6 +632,11 @@
     "inputSearchPlaceholder": "ابحث عن الاسم...",
     "drpDwnGender": "الجنس",
     "drpDwnUserTypes": "النوع",
+    "searchAdvancedLabel": "بحث متقدم",
+    "filterApply": "تطبيق",
+    "filterClearAll": "إعادة تعيين عوامل التصفية",
+    "filterUserCountry": "بلد المستخدم",
+    "filterAll": "الكل",
     "btnCopyUrlToast": "تم نسخ رابط الخريطة إلى الحافظة.",
     "btnCopyUrlToolTip": "نسخ رابط الخريطة",
     "infoWindowGoToProfileInternal": "انقر للملف الشخصي",
@@ -560,7 +646,7 @@
     "inputUsername": "اسم المستخدم / البريد الإلكتروني",
     "btnResetPassword": "إعادة تعيين كلمة المرور"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "تحقق من بريدك.",
     "thankYouText2": "تم إرسال رابط إعادة التعيين.",
     "btnBackHome": "العودة إلى الرئيسية"
@@ -570,6 +656,9 @@
     "btnSave": "حفظ"
   },
   "/registration": {
+    "headlineCreateAccount": "أنشئ حسابًا",
+    "sublineSignUp": "سجّل بخطوات بسيطة",
+    "legalSignUp": "بإنشاء حساب فإنك توافق على <terms>شروط الخدمة</terms> و<privacy>سياسة الخصوصية</privacy> لدينا.",
     "cbUserType": "سجّل كـ",
     "inputUsername": "اسم المستخدم",
     "cbGender": "الجنس",
@@ -591,6 +680,8 @@
   "/users": {
     "pageTitle": "المجتمع",
     "inputSearchPlaceholder": "ابحث عن الاسم...",
+    "tableSortByName": "ترتيب حسب الاسم",
+    "tableSortByCountry": "ترتيب حسب البلد",
     "cbColumns": "الأعمدة",
     "tblColumnUsername": "المستخدم",
     "tblColumnName": "الاسم",
@@ -781,7 +872,7 @@
     "inputQuestion": "السؤال",
     "inputDescription": "سياق (اختياري)",
     "inputOption": "خيار",
-    "chbDeadlineEnabled": "تفعيل الموعد النهائي",
+    "chbDeadlineEnabled": "الموعد النهائي",
     "dateDeadline": "الموعد النهائي",
     "sectionTargetGroup": "الفئة المستهدفة",
     "cbCountry": "البلد"

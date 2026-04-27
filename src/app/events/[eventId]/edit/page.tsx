@@ -1,7 +1,7 @@
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import NavigateBackButton from '@/components/navigate-back-button';
-import { TextButtonSaveEvent } from './components/text-button-save-event';
+import { SaveEventButton } from './components/save-event-button';
 import { Editor } from './components/editor';
 import { getTranslations } from 'next-intl/server';
 import { ActionButtonDeleteEvent } from './components/action-button-delete-event';
@@ -43,7 +43,7 @@ export default async function EventEditing(props: { params: Promise<{ eventId: s
         <div className="flex justify-end gap-1">
           {isEventAdmin(event, session) && <ActionButtonDeleteEvent />}
 
-          <TextButtonSaveEvent />
+          <SaveEventButton />
         </div>
       </Navigation>
     </div>

@@ -1,9 +1,9 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession, signOut } from 'next-auth/react';
 import { User } from '@/domain/types/user';
@@ -21,7 +21,6 @@ import CheckBox from '@/components/common/check-box';
 import Link from 'next/link';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import { ButtonStyle } from '@/domain/enums/button-style';
 import Dialog from '@/components/dialog';
 import SocialLink from '@/components/user/social-link';
 import { SocialPlatform } from '@/domain/enums/social-platform';
@@ -31,7 +30,6 @@ import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import { menuShowExperience } from '@/domain/constants/menus/menu-show-experience';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
-import SectionHeader from '@/components/common/section-header';
 import { createStripeAccount, createStripeAccountOnboardingLink, createStripeLoginLink, deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
@@ -41,6 +39,29 @@ import { isNaturalPerson } from '@/functions/is-natural-person';
 import Separator from '@/components/separator';
 import { ActionButtonCopyToClipboard } from '@/components/common/action-button-copy-to-clipboard';
 import { menuSupportedLanguages } from '../../../domain/constants/menus/menu-supported-languages';
+import { cn } from '@/lib/utils';
+
+const EDITOR_CARD_CLASS = cn(
+  'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
+  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+);
+const FIELD_ROW_CLASS =
+  'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
+const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
+const SECTION_H2 = 'text-sm font-semibold leading-tight text-foreground/90';
+
+function FieldRow({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className={FIELD_ROW_CLASS}>
+      <div className={FIELD_LABEL_CLASS}>{label}</div>
+      <div className={FIELD_CONTROL_CLASS}>{children}</div>
+    </div>
+  );
+}
 
 interface ITabsMenu {
   user: User;
@@ -485,7 +506,15 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
           <p className="text-lg font-bold">{t('dlgAccountVerificationStep3')}</p>
           <p>{t('dlgAccountVerificationStep3Text1')}</p>
           <div className="mt-2">
-            <TextButton text={t('dlgAccountVerificationStep3BtnRequestNow')} disabled={!userInfo.instagramHandle} onClick={handleConfirmSendVerificationRequestClicked} />
+            <Button
+              type="button"
+              variant="action"
+              className={ctaActionButtonClassName}
+              disabled={!userInfo.instagramHandle}
+              onClick={handleConfirmSendVerificationRequestClicked}
+            >
+              {t('dlgAccountVerificationStep3BtnRequestNow')}
+            </Button>
           </div>
         </div>
 
@@ -553,9 +582,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         </TabsList>
 
         {/* General */}
-        <TabsContent value="general" className="overflow-hidden overflow-y-auto">
-          <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-            <SectionHeader label={t('tabGeneralSectionGeneral')} />
+        <TabsContent value="general" className="flex flex-col items-center overflow-hidden overflow-y-auto">
+          <div className={cn(EDITOR_CARD_CLASS, 'mb-2')}>
+            <h2 className={SECTION_H2}>{t('tabGeneralSectionGeneral')}</h2>
 
             <TextInput
               id={'firstName'}
@@ -589,82 +618,71 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   />
                 )}
 
-                <div className="m-2 grid grid-cols-2 items-center gap-2">
-                  <div>{t('tabGeneralGender')}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      menus={menuGender}
-                      value={userInfo.gender || ''}
-                      onChange={(value: any) => {
-                        handleGenderChanged(value);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="m-2 grid grid-cols-2 items-center gap-2">
-                  <div>{t('tabGeneralCountry')}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      menus={menuCountries}
-                      value={userInfo.countryCode ? userInfo.countryCode : ''}
-                      searchEnabled={true}
-                      onChange={(value: any) => {
-                        handleCountryCodeChanged(value);
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="m-2 grid grid-cols-2 items-center gap-2">
-                  <div>{t('tabGeneralBirthday')}</div>
-                  <DatePicker
-                    date={moment(userInfo.birthday)}
-                    fromDate={moment(1970)}
-                    toDate={moment().subtract(6, 'y')}
-                    onChange={value => {
-                      handleBirthdayChanged(value);
+                <FieldRow label={t('tabGeneralGender')}>
+                  <ComboBox
+                    menus={menuGender}
+                    value={userInfo.gender || ''}
+                    onChange={(value: any) => {
+                      handleGenderChanged(value);
                     }}
                   />
-                </div>
+                </FieldRow>
 
-                {user.type !== UserType.FAN && (
-                  <div className="m-2 grid grid-cols-2 items-center gap-2">
-                    <div>{t('tabGeneralFreestyleSince')}</div>
-                    <div className="flex w-full">
-                      <ComboBox
-                        menus={menuFreestyleSinceWithUnspecified}
-                        value={userInfo.freestyleSince ? userInfo.freestyleSince.toString() : menuFreestyleSinceWithUnspecified[0].value}
-                        onChange={(value: any) => {
-                          handleFreestyleSinceChanged(value);
-                        }}
-                      />
-                    </div>
-                  </div>
-                )}
+                <FieldRow label={t('tabGeneralCountry')}>
+                  <ComboBox
+                    menus={menuCountries}
+                    value={userInfo.countryCode ? userInfo.countryCode : ''}
+                    searchEnabled={true}
+                    onChange={(value: any) => {
+                      handleCountryCodeChanged(value);
+                    }}
+                  />
+                </FieldRow>
 
-                <div className="m-2 grid grid-cols-2 items-center gap-2">
-                  <div>{t('tabGeneralShirtSize')}</div>
-                  <div className="flex w-full">
-                    <ComboBox
-                      menus={menuTShirtSizesWithUnspecified}
-                      value={userInfo.tShirtSize ? userInfo.tShirtSize : menuTShirtSizesWithUnspecified[0].value}
-                      onChange={(value: any) => {
-                        handleTShirtSizeChanged(value);
+                <FieldRow label={t('tabGeneralBirthday')}>
+                  <div className={FIELD_CONTROL_TALL_INNER}>
+                    <DatePicker
+                      date={moment(userInfo.birthday)}
+                      fromDate={moment(1970)}
+                      toDate={moment().subtract(6, 'y')}
+                      onChange={value => {
+                        handleBirthdayChanged(value);
                       }}
                     />
                   </div>
-                </div>
+                </FieldRow>
+
+                {user.type !== UserType.FAN && (
+                  <FieldRow label={t('tabGeneralFreestyleSince')}>
+                    <ComboBox
+                      menus={menuFreestyleSinceWithUnspecified}
+                      value={userInfo.freestyleSince ? userInfo.freestyleSince.toString() : menuFreestyleSinceWithUnspecified[0].value}
+                      onChange={(value: any) => {
+                        handleFreestyleSinceChanged(value);
+                      }}
+                    />
+                  </FieldRow>
+                )}
+
+                <FieldRow label={t('tabGeneralShirtSize')}>
+                  <ComboBox
+                    menus={menuTShirtSizesWithUnspecified}
+                    value={userInfo.tShirtSize ? userInfo.tShirtSize : menuTShirtSizesWithUnspecified[0].value}
+                    onChange={(value: any) => {
+                      handleTShirtSizeChanged(value);
+                    }}
+                  />
+                </FieldRow>
               </>
             )}
 
             {user.type !== UserType.FAN && (
               <>
-                <div className="m-2">
+                <div className="py-1">
                   <Separator />
                 </div>
 
-                <SectionHeader label={t('tabGeneralSectionSocials')} />
+                <h2 className={SECTION_H2}>{t('tabGeneralSectionSocials')}</h2>
 
                 <TextInput
                   id={'instagramHandle'}
@@ -712,9 +730,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
         {/* Freestyler Map */}
         {user.type !== UserType.FAN && (
-          <TabsContent value="map" className="overflow-hidden overflow-y-auto">
-            <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-              <SectionHeader label={t('tabMapSectionLocation')} />
+          <TabsContent value="map" className="flex flex-col items-center overflow-hidden overflow-y-auto">
+            <div className={EDITOR_CARD_CLASS}>
+              <h2 className={SECTION_H2}>{t('tabMapSectionLocation')}</h2>
 
               <TextInput
                 id={'city'}
@@ -736,14 +754,17 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               />
 
               {userInfo.exposeLocation && userInfo.locLatitude && userInfo.locLongitude && (
-                <div className="m-2 flex place-items-start gap-2 items-center">
-                  <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}>
-                    <div className="hover:underline">{t('tabMapShowOnMap')}</div>
+                <div className="flex min-w-0 flex-wrap items-center gap-2">
+                  <Link
+                    href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}
+                    className="min-w-0 text-sm text-foreground/90 hover:underline"
+                  >
+                    {t('tabMapShowOnMap')}
                   </Link>
-
-                  <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}>
-                    <ActionButton action={Action.GOTOMAP} />
-                  </Link>
+                  <ActionButton
+                    href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}
+                    action={Action.GOTOMAP}
+                  />
                 </div>
               )}
             </div>
@@ -752,14 +773,15 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
         {/* Jobs */}
         {user.type !== UserType.FAN && (
-          <TabsContent value="jobs" className="overflow-hidden overflow-y-auto">
-            <div className="mb-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1">
-              <div className="mx-2 text-lg underline">{t('tabJobsSectionTerms')}</div>
+          <TabsContent value="jobs" className="flex flex-col items-center overflow-hidden overflow-y-auto">
+            <div className={cn(EDITOR_CARD_CLASS, 'mb-2')}>
+              <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobsSectionTerms')}</h2>
 
-              <div className="m-2 grid grid-cols-2 items-center gap-2">
-                <div>{t('tabJobsTerms')}</div>
-                <TextButton text={t('tabJobBtnReadTerms')} onClick={handleTermsAndConditionsClicked} />
-              </div>
+              <FieldRow label={t('tabJobsTerms')}>
+                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-auto sm:justify-self-end')} onClick={handleTermsAndConditionsClicked}>
+                  {t('tabJobBtnReadTerms')}
+                </Button>
+              </FieldRow>
 
               <CheckBox
                 id={'terms'}
@@ -772,10 +794,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
               {userInfo.jobAcceptTerms && (
                 <>
-                  <div className="m-2">
+                  <div className="py-1">
                     <Separator />
                   </div>
-                  <div className="mx-2 text-lg underline">{t('tabJobSectionOffer')}</div>
+                  <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobSectionOffer')}</h2>
 
                   <CheckBox
                     id={'offeringShow'}
@@ -804,24 +826,21 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                     }}
                   />
 
-                  <div className="m-2">
+                  <div className="py-1">
                     <Separator />
                   </div>
-                  <div className="mx-2 text-lg underline">{t('tabJobSectionContact')}</div>
+                  <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobSectionContact')}</h2>
 
-                  <div className="m-2 grid grid-cols-2 items-center gap-2">
-                    <div>{t('tabJobPhoneCountryCode')}</div>
-                    <div className="flex w-full">
-                      <ComboBox
-                        menus={menuPhoneCountryCodesWithUnspecified}
-                        value={userInfo.phoneCountryCode ? userInfo.phoneCountryCode.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
-                        searchEnabled={true}
-                        onChange={(value: any) => {
-                          handlePhoneCountryCodeChanged(value);
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <FieldRow label={t('tabJobPhoneCountryCode')}>
+                    <ComboBox
+                      menus={menuPhoneCountryCodesWithUnspecified}
+                      value={userInfo.phoneCountryCode ? userInfo.phoneCountryCode.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                      searchEnabled={true}
+                      onChange={(value: any) => {
+                        handlePhoneCountryCodeChanged(value);
+                      }}
+                    />
+                  </FieldRow>
 
                   <div className="h-fit" /* fixes safari layouting issue */>
                     <TextInput
@@ -837,24 +856,21 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                     />
                   </div>
 
-                  <div className="m-2">
+                  <div className="py-1">
                     <Separator />
                   </div>
-                  <div className="mx-2 text-lg underline">{t('tabJobSectionOther')}</div>
+                  <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobSectionOther')}</h2>
 
-                  <div className="m-2 grid grid-cols-2 items-center gap-2">
-                    <div>{t('tabJobExperience')}</div>
-                    <div className="flex w-full">
-                      <ComboBox
-                        menus={menuShowExperience}
-                        value={userInfo.jobShowExperience ? userInfo.jobShowExperience : menuShowExperience[0].value}
-                        searchEnabled={false}
-                        onChange={(value: any) => {
-                          handleShowExperienceChanged(value);
-                        }}
-                      />
-                    </div>
-                  </div>
+                  <FieldRow label={t('tabJobExperience')}>
+                    <ComboBox
+                      menus={menuShowExperience}
+                      value={userInfo.jobShowExperience ? userInfo.jobShowExperience : menuShowExperience[0].value}
+                      searchEnabled={false}
+                      onChange={(value: any) => {
+                        handleShowExperienceChanged(value);
+                      }}
+                    />
+                  </FieldRow>
                 </>
               )}
             </div>
@@ -862,31 +878,28 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         )}
 
         {/* Account */}
-        <TabsContent value="account" className="overflow-hidden overflow-y-auto">
-          <div className="flex flex-col rounded-lg border border-primary bg-secondary-light p-4">
-            <div className="flex justify-center text-lg">{t('tabAccountSectionNotification')}</div>
+        <TabsContent value="account" className="flex flex-col items-center overflow-hidden overflow-y-auto">
+          <div className={EDITOR_CARD_CLASS}>
+            <h2 className={cn(SECTION_H2, 'text-center')}>{t('tabAccountSectionNotification')}</h2>
 
-            <div className="m-2 grid grid-cols-2 items-center gap-2">
-              <div>{t('tabAccountLanguagePreference')}</div>
-              <div className="flex w-full">
-                <ComboBox
-                  menus={menuSupportedLanguages}
-                  value={userInfo.preferredLanguageCode || menuSupportedLanguages[0].value}
-                  searchEnabled={false}
-                  onChange={(value: any) => {
-                    handlePreferredLanguageCodeChanged(value);
-                  }}
-                />
-              </div>
-            </div>
+            <FieldRow label={t('tabAccountLanguagePreference')}>
+              <ComboBox
+                menus={menuSupportedLanguages}
+                value={userInfo.preferredLanguageCode || menuSupportedLanguages[0].value}
+                searchEnabled={false}
+                onChange={(value: any) => {
+                  handlePreferredLanguageCodeChanged(value);
+                }}
+              />
+            </FieldRow>
 
-            <div className="m-2">
+            <div className="py-1">
               <Separator />
             </div>
 
             {user.type !== UserType.FAN && (
               <>
-                <div className="flex justify-center text-lg">{t('tabAccountSectionVerification')}</div>
+                <h2 className={cn(SECTION_H2, 'text-center')}>{t('tabAccountSectionVerification')}</h2>
 
                 <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
                   <div className="flex gap-2 items-center">
@@ -895,19 +908,23 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   </div>
 
                   {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (
-                    <TextButton text={t('tabAccountBtnVerify')} onClick={handleVerificationRequestClicked} />
+                    <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleVerificationRequestClicked}>
+                      {t('tabAccountBtnVerify')}
+                    </Button>
                   )}
                 </div>
 
-                <div className="m-2">
+                <div className="py-1">
                   <Separator />
                 </div>
 
-                <div className="flex justify-center text-lg">{t('tabAccountSectionPayments')}</div>
+                <h2 className={cn(SECTION_H2, 'text-center')}>{t('tabAccountSectionPayments')}</h2>
 
                 {!userInfo.stripeAccountId && (
                   <div className="mt-4 flex justify-center">
-                    <TextButton text={t('tabAccountBtnRequestPaymentsAccount')} onClick={handleCreateStripeAccountClicked} />
+                    <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateStripeAccountClicked}>
+                      {t('tabAccountBtnRequestPaymentsAccount')}
+                    </Button>
                   </div>
                 )}
 
@@ -915,31 +932,44 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <>
                     <div className="mt-4 flex flex-col items-center gap-4">
                       <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
-                      <TextButton text={t('tabAccountBtnEditPaymentsAccount')} onClick={handleCreateStripeAccountOnboardingLinkClicked} />
+                      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateStripeAccountOnboardingLinkClicked}>
+                        {t('tabAccountBtnEditPaymentsAccount')}
+                      </Button>
 
-                      <TextButton text={t('tabAccountBtnViewPaymentsInStripe')} onClick={handleCreateStripeLoginLinkClicked} />
+                      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateStripeLoginLinkClicked}>
+                        {t('tabAccountBtnViewPaymentsInStripe')}
+                      </Button>
 
-                      <Link href={routeAccountPayments}>
-                        <TextButton text={t('tabAccountBtnManagePayments')} />
-                      </Link>
+                      <Button asChild variant="action" className={ctaActionButtonClassName}>
+                        <Link href={routeAccountPayments}>{t('tabAccountBtnManagePayments')}</Link>
+                      </Button>
                     </div>
                   </>
                 )}
 
-                <div className="m-2">
+                <div className="py-1">
                   <Separator />
                 </div>
               </>
             )}
 
-            <div className="flex justify-center text-lg">{t('tabAccountSectionAccountManagement')}</div>
+            <h2 className={cn(SECTION_H2, 'text-center')}>{t('tabAccountSectionAccountManagement')}</h2>
 
             <div className="mt-4 flex justify-center">
-              <TextButton text={t('tabAccountBtnLogout')} onClick={handleLogoutClicked} />
+              <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleLogoutClicked}>
+                {t('tabAccountBtnLogout')}
+              </Button>
             </div>
 
             <div className="mt-4 flex justify-center">
-              <TextButton text={t('tabAccountBtnDeleteAccount')} style={ButtonStyle.CRITICAL} onClick={handleDeleteAccountClicked} />
+              <Button
+                type="button"
+                variant="actionCritical"
+                className={ctaActionButtonClassName}
+                onClick={handleDeleteAccountClicked}
+              >
+                {t('tabAccountBtnDeleteAccount')}
+              </Button>
             </div>
           </div>
         </TabsContent>

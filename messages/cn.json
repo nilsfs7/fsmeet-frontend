@@ -30,16 +30,25 @@
     "pageTitle": "贡献者",
     "sectionMainContributors": "主要贡献者",
     "textHeadOfDevelopment": "开发负责人",
+    "textMobileAppDevelopment": "移动应用开发",
     "textSpanishTranslation": "翻译 - 西班牙语",
     "textFrenchTranslation": "翻译 - 法语",
+    "textJapaneseAndOtherLanguagesTranslation": "翻译 - 日语及其他语言",
+    "textUxAdvisor": "用户体验顾问",
     "sectionCommunityProposals": "社区提案",
     "textPersonalSchedule": "运动员个人日程",
     "textSearchByGender": "按性别搜索自由式选手地图",
-    "lnkAnnouncement": "公告"
+    "lnkAnnouncement": "公告",
+    "tableColName": "姓名",
+    "tableColContribution": "贡献",
+    "tableColProposal": "提案",
+    "tableColAnnouncement": "公告",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "账户设置",
     "profilePictureAddPicture": "添加图片",
+    "profilePictureNoFileChosen": "未选择文件",
     "btnSave": "保存",
     "dlgJobsTermsTitle": "条款与条件",
     "dlgJobsTermsDate": "最后更新：2024 年 8 月 02 日",
@@ -187,7 +196,35 @@
   "/events": {
     "datePickerFrom": "从",
     "datePickerTo": "到",
-    "textNoEventsFound": "在指定日期范围内没有活动。"
+    "searchAdvancedLabel": "更多条件",
+    "searchNamePlaceholder": "按活动名称搜索",
+    "textNoEventsFound": "在指定日期范围内没有活动。",
+    "textNoNameMatch": "没有与搜索匹配的活动。",
+    "textNoFilterMatch": "没有符合筛选条件的活动。",
+    "filterVenueCountry": "举办国家/地区",
+    "filterType": "活动类型",
+    "filterCategory": "类别",
+    "filterWffa": "WFFA 排名",
+    "filterPriceMoney": "现金奖",
+    "filterAll": "全部",
+    "filterClearAll": "重置筛选",
+    "filterApply": "应用",
+    "filterYes": "是",
+    "filterNo": "否",
+    "filterPrizeWith": "有现金奖",
+    "filterPrizeNone": "无现金奖",
+    "filterWffaYes": "WFFA 排名内",
+    "filterWffaNo": "WFFA 排名外",
+    "eventTypeComp": "比赛",
+    "eventTypeCompOnline": "线上比赛",
+    "eventTypeMeet": "聚会",
+    "eventCatContinental": "Continental",
+    "eventCatInternational": "International",
+    "eventCatNational": "National",
+    "eventCatPulse": "Pulse",
+    "eventCatSuperball": "Superball",
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "创建活动"
   },
   "/events/edit": {
     "pageTitle": "编辑活动",
@@ -214,15 +251,16 @@
     "dlgDeleteCommentTitle": "删除评论",
     "dlgDeleteCommentText": "删除评论？此操作无法撤销。",
     "adminPanelTitle": "管理面板",
-    "adminPanelBtnEditEventToolTip": "编辑活动",
-    "adminPanelBtnManageParticipantsToolTip": "管理参与者",
-    "adminPanelBtnManageCompetitionsToolTip": "管理比赛项目",
-    "adminPanelBtnManageAccommodationsToolTip": "管理住宿",
-    "adminPanelBtnManageOfferingsToolTip": "管理选项/套餐",
-    "adminPanelBtnManageSponsorsToolTip": "管理赞助商",
-    "adminPanelBtnManageAttachmentsToolTip": "管理文档",
+    "adminPanelBtnEditEventToolTip": "活动信息",
+    "adminPanelBtnManageAttendeesToolTip": "与会者",
+    "adminPanelBtnManageCompetitionsToolTip": "比赛项目",
+    "adminPanelBtnManageAccommodationsToolTip": "住宿",
+    "adminPanelBtnManageOfferingsToolTip": "选项/套餐",
+    "adminPanelBtnManageSponsorsToolTip": "赞助商",
+    "adminPanelBtnManageAttachmentsToolTip": "文档",
     "adminPanelBtnManageEventStateToolTip": "活动状态",
     "adminPanelBtnViewStatisticsToolTip": "统计",
+    "adminPanelBtnManageArenaScreenToolTip": "竞技场屏幕",
     "tabOverviewTitle": "概览",
     "tabOverviewParticipationFee": "参赛费用",
     "tabOverviewRegistrationPeriod": "报名时间",
@@ -232,6 +270,11 @@
     "tabOverviewSectionSponsors": "赞助商",
     "tabOverviewSectionAttachments": "文档",
     "tabOverviewSectionComments": "评论",
+    "tabOverviewPerkWffaRanked": "WFFA 排名内",
+    "tabOverviewPerkPriceMoney": "现金奖",
+    "tabOverviewPerkAccommodation": "住宿",
+    "tabOverviewBtnShowMoreDescription": "显示更多",
+    "tabOverviewBtnShowLessDescription": "显示更少",
     "tabCompetitionsTitle": "比赛项目",
     "tabCompetitionsSectionCompetitions": "比赛项目",
     "tabRegistrationsTitle": "参与者",
@@ -244,7 +287,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "管理住宿",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "tableColDescription": "描述",
+    "tableColCost": "费用",
+    "tableColActions": "操作",
+    "tooltipEditAccommodation": "编辑住宿",
+    "textNoAccommodations": "暂无住宿。"
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "创建住宿",
@@ -258,7 +306,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "管理文档",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "tooltipEditDocument": "编辑文档",
+    "textNoAttachments": "暂无文档。"
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "编辑文档",
@@ -274,9 +324,13 @@
     "pageTitle": "管理比赛项目",
     "btnEdit": "编辑",
     "btnPool": "选手池",
-    "btnGameMode": "比赛模式",
+    "btnGameMode": "模式",
     "btnSeedingAndResults": "种子位与结果",
     "btnAddNew": "新增"
+  },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "赛场大屏",
+    "pageDescription": "选择要在实时预览中显示的比赛项目。选择后竞技场屏幕会立即更新。"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "赛程",
@@ -372,13 +426,15 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "管理选项/套餐",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "tooltipEditOffering": "编辑选项/套餐",
+    "textNoOfferings": "暂无选项/套餐。"
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "创建选项/套餐",
     "btnCreate": "创建"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "管理参与者",
     "sectionParticipantsTitle": "参与者",
     "textNoParticipants": "暂无报名。",
@@ -393,7 +449,25 @@
     "dlgDenyParticipantTitle": "拒绝参赛者",
     "dlgDenyParticipantText": "你确定要拒绝该参赛者吗？",
     "dlgRemoveParticipantTitle": "移除参赛者",
-    "dlgRemoveParticipantText": "你要移除该参赛者吗？"
+    "dlgRemoveParticipantText": "你要移除该参赛者吗？",
+    "filterNameLabel": "姓名",
+    "filterNamePlaceholder": "按姓名搜索",
+    "filterStatusLabel": "状态",
+    "filterStatusAll": "全部",
+    "statusPending": "待处理",
+    "statusApproved": "已批准",
+    "statusDenied": "已拒绝",
+    "regTypeParticipant": "参赛者",
+    "regTypeVisitor": "访客",
+    "tableColFullName": "姓名",
+    "tableColType": "类型",
+    "tableColStatus": "状态",
+    "tableColActions": "操作",
+    "tableSortByName": "按姓名排序",
+    "tableSortByType": "按类型排序",
+    "tableSortByStatus": "按状态排序",
+    "textNoFilterMatch": "没有符合筛选条件的与会者。",
+    "alertPendingRegistrations": "{count, plural, other{有 # 个待处理报名，请及时审核。}}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "活动报名概览",
@@ -464,7 +538,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "管理赞助商",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "tooltipEditSponsor": "编辑赞助商",
+    "textNoSponsors": "暂无赞助商。"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",
@@ -507,6 +583,8 @@
     "btnCreate": "创建活动"
   },
   "/feedback": {
+    "pageTitle": "反馈",
+    "pageDescription": "请选择一项，向我们发送反馈。",
     "pageGeneralFeedback": "通用反馈",
     "btnFeatures": "功能建议",
     "btnBugs": "报告问题"
@@ -535,11 +613,14 @@
     "btnBackHome": "返回首页"
   },
   "/login": {
+    "headlineWelcome": "欢迎回来",
+    "sublineSignIn": "登录你的账户",
     "inputUsername": "用户名 / 邮箱",
     "inputPassword": "密码",
     "btnLogin": "登录",
     "lnkResetPassword": "重置密码",
-    "lnkNewAccount": "还没有账户？"
+    "lnkNewAccount": "还没有账户？",
+    "legalSignIn": "登录即表示你同意我们的 <terms>服务条款</terms> 和 <privacy>隐私政策</privacy>。"
   },
   "/map": {
     "pageTitle": "自由式选手地图",
@@ -551,6 +632,11 @@
     "inputSearchPlaceholder": "搜索姓名…",
     "drpDwnGender": "性别",
     "drpDwnUserTypes": "类型",
+    "searchAdvancedLabel": "更多条件",
+    "filterApply": "应用",
+    "filterClearAll": "重置筛选",
+    "filterUserCountry": "用户国家",
+    "filterAll": "全部",
     "btnCopyUrlToast": "地图链接已复制到剪贴板。",
     "btnCopyUrlToolTip": "复制地图链接",
     "infoWindowGoToProfileInternal": "点击查看资料",
@@ -560,7 +646,7 @@
     "inputUsername": "用户名 / 邮箱",
     "btnResetPassword": "重置密码"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "请查看你的邮箱。",
     "thankYouText2": "重置链接已发送给你。",
     "btnBackHome": "返回首页"
@@ -570,6 +656,9 @@
     "btnSave": "保存"
   },
   "/registration": {
+    "headlineCreateAccount": "创建账户",
+    "sublineSignUp": "简单几步完成注册",
+    "legalSignUp": "创建账户即表示你同意我们的 <terms>服务条款</terms> 和 <privacy>隐私政策</privacy>。",
     "cbUserType": "注册身份",
     "inputUsername": "用户名",
     "cbGender": "性别",
@@ -591,6 +680,8 @@
   "/users": {
     "pageTitle": "社区",
     "inputSearchPlaceholder": "搜索姓名…",
+    "tableSortByName": "按姓名排序",
+    "tableSortByCountry": "按国家排序",
     "cbColumns": "列",
     "tblColumnUsername": "用户",
     "tblColumnName": "姓名",
@@ -781,7 +872,7 @@
     "inputQuestion": "问题",
     "inputDescription": "背景（可选）",
     "inputOption": "选项",
-    "chbDeadlineEnabled": "启用截止时间",
+    "chbDeadlineEnabled": "截止时间",
     "dateDeadline": "截止日期",
     "sectionTargetGroup": "目标群体",
     "cbCountry": "国家"

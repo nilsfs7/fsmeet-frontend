@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { routeEventSubs, routeEventsCreate, routeLogin } from '@/domain/constants/routes';
 import { getLicense } from '@/infrastructure/clients/license.client';
 import { License } from '@/domain/types/license';
@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export const TextButtonCreateEvent = () => {
+export const EventManageCreateEventButton = () => {
   const t = useTranslations('/events/manage');
 
   const { data: session } = useSession();
@@ -37,5 +37,9 @@ export const TextButtonCreateEvent = () => {
     }
   };
 
-  return <TextButton text={t('btnCreate')} onClick={handleCreateEventClicked} />;
+  return (
+    <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateEventClicked}>
+      {t('btnCreate')}
+    </Button>
+  );
 };

@@ -30,16 +30,25 @@
     "pageTitle": "योगदानकर्ता",
     "sectionMainContributors": "मुख्य योगदानकर्ता",
     "textHeadOfDevelopment": "विकास प्रमुख",
+    "textMobileAppDevelopment": "मोबाइल ऐप विकास",
     "textSpanishTranslation": "अनुवादक - स्पेनिश",
     "textFrenchTranslation": "अनुवादक - फ्रेंच",
+    "textJapaneseAndOtherLanguagesTranslation": "अनुवादक - जापानी व अन्य भाषाएँ",
+    "textUxAdvisor": "यूएक्स सलाहकार",
     "sectionCommunityProposals": "समुदाय प्रस्ताव",
     "textPersonalSchedule": "एथलीट्स के लिए व्यक्तिगत शेड्यूल",
     "textSearchByGender": "लिंग के अनुसार फ्रीस्टाइलर मैप खोजें",
-    "lnkAnnouncement": "घोषणा"
+    "lnkAnnouncement": "घोषणा",
+    "tableColName": "नाम",
+    "tableColContribution": "योगदान",
+    "tableColProposal": "प्रस्ताव",
+    "tableColAnnouncement": "घोषणा",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "खाता सेटिंग्स",
     "profilePictureAddPicture": "तस्वीर जोड़ें",
+    "profilePictureNoFileChosen": "कोई फ़ाइल नहीं चुनी गई",
     "btnSave": "सहेजें",
     "dlgJobsTermsTitle": "नियम और शर्तें",
     "dlgJobsTermsDate": "अंतिम अपडेट: 02 अगस्त 2024",
@@ -187,7 +196,35 @@
   "/events": {
     "datePickerFrom": "से",
     "datePickerTo": "तक",
-    "textNoEventsFound": "निर्दिष्ट तिथि सीमा के लिए कोई इवेंट नहीं मिला।"
+    "searchAdvancedLabel": "उन्नत खोज",
+    "searchNamePlaceholder": "इवेंट नाम से खोजें",
+    "textNoEventsFound": "निर्दिष्ट तिथि सीमा के लिए कोई इवेंट नहीं मिला।",
+    "textNoNameMatch": "किसी भी इवेंट नाम से मेल नहीं खाता।",
+    "textNoFilterMatch": "चुने हुए फ़िल्टर से कोई इवेंट मेल नहीं खाता।",
+    "filterVenueCountry": "स्थान देश (कोड)",
+    "filterType": "इवेंट प्रकार",
+    "filterCategory": "श्रेणी",
+    "filterWffa": "WFFA रैंकिंग",
+    "filterPriceMoney": "नकद पुरस्कार",
+    "filterAll": "सभी",
+    "filterClearAll": "फ़िल्टर रीसेट करें",
+    "filterApply": "लागू करें",
+    "filterYes": "हाँ",
+    "filterNo": "नहीं",
+    "filterPrizeWith": "नकद पुरस्कार के साथ",
+    "filterPrizeNone": "बिना नकद पурस्कार",
+    "filterWffaYes": "WFFA रैंक",
+    "filterWffaNo": "WFFA रहित",
+    "eventTypeComp": "प्रतियोगिता",
+    "eventTypeCompOnline": "ऑनलाइन प्रतियोगिता",
+    "eventTypeMeet": "मीटिंग",
+    "eventCatContinental": "Continental",
+    "eventCatInternational": "International",
+    "eventCatNational": "National",
+    "eventCatPulse": "Pulse",
+    "eventCatSuperball": "Superball",
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "इवेंट बनाएं"
   },
   "/events/edit": {
     "pageTitle": "इवेंट संपादित करें",
@@ -214,15 +251,16 @@
     "dlgDeleteCommentTitle": "टिप्पणी हटाएं",
     "dlgDeleteCommentText": "टिप्पणी हटाएं? इसे वापस नहीं किया जा सकता।",
     "adminPanelTitle": "एडमिन पैनल",
-    "adminPanelBtnEditEventToolTip": "इवेंट संपादित करें",
-    "adminPanelBtnManageParticipantsToolTip": "प्रतिभागियों को प्रबंधित करें",
-    "adminPanelBtnManageCompetitionsToolTip": "प्रतियोगिताएं प्रबंधित करें",
-    "adminPanelBtnManageAccommodationsToolTip": "आवास प्रबंधित करें",
-    "adminPanelBtnManageOfferingsToolTip": "सेवाएं प्रबंधित करें",
-    "adminPanelBtnManageSponsorsToolTip": "प्रायोजक प्रबंधित करें",
-    "adminPanelBtnManageAttachmentsToolTip": "दस्तावेज़ प्रबंधित करें",
+    "adminPanelBtnEditEventToolTip": "इवेंट जानकारी",
+    "adminPanelBtnManageAttendeesToolTip": "उपस्थित लोग",
+    "adminPanelBtnManageCompetitionsToolTip": "प्रतियोगिताएं",
+    "adminPanelBtnManageAccommodationsToolTip": "आवास",
+    "adminPanelBtnManageOfferingsToolTip": "सेवाएं",
+    "adminPanelBtnManageSponsorsToolTip": "प्रायोजक",
+    "adminPanelBtnManageAttachmentsToolTip": "दस्तावेज़",
     "adminPanelBtnManageEventStateToolTip": "इवेंट स्थिति",
     "adminPanelBtnViewStatisticsToolTip": "आंकड़े",
+    "adminPanelBtnManageArenaScreenToolTip": "Arena screen",
     "tabOverviewTitle": "सारांश",
     "tabOverviewParticipationFee": "भागीदारी शुल्क",
     "tabOverviewRegistrationPeriod": "पंजीकरण अवधि",
@@ -232,6 +270,11 @@
     "tabOverviewSectionSponsors": "प्रायोजक",
     "tabOverviewSectionAttachments": "दस्तावेज़",
     "tabOverviewSectionComments": "टिप्पणियां",
+    "tabOverviewPerkWffaRanked": "WFFA रैंक",
+    "tabOverviewPerkPriceMoney": "नकद पुरस्कार",
+    "tabOverviewPerkAccommodation": "आवास",
+    "tabOverviewBtnShowMoreDescription": "और दिखाएं",
+    "tabOverviewBtnShowLessDescription": "कम दिखाएं",
     "tabCompetitionsTitle": "प्रतियोगिताएं",
     "tabCompetitionsSectionCompetitions": "प्रतियोगिताएं",
     "tabRegistrationsTitle": "प्रतिभागी",
@@ -244,7 +287,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "आवास प्रबंधित करें",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "tableColDescription": "विवरण",
+    "tableColCost": "लागत",
+    "tableColActions": "कार्य",
+    "tooltipEditAccommodation": "आवास संपादित करें",
+    "textNoAccommodations": "अभी तक कोई आवास नहीं है।"
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "आवास बनाएं",
@@ -258,7 +306,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "दस्तावेज़ प्रबंधित करें",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "tooltipEditDocument": "दस्तावेज़ संपादित करें",
+    "textNoAttachments": "अभी तक कोई दस्तावेज़ नहीं है।"
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "दस्तावेज़ संपादित करें",
@@ -274,9 +324,13 @@
     "pageTitle": "प्रतियोगिताएं प्रबंधित करें",
     "btnEdit": "संपादित करें",
     "btnPool": "पूल",
-    "btnGameMode": "गेम मोड",
+    "btnGameMode": "मोड",
     "btnSeedingAndResults": "सीडिंग और परिणाम",
     "btnAddNew": "नया जोड़ें"
+  },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Arena screen",
+    "pageDescription": "लाइव पूर्वावलोकन के लिए एक मैच चुनें। चुनते ही अखाड़ा स्क्रीन अपडेट हो जाती है।"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "शेड्यूल",
@@ -372,13 +426,15 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "सेवाएं प्रबंधित करें",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "tooltipEditOffering": "सेवा संपादित करें",
+    "textNoOfferings": "अभी तक कोई सेवाएं नहीं हैं।"
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "सेवा बनाएं",
     "btnCreate": "बनाएं"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "प्रतिभागी प्रबंधित करें",
     "sectionParticipantsTitle": "प्रतिभागी",
     "textNoParticipants": "अभी तक कोई पंजीकरण नहीं है।",
@@ -393,7 +449,25 @@
     "dlgDenyParticipantTitle": "प्रतिभागी अस्वीकार करें",
     "dlgDenyParticipantText": "क्या आप वास्तव में इस प्रतिभागी को अस्वीकार करना चाहते हैं?",
     "dlgRemoveParticipantTitle": "प्रतिभागी हटाएं",
-    "dlgRemoveParticipantText": "क्या आप इस प्रतिभागी को हटाना चाहते हैं?"
+    "dlgRemoveParticipantText": "क्या आप इस प्रतिभागी को हटाना चाहते हैं?",
+    "filterNameLabel": "नाम",
+    "filterNamePlaceholder": "नाम से खोजें",
+    "filterStatusLabel": "स्थिति",
+    "filterStatusAll": "सभी",
+    "statusPending": "लंबित",
+    "statusApproved": "स्वीकृत",
+    "statusDenied": "अस्वीकृत",
+    "regTypeParticipant": "प्रतिभागी",
+    "regTypeVisitor": "दर्शक",
+    "tableColFullName": "नाम",
+    "tableColType": "प्रकार",
+    "tableColStatus": "स्थिति",
+    "tableColActions": "कार्य",
+    "tableSortByName": "नाम के अनुसार क्रम",
+    "tableSortByType": "प्रकार के अनुसार क्रम",
+    "tableSortByStatus": "स्थिति के अनुसार क्रम",
+    "textNoFilterMatch": "फ़िल्टर से कोई उपस्थित नहीं मिला।",
+    "alertPendingRegistrations": "{count, plural, other{समीक्षा के लिए # लंबित पंजीकरण हैं।}}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "इवेंट पंजीकरण सारांश",
@@ -464,7 +538,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "प्रायोजक प्रबंधित करें",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "tooltipEditSponsor": "प्रायोजक संपादित करें",
+    "textNoSponsors": "अभी तक कोई प्रायोजक नहीं है।"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "प्रायोजक बनाएं",
@@ -507,6 +583,8 @@
     "btnCreate": "इवेंट बनाएं"
   },
   "/feedback": {
+    "pageTitle": "प्रतिक्रिया",
+    "pageDescription": "नीचे एक विकल्प चुनकर हमें अपनी प्रतिक्रिया भेजें।",
     "pageGeneralFeedback": "सामान्य फीडबैक",
     "btnFeatures": "फीचर अनुरोध",
     "btnBugs": "बग रिपोर्ट करें"
@@ -535,11 +613,14 @@
     "btnBackHome": "होम पर वापस"
   },
   "/login": {
+    "headlineWelcome": "वापसी पर स्वागत है",
+    "sublineSignIn": "अपने अकाउंट में साइन इन करें",
     "inputUsername": "यूज़रनेम / ईमेल",
     "inputPassword": "पासवर्ड",
     "btnLogin": "लॉगिन",
     "lnkResetPassword": "पासवर्ड रीसेट करें",
-    "lnkNewAccount": "अभी तक अकाउंट नहीं है?"
+    "lnkNewAccount": "अभी तक अकाउंट नहीं है?",
+    "legalSignIn": "साइन इन करते ही आप हमारे <terms>सेवा की शर्तें</terms> व <privacy>गोपनीयता नीति</privacy> से सहमत होते हैं।"
   },
   "/map": {
     "pageTitle": "फ्रीस्टाइलर मैप",
@@ -551,6 +632,11 @@
     "inputSearchPlaceholder": "नाम खोजें...",
     "drpDwnGender": "लिंग",
     "drpDwnUserTypes": "प्रकार",
+    "searchAdvancedLabel": "उन्नत खोज",
+    "filterApply": "लागू करें",
+    "filterClearAll": "फ़िल्टर रीसेट करें",
+    "filterUserCountry": "उपयोगकर्ता देश",
+    "filterAll": "सभी",
     "btnCopyUrlToast": "मैप URL क्लिपबोर्ड पर कॉपी हो गया।",
     "btnCopyUrlToolTip": "मैप URL कॉपी करें",
     "infoWindowGoToProfileInternal": "प्रोफ़ाइल के लिए क्लिक करें",
@@ -560,7 +646,7 @@
     "inputUsername": "यूज़रनेम / ईमेल",
     "btnResetPassword": "पासवर्ड रीसेट करें"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "अपना मेल चेक करें।",
     "thankYouText2": "रीसेट लिंक भेज दिया गया है।",
     "btnBackHome": "होम पर वापस"
@@ -570,6 +656,9 @@
     "btnSave": "सेव करें"
   },
   "/registration": {
+    "headlineCreateAccount": "अकाउंट बनाएं",
+    "sublineSignUp": "कुछ चरणों में साइन अप करें",
+    "legalSignUp": "अकाउंट बनाते ही आप हमारे <terms>सेवा की शर्तें</terms> व <privacy>गोपनीयता नीति</privacy> से सहमत होते हैं।",
     "cbUserType": "इस रूप में साइन अप करें",
     "inputUsername": "यूज़रनेम",
     "cbGender": "लिंग",
@@ -591,6 +680,8 @@
   "/users": {
     "pageTitle": "कम्युनिटी",
     "inputSearchPlaceholder": "नाम खोजें...",
+    "tableSortByName": "नाम के अनुसार क्रम",
+    "tableSortByCountry": "देश के अनुसार क्रम",
     "cbColumns": "कॉलम",
     "tblColumnUsername": "यूज़र",
     "tblColumnName": "नाम",
@@ -781,7 +872,7 @@
     "inputQuestion": "प्रश्न",
     "inputDescription": "संदर्भ (वैकल्पिक)",
     "inputOption": "विकल्प",
-    "chbDeadlineEnabled": "डेडलाइन सक्षम",
+    "chbDeadlineEnabled": "डेडलाइन",
     "dateDeadline": "डेडलाइन",
     "sectionTargetGroup": "लक्षित समूह",
     "cbCountry": "देश"

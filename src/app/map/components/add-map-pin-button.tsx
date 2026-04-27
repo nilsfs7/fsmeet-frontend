@@ -2,17 +2,17 @@
 
 import { useTranslations } from 'next-intl';
 import { Toaster, toast } from 'sonner';
-import TextButton from '../../../components/common/text-button';
-import Dialog from '../../../components/dialog';
-import { routeLogin, routeMap } from '../../../domain/constants/routes';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import Dialog from '@/components/dialog';
+import { routeLogin, routeMap } from '@/domain/constants/routes';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import TextInput from '../../../components/common/text-input';
+import TextInput from '@/components/common/text-input';
 import { useEffect, useState } from 'react';
-import { getUser, updateUser } from '../../../infrastructure/clients/user.client';
-import { User } from '../../../domain/types/user';
+import { getUser, updateUser } from '@/infrastructure/clients/user.client';
+import { User } from '@/domain/types/user';
 
-export const TextButtonAddPin = () => {
+export const AddMapPinButton = () => {
   const t = useTranslations('/map');
   const { data: session } = useSession();
 
@@ -75,7 +75,9 @@ export const TextButtonAddPin = () => {
       </Dialog>
 
       <Toaster richColors />
-      <TextButton text={t('btnAddPin')} onClick={handleAddPinClicked} />
+      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleAddPinClicked}>
+        {t('btnAddPin')}
+      </Button>
     </>
   );
 };

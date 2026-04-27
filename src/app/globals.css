@@ -154,3 +154,14 @@
     @apply mx-auto w-full max-w-prose px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
   }
 }
+
+@layer utilities {
+  /** Still scrolls (overflow-y auto); track hidden so layout does not shift vs non-scrolling panes. */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}

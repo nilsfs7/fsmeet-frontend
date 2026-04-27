@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { createPoll } from '@/infrastructure/clients/poll.client';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
@@ -9,7 +9,7 @@ import { routeVoiceManage } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 import moment from 'moment';
 
-export const TextButtonCreatePoll = () => {
+export const CreatePollButton = () => {
   const t = useTranslations('/voice/manage/create');
 
   const { data: session } = useSession();
@@ -37,7 +37,9 @@ export const TextButtonCreatePoll = () => {
     <>
       <Toaster richColors />
 
-      <TextButton text={t('btnCreate')} onClick={handleCreatePollClicked} />
+      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreatePollClicked}>
+        {t('btnCreate')}
+      </Button>
     </>
   );
 };

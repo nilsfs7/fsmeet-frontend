@@ -30,16 +30,25 @@
     "pageTitle": "Colaboradores",
     "sectionMainContributors": "Principales colaboradores",
     "textHeadOfDevelopment": "Jefe de desarrollo",
+    "textMobileAppDevelopment": "Desarrollo de aplicaciones móviles",
     "textSpanishTranslation": "Traductor - Español",
     "textFrenchTranslation": "Traductor - Francés",
+    "textJapaneseAndOtherLanguagesTranslation": "Traductor - Japonés y otras lenguas",
+    "textUxAdvisor": "Asesor de UX",
     "sectionCommunityProposals": "Propuestas comunitarias",
     "textPersonalSchedule": "Horario personal para deportistas",
     "textSearchByGender": "Buscar en el mapa de freestyler por género",
-    "lnkAnnouncement": "Anuncio"
+    "lnkAnnouncement": "Anuncio",
+    "tableColName": "Nombre",
+    "tableColContribution": "Contribución",
+    "tableColProposal": "Propuesta",
+    "tableColAnnouncement": "Anuncio",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "Configuración del perfil",
     "profilePictureAddPicture": "Subir foto",
+    "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Guardar",
     "dlgJobsTermsTitle": "Términos",
     "dlgJobsTermsDate": "Actualizado: 02 agosto 2024",
@@ -169,7 +178,35 @@
   "/events": {
     "datePickerFrom": "Desde",
     "datePickerTo": "Hasta",
-    "textNoEventsFound": "No se han encontrado eventos para el periodo especificado."
+    "searchAdvancedLabel": "Búsqueda avanzada",
+    "searchNamePlaceholder": "Buscar por nombre de evento",
+    "textNoEventsFound": "No se han encontrado eventos para el periodo especificado.",
+    "textNoNameMatch": "Ningún nombre de evento coincide con tu búsqueda.",
+    "textNoFilterMatch": "Ningún evento coincide con los filtros seleccionados.",
+    "filterVenueCountry": "País del lugar",
+    "filterType": "Tipo de evento",
+    "filterCategory": "Categoría",
+    "filterWffa": "Clasificación WFFA",
+    "filterPriceMoney": "Premio en metálico",
+    "filterAll": "Todos",
+    "filterClearAll": "Restablecer filtros",
+    "filterApply": "Aplicar",
+    "filterYes": "Sí",
+    "filterNo": "No",
+    "filterPrizeWith": "Con premio en metálico",
+    "filterPrizeNone": "Sin premio en metálico",
+    "filterWffaYes": "Clasificado WFFA",
+    "filterWffaNo": "Sin clasificar WFFA",
+    "eventTypeComp": "Competición",
+    "eventTypeCompOnline": "Competición online",
+    "eventTypeMeet": "Encuentro",
+    "eventCatContinental": "Continental",
+    "eventCatInternational": "Internacional",
+    "eventCatNational": "Nacional",
+    "eventCatPulse": "Pulse",
+    "eventCatSuperball": "Superball",
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "Crear evento"
   },
   "/events/edit": {
     "pageTitle": "Editar evento",
@@ -196,15 +233,16 @@
     "dlgDeleteCommentTitle": "Eliminar comentario",
     "dlgDeleteCommentText": "¿Eliminar comentario? Esto no se puede deshacer.",
     "adminPanelTitle": "Zona de administración",
-    "adminPanelBtnEditEventToolTip": "Editar evento",
-    "adminPanelBtnManageParticipantsToolTip": "Gestionar a los participantes",
-    "adminPanelBtnManageCompetitionsToolTip": "Gestionar las competiciones",
-    "adminPanelBtnManageAccommodationsToolTip": "Administrar alojamientos",
-    "adminPanelBtnManageOfferingsToolTip": "Gestionar ofertas",
-    "adminPanelBtnManageSponsorsToolTip": "Gestionar patrocinadores",
-    "adminPanelBtnManageAttachmentsToolTip": "Gestionar documentos",
+    "adminPanelBtnEditEventToolTip": "Información del evento",
+    "adminPanelBtnManageAttendeesToolTip": "Asistentes",
+    "adminPanelBtnManageCompetitionsToolTip": "Competiciones",
+    "adminPanelBtnManageAccommodationsToolTip": "Alojamientos",
+    "adminPanelBtnManageOfferingsToolTip": "Ofertas",
+    "adminPanelBtnManageSponsorsToolTip": "Patrocinadores",
+    "adminPanelBtnManageAttachmentsToolTip": "Documentos",
     "adminPanelBtnManageEventStateToolTip": "Estado del evento",
     "adminPanelBtnViewStatisticsToolTip": "Estadística",
+    "adminPanelBtnManageArenaScreenToolTip": "Pantalla Arena",
     "tabOverviewTitle": "Resumen",
     "tabOverviewParticipationFee": "Cuota de participación",
     "tabOverviewRegistrationPeriod": "Período de inscripción",
@@ -214,6 +252,11 @@
     "tabOverviewSectionSponsors": "Patrocinador",
     "tabOverviewSectionAttachments": "Documentos",
     "tabOverviewSectionComments": "Comentarios",
+    "tabOverviewPerkWffaRanked": "Clasificado WFFA",
+    "tabOverviewPerkPriceMoney": "Premio en Metálico",
+    "tabOverviewPerkAccommodation": "Alojamiento",
+    "tabOverviewBtnShowMoreDescription": "Mostrar mas",
+    "tabOverviewBtnShowLessDescription": "Mostrar menos",
     "tabCompetitionsTitle": "Competiciones",
     "tabCompetitionsSectionCompetitions": "Competiciones",
     "tabRegistrationsTitle": "Participantes",
@@ -226,7 +269,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Administrar alojamientos",
-    "btnCreate": "Crear"
+    "btnCreate": "Crear",
+    "tableColDescription": "Descripción",
+    "tableColCost": "Costo",
+    "tableColActions": "Acciones",
+    "tooltipEditAccommodation": "Editar alojamiento",
+    "textNoAccommodations": "Todavia no hay alojamientos."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Crear alojamientos",
@@ -240,7 +288,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "Gestionar documentos",
-    "btnCreate": "Crear"
+    "btnCreate": "Crear",
+    "tooltipEditDocument": "Editar documento",
+    "textNoAttachments": "Todavia no hay documentos."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Editar documento",
@@ -256,9 +306,13 @@
     "pageTitle": "Gestionar las competiciones",
     "btnEdit": "Editar",
     "btnPool": "Grupo de jugadores",
-    "btnGameMode": "Modo Torneo",
+    "btnGameMode": "Modo",
     "btnSeedingAndResults": "Asignación y resultados",
     "btnAddNew": "Añadir nuevo"
+  },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Pantalla arena",
+    "pageDescription": "Elige una competición para la vista previa en directo. La pantalla de la arena se actualiza al seleccionar."
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Plan de juego",
@@ -354,13 +408,15 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "Gestionar ofertas",
-    "btnCreate": "Crear"
+    "btnCreate": "Crear",
+    "tooltipEditOffering": "Editar oferta",
+    "textNoOfferings": "Todavia no hay ofertas."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "Crear oferta",
     "btnCreate": "Crear"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "Gestionar a los participantes",
     "sectionParticipantsTitle": "Participantes",
     "textNoParticipants": "Aún no hay inscripciones.",
@@ -375,7 +431,25 @@
     "dlgDenyParticipantTitle": "Rechazar participante",
     "dlgDenyParticipantText": "¿Realmente quieres no aceptar a este participante?",
     "dlgRemoveParticipantTitle": "Eliminar participante",
-    "dlgRemoveParticipantText": "¿Desea eliminar a este participante?"
+    "dlgRemoveParticipantText": "¿Desea eliminar a este participante?",
+    "filterNameLabel": "Nombre",
+    "filterNamePlaceholder": "Buscar por nombre",
+    "filterStatusLabel": "Estado",
+    "filterStatusAll": "Todos",
+    "statusPending": "Pendiente",
+    "statusApproved": "Aprobado",
+    "statusDenied": "Rechazado",
+    "regTypeParticipant": "Participante",
+    "regTypeVisitor": "Visitante",
+    "tableColFullName": "Nombre",
+    "tableColType": "Tipo",
+    "tableColStatus": "Estado",
+    "tableColActions": "Acciones",
+    "tableSortByName": "Ordenar por nombre",
+    "tableSortByType": "Ordenar por tipo",
+    "tableSortByStatus": "Ordenar por estado",
+    "textNoFilterMatch": "Ningún asistente coincide con los filtros.",
+    "alertPendingRegistrations": "{count, plural, one {Hay 1 inscripción pendiente de revisar.} other {Hay # inscripciones pendientes de revisar.}}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Descripción general del registro",
@@ -446,7 +520,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Gestionar patrocinadores",
-    "btnCreate": "Añadir patrocinador"
+    "btnCreate": "Añadir patrocinador",
+    "tooltipEditSponsor": "Editar patrocinador",
+    "textNoSponsors": "Todavia no hay patrocinadores."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Crear patrocinador",
@@ -489,6 +565,8 @@
     "btnCreate": "Crear evento"
   },
   "/feedback": {
+    "pageTitle": "Comentarios",
+    "pageDescription": "Elige una categoría para enviarnos tus comentarios.",
     "pageGeneralFeedback": "Feedback",
     "btnFeatures": "Solicitud de funcionesn",
     "btnBugs": "Informar de un error"
@@ -517,11 +595,14 @@
     "btnBackHome": "A la página de inicio"
   },
   "/login": {
+    "headlineWelcome": "Bienvenido de nuevo",
+    "sublineSignIn": "Inicia sesión en tu cuenta",
     "inputUsername": "Nombre de usuario / e-mail",
     "inputPassword": "contraseña",
     "btnLogin": "Acceder",
     "lnkResetPassword": "Restaurar contraseña",
-    "lnkNewAccount": "¿Aún no tienes cuenta?"
+    "lnkNewAccount": "¿Aún no tienes cuenta?",
+    "legalSignIn": "Al iniciar sesión, aceptas nuestros <terms>términos de servicio</terms> y la <privacy>política de privacidad</privacy>."
   },
   "/map": {
     "pageTitle": "Mapa del Freestyle",
@@ -533,6 +614,11 @@
     "inputSearchPlaceholder": "Buscar nombre...",
     "drpDwnGender": "Género",
     "drpDwnUserTypes": "Tipo",
+    "searchAdvancedLabel": "Búsqueda avanzada",
+    "filterApply": "Aplicar",
+    "filterClearAll": "Restablecer filtros",
+    "filterUserCountry": "País del usuario",
+    "filterAll": "Todos",
     "btnCopyUrlToast": "URL del mapa copiada al portapapeles.",
     "btnCopyUrlToolTip": "Copiar la URL del mapa",
     "infoWindowGoToProfileInternal": "Haz clic para ver el perfil",
@@ -542,7 +628,7 @@
     "inputUsername": "Nombre de usuario / e-mail",
     "btnResetPassword": "Restaurar contraseña"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "Comprueba tu buzón.",
     "thankYouText2": "Te hemos enviado un enlace.",
     "btnBackHome": "A la página de inicio"
@@ -552,6 +638,9 @@
     "btnSave": "Guardar"
   },
   "/registration": {
+    "headlineCreateAccount": "Crea tu cuenta",
+    "sublineSignUp": "Regístrate en pocos pasos",
+    "legalSignUp": "Al crear una cuenta, aceptas nuestros <terms>términos de servicio</terms> y la <privacy>política de privacidad</privacy>.",
     "cbUserType": "Registrarse como",
     "inputUsername": "Nombre de usuario",
     "cbGender": "Genero",
@@ -573,6 +662,8 @@
   "/users": {
     "pageTitle": "Escena del Freestyle",
     "inputSearchPlaceholder": "Buscar nombre...",
+    "tableSortByName": "Ordenar por nombre",
+    "tableSortByCountry": "Ordenar por país",
     "cbColumns": "Columnas",
     "tblColumnUsername": "Usuarios",
     "tblColumnName": "Nombre",
@@ -763,7 +854,7 @@
     "inputQuestion": "Pregunta",
     "inputDescription": "Contexto (opcional)",
     "inputOption": "Opción",
-    "chbDeadlineEnabled": "Fecha límite habilitada",
+    "chbDeadlineEnabled": "Fecha límite",
     "dateDeadline": "Fecha límite",
     "sectionTargetGroup": "Grupo objetivo",
     "cbCountry": "País"

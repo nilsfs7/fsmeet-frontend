@@ -10,12 +10,15 @@ import { getCompetitions } from '@/infrastructure/clients/competition.client';
 import { getSponsors } from '@/infrastructure/clients/sponsor.client';
 import { getTranslations } from 'next-intl/server';
 import { ActionButtonCopyEventUrl } from './components/action-button-copy-event-url';
-import { TextButtonFeedback } from './components/text-button-feedback';
+import { EventFeedbackButton } from './components/event-feedback-button';
 import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import moment from 'moment';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
 import AdminPanel from './components/admin-panel';
+import { cn } from '@/lib/utils';
+
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventDetails(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -31,35 +34,32 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
   ]);
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
-      {/* admin panel */}
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {isEventAdminOrMaintainer(event, session) && (
-        <div className="mt-2 mx-2">
+        <div className={cn('mt-2', constrainedContentClass)}>
           <AdminPanel event={event} />
         </div>
       )}
 
-      <div className="mt-2 mx-2 overflow-hidden">
+      <div className={cn('mt-2 flex-1 overflow-hidden', constrainedContentClass)}>
         <TabsMenu event={event} competitions={competitions} sponsors={sponsors} attachments={attachments} comments={comments} />
       </div>
 
       <Navigation>
         <div className="flex justify-start gap-1">
-          <Link href={routeEvents}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={routeEvents} action={Action.BACK} />
         </div>
 
-        <div className="flex justify-end gap-1">
+        <div className="flex min-w-0 flex-wrap justify-end gap-1">
           <ActionButtonCopyEventUrl alias={event.alias} />
 
           {moment(event?.dateTo).unix() > moment().unix() && (
-            <Link href={`${routeEvents}/${event.id}/registration`}>
-              <TextButton text={t('btnRegistration')} />
-            </Link>
+            <Button asChild variant="action" className={ctaActionButtonClassName}>
+              <Link href={`${routeEvents}/${event.id}/registration`}>{t('btnRegistration')}</Link>
+            </Button>
           )}
 
-          <TextButtonFeedback event={event} />
+          <EventFeedbackButton event={event} />
         </div>
       </Navigation>
     </div>

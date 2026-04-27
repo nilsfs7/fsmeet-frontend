@@ -1,6 +1,6 @@
-import { AppShellColumn } from '@/components/layout/app-shell-column';
 import type { ReactNode } from 'react';
 
-export default function EventLayout({ children }: { children: ReactNode }) {
-  return <AppShellColumn>{children}</AppShellColumn>;
+/** Event detail routes use the single viewport shell from `app/layout` (`AppShellColumn`); do not add another shell here. */
+export default function EventIdLayout({ children }: { children: ReactNode }) {
+  return children;
 }

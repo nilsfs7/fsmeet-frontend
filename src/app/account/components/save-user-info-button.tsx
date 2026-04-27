@@ -1,13 +1,13 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { updateUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/domain/types/user';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Toaster, toast } from 'sonner';
 
-export const TextButtonSaveUserInfo = () => {
+export const SaveUserInfoButton = () => {
   const t = useTranslations('/account');
 
   const { data: session } = useSession();
@@ -36,7 +36,9 @@ export const TextButtonSaveUserInfo = () => {
     <>
       <Toaster richColors />
 
-      <TextButton text={t('btnSave')} onClick={handleSaveUserInfoClicked} />
+      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveUserInfoClicked}>
+        {t('btnSave')}
+      </Button>
     </>
   );
 };

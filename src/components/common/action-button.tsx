@@ -27,10 +27,13 @@ import {
   IconTrophy,
   IconUsers,
 } from '@tabler/icons-react';
+import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
 import { imgWorld } from '@/domain/constants/images';
 import { ButtonStyle } from '@/domain/enums/button-style';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 type TablerActionIcon = ComponentType<{ className?: string; stroke?: number }>;
@@ -69,6 +72,50 @@ const ACTION_ICON: Record<Action, ActionIconConfig> = {
   [Action.STATISTICS]: { kind: 'icon', Icon: IconChartBar },
 };
 
+type ActionIconSize = 'icon' | 'iconSm' | 'iconXs';
+type ActionIconVariant = 'actionIcon' | 'actionIconWarning' | 'actionIconCritical';
+
+function styleToVariant(style: ButtonStyle, disabled: boolean): ActionIconVariant {
+  if (disabled) {
+    return 'actionIcon';
+  }
+  switch (style) {
+    case ButtonStyle.WARNING:
+      return 'actionIconWarning';
+    case ButtonStyle.CRITICAL:
+      return 'actionIconCritical';
+    case ButtonStyle.DEFAULT:
+    default:
+      return 'actionIcon';
+  }
+}
+
+function sizeToButtonSize(size: Size): ActionIconSize {
+  switch (size) {
+    case Size.XS:
+      return 'iconXs';
+    case Size.S:
+      return 'iconSm';
+    case Size.M:
+    case Size.L:
+    default:
+      return 'icon';
+  }
+}
+
+function sizeToBoxClass(size: Size) {
+  switch (size) {
+    case Size.XS:
+      return 'h-4 w-4';
+    case Size.S:
+      return 'h-8 w-8';
+    case Size.M:
+    case Size.L:
+    default:
+      return 'h-10 w-10';
+  }
+}
+
 interface IButton {
   action: Action;
   tooltip?: string;
@@ -76,66 +123,57 @@ interface IButton {
   style?: ButtonStyle;
   disabled?: boolean;
   onClick?: () => void;
+  /** In-app route: `Button asChild` + `Link` = one styled anchor (avoids `a` wrapping `button`). Ignored when `disabled`. */
+  href?: string;
 }
 
-enum ButtonSize {
-  XS = 'h-4 w-4',
-  S = 'h-8 w-8',
-  M = 'h-10 w-10',
-}
-
-const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, disabled = false, onClick }: IButton) => {
-  const getButtonColors = () => {
-    if (disabled) {
-      return 'bg-secondary-light text-secondary-dark';
-    }
-
-    switch (style) {
-      case ButtonStyle.DEFAULT:
-        return 'bg-transparent hover:bg-secondary-light text-primary border-primary';
-      case ButtonStyle.WARNING:
-        return 'bg-transparent hover:bg-secondary-light text-warning border-primary';
-      case ButtonStyle.CRITICAL:
-        return 'bg-transparent hover:bg-secondary-light text-critical border-primary';
-    }
-  };
-
-  let buttonSize = '';
-  switch (size) {
-    case Size.XS:
-      buttonSize = ButtonSize.XS;
-      break;
-    case Size.S:
-      buttonSize = ButtonSize.S;
-      break;
-    case Size.M:
-      buttonSize = ButtonSize.M;
-      break;
-  }
-
+const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, disabled = false, onClick, href }: IButton) => {
+  const variant = styleToVariant(style, disabled);
+  const buttonSize = sizeToButtonSize(size);
+  const boxClass = sizeToBoxClass(size);
   const iconConfig = ACTION_ICON[action];
   const iconClassName = size === Size.XS ? 'h-full w-full' : 'h-[63%] w-[63%]';
+  const ariaLabel = action.toString().toLowerCase();
+  const sizeClass = cn(size === Size.XS && 'border-0 shadow-none hover:shadow-none');
+  const sponsorCardSurfaceClass = cn(
+    'border border-border/60 bg-secondary-light/85 shadow-xs backdrop-blur-sm',
+    'supports-[backdrop-filter]:bg-secondary-light/70',
+    'transition-all duration-200',
+    'hover:border-primary/50 hover:shadow-md',
+    'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+    'hover:scale-100 active:scale-100',
+  );
+
+  const icon = iconConfig.kind === 'img' ? <img src={iconConfig.src} alt={iconConfig.alt} className={boxClass} /> : <iconConfig.Icon className={iconClassName} stroke={2.0} />;
+
+  const control =
+    href && !disabled ? (
+      <Button asChild variant={variant} size={buttonSize} className={cn(sizeClass, sponsorCardSurfaceClass)}>
+        <Link href={href} aria-label={ariaLabel}>
+          {icon}
+        </Link>
+      </Button>
+    ) : (
+      <Button
+        type="button"
+        variant={variant}
+        size={buttonSize}
+        className={cn(sizeClass, sponsorCardSurfaceClass)}
+        disabled={disabled}
+        onClick={onClick}
+        aria-label={ariaLabel}
+      >
+        {icon}
+      </Button>
+    );
+
+  // Disabled buttons do not receive pointer events; wrap so the tooltip can still show on hover/focus.
+  const trigger = disabled && tooltip ? <span className="inline-flex cursor-default">{control}</span> : control;
 
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <button
-            className={`
-      ${buttonSize} rounded-lg ${size !== Size.XS && 'border'} flex justify-center items-center
-      transition-all duration-200 ease-in-out
-      transform hover:scale-[1.02] active:scale-[0.98]
-      shadow-sm hover:shadow-md
-      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
-      ${getButtonColors()}
-    `}
-            disabled={disabled}
-            onClick={onClick}
-            aria-label={action.toString().toLowerCase()}
-          >
-            {iconConfig.kind === 'img' ? <img src={iconConfig.src} alt={iconConfig.alt} className={buttonSize} /> : <iconConfig.Icon className={iconClassName} stroke={2.0} />}
-          </button>
-        </TooltipTrigger>
+        <TooltipTrigger asChild>{trigger}</TooltipTrigger>
 
         {tooltip && (
           <TooltipContent>

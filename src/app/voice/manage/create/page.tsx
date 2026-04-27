@@ -1,7 +1,7 @@
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import NavigateBackButton from '@/components/navigate-back-button';
-import { TextButtonCreatePoll } from './components/text-button-create-poll';
+import { CreatePollButton } from './components/create-poll-button';
 import { Editor } from './components/editor';
 import { getTranslations } from 'next-intl/server';
 
@@ -9,7 +9,7 @@ export default async function EventCreation() {
   const t = await getTranslations('/voice/manage/create');
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <div className={`mx-2 flex flex-col overflow-y-auto`}>
@@ -24,7 +24,7 @@ export default async function EventCreation() {
         </div>
 
         <div className="ml-1">
-          <TextButtonCreatePoll />
+          <CreatePollButton />
         </div>
       </Navigation>
     </div>

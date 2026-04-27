@@ -7,7 +7,6 @@ import { Action } from '@/domain/enums/action';
 import Navigation from '@/components/navigation';
 import type { Round } from '@/domain/types/round';
 import BattleGrid from '@/components/comp/battle-grid';
-import Link from 'next/link';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/page-title';
 import { User } from '@/domain/types/user';
@@ -90,8 +89,8 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
       <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title={t('pageTitle')} />
 
-        <div className={`mx-2 flex flex-col overflow-y-auto`}>
-          <div className={'my-2 flex justify-center'}>
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          <div className="my-2 flex justify-center">
             {rounds.length === 0 && <div>{t('textNoGameMode')}</div>}
 
             <BattleGrid
@@ -107,9 +106,7 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
         </div>
 
         <Navigation>
-          <Link href={`${routeEvents}/${params.eventId}/comps`}>
-            <ActionButton action={Action.BACK} />
-          </Link>
+          <ActionButton href={`${routeEvents}/${params.eventId}/comps`} action={Action.BACK} />
         </Navigation>
       </div>
     </>

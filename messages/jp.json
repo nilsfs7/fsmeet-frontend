@@ -30,16 +30,25 @@
     "pageTitle": "協力者",
     "sectionMainContributors": "主要協力者",
     "textHeadOfDevelopment": "開発責任者",
+    "textMobileAppDevelopment": "モバイルアプリ開発",
     "textSpanishTranslation": "翻訳者 - スペイン語",
     "textFrenchTranslation": "翻訳者 - フランス語",
+    "textJapaneseAndOtherLanguagesTranslation": "翻訳 - 日本語とその他の言語",
+    "textUxAdvisor": "UXアドバイザー",
     "sectionCommunityProposals": "コミュニティ提案",
     "textPersonalSchedule": "選手向け個人スケジュール",
     "textSearchByGender": "性別でフリースタイラーマップを検索",
-    "lnkAnnouncement": "お知らせ"
+    "lnkAnnouncement": "お知らせ",
+    "tableColName": "氏名",
+    "tableColContribution": "貢献",
+    "tableColProposal": "提案",
+    "tableColAnnouncement": "お知らせ",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "アカウント設定",
     "profilePictureAddPicture": "写真を追加",
+    "profilePictureNoFileChosen": "ファイルが選択されていません",
     "btnSave": "保存",
     "dlgJobsTermsTitle": "利用規約",
     "dlgJobsTermsDate": "最終更新日: 2024年8月2日",
@@ -187,7 +196,35 @@
   "/events": {
     "datePickerFrom": "開始",
     "datePickerTo": "終了",
-    "textNoEventsFound": "指定した期間のイベントは見つかりませんでした。"
+    "searchAdvancedLabel": "詳しい条件",
+    "searchNamePlaceholder": "イベント名で検索",
+    "textNoEventsFound": "指定した期間のイベントは見つかりませんでした。",
+    "textNoNameMatch": "該当するイベント名はありません。",
+    "textNoFilterMatch": "条件に合うイベントはありません。",
+    "filterVenueCountry": "開催国",
+    "filterType": "種類",
+    "filterCategory": "カテゴリ",
+    "filterWffa": "WFFAランキング",
+    "filterPriceMoney": "現金賞",
+    "filterAll": "すべて",
+    "filterClearAll": "条件をリセット",
+    "filterApply": "適用",
+    "filterYes": "はい",
+    "filterNo": "いいえ",
+    "filterPrizeWith": "現金賞あり",
+    "filterPrizeNone": "現金賞なし",
+    "filterWffaYes": "WFFAランクあり",
+    "filterWffaNo": "WFFAランクなし",
+    "eventTypeComp": "大会",
+    "eventTypeCompOnline": "オンライン大会",
+    "eventTypeMeet": "ミーティング",
+    "eventCatContinental": "Continental",
+    "eventCatInternational": "International",
+    "eventCatNational": "National",
+    "eventCatPulse": "Pulse",
+    "eventCatSuperball": "Superball",
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "イベントを作成"
   },
   "/events/edit": {
     "pageTitle": "イベントを編集",
@@ -214,15 +251,16 @@
     "dlgDeleteCommentTitle": "コメントを削除",
     "dlgDeleteCommentText": "コメントを削除しますか？この操作は取り消せません。",
     "adminPanelTitle": "管理パネル",
-    "adminPanelBtnEditEventToolTip": "イベントを編集",
-    "adminPanelBtnManageParticipantsToolTip": "参加者を管理",
-    "adminPanelBtnManageCompetitionsToolTip": "カテゴリを管理",
-    "adminPanelBtnManageAccommodationsToolTip": "宿泊を管理",
-    "adminPanelBtnManageOfferingsToolTip": "提供内容を管理",
-    "adminPanelBtnManageSponsorsToolTip": "スポンサーを管理",
-    "adminPanelBtnManageAttachmentsToolTip": "ドキュメントを管理",
+    "adminPanelBtnEditEventToolTip": "イベント情報",
+    "adminPanelBtnManageAttendeesToolTip": "出席者",
+    "adminPanelBtnManageCompetitionsToolTip": "カテゴリ",
+    "adminPanelBtnManageAccommodationsToolTip": "宿泊",
+    "adminPanelBtnManageOfferingsToolTip": "提供内容",
+    "adminPanelBtnManageSponsorsToolTip": "スポンサー",
+    "adminPanelBtnManageAttachmentsToolTip": "ドキュメント",
     "adminPanelBtnManageEventStateToolTip": "イベント状態",
     "adminPanelBtnViewStatisticsToolTip": "統計",
+    "adminPanelBtnManageArenaScreenToolTip": "アリーナスクリーン",
     "tabOverviewTitle": "概要",
     "tabOverviewParticipationFee": "参加費",
     "tabOverviewRegistrationPeriod": "登録期間",
@@ -232,6 +270,11 @@
     "tabOverviewSectionSponsors": "スポンサー",
     "tabOverviewSectionAttachments": "ドキュメント",
     "tabOverviewSectionComments": "コメント",
+    "tabOverviewPerkWffaRanked": "WFFAランクあり",
+    "tabOverviewPerkPriceMoney": "現金賞",
+    "tabOverviewPerkAccommodation": "宿泊",
+    "tabOverviewBtnShowMoreDescription": "もっと見る",
+    "tabOverviewBtnShowLessDescription": "表示を減らす",
     "tabCompetitionsTitle": "カテゴリ",
     "tabCompetitionsSectionCompetitions": "カテゴリ",
     "tabRegistrationsTitle": "参加者",
@@ -244,7 +287,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "宿泊を管理",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "tableColDescription": "説明",
+    "tableColCost": "費用",
+    "tableColActions": "操作",
+    "tooltipEditAccommodation": "宿泊を編集",
+    "textNoAccommodations": "まだ宿泊がありません。"
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "宿泊を作成",
@@ -258,7 +306,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "ドキュメントを管理",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "tooltipEditDocument": "ドキュメントを編集",
+    "textNoAttachments": "まだドキュメントがありません。"
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "ドキュメントを編集",
@@ -274,9 +324,13 @@
     "pageTitle": "カテゴリを管理",
     "btnEdit": "編集",
     "btnPool": "選手一覧",
-    "btnGameMode": "ゲームモード",
+    "btnGameMode": "モード",
     "btnSeedingAndResults": "シード＆結果",
     "btnAddNew": "新規追加"
+  },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "アリーナ画面",
+    "pageDescription": "ライブプレビュー用の大会を選んでください。選択するとアリーナ画面が更新されます。"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "スケジュール",
@@ -372,13 +426,15 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "提供内容を管理",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "tooltipEditOffering": "提供内容を編集",
+    "textNoOfferings": "まだ提供内容がありません。"
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "提供内容を作成",
     "btnCreate": "作成"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "参加者を管理",
     "sectionParticipantsTitle": "参加者",
     "textNoParticipants": "参加登録はまだありません。",
@@ -393,7 +449,25 @@
     "dlgDenyParticipantTitle": "参加を拒否",
     "dlgDenyParticipantText": "この参加者を本当に拒否しますか？",
     "dlgRemoveParticipantTitle": "参加者を削除",
-    "dlgRemoveParticipantText": "この参加者を削除しますか？"
+    "dlgRemoveParticipantText": "この参加者を削除しますか？",
+    "filterNameLabel": "氏名",
+    "filterNamePlaceholder": "名前で検索",
+    "filterStatusLabel": "ステータス",
+    "filterStatusAll": "すべて",
+    "statusPending": "保留中",
+    "statusApproved": "承認済み",
+    "statusDenied": "却下",
+    "regTypeParticipant": "参加者",
+    "regTypeVisitor": "来場者",
+    "tableColFullName": "氏名",
+    "tableColType": "種別",
+    "tableColStatus": "ステータス",
+    "tableColActions": "操作",
+    "tableSortByName": "氏名で並べ替え",
+    "tableSortByType": "種別で並べ替え",
+    "tableSortByStatus": "ステータスで並べ替え",
+    "textNoFilterMatch": "条件に合う出席者はいません。",
+    "alertPendingRegistrations": "{count, plural, other{未処理の申込が # 件あります。確認が必要です。}}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "参加登録の概要",
@@ -464,7 +538,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "スポンサーを管理",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "tooltipEditSponsor": "スポンサーを編集",
+    "textNoSponsors": "まだスポンサーがありません。"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "スポンサーを作成",
@@ -507,6 +583,8 @@
     "btnCreate": "イベントを作成"
   },
   "/feedback": {
+    "pageTitle": "フィードバック",
+    "pageDescription": "下の種類を選んで、フィードバックを送ってください。",
     "pageGeneralFeedback": "一般フィードバック",
     "btnFeatures": "機能リクエスト",
     "btnBugs": "不具合報告"
@@ -535,11 +613,14 @@
     "btnBackHome": "ホームに戻る"
   },
   "/login": {
+    "headlineWelcome": "おかえりなさい",
+    "sublineSignIn": "アカウントにサインイン",
     "inputUsername": "ユーザー名／メール",
     "inputPassword": "パスワード",
     "btnLogin": "ログイン",
     "lnkResetPassword": "パスワードをリセット",
-    "lnkNewAccount": "アカウントがありませんか？"
+    "lnkNewAccount": "アカウントがありませんか？",
+    "legalSignIn": "ログインすることで、<terms>利用規約</terms> および <privacy>プライバシーポリシー</privacy> に同意したことになります。"
   },
   "/map": {
     "pageTitle": "フリースタイラーマップ",
@@ -551,6 +632,11 @@
     "inputSearchPlaceholder": "名前を検索...",
     "drpDwnGender": "性別",
     "drpDwnUserTypes": "種類",
+    "searchAdvancedLabel": "詳しい条件",
+    "filterApply": "適用",
+    "filterClearAll": "条件をリセット",
+    "filterUserCountry": "国",
+    "filterAll": "すべて",
     "btnCopyUrlToast": "マップURLをクリップボードにコピーしました。",
     "btnCopyUrlToolTip": "マップURLをコピー",
     "infoWindowGoToProfileInternal": "クリックでプロフィール",
@@ -560,7 +646,7 @@
     "inputUsername": "ユーザー名／メール",
     "btnResetPassword": "パスワードをリセット"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "メールを確認してください。",
     "thankYouText2": "リセット用リンクを送信しました。",
     "btnBackHome": "ホームに戻る"
@@ -570,6 +656,9 @@
     "btnSave": "保存"
   },
   "/registration": {
+    "headlineCreateAccount": "アカウントを作成",
+    "sublineSignUp": "数ステップでサインアップ",
+    "legalSignUp": "アカウントを作成することで、<terms>利用規約</terms> および <privacy>プライバシーポリシー</privacy> に同意したことになります。",
     "cbUserType": "登録区分",
     "inputUsername": "ユーザー名",
     "cbGender": "性別",
@@ -591,6 +680,8 @@
   "/users": {
     "pageTitle": "コミュニティ",
     "inputSearchPlaceholder": "名前を検索...",
+    "tableSortByName": "氏名で並べ替え",
+    "tableSortByCountry": "国で並べ替え",
     "cbColumns": "列",
     "tblColumnUsername": "ユーザー",
     "tblColumnName": "名前",
@@ -781,8 +872,8 @@
     "inputQuestion": "質問",
     "inputDescription": "背景（任意）",
     "inputOption": "選択肢",
-    "chbDeadlineEnabled": "締切を有効化",
-    "dateDeadline": "締切",
+    "chbDeadlineEnabled": "締切",
+    "dateDeadline": "締切日",
     "sectionTargetGroup": "対象グループ",
     "cbCountry": "国"
   },

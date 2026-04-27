@@ -138,7 +138,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
 
         {/* Schedule */}
         {rounds.length > 0 && (
-          <TabsContent value="schedule" className="overflow-hidden overflow-y-auto">
+          <TabsContent value="schedule" className="overflow-hidden overflow-y-auto scrollbar-none">
             {rounds.length > 1 && (
               <div className="m-2 flex w-full flex-row flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-4">
                 <ComboBox
@@ -176,7 +176,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
 
         {/* Battle Grid */}
         {rounds.length > 1 && (
-          <TabsContent value="grid" className="overflow-hidden overflow-y-auto">
+          <TabsContent value="grid" className="overflow-hidden overflow-y-auto scrollbar-none">
             <div className="overflow-x-auto">
               <BattleGrid rounds={rounds} usersMap={usersMap} showUserCountryFlag={event.showUserCountryFlag} />
             </div>
@@ -184,7 +184,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
         )}
 
         {/* Info */}
-        <TabsContent value="info" className="overflow-hidden overflow-y-auto">
+        <TabsContent value="info" className="overflow-hidden overflow-y-auto scrollbar-none">
           <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
             <div className="text-base font-bold">{t('tabInfoSectionGeneral')}</div>
 
@@ -234,7 +234,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
 
         {/* Participants */}
         {usersMap.size > 0 && (
-          <TabsContent value="participants" className="overflow-hidden overflow-y-auto">
+          <TabsContent value="participants" className="overflow-hidden overflow-y-auto scrollbar-none">
             <UserSection sectionTitle={t('tabParticipantsSectionParticipants')} showUserCountryFlag={event.showUserCountryFlag} users={Array.from(usersMap.values())} />
           </TabsContent>
         )}

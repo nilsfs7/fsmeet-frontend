@@ -30,16 +30,25 @@
     "pageTitle": "Contributors",
     "sectionMainContributors": "Main Contributors",
     "textHeadOfDevelopment": "Head of development",
+    "textMobileAppDevelopment": "Mobile app development",
     "textSpanishTranslation": "Translator - Spanish",
     "textFrenchTranslation": "Translator - French",
+    "textJapaneseAndOtherLanguagesTranslation": "Translator - Japanese and other languages",
+    "textUxAdvisor": "UX advisor",
     "sectionCommunityProposals": "Community Proposals",
     "textPersonalSchedule": "Personal schedule for athletes",
     "textSearchByGender": "Search freestyler map by gender",
-    "lnkAnnouncement": "Announcement"
+    "lnkAnnouncement": "Announcement",
+    "tableColName": "Name",
+    "tableColContribution": "Contribution",
+    "tableColProposal": "Proposal",
+    "tableColAnnouncement": "Announcement",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "Account Settings",
     "profilePictureAddPicture": "Add picture",
+    "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Save",
     "dlgJobsTermsTitle": "Terms And Conditions",
     "dlgJobsTermsDate": "Last updated: August 02, 2024",
@@ -187,7 +196,35 @@
   "/events": {
     "datePickerFrom": "From",
     "datePickerTo": "To",
-    "textNoEventsFound": "No events for the specified date range."
+    "searchAdvancedLabel": "More filters",
+    "searchNamePlaceholder": "Search by event name",
+    "textNoEventsFound": "No events for the specified date range.",
+    "textNoNameMatch": "No event names match your search.",
+    "textNoFilterMatch": "No events match the selected filters.",
+    "filterVenueCountry": "Venue country",
+    "filterType": "Event type",
+    "filterCategory": "Category",
+    "filterWffa": "WFFA ranked",
+    "filterPriceMoney": "Prize money",
+    "filterAll": "All",
+    "filterClearAll": "Reset",
+    "filterApply": "Apply",
+    "filterYes": "Yes",
+    "filterNo": "No",
+    "filterPrizeWith": "With prize money",
+    "filterPrizeNone": "No prize money",
+    "filterWffaYes": "WFFA ranked",
+    "filterWffaNo": "Not WFFA ranked",
+    "eventTypeComp": "Competition",
+    "eventTypeCompOnline": "Online competition",
+    "eventTypeMeet": "Meeting",
+    "eventCatContinental": "Continental",
+    "eventCatInternational": "International",
+    "eventCatNational": "National",
+    "eventCatPulse": "Pulse",
+    "eventCatSuperball": "Superball",
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "Create Event"
   },
   "/events/edit": {
     "pageTitle": "Edit Event",
@@ -214,16 +251,16 @@
     "dlgDeleteCommentTitle": "Delete Comment",
     "dlgDeleteCommentText": "Delete comment? This cannot be undone.",
     "adminPanelTitle": "Admin Panel",
-    "adminPanelBtnEditEventToolTip": "Edit event",
-    "adminPanelBtnManageParticipantsToolTip": "Manage participants",
-    "adminPanelBtnManageCompetitionsToolTip": "Manage competitions",
-    "adminPanelBtnManageAccommodationsToolTip": "Manage accommodations",
-    "adminPanelBtnManageOfferingsToolTip": "Manage offerings",
-    "adminPanelBtnManageSponsorsToolTip": "Manage sponsors",
-    "adminPanelBtnManageAttachmentsToolTip": "Manage documents",
+    "adminPanelBtnEditEventToolTip": "Event info",
+    "adminPanelBtnManageAttendeesToolTip": "Attendees",
+    "adminPanelBtnManageCompetitionsToolTip": "Competitions",
+    "adminPanelBtnManageAccommodationsToolTip": "Accommodations",
+    "adminPanelBtnManageOfferingsToolTip": "Offerings",
+    "adminPanelBtnManageSponsorsToolTip": "Sponsors",
+    "adminPanelBtnManageAttachmentsToolTip": "Documents",
     "adminPanelBtnManageEventStateToolTip": "Event state",
     "adminPanelBtnViewStatisticsToolTip": "Statistics",
-    "adminPanelBtnManageArenaScreenToolTip": "Manage arena screen",
+    "adminPanelBtnManageArenaScreenToolTip": "Arena screen",
     "tabOverviewTitle": "Overview",
     "tabOverviewParticipationFee": "Participation fee",
     "tabOverviewRegistrationPeriod": "Registration period",
@@ -233,6 +270,11 @@
     "tabOverviewSectionSponsors": "Sponsors",
     "tabOverviewSectionAttachments": "Documents",
     "tabOverviewSectionComments": "Comments",
+    "tabOverviewPerkWffaRanked": "WFFA Ranked",
+    "tabOverviewPerkPriceMoney": "Prize Money",
+    "tabOverviewPerkAccommodation": "Accommodation",
+    "tabOverviewBtnShowMoreDescription": "Show more",
+    "tabOverviewBtnShowLessDescription": "Show less",
     "tabCompetitionsTitle": "Competitions",
     "tabCompetitionsSectionCompetitions": "Competitions",
     "tabRegistrationsTitle": "Participants",
@@ -245,7 +287,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Manage Accommodations",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "tableColDescription": "Description",
+    "tableColCost": "Cost",
+    "tableColActions": "Actions",
+    "tooltipEditAccommodation": "Edit accommodation",
+    "textNoAccommodations": "No accommodations yet."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Create Accommodation",
@@ -259,7 +306,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "Manage Documents",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "tooltipEditDocument": "Edit document",
+    "textNoAttachments": "No documents yet."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Edit Document",
@@ -275,9 +324,13 @@
     "pageTitle": "Manage Competitions",
     "btnEdit": "Edit",
     "btnPool": "Pool",
-    "btnGameMode": "Game Mode",
+    "btnGameMode": "Mode",
     "btnSeedingAndResults": "Seeding & Results",
     "btnAddNew": "Add new"
+  },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Arena screen",
+    "pageDescription": "Choose a match for the live preview. The arena screen updates when you select one."
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Schedule",
@@ -373,14 +426,16 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "Manage Offerings",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "tooltipEditOffering": "Edit offering",
+    "textNoOfferings": "No offerings yet."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "Create Offering",
     "btnCreate": "Create"
   },
-  "/events/eventid/participants": {
-    "pageTitle": "Manage Participants",
+  "/events/eventid/attendees": {
+    "pageTitle": "Manage Attendees",
     "sectionParticipantsTitle": "Participants",
     "textNoParticipants": "No registrations, yet.",
     "sectionVisitorsTitle": "Visitors",
@@ -394,7 +449,25 @@
     "dlgDenyParticipantTitle": "Deny Participant",
     "dlgDenyParticipantText": "Do you really want to deny this participant?",
     "dlgRemoveParticipantTitle": "Remove Participant",
-    "dlgRemoveParticipantText": "Do you want to remove this participant?"
+    "dlgRemoveParticipantText": "Do you want to remove this participant?",
+    "filterNameLabel": "Name",
+    "filterNamePlaceholder": "Search by name",
+    "filterStatusLabel": "Status",
+    "filterStatusAll": "All",
+    "statusPending": "Pending",
+    "statusApproved": "Approved",
+    "statusDenied": "Denied",
+    "regTypeParticipant": "Participant",
+    "regTypeVisitor": "Visitor",
+    "tableColFullName": "Name",
+    "tableColType": "Type",
+    "tableColStatus": "Status",
+    "tableColActions": "Actions",
+    "tableSortByName": "Sort by name",
+    "tableSortByType": "Sort by type",
+    "tableSortByStatus": "Sort by status",
+    "textNoFilterMatch": "No attendees match your filters.",
+    "alertPendingRegistrations": "{count, plural, one {There is # pending registration awaiting your review.} other {There are # pending registrations awaiting your review.}}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Event Registration Overview",
@@ -465,7 +538,9 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Manage Sponsors",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "tooltipEditSponsor": "Edit sponsor",
+    "textNoSponsors": "No sponsors yet."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Create Sponsor",
@@ -508,6 +583,8 @@
     "btnCreate": "Create Event"
   },
   "/feedback": {
+    "pageTitle": "Feedback",
+    "pageDescription": "Pick a category below to share your thoughts with us.",
     "pageGeneralFeedback": "General Feedback",
     "btnFeatures": "Request Feature",
     "btnBugs": "Report Bug"
@@ -536,11 +613,14 @@
     "btnBackHome": "Back home"
   },
   "/login": {
+    "headlineWelcome": "Welcome Back",
+    "sublineSignIn": "Sign in to your account",
     "inputUsername": "Username / Email",
     "inputPassword": "Password",
     "btnLogin": "Login",
     "lnkResetPassword": "Reset password",
-    "lnkNewAccount": "No account yet?"
+    "lnkNewAccount": "No account yet?",
+    "legalSignIn": "By signing in, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>."
   },
   "/map": {
     "pageTitle": "Freestyler Map",
@@ -552,6 +632,11 @@
     "inputSearchPlaceholder": "Search name...",
     "drpDwnGender": "Gender",
     "drpDwnUserTypes": "Type",
+    "searchAdvancedLabel": "More filters",
+    "filterApply": "Apply",
+    "filterClearAll": "Reset",
+    "filterUserCountry": "User country",
+    "filterAll": "All",
     "btnCopyUrlToast": "Map URL copied to clipboard.",
     "btnCopyUrlToolTip": "Copy map URL",
     "infoWindowGoToProfileInternal": "Click for profile",
@@ -561,7 +646,7 @@
     "inputUsername": "Username / Email",
     "btnResetPassword": "Reset Password"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "Check your mail.",
     "thankYouText2": "A reset link was sent to you.",
     "btnBackHome": "Back home"
@@ -572,6 +657,9 @@
     "errorMissingResetLink": "This reset link is invalid or incomplete. Open the link from your password reset email."
   },
   "/registration": {
+    "headlineCreateAccount": "Create your account",
+    "sublineSignUp": "Sign up in a few quick steps",
+    "legalSignUp": "By creating an account, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
     "cbUserType": "Sign up as",
     "inputUsername": "Username",
     "cbGender": "Gender",
@@ -593,6 +681,8 @@
   "/users": {
     "pageTitle": "Community",
     "inputSearchPlaceholder": "Search name...",
+    "tableSortByName": "Sort by name",
+    "tableSortByCountry": "Sort by country",
     "cbColumns": "Columns",
     "tblColumnUsername": "User",
     "tblColumnName": "Name",
@@ -783,8 +873,8 @@
     "inputQuestion": "Question",
     "inputDescription": "Context (optional)",
     "inputOption": "Option",
-    "chbDeadlineEnabled": "Deadline enabled",
-    "dateDeadline": "Deadline",
+    "chbDeadlineEnabled": "Deadline",
+    "dateDeadline": "Deadline Date",
     "sectionTargetGroup": "Target group",
     "cbCountry": "Country"
   },

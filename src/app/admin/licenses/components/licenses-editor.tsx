@@ -16,6 +16,22 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 
+/** Same glass card treatment as `competition-editor` / `EDITOR_CARD_CLASS`; full width for admin table. */
+const LICENSE_PANEL_CLASS = cn(
+  'w-full min-w-0 flex flex-col gap-3',
+  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'text-sm',
+);
+
+const LICENSE_TABLE_WRAP_CLASS = cn(
+  'min-w-0 overflow-hidden rounded-lg border border-border/50 bg-background/40',
+  'dark:bg-background/30',
+);
+
+const FILTER_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none text-foreground';
+
 /** Align with /wffa/visa table layout */
 const LICENSE_TABLE_CLASS = 'table-fixed w-full min-w-[28rem] border-separate border-spacing-x-3 border-spacing-y-0';
 
@@ -156,33 +172,28 @@ export const LicensesEditor = () => {
     <>
       <Toaster richColors />
 
-      <div className="mx-2 overflow-y-auto pb-4">
-        <div className="rounded-lg border border-primary bg-secondary-light p-2 text-sm">
+      <div className="mx-2 min-h-0 overflow-y-auto pb-4 scrollbar-none">
+        <div className={LICENSE_PANEL_CLASS}>
           {licenses.length > 0 && (
-            <div className="mb-4 flex flex-col gap-1 sm:max-w-[14rem]">
-              <span className="text-xs font-medium text-primary/80">User</span>
-              <Input
-                placeholder="Search…"
-                value={filterUser}
-                onChange={e => setFilterUser(e.target.value)}
-                className="w-full"
-              />
+            <div className="flex flex-col gap-1.5 sm:max-w-sm">
+              <span className={FILTER_LABEL_CLASS}>User</span>
+              <Input placeholder="Search…" value={filterUser} onChange={e => setFilterUser(e.target.value)} className="w-full" />
             </div>
           )}
 
           {licenses.length === 0 ? (
-            <p className="text-center text-sm text-primary/70">No entries</p>
+            <p className="text-center text-sm text-muted-foreground">No entries</p>
           ) : filteredLicenses.length === 0 ? (
-            <p className="text-center text-sm text-primary/70">No matching entries</p>
+            <p className="text-center text-sm text-muted-foreground">No matching entries</p>
           ) : (
-            <div className="rounded-md border border-secondary-dark bg-background">
+            <div className={LICENSE_TABLE_WRAP_CLASS}>
               <Table className={LICENSE_TABLE_CLASS}>
                 <TableHeader>
-                  <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-                    <TableHead className={cn('text-primary', LICENSE_HEAD_PAD, licenseCol.user)}>
+                  <TableRow className="border-border/40 hover:bg-transparent dark:hover:bg-transparent">
+                    <TableHead className={cn('text-foreground', LICENSE_HEAD_PAD, licenseCol.user)}>
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1.5 text-left font-medium hover:text-primary/80"
+                        className="inline-flex items-center gap-1.5 text-left font-medium text-foreground/90 transition-colors hover:text-foreground"
                         onClick={() => handleSortColumnClick('user')}
                         title={sort.column === 'user' ? (sort.descending ? 'Sort user ascending' : 'Sort user descending') : 'Sort by user'}
                       >
@@ -195,10 +206,10 @@ export const LicensesEditor = () => {
                           ))}
                       </button>
                     </TableHead>
-                    <TableHead className={cn('text-primary text-center', LICENSE_HEAD_PAD, licenseCol.amount)} title="Event licenses">
+                    <TableHead className={cn('text-center text-foreground', LICENSE_HEAD_PAD, licenseCol.amount)} title="Event licenses">
                       <button
                         type="button"
-                        className="inline-flex w-full items-center justify-center gap-1.5 font-medium hover:text-primary/80"
+                        className="inline-flex w-full items-center justify-center gap-1.5 font-medium text-foreground/90 transition-colors hover:text-foreground"
                         onClick={() => handleSortColumnClick('amount')}
                         title={sort.column === 'amount' ? (sort.descending ? 'Sort amount ascending' : 'Sort amount descending') : 'Sort by amount'}
                       >
@@ -211,19 +222,25 @@ export const LicensesEditor = () => {
                           ))}
                       </button>
                     </TableHead>
-                    <TableHead className={cn('text-right text-primary', LICENSE_HEAD_PAD, licenseCol.actions)}>Actions</TableHead>
+                    <TableHead className={cn('text-right text-foreground/90', LICENSE_HEAD_PAD, licenseCol.actions)}>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody className="[&_tr:first-child_td]:pt-3">
                   {sortedFilteredLicenses.map(license => (
-                    <TableRow key={license.username} className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-                      <TableCell className={cn(LICENSE_CELL_PAD, 'text-primary align-top', licenseCol.user)}>
-                        <Link href={`${routeUsers}/${license.username}`} className="underline hover:text-primary/80">
+                    <TableRow
+                      key={license.username}
+                      className="border-border/30 transition-colors hover:bg-muted/30 dark:hover:bg-muted/20"
+                    >
+                      <TableCell className={cn(LICENSE_CELL_PAD, 'align-top text-foreground', licenseCol.user)}>
+                        <Link
+                          href={`${routeUsers}/${license.username}`}
+                          className="font-medium text-primary underline-offset-2 hover:underline hover:text-primary/90"
+                        >
                           {formatLicenseUserLabel(license.username, userMetaByUsername[license.username])}
                         </Link>
                       </TableCell>
-                      <TableCell className={cn(LICENSE_CELL_PAD, 'text-primary align-top tabular-nums', licenseCol.amount)}>{license.amountEventLicenses}</TableCell>
-                      <TableCell className={cn(LICENSE_CELL_PAD, 'text-right align-top', licenseCol.actions)}>
+                      <TableCell className={cn(LICENSE_CELL_PAD, 'align-top tabular-nums text-foreground', licenseCol.amount)}>{license.amountEventLicenses}</TableCell>
+                      <TableCell className={cn(LICENSE_CELL_PAD, 'align-top', licenseCol.actions)}>
                         <div className="flex justify-end gap-1">
                           <ActionButton action={Action.ADD} onClick={() => handleUpdateLicenseClicked(license, 1)} />
                           <ActionButton action={Action.REMOVE} onClick={() => handleUpdateLicenseClicked(license, -1)} />

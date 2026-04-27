@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { PaymentElement, useStripe, useElements, Elements } from '@stripe/react-stripe-js';
 import { Appearance, loadStripe, StripePaymentElementOptions } from '@stripe/stripe-js';
-import TextButton from './common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -63,7 +63,19 @@ function PaymentForm({ confirmPaymentBtnText, returnUrl }: IPaymentForm) {
       <PaymentElement id="payment-element" options={paymentElementOptions} />
 
       <div className="p-2 flex justify-center w-full">
-        {isLoading ? <div className="spinner" id="spinner" /> : <TextButton disabled={isLoading || !stripe || !elements} id="submit" text={confirmPaymentBtnText} />}
+        {isLoading ? (
+          <div className="spinner" id="spinner" />
+        ) : (
+          <Button
+            type="submit"
+            variant="action"
+            className={ctaActionButtonClassName}
+            disabled={isLoading || !stripe || !elements}
+            id="submit"
+          >
+            {confirmPaymentBtnText}
+          </Button>
+        )}
       </div>
 
       {/* Show any error or success messages */}

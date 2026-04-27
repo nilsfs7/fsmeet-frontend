@@ -1,6 +1,6 @@
-import { AppShellColumn } from '@/components/layout/app-shell-column';
 import type { ReactNode } from 'react';
 
+/** Viewport shell is `app/layout` (`AppShellColumn`); this segment adds no extra wrapper. */
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  return <AppShellColumn>{children}</AppShellColumn>;
+  return children;
 }

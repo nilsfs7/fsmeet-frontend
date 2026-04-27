@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Event } from '@/domain/types/event';
 import { Header } from '@/components/header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { routeAbout, routeAdminOverview, routeEvents, routeEventsCreate, routeHome, routeMap, routeUsers, routeVoice, routeWffaOverview } from '@/domain/constants/routes';
 import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { auth } from '@/auth';
@@ -13,7 +13,7 @@ import { getTranslations } from 'next-intl/server';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/domain/types/user';
 import { NavigationItem } from './components/navigation-item';
-import { TextButtonCreateEvent } from './components/text-button-create-event';
+import { CreateEventButton } from './components/create-event-button';
 import { UserType } from '@/domain/enums/user-type';
 
 export default async function Home() {
@@ -30,7 +30,7 @@ export default async function Home() {
   let recentEvents: Event[] = await getEventsRecent(1);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col overflow-hidden">
       <Header showMenu={true} />
 
       <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
@@ -39,13 +39,13 @@ export default async function Home() {
         <img className="h-12 mt-2" src={imgFreestyler} />
       </div>
 
-      <div className="flex max-h-full flex-col overflow-y-auto">
+      <div className="flex min-h-0 max-h-full flex-col overflow-y-auto scrollbar-none">
         <div className="m-2 mt-6 flex flex-shrink-0 justify-center gap-2">
-          {actingUser?.type !== UserType.FAN && <TextButtonCreateEvent />}
+          {actingUser?.type !== UserType.FAN && <CreateEventButton />}
 
-          <Link href={routeEvents}>
-            <TextButton text={t('btnShowAllEvents')} />
-          </Link>
+          <Button asChild variant="action" className={ctaActionButtonClassName}>
+            <Link href={routeEvents}>{t('btnShowAllEvents')}</Link>
+          </Button>
         </div>
 
         <div className="mt-6 flex justify-center">
@@ -54,7 +54,7 @@ export default async function Home() {
       </div>
 
       <Navigation>
-        <div className="mx-2 flex gap-2">
+        <div className="flex min-w-0 flex-wrap gap-2">
           <NavigationItem targetRoute={routeMap} image={imgWorld} label={t('navMap')} />
 
           <NavigationItem targetRoute={routeUsers} image={imgCommunity} label={t('navCommunity')} />

@@ -221,7 +221,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
         </TabsList>
 
         {/* Details */}
-        <TabsContent value="overview" className="overflow-hidden overflow-y-auto">
+        <TabsContent value="overview" className="overflow-hidden overflow-y-auto scrollbar-none">
           {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessangerInvitationUrl={isEventAdmin(event, session) || isInEventRegistrations(eventRegistrations, session)} />}
 
           {sponsors?.length > 0 && (
@@ -265,14 +265,14 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
         {/* Competitions */}
         {event.id && competitions.length > 0 && (
-          <TabsContent value="competitions" className="overflow-hidden overflow-y-auto">
+          <TabsContent value="competitions" className="overflow-hidden overflow-y-auto scrollbar-none">
             <CompetitionSection competitions={competitions} eventId={event.id} />
           </TabsContent>
         )}
 
         {/* Attendees */}
         {(participantRegistrations.length > 0 || visitorRegistrations.length > 0) && (
-          <TabsContent value="registrations" className="overflow-hidden overflow-y-auto">
+          <TabsContent value="registrations" className="overflow-hidden overflow-y-auto scrollbar-none">
             <div className="flex flex-col gap-2">
               {participantRegistrations.length > 0 && (
                 <UserSection

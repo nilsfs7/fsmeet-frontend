@@ -1,6 +1,6 @@
 ## Tech stack
 
-- **Framework:** Next.js 16+ (App Router)
+- **Framework:** Next.js 15+ (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **UI components:** shadcn/ui
@@ -19,7 +19,7 @@
 ## Architecture
 
 - `app/`: pages and layouts
-- **App shell (P1):** `app/events/[eventId]/layout`, `app/account/layout`, and `app/admin/layout` wrap routes in `AppShellColumn` (`@/components/layout/app-shell-column`): full-height column, `relative` for `absolute` children, `min-h-0` for scroll. Pages under those trees use `className="min-h-0 flex-1 flex flex-col"` for the main column instead of repeating `h-[calc(100dvh)]` on every page.
+- **App shell (P1):** `app/layout` wraps the whole app in `AppShellColumn` (`@/components/layout/app-shell-column`): full-height column, `relative` for `absolute` children, `min-h-0` for scroll. Segment layouts such as `app/events/layout`, `app/account/layout`, and `app/admin/layout` are pass-through (no second shell). Page roots use `className="min-h-0 flex-1 flex flex-col"` for the main column instead of repeating `h-[calc(100dvh)]`.
 - `components/ui/`: shadcn/ui components
 - `components/shared/`: reusable components
 - `components/layout/`: page chrome helpers (e.g. `PageInset`)
@@ -28,7 +28,7 @@
 
 ## Standardized components (P1)
 
-- **Buttons:** Use `Button` from `@/components/ui/button`. App CTAs that need the legacy “filled primary / red” look use `variant="action" | "actionCritical" | "actionWarning"`, or use `TextButton` (wraps `Button` with the same styles).
+- **Buttons:** Use `Button` from `@/components/ui/button`. App CTAs that need the “filled primary / red” look use `variant="action" | "actionCritical" | "actionWarning"`; shared sizing for primary CTAs: `className={ctaActionButtonClassName}` from the same module.
 - **Text fields:** Use `Input` from `@/components/ui/input` for single-line fields. The labeled `TextInput` in `components/common` composes `Input` for layout + label.
 - **Modal UIs:** Prefer Radix `Dialog` from `@/components/ui/dialog` for state-driven modals. The custom `Dialog` in `components/dialog.tsx` is for **URL query–param** flows only.
 - **Data tables:** Prefer `@/components/ui/table` with TanStack as used in list screens.
