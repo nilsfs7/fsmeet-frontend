@@ -55,6 +55,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
   const [posterPreviewOpen, setPosterPreviewOpen] = useState(false);
 
   const posterSrc = event.imageUrlPoster || (event.type === EventType.MEETING ? imgMeeting : imgCompetition);
+  const isCustomPoster = Boolean(event.imageUrlPoster);
 
   useEffect(() => {
     if (!posterPreviewOpen) return;
@@ -106,7 +107,15 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
 
       {posterPreviewOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-black/75 p-4" onClick={() => setPosterPreviewOpen(false)}>
-          <img src={posterSrc} alt="" className="max-h-[min(100dvh-2rem,100%)] max-w-[min(100vw-2rem,100%)] object-contain" onClick={e => e.stopPropagation()} />
+          <img
+            src={posterSrc}
+            alt=""
+            className={cn(
+              'max-h-[min(100dvh-2rem,100%)] max-w-[min(100vw-2rem,100%)]',
+              isCustomPoster ? 'object-contain' : 'object-contain p-8',
+            )}
+            onClick={e => e.stopPropagation()}
+          />
         </div>
       )}
 
@@ -145,7 +154,12 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
               </div>
             </div>
 
-            <div className="order-1 w-full shrink-0 sm:order-2 sm:w-48 md:w-56 lg:w-64">
+            <div
+              className={cn(
+                'order-1 w-full shrink-0 sm:order-2 sm:w-48 md:w-56 lg:w-64',
+                !isCustomPoster && 'hidden sm:block',
+              )}
+            >
               <div className="mx-auto w-full max-w-sm overflow-hidden rounded-lg sm:mx-0 sm:max-w-none">
                 <button
                   type="button"
@@ -153,8 +167,20 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                   className="group relative w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label="Event poster, open preview"
                 >
-                  <div className="relative w-full aspect-[4/5] overflow-hidden rounded-lg">
-                    <img className="h-full w-full object-cover object-center transition-transform duration-200 group-hover:scale-[1.02] group-focus-visible:scale-[1.02]" src={posterSrc} alt="" />
+                  <div
+                    className={cn(
+                      'relative w-full aspect-[4/5] overflow-hidden rounded-lg',
+                      !isCustomPoster && 'bg-muted/25 dark:bg-muted/20',
+                    )}
+                  >
+                    <img
+                      src={posterSrc}
+                      alt=""
+                      className={cn(
+                        'h-full w-full transition-transform duration-200 group-hover:scale-[1.02] group-focus-visible:scale-[1.02]',
+                        isCustomPoster ? 'object-cover object-center' : 'object-contain object-center p-4 sm:p-5',
+                      )}
+                    />
                   </div>
                 </button>
               </div>
