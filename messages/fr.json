@@ -247,6 +247,8 @@
     "tabOverviewPerkWffaRanked": "Classé WFFA",
     "tabOverviewPerkPriceMoney": "Prix en Argent",
     "tabOverviewPerkAccommodation": "Hébergement",
+    "tabOverviewBtnShowMoreDescription": "Afficher plus",
+    "tabOverviewBtnShowLessDescription": "Afficher moins",
     "tabCompetitionsTitle": "Compétitions",
     "tabCompetitionsSectionCompetitions": "Compétitions",
     "tabRegistrationsTitle": "Participants",

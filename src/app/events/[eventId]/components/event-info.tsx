@@ -4,7 +4,7 @@ import { useState, useEffect, type ReactNode } from 'react';
 import { imgAccommodation, imgCalender, imgCompetition, imgHourglassEnd, imgHourglassStart, imgLocation, imgMeeting, imgPriceMoney, imgRanked, imgUserDefaultImg } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getShortDateString } from '@/functions/time';
-import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Event } from '@/domain/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
@@ -23,6 +23,8 @@ import Link from 'next/link';
 import { LocationMap } from '../../../../components/location-map';
 import { NotListedLabel } from '@/components/events/not-listed-label';
 import { cn } from '@/lib/utils';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import { Size } from '@/domain/enums/size';
 
 const cardSurface = cn(
   'h-fit min-w-0 overflow-hidden rounded-xl border border-border/60',
@@ -53,9 +55,11 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
 
   const [showMap, setShowMap] = useState<boolean>(false);
   const [posterPreviewOpen, setPosterPreviewOpen] = useState(false);
+  const [descriptionExpanded, setDescriptionExpanded] = useState(false);
 
   const posterSrc = event.imageUrlPoster || (event.type === EventType.MEETING ? imgMeeting : imgCompetition);
   const isCustomPoster = Boolean(event.imageUrlPoster);
+  const isDescriptionLong = (event.description?.length || 0) > 320;
 
   useEffect(() => {
     if (!posterPreviewOpen) return;
@@ -203,7 +207,26 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
         {event.description && (
           <div className="border-t border-border/50 px-2.5 sm:px-3 md:px-4 py-2.5 sm:py-3">
             <div className="flex h-fit min-w-0 flex-col type-body-sm text-foreground/90">
-              <TextareaAutosize readOnly className="h-full w-full resize-none overflow-hidden bg-transparent text-foreground/90 outline-none" value={event.description} />
+              <TextareaAutosize
+                readOnly
+                className={cn('h-full w-full resize-none bg-transparent text-foreground/90 outline-none', !descriptionExpanded && isDescriptionLong && 'max-h-28 overflow-hidden')}
+                value={event.description}
+              />
+              {isDescriptionLong && (
+                <div className="mt-2">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-sm supports-[backdrop-filter]:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40"
+                    onClick={() => setDescriptionExpanded(prev => !prev)}
+                    aria-label={descriptionExpanded ? t('tabOverviewBtnShowLessDescription') : t('tabOverviewBtnShowMoreDescription')}
+                  >
+                    <span className="text-sm font-medium">{descriptionExpanded ? t('tabOverviewBtnShowLessDescription') : t('tabOverviewBtnShowMoreDescription')}</span>
+                    {descriptionExpanded ? <ChevronUp className="h-4 w-4" aria-hidden /> : <ChevronDown className="h-4 w-4" aria-hidden />}
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -260,17 +283,20 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
               <div className="flex shrink-0 gap-2">
                 <Button
                   type="button"
-                  variant="action"
-                  className={ctaActionButtonClassName}
+                  variant="ghost"
+                  size="sm"
+                    className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-sm supports-[backdrop-filter]:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40"
                   onClick={() => {
-                    setShowMap(showMap ? false : true);
+                    setShowMap(prev => !prev);
                   }}
+                  aria-label={showMap ? t('tabOverviewBtnHideVenueMap') : t('tabOverviewBtnShowVenueMap')}
                 >
-                  {showMap ? t('tabOverviewBtnHideVenueMap') : t('tabOverviewBtnShowVenueMap')}
+                  <span className="text-sm font-medium">{showMap ? t('tabOverviewBtnHideVenueMap') : t('tabOverviewBtnShowVenueMap')}</span>
+                  {showMap ? <ChevronUp className="h-4 w-4" aria-hidden /> : <ChevronDown className="h-4 w-4" aria-hidden />}
                 </Button>
 
                 <a href={getMapsSearchUrl()} target="_blank" rel="noopener noreferrer">
-                  <ActionButton action={Action.GOTOEXTERNAL} />
+                  <ActionButton action={Action.GOTOEXTERNAL} size={Size.S} />
                 </a>
               </div>
             </div>
