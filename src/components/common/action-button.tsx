@@ -135,18 +135,34 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
   const iconClassName = size === Size.XS ? 'h-full w-full' : 'h-[63%] w-[63%]';
   const ariaLabel = action.toString().toLowerCase();
   const sizeClass = cn(size === Size.XS && 'border-0 shadow-none hover:shadow-none');
+  const sponsorCardSurfaceClass = cn(
+    'border border-border/60 bg-secondary-light/85 shadow-xs backdrop-blur-sm',
+    'supports-[backdrop-filter]:bg-secondary-light/70',
+    'transition-all duration-200',
+    'hover:border-primary/50 hover:shadow-md',
+    'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+    'hover:scale-100 active:scale-100',
+  );
 
   const icon = iconConfig.kind === 'img' ? <img src={iconConfig.src} alt={iconConfig.alt} className={boxClass} /> : <iconConfig.Icon className={iconClassName} stroke={2.0} />;
 
   const control =
     href && !disabled ? (
-      <Button asChild variant={variant} size={buttonSize} className={sizeClass}>
+      <Button asChild variant={variant} size={buttonSize} className={cn(sizeClass, sponsorCardSurfaceClass)}>
         <Link href={href} aria-label={ariaLabel}>
           {icon}
         </Link>
       </Button>
     ) : (
-      <Button type="button" variant={variant} size={buttonSize} className={sizeClass} disabled={disabled} onClick={onClick} aria-label={ariaLabel}>
+      <Button
+        type="button"
+        variant={variant}
+        size={buttonSize}
+        className={cn(sizeClass, sponsorCardSurfaceClass)}
+        disabled={disabled}
+        onClick={onClick}
+        aria-label={ariaLabel}
+      >
         {icon}
       </Button>
     );
