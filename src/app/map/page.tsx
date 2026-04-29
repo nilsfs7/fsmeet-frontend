@@ -48,7 +48,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
         <>
           <Header />
 
-          <div className={cn('mt-2', constrainedContentClass)}>
+          <div className={constrainedContentClass}>
             <PageTitle title={t('pageTitle')} />
           </div>
         </>

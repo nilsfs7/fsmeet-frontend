@@ -65,7 +65,7 @@ export default async function Users() {
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header />
 
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

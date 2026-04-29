@@ -21,7 +21,7 @@ export default async function ArenaScreen(props: { params: Promise<{ eventId: st
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

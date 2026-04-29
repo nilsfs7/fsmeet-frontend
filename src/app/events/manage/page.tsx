@@ -58,7 +58,7 @@ export default async function MyEventsOverview() {
     <div className="min-h-0 flex-1 flex flex-col overflow-hidden">
       <Header showMenu />
 
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

@@ -26,7 +26,7 @@ export default async function EventAccommodation(props: { params: Promise<{ even
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

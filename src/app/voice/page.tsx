@@ -49,7 +49,7 @@ export default async function Voice() {
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header />
 
-      <div className={cn('mt-2 shrink-0', constrainedContentClass)}>
+      <div className={cn('shrink-0', constrainedContentClass)}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

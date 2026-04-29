@@ -36,7 +36,7 @@ export default async function Home() {
     <div className={pageRootClipClassName}>
       <Header showMenu={true} />
 
-      <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
+      <div className="flex flex-col px-4 pb-1 justify-center">
         <PageTitle title={t('pageTitle')} className="mb-2 sm:mb-3" />
         <p className="type-body-sm text-center text-xl">{t('slogan')}</p>
         <img className="h-12 mt-2" src={imgFreestyler} />

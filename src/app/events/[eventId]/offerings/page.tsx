@@ -27,7 +27,7 @@ export default async function EventOffering(props: { params: Promise<{ eventId: 
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 
