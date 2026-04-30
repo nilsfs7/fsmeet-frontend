@@ -13,15 +13,16 @@ import { UserType } from '@/domain/enums/user-type';
 
 export default async function EventEditing(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/edit');
-  const session = await auth();
+  const [t, session] = await Promise.all([getTranslations('/events/edit'), auth()]);
 
-  const users = await getUsers(undefined, undefined, undefined, undefined, undefined, undefined, true).then(users => {
-    return users.filter(user => {
-      if (user.type !== UserType.ADMINISTRATIVE) return user;
-    });
-  });
-  const event = await getEvent(params.eventId, session);
+  const [users, event] = await Promise.all([
+    getUsers(undefined, undefined, undefined, undefined, undefined, undefined, true).then(users =>
+      users.filter(user => {
+        if (user.type !== UserType.ADMINISTRATIVE) return user;
+      }),
+    ),
+    getEvent(params.eventId, session),
+  ]);
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">

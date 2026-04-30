@@ -14,8 +14,7 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function ArenaScreen(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/arena-screen');
-  const competitions = await getCompetitions(params.eventId);
+  const [t, competitions] = await Promise.all([getTranslations('/events/eventid/arena-screen'), getCompetitions(params.eventId)]);
 
   const options = competitions.filter((c): c is typeof c & { id: string } => Boolean(c.id)).map(c => ({ id: c.id, name: c.name }));
 

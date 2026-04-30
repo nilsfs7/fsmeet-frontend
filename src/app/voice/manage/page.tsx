@@ -16,8 +16,7 @@ import { appShellContentClass } from '@/components/layout/app-shell-content';
 const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function ManagePolls() {
-  const t = await getTranslations('/voice/manage');
-  const session = await auth();
+  const [t, session] = await Promise.all([getTranslations('/voice/manage'), auth()]);
 
   const polls = await getPolls(session?.user?.username);
 

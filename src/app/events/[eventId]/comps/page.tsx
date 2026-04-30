@@ -12,9 +12,10 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function ManageCompetitions(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/comps');
-
-  const competitions = await getCompetitions(params.eventId);
+  const [t, competitions] = await Promise.all([
+    getTranslations('/events/eventid/comps'),
+    getCompetitions(params.eventId),
+  ]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

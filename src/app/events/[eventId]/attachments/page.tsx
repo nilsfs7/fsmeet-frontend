@@ -14,10 +14,11 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventAttachments(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/attachments');
-  const tAccommodation = await getTranslations('/events/eventid/accommodations');
-
-  const attachments = await getAttachments(params.eventId);
+  const [t, tAccommodation, attachments] = await Promise.all([
+    getTranslations('/events/eventid/attachments'),
+    getTranslations('/events/eventid/accommodations'),
+    getAttachments(params.eventId),
+  ]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

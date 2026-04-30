@@ -1,7 +1,6 @@
 import Navigation from '@/components/navigation';
 import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastructure/clients/event.client';
 import Link from 'next/link';
-import { Event } from '@/domain/types/event';
 import { Header } from '@/components/header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
@@ -20,17 +19,18 @@ import PageTitle from '@/components/page-title';
 import { PageInset } from '@/components/layout/page-inset';
 
 export default async function Home() {
-  const t = await getTranslations(routeHome);
-  const session = await auth();
+  const [t, session, upcomingEvents, ongoingEvents, recentEvents] = await Promise.all([
+    getTranslations(routeHome),
+    auth(),
+    getEventsUpcoming(1),
+    getEventsOngoing(1),
+    getEventsRecent(1),
+  ]);
 
   let actingUser: User | undefined;
   if (session?.user.username) {
-    actingUser = await getUser(session?.user.username);
+    actingUser = await getUser(session.user.username);
   }
-
-  const upcomingEvents: Event[] = await getEventsUpcoming(1);
-  const ongoingEvents: Event[] = await getEventsOngoing(1);
-  const recentEvents: Event[] = await getEventsRecent(1);
 
   return (
     <div className={pageRootClipClassName}>

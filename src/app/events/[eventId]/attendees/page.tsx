@@ -15,14 +15,15 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventAttendees(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/attendees');
-  const session = await auth();
+  const [t, session] = await Promise.all([getTranslations('/events/eventid/attendees'), auth()]);
 
-  const event = await getEvent(params.eventId, session);
-  const competitions = await getCompetitions(params.eventId);
-  const registrations = await getEventRegistrations(params.eventId, null, session);
-  const accommodations = await getAccommodations(params.eventId);
-  const offerings = await getOfferings(params.eventId);
+  const [event, competitions, registrations, accommodations, offerings] = await Promise.all([
+    getEvent(params.eventId, session),
+    getCompetitions(params.eventId),
+    getEventRegistrations(params.eventId, null, session),
+    getAccommodations(params.eventId),
+    getOfferings(params.eventId),
+  ]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

@@ -20,12 +20,9 @@ import { appShellContentClass } from '@/components/layout/app-shell-content';
 const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function Voice() {
-  const t = await getTranslations('/voice');
-  const session = await auth();
+  const [t, session, polls] = await Promise.all([getTranslations('/voice'), auth(), getPolls()]);
 
-  const user: User | undefined = session?.user.username ? await getUser(session?.user.username) : undefined;
-
-  const polls = await getPolls();
+  const user: User | undefined = session?.user.username ? await getUser(session.user.username) : undefined;
 
   const columnData: ColumnInfo[] = [];
 

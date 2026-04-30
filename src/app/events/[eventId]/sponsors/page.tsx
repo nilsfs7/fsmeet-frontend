@@ -14,10 +14,11 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventSponsors(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/sponsors');
-  const tAccommodation = await getTranslations('/events/eventid/accommodations');
-
-  const sponsors = await getSponsors(params.eventId);
+  const [t, tAccommodation, sponsors] = await Promise.all([
+    getTranslations('/events/eventid/sponsors'),
+    getTranslations('/events/eventid/accommodations'),
+    getSponsors(params.eventId),
+  ]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

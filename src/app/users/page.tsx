@@ -15,9 +15,7 @@ import { appShellContentClass } from '@/components/layout/app-shell-content';
 const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function Users() {
-  const t = await getTranslations('/users');
-
-  const users = await getUsers();
+  const [t, users] = await Promise.all([getTranslations('/users'), getUsers()]);
 
   const columnData: ColumnInfo[] = [];
 

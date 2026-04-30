@@ -3,7 +3,6 @@ import ActionButton from '@/components/common/action-button';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
-import { Competition } from '@/domain/types/competition';
 import { Participants } from './components/participants';
 import { getCompetition } from '@/infrastructure/clients/competition.client';
 import { getTranslations } from 'next-intl/server';
@@ -15,11 +14,15 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function CompetitionPool(props: { params: Promise<{ eventId: string; compId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/comps/compid/edit/pool');
-  const session = await auth();
+  const [t, session] = await Promise.all([
+    getTranslations('/events/eventid/comps/compid/edit/pool'),
+    auth(),
+  ]);
 
-  const event = await getEvent(params.eventId, session);
-  const competition: Competition = await getCompetition(params.compId);
+  const [event, competition] = await Promise.all([
+    getEvent(params.eventId, session),
+    getCompetition(params.compId),
+  ]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
