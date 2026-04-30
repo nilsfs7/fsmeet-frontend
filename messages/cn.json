@@ -224,7 +224,8 @@
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
-    "btnCreateEvent": "创建活动"
+    "btnCreateEvent": "创建活动",
+    "advertisementBadge": "广告"
   },
   "/events/edit": {
     "pageTitle": "编辑活动",

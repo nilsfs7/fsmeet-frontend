@@ -47,8 +47,7 @@ const EDITOR_CARD_CLASS = cn(
   'supports-[backdrop-filter]:bg-secondary-light/70',
   'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
 );
-const FIELD_ROW_CLASS =
-  'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
 const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
@@ -506,13 +505,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
           <p className="text-lg font-bold">{t('dlgAccountVerificationStep3')}</p>
           <p>{t('dlgAccountVerificationStep3Text1')}</p>
           <div className="mt-2">
-            <Button
-              type="button"
-              variant="action"
-              className={ctaActionButtonClassName}
-              disabled={!userInfo.instagramHandle}
-              onClick={handleConfirmSendVerificationRequestClicked}
-            >
+            <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={!userInfo.instagramHandle} onClick={handleConfirmSendVerificationRequestClicked}>
               {t('dlgAccountVerificationStep3BtnRequestNow')}
             </Button>
           </div>
@@ -537,7 +530,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         <p>{t('dlgAccountDeleteAccountText')}</p>
       </Dialog>
 
-      <Tabs defaultValue={tab || `general`} className="flex flex-col h-full">
+      <Tabs defaultValue={tab || `general`} className="flex h-full min-h-0 flex-col">
         <TabsList>
           <TabsTrigger
             value="general"
@@ -582,8 +575,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         </TabsList>
 
         {/* General */}
-        <TabsContent value="general" className="flex flex-col items-center overflow-hidden overflow-y-auto">
-          <div className={cn(EDITOR_CARD_CLASS, 'mb-2')}>
+        <TabsContent value="general" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
+          <div className={EDITOR_CARD_CLASS}>
             <h2 className={SECTION_H2}>{t('tabGeneralSectionGeneral')}</h2>
 
             <TextInput
@@ -730,7 +723,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
         {/* Freestyler Map */}
         {user.type !== UserType.FAN && (
-          <TabsContent value="map" className="flex flex-col items-center overflow-hidden overflow-y-auto">
+          <TabsContent value="map" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
             <div className={EDITOR_CARD_CLASS}>
               <h2 className={SECTION_H2}>{t('tabMapSectionLocation')}</h2>
 
@@ -761,10 +754,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   >
                     {t('tabMapShowOnMap')}
                   </Link>
-                  <ActionButton
-                    href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}
-                    action={Action.GOTOMAP}
-                  />
+                  <ActionButton href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`} action={Action.GOTOMAP} />
                 </div>
               )}
             </div>
@@ -773,8 +763,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
         {/* Jobs */}
         {user.type !== UserType.FAN && (
-          <TabsContent value="jobs" className="flex flex-col items-center overflow-hidden overflow-y-auto">
-            <div className={cn(EDITOR_CARD_CLASS, 'mb-2')}>
+          <TabsContent value="jobs" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
+            <div className={EDITOR_CARD_CLASS}>
               <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobsSectionTerms')}</h2>
 
               <FieldRow label={t('tabJobsTerms')}>
@@ -878,7 +868,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         )}
 
         {/* Account */}
-        <TabsContent value="account" className="flex flex-col items-center overflow-hidden overflow-y-auto">
+        <TabsContent value="account" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
           <div className={EDITOR_CARD_CLASS}>
             <h2 className={cn(SECTION_H2, 'text-center')}>{t('tabAccountSectionNotification')}</h2>
 
@@ -962,12 +952,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             </div>
 
             <div className="mt-4 flex justify-center">
-              <Button
-                type="button"
-                variant="actionCritical"
-                className={ctaActionButtonClassName}
-                onClick={handleDeleteAccountClicked}
-              >
+              <Button type="button" variant="actionCritical" className={ctaActionButtonClassName} onClick={handleDeleteAccountClicked}>
                 {t('tabAccountBtnDeleteAccount')}
               </Button>
             </div>

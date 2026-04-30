@@ -7,12 +7,16 @@ import { GameModeEditor } from './components/game-mode-editor';
 
 export default async function ModeEditing(props: { params: Promise<{ eventId: string; compId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/comps/compid/edit/mode');
-  const session = await auth();
+  const [t, session] = await Promise.all([
+    getTranslations('/events/eventid/comps/compid/edit/mode'),
+    auth(),
+  ]);
 
-  const event = await getEvent(params.eventId, session);
-  const rounds = await getRounds(params.compId);
-  const participants = await getCompetitionParticipants(params.compId);
+  const [event, rounds, participants] = await Promise.all([
+    getEvent(params.eventId, session),
+    getRounds(params.compId),
+    getCompetitionParticipants(params.compId),
+  ]);
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">

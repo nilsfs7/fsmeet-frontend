@@ -224,7 +224,8 @@
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
-    "btnCreateEvent": "Cipta Acara"
+    "btnCreateEvent": "Cipta Acara",
+    "advertisementBadge": "Iklan"
   },
   "/events/edit": {
     "pageTitle": "Edit Acara",

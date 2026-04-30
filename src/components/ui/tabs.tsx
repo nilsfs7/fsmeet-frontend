@@ -17,7 +17,7 @@ const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Trigg
     ref={ref}
     className={cn(
       'inline-flex items-center justify-center whitespace-nowrap bg-secondary-light rounded-lg px-3 py-1.5 hover:border-primary data-[state=active]:hover:border-primary border-secondary-dark border hover:border text-sm font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background  data-[state=active]:border-secondary-dark data-[state=active]:text-zinc-950 data-[state=active]:shadow-sm dark:ring-offset-zinc-950 dark:focus-visible:ring-zinc-300 dark:data-[state=active]:bg-zinc-950 dark:data-[state=active]:text-zinc-50',
-      className
+      className,
     )}
     {...props}
   />
@@ -28,8 +28,9 @@ const TabsContent = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Conte
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      'mt-2 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 dark:ring-offset-zinc-950 dark:focus-visible:ring-zinc-300',
-      className
+      /* Margin only when visible so inactive panels do not stack vertical gaps in the flex layout */
+      'ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 data-[state=active]:mt-2 dark:ring-offset-zinc-950 dark:focus-visible:ring-zinc-300',
+      className,
     )}
     {...props}
   />

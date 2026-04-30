@@ -33,7 +33,7 @@ export default async function Payments() {
     <div className="min-h-0 flex-1 flex flex-col">
       <Header />
 
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

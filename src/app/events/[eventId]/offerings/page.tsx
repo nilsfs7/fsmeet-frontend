@@ -18,16 +18,17 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventOffering(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/offerings');
-  const tAccommodation = await getTranslations('/events/eventid/accommodations');
-  const session = await auth();
+  const [t, tAccommodation, session] = await Promise.all([
+    getTranslations('/events/eventid/offerings'),
+    getTranslations('/events/eventid/accommodations'),
+    auth(),
+  ]);
 
-  const event = await getEvent(params.eventId, session);
-  const offerings = await getOfferings(params.eventId);
+  const [event, offerings] = await Promise.all([getEvent(params.eventId, session), getOfferings(params.eventId)]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

@@ -5,8 +5,11 @@ import moment, { Moment } from 'moment';
 import Link from 'next/link';
 import { countries } from 'countries-list';
 import EventCard from '@/components/events/event-card';
+import { AdvertisementCard } from '@/components/events/advertisement-card';
 import { routeEvents } from '@/domain/constants/routes';
 import { getEvents } from '@/infrastructure/clients/event.client';
+import { getAdvertisements } from '@/infrastructure/clients/advertisement.client';
+import type { ReadAdvertisementResponseDto } from '@/infrastructure/clients/dtos/advertisement/read-advertisement-response-dto';
 import { Event } from '@/domain/types/event';
 import { DatePicker } from '@/components/common/date-picker';
 import { useTranslations } from 'next-intl';
@@ -30,6 +33,8 @@ const ALL = '__all__' as const;
 const EVENT_TYPES: EventType[] = [EventType.COMPETITION, EventType.COMPETITION_ONLINE, EventType.MEETING];
 const EVENT_CATS: EventCategory[] = [EventCategory.CONTINENTAL, EventCategory.INTERNATIONAL, EventCategory.NATIONAL, EventCategory.PULSE, EventCategory.SUPERBALL, EventCategory.WFFC];
 
+const mobileAdAfterEveryNEvents = Number(process.env.NEXT_PUBLIC_EVENTS_LIST_AD_AFTER_N_EVENT_CARDS) || 4;
+
 type LoadState = 'loading' | 'ok' | 'error';
 
 const COUNTRIES_MAP = countries as Record<string, { name: string }>;
@@ -43,6 +48,7 @@ export const EventsList = () => {
   const [loadState, setLoadState] = useState<LoadState>('loading');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
+  const [advertisements, setAdvertisements] = useState<ReadAdvertisementResponseDto[]>([]);
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
   const [nameQuery, setNameQuery] = useState('');
@@ -112,6 +118,8 @@ export const EventsList = () => {
     });
   }, [events, nameQuery, filterVenue, filterType, filterCategory, wffaRankedOnly, prizeMoneyOnly]);
 
+  const showDesktopAdColumn = loadState === 'ok' && filteredEvents.length > 0 && advertisements.length > 0;
+
   const clearAllFilters = () => {
     setNameQuery('');
     setFilterVenue('');
@@ -140,6 +148,14 @@ export const EventsList = () => {
   useEffect(() => {
     void loadForRange(defaultDateFrom, defaultDateTo);
   }, [loadForRange]);
+
+  useEffect(() => {
+    void getAdvertisements()
+      .then(setAdvertisements)
+      .catch(() => {
+        setAdvertisements([]);
+      });
+  }, []);
 
   useEffect(() => {
     if (!filterVenue) return;
@@ -312,30 +328,49 @@ export const EventsList = () => {
       </div>
 
       <div className="mt-2 flex min-h-0 max-h-full justify-center overflow-y-auto px-2 scrollbar-none">
-        <div className="grid w-full max-w-lg justify-items-center gap-2">
-          {loadState === 'loading' && <AppDataStateListSkeleton />}
-
-          {loadState === 'error' && errorMessage && (
-            <div className="w-full min-w-0 max-w-lg">
-              <AppDataStateError title={tData('errorTitle')} message={errorMessage} onRetry={() => void loadForRange(dateFrom, dateTo)} retryLabel={tData('btnRetry')} />
-            </div>
+        <div className={cn('w-full', showDesktopAdColumn && 'lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-x-6')}>
+          {showDesktopAdColumn && (
+            <aside className="hidden lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-end lg:self-start">
+              <AdvertisementCard advertisement={advertisements[0]!} badgeLabel={t('advertisementBadge')} slotIndex={0} variant="sidebar" />
+            </aside>
           )}
 
-          {loadState === 'ok' && events.length === 0 && <AppDataStateEmpty description={t('textNoEventsFound')} />}
+          <div className={cn('mx-auto grid min-w-0 w-full max-w-lg justify-items-center gap-2', showDesktopAdColumn && 'lg:mx-0 lg:justify-self-center')}>
+            {loadState === 'loading' && <AppDataStateListSkeleton />}
 
-          {loadState === 'ok' && events.length > 0 && filteredEvents.length === 0 && <AppDataStateEmpty description={t('textNoFilterMatch')} />}
+            {loadState === 'error' && errorMessage && (
+              <div className="w-full min-w-0 max-w-lg">
+                <AppDataStateError title={tData('errorTitle')} message={errorMessage} onRetry={() => void loadForRange(dateFrom, dateTo)} retryLabel={tData('btnRetry')} />
+              </div>
+            )}
 
-          {loadState === 'ok' &&
-            filteredEvents.length > 0 &&
-            filteredEvents.map((event, i) => {
-              return (
-                <div key={event.id ?? `event-${i.toString()}`} className="w-full max-w-lg">
-                  <Link href={`${routeEvents}/${event.id}`}>
-                    <EventCard event={event} />
-                  </Link>
-                </div>
-              );
-            })}
+            {loadState === 'ok' && events.length === 0 && <AppDataStateEmpty description={t('textNoEventsFound')} />}
+
+            {loadState === 'ok' && events.length > 0 && filteredEvents.length === 0 && <AppDataStateEmpty description={t('textNoFilterMatch')} />}
+
+            {loadState === 'ok' &&
+              filteredEvents.length > 0 &&
+              filteredEvents.flatMap((event, i) => {
+                const row = (
+                  <div key={event.id ?? `event-${i.toString()}`} className="w-full max-w-lg">
+                    <Link href={`${routeEvents}/${event.id}`}>
+                      <EventCard event={event} />
+                    </Link>
+                  </div>
+                );
+                if ((i + 1) % mobileAdAfterEveryNEvents !== 0 || advertisements.length === 0) {
+                  return [row];
+                }
+                const adSlot = Math.floor(i / mobileAdAfterEveryNEvents);
+                const ad = advertisements[adSlot % advertisements.length]!;
+                return [
+                  row,
+                  <div key={`advertisement-slot-${event.id ?? i.toString()}`} className="w-full max-w-lg lg:hidden">
+                    <AdvertisementCard advertisement={ad} badgeLabel={t('advertisementBadge')} slotIndex={adSlot} variant="inline" />
+                  </div>,
+                ];
+              })}
+          </div>
         </div>
       </div>
     </>

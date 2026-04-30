@@ -25,7 +25,6 @@ import { UpdatePaymentMethodCashBodyDto } from './dtos/event/payment/update-paym
 import { UpdatePaymentMethodPayPalBodyDto } from './dtos/event/payment/update-payment-method-paypal.body.dto';
 import { UpdatePaymentMethodSepaBodyDto } from './dtos/event/payment/update-payment-method-sepa.body.dto';
 import { UpdatePaymentMethodStripeBodyDto } from './dtos/event/payment/update-payment-method-stripe.body.dto';
-import { PatchEventPosterBodyDto } from './dtos/event/patch-event-poster.body.dto';
 import { CreateEventResponseDto } from './dtos/event/create-event.response.dto';
 import { defaultHeaders } from './default-headers';
 import { DeleteEventCommentBodyDto } from './dtos/event/delete-comment.body.dto';
@@ -84,7 +83,7 @@ export async function getEvents(
   }
 
   if (!response.ok) {
-    const err = await response.json().catch(() => ({} as { message?: string }));
+    const err = await response.json().catch(() => ({}) as { message?: string });
     throw new Error(typeof err?.message === 'string' && err.message.length > 0 ? err.message : `Request failed (${response.status})`);
   }
 
@@ -623,16 +622,17 @@ export async function updateEventState(session: Session | null, eventId: string,
   }
 }
 
-export async function updateEventPoster(eventId: string, imageBase64: string, session: Session | null): Promise<string> {
+export async function updateEventPoster(eventId: string, image: File, session: Session | null): Promise<string> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/poster`;
 
-  const body = new PatchEventPosterBodyDto(imageBase64);
+  const body = new FormData();
+  body.append('file', image);
 
   const response = await fetch(url, {
     method: 'PUT',
-    body: JSON.stringify(body),
+    body: body,
     headers: {
-      ...defaultHeaders,
+      'x-platform': Platform.WEB,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

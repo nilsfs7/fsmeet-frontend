@@ -1,7 +1,6 @@
 import Navigation from '@/components/navigation';
 import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastructure/clients/event.client';
 import Link from 'next/link';
-import { Event } from '@/domain/types/event';
 import { Header } from '@/components/header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
@@ -15,31 +14,35 @@ import { User } from '@/domain/types/user';
 import { NavigationItem } from './components/navigation-item';
 import { CreateEventButton } from './components/create-event-button';
 import { UserType } from '@/domain/enums/user-type';
+import { pageRootClipClassName } from '@/components/layout/app-shell-content';
+import PageTitle from '@/components/page-title';
+import { PageInset } from '@/components/layout/page-inset';
 
 export default async function Home() {
-  const t = await getTranslations(routeHome);
-  const session = await auth();
+  const [t, session, upcomingEvents, ongoingEvents, recentEvents] = await Promise.all([
+    getTranslations(routeHome),
+    auth(),
+    getEventsUpcoming(1),
+    getEventsOngoing(1),
+    getEventsRecent(1),
+  ]);
 
   let actingUser: User | undefined;
   if (session?.user.username) {
-    actingUser = await getUser(session?.user.username);
+    actingUser = await getUser(session.user.username);
   }
 
-  let upcomingEvents: Event[] = await getEventsUpcoming(1);
-  let ongoingEvents: Event[] = await getEventsOngoing(1);
-  let recentEvents: Event[] = await getEventsRecent(1);
-
   return (
-    <div className="min-h-0 flex-1 flex flex-col overflow-hidden">
+    <div className={pageRootClipClassName}>
       <Header showMenu={true} />
 
-      <div className="flex flex-col px-4 pt-4 pb-1 justify-center">
-        <div className="text-center text-3xl">{t('pageTitle')}</div>
-        <div className="text-center text-xl">{t('slogan')}</div>
+      <div className="flex flex-col px-4 pb-1 justify-center">
+        <PageTitle title={t('pageTitle')} className="mb-2 sm:mb-3" />
+        <p className="type-body-sm text-center text-xl">{t('slogan')}</p>
         <img className="h-12 mt-2" src={imgFreestyler} />
       </div>
 
-      <div className="flex min-h-0 max-h-full flex-col overflow-y-auto scrollbar-none">
+      <PageInset className="flex min-h-0 min-w-0 flex-1 flex-col gap-6 overflow-y-auto scrollbar-none">
         <div className="m-2 mt-6 flex flex-shrink-0 justify-center gap-2">
           {actingUser?.type !== UserType.FAN && <CreateEventButton />}
 
@@ -51,7 +54,7 @@ export default async function Home() {
         <div className="mt-6 flex justify-center">
           <EventsCarousel upcomingEvents={upcomingEvents} ongoingEvents={ongoingEvents} recentEvents={recentEvents} />
         </div>
-      </div>
+      </PageInset>
 
       <Navigation>
         <div className="flex min-w-0 flex-wrap gap-2">

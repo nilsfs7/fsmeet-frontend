@@ -18,11 +18,12 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function Statistics(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/stats');
-  const session = await auth();
+  const [t, session] = await Promise.all([getTranslations('/events/eventid/stats'), auth()]);
 
-  const registeredParticipants = await getEventRegistrations(params.eventId, EventRegistrationType.PARTICIPANT, session);
-  const registeredVisitors = await getEventRegistrations(params.eventId, EventRegistrationType.VISITOR, session);
+  const [registeredParticipants, registeredVisitors] = await Promise.all([
+    getEventRegistrations(params.eventId, EventRegistrationType.PARTICIPANT, session),
+    getEventRegistrations(params.eventId, EventRegistrationType.VISITOR, session),
+  ]);
 
   const maleParticipants = registeredParticipants.filter(p => {
     if (p.user.gender === Gender.MALE) {
@@ -95,7 +96,7 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

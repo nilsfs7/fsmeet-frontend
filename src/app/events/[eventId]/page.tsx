@@ -22,8 +22,7 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventDetails(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid');
-  const session = await auth();
+  const [t, session] = await Promise.all([getTranslations('/events/eventid'), auth()]);
 
   const [event, competitions, sponsors, attachments, comments] = await Promise.all([
     getEvent(params.eventId, session),

@@ -15,9 +15,7 @@ import { appShellContentClass } from '@/components/layout/app-shell-content';
 const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function Users() {
-  const t = await getTranslations('/users');
-
-  const users = await getUsers();
+  const [t, users] = await Promise.all([getTranslations('/users'), getUsers()]);
 
   const columnData: ColumnInfo[] = [];
 
@@ -65,7 +63,7 @@ export default async function Users() {
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header />
 
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

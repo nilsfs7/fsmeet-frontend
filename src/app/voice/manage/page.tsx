@@ -16,8 +16,7 @@ import { appShellContentClass } from '@/components/layout/app-shell-content';
 const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function ManagePolls() {
-  const t = await getTranslations('/voice/manage');
-  const session = await auth();
+  const [t, session] = await Promise.all([getTranslations('/voice/manage'), auth()]);
 
   const polls = await getPolls(session?.user?.username);
 
@@ -43,7 +42,7 @@ export default async function ManagePolls() {
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header />
 
-      <div className={cn('mt-2', constrainedContentClass)}>
+      <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
 

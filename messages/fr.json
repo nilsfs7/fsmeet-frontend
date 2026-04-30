@@ -206,7 +206,8 @@
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
-    "btnCreateEvent": "Créer un événement"
+    "btnCreateEvent": "Créer un événement",
+    "advertisementBadge": "Pub"
   },
   "/events/edit": {
     "pageTitle": "Modifier l'événement",
