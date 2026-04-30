@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import moment, { Moment } from 'moment';
 import Link from 'next/link';
 import { countries } from 'countries-list';
@@ -33,17 +33,40 @@ const ALL = '__all__' as const;
 const EVENT_TYPES: EventType[] = [EventType.COMPETITION, EventType.COMPETITION_ONLINE, EventType.MEETING];
 const EVENT_CATS: EventCategory[] = [EventCategory.CONTINENTAL, EventCategory.INTERNATIONAL, EventCategory.NATIONAL, EventCategory.PULSE, EventCategory.SUPERBALL, EventCategory.WFFC];
 
-const mobileAdAfterEveryNEvents = Number(process.env.NEXT_PUBLIC_EVENTS_LIST_AD_AFTER_N_EVENT_CARDS) || 4;
+/** Inline ad rows in the event list (every N cards); matches Tailwind `lg` sidebar breakpoint. */
+const listAdAfterEveryNEvents = Number(process.env.NEXT_PUBLIC_EVENTS_LIST_AD_AFTER_N_EVENT_CARDS) || 4;
 
 type LoadState = 'loading' | 'ok' | 'error';
 
 const COUNTRIES_MAP = countries as Record<string, { name: string }>;
+
+function useMinWidthLg(): boolean {
+  return useSyncExternalStore(
+    onStoreChange => {
+      const mq = window.matchMedia('(min-width: 1024px)');
+      mq.addEventListener('change', onStoreChange);
+      return () => mq.removeEventListener('change', onStoreChange);
+    },
+    () => window.matchMedia('(min-width: 1024px)').matches,
+    () => false,
+  );
+}
+
+/** Narrow: full rotation. Wide + sidebar: skip duplicate of `ads[0]` when only one exists; otherwise rotate from `ads[1]`. */
+function pickInlineAdvertisement(ads: ReadAdvertisementResponseDto[], adSlot: number, isLg: boolean): ReadAdvertisementResponseDto | null {
+  if (ads.length === 0) return null;
+  if (isLg && ads.length === 1) return null;
+  if (isLg && ads.length > 1) return ads[(adSlot + 1) % ads.length]!;
+  return ads[adSlot % ads.length]!;
+}
 
 export const EventsList = () => {
   const t = useTranslations('/events');
   const tData = useTranslations('global/data-states');
   const tDataRef = useRef(tData);
   tDataRef.current = tData;
+
+  const isLg = useMinWidthLg();
 
   const [loadState, setLoadState] = useState<LoadState>('loading');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -358,15 +381,18 @@ export const EventsList = () => {
                     </Link>
                   </div>
                 );
-                if ((i + 1) % mobileAdAfterEveryNEvents !== 0 || advertisements.length === 0) {
+                if ((i + 1) % listAdAfterEveryNEvents !== 0 || advertisements.length === 0) {
                   return [row];
                 }
-                const adSlot = Math.floor(i / mobileAdAfterEveryNEvents);
-                const ad = advertisements[adSlot % advertisements.length]!;
+                const adSlot = Math.floor(i / listAdAfterEveryNEvents);
+                const inlineAd = pickInlineAdvertisement(advertisements, adSlot, isLg);
+                if (!inlineAd) {
+                  return [row];
+                }
                 return [
                   row,
-                  <div key={`advertisement-slot-${event.id ?? i.toString()}`} className="w-full max-w-lg lg:hidden">
-                    <AdvertisementCard advertisement={ad} badgeLabel={t('advertisementBadge')} slotIndex={adSlot} variant="inline" />
+                  <div key={`advertisement-slot-${event.id ?? i.toString()}`} className="w-full max-w-lg">
+                    <AdvertisementCard advertisement={inlineAd} badgeLabel={t('advertisementBadge')} slotIndex={adSlot} variant="inline" />
                   </div>,
                 ];
               })}
