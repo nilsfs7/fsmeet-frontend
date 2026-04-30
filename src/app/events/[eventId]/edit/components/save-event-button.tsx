@@ -1,6 +1,7 @@
 'use client';
 
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { dataUrlToFile } from '@/functions/base-64';
 import { updateEvent, updateEventPoster } from '@/infrastructure/clients/event.client';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
@@ -26,7 +27,7 @@ export const SaveEventButton = () => {
         await updateEvent(event, session);
 
         if (imgEventPoster && event.id) {
-          await updateEventPoster(event.id, imgEventPoster, session);
+          await updateEventPoster(event.id, dataUrlToFile(imgEventPoster), session);
         }
 
         router.replace(`${routeEvents}/${event.id}`);
