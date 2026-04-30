@@ -224,7 +224,8 @@
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
-    "btnCreateEvent": "イベントを作成"
+    "btnCreateEvent": "イベントを作成",
+    "advertisementBadge": "広告"
   },
   "/events/edit": {
     "pageTitle": "イベントを編集",

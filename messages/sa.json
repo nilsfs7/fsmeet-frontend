@@ -224,7 +224,8 @@
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
-    "btnCreateEvent": "إنشاء فعالية"
+    "btnCreateEvent": "إنشاء فعالية",
+    "advertisementBadge": "إعلان"
   },
   "/events/edit": {
     "pageTitle": "تعديل الفعالية",

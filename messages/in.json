@@ -224,7 +224,8 @@
     "eventCatPulse": "Pulse",
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
-    "btnCreateEvent": "इवेंट बनाएं"
+    "btnCreateEvent": "इवेंट बनाएं",
+    "advertisementBadge": "विज्ञापन"
   },
   "/events/edit": {
     "pageTitle": "इवेंट संपादित करें",
