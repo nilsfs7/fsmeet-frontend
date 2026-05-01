@@ -3,7 +3,7 @@ import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
 import SocialLink from '@/components/user/social-link';
-import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint } from '@/domain/constants/routes';
+import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint, routeTermsOfService } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { SocialPlatform } from '@/domain/enums/social-platform';
 import { getTranslations } from 'next-intl/server';
@@ -73,6 +73,10 @@ export default async function About() {
 
           <Link className="underline" href={routeImprint}>
             {t('lnkImprint')}
+          </Link>
+
+          <Link className="underline" href={routeTermsOfService}>
+            {t('lnkTermsOfService')}
           </Link>
 
           <Link className="underline" href={routeDataProtection}>
