@@ -32,7 +32,7 @@ export class CreateEventBodyDto {
   priceMoney: number;
   trailerUrl: string | null;
   livestreamUrl: string | null;
-  messangerInvitationUrl: string | null;
+  messengerInvitationUrl: string | null;
   paymentMethodCash: CreatePaymentMethodCashBodyDto;
   paymentMethodPayPal: CreatePaymentMethodPayPalBodyDto;
   paymentMethodSepa: CreatePaymentMethodSepaBodyDto;
@@ -70,7 +70,7 @@ export class CreateEventBodyDto {
     priceMoney: number,
     trailerUrl: string | null,
     livestreamUrl: string | null,
-    messangerInvitationUrl: string | null,
+    messengerInvitationUrl: string | null,
     paymentMethodCash: CreatePaymentMethodCashBodyDto,
     paymentMethodPayPal: CreatePaymentMethodPayPalBodyDto,
     paymentMethodSepa: CreatePaymentMethodSepaBodyDto,
@@ -107,7 +107,7 @@ export class CreateEventBodyDto {
     this.priceMoney = priceMoney;
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;
-    this.messangerInvitationUrl = messangerInvitationUrl;
+    this.messengerInvitationUrl = messengerInvitationUrl;
     this.paymentMethodCash = paymentMethodCash;
     this.paymentMethodSepa = paymentMethodSepa;
     this.paymentMethodStripe = paymentMethodStripe;
