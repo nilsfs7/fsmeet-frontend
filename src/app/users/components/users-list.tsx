@@ -4,7 +4,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ChevronsUpDown, ChevronDown, ChevronUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import ReactCountryFlag from 'react-country-flag';
 import {
   type Column,
@@ -21,7 +20,9 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
+import { countries } from 'countries-list';
 import { UserType } from '@/domain/enums/user-type';
+import { Gender } from '@/domain/enums/gender';
 import { routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
@@ -31,6 +32,12 @@ import { SocialPlatform } from '@/domain/enums/social-platform';
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+
+const ALL = '__all__' as const;
+
+const COUNTRIES_MAP = countries as Record<string, { name: string }>;
 
 interface IUsersList {
   columnData: ColumnInfo[];
@@ -59,22 +66,14 @@ export type Socials = {
 export type ColumnInfo = {
   user: UserInfo;
   country: string;
+  /** Used for advanced filter only; no table column. */
+  gender: string;
   userType: UserType;
   location: Location;
   socials: Socials;
 };
 
-function HeaderSortButton<TData>({
-  column,
-  label,
-  title,
-  'aria-label': ariaLabel,
-}: {
-  column: Column<TData, unknown>;
-  label: string;
-  title: string;
-  'aria-label': string;
-}) {
+function HeaderSortButton<TData>({ column, label, title, 'aria-label': ariaLabel }: { column: Column<TData, unknown>; label: string; title: string; 'aria-label': string }) {
   const sorted = column.getIsSorted();
   return (
     <button
@@ -99,6 +98,22 @@ function HeaderSortButton<TData>({
 export const UsersList = ({ columnData }: IUsersList) => {
   const t = useTranslations('/users');
   const tEvents = useTranslations('/events');
+
+  const selectTriggerClass = 'h-9 w-full min-w-0 border-border/60 bg-background/80 text-left dark:border-zinc-700';
+
+  const countryOptions = useMemo(() => {
+    const seen = new Set<string>();
+    for (const row of columnData) {
+      const c = (row.country || '').trim().toUpperCase();
+      if (c) seen.add(c);
+    }
+    return [...seen]
+      .map(code => {
+        const meta = COUNTRIES_MAP[code];
+        return { code, name: meta?.name || code };
+      })
+      .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+  }, [columnData]);
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -126,14 +141,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
   const columns: ColumnDef<ColumnInfo>[] = [
     {
       accessorKey: 'user',
-      header: ({ column }) => (
-        <HeaderSortButton<ColumnInfo>
-          column={column}
-          label={t('tblColumnName')}
-          title={t('tableSortByName')}
-          aria-label={`${t('tblColumnName')}, ${t('tableSortByName')}`}
-        />
-      ),
+      header: ({ column }) => <HeaderSortButton<ColumnInfo> column={column} label={t('tblColumnName')} title={t('tableSortByName')} aria-label={`${t('tblColumnName')}, ${t('tableSortByName')}`} />,
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
           <Link href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}>
@@ -179,14 +187,23 @@ export const UsersList = ({ columnData }: IUsersList) => {
     },
 
     {
+      id: 'gender',
+      accessorKey: 'gender',
+      header: () => null,
+      cell: () => null,
+      enableSorting: false,
+      enableHiding: false,
+      filterFn: (row, _columnId, filterValue): boolean => {
+        if (filterValue == null || filterValue === '') return true;
+        const g = (row.original.gender || '').toLowerCase();
+        return g === String(filterValue).toLowerCase();
+      },
+    },
+
+    {
       accessorKey: 'country',
       header: ({ column }) => (
-        <HeaderSortButton<ColumnInfo>
-          column={column}
-          label={t('tblColumnCountry')}
-          title={t('tableSortByCountry')}
-          aria-label={`${t('tblColumnCountry')}, ${t('tableSortByCountry')}`}
-        />
+        <HeaderSortButton<ColumnInfo> column={column} label={t('tblColumnCountry')} title={t('tableSortByCountry')} aria-label={`${t('tblColumnCountry')}, ${t('tableSortByCountry')}`} />
       ),
       cell: ({ row }) =>
         row.getValue('country') &&
@@ -211,6 +228,11 @@ export const UsersList = ({ columnData }: IUsersList) => {
         const a = (rowA.getValue('country') as string) || '';
         const b = (rowB.getValue('country') as string) || '';
         return a.localeCompare(b, undefined, { sensitivity: 'base' });
+      },
+      filterFn: (row, _columnId, filterValue): boolean => {
+        if (filterValue == null || filterValue === '') return true;
+        const c = (row.original.country || '').trim().toUpperCase();
+        return c === String(filterValue).trim().toUpperCase();
       },
     },
 
@@ -278,13 +300,30 @@ export const UsersList = ({ columnData }: IUsersList) => {
     },
     initialState: {
       pagination: { pageIndex: 0, pageSize: 100 },
+      columnVisibility: {
+        gender: false,
+      },
     },
   });
 
   const hasHiddenColumns = useMemo(
-    () => table.getAllColumns().filter(c => c.getCanHide()).some(c => !c.getIsVisible()),
+    () =>
+      table
+        .getAllColumns()
+        .filter(c => c.getCanHide())
+        .some(c => !c.getIsVisible()),
     [table, columnVisibility],
   );
+
+  const countryFilterActive = Boolean(table.getColumn('country')?.getFilterValue());
+  const genderFilterActive = Boolean(table.getColumn('gender')?.getFilterValue());
+  const hasAdvancedFilterActive = countryFilterActive || genderFilterActive;
+  const showAdvancedDot = hasHiddenColumns || hasAdvancedFilterActive;
+
+  const clearAdvancedFilters = () => {
+    table.getColumn('country')?.setFilterValue(undefined);
+    table.getColumn('gender')?.setFilterValue(undefined);
+  };
 
   return (
     <div className={cn('text-sm flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-y-auto scrollbar-none')}>
@@ -312,13 +351,44 @@ export const UsersList = ({ columnData }: IUsersList) => {
             className="flex w-full min-w-0 items-center justify-center gap-2 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
             aria-expanded={advancedOpen}
           >
-            {hasHiddenColumns ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden /> : null}
+            {showAdvancedDot ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden /> : null}
             <span className="font-medium text-foreground/90">{tEvents('searchAdvancedLabel')}</span>
             <ChevronDown className={cn('h-4 w-4 shrink-0 transition-transform duration-200', advancedOpen && 'rotate-180')} aria-hidden />
           </button>
 
           {advancedOpen && (
             <div className="space-y-3 pt-0.5 pb-1">
+              <div>
+                <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('filterCountry')}</div>
+                <Select value={(table.getColumn('country')?.getFilterValue() as string | undefined) ?? ALL} onValueChange={v => table.getColumn('country')?.setFilterValue(v === ALL ? undefined : v)}>
+                  <SelectTrigger className={selectTriggerClass}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL}>{tEvents('filterAll')}</SelectItem>
+                    {countryOptions.map(({ code, name }) => (
+                      <SelectItem key={code} value={code}>
+                        {name} ({code})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('filterGender')}</div>
+                <Select value={(table.getColumn('gender')?.getFilterValue() as string | undefined) ?? ALL} onValueChange={v => table.getColumn('gender')?.setFilterValue(v === ALL ? undefined : v)}>
+                  <SelectTrigger className={selectTriggerClass}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL}>{tEvents('filterAll')}</SelectItem>
+                    <SelectItem value={Gender.MALE}>{t('filterGenderMale')}</SelectItem>
+                    <SelectItem value={Gender.FEMALE}>{t('filterGenderFemale')}</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <div>
                 <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('cbColumns')}</div>
                 <div className="flex flex-col gap-2.5" role="group" aria-label={t('cbColumns')}>
@@ -327,17 +397,22 @@ export const UsersList = ({ columnData }: IUsersList) => {
                     .filter(column => column.getCanHide())
                     .map(column => (
                       <div key={column.id} className="flex items-center gap-2">
-                        <Checkbox
-                          id={`users-list-col-${column.id}`}
-                          checked={column.getIsVisible()}
-                          onCheckedChange={v => column.toggleVisibility(!!v)}
-                        />
+                        <Checkbox id={`users-list-col-${column.id}`} checked={column.getIsVisible()} onCheckedChange={v => column.toggleVisibility(!!v)} />
                         <label htmlFor={`users-list-col-${column.id}`} className="cursor-pointer text-sm font-medium leading-none text-zinc-800 dark:text-zinc-200">
                           {getColumnNameById(column.id)}
                         </label>
                       </div>
                     ))}
                 </div>
+              </div>
+
+              <div className="flex w-full min-w-0 flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
+                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm')} onClick={clearAdvancedFilters} disabled={!hasAdvancedFilterActive}>
+                  {tEvents('filterClearAll')}
+                </Button>
+                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
+                  {tEvents('filterApply')}
+                </Button>
               </div>
             </div>
           )}
@@ -354,10 +429,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
                     return (
                       <TableHead
                         key={header.id}
-                        className={cn(
-                          header.column.id === 'user' && 'min-w-[10rem]',
-                          ['userType', 'location', 'socials', 'country'].includes(header.column.id) && 'w-[1%] whitespace-nowrap',
-                        )}
+                        className={cn(header.column.id === 'user' && 'min-w-[10rem]', ['userType', 'location', 'socials', 'country'].includes(header.column.id) && 'w-[1%] whitespace-nowrap')}
                       >
                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>
@@ -382,9 +454,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
         </div>
       )}
 
-      {table.getRowModel().rows?.length === 0 && (
-        <div className="m-1 flex justify-center text-zinc-600">{t('tblNoData')}</div>
-      )}
+      {table.getRowModel().rows?.length === 0 && <div className="m-1 flex justify-center text-zinc-600">{t('tblNoData')}</div>}
 
       {columnData.length > 0 && (
         <div className="mt-1 flex shrink-0 flex-wrap items-center gap-2">
