@@ -7,6 +7,7 @@
     "carouselCurrentEvent": "فعالية جارية",
     "carouselRecentEvent": "فعالية حديثة",
     "carouselUpcomingEvent": "فعالية قادمة",
+    "carouselFeaturedEvent": "فعالية مميزة",
     "navMap": "الخريطة",
     "navCommunity": "المجتمع",
     "navVoice": "الصوت",
@@ -225,7 +226,9 @@
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
     "btnCreateEvent": "إنشاء فعالية",
-    "advertisementBadge": "إعلان"
+    "advertisementBadge": "إعلان",
+    "featuredEventBadge": "مميز",
+    "featuredEventCta": "عرض الفعالية"
   },
   "/events/edit": {
     "pageTitle": "تعديل الفعالية",

@@ -1,5 +1,5 @@
 import Navigation from '@/components/navigation';
-import { getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastructure/clients/event.client';
+import { getEventsFeatured, getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastructure/clients/event.client';
 import Link from 'next/link';
 import { Header } from '@/components/header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
@@ -19,12 +19,13 @@ import PageTitle from '@/components/page-title';
 import { PageInset } from '@/components/layout/page-inset';
 
 export default async function Home() {
-  const [t, session, upcomingEvents, ongoingEvents, recentEvents] = await Promise.all([
+  const [t, session, upcomingEvents, ongoingEvents, recentEvents, fetauredEvents] = await Promise.all([
     getTranslations(routeHome),
     auth(),
     getEventsUpcoming(1),
     getEventsOngoing(1),
     getEventsRecent(1),
+    getEventsFeatured(),
   ]);
 
   let actingUser: User | undefined;
@@ -52,7 +53,7 @@ export default async function Home() {
         </div>
 
         <div className="mt-6 flex justify-center">
-          <EventsCarousel upcomingEvents={upcomingEvents} ongoingEvents={ongoingEvents} recentEvents={recentEvents} />
+          <EventsCarousel upcomingEvents={upcomingEvents} ongoingEvents={ongoingEvents} recentEvents={recentEvents} featuredEvents={fetauredEvents} />
         </div>
       </PageInset>
 

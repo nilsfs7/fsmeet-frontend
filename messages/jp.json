@@ -7,6 +7,7 @@
     "carouselCurrentEvent": "開催中のイベント",
     "carouselRecentEvent": "最近のイベント",
     "carouselUpcomingEvent": "今後のイベント",
+    "carouselFeaturedEvent": "注目のイベント",
     "navMap": "マップ",
     "navCommunity": "コミュニティ",
     "navVoice": "ボイス",
@@ -225,7 +226,9 @@
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
     "btnCreateEvent": "イベントを作成",
-    "advertisementBadge": "広告"
+    "advertisementBadge": "広告",
+    "featuredEventBadge": "注目",
+    "featuredEventCta": "イベントを見る"
   },
   "/events/edit": {
     "pageTitle": "イベントを編集",
