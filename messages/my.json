@@ -7,6 +7,7 @@
     "carouselCurrentEvent": "Acara Sedang Berlangsung",
     "carouselRecentEvent": "Acara Terkini",
     "carouselUpcomingEvent": "Acara Akan Datang",
+    "carouselFeaturedEvent": "Acara pilihan",
     "navMap": "Peta",
     "navCommunity": "Komuniti",
     "navVoice": "Suara",
@@ -225,7 +226,9 @@
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
     "btnCreateEvent": "Cipta Acara",
-    "advertisementBadge": "Iklan"
+    "advertisementBadge": "Iklan",
+    "featuredEventBadge": "Pilihan",
+    "featuredEventCta": "Lihat acara"
   },
   "/events/edit": {
     "pageTitle": "Edit Acara",

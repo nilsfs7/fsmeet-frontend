@@ -117,6 +117,22 @@ export async function getEventsRecent(numberOfEventsToFetch: number): Promise<Ev
   return await response.json();
 }
 
+export async function getEventsFeatured(): Promise<Event[]> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/featured/upcoming`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+  });
+
+  if (response.ok) {
+    console.info('Getting featured events successful');
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
 export async function getEvent(eventId: string, session?: Session | null): Promise<Event> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}`;
 

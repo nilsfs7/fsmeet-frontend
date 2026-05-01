@@ -6,8 +6,9 @@ import Link from 'next/link';
 import { countries } from 'countries-list';
 import EventCard from '@/components/events/event-card';
 import { AdvertisementCard } from '@/components/events/advertisement-card';
+import { FeaturedEventCard } from '@/components/events/featured-event-card';
 import { routeEvents } from '@/domain/constants/routes';
-import { getEvents } from '@/infrastructure/clients/event.client';
+import { getEvents, getEventsFeatured } from '@/infrastructure/clients/event.client';
 import { getAdvertisements } from '@/infrastructure/clients/advertisement.client';
 import type { ReadAdvertisementResponseDto } from '@/infrastructure/clients/dtos/advertisement/read-advertisement-response-dto';
 import { Event } from '@/domain/types/event';
@@ -72,6 +73,7 @@ export const EventsList = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
   const [advertisements, setAdvertisements] = useState<ReadAdvertisementResponseDto[]>([]);
+  const [featuredEvents, setFeaturedEvents] = useState<Event[]>([]);
   const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
   const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
   const [nameQuery, setNameQuery] = useState('');
@@ -142,6 +144,9 @@ export const EventsList = () => {
   }, [events, nameQuery, filterVenue, filterType, filterCategory, wffaRankedOnly, prizeMoneyOnly]);
 
   const showDesktopAdColumn = loadState === 'ok' && filteredEvents.length > 0 && advertisements.length > 0;
+  const featuredEvent = featuredEvents[0];
+  const showFeaturedColumn = loadState === 'ok' && filteredEvents.length > 0 && featuredEvent != null;
+  const showDesktopSideGrid = showDesktopAdColumn || showFeaturedColumn;
 
   const clearAllFilters = () => {
     setNameQuery('');
@@ -177,6 +182,14 @@ export const EventsList = () => {
       .then(setAdvertisements)
       .catch(() => {
         setAdvertisements([]);
+      });
+  }, []);
+
+  useEffect(() => {
+    void getEventsFeatured()
+      .then(setFeaturedEvents)
+      .catch(() => {
+        setFeaturedEvents([]);
       });
   }, []);
 
@@ -351,14 +364,14 @@ export const EventsList = () => {
       </div>
 
       <div className="mt-2 flex min-h-0 max-h-full justify-center overflow-y-auto px-2 scrollbar-none">
-        <div className={cn('w-full', showDesktopAdColumn && 'lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-x-6')}>
+        <div className={cn('w-full', showDesktopSideGrid && 'lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-x-6')}>
           {showDesktopAdColumn && (
             <aside className="hidden lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-end lg:self-start">
               <AdvertisementCard advertisement={advertisements[0]!} badgeLabel={t('advertisementBadge')} slotIndex={0} variant="sidebar" />
             </aside>
           )}
 
-          <div className={cn('mx-auto grid min-w-0 w-full max-w-lg justify-items-center gap-2', showDesktopAdColumn && 'lg:mx-0 lg:justify-self-center')}>
+          <div className={cn('mx-auto grid min-w-0 w-full max-w-lg justify-items-center gap-2', showDesktopSideGrid && 'lg:mx-0 lg:justify-self-center')}>
             {loadState === 'loading' && <AppDataStateListSkeleton />}
 
             {loadState === 'error' && errorMessage && (
@@ -397,6 +410,12 @@ export const EventsList = () => {
                 ];
               })}
           </div>
+
+          {showFeaturedColumn && featuredEvent && (
+            <aside className="hidden lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-start lg:self-start">
+              <FeaturedEventCard event={featuredEvent} badgeLabel={t('featuredEventBadge')} linkLabel={t('featuredEventCta')} />
+            </aside>
+          )}
         </div>
       </div>
     </>

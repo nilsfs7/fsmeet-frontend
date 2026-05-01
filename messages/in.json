@@ -7,6 +7,7 @@
     "carouselCurrentEvent": "चल रहा इवेंट",
     "carouselRecentEvent": "हाल का इवेंट",
     "carouselUpcomingEvent": "आगामी इवेंट",
+    "carouselFeaturedEvent": "विशेष इवेंट",
     "navMap": "मैप",
     "navCommunity": "समुदाय",
     "navVoice": "आवाज़",
@@ -225,7 +226,9 @@
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
     "btnCreateEvent": "इवेंट बनाएं",
-    "advertisementBadge": "विज्ञापन"
+    "advertisementBadge": "विज्ञापन",
+    "featuredEventBadge": "फ़ीचर्ड",
+    "featuredEventCta": "इवेंट देखें"
   },
   "/events/edit": {
     "pageTitle": "इवेंट संपादित करें",

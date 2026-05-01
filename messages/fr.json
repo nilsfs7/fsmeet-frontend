@@ -7,6 +7,7 @@
     "carouselCurrentEvent": "Évenement en cours",
     "carouselRecentEvent": "Évenement récents",
     "carouselUpcomingEvent": "Événements à venir",
+    "carouselFeaturedEvent": "Événement à la une",
     "navMap": "Carte",
     "navCommunity": "Communauté",
     "navVoice": "Votes",
@@ -207,7 +208,9 @@
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
     "btnCreateEvent": "Créer un événement",
-    "advertisementBadge": "Pub"
+    "advertisementBadge": "Pub",
+    "featuredEventBadge": "À la une",
+    "featuredEventCta": "Voir l'événement"
   },
   "/events/edit": {
     "pageTitle": "Modifier l'événement",

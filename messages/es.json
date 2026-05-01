@@ -7,6 +7,7 @@
     "carouselCurrentEvent": "Evento actual",
     "carouselRecentEvent": "Último evento",
     "carouselUpcomingEvent": "Próximo evento",
+    "carouselFeaturedEvent": "Evento destacado",
     "navMap": "Mapa",
     "navCommunity": "Comunidad",
     "navVoice": "Voice",
@@ -207,7 +208,9 @@
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
     "btnCreateEvent": "Crear evento",
-    "advertisementBadge": "Anuncio"
+    "advertisementBadge": "Anuncio",
+    "featuredEventBadge": "Destacado",
+    "featuredEventCta": "Ver evento"
   },
   "/events/edit": {
     "pageTitle": "Editar evento",

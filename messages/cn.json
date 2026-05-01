@@ -7,6 +7,7 @@
     "carouselCurrentEvent": "进行中的活动",
     "carouselRecentEvent": "近期活动",
     "carouselUpcomingEvent": "即将开始的活动",
+    "carouselFeaturedEvent": "精选活动",
     "navMap": "地图",
     "navCommunity": "社区",
     "navVoice": "声音",
@@ -225,7 +226,9 @@
     "eventCatSuperball": "Superball",
     "eventCatWffc": "WFFC",
     "btnCreateEvent": "创建活动",
-    "advertisementBadge": "广告"
+    "advertisementBadge": "广告",
+    "featuredEventBadge": "精选",
+    "featuredEventCta": "查看活动"
   },
   "/events/edit": {
     "pageTitle": "编辑活动",
