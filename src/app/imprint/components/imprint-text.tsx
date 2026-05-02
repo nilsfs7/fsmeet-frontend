@@ -5,7 +5,9 @@ export const ImprintText = () => {
       <h2>Allgemeine Informationspflichten (§&nbsp;5&nbsp;DDG)</h2>
       <h3 className="mt-4 text-base font-semibold">Anbieter</h3>
       <p>
-        Nils Effinghausen
+        Nils Effinghausen (Einzelunternehmer)
+        <br />
+        Betreiber der Plattform „FSMeet“
         <br />
         Lierstra&szlig;e 20
         <br />

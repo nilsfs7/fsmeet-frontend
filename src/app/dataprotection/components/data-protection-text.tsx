@@ -1,324 +1,459 @@
-export const DataProtectionText = () => {
+export function DataProtectionText() {
   return (
     <div className="prose-flow select-text w-full break-words">
-      <h2>1. Datenschutz auf einen Blick</h2>
-      <h3>Allgemeine Hinweise</h3>
-      <p>
-        Die folgenden Hinweise geben einen einfachen &Uuml;berblick dar&uuml;ber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle
-        Daten, mit denen Sie pers&ouml;nlich identifiziert werden k&ouml;nnen. Ausf&uuml;hrliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgef&uuml;hrten
-        Datenschutzerkl&auml;rung.
-      </p>
-      <h3>Datenerfassung auf dieser Website</h3> <h4>Wer ist verantwortlich f&uuml;r die Datenerfassung auf dieser Website?</h4>
-      <p>
-        Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten k&ouml;nnen Sie dem Abschnitt &bdquo;Hinweis zur Verantwortlichen Stelle&ldquo; in dieser
-        Datenschutzerkl&auml;rung entnehmen.
-      </p>
-      <h4>Wie erfassen wir Ihre Daten?</h4>
-      <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z.&nbsp;B. um Daten handeln, die Sie in ein Kontaktformular eingeben.</p>
-      <p>
-        Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z.&nbsp;B. Internetbrowser,
-        Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten.
-      </p>
-      <h4>Wof&uuml;r nutzen wir Ihre Daten?</h4>
-      <p>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gew&auml;hrleisten. Andere Daten k&ouml;nnen zur Analyse Ihres Nutzerverhaltens verwendet werden.</p>
-      <h4>Welche Rechte haben Sie bez&uuml;glich Ihrer Daten?</h4>
-      <p>
-        Sie haben jederzeit das Recht, unentgeltlich Auskunft &uuml;ber Herkunft, Empf&auml;nger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben au&szlig;erdem ein Recht,
-        die Berichtigung oder L&ouml;schung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, k&ouml;nnen Sie diese Einwilligung jederzeit f&uuml;r die Zukunft
-        widerrufen. Au&szlig;erdem haben Sie das Recht, unter bestimmten Umst&auml;nden die Einschr&auml;nkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen ein
-        Beschwerderecht bei der zust&auml;ndigen Aufsichtsbeh&ouml;rde zu.
-      </p>
-      <p>Hierzu sowie zu weiteren Fragen zum Thema Datenschutz k&ouml;nnen Sie sich jederzeit an uns wenden.</p>
-      <h2>2. Hosting</h2>
-      <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
-      <h3>Amazon Web Services (AWS)</h3> <p>Anbieter ist die Amazon Web Services EMEA SARL, 38 Avenue John F. Kennedy, 1855 Luxemburg (nachfolgend AWS).</p>
-      <p>
-        Wenn Sie unsere Website besuchen, werden Ihre personenbezogenen Daten auf den Servern von AWS verarbeitet. Hierbei k&ouml;nnen auch personenbezogene Daten an das Mutterunternehmen von AWS in
-        die USA &uuml;bermittelt werden. Die Daten&uuml;bertragung in die USA wird auf die EU-Standardvertragsklauseln gest&uuml;tzt. Details finden Sie hier:
-        <a href="https://aws.amazon.com/de/blogs/security/aws-gdpr-data-processing-addendum/" target="_blank" rel="noopener noreferrer">
-          https://aws.amazon.com/de/blogs/security/aws-gdpr-data-processing-addendum/
-        </a>
-        .
-      </p>
-      <p>
-        Weitere Informationen entnehmen Sie der Datenschutzerkl&auml;rung von AWS:
-        <a href="https://aws.amazon.com/de/privacy/?nc1=f_pr" target="_blank" rel="noopener noreferrer">
-          https://aws.amazon.com/de/privacy/?nc1=f_pr
-        </a>
-        .
-      </p>
-      <p>
-        Die Verwendung von AWS erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse an einer m&ouml;glichst zuverl&auml;ssigen Darstellung unserer Website. Sofern
-        eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschlie&szlig;lich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und &sect; 25 Abs. 1 TTDSG, soweit die Einwilligung
-        die Speicherung von Cookies oder den Zugriff auf Informationen im Endger&auml;t des Nutzers (z.&nbsp;B. Device-Fingerprinting) im Sinne des TTDSG umfasst. Die Einwilligung ist jederzeit
-        widerrufbar.
-      </p>
-      <p>
-        Das Unternehmen verf&uuml;gt &uuml;ber eine Zertifizierung nach dem &bdquo;EU-US Data Privacy Framework&ldquo; (DPF). Der DPF ist ein &Uuml;bereinkommen zwischen der Europ&auml;ischen Union
-        und den USA, der die Einhaltung europ&auml;ischer Datenschutzstandards bei Datenverarbeitungen in den USA gew&auml;hrleisten soll. Jedes nach dem DPF zertifizierte Unternehmen verpflichtet
-        sich, diese Datenschutzstandards einzuhalten. Weitere Informationen hierzu erhalten Sie vom Anbieter unter folgendem Link:
-        <a href="https://www.dataprivacyframework.gov/s/participant-search/participant-detail?contact=true&id=a2zt0000000TOWQAA4&status=Active" target="_blank" rel="noopener noreferrer">
-          https://www.dataprivacyframework.gov/s/participant-search/participant-detail?contact=true&id=a2zt0000000TOWQAA4&status=Active
-        </a>
-      </p>
-      <h2>3. Allgemeine Hinweise und Pflicht&shy;informationen</h2>
-      <h3>Datenschutz</h3>
-      <p>
-        Die Betreiber dieser Seiten nehmen den Schutz Ihrer pers&ouml;nlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen
-        Datenschutzvorschriften sowie dieser Datenschutzerkl&auml;rung.
-      </p>
-      <p>
-        Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie pers&ouml;nlich identifiziert werden k&ouml;nnen. Die
-        vorliegende Datenschutzerkl&auml;rung erl&auml;utert, welche Daten wir erheben und wof&uuml;r wir sie nutzen. Sie erl&auml;utert auch, wie und zu welchem Zweck das geschieht.
-      </p>
-      <p>
-        Wir weisen darauf hin, dass die Daten&uuml;bertragung im Internet (z.&nbsp;B. bei der Kommunikation per E-Mail) Sicherheitsl&uuml;cken aufweisen kann. Ein l&uuml;ckenloser Schutz der Daten vor
-        dem Zugriff durch Dritte ist nicht m&ouml;glich.
-      </p>
-      <h3>Hinweis zur verantwortlichen Stelle</h3> <p>Die verantwortliche Stelle f&uuml;r die Datenverarbeitung auf dieser Website ist:</p>
+      <p className="not-prose text-sm text-muted-foreground">Version 1.0 – Stand: 02.05.2026</p>
+      <p>Hinweis: Diese Datenschutzerklärung ist in deutscher und englischer Sprache verfügbar. Im Falle von Widersprüchen oder Auslegungsfragen ist die deutsche Version maßgeblich.</p>
+
+      <hr className="not-prose my-8 border-border" />
+
+      <h2>1. Verantwortlicher</h2>
+      <p>Verantwortlicher im Sinne der DSGVO:</p>
       <p>
         Nils Effinghausen
         <br />
-        Lierstra&szlig;e 20
+        Lierstraße 20
         <br />
-        80639 M&uuml;nchen
-      </p>
-      <p>
-        Telefon: +49 (0) 15161996348
+        80639 München
         <br />
-        E-Mail: nils.effinghausen@gmail.com
+        E-Mail: <a href="mailto:nils.effinghausen@gmail.com">nils.effinghausen@gmail.com</a>
       </p>
-      <p>
-        Verantwortliche Stelle ist die nat&uuml;rliche oder juristische Person, die allein oder gemeinsam mit anderen &uuml;ber die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten
-        (z.&nbsp;B. Namen, E-Mail-Adressen o. &Auml;.) entscheidet.
-      </p>
-      <h3>Speicherdauer</h3>
-      <p>
-        Soweit innerhalb dieser Datenschutzerkl&auml;rung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck f&uuml;r die Datenverarbeitung
-        entf&auml;llt. Wenn Sie ein berechtigtes L&ouml;schersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gel&ouml;scht, sofern wir keine anderen
-        rechtlich zul&auml;ssigen Gr&uuml;nde f&uuml;r die Speicherung Ihrer personenbezogenen Daten haben (z.&nbsp;B. steuer- oder handelsrechtliche Aufbewahrungsfristen); im letztgenannten Fall
-        erfolgt die L&ouml;schung nach Fortfall dieser Gr&uuml;nde.
-      </p>
-      <h3>Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website</h3>
-      <p>
-        Sofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, sofern
-        besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden. Im Falle einer ausdr&uuml;cklichen Einwilligung in die &Uuml;bertragung personenbezogener Daten in Drittstaaten erfolgt
-        die Datenverarbeitung au&szlig;erdem auf Grundlage von Art. 49 Abs. 1 lit. a DSGVO. Sofern Sie in die Speicherung von Cookies oder in den Zugriff auf Informationen in Ihr Endger&auml;t
-        (z.&nbsp;B. via Device-Fingerprinting) eingewilligt haben, erfolgt die Datenverarbeitung zus&auml;tzlich auf Grundlage von &sect; 25 Abs. 1 TTDSG. Die Einwilligung ist jederzeit widerrufbar.
-        Sind Ihre Daten zur Vertragserf&uuml;llung oder zur Durchf&uuml;hrung vorvertraglicher Ma&szlig;nahmen erforderlich, verarbeiten wir Ihre Daten auf Grundlage des Art. 6 Abs. 1 lit. b DSGVO.
-        Des Weiteren verarbeiten wir Ihre Daten, sofern diese zur Erf&uuml;llung einer rechtlichen Verpflichtung erforderlich sind auf Grundlage von Art. 6 Abs. 1 lit. c DSGVO. Die Datenverarbeitung
-        kann ferner auf Grundlage unseres berechtigten Interesses nach Art. 6 Abs. 1 lit. f DSGVO erfolgen. &Uuml;ber die jeweils im Einzelfall einschl&auml;gigen Rechtsgrundlagen wird in den
-        folgenden Abs&auml;tzen dieser Datenschutzerkl&auml;rung informiert.
-      </p>
-      <h3>Empfänger von personenbezogenen Daten</h3>
-      <p>
-        Im Rahmen unserer Gesch&auml;ftst&auml;tigkeit arbeiten wir mit verschiedenen externen Stellen zusammen. Dabei ist teilweise auch eine &Uuml;bermittlung von personenbezogenen Daten an diese
-        externen Stellen erforderlich. Wir geben personenbezogene Daten nur dann an externe Stellen weiter, wenn dies im Rahmen einer Vertragserf&uuml;llung erforderlich ist, wenn wir gesetzlich
-        hierzu verpflichtet sind (z.&nbsp;B. Weitergabe von Daten an Steuerbeh&ouml;rden), wenn wir ein berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO an der Weitergabe haben oder wenn eine
-        sonstige Rechtsgrundlage die Datenweitergabe erlaubt. Beim Einsatz von Auftragsverarbeitern geben wir personenbezogene Daten unserer Kunden nur auf Grundlage eines g&uuml;ltigen Vertrags
-        &uuml;ber Auftragsverarbeitung weiter. Im Falle einer gemeinsamen Verarbeitung wird ein Vertrag &uuml;ber gemeinsame Verarbeitung geschlossen.
-      </p>
-      <h3>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
-      <p>
-        Viele Datenverarbeitungsvorg&auml;nge sind nur mit Ihrer ausdr&uuml;cklichen Einwilligung m&ouml;glich. Sie k&ouml;nnen eine bereits erteilte Einwilligung jederzeit widerrufen. Die
-        Rechtm&auml;&szlig;igkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unber&uuml;hrt.
-      </p>
-      <h3>Widerspruchsrecht gegen die Datenerhebung in besonderen F&auml;llen sowie gegen Direktwerbung (Art. 21 DSGVO)</h3>
-      <p>
-        WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HABEN SIE JEDERZEIT DAS RECHT, AUS GR&Uuml;NDEN, DIE SICH AUS IHRER BESONDEREN SITUATION ERGEBEN, GEGEN
-        DIE VERARBEITUNG IHRER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH F&Uuml;R EIN AUF DIESE BESTIMMUNGEN GEST&Uuml;TZTES PROFILING. DIE JEWEILIGE RECHTSGRUNDLAGE, AUF DENEN
-        EINE VERARBEITUNG BERUHT, ENTNEHMEN SIE DIESER DATENSCHUTZERKL&Auml;RUNG. WENN SIE WIDERSPRUCH EINLEGEN, WERDEN WIR IHRE BETROFFENEN PERSONENBEZOGENEN DATEN NICHT MEHR VERARBEITEN, ES SEI
-        DENN, WIR K&Ouml;NNEN ZWINGENDE SCHUTZW&Uuml;RDIGE GR&Uuml;NDE F&Uuml;R DIE VERARBEITUNG NACHWEISEN, DIE IHRE INTERESSEN, RECHTE UND FREIHEITEN &Uuml;BERWIEGEN ODER DIE VERARBEITUNG DIENT DER
-        GELTENDMACHUNG, AUS&Uuml;BUNG ODER VERTEIDIGUNG VON RECHTSANSPR&Uuml;CHEN (WIDERSPRUCH NACH ART. 21 ABS. 1 DSGVO).
-      </p>
-      <p>
-        WERDEN IHRE PERSONENBEZOGENEN DATEN VERARBEITET, UM DIREKTWERBUNG ZU BETREIBEN, SO HABEN SIE DAS RECHT, JEDERZEIT WIDERSPRUCH GEGEN DIE VERARBEITUNG SIE BETREFFENDER PERSONENBEZOGENER DATEN
-        ZUM ZWECKE DERARTIGER WERBUNG EINZULEGEN; DIES GILT AUCH F&Uuml;R DAS PROFILING, SOWEIT ES MIT SOLCHER DIREKTWERBUNG IN VERBINDUNG STEHT. WENN SIE WIDERSPRECHEN, WERDEN IHRE PERSONENBEZOGENEN
-        DATEN ANSCHLIESSEND NICHT MEHR ZUM ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO).
-      </p>
-      <h3>Beschwerde&shy;recht bei der zust&auml;ndigen Aufsichts&shy;beh&ouml;rde</h3>
-      <p>
-        Im Falle von Verst&ouml;&szlig;en gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbeh&ouml;rde, insbesondere in dem Mitgliedstaat ihres gew&ouml;hnlichen
-        Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutma&szlig;lichen Versto&szlig;es zu. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher
-        Rechtsbehelfe.
-      </p>
-      <h3>Recht auf Daten&shy;&uuml;bertrag&shy;barkeit</h3>
-      <p>
-        Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erf&uuml;llung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem g&auml;ngigen,
-        maschinenlesbaren Format aush&auml;ndigen zu lassen. Sofern Sie die direkte &Uuml;bertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch
-        machbar ist.
-      </p>
-      <h3>Auskunft, Berichtigung und L&ouml;schung</h3>
-      <p>
-        Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft &uuml;ber Ihre gespeicherten personenbezogenen Daten, deren Herkunft und
-        Empf&auml;nger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder L&ouml;schung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten
-        k&ouml;nnen Sie sich jederzeit an uns wenden.
-      </p>
-      <h3>Recht auf Einschr&auml;nkung der Verarbeitung</h3>
-      <p>
-        Sie haben das Recht, die Einschr&auml;nkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Hierzu k&ouml;nnen Sie sich jederzeit an uns wenden. Das Recht auf Einschr&auml;nkung
-        der Verarbeitung besteht in folgenden F&auml;llen:
-      </p>
+
+      <h2>2. Allgemeine Hinweise</h2>
+      <p>Diese Datenschutzerklärung informiert über die Art, den Umfang und den Zweck der Verarbeitung personenbezogener Daten auf der Plattform FSMeet.</p>
+      <p>Personenbezogene Daten sind alle Daten, mit denen eine Person identifiziert werden kann.</p>
+
+      <h2>3. Rechtsgrundlagen</h2>
+      <p>Wir verarbeiten personenbezogene Daten auf Grundlage von:</p>
       <ul>
-        <li>
-          Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten personenbezogenen Daten bestreiten, ben&ouml;tigen wir in der Regel Zeit, um dies zu &uuml;berpr&uuml;fen. F&uuml;r die Dauer der
-          Pr&uuml;fung haben Sie das Recht, die Einschr&auml;nkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.
-        </li>
-        <li>
-          Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtm&auml;&szlig;ig geschah/geschieht, k&ouml;nnen Sie statt der L&ouml;schung die Einschr&auml;nkung der Datenverarbeitung verlangen.
-        </li>
-        <li>
-          Wenn wir Ihre personenbezogenen Daten nicht mehr ben&ouml;tigen, Sie sie jedoch zur Aus&uuml;bung, Verteidigung oder Geltendmachung von Rechtsanspr&uuml;chen ben&ouml;tigen, haben Sie das
-          Recht, statt der L&ouml;schung die Einschr&auml;nkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.
-        </li>
-        <li>
-          Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt haben, muss eine Abw&auml;gung zwischen Ihren und unseren Interessen vorgenommen werden. Solange noch nicht feststeht, wessen
-          Interessen &uuml;berwiegen, haben Sie das Recht, die Einschr&auml;nkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.
-        </li>
+        <li>Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung)</li>
+        <li>Art. 6 Abs. 1 lit. a DSGVO (Einwilligung)</li>
+        <li>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)</li>
+        <li>Art. 6 Abs. 1 lit. c DSGVO (rechtliche Verpflichtung)</li>
+      </ul>
+
+      <h2>4. Accountdaten</h2>
+      <p>Bei Registrierung und Nutzung werden verarbeitet:</p>
+      <ul>
+        <li>Benutzername</li>
+        <li>Vor- und Nachname</li>
+        <li>Profilbild</li>
+        <li>Alter</li>
+        <li>Social Media Links</li>
+        <li>weitere freiwillige Angaben</li>
       </ul>
       <p>
-        Wenn Sie die Verarbeitung Ihrer personenbezogenen Daten eingeschr&auml;nkt haben, d&uuml;rfen diese Daten &ndash; von ihrer Speicherung abgesehen &ndash; nur mit Ihrer Einwilligung oder zur
-        Geltendmachung, Aus&uuml;bung oder Verteidigung von Rechtsanspr&uuml;chen oder zum Schutz der Rechte einer anderen nat&uuml;rlichen oder juristischen Person oder aus Gr&uuml;nden eines
-        wichtigen &ouml;ffentlichen Interesses der Europ&auml;ischen Union oder eines Mitgliedstaats verarbeitet werden.
+        <strong>Zweck:</strong> Bereitstellung der Plattform
+        <br />
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO
       </p>
-      <h3>SSL- bzw. TLS-Verschl&uuml;sselung</h3>
+
+      <h2>5. Öffentliche und private Daten</h2>
+      <h3>Öffentliche Daten</h3>
+      <p>Diese sind weltweit sichtbar:</p>
+      <ul>
+        <li>Name</li>
+        <li>Profilbild</li>
+        <li>Alter</li>
+        <li>Social Links</li>
+        <li>weitere freiwillig angegebene Informationen (z.&nbsp;B. Künstlername, Nationalität, Geschlecht oder ähnliche Profildaten)</li>
+      </ul>
+      <h3>Private Daten</h3>
+      <p>Diese sind nicht öffentlich:</p>
+      <ul>
+        <li>Adresse</li>
+        <li>Telefonnummer</li>
+        <li>Geburtstag</li>
+        <li>weitere Profilinformationen</li>
+      </ul>
+
+      <h2>6. Standortdaten</h2>
+      <ul>
+        <li>Standortdaten werden nur bei aktiver Freigabe verarbeitet</li>
+        <li>Anzeige erfolgt z.&nbsp;B. auf Karten</li>
+        <li>Daten werden zum Schutz (insbesondere Minderjähriger) technisch verfälscht</li>
+      </ul>
       <p>
-        Diese Seite nutzt aus Sicherheitsgr&uuml;nden und zum Schutz der &Uuml;bertragung vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden,
-        eine SSL- bzw. TLS-Verschl&uuml;sselung. Eine verschl&uuml;sselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von &bdquo;http://&ldquo; auf &bdquo;https://&ldquo; wechselt
-        und an dem Schloss-Symbol in Ihrer Browserzeile.
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO
       </p>
-      <p>Wenn die SSL- bzw. TLS-Verschl&uuml;sselung aktiviert ist, k&ouml;nnen die Daten, die Sie an uns &uuml;bermitteln, nicht von Dritten mitgelesen werden.</p>
-      <h3>Widerspruch gegen Werbe-E-Mails</h3>
+
+      <h2>7. Eventbezogene Daten</h2>
+      <p>Bei Event-Anmeldungen können verarbeitet werden:</p>
+      <ul>
+        <li>Geburtstag</li>
+        <li>Telefonnummer</li>
+        <li>Kleidergrößen</li>
+        <li>weitere Angaben</li>
+      </ul>
+      <p>Diese Daten werden an den Event Host übermittelt und dürfen ausschließlich zur Durchführung des Events genutzt werden.</p>
       <p>
-        Der Nutzung von im Rahmen der Impressumspflicht ver&ouml;ffentlichten Kontaktdaten zur &Uuml;bersendung von nicht ausdr&uuml;cklich angeforderter Werbung und Informationsmaterialien wird
-        hiermit widersprochen. Die Betreiber der Seiten behalten sich ausdr&uuml;cklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-E-Mails, vor.
+        <strong>Rechtsgrundlage:</strong>
       </p>
-      <h2>4. Datenerfassung auf dieser Website</h2>
-      <h3>Cookies</h3>
+      <ul>
+        <li>Art. 6 Abs. 1 lit. b DSGVO</li>
+        <li>Art. 6 Abs. 1 lit. f DSGVO</li>
+      </ul>
+
+      <h2>8. Zahlungen (Stripe)</h2>
+      <p>Zahlungen werden über Stripe abgewickelt.</p>
+      <p>Verarbeitet werden können:</p>
+      <ul>
+        <li>Name</li>
+        <li>E-Mail</li>
+        <li>Zahlungsdaten</li>
+        <li>Transaktionsdaten</li>
+      </ul>
+      <p>Stripe kann Daten in die USA übertragen. Dies erfolgt auf Basis von Standardvertragsklauseln gemäß Art. 46 DSGVO.</p>
       <p>
-        Unsere Internetseiten verwenden so genannte &bdquo;Cookies&ldquo;. Cookies sind kleine Datenpakete und richten auf Ihrem Endger&auml;t keinen Schaden an. Sie werden entweder vor&uuml;bergehend
-        f&uuml;r die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endger&auml;t gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch
-        gel&ouml;scht. Permanente Cookies bleiben auf Ihrem Endger&auml;t gespeichert, bis Sie diese selbst l&ouml;schen oder eine automatische L&ouml;schung durch Ihren Webbrowser erfolgt.
-      </p>
-      <p>
-        Cookies k&ouml;nnen von uns (First-Party-Cookies) oder von Drittunternehmen stammen (sog. Third-Party-Cookies). Third-Party-Cookies erm&ouml;glichen die Einbindung bestimmter Dienstleistungen
-        von Drittunternehmen innerhalb von Webseiten (z.&nbsp;B. Cookies zur Abwicklung von Zahlungsdienstleistungen).
-      </p>
-      <p>
-        Cookies haben verschiedene Funktionen. Zahlreiche Cookies sind technisch notwendig, da bestimmte Webseitenfunktionen ohne diese nicht funktionieren w&uuml;rden (z.&nbsp;B. die
-        Warenkorbfunktion oder die Anzeige von Videos). Andere Cookies k&ouml;nnen zur Auswertung des Nutzerverhaltens oder zu Werbezwecken verwendet werden.
-      </p>
-      <p>
-        Cookies, die zur Durchf&uuml;hrung des elektronischen Kommunikationsvorgangs, zur Bereitstellung bestimmter, von Ihnen erw&uuml;nschter Funktionen (z.&nbsp;B. f&uuml;r die Warenkorbfunktion)
-        oder zur Optimierung der Website (z.&nbsp;B. Cookies zur Messung des Webpublikums) erforderlich sind (notwendige Cookies), werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert,
-        sofern keine andere Rechtsgrundlage angegeben wird. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von notwendigen Cookies zur technisch fehlerfreien und optimierten
-        Bereitstellung seiner Dienste. Sofern eine Einwilligung zur Speicherung von Cookies und vergleichbaren Wiedererkennungstechnologien abgefragt wurde, erfolgt die Verarbeitung
-        ausschlie&szlig;lich auf Grundlage dieser Einwilligung (Art. 6 Abs. 1 lit. a DSGVO und &sect; 25 Abs. 1 TTDSG); die Einwilligung ist jederzeit widerrufbar.
-      </p>
-      <p>
-        Sie k&ouml;nnen Ihren Browser so einstellen, dass Sie &uuml;ber das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies f&uuml;r bestimmte
-        F&auml;lle oder generell ausschlie&szlig;en sowie das automatische L&ouml;schen der Cookies beim Schlie&szlig;en des Browsers aktivieren. Bei der Deaktivierung von Cookies kann die
-        Funktionalit&auml;t dieser Website eingeschr&auml;nkt sein.
-      </p>
-      <p>Welche Cookies und Dienste auf dieser Website eingesetzt werden, k&ouml;nnen Sie dieser Datenschutzerkl&auml;rung entnehmen.</p>
-      <h3>Kontaktformular</h3>
-      <p>
-        Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und
-        f&uuml;r den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.
-      </p>
-      <p>
-        Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erf&uuml;llung eines Vertrags zusammenh&auml;ngt oder zur Durchf&uuml;hrung
-        vorvertraglicher Ma&szlig;nahmen erforderlich ist. In allen &uuml;brigen F&auml;llen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns
-        gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt wurde; die Einwilligung ist jederzeit widerrufbar.
-      </p>
-      <p>
-        Die von Ihnen im Kontaktformular eingegebenen Daten verbleiben bei uns, bis Sie uns zur L&ouml;schung auffordern, Ihre Einwilligung zur Speicherung widerrufen oder der Zweck f&uuml;r die
-        Datenspeicherung entf&auml;llt (z.&nbsp;B. nach abgeschlossener Bearbeitung Ihrer Anfrage). Zwingende gesetzliche Bestimmungen &ndash; insbesondere Aufbewahrungsfristen &ndash; bleiben
-        unber&uuml;hrt.
-      </p>
-      <h2>5. Newsletter</h2>
-      <h3>Newsletter&shy;daten</h3>
-      <p>
-        Wenn Sie den auf der Website angebotenen Newsletter beziehen m&ouml;chten, ben&ouml;tigen wir von Ihnen eine E-Mail-Adresse sowie Informationen, welche uns die &Uuml;berpr&uuml;fung gestatten,
-        dass Sie der Inhaber der angegebenen E-Mail-Adresse sind und mit dem Empfang des Newsletters einverstanden sind. Weitere Daten werden nicht bzw. nur auf freiwilliger Basis erhoben. Diese Daten
-        verwenden wir ausschlie&szlig;lich f&uuml;r den Versand der angeforderten Informationen und geben diese nicht an Dritte weiter.
-      </p>
-      <p>
-        Die Verarbeitung der in das Newsletteranmeldeformular eingegebenen Daten erfolgt ausschlie&szlig;lich auf Grundlage Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Die erteilte Einwilligung
-        zur Speicherung der Daten, der E-Mail-Adresse sowie deren Nutzung zum Versand des Newsletters k&ouml;nnen Sie jederzeit widerrufen, etwa &uuml;ber den &bdquo;Austragen&ldquo;-Link im
-        Newsletter. Die Rechtm&auml;&szlig;igkeit der bereits erfolgten Datenverarbeitungsvorg&auml;nge bleibt vom Widerruf unber&uuml;hrt.
-      </p>
-      <p>
-        Die von Ihnen zum Zwecke des Newsletter-Bezugs bei uns hinterlegten Daten werden von uns bis zu Ihrer Austragung aus dem Newsletter bei uns bzw. dem Newsletterdiensteanbieter gespeichert und
-        nach der Abbestellung des Newsletters oder nach Zweckfortfall aus der Newsletterverteilerliste gel&ouml;scht. Wir behalten uns vor, E-Mail-Adressen aus unserem Newsletterverteiler nach eigenem
-        Ermessen im Rahmen unseres berechtigten Interesses nach Art. 6 Abs. 1 lit. f DSGVO zu l&ouml;schen oder zu sperren.
-      </p>
-      <p>Daten, die zu anderen Zwecken bei uns gespeichert wurden, bleiben hiervon unber&uuml;hrt.</p>
-      <p>
-        Nach Ihrer Austragung aus der Newsletterverteilerliste wird Ihre E-Mail-Adresse bei uns bzw. dem Newsletterdiensteanbieter ggf. in einer Blacklist gespeichert, sofern dies zur Verhinderung
-        k&uuml;nftiger Mailings erforderlich ist. Die Daten aus der Blacklist werden nur f&uuml;r diesen Zweck verwendet und nicht mit anderen Daten zusammengef&uuml;hrt. Dies dient sowohl Ihrem
-        Interesse als auch unserem Interesse an der Einhaltung der gesetzlichen Vorgaben beim Versand von Newslettern (berechtigtes Interesse im Sinne des Art. 6 Abs. 1 lit. f DSGVO). Die Speicherung
-        in der Blacklist ist zeitlich nicht befristet. <strong>Sie k&ouml;nnen der Speicherung widersprechen, sofern Ihre Interessen unser berechtigtes Interesse &uuml;berwiegen.</strong>
-      </p>
-      <h2>6. Plugins und Tools</h2>
-      <h3>Google Fonts (lokales Hosting)</h3>
-      <p>
-        Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten so genannte Google Fonts, die von Google bereitgestellt werden. Die Google Fonts sind lokal installiert. Eine Verbindung zu
-        Servern von Google findet dabei nicht statt.
-      </p>
-      <p>
-        Weitere Informationen zu Google Fonts finden Sie unter
-        <a href="https://developers.google.com/fonts/faq" target="_blank" rel="noopener noreferrer">
-          https://developers.google.com/fonts/faq
-        </a>
-        und in der Datenschutzerkl&auml;rung von Google:
-        <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer">
-          https://policies.google.com/privacy?hl=de
-        </a>
-        .
-      </p>
-      <h3>Google Maps</h3>{' '}
-      <p>Diese Seite nutzt den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited (&bdquo;Google&ldquo;), Gordon House, Barrow Street, Dublin 4, Irland.</p>
-      <p>
-        Zur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA &uuml;bertragen und
-        dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Daten&uuml;bertragung. Wenn Google Maps aktiviert ist, kann Google zum Zwecke der einheitlichen Darstellung der
-        Schriftarten Google Fonts verwenden. Beim Aufruf von Google Maps l&auml;dt Ihr Browser die ben&ouml;tigten Web Fonts in ihren Browsercache, um Texte und Schriftarten korrekt anzuzeigen.
-      </p>
-      <p>
-        Die Nutzung von Google Maps erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote und an einer leichten Auffindbarkeit der von uns auf der Website angegebenen Orte. Dies
-        stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschlie&szlig;lich auf
-        Grundlage von Art. 6 Abs. 1 lit. a DSGVO und &sect; 25 Abs. 1 TTDSG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endger&auml;t des Nutzers
-        (z.&nbsp;B. Device-Fingerprinting) im Sinne des TTDSG umfasst. Die Einwilligung ist jederzeit widerrufbar.
-      </p>
-      <p>
-        Die Daten&uuml;bertragung in die USA wird auf die Standardvertragsklauseln der EU-Kommission gest&uuml;tzt. Details finden Sie hier:
-        <a href="https://privacy.google.com/businesses/gdprcontrollerterms/" target="_blank" rel="noopener noreferrer">
-          https://privacy.google.com/businesses/gdprcontrollerterms/
-        </a>
-        und
-        <a href="https://privacy.google.com/businesses/gdprcontrollerterms/sccs/" target="_blank" rel="noopener noreferrer">
-          https://privacy.google.com/businesses/gdprcontrollerterms/sccs/
-        </a>
-        .
-      </p>
-      <p>
-        Mehr Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerkl&auml;rung von Google:
-        <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer">
-          https://policies.google.com/privacy?hl=de
-        </a>
-        .
-      </p>
-      <p>
-        Das Unternehmen verf&uuml;gt &uuml;ber eine Zertifizierung nach dem &bdquo;EU-US Data Privacy Framework&ldquo; (DPF). Der DPF ist ein &Uuml;bereinkommen zwischen der Europ&auml;ischen Union
-        und den USA, der die Einhaltung europ&auml;ischer Datenschutzstandards bei Datenverarbeitungen in den USA gew&auml;hrleisten soll. Jedes nach dem DPF zertifizierte Unternehmen verpflichtet
-        sich, diese Datenschutzstandards einzuhalten. Weitere Informationen hierzu erhalten Sie vom Anbieter unter folgendem Link:
-        <a href="https://www.dataprivacyframework.gov/s/participant-search/participant-detail?contact=true&id=a2zt000000001L5AAI&status=Active" target="_blank" rel="noopener noreferrer">
-          https://www.dataprivacyframework.gov/s/participant-search/participant-detail?contact=true&id=a2zt000000001L5AAI&status=Active
+        Weitere Informationen:{' '}
+        <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">
+          https://stripe.com/privacy
         </a>
       </p>
       <p>
-        Quelle: <a href="https://www.e-recht24.de">https://www.e-recht24.de</a>
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO
       </p>
+
+      <h2>9. Werbung</h2>
+      <p>Bei Nutzung von Werbeplätzen werden verarbeitet:</p>
+      <ul>
+        <li>Accountdaten</li>
+        <li>Anzeigeninhalte</li>
+        <li>Laufzeiten</li>
+      </ul>
+      <p>
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO
+      </p>
+
+      <h2>10. Inhalte und Uploads</h2>
+      <p>Hochgeladene Inhalte werden gespeichert und je nach Einstellung öffentlich dargestellt.</p>
+      <p>
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO
+      </p>
+
+      <h2>11. API und Drittanbieter</h2>
+      <p>Bei Nutzung der API durch Drittanbieter erfolgt die Datenverarbeitung außerhalb unseres Einflussbereichs.</p>
+      <p>Es gelten die Datenschutzbestimmungen der jeweiligen Anbieter.</p>
+      <p>
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO
+      </p>
+
+      <h2>12. Hosting und Infrastruktur</h2>
+      <p>Die Plattform wird über externe Dienstleister (z.&nbsp;B. AWS) betrieben.</p>
+      <p>Verarbeitet werden:</p>
+      <ul>
+        <li>IP-Adresse</li>
+        <li>Logfiles</li>
+        <li>Zugriffszeiten</li>
+      </ul>
+      <p>Drittlandtransfer kann erfolgen (z.&nbsp;B. USA) unter Einsatz geeigneter Garantien.</p>
+      <p>
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO
+      </p>
+
+      <h2>13. E-Mail-Kommunikation</h2>
+      <h3>a) Accountbezogene E-Mails</h3>
+      <ul>
+        <li>Verifikation</li>
+        <li>Passwort-Reset</li>
+        <li>Sicherheitsmeldungen</li>
+      </ul>
+      <p>
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO
+      </p>
+      <h3>b) Transaktionale E-Mails</h3>
+      <ul>
+        <li>Event-Anmeldungen</li>
+        <li>Event-Erinnerungen</li>
+        <li>Zahlungsbestätigungen</li>
+      </ul>
+      <p>
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO
+      </p>
+      <h3>c) Event-Promotion</h3>
+      <p>Hosts können Events bewerben, wodurch Nutzer E-Mails zu relevanten Events erhalten können.</p>
+      <p>
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO
+      </p>
+      <h3>d) Widerspruch</h3>
+      <p>Nutzer können nicht notwendige E-Mails jederzeit deaktivieren.</p>
+
+      <h2>14. Cookies</h2>
+      <p>Wir verwenden ausschließlich technisch notwendige Cookies.</p>
+      <h3>a) Funktionale Cookies</h3>
+      <ul>
+        <li>Authentifizierung</li>
+        <li>Sicherheit (CSRF)</li>
+        <li>Spracheinstellungen</li>
+      </ul>
+      <p>
+        <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO, §&nbsp;25 Abs. 2 TTDSG
+      </p>
+      <h3>b) Stripe Cookies</h3>
+      <p>Im Rahmen der Zahlung können Stripe-Cookies gesetzt werden (z.&nbsp;B. Betrugsprävention).</p>
+      <p>
+        Weitere Informationen:{' '}
+        <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">
+          https://stripe.com/privacy
+        </a>
+      </p>
+      <h3>c) Keine Tracking-Cookies</h3>
+      <p>Es werden keine Analyse- oder Marketing-Cookies eingesetzt.</p>
+
+      <h2>15. Speicherdauer</h2>
+      <p>Daten werden nur so lange gespeichert, wie es für den jeweiligen Zweck erforderlich ist.</p>
+
+      <h2>16. Rechte der Nutzer</h2>
+      <p>Du hast das Recht auf:</p>
+      <ul>
+        <li>Auskunft</li>
+        <li>Berichtigung</li>
+        <li>Löschung</li>
+        <li>Einschränkung</li>
+        <li>Datenübertragbarkeit</li>
+        <li>Widerspruch</li>
+      </ul>
+
+      <h2>17. Widerruf</h2>
+      <p>Einwilligungen können jederzeit widerrufen werden.</p>
+
+      <h2>18. Beschwerderecht</h2>
+      <p>Du kannst dich bei einer Datenschutzaufsichtsbehörde beschweren.</p>
+
+      <h2>19. Änderungen</h2>
+      <p>Diese Datenschutzerklärung kann angepasst werden.</p>
+
+      <hr className="not-prose my-10 border-border" />
+
+      <h2 className="text-balance">English version</h2>
+      <p className="not-prose text-sm text-muted-foreground">Version 1.0 – As of May 2, 2026</p>
+      <p>Note: This Privacy Policy is available in German and English. In case of discrepancies or interpretation issues, the German version shall prevail.</p>
+
+      <hr className="not-prose my-8 border-border" />
+
+      <h2>1. Controller</h2>
+      <p>Controller within the meaning of the GDPR:</p>
+      <p>
+        Nils Effinghausen
+        <br />
+        Lierstraße 20
+        <br />
+        80639 München
+        <br />
+        E-Mail: <a href="mailto:nils.effinghausen@gmail.com">nils.effinghausen@gmail.com</a>
+      </p>
+
+      <h2>2. General Information</h2>
+      <p>This Privacy Policy explains the nature, scope, and purpose of the processing of personal data on the FSMeet platform.</p>
+      <p>Personal data is any information that can be used to identify a person.</p>
+
+      <h2>3. Legal Basis</h2>
+      <p>We process personal data based on the following legal grounds:</p>
+      <ul>
+        <li>Art. 6(1)(b) GDPR (contract performance)</li>
+        <li>Art. 6(1)(a) GDPR (consent)</li>
+        <li>Art. 6(1)(f) GDPR (legitimate interests)</li>
+        <li>Art. 6(1)(c) GDPR (legal obligation)</li>
+      </ul>
+
+      <h2>4. Account Data</h2>
+      <p>When registering and using the platform, we process:</p>
+      <ul>
+        <li>username</li>
+        <li>first and last name</li>
+        <li>profile picture</li>
+        <li>age</li>
+        <li>social media links</li>
+        <li>other voluntarily provided information</li>
+      </ul>
+      <p>
+        <strong>Purpose:</strong> Providing the platform
+        <br />
+        <strong>Legal basis:</strong> Art. 6(1)(b) GDPR
+      </p>
+
+      <h2>5. Public and Private Data</h2>
+      <h3>Public Data</h3>
+      <p>The following data may be visible worldwide:</p>
+      <ul>
+        <li>name</li>
+        <li>profile picture</li>
+        <li>age</li>
+        <li>social links</li>
+        <li>other voluntarily provided information (e.g. artist name, nationality, gender, or similar profile data)</li>
+      </ul>
+      <h3>Private Data</h3>
+      <p>The following data is not publicly visible:</p>
+      <ul>
+        <li>address</li>
+        <li>phone number</li>
+        <li>date of birth</li>
+        <li>other profile information</li>
+      </ul>
+
+      <h2>6. Location Data</h2>
+      <ul>
+        <li>Location data (latitude/longitude) is only processed if explicitly enabled by the user.</li>
+        <li>It may be displayed on maps.</li>
+        <li>To protect users (especially minors), location data is technically modified to prevent identification of exact residential addresses.</li>
+      </ul>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(a) GDPR
+      </p>
+
+      <h2>7. Event-Related Data</h2>
+      <p>During event registration, the following data may be processed:</p>
+      <ul>
+        <li>date of birth</li>
+        <li>phone number</li>
+        <li>clothing sizes</li>
+        <li>other event-related information</li>
+      </ul>
+      <p>This data is:</p>
+      <ul>
+        <li>shared with the respective event host</li>
+        <li>used exclusively for the execution of the event</li>
+      </ul>
+      <p>
+        <strong>Legal basis:</strong>
+      </p>
+      <ul>
+        <li>Art. 6(1)(b) GDPR</li>
+        <li>Art. 6(1)(f) GDPR</li>
+      </ul>
+
+      <h2>8. Payments (Stripe)</h2>
+      <p>Payments are processed via Stripe.</p>
+      <p>The following data may be processed:</p>
+      <ul>
+        <li>name</li>
+        <li>email address</li>
+        <li>payment data</li>
+        <li>transaction data</li>
+      </ul>
+      <p>Stripe may transfer data to the United States. This transfer is based on Standard Contractual Clauses in accordance with Art. 46 GDPR.</p>
+      <p>
+        Further information:{' '}
+        <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">
+          https://stripe.com/privacy
+        </a>
+      </p>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(b) GDPR
+      </p>
+
+      <h2>9. Advertising</h2>
+      <p>When using advertising features, the following data may be processed:</p>
+      <ul>
+        <li>account data</li>
+        <li>ad content</li>
+        <li>booking duration</li>
+      </ul>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(b) GDPR
+      </p>
+
+      <h2>10. Content and Uploads</h2>
+      <p>Uploaded content (e.g. images, documents) is stored and may be publicly displayed depending on user settings.</p>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(b) GDPR
+      </p>
+
+      <h2>11. API and Third-Party Services</h2>
+      <p>FSMeet may provide a public API.</p>
+      <p>When third parties use the API:</p>
+      <ul>
+        <li>data processing occurs outside our control</li>
+        <li>the privacy policies of those third parties apply</li>
+      </ul>
+      <p>FSMeet assumes no responsibility for third-party data processing.</p>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(f) GDPR
+      </p>
+
+      <h2>12. Hosting and Infrastructure</h2>
+      <p>The platform is operated using external service providers (e.g. AWS).</p>
+      <p>The following data may be processed:</p>
+      <ul>
+        <li>IP address</li>
+        <li>log files</li>
+        <li>access times</li>
+      </ul>
+      <p>Data may be transferred outside the EU (e.g. USA) using appropriate safeguards (e.g. Standard Contractual Clauses).</p>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(f) GDPR
+      </p>
+
+      <h2>13. Email Communication</h2>
+      <h3>a) Account-related emails</h3>
+      <ul>
+        <li>email verification</li>
+        <li>password reset</li>
+        <li>security notifications</li>
+      </ul>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(b) GDPR
+      </p>
+      <h3>b) Transactional emails</h3>
+      <ul>
+        <li>event registrations</li>
+        <li>event reminders</li>
+        <li>payment confirmations</li>
+      </ul>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(b) GDPR
+      </p>
+      <h3>c) Event promotion</h3>
+      <p>Event hosts may promote their events. Users may receive emails about relevant events.</p>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(f) GDPR
+      </p>
+      <h3>d) Right to object</h3>
+      <p>Users may opt out of non-essential emails at any time.</p>
+
+      <h2>14. Cookies</h2>
+      <p>We only use technically necessary cookies.</p>
+      <h3>a) Functional cookies</h3>
+      <ul>
+        <li>authentication</li>
+        <li>security (CSRF protection)</li>
+        <li>language settings</li>
+      </ul>
+      <p>
+        <strong>Legal basis:</strong> Art. 6(1)(b) GDPR and § 25(2) TTDSG
+      </p>
+      <h3>b) Stripe cookies</h3>
+      <p>Stripe may set cookies (e.g. for fraud prevention).</p>
+      <p>
+        Further information:{' '}
+        <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">
+          https://stripe.com/privacy
+        </a>
+      </p>
+      <h3>c) No tracking cookies</h3>
+      <p>FSMeet does not use analytics or marketing cookies.</p>
+
+      <h2>15. Data Retention</h2>
+      <p>Personal data is stored only as long as necessary for the respective purpose.</p>
+
+      <h2>16. User Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>access (Art. 15 GDPR)</li>
+        <li>rectification (Art. 16 GDPR)</li>
+        <li>erasure (Art. 17 GDPR)</li>
+        <li>restriction of processing (Art. 18 GDPR)</li>
+        <li>data portability (Art. 20 GDPR)</li>
+        <li>objection (Art. 21 GDPR)</li>
+      </ul>
+
+      <h2>17. Withdrawal of Consent</h2>
+      <p>You may withdraw your consent at any time.</p>
+
+      <h2>18. Right to Lodge a Complaint</h2>
+      <p>You have the right to lodge a complaint with a supervisory authority.</p>
+
+      <h2>19. Changes</h2>
+      <p>We reserve the right to update this Privacy Policy.</p>
     </div>
   );
-};
+}
