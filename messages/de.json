@@ -24,6 +24,7 @@
     "lnkDonate": "Spenden",
     "lnkContributors": "Mitwirkende",
     "lnkImprint": "Impressum",
+    "lnkTermsOfService": "Nutzungsbedingungen",
     "lnkPrivacyPolicy": "Datenschutzerklärung",
     "build": "Version"
   },
@@ -668,6 +669,10 @@
     "inputSearchPlaceholder": "Suche Name...",
     "tableSortByName": "Nach Name sortieren",
     "tableSortByCountry": "Nach Land sortieren",
+    "filterCountry": "Land",
+    "filterGender": "Geschlecht",
+    "filterGenderMale": "Männlich",
+    "filterGenderFemale": "Weiblich",
     "cbColumns": "Spalten",
     "tblColumnUsername": "Nutzer",
     "tblColumnName": "Name",

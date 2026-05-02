@@ -3,7 +3,7 @@ import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
 import SocialLink from '@/components/user/social-link';
-import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint } from '@/domain/constants/routes';
+import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint, routeTermsOfService } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { SocialPlatform } from '@/domain/enums/social-platform';
 import { getTranslations } from 'next-intl/server';
@@ -26,58 +26,66 @@ export default async function About() {
   };
 
   return (
-    <div className="min-h-0 flex-1 flex flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       <Header />
 
       <PageTitle title={t('pageTitle')} />
 
-      <PageInset variant="prose" className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
-        <div className="flex w-full min-w-0 flex-col items-center text-center">
-          <div>{t('aboutText1')}</div>
-          <div className="mt-2">
+      <PageInset variant="prose" className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto scrollbar-none">
+        <div className="prose-flow select-text w-full break-words">
+          <p>{t('aboutText1')}</p>
+          <p>
             {t('aboutText2')}
-            <Link href={routeFeedback} className="underline">
+            <Link href={routeFeedback} className="font-medium text-primary underline underline-offset-4">
               {t('aboutText3')}
             </Link>
             {t('aboutText4')}
-          </div>
+          </p>
 
-          <div className="mt-2">
+          <p className="not-prose mt-4">
             <SocialLink platform={SocialPlatform.INSTAGRAM} path={'@fsmeet_com'} />
-          </div>
+          </p>
 
-          <Link className="mt-6 underline" href={routeDonate}>
-            {t('lnkDonate')}
-          </Link>
+          <p>
+            <Link href={routeDonate} className="font-medium text-primary underline underline-offset-4">
+              {t('lnkDonate')}
+            </Link>
+          </p>
 
-          <div className="mt-10">{`${t('build')}: ${getPackageVersion()}`}</div>
+          <p className="not-prose mt-10 text-sm text-muted-foreground">{`${t('build')}: ${getPackageVersion()}`}</p>
           {shortSha && buildTime && (
             <>
-              <div>{`Sha: ${shortSha}`}</div>
-              <div>{buildTime}</div>
+              <p className="not-prose text-sm text-muted-foreground">{`Sha: ${shortSha}`}</p>
+              <p className="not-prose text-sm text-muted-foreground">{buildTime}</p>
             </>
           )}
 
-          <div className="mt-2">
-            <a href={'https://github.com/nilsfs7/fsmeet-frontend'} target="_blank" rel="noopener noreferrer">
-              <div className="flex flex-col items-center text-sm">
-                <Image src={'github-logo.svg'} width={0} height={0} sizes="100vw" className="h-8 w-full" alt="" />
-                <div className="hover:underline">{`nilsfs7`}</div>
-              </div>
+          <p className="not-prose mt-6">
+            <a
+              href="https://github.com/nilsfs7/fsmeet-frontend"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex flex-col gap-1 text-sm text-foreground no-underline hover:underline"
+            >
+              <Image src="/github-logo.svg" width={120} height={32} className="h-8 w-auto" alt="" />
+              <span>nilsfs7</span>
             </a>
-          </div>
+          </p>
 
-          <Link className="mt-6 underline" href={routeContributors}>
-            {t('lnkContributors')}
-          </Link>
-
-          <Link className="underline" href={routeImprint}>
-            {t('lnkImprint')}
-          </Link>
-
-          <Link className="underline" href={routeDataProtection}>
-            {t('lnkPrivacyPolicy')}
-          </Link>
+          <nav className="not-prose mt-8 flex flex-col gap-2 border-t border-border pt-6" aria-label="Legal">
+            <Link href={routeContributors} className="font-medium text-primary underline underline-offset-4">
+              {t('lnkContributors')}
+            </Link>
+            <Link href={routeImprint} className="font-medium text-primary underline underline-offset-4">
+              {t('lnkImprint')}
+            </Link>
+            <Link href={routeTermsOfService} className="font-medium text-primary underline underline-offset-4">
+              {t('lnkTermsOfService')}
+            </Link>
+            <Link href={routeDataProtection} className="font-medium text-primary underline underline-offset-4">
+              {t('lnkPrivacyPolicy')}
+            </Link>
+          </nav>
         </div>
       </PageInset>
 

@@ -24,6 +24,7 @@
     "lnkDonate": "تبرع",
     "lnkContributors": "المساهمون",
     "lnkImprint": "بيانات النشر",
+    "lnkTermsOfService": "شروط الخدمة",
     "lnkPrivacyPolicy": "سياسة الخصوصية",
     "build": "الإصدار"
   },
@@ -686,6 +687,10 @@
     "inputSearchPlaceholder": "ابحث عن الاسم...",
     "tableSortByName": "ترتيب حسب الاسم",
     "tableSortByCountry": "ترتيب حسب البلد",
+    "filterCountry": "البلد",
+    "filterGender": "الجنس",
+    "filterGenderMale": "ذكر",
+    "filterGenderFemale": "أنثى",
     "cbColumns": "الأعمدة",
     "tblColumnUsername": "المستخدم",
     "tblColumnName": "الاسم",

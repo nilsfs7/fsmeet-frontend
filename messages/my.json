@@ -24,6 +24,7 @@
     "lnkDonate": "Derma",
     "lnkContributors": "Penyumbang",
     "lnkImprint": "Imprint",
+    "lnkTermsOfService": "Terma perkhidmatan",
     "lnkPrivacyPolicy": "Dasar Privasi",
     "build": "Binaan"
   },
@@ -686,6 +687,10 @@
     "inputSearchPlaceholder": "Cari nama...",
     "tableSortByName": "Isih mengikut nama",
     "tableSortByCountry": "Isih mengikut negara",
+    "filterCountry": "Negara",
+    "filterGender": "Jantina",
+    "filterGenderMale": "Lelaki",
+    "filterGenderFemale": "Perempuan",
     "cbColumns": "Lajur",
     "tblColumnUsername": "Pengguna",
     "tblColumnName": "Nama",

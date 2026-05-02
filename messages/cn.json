@@ -24,6 +24,7 @@
     "lnkDonate": "捐赠",
     "lnkContributors": "贡献者",
     "lnkImprint": "出版信息",
+    "lnkTermsOfService": "服务条款",
     "lnkPrivacyPolicy": "隐私政策",
     "build": "构建"
   },
@@ -686,6 +687,10 @@
     "inputSearchPlaceholder": "搜索姓名…",
     "tableSortByName": "按姓名排序",
     "tableSortByCountry": "按国家排序",
+    "filterCountry": "国家",
+    "filterGender": "性别",
+    "filterGenderMale": "男",
+    "filterGenderFemale": "女",
     "cbColumns": "列",
     "tblColumnUsername": "用户",
     "tblColumnName": "姓名",
