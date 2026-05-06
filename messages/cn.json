@@ -266,6 +266,8 @@
     "adminPanelBtnManageEventStateToolTip": "活动状态",
     "adminPanelBtnViewStatisticsToolTip": "统计",
     "adminPanelBtnManageArenaScreenToolTip": "竞技场屏幕",
+    "adminPanelBtnUpgradePro": "升级 Pro",
+    "adminPanelBtnUpgradeProToolTip": "比较此活动的免费版与 Pro。",
     "tabOverviewTitle": "概览",
     "tabOverviewParticipationFee": "参赛费用",
     "tabOverviewRegistrationPeriod": "报名时间",
@@ -336,6 +338,44 @@
   "/events/eventid/arena-screen": {
     "pageTitle": "赛场大屏",
     "pageDescription": "选择要在实时预览中显示的比赛项目。选择后竞技场屏幕会立即更新。"
+  },
+  "/events/eventid/pro": {
+    "pageTitle": "活动许可证",
+    "pageIntro": "升级活动并解锁高级功能。",
+    "featureColumn": "功能",
+    "colFree": "Free",
+    "colPro": "Pro",
+    "rowPriceLabel": "许可证价格",
+    "rowCoreLabel": "活动页、报名、赛事、赞助商、资料、统计",
+    "rowPaymentsLabel": "Stripe 支付、住宿与套餐（启用时）",
+    "rowArenaLabel": "赛场大屏 — 现场实时对战展示",
+    "alreadyPro": "此活动已使用 Pro 许可证。",
+    "ctaPurchase": "购买 Pro",
+    "included": "包含",
+    "notIncluded": "不包含"
+  },
+  "/events/eventid/pro/purchase": {
+    "pageTitle": "购买 Pro 许可证",
+    "pageIntro": "将此活动升级为 FSMeet Pro。付款通过 Stripe 安全处理。",
+    "pageOverviewLicense": "当前许可证",
+    "licenseStatusFree": "Free",
+    "pageOverviewPrice": "价格",
+    "pageOverviewProduct": "升级",
+    "pageOverviewProductHint": "FSMeet Pro",
+    "btnCheckout": "继续支付",
+    "btnWorking": "正在启动结账…",
+    "btnPay": "立即支付",
+    "errorCheckout": "无法启动结账。",
+    "errorSignIn": "请登录后继续。",
+    "errorMissingSecret": "结账响应不完整。请重试或联系支持。",
+    "alreadyPro": "此活动已是 Pro，无需购买。",
+    "btnBackToComparison": "返回对比"
+  },
+  "/events/eventid/pro/purchase/success": {
+    "thankYouText1": "付款成功",
+    "thankYouText2": "谢谢。您的 Pro 许可证应会很快生效。",
+    "btnEvent": "前往活动",
+    "btnProInfo": "Pro 许可证说明"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "赛程",

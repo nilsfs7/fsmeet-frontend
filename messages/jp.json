@@ -266,6 +266,8 @@
     "adminPanelBtnManageEventStateToolTip": "イベント状態",
     "adminPanelBtnViewStatisticsToolTip": "統計",
     "adminPanelBtnManageArenaScreenToolTip": "アリーナスクリーン",
+    "adminPanelBtnUpgradePro": "Proにアップグレード",
+    "adminPanelBtnUpgradeProToolTip": "このイベントのFreeとProを比較します。",
     "tabOverviewTitle": "概要",
     "tabOverviewParticipationFee": "参加費",
     "tabOverviewRegistrationPeriod": "登録期間",
@@ -336,6 +338,44 @@
   "/events/eventid/arena-screen": {
     "pageTitle": "アリーナ画面",
     "pageDescription": "ライブプレビュー用の大会を選んでください。選択するとアリーナ画面が更新されます。"
+  },
+  "/events/eventid/pro": {
+    "pageTitle": "イベントライセンス",
+    "pageIntro": "イベントをアップグレードして、高度な機能を利用できます。",
+    "featureColumn": "機能",
+    "colFree": "Free",
+    "colPro": "Pro",
+    "rowPriceLabel": "ライセンス料金",
+    "rowCoreLabel": "イベントページ、登録、競技、スポンサー、資料、統計",
+    "rowPaymentsLabel": "Stripe決済、宿泊・オファー（有効時）",
+    "rowArenaLabel": "アリーナ画面 — 会場でのライブマッチ表示",
+    "alreadyPro": "このイベントはすでにProライセンスです。",
+    "ctaPurchase": "Proを購入",
+    "included": "含まれる",
+    "notIncluded": "含まれない"
+  },
+  "/events/eventid/pro/purchase": {
+    "pageTitle": "Proライセンスを購入",
+    "pageIntro": "このイベントをFSMeet Proにアップグレードします。お支払いはStripeで安全に処理されます。",
+    "pageOverviewLicense": "現在のライセンス",
+    "licenseStatusFree": "Free",
+    "pageOverviewPrice": "料金",
+    "pageOverviewProduct": "アップグレード",
+    "pageOverviewProductHint": "FSMeet Pro",
+    "btnCheckout": "支払いを続行",
+    "btnWorking": "チェックアウトを開始しています…",
+    "btnPay": "支払う",
+    "errorCheckout": "チェックアウトを開始できませんでした。",
+    "errorSignIn": "続行するにはログインしてください。",
+    "errorMissingSecret": "チェックアウトの応答が不完全です。再試行するかサポートへ連絡してください。",
+    "alreadyPro": "このイベントはすでにProです。購入は不要です。",
+    "btnBackToComparison": "比較に戻る"
+  },
+  "/events/eventid/pro/purchase/success": {
+    "thankYouText1": "お支払い完了",
+    "thankYouText2": "ありがとうございます。Proライセンスはまもなく有効になるはずです。",
+    "btnEvent": "イベントへ",
+    "btnProInfo": "Proライセンス情報"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "スケジュール",

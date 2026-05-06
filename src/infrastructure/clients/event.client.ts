@@ -12,6 +12,7 @@ import { ReadVisaInvitationRequestResponseDto } from './dtos/event/read-visa-inv
 import { ReadEventRegistrationResponseDto } from './dtos/event/registration/read-event-registration.response.dto';
 import { CreateStripeCheckoutBodyDto } from './dtos/event/create-stripe-checkout.body.dto';
 import { ReadStripeCheckoutResponseDto } from './dtos/event/read-stripe-checkout.response.dto';
+import type { ReadLicenseInfoResponseDto } from './dtos/event/read-license-info.response.dto';
 import { CreateEventBodyDto } from './dtos/event/create-event.body.dto';
 import { CreateEventMaintainerBodyDto } from './dtos/event/create-event-maintainer.body.dto';
 import { CreatePaymentMethodCashBodyDto } from './dtos/event/payment/create-payment-method-cash.body.dto';
@@ -374,6 +375,52 @@ export async function createEventRegistration_v2(
     const error = await response.json();
     throw Error(error.message);
   }
+}
+
+export async function getEventLicenseInfo(eventId: string, session: Session | null): Promise<ReadLicenseInfoResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/license/upgrade`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      ...defaultHeaders,
+      ...(session?.user?.accessToken ? { Authorization: `Bearer ${session.user.accessToken}` } : {}),
+    },
+  });
+
+  if (response.ok) {
+    const dto = (await response.json()) as ReadLicenseInfoResponseDto;
+    console.info('Fetching event license info successful');
+    return dto;
+  }
+  const error = await response.json();
+  throw Error(error.message);
+}
+
+export async function createEventLicenseCheckout(
+  eventId: string,
+  successUrl: string,
+  session: Session | null,
+): Promise<ReadStripeCheckoutResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/license/checkout`;
+  const body = new CreateStripeCheckoutBodyDto(successUrl);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const dto = (await response.json()) as ReadStripeCheckoutResponseDto;
+    console.info('Creating Pro license checkout successful');
+    return dto;
+  }
+  const error = await response.json();
+  throw Error(error.message);
 }
 
 export async function createEventRegistrationCheckoutLink(eventId: string, successUrl: string, session: Session | null): Promise<string> {

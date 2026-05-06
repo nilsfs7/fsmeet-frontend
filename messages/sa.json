@@ -266,6 +266,8 @@
     "adminPanelBtnManageEventStateToolTip": "حالة الفعالية",
     "adminPanelBtnViewStatisticsToolTip": "الإحصائيات",
     "adminPanelBtnManageArenaScreenToolTip": "شاشة الأرينا",
+    "adminPanelBtnUpgradePro": "ترقية Pro",
+    "adminPanelBtnUpgradeProToolTip": "قارن بين الإصدار المجاني وPro لهذا الحدث.",
     "tabOverviewTitle": "نظرة عامة",
     "tabOverviewParticipationFee": "رسوم المشاركة",
     "tabOverviewRegistrationPeriod": "فترة التسجيل",
@@ -336,6 +338,44 @@
   "/events/eventid/arena-screen": {
     "pageTitle": "شاشة الساحة",
     "pageDescription": "اختر مباراة للمعاينة المباشرة. تُحدَّث شاشة الملعب عند الاختيار."
+  },
+  "/events/eventid/pro": {
+    "pageTitle": "ترخيص الفعالية",
+    "pageIntro": "حسّن فعاليتك وفعّل الميزات المتقدمة.",
+    "featureColumn": "الميزة",
+    "colFree": "Free",
+    "colPro": "Pro",
+    "rowPriceLabel": "سعر الترخيص",
+    "rowCoreLabel": "صفحة الفعالية، التسجيل، المسابقات، الرعاة، المستندات، الإحصاءات",
+    "rowPaymentsLabel": "مدفوعات Stripe والإقامات والعروض (عند التفعيل)",
+    "rowArenaLabel": "شاشة الساحة — عرض المباريات مباشرة في المكان",
+    "alreadyPro": "هذه الفعالية تستخدم بالفعل ترخيص Pro.",
+    "ctaPurchase": "شراء Pro",
+    "included": "مشمول",
+    "notIncluded": "غير مشمول"
+  },
+  "/events/eventid/pro/purchase": {
+    "pageTitle": "شراء ترخيص Pro",
+    "pageIntro": "قم بترقية هذه الفعالية إلى FSMeet Pro. تتم معالجة الدفع بأمان عبر Stripe.",
+    "pageOverviewLicense": "الترخيص الحالي",
+    "licenseStatusFree": "Free",
+    "pageOverviewPrice": "السعر",
+    "pageOverviewProduct": "ترقية",
+    "pageOverviewProductHint": "FSMeet Pro",
+    "btnCheckout": "متابعة الدفع",
+    "btnWorking": "جارٍ بدء الدفع…",
+    "btnPay": "ادفع الآن",
+    "errorCheckout": "تعذّر بدء الدفع.",
+    "errorSignIn": "يرجى تسجيل الدخول للمتابعة.",
+    "errorMissingSecret": "استجابة الدفع غير مكتملة. حاول مجددًا أو اتصل بالدعم.",
+    "alreadyPro": "هذه الفعالية لديها Pro بالفعل. لا حاجة للشراء.",
+    "btnBackToComparison": "العودة إلى المقارنة"
+  },
+  "/events/eventid/pro/purchase/success": {
+    "thankYouText1": "تم الدفع بنجاح",
+    "thankYouText2": "شكرًا. يجب أن يصبح ترخيص Pro نشطًا قريبًا.",
+    "btnEvent": "الذهاب إلى الفعالية",
+    "btnProInfo": "معلومات ترخيص Pro"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "الجدول",
