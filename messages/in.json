@@ -266,6 +266,8 @@
     "adminPanelBtnManageEventStateToolTip": "इवेंट स्थिति",
     "adminPanelBtnViewStatisticsToolTip": "आंकड़े",
     "adminPanelBtnManageArenaScreenToolTip": "Arena screen",
+    "adminPanelBtnUpgradePro": "प्रो लाइसेंस",
+    "adminPanelBtnUpgradeProToolTip": "इस इवेंट के लिए फ्री और प्रो की तुलना करें।",
     "tabOverviewTitle": "सारांश",
     "tabOverviewParticipationFee": "भागीदारी शुल्क",
     "tabOverviewRegistrationPeriod": "पंजीकरण अवधि",
@@ -336,6 +338,44 @@
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena screen",
     "pageDescription": "लाइव पूर्वावलोकन के लिए एक मैच चुनें। चुनते ही अखाड़ा स्क्रीन अपडेट हो जाती है।"
+  },
+  "/events/eventid/pro": {
+    "pageTitle": "इवेंट लाइसेंस",
+    "pageIntro": "अपना इवेंट अपग्रेड करें और उन्नत सुविधाएँ अनलॉक करें।",
+    "featureColumn": "सुविधा",
+    "colFree": "Free",
+    "colPro": "Pro",
+    "rowPriceLabel": "लाइसेंस मूल्य",
+    "rowCoreLabel": "इवेंट पेज, रजिस्ट्रेशन, प्रतियोगिताएँ, प्रायोजक, दस्तावेज़, आँकड़े",
+    "rowPaymentsLabel": "Stripe भुगतान, आवास और ऑफ़र (जब सक्षम हों)",
+    "rowArenaLabel": "एरीना स्क्रीन — स्थल पर लाइव मैच प्रदर्शन",
+    "alreadyPro": "इस इवेंट में पहले से प्रो लाइसेंस है।",
+    "ctaPurchase": "Pro खरीदें",
+    "included": "शामिल",
+    "notIncluded": "शामिल नहीं"
+  },
+  "/events/eventid/pro/purchase": {
+    "pageTitle": "प्रो लाइसेंस खरीदें",
+    "pageIntro": "इस इवेंट को FSMeet Pro पर अपग्रेड करें। भुगतान Stripe से सुरक्षित रूप से होता है।",
+    "pageOverviewLicense": "वर्तमान लाइसेंस",
+    "licenseStatusFree": "Free",
+    "pageOverviewPrice": "मूल्य",
+    "pageOverviewProduct": "अपग्रेड",
+    "pageOverviewProductHint": "FSMeet Pro",
+    "btnCheckout": "भुगतान जारी रखें",
+    "btnWorking": "चेकआउट शुरू हो रहा है…",
+    "btnPay": "अभी भुगतान करें",
+    "errorCheckout": "चेकआउट शुरू नहीं हो सका।",
+    "errorSignIn": "जारी रखने के लिए साइन इन करें।",
+    "errorMissingSecret": "चेकआउट प्रतिक्रिया अधूरी है। फिर से कोशिश करें या सहायता से संपर्क करें।",
+    "alreadyPro": "इस इवेंट में पहले से प्रो है। खरीदारी की ज़रूरत नहीं।",
+    "btnBackToComparison": "तुलना पर वापस जाएँ"
+  },
+  "/events/eventid/pro/purchase/success": {
+    "thankYouText1": "भुगतान सफल",
+    "thankYouText2": "धन्यवाद। आपका प्रो लाइसेंस जल्द सक्रिय होना चाहिए।",
+    "btnEvent": "इवेंट पर जाएँ",
+    "btnProInfo": "प्रो लाइसेंस जानकारी"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "शेड्यूल",

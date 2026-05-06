@@ -266,6 +266,8 @@
     "adminPanelBtnManageEventStateToolTip": "Status acara",
     "adminPanelBtnViewStatisticsToolTip": "Statistik",
     "adminPanelBtnManageArenaScreenToolTip": "Skrin arena",
+    "adminPanelBtnUpgradePro": "Naik taraf Pro",
+    "adminPanelBtnUpgradeProToolTip": "Bandingkan Free dan Pro untuk acara ini.",
     "tabOverviewTitle": "Gambaran keseluruhan",
     "tabOverviewParticipationFee": "Yuran penyertaan",
     "tabOverviewRegistrationPeriod": "Tempoh pendaftaran",
@@ -336,6 +338,44 @@
   "/events/eventid/arena-screen": {
     "pageTitle": "Skrin arena",
     "pageDescription": "Pilih pertandingan untuk pratayang langsung. Skrin arena dikemas kini apabila anda memilih."
+  },
+  "/events/eventid/pro": {
+    "pageTitle": "Lesen acara",
+    "pageIntro": "Naik taraf acara anda dan buka kunci ciri lanjutan.",
+    "featureColumn": "Ciri",
+    "colFree": "Free",
+    "colPro": "Pro",
+    "rowPriceLabel": "Harga lesen",
+    "rowCoreLabel": "Halaman acara, pendaftaran, pertandingan, penaja, dokumen, statistik",
+    "rowPaymentsLabel": "Bayaran Stripe, penginapan & tawaran (jika diaktifkan)",
+    "rowArenaLabel": "Skrin arena — paparan perlawanan langsung di venue",
+    "alreadyPro": "Acara ini sudah menggunakan lesen Pro.",
+    "ctaPurchase": "Beli Pro",
+    "included": "Termasuk",
+    "notIncluded": "Tidak termasuk"
+  },
+  "/events/eventid/pro/purchase": {
+    "pageTitle": "Beli lesen Pro",
+    "pageIntro": "Naik taraf acara ini ke FSMeet Pro. Pembayaran diproses dengan selamat melalui Stripe.",
+    "pageOverviewLicense": "Lesen semasa",
+    "licenseStatusFree": "Free",
+    "pageOverviewPrice": "Harga",
+    "pageOverviewProduct": "Naik taraf",
+    "pageOverviewProductHint": "FSMeet Pro",
+    "btnCheckout": "Teruskan pembayaran",
+    "btnWorking": "Memulakan checkout…",
+    "btnPay": "Bayar sekarang",
+    "errorCheckout": "Checkout tidak dapat dimulakan.",
+    "errorSignIn": "Sila log masuk untuk meneruskan.",
+    "errorMissingSecret": "Respons checkout tidak lengkap. Cuba lagi atau hubungi sokongan.",
+    "alreadyPro": "Acara ini sudah Pro. Tiada pembelian diperlukan.",
+    "btnBackToComparison": "Kembali ke perbandingan"
+  },
+  "/events/eventid/pro/purchase/success": {
+    "thankYouText1": "Pembayaran berjaya",
+    "thankYouText2": "Terima kasih. Lesen Pro anda harus aktif tidak lama lagi.",
+    "btnEvent": "Ke acara",
+    "btnProInfo": "Maklumat lesen Pro"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Jadual",

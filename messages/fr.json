@@ -248,6 +248,8 @@
     "adminPanelBtnManageEventStateToolTip": "État de l'événement",
     "adminPanelBtnViewStatisticsToolTip": "Statistiques",
     "adminPanelBtnManageArenaScreenToolTip": "Écran Arène",
+    "adminPanelBtnUpgradePro": "Licence Pro",
+    "adminPanelBtnUpgradeProToolTip": "Comparer Free et Pro pour cet événement.",
     "tabOverviewTitle": "Aperçu",
     "tabOverviewParticipationFee": "Frais de participation",
     "tabOverviewRegistrationPeriod": "Période d'inscription",
@@ -318,6 +320,44 @@
   "/events/eventid/arena-screen": {
     "pageTitle": "Écran arène",
     "pageDescription": "Choisis une compétition pour l'aperçu en direct. L'écran de l'arène se met à jour dès la sélection."
+  },
+  "/events/eventid/pro": {
+    "pageTitle": "Licence événement",
+    "pageIntro": "Améliore ton événement et débloque des fonctionnalités avancées.",
+    "featureColumn": "Fonctionnalité",
+    "colFree": "Free",
+    "colPro": "Pro",
+    "rowPriceLabel": "Prix de licence",
+    "rowCoreLabel": "Page événement, inscriptions, compétitions, sponsors, documents, statistiques",
+    "rowPaymentsLabel": "Paiements Stripe, hébergements et offres (si activés)",
+    "rowArenaLabel": "Écran arène — affichage live des battles sur place",
+    "alreadyPro": "Cet événement utilise déjà une licence Pro.",
+    "ctaPurchase": "Acheter Pro",
+    "included": "Inclus",
+    "notIncluded": "Non inclus"
+  },
+  "/events/eventid/pro/purchase": {
+    "pageTitle": "Acheter la licence Pro",
+    "pageIntro": "Passe cet événement sur FSMeet Pro. Le paiement est sécurisé via Stripe.",
+    "pageOverviewLicense": "Licence actuelle",
+    "licenseStatusFree": "Free",
+    "pageOverviewPrice": "Prix",
+    "pageOverviewProduct": "Mise à niveau",
+    "pageOverviewProductHint": "FSMeet Pro",
+    "btnCheckout": "Continuer le paiement",
+    "btnWorking": "Démarrage du paiement…",
+    "btnPay": "Payer maintenant",
+    "errorCheckout": "Impossible de démarrer le paiement.",
+    "errorSignIn": "Connecte-toi pour continuer.",
+    "errorMissingSecret": "Réponse de paiement incomplète. Réessaie ou contacte le support.",
+    "alreadyPro": "Cet événement a déjà Pro. Aucun achat nécessaire.",
+    "btnBackToComparison": "Retour à la comparaison"
+  },
+  "/events/eventid/pro/purchase/success": {
+    "thankYouText1": "Paiement réussi",
+    "thankYouText2": "Merci. Ta licence Pro devrait être active sous peu.",
+    "btnEvent": "Voir l’événement",
+    "btnProInfo": "Infos licence Pro"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Programme",

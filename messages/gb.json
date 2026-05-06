@@ -266,6 +266,8 @@
     "adminPanelBtnManageEventStateToolTip": "Event state",
     "adminPanelBtnViewStatisticsToolTip": "Statistics",
     "adminPanelBtnManageArenaScreenToolTip": "Arena screen",
+    "adminPanelBtnUpgradePro": "Upgrade to Pro",
+    "adminPanelBtnUpgradeProToolTip": "Compare Free and Pro for this event.",
     "tabOverviewTitle": "Overview",
     "tabOverviewParticipationFee": "Participation fee",
     "tabOverviewRegistrationPeriod": "Registration period",
@@ -336,6 +338,44 @@
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena screen",
     "pageDescription": "Choose a match for the live preview. The arena screen updates when you select one."
+  },
+  "/events/eventid/pro": {
+    "pageTitle": "Event License",
+    "pageIntro": "Upgrade your event and unlock advanced features.",
+    "featureColumn": "Feature",
+    "colFree": "Free",
+    "colPro": "Pro",
+    "rowPriceLabel": "License price",
+    "rowCoreLabel": "Event page, registrations, competitions, sponsors, documents, statistics",
+    "rowPaymentsLabel": "Stripe payments, accommodations & offerings (when enabled)",
+    "rowArenaLabel": "Arena screen — live match display at the venue",
+    "alreadyPro": "This event already uses a Pro license.",
+    "ctaPurchase": "Buy Pro",
+    "included": "Included",
+    "notIncluded": "Not included"
+  },
+  "/events/eventid/pro/purchase": {
+    "pageTitle": "Purchase Pro license",
+    "pageIntro": "Upgrade this event to FSMeet Pro. Payment is processed securely by Stripe.",
+    "pageOverviewLicense": "Current license",
+    "licenseStatusFree": "Free",
+    "pageOverviewPrice": "Price",
+    "pageOverviewProduct": "Upgrade",
+    "pageOverviewProductHint": "FSMeet Pro",
+    "btnCheckout": "Continue Payment",
+    "btnWorking": "Starting checkout…",
+    "btnPay": "Pay now",
+    "errorCheckout": "Checkout could not be started.",
+    "errorSignIn": "Please sign in to continue.",
+    "errorMissingSecret": "Checkout response was incomplete. Try again or contact support.",
+    "alreadyPro": "This event already has Pro. No purchase needed.",
+    "btnBackToComparison": "Back to comparison"
+  },
+  "/events/eventid/pro/purchase/success": {
+    "thankYouText1": "Payment successful",
+    "thankYouText2": "Thank you. Your Pro license should be active shortly.",
+    "btnEvent": "Go to event",
+    "btnProInfo": "Pro license info"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Schedule",
