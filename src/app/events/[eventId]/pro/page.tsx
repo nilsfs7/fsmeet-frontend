@@ -12,8 +12,9 @@ import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import { IconCheck, IconX } from '@tabler/icons-react';
+import { IconCheck, IconInfinity, IconX } from '@tabler/icons-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { EventType } from '@/domain/enums/event-type';
 
 const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
@@ -71,8 +72,9 @@ export default async function EventProLicense(props: { params: Promise<{ eventId
                     {proPriceFormatted != null && proPriceFormatted !== '' ? proPriceFormatted : <span className="text-muted-foreground">—</span>}
                   </td>
                 </tr>
+
                 <tr className="border-b border-border">
-                  <td className="p-3 text-foreground">{t('rowCoreLabel')}</td>
+                  <td className="p-3 text-foreground">{t('rowEventCoreLabel')}</td>
                   <td className="p-3 text-center align-middle">
                     <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
                   </td>
@@ -80,23 +82,63 @@ export default async function EventProLicense(props: { params: Promise<{ eventId
                     <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
                   </td>
                 </tr>
+
                 <tr className="border-b border-border">
-                  <td className="p-3 text-foreground">{t('rowPaymentsLabel')}</td>
+                  <td className="p-3 text-foreground">{t('rowFeaturedLabel')}</td>
                   <td className="p-3 text-center align-middle">
-                    <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
+                    <IconX className="mx-auto h-5 w-5 text-critical" stroke={2} aria-label={t('notIncluded')} />
                   </td>
                   <td className="p-3 text-center align-middle">
                     <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
                   </td>
                 </tr>
+
+                {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
+                  <>
+                    <tr className="border-b border-border">
+                      <td className="p-3 text-foreground">{t('rowCompetitionCoreLabel')}</td>
+                      <td className="p-3 text-center align-middle">
+                        <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
+                      </td>
+                      <td className="p-3 text-center align-middle">
+                        <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
+                      </td>
+                    </tr>
+
+                    <tr className="border-b border-border">
+                      <td className="p-3 text-foreground">{t('rowWffaRankedLabel')}</td>
+                      <td className="p-3 text-center align-middle">
+                        <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
+                      </td>
+                      <td className="p-3 text-center align-middle">
+                        <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
+                      </td>
+                    </tr>
+
+                    <tr className="border-b border-border">
+                      <td className="p-3 text-foreground">{t('rowArenaLabel')}</td>
+                      <td className="p-3 text-center align-middle">
+                        <IconX className="mx-auto h-5 w-5 text-critical" stroke={2} aria-label={t('notIncluded')} />
+                      </td>
+                      <td className="p-3 text-center align-middle">
+                        <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
+                      </td>
+                    </tr>
+                  </>
+                )}
+
+                <tr className="border-b border-border">
+                  <td className="p-3 text-foreground">{t('rowSponsorsLabel')}</td>
+                  <td className="p-3 text-center align-middle">1</td>
+                  <td className="p-3 text-center align-middle">
+                    <IconInfinity className="mx-auto h-5 w-5 text-foreground" stroke={2} aria-hidden />
+                  </td>
+                </tr>
+
                 <tr>
-                  <td className="p-3 text-foreground">{t('rowArenaLabel')}</td>
-                  <td className="p-3 text-center align-middle">
-                    <IconX className="mx-auto h-5 w-5 text-muted-foreground" stroke={2} aria-label={t('notIncluded')} />
-                  </td>
-                  <td className="p-3 text-center align-middle">
-                    <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
-                  </td>
+                  <td className="p-3 text-foreground">{t('rowAttachmentsLabel')}</td>
+                  <td className="p-3 text-center align-middle">1</td>
+                  <td className="p-3 text-center align-middle">10</td>
                 </tr>
               </tbody>
             </table>

@@ -1,10 +1,18 @@
+import { defaultHeaders } from './default-headers';
 import { ReadAdvertisementResponseDto } from './dtos/advertisement/read-advertisement-response-dto';
 
-/** Public list of ads for the events UI (enabled only, ordered). */
-export async function getAdvertisements(): Promise<ReadAdvertisementResponseDto[]> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements`;
+export async function getAdvertisements(username: string | null): Promise<ReadAdvertisementResponseDto[]> {
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements?`;
+
+  if (username) {
+    url += `username=${username}`;
+  }
+
   const response = await fetch(url, {
     method: 'GET',
+    headers: {
+      ...defaultHeaders,
+    },
   });
 
   if (response.ok) {

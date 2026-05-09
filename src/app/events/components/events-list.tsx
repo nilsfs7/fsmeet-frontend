@@ -178,7 +178,7 @@ export const EventsList = () => {
   }, [loadForRange]);
 
   useEffect(() => {
-    void getAdvertisements()
+    void getAdvertisements(null)
       .then(setAdvertisements)
       .catch(() => {
         setAdvertisements([]);
