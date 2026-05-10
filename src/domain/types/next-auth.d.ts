@@ -1,3 +1,4 @@
+import type { UserType } from '@/domain/enums/user-type';
 import NextAuth from 'next-auth/next';
 
 declare module 'next-auth' {
@@ -6,6 +7,7 @@ declare module 'next-auth' {
       username: string;
       imageUrl: string;
       accessToken: string;
+      type?: UserType;
     };
   }
 }

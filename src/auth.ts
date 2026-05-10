@@ -15,6 +15,7 @@ import {
   routeWffaOverview,
 } from './domain/constants/routes';
 import { AdministrativeUser } from './domain/enums/administrative-user';
+import type { UserType } from './domain/enums/user-type';
 import { defaultHeaders } from './infrastructure/clients/default-headers';
 
 const credentialsConfig = CredentialsProvider({
@@ -100,7 +101,12 @@ const config = {
 
     session({ session, token }: { session: any; token: any }) {
       const decoded: any = jwtDecode(token.accessToken);
-      session.user = { username: decoded.username, imageUrl: decoded.imageUrl, accessToken: token.accessToken } as any;
+      session.user = {
+        username: decoded.username,
+        imageUrl: decoded.imageUrl,
+        accessToken: token.accessToken,
+        type: decoded.type as UserType | undefined,
+      } as any;
       return session;
     },
   },

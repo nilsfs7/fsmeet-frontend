@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { routeAccount, routeLogin } from '@/domain/constants/routes';
@@ -19,15 +18,13 @@ export default async function AccountImage() {
   }
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <ProfilePictureUpload />
 
       <Navigation>
-        <Link href={routeAccount}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeAccount} action={Action.BACK} />
       </Navigation>
     </div>
   );

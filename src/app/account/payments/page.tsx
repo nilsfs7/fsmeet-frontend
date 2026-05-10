@@ -2,13 +2,16 @@ import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { routeAccount } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { Header } from '@/components/header';
 import PageTitle from '@/components/page-title';
 import { ColumnInfo, PaymentsList } from './components/payments-list';
 import { getTranslations } from 'next-intl/server';
 import { getPayments } from '../../../infrastructure/clients/payment.client';
 import { auth } from '../../../auth';
+import { cn } from '@/lib/utils';
+import { appShellContentClass } from '@/components/layout/app-shell-content';
+
+const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function Payments() {
   const t = await getTranslations('/account/payments');
@@ -27,17 +30,19 @@ export default async function Payments() {
   });
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <Header />
 
-      <PageTitle title={t('pageTitle')} />
+      <div className={constrainedContentClass}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <PaymentsList columnData={columnData} />
+      <div className={cn('mt-2 flex min-h-0 flex-1 min-w-0 flex-col overflow-hidden', constrainedContentClass)}>
+        <PaymentsList columnData={columnData} />
+      </div>
 
       <Navigation>
-        <Link href={`${routeAccount}/?tab=account`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeAccount}/?tab=account`} action={Action.BACK} />
       </Navigation>
     </div>
   );

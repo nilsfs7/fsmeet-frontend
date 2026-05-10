@@ -10,6 +10,9 @@ export const imgCompetitionOnsite = '/event/competition_onsite.svg';
 export const imgCompetitionOnline = '/event/competition_online.svg';
 export const imgCalender = '/event/calendar.svg';
 export const imgLocation = '/event/location.svg';
+export const imgRanked = '/event/ranked.svg';
+export const imgPriceMoney = '/event/price_money.svg';
+export const imgAccommodation = '/event/accommodation.svg';
 
 export const imgClock = '/editor/clock.svg';
 
@@ -55,6 +58,7 @@ export const imgThumbsUp = '/feedback/thumbs-up.svg';
 export const imgUserNoImg = '/profile/user.svg';
 export const imgProfileEvents = '/profile/events.svg';
 export const imgProfileSettings = '/profile/settings.svg';
+export const imgProfileAds = '/profile/ads.svg';
 export const imgProfileFeedback = '/profile/feedback.svg';
 export const imgProfileLogout = '/profile/logout.svg';
 

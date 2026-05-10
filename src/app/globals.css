@@ -7,8 +7,77 @@
   @apply hidden;
 }
 
+/**
+ * Design tokens (RGB space-separated channels for Tailwind `rgb(var(--x) / <alpha-value>)`).
+ * Ad-hoc colors in components should migrate to these over time.
+ */
 @layer base {
   :root {
+    /* Core surfaces & text */
+    --background: 255 255 255;
+    --foreground: 20 29 38; /* #141D26 — default body text / “ink” */
+    --primary: 20 29 38; /* same as legacy `primary`: borders, emphasis */
+    --primary-foreground: 255 255 255;
+
+    /* Secondary surface scale (maps to previous secondary-*) */
+    --secondary: 225 232 237; /* #e1e8ed */
+    --secondary-light: 248 249 250; /* #f8f9fa */
+    --secondary-dark: 204 214 221; /* #ccd6dd */
+
+    /* Muted (subtle text & fills) */
+    --muted: 241 245 249;
+    --muted-foreground: 100 116 139;
+
+    /* Semantic */
+    --success: 73 178 26; /* #49B21A */
+    --success-foreground: 255 255 255;
+    --warning: 255 207 64; /* #FFCF40 */
+    --warning-foreground: 20 29 38;
+    --critical: 238 0 0; /* #EE0000 */
+    --critical-dark: 185 28 28; /* #b91c1c */
+    --critical-foreground: 255 255 255;
+    /* Alias: same channels as `critical` for design-system naming */
+    --destructive: 238 0 0;
+    --destructive-foreground: 255 255 255;
+
+    /* Medals / accents (unchanged hex, tokenized) */
+    --bronze: 205 127 50; /* #CD7F32 */
+    --silver: 192 192 192; /* #C0C0C0 */
+    --gold: 255 215 0; /* #FFD700 */
+
+    /* Neutrals (slate-like scale) */
+    --neutral-50: 248 250 252;
+    --neutral-100: 241 245 249;
+    --neutral-200: 226 232 240;
+    --neutral-300: 203 213 225;
+    --neutral-400: 148 163 184;
+    --neutral-500: 100 116 139;
+    --neutral-600: 71 85 105;
+    --neutral-700: 51 65 85;
+    --neutral-800: 30 41 59;
+    --neutral-900: 15 23 42;
+    --neutral-950: 2 6 23;
+
+    /* Border & focus */
+    --border: 204 214 221; /* align with previous secondary-dark usage */
+    --input: 204 214 221;
+    --ring: 20 29 38;
+
+    /* Radius */
+    --radius-sm: 0.25rem; /* 4px */
+    --radius-md: 0.375rem; /* 6px */
+    --radius-lg: 0.5rem; /* 8px */
+    --radius-xl: 0.75rem; /* 12px */
+    --radius-2xl: 1rem; /* 16px */
+    --radius-full: 9999px;
+
+    /* Elevation (subtle, UI-scale) */
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    /* shadcn charts */
     --chart-1: oklch(0.488 0.243 264.376);
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
@@ -17,10 +86,82 @@
   }
 
   .dark {
+    --background: 15 23 42; /* ~ slate-900 */
+    --foreground: 248 250 252;
+    --primary: 248 250 252;
+    --primary-foreground: 15 23 42;
+
+    --secondary: 51 65 85;
+    --secondary-light: 30 41 59;
+    --secondary-dark: 71 85 105;
+
+    --muted: 30 41 59;
+    --muted-foreground: 148 163 184;
+
+    --success: 34 197 94;
+    --success-foreground: 15 23 42;
+    --warning: 250 204 21;
+    --warning-foreground: 15 23 42;
+    --critical: 248 113 113;
+    --critical-dark: 220 38 38;
+    --critical-foreground: 15 23 42;
+    --destructive: 248 113 113;
+    --destructive-foreground: 15 23 42;
+
+    --bronze: 205 127 50;
+    --silver: 192 192 192;
+    --gold: 255 215 0;
+
+    /* same neutral scale as light — prefer bg/text tokens for theming */
+    --border: 51 65 85;
+    --input: 51 65 85;
+    --ring: 203 213 225;
+
     --chart-1: oklch(0.488 0.243 264.376);
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
     --chart-4: oklch(0.627 0.265 303.9);
     --chart-5: oklch(63.723% 0.24829 28.13);
+  }
+
+  body {
+    @apply min-h-dvh bg-background text-foreground text-base antialiased;
+  }
+}
+
+@layer components {
+  /**
+   * Long-form / legal / article copy: readable measure + @tailwindcss/typography defaults.
+   * Use with `w-full` + `mx-auto` in the parent, or on the element directly.
+   */
+  .prose-flow {
+    @apply prose w-full max-w-prose text-pretty text-left;
+  }
+
+  /**
+   * Spacing & layout contract (P0):
+   * - Rhythm: prefer Tailwind spacing scale (4px base: 1=4px, 2=8px, 3=12px, 4=16px, 6=24px, 8=32px…).
+   * - Page horizontal padding: px-4 sm:px-6 md:px-8 (matches `PageTitle` defaults).
+   * - Use `PageInset` or these classes so main content shares one max-width + padding.
+   */
+  .page-inset {
+    @apply mx-auto w-full max-w-content px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
+  }
+  .page-inset-narrow {
+    @apply mx-auto w-full max-w-form px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
+  }
+  .page-inset-prose {
+    @apply mx-auto w-full max-w-prose px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
+  }
+}
+
+@layer utilities {
+  /** Still scrolls (overflow-y auto); track hidden so layout does not shift vs non-scrolling panes. */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -1,0 +1,44 @@
+'use client';
+
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { updateUser } from '@/infrastructure/clients/user.client';
+import { User } from '@/domain/types/user';
+import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import { Toaster, toast } from 'sonner';
+
+export const SaveUserInfoButton = () => {
+  const t = useTranslations('/account');
+
+  const { data: session } = useSession();
+
+  const handleSaveUserInfoClicked = async () => {
+    const userInfoObject = sessionStorage.getItem('userInfo');
+
+    if (userInfoObject) {
+      const user: User = JSON.parse(userInfoObject);
+
+      try {
+        await updateUser(user, session);
+        toast.success('Profile updated.');
+      } catch (error: any) {
+        toast.error(error.message);
+        console.error(error.message);
+      }
+    } else {
+      const msg = 'Failed loading user info from session storage.';
+      toast.error(msg);
+      console.error(msg);
+    }
+  };
+
+  return (
+    <>
+      <Toaster richColors />
+
+      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveUserInfoClicked}>
+        {t('btnSave')}
+      </Button>
+    </>
+  );
+};

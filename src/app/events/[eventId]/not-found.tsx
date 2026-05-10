@@ -2,7 +2,7 @@ import { imgNotFound } from '@/domain/constants/images';
 import Link from 'next/link';
 import Image from 'next/image';
 import { routeEvents } from '@/domain/constants/routes';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { getTranslations } from 'next-intl/server';
 
 export default async function NotFound() {
@@ -17,9 +17,9 @@ export default async function NotFound() {
       </div>
 
       <div className="py-2">
-        <Link href={routeEvents}>
-          <TextButton text={t('btnBackToEvents')} />
-        </Link>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeEvents}>{t('btnBackToEvents')}</Link>
+        </Button>
       </div>
     </div>
   );

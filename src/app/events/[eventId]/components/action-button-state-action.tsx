@@ -13,7 +13,7 @@ import { EventState } from '@/domain/enums/event-state';
 import { validateSession } from '@/functions/validate-session';
 import { isPublicEventState } from '@/functions/event-state';
 import Link from 'next/link';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import Label from '@/components/label';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
@@ -22,6 +22,9 @@ import { toast } from 'sonner';
 interface IActionButtonStateAction {
   event: Event;
 }
+
+const eventStateDialogCtaRowClassName =
+  'mt-2 flex flex-wrap items-center justify-between gap-3 p-1.5 sm:gap-4';
 
 export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => {
   const t = useTranslations('/events/eventid');
@@ -71,7 +74,7 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
     <>
       <Dialog title={t(`dlgEventStateTitle`)} queryParam="state" onCancel={handleCancelDialogClicked}>
         <>
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2 pb-1">
             <div>{`${t('dlgEventStateText1')}:`}</div>
             <Label text={event?.state} />
           </div>
@@ -83,17 +86,21 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
                 <>
                   <p className="mt-2">{t('dlgEventStateText2')}</p>
                   <p>{t('dlgEventStateText3')}</p>
-                  <div className="mt-2 flex justify-between">
-                    <Link href={`${routeEvents}/${event.id}/edit`}>
-                      <TextButton text={t('dlgEventStateBtnEditEvent')} />
-                    </Link>
+                  <div className={eventStateDialogCtaRowClassName}>
+                    <Button asChild variant="action" className={ctaActionButtonClassName}>
+                      <Link href={`${routeEvents}/${event.id}/edit`}>{t('dlgEventStateBtnEditEvent')}</Link>
+                    </Button>
 
-                    <TextButton
-                      text={t('dlgEventStateBtnSendToReview')}
+                    <Button
+                      type="button"
+                      variant="action"
+                      className={ctaActionButtonClassName}
                       onClick={() => {
                         handleUpdateStateClicked(EventState.WAITING_FOR_APPROVAL);
                       }}
-                    />
+                    >
+                      {t('dlgEventStateBtnSendToReview')}
+                    </Button>
                   </div>
 
                   {/* <p>why is a review necessary? todo</p> */}
@@ -105,10 +112,10 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
                 <>
                   <p className="mt-2">{t('dlgEventStateWaitingForApprovalText1')}</p>
                   <p>{t('dlgEventStateWaitingForApprovalText2')}</p>
-                  <div className="mt-2 flex justify-between">
-                    <Link href={`${routeEvents}/${event.id}/edit`}>
-                      <TextButton text={t('dlgEventStateBtnEditEvent')} />
-                    </Link>
+                  <div className={eventStateDialogCtaRowClassName}>
+                    <Button asChild variant="action" className={ctaActionButtonClassName}>
+                      <Link href={`${routeEvents}/${event.id}/edit`}>{t('dlgEventStateBtnEditEvent')}</Link>
+                    </Button>
                   </div>
 
                   {/* <p>why is a review necessary? todo</p> */}
@@ -123,10 +130,10 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
                 <>
                   <p className="mt-2">{t('dlgEventStateApprovedText1')}</p>
                   <p>{t('dlgEventStateApprovedText2')}</p>
-                  <div className="mt-2 flex justify-between">
-                    <Link href={`${routeEvents}/${event.id}/edit`}>
-                      <TextButton text={t('dlgEventStateBtnEditEvent')} />
-                    </Link>
+                  <div className={eventStateDialogCtaRowClassName}>
+                    <Button asChild variant="action" className={ctaActionButtonClassName}>
+                      <Link href={`${routeEvents}/${event.id}/edit`}>{t('dlgEventStateBtnEditEvent')}</Link>
+                    </Button>
                   </div>
                 </>
               )}
@@ -135,13 +142,17 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
               {event.state === EventState.APPROVED && moment(event.dateTo) < moment() && (
                 <>
                   <p className="mt-2">{t('dlgEventStateApprovedEventOverText')}</p>
-                  <div className="mt-2 flex justify-between">
-                    <TextButton
-                      text={t('dlgEventStateBtnArchive')}
+                  <div className={eventStateDialogCtaRowClassName}>
+                    <Button
+                      type="button"
+                      variant="action"
+                      className={ctaActionButtonClassName}
                       onClick={() => {
                         handleUpdateStateClicked(EventState.ARCHIVED_PUBLIC);
                       }}
-                    />
+                    >
+                      {t('dlgEventStateBtnArchive')}
+                    </Button>
                   </div>
                 </>
               )}

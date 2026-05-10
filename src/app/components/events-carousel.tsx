@@ -12,9 +12,10 @@ interface IEventsCarousel {
   upcomingEvents: Event[];
   ongoingEvents: Event[];
   recentEvents: Event[];
+  featuredEvents: Event[];
 }
 
-export const EventsCarousel = ({ upcomingEvents, ongoingEvents, recentEvents }: IEventsCarousel) => {
+export const EventsCarousel = ({ upcomingEvents, ongoingEvents, recentEvents, featuredEvents }: IEventsCarousel) => {
   const t = useTranslations('/');
 
   return (
@@ -62,6 +63,29 @@ export const EventsCarousel = ({ upcomingEvents, ongoingEvents, recentEvents }: 
               <div className="mt-2 flex max-h-full justify-center px-2">
                 <div className="w-full">
                   {upcomingEvents.map((item: any, i: number) => {
+                    return (
+                      <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
+                        <Link href={`${routeEvents}/${item.id}`}>
+                          <EventCard event={item} />
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </>
+          </CarouselItem>
+        ))}
+
+        {/* Featured Events */}
+        {Array.from({ length: featuredEvents.length }).map((_, index) => (
+          <CarouselItem key={`featured-${index}`}>
+            <>
+              <h1 className="mt-2 text-center text-2xl">{t('carouselFeaturedEvent')}</h1>
+
+              <div className="mt-2 flex max-h-full justify-center px-2">
+                <div className="w-full">
+                  {featuredEvents.map((item: any, i: number) => {
                     return (
                       <div key={i.toString()} className={i == 0 ? '' : `mt-2`}>
                         <Link href={`${routeEvents}/${item.id}`}>

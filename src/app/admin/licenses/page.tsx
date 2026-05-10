@@ -1,5 +1,4 @@
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { routeAdminOverview } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/action-button';
 import Navigation from '@/components/navigation';
@@ -8,15 +7,13 @@ import { LicensesEditor } from './components/licenses-editor';
 
 export default async function LicenseAdministration() {
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title="Manage Licenses" />
 
       <LicensesEditor />
 
       <Navigation>
-        <Link href={routeAdminOverview}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeAdminOverview} action={Action.BACK} />
       </Navigation>
     </div>
   );

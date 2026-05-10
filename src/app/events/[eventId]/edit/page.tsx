@@ -1,7 +1,7 @@
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import NavigateBackButton from '@/components/navigate-back-button';
-import { TextButtonSaveEvent } from './components/text-button-save-event';
+import { SaveEventButton } from './components/save-event-button';
 import { Editor } from './components/editor';
 import { getTranslations } from 'next-intl/server';
 import { ActionButtonDeleteEvent } from './components/action-button-delete-event';
@@ -13,18 +13,19 @@ import { UserType } from '@/domain/enums/user-type';
 
 export default async function EventEditing(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/edit');
-  const session = await auth();
+  const [t, session] = await Promise.all([getTranslations('/events/edit'), auth()]);
 
-  const users = await getUsers(undefined, undefined, undefined, undefined, undefined, undefined, true).then(users => {
-    return users.filter(user => {
-      if (user.type !== UserType.ADMINISTRATIVE) return user;
-    });
-  });
-  const event = await getEvent(params.eventId, session);
+  const [users, event] = await Promise.all([
+    getUsers(undefined, undefined, undefined, undefined, undefined, undefined, true).then(users =>
+      users.filter(user => {
+        if (user.type !== UserType.ADMINISTRATIVE) return user;
+      }),
+    ),
+    getEvent(params.eventId, session),
+  ]);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
       <div className={`mx-2 flex flex-col overflow-y-auto`}>
@@ -43,7 +44,7 @@ export default async function EventEditing(props: { params: Promise<{ eventId: s
         <div className="flex justify-end gap-1">
           {isEventAdmin(event, session) && <ActionButtonDeleteEvent />}
 
-          <TextButtonSaveEvent />
+          <SaveEventButton />
         </div>
       </Navigation>
     </div>

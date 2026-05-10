@@ -1,19 +1,24 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { deleteUserImage, updateUserImage } from '@/infrastructure/clients/user.client';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeAccount } from '@/domain/constants/routes';
-import { ButtonStyle } from '@/domain/enums/button-style';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { Toaster, toast } from 'sonner';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
+
+/** Same as sponsor-editor / accommodation-editor file input. */
+const FILE_INPUT_CLASS = cn(
+  'w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground',
+);
 
 export const ProfilePictureUpload = () => {
   const t = useTranslations('/account/image');
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -22,14 +27,12 @@ export const ProfilePictureUpload = () => {
   const [createObjectURL, setCreateObjectURL] = useState<string>();
 
   useEffect(() => {
-    const imageUrl = localStorage.getItem('imageUrl'); // TODO: get url from session, session must be uptodate
-    setImageUrl(imageUrl || '');
-  }, [imageUrl]);
+    setImageUrl(localStorage.getItem('imageUrl') || '');
+  }, []);
 
-  const uploadToClient = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
+  const uploadToClient = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.[0]) {
       const i = event.target.files[0];
-
       setImage(i);
       setCreateObjectURL(URL.createObjectURL(i));
     }
@@ -37,59 +40,62 @@ export const ProfilePictureUpload = () => {
 
   const handleUploadImageClicked = async () => {
     try {
-      const imageUrl = await updateUserImage(image, session);
-
-      setImageUrl(imageUrl);
-      localStorage.setItem('imageUrl', imageUrl);
+      const nextUrl = await updateUserImage(image, session);
+      setImageUrl(nextUrl);
+      localStorage.setItem('imageUrl', nextUrl);
       router.replace(routeAccount);
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : String(error);
+      toast.error(msg);
+      console.error(msg);
     }
   };
 
   const handleDeleteImageClicked = async () => {
     try {
       await deleteUserImage(session);
-
       setImageUrl('');
       localStorage.removeItem('imageUrl');
       router.replace(routeAccount);
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : String(error);
+      toast.error(msg);
+      console.error(msg);
     }
   };
-
-  useEffect(() => {
-    const imageUrl = localStorage.getItem('imageUrl'); // TODO: get url from session, session must be uptodate
-    setImageUrl(imageUrl || '');
-  }, [imageUrl]);
 
   return (
     <>
       <Toaster richColors />
 
-      <div className="flex justify-center py-2">
-        <img src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserDefaultImg} className="mx-2 flex h-32 w-32 rounded-full object-cover border border-primary" />
-      </div>
-
-      <div className="flex justify-center py-2">
-        <input type="file" onChange={uploadToClient} />
-      </div>
-
-      <div className="flex justify-center py-2">
-        {imageUrl && imageUrl.length > 0 && (
-          <div className="mx-1">
-            <TextButton text={t('btnDelete')} onClick={handleDeleteImageClicked} style={ButtonStyle.CRITICAL} />
+      <div className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto px-4 py-4 sm:px-6 md:px-8">
+        <div className="flex w-full max-w-2xl min-w-0 flex-col gap-4">
+          <div className="flex justify-center py-2">
+            <img
+              src={createObjectURL ? createObjectURL : imageUrl ? imageUrl : imgUserDefaultImg}
+              alt=""
+              className="mx-2 flex h-32 w-32 rounded-full border border-border/60 object-cover"
+            />
           </div>
-        )}
 
-        {createObjectURL && createObjectURL.length > 0 && (
-          <div className="mx-1">
-            <TextButton text={t('btnUpload')} onClick={handleUploadImageClicked} />
+          <div className="flex flex-col items-center py-2">
+            <input type="file" accept="image/*" className={cn(FILE_INPUT_CLASS, 'w-fit max-w-full')} onChange={uploadToClient} />
           </div>
-        )}
+
+          <div className="flex flex-col items-center gap-2 py-2 sm:flex-row sm:justify-center">
+            {imageUrl.length > 0 && (
+              <Button type="button" variant="actionCritical" className={ctaActionButtonClassName} onClick={handleDeleteImageClicked}>
+                {t('btnDelete')}
+              </Button>
+            )}
+
+            {createObjectURL && createObjectURL.length > 0 && (
+              <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleUploadImageClicked}>
+                {t('btnUpload')}
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
     </>
   );

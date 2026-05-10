@@ -1,4 +1,4 @@
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import Link from 'next/link';
 import { routeLogin } from '@/domain/constants/routes';
 import Image from 'next/image';
@@ -26,9 +26,9 @@ export default async function RegistrationConfirmation(props: { searchParams: Pr
             <div className="mt-2">{confirmationSuccessful ? t('registrationSuccess') : t('registrationFailure')}</div>
 
             <div className="mt-2">
-              <Link href={routeLogin}>
-                <TextButton text={t('btnProceed')} />
-              </Link>
+              <Button asChild variant="action" className={ctaActionButtonClassName}>
+                <Link href={routeLogin}>{t('btnProceed')}</Link>
+              </Button>
             </div>
           </div>
         </div>

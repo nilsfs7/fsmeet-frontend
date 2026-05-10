@@ -1,8 +1,7 @@
 'use client';
 
 import { Checkbox } from '@/components/ui/checkbox';
-import TextButton from '@/components/common/text-button';
-import { ButtonStyle } from '@/domain/enums/button-style';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { getArenaScreen, updateArenaScreenBackgroundImage, upsertArenaScreen } from '@/infrastructure/clients/event.client';
 import { ChevronDown } from 'lucide-react';
 import { useSession } from 'next-auth/react';
@@ -133,11 +132,15 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
               <p className="mb-3 text-xs text-muted-foreground">No image set (solid backdrop in preview).</p>
             )}
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleBackgroundFile} />
-            <TextButton
-              text={uploadingBg ? 'Uploading…' : 'Choose image…'}
+            <Button
+              type="button"
+              variant="action"
+              className={ctaActionButtonClassName}
               disabled={uploadingBg || status !== 'authenticated'}
               onClick={() => fileInputRef.current?.click()}
-            />
+            >
+              {uploadingBg ? 'Uploading…' : 'Choose image…'}
+            </Button>
           </div>
 
           <div>
@@ -183,7 +186,15 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
             </div>
           </div>
 
-          <TextButton text={saving ? 'Saving…' : 'Save display settings'} disabled={saving || status !== 'authenticated'} style={ButtonStyle.DEFAULT} onClick={() => void handleSaveSettings()} />
+          <Button
+            type="button"
+            variant="action"
+            className={ctaActionButtonClassName}
+            disabled={saving || status !== 'authenticated'}
+            onClick={() => void handleSaveSettings()}
+          >
+            {saving ? 'Saving…' : 'Save display settings'}
+          </Button>
           {status !== 'authenticated' && <p className="text-xs text-muted-foreground">Sign in to change arena settings.</p>}
               </>
             )}

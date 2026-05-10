@@ -64,7 +64,7 @@ export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSu
           )}
         </TabsList>
 
-        <TabsContent value="registrations" className="overflow-y-auto">
+        <TabsContent value="registrations" className="overflow-y-auto scrollbar-none">
           {eventsSubscribed.length === 0 && <div className="flex  justify-center">{t('tabRegistrationsTextNoEvents')}</div>}
 
           {eventsSubscribed.length > 0 && (
@@ -84,7 +84,7 @@ export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSu
           )}
         </TabsContent>
 
-        <TabsContent value="myevents" className="overflow-y-auto">
+        <TabsContent value="myevents" className="overflow-y-auto scrollbar-none">
           {eventsOwning.length === 0 && eventsMaintaining.length === 0 && <div className="flex justify-center">{t('tabEventsHostedTextNoEvents')}</div>}
 
           <div className="grid gap-2 justify-center">

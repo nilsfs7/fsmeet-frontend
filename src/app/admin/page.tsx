@@ -3,42 +3,40 @@ import Link from 'next/link';
 import { routeAdminEvents, routeAdminLicenses, routeStatistics, routeAdminUserVerification, routeHome, routeRoadmap, routeAdminBroadcast, routePushNotification } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/action-button';
 import Navigation from '@/components/navigation';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import PageTitle from '@/components/page-title';
 
 export default async function AdminOverview() {
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title="Admin Overview" />
 
       <div className="mx-2 flex items-center flex-col gap-2">
-        <Link href={routeAdminEvents}>
-          <TextButton text={'Events'} />
-        </Link>
-        <Link href={routeAdminLicenses}>
-          <TextButton text={'Licenses'} />
-        </Link>
-        <Link href={routeAdminUserVerification}>
-          <TextButton text={'User Verification'} />
-        </Link>
-        <Link href={routePushNotification}>
-          <TextButton text={'Push Notification'} />
-        </Link>
-        <Link href={routeAdminBroadcast}>
-          <TextButton text={'Broadcast'} />
-        </Link>
-        <Link href={routeStatistics}>
-          <TextButton text={'App Statistics'} />
-        </Link>
-        <Link href={routeRoadmap}>
-          <TextButton text={'Roadmap'} />
-        </Link>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeAdminEvents}>Events</Link>
+        </Button>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeAdminLicenses}>Licenses</Link>
+        </Button>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeAdminUserVerification}>User Verification</Link>
+        </Button>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routePushNotification}>Push Notification</Link>
+        </Button>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeAdminBroadcast}>Broadcast</Link>
+        </Button>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeStatistics}>App Statistics</Link>
+        </Button>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeRoadmap}>Roadmap</Link>
+        </Button>
       </div>
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
       </Navigation>
     </div>
   );

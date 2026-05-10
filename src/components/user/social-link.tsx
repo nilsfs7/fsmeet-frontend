@@ -56,7 +56,12 @@ const SocialLink = ({ platform, path, showPath = true, pathNameOverride }: ISoci
       )}
 
       {platform !== SocialPlatform.FSMEET && (
-        <a target="_blank" rel="noopener noreferrer" href={url}>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={url}
+          aria-label={!showPath ? ({ [SocialPlatform.INSTAGRAM]: 'Instagram', [SocialPlatform.TIKTOK]: 'TikTok', [SocialPlatform.YOUTUBE]: 'YouTube', [SocialPlatform.WEBSITE]: 'Website' } as const)[platform] : undefined}
+        >
           <div className="flex items-center gap-1">
             <div className="flex w-8 items-center justify-center text-center">{icon}</div>
 

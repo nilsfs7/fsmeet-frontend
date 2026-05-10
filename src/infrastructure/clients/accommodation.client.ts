@@ -7,7 +7,7 @@ import { defaultHeaders } from './default-headers';
 import { Platform } from '@/domain/enums/platform';
 
 export async function getAccommodations(eventId: string | null): Promise<ReadAccommodationResponseDto[]> {
-  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/?`;
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations?`;
 
   if (eventId) {
     url += `eventId=${eventId}`;
