@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
-import { routeAccount, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/domain/constants/routes';
-import { imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
+import { routeAccount, routeAds, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/domain/constants/routes';
+import { imgProfileAds, imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
+import { UserType } from '@/domain/enums/user-type';
+import { getUser } from '@/infrastructure/clients/user.client';
 
 const ProfileMenu = () => {
   const t = useTranslations('global/components/profile-menu');
@@ -17,12 +19,11 @@ const ProfileMenu = () => {
 
   const [username, setUsername] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [userTypeFromApi, setUserTypeFromApi] = useState<UserType | undefined>(undefined);
 
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
-  const menuItems = [t('menuItemMyEvents'), t('menuItemPublicProfile'), t('menuItemSettings'), t('menuItemFeedback'), t('menuItemLogout')];
-  const menuItemIcons = [imgProfileEvents, imgUserNoImg, imgProfileSettings, imgProfileFeedback, imgProfileLogout];
 
   useEffect(() => {
     const name = localStorage.getItem('username');
@@ -44,6 +45,25 @@ const ProfileMenu = () => {
     return () => document.removeEventListener('pointerdown', onPointerDown, true);
   }, [opened]);
 
+  useEffect(() => {
+    if (session?.user?.type !== undefined) {
+      setUserTypeFromApi(undefined);
+      return;
+    }
+    const uname = username ?? session?.user?.username;
+    if (!uname || !session?.user?.accessToken) {
+      setUserTypeFromApi(undefined);
+      return;
+    }
+    let cancelled = false;
+    void getUser(uname, session).then(user => {
+      if (!cancelled) setUserTypeFromApi(user.type);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [session, username]);
+
   const onClickProfile = () => {
     !isAuthenticated() ? router.push(routeLogin) : setOpened(!opened);
   };
@@ -58,6 +78,10 @@ const ProfileMenu = () => {
 
   const onAccountClicked = () => {
     router.push(routeAccount);
+  };
+
+  const onAdsClicked = () => {
+    router.push(routeAds);
   };
 
   const onFeedbackClicked = () => {
@@ -93,7 +117,17 @@ const ProfileMenu = () => {
     }
   };
 
-  const menuItemActions = [onEventsClicked, onPublicProfileClicked, onAccountClicked, onFeedbackClicked, onLogoutClicked];
+  const effectiveUserType = session?.user?.type ?? userTypeFromApi;
+  const showAdsMenu = effectiveUserType === UserType.BRAND;
+
+  const menuEntries = [
+    { label: t('menuItemMyEvents'), icon: imgProfileEvents, action: onEventsClicked },
+    { label: t('menuItemPublicProfile'), icon: imgUserNoImg, action: onPublicProfileClicked },
+    { label: t('menuItemSettings'), icon: imgProfileSettings, action: onAccountClicked },
+    ...(showAdsMenu ? [{ label: t('menuItemAds'), icon: imgProfileAds, action: onAdsClicked }] : []),
+    { label: t('menuItemFeedback'), icon: imgProfileFeedback, action: onFeedbackClicked },
+    { label: t('menuItemLogout'), icon: imgProfileLogout, action: onLogoutClicked },
+  ];
 
   const isAuthenticated = () => {
     // workaround because session does not update and will be undefined unless page is refreshed manually
@@ -137,15 +171,12 @@ const ProfileMenu = () => {
       >
         <div
           role="menu"
-          className={cn(
-            'absolute right-0 top-14 z-50 mt-2 min-w-max overflow-hidden rounded-xl border border-border/60 bg-secondary-light shadow-xs',
-            'dark:border-border/50 dark:bg-background',
-          )}
+          className={cn('absolute right-0 top-14 z-50 mt-2 min-w-max overflow-hidden rounded-xl border border-border/60 bg-secondary-light shadow-xs', 'dark:border-border/50 dark:bg-background')}
         >
-          {menuItems.map((menuItem, index) => {
+          {menuEntries.map((entry, index) => {
             return (
               <div
-                key={index}
+                key={`${entry.label}-${index.toString()}`}
                 className={cn(
                   'flex h-12 cursor-pointer items-center px-2 text-foreground transition-colors',
                   'hover:bg-muted/50 dark:hover:bg-muted/30',
@@ -153,11 +184,11 @@ const ProfileMenu = () => {
                 )}
                 onMouseEnter={() => setActiveIndex(index)}
                 onMouseLeave={() => setActiveIndex(undefined)}
-                onClick={menuItemActions[index]}
+                onClick={entry.action}
                 role="menuitem"
               >
-                <img src={menuItemIcons[index]} className="mx-1 w-6 object-contain" alt="" />
-                <div className="type-body-sm mx-1 sm:text-base">{menuItem}</div>
+                <img src={entry.icon} className="mx-1 w-6 object-contain" alt="" />
+                <div className="type-body-sm mx-1 sm:text-base">{entry.label}</div>
               </div>
             );
           })}

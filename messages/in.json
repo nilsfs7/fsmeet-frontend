@@ -591,6 +591,29 @@
     "tooltipEditSponsor": "प्रायोजक संपादित करें",
     "textNoSponsors": "अभी तक कोई प्रायोजक नहीं है।"
   },
+  "/ads": {
+    "pageTitle": "विज्ञापनों का प्रबंधन",
+    "btnCreate": "बनाएं",
+    "tooltipEditAd": "विज्ञापन संपादित करें",
+    "textNoAds": "अभी तक कोई विज्ञापन नहीं।",
+    "tableColDescription": "विवरण",
+    "tableColActions": "कार्रवाइयाँ"
+  },
+  "/ads/create": {
+    "pageTitle": "विज्ञापन बनाएं",
+    "btnCreate": "बनाएं",
+    "toastNeedLogin": "विज्ञापन बनाने के लिए लॉग इन करें।",
+    "toastCreateFailed": "विज्ञापन नहीं बना पाए।"
+  },
+  "/ads/edit": {
+    "pageTitle": "विज्ञापन संपादित करें",
+    "dlgDeleteTitle": "विज्ञापन हटाएं",
+    "dlgDeleteText": "क्या आप वाकई इस विज्ञापन को हटाना चाहते हैं?",
+    "btnSave": "सहेजें",
+    "toastSaveFailed": "विज्ञापन सहेजा नहीं जा सका।",
+    "toastDeleteFailed": "विज्ञापन हटाया नहीं जा सका।",
+    "toastLoadFailed": "विज्ञापन लोड नहीं हो सका।"
+  },
   "/events/eventid/sponsors/create": {
     "pageTitle": "प्रायोजक बनाएं",
     "btnCreate": "नया जोड़ें"
@@ -794,6 +817,15 @@
     "inputCost": "लागत",
     "chbEnabled": "सक्रिय"
   },
+  "global/components/advertisement-editor": {
+    "inputTitle": "शीर्षक",
+    "placeholderTitle": "उत्पाद का नाम",
+    "inputDescription": "विवरण",
+    "placeholderDescription": "उत्पाद विवरण",
+    "inputTargetUrl": "लक्ष्य URL",
+    "inputDisplayOrder": "प्रदर्शन क्रम",
+    "chbEnabled": "सक्रिय"
+  },
   "global/components/accommodation-list": {
     "columnTitleDescription": "विवरण",
     "columnTitleCost": "लागत",
@@ -953,6 +985,7 @@
     "menuItemMyEvents": "मेरे इवेंट",
     "menuItemPublicProfile": "पब्लिक प्रोफ़ाइल",
     "menuItemSettings": "सेटिंग्स",
+    "menuItemAds": "विज्ञापन",
     "menuItemFeedback": "फीडबैक",
     "menuItemLogout": "लॉगआउट"
   },

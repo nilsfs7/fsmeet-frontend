@@ -23,6 +23,7 @@ export const routeRegistrationPending = '/registration/pending';
 export const routeLogin = '/login';
 export const routePasswordForgot = '/password/forgot';
 export const routePasswordPending = '/password/forgot/pending';
+export const routeAds = '/ads';
 export const routeAccount = '/account';
 export const routeAccountImage = '/account/image';
 export const routeAccountDeleted = '/account/deleted';

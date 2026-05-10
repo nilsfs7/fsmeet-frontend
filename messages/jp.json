@@ -591,6 +591,29 @@
     "tooltipEditSponsor": "スポンサーを編集",
     "textNoSponsors": "まだスポンサーがありません。"
   },
+  "/ads": {
+    "pageTitle": "広告を管理",
+    "btnCreate": "作成",
+    "tooltipEditAd": "広告を編集",
+    "textNoAds": "広告はまだありません。",
+    "tableColDescription": "説明",
+    "tableColActions": "操作"
+  },
+  "/ads/create": {
+    "pageTitle": "広告を作成",
+    "btnCreate": "作成",
+    "toastNeedLogin": "広告を作成するにはログインしてください。",
+    "toastCreateFailed": "広告を作成できませんでした。"
+  },
+  "/ads/edit": {
+    "pageTitle": "広告を編集",
+    "dlgDeleteTitle": "広告を削除",
+    "dlgDeleteText": "この広告を削除しますか？",
+    "btnSave": "保存",
+    "toastSaveFailed": "広告を保存できませんでした。",
+    "toastDeleteFailed": "広告を削除できませんでした。",
+    "toastLoadFailed": "広告を読み込めませんでした。"
+  },
   "/events/eventid/sponsors/create": {
     "pageTitle": "スポンサーを作成",
     "btnCreate": "新規追加"
@@ -794,6 +817,15 @@
     "inputCost": "費用",
     "chbEnabled": "有効"
   },
+  "global/components/advertisement-editor": {
+    "inputTitle": "タイトル",
+    "placeholderTitle": "商品名",
+    "inputDescription": "説明",
+    "placeholderDescription": "商品説明",
+    "inputTargetUrl": "リンク先URL",
+    "inputDisplayOrder": "表示順",
+    "chbEnabled": "有効"
+  },
   "global/components/accommodation-list": {
     "columnTitleDescription": "説明",
     "columnTitleCost": "費用",
@@ -953,6 +985,7 @@
     "menuItemMyEvents": "自分のイベント",
     "menuItemPublicProfile": "公開プロフィール",
     "menuItemSettings": "設定",
+    "menuItemAds": "広告",
     "menuItemFeedback": "フィードバック",
     "menuItemLogout": "ログアウト"
   },

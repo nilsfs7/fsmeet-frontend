@@ -591,6 +591,29 @@
     "tooltipEditSponsor": "编辑赞助商",
     "textNoSponsors": "暂无赞助商。"
   },
+  "/ads": {
+    "pageTitle": "管理广告",
+    "btnCreate": "创建",
+    "tooltipEditAd": "编辑广告",
+    "textNoAds": "暂无广告。",
+    "tableColDescription": "描述",
+    "tableColActions": "操作"
+  },
+  "/ads/create": {
+    "pageTitle": "创建广告",
+    "btnCreate": "创建",
+    "toastNeedLogin": "请先登录后再创建广告。",
+    "toastCreateFailed": "无法创建广告。"
+  },
+  "/ads/edit": {
+    "pageTitle": "编辑广告",
+    "dlgDeleteTitle": "删除广告",
+    "dlgDeleteText": "确定要删除这条广告吗？",
+    "btnSave": "保存",
+    "toastSaveFailed": "无法保存广告。",
+    "toastDeleteFailed": "无法删除广告。",
+    "toastLoadFailed": "无法加载广告。"
+  },
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",
     "btnCreate": "新增"
@@ -794,6 +817,15 @@
     "inputCost": "费用",
     "chbEnabled": "启用"
   },
+  "global/components/advertisement-editor": {
+    "inputTitle": "标题",
+    "placeholderTitle": "产品名称",
+    "inputDescription": "描述",
+    "placeholderDescription": "产品描述",
+    "inputTargetUrl": "目标链接",
+    "inputDisplayOrder": "展示顺序",
+    "chbEnabled": "启用"
+  },
   "global/components/accommodation-list": {
     "columnTitleDescription": "描述",
     "columnTitleCost": "费用",
@@ -953,6 +985,7 @@
     "menuItemMyEvents": "我的活动",
     "menuItemPublicProfile": "公开资料",
     "menuItemSettings": "设置",
+    "menuItemAds": "广告",
     "menuItemFeedback": "反馈",
     "menuItemLogout": "退出登录"
   },
