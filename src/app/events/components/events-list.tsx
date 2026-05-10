@@ -179,7 +179,7 @@ export const EventsList = () => {
 
   useEffect(() => {
     void getAdvertisements(null)
-      .then(setAdvertisements)
+      .then(ads => setAdvertisements(Array.isArray(ads) ? ads.filter(ad => ad.enabled) : []))
       .catch(() => {
         setAdvertisements([]);
       });
@@ -366,12 +366,17 @@ export const EventsList = () => {
       <div className="mt-2 flex min-h-0 max-h-full justify-center overflow-y-auto px-2 scrollbar-none">
         <div className={cn('w-full', showDesktopSideGrid && 'lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-x-6')}>
           {showDesktopAdColumn && (
-            <aside className="hidden lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-end lg:self-start">
+            <aside className="hidden lg:col-start-1 lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-end lg:self-start">
               <AdvertisementCard advertisement={advertisements[0]!} badgeLabel={t('advertisementBadge')} slotIndex={0} variant="sidebar" />
             </aside>
           )}
 
-          <div className={cn('mx-auto grid min-w-0 w-full max-w-lg justify-items-center gap-2', showDesktopSideGrid && 'lg:mx-0 lg:justify-self-center')}>
+          <div
+            className={cn(
+              'mx-auto grid min-w-0 w-full max-w-lg justify-items-center gap-2',
+              showDesktopSideGrid && 'lg:col-start-2 lg:mx-0 lg:justify-self-center',
+            )}
+          >
             {loadState === 'loading' && <AppDataStateListSkeleton />}
 
             {loadState === 'error' && errorMessage && (
@@ -412,7 +417,7 @@ export const EventsList = () => {
           </div>
 
           {showFeaturedColumn && featuredEvent && (
-            <aside className="hidden lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-start lg:self-start">
+            <aside className="hidden lg:col-start-3 lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-start lg:self-start">
               <FeaturedEventCard event={featuredEvent} badgeLabel={t('featuredEventBadge')} linkLabel={t('featuredEventCta')} />
             </aside>
           )}
