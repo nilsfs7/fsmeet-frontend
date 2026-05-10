@@ -52,7 +52,7 @@ const EventCard = ({ event }: IEventProps) => {
     >
       <div className="flex min-h-0 items-stretch gap-2 p-2.5 sm:gap-3 sm:p-3">
         <div className="flex min-w-0 min-h-0 flex-1 flex-col gap-1.5 sm:gap-2">
-          <h3 className="line-clamp-2 min-h-0 text-left text-sm font-semibold leading-tight tracking-tight text-foreground sm:text-body sm:leading-snug">
+          <h3 className="line-clamp-2 min-h-0 text-left text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg sm:leading-snug">
             {!isPublicEventState(event.state) && <NotListedLabel className="mb-0.5" />}
             <span className="align-middle">{event.name}</span>
           </h3>

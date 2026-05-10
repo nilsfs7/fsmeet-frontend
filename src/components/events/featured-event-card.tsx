@@ -80,7 +80,7 @@ export function FeaturedEventCard({ event, badgeLabel, linkLabel }: FeaturedEven
       <div className="flex min-h-0 flex-col gap-2 p-2.5 pt-9 sm:gap-3 sm:p-3 sm:pt-10">
         {visual}
         <div className="flex min-w-0 flex-col gap-2">
-          <h3 id={titleId} className="line-clamp-4 text-left text-sm font-semibold leading-tight tracking-tight text-foreground">
+          <h3 id={titleId} className="line-clamp-4 text-left text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg sm:leading-snug">
             <Link href={href} className="outline-none ring-offset-background focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring">
               {event.name}
             </Link>
