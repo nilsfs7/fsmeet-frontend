@@ -22,6 +22,22 @@ import { ArrowDown, ArrowUp } from 'lucide-react';
 const DEFAULT_DATE_FROM = moment('2000').startOf('year');
 const DEFAULT_DATE_TO = moment('2099').endOf('year');
 
+/** Same glass card as `competition-editor` / `licenses-editor`; full width for admin table. */
+const EVENTS_PANEL_CLASS = cn(
+  'w-full min-w-0 flex flex-col gap-3',
+  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'text-sm',
+);
+
+const EVENTS_TABLE_WRAP_CLASS = cn(
+  'min-w-0 overflow-hidden rounded-lg border border-border/50 bg-background/40',
+  'dark:bg-background/30',
+);
+
+const FILTER_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none text-foreground';
+
 /** Align with /wffa/visa and /admin/licenses table layout */
 const EVENT_TABLE_CLASS = 'table-fixed w-full min-w-[42rem] border-separate border-spacing-x-3 border-spacing-y-0';
 
@@ -139,12 +155,12 @@ export const EventsEditor = () => {
     <>
       <Toaster richColors />
 
-      <div className="mx-2 overflow-y-auto pb-4">
-        <div className="rounded-lg border border-primary bg-secondary-light p-2 text-sm">
+      <div className="mx-2 min-h-0 overflow-y-auto pb-4 scrollbar-none">
+        <div className={EVENTS_PANEL_CLASS}>
           {events.length > 0 && (
-            <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
-              <div className="flex min-w-0 flex-1 flex-col gap-1 sm:max-w-[14rem]">
-                <span className="text-xs font-medium text-primary/80">Event name</span>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+              <div className="flex min-w-0 flex-1 flex-col gap-1.5 sm:max-w-sm">
+                <span className={FILTER_LABEL_CLASS}>Event name</span>
                 <Input
                   placeholder="Search…"
                   value={filterName}
@@ -152,8 +168,8 @@ export const EventsEditor = () => {
                   className="w-full"
                 />
               </div>
-              <div className="flex min-w-0 flex-col gap-1 sm:max-w-[min(100%,14rem)]">
-                <span className="text-xs font-medium text-primary/80">State</span>
+              <div className="flex min-w-0 flex-col gap-1.5 sm:max-w-[min(100%,16rem)]">
+                <span className={FILTER_LABEL_CLASS}>State</span>
                 <ComboBox
                   menus={MENU_STATE_FILTER}
                   value={filterState}
@@ -167,20 +183,20 @@ export const EventsEditor = () => {
           )}
 
           {events.length === 0 ? (
-            <p className="text-center text-sm text-primary/70">No entries</p>
+            <p className="text-center text-sm text-muted-foreground">No entries</p>
           ) : filteredEvents.length === 0 ? (
-            <p className="text-center text-sm text-primary/70">No matching events</p>
+            <p className="text-center text-sm text-muted-foreground">No matching events</p>
           ) : (
-            <div className="rounded-md border border-secondary-dark bg-background">
+            <div className={EVENTS_TABLE_WRAP_CLASS}>
               <Table className={EVENT_TABLE_CLASS}>
                 <TableHeader>
-                  <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-                    <TableHead className={cn('text-primary', EVENT_HEAD_PAD, eventCol.name)}>Event</TableHead>
-                    <TableHead className={cn('text-primary', EVENT_HEAD_PAD, eventCol.admin)}>Admin</TableHead>
-                    <TableHead className={cn('text-primary', EVENT_HEAD_PAD, eventCol.state)}>
+                  <TableRow className="border-border/40 hover:bg-transparent dark:hover:bg-transparent">
+                    <TableHead className={cn('text-foreground/90', EVENT_HEAD_PAD, eventCol.name)}>Event</TableHead>
+                    <TableHead className={cn('text-foreground/90', EVENT_HEAD_PAD, eventCol.admin)}>Admin</TableHead>
+                    <TableHead className={cn('text-foreground', EVENT_HEAD_PAD, eventCol.state)}>
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1.5 text-left font-medium hover:text-primary/80"
+                        className="inline-flex items-center gap-1.5 text-left font-medium text-foreground/90 transition-colors hover:text-foreground"
                         onClick={() => setStateSortDescending(d => !d)}
                         title={stateSortDescending ? 'Sort state ascending' : 'Sort state descending'}
                       >
@@ -192,7 +208,7 @@ export const EventsEditor = () => {
                         )}
                       </button>
                     </TableHead>
-                    <TableHead className={cn('text-right text-primary', EVENT_HEAD_PAD, eventCol.actions)}>Actions</TableHead>
+                    <TableHead className={cn('text-right text-foreground/90', EVENT_HEAD_PAD, eventCol.actions)}>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody className="[&_tr:first-child_td]:pt-3">
@@ -202,26 +218,35 @@ export const EventsEditor = () => {
                     const dirty = Boolean(id && comboValue !== event.state);
 
                     return (
-                      <TableRow key={id || event.name} className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-                        <TableCell className={cn(EVENT_CELL_PAD, 'text-primary align-top', eventCol.name)}>
+                      <TableRow
+                        key={id || event.name}
+                        className="border-border/30 transition-colors hover:bg-muted/30 dark:hover:bg-muted/20"
+                      >
+                        <TableCell className={cn(EVENT_CELL_PAD, 'align-top text-foreground', eventCol.name)}>
                           {event.id ? (
-                            <Link href={`${routeEvents}/${event.id}`} className="underline hover:text-primary/80">
+                            <Link
+                              href={`${routeEvents}/${event.id}`}
+                              className="font-medium text-primary underline-offset-2 hover:underline hover:text-primary/90"
+                            >
                               {event.name}
                             </Link>
                           ) : (
-                            <span>{event.name}</span>
+                            <span className="text-foreground">{event.name}</span>
                           )}
                         </TableCell>
-                        <TableCell className={cn(EVENT_CELL_PAD, 'text-primary align-top', eventCol.admin)}>
+                        <TableCell className={cn(EVENT_CELL_PAD, 'align-top text-foreground', eventCol.admin)}>
                           {event.admin ? (
-                            <Link href={`${routeUsers}/${event.admin}`} className="underline hover:text-primary/80">
+                            <Link
+                              href={`${routeUsers}/${event.admin}`}
+                              className="font-medium text-primary underline-offset-2 hover:underline hover:text-primary/90"
+                            >
                               {event.admin}
                             </Link>
                           ) : (
-                            '—'
+                            <span className="text-muted-foreground">—</span>
                           )}
                         </TableCell>
-                        <TableCell className={cn(EVENT_CELL_PAD, 'text-primary align-top', eventCol.state)}>
+                        <TableCell className={cn(EVENT_CELL_PAD, 'align-top text-foreground', eventCol.state)}>
                           {id ? (
                             <ComboBox
                               menus={menuEventStates}
@@ -235,7 +260,7 @@ export const EventsEditor = () => {
                             menuEventStates.find(m => m.value === event.state)?.text ?? String(event.state)
                           )}
                         </TableCell>
-                        <TableCell className={cn(EVENT_CELL_PAD, 'text-right align-top', eventCol.actions)}>
+                        <TableCell className={cn(EVENT_CELL_PAD, 'align-top', eventCol.actions)}>
                           <div className="flex justify-end gap-1">
                             {id && dirty && <ActionButton action={Action.SAVE} onClick={() => handleSaveEventClicked(event)} />}
                           </div>

@@ -1,19 +1,44 @@
 import { Attachment } from '@/domain/types/attachment';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { IconExternalLink, IconFile } from '@tabler/icons-react';
+import { cn } from '@/lib/utils';
 
 interface IAttachmentCardProps {
   attachment: Attachment;
 }
 
+const cardSurface = cn(
+  'group min-w-0 overflow-hidden rounded-xl border border-border/60',
+  'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'transition-all duration-200',
+  'hover:border-primary/50 hover:shadow-md',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+);
+
 const AttachmentCard = ({ attachment }: IAttachmentCardProps) => {
   return (
-    <a target="_blank" rel="noopener noreferrer" href={attachment.url || ''}>
-      <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 hover:border-primary'}>
-        <div className="grid grid-flow-col items-center justify-between">
-          <div className="flex items-center mx-1">{attachment.name}</div>
-
-          {attachment.isExternal ? <OpenInNewIcon /> : <FilePresentIcon />}
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href={attachment.url || '#'}
+      className={cn(
+        'inline-block w-max max-w-full align-middle no-underline',
+        'rounded-xl outline-none',
+        'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+      )}
+    >
+      <div className={cardSurface}>
+        <div className="inline-flex w-max min-w-0 max-w-full items-center gap-2.5 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center text-foreground">
+            {attachment.isExternal ? (
+              <IconExternalLink className="h-4 w-4" stroke={2} aria-hidden />
+            ) : (
+              <IconFile className="h-4 w-4" stroke={2} aria-hidden />
+            )}
+          </div>
+          <span className="type-body-sm min-w-0 max-w-[min(18rem,calc(100vw-5rem))] truncate font-medium text-foreground">
+            {attachment.name}
+          </span>
         </div>
       </div>
     </a>

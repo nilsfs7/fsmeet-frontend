@@ -2,12 +2,11 @@ import { routeHome, routeLogin } from '@/domain/constants/routes';
 import { auth } from '@/auth';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { ProfilePicture } from './components/profile-picture';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { TabsMenu } from './components/tabs-menu';
-import { TextButtonSaveUserInfo } from './components/text-button-save-user-info';
+import { SaveUserInfoButton } from './components/save-user-info-button';
 import { RedirectType, redirect } from 'next/navigation';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { getTranslations } from 'next-intl/server';
@@ -24,25 +23,23 @@ export default async function Account() {
   const user = await getUser(session.user.username, session);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} />
 
-      <div className="mx-2 flex flex-col overflow-auto">
+      <div className="flex min-h-0 flex-1 flex-col overflow-auto px-4 sm:px-6 md:px-8">
         <ProfilePicture />
 
-        <div className="flex flex-col overflow-hidden">
-          <div className={'flex flex-col items-center overflow-auto'}>
+        <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col items-center overflow-auto">
             <TabsMenu user={user} />
           </div>
         </div>
       </div>
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
 
-        <TextButtonSaveUserInfo />
+        <SaveUserInfoButton />
       </Navigation>
     </div>
   );

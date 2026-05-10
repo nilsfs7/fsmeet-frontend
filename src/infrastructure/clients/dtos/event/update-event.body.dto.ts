@@ -30,7 +30,7 @@ export class UpdateEventBodyDto {
   priceMoney: number;
   trailerUrl: string | null;
   livestreamUrl: string | null;
-  messangerInvitationUrl: string | null;
+  messengerInvitationUrl: string | null;
   paymentMethodCash: UpdatePaymentMethodCashBodyDto;
   paymentMethodPayPal: UpdatePaymentMethodPayPalBodyDto;
   paymentMethodSepa: UpdatePaymentMethodSepaBodyDto;
@@ -67,7 +67,7 @@ export class UpdateEventBodyDto {
     priceMoney: number,
     trailerUrl: string | null,
     livestreamUrl: string | null,
-    messangerInvitationUrl: string | null,
+    messengerInvitationUrl: string | null,
     paymentMethodCash: UpdatePaymentMethodCashBodyDto,
     paymentMethodPayPal: UpdatePaymentMethodPayPalBodyDto,
     paymentMethodSepa: UpdatePaymentMethodSepaBodyDto,
@@ -103,7 +103,7 @@ export class UpdateEventBodyDto {
     this.priceMoney = priceMoney;
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;
-    this.messangerInvitationUrl = messangerInvitationUrl;
+    this.messengerInvitationUrl = messengerInvitationUrl;
     this.paymentMethodCash = paymentMethodCash;
     this.paymentMethodPayPal = paymentMethodPayPal;
     this.paymentMethodSepa = paymentMethodSepa;

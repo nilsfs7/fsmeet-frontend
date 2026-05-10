@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useState, use, useEffect } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
@@ -54,7 +54,7 @@ export default function CompetitionCreation(props: { params: Promise<{ eventId: 
     <>
       <Toaster richColors />
 
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title={t('pageTitle')} />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
@@ -69,7 +69,9 @@ export default function CompetitionCreation(props: { params: Promise<{ eventId: 
 
         <Navigation>
           <NavigateBackButton />
-          <TextButton text={t('btnCreate')} onClick={handleCreateClicked} />
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateClicked}>
+            {t('btnCreate')}
+          </Button>
         </Navigation>
       </div>
     </>

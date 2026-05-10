@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useParams, useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
@@ -57,7 +57,7 @@ export default function CreateOffering(props: { params: Promise<{ eventId: strin
     <>
       <Toaster richColors />
 
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title={t('pageTitle')} />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
@@ -74,7 +74,9 @@ export default function CreateOffering(props: { params: Promise<{ eventId: strin
 
         <Navigation>
           <NavigateBackButton />
-          <TextButton text={t('btnCreate')} onClick={handleCreateClicked} />
+          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateClicked}>
+            {t('btnCreate')}
+          </Button>
         </Navigation>
       </div>
     </>

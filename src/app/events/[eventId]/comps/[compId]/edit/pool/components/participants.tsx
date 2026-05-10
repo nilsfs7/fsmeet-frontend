@@ -120,7 +120,7 @@ export const Participants = ({ event, competition }: IParticipants) => {
     <>
       <Toaster richColors />
 
-      <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 overflow-y-auto'}>
+      <div className={'min-h-0 overflow-y-auto'}>
         <div className={'my-2 flex flex-col justify-center overflow-y-auto'}>
           {eventRegistrations.length === 0 && <div className="m-2 text-center">{t('textNoRegistrations')}</div>}
           {eventRegistrations.length > 0 && <div className="m-2 text-center">{`${t('textAmountOfRegistrations')}: ${competitionParticipants.length}`}</div>}

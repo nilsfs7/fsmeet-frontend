@@ -2,7 +2,6 @@ import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import Link from 'next/link';
 import { Header } from '@/components/header';
 import PageTitle from '@/components/page-title';
 import { getUsers } from '@/infrastructure/clients/user.client';
@@ -10,11 +9,13 @@ import { ColumnInfo, UsersList } from './components/users-list';
 import { UserType } from '@/domain/enums/user-type';
 import { User } from '@/domain/types/user';
 import { getTranslations } from 'next-intl/server';
+import { cn } from '@/lib/utils';
+import { appShellContentClass } from '@/components/layout/app-shell-content';
+
+const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function Users() {
-  const t = await getTranslations('/users');
-
-  const users = await getUsers();
+  const [t, users] = await Promise.all([getTranslations('/users'), getUsers()]);
 
   const columnData: ColumnInfo[] = [];
 
@@ -42,6 +43,7 @@ export default async function Users() {
           lastName: user.lastName || '',
         },
         country: user.countryCode || '',
+        gender: user.gender || '',
         userType: user.type,
         location:
           user.city && user.exposeLocation && user.locLatitude && user.locLongitude
@@ -59,17 +61,19 @@ export default async function Users() {
   });
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header />
 
-      <PageTitle title={t('pageTitle')} />
+      <div className={constrainedContentClass}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <UsersList columnData={columnData} />
+      <div className={cn('mt-2 flex min-h-0 flex-1 flex-col overflow-hidden', constrainedContentClass)}>
+        <UsersList columnData={columnData} />
+      </div>
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
       </Navigation>
     </div>
   );

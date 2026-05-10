@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, use } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
@@ -77,7 +77,7 @@ export default function EditEventSponsor(props: { params: Promise<{ eventId: str
         <p>{`Do you really want to delete this sponsor?`}</p>
       </Dialog>
 
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title="Edit Sponsor" />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
@@ -97,7 +97,9 @@ export default function EditEventSponsor(props: { params: Promise<{ eventId: str
 
           <div className="flex gap-1">
             <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-            <TextButton text={'Save'} onClick={handleSaveClicked} />
+            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveClicked}>
+              Save
+            </Button>
           </div>
         </Navigation>
       </div>

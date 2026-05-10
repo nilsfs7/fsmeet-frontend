@@ -1,6 +1,6 @@
 'use client';
 
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 import { routeEvents } from '@/domain/constants/routes';
@@ -85,7 +85,7 @@ export default function EditEventOffering(props: { params: Promise<{ eventId: st
         <p>{`Do you really want to delete this offering?`}</p>
       </Dialog>
 
-      <div className="h-[calc(100dvh)] flex flex-col">
+      <div className="min-h-0 flex-1 flex flex-col">
         {/* todo: translations */}
         <PageTitle title="Edit Offering" />
 
@@ -107,7 +107,9 @@ export default function EditEventOffering(props: { params: Promise<{ eventId: st
 
           <div className="flex gap-1">
             <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
-            <TextButton text={'Save'} onClick={handleSaveClicked} />
+            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveClicked}>
+              Save
+            </Button>
           </div>
         </Navigation>
       </div>

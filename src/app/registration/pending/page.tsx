@@ -1,4 +1,4 @@
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import Link from 'next/link';
 import { imgMailIncoming } from '@/domain/constants/images';
 import Image from 'next/image';
@@ -10,7 +10,7 @@ export default async function RegistrationPending(props: { searchParams: Promise
   const searchParams = await props.searchParams;
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <div className="p-2 h-full grid overflow-y-auto">
         <div className={'h-full flex flex-col items-center justify-center'}>
           <div className="mx-2 text-center">
@@ -20,9 +20,9 @@ export default async function RegistrationPending(props: { searchParams: Promise
             <div>{t('registrationPendingText2')}</div>
 
             <div className="mt-2">
-              <Link href={routeHome}>
-                <TextButton text={t('btnBackHome')} />
-              </Link>
+              <Button asChild variant="action" className={ctaActionButtonClassName}>
+                <Link href={routeHome}>{t('btnBackHome')}</Link>
+              </Button>
             </div>
           </div>
         </div>

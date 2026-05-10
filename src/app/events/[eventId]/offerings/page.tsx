@@ -1,62 +1,83 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { getOfferings } from '@/infrastructure/clients/offering.client';
-import Separator from '@/components/separator';
 import { getTranslations } from 'next-intl/server';
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { auth } from '@/auth';
+import { getEvent } from '@/infrastructure/clients/event.client';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
+import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventOffering(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/offerings');
+  const [t, tAccommodation, session] = await Promise.all([
+    getTranslations('/events/eventid/offerings'),
+    getTranslations('/events/eventid/accommodations'),
+    auth(),
+  ]);
 
-  const offerings = await getOfferings(params.eventId);
+  const [event, offerings] = await Promise.all([getEvent(params.eventId, session), getOfferings(params.eventId)]);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className={constrainedContentClass}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <div className={'mx-2 rounded-lg border border-primary bg-secondary-light p-2 text-sm overflow-y-auto'}>
-        <div className="flex flex-col">
-          {offerings.map((offering, index) => {
-            return (
-              <div key={index} className="m-1 flex items-center">
-                <div className="mx-1 flex w-1/2 justify-end">
-                  <div>{offering.description}</div>
-                </div>
-
-                <div className="mx-1 flex w-1/2 justify-start">
-                  <Link href={`${routeEvents}/${params.eventId}/offerings/${offering.id}/edit`}>
-                    <ActionButton action={Action.EDIT} />
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-
-          {offerings.length > 0 && (
-            <div className="my-1">
-              <Separator />
-            </div>
-          )}
-
-          <div className="m-1 flex items-center gap-2">
-            <div className="flex w-1/2 justify-end">{t('btnCreate')}</div>
-            <div className="flex w-1/2">
-              <Link href={`${routeEvents}/${params.eventId}/offerings/create`}>
-                <ActionButton action={Action.ADD} />
-              </Link>
-            </div>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
+        <div className="flex flex-col gap-3 text-sm">
+          <div className="min-h-0 min-w-0 overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{tAccommodation('tableColDescription')}</TableHead>
+                  <TableHead className="whitespace-nowrap">
+                    {tAccommodation('tableColCost')} ({getCurrencySymbol(event.currency)})
+                  </TableHead>
+                  <TableHead className="w-[1%] whitespace-nowrap text-right">{tAccommodation('tableColActions')}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {offerings.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={3} className="py-6 text-center text-muted-foreground">
+                      {t('textNoOfferings')}
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  offerings.map((offering, index) => (
+                    <TableRow key={offering.id ?? index}>
+                      <TableCell className="font-medium">{offering.description}</TableCell>
+                      <TableCell className="whitespace-nowrap">{convertCurrencyIntegerToDecimal(offering.cost, event.currency)}</TableCell>
+                      <TableCell className="text-right">
+                        <ActionButton
+                          href={`${routeEvents}/${params.eventId}/offerings/${offering.id}/edit`}
+                          action={Action.EDIT}
+                          tooltip={t('tooltipEditOffering')}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
           </div>
         </div>
       </div>
 
       <Navigation>
-        <Link href={`${routeEvents}/${params.eventId}`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${params.eventId}`} action={Action.BACK} />
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={`${routeEvents}/${params.eventId}/offerings/create`}>{t('btnCreate')}</Link>
+        </Button>
       </Navigation>
     </div>
   );

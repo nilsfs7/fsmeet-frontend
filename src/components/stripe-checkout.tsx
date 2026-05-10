@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { PaymentElement, useStripe, useElements, Elements } from '@stripe/react-stripe-js';
 import { Appearance, loadStripe, StripePaymentElementOptions } from '@stripe/stripe-js';
-import TextButton from './common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 
-// Make sure to call loadStripe outside of a component’s render to avoid
-// recreating the Stripe object on every render.
-// This is your test publishable API key.
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
+const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+
+/** Default platform Stripe.js instance (no connected account). */
+const stripePromisePlatform = loadStripe(stripePublishableKey);
 
 interface IPaymentForm {
   confirmPaymentBtnText: string;
@@ -63,7 +63,13 @@ function PaymentForm({ confirmPaymentBtnText, returnUrl }: IPaymentForm) {
       <PaymentElement id="payment-element" options={paymentElementOptions} />
 
       <div className="p-2 flex justify-center w-full">
-        {isLoading ? <div className="spinner" id="spinner" /> : <TextButton disabled={isLoading || !stripe || !elements} id="submit" text={confirmPaymentBtnText} />}
+        {isLoading ? (
+          <div className="spinner" id="spinner" />
+        ) : (
+          <Button type="submit" variant="action" className={ctaActionButtonClassName} disabled={isLoading || !stripe || !elements} id="submit">
+            {confirmPaymentBtnText}
+          </Button>
+        )}
       </div>
 
       {/* Show any error or success messages */}
@@ -83,6 +89,8 @@ export default function CheckoutForm({ clientSecret, stripeAccount, confirmPayme
   const appearance: Appearance = {
     theme: 'stripe',
   };
+
+  const stripePromise = useMemo(() => (stripeAccount ? loadStripe(stripePublishableKey, { stripeAccount }) : stripePromisePlatform), [stripeAccount]);
 
   return (
     <Elements stripe={stripePromise} options={{ appearance, clientSecret }}>

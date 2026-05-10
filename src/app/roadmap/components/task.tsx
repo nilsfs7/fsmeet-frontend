@@ -4,7 +4,7 @@ import Dialog from '@/components/dialog';
 import { routeRoadmap } from '@/domain/constants/routes';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
+import TextareaAutosize from 'react-textarea-autosize';
 import { imgAbout } from '@/domain/constants/images';
 import { TaskSize } from '@/domain/enums/task-size';
 import Separator from '@/components/separator';

@@ -5,7 +5,7 @@ import { Statistics } from './components/statistics';
 
 export default async function StatisticsOverview() {
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title="Statistics" />
 
       <Statistics />

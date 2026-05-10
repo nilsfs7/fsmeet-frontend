@@ -12,6 +12,7 @@ import { ReadVisaInvitationRequestResponseDto } from './dtos/event/read-visa-inv
 import { ReadEventRegistrationResponseDto } from './dtos/event/registration/read-event-registration.response.dto';
 import { CreateStripeCheckoutBodyDto } from './dtos/event/create-stripe-checkout.body.dto';
 import { ReadStripeCheckoutResponseDto } from './dtos/event/read-stripe-checkout.response.dto';
+import type { ReadLicenseInfoResponseDto } from './dtos/event/read-license-info.response.dto';
 import { CreateEventBodyDto } from './dtos/event/create-event.body.dto';
 import { CreateEventMaintainerBodyDto } from './dtos/event/create-event-maintainer.body.dto';
 import { CreatePaymentMethodCashBodyDto } from './dtos/event/payment/create-payment-method-cash.body.dto';
@@ -25,7 +26,6 @@ import { UpdatePaymentMethodCashBodyDto } from './dtos/event/payment/update-paym
 import { UpdatePaymentMethodPayPalBodyDto } from './dtos/event/payment/update-payment-method-paypal.body.dto';
 import { UpdatePaymentMethodSepaBodyDto } from './dtos/event/payment/update-payment-method-sepa.body.dto';
 import { UpdatePaymentMethodStripeBodyDto } from './dtos/event/payment/update-payment-method-stripe.body.dto';
-import { PatchEventPosterBodyDto } from './dtos/event/patch-event-poster.body.dto';
 import { CreateEventResponseDto } from './dtos/event/create-event.response.dto';
 import { defaultHeaders } from './default-headers';
 import { DeleteEventCommentBodyDto } from './dtos/event/delete-comment.body.dto';
@@ -83,6 +83,11 @@ export async function getEvents(
     });
   }
 
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}) as { message?: string });
+    throw new Error(typeof err?.message === 'string' && err.message.length > 0 ? err.message : `Request failed (${response.status})`);
+  }
+
   return await response.json();
 }
 
@@ -111,6 +116,22 @@ export async function getEventsRecent(numberOfEventsToFetch: number): Promise<Ev
     method: 'GET',
   });
   return await response.json();
+}
+
+export async function getEventsFeatured(): Promise<Event[]> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/featured/upcoming`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+  });
+
+  if (response.ok) {
+    console.info('Getting featured events successful');
+    return await response.json();
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
 }
 
 export async function getEvent(eventId: string, session?: Session | null): Promise<Event> {
@@ -354,6 +375,52 @@ export async function createEventRegistration_v2(
     const error = await response.json();
     throw Error(error.message);
   }
+}
+
+export async function getEventLicenseInfo(eventId: string, session: Session | null): Promise<ReadLicenseInfoResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/license/upgrade`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      ...defaultHeaders,
+      ...(session?.user?.accessToken ? { Authorization: `Bearer ${session.user.accessToken}` } : {}),
+    },
+  });
+
+  if (response.ok) {
+    const dto = (await response.json()) as ReadLicenseInfoResponseDto;
+    console.info('Fetching event license info successful');
+    return dto;
+  }
+  const error = await response.json();
+  throw Error(error.message);
+}
+
+export async function createEventLicenseCheckout(
+  eventId: string,
+  successUrl: string,
+  session: Session | null,
+): Promise<ReadStripeCheckoutResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/license/checkout`;
+  const body = new CreateStripeCheckoutBodyDto(successUrl);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const dto = (await response.json()) as ReadStripeCheckoutResponseDto;
+    console.info('Creating Pro license checkout successful');
+    return dto;
+  }
+  const error = await response.json();
+  throw Error(error.message);
 }
 
 export async function createEventRegistrationCheckoutLink(eventId: string, successUrl: string, session: Session | null): Promise<string> {
@@ -618,16 +685,17 @@ export async function updateEventState(session: Session | null, eventId: string,
   }
 }
 
-export async function updateEventPoster(eventId: string, imageBase64: string, session: Session | null): Promise<string> {
+export async function updateEventPoster(eventId: string, image: File, session: Session | null): Promise<string> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/poster`;
 
-  const body = new PatchEventPosterBodyDto(imageBase64);
+  const body = new FormData();
+  body.append('file', image);
 
   const response = await fetch(url, {
     method: 'PUT',
-    body: JSON.stringify(body),
+    body: body,
     headers: {
-      ...defaultHeaders,
+      'x-platform': Platform.WEB,
       Authorization: `Bearer ${session?.user?.accessToken}`,
     },
   });

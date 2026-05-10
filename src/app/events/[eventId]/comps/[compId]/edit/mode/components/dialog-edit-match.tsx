@@ -2,10 +2,10 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import ActionButton from '../../../../../../../../components/common/action-button';
-import { Action } from '@/domain/enums/action';
-import TextButton from '../../../../../../../../components/common/text-button';
+import Dialog from '@/components/dialog';
 import { TimePicker } from '@/components/common/time-picker';
+import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslations } from 'next-intl';
 
 interface IDialogProps {
@@ -41,91 +41,58 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
       setMatchSlots(mslots);
       setIsExtraMatch(mextra);
     }
-  }, [showDialog]);
+  }, [showDialog, mname, mtime, mslots, mextra]);
 
-  const clickCancel = () => {
-    onCancel && onCancel();
-  };
-
-  const clickConfirm = () => {
-    onConfirm && onConfirm(roundIndex, matchIndex, matchName, matchTime, matchSlots, isExtraMatch);
-    onCancel && onCancel();
-  };
-
-  return showDialog === '1' ? (
-    <div className="p-2 fixed inset-0 flex flex-col items-center justify-center bg-primary bg-opacity-50 z-50">
-      <div className="min-w-[250px] rounded-lg bg-background">
-        <div className="rounded-t-lg bg-secondary-light p-2 text-center">
-          <h1 className="text-2xl">{title}</h1>
+  return (
+    <Dialog
+      title={title}
+      queryParam={queryParam}
+      onCancel={onCancel}
+      onConfirm={() => {
+        onConfirm && onConfirm(roundIndex, matchIndex, matchName, matchTime, matchSlots, isExtraMatch);
+      }}
+      cancelText={cancelText}
+      confirmText={confirmText}
+    >
+      <div className="grid gap-1">
+        <div className="grid grid-cols-2 items-center gap-2">
+          <div className="min-w-0">{t('dlgEditMatchName')}</div>
+          <Input id="input-round-name" value={matchName} onChange={e => setMatchName(e.currentTarget.value)} />
         </div>
-        <div className="rounded-b-lg bg-background p-2">
-          <div className="p-2 grid gap-1">
-            <div className="grid grid-cols-2 gap-2">
-              <div>{t('dlgEditMatchName')}</div>
-              <input
-                id={`input-round-name`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
-                value={matchName}
-                onChange={e => {
-                  setMatchName(e.currentTarget.value);
-                }}
-              />
-            </div>
 
-            <div className="grid grid-cols-2 gap-2 items-center">
-              <div>{t('dlgEditMatchTime')}</div>
-              <TimePicker value={matchTime} onChange={setMatchTime} className="rounded-lg" />
-            </div>
+        <div className="grid grid-cols-2 items-center gap-2">
+          <div className="min-w-0">{t('dlgEditMatchTime')}</div>
+          <TimePicker value={matchTime} onChange={setMatchTime} className="rounded-lg" />
+        </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div>{t('dlgEditMatchAmountPlayers')}</div>
-              <input
-                id={`input-slots-per-match`}
-                className="flex bg-transparent border-secondary-dark border rounded-md hover:border-primary"
-                type="number"
-                min={1}
-                max={999}
-                value={matchSlots}
-                onChange={e => {
-                  setMatchSlots(+e.currentTarget.value);
-                }}
-              />
-            </div>
+        <div className="grid grid-cols-2 items-center gap-2">
+          <div className="min-w-0">{t('dlgEditMatchAmountPlayers')}</div>
+          <Input
+            id="input-slots-per-match"
+            type="number"
+            min={1}
+            max={999}
+            value={matchSlots}
+            onChange={e => {
+              setMatchSlots(+e.currentTarget.value);
+            }}
+          />
+        </div>
 
-            <div className="grid grid-cols-2 gap-2 items-center">
-              <div>{t('dlgEditMatchIsExtraBattle')}</div>
-              <input
-                id={'input-is-extra-battle'}
-                className="h-4 w-4"
-                type="checkbox"
-                checked={isExtraMatch}
-                onChange={e => {
-                  setIsExtraMatch(!isExtraMatch);
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-row justify-between p-2">
-            {onCancel && (
-              <>
-                {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
-                {cancelText && <TextButton text={cancelText} onClick={clickCancel} />}
-              </>
-            )}
-            {!onCancel && <div />}
-
-            {onConfirm && (
-              <>
-                {!confirmText && <ActionButton action={Action.ACCEPT} onClick={clickConfirm} />}
-                {confirmText && <TextButton text={confirmText} onClick={clickConfirm} />}
-              </>
-            )}
-          </div>
+        <div className="grid grid-cols-2 items-center gap-2">
+          <div className="min-w-0">{t('dlgEditMatchIsExtraBattle')}</div>
+          <Checkbox
+            id="input-is-extra-battle"
+            checked={isExtraMatch}
+            onCheckedChange={v => {
+              setIsExtraMatch(v === true);
+            }}
+            className="shrink-0"
+          />
         </div>
       </div>
-    </div>
-  ) : null;
+    </Dialog>
+  );
 };
 
 export default DialogEditMatch;

@@ -1,74 +1,120 @@
 import type { ComponentType } from 'react';
-import type { SvgIconProps } from '@mui/material/SvgIcon';
+import {
+  IconArrowLeft,
+  IconBuilding,
+  IconChartBar,
+  IconCircleCheck,
+  IconCircleMinus,
+  IconCirclePlus,
+  IconCircleX,
+  IconCloudDownload,
+  IconCoin,
+  IconCopy,
+  IconDeviceFloppy,
+  IconDeviceTv,
+  IconExternalLink,
+  IconEye,
+  IconEyeOff,
+  IconFile,
+  IconInfoCircle,
+  IconMessage2,
+  IconPencil,
+  IconPlayerPlay,
+  IconSend,
+  IconShare,
+  IconTag,
+  IconTrash,
+  IconTrophy,
+  IconUsers,
+} from '@tabler/icons-react';
+import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import ArrowBackIcon from '@mui/icons-material/KeyboardBackspace';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import CancelIcon from '@mui/icons-material/Cancel';
-import CheckIcon from '@mui/icons-material/CheckCircle';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-import CommentIcon from '@mui/icons-material/QuestionAnswerOutlined';
-import CopyIcon from '@mui/icons-material/ContentCopy';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import FilePresentIcon from '@mui/icons-material/FilePresent';
-import HotelIcon from '@mui/icons-material/Hotel';
-import InfoIcon from '@mui/icons-material/Info';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import PaidIcon from '@mui/icons-material/Paid';
-import PeopleIcon from '@mui/icons-material/PeopleAlt';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import SaveIcon from '@mui/icons-material/Save';
-import SendIcon from '@mui/icons-material/Send';
-import ShareIcon from '@mui/icons-material/Share';
-import TrophyIcon from '@mui/icons-material/EmojiEvents';
-import TvIcon from '@mui/icons-material/Tv';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Size } from '@/domain/enums/size';
 import { imgWorld } from '@/domain/constants/images';
 import { ButtonStyle } from '@/domain/enums/button-style';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
-type MuiSvgIcon = ComponentType<SvgIconProps>;
+type TablerActionIcon = ComponentType<{ className?: string; stroke?: number }>;
 
-type ActionIconConfig =
-  | { kind: 'mui'; Icon: MuiSvgIcon }
-  | { kind: 'img'; src: string; alt: string };
+type ActionIconConfig = { kind: 'icon'; Icon: TablerActionIcon } | { kind: 'img'; src: string; alt: string };
 
-/** MUI icon for each action; `GOTOMAP` uses a raster asset. */
+/** Tabler icon for each action; `GOTOMAP` uses a raster asset. */
 const ACTION_ICON: Record<Action, ActionIconConfig> = {
-  [Action.ADD]: { kind: 'mui', Icon: AddCircleIcon },
-  [Action.ACCEPT]: { kind: 'mui', Icon: CheckIcon },
-  [Action.BACK]: { kind: 'mui', Icon: ArrowBackIcon },
-  [Action.CANCEL]: { kind: 'mui', Icon: CancelIcon },
-  [Action.COMMENT]: { kind: 'mui', Icon: CommentIcon },
-  [Action.COPY]: { kind: 'mui', Icon: CopyIcon },
-  [Action.DENY]: { kind: 'mui', Icon: CancelIcon },
-  [Action.DELETE]: { kind: 'mui', Icon: DeleteIcon },
-  [Action.DOWNLOAD]: { kind: 'mui', Icon: CloudDownloadIcon },
-  [Action.EDIT]: { kind: 'mui', Icon: EditIcon },
+  [Action.ADD]: { kind: 'icon', Icon: IconCirclePlus },
+  [Action.ACCEPT]: { kind: 'icon', Icon: IconCircleCheck },
+  [Action.BACK]: { kind: 'icon', Icon: IconArrowLeft },
+  [Action.CANCEL]: { kind: 'icon', Icon: IconCircleX },
+  [Action.COMMENT]: { kind: 'icon', Icon: IconMessage2 },
+  [Action.COPY]: { kind: 'icon', Icon: IconCopy },
+  [Action.DENY]: { kind: 'icon', Icon: IconCircleX },
+  [Action.DELETE]: { kind: 'icon', Icon: IconTrash },
+  [Action.DOWNLOAD]: { kind: 'icon', Icon: IconCloudDownload },
+  [Action.EDIT]: { kind: 'icon', Icon: IconPencil },
   [Action.GOTOMAP]: { kind: 'img', src: imgWorld, alt: '' },
-  [Action.GOTOEXTERNAL]: { kind: 'mui', Icon: OpenInNewIcon },
-  [Action.HIDE]: { kind: 'mui', Icon: VisibilityOffIcon },
-  [Action.INFO]: { kind: 'mui', Icon: InfoIcon },
-  [Action.MANAGE_ACCOMMODATIONS]: { kind: 'mui', Icon: HotelIcon },
-  [Action.MANAGE_ARENA_SCREEN]: { kind: 'mui', Icon: TvIcon },
-  [Action.MANAGE_ATTACHMENTS]: { kind: 'mui', Icon: FilePresentIcon },
-  [Action.MANAGE_COMPETITIONS]: { kind: 'mui', Icon: TrophyIcon },
-  [Action.MANAGE_OFFERINGS]: { kind: 'mui', Icon: LocalOfferIcon },
-  [Action.MANAGE_USERS]: { kind: 'mui', Icon: PeopleIcon },
-  [Action.MANAGE_SPONSORS]: { kind: 'mui', Icon: PaidIcon },
-  [Action.PLAY]: { kind: 'mui', Icon: PlayCircleOutlineIcon },
-  [Action.REMOVE]: { kind: 'mui', Icon: RemoveCircleIcon },
-  [Action.SAVE]: { kind: 'mui', Icon: SaveIcon },
-  [Action.SEND]: { kind: 'mui', Icon: SendIcon },
-  [Action.SHARE]: { kind: 'mui', Icon: ShareIcon },
-  [Action.SHOW]: { kind: 'mui', Icon: VisibilityIcon },
-  [Action.STATISTICS]: { kind: 'mui', Icon: BarChartIcon },
+  [Action.GOTOEXTERNAL]: { kind: 'icon', Icon: IconExternalLink },
+  [Action.HIDE]: { kind: 'icon', Icon: IconEyeOff },
+  [Action.INFO]: { kind: 'icon', Icon: IconInfoCircle },
+  [Action.MANAGE_ACCOMMODATIONS]: { kind: 'icon', Icon: IconBuilding },
+  [Action.MANAGE_ARENA_SCREEN]: { kind: 'icon', Icon: IconDeviceTv },
+  [Action.MANAGE_ATTACHMENTS]: { kind: 'icon', Icon: IconFile },
+  [Action.MANAGE_COMPETITIONS]: { kind: 'icon', Icon: IconTrophy },
+  [Action.MANAGE_OFFERINGS]: { kind: 'icon', Icon: IconTag },
+  [Action.MANAGE_USERS]: { kind: 'icon', Icon: IconUsers },
+  [Action.MANAGE_SPONSORS]: { kind: 'icon', Icon: IconCoin },
+  [Action.PLAY]: { kind: 'icon', Icon: IconPlayerPlay },
+  [Action.REMOVE]: { kind: 'icon', Icon: IconCircleMinus },
+  [Action.SAVE]: { kind: 'icon', Icon: IconDeviceFloppy },
+  [Action.SEND]: { kind: 'icon', Icon: IconSend },
+  [Action.SHARE]: { kind: 'icon', Icon: IconShare },
+  [Action.SHOW]: { kind: 'icon', Icon: IconEye },
+  [Action.STATISTICS]: { kind: 'icon', Icon: IconChartBar },
 };
+
+type ActionIconSize = 'icon' | 'iconSm' | 'iconXs';
+type ActionIconVariant = 'actionIcon' | 'actionIconWarning' | 'actionIconCritical';
+
+function styleToVariant(style: ButtonStyle, disabled: boolean): ActionIconVariant {
+  if (disabled) {
+    return 'actionIcon';
+  }
+  switch (style) {
+    case ButtonStyle.WARNING:
+      return 'actionIconWarning';
+    case ButtonStyle.CRITICAL:
+      return 'actionIconCritical';
+    case ButtonStyle.DEFAULT:
+    default:
+      return 'actionIcon';
+  }
+}
+
+function sizeToButtonSize(size: Size): ActionIconSize {
+  switch (size) {
+    case Size.XS:
+      return 'iconXs';
+    case Size.S:
+      return 'iconSm';
+    case Size.M:
+    case Size.L:
+    default:
+      return 'icon';
+  }
+}
+
+function sizeToBoxClass(size: Size) {
+  switch (size) {
+    case Size.XS:
+      return 'h-4 w-4';
+    case Size.S:
+      return 'h-8 w-8';
+    case Size.M:
+    case Size.L:
+    default:
+      return 'h-10 w-10';
+  }
+}
 
 interface IButton {
   action: Action;
@@ -77,70 +123,57 @@ interface IButton {
   style?: ButtonStyle;
   disabled?: boolean;
   onClick?: () => void;
+  /** In-app route: `Button asChild` + `Link` = one styled anchor (avoids `a` wrapping `button`). Ignored when `disabled`. */
+  href?: string;
 }
 
-enum ButtonSize {
-  XS = 'h-4 w-4',
-  S = 'h-8 w-8',
-  M = 'h-10 w-10',
-}
-
-const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, disabled = false, onClick }: IButton) => {
-  const getButtonColors = () => {
-    if (disabled) {
-      return 'bg-secondary-light text-secondary-dark';
-    }
-
-    switch (style) {
-      case ButtonStyle.DEFAULT:
-        return 'bg-transparent hover:bg-secondary-light text-primary border-primary';
-      case ButtonStyle.WARNING:
-        return 'bg-transparent hover:bg-secondary-light text-warning border-primary';
-      case ButtonStyle.CRITICAL:
-        return 'bg-transparent hover:bg-secondary-light text-critical border-primary';
-    }
-  };
-
-  let buttonSize = '';
-  switch (size) {
-    case Size.XS:
-      buttonSize = ButtonSize.XS;
-      break;
-    case Size.S:
-      buttonSize = ButtonSize.S;
-      break;
-    case Size.M:
-      buttonSize = ButtonSize.M;
-      break;
-  }
-
+const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle.DEFAULT, disabled = false, onClick, href }: IButton) => {
+  const variant = styleToVariant(style, disabled);
+  const buttonSize = sizeToButtonSize(size);
+  const boxClass = sizeToBoxClass(size);
   const iconConfig = ACTION_ICON[action];
-  const muiSx = { width: Size.XS === size ? '100%' : '63%', height: Size.XS === size ? '100%' : '63%' } as const;
+  const iconClassName = size === Size.XS ? 'h-full w-full' : 'h-[63%] w-[63%]';
+  const ariaLabel = action.toString().toLowerCase();
+  const sizeClass = cn(size === Size.XS && 'border-0 shadow-none hover:shadow-none');
+  const sponsorCardSurfaceClass = cn(
+    'border border-border/60 bg-secondary-light/85 shadow-xs backdrop-blur-sm',
+    'supports-[backdrop-filter]:bg-secondary-light/70',
+    'transition-all duration-200',
+    'hover:border-primary/50 hover:shadow-md',
+    'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+    'hover:scale-100 active:scale-100',
+  );
+
+  const icon = iconConfig.kind === 'img' ? <img src={iconConfig.src} alt={iconConfig.alt} className={boxClass} /> : <iconConfig.Icon className={iconClassName} stroke={2.0} />;
+
+  const control =
+    href && !disabled ? (
+      <Button asChild variant={variant} size={buttonSize} className={cn(sizeClass, sponsorCardSurfaceClass)}>
+        <Link href={href} aria-label={ariaLabel}>
+          {icon}
+        </Link>
+      </Button>
+    ) : (
+      <Button
+        type="button"
+        variant={variant}
+        size={buttonSize}
+        className={cn(sizeClass, sponsorCardSurfaceClass)}
+        disabled={disabled}
+        onClick={onClick}
+        aria-label={ariaLabel}
+      >
+        {icon}
+      </Button>
+    );
+
+  // Disabled buttons do not receive pointer events; wrap so the tooltip can still show on hover/focus.
+  const trigger = disabled && tooltip ? <span className="inline-flex cursor-default">{control}</span> : control;
 
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <button
-            className={`
-      ${buttonSize} rounded-lg ${size !== Size.XS && 'border'} flex justify-center items-center
-      transition-all duration-200 ease-in-out
-      transform hover:scale-[1.02] active:scale-[0.98]
-      shadow-sm hover:shadow-md
-      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
-      ${getButtonColors()}
-    `}
-            disabled={disabled}
-            onClick={onClick}
-            aria-label={action.toString().toLowerCase()}
-          >
-            {iconConfig.kind === 'img' ? (
-              <img src={iconConfig.src} alt={iconConfig.alt} className={buttonSize} />
-            ) : (
-              <iconConfig.Icon sx={muiSx} />
-            )}
-          </button>
-        </TooltipTrigger>
+        <TooltipTrigger asChild>{trigger}</TooltipTrigger>
 
         {tooltip && (
           <TooltipContent>

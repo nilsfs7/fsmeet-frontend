@@ -12,11 +12,18 @@ import moment from 'moment';
 import { DatePicker } from './common/date-picker';
 import CheckBox from './common/check-box';
 import Separator from './separator';
-import SectionHeader from './common/section-header';
 import ComboBox from './common/combo-box';
 import { menuCountriesWithUnspecified } from '@/domain/constants/menus/menu-countries';
 import { TargetGroup } from '@/domain/types/target-group';
 import { useSession } from 'next-auth/react';
+import { cn } from '@/lib/utils';
+
+const FIELD_ROW_CLASS =
+  'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
+/** Same as `CheckBox` right column: start-aligned, `min-h-10` to match control row height. */
+const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
 
 interface IPollEditorProps {
   editorMode: EditorMode;
@@ -109,9 +116,16 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
   }, [question, description, options, deadlineEnabled, deadline, targetGroup]);
 
   return (
-    <div className="m-2 flex flex-col rounded-lg border border-primary bg-secondary-light p-1 overflow-y-auto">
+    <div
+      className={cn(
+        'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
+        'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-sm',
+        'supports-[backdrop-filter]:bg-secondary-light/70',
+        'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+      )}
+    >
       <TextInputLarge
-        id={'question'}
+        id="poll-question"
         label={t('inputQuestion')}
         placeholder="Did you land PATW?"
         value={question}
@@ -123,7 +137,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
       />
 
       <TextInputLarge
-        id={'description'}
+        id="poll-description"
         label={t('inputDescription')}
         placeholder="Provide some context for your question"
         value={description}
@@ -138,7 +152,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         return (
           <TextInput
             key={`option-${i}`}
-            id={'option'}
+            id={`poll-option-${i}`}
             label={`${t('inputOption')} ${i + 1}`}
             placeholder={`...`}
             value={option}
@@ -150,7 +164,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         );
       })}
 
-      <div className="flex p-2 gap-2 justify-end">
+      <div className="flex items-center justify-end gap-2 pt-0.5">
         {options.length > 2 && (
           <ActionButton
             action={Action.REMOVE}
@@ -164,7 +178,7 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
       </div>
 
       <CheckBox
-        id={'deadlineEnabled'}
+        id="poll-deadline-enabled"
         label={t('chbDeadlineEnabled')}
         value={deadlineEnabled}
         onChange={() => {
@@ -172,36 +186,39 @@ const PollEditor = ({ editorMode, poll, onPollUpdate }: IPollEditorProps) => {
         }}
       />
       {deadlineEnabled && (
-        <div className="m-2 grid grid-cols-2 items-center gap-2">
-          <div>{t('dateDeadline')}</div>
-          <DatePicker
-            date={moment(deadline)}
-            fromDate={moment(moment().year())}
-            toDate={moment().add(1, 'y')}
-            onChange={value => {
-              if (value) {
-                setDeadline(value.endOf('day').utc().format());
-              }
-            }}
-          />
+        <div className={FIELD_ROW_CLASS}>
+          <div className={FIELD_LABEL_CLASS}>{t('dateDeadline')}</div>
+          <div className={FIELD_CONTROL_CLASS}>
+            <div className={FIELD_CONTROL_TALL_INNER}>
+              <DatePicker
+                date={moment(deadline)}
+                fromDate={moment(moment().year())}
+                toDate={moment().add(1, 'y')}
+                onChange={value => {
+                  if (value) {
+                    setDeadline(value.endOf('day').utc().format());
+                  }
+                }}
+              />
+            </div>
+          </div>
         </div>
       )}
 
-      <div className="m-2">
+      <div className="py-1">
         <Separator />
       </div>
-      <SectionHeader label={t('sectionTargetGroup')} />
 
-      <div className="m-2 grid grid-cols-2 items-center gap-2">
-        <div>{t('cbCountry')}</div>
-        <div className="flex w-full">
+      <h2 className="text-sm font-semibold leading-tight text-foreground/90">{t('sectionTargetGroup')}</h2>
+
+      <div className={FIELD_ROW_CLASS}>
+        <div className={FIELD_LABEL_CLASS}>{t('cbCountry')}</div>
+        <div className={FIELD_CONTROL_CLASS}>
           <ComboBox
             menus={menuCountriesWithUnspecified}
             value={targetGroup.countryCode || menuCountriesWithUnspecified[0].value}
             searchEnabled={true}
-            onChange={(value: any) => {
-              handleCountryCodeChanged(value);
-            }}
+            onChange={handleCountryCodeChanged}
           />
         </div>
       </div>

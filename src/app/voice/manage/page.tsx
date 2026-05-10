@@ -8,12 +8,15 @@ import { getPolls } from '@/infrastructure/clients/poll.client';
 import PageTitle from '@/components/page-title';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { ColumnInfo, PollsList } from '../../../components/polls-list';
+import { cn } from '@/lib/utils';
+import { appShellContentClass } from '@/components/layout/app-shell-content';
+
+const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function ManagePolls() {
-  const t = await getTranslations('/voice/manage');
-  const session = await auth();
+  const [t, session] = await Promise.all([getTranslations('/voice/manage'), auth()]);
 
   const polls = await getPolls(session?.user?.username);
 
@@ -36,23 +39,23 @@ export default async function ManagePolls() {
   });
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header />
 
-      <PageTitle title={t('pageTitle')} />
+      <div className={constrainedContentClass}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <div className="mx-2 flex flex-col overflow-auto">
+      <div className={cn('mt-2 flex min-h-0 flex-1 min-w-0 flex-col overflow-hidden', constrainedContentClass)}>
         <PollsList columnData={columnData} enableEditing />
       </div>
 
       <Navigation>
-        <Link href={routeVoice}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeVoice} action={Action.BACK} />
 
-        <Link href={routeVoiceCreatePoll}>
-          <TextButton text={t('btnCreatePoll')} />
-        </Link>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeVoiceCreatePoll}>{t('btnCreatePoll')}</Link>
+        </Button>
       </Navigation>
     </div>
   );

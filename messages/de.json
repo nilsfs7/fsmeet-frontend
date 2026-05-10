@@ -7,6 +7,7 @@
     "carouselCurrentEvent": "Laufendes Event",
     "carouselRecentEvent": "Letztes Event",
     "carouselUpcomingEvent": "Anstehendes Event",
+    "carouselFeaturedEvent": "Hervorgehobenes Event",
     "navMap": "Karte",
     "navCommunity": "Szene",
     "navVoice": "Voice",
@@ -23,6 +24,7 @@
     "lnkDonate": "Spenden",
     "lnkContributors": "Mitwirkende",
     "lnkImprint": "Impressum",
+    "lnkTermsOfService": "Nutzungsbedingungen",
     "lnkPrivacyPolicy": "Datenschutzerklärung",
     "build": "Version"
   },
@@ -30,16 +32,25 @@
     "pageTitle": "Mitwirkende",
     "sectionMainContributors": "Hauptbeitragende",
     "textHeadOfDevelopment": "Leiter Entwicklung",
+    "textMobileAppDevelopment": "Mobile-App-Entwicklung",
     "textSpanishTranslation": "Übersetzer - Spanisch",
     "textFrenchTranslation": "Übersetzer - Französisch",
+    "textJapaneseAndOtherLanguagesTranslation": "Übersetzer - Japanisch und weitere Sprachen",
+    "textUxAdvisor": "UX-Berater",
     "sectionCommunityProposals": "Vorschläge der Community",
     "textPersonalSchedule": "Persönlicher Zeitplan für Athlethen",
     "textSearchByGender": "Freestyler map nach Geschlecht filtern",
-    "lnkAnnouncement": "Post"
+    "lnkAnnouncement": "Post",
+    "tableColName": "Name",
+    "tableColContribution": "Beitrag",
+    "tableColProposal": "Vorschlag",
+    "tableColAnnouncement": "Ankündigung",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "Profileinstellungen",
     "profilePictureAddPicture": "Bild hochladen",
+    "profilePictureNoFileChosen": "Keine Datei ausgewählt",
     "btnSave": "Speichern",
     "dlgJobsTermsTitle": "Bedingungen",
     "dlgJobsTermsDate": "Aktualisiert: 02. August 2024",
@@ -169,7 +180,38 @@
   "/events": {
     "datePickerFrom": "Von",
     "datePickerTo": "Bis",
-    "textNoEventsFound": "Keine Events für den angegebenen Zeitraum gefunden."
+    "searchAdvancedLabel": "Erweiterte Suche",
+    "searchNamePlaceholder": "Nach Event-Namen suchen",
+    "textNoEventsFound": "Keine Events für den angegebenen Zeitraum gefunden.",
+    "textNoNameMatch": "Kein Event passt zu deiner Suche.",
+    "textNoFilterMatch": "Kein Event erfüllt die gewählten Filter.",
+    "filterVenueCountry": "Veranstaltungsland",
+    "filterType": "Event-Typ",
+    "filterCategory": "Kategorie",
+    "filterWffa": "WFFA-Ranking",
+    "filterPriceMoney": "Preisgeld",
+    "filterAll": "Alle",
+    "filterClearAll": "Alle Filter zurücksetzen",
+    "filterApply": "Übernehmen",
+    "filterYes": "Ja",
+    "filterNo": "Nein",
+    "filterPrizeWith": "Mit Preisgeld",
+    "filterPrizeNone": "Ohne Preisgeld",
+    "filterWffaYes": "WFFA-gerankt",
+    "filterWffaNo": "Nicht WFFA-gerankt",
+    "eventTypeComp": "Competition",
+    "eventTypeCompOnline": "Online-Competition",
+    "eventTypeMeet": "Meeting",
+    "eventCatContinental": "Continental",
+    "eventCatInternational": "International",
+    "eventCatNational": "National",
+    "eventCatPulse": "Pulse",
+    "eventCatSuperball": "Superball",
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "Event erstellen",
+    "advertisementBadge": "Anzeige",
+    "featuredEventBadge": "Highlight",
+    "featuredEventCta": "Zum Event"
   },
   "/events/edit": {
     "pageTitle": "Event bearbeiten",
@@ -196,15 +238,18 @@
     "dlgDeleteCommentTitle": "Kommentar löschen",
     "dlgDeleteCommentText": "Kommentar löschen? Dies kann nicht rückgängig gemacht werden.",
     "adminPanelTitle": "Adminbereich",
-    "adminPanelBtnEditEventToolTip": "Event editieren",
-    "adminPanelBtnManageParticipantsToolTip": "Teilnehmer verwalten",
-    "adminPanelBtnManageCompetitionsToolTip": "Wettbewerbe verwalten",
-    "adminPanelBtnManageAccommodationsToolTip": "Unterkünfte verwalten",
-    "adminPanelBtnManageOfferingsToolTip": "Angebote verwalten",
-    "adminPanelBtnManageSponsorsToolTip": "Sponsoren verwalten",
-    "adminPanelBtnManageAttachmentsToolTip": "Dokumente verwalten",
+    "adminPanelBtnEditEventToolTip": "Event-Infos",
+    "adminPanelBtnManageAttendeesToolTip": "Teilnehmer",
+    "adminPanelBtnManageCompetitionsToolTip": "Wettbewerbe",
+    "adminPanelBtnManageAccommodationsToolTip": "Unterkünfte",
+    "adminPanelBtnManageOfferingsToolTip": "Angebote",
+    "adminPanelBtnManageSponsorsToolTip": "Sponsoren",
+    "adminPanelBtnManageAttachmentsToolTip": "Dokumente",
     "adminPanelBtnManageEventStateToolTip": "Event Status",
     "adminPanelBtnViewStatisticsToolTip": "Statistiken",
+    "adminPanelBtnManageArenaScreenToolTip": "Arena-Screen",
+    "adminPanelBtnUpgradePro": "Pro-Lizenz",
+    "adminPanelBtnUpgradeProToolTip": "Free- und Pro-Lizenz für dieses Event vergleichen.",
     "tabOverviewTitle": "Übersicht",
     "tabOverviewParticipationFee": "Teilnahmegebühr",
     "tabOverviewRegistrationPeriod": "Registrierungszeittraum",
@@ -214,6 +259,11 @@
     "tabOverviewSectionSponsors": "Sponsoren",
     "tabOverviewSectionAttachments": "Dokumente",
     "tabOverviewSectionComments": "Kommentare",
+    "tabOverviewPerkWffaRanked": "WFFA Gerankt",
+    "tabOverviewPerkPriceMoney": "Preisgeld",
+    "tabOverviewPerkAccommodation": "Unterkunft",
+    "tabOverviewBtnShowMoreDescription": "Mehr anzeigen",
+    "tabOverviewBtnShowLessDescription": "Weniger anzeigen",
     "tabCompetitionsTitle": "Wettbewerbe",
     "tabCompetitionsSectionCompetitions": "Wettbewerbe",
     "tabRegistrationsTitle": "Teilnehmer",
@@ -226,11 +276,18 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Unterkünfte verwalten",
-    "btnCreate": "Erstellen"
+    "btnCreate": "Erstellen",
+    "tableColDescription": "Beschreibung",
+    "tableColCost": "Kosten",
+    "tableColActions": "Aktionen",
+    "tooltipEditAccommodation": "Unterkunft bearbeiten",
+    "textNoAccommodations": "Noch keine Unterkünfte."
   },
   "/events/eventid/attachments": {
     "pageTitle": "Dokumente verwalten",
-    "btnCreate": "Dokument hinzufügen"
+    "btnCreate": "Dokument hinzufügen",
+    "tooltipEditDocument": "Dokument bearbeiten",
+    "textNoAttachments": "Noch keine Dokumente."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Dokument editieren",
@@ -256,9 +313,55 @@
     "pageTitle": "Wettbewerbe verwalten",
     "btnEdit": "Bearbeiten",
     "btnPool": "Pool",
-    "btnGameMode": "Turniermodus",
+    "btnGameMode": "Modus",
     "btnSeedingAndResults": "Zuweisung & Ergebnisse",
     "btnAddNew": "Neuen hinzufügen"
+  },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Arena-Screen",
+    "pageDescription": "Wähle einen Wettbewerb für die Live-Vorschau. Die Arena-Anzeige aktualisiert sich bei der Auswahl."
+  },
+  "/events/eventid/pro": {
+    "pageTitle": "Event-Lizenz",
+    "pageIntro": "Upgrade dein Event und schalte erweiterte Funktionen frei.",
+    "featureColumn": "Leistung",
+    "colFree": "Free",
+    "colPro": "Pro",
+    "rowPriceLabel": "Lizenzpreis",
+    "rowEventCoreLabel": "Eventseite und Teilnehmeranmeldung",
+    "rowCompetitionCoreLabel": "Wettbewerbsverwaltung: Spielplan, Seeding und Ergebnisse",
+    "rowFeaturedLabel": "Event auf der Startseite und in der Eventliste hervorgehoben",
+    "rowWffaRankedLabel": "WFFA-Weltrang-Report",
+    "rowSponsorsLabel": "Sponsoren anzeigen",
+    "rowAttachmentsLabel": "Dokumente hochladen",
+    "rowArenaLabel": "Arena-Screen — Live-Anzeige von Battles vor Ort",
+    "alreadyPro": "Dieses Event nutzt bereits eine Pro-Lizenz.",
+    "ctaPurchase": "Pro kaufen",
+    "included": "Enthalten",
+    "notIncluded": "Nicht enthalten"
+  },
+  "/events/eventid/pro/purchase": {
+    "pageTitle": "Pro-Lizenz kaufen",
+    "pageIntro": "Upgrade dieses Events auf FSMeet Pro. Die Zahlung läuft sicher über Stripe.",
+    "pageOverviewLicense": "Aktuelle Lizenz",
+    "licenseStatusFree": "Free",
+    "pageOverviewPrice": "Preis",
+    "pageOverviewProduct": "Upgrade",
+    "pageOverviewProductHint": "FSMeet Pro",
+    "btnCheckout": "Zahlung fortsetzen",
+    "btnWorking": "Checkout wird gestartet …",
+    "btnPay": "Jetzt zahlen",
+    "errorCheckout": "Checkout konnte nicht gestartet werden.",
+    "errorSignIn": "Bitte melde dich an, um fortzufahren.",
+    "errorMissingSecret": "Die Checkout-Antwort war unvollständig. Bitte erneut versuchen oder Support kontaktieren.",
+    "alreadyPro": "Dieses Event hat bereits Pro. Ein Kauf ist nicht nötig.",
+    "btnBackToComparison": "Zurück zum Vergleich"
+  },
+  "/events/eventid/pro/purchase/success": {
+    "thankYouText1": "Zahlung erfolgreich",
+    "thankYouText2": "Danke. Deine Pro-Lizenz sollte in Kürze aktiv sein.",
+    "btnEvent": "Zum Event",
+    "btnProInfo": "Infos zur Pro-Lizenz"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Spielplan",
@@ -354,13 +457,15 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "Angebote verwalten",
-    "btnCreate": "Erstellen"
+    "btnCreate": "Erstellen",
+    "tooltipEditOffering": "Angebot bearbeiten",
+    "textNoOfferings": "Noch keine Angebote."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "Angebot erstellen",
     "btnCreate": "Erstellen"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "Teilnehmer verwalten",
     "sectionParticipantsTitle": "Teilnehmer",
     "textNoParticipants": "Noch keine Registrierungen.",
@@ -375,7 +480,25 @@
     "dlgDenyParticipantTitle": "Teilnehmer ablehnen",
     "dlgDenyParticipantText": "Möchtest du diesen Teilnehmer wirklich ablehnen?",
     "dlgRemoveParticipantTitle": "Teilnehmer entfernen",
-    "dlgRemoveParticipantText": "Möchtest du diesen Teilnehmer entfernen?"
+    "dlgRemoveParticipantText": "Möchtest du diesen Teilnehmer entfernen?",
+    "filterNameLabel": "Name",
+    "filterNamePlaceholder": "Nach Name suchen",
+    "filterStatusLabel": "Status",
+    "filterStatusAll": "Alle",
+    "statusPending": "Ausstehend",
+    "statusApproved": "Genehmigt",
+    "statusDenied": "Abgelehnt",
+    "regTypeParticipant": "Teilnehmer",
+    "regTypeVisitor": "Besucher",
+    "tableColFullName": "Name",
+    "tableColType": "Typ",
+    "tableColStatus": "Status",
+    "tableColActions": "Aktionen",
+    "tableSortByName": "Nach Name sortieren",
+    "tableSortByType": "Nach Typ sortieren",
+    "tableSortByStatus": "Nach Status sortieren",
+    "textNoFilterMatch": "Keine Treffer für die gewählten Filter.",
+    "alertPendingRegistrations": "{count, plural, =1 {Es gibt eine ausstehende Anmeldung, die geprüft werden muss.} other {Es gibt # ausstehende Anmeldungen, die geprüft werden müssen.}}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Registrierungsübersicht",
@@ -446,7 +569,32 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",
-    "btnCreate": "Sponsor hinzufügen"
+    "btnCreate": "Sponsor hinzufügen",
+    "tooltipEditSponsor": "Sponsor bearbeiten",
+    "textNoSponsors": "Noch keine Sponsoren."
+  },
+  "/ads": {
+    "pageTitle": "Anzeigen verwalten",
+    "btnCreate": "Erstellen",
+    "tooltipEditAd": "Anzeige bearbeiten",
+    "textNoAds": "Noch keine Anzeigen.",
+    "tableColDescription": "Beschreibung",
+    "tableColActions": "Aktionen"
+  },
+  "/ads/create": {
+    "pageTitle": "Anzeige erstellen",
+    "btnCreate": "Erstellen",
+    "toastNeedLogin": "Du musst angemeldet sein, um eine Anzeige zu erstellen.",
+    "toastCreateFailed": "Die Anzeige konnte nicht erstellt werden."
+  },
+  "/ads/edit": {
+    "pageTitle": "Anzeige bearbeiten",
+    "dlgDeleteTitle": "Anzeige löschen",
+    "dlgDeleteText": "Möchtest du diese Anzeige wirklich löschen?",
+    "btnSave": "Speichern",
+    "toastSaveFailed": "Die Anzeige konnte nicht gespeichert werden.",
+    "toastDeleteFailed": "Die Anzeige konnte nicht gelöscht werden.",
+    "toastLoadFailed": "Die Anzeige konnte nicht geladen werden."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Sponsor erstellen",
@@ -489,6 +637,8 @@
     "btnCreate": "Event erstellen"
   },
   "/feedback": {
+    "pageTitle": "Feedback",
+    "pageDescription": "Wähle unten eine Kategorie, um uns dein Feedback zu schicken.",
     "pageGeneralFeedback": "Feedback",
     "btnFeatures": "Feature anfragen",
     "btnBugs": "Fehler melden"
@@ -517,11 +667,14 @@
     "btnBackHome": "Zur Homepage"
   },
   "/login": {
+    "headlineWelcome": "Willkommen zurück",
+    "sublineSignIn": "Melde dich in deinem Konto an",
     "inputUsername": "Nutzername / E-Mail",
     "inputPassword": "Passwort",
     "btnLogin": "Anmelden",
     "lnkResetPassword": "Password zurücksetzen",
-    "lnkNewAccount": "Noch keinen Account?"
+    "lnkNewAccount": "Noch keinen Account?",
+    "legalSignIn": "Mit der Anmeldung stimmst du unseren <terms>Nutzungsbedingungen</terms> und der <privacy>Datenschutzerklärung</privacy> zu."
   },
   "/map": {
     "pageTitle": "Freestyler Karte",
@@ -533,6 +686,11 @@
     "inputSearchPlaceholder": "Suche Name...",
     "drpDwnGender": "Geschlecht",
     "drpDwnUserTypes": "Typ",
+    "searchAdvancedLabel": "Erweiterte Suche",
+    "filterApply": "Übernehmen",
+    "filterClearAll": "Alle Filter zurücksetzen",
+    "filterUserCountry": "Land (Nutzer)",
+    "filterAll": "Alle",
     "btnCopyUrlToast": "Karten-URL kopiert.",
     "btnCopyUrlToolTip": "Kopiere Karten-URL",
     "infoWindowGoToProfileInternal": "Klicke fürs Profil",
@@ -542,7 +700,7 @@
     "inputUsername": "Nutzername / E-Mail",
     "btnResetPassword": "Passwort zurücksetzen"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "Prüfe dein Mailpostfach.",
     "thankYouText2": "Wir haben dir einen Link geschickt.",
     "btnBackHome": "Zur Homepage"
@@ -552,6 +710,9 @@
     "btnSave": "Speichern"
   },
   "/registration": {
+    "headlineCreateAccount": "Konto anlegen",
+    "sublineSignUp": "In wenigen Schritten registrieren",
+    "legalSignUp": "Mit der Kontoerstellung stimmst du unseren <terms>Nutzungsbedingungen</terms> und der <privacy>Datenschutzerklärung</privacy> zu.",
     "cbUserType": "Anmelden als",
     "inputUsername": "Nutzername",
     "cbGender": "Geschlecht",
@@ -573,6 +734,12 @@
   "/users": {
     "pageTitle": "Freestyle Szene",
     "inputSearchPlaceholder": "Suche Name...",
+    "tableSortByName": "Nach Name sortieren",
+    "tableSortByCountry": "Nach Land sortieren",
+    "filterCountry": "Land",
+    "filterGender": "Geschlecht",
+    "filterGenderMale": "Männlich",
+    "filterGenderFemale": "Weiblich",
     "cbColumns": "Spalten",
     "tblColumnUsername": "Nutzer",
     "tblColumnName": "Name",
@@ -616,6 +783,11 @@
     "pageTitle": "Umfrage erstellen",
     "btnCreate": "Erstellen"
   },
+  "global/data-states": {
+    "errorTitle": "Etwas ist schiefgelaufen",
+    "loadFailed": "Daten konnten nicht geladen werden. Bitte Verbindung prüfen und erneut versuchen.",
+    "btnRetry": "Erneut versuchen"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Vorname",
     "associationName": "Vereinsname",
@@ -625,6 +797,15 @@
     "inputDescription": "Beschreibung",
     "inputWebsite": "Website (optional)",
     "inputCost": "Kosten",
+    "chbEnabled": "Aktiv"
+  },
+  "global/components/advertisement-editor": {
+    "inputTitle": "Titel",
+    "placeholderTitle": "Produktname",
+    "inputDescription": "Beschreibung",
+    "placeholderDescription": "Produktbeschreibung",
+    "inputTargetUrl": "Ziel-URL",
+    "inputDisplayOrder": "Anzeigereihenfolge",
     "chbEnabled": "Aktiv"
   },
   "global/components/accommodation-list": {
@@ -758,8 +939,8 @@
     "inputQuestion": "Frage",
     "inputDescription": "Kontext (optional)",
     "inputOption": "Option",
-    "chbDeadlineEnabled": "Deadline aktivieren",
-    "dateDeadline": "Deadline",
+    "chbDeadlineEnabled": "Deadline",
+    "dateDeadline": "Frist-Datum",
     "sectionTargetGroup": "Zielgruppe",
     "cbCountry": "Land"
   },
@@ -786,6 +967,7 @@
     "menuItemMyEvents": "Meine Events",
     "menuItemPublicProfile": "Öffentliches Profil",
     "menuItemSettings": "Einstellungen",
+    "menuItemAds": "Anzeigen",
     "menuItemFeedback": "Feedback",
     "menuItemLogout": "Abmelden"
   },

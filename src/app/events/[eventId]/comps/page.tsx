@@ -1,25 +1,30 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import Link from 'next/link';
 import Navigation from '@/components/navigation';
 import Separator from '@/components/separator';
 import { routeEvents } from '@/domain/constants/routes';
 import PageTitle from '@/components/page-title';
 import { getTranslations } from 'next-intl/server';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
+import { cn } from '@/lib/utils';
+
+const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function ManageCompetitions(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/events/eventid/comps');
-
-  const competitions = await getCompetitions(params.eventId);
+  const [t, competitions] = await Promise.all([
+    getTranslations('/events/eventid/comps'),
+    getCompetitions(params.eventId),
+  ]);
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className={constrainedContentClass}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <div className="mx-2 overflow-y-auto">
-        <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
+        <div className="text-sm">
           <div className="flex flex-col">
             <>
               {competitions.map((comp, index) => {
@@ -29,9 +34,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
                       <div className="flex w-1/2 justify-end">{comp.name}</div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit`}>
-                            <ActionButton action={Action.EDIT} />
-                          </Link>
+                          <ActionButton href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit`} action={Action.EDIT} />
                           <div>{t('btnEdit')}</div>
                         </div>
                       </div>
@@ -41,9 +44,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/pool`}>
-                            <ActionButton action={Action.MANAGE_USERS} />
-                          </Link>
+                          <ActionButton href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/pool`} action={Action.MANAGE_USERS} />
                           <div>{t('btnPool')}</div>
                         </div>
                       </div>
@@ -53,9 +54,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/mode`}>
-                            <ActionButton action={Action.MANAGE_COMPETITIONS} />
-                          </Link>
+                          <ActionButton href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/mode`} action={Action.MANAGE_COMPETITIONS} />
                           <div>{t('btnGameMode')}</div>
                         </div>
                       </div>
@@ -65,9 +64,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
                       <div className="flex w-1/2 justify-end"></div>
                       <div className="flex w-1/2">
                         <div className="gap-2 flex items-center">
-                          <Link href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/seeding`}>
-                            <ActionButton action={Action.MANAGE_USERS} />
-                          </Link>
+                          <ActionButton href={`${routeEvents}/${params.eventId}/comps/${comp.id}/edit/seeding`} action={Action.MANAGE_USERS} />
                           <div>{t('btnSeedingAndResults')}</div>
                         </div>
                       </div>
@@ -83,9 +80,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
               <div className="m-1 flex items-center gap-2">
                 <div className="flex w-1/2 justify-end">{t('btnAddNew')}</div>
                 <div className="flex w-1/2">
-                  <Link href={`${routeEvents}/${params.eventId}/comps/create`}>
-                    <ActionButton action={Action.ADD} />
-                  </Link>
+                  <ActionButton href={`${routeEvents}/${params.eventId}/comps/create`} action={Action.ADD} />
                 </div>
               </div>
             </>
@@ -94,9 +89,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
       </div>
 
       <Navigation>
-        <Link href={`${routeEvents}/${params.eventId}`}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={`${routeEvents}/${params.eventId}`} action={Action.BACK} />
       </Navigation>
     </div>
   );

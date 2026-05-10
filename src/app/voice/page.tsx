@@ -8,20 +8,21 @@ import PageTitle from '@/components/page-title';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
 import { PollsCarousel } from './components/polls-carousel';
-import TextButton from '@/components/common/text-button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { ColumnInfo, PollsList } from '../../components/polls-list';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { auth } from '@/auth';
 import { User } from '@/domain/types/user';
 import { ActionButtonCopyPollUrl } from './components/action-button-copy-poll-url';
+import { cn } from '@/lib/utils';
+import { appShellContentClass } from '@/components/layout/app-shell-content';
+
+const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
 export default async function Voice() {
-  const t = await getTranslations('/voice');
-  const session = await auth();
+  const [t, session, polls] = await Promise.all([getTranslations('/voice'), auth(), getPolls()]);
 
-  const user: User | undefined = session?.user.username ? await getUser(session?.user.username) : undefined;
-
-  const polls = await getPolls();
+  const user: User | undefined = session?.user.username ? await getUser(session.user.username) : undefined;
 
   const columnData: ColumnInfo[] = [];
 
@@ -42,32 +43,32 @@ export default async function Voice() {
   });
 
   return (
-    <div className="h-[calc(100dvh)] flex flex-col">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Header />
 
-      <PageTitle title={t('pageTitle')} />
+      <div className={cn('shrink-0', constrainedContentClass)}>
+        <PageTitle title={t('pageTitle')} />
+      </div>
 
-      <div className="mx-2 flex flex-col overflow-auto">
-        <div className="flex justify-center px-12">
+      <div className={cn('mt-2 flex min-h-0 flex-1 min-w-0 flex-col gap-3 overflow-hidden', constrainedContentClass)}>
+        <div className="flex w-full shrink-0 justify-center">
           <PollsCarousel initPolls={polls} actingUser={user} />
         </div>
 
-        <div className="mt-2">
+        <div className="min-h-0 min-w-0 flex-1 flex flex-col">
           <PollsList columnData={columnData} />
         </div>
       </div>
 
       <Navigation>
-        <Link href={routeHome}>
-          <ActionButton action={Action.BACK} />
-        </Link>
+        <ActionButton href={routeHome} action={Action.BACK} />
 
         <div className="flex justify-end gap-1">
           <ActionButtonCopyPollUrl />
 
-          <Link href={routeVoiceManage}>
-            <TextButton text={t('btnManagePolls')} />
-          </Link>
+          <Button asChild variant="action" className={ctaActionButtonClassName}>
+            <Link href={routeVoiceManage}>{t('btnManagePolls')}</Link>
+          </Button>
         </div>
       </Navigation>
     </div>

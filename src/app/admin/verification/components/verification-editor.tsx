@@ -18,6 +18,23 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 
+/** Same glass card as `competition-editor` / `licenses-editor`; full width for admin tables. */
+const VERIFICATION_PANEL_CLASS = cn(
+  'w-full min-w-0 flex flex-col gap-3',
+  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-sm',
+  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'text-sm',
+);
+
+const VERIFICATION_TABLE_WRAP_CLASS = cn(
+  'min-w-0 overflow-hidden rounded-lg border border-border/50 bg-background/40',
+  'dark:bg-background/30',
+);
+
+const FILTER_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none text-foreground';
+const SECTION_TITLE_CLASS = 'mb-2 text-center text-sm font-semibold leading-tight text-foreground/90';
+
 /** Align with /wffa/visa and /admin/licenses table layout */
 const VERIFICATION_TABLE_CLASS = 'table-fixed w-full min-w-[40rem] border-separate border-spacing-x-3 border-spacing-y-0';
 
@@ -52,12 +69,15 @@ function sortUsersByUserColumn(users: User[], descending: boolean): User[] {
 function UserCell({ user }: { user: User }) {
   const profileHref = `${routeUsers}/${user.username}`;
   return (
-    <TableCell className={cn(VERIFICATION_CELL_PAD, 'text-primary align-top', verificationCol.user)}>
-      <div className="flex flex-col gap-0.5 min-w-0">
-        <Link href={profileHref} className="underline hover:text-primary/80">
+    <TableCell className={cn(VERIFICATION_CELL_PAD, 'align-top text-foreground', verificationCol.user)}>
+      <div className="flex min-w-0 flex-col gap-0.5">
+        <Link
+          href={profileHref}
+          className="font-medium text-primary underline-offset-2 hover:underline hover:text-primary/90"
+        >
           {user.username}
         </Link>
-        <span className="text-primary/90">({user.firstName})</span>
+        <span className="text-sm text-muted-foreground">({user.firstName})</span>
       </div>
     </TableCell>
   );
@@ -82,24 +102,24 @@ function VerificationTableSection({
 }) {
   if (items.length === 0) {
     return (
-      <div className="mb-6">
-        <h2 className="mb-2 text-center text-base font-semibold text-primary">{title}</h2>
-        <p className="text-center text-sm text-primary/70">No entries</p>
+      <div>
+        <h2 className={SECTION_TITLE_CLASS}>{title}</h2>
+        <p className="text-center text-sm text-muted-foreground">No entries</p>
       </div>
     );
   }
 
   return (
-    <div className="mb-6">
-      <h2 className="mb-2 text-center text-base font-semibold text-primary">{title}</h2>
-      <div className="rounded-md border border-secondary-dark bg-background">
+    <div>
+      <h2 className={SECTION_TITLE_CLASS}>{title}</h2>
+      <div className={VERIFICATION_TABLE_WRAP_CLASS}>
         <Table className={VERIFICATION_TABLE_CLASS}>
           <TableHeader>
-            <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-              <TableHead className={cn('text-primary', VERIFICATION_HEAD_PAD, verificationCol.user)}>
+            <TableRow className="border-border/40 hover:bg-transparent dark:hover:bg-transparent">
+              <TableHead className={cn('text-foreground', VERIFICATION_HEAD_PAD, verificationCol.user)}>
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1.5 text-left font-medium hover:text-primary/80"
+                  className="inline-flex items-center gap-1.5 text-left font-medium text-foreground/90 transition-colors hover:text-foreground"
                   onClick={onUserSortClick}
                   title={userSortDescending ? 'Sort user ascending' : 'Sort user descending'}
                 >
@@ -111,17 +131,20 @@ function VerificationTableSection({
                   )}
                 </button>
               </TableHead>
-              <TableHead className={cn('text-primary', VERIFICATION_HEAD_PAD, verificationCol.state)}>Verification state</TableHead>
-              <TableHead className={cn('text-right text-primary', VERIFICATION_HEAD_PAD, verificationCol.actions)}>Actions</TableHead>
+              <TableHead className={cn('text-foreground/90', VERIFICATION_HEAD_PAD, verificationCol.state)}>Verification state</TableHead>
+              <TableHead className={cn('text-right text-foreground/90', VERIFICATION_HEAD_PAD, verificationCol.actions)}>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">
             {items.map(user => {
               const comboValue = draftVerificationByUsername[user.username] ?? user.verificationState ?? '';
               return (
-                <TableRow key={user.username} className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
+                <TableRow
+                  key={user.username}
+                  className="border-border/30 transition-colors hover:bg-muted/30 dark:hover:bg-muted/20"
+                >
                   <UserCell user={user} />
-                  <TableCell className={cn(VERIFICATION_CELL_PAD, 'text-primary align-top', verificationCol.state)}>
+                  <TableCell className={cn(VERIFICATION_CELL_PAD, 'align-top text-foreground', verificationCol.state)}>
                     <ComboBox
                       menus={menuUserVerificationStates}
                       value={comboValue}
@@ -131,7 +154,7 @@ function VerificationTableSection({
                       }}
                     />
                   </TableCell>
-                  <TableCell className={cn(VERIFICATION_CELL_PAD, 'text-right align-top', verificationCol.actions)}>
+                  <TableCell className={cn(VERIFICATION_CELL_PAD, 'align-top', verificationCol.actions)}>
                     <div className="flex justify-end gap-1">
                       <ActionButton action={Action.SAVE} onClick={() => onSave(user)} />
                     </div>
@@ -252,51 +275,53 @@ export const VerificationEditor = () => {
     <>
       <Toaster richColors />
 
-      <div className="mx-2 overflow-y-auto pb-4">
-        <div className="rounded-lg border border-primary bg-secondary-light p-2 text-sm">
+      <div className="mx-2 min-h-0 overflow-y-auto pb-4 scrollbar-none">
+        <div className={VERIFICATION_PANEL_CLASS}>
           {users.length > 0 && (
-            <div className="mb-4 flex flex-col gap-1 sm:max-w-[14rem]">
-              <span className="text-xs font-medium text-primary/80">User</span>
+            <div className="flex flex-col gap-1.5 sm:max-w-sm">
+              <span className={FILTER_LABEL_CLASS}>User</span>
               <Input placeholder="Search…" value={filterUser} onChange={e => setFilterUser(e.target.value)} className="w-full" />
             </div>
           )}
 
-          <VerificationTableSection
-            title="Verification pending"
-            items={pending}
-            draftVerificationByUsername={draftVerificationByUsername}
-            onDraftStateChange={handleDraftVerificationStateChanged}
-            onSave={handleSaveUserClicked}
-            userSortDescending={userSortDescending}
-            onUserSortClick={handleUserSortClick}
-          />
-          <VerificationTableSection
-            title="Denied"
-            items={denied}
-            draftVerificationByUsername={draftVerificationByUsername}
-            onDraftStateChange={handleDraftVerificationStateChanged}
-            onSave={handleSaveUserClicked}
-            userSortDescending={userSortDescending}
-            onUserSortClick={handleUserSortClick}
-          />
-          <VerificationTableSection
-            title="Not verified"
-            items={notVerified}
-            draftVerificationByUsername={draftVerificationByUsername}
-            onDraftStateChange={handleDraftVerificationStateChanged}
-            onSave={handleSaveUserClicked}
-            userSortDescending={userSortDescending}
-            onUserSortClick={handleUserSortClick}
-          />
-          <VerificationTableSection
-            title="Verified"
-            items={verified}
-            draftVerificationByUsername={draftVerificationByUsername}
-            onDraftStateChange={handleDraftVerificationStateChanged}
-            onSave={handleSaveUserClicked}
-            userSortDescending={userSortDescending}
-            onUserSortClick={handleUserSortClick}
-          />
+          <div className="flex min-w-0 flex-col gap-6">
+            <VerificationTableSection
+              title="Verification pending"
+              items={pending}
+              draftVerificationByUsername={draftVerificationByUsername}
+              onDraftStateChange={handleDraftVerificationStateChanged}
+              onSave={handleSaveUserClicked}
+              userSortDescending={userSortDescending}
+              onUserSortClick={handleUserSortClick}
+            />
+            <VerificationTableSection
+              title="Denied"
+              items={denied}
+              draftVerificationByUsername={draftVerificationByUsername}
+              onDraftStateChange={handleDraftVerificationStateChanged}
+              onSave={handleSaveUserClicked}
+              userSortDescending={userSortDescending}
+              onUserSortClick={handleUserSortClick}
+            />
+            <VerificationTableSection
+              title="Not verified"
+              items={notVerified}
+              draftVerificationByUsername={draftVerificationByUsername}
+              onDraftStateChange={handleDraftVerificationStateChanged}
+              onSave={handleSaveUserClicked}
+              userSortDescending={userSortDescending}
+              onUserSortClick={handleUserSortClick}
+            />
+            <VerificationTableSection
+              title="Verified"
+              items={verified}
+              draftVerificationByUsername={draftVerificationByUsername}
+              onDraftStateChange={handleDraftVerificationStateChanged}
+              onSave={handleSaveUserClicked}
+              userSortDescending={userSortDescending}
+              onUserSortClick={handleUserSortClick}
+            />
+          </div>
         </div>
       </div>
     </>

@@ -7,6 +7,7 @@
     "carouselCurrentEvent": "Acara Sedang Berlangsung",
     "carouselRecentEvent": "Acara Terkini",
     "carouselUpcomingEvent": "Acara Akan Datang",
+    "carouselFeaturedEvent": "Acara pilihan",
     "navMap": "Peta",
     "navCommunity": "Komuniti",
     "navVoice": "Suara",
@@ -23,6 +24,7 @@
     "lnkDonate": "Derma",
     "lnkContributors": "Penyumbang",
     "lnkImprint": "Imprint",
+    "lnkTermsOfService": "Terma perkhidmatan",
     "lnkPrivacyPolicy": "Dasar Privasi",
     "build": "Binaan"
   },
@@ -30,16 +32,25 @@
     "pageTitle": "Penyumbang",
     "sectionMainContributors": "Penyumbang Utama",
     "textHeadOfDevelopment": "Ketua pembangunan",
+    "textMobileAppDevelopment": "Pembangunan aplikasi mudah alih",
     "textSpanishTranslation": "Penterjemah - Sepanyol",
     "textFrenchTranslation": "Penterjemah - Perancis",
+    "textJapaneseAndOtherLanguagesTranslation": "Penterjemah - Jepun dan bahasa lain",
+    "textUxAdvisor": "Penasihat UX",
     "sectionCommunityProposals": "Cadangan Komuniti",
     "textPersonalSchedule": "Jadual peribadi untuk atlet",
     "textSearchByGender": "Cari peta freestyler mengikut jantina",
-    "lnkAnnouncement": "Pengumuman"
+    "lnkAnnouncement": "Pengumuman",
+    "tableColName": "Nama",
+    "tableColContribution": "Sumbangan",
+    "tableColProposal": "Cadangan",
+    "tableColAnnouncement": "Pengumuman",
+    "tableNoAnnouncement": "—"
   },
   "/account": {
     "pageTitle": "Tetapan Akaun",
     "profilePictureAddPicture": "Tambah gambar",
+    "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Simpan",
     "dlgJobsTermsTitle": "Terma Dan Syarat",
     "dlgJobsTermsDate": "Kemas kini terakhir: 02 Ogos 2024",
@@ -187,7 +198,38 @@
   "/events": {
     "datePickerFrom": "Dari",
     "datePickerTo": "Hingga",
-    "textNoEventsFound": "Tiada acara untuk julat tarikh yang ditetapkan."
+    "searchAdvancedLabel": "Carian lanjutan",
+    "searchNamePlaceholder": "Cari dengan nama acara",
+    "textNoEventsFound": "Tiada acara untuk julat tarikh yang ditetapkan.",
+    "textNoNameMatch": "Tiada nama acara yang sepadan.",
+    "textNoFilterMatch": "Tiada acara sepadan dengan penapis terpilih.",
+    "filterVenueCountry": "Negara tempat",
+    "filterType": "Jenis acara",
+    "filterCategory": "Kategori",
+    "filterWffa": "Kedudukan WFFA",
+    "filterPriceMoney": "Hadiah wang",
+    "filterAll": "Semua",
+    "filterClearAll": "Tetapkan semula penapis",
+    "filterApply": "Gunakan",
+    "filterYes": "Ya",
+    "filterNo": "Tidak",
+    "filterPrizeWith": "Dengan hadiah wang",
+    "filterPrizeNone": "Tiada hadiah wang",
+    "filterWffaYes": "Diberi kedudukan WFFA",
+    "filterWffaNo": "Bukan WFFA",
+    "eventTypeComp": "Pertandingan",
+    "eventTypeCompOnline": "Pertandingan dalam talian",
+    "eventTypeMeet": "Mesyuarat",
+    "eventCatContinental": "Continental",
+    "eventCatInternational": "International",
+    "eventCatNational": "National",
+    "eventCatPulse": "Pulse",
+    "eventCatSuperball": "Superball",
+    "eventCatWffc": "WFFC",
+    "btnCreateEvent": "Cipta Acara",
+    "advertisementBadge": "Iklan",
+    "featuredEventBadge": "Pilihan",
+    "featuredEventCta": "Lihat acara"
   },
   "/events/edit": {
     "pageTitle": "Edit Acara",
@@ -214,15 +256,18 @@
     "dlgDeleteCommentTitle": "Padam Komen",
     "dlgDeleteCommentText": "Padam komen? Ini tidak boleh dibatalkan.",
     "adminPanelTitle": "Panel Admin",
-    "adminPanelBtnEditEventToolTip": "Edit acara",
-    "adminPanelBtnManageParticipantsToolTip": "Urus peserta",
-    "adminPanelBtnManageCompetitionsToolTip": "Urus pertandingan",
-    "adminPanelBtnManageAccommodationsToolTip": "Urus penginapan",
-    "adminPanelBtnManageOfferingsToolTip": "Urus tawaran",
-    "adminPanelBtnManageSponsorsToolTip": "Urus penaja",
-    "adminPanelBtnManageAttachmentsToolTip": "Urus dokumen",
+    "adminPanelBtnEditEventToolTip": "Maklumat acara",
+    "adminPanelBtnManageAttendeesToolTip": "Hadirin",
+    "adminPanelBtnManageCompetitionsToolTip": "Pertandingan",
+    "adminPanelBtnManageAccommodationsToolTip": "Penginapan",
+    "adminPanelBtnManageOfferingsToolTip": "Tawaran",
+    "adminPanelBtnManageSponsorsToolTip": "Penaja",
+    "adminPanelBtnManageAttachmentsToolTip": "Dokumen",
     "adminPanelBtnManageEventStateToolTip": "Status acara",
     "adminPanelBtnViewStatisticsToolTip": "Statistik",
+    "adminPanelBtnManageArenaScreenToolTip": "Skrin arena",
+    "adminPanelBtnUpgradePro": "Naik taraf Pro",
+    "adminPanelBtnUpgradeProToolTip": "Bandingkan Free dan Pro untuk acara ini.",
     "tabOverviewTitle": "Gambaran keseluruhan",
     "tabOverviewParticipationFee": "Yuran penyertaan",
     "tabOverviewRegistrationPeriod": "Tempoh pendaftaran",
@@ -232,6 +277,11 @@
     "tabOverviewSectionSponsors": "Penaja",
     "tabOverviewSectionAttachments": "Dokumen",
     "tabOverviewSectionComments": "Komen",
+    "tabOverviewPerkWffaRanked": "Diberi Kedudukan WFFA",
+    "tabOverviewPerkPriceMoney": "Hadiah Wang",
+    "tabOverviewPerkAccommodation": "Penginapan",
+    "tabOverviewBtnShowMoreDescription": "Tunjukkan lagi",
+    "tabOverviewBtnShowLessDescription": "Tunjukkan kurang",
     "tabCompetitionsTitle": "Pertandingan",
     "tabCompetitionsSectionCompetitions": "Pertandingan",
     "tabRegistrationsTitle": "Peserta",
@@ -244,7 +294,12 @@
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Urus Penginapan",
-    "btnCreate": "Cipta"
+    "btnCreate": "Cipta",
+    "tableColDescription": "Penerangan",
+    "tableColCost": "Kos",
+    "tableColActions": "Tindakan",
+    "tooltipEditAccommodation": "Edit Penginapan",
+    "textNoAccommodations": "Belum ada penginapan."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Cipta Penginapan",
@@ -258,7 +313,9 @@
   },
   "/events/eventid/attachments": {
     "pageTitle": "Urus Dokumen",
-    "btnCreate": "Cipta"
+    "btnCreate": "Cipta",
+    "tooltipEditDocument": "Edit Dokumen",
+    "textNoAttachments": "Belum ada dokumen."
   },
   "/events/eventid/attachments/attachmentid/edit": {
     "pageTitle": "Edit Dokumen",
@@ -274,9 +331,55 @@
     "pageTitle": "Urus Pertandingan",
     "btnEdit": "Edit",
     "btnPool": "Pool",
-    "btnGameMode": "Mod Permainan",
+    "btnGameMode": "Mod",
     "btnSeedingAndResults": "Seeding & Keputusan",
     "btnAddNew": "Tambah baharu"
+  },
+  "/events/eventid/arena-screen": {
+    "pageTitle": "Skrin arena",
+    "pageDescription": "Pilih pertandingan untuk pratayang langsung. Skrin arena dikemas kini apabila anda memilih."
+  },
+  "/events/eventid/pro": {
+    "pageTitle": "Lesen acara",
+    "pageIntro": "Naik taraf acara anda dan buka kunci ciri lanjutan.",
+    "featureColumn": "Ciri",
+    "colFree": "Free",
+    "colPro": "Pro",
+    "rowPriceLabel": "Harga lesen",
+    "rowEventCoreLabel": "Halaman acara dan pendaftaran peserta",
+    "rowCompetitionCoreLabel": "Pengurusan pertandingan: jadual, seeding dan keputusan",
+    "rowFeaturedLabel": "Acara dipaparkan di halaman utama dan dalam senarai acara",
+    "rowWffaRankedLabel": "Laporan ranking dunia WFFA",
+    "rowSponsorsLabel": "Tunjukkan penaja",
+    "rowAttachmentsLabel": "Muat naik dokumen",
+    "rowArenaLabel": "Skrin arena — paparan perlawanan langsung di venue",
+    "alreadyPro": "Acara ini sudah menggunakan lesen Pro.",
+    "ctaPurchase": "Beli Pro",
+    "included": "Termasuk",
+    "notIncluded": "Tidak termasuk"
+  },
+  "/events/eventid/pro/purchase": {
+    "pageTitle": "Beli lesen Pro",
+    "pageIntro": "Naik taraf acara ini ke FSMeet Pro. Pembayaran diproses dengan selamat melalui Stripe.",
+    "pageOverviewLicense": "Lesen semasa",
+    "licenseStatusFree": "Free",
+    "pageOverviewPrice": "Harga",
+    "pageOverviewProduct": "Naik taraf",
+    "pageOverviewProductHint": "FSMeet Pro",
+    "btnCheckout": "Teruskan pembayaran",
+    "btnWorking": "Memulakan checkout…",
+    "btnPay": "Bayar sekarang",
+    "errorCheckout": "Checkout tidak dapat dimulakan.",
+    "errorSignIn": "Sila log masuk untuk meneruskan.",
+    "errorMissingSecret": "Respons checkout tidak lengkap. Cuba lagi atau hubungi sokongan.",
+    "alreadyPro": "Acara ini sudah Pro. Tiada pembelian diperlukan.",
+    "btnBackToComparison": "Kembali ke perbandingan"
+  },
+  "/events/eventid/pro/purchase/success": {
+    "thankYouText1": "Pembayaran berjaya",
+    "thankYouText2": "Terima kasih. Lesen Pro anda harus aktif tidak lama lagi.",
+    "btnEvent": "Ke acara",
+    "btnProInfo": "Maklumat lesen Pro"
   },
   "/events/eventid/comps/compid": {
     "tabScheduleTitle": "Jadual",
@@ -372,13 +475,15 @@
   },
   "/events/eventid/offerings": {
     "pageTitle": "Urus Tawaran",
-    "btnCreate": "Cipta"
+    "btnCreate": "Cipta",
+    "tooltipEditOffering": "Edit Tawaran",
+    "textNoOfferings": "Belum ada tawaran."
   },
   "/events/eventid/offerings/create": {
     "pageTitle": "Cipta Tawaran",
     "btnCreate": "Cipta"
   },
-  "/events/eventid/participants": {
+  "/events/eventid/attendees": {
     "pageTitle": "Urus Peserta",
     "sectionParticipantsTitle": "Peserta",
     "textNoParticipants": "Belum ada pendaftaran.",
@@ -393,7 +498,25 @@
     "dlgDenyParticipantTitle": "Tolak Peserta",
     "dlgDenyParticipantText": "Adakah anda benar-benar mahu menolak peserta ini?",
     "dlgRemoveParticipantTitle": "Buang Peserta",
-    "dlgRemoveParticipantText": "Adakah anda mahu membuang peserta ini?"
+    "dlgRemoveParticipantText": "Adakah anda mahu membuang peserta ini?",
+    "filterNameLabel": "Nama",
+    "filterNamePlaceholder": "Cari mengikut nama",
+    "filterStatusLabel": "Status",
+    "filterStatusAll": "Semua",
+    "statusPending": "Menunggu",
+    "statusApproved": "Diluluskan",
+    "statusDenied": "Ditolak",
+    "regTypeParticipant": "Peserta",
+    "regTypeVisitor": "Pelawat",
+    "tableColFullName": "Nama",
+    "tableColType": "Jenis",
+    "tableColStatus": "Status",
+    "tableColActions": "Tindakan",
+    "tableSortByName": "Isih mengikut nama",
+    "tableSortByType": "Isih mengikut jenis",
+    "tableSortByStatus": "Isih mengikut status",
+    "textNoFilterMatch": "Tiada hadirin yang sepadan dengan penapis.",
+    "alertPendingRegistrations": "{count, plural, other{Ada # pendaftaran menunggu semakan.}}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Gambaran Keseluruhan Pendaftaran Acara",
@@ -464,7 +587,32 @@
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Urus Penaja",
-    "btnCreate": "Cipta"
+    "btnCreate": "Cipta",
+    "tooltipEditSponsor": "Edit Penaja",
+    "textNoSponsors": "Belum ada penaja."
+  },
+  "/ads": {
+    "pageTitle": "Urus Iklan",
+    "btnCreate": "Cipta",
+    "tooltipEditAd": "Edit iklan",
+    "textNoAds": "Belum ada iklan.",
+    "tableColDescription": "Penerangan",
+    "tableColActions": "Tindakan"
+  },
+  "/ads/create": {
+    "pageTitle": "Cipta Iklan",
+    "btnCreate": "Cipta",
+    "toastNeedLogin": "Anda mesti log masuk untuk mencipta iklan.",
+    "toastCreateFailed": "Tidak dapat mencipta iklan."
+  },
+  "/ads/edit": {
+    "pageTitle": "Edit Iklan",
+    "dlgDeleteTitle": "Padam Iklan",
+    "dlgDeleteText": "Adakah anda pasti mahu memadamkan iklan ini?",
+    "btnSave": "Simpan",
+    "toastSaveFailed": "Tidak dapat menyimpan iklan.",
+    "toastDeleteFailed": "Tidak dapat memadamkan iklan.",
+    "toastLoadFailed": "Tidak dapat memuatkan iklan."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Cipta Penaja",
@@ -507,6 +655,8 @@
     "btnCreate": "Cipta Acara"
   },
   "/feedback": {
+    "pageTitle": "Maklum balas",
+    "pageDescription": "Pilih kategori di bawah untuk menghantar maklum balas anda.",
     "pageGeneralFeedback": "Maklum Balas Umum",
     "btnFeatures": "Cadangan Ciri",
     "btnBugs": "Lapor Pepijat"
@@ -535,11 +685,14 @@
     "btnBackHome": "Kembali ke laman utama"
   },
   "/login": {
+    "headlineWelcome": "Selamat kembali",
+    "sublineSignIn": "Log masuk ke akaun anda",
     "inputUsername": "Nama pengguna / E-mel",
     "inputPassword": "Kata laluan",
     "btnLogin": "Log masuk",
     "lnkResetPassword": "Tetapkan semula kata laluan",
-    "lnkNewAccount": "Belum ada akaun?"
+    "lnkNewAccount": "Belum ada akaun?",
+    "legalSignIn": "Dengan log masuk, anda bersetuju dengan <terms>terma perkhidmatan</terms> dan <privacy>dasar privasi</privacy> kami."
   },
   "/map": {
     "pageTitle": "Peta Freestyler",
@@ -551,6 +704,11 @@
     "inputSearchPlaceholder": "Cari nama...",
     "drpDwnGender": "Jantina",
     "drpDwnUserTypes": "Jenis",
+    "searchAdvancedLabel": "Carian lanjutan",
+    "filterApply": "Gunakan",
+    "filterClearAll": "Tetapkan semula penapis",
+    "filterUserCountry": "Negara pengguna",
+    "filterAll": "Semua",
     "btnCopyUrlToast": "URL peta telah disalin ke papan klip.",
     "btnCopyUrlToolTip": "Salin URL peta",
     "infoWindowGoToProfileInternal": "Klik untuk profil",
@@ -560,7 +718,7 @@
     "inputUsername": "Nama pengguna / E-mel",
     "btnResetPassword": "Tetapkan Semula Kata Laluan"
   },
-  "/password/pending": {
+  "/password/forgot/pending": {
     "thankYouText1": "Semak e-mel anda.",
     "thankYouText2": "Pautan tetapan semula telah dihantar kepada anda.",
     "btnBackHome": "Kembali ke laman utama"
@@ -570,6 +728,9 @@
     "btnSave": "Simpan"
   },
   "/registration": {
+    "headlineCreateAccount": "Cipta akaun",
+    "sublineSignUp": "Daftar dalam beberapa langkah",
+    "legalSignUp": "Dengan mewujudkan akaun, anda bersetuju dengan <terms>terma perkhidmatan</terms> dan <privacy>dasar privasi</privacy> kami.",
     "cbUserType": "Daftar sebagai",
     "inputUsername": "Nama pengguna",
     "cbGender": "Jantina",
@@ -591,6 +752,12 @@
   "/users": {
     "pageTitle": "Komuniti",
     "inputSearchPlaceholder": "Cari nama...",
+    "tableSortByName": "Isih mengikut nama",
+    "tableSortByCountry": "Isih mengikut negara",
+    "filterCountry": "Negara",
+    "filterGender": "Jantina",
+    "filterGenderMale": "Lelaki",
+    "filterGenderFemale": "Perempuan",
     "cbColumns": "Lajur",
     "tblColumnUsername": "Pengguna",
     "tblColumnName": "Nama",
@@ -634,6 +801,11 @@
     "pageTitle": "Cipta Undian",
     "btnCreate": "Cipta"
   },
+  "global/data-states": {
+    "errorTitle": "Ralat berlaku",
+    "loadFailed": "Data tidak dapat dimuatkan. Semak sambungan dan cuba lagi.",
+    "btnRetry": "Cuba lagi"
+  },
   "global/functions/getLabelForFirstName": {
     "firstName": "Nama depan",
     "associationName": "Nama persatuan",
@@ -643,6 +815,15 @@
     "inputDescription": "Penerangan",
     "inputWebsite": "Laman web (pilihan)",
     "inputCost": "Kos",
+    "chbEnabled": "Aktif"
+  },
+  "global/components/advertisement-editor": {
+    "inputTitle": "Tajuk",
+    "placeholderTitle": "Nama produk",
+    "inputDescription": "Penerangan",
+    "placeholderDescription": "Penerangan produk",
+    "inputTargetUrl": "URL destinasi",
+    "inputDisplayOrder": "Susunan paparan",
     "chbEnabled": "Aktif"
   },
   "global/components/accommodation-list": {
@@ -776,7 +957,7 @@
     "inputQuestion": "Soalan",
     "inputDescription": "Konteks (pilihan)",
     "inputOption": "Pilihan",
-    "chbDeadlineEnabled": "Tarikh akhir diaktifkan",
+    "chbDeadlineEnabled": "Tarikh akhir",
     "dateDeadline": "Tarikh akhir",
     "sectionTargetGroup": "Kumpulan sasaran",
     "cbCountry": "Negara"
@@ -804,6 +985,7 @@
     "menuItemMyEvents": "Acara Saya",
     "menuItemPublicProfile": "Profil Awam",
     "menuItemSettings": "Tetapan",
+    "menuItemAds": "Iklan",
     "menuItemFeedback": "Maklum balas",
     "menuItemLogout": "Log keluar"
   },
