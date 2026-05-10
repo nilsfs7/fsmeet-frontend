@@ -58,6 +58,7 @@ export const imgThumbsUp = '/feedback/thumbs-up.svg';
 export const imgUserNoImg = '/profile/user.svg';
 export const imgProfileEvents = '/profile/events.svg';
 export const imgProfileSettings = '/profile/settings.svg';
+export const imgProfileAds = '/profile/ads.svg';
 export const imgProfileFeedback = '/profile/feedback.svg';
 export const imgProfileLogout = '/profile/logout.svg';
 

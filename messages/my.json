@@ -591,6 +591,29 @@
     "tooltipEditSponsor": "Edit Penaja",
     "textNoSponsors": "Belum ada penaja."
   },
+  "/ads": {
+    "pageTitle": "Urus Iklan",
+    "btnCreate": "Cipta",
+    "tooltipEditAd": "Edit iklan",
+    "textNoAds": "Belum ada iklan.",
+    "tableColDescription": "Penerangan",
+    "tableColActions": "Tindakan"
+  },
+  "/ads/create": {
+    "pageTitle": "Cipta Iklan",
+    "btnCreate": "Cipta",
+    "toastNeedLogin": "Anda mesti log masuk untuk mencipta iklan.",
+    "toastCreateFailed": "Tidak dapat mencipta iklan."
+  },
+  "/ads/edit": {
+    "pageTitle": "Edit Iklan",
+    "dlgDeleteTitle": "Padam Iklan",
+    "dlgDeleteText": "Adakah anda pasti mahu memadamkan iklan ini?",
+    "btnSave": "Simpan",
+    "toastSaveFailed": "Tidak dapat menyimpan iklan.",
+    "toastDeleteFailed": "Tidak dapat memadamkan iklan.",
+    "toastLoadFailed": "Tidak dapat memuatkan iklan."
+  },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Cipta Penaja",
     "btnCreate": "Tambah baharu"
@@ -794,6 +817,15 @@
     "inputCost": "Kos",
     "chbEnabled": "Aktif"
   },
+  "global/components/advertisement-editor": {
+    "inputTitle": "Tajuk",
+    "placeholderTitle": "Nama produk",
+    "inputDescription": "Penerangan",
+    "placeholderDescription": "Penerangan produk",
+    "inputTargetUrl": "URL destinasi",
+    "inputDisplayOrder": "Susunan paparan",
+    "chbEnabled": "Aktif"
+  },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Penerangan",
     "columnTitleCost": "Kos",
@@ -953,6 +985,7 @@
     "menuItemMyEvents": "Acara Saya",
     "menuItemPublicProfile": "Profil Awam",
     "menuItemSettings": "Tetapan",
+    "menuItemAds": "Iklan",
     "menuItemFeedback": "Maklum balas",
     "menuItemLogout": "Log keluar"
   },

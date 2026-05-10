@@ -591,6 +591,29 @@
     "tooltipEditSponsor": "Edit sponsor",
     "textNoSponsors": "No sponsors yet."
   },
+  "/ads": {
+    "pageTitle": "Manage Ads",
+    "btnCreate": "Create",
+    "tooltipEditAd": "Edit ad",
+    "textNoAds": "No ads yet.",
+    "tableColDescription": "Description",
+    "tableColActions": "Actions"
+  },
+  "/ads/create": {
+    "pageTitle": "Create Ad",
+    "btnCreate": "Create",
+    "toastNeedLogin": "You must be logged in to create an ad.",
+    "toastCreateFailed": "Could not create the ad."
+  },
+  "/ads/edit": {
+    "pageTitle": "Edit Ad",
+    "dlgDeleteTitle": "Delete Ad",
+    "dlgDeleteText": "Do you really want to delete this ad?",
+    "btnSave": "Save",
+    "toastSaveFailed": "Could not save the ad.",
+    "toastDeleteFailed": "Could not delete the ad.",
+    "toastLoadFailed": "Could not load the ad."
+  },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Create Sponsor",
     "btnCreate": "Add new"
@@ -795,6 +818,15 @@
     "inputCost": "Cost",
     "chbEnabled": "Active"
   },
+  "global/components/advertisement-editor": {
+    "inputTitle": "Title",
+    "placeholderTitle": "Product name",
+    "inputDescription": "Description",
+    "placeholderDescription": "Product description",
+    "inputTargetUrl": "Target URL",
+    "inputDisplayOrder": "Display order",
+    "chbEnabled": "Active"
+  },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Description",
     "columnTitleCost": "Cost",
@@ -954,6 +986,7 @@
     "menuItemMyEvents": "My Events",
     "menuItemPublicProfile": "Public Profile",
     "menuItemSettings": "Settings",
+    "menuItemAds": "Ads",
     "menuItemFeedback": "Feedback",
     "menuItemLogout": "Logout"
   },

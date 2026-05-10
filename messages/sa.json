@@ -591,6 +591,29 @@
     "tooltipEditSponsor": "تعديل الراعي",
     "textNoSponsors": "لا يوجد رعاة بعد."
   },
+  "/ads": {
+    "pageTitle": "إدارة الإعلانات",
+    "btnCreate": "إنشاء",
+    "tooltipEditAd": "تعديل الإعلان",
+    "textNoAds": "لا توجد إعلانات بعد.",
+    "tableColDescription": "الوصف",
+    "tableColActions": "الإجراءات"
+  },
+  "/ads/create": {
+    "pageTitle": "إنشاء إعلان",
+    "btnCreate": "إنشاء",
+    "toastNeedLogin": "يجب تسجيل الدخول لإنشاء إعلان.",
+    "toastCreateFailed": "تعذر إنشاء الإعلان."
+  },
+  "/ads/edit": {
+    "pageTitle": "تعديل الإعلان",
+    "dlgDeleteTitle": "حذف الإعلان",
+    "dlgDeleteText": "هل تريد حقًا حذف هذا الإعلان؟",
+    "btnSave": "حفظ",
+    "toastSaveFailed": "تعذر حفظ الإعلان.",
+    "toastDeleteFailed": "تعذر حذف الإعلان.",
+    "toastLoadFailed": "تعذر تحميل الإعلان."
+  },
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",
     "btnCreate": "إضافة جديد"
@@ -794,6 +817,15 @@
     "inputCost": "التكلفة",
     "chbEnabled": "مفعّل"
   },
+  "global/components/advertisement-editor": {
+    "inputTitle": "العنوان",
+    "placeholderTitle": "اسم المنتج",
+    "inputDescription": "الوصف",
+    "placeholderDescription": "وصف المنتج",
+    "inputTargetUrl": "رابط الوجهة",
+    "inputDisplayOrder": "ترتيب العرض",
+    "chbEnabled": "مفعّل"
+  },
   "global/components/accommodation-list": {
     "columnTitleDescription": "الوصف",
     "columnTitleCost": "التكلفة",
@@ -953,6 +985,7 @@
     "menuItemMyEvents": "فعالياتي",
     "menuItemPublicProfile": "الملف العام",
     "menuItemSettings": "الإعدادات",
+    "menuItemAds": "الإعلانات",
     "menuItemFeedback": "الملاحظات",
     "menuItemLogout": "تسجيل الخروج"
   },

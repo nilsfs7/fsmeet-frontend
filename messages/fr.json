@@ -573,6 +573,29 @@
     "tooltipEditSponsor": "Modifier le partenaire",
     "textNoSponsors": "Aucun sponsor pour le moment."
   },
+  "/ads": {
+    "pageTitle": "Gérer les annonces",
+    "btnCreate": "Créer",
+    "tooltipEditAd": "Modifier l'annonce",
+    "textNoAds": "Aucune annonce pour le moment.",
+    "tableColDescription": "Description",
+    "tableColActions": "Actions"
+  },
+  "/ads/create": {
+    "pageTitle": "Créer une annonce",
+    "btnCreate": "Créer",
+    "toastNeedLogin": "Vous devez être connecté pour créer une annonce.",
+    "toastCreateFailed": "Impossible de créer l'annonce."
+  },
+  "/ads/edit": {
+    "pageTitle": "Modifier l'annonce",
+    "dlgDeleteTitle": "Supprimer l'annonce",
+    "dlgDeleteText": "Voulez-vous vraiment supprimer cette annonce ?",
+    "btnSave": "Enregistrer",
+    "toastSaveFailed": "Impossible d'enregistrer l'annonce.",
+    "toastDeleteFailed": "Impossible de supprimer l'annonce.",
+    "toastLoadFailed": "Impossible de charger l'annonce."
+  },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Créer un partenaire",
     "btnCreate": "Ajouter un nouveau"
@@ -776,6 +799,15 @@
     "inputCost": "Coût",
     "chbEnabled": "Actif"
   },
+  "global/components/advertisement-editor": {
+    "inputTitle": "Titre",
+    "placeholderTitle": "Nom du produit",
+    "inputDescription": "Description",
+    "placeholderDescription": "Description du produit",
+    "inputTargetUrl": "URL cible",
+    "inputDisplayOrder": "Ordre d'affichage",
+    "chbEnabled": "Actif"
+  },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Description",
     "columnTitleCost": "Coût",
@@ -935,6 +967,7 @@
     "menuItemMyEvents": "Mes événements",
     "menuItemPublicProfile": "Profil public",
     "menuItemSettings": "Paramètres",
+    "menuItemAds": "Annonces",
     "menuItemFeedback": "Retour",
     "menuItemLogout": "Se déconnecter"
   },

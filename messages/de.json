@@ -573,6 +573,29 @@
     "tooltipEditSponsor": "Sponsor bearbeiten",
     "textNoSponsors": "Noch keine Sponsoren."
   },
+  "/ads": {
+    "pageTitle": "Anzeigen verwalten",
+    "btnCreate": "Erstellen",
+    "tooltipEditAd": "Anzeige bearbeiten",
+    "textNoAds": "Noch keine Anzeigen.",
+    "tableColDescription": "Beschreibung",
+    "tableColActions": "Aktionen"
+  },
+  "/ads/create": {
+    "pageTitle": "Anzeige erstellen",
+    "btnCreate": "Erstellen",
+    "toastNeedLogin": "Du musst angemeldet sein, um eine Anzeige zu erstellen.",
+    "toastCreateFailed": "Die Anzeige konnte nicht erstellt werden."
+  },
+  "/ads/edit": {
+    "pageTitle": "Anzeige bearbeiten",
+    "dlgDeleteTitle": "Anzeige löschen",
+    "dlgDeleteText": "Möchtest du diese Anzeige wirklich löschen?",
+    "btnSave": "Speichern",
+    "toastSaveFailed": "Die Anzeige konnte nicht gespeichert werden.",
+    "toastDeleteFailed": "Die Anzeige konnte nicht gelöscht werden.",
+    "toastLoadFailed": "Die Anzeige konnte nicht geladen werden."
+  },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Sponsor erstellen",
     "btnCreate": "Erstellen"
@@ -776,6 +799,15 @@
     "inputCost": "Kosten",
     "chbEnabled": "Aktiv"
   },
+  "global/components/advertisement-editor": {
+    "inputTitle": "Titel",
+    "placeholderTitle": "Produktname",
+    "inputDescription": "Beschreibung",
+    "placeholderDescription": "Produktbeschreibung",
+    "inputTargetUrl": "Ziel-URL",
+    "inputDisplayOrder": "Anzeigereihenfolge",
+    "chbEnabled": "Aktiv"
+  },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Beschreibung",
     "columnTitleCost": "Kosten",
@@ -935,6 +967,7 @@
     "menuItemMyEvents": "Meine Events",
     "menuItemPublicProfile": "Öffentliches Profil",
     "menuItemSettings": "Einstellungen",
+    "menuItemAds": "Anzeigen",
     "menuItemFeedback": "Feedback",
     "menuItemLogout": "Abmelden"
   },
