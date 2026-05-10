@@ -63,7 +63,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
         <div className="flex flex-col gap-2 p-2.5 pt-9 sm:gap-3 sm:p-3 sm:pt-10">
           {visual}
           <div className="flex min-w-0 flex-col gap-1.5">
-            <h3 id={titleId} className="line-clamp-3 text-left text-sm font-semibold leading-tight tracking-tight text-foreground">
+            <h3 id={titleId} className="line-clamp-3 text-left text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg sm:leading-snug">
               {slot.title}
             </h3>
             <p className="type-body-sm line-clamp-4 text-foreground/85">{slot.description}</p>
@@ -80,7 +80,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
 
       <div className="flex min-h-0 items-stretch gap-2 p-2.5 sm:gap-3 sm:p-3">
         <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-1.5 sm:gap-2">
-          <h3 id={titleId} className="line-clamp-2 pr-14 text-left text-sm font-semibold leading-tight tracking-tight text-foreground sm:text-body sm:leading-snug">
+          <h3 id={titleId} className="line-clamp-2 pr-14 text-left text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg sm:leading-snug">
             {slot.title}
           </h3>
           <p className="type-body-sm line-clamp-3 text-foreground/85">{slot.description}</p>
