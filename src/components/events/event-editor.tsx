@@ -12,7 +12,6 @@ import { PaymentMethodPayPal } from '@/domain/types/payment-method-paypal';
 import { PaymentMethodSepa } from '@/domain/types/payment-method-sepa';
 import ComboBox from '../common/combo-box';
 import { menuEventTypes } from '@/domain/constants/menus/menu-event-types';
-import { validateAlias } from '@/functions/validation/validation-event';
 import CurInput from '../common/currency-input';
 import { EventState } from '@/domain/enums/event-state';
 import { DatePicker } from '../common/date-picker';
@@ -65,6 +64,20 @@ function FieldRow({ label, children }: { label: string; children: ReactNode }) {
       <div className={FIELD_CONTROL_CLASS}>{children}</div>
     </div>
   );
+}
+
+const EVENT_NAME_MAX_LENGTH = 64;
+const ALIAS_MAX_LENGTH = 16;
+
+function validateAlias(input: string): boolean {
+  if (input.length <= ALIAS_MAX_LENGTH) {
+    const regexLowerAlphaNum: RegExp = /^[a-z0-9]+$/;
+    if (input.length === 0 || regexLowerAlphaNum.test(input)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 interface IEventEditorProps {
@@ -453,13 +466,14 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     <div className={EDITOR_CARD_CLASS}>
       <h2 className={cn(SECTION_H2, 'pt-0.5')}>{t('sectionGeneral')}</h2>
 
-      <TextInput id={'name'} label={t('inputName')} placeholder="German Freestyle Football Championship 2023" value={name} onChange={e => setEventName(e.currentTarget.value)} />
+      <TextInput id={'name'} label={t('inputName')} placeholder="German Freestyle Football Championship 2023" value={name} maxInputLength={EVENT_NAME_MAX_LENGTH} onChange={e => setEventName(e.currentTarget.value)} />
 
       <TextInput
         id={'alias'}
         label={t('inputAlias')}
         placeholder="gffc2023"
         value={alias}
+        maxInputLength={ALIAS_MAX_LENGTH}
         onChange={e => {
           handleInputChangeAlias(e);
         }}
