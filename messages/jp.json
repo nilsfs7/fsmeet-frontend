@@ -823,7 +823,9 @@
     "inputDescription": "説明",
     "placeholderDescription": "商品説明",
     "inputTargetUrl": "リンク先URL",
+    "tooltipTargetUrl": "ウェブサイトまたは商品へのリンク。",
     "inputDisplayOrder": "表示順",
+    "tooltipDisplayOrder": "複数ある場合の広告の表示順です。0 が最初に表示されます。",
     "chbEnabled": "有効"
   },
   "global/components/accommodation-list": {

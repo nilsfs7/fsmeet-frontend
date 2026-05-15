@@ -805,7 +805,9 @@
     "inputDescription": "Descripción",
     "placeholderDescription": "Descripción del producto",
     "inputTargetUrl": "URL de destino",
+    "tooltipTargetUrl": "Enlace a tu sitio web o producto.",
     "inputDisplayOrder": "Orden de visualización",
+    "tooltipDisplayOrder": "Orden en que se muestran los anuncios si hay varios. El 0 se muestra primero.",
     "chbEnabled": "Activo"
   },
   "global/components/accommodation-list": {

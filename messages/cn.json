@@ -823,7 +823,9 @@
     "inputDescription": "描述",
     "placeholderDescription": "产品描述",
     "inputTargetUrl": "目标链接",
+    "tooltipTargetUrl": "指向您网站或产品的链接。",
     "inputDisplayOrder": "展示顺序",
+    "tooltipDisplayOrder": "有多个广告时的展示顺序。数字越小越靠前，0 最先显示。",
     "chbEnabled": "启用"
   },
   "global/components/accommodation-list": {

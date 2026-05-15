@@ -823,7 +823,9 @@
     "inputDescription": "الوصف",
     "placeholderDescription": "وصف المنتج",
     "inputTargetUrl": "رابط الوجهة",
+    "tooltipTargetUrl": "رابط إلى موقعك أو منتجك.",
     "inputDisplayOrder": "ترتيب العرض",
+    "tooltipDisplayOrder": "ترتيب ظهور الإعلانات عند وجود أكثر من واحد. يُعرض 0 أولاً.",
     "chbEnabled": "مفعّل"
   },
   "global/components/accommodation-list": {

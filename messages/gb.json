@@ -824,7 +824,9 @@
     "inputDescription": "Description",
     "placeholderDescription": "Product description",
     "inputTargetUrl": "Target URL",
+    "tooltipTargetUrl": "Link to your website or product.",
     "inputDisplayOrder": "Display order",
+    "tooltipDisplayOrder": "Order in which ads are shown when having multiple. 0 is shown first.",
     "chbEnabled": "Active"
   },
   "global/components/accommodation-list": {

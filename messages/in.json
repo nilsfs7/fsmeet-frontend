@@ -823,7 +823,9 @@
     "inputDescription": "विवरण",
     "placeholderDescription": "उत्पाद विवरण",
     "inputTargetUrl": "लक्ष्य URL",
+    "tooltipTargetUrl": "आपकी वेबसाइट या उत्पाद का लिंक।",
     "inputDisplayOrder": "प्रदर्शन क्रम",
+    "tooltipDisplayOrder": "एक से अधिक विज्ञापन होने पर किस क्रम में दिखेंगे। 0 सबसे पहले दिखता है।",
     "chbEnabled": "सक्रिय"
   },
   "global/components/accommodation-list": {

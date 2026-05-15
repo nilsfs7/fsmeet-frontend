@@ -9,6 +9,7 @@ import CheckBox from '../common/check-box';
 import { cn } from '@/lib/utils';
 import Separator from '../separator';
 import { Input } from '@/components/ui/input';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import TextInputLarge from '../common/text-input-large';
 
 const EDITOR_CARD_CLASS = cn(
@@ -107,10 +108,24 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
         }}
       />
 
-      <TextInput id="advertisement-target-url" label={t('inputTargetUrl')} placeholder="https://" value={targetUrl} onChange={e => setTargetUrl(e.currentTarget.value)} />
+      <TextInput id="advertisement-target-url" label={t('inputTargetUrl')} placeholder="https://" value={targetUrl} labelTooltip={t('tooltipTargetUrl')} onChange={e => setTargetUrl(e.currentTarget.value)} />
 
       <div className="grid grid-cols-2 items-start gap-x-2 gap-y-1">
-        <label className="pt-2 text-sm font-medium leading-none">{t('inputDisplayOrder')}</label>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <label
+                htmlFor="advertisement-display-order"
+                className="cursor-help pt-2 text-sm font-medium leading-none underline decoration-dotted decoration-muted-foreground underline-offset-2"
+              >
+                {t('inputDisplayOrder')}
+              </label>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="max-w-xs text-left">
+              <p>{t('tooltipDisplayOrder')}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <Input
           className={cn('h-9 w-[4.5rem] shrink-0 text-right text-sm font-medium tabular-nums', 'border-border/60 bg-background/80 shadow-sm hover:border-primary/50 dark:bg-background/50')}
           id={`advertisement-display-order`}
