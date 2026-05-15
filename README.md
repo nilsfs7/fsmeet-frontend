@@ -27,7 +27,7 @@ If you enjoy it, consider supporting with a small donation. Every bit helps keep
 
 ### Prerequisites
 
-- [node.js](https://nodejs.org/en) version `22.12.0` or newer
+- [node.js](https://nodejs.org/en) version `24.15.0` or newer
 
 - [yarn](https://yarnpkg.com/)
 
