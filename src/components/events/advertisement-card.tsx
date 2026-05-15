@@ -37,7 +37,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
 
   const visual = (
     <a
-      href={slot.targetUrl}
+      href={`${slot.targetUrl}?ad=${slot.id}`}
       target="_blank"
       rel={adLinkRel}
       className={cn(
