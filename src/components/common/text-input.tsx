@@ -3,10 +3,13 @@
 import type { ChangeEvent, KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { FieldLabel } from '@/components/common/field-label';
 
 interface ITextInput {
   id: string;
   label: string;
+  /** Optional help: hover on desktop, tap label to toggle on touch. */
+  labelTooltip?: string;
   labelOnTop?: boolean;
   placeholder?: string;
   defValue?: string;
@@ -18,7 +21,20 @@ interface ITextInput {
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, maxInputLength, type, readOnly = false, onChange, onKeyDown }: ITextInput) => {
+const TextInput = ({
+  id,
+  label,
+  labelTooltip,
+  labelOnTop = true,
+  placeholder,
+  defValue,
+  value,
+  maxInputLength,
+  type,
+  readOnly = false,
+  onChange,
+  onKeyDown,
+}: ITextInput) => {
   const inputClass = cn('w-full', readOnly && 'bg-secondary-light');
 
   const input = (
@@ -32,6 +48,7 @@ const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value,
       readOnly={readOnly}
       onChange={onChange}
       onKeyDown={onKeyDown}
+      aria-label={labelTooltip ? label : undefined}
     />
   );
 
@@ -43,9 +60,12 @@ const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value,
   if (!labelOnTop) {
     return (
       <div className="grid grid-cols-2 items-start gap-x-2 gap-y-1">
-        <label htmlFor={id} className="pt-2 text-sm font-medium leading-none">
-          {label}
-        </label>
+        <FieldLabel
+          id={id}
+          label={label}
+          tooltip={labelTooltip}
+          className="pt-2 text-sm font-medium leading-none"
+        />
         <div className="flex min-w-0 flex-col gap-1">
           {input}
           {lengthHint}
@@ -56,9 +76,7 @@ const TextInput = ({ id, label, labelOnTop = true, placeholder, defValue, value,
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm font-medium leading-none">
-        {label}
-      </label>
+      <FieldLabel id={id} label={label} tooltip={labelTooltip} className="text-sm font-medium leading-none" />
       {input}
       {lengthHint}
     </div>

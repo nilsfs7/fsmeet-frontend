@@ -805,7 +805,9 @@
     "inputDescription": "Description",
     "placeholderDescription": "Description du produit",
     "inputTargetUrl": "URL cible",
+    "tooltipTargetUrl": "Lien vers votre site web ou produit.",
     "inputDisplayOrder": "Ordre d'affichage",
+    "tooltipDisplayOrder": "Ordre d'affichage des annonces lorsqu'il y en a plusieurs. 0 est affiché en premier.",
     "chbEnabled": "Actif"
   },
   "global/components/accommodation-list": {
@@ -859,6 +861,7 @@
     "sectionGeneral": "Général",
     "inputName": "Nom de l'événement",
     "inputAlias": "Alias de l'événement",
+    "tooltipAlias": "Permet des URL d'événement plus courtes, claires et mémorables, pour un partage plus facile et une meilleure lisibilité.",
     "cbType": "Type",
     "lblState": "État",
     "inputDescription": "Description de l'événement",

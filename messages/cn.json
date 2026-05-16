@@ -823,7 +823,9 @@
     "inputDescription": "描述",
     "placeholderDescription": "产品描述",
     "inputTargetUrl": "目标链接",
+    "tooltipTargetUrl": "指向您网站或产品的链接。",
     "inputDisplayOrder": "展示顺序",
+    "tooltipDisplayOrder": "有多个广告时的展示顺序。数字越小越靠前，0 最先显示。",
     "chbEnabled": "启用"
   },
   "global/components/accommodation-list": {
@@ -877,6 +879,7 @@
     "sectionGeneral": "基本信息",
     "inputName": "活动名称",
     "inputAlias": "活动别名",
+    "tooltipAlias": "用于更短、更简洁、更易记的活动链接，便于分享并提高可读性。",
     "cbType": "类型",
     "lblState": "状态",
     "inputDescription": "活动描述",

@@ -823,7 +823,9 @@
     "inputDescription": "الوصف",
     "placeholderDescription": "وصف المنتج",
     "inputTargetUrl": "رابط الوجهة",
+    "tooltipTargetUrl": "رابط إلى موقعك أو منتجك.",
     "inputDisplayOrder": "ترتيب العرض",
+    "tooltipDisplayOrder": "ترتيب ظهور الإعلانات عند وجود أكثر من واحد. يُعرض 0 أولاً.",
     "chbEnabled": "مفعّل"
   },
   "global/components/accommodation-list": {
@@ -877,6 +879,7 @@
     "sectionGeneral": "عام",
     "inputName": "اسم الفعالية",
     "inputAlias": "اسم مختصر للفعالية",
+    "tooltipAlias": "يُستخدم لروابط فعاليات أقصر وأوضح وأسهل تذكّراً، لتسهيل المشاركة وتحسين القراءة.",
     "cbType": "النوع",
     "lblState": "الحالة",
     "inputDescription": "وصف الفعالية",

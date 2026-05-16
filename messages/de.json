@@ -805,7 +805,9 @@
     "inputDescription": "Beschreibung",
     "placeholderDescription": "Produktbeschreibung",
     "inputTargetUrl": "Ziel-URL",
+    "tooltipTargetUrl": "Link zu deiner Website oder deinem Produkt.",
     "inputDisplayOrder": "Anzeigereihenfolge",
+    "tooltipDisplayOrder": "Reihenfolge, in der Anzeigen bei mehreren Einträgen erscheinen. 0 wird zuerst angezeigt.",
     "chbEnabled": "Aktiv"
   },
   "global/components/accommodation-list": {
@@ -859,6 +861,7 @@
     "sectionGeneral": "Allgemeines",
     "inputName": "Eventname",
     "inputAlias": "Eventalias",
+    "tooltipAlias": "Für kürzere, übersichtlichere und einprägsamere Event-URLs – einfacher zu teilen und besser lesbar.",
     "cbType": "Art",
     "lblState": "Status",
     "inputDescription": "Eventbeschreibung",

@@ -823,7 +823,9 @@
     "inputDescription": "Penerangan",
     "placeholderDescription": "Penerangan produk",
     "inputTargetUrl": "URL destinasi",
+    "tooltipTargetUrl": "Pautan ke laman web atau produk anda.",
     "inputDisplayOrder": "Susunan paparan",
+    "tooltipDisplayOrder": "Urutan iklan dipaparkan apabila ada lebih daripada satu. 0 dipaparkan dahulu.",
     "chbEnabled": "Aktif"
   },
   "global/components/accommodation-list": {
@@ -877,6 +879,7 @@
     "sectionGeneral": "Umum",
     "inputName": "Nama Acara",
     "inputAlias": "Alias Acara",
+    "tooltipAlias": "Untuk URL acara yang lebih pendek, ringkas dan mudah diingati — lebih mudah dikongsi dan dibaca.",
     "cbType": "Jenis",
     "lblState": "Status",
     "inputDescription": "Penerangan Acara",
