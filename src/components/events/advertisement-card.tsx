@@ -66,7 +66,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
             <h3 id={titleId} className="line-clamp-3 text-left text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg sm:leading-snug">
               {slot.title}
             </h3>
-            <p className="type-body-sm line-clamp-4 text-foreground/85">{slot.description}</p>
+            <p className="type-body-sm line-clamp-4 break-words whitespace-pre-line text-foreground/85">{slot.description}</p>
             {cta}
           </div>
         </div>
@@ -83,7 +83,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
           <h3 id={titleId} className="line-clamp-2 pr-14 text-left text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg sm:leading-snug">
             {slot.title}
           </h3>
-          <p className="type-body-sm line-clamp-3 text-foreground/85">{slot.description}</p>
+          <p className="type-body-sm line-clamp-3 break-words whitespace-pre-line text-foreground/85">{slot.description}</p>
           {cta}
         </div>
 
