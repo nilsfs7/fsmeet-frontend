@@ -879,6 +879,7 @@
     "sectionGeneral": "基本情報",
     "inputName": "イベント名",
     "inputAlias": "イベント別名",
+    "tooltipAlias": "共有しやすく読みやすい、より短く分かりやすく覚えやすいイベントURLに使用します。",
     "cbType": "種類",
     "lblState": "状態",
     "inputDescription": "イベント説明",

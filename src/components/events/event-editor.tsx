@@ -474,6 +474,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         placeholder="gffc2023"
         value={alias}
         maxInputLength={ALIAS_MAX_LENGTH}
+        labelTooltip={t('tooltipAlias')}
         onChange={e => {
           handleInputChangeAlias(e);
         }}

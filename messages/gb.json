@@ -880,6 +880,7 @@
     "sectionGeneral": "General",
     "inputName": "Event Name",
     "inputAlias": "Event Alias",
+    "tooltipAlias": "Used for shorter, cleaner, and more memorable event URLs for easier sharing and better readability.",
     "cbType": "Type",
     "lblState": "State",
     "inputDescription": "Event Description",

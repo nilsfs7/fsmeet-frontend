@@ -861,6 +861,7 @@
     "sectionGeneral": "Général",
     "inputName": "Nom de l'événement",
     "inputAlias": "Alias de l'événement",
+    "tooltipAlias": "Permet des URL d'événement plus courtes, claires et mémorables, pour un partage plus facile et une meilleure lisibilité.",
     "cbType": "Type",
     "lblState": "État",
     "inputDescription": "Description de l'événement",

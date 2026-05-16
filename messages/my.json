@@ -879,6 +879,7 @@
     "sectionGeneral": "Umum",
     "inputName": "Nama Acara",
     "inputAlias": "Alias Acara",
+    "tooltipAlias": "Untuk URL acara yang lebih pendek, ringkas dan mudah diingati — lebih mudah dikongsi dan dibaca.",
     "cbType": "Jenis",
     "lblState": "Status",
     "inputDescription": "Penerangan Acara",

@@ -879,6 +879,7 @@
     "sectionGeneral": "सामान्य",
     "inputName": "इवेंट नाम",
     "inputAlias": "इवेंट उपनाम",
+    "tooltipAlias": "छोटे, साफ और यादगार इवेंट URL के लिए — साझा करना आसान और पढ़ने में बेहतर।",
     "cbType": "प्रकार",
     "lblState": "स्थिति",
     "inputDescription": "इवेंट विवरण",

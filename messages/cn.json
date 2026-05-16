@@ -879,6 +879,7 @@
     "sectionGeneral": "基本信息",
     "inputName": "活动名称",
     "inputAlias": "活动别名",
+    "tooltipAlias": "用于更短、更简洁、更易记的活动链接，便于分享并提高可读性。",
     "cbType": "类型",
     "lblState": "状态",
     "inputDescription": "活动描述",

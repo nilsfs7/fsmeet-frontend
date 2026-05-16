@@ -861,6 +861,7 @@
     "sectionGeneral": "Allgemeines",
     "inputName": "Eventname",
     "inputAlias": "Eventalias",
+    "tooltipAlias": "Für kürzere, übersichtlichere und einprägsamere Event-URLs – einfacher zu teilen und besser lesbar.",
     "cbType": "Art",
     "lblState": "Status",
     "inputDescription": "Eventbeschreibung",
