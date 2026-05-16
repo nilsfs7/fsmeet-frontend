@@ -86,7 +86,7 @@ export function FeaturedEventCard({ event, badgeLabel, linkLabel }: FeaturedEven
             </Link>
           </h3>
           <p className="type-body-sm text-foreground/75">{dateLine}</p>
-          {event.description ? <p className="type-body-sm line-clamp-6 text-foreground/85">{event.description}</p> : null}
+          {event.description ? <p className="type-body-sm line-clamp-6 break-words whitespace-pre-line text-foreground/85">{event.description}</p> : null}
           {cta}
         </div>
       </div>
