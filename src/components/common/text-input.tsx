@@ -3,12 +3,12 @@
 import type { ChangeEvent, KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { FieldLabel } from '@/components/common/field-label';
 
 interface ITextInput {
   id: string;
   label: string;
-  /** Optional help shown on hover/focus when the label is the trigger. */
+  /** Optional help: hover on desktop, tap label to toggle on touch. */
   labelTooltip?: string;
   labelOnTop?: boolean;
   placeholder?: string;
@@ -19,48 +19,6 @@ interface ITextInput {
   readOnly?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
-}
-
-function Label({
-  id,
-  label,
-  labelTooltip,
-  className,
-}: {
-  id: string;
-  label: string;
-  labelTooltip?: string;
-  className: string;
-}) {
-  if (!labelTooltip) {
-    return (
-      <label htmlFor={id} className={className}>
-        {label}
-      </label>
-    );
-  }
-
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <label
-            htmlFor={id}
-            className={cn(
-              className,
-              'w-fit max-w-full self-start justify-self-start',
-              'cursor-help underline decoration-dotted decoration-muted-foreground underline-offset-2',
-            )}
-          >
-            {label}
-          </label>
-        </TooltipTrigger>
-        <TooltipContent side="top" align="start" sideOffset={6} className="max-w-xs text-left">
-          <p>{labelTooltip}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
 }
 
 const TextInput = ({
@@ -90,6 +48,7 @@ const TextInput = ({
       readOnly={readOnly}
       onChange={onChange}
       onKeyDown={onKeyDown}
+      aria-label={labelTooltip ? label : undefined}
     />
   );
 
@@ -101,10 +60,10 @@ const TextInput = ({
   if (!labelOnTop) {
     return (
       <div className="grid grid-cols-2 items-start gap-x-2 gap-y-1">
-        <Label
+        <FieldLabel
           id={id}
           label={label}
-          labelTooltip={labelTooltip}
+          tooltip={labelTooltip}
           className="pt-2 text-sm font-medium leading-none"
         />
         <div className="flex min-w-0 flex-col gap-1">
@@ -117,7 +76,7 @@ const TextInput = ({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <Label id={id} label={label} labelTooltip={labelTooltip} className="text-sm font-medium leading-none" />
+      <FieldLabel id={id} label={label} tooltip={labelTooltip} className="text-sm font-medium leading-none" />
       {input}
       {lengthHint}
     </div>
