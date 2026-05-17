@@ -10,4 +10,5 @@ export type VisaInvitationRequest = {
   approvalState: VisaInvitationRequestApprovalState;
   approver: string;
   documentUrl: string;
+  requestDate: string;
 };
