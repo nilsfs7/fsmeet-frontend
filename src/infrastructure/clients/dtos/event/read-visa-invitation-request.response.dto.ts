@@ -10,6 +10,7 @@ export class ReadVisaInvitationRequestResponseDto {
   approvalState: VisaInvitationRequestApprovalState;
   approver: string;
   documentUrl: string;
+  requestDate: string;
 
   constructor(
     id: string,
@@ -20,7 +21,8 @@ export class ReadVisaInvitationRequestResponseDto {
     passportNumber: string,
     approvalState: VisaInvitationRequestApprovalState,
     approver: string,
-    documentUrl: string
+    documentUrl: string,
+    requestDate: string,
   ) {
     this.id = id;
     this.username = username;
@@ -31,5 +33,6 @@ export class ReadVisaInvitationRequestResponseDto {
     this.approvalState = approvalState;
     this.approver = approver;
     this.documentUrl = documentUrl;
+    this.requestDate = requestDate;
   }
 }

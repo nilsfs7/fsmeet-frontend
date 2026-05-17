@@ -16,6 +16,8 @@ import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { imgVerifiedCheckmark } from '../../../../domain/constants/images';
 import { cn } from '@/lib/utils';
+import moment from 'moment';
+import { getShortDateString } from '@/functions/time';
 
 /** Same layout for Pending / Approved / Denied so columns line up vertically. */
 const VISA_TABLE_CLASS = 'table-fixed w-full min-w-[48rem] border-separate border-spacing-x-3 border-spacing-y-0';
@@ -31,13 +33,21 @@ const visaCol = {
   country: 'w-[9ch] min-w-[9ch] max-w-[9ch] text-center',
   /** Max 12 characters (passport no.) */
   passport: 'w-[12ch] min-w-[12ch] max-w-[12ch]',
-  approver: 'w-[22%] min-w-[7rem]',
+  /** DD.MM.YY */
+  requestDate: 'w-[11ch] min-w-[11ch] max-w-[11ch] whitespace-nowrap',
+  approver: 'w-[20%] min-w-[7rem]',
   actions: 'w-[18%] min-w-[8.5rem]',
 } as const;
 
 function formatDisplayName(firstName: string, lastName: string): string {
   const name = [firstName, lastName].filter(Boolean).join(' ').trim();
   return name || '—';
+}
+
+function formatRequestDate(requestDate: string): string {
+  if (!requestDate) return '—';
+  const m = moment(requestDate);
+  return m.isValid() ? getShortDateString(m) : '—';
 }
 
 function ApplicantCell({ item, verificationByUsername }: { item: VisaInvitationRequest; verificationByUsername: Record<string, UserVerificationState | undefined> }) {
@@ -186,6 +196,9 @@ function PendingTable({
               <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title="Passport number">
                 Passport
               </TableHead>
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title="Request date">
+                Requested
+              </TableHead>
               <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}></TableHead>
               <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>Actions</TableHead>
             </TableRow>
@@ -197,6 +210,9 @@ function PendingTable({
                 <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.country)}>{item.countryCode || '—'}</TableCell>
                 <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.passport)} title={item.passportNumber || undefined}>
                   {item.passportNumber}
+                </TableCell>
+                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.requestDate)} title={item.requestDate || undefined}>
+                  {formatRequestDate(item.requestDate)}
                 </TableCell>
                 <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.approver)}></TableCell>
                 <TableCell className={cn(VISA_CELL_PAD, 'text-right align-top', visaCol.actions)}>
@@ -238,6 +254,9 @@ function ApprovedTable({ items, verificationByUsername }: { items: VisaInvitatio
               <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title="Passport number">
                 Passport
               </TableHead>
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title="Request date">
+                Requested
+              </TableHead>
               <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}>Approver</TableHead>
               <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>Document</TableHead>
             </TableRow>
@@ -249,6 +268,9 @@ function ApprovedTable({ items, verificationByUsername }: { items: VisaInvitatio
                 <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.country)}>{item.countryCode || '—'}</TableCell>
                 <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.passport)} title={item.passportNumber || undefined}>
                   {item.passportNumber}
+                </TableCell>
+                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.requestDate)} title={item.requestDate || undefined}>
+                  {formatRequestDate(item.requestDate)}
                 </TableCell>
                 <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.approver)}>
                   {item.approver ? (
@@ -309,6 +331,9 @@ function DeniedTable({
               <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title="Passport number">
                 Passport
               </TableHead>
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title="Request date">
+                Requested
+              </TableHead>
               <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}>Approver</TableHead>
               <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>Actions</TableHead>
             </TableRow>
@@ -320,6 +345,9 @@ function DeniedTable({
                 <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.country)}>{item.countryCode || '—'}</TableCell>
                 <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.passport)} title={item.passportNumber || undefined}>
                   {item.passportNumber}
+                </TableCell>
+                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.requestDate)} title={item.requestDate || undefined}>
+                  {formatRequestDate(item.requestDate)}
                 </TableCell>
                 <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.approver)}>
                   {item.approver ? (
