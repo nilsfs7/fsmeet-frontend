@@ -1,7 +1,21 @@
 'use client';
 
 import { useState, useEffect, type ReactNode } from 'react';
-import { imgAccommodation, imgCalender, imgCompetition, imgHourglassEnd, imgHourglassStart, imgLocation, imgMeeting, imgPriceMoney, imgRanked, imgUserDefaultImg } from '@/domain/constants/images';
+import {
+  imgAccommodation,
+  imgCalender,
+  imgCompetition,
+  imgHourglassEnd,
+  imgHourglassStart,
+  imgLocation,
+  imgMeeting,
+  imgParticipantDrinks,
+  imgParticipantDrinksAndSnacks,
+  imgParticipantSnacks,
+  imgPriceMoney,
+  imgRanked,
+  imgUserDefaultImg,
+} from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getShortDateString } from '@/functions/time';
 import { Button } from '@/components/ui/button';
@@ -179,7 +193,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
           </div>
         </div>
 
-        {(event.isWffaRanked || event.priceMoney > 0 || event.accommodations.length > 0) && (
+        {(event.isWffaRanked || event.priceMoney > 0 || event.accommodations.length > 0 || event.participantDrinks || event.participantSnacks) && (
           <div className="border-t border-border/50 px-2.5 py-2.5 sm:px-3 sm:py-3 md:px-4">
             <div className="flex min-w-0 flex-wrap items-start gap-3">
               {event.isWffaRanked && (
@@ -198,6 +212,24 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                 <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
                   <img src={imgAccommodation} alt="" className="h-7 w-7 object-contain" />
                   <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkAccommodation')}</div>
+                </div>
+              )}
+              {event.participantDrinks && !event.participantSnacks && (
+                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
+                  <img src={imgParticipantDrinks} alt="" className="h-7 w-7 object-contain" />
+                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkParticipantDrinks')}</div>
+                </div>
+              )}
+              {event.participantSnacks && !event.participantDrinks && (
+                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
+                  <img src={imgParticipantSnacks} alt="" className="h-7 w-7 object-contain" />
+                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkParticipantSnacks')}</div>
+                </div>
+              )}
+              {event.participantDrinks && event.participantSnacks && (
+                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
+                  <img src={imgParticipantDrinksAndSnacks} alt="" className="h-7 w-7 object-contain" />
+                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkParticipantDrinksAndSnacks')}</div>
                 </div>
               )}
             </div>
@@ -285,7 +317,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                   type="button"
                   variant="ghost"
                   size="sm"
-                    className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-sm supports-[backdrop-filter]:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40"
+                  className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-sm supports-[backdrop-filter]:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40"
                   onClick={() => {
                     setShowMap(prev => !prev);
                   }}

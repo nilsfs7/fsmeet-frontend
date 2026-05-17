@@ -30,6 +30,8 @@ export class CreateEventBodyDto {
   category: EventCategory;
   isWffaRanked: boolean;
   priceMoney: number;
+  participantDrinks: boolean;
+  participantSnacks: boolean;
   trailerUrl: string | null;
   livestreamUrl: string | null;
   messengerInvitationUrl: string | null;
@@ -68,6 +70,8 @@ export class CreateEventBodyDto {
     category: EventCategory,
     isWffaRanked: boolean,
     priceMoney: number,
+    participantDrinks: boolean,
+    participantSnacks: boolean,
     trailerUrl: string | null,
     livestreamUrl: string | null,
     messengerInvitationUrl: string | null,
@@ -105,6 +109,8 @@ export class CreateEventBodyDto {
     this.category = category;
     this.isWffaRanked = isWffaRanked;
     this.priceMoney = priceMoney;
+    this.participantDrinks = participantDrinks;
+    this.participantSnacks = participantSnacks;
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;
     this.messengerInvitationUrl = messengerInvitationUrl;
