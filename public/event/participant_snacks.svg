@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+  <!-- Cookie -->
+  <circle cx="12" cy="12.5" r="8.2" fill="#000000" />
+  <!-- Chips -->
+  <circle cx="9.2" cy="10.2" r="1.15" fill="#ffffff" />
+  <circle cx="14.8" cy="9.8" r="1" fill="#ffffff" />
+  <circle cx="12.2" cy="14.8" r="1.1" fill="#ffffff" />
+  <circle cx="16.2" cy="13.6" r="0.9" fill="#ffffff" />
+  <circle cx="7.8" cy="14.2" r="0.85" fill="#ffffff" />
+  <circle cx="10.5" cy="16.5" r="0.75" fill="#ffffff" />
+</svg>

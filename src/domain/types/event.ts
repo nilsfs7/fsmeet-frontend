@@ -38,6 +38,8 @@ export type Event = {
   category: EventCategory;
   isWffaRanked: boolean;
   priceMoney: number;
+  participantDrinks: boolean;
+  participantSnacks: boolean;
   trailerUrl: string | null;
   livestreamUrl: string | null;
   messangerInvitationUrl: string | null;

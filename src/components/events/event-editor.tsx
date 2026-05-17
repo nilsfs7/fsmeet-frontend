@@ -112,6 +112,8 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [category, setEventCategory] = useState<EventCategory>(event?.category || EventCategory.NATIONAL);
   const [isWffaRanked, setIsWffaRanked] = useState(event?.isWffaRanked || false);
   const [priceMoney, setPriceMoney] = useState(event?.priceMoney || 0);
+  const [participantDrinks, setParticipantDrinks] = useState<boolean>(event?.participantDrinks || false);
+  const [participantSnacks, setParticipantSnacks] = useState<boolean>(event?.participantSnacks || false);
   const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || null);
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || null);
   const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || null);
@@ -311,6 +313,8 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       category,
       isWffaRanked,
       priceMoney,
+      participantDrinks,
+      participantSnacks,
       trailerUrl,
       livestreamUrl,
       messangerInvitationUrl,
@@ -371,6 +375,8 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         setEventCategory(event.category);
         setIsWffaRanked(event.isWffaRanked);
         setPriceMoney(event.priceMoney);
+        setParticipantDrinks(event.participantDrinks);
+        setParticipantSnacks(event.participantSnacks);
         setTrailerUrl(event.trailerUrl);
         setLivestreamUrl(event.livestreamUrl);
         setMessangerInvitationUrl(event.messangerInvitationUrl);
@@ -431,6 +437,8 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     category,
     isWffaRanked,
     priceMoney,
+    participantDrinks,
+    participantSnacks,
     trailerUrl,
     livestreamUrl,
     messangerInvitationUrl,
@@ -466,7 +474,14 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     <div className={EDITOR_CARD_CLASS}>
       <h2 className={cn(SECTION_H2, 'pt-0.5')}>{t('sectionGeneral')}</h2>
 
-      <TextInput id={'name'} label={t('inputName')} placeholder="German Freestyle Football Championship 2023" value={name} maxInputLength={EVENT_NAME_MAX_LENGTH} onChange={e => setEventName(e.currentTarget.value)} />
+      <TextInput
+        id={'name'}
+        label={t('inputName')}
+        placeholder="German Freestyle Football Championship 2023"
+        value={name}
+        maxInputLength={EVENT_NAME_MAX_LENGTH}
+        onChange={e => setEventName(e.currentTarget.value)}
+      />
 
       <TextInput
         id={'alias'}
@@ -630,6 +645,24 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           if (values?.float || values?.float === 0) {
             handlePriceMoneyChanged(values.float);
           }
+        }}
+      />
+
+      <CheckBox
+        id={'participantDrinks'}
+        label={t('inputParticipantDrinks')}
+        value={participantDrinks}
+        onChange={() => {
+          setParticipantDrinks(!participantDrinks);
+        }}
+      />
+
+      <CheckBox
+        id={'participantSnacks'}
+        label={t('inputParticipantSnacks')}
+        value={participantSnacks}
+        onChange={() => {
+          setParticipantSnacks(!participantSnacks);
         }}
       />
 

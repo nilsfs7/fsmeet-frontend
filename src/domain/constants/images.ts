@@ -12,6 +12,9 @@ export const imgCalender = '/event/calendar.svg';
 export const imgLocation = '/event/location.svg';
 export const imgRanked = '/event/ranked.svg';
 export const imgPriceMoney = '/event/price_money.svg';
+export const imgParticipantDrinks = '/event/participant_drinks.svg';
+export const imgParticipantSnacks = '/event/participant_snacks.svg';
+export const imgParticipantDrinksAndSnacks = '/event/participant_drinks_and_snacks.svg';
 export const imgAccommodation = '/event/accommodation.svg';
 
 export const imgClock = '/editor/clock.svg';

@@ -223,6 +223,8 @@ export async function createEvent(event: Event, session: Session | null): Promis
     event?.category,
     event?.isWffaRanked,
     event?.priceMoney,
+    event?.participantDrinks,
+    event?.participantSnacks,
     event?.trailerUrl,
     event?.livestreamUrl,
     event?.messangerInvitationUrl,
@@ -397,11 +399,7 @@ export async function getEventLicenseInfo(eventId: string, session: Session | nu
   throw Error(error.message);
 }
 
-export async function createEventLicenseCheckout(
-  eventId: string,
-  successUrl: string,
-  session: Session | null,
-): Promise<ReadStripeCheckoutResponseDto> {
+export async function createEventLicenseCheckout(eventId: string, successUrl: string, session: Session | null): Promise<ReadStripeCheckoutResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/license/checkout`;
   const body = new CreateStripeCheckoutBodyDto(successUrl);
 
@@ -595,6 +593,8 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     event?.category,
     event?.isWffaRanked,
     event?.priceMoney,
+    event?.participantDrinks,
+    event?.participantSnacks,
     event?.trailerUrl,
     event?.livestreamUrl,
     event?.messangerInvitationUrl,

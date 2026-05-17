@@ -125,6 +125,8 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       category: eventCategory,
       isWffaRanked: false,
       priceMoney: 0,
+      participantDrinks: false,
+      participantSnacks: false,
       trailerUrl: null,
       livestreamUrl: null,
       messangerInvitationUrl: null,
@@ -563,7 +565,6 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
               </div>
             </div>
           )}
-
         </div>
       </div>
 
