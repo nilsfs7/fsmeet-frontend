@@ -3,6 +3,7 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { getArenaScreen, updateArenaScreenBackgroundImage, upsertArenaScreen } from '@/infrastructure/clients/event.client';
+import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -161,14 +162,29 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
 
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
-              <Checkbox id="arena-show-pos" checked={showPositions} onCheckedChange={v => setShowPositions(v === true)} />
+              <Checkbox
+                id="arena-show-pos"
+                checked={showPositions}
+                onCheckedChange={v => {
+                  const on = v === true;
+                  setShowPositions(on);
+                }}
+              />
               <label htmlFor="arena-show-pos" className="text-sm text-primary">
                 Show position labels
               </label>
             </div>
             <div className="flex items-center gap-2">
-              <Checkbox id="arena-rev-pos" checked={reversePositionLabels} onCheckedChange={v => setReversePositionLabels(v === true)} />
-              <label htmlFor="arena-rev-pos" className="text-sm text-primary">
+              <Checkbox
+                id="arena-rev-pos"
+                checked={reversePositionLabels}
+                disabled={!showPositions}
+                onCheckedChange={v => setReversePositionLabels(v === true)}
+              />
+              <label
+                htmlFor="arena-rev-pos"
+                className={cn('text-sm text-primary', !showPositions && 'cursor-not-allowed opacity-50')}
+              >
                 Reverse position numbering
               </label>
             </div>

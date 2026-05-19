@@ -183,6 +183,8 @@ export function ArenaMatchScreen({
         {/* Arena floor: participants in corners */}
         <div className="relative min-h-[min(72vh,720px)] w-full flex-1 ">
           {slotRows.map((slot, index) => {
+            /** Slot 0 → last corner (BL / right in duel); slot N-1 → first corner (TL / left in duel). */
+            const positionIndex = slotCount - 1 - index;
             const user = slot.name ? userByUsername.get(slot.name) : undefined;
             const imageSrc = user?.imageUrl || imgUserDefaultImg;
             const name = slot.name ? displayNameForUser(user, showLastName) : 'Open slot';
@@ -196,14 +198,14 @@ export function ArenaMatchScreen({
                 key={`${slot.slotIndex}-${index}`}
                 className={cn(
                   'absolute flex max-w-[min(46vw,min(42vh,22rem))] flex-col gap-3 sm:gap-4 md:max-w-[min(40vw,24rem)] md:gap-5',
-                  isDuel ? DUEL_POSITIONS[index] : multiLayout!.positions[index],
+                  isDuel ? DUEL_POSITIONS[positionIndex] : multiLayout!.positions[positionIndex],
                 )}
               >
                 <div
                   className={cn(
                     'relative shrink-0',
                     /* mx-auto would center in the column and fight items-end on the right corners */
-                    isDuel ? (index % 2 === 0 ? 'self-start' : 'self-end') : multiLayout!.avatarSelf[index],
+                    isDuel ? (positionIndex % 2 === 0 ? 'self-start' : 'self-end') : multiLayout!.avatarSelf[positionIndex],
                   )}
                 >
                   {/* Profile: circle + ring border */}
@@ -220,7 +222,7 @@ export function ArenaMatchScreen({
                         className={cn(
                           'absolute flex items-center justify-center rounded-full border-[3px] border-slate-950 bg-zinc-800 p-[3px] shadow-lg ring-2 ring-white/25',
                           flagClass,
-                          isDuel ? FLAG_OVERLAP[index] : multiLayout!.flagOverlap[index],
+                          isDuel ? FLAG_OVERLAP[positionIndex] : multiLayout!.flagOverlap[positionIndex],
                         )}
                         title={countryCode}
                       >
@@ -233,7 +235,7 @@ export function ArenaMatchScreen({
                         className={cn(
                           'absolute flex items-center justify-center rounded-full border-[3px] border-slate-950 bg-zinc-700/90 p-[3px] text-[10px] font-bold uppercase text-zinc-400 ring-2 ring-white/15',
                           flagClass,
-                          isDuel ? FLAG_OVERLAP[index] : multiLayout!.flagOverlap[index],
+                          isDuel ? FLAG_OVERLAP[positionIndex] : multiLayout!.flagOverlap[positionIndex],
                         )}
                         title="No country"
                       >
@@ -242,9 +244,11 @@ export function ArenaMatchScreen({
                     ))}
                 </div>
 
-                <div className={cn('flex w-full flex-col gap-1', isDuel ? (index % 2 === 1 ? 'items-end text-right' : 'items-start text-left') : multiLayout!.nameAlign[index])}>
+                <div className={cn('flex w-full flex-col gap-1', isDuel ? (positionIndex % 2 === 1 ? 'items-end text-right' : 'items-start text-left') : multiLayout!.nameAlign[positionIndex])}>
                   {showPositions && slotCount > 2 && (
-                    <p className="text-xs font-semibold tracking-widest text-zinc-500 normal-case">Position {reversePositionLabels ? slotCount - slot.slotIndex : slot.slotIndex + 1}</p>
+                    <p className="text-xs font-semibold tracking-widest text-zinc-500 normal-case">
+                      Position {reversePositionLabels ? slotCount - positionIndex : positionIndex + 1}
+                    </p>
                   )}
                   <h2 className="text-xl font-bold leading-tight text-white drop-shadow-md sm:text-2xl md:text-3xl">{name}</h2>
                 </div>
