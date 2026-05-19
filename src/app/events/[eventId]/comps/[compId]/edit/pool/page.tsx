@@ -30,7 +30,7 @@ export default async function CompetitionPool(props: { params: Promise<{ eventId
         <PageTitle title={t('pageTitle')} />
       </div>
 
-      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto scrollbar-none', constrainedContentClass)}>
         <Participants event={event} competition={competition} />
       </div>
 
