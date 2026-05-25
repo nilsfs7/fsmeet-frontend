@@ -17,7 +17,7 @@ export default async function EventRegistration(props: { params: Promise<{ event
     redirect(loginRouteWithCallbackUrl);
   }
 
-  const [event, competitions, user] = await Promise.all([getEvent(params.eventId, session), getCompetitions(params.eventId), getUser(session?.user.username ? session.user.username : '', session)]);
+  const [event, competitions, user] = await Promise.all([getEvent(params.eventId, session), getCompetitions(params.eventId, null), getUser(session?.user.username ? session.user.username : '', session)]);
 
   return <EventRegistrationProcess event={event} competitions={competitions} attendee={user} />;
 }

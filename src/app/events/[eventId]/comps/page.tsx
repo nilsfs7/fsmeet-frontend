@@ -14,7 +14,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
   const params = await props.params;
   const [t, competitions] = await Promise.all([
     getTranslations('/events/eventid/comps'),
-    getCompetitions(params.eventId),
+    getCompetitions(params.eventId, null),
   ]);
 
   return (

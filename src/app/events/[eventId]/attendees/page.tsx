@@ -19,7 +19,7 @@ export default async function EventAttendees(props: { params: Promise<{ eventId:
 
   const [event, competitions, registrations, accommodations, offerings] = await Promise.all([
     getEvent(params.eventId, session),
-    getCompetitions(params.eventId),
+    getCompetitions(params.eventId, null),
     getEventRegistrations(params.eventId, null, session),
     getAccommodations(params.eventId),
     getOfferings(params.eventId),
