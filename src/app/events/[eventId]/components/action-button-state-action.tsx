@@ -18,21 +18,25 @@ import Label from '@/components/label';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { toast } from 'sonner';
+import { Competition } from '@/domain/types/competition';
+import { isCompetition } from '@/functions/is-competition';
 
 interface IActionButtonStateAction {
   event: Event;
+  competitions: Competition[];
 }
 
-const eventStateDialogCtaRowClassName =
-  'mt-2 flex flex-wrap items-center justify-between gap-3 p-1.5 sm:gap-4';
+const eventStateDialogCtaRowClassName = 'mt-2 flex flex-wrap items-center justify-between gap-3 p-1.5 sm:gap-4';
 
-export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => {
+export const ActionButtonStateAction = ({ event, competitions }: IActionButtonStateAction) => {
   const t = useTranslations('/events/eventid');
 
   const { data: session } = useSession();
   const router = useRouter();
 
   const [loginRouteWithCallbackUrl, setLoginRouteWithCallbackUrl] = useState<string>('');
+
+  const missingCompetition = isCompetition(event.type) && competitions.length === 0;
 
   const handleCancelDialogClicked = async () => {
     let url = `${routeEvents}/${event.id}`;
@@ -86,15 +90,25 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
                 <>
                   <p className="mt-2">{t('dlgEventStateText2')}</p>
                   <p>{t('dlgEventStateText3')}</p>
+
+                  {missingCompetition && <p className="mt-2 rounded-md border border-warning/30 bg-warning/10 p-2 text-sm text-warning-foreground">{t('dlgEventStateNoCompetitionsHint')}</p>}
+
                   <div className={eventStateDialogCtaRowClassName}>
                     <Button asChild variant="action" className={ctaActionButtonClassName}>
                       <Link href={`${routeEvents}/${event.id}/edit`}>{t('dlgEventStateBtnEditEvent')}</Link>
                     </Button>
 
+                    {missingCompetition && (
+                      <Button asChild variant="action" className={ctaActionButtonClassName}>
+                        <Link href={`${routeEvents}/${event.id}/comps`}>{t('dlgEventStateBtnManageCompetitions')}</Link>
+                      </Button>
+                    )}
+
                     <Button
                       type="button"
                       variant="action"
                       className={ctaActionButtonClassName}
+                      disabled={missingCompetition}
                       onClick={() => {
                         handleUpdateStateClicked(EventState.WAITING_FOR_APPROVAL);
                       }}
@@ -102,8 +116,6 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
                       {t('dlgEventStateBtnSendToReview')}
                     </Button>
                   </div>
-
-                  {/* <p>why is a review necessary? todo</p> */}
                 </>
               )}
 
@@ -117,8 +129,6 @@ export const ActionButtonStateAction = ({ event }: IActionButtonStateAction) => 
                       <Link href={`${routeEvents}/${event.id}/edit`}>{t('dlgEventStateBtnEditEvent')}</Link>
                     </Button>
                   </div>
-
-                  {/* <p>why is a review necessary? todo</p> */}
                 </>
               )}
             </>

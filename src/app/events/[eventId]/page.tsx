@@ -36,7 +36,7 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {isEventAdminOrMaintainer(event, session) && (
         <div className={cn('mt-2', constrainedContentClass)}>
-          <AdminPanel event={event} />
+          <AdminPanel event={event} competitions={competitions} />
         </div>
       )}
 
