@@ -7,9 +7,18 @@ import moment from 'moment';
 import { ReadPartialUser1ResponseDto } from './dtos/user/read-partial-user-1.response.dto';
 import { defaultHeaders } from './default-headers';
 import { createMatch } from '@/domain/types/match';
+import { CompetitionType } from '@/domain/enums/competition-type';
 
-export async function getCompetitions(eventId: string | null): Promise<Competition[]> {
-  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions?eventId=${eventId}`;
+export async function getCompetitions(eventId: string | null, compType: CompetitionType | null): Promise<Competition[]> {
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions?`;
+
+  if (eventId) {
+    url += `&eventId=${eventId}`;
+  }
+
+  if (compType) {
+    url += `&type=${compType}`;
+  }
 
   const response = await fetch(url, {
     method: 'GET',

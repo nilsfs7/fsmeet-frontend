@@ -26,7 +26,7 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
 
   const [event, competitions, sponsors, attachments, comments] = await Promise.all([
     getEvent(params.eventId, session),
-    getCompetitions(params.eventId),
+    getCompetitions(params.eventId, null),
     getSponsors(params.eventId),
     getAttachments(params.eventId),
     getComments(params.eventId),
