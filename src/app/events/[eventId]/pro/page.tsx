@@ -14,7 +14,7 @@ import Link from 'next/link';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { IconCheck, IconInfinity, IconX } from '@tabler/icons-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { EventType } from '@/domain/enums/event-type';
+import { isCompetition } from '@/functions/is-competition';
 
 const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
@@ -93,7 +93,7 @@ export default async function EventProLicense(props: { params: Promise<{ eventId
                   </td>
                 </tr>
 
-                {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
+                {(isCompetition(event.type)) && (
                   <>
                     <tr className="border-b border-border">
                       <td className="p-3 text-foreground">{t('rowCompetitionCoreLabel')}</td>

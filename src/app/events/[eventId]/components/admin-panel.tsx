@@ -5,18 +5,21 @@ import { routeEvents } from '../../../../domain/constants/routes';
 import { EventType } from '../../../../domain/enums/event-type';
 import { ActionButtonStateAction } from './action-button-state-action';
 import { Event } from '@/domain/types/event';
+import { Competition } from '@/domain/types/competition';
 import { getTranslations } from 'next-intl/server';
 import { LicenseType } from '@/domain/enums/license-type';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Label from '@/components/label';
+import { isCompetition } from '@/functions/is-competition';
 
 interface IAttachmentCardProps {
   event: Event;
+  competitions: Competition[];
 }
 
-const AdminPanel = async ({ event }: IAttachmentCardProps) => {
+const AdminPanel = async ({ event, competitions }: IAttachmentCardProps) => {
   const t = await getTranslations('/events/eventid');
 
   return (
@@ -48,13 +51,13 @@ const AdminPanel = async ({ event }: IAttachmentCardProps) => {
 
               <ActionButton href={`${routeEvents}/${event.id}/attendees`} action={Action.MANAGE_USERS} tooltip={t('adminPanelBtnManageAttendeesToolTip')} />
 
-              {(event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE) && (
+              {(isCompetition(event.type)) && (
                 <ActionButton href={`${routeEvents}/${event.id}/comps`} action={Action.MANAGE_COMPETITIONS} tooltip={t('adminPanelBtnManageCompetitionsToolTip')} />
               )}
             </>
           )}
 
-          <ActionButtonStateAction event={event} />
+          <ActionButtonStateAction event={event} competitions={competitions} />
         </div>
 
         {/* row 2 */}
