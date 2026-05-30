@@ -911,6 +911,7 @@
     "sectionPayment": "Payment",
     "cbPaymentCurrency": "Currency",
     "inputPaticipantFee": "Participation Fee",
+    "chbEnableVisitorRegistration": "Allow visitor registration",
     "inputVisitorFee": "Visitor Fee",
     "lblFreeMethods": "Free payment methods",
     "chbCashAccept": "Accept Cash",

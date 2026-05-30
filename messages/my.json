@@ -910,6 +910,7 @@
     "sectionPayment": "Pembayaran",
     "cbPaymentCurrency": "Mata wang",
     "inputPaticipantFee": "Yuran Penyertaan",
+    "chbEnableVisitorRegistration": "Benarkan pendaftaran pelawat",
     "inputVisitorFee": "Yuran Pelawat",
     "lblFreeMethods": "Kaedah pembayaran percuma",
     "chbCashAccept": "Terima Tunai",

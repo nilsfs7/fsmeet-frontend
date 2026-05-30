@@ -14,6 +14,7 @@ export class UpdateEventBodyDto {
   dateFrom: Moment;
   dateTo: Moment;
   participationFee: number;
+  enableVisitorRegistration: boolean;
   visitorFee: number;
   currency: CurrencyCode;
   registrationOpen: Moment;
@@ -53,6 +54,7 @@ export class UpdateEventBodyDto {
     dateFrom: Moment,
     dateTo: Moment,
     participationFee: number,
+    enableVisitorRegistration: boolean,
     visitorFee: number,
     currency: CurrencyCode,
     registrationOpen: Moment,
@@ -91,6 +93,7 @@ export class UpdateEventBodyDto {
     this.dateFrom = dateFrom;
     this.dateTo = dateTo;
     this.participationFee = participationFee;
+    this.enableVisitorRegistration = enableVisitorRegistration;
     this.visitorFee = visitorFee;
     this.currency = currency;
     this.registrationOpen = registrationOpen;

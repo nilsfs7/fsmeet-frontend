@@ -910,6 +910,7 @@
     "sectionPayment": "भुगतान",
     "cbPaymentCurrency": "मुद्रा",
     "inputPaticipantFee": "भागीदारी शुल्क",
+    "chbEnableVisitorRegistration": "दर्शक पंजीकरण की अनुमति दें",
     "inputVisitorFee": "दर्शक शुल्क",
     "lblFreeMethods": "मुफ़्त भुगतान विधियां",
     "chbCashAccept": "नकद स्वीकार करें",

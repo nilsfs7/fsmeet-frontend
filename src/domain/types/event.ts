@@ -24,6 +24,7 @@ export type Event = {
   registrationDeadline: string;
   participationFee: number;
   participationFeeIncPaymentCosts: number;
+  enableVisitorRegistration: boolean;
   visitorFee: number;
   visitorFeeIncPaymentCosts: number;
   currency: CurrencyCode;

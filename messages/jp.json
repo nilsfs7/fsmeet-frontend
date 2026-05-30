@@ -910,6 +910,7 @@
     "sectionPayment": "支払い",
     "cbPaymentCurrency": "通貨",
     "inputPaticipantFee": "参加費",
+    "chbEnableVisitorRegistration": "観客の登録を許可する",
     "inputVisitorFee": "観客費",
     "lblFreeMethods": "無料の支払い方法",
     "chbCashAccept": "現金対応",

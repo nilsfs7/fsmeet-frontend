@@ -892,6 +892,7 @@
     "sectionPayment": "Paiement",
     "cbPaymentCurrency": "Devise",
     "inputPaticipantFee": "Frais de participation",
+    "chbEnableVisitorRegistration": "Autoriser l'inscription des visiteurs",
     "inputVisitorFee": "Frais de visite",
     "lblFreeMethods": "Méthodes de paiement gratuites",
     "chbCashAccept": "Accepter l'argent liquide",

@@ -799,7 +799,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   currency={event.currency}
                   checked={registrationType}
                   selectable={true}
-                  hideVisitorOption={event.paymentMethodStripe.enabled === false}
+                  hideVisitorOption={!event.enableVisitorRegistration || event.paymentMethodStripe.enabled === false}
                   onCheckedChange={registrationType => {
                     handleRadioItemRegistrationTypeClicked(registrationType);
                   }}

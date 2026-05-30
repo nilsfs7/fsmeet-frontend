@@ -910,6 +910,7 @@
     "sectionPayment": "الدفع",
     "cbPaymentCurrency": "العملة",
     "inputPaticipantFee": "رسوم المشاركة",
+    "chbEnableVisitorRegistration": "السماح بتسجيل الزوار",
     "inputVisitorFee": "رسوم الزائر",
     "lblFreeMethods": "طرق دفع مجانية",
     "chbCashAccept": "قبول الدفع نقداً",

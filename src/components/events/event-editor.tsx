@@ -118,6 +118,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || null);
   const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || null);
   const [participationFee, setParticipationFee] = useState(event?.participationFee || 0);
+  const [enableVisitorRegistration, setEnableVisitorRegistration] = useState<boolean>(event?.enableVisitorRegistration || eventType !== EventType.COMPETITION_ONLINE);
   const [visitorFee, setVisitorFee] = useState(event?.visitorFee || 0);
   const [currency, setCurrency] = useState(event?.currency || CurrencyCode.EUR);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
@@ -320,6 +321,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       messangerInvitationUrl,
       participationFee,
       participationFeeIncPaymentCosts: -1,
+      enableVisitorRegistration,
       visitorFee,
       visitorFeeIncPaymentCosts: -1,
       currency,
@@ -361,6 +363,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         setDateFrom(event.dateFrom);
         setDateTo(event.dateTo);
         setParticipationFee(event.participationFee);
+        setEnableVisitorRegistration(event.enableVisitorRegistration);
         setVisitorFee(event.visitorFee);
         setRegistrationOpen(event.registrationOpen);
         setRegistrationDeadline(event.registrationDeadline);
@@ -443,6 +446,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     livestreamUrl,
     messangerInvitationUrl,
     participationFee,
+    enableVisitorRegistration,
     visitorFee,
     currency,
     paymentMethodCashEnabled,
@@ -795,7 +799,22 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
       {participationFee > 0 && (
         <>
-          {paymentMethodStripeEnabled && (
+          {event?.type !== EventType.COMPETITION_ONLINE && paymentMethodStripeEnabled && (
+            <CheckBox
+              id={'enableVisitorRegistration'}
+              label={t('chbEnableVisitorRegistration')}
+              value={enableVisitorRegistration}
+              onChange={() => {
+                const next = !enableVisitorRegistration;
+                setEnableVisitorRegistration(next);
+                if (!next) {
+                  setVisitorFee(0);
+                }
+              }}
+            />
+          )}
+
+          {enableVisitorRegistration && paymentMethodStripeEnabled && (
             <CurInput
               id={'visitorFee'}
               label={t('inputVisitorFee')}
