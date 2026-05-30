@@ -118,7 +118,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || null);
   const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || null);
   const [participationFee, setParticipationFee] = useState(event?.participationFee || 0);
-  const [enableVisitorRegistration, setEnableVisitorRegistration] = useState<boolean>(event?.enableVisitorRegistration || true);
+  const [enableVisitorRegistration, setEnableVisitorRegistration] = useState<boolean>(event?.enableVisitorRegistration || eventType !== EventType.COMPETITION_ONLINE);
   const [visitorFee, setVisitorFee] = useState(event?.visitorFee || 0);
   const [currency, setCurrency] = useState(event?.currency || CurrencyCode.EUR);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
@@ -799,7 +799,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
       {participationFee > 0 && (
         <>
-          {paymentMethodStripeEnabled && (
+          {event?.type !== EventType.COMPETITION_ONLINE && paymentMethodStripeEnabled && (
             <CheckBox
               id={'enableVisitorRegistration'}
               label={t('chbEnableVisitorRegistration')}
