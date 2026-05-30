@@ -892,6 +892,7 @@
     "sectionPayment": "Pago",
     "cbPaymentCurrency": "Divisa",
     "inputPaticipantFee": "Cuota de participación",
+    "chbEnableVisitorRegistration": "Permitir el registro de visitantes",
     "inputVisitorFee": "Cuota de visitante",
     "lblFreeMethods": "Métodos de pago gratuitos",
     "chbCashAccept": "Aceptar efectivo",

@@ -910,6 +910,7 @@
     "sectionPayment": "支付",
     "cbPaymentCurrency": "币种",
     "inputPaticipantFee": "参赛费用",
+    "chbEnableVisitorRegistration": "允许观众报名",
     "inputVisitorFee": "观众费用",
     "lblFreeMethods": "免费支付方式",
     "chbCashAccept": "接受现金",

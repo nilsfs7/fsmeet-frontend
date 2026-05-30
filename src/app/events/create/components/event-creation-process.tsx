@@ -112,6 +112,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       registrationDeadline: registrationDateTo || '',
       participationFee: 0,
       participationFeeIncPaymentCosts: 0,
+      enableVisitorRegistration: true,
       visitorFee: 0,
       visitorFeeIncPaymentCosts: 0,
       currency: CurrencyCode.EUR,

@@ -892,6 +892,7 @@
     "sectionPayment": "Bezahlung",
     "cbPaymentCurrency": "Währung",
     "inputPaticipantFee": "Teilnahmegebühr",
+    "chbEnableVisitorRegistration": "Zuschaueranmeldung erlauben",
     "inputVisitorFee": "Zuschauergebühr",
     "lblFreeMethods": "Kostenlose Bezahlmethoden",
     "chbCashAccept": "Bargeld akzeptieren",
