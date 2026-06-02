@@ -30,7 +30,7 @@ export class CreateEventBodyDto {
   type: EventType;
   category: EventCategory;
   isWffaRanked: boolean;
-  priceMoney: number;
+  prizeMoney: number;
   participantDrinks: boolean;
   participantSnacks: boolean;
   trailerUrl: string | null;
@@ -71,7 +71,7 @@ export class CreateEventBodyDto {
     type: EventType,
     category: EventCategory,
     isWffaRanked: boolean,
-    priceMoney: number,
+    prizeMoney: number,
     participantDrinks: boolean,
     participantSnacks: boolean,
     trailerUrl: string | null,
@@ -111,7 +111,7 @@ export class CreateEventBodyDto {
     this.type = type;
     this.category = category;
     this.isWffaRanked = isWffaRanked;
-    this.priceMoney = priceMoney;
+    this.prizeMoney = prizeMoney;
     this.participantDrinks = participantDrinks;
     this.participantSnacks = participantSnacks;
     this.trailerUrl = trailerUrl;

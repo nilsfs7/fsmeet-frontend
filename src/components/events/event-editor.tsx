@@ -111,7 +111,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [eventType, setEventType] = useState<EventType>(event?.type || EventType.COMPETITION);
   const [category, setEventCategory] = useState<EventCategory>(event?.category || EventCategory.NATIONAL);
   const [isWffaRanked, setIsWffaRanked] = useState(event?.isWffaRanked || false);
-  const [priceMoney, setPriceMoney] = useState(event?.priceMoney || 0);
+  const [prizeMoney, setPrizeMoney] = useState(event?.prizeMoney || 0);
   const [participantDrinks, setParticipantDrinks] = useState<boolean>(event?.participantDrinks || false);
   const [participantSnacks, setParticipantSnacks] = useState<boolean>(event?.participantSnacks || false);
   const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || null);
@@ -163,7 +163,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
     if (type === EventType.MEETING) {
       setEventCategory(EventCategory.INTERNATIONAL);
-      setPriceMoney(0);
+      setPrizeMoney(0);
     }
 
     if (type !== EventType.COMPETITION) {
@@ -249,11 +249,11 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     }
   };
 
-  const handlePriceMoneyChanged = (float: number) => {
-    setPriceMoney(convertCurrencyDecimalToInteger(float, currency));
+  const handlePrizeMoneyChanged = (float: number) => {
+    setPrizeMoney(convertCurrencyDecimalToInteger(float, currency));
 
     if (float === 0) {
-      setPriceMoney(0);
+      setPrizeMoney(0);
     }
   };
 
@@ -313,7 +313,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       venueCountryCode,
       category,
       isWffaRanked,
-      priceMoney,
+      prizeMoney,
       participantDrinks,
       participantSnacks,
       trailerUrl,
@@ -377,7 +377,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         setEventType(event.type);
         setEventCategory(event.category);
         setIsWffaRanked(event.isWffaRanked);
-        setPriceMoney(event.priceMoney);
+        setPrizeMoney(event.prizeMoney);
         setParticipantDrinks(event.participantDrinks);
         setParticipantSnacks(event.participantSnacks);
         setTrailerUrl(event.trailerUrl);
@@ -439,7 +439,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     eventType,
     category,
     isWffaRanked,
-    priceMoney,
+    prizeMoney,
     participantDrinks,
     participantSnacks,
     trailerUrl,
@@ -641,13 +641,13 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       </FieldRow>
 
       <CurInput
-        id={'priceMoney'}
-        label={t('inputPriceMoney')}
+        id={'prizeMoney'}
+        label={t('inputPrizeMoney')}
         placeholder="2500"
-        value={convertCurrencyIntegerToDecimal(priceMoney, currency)}
+        value={convertCurrencyIntegerToDecimal(prizeMoney, currency)}
         onValueChange={(value, name, values) => {
           if (values?.float || values?.float === 0) {
-            handlePriceMoneyChanged(values.float);
+            handlePrizeMoneyChanged(values.float);
           }
         }}
       />

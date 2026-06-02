@@ -38,7 +38,7 @@ export type Event = {
   type: EventType;
   category: EventCategory;
   isWffaRanked: boolean;
-  priceMoney: number;
+  prizeMoney: number;
   participantDrinks: boolean;
   participantSnacks: boolean;
   trailerUrl: string | null;
