@@ -138,7 +138,7 @@ export const EventsList = () => {
       if (filterType === EventType.MEETING) return true;
       if (filterCategory && e.category !== (filterCategory as EventCategory)) return false;
       if (wffaRankedOnly && !e.isWffaRanked) return false;
-      if (prizeMoneyOnly && !(e.priceMoney > 0)) return false;
+      if (prizeMoneyOnly && !(e.prizeMoney > 0)) return false;
       return true;
     });
   }, [events, nameQuery, filterVenue, filterType, filterCategory, wffaRankedOnly, prizeMoneyOnly]);

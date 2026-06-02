@@ -12,7 +12,7 @@ import {
   imgParticipantDrinks,
   imgParticipantDrinksAndSnacks,
   imgParticipantSnacks,
-  imgPriceMoney,
+  imgPrizeMoney,
   imgRanked,
   imgUserDefaultImg,
 } from '@/domain/constants/images';
@@ -193,7 +193,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
           </div>
         </div>
 
-        {(event.isWffaRanked || event.priceMoney > 0 || event.accommodations.length > 0 || event.participantDrinks || event.participantSnacks) && (
+        {(event.isWffaRanked || event.prizeMoney > 0 || event.accommodations.length > 0 || event.participantDrinks || event.participantSnacks) && (
           <div className="border-t border-border/50 px-2.5 py-2.5 sm:px-3 sm:py-3 md:px-4">
             <div className="flex min-w-0 flex-wrap items-start gap-3">
               {event.isWffaRanked && (
@@ -202,10 +202,10 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                   <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkWffaRanked')}</div>
                 </div>
               )}
-              {event.priceMoney > 0 && (
+              {event.prizeMoney > 0 && (
                 <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
-                  <img src={imgPriceMoney} alt="" className="h-7 w-7 object-contain" />
-                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkPriceMoney')}</div>
+                  <img src={imgPrizeMoney} alt="" className="h-7 w-7 object-contain" />
+                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkPrizeMoney')}</div>
                 </div>
               )}
               {event.accommodations.length > 0 && (
