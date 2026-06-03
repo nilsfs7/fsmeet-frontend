@@ -8,6 +8,7 @@ export class ReadEventRegistrationResponseDto {
   user: ReadPartialUser3ResponseDto;
   type: EventRegistrationType;
   status: EventRegistrationStatus;
+  date: Moment;
   arrivalDate: Moment | null;
   departureDate: Moment | null;
   competitionSignUps: string[];
@@ -21,6 +22,7 @@ export class ReadEventRegistrationResponseDto {
     user: ReadPartialUser3ResponseDto,
     type: EventRegistrationType,
     status: EventRegistrationStatus,
+    date: Moment,
     arrivalDate: Moment | null,
     departureDate: Moment | null,
     competitionSignUps: string[],
@@ -33,6 +35,7 @@ export class ReadEventRegistrationResponseDto {
     this.user = user;
     this.type = type;
     this.status = status;
+    this.date = date;
     this.arrivalDate = arrivalDate;
     this.departureDate = departureDate;
     this.competitionSignUps = competitionSignUps;
