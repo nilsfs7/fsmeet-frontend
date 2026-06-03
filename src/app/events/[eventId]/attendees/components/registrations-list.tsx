@@ -27,6 +27,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { cn } from '@/lib/utils';
 import { AlertTriangle, ChevronsUpDown, ChevronUp, ChevronDown } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import moment from 'moment';
 
 type StatusFilter = 'all' | EventRegistrationStatus;
 
@@ -238,12 +239,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
     const label = statusLabel(s);
     const common = 'h-4 w-4 shrink-0';
     const wrap = (node: ReactNode) => (
-      <span
-        className="inline-flex h-7 w-7 items-center justify-center"
-        title={label}
-        aria-label={label}
-        role="img"
-      >
+      <span className="inline-flex h-7 w-7 items-center justify-center" title={label} aria-label={label} role="img">
         {node}
       </span>
     );
@@ -316,6 +312,10 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
         <div className="grid grid-cols-2 gap-1">
           <p>{`${t('dlgRegistrationInfoStatus')}:`}</p>
           <p>{`${registrationSelected?.status}`}</p>
+        </div>
+        <div className="grid grid-cols-2 gap-1">
+          <p>{`${t('dlgRegistrationInfoDate')}:`}</p>
+          <p>{`${moment(registrationSelected?.date).format('YYYY-MM-DD HH:mm')}`}</p>
         </div>
 
         {registrationSelected?.offeringOrders && registrationSelected?.offeringOrders.length > 0 && (
