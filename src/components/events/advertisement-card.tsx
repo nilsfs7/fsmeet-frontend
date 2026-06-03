@@ -1,6 +1,12 @@
+'use client';
+
+import { useRef } from 'react';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import { cn } from '@/lib/utils';
 import type { ReadAdvertisementResponseDto } from '@/infrastructure/clients/dtos/advertisement/read-advertisement-response-dto';
+import { createActivity } from '@/infrastructure/clients/advertisement.client';
+import { UserActivity } from '@/domain/enums/user-activity';
 
 export interface AdvertisementCardProps {
   advertisement: ReadAdvertisementResponseDto;
@@ -25,9 +31,38 @@ const shellClassName = cn(
 /** Sponsored tile styled like EventCard (border, radius); not a navigable event row. */
 const adLinkRel = 'noopener noreferrer sponsored';
 
+function buildAdvertisementTargetUrl(targetUrl: string, adId: string): string {
+  try {
+    const url = new URL(targetUrl);
+    url.searchParams.set('ad', adId);
+    return url.toString();
+  } catch {
+    const hashIndex = targetUrl.indexOf('#');
+    const base = hashIndex >= 0 ? targetUrl.slice(0, hashIndex) : targetUrl;
+    const hash = hashIndex >= 0 ? targetUrl.slice(hashIndex) : '';
+    const joiner = base.includes('?') ? '&' : '?';
+    return `${base}${joiner}ad=${encodeURIComponent(adId)}${hash}`;
+  }
+}
+
 export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, variant = 'inline' }: AdvertisementCardProps) {
   const slot = advertisement;
   const titleId = `advertisement-title-${slot.id}-${slotIndex}-${variant}`;
+
+  const { data: session } = useSession();
+  const hoverTracked = useRef(false);
+
+  const handleHover = () => {
+    if (hoverTracked.current) return;
+    hoverTracked.current = true;
+    createActivity(slot.id, UserActivity.Hover, session);
+  };
+
+  const handleClick = () => {
+    createActivity(slot.id, UserActivity.Click, session);
+  };
+
+  const trackedTargetUrl = buildAdvertisementTargetUrl(slot.targetUrl, slot.id);
 
   const badge = (
     <div className="pointer-events-none absolute right-2 top-2 z-[1] rounded-md bg-muted/90 px-1.5 py-0.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground shadow-xs">
@@ -37,9 +72,10 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
 
   const visual = (
     <a
-      href={`${slot.targetUrl}?ad=${slot.id}`}
+      href={trackedTargetUrl}
       target="_blank"
       rel={adLinkRel}
+      onClick={handleClick}
       className={cn(
         'relative block overflow-hidden rounded-lg bg-muted/30 outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring',
         variant === 'sidebar' ? 'aspect-video w-full' : 'aspect-[4/5] h-full w-full',
@@ -51,14 +87,14 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
   );
 
   const cta = (
-    <a href={slot.targetUrl} target="_blank" rel={adLinkRel} className="type-body-sm pt-0.5 font-medium text-primary underline-offset-4 hover:underline">
+    <a href={trackedTargetUrl} target="_blank" rel={adLinkRel} onClick={handleClick} className="type-body-sm pt-0.5 font-medium text-primary underline-offset-4 hover:underline">
       Read more
     </a>
   );
 
   if (variant === 'sidebar') {
     return (
-      <article className={cn(shellClassName, 'w-full max-w-lg lg:max-w-none')} aria-labelledby={titleId}>
+      <article className={cn(shellClassName, 'w-full max-w-lg lg:max-w-none')} aria-labelledby={titleId} onMouseEnter={handleHover}>
         {badge}
         <div className="flex flex-col gap-2 p-2.5 pt-9 sm:gap-3 sm:p-3 sm:pt-10">
           {visual}
@@ -75,7 +111,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
   }
 
   return (
-    <article className={cn(shellClassName, 'max-w-lg')} aria-labelledby={titleId}>
+    <article className={cn(shellClassName, 'max-w-lg')} aria-labelledby={titleId} onMouseEnter={handleHover}>
       {badge}
 
       <div className="flex min-h-0 items-stretch gap-2 p-2.5 sm:gap-3 sm:p-3">

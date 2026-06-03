@@ -6,6 +6,8 @@ import { ReadAdvertisementResponseDto } from './dtos/advertisement/read-advertis
 import { CreateAdvertisementBodyDto } from './dtos/advertisement/create-advertisement.body.dto';
 import { CreateAdvertisementResponseDto } from './dtos/advertisement/create-advertisement.response.dto';
 import { PatchAdvertisementBodyDto } from './dtos/advertisement/patch-advertisement.body.dto';
+import { CreateActivityBodyDto } from './dtos/advertisement/create-activity.body.dto';
+import { UserActivity } from '@/domain/enums/user-activity';
 
 export async function getAdvertisements(username: string | null): Promise<ReadAdvertisementResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements?`;
@@ -48,14 +50,7 @@ export async function getAdvertisement(advertisementId: string): Promise<ReadAdv
 export async function createAdvertisement(advertisement: Advertisement, session: Session | null): Promise<CreateAdvertisementResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements`;
 
-  const body = new CreateAdvertisementBodyDto(
-    advertisement.title,
-    advertisement.description,
-    advertisement.targetUrl,
-    advertisement.displayOrder,
-    advertisement.enabled,
-    advertisement.username,
-  );
+  const body = new CreateAdvertisementBodyDto(advertisement.title, advertisement.description, advertisement.targetUrl, advertisement.displayOrder, advertisement.enabled, advertisement.username);
 
   const response = await fetch(url, {
     method: 'POST',
@@ -77,14 +72,7 @@ export async function createAdvertisement(advertisement: Advertisement, session:
 export async function updateAdvertisement(advertisementId: string, advertisement: Advertisement, session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements/${advertisementId}`;
 
-  const body = new PatchAdvertisementBodyDto(
-    advertisement.title,
-    advertisement.description,
-    advertisement.targetUrl,
-    advertisement.displayOrder,
-    advertisement.enabled,
-    advertisement.username,
-  );
+  const body = new PatchAdvertisementBodyDto(advertisement.title, advertisement.description, advertisement.targetUrl, advertisement.displayOrder, advertisement.enabled, advertisement.username);
 
   const response = await fetch(url, {
     method: 'PATCH',
@@ -140,6 +128,26 @@ export async function deleteAdvertisement(id: string, session: Session | null): 
   if (response.ok) {
     console.info('Deleting advertisement successful');
   } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function createActivity(advertisementId: string, userActivity: UserActivity, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements/${advertisementId}/activity`;
+
+  const body = new CreateActivityBodyDto(userActivity);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
     const error = await response.json();
     throw Error(error.message);
   }
