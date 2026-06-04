@@ -1102,7 +1102,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
               variant="action"
               className={ctaActionButtonClassName}
               disabled={
-                (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix()) ||
+                (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.dateFrom).unix() < moment().unix()) ||
                 (registrationType === EventRegistrationType.VISITOR && moment(event?.dateTo).unix() < moment().unix()) ||
                 false
               }
