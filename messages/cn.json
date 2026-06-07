@@ -601,6 +601,7 @@
     "pageTitle": "管理广告",
     "btnCreate": "创建",
     "tooltipEditAd": "编辑广告",
+    "tooltipViewStats": "查看统计",
     "textNoAds": "暂无广告。",
     "tableColDescription": "描述",
     "tableColActions": "操作"
@@ -619,6 +620,26 @@
     "toastSaveFailed": "无法保存广告。",
     "toastDeleteFailed": "无法删除广告。",
     "toastLoadFailed": "无法加载广告。"
+  },
+  "/ads/stats": {
+    "pageTitle": "广告统计",
+    "pageTitleWithAd": "统计 — {title}",
+    "chartActivityTitle": "活动趋势",
+    "chartActivityDescription": "每月点击与悬停",
+    "summaryTotalClicks": "总点击",
+    "summaryTotalHovers": "总悬停",
+    "tableColMonth": "月份",
+    "tableColPlatform": "平台",
+    "tableColCountry": "国家",
+    "tableColClicks": "点击",
+    "tableColHovers": "悬停",
+    "textNoData": "尚无活动记录。",
+    "toastLoadFailed": "无法加载广告统计。",
+    "platformWeb": "网页",
+    "platformMobile": "移动端",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "countryUnknown": "未知"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",

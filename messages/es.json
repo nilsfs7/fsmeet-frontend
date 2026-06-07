@@ -583,6 +583,7 @@
     "pageTitle": "Gestionar anuncios",
     "btnCreate": "Crear",
     "tooltipEditAd": "Editar anuncio",
+    "tooltipViewStats": "Ver estadísticas",
     "textNoAds": "Aún no hay anuncios.",
     "tableColDescription": "Descripción",
     "tableColActions": "Acciones"
@@ -601,6 +602,26 @@
     "toastSaveFailed": "No se pudo guardar el anuncio.",
     "toastDeleteFailed": "No se pudo eliminar el anuncio.",
     "toastLoadFailed": "No se pudo cargar el anuncio."
+  },
+  "/ads/stats": {
+    "pageTitle": "Estadísticas del anuncio",
+    "pageTitleWithAd": "Estadísticas — {title}",
+    "chartActivityTitle": "Actividad a lo largo del tiempo",
+    "chartActivityDescription": "Clics y pases por mes",
+    "summaryTotalClicks": "Clics totales",
+    "summaryTotalHovers": "Pases totales",
+    "tableColMonth": "Mes",
+    "tableColPlatform": "Plataforma",
+    "tableColCountry": "País",
+    "tableColClicks": "Clics",
+    "tableColHovers": "Pases",
+    "textNoData": "Aún no hay actividad registrada.",
+    "toastLoadFailed": "No se pudieron cargar las estadísticas del anuncio.",
+    "platformWeb": "Web",
+    "platformMobile": "Móvil",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "countryUnknown": "Desconocido"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Crear patrocinador",

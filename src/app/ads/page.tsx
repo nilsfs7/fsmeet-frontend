@@ -47,7 +47,10 @@ export default async function Ads() {
                     <TableRow key={advertisement.id ?? index}>
                       <TableCell className="font-medium">{advertisement.title}</TableCell>
                       <TableCell className="text-right">
-                        <ActionButton href={`${routeAds}/${advertisement.id}/edit`} action={Action.EDIT} tooltip={t('tooltipEditAd')} />
+                        <div className="flex items-center justify-end gap-1">
+                          <ActionButton href={`${routeAds}/${advertisement.id}/stats`} action={Action.STATISTICS} tooltip={t('tooltipViewStats')} />
+                          <ActionButton href={`${routeAds}/${advertisement.id}/edit`} action={Action.EDIT} tooltip={t('tooltipEditAd')} />
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))

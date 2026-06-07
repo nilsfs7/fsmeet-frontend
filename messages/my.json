@@ -601,6 +601,7 @@
     "pageTitle": "Urus Iklan",
     "btnCreate": "Cipta",
     "tooltipEditAd": "Edit iklan",
+    "tooltipViewStats": "Lihat statistik",
     "textNoAds": "Belum ada iklan.",
     "tableColDescription": "Penerangan",
     "tableColActions": "Tindakan"
@@ -619,6 +620,26 @@
     "toastSaveFailed": "Tidak dapat menyimpan iklan.",
     "toastDeleteFailed": "Tidak dapat memadamkan iklan.",
     "toastLoadFailed": "Tidak dapat memuatkan iklan."
+  },
+  "/ads/stats": {
+    "pageTitle": "Statistik Iklan",
+    "pageTitleWithAd": "Statistik — {title}",
+    "chartActivityTitle": "Aktiviti dari semasa ke semasa",
+    "chartActivityDescription": "Klik dan hover setiap bulan",
+    "summaryTotalClicks": "Jumlah klik",
+    "summaryTotalHovers": "Jumlah hover",
+    "tableColMonth": "Bulan",
+    "tableColPlatform": "Platform",
+    "tableColCountry": "Negara",
+    "tableColClicks": "Klik",
+    "tableColHovers": "Hover",
+    "textNoData": "Tiada aktiviti direkodkan lagi.",
+    "toastLoadFailed": "Tidak dapat memuatkan statistik iklan.",
+    "platformWeb": "Web",
+    "platformMobile": "Mudah alih",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "countryUnknown": "Tidak diketahui"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Cipta Penaja",

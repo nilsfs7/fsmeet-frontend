@@ -583,6 +583,7 @@
     "pageTitle": "Anzeigen verwalten",
     "btnCreate": "Erstellen",
     "tooltipEditAd": "Anzeige bearbeiten",
+    "tooltipViewStats": "Statistik ansehen",
     "textNoAds": "Noch keine Anzeigen.",
     "tableColDescription": "Beschreibung",
     "tableColActions": "Aktionen"
@@ -601,6 +602,26 @@
     "toastSaveFailed": "Die Anzeige konnte nicht gespeichert werden.",
     "toastDeleteFailed": "Die Anzeige konnte nicht gelöscht werden.",
     "toastLoadFailed": "Die Anzeige konnte nicht geladen werden."
+  },
+  "/ads/stats": {
+    "pageTitle": "Anzeigenstatistik",
+    "pageTitleWithAd": "Statistik - {title}",
+    "chartActivityTitle": "Aktivität im Zeitverlauf",
+    "chartActivityDescription": "Klicks und Hovers pro Monat",
+    "summaryTotalClicks": "Klicks gesamt",
+    "summaryTotalHovers": "Hovers gesamt",
+    "tableColMonth": "Monat",
+    "tableColPlatform": "Plattform",
+    "tableColCountry": "Land",
+    "tableColClicks": "Klicks",
+    "tableColHovers": "Hovers",
+    "textNoData": "Noch keine Aktivität erfasst.",
+    "toastLoadFailed": "Anzeigenstatistik konnte nicht geladen werden.",
+    "platformWeb": "Web",
+    "platformMobile": "Mobil",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "countryUnknown": "Unbekannt"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Sponsor erstellen",

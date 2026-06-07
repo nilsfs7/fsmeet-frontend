@@ -601,6 +601,7 @@
     "pageTitle": "إدارة الإعلانات",
     "btnCreate": "إنشاء",
     "tooltipEditAd": "تعديل الإعلان",
+    "tooltipViewStats": "عرض الإحصائيات",
     "textNoAds": "لا توجد إعلانات بعد.",
     "tableColDescription": "الوصف",
     "tableColActions": "الإجراءات"
@@ -619,6 +620,26 @@
     "toastSaveFailed": "تعذر حفظ الإعلان.",
     "toastDeleteFailed": "تعذر حذف الإعلان.",
     "toastLoadFailed": "تعذر تحميل الإعلان."
+  },
+  "/ads/stats": {
+    "pageTitle": "إحصائيات الإعلان",
+    "pageTitleWithAd": "إحصائيات — {title}",
+    "chartActivityTitle": "النشاط عبر الزمن",
+    "chartActivityDescription": "النقرات والتمرير لكل شهر",
+    "summaryTotalClicks": "إجمالي النقرات",
+    "summaryTotalHovers": "إجمالي التمرير",
+    "tableColMonth": "الشهر",
+    "tableColPlatform": "المنصة",
+    "tableColCountry": "البلد",
+    "tableColClicks": "النقرات",
+    "tableColHovers": "التمرير",
+    "textNoData": "لم يتم تسجيل أي نشاط بعد.",
+    "toastLoadFailed": "تعذر تحميل إحصائيات الإعلان.",
+    "platformWeb": "الويب",
+    "platformMobile": "الجوال",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "countryUnknown": "غير معروف"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",

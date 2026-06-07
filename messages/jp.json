@@ -601,6 +601,7 @@
     "pageTitle": "広告を管理",
     "btnCreate": "作成",
     "tooltipEditAd": "広告を編集",
+    "tooltipViewStats": "統計を表示",
     "textNoAds": "広告はまだありません。",
     "tableColDescription": "説明",
     "tableColActions": "操作"
@@ -619,6 +620,26 @@
     "toastSaveFailed": "広告を保存できませんでした。",
     "toastDeleteFailed": "広告を削除できませんでした。",
     "toastLoadFailed": "広告を読み込めませんでした。"
+  },
+  "/ads/stats": {
+    "pageTitle": "広告統計",
+    "pageTitleWithAd": "統計 — {title}",
+    "chartActivityTitle": "時系列のアクティビティ",
+    "chartActivityDescription": "月ごとのクリックとホバー",
+    "summaryTotalClicks": "クリック合計",
+    "summaryTotalHovers": "ホバー合計",
+    "tableColMonth": "月",
+    "tableColPlatform": "プラットフォーム",
+    "tableColCountry": "国",
+    "tableColClicks": "クリック",
+    "tableColHovers": "ホバー",
+    "textNoData": "まだアクティビティは記録されていません。",
+    "toastLoadFailed": "広告統計を読み込めませんでした。",
+    "platformWeb": "Web",
+    "platformMobile": "モバイル",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "countryUnknown": "不明"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "スポンサーを作成",

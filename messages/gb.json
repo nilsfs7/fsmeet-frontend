@@ -601,6 +601,7 @@
     "pageTitle": "Manage Ads",
     "btnCreate": "Create",
     "tooltipEditAd": "Edit ad",
+    "tooltipViewStats": "View statistics",
     "textNoAds": "No ads yet.",
     "tableColDescription": "Description",
     "tableColActions": "Actions"
@@ -619,6 +620,26 @@
     "toastSaveFailed": "Could not save the ad.",
     "toastDeleteFailed": "Could not delete the ad.",
     "toastLoadFailed": "Could not load the ad."
+  },
+  "/ads/stats": {
+    "pageTitle": "Ad Statistics",
+    "pageTitleWithAd": "Statistics — {title}",
+    "chartActivityTitle": "Activity over time",
+    "chartActivityDescription": "Clicks and hovers per month",
+    "summaryTotalClicks": "Total clicks",
+    "summaryTotalHovers": "Total hovers",
+    "tableColMonth": "Month",
+    "tableColPlatform": "Platform",
+    "tableColCountry": "Country",
+    "tableColClicks": "Clicks",
+    "tableColHovers": "Hovers",
+    "textNoData": "No activity recorded yet.",
+    "toastLoadFailed": "Could not load ad statistics.",
+    "platformWeb": "Web",
+    "platformMobile": "Mobile",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "countryUnknown": "Unknown"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Create Sponsor",
