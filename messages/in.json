@@ -601,6 +601,7 @@
     "pageTitle": "विज्ञापनों का प्रबंधन",
     "btnCreate": "बनाएं",
     "tooltipEditAd": "विज्ञापन संपादित करें",
+    "tooltipViewStats": "आँकड़े देखें",
     "textNoAds": "अभी तक कोई विज्ञापन नहीं।",
     "tableColDescription": "विवरण",
     "tableColActions": "कार्रवाइयाँ"
@@ -619,6 +620,26 @@
     "toastSaveFailed": "विज्ञापन सहेजा नहीं जा सका।",
     "toastDeleteFailed": "विज्ञापन हटाया नहीं जा सका।",
     "toastLoadFailed": "विज्ञापन लोड नहीं हो सका।"
+  },
+  "/ads/stats": {
+    "pageTitle": "विज्ञापन आँकड़े",
+    "pageTitleWithAd": "आँकड़े — {title}",
+    "chartActivityTitle": "समय के साथ गतिविधि",
+    "chartActivityDescription": "प्रति माह क्लिक और होवर",
+    "summaryTotalClicks": "कुल क्लिक",
+    "summaryTotalHovers": "कुल होवर",
+    "tableColMonth": "महीना",
+    "tableColPlatform": "प्लेटफ़ॉर्म",
+    "tableColCountry": "देश",
+    "tableColClicks": "क्लिक",
+    "tableColHovers": "होवर",
+    "textNoData": "अभी तक कोई गतिविधि दर्ज नहीं है।",
+    "toastLoadFailed": "विज्ञापन आँकड़े लोड नहीं हो सके।",
+    "platformWeb": "वेब",
+    "platformMobile": "मोबाइल",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "countryUnknown": "अज्ञात"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "प्रायोजक बनाएं",

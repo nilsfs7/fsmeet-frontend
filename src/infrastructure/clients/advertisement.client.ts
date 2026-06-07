@@ -8,6 +8,7 @@ import { CreateAdvertisementResponseDto } from './dtos/advertisement/create-adve
 import { PatchAdvertisementBodyDto } from './dtos/advertisement/patch-advertisement.body.dto';
 import { CreateActivityBodyDto } from './dtos/advertisement/create-activity.body.dto';
 import { UserActivity } from '@/domain/enums/user-activity';
+import { ReadAdvertisementActivityResponseDto } from './dtos/advertisement/read-activity.response.dto';
 
 export async function getAdvertisements(username: string | null): Promise<ReadAdvertisementResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements?`;
@@ -130,6 +131,24 @@ export async function deleteAdvertisement(id: string, session: Session | null): 
   } else {
     const error = await response.json();
     throw Error(error.message);
+  }
+}
+
+export async function getAdvertisementActivity(advertisementId: string, session: Session | null): Promise<ReadAdvertisementActivityResponseDto[]> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements/${advertisementId}/activity`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw Error(`Error fetching advertisement.`);
   }
 }
 

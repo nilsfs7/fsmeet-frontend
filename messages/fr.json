@@ -583,6 +583,7 @@
     "pageTitle": "Gérer les annonces",
     "btnCreate": "Créer",
     "tooltipEditAd": "Modifier l'annonce",
+    "tooltipViewStats": "Voir les statistiques",
     "textNoAds": "Aucune annonce pour le moment.",
     "tableColDescription": "Description",
     "tableColActions": "Actions"
@@ -601,6 +602,26 @@
     "toastSaveFailed": "Impossible d'enregistrer l'annonce.",
     "toastDeleteFailed": "Impossible de supprimer l'annonce.",
     "toastLoadFailed": "Impossible de charger l'annonce."
+  },
+  "/ads/stats": {
+    "pageTitle": "Statistiques de l'annonce",
+    "pageTitleWithAd": "Statistiques — {title}",
+    "chartActivityTitle": "Activité dans le temps",
+    "chartActivityDescription": "Clics et survols par mois",
+    "summaryTotalClicks": "Clics totaux",
+    "summaryTotalHovers": "Survols totaux",
+    "tableColMonth": "Mois",
+    "tableColPlatform": "Plateforme",
+    "tableColCountry": "Pays",
+    "tableColClicks": "Clics",
+    "tableColHovers": "Survols",
+    "textNoData": "Aucune activité enregistrée pour le moment.",
+    "toastLoadFailed": "Impossible de charger les statistiques de l'annonce.",
+    "platformWeb": "Web",
+    "platformMobile": "Mobile",
+    "platformIos": "iOS",
+    "platformAndroid": "Android",
+    "countryUnknown": "Inconnu"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Créer un partenaire",
