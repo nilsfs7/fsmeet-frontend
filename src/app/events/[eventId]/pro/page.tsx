@@ -84,6 +84,16 @@ export default async function EventProLicense(props: { params: Promise<{ eventId
                 </tr>
 
                 <tr className="border-b border-border">
+                  <td className="p-3 text-foreground">{t('rowRegistrationPrivateDataCollectionLabel')}</td>
+                  <td className="p-3 text-center align-middle">
+                    <IconX className="mx-auto h-5 w-5 text-critical" stroke={2} aria-label={t('notIncluded')} />
+                  </td>
+                  <td className="p-3 text-center align-middle">
+                    <IconCheck className="mx-auto h-5 w-5 text-success" stroke={2} aria-label={t('included')} />
+                  </td>
+                </tr>
+
+                <tr className="border-b border-border">
                   <td className="p-3 text-foreground">{t('rowFeaturedLabel')}</td>
                   <td className="p-3 text-center align-middle">
                     <IconX className="mx-auto h-5 w-5 text-critical" stroke={2} aria-label={t('notIncluded')} />
@@ -93,7 +103,7 @@ export default async function EventProLicense(props: { params: Promise<{ eventId
                   </td>
                 </tr>
 
-                {(isCompetition(event.type)) && (
+                {isCompetition(event.type) && (
                   <>
                     <tr className="border-b border-border">
                       <td className="p-3 text-foreground">{t('rowCompetitionCoreLabel')}</td>
