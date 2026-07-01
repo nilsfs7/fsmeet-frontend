@@ -15,6 +15,7 @@ export class ReadEventRegistrationResponseDto {
   accommodationOrders: string[];
   offeringOrders: string[];
   offeringTShirtSize: TShirtSize | null;
+  email?: string;
   phoneCountryCode?: number;
   phoneNumber?: string;
 
@@ -29,6 +30,7 @@ export class ReadEventRegistrationResponseDto {
     accommodationOrders: string[],
     offeringOrders: string[],
     offeringTShirtSize: TShirtSize | null,
+    email?: string,
     phoneCountryCode?: number,
     phoneNumber?: string,
   ) {
@@ -42,6 +44,7 @@ export class ReadEventRegistrationResponseDto {
     this.accommodationOrders = accommodationOrders;
     this.offeringOrders = offeringOrders;
     this.offeringTShirtSize = offeringTShirtSize;
+    this.email = email;
     this.phoneCountryCode = phoneCountryCode;
     this.phoneNumber = phoneNumber;
   }

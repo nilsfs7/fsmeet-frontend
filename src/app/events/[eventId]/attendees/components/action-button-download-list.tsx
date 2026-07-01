@@ -55,6 +55,7 @@ function mapRegistrationsToCsv(
       'Country Code': user.countryCode || CSV_EMPTY,
       Country: code ? getCountryNameByCode(code) : CSV_EMPTY,
       'T-Shirt Size': registration.offeringTShirtSize || CSV_EMPTY,
+      'Email': registration.email || CSV_EMPTY,
       'Phone Country Code': registration.phoneCountryCode || CSV_EMPTY,
       'Phone Number': registration.phoneNumber || CSV_EMPTY,
       'Arrival Date': registration.arrivalDate ? getShortDateString(moment(registration.arrivalDate)) : CSV_EMPTY,
