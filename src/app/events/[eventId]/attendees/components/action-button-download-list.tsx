@@ -43,6 +43,7 @@ function mapRegistrationsToCsv(
     const code = user.countryCode;
 
     return {
+      'Registration Date': `${moment(registration?.date).format('YYYY-MM-DD HH:mm')}`,
       'Registration Type': registration.type,
       'Registration Status': registration.status,
       Username: user.username,
