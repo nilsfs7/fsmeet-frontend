@@ -552,8 +552,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             </TabsTrigger>
           )}
 
-          {/* TODO: disable for now, decide what to do with it */}
-          {/* {userInfo.type === UserType.FREESTYLER && (
+          {/* TODO: only available for Team Germany for now */}
+          {userInfo.type === UserType.FREESTYLER && userInfo.countryCode === 'DE' && (
             <TabsTrigger
               value="jobs"
               onClick={() => {
@@ -562,7 +562,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
             >
               {t('tabJobsTitle')}
             </TabsTrigger>
-          )} */}
+          )}
 
           <TabsTrigger
             value="account"
@@ -832,19 +832,16 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                     />
                   </FieldRow>
 
-                  <div className="h-fit" /* fixes safari layouting issue */>
-                    <TextInput
-                      id={'phoneNumber'}
-                      label={t('tabJobPhoneNumber')}
-                      labelOnTop={false}
-                      type="tel"
-                      placeholder="1516 123456"
-                      value={userInfo.phoneNumber ? userInfo.phoneNumber : ''}
-                      onChange={e => {
-                        handlePhoneNumberChanged(e.currentTarget.value);
-                      }}
-                    />
-                  </div>
+                  <TextInput
+                    id={'phoneNumber'}
+                    label={t('tabJobPhoneNumber')}
+                    type="tel"
+                    placeholder="1516 123456"
+                    value={userInfo.phoneNumber ? userInfo.phoneNumber : ''}
+                    onChange={e => {
+                      handlePhoneNumberChanged(e.currentTarget.value);
+                    }}
+                  />
 
                   <div className="py-1">
                     <Separator />
