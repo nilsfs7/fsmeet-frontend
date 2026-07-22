@@ -24,6 +24,7 @@ export enum Action {
   REMOVE,
   SAVE,
   SEND,
+  SETTINGS,
   SHARE,
   SHOW,
   STATISTICS,
