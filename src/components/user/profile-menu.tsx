@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
-import { routeAccount, routeAds, routeEventSubs, routeFeedback, routeHome, routeLogin, routeUsers } from '@/domain/constants/routes';
-import { imgProfileAds, imgProfileEvents, imgProfileFeedback, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
+import { routeAccount, routeAds, routeEventSubs, routeFeedback, routeHome, routeJobs, routeLogin, routeUsers } from '@/domain/constants/routes';
+import { imgProfileAds, imgProfileEvents, imgProfileFeedback, imgProfileJobs, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { UserType } from '@/domain/enums/user-type';
@@ -20,6 +20,7 @@ const ProfileMenu = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [userTypeFromApi, setUserTypeFromApi] = useState<UserType | undefined>(undefined);
+  const [countryCodeFromApi, setCountryCodeFromApi] = useState<string | undefined>(undefined);
 
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
@@ -46,18 +47,21 @@ const ProfileMenu = () => {
   }, [opened]);
 
   useEffect(() => {
-    if (session?.user?.type !== undefined) {
-      setUserTypeFromApi(undefined);
-      return;
-    }
     const uname = username ?? session?.user?.username;
     if (!uname || !session?.user?.accessToken) {
       setUserTypeFromApi(undefined);
+      setCountryCodeFromApi(undefined);
       return;
     }
     let cancelled = false;
     void getUser(uname, session).then(user => {
-      if (!cancelled) setUserTypeFromApi(user.type);
+      if (cancelled) return;
+      if (session?.user?.type === undefined) {
+        setUserTypeFromApi(user.type);
+      } else {
+        setUserTypeFromApi(undefined);
+      }
+      setCountryCodeFromApi(user.countryCode);
     });
     return () => {
       cancelled = true;
@@ -82,6 +86,10 @@ const ProfileMenu = () => {
 
   const onAdsClicked = () => {
     router.push(routeAds);
+  };
+
+  const onJobsClicked = () => {
+    router.push(routeJobs);
   };
 
   const onFeedbackClicked = () => {
@@ -119,12 +127,15 @@ const ProfileMenu = () => {
 
   const effectiveUserType = session?.user?.type ?? userTypeFromApi;
   const showAdsMenu = effectiveUserType === UserType.BRAND;
+  // Temporarily limited to German freestylers (same gate as account Jobs tab)
+  const showJobsMenu = effectiveUserType === UserType.FREESTYLER && countryCodeFromApi === 'DE';
 
   const menuEntries = [
     { label: t('menuItemMyEvents'), icon: imgProfileEvents, action: onEventsClicked },
     { label: t('menuItemPublicProfile'), icon: imgUserNoImg, action: onPublicProfileClicked },
     { label: t('menuItemSettings'), icon: imgProfileSettings, action: onAccountClicked },
     ...(showAdsMenu ? [{ label: t('menuItemAds'), icon: imgProfileAds, action: onAdsClicked }] : []),
+    ...(showJobsMenu ? [{ label: t('menuItemJobs'), icon: imgProfileJobs, action: onJobsClicked }] : []),
     { label: t('menuItemFeedback'), icon: imgProfileFeedback, action: onFeedbackClicked },
     { label: t('menuItemLogout'), icon: imgProfileLogout, action: onLogoutClicked },
   ];
