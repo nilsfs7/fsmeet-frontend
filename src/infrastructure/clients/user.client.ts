@@ -345,7 +345,7 @@ export async function updateUserPassword(requestToken: string, password: string)
 }
 
 export async function updateUserVerificationState(session: Session | null, username: string, verificationState: UserVerificationState): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/state`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/verification-state`;
 
   const body = JSON.stringify({
     username: username,
