@@ -119,6 +119,8 @@
     "tabJobsListingStatus": "स्थिति",
     "tabJobsViewProfile": "सार्वजनिक प्रोफ़ाइल",
     "tabJobBtnViewProfile": "देखें",
+    "tabJobBtnRequestListing": "लिस्टिंग का अनुरोध करें",
+    "toastJobListingRequestSuccess": "लिस्टिंग अनुरोध भेजा गया।",
     "tabJobsSectionTerms": "नियम और शर्तें",
     "tabJobsTerms": "नियम पढ़ें",
     "tabJobBtnReadTerms": "पढ़ें",

@@ -119,6 +119,8 @@
     "tabJobsListingStatus": "Status",
     "tabJobsViewProfile": "Öffentliches Profil",
     "tabJobBtnViewProfile": "Ansehen",
+    "tabJobBtnRequestListing": "Listung beantragen",
+    "toastJobListingRequestSuccess": "Listungsantrag gesendet.",
     "tabJobsSectionTerms": "Bedingungen",
     "tabJobsTerms": "Vereinbarung ansehen",
     "tabJobBtnReadTerms": "Lesen",

@@ -1,5 +1,6 @@
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
+import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
 import { User } from '@/domain/types/user';
 import { Session } from 'next-auth';
 import { DeleteUserBodyDto } from './dtos/user/delete-user.body.dto';
@@ -365,6 +366,31 @@ export async function updateUserVerificationState(session: Session | null, usern
 
   if (response.ok) {
     console.info('Updating user verification state successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function updateJobProfileListingState(session: Session | null, username: string, jobProfileListingState: JobProfileListingState): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/job-listing-state`;
+
+  const body = JSON.stringify({
+    username,
+    jobProfileListingState,
+  });
+
+  const response = await fetch(url, {
+    method: 'PATCH',
+    body,
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating job profile listing state successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

@@ -31,7 +31,14 @@ import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import { menuShowExperience } from '@/domain/constants/menus/menu-show-experience';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
-import { createStripeAccount, createStripeAccountOnboardingLink, createStripeLoginLink, deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
+import {
+  createStripeAccount,
+  createStripeAccountOnboardingLink,
+  createStripeLoginLink,
+  deleteUser,
+  updateJobProfileListingState,
+  updateUserVerificationState,
+} from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
 import Label from '@/components/label';
@@ -418,6 +425,24 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     }
   };
 
+  const handleRequestJobListingClicked = async () => {
+    const username = userInfo.username || session?.user?.username || '';
+    if (!username) {
+      return;
+    }
+
+    try {
+      await updateJobProfileListingState(session, username, JobProfileListingState.PENDING);
+      const newUserInfo = Object.assign({}, userInfo);
+      newUserInfo.jobProfileListingState = JobProfileListingState.PENDING;
+      setUserInfo(newUserInfo);
+      toast.success(t('toastJobListingRequestSuccess'));
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     cacheUserInfo(user);
   }, []);
@@ -773,6 +798,14 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <Label text={userInfo.jobProfileListingState || JobProfileListingState.NOT_LISTED} />
                 </div>
               </FieldRow>
+
+              {userInfo.jobProfileListingState !== JobProfileListingState.PENDING && userInfo.jobProfileListingState !== JobProfileListingState.APPROVED && (
+                <div className="flex justify-center">
+                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-auto')} onClick={handleRequestJobListingClicked}>
+                    {t('tabJobBtnRequestListing')}
+                  </Button>
+                </div>
+              )}
 
               {userInfo.jobProfileListingState === JobProfileListingState.APPROVED && (
                 <FieldRow label={t('tabJobsViewProfile')}>

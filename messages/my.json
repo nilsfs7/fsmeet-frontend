@@ -119,6 +119,8 @@
     "tabJobsListingStatus": "Status",
     "tabJobsViewProfile": "Profil awam",
     "tabJobBtnViewProfile": "Lihat",
+    "tabJobBtnRequestListing": "Minta penyenaraian",
+    "toastJobListingRequestSuccess": "Permintaan penyenaraian dihantar.",
     "tabJobsSectionTerms": "Terma Dan Syarat",
     "tabJobsTerms": "Baca Terma",
     "tabJobBtnReadTerms": "Baca",

@@ -119,6 +119,8 @@
     "tabJobsListingStatus": "Statut",
     "tabJobsViewProfile": "Profil public",
     "tabJobBtnViewProfile": "Voir",
+    "tabJobBtnRequestListing": "Demander la publication",
+    "toastJobListingRequestSuccess": "Demande de publication envoyée.",
     "tabJobsSectionTerms": "Conditions générales",
     "tabJobsTerms": "Lire les conditions",
     "tabJobBtnReadTerms": "Lire",

@@ -119,6 +119,8 @@
     "tabJobsListingStatus": "الحالة",
     "tabJobsViewProfile": "الملف العام",
     "tabJobBtnViewProfile": "عرض",
+    "tabJobBtnRequestListing": "طلب الإدراج",
+    "toastJobListingRequestSuccess": "تم إرسال طلب الإدراج.",
     "tabJobsSectionTerms": "الشروط والأحكام",
     "tabJobsTerms": "قراءة الشروط",
     "tabJobBtnReadTerms": "قراءة",
