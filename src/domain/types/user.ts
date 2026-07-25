@@ -1,6 +1,7 @@
 import { ShowExperience } from '@/domain/enums/show-experience';
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
+import { JobProfileListingState } from '../enums/job-profile-listing-state';
 
 export type User = {
   username: string;
@@ -33,6 +34,7 @@ export type User = {
   jobOfferWalkActs?: boolean;
   jobOfferWorkshops?: boolean;
   jobShowExperience?: ShowExperience;
+  jobProfileListingState?: JobProfileListingState;
   phoneCountryCode?: number;
   phoneNumber?: string | null;
   stripeAccountId?: string;

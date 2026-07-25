@@ -3,6 +3,7 @@
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
+import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession, signOut } from 'next-auth/react';
@@ -765,6 +766,32 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {user.type !== UserType.FAN && (
           <TabsContent value="jobs" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
             <div className={EDITOR_CARD_CLASS}>
+              <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobsSectionListing')}</h2>
+
+              <FieldRow label={t('tabJobsListingStatus')}>
+                <div className={FIELD_CONTROL_TALL_INNER}>
+                  <Label text={userInfo.jobProfileListingState || JobProfileListingState.NOT_LISTED} />
+                </div>
+              </FieldRow>
+
+              {userInfo.jobProfileListingState === JobProfileListingState.APPROVED && (
+                <FieldRow label={t('tabJobsViewProfile')}>
+                  <div className={FIELD_CONTROL_TALL_INNER}>
+                    <a
+                      href={`${(process.env.NEXT_PUBLIC_FRONTEND_URL_FREESTYLEACTS || '').replace(/\/$/, '')}/freestylers/${encodeURIComponent(userInfo.username)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ActionButton action={Action.GOTOEXTERNAL} tooltip={t('tabJobBtnViewProfile')} />
+                    </a>
+                  </div>
+                </FieldRow>
+              )}
+
+              <div className="py-1">
+                <Separator />
+              </div>
+
               <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobsSectionTerms')}</h2>
 
               <FieldRow label={t('tabJobsTerms')}>
