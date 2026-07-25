@@ -1,6 +1,6 @@
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { routeAdminEvents, routeAdminLicenses, routeStatistics, routeAdminUserVerification, routeHome, routeRoadmap, routeAdminBroadcast, routePushNotification } from '@/domain/constants/routes';
+import { routeAdminEvents, routeAdminLicenses, routeStatistics, routeAdminUserVerification, routeAdminJobProfileListing, routeHome, routeRoadmap, routeAdminBroadcast, routePushNotification } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/action-button';
 import Navigation from '@/components/navigation';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
@@ -20,6 +20,9 @@ export default async function AdminOverview() {
         </Button>
         <Button asChild variant="action" className={ctaActionButtonClassName}>
           <Link href={routeAdminUserVerification}>User Verification</Link>
+        </Button>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeAdminJobProfileListing}>Job Profile Listing</Link>
         </Button>
         <Button asChild variant="action" className={ctaActionButtonClassName}>
           <Link href={routePushNotification}>Push Notification</Link>
