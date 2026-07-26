@@ -20,6 +20,7 @@ export type User = {
   youTubeHandle?: string;
   website?: string;
   verificationState?: UserVerificationState;
+  jobProfileListingState?: JobProfileListingState;
   birthday?: string;
   tShirtSize?: string;
   houseNumber?: string;
@@ -34,7 +35,6 @@ export type User = {
   jobOfferWalkActs?: boolean;
   jobOfferWorkshops?: boolean;
   jobShowExperience?: ShowExperience;
-  jobProfileListingState?: JobProfileListingState;
   phoneCountryCode?: number;
   phoneNumber?: string | null;
   stripeAccountId?: string;
