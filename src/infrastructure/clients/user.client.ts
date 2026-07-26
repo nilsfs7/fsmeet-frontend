@@ -1,5 +1,6 @@
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
+import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
 import { User } from '@/domain/types/user';
 import { Session } from 'next-auth';
 import { DeleteUserBodyDto } from './dtos/user/delete-user.body.dto';
@@ -61,6 +62,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       jobOfferWalkActs: data.private?.jobOfferWalkActs,
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
       jobShowExperience: data.private?.jobShowExperience,
+      jobProfileListingState: data.private?.jobProfileListingState,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
       preferredLanguageCode: data.private?.preferredLanguageCode,
@@ -144,6 +146,7 @@ export async function getUsers(type?: UserType, gender?: Gender, countryCode?: s
       jobOfferWalkActs: data.private?.jobOfferWalkActs,
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
       jobShowExperience: data.private?.jobShowExperience,
+      jobProfileListingState: data.private?.jobProfileListingState,
       phoneCountryCode: data.private?.phoneCountryCode,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
@@ -345,7 +348,7 @@ export async function updateUserPassword(requestToken: string, password: string)
 }
 
 export async function updateUserVerificationState(session: Session | null, username: string, verificationState: UserVerificationState): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/state`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/verification-state`;
 
   const body = JSON.stringify({
     username: username,
@@ -363,6 +366,31 @@ export async function updateUserVerificationState(session: Session | null, usern
 
   if (response.ok) {
     console.info('Updating user verification state successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function updateJobProfileListingState(session: Session | null, username: string, jobProfileListingState: JobProfileListingState): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/job-listing-state`;
+
+  const body = JSON.stringify({
+    username,
+    jobProfileListingState,
+  });
+
+  const response = await fetch(url, {
+    method: 'PATCH',
+    body,
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating job profile listing state successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

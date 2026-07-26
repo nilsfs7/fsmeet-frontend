@@ -3,6 +3,7 @@
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
+import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession, signOut } from 'next-auth/react';
@@ -30,7 +31,14 @@ import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import { menuShowExperience } from '@/domain/constants/menus/menu-show-experience';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
-import { createStripeAccount, createStripeAccountOnboardingLink, createStripeLoginLink, deleteUser, updateUserVerificationState } from '@/infrastructure/clients/user.client';
+import {
+  createStripeAccount,
+  createStripeAccountOnboardingLink,
+  createStripeLoginLink,
+  deleteUser,
+  updateJobProfileListingState,
+  updateUserVerificationState,
+} from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
 import Label from '@/components/label';
@@ -417,6 +425,24 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     }
   };
 
+  const handleRequestJobListingClicked = async () => {
+    const username = userInfo.username || session?.user?.username || '';
+    if (!username) {
+      return;
+    }
+
+    try {
+      await updateJobProfileListingState(session, username, JobProfileListingState.PENDING);
+      const newUserInfo = Object.assign({}, userInfo);
+      newUserInfo.jobProfileListingState = JobProfileListingState.PENDING;
+      setUserInfo(newUserInfo);
+      toast.success(t('toastJobListingRequestSuccess'));
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     cacheUserInfo(user);
   }, []);
@@ -765,6 +791,40 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         {user.type !== UserType.FAN && (
           <TabsContent value="jobs" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
             <div className={EDITOR_CARD_CLASS}>
+              <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobsSectionListing')}</h2>
+
+              <FieldRow label={t('tabJobsListingStatus')}>
+                <div className={FIELD_CONTROL_TALL_INNER}>
+                  <Label text={userInfo.jobProfileListingState || JobProfileListingState.NOT_LISTED} />
+                </div>
+              </FieldRow>
+
+              {userInfo.jobProfileListingState !== JobProfileListingState.PENDING && userInfo.jobProfileListingState !== JobProfileListingState.APPROVED && (
+                <div className="flex justify-center">
+                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-auto')} onClick={handleRequestJobListingClicked}>
+                    {t('tabJobBtnRequestListing')}
+                  </Button>
+                </div>
+              )}
+
+              {userInfo.jobProfileListingState === JobProfileListingState.APPROVED && (
+                <FieldRow label={t('tabJobsViewProfile')}>
+                  <div className={FIELD_CONTROL_TALL_INNER}>
+                    <a
+                      href={`${(process.env.NEXT_PUBLIC_FRONTEND_URL_FREESTYLEACTS || '').replace(/\/$/, '')}/freestylers/${encodeURIComponent(userInfo.username)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ActionButton action={Action.GOTOEXTERNAL} tooltip={t('tabJobBtnViewProfile')} />
+                    </a>
+                  </div>
+                </FieldRow>
+              )}
+
+              <div className="py-1">
+                <Separator />
+              </div>
+
               <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobsSectionTerms')}</h2>
 
               <FieldRow label={t('tabJobsTerms')}>
