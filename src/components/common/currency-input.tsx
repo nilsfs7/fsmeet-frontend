@@ -6,7 +6,7 @@ interface ICurrencyInput {
   labelOnTop?: boolean;
   placeholder?: string;
   defValue?: number;
-  value?: number;
+  value?: string | number;
   onValueChange?: ((value: string | undefined, name?: string | undefined, values?: CurrencyInputOnChangeValues | undefined) => void) | undefined;
   onKeyDown?: (event: any) => void;
 }

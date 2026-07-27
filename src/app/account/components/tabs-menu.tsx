@@ -92,6 +92,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const tab = searchParams?.get('tab');
 
   const [userInfo, setUserInfo] = useState<User>(user);
+  const [jobMileageFeeDisplay, setJobMileageFeeDisplay] = useState(() =>
+    user.jobMileageFee != null
+      ? String(convertCurrencyIntegerToDecimal(user.jobMileageFee, CurrencyCode.EUR)).replace('.', ',')
+      : '',
+  );
 
   const cacheUserInfo = async (userInfo: User) => {
     let firstNameAdjusted = userInfo.firstName;
@@ -329,6 +334,18 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     }
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);
+  };
+
+  const handleMileageFeeInputChanged = (value: string | undefined, values?: { float: number | null }) => {
+    setJobMileageFeeDisplay(value ?? '');
+    if (value === undefined || value === '') {
+      handleMileageFeeChanged(undefined);
+      return;
+    }
+    // Keep display while typing incomplete decimals like "0," — only persist when float is valid.
+    if (values?.float != null && Number.isFinite(values.float)) {
+      handleMileageFeeChanged(values.float);
+    }
   };
 
   const handlePhoneCountryCodeChanged = (value: string) => {
@@ -977,14 +994,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       <CurInput
                         id="jobMileageFee"
                         label={t('tabJobMileageFee')}
-                        placeholder="0,30"
-                        value={
-                          userInfo.jobMileageFee != null
-                            ? convertCurrencyIntegerToDecimal(userInfo.jobMileageFee, CurrencyCode.EUR)
-                            : undefined
-                        }
-                        onValueChange={(_value, _name, values) => {
-                          handleMileageFeeChanged(values?.float);
+                        placeholder="0,3"
+                        value={jobMileageFeeDisplay}
+                        onValueChange={(value, _name, values) => {
+                          handleMileageFeeInputChanged(value, values);
                         }}
                       />
                     </>
