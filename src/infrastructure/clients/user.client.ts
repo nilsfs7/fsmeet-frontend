@@ -63,6 +63,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       jobOfferWalkActs: data.private?.jobOfferWalkActs,
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
       jobShowExperience: data.private?.jobShowExperience,
+      jobCarAvailable: data.private?.jobCarAvailable,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
       preferredLanguageCode: data.private?.preferredLanguageCode,
@@ -147,6 +148,7 @@ export async function getUsers(type?: UserType, gender?: Gender, countryCode?: s
       jobOfferWalkActs: data.private?.jobOfferWalkActs,
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
       jobShowExperience: data.private?.jobShowExperience,
+      jobCarAvailable: data.private?.jobCarAvailable,
       phoneCountryCode: data.private?.phoneCountryCode,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
@@ -257,6 +259,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
       user.jobOfferWalkActs,
       user.jobOfferWorkshops,
       user.jobShowExperience,
+      user.jobCarAvailable,
       user.phoneCountryCode,
       user.phoneNumber,
       user.preferredLanguageCode,
@@ -287,6 +290,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     user.jobOfferWalkActs = user.private?.jobOfferWalkActs;
     user.jobOfferWorkshops = user.private?.jobOfferWorkshops;
     user.jobShowExperience = user.private?.jobShowExperience;
+    user.jobCarAvailable = user.private?.jobCarAvailable;
     user.phoneCountryCode = user.private?.phoneCountryCode;
     user.phoneNumber = user.private?.phoneNumber;
     user.preferredLanguageCode = user.private?.preferredLanguageCode;

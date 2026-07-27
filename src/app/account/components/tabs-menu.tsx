@@ -132,6 +132,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       jobOfferWalkActs: userInfo.jobOfferWalkActs,
       jobOfferWorkshops: userInfo.jobOfferWorkshops,
       jobShowExperience: userInfo.jobShowExperience,
+      jobCarAvailable: userInfo.jobCarAvailable,
       phoneCountryCode: userInfo.phoneCountryCode,
       phoneNumber: userInfo.phoneNumber,
       preferredLanguageCode: userInfo.preferredLanguageCode,
@@ -289,6 +290,13 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const handleShowExperienceChanged = (value: any) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.jobShowExperience = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handleCarAvailableChanged = (value: boolean) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobCarAvailable = value;
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);
   };
@@ -918,6 +926,15 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       }}
                     />
                   </FieldRow>
+
+                  <CheckBox
+                    id={'carAvailable'}
+                    label={t('tabJobCarAvailable')}
+                    value={userInfo.jobCarAvailable}
+                    onChange={() => {
+                      handleCarAvailableChanged(!userInfo.jobCarAvailable);
+                    }}
+                  />
                 </>
               )}
             </div>

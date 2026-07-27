@@ -35,6 +35,7 @@ export type User = {
   jobOfferWalkActs?: boolean;
   jobOfferWorkshops?: boolean;
   jobShowExperience?: ShowExperience;
+  jobCarAvailable?: boolean;
   phoneCountryCode?: number;
   phoneNumber?: string | null;
   stripeAccountId?: string;

@@ -16,6 +16,7 @@ export class UpdatePrivateUserInfoBodyDto {
   jobOfferWalkActs: boolean;
   jobOfferWorkshops: boolean;
   jobShowExperience: ShowExperience;
+  jobCarAvailable: boolean;
   phoneCountryCode: number;
   phoneNumber: string;
   preferredLanguageCode: string;
@@ -35,6 +36,7 @@ export class UpdatePrivateUserInfoBodyDto {
     jobOfferWalkActs: boolean,
     jobOfferWorkshops: boolean,
     jobShowExperience: ShowExperience,
+    jobCarAvailable: boolean,
     phoneCountryCode: number,
     phoneNumber: string,
     preferredLanguageCode: string,
@@ -53,6 +55,7 @@ export class UpdatePrivateUserInfoBodyDto {
     this.jobOfferWalkActs = jobOfferWalkActs;
     this.jobOfferWorkshops = jobOfferWorkshops;
     this.jobShowExperience = jobShowExperience;
+    this.jobCarAvailable = jobCarAvailable;
     this.phoneCountryCode = phoneCountryCode;
     this.phoneNumber = phoneNumber;
     this.preferredLanguageCode = preferredLanguageCode;
