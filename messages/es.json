@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "Walk Acts",
     "tabJobOfferingWorkshop": "Talleres",
     "tabJobSectionContact": "Contacto",
+    "tabJobSectionTravel": "Desplazamiento",
     "tabJobPhoneCountryCode": "Código de país",
     "tabJobPhoneNumber": "Número de teléfono",
     "tabJobSectionOther": "Otros",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "Ver pagos (Stripe)",
     "tabAccountSectionAccountManagement": "Gestión de la cuenta",
     "tabAccountBtnLogout": "Cerrar sesión",
-    "tabAccountBtnDeleteAccount": "Eliminar cuenta"
+    "tabAccountBtnDeleteAccount": "Eliminar cuenta",
+    "tabJobMileageFee": "Tarifa por kilómetro (EUR/km)"
   },
   "/account/deleted": {
     "textGoodbye": "¡Cuídese!",
@@ -660,7 +662,7 @@
     "tooltipSubmitOffer": "Enviar oferta",
     "tooltipRejectRequest": "Rechazar solicitud",
     "dlgOfferTitle": "Enviar oferta",
-    "dlgOfferText": "Introduce tu tarifa para enviar una oferta al cliente.",
+    "dlgOfferText": "Introduce tu tarifa y los gastos de viaje para enviar una oferta al cliente.",
     "dlgOfferArtistFeeLabel": "Tarifa del artista (EUR)",
     "dlgOfferArtistFeePlaceholder": "p. ej. 750",
     "dlgOfferBtnConfirm": "Enviar oferta",
@@ -685,7 +687,20 @@
     "dlgRequestInfoProposedArtistFee": "Tarifa propuesta",
     "dlgRequestInfoArtistFee": "Tarifa del artista",
     "dlgRequestInfoMessage": "Mensaje",
-    "alertPendingRequests": "{count, plural, one {Hay # solicitud de reserva pendiente de revisión.} other {Hay # solicitudes de reserva pendientes de revisión.}}"
+    "alertPendingRequests": "{count, plural, one {Hay # solicitud de reserva pendiente de revisión.} other {Hay # solicitudes de reserva pendientes de revisión.}}",
+    "dlgOfferTravelMethodLabel": "Método de viaje",
+    "dlgOfferTravelMethodFixed": "Método de viaje: {method}",
+    "dlgOfferDistanceInfo": "Distancia de ida: {distance} km (ida y vuelta = ×2)",
+    "dlgOfferKmRateLabel": "Tarifa por km (EUR/km)",
+    "dlgOfferTravelFeeTotal": "Gastos de viaje (ida y vuelta): {amount}",
+    "dlgOfferTravelFeeLabel": "Gastos de viaje (EUR)",
+    "dlgOfferTravelFeePlaceholder": "p. ej. 25",
+    "travelMethodCar": "Coche",
+    "travelMethodPublicTransport": "Transporte público",
+    "toastInvalidTravelFee": "Introduce unos gastos de viaje válidos.",
+    "dlgRequestInfoTravelMethod": "Método de viaje",
+    "dlgRequestInfoTravelFee": "Gastos de viaje",
+    "dlgOfferTravelFeeFromRateHint": "Sugerido por tarifa/km: {amount} (puedes editar el total abajo)"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Crear patrocinador",

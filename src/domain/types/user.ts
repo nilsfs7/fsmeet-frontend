@@ -38,6 +38,7 @@ export type User = {
   jobShowExperience?: ShowExperience;
   jobCarAvailable?: boolean;
   jobPreferredTravelMethod?: JobPreferredTravelMethod;
+  jobMileageFee?: number;
   phoneCountryCode?: number;
   phoneNumber?: string | null;
   stripeAccountId?: string;

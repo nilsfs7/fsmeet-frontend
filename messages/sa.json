@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "عروض متنقلة",
     "tabJobOfferingWorkshop": "ورش عمل",
     "tabJobSectionContact": "التواصل",
+    "tabJobSectionTravel": "الوصول",
     "tabJobPhoneCountryCode": "رمز الدولة للهاتف",
     "tabJobPhoneNumber": "رقم الهاتف",
     "tabJobSectionOther": "أخرى",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "عرض المدفوعات (Stripe)",
     "tabAccountSectionAccountManagement": "إدارة الحساب",
     "tabAccountBtnLogout": "تسجيل الخروج",
-    "tabAccountBtnDeleteAccount": "حذف الحساب"
+    "tabAccountBtnDeleteAccount": "حذف الحساب",
+    "tabJobMileageFee": "رسوم الكيلومتر (يورو/كم)"
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",
@@ -678,7 +680,7 @@
     "tooltipSubmitOffer": "إرسال عرض",
     "tooltipRejectRequest": "رفض الطلب",
     "dlgOfferTitle": "إرسال عرض",
-    "dlgOfferText": "أدخل أجر الفنان لإرسال عرض إلى العميل.",
+    "dlgOfferText": "أدخل أجر الفنان وتكاليف السفر لإرسال عرض إلى العميل.",
     "dlgOfferArtistFeeLabel": "أجر الفنان (EUR)",
     "dlgOfferArtistFeePlaceholder": "مثال: 750",
     "dlgOfferBtnConfirm": "إرسال العرض",
@@ -703,7 +705,20 @@
     "dlgRequestInfoProposedArtistFee": "أجر الفنان المقترح",
     "dlgRequestInfoArtistFee": "أجر الفنان",
     "dlgRequestInfoMessage": "الرسالة",
-    "alertPendingRequests": "{count, plural, one {يوجد # طلب حجز قيد الانتظار بانتظار مراجعتك.} other {يوجد # طلبات حجز قيد الانتظار بانتظار مراجعتك.}}"
+    "alertPendingRequests": "{count, plural, one {يوجد # طلب حجز قيد الانتظار بانتظار مراجعتك.} other {يوجد # طلبات حجز قيد الانتظار بانتظار مراجعتك.}}",
+    "dlgOfferTravelMethodLabel": "وسيلة السفر",
+    "dlgOfferTravelMethodFixed": "وسيلة السفر: {method}",
+    "dlgOfferDistanceInfo": "مسافة الذهاب: {distance} كم (ذهاب وإياب = ×2)",
+    "dlgOfferKmRateLabel": "سعر الكيلومتر (EUR/km)",
+    "dlgOfferTravelFeeTotal": "تكلفة السفر (ذهاب وإياب): {amount}",
+    "dlgOfferTravelFeeLabel": "تكلفة السفر (EUR)",
+    "dlgOfferTravelFeePlaceholder": "مثال: 25",
+    "travelMethodCar": "سيارة",
+    "travelMethodPublicTransport": "النقل العام",
+    "toastInvalidTravelFee": "يرجى إدخال تكلفة سفر صالحة.",
+    "dlgRequestInfoTravelMethod": "وسيلة السفر",
+    "dlgRequestInfoTravelFee": "تكلفة السفر",
+    "dlgOfferTravelFeeFromRateHint": "مقترح من سعر الكيلومتر: {amount} (يمكنك تعديل الإجمالي أدناه)"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",

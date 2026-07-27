@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "Walk Acts",
     "tabJobOfferingWorkshop": "Workshops",
     "tabJobSectionContact": "Kontakt",
+    "tabJobSectionTravel": "Reisekosten",
     "tabJobPhoneCountryCode": "Ländervorwahl",
     "tabJobPhoneNumber": "Telefonnummer",
     "tabJobSectionOther": "Sonstiges",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "Zahlungen ansehen (Stripe)",
     "tabAccountSectionAccountManagement": "Kontoverwaltung",
     "tabAccountBtnLogout": "Abmelden",
-    "tabAccountBtnDeleteAccount": "Konto löschen"
+    "tabAccountBtnDeleteAccount": "Konto löschen",
+    "tabJobMileageFee": "Kilometerpauschale (EUR/km)"
   },
   "/account/deleted": {
     "textGoodbye": "Mach's gut!",
@@ -660,7 +662,7 @@
     "tooltipSubmitOffer": "Angebot senden",
     "tooltipRejectRequest": "Anfrage ablehnen",
     "dlgOfferTitle": "Angebot senden",
-    "dlgOfferText": "Gib dein Künstlerhonorar ein, um dem Kunden ein Angebot zu senden.",
+    "dlgOfferText": "Gib dein Künstlerhonorar und die Reisekosten ein, um dem Kunden ein Angebot zu senden.",
     "dlgOfferArtistFeeLabel": "Künstlerhonorar (EUR)",
     "dlgOfferArtistFeePlaceholder": "z. B. 750",
     "dlgOfferBtnConfirm": "Angebot senden",
@@ -685,7 +687,20 @@
     "dlgRequestInfoProposedArtistFee": "Vorgeschlagenes Honorar",
     "dlgRequestInfoArtistFee": "Künstlerhonorar",
     "dlgRequestInfoMessage": "Nachricht",
-    "alertPendingRequests": "{count, plural, one {Es gibt # ausstehende Buchungsanfrage, die auf deine Prüfung wartet.} other {Es gibt # ausstehende Buchungsanfragen, die auf deine Prüfung warten.}}"
+    "alertPendingRequests": "{count, plural, one {Es gibt # ausstehende Buchungsanfrage, die auf deine Prüfung wartet.} other {Es gibt # ausstehende Buchungsanfragen, die auf deine Prüfung warten.}}",
+    "dlgOfferTravelMethodLabel": "Reiseart",
+    "dlgOfferTravelMethodFixed": "Reiseart: {method}",
+    "dlgOfferDistanceInfo": "Einfache Entfernung (Luftlinie): {distance} km (Hin und zurück = ×2)",
+    "dlgOfferKmRateLabel": "Kilometerpauschale (EUR/km)",
+    "dlgOfferTravelFeeTotal": "Reisekosten (Hin und zurück): {amount}",
+    "dlgOfferTravelFeeLabel": "Reisekosten (EUR)",
+    "dlgOfferTravelFeePlaceholder": "z. B. 25",
+    "travelMethodCar": "Auto",
+    "travelMethodPublicTransport": "ÖPNV",
+    "toastInvalidTravelFee": "Bitte gib gültige Reisekosten ein.",
+    "dlgRequestInfoTravelMethod": "Reiseart",
+    "dlgRequestInfoTravelFee": "Reisekosten",
+    "dlgOfferTravelFeeFromRateHint": "Vorschlag aus Kilometerpauschale: {amount} (Gesamtbetrag unten anpassbar)"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Sponsor erstellen",

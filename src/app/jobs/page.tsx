@@ -5,9 +5,11 @@ import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { routeAccount } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
+import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { getTranslations } from 'next-intl/server';
 import { BookingRequestsList } from './components/booking-requests-list';
 import { getBookingRequests } from '@/infrastructure/clients/freestyleacts.client';
+import { getUser } from '@/infrastructure/clients/user.client';
 import { cn } from '@/lib/utils';
 
 const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
@@ -15,7 +17,11 @@ const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 export default async function Jobs() {
   const [t, session] = await Promise.all([getTranslations('/jobs'), auth()]);
 
-  const bookingRequests = await getBookingRequests(session);
+  const username = session?.user?.username;
+  const [bookingRequests, user] = await Promise.all([
+    getBookingRequests(session),
+    username ? getUser(username, session) : Promise.resolve(null),
+  ]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
@@ -24,7 +30,12 @@ export default async function Jobs() {
       </div>
 
       <div className={cn('mt-2 flex-1 min-h-0 flex flex-col overflow-hidden', constrainedContentClass)}>
-        <BookingRequestsList bookingRequests={bookingRequests} />
+        <BookingRequestsList
+          bookingRequests={bookingRequests}
+          jobCarAvailable={Boolean(user?.jobCarAvailable)}
+          jobPreferredTravelMethod={user?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT}
+          jobMileageFee={user?.jobMileageFee}
+        />
       </div>
 
       <Navigation>

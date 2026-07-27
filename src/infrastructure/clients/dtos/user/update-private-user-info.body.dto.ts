@@ -19,6 +19,7 @@ export class UpdatePrivateUserInfoBodyDto {
   jobShowExperience: ShowExperience;
   jobCarAvailable: boolean;
   jobPreferredTravelMethod: JobPreferredTravelMethod;
+  jobMileageFee: number;
   phoneCountryCode: number;
   phoneNumber: string;
   preferredLanguageCode: string;
@@ -40,6 +41,7 @@ export class UpdatePrivateUserInfoBodyDto {
     jobShowExperience: ShowExperience,
     jobCarAvailable: boolean,
     jobPreferredTravelMethod: JobPreferredTravelMethod,
+    jobMileageFee: number,
     phoneCountryCode: number,
     phoneNumber: string,
     preferredLanguageCode: string,
@@ -60,6 +62,7 @@ export class UpdatePrivateUserInfoBodyDto {
     this.jobShowExperience = jobShowExperience;
     this.jobCarAvailable = jobCarAvailable;
     this.jobPreferredTravelMethod = jobPreferredTravelMethod;
+    this.jobMileageFee = jobMileageFee;
     this.phoneCountryCode = phoneCountryCode;
     this.phoneNumber = phoneNumber;
     this.preferredLanguageCode = preferredLanguageCode;
