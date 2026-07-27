@@ -12,6 +12,7 @@ import { Toaster, toast } from 'sonner';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { BookingRequest } from '@/domain/types/booking-request';
+import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { updateBookingRequest } from '@/infrastructure/clients/freestyleacts.client';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
@@ -22,6 +23,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import moment from 'moment';
 
 type StateFilter = 'all' | FreestyleActsBookingRequestState;
+
+const DEFAULT_CAR_KM_RATE_EUR = 0.3;
 
 const STATE_SORT_RANK: Record<FreestyleActsBookingRequestState, number> = {
   [FreestyleActsBookingRequestState.REQUEST_PENDING]: 0,
@@ -107,11 +110,21 @@ function SortColumnHeaderButton({
   );
 }
 
-interface BookingRequestsListProps {
-  bookingRequests: BookingRequest[];
+function roundTripTravelFee(distanceKm: number | null | undefined, kmRateEur: number): number {
+  const distance = Number(distanceKm);
+  if (!Number.isFinite(distance) || distance < 0 || !Number.isFinite(kmRateEur) || kmRateEur < 0) {
+    return 0;
+  }
+  return Math.round(distance * 2 * kmRateEur * 100) / 100;
 }
 
-export const BookingRequestsList = ({ bookingRequests }: BookingRequestsListProps) => {
+interface BookingRequestsListProps {
+  bookingRequests: BookingRequest[];
+  jobCarAvailable: boolean;
+  jobPreferredTravelMethod: JobPreferredTravelMethod;
+}
+
+export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPreferredTravelMethod }: BookingRequestsListProps) => {
   const t = useTranslations('/jobs');
   const na = 'n/a';
 
@@ -122,6 +135,9 @@ export const BookingRequestsList = ({ bookingRequests }: BookingRequestsListProp
   const [tableSort, setTableSort] = useState<TableSort>({ col: 'date', dir: 'desc' });
   const [selectedRequestId, setSelectedRequestId] = useState<string | undefined>();
   const [artistFeeInput, setArtistFeeInput] = useState('');
+  const [travelMethod, setTravelMethod] = useState<JobPreferredTravelMethod>(JobPreferredTravelMethod.PUBLIC_TRANSPORT);
+  const [kmRateInput, setKmRateInput] = useState(String(DEFAULT_CAR_KM_RATE_EUR));
+  const [travelFeeInput, setTravelFeeInput] = useState('');
 
   const selectedRequest = useMemo(() => {
     if (!selectedRequestId) {
@@ -129,6 +145,13 @@ export const BookingRequestsList = ({ bookingRequests }: BookingRequestsListProp
     }
     return bookingRequests.find(request => request.id === selectedRequestId);
   }, [bookingRequests, selectedRequestId]);
+
+  const effectiveTravelMethod = jobCarAvailable ? travelMethod : JobPreferredTravelMethod.PUBLIC_TRANSPORT;
+
+  const computedCarTravelFee = useMemo(
+    () => roundTripTravelFee(selectedRequest?.distanceKm, Number(kmRateInput)),
+    [selectedRequest?.distanceKm, kmRateInput],
+  );
 
   const pendingCount = useMemo(
     () => bookingRequests.filter(r => r.state === FreestyleActsBookingRequestState.REQUEST_PENDING).length,
@@ -210,6 +233,9 @@ export const BookingRequestsList = ({ bookingRequests }: BookingRequestsListProp
   const resetDialogState = () => {
     setSelectedRequestId(undefined);
     setArtistFeeInput('');
+    setTravelMethod(jobPreferredTravelMethod);
+    setKmRateInput(String(DEFAULT_CAR_KM_RATE_EUR));
+    setTravelFeeInput('');
     router.replace(routeJobs);
   };
 
@@ -220,8 +246,16 @@ export const BookingRequestsList = ({ bookingRequests }: BookingRequestsListProp
 
   const handleOfferClicked = (id: string) => {
     const request = bookingRequests.find(r => r.id === id);
+    const defaultMethod = jobCarAvailable ? jobPreferredTravelMethod : JobPreferredTravelMethod.PUBLIC_TRANSPORT;
     setSelectedRequestId(id);
     setArtistFeeInput(request?.artistFee ? String(request.artistFee) : '');
+    setTravelMethod(defaultMethod);
+    setKmRateInput(String(DEFAULT_CAR_KM_RATE_EUR));
+    setTravelFeeInput(
+      defaultMethod === JobPreferredTravelMethod.CAR
+        ? String(roundTripTravelFee(request?.distanceKm, DEFAULT_CAR_KM_RATE_EUR))
+        : '',
+    );
     router.replace(`${routeJobs}?offer=1`);
   };
 
@@ -241,8 +275,24 @@ export const BookingRequestsList = ({ bookingRequests }: BookingRequestsListProp
       return;
     }
 
+    const method = jobCarAvailable ? travelMethod : JobPreferredTravelMethod.PUBLIC_TRANSPORT;
+    const travelFee =
+      method === JobPreferredTravelMethod.CAR ? computedCarTravelFee : Number(travelFeeInput);
+
+    if (!Number.isFinite(travelFee) || travelFee < 0) {
+      toast.error(t('toastInvalidTravelFee'));
+      return;
+    }
+
     try {
-      await updateBookingRequest(selectedRequestId, FreestyleActsBookingRequestState.OFFER_PENDING, session, artistFee);
+      await updateBookingRequest(
+        selectedRequestId,
+        FreestyleActsBookingRequestState.OFFER_PENDING,
+        session,
+        artistFee,
+        method,
+        travelFee,
+      );
       toast.success(t('toastOfferSuccess'));
       resetDialogState();
       router.refresh();
@@ -288,6 +338,8 @@ export const BookingRequestsList = ({ bookingRequests }: BookingRequestsListProp
     }
     return `${value} €`;
   };
+
+  const formatEurAmount = (value: number) => `${Number.isFinite(value) ? value.toFixed(2) : '0.00'} €`;
 
   return (
     <>
@@ -346,6 +398,22 @@ export const BookingRequestsList = ({ bookingRequests }: BookingRequestsListProp
             <p>{formatFee(selectedRequest.artistFee)}</p>
           </div>
         )}
+        {selectedRequest?.proposedTravelMethod && (
+          <div className="grid grid-cols-2 gap-1">
+            <p>{`${t('dlgRequestInfoTravelMethod')}:`}</p>
+            <p>
+              {selectedRequest.proposedTravelMethod === JobPreferredTravelMethod.CAR
+                ? t('travelMethodCar')
+                : t('travelMethodPublicTransport')}
+            </p>
+          </div>
+        )}
+        {selectedRequest && selectedRequest.travelFee != null && selectedRequest.travelFee > 0 && (
+          <div className="grid grid-cols-2 gap-1">
+            <p>{`${t('dlgRequestInfoTravelFee')}:`}</p>
+            <p>{formatFee(selectedRequest.travelFee)}</p>
+          </div>
+        )}
         {selectedRequest?.message && (
           <div className="grid grid-cols-2 gap-1">
             <p>{`${t('dlgRequestInfoMessage')}:`}</p>
@@ -375,8 +443,71 @@ export const BookingRequestsList = ({ bookingRequests }: BookingRequestsListProp
           value={artistFeeInput}
           onChange={e => setArtistFeeInput(e.target.value)}
           placeholder={t('dlgOfferArtistFeePlaceholder')}
-          className="w-full"
+          className="mb-3 w-full"
         />
+
+        {jobCarAvailable ? (
+          <div className="mb-3">
+            <span className="mb-1 block text-left text-xs text-zinc-600">{t('dlgOfferTravelMethodLabel')}</span>
+            <Select value={travelMethod} onValueChange={v => setTravelMethod(v as JobPreferredTravelMethod)}>
+              <SelectTrigger aria-label={t('dlgOfferTravelMethodLabel')}>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={JobPreferredTravelMethod.PUBLIC_TRANSPORT}>{t('travelMethodPublicTransport')}</SelectItem>
+                <SelectItem value={JobPreferredTravelMethod.CAR}>{t('travelMethodCar')}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        ) : (
+          <p className="mb-3 text-xs text-zinc-600">
+            {t('dlgOfferTravelMethodFixed', { method: t('travelMethodPublicTransport') })}
+          </p>
+        )}
+
+        {effectiveTravelMethod === JobPreferredTravelMethod.CAR ? (
+          <>
+            <p className="mb-1 text-xs text-zinc-600">
+              {t('dlgOfferDistanceInfo', {
+                distance: selectedRequest?.distanceKm != null ? selectedRequest.distanceKm : na,
+              })}
+            </p>
+            <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="jobs-offer-km-rate">
+              {t('dlgOfferKmRateLabel')}
+            </label>
+            <Input
+              id="jobs-offer-km-rate"
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              value={kmRateInput}
+              onChange={e => setKmRateInput(e.target.value)}
+              placeholder="0.30"
+              className="mb-2 w-full"
+            />
+            <p className="text-sm text-zinc-800">
+              {t('dlgOfferTravelFeeTotal', { amount: formatEurAmount(computedCarTravelFee) })}
+            </p>
+          </>
+        ) : (
+          <>
+            <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="jobs-offer-travel-fee">
+              {t('dlgOfferTravelFeeLabel')}
+            </label>
+            <Input
+              id="jobs-offer-travel-fee"
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              value={travelFeeInput}
+              onChange={e => setTravelFeeInput(e.target.value)}
+              placeholder={t('dlgOfferTravelFeePlaceholder')}
+              className="w-full"
+            />
+          </>
+        )}
       </Dialog>
 
       <Dialog

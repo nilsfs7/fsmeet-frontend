@@ -1,4 +1,5 @@
 import { FreestyleActsBookingRequestState } from '@/domain/enums/freestyleacts-booking-request-state';
+import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { BookingRequestReferenceType, BookingRequestService, BookingRequestVenue } from '@/domain/types/booking-request';
 
 export class ReadBookingRequestResponseDto {
@@ -19,6 +20,8 @@ export class ReadBookingRequestResponseDto {
   state: FreestyleActsBookingRequestState;
   proposedArtistFee: number;
   artistFee: number;
+  proposedTravelMethod: JobPreferredTravelMethod | null;
+  travelFee: number | null;
   createdAt: string;
 
   constructor(
@@ -39,6 +42,8 @@ export class ReadBookingRequestResponseDto {
     state: FreestyleActsBookingRequestState,
     proposedArtistFee: number,
     artistFee: number,
+    proposedTravelMethod: JobPreferredTravelMethod | null,
+    travelFee: number | null,
     createdAt: string,
   ) {
     this.id = id;
@@ -58,6 +63,8 @@ export class ReadBookingRequestResponseDto {
     this.state = state;
     this.proposedArtistFee = proposedArtistFee;
     this.artistFee = artistFee;
+    this.proposedTravelMethod = proposedTravelMethod;
+    this.travelFee = travelFee;
     this.createdAt = createdAt;
   }
 }

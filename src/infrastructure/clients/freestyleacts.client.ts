@@ -1,6 +1,7 @@
 import { Session } from 'next-auth';
 import { BookingRequest } from '@/domain/types/booking-request';
 import { FreestyleActsBookingRequestState } from '@/domain/enums/freestyleacts-booking-request-state';
+import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { defaultHeaders } from './default-headers';
 import { ReadBookingRequestResponseDto } from './dtos/freestyleacts/read-booking-request.response.dto';
 import { PatchBookingRequestBodyDto } from './dtos/freestyleacts/patch-booking-request.body.dto';
@@ -24,6 +25,8 @@ function mapBookingRequest(dto: ReadBookingRequestResponseDto): BookingRequest {
     state: dto.state,
     proposedArtistFee: dto.proposedArtistFee,
     artistFee: dto.artistFee,
+    proposedTravelMethod: dto.proposedTravelMethod ?? null,
+    travelFee: dto.travelFee ?? null,
     createdAt: dto.createdAt,
   };
 }
@@ -52,9 +55,11 @@ export async function updateBookingRequest(
   state: FreestyleActsBookingRequestState.OFFER_PENDING | FreestyleActsBookingRequestState.REJECTED_BY_ARTIST,
   session: Session | null,
   artistFee?: number,
+  proposedTravelMethod?: JobPreferredTravelMethod,
+  travelFee?: number,
 ): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/freestyleacts/booking-requests/${bookingRequestId}`;
-  const body = new PatchBookingRequestBodyDto(state, artistFee);
+  const body = new PatchBookingRequestBodyDto(state, artistFee, proposedTravelMethod, travelFee);
 
   const response = await fetch(url, {
     method: 'PATCH',
