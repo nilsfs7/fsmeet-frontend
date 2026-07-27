@@ -30,6 +30,8 @@ import { DatePicker } from '@/components/common/date-picker';
 import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import { menuShowExperience } from '@/domain/constants/menus/menu-show-experience';
+import { menuJobPreferredTravelMethod } from '@/domain/constants/menus/menu-job-preferred-travel-method';
+import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
 import {
   createStripeAccount,
@@ -133,6 +135,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       jobOfferWorkshops: userInfo.jobOfferWorkshops,
       jobShowExperience: userInfo.jobShowExperience,
       jobCarAvailable: userInfo.jobCarAvailable,
+      jobPreferredTravelMethod: userInfo.jobCarAvailable
+        ? userInfo.jobPreferredTravelMethod
+        : JobPreferredTravelMethod.PUBLIC_TRANSPORT,
       phoneCountryCode: userInfo.phoneCountryCode,
       phoneNumber: userInfo.phoneNumber,
       preferredLanguageCode: userInfo.preferredLanguageCode,
@@ -297,6 +302,16 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const handleCarAvailableChanged = (value: boolean) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.jobCarAvailable = value;
+    if (!value) {
+      newUserInfo.jobPreferredTravelMethod = JobPreferredTravelMethod.PUBLIC_TRANSPORT;
+    }
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handlePreferredTravelMethodChanged = (value: JobPreferredTravelMethod) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobPreferredTravelMethod = value;
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);
   };
@@ -935,6 +950,25 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       handleCarAvailableChanged(!userInfo.jobCarAvailable);
                     }}
                   />
+
+                  {userInfo.jobCarAvailable && (
+                    <FieldRow label={t('tabJobPreferredTravelMethod')}>
+                      <ComboBox
+                        menus={menuJobPreferredTravelMethod.map(item => ({
+                          ...item,
+                          text:
+                            item.value === JobPreferredTravelMethod.CAR
+                              ? t('tabJobTravelMethodCar')
+                              : t('tabJobTravelMethodPublicTransport'),
+                        }))}
+                        value={userInfo.jobPreferredTravelMethod || JobPreferredTravelMethod.PUBLIC_TRANSPORT}
+                        searchEnabled={false}
+                        onChange={(value: JobPreferredTravelMethod) => {
+                          handlePreferredTravelMethodChanged(value);
+                        }}
+                      />
+                    </FieldRow>
+                  )}
                 </>
               )}
             </div>

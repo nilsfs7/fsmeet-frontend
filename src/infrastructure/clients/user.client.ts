@@ -1,6 +1,7 @@
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
+import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { User } from '@/domain/types/user';
 import { Session } from 'next-auth';
 import { DeleteUserBodyDto } from './dtos/user/delete-user.body.dto';
@@ -64,6 +65,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
       jobShowExperience: data.private?.jobShowExperience,
       jobCarAvailable: data.private?.jobCarAvailable,
+      jobPreferredTravelMethod: data.private?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
       preferredLanguageCode: data.private?.preferredLanguageCode,
@@ -149,6 +151,7 @@ export async function getUsers(type?: UserType, gender?: Gender, countryCode?: s
       jobOfferWorkshops: data.private?.jobOfferWorkshops,
       jobShowExperience: data.private?.jobShowExperience,
       jobCarAvailable: data.private?.jobCarAvailable,
+      jobPreferredTravelMethod: data.private?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT,
       phoneCountryCode: data.private?.phoneCountryCode,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
@@ -260,6 +263,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
       user.jobOfferWorkshops,
       user.jobShowExperience,
       user.jobCarAvailable,
+      user.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT,
       user.phoneCountryCode,
       user.phoneNumber,
       user.preferredLanguageCode,
@@ -291,6 +295,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     user.jobOfferWorkshops = user.private?.jobOfferWorkshops;
     user.jobShowExperience = user.private?.jobShowExperience;
     user.jobCarAvailable = user.private?.jobCarAvailable;
+    user.jobPreferredTravelMethod = user.private?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT;
     user.phoneCountryCode = user.private?.phoneCountryCode;
     user.phoneNumber = user.private?.phoneNumber;
     user.preferredLanguageCode = user.private?.preferredLanguageCode;
