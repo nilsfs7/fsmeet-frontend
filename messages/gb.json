@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "Walk Acts",
     "tabJobOfferingWorkshop": "Workshops",
     "tabJobSectionContact": "Contact",
+    "tabJobSectionTravel": "Travel",
     "tabJobPhoneCountryCode": "Phone Country Code",
     "tabJobPhoneNumber": "Phone Number",
     "tabJobSectionOther": "Other",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "View payments (Stripe)",
     "tabAccountSectionAccountManagement": "Account Management",
     "tabAccountBtnLogout": "Logout",
-    "tabAccountBtnDeleteAccount": "Delete Account"
+    "tabAccountBtnDeleteAccount": "Delete Account",
+    "tabJobMileageFee": "Mileage fee (EUR/km)"
   },
   "/account/deleted": {
     "textGoodbye": "Goodbye!",
@@ -686,6 +688,7 @@
     "dlgOfferDistanceInfo": "One-way distance: {distance} km (round trip = ×2)",
     "dlgOfferKmRateLabel": "Mileage rate (EUR/km)",
     "dlgOfferTravelFeeTotal": "Travel fee (round trip): {amount}",
+    "dlgOfferTravelFeeFromRateHint": "Suggested from mileage rate: {amount} (you can edit the total below)",
     "dlgOfferTravelFeeLabel": "Travel fee (EUR)",
     "dlgOfferTravelFeePlaceholder": "e.g. 25",
     "dlgOfferBtnConfirm": "Submit offer",

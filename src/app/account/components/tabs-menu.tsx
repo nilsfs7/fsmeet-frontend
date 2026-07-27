@@ -50,6 +50,9 @@ import Separator from '@/components/separator';
 import { ActionButtonCopyToClipboard } from '@/components/common/action-button-copy-to-clipboard';
 import { menuSupportedLanguages } from '../../../domain/constants/menus/menu-supported-languages';
 import { cn } from '@/lib/utils';
+import CurInput from '@/components/common/currency-input';
+import { CurrencyCode } from '@/domain/enums/currency-code';
+import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
@@ -138,6 +141,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       jobPreferredTravelMethod: userInfo.jobCarAvailable
         ? userInfo.jobPreferredTravelMethod
         : JobPreferredTravelMethod.PUBLIC_TRANSPORT,
+      jobMileageFee: userInfo.jobMileageFee,
       phoneCountryCode: userInfo.phoneCountryCode,
       phoneNumber: userInfo.phoneNumber,
       preferredLanguageCode: userInfo.preferredLanguageCode,
@@ -312,6 +316,17 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const handlePreferredTravelMethodChanged = (value: JobPreferredTravelMethod) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.jobPreferredTravelMethod = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+  };
+
+  const handleMileageFeeChanged = (floatValue: number | null | undefined) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    if (floatValue == null || !Number.isFinite(floatValue)) {
+      newUserInfo.jobMileageFee = undefined;
+    } else {
+      newUserInfo.jobMileageFee = convertCurrencyDecimalToInteger(floatValue, CurrencyCode.EUR);
+    }
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);
   };
@@ -929,6 +944,55 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   <div className="py-1">
                     <Separator />
                   </div>
+                  <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobSectionTravel')}</h2>
+
+                  <CheckBox
+                    id={'carAvailable'}
+                    label={t('tabJobCarAvailable')}
+                    value={userInfo.jobCarAvailable}
+                    onChange={() => {
+                      handleCarAvailableChanged(!userInfo.jobCarAvailable);
+                    }}
+                  />
+
+                  {userInfo.jobCarAvailable && (
+                    <>
+                      <FieldRow label={t('tabJobPreferredTravelMethod')}>
+                        <ComboBox
+                          menus={menuJobPreferredTravelMethod.map(item => ({
+                            ...item,
+                            text:
+                              item.value === JobPreferredTravelMethod.CAR
+                                ? t('tabJobTravelMethodCar')
+                                : t('tabJobTravelMethodPublicTransport'),
+                          }))}
+                          value={userInfo.jobPreferredTravelMethod || JobPreferredTravelMethod.PUBLIC_TRANSPORT}
+                          searchEnabled={false}
+                          onChange={(value: JobPreferredTravelMethod) => {
+                            handlePreferredTravelMethodChanged(value);
+                          }}
+                        />
+                      </FieldRow>
+
+                      <CurInput
+                        id="jobMileageFee"
+                        label={t('tabJobMileageFee')}
+                        placeholder="0,30"
+                        value={
+                          userInfo.jobMileageFee != null
+                            ? convertCurrencyIntegerToDecimal(userInfo.jobMileageFee, CurrencyCode.EUR)
+                            : undefined
+                        }
+                        onValueChange={(_value, _name, values) => {
+                          handleMileageFeeChanged(values?.float);
+                        }}
+                      />
+                    </>
+                  )}
+
+                  <div className="py-1">
+                    <Separator />
+                  </div>
                   <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobSectionOther')}</h2>
 
                   <FieldRow label={t('tabJobExperience')}>
@@ -941,34 +1005,6 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       }}
                     />
                   </FieldRow>
-
-                  <CheckBox
-                    id={'carAvailable'}
-                    label={t('tabJobCarAvailable')}
-                    value={userInfo.jobCarAvailable}
-                    onChange={() => {
-                      handleCarAvailableChanged(!userInfo.jobCarAvailable);
-                    }}
-                  />
-
-                  {userInfo.jobCarAvailable && (
-                    <FieldRow label={t('tabJobPreferredTravelMethod')}>
-                      <ComboBox
-                        menus={menuJobPreferredTravelMethod.map(item => ({
-                          ...item,
-                          text:
-                            item.value === JobPreferredTravelMethod.CAR
-                              ? t('tabJobTravelMethodCar')
-                              : t('tabJobTravelMethodPublicTransport'),
-                        }))}
-                        value={userInfo.jobPreferredTravelMethod || JobPreferredTravelMethod.PUBLIC_TRANSPORT}
-                        searchEnabled={false}
-                        onChange={(value: JobPreferredTravelMethod) => {
-                          handlePreferredTravelMethodChanged(value);
-                        }}
-                      />
-                    </FieldRow>
-                  )}
                 </>
               )}
             </div>

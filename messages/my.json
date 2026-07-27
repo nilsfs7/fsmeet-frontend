@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "Walk Acts",
     "tabJobOfferingWorkshop": "Bengkel",
     "tabJobSectionContact": "Hubungi",
+    "tabJobSectionTravel": "Perjalanan",
     "tabJobPhoneCountryCode": "Kod Negara Telefon",
     "tabJobPhoneNumber": "Nombor Telefon",
     "tabJobSectionOther": "Lain-lain",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "Lihat pembayaran (Stripe)",
     "tabAccountSectionAccountManagement": "Pengurusan Akaun",
     "tabAccountBtnLogout": "Log keluar",
-    "tabAccountBtnDeleteAccount": "Padam Akaun"
+    "tabAccountBtnDeleteAccount": "Padam Akaun",
+    "tabJobMileageFee": "Yuran kilometer (EUR/km)"
   },
   "/account/deleted": {
     "textGoodbye": "Selamat tinggal!",
@@ -715,7 +717,8 @@
     "travelMethodPublicTransport": "Pengangkutan awam",
     "toastInvalidTravelFee": "Sila masukkan yuran perjalanan yang sah.",
     "dlgRequestInfoTravelMethod": "Kaedah perjalanan",
-    "dlgRequestInfoTravelFee": "Yuran perjalanan"
+    "dlgRequestInfoTravelFee": "Yuran perjalanan",
+    "dlgOfferTravelFeeFromRateHint": "Cadangan dari kadar km: {amount} (boleh edit jumlah di bawah)"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Cipta Penaja",

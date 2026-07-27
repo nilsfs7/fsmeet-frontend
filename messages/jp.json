@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "ウォークアクト",
     "tabJobOfferingWorkshop": "ワークショップ",
     "tabJobSectionContact": "連絡先",
+    "tabJobSectionTravel": "移動",
     "tabJobPhoneCountryCode": "国番号",
     "tabJobPhoneNumber": "電話番号",
     "tabJobSectionOther": "その他",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "支払いを表示（Stripe）",
     "tabAccountSectionAccountManagement": "アカウント管理",
     "tabAccountBtnLogout": "ログアウト",
-    "tabAccountBtnDeleteAccount": "アカウント削除"
+    "tabAccountBtnDeleteAccount": "アカウント削除",
+    "tabJobMileageFee": "キロ単価（EUR/km）"
   },
   "/account/deleted": {
     "textGoodbye": "さようなら！",
@@ -715,7 +717,8 @@
     "travelMethodPublicTransport": "公共交通機関",
     "toastInvalidTravelFee": "有効な旅費を入力してください。",
     "dlgRequestInfoTravelMethod": "移動手段",
-    "dlgRequestInfoTravelFee": "旅費"
+    "dlgRequestInfoTravelFee": "旅費",
+    "dlgOfferTravelFeeFromRateHint": "キロ単価からの提案：{amount}（下で合計を編集できます）"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "スポンサーを作成",

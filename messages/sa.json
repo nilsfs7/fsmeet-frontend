@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "عروض متنقلة",
     "tabJobOfferingWorkshop": "ورش عمل",
     "tabJobSectionContact": "التواصل",
+    "tabJobSectionTravel": "الوصول",
     "tabJobPhoneCountryCode": "رمز الدولة للهاتف",
     "tabJobPhoneNumber": "رقم الهاتف",
     "tabJobSectionOther": "أخرى",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "عرض المدفوعات (Stripe)",
     "tabAccountSectionAccountManagement": "إدارة الحساب",
     "tabAccountBtnLogout": "تسجيل الخروج",
-    "tabAccountBtnDeleteAccount": "حذف الحساب"
+    "tabAccountBtnDeleteAccount": "حذف الحساب",
+    "tabJobMileageFee": "رسوم الكيلومتر (يورو/كم)"
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",
@@ -715,7 +717,8 @@
     "travelMethodPublicTransport": "النقل العام",
     "toastInvalidTravelFee": "يرجى إدخال تكلفة سفر صالحة.",
     "dlgRequestInfoTravelMethod": "وسيلة السفر",
-    "dlgRequestInfoTravelFee": "تكلفة السفر"
+    "dlgRequestInfoTravelFee": "تكلفة السفر",
+    "dlgOfferTravelFeeFromRateHint": "مقترح من سعر الكيلومتر: {amount} (يمكنك تعديل الإجمالي أدناه)"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",

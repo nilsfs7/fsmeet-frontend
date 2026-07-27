@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "Walk Acts",
     "tabJobOfferingWorkshop": "Talleres",
     "tabJobSectionContact": "Contacto",
+    "tabJobSectionTravel": "Desplazamiento",
     "tabJobPhoneCountryCode": "Código de país",
     "tabJobPhoneNumber": "Número de teléfono",
     "tabJobSectionOther": "Otros",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "Ver pagos (Stripe)",
     "tabAccountSectionAccountManagement": "Gestión de la cuenta",
     "tabAccountBtnLogout": "Cerrar sesión",
-    "tabAccountBtnDeleteAccount": "Eliminar cuenta"
+    "tabAccountBtnDeleteAccount": "Eliminar cuenta",
+    "tabJobMileageFee": "Tarifa por kilómetro (EUR/km)"
   },
   "/account/deleted": {
     "textGoodbye": "¡Cuídese!",
@@ -697,7 +699,8 @@
     "travelMethodPublicTransport": "Transporte público",
     "toastInvalidTravelFee": "Introduce unos gastos de viaje válidos.",
     "dlgRequestInfoTravelMethod": "Método de viaje",
-    "dlgRequestInfoTravelFee": "Gastos de viaje"
+    "dlgRequestInfoTravelFee": "Gastos de viaje",
+    "dlgOfferTravelFeeFromRateHint": "Sugerido por tarifa/km: {amount} (puedes editar el total abajo)"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Crear patrocinador",

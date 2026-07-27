@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "走动表演",
     "tabJobOfferingWorkshop": "工作坊",
     "tabJobSectionContact": "联系方式",
+    "tabJobSectionTravel": "出行",
     "tabJobPhoneCountryCode": "电话国家区号",
     "tabJobPhoneNumber": "电话号码",
     "tabJobSectionOther": "其他",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "在 Stripe 中查看收款",
     "tabAccountSectionAccountManagement": "账户管理",
     "tabAccountBtnLogout": "退出登录",
-    "tabAccountBtnDeleteAccount": "删除账户"
+    "tabAccountBtnDeleteAccount": "删除账户",
+    "tabJobMileageFee": "里程费（欧元/公里）"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",
@@ -715,7 +717,8 @@
     "travelMethodPublicTransport": "公共交通",
     "toastInvalidTravelFee": "请输入有效的差旅费。",
     "dlgRequestInfoTravelMethod": "出行方式",
-    "dlgRequestInfoTravelFee": "差旅费"
+    "dlgRequestInfoTravelFee": "差旅费",
+    "dlgOfferTravelFeeFromRateHint": "根据里程费率建议：{amount}（可在下方修改总额）"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",

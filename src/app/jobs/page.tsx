@@ -34,6 +34,7 @@ export default async function Jobs() {
           bookingRequests={bookingRequests}
           jobCarAvailable={Boolean(user?.jobCarAvailable)}
           jobPreferredTravelMethod={user?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT}
+          jobMileageFee={user?.jobMileageFee}
         />
       </div>
 

@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "Walk Acts",
     "tabJobOfferingWorkshop": "Workshops",
     "tabJobSectionContact": "Kontakt",
+    "tabJobSectionTravel": "Anfahrt",
     "tabJobPhoneCountryCode": "Ländervorwahl",
     "tabJobPhoneNumber": "Telefonnummer",
     "tabJobSectionOther": "Sonstiges",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "Zahlungen ansehen (Stripe)",
     "tabAccountSectionAccountManagement": "Kontoverwaltung",
     "tabAccountBtnLogout": "Abmelden",
-    "tabAccountBtnDeleteAccount": "Konto löschen"
+    "tabAccountBtnDeleteAccount": "Konto löschen",
+    "tabJobMileageFee": "Kilometerpauschale (EUR/km)"
   },
   "/account/deleted": {
     "textGoodbye": "Mach's gut!",
@@ -697,7 +699,8 @@
     "travelMethodPublicTransport": "ÖPNV",
     "toastInvalidTravelFee": "Bitte gib gültige Reisekosten ein.",
     "dlgRequestInfoTravelMethod": "Reiseart",
-    "dlgRequestInfoTravelFee": "Reisekosten"
+    "dlgRequestInfoTravelFee": "Reisekosten",
+    "dlgOfferTravelFeeFromRateHint": "Vorschlag aus Kilometerpauschale: {amount} (Gesamtbetrag unten anpassbar)"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Sponsor erstellen",

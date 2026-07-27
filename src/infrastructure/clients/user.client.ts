@@ -66,6 +66,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       jobShowExperience: data.private?.jobShowExperience,
       jobCarAvailable: data.private?.jobCarAvailable,
       jobPreferredTravelMethod: data.private?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT,
+      jobMileageFee: data.private?.jobMileageFee != null ? Math.round(Number(data.private.jobMileageFee)) : undefined,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
       preferredLanguageCode: data.private?.preferredLanguageCode,
@@ -152,6 +153,7 @@ export async function getUsers(type?: UserType, gender?: Gender, countryCode?: s
       jobShowExperience: data.private?.jobShowExperience,
       jobCarAvailable: data.private?.jobCarAvailable,
       jobPreferredTravelMethod: data.private?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT,
+      jobMileageFee: data.private?.jobMileageFee != null ? Math.round(Number(data.private.jobMileageFee)) : undefined,
       phoneCountryCode: data.private?.phoneCountryCode,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
@@ -264,6 +266,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
       user.jobShowExperience,
       user.jobCarAvailable,
       user.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT,
+      Number.isFinite(Number(user.jobMileageFee)) ? Math.round(Number(user.jobMileageFee)) : 30,
       user.phoneCountryCode,
       user.phoneNumber,
       user.preferredLanguageCode,
@@ -296,6 +299,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     user.jobShowExperience = user.private?.jobShowExperience;
     user.jobCarAvailable = user.private?.jobCarAvailable;
     user.jobPreferredTravelMethod = user.private?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT;
+    user.jobMileageFee = user.private?.jobMileageFee != null ? Math.round(Number(user.private.jobMileageFee)) : undefined;
     user.phoneCountryCode = user.private?.phoneCountryCode;
     user.phoneNumber = user.private?.phoneNumber;
     user.preferredLanguageCode = user.private?.preferredLanguageCode;

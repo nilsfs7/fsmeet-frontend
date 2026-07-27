@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "वॉक एक्ट्स",
     "tabJobOfferingWorkshop": "वर्कशॉप",
     "tabJobSectionContact": "संपर्क",
+    "tabJobSectionTravel": "यात्रा",
     "tabJobPhoneCountryCode": "फोन देश कोड",
     "tabJobPhoneNumber": "फोन नंबर",
     "tabJobSectionOther": "अन्य",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "भुगतान देखें (Stripe)",
     "tabAccountSectionAccountManagement": "खाता प्रबंधन",
     "tabAccountBtnLogout": "लॉगआउट",
-    "tabAccountBtnDeleteAccount": "खाता हटाएं"
+    "tabAccountBtnDeleteAccount": "खाता हटाएं",
+    "tabJobMileageFee": "किलोमीटर शुल्क (EUR/km)"
   },
   "/account/deleted": {
     "textGoodbye": "अलविदा!",
@@ -715,7 +717,8 @@
     "travelMethodPublicTransport": "सार्वजनिक परिवहन",
     "toastInvalidTravelFee": "कृपया एक वैध यात्रा शुल्क दर्ज करें।",
     "dlgRequestInfoTravelMethod": "यात्रा का तरीका",
-    "dlgRequestInfoTravelFee": "यात्रा शुल्क"
+    "dlgRequestInfoTravelFee": "यात्रा शुल्क",
+    "dlgOfferTravelFeeFromRateHint": "किलोमीटर दर से सुझाव: {amount} (नीचे कुल राशि संपादित कर सकते हैं)"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "प्रायोजक बनाएं",

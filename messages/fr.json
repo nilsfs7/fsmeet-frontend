@@ -130,6 +130,7 @@
     "tabJobOfferingWalkact": "Interactions",
     "tabJobOfferingWorkshop": "Ateliers",
     "tabJobSectionContact": "Contact",
+    "tabJobSectionTravel": "Déplacement",
     "tabJobPhoneCountryCode": "Indicatif téléphonique",
     "tabJobPhoneNumber": "Numéro de téléphone",
     "tabJobSectionOther": "Autres",
@@ -153,7 +154,8 @@
     "tabAccountBtnViewPaymentsInStripe": "Voir les paiements (Stripe)",
     "tabAccountSectionAccountManagement": "Gestion du compte",
     "tabAccountBtnLogout": "Déconnexion",
-    "tabAccountBtnDeleteAccount": "Supprimer le compte"
+    "tabAccountBtnDeleteAccount": "Supprimer le compte",
+    "tabJobMileageFee": "Indemnité kilométrique (EUR/km)"
   },
   "/account/deleted": {
     "textGoodbye": "Au revoir !",
@@ -697,7 +699,8 @@
     "travelMethodPublicTransport": "Transports en commun",
     "toastInvalidTravelFee": "Veuillez saisir des frais de déplacement valides.",
     "dlgRequestInfoTravelMethod": "Mode de transport",
-    "dlgRequestInfoTravelFee": "Frais de déplacement"
+    "dlgRequestInfoTravelFee": "Frais de déplacement",
+    "dlgOfferTravelFeeFromRateHint": "Suggestion selon le taux kilométrique : {amount} (modifiable ci-dessous)"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Créer un partenaire",
