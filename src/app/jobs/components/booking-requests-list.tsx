@@ -449,15 +449,32 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
         {jobCarAvailable ? (
           <div className="mb-3">
             <span className="mb-1 block text-left text-xs text-zinc-600">{t('dlgOfferTravelMethodLabel')}</span>
-            <Select value={travelMethod} onValueChange={v => setTravelMethod(v as JobPreferredTravelMethod)}>
-              <SelectTrigger aria-label={t('dlgOfferTravelMethodLabel')}>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={JobPreferredTravelMethod.PUBLIC_TRANSPORT}>{t('travelMethodPublicTransport')}</SelectItem>
-                <SelectItem value={JobPreferredTravelMethod.CAR}>{t('travelMethodCar')}</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                className={cn(
+                  'rounded-md border px-3 py-2 text-left text-sm transition-colors',
+                  travelMethod === JobPreferredTravelMethod.PUBLIC_TRANSPORT
+                    ? 'border-primary bg-primary/10 text-foreground'
+                    : 'border-zinc-200 bg-white text-zinc-700 hover:border-primary/40 dark:border-zinc-800 dark:bg-zinc-950',
+                )}
+                onClick={() => setTravelMethod(JobPreferredTravelMethod.PUBLIC_TRANSPORT)}
+              >
+                {t('travelMethodPublicTransport')}
+              </button>
+              <button
+                type="button"
+                className={cn(
+                  'rounded-md border px-3 py-2 text-left text-sm transition-colors',
+                  travelMethod === JobPreferredTravelMethod.CAR
+                    ? 'border-primary bg-primary/10 text-foreground'
+                    : 'border-zinc-200 bg-white text-zinc-700 hover:border-primary/40 dark:border-zinc-800 dark:bg-zinc-950',
+                )}
+                onClick={() => setTravelMethod(JobPreferredTravelMethod.CAR)}
+              >
+                {t('travelMethodCar')}
+              </button>
+            </div>
           </div>
         ) : (
           <p className="mb-3 text-xs text-zinc-600">
