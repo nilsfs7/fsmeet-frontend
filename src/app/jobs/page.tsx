@@ -6,6 +6,7 @@ import PageTitle from '@/components/page-title';
 import { routeAccount } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
+import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getTranslations } from 'next-intl/server';
 import { BookingRequestsList } from './components/booking-requests-list';
 import { getBookingRequests } from '@/infrastructure/clients/freestyleacts.client';
@@ -35,6 +36,7 @@ export default async function Jobs() {
           jobCarAvailable={Boolean(user?.jobCarAvailable)}
           jobPreferredTravelMethod={user?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT}
           jobMileageFee={user?.jobMileageFee}
+          jobCurrencyCode={user?.jobCurrencyCode ?? CurrencyCode.EUR}
         />
       </div>
 
