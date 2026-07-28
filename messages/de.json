@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "Kontoverwaltung",
     "tabAccountBtnLogout": "Abmelden",
     "tabAccountBtnDeleteAccount": "Konto löschen",
-    "tabJobMileageFee": "Kilometerpauschale (EUR/km)"
+    "tabJobMileageFee": "Kilometerpauschale (EUR/km)",
+    "tabJobCurrencyCode": "Währung"
   },
   "/account/deleted": {
     "textGoodbye": "Mach's gut!",
@@ -663,7 +664,7 @@
     "tooltipRejectRequest": "Anfrage ablehnen",
     "dlgOfferTitle": "Angebot senden",
     "dlgOfferText": "Gib dein Künstlerhonorar und die Reisekosten ein, um dem Kunden ein Angebot zu senden.",
-    "dlgOfferArtistFeeLabel": "Künstlerhonorar (EUR)",
+    "dlgOfferArtistFeeLabel": "Künstlerhonorar ({currency})",
     "dlgOfferArtistFeePlaceholder": "z. B. 750",
     "dlgOfferBtnConfirm": "Angebot senden",
     "dlgRejectTitle": "Anfrage ablehnen",
@@ -691,16 +692,17 @@
     "dlgOfferTravelMethodLabel": "Reiseart",
     "dlgOfferTravelMethodFixed": "Reiseart: {method}",
     "dlgOfferDistanceInfo": "Einfache Entfernung (Luftlinie): {distance} km (Hin und zurück = ×2)",
-    "dlgOfferKmRateLabel": "Kilometerpauschale (EUR/km)",
+    "dlgOfferKmRateLabel": "Kilometerpauschale ({currency}/km)",
     "dlgOfferTravelFeeTotal": "Reisekosten (Hin und zurück): {amount}",
-    "dlgOfferTravelFeeLabel": "Reisekosten (EUR)",
+    "dlgOfferTravelFeeLabel": "Reisekosten ({currency})",
     "dlgOfferTravelFeePlaceholder": "z. B. 25",
     "travelMethodCar": "Auto",
     "travelMethodPublicTransport": "ÖPNV",
     "toastInvalidTravelFee": "Bitte gib gültige Reisekosten ein.",
     "dlgRequestInfoTravelMethod": "Reiseart",
     "dlgRequestInfoTravelFee": "Reisekosten",
-    "dlgOfferTravelFeeFromRateHint": "Vorschlag aus Kilometerpauschale: {amount} (Gesamtbetrag unten anpassbar)"
+    "dlgOfferTravelFeeFromRateHint": "Vorschlag aus Kilometerpauschale: {amount} (Gesamtbetrag unten anpassbar)",
+    "dlgOfferTravelFeeShortDistanceHint": "Bei Entfernungen unter {km} km (einfache Strecke) werden keine Reisekosten vorgeschlagen. Du kannst diese trotzdem anpassen."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Sponsor erstellen",

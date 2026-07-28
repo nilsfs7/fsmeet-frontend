@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "账户管理",
     "tabAccountBtnLogout": "退出登录",
     "tabAccountBtnDeleteAccount": "删除账户",
-    "tabJobMileageFee": "里程费（欧元/公里）"
+    "tabJobMileageFee": "里程费（欧元/公里）",
+    "tabJobCurrencyCode": "货币"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",
@@ -681,7 +682,7 @@
     "tooltipRejectRequest": "拒绝请求",
     "dlgOfferTitle": "提交报价",
     "dlgOfferText": "输入您的演出费用和差旅费用以向客户发送报价。",
-    "dlgOfferArtistFeeLabel": "演出费用（EUR）",
+    "dlgOfferArtistFeeLabel": "演出费用（{currency}）",
     "dlgOfferArtistFeePlaceholder": "例如 750",
     "dlgOfferBtnConfirm": "提交报价",
     "dlgRejectTitle": "拒绝请求",
@@ -709,16 +710,17 @@
     "dlgOfferTravelMethodLabel": "出行方式",
     "dlgOfferTravelMethodFixed": "出行方式：{method}",
     "dlgOfferDistanceInfo": "单程距离：{distance} 公里（往返 = ×2）",
-    "dlgOfferKmRateLabel": "每公里费率（EUR/km）",
+    "dlgOfferKmRateLabel": "每公里费率（{currency}/km）",
     "dlgOfferTravelFeeTotal": "差旅费（往返）：{amount}",
-    "dlgOfferTravelFeeLabel": "差旅费（EUR）",
+    "dlgOfferTravelFeeLabel": "差旅费（{currency}）",
     "dlgOfferTravelFeePlaceholder": "例如 25",
     "travelMethodCar": "汽车",
     "travelMethodPublicTransport": "公共交通",
     "toastInvalidTravelFee": "请输入有效的差旅费。",
     "dlgRequestInfoTravelMethod": "出行方式",
     "dlgRequestInfoTravelFee": "差旅费",
-    "dlgOfferTravelFeeFromRateHint": "根据里程费率建议：{amount}（可在下方修改总额）"
+    "dlgOfferTravelFeeFromRateHint": "根据里程费率建议：{amount}（可在下方修改总额）",
+    "dlgOfferTravelFeeShortDistanceHint": "单程距离低于 {km} 公里时不建议收取差旅费。"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",

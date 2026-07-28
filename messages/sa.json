@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "إدارة الحساب",
     "tabAccountBtnLogout": "تسجيل الخروج",
     "tabAccountBtnDeleteAccount": "حذف الحساب",
-    "tabJobMileageFee": "رسوم الكيلومتر (يورو/كم)"
+    "tabJobMileageFee": "رسوم الكيلومتر (يورو/كم)",
+    "tabJobCurrencyCode": "العملة"
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",
@@ -681,7 +682,7 @@
     "tooltipRejectRequest": "رفض الطلب",
     "dlgOfferTitle": "إرسال عرض",
     "dlgOfferText": "أدخل أجر الفنان وتكاليف السفر لإرسال عرض إلى العميل.",
-    "dlgOfferArtistFeeLabel": "أجر الفنان (EUR)",
+    "dlgOfferArtistFeeLabel": "أجر الفنان ({currency})",
     "dlgOfferArtistFeePlaceholder": "مثال: 750",
     "dlgOfferBtnConfirm": "إرسال العرض",
     "dlgRejectTitle": "رفض الطلب",
@@ -709,16 +710,17 @@
     "dlgOfferTravelMethodLabel": "وسيلة السفر",
     "dlgOfferTravelMethodFixed": "وسيلة السفر: {method}",
     "dlgOfferDistanceInfo": "مسافة الذهاب: {distance} كم (ذهاب وإياب = ×2)",
-    "dlgOfferKmRateLabel": "سعر الكيلومتر (EUR/km)",
+    "dlgOfferKmRateLabel": "سعر الكيلومتر ({currency}/km)",
     "dlgOfferTravelFeeTotal": "تكلفة السفر (ذهاب وإياب): {amount}",
-    "dlgOfferTravelFeeLabel": "تكلفة السفر (EUR)",
+    "dlgOfferTravelFeeLabel": "تكلفة السفر ({currency})",
     "dlgOfferTravelFeePlaceholder": "مثال: 25",
     "travelMethodCar": "سيارة",
     "travelMethodPublicTransport": "النقل العام",
     "toastInvalidTravelFee": "يرجى إدخال تكلفة سفر صالحة.",
     "dlgRequestInfoTravelMethod": "وسيلة السفر",
     "dlgRequestInfoTravelFee": "تكلفة السفر",
-    "dlgOfferTravelFeeFromRateHint": "مقترح من سعر الكيلومتر: {amount} (يمكنك تعديل الإجمالي أدناه)"
+    "dlgOfferTravelFeeFromRateHint": "مقترح من سعر الكيلومتر: {amount} (يمكنك تعديل الإجمالي أدناه)",
+    "dlgOfferTravelFeeShortDistanceHint": "لا يُقترح أي تكلفة سفر للمسافات ذهابًا أقل من {km} كم."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",

@@ -1,5 +1,6 @@
 import { ShowExperience } from '@/domain/enums/show-experience';
 import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
+import { CurrencyCode } from '@/domain/enums/currency-code';
 import { Moment } from 'moment';
 
 export class UpdatePrivateUserInfoBodyDto {
@@ -20,6 +21,7 @@ export class UpdatePrivateUserInfoBodyDto {
   jobCarAvailable: boolean;
   jobPreferredTravelMethod: JobPreferredTravelMethod;
   jobMileageFee: number;
+  jobCurrencyCode: CurrencyCode;
   phoneCountryCode: number;
   phoneNumber: string;
   preferredLanguageCode: string;
@@ -42,6 +44,7 @@ export class UpdatePrivateUserInfoBodyDto {
     jobCarAvailable: boolean,
     jobPreferredTravelMethod: JobPreferredTravelMethod,
     jobMileageFee: number,
+    jobCurrencyCode: CurrencyCode,
     phoneCountryCode: number,
     phoneNumber: string,
     preferredLanguageCode: string,
@@ -63,6 +66,7 @@ export class UpdatePrivateUserInfoBodyDto {
     this.jobCarAvailable = jobCarAvailable;
     this.jobPreferredTravelMethod = jobPreferredTravelMethod;
     this.jobMileageFee = jobMileageFee;
+    this.jobCurrencyCode = jobCurrencyCode;
     this.phoneCountryCode = phoneCountryCode;
     this.phoneNumber = phoneNumber;
     this.preferredLanguageCode = preferredLanguageCode;

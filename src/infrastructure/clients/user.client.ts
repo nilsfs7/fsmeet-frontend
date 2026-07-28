@@ -2,6 +2,7 @@ import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
 import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
+import { CurrencyCode } from '@/domain/enums/currency-code';
 import { User } from '@/domain/types/user';
 import { Session } from 'next-auth';
 import { DeleteUserBodyDto } from './dtos/user/delete-user.body.dto';
@@ -67,6 +68,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       jobCarAvailable: data.private?.jobCarAvailable,
       jobPreferredTravelMethod: data.private?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT,
       jobMileageFee: data.private?.jobMileageFee != null ? Math.round(Number(data.private.jobMileageFee)) : undefined,
+      jobCurrencyCode: data.private?.jobCurrencyCode ?? CurrencyCode.EUR,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
       preferredLanguageCode: data.private?.preferredLanguageCode,
@@ -154,6 +156,7 @@ export async function getUsers(type?: UserType, gender?: Gender, countryCode?: s
       jobCarAvailable: data.private?.jobCarAvailable,
       jobPreferredTravelMethod: data.private?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT,
       jobMileageFee: data.private?.jobMileageFee != null ? Math.round(Number(data.private.jobMileageFee)) : undefined,
+      jobCurrencyCode: data.private?.jobCurrencyCode ?? CurrencyCode.EUR,
       phoneCountryCode: data.private?.phoneCountryCode,
       phoneNumber: data.private?.phoneNumber,
       stripeAccountId: data.private?.stripeAccountId,
@@ -267,6 +270,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
       user.jobCarAvailable,
       user.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT,
       Number.isFinite(Number(user.jobMileageFee)) ? Math.round(Number(user.jobMileageFee)) : 30,
+      user.jobCurrencyCode ?? CurrencyCode.EUR,
       user.phoneCountryCode,
       user.phoneNumber,
       user.preferredLanguageCode,
@@ -300,6 +304,7 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     user.jobCarAvailable = user.private?.jobCarAvailable;
     user.jobPreferredTravelMethod = user.private?.jobPreferredTravelMethod ?? JobPreferredTravelMethod.PUBLIC_TRANSPORT;
     user.jobMileageFee = user.private?.jobMileageFee != null ? Math.round(Number(user.private.jobMileageFee)) : undefined;
+    user.jobCurrencyCode = user.private?.jobCurrencyCode ?? CurrencyCode.EUR;
     user.phoneCountryCode = user.private?.phoneCountryCode;
     user.phoneNumber = user.private?.phoneNumber;
     user.preferredLanguageCode = user.private?.preferredLanguageCode;

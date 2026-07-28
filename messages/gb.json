@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "Account Management",
     "tabAccountBtnLogout": "Logout",
     "tabAccountBtnDeleteAccount": "Delete Account",
-    "tabJobMileageFee": "Mileage fee (EUR/km)"
+    "tabJobMileageFee": "Mileage fee (EUR/km)",
+    "tabJobCurrencyCode": "Currency"
   },
   "/account/deleted": {
     "textGoodbye": "Goodbye!",
@@ -681,15 +682,15 @@
     "tooltipRejectRequest": "Reject request",
     "dlgOfferTitle": "Submit offer",
     "dlgOfferText": "Enter your artist fee and travel costs to send an offer to the client.",
-    "dlgOfferArtistFeeLabel": "Artist fee (EUR)",
+    "dlgOfferArtistFeeLabel": "Artist fee ({currency})",
     "dlgOfferArtistFeePlaceholder": "e.g. 750",
     "dlgOfferTravelMethodLabel": "Travel method",
     "dlgOfferTravelMethodFixed": "Travel method: {method}",
     "dlgOfferDistanceInfo": "One-way distance (as the crow flies): {distance} km (round trip = ×2)",
-    "dlgOfferKmRateLabel": "Mileage rate (EUR/km)",
+    "dlgOfferKmRateLabel": "Mileage rate ({currency}/km)",
     "dlgOfferTravelFeeTotal": "Travel fee (round trip): {amount}",
     "dlgOfferTravelFeeFromRateHint": "Suggested from mileage rate: {amount} (you can edit the total below)",
-    "dlgOfferTravelFeeLabel": "Travel fee (EUR)",
+    "dlgOfferTravelFeeLabel": "Travel fee ({currency})",
     "dlgOfferTravelFeePlaceholder": "e.g. 25",
     "dlgOfferBtnConfirm": "Submit offer",
     "travelMethodCar": "Car",
@@ -718,7 +719,8 @@
     "dlgRequestInfoTravelMethod": "Travel method",
     "dlgRequestInfoTravelFee": "Travel fee",
     "dlgRequestInfoMessage": "Message",
-    "alertPendingRequests": "{count, plural, one {There is # pending booking request awaiting your review.} other {There are # pending booking requests awaiting your review.}}"
+    "alertPendingRequests": "{count, plural, one {There is # pending booking request awaiting your review.} other {There are # pending booking requests awaiting your review.}}",
+    "dlgOfferTravelFeeShortDistanceHint": "No travel fee is suggested for one-way distances under {km} km. You can still adjust it."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Create Sponsor",

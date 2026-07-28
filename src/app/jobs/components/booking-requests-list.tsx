@@ -15,7 +15,8 @@ import { BookingRequest } from '@/domain/types/booking-request';
 import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { updateBookingRequest } from '@/infrastructure/clients/freestyleacts.client';
-import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -27,6 +28,8 @@ import moment from 'moment';
 type StateFilter = 'all' | FreestyleActsBookingRequestState;
 
 const DEFAULT_CAR_KM_RATE_MINOR = 30;
+/** One-way distances below this threshold have no travel fee. */
+const MIN_CHARGEABLE_DISTANCE_KM = 20;
 
 const STATE_SORT_RANK: Record<FreestyleActsBookingRequestState, number> = {
   [FreestyleActsBookingRequestState.REQUEST_PENDING]: 0,
@@ -112,12 +115,23 @@ function SortColumnHeaderButton({
   );
 }
 
-function roundTripTravelFee(distanceKm: number | null | undefined, kmRateEur: number): number {
+function parseDistanceKm(distanceKm: number | null | undefined): number | null {
+  if (distanceKm == null) {
+    return null;
+  }
   const distance = Number(distanceKm);
-  if (!Number.isFinite(distance) || distance < 0 || !Number.isFinite(kmRateEur) || kmRateEur < 0) {
+  return Number.isFinite(distance) ? distance : null;
+}
+
+function roundTripTravelFee(distanceKm: number | null | undefined, kmRate: number): number {
+  const distance = parseDistanceKm(distanceKm);
+  if (distance == null || distance < 0 || !Number.isFinite(kmRate) || kmRate < 0) {
     return 0;
   }
-  return Math.round(distance * 2 * kmRateEur * 100) / 100;
+  if (distance < MIN_CHARGEABLE_DISTANCE_KM) {
+    return 0;
+  }
+  return Math.round(distance * 2 * kmRate * 100) / 100;
 }
 
 interface BookingRequestsListProps {
@@ -125,26 +139,22 @@ interface BookingRequestsListProps {
   jobCarAvailable: boolean;
   jobPreferredTravelMethod: JobPreferredTravelMethod;
   jobMileageFee?: number;
+  jobCurrencyCode?: CurrencyCode;
 }
 
-export const BookingRequestsList = ({
-  bookingRequests,
-  jobCarAvailable,
-  jobPreferredTravelMethod,
-  jobMileageFee,
-}: BookingRequestsListProps) => {
+export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPreferredTravelMethod, jobMileageFee, jobCurrencyCode }: BookingRequestsListProps) => {
   const t = useTranslations('/jobs');
   const na = 'n/a';
 
   const { data: session } = useSession();
   const router = useRouter();
 
+  const currency = jobCurrencyCode ?? CurrencyCode.EUR;
+  const currencySymbol = getCurrencySymbol(currency);
+
   const defaultKmRate = (() => {
     const minor = Number(jobMileageFee);
-    return convertCurrencyIntegerToDecimal(
-      Number.isFinite(minor) ? minor : DEFAULT_CAR_KM_RATE_MINOR,
-      CurrencyCode.EUR,
-    );
+    return convertCurrencyIntegerToDecimal(Number.isFinite(minor) ? minor : DEFAULT_CAR_KM_RATE_MINOR, currency);
   })();
 
   const [stateFilter, setStateFilter] = useState<StateFilter>('all');
@@ -164,15 +174,12 @@ export const BookingRequestsList = ({
 
   const effectiveTravelMethod = jobCarAvailable ? travelMethod : JobPreferredTravelMethod.PUBLIC_TRANSPORT;
 
-  const computedCarTravelFee = useMemo(
-    () => roundTripTravelFee(selectedRequest?.distanceKm, Number(kmRateInput)),
-    [selectedRequest?.distanceKm, kmRateInput],
-  );
+  const selectedDistanceKm = parseDistanceKm(selectedRequest?.distanceKm);
+  const isBelowChargeableDistance = selectedDistanceKm != null && selectedDistanceKm < MIN_CHARGEABLE_DISTANCE_KM;
 
-  const pendingCount = useMemo(
-    () => bookingRequests.filter(r => r.state === FreestyleActsBookingRequestState.REQUEST_PENDING).length,
-    [bookingRequests],
-  );
+  const computedCarTravelFee = useMemo(() => roundTripTravelFee(selectedRequest?.distanceKm, Number(kmRateInput)), [selectedRequest?.distanceKm, kmRateInput]);
+
+  const pendingCount = useMemo(() => bookingRequests.filter(r => r.state === FreestyleActsBookingRequestState.REQUEST_PENDING).length, [bookingRequests]);
 
   const filteredRequests = useMemo(() => {
     return bookingRequests.filter(request => {
@@ -264,14 +271,17 @@ export const BookingRequestsList = ({
     const request = bookingRequests.find(r => r.id === id);
     const defaultMethod = jobCarAvailable ? jobPreferredTravelMethod : JobPreferredTravelMethod.PUBLIC_TRANSPORT;
     setSelectedRequestId(id);
-    setArtistFeeInput(request?.artistFee ? String(request.artistFee) : '');
+    setArtistFeeInput(request?.artistFee ? String(convertCurrencyIntegerToDecimal(request.artistFee, currency)) : '');
     setTravelMethod(defaultMethod);
     setKmRateInput(String(defaultKmRate));
-    setTravelFeeInput(
-      defaultMethod === JobPreferredTravelMethod.CAR
-        ? String(roundTripTravelFee(request?.distanceKm, defaultKmRate))
-        : '',
-    );
+    const distance = parseDistanceKm(request?.distanceKm);
+    if (distance != null && distance < MIN_CHARGEABLE_DISTANCE_KM) {
+      setTravelFeeInput('0');
+    } else if (defaultMethod === JobPreferredTravelMethod.CAR && distance != null) {
+      setTravelFeeInput(String(roundTripTravelFee(distance, defaultKmRate)));
+    } else {
+      setTravelFeeInput('');
+    }
     router.replace(`${routeJobs}?offer=1`);
   };
 
@@ -285,29 +295,25 @@ export const BookingRequestsList = ({
       return;
     }
 
-    const artistFee = Number(artistFeeInput);
-    if (!Number.isFinite(artistFee) || artistFee <= 0) {
+    const artistFeeDecimal = Number(artistFeeInput);
+    if (!Number.isFinite(artistFeeDecimal) || artistFeeDecimal <= 0) {
       toast.error(t('toastInvalidArtistFee'));
       return;
     }
 
     const method = jobCarAvailable ? travelMethod : JobPreferredTravelMethod.PUBLIC_TRANSPORT;
-    const travelFee = Number(travelFeeInput);
+    const travelFeeDecimal = Number(travelFeeInput);
 
-    if (!Number.isFinite(travelFee) || travelFee < 0) {
+    if (!Number.isFinite(travelFeeDecimal) || travelFeeDecimal < 0) {
       toast.error(t('toastInvalidTravelFee'));
       return;
     }
 
+    const artistFee = convertCurrencyDecimalToInteger(artistFeeDecimal, currency);
+    const travelFee = convertCurrencyDecimalToInteger(travelFeeDecimal, currency);
+
     try {
-      await updateBookingRequest(
-        selectedRequestId,
-        FreestyleActsBookingRequestState.OFFER_PENDING,
-        session,
-        artistFee,
-        method,
-        travelFee,
-      );
+      await updateBookingRequest(selectedRequestId, FreestyleActsBookingRequestState.OFFER_PENDING, session, artistFee, method, travelFee);
       toast.success(t('toastOfferSuccess'));
       resetDialogState();
       router.refresh();
@@ -347,14 +353,15 @@ export const BookingRequestsList = ({
     return moment(value).format('YYYY-MM-DD HH:mm');
   };
 
-  const formatFee = (value: number) => {
-    if (!value) {
+  const formatFee = (value: number | null | undefined) => {
+    if (value == null || !Number.isFinite(Number(value)) || Number(value) <= 0) {
       return na;
     }
-    return `${value} €`;
+    const decimal = convertCurrencyIntegerToDecimal(Number(value), currency);
+    return `${decimal.toFixed(2)} ${currencySymbol}`;
   };
 
-  const formatEurAmount = (value: number) => `${Number.isFinite(value) ? value.toFixed(2) : '0.00'} €`;
+  const formatAmount = (value: number) => `${Number.isFinite(value) ? value.toFixed(2) : '0.00'} ${currencySymbol}`;
 
   return (
     <>
@@ -416,11 +423,7 @@ export const BookingRequestsList = ({
         {selectedRequest?.proposedTravelMethod && (
           <div className="grid grid-cols-2 gap-1">
             <p>{`${t('dlgRequestInfoTravelMethod')}:`}</p>
-            <p>
-              {selectedRequest.proposedTravelMethod === JobPreferredTravelMethod.CAR
-                ? t('travelMethodCar')
-                : t('travelMethodPublicTransport')}
-            </p>
+            <p>{selectedRequest.proposedTravelMethod === JobPreferredTravelMethod.CAR ? t('travelMethodCar') : t('travelMethodPublicTransport')}</p>
           </div>
         )}
         {selectedRequest && selectedRequest.travelFee != null && selectedRequest.travelFee > 0 && (
@@ -447,7 +450,7 @@ export const BookingRequestsList = ({
       >
         <p className="mb-3">{t('dlgOfferText')}</p>
         <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="jobs-offer-artist-fee">
-          {t('dlgOfferArtistFeeLabel')}
+          {t('dlgOfferArtistFeeLabel', { currency: currencySymbol })}
         </label>
         <Input
           id="jobs-offer-artist-fee"
@@ -495,20 +498,23 @@ export const BookingRequestsList = ({
             </div>
           </div>
         ) : (
-          <p className="mb-3 text-xs text-zinc-600">
-            {t('dlgOfferTravelMethodFixed', { method: t('travelMethodPublicTransport') })}
-          </p>
+          <p className="mb-3 text-xs text-zinc-600">{t('dlgOfferTravelMethodFixed', { method: t('travelMethodPublicTransport') })}</p>
         )}
 
         {effectiveTravelMethod === JobPreferredTravelMethod.CAR && (
           <>
             <p className="mb-1 text-xs text-zinc-600">
               {t('dlgOfferDistanceInfo', {
-                distance: selectedRequest?.distanceKm != null ? selectedRequest.distanceKm : na,
+                distance: selectedDistanceKm != null ? selectedDistanceKm : na,
               })}
             </p>
+            {isBelowChargeableDistance && (
+              <p className="mb-2 text-xs text-zinc-500">
+                {t('dlgOfferTravelFeeShortDistanceHint', { km: MIN_CHARGEABLE_DISTANCE_KM })}
+              </p>
+            )}
             <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="jobs-offer-km-rate">
-              {t('dlgOfferKmRateLabel')}
+              {t('dlgOfferKmRateLabel', { currency: currencySymbol })}
             </label>
             <Input
               id="jobs-offer-km-rate"
@@ -522,21 +528,30 @@ export const BookingRequestsList = ({
                 setKmRateInput(nextRate);
                 setTravelFeeInput(String(roundTripTravelFee(selectedRequest?.distanceKm, Number(nextRate))));
               }}
-              placeholder="0.30"
+              placeholder={String(defaultKmRate)}
               className="mb-1 w-full"
             />
-            <p className="mb-3 text-xs text-zinc-500">{t('dlgOfferTravelFeeFromRateHint', { amount: formatEurAmount(computedCarTravelFee) })}</p>
+            {!isBelowChargeableDistance && (
+              <p className="mb-3 text-xs text-zinc-500">{t('dlgOfferTravelFeeFromRateHint', { amount: formatAmount(computedCarTravelFee) })}</p>
+            )}
+            {isBelowChargeableDistance && <div className="mb-3" />}
           </>
         )}
 
+        {isBelowChargeableDistance && effectiveTravelMethod !== JobPreferredTravelMethod.CAR && (
+          <p className="mb-2 text-xs text-zinc-500">
+            {t('dlgOfferTravelFeeShortDistanceHint', { km: MIN_CHARGEABLE_DISTANCE_KM })}
+          </p>
+        )}
+
         <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="jobs-offer-travel-fee">
-          {t('dlgOfferTravelFeeLabel')}
+          {t('dlgOfferTravelFeeLabel', { currency: currencySymbol })}
         </label>
         <Input
           id="jobs-offer-travel-fee"
           type="number"
           min="0"
-          step="0.01"
+          step="1"
           inputMode="decimal"
           value={travelFeeInput}
           onChange={e => setTravelFeeInput(e.target.value)}
@@ -545,13 +560,7 @@ export const BookingRequestsList = ({
         />
       </Dialog>
 
-      <Dialog
-        title={t('dlgRejectTitle')}
-        queryParam="reject"
-        onCancel={resetDialogState}
-        onConfirm={handleConfirmRejectClicked}
-        confirmText={t('dlgRejectBtnConfirm')}
-      >
+      <Dialog title={t('dlgRejectTitle')} queryParam="reject" onCancel={resetDialogState} onConfirm={handleConfirmRejectClicked} confirmText={t('dlgRejectBtnConfirm')}>
         <p>{t('dlgRejectText')}</p>
       </Dialog>
 

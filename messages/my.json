@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "Pengurusan Akaun",
     "tabAccountBtnLogout": "Log keluar",
     "tabAccountBtnDeleteAccount": "Padam Akaun",
-    "tabJobMileageFee": "Yuran kilometer (EUR/km)"
+    "tabJobMileageFee": "Yuran kilometer (EUR/km)",
+    "tabJobCurrencyCode": "Mata wang"
   },
   "/account/deleted": {
     "textGoodbye": "Selamat tinggal!",
@@ -681,7 +682,7 @@
     "tooltipRejectRequest": "Tolak permintaan",
     "dlgOfferTitle": "Hantar tawaran",
     "dlgOfferText": "Masukkan yuran artis dan kos perjalanan untuk menghantar tawaran kepada pelanggan.",
-    "dlgOfferArtistFeeLabel": "Yuran artis (EUR)",
+    "dlgOfferArtistFeeLabel": "Yuran artis ({currency})",
     "dlgOfferArtistFeePlaceholder": "cth. 750",
     "dlgOfferBtnConfirm": "Hantar tawaran",
     "dlgRejectTitle": "Tolak permintaan",
@@ -709,16 +710,17 @@
     "dlgOfferTravelMethodLabel": "Kaedah perjalanan",
     "dlgOfferTravelMethodFixed": "Kaedah perjalanan: {method}",
     "dlgOfferDistanceInfo": "Jarak sehala: {distance} km (pergi balik = ×2)",
-    "dlgOfferKmRateLabel": "Kadar kilometer (EUR/km)",
+    "dlgOfferKmRateLabel": "Kadar kilometer ({currency}/km)",
     "dlgOfferTravelFeeTotal": "Yuran perjalanan (pergi balik): {amount}",
-    "dlgOfferTravelFeeLabel": "Yuran perjalanan (EUR)",
+    "dlgOfferTravelFeeLabel": "Yuran perjalanan ({currency})",
     "dlgOfferTravelFeePlaceholder": "cth. 25",
     "travelMethodCar": "Kereta",
     "travelMethodPublicTransport": "Pengangkutan awam",
     "toastInvalidTravelFee": "Sila masukkan yuran perjalanan yang sah.",
     "dlgRequestInfoTravelMethod": "Kaedah perjalanan",
     "dlgRequestInfoTravelFee": "Yuran perjalanan",
-    "dlgOfferTravelFeeFromRateHint": "Cadangan dari kadar km: {amount} (boleh edit jumlah di bawah)"
+    "dlgOfferTravelFeeFromRateHint": "Cadangan dari kadar km: {amount} (boleh edit jumlah di bawah)",
+    "dlgOfferTravelFeeShortDistanceHint": "Tiada yuran perjalanan dicadangkan untuk jarak sehala di bawah {km} km."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Cipta Penaja",
