@@ -3,6 +3,7 @@ import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { JobProfileListingState } from '../enums/job-profile-listing-state';
 import { JobPreferredTravelMethod } from '../enums/job-preferred-travel-method';
+import { CurrencyCode } from '../enums/currency-code';
 
 export type User = {
   username: string;
@@ -39,6 +40,7 @@ export type User = {
   jobCarAvailable?: boolean;
   jobPreferredTravelMethod?: JobPreferredTravelMethod;
   jobMileageFee?: number;
+  jobCurrencyCode?: CurrencyCode;
   phoneCountryCode?: number;
   phoneNumber?: string | null;
   stripeAccountId?: string;

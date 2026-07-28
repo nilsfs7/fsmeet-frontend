@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "账户管理",
     "tabAccountBtnLogout": "退出登录",
     "tabAccountBtnDeleteAccount": "删除账户",
-    "tabJobMileageFee": "里程费（欧元/公里）"
+    "tabJobMileageFee": "里程费（欧元/公里）",
+    "tabJobCurrencyCode": "货币"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",

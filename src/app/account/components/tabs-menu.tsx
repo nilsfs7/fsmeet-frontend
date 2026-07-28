@@ -31,6 +31,7 @@ import moment, { Moment } from 'moment';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import { menuShowExperience } from '@/domain/constants/menus/menu-show-experience';
 import { menuJobPreferredTravelMethod } from '@/domain/constants/menus/menu-job-preferred-travel-method';
+import { menuCurrencies } from '@/domain/constants/menus/menu-currencies';
 import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
 import {
@@ -93,9 +94,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
   const [userInfo, setUserInfo] = useState<User>(user);
   const [jobMileageFeeDisplay, setJobMileageFeeDisplay] = useState(() =>
-    user.jobMileageFee != null
-      ? String(convertCurrencyIntegerToDecimal(user.jobMileageFee, CurrencyCode.EUR)).replace('.', ',')
-      : '',
+    user.jobMileageFee != null ? String(convertCurrencyIntegerToDecimal(user.jobMileageFee, user.jobCurrencyCode ?? CurrencyCode.EUR)).replace('.', ',') : '',
   );
 
   const cacheUserInfo = async (userInfo: User) => {
@@ -143,10 +142,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       jobOfferWorkshops: userInfo.jobOfferWorkshops,
       jobShowExperience: userInfo.jobShowExperience,
       jobCarAvailable: userInfo.jobCarAvailable,
-      jobPreferredTravelMethod: userInfo.jobCarAvailable
-        ? userInfo.jobPreferredTravelMethod
-        : JobPreferredTravelMethod.PUBLIC_TRANSPORT,
+      jobPreferredTravelMethod: userInfo.jobCarAvailable ? userInfo.jobPreferredTravelMethod : JobPreferredTravelMethod.PUBLIC_TRANSPORT,
       jobMileageFee: userInfo.jobMileageFee,
+      jobCurrencyCode: userInfo.jobCurrencyCode ?? CurrencyCode.EUR,
       phoneCountryCode: userInfo.phoneCountryCode,
       phoneNumber: userInfo.phoneNumber,
       preferredLanguageCode: userInfo.preferredLanguageCode,
@@ -327,10 +325,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
   const handleMileageFeeChanged = (floatValue: number | null | undefined) => {
     const newUserInfo = Object.assign({}, userInfo);
+    const currency = userInfo.jobCurrencyCode ?? CurrencyCode.EUR;
     if (floatValue == null || !Number.isFinite(floatValue)) {
       newUserInfo.jobMileageFee = undefined;
     } else {
-      newUserInfo.jobMileageFee = convertCurrencyDecimalToInteger(floatValue, CurrencyCode.EUR);
+      newUserInfo.jobMileageFee = convertCurrencyDecimalToInteger(floatValue, currency);
     }
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);
@@ -346,6 +345,13 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     if (values?.float != null && Number.isFinite(values.float)) {
       handleMileageFeeChanged(values.float);
     }
+  };
+
+  const handleJobCurrencyCodeChanged = (value: CurrencyCode) => {
+    const newUserInfo = Object.assign({}, userInfo);
+    newUserInfo.jobCurrencyCode = value;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
   };
 
   const handlePhoneCountryCodeChanged = (value: string) => {
@@ -978,10 +984,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                         <ComboBox
                           menus={menuJobPreferredTravelMethod.map(item => ({
                             ...item,
-                            text:
-                              item.value === JobPreferredTravelMethod.CAR
-                                ? t('tabJobTravelMethodCar')
-                                : t('tabJobTravelMethodPublicTransport'),
+                            text: item.value === JobPreferredTravelMethod.CAR ? t('tabJobTravelMethodCar') : t('tabJobTravelMethodPublicTransport'),
                           }))}
                           value={userInfo.jobPreferredTravelMethod || JobPreferredTravelMethod.PUBLIC_TRANSPORT}
                           searchEnabled={false}
@@ -1015,6 +1018,17 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       searchEnabled={false}
                       onChange={(value: any) => {
                         handleShowExperienceChanged(value);
+                      }}
+                    />
+                  </FieldRow>
+
+                  <FieldRow label={t('tabJobCurrencyCode')}>
+                    <ComboBox
+                      menus={menuCurrencies}
+                      value={userInfo.jobCurrencyCode || CurrencyCode.EUR}
+                      searchEnabled={false}
+                      onChange={(value: CurrencyCode) => {
+                        handleJobCurrencyCodeChanged(value);
                       }}
                     />
                   </FieldRow>

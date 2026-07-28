@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "アカウント管理",
     "tabAccountBtnLogout": "ログアウト",
     "tabAccountBtnDeleteAccount": "アカウント削除",
-    "tabJobMileageFee": "キロ単価（EUR/km）"
+    "tabJobMileageFee": "キロ単価（EUR/km）",
+    "tabJobCurrencyCode": "通貨"
   },
   "/account/deleted": {
     "textGoodbye": "さようなら！",

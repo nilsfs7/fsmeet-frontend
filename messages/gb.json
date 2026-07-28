@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "Account Management",
     "tabAccountBtnLogout": "Logout",
     "tabAccountBtnDeleteAccount": "Delete Account",
-    "tabJobMileageFee": "Mileage fee (EUR/km)"
+    "tabJobMileageFee": "Mileage fee (EUR/km)",
+    "tabJobCurrencyCode": "Currency"
   },
   "/account/deleted": {
     "textGoodbye": "Goodbye!",

@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "Gestión de la cuenta",
     "tabAccountBtnLogout": "Cerrar sesión",
     "tabAccountBtnDeleteAccount": "Eliminar cuenta",
-    "tabJobMileageFee": "Tarifa por kilómetro (EUR/km)"
+    "tabJobMileageFee": "Tarifa por kilómetro (EUR/km)",
+    "tabJobCurrencyCode": "Moneda"
   },
   "/account/deleted": {
     "textGoodbye": "¡Cuídese!",

@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "Gestion du compte",
     "tabAccountBtnLogout": "Déconnexion",
     "tabAccountBtnDeleteAccount": "Supprimer le compte",
-    "tabJobMileageFee": "Indemnité kilométrique (EUR/km)"
+    "tabJobMileageFee": "Indemnité kilométrique (EUR/km)",
+    "tabJobCurrencyCode": "Devise"
   },
   "/account/deleted": {
     "textGoodbye": "Au revoir !",

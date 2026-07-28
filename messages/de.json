@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "Kontoverwaltung",
     "tabAccountBtnLogout": "Abmelden",
     "tabAccountBtnDeleteAccount": "Konto löschen",
-    "tabJobMileageFee": "Kilometerpauschale (EUR/km)"
+    "tabJobMileageFee": "Kilometerpauschale (EUR/km)",
+    "tabJobCurrencyCode": "Währung"
   },
   "/account/deleted": {
     "textGoodbye": "Mach's gut!",

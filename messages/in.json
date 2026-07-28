@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "खाता प्रबंधन",
     "tabAccountBtnLogout": "लॉगआउट",
     "tabAccountBtnDeleteAccount": "खाता हटाएं",
-    "tabJobMileageFee": "किलोमीटर शुल्क (EUR/km)"
+    "tabJobMileageFee": "किलोमीटर शुल्क (EUR/km)",
+    "tabJobCurrencyCode": "मुद्रा"
   },
   "/account/deleted": {
     "textGoodbye": "अलविदा!",

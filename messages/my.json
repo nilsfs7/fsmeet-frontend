@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "Pengurusan Akaun",
     "tabAccountBtnLogout": "Log keluar",
     "tabAccountBtnDeleteAccount": "Padam Akaun",
-    "tabJobMileageFee": "Yuran kilometer (EUR/km)"
+    "tabJobMileageFee": "Yuran kilometer (EUR/km)",
+    "tabJobCurrencyCode": "Mata wang"
   },
   "/account/deleted": {
     "textGoodbye": "Selamat tinggal!",

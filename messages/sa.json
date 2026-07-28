@@ -155,7 +155,8 @@
     "tabAccountSectionAccountManagement": "إدارة الحساب",
     "tabAccountBtnLogout": "تسجيل الخروج",
     "tabAccountBtnDeleteAccount": "حذف الحساب",
-    "tabJobMileageFee": "رسوم الكيلومتر (يورو/كم)"
+    "tabJobMileageFee": "رسوم الكيلومتر (يورو/كم)",
+    "tabJobCurrencyCode": "العملة"
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",
