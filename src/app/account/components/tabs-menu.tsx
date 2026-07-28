@@ -4,12 +4,14 @@ import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession, signOut } from 'next-auth/react';
 import { User } from '@/domain/types/user';
 import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeAccountPayments, routeHome, routeMap } from '@/domain/constants/routes';
+import { JOB_TERMS_VERSION, jobTermsAcceptedVersionStorageKey } from '@/domain/constants/job-terms';
+import { JobsTermsAddendumText } from '@/app/account/components/jobs-terms-addendum-text';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import TextInput from '@/components/common/text-input';
 import { getLabelForFirstName } from '@/functions/get-label-for-first-name';
@@ -96,6 +98,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const [jobMileageFeeDisplay, setJobMileageFeeDisplay] = useState(() =>
     user.jobMileageFee != null ? String(convertCurrencyIntegerToDecimal(user.jobMileageFee, user.jobCurrencyCode ?? CurrencyCode.EUR)).replace('.', ',') : '',
   );
+  const jobTermsVersionChecked = useRef(false);
 
   const cacheUserInfo = async (userInfo: User) => {
     let firstNameAdjusted = userInfo.firstName;
@@ -276,6 +279,17 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     newUserInfo.jobAcceptTerms = value;
     setUserInfo(newUserInfo);
     cacheUserInfo(newUserInfo);
+
+    const username = userInfo.username || session?.user?.username;
+    if (!username || typeof window === 'undefined') {
+      return;
+    }
+    const key = jobTermsAcceptedVersionStorageKey(username);
+    if (value) {
+      localStorage.setItem(key, JOB_TERMS_VERSION);
+    } else {
+      localStorage.removeItem(key);
+    }
   };
 
   const handleOfferShowsChanged = (value: boolean) => {
@@ -508,54 +522,39 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(user);
   }, []);
 
+  useEffect(() => {
+    if (jobTermsVersionChecked.current) {
+      return;
+    }
+    const username = user.username || session?.user?.username;
+    if (!username || typeof window === 'undefined') {
+      return;
+    }
+    jobTermsVersionChecked.current = true;
+
+    if (!user.jobAcceptTerms) {
+      return;
+    }
+
+    const key = jobTermsAcceptedVersionStorageKey(username);
+    if (localStorage.getItem(key) === JOB_TERMS_VERSION) {
+      return;
+    }
+
+    const newUserInfo = Object.assign({}, user);
+    newUserInfo.jobAcceptTerms = false;
+    setUserInfo(newUserInfo);
+    cacheUserInfo(newUserInfo);
+    localStorage.removeItem(key);
+    toast.info(t('toastJobTermsUpdated'));
+  }, [user, session?.user?.username, t]);
+
   return (
     <>
       <Toaster richColors />
 
       <Dialog title={t('dlgJobsTermsTitle')} queryParam="terms" onCancel={handleCancelDialogClicked}>
-        <p className="mb-4">{t('dlgJobsTermsDate')}</p>
-
-        <div className="flex flex-col justify-center text-start">
-          <p className="text-lg font-bold">{t('dlgJobsTermsDescriptionTitle')}</p>
-          <p>{t('dlgJobsTermsDescriptionText1')}</p>
-          <p className="mt-2">{t('dlgJobsTermsDescriptionText2')}</p>
-          <p className="mt-2">{t('dlgJobsTermsDescriptionText3')}</p>
-        </div>
-
-        <div className="my-2">
-          <Separator />
-        </div>
-
-        <div className="flex flex-col justify-center text-start">
-          <p className="text-lg font-bold">{t('dlgJobsTermsDataSharingTitle')}</p>
-          <p>{t('dlgJobsTermsDataSharingText1')}</p>
-          <p className="mt-2">{t('dlgJobsTermsDataSharingText2')}</p>
-          <p className="mt-2">{t('dlgJobsTermsDataSharingText3')}</p>
-        </div>
-
-        <div className="my-2">
-          <Separator />
-        </div>
-
-        <div className="flex flex-col justify-center text-start">
-          <p className="text-lg font-bold">{t('dlgJobsTermsDataSharingDetailsTitle')}</p>
-          <p>{`${t('dlgJobsTermsDataSharingDetailsPublic')}:`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsName')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsGender')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsCountry')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsAge')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsCity')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsSocials')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsWebsite')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsFreestyleSince')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsOfferings')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsShowExperience')}`}</p>
-
-          <p className="mt-2">{`${t('dlgJobsTermsDataSharingDetailsOnRequest')}:`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsPhone')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsEmail')}`}</p>
-          <p>{`- ${t('dlgJobsTermsDataSharingDetailsShirtSize')}`}</p>
-        </div>
+        <JobsTermsAddendumText />
       </Dialog>
 
       <Dialog title={t('dlgAccountVerificationTitle')} queryParam="verification" onCancel={handleCancelDialogClicked}>
