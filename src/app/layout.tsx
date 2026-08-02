@@ -7,12 +7,28 @@ import { getLocale, getMessages } from 'next-intl/server';
 import LocalizationProvider from '@/lib/providers';
 import { AppShellColumn } from '@/components/layout/app-shell-column';
 import { cn } from '@/lib/utils';
+import { getSiteUrl } from '@/lib/site-url';
 
 const fontRoboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
+const siteDescription = 'Freestyle Football community and event platform. Discover events, athletes, and competitions worldwide.';
+
 export const metadata: Metadata = {
-  title: 'FSMeet',
-  description: 'Freestyle Football community and event tool.',
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: 'FSMeet',
+    template: '%s · FSMeet',
+  },
+  description: siteDescription,
+  openGraph: {
+    type: 'website',
+    siteName: 'FSMeet',
+    title: 'FSMeet',
+    description: siteDescription,
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 export default async function RootLayout({

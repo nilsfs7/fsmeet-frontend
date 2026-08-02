@@ -3,7 +3,7 @@ import ActionButton from '@/components/common/action-button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import SocialLink from '@/components/user/social-link';
 import { imgUserDefaultImg, imgVerifiedCheckmark, imgWorld } from '@/domain/constants/images';
-import { routeAccount, routeMap } from '@/domain/constants/routes';
+import { routeAccount, routeMap, routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { SocialPlatform } from '@/domain/enums/social-platform';
 import { UserType } from '@/domain/enums/user-type';
@@ -24,8 +24,57 @@ import { AccordionContentMatchStats } from './components/accordion-content-match
 import { AccordionContentAchievements } from './components/accordion-content-achievements';
 import { cn } from '@/lib/utils';
 import { appShellContentClass } from '@/components/layout/app-shell-content';
+import type { Metadata } from 'next';
+import type { User } from '@/domain/types/user';
+import { toAbsoluteUrl, truncateMetaDescription } from '@/lib/site-url';
+import { JsonLd } from '@/components/seo/json-ld';
+import { buildPersonJsonLd } from '@/lib/json-ld';
 
 const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
+
+function getUserDisplayName(user: User): string {
+  if (user.nickName?.trim()) return user.nickName.trim();
+  const fullName = [user.firstName, user.lastName].filter(Boolean).join(' ').trim();
+  return fullName || user.username;
+}
+
+export async function generateMetadata(props: { params: Promise<{ username: string }> }): Promise<Metadata> {
+  const { username } = await props.params;
+
+  try {
+    const user = await getUser(username);
+    const displayName = getUserDisplayName(user);
+    const typeLabel = getUserTypeLabels(user.type, null);
+    const country =
+      user.countryCode && user.countryCode !== '--' ? getCountryNameByCode(user.countryCode) || user.countryCode : '';
+    const description = truncateMetaDescription(
+      [typeLabel && `${typeLabel} on FSMeet`, country].filter(Boolean).join(' · ') || `${displayName} on FSMeet`,
+    );
+    const image = toAbsoluteUrl(user.imageUrl);
+    const canonicalPath = `${routeUsers}/${encodeURIComponent(user.username)}`;
+
+    return {
+      title: displayName,
+      description,
+      alternates: { canonical: canonicalPath },
+      openGraph: {
+        type: 'profile',
+        title: displayName,
+        description,
+        url: canonicalPath,
+        ...(image ? { images: [{ url: image }] } : {}),
+      },
+      twitter: {
+        card: image ? 'summary_large_image' : 'summary',
+        title: displayName,
+        description,
+        ...(image ? { images: [image] } : {}),
+      },
+    };
+  } catch {
+    return { title: 'Profile' };
+  }
+}
 
 export default async function PublicUserProfile(props: { params: Promise<{ username: string }> }) {
   const params = await props.params;
@@ -36,6 +85,8 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">
+      <JsonLd data={buildPersonJsonLd(user)} />
+
       <Header />
 
       <div className={cn('mt-2 flex min-h-0 flex-1 flex-col overflow-y-auto scrollbar-none', constrainedContentClass)}>

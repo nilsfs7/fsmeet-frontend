@@ -17,8 +17,48 @@ import moment from 'moment';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
 import AdminPanel from './components/admin-panel';
 import { cn } from '@/lib/utils';
+import type { Metadata } from 'next';
+import { toAbsoluteUrl, truncateMetaDescription } from '@/lib/site-url';
+import { JsonLd } from '@/components/seo/json-ld';
+import { buildEventJsonLd } from '@/lib/json-ld';
 
 const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+
+export async function generateMetadata(props: { params: Promise<{ eventId: string }> }): Promise<Metadata> {
+  const { eventId } = await props.params;
+
+  try {
+    const event = await getEvent(eventId);
+    const dateLabel = moment(event.dateFrom).isValid() ? moment(event.dateFrom).format('D MMM YYYY') : '';
+    const placeParts = [event.venueCity, event.venueCountryCode].filter(Boolean);
+    const placeLabel = placeParts.join(', ');
+    const fallbackDescription = [dateLabel, placeLabel].filter(Boolean).join(' · ');
+    const description = truncateMetaDescription(event.description?.trim() || fallbackDescription || `Freestyle Football event on FSMeet`);
+    const image = toAbsoluteUrl(event.imageUrlPoster);
+    const canonicalPath = `${routeEvents}/${event.id}`;
+
+    return {
+      title: event.name,
+      description,
+      alternates: { canonical: canonicalPath },
+      openGraph: {
+        type: 'website',
+        title: event.name,
+        description,
+        url: canonicalPath,
+        ...(image ? { images: [{ url: image }] } : {}),
+      },
+      twitter: {
+        card: image ? 'summary_large_image' : 'summary',
+        title: event.name,
+        description,
+        ...(image ? { images: [image] } : {}),
+      },
+    };
+  } catch {
+    return { title: 'Event' };
+  }
+}
 
 export default async function EventDetails(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -34,6 +74,8 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <JsonLd data={buildEventJsonLd(event)} />
+
       {isEventAdminOrMaintainer(event, session) && (
         <div className={cn('mt-2', constrainedContentClass)}>
           <AdminPanel event={event} competitions={competitions} />
