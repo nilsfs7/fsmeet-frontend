@@ -19,11 +19,7 @@ import { EventState } from '@/domain/enums/event-state';
 import { UserType } from '@/domain/enums/user-type';
 import { getEvents } from '@/infrastructure/clients/event.client';
 import { getUsers } from '@/infrastructure/clients/user.client';
-
-function getSiteUrl(): string {
-  const raw = process.env.NEXTAUTH_URL || 'https://fsmeet.com';
-  return raw.replace(/\/$/, '');
-}
+import { getSiteUrl } from '@/lib/site-url';
 
 const STATIC_PATHS: { path: string; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']; priority: number }[] = [
   { path: routeHome, changeFrequency: 'daily', priority: 1 },
