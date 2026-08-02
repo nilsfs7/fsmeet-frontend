@@ -19,6 +19,8 @@ import AdminPanel from './components/admin-panel';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { toAbsoluteUrl, truncateMetaDescription } from '@/lib/site-url';
+import { JsonLd } from '@/components/seo/json-ld';
+import { buildEventJsonLd } from '@/lib/json-ld';
 
 const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
@@ -72,6 +74,8 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <JsonLd data={buildEventJsonLd(event)} />
+
       {isEventAdminOrMaintainer(event, session) && (
         <div className={cn('mt-2', constrainedContentClass)}>
           <AdminPanel event={event} competitions={competitions} />

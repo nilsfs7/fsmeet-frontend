@@ -17,6 +17,8 @@ import { UserType } from '@/domain/enums/user-type';
 import { pageRootClipClassName } from '@/components/layout/app-shell-content';
 import PageTitle from '@/components/page-title';
 import { PageInset } from '@/components/layout/page-inset';
+import { JsonLd } from '@/components/seo/json-ld';
+import { buildOrganizationJsonLd } from '@/lib/json-ld';
 
 export default async function Home() {
   const [t, session, upcomingEvents, ongoingEvents, recentEvents, fetauredEvents] = await Promise.all([
@@ -35,6 +37,8 @@ export default async function Home() {
 
   return (
     <div className={pageRootClipClassName}>
+      <JsonLd data={buildOrganizationJsonLd()} />
+
       <Header showMenu={true} />
 
       <div className="flex flex-col px-4 pb-1 justify-center">

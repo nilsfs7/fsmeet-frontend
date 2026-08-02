@@ -27,6 +27,8 @@ import { appShellContentClass } from '@/components/layout/app-shell-content';
 import type { Metadata } from 'next';
 import type { User } from '@/domain/types/user';
 import { toAbsoluteUrl, truncateMetaDescription } from '@/lib/site-url';
+import { JsonLd } from '@/components/seo/json-ld';
+import { buildPersonJsonLd } from '@/lib/json-ld';
 
 const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
 
@@ -83,6 +85,8 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">
+      <JsonLd data={buildPersonJsonLd(user)} />
+
       <Header />
 
       <div className={cn('mt-2 flex min-h-0 flex-1 flex-col overflow-y-auto scrollbar-none', constrainedContentClass)}>
