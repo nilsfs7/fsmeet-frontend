@@ -982,7 +982,12 @@
     "columnTitleName": "Nama",
     "columnTitleGender": "Jantina",
     "columnTitleCost": "Yuran",
-    "columnTitleSelection": "Pilihan"
+    "columnTitleSelection": "Pilihan",
+    "hintRegistrationDisabledByHost": "Pendaftaran untuk pertandingan ini telah dimatikan oleh penganjur.",
+    "hintGenderMismatch": "Pertandingan ini hanya untuk {gender}.",
+    "hintMaxAgeMismatch": "Pertandingan ini terhad kepada peserta berumur {maxAge} tahun ke bawah.",
+    "hintFollowUpCompetition": "Pertandingan susulan tidak boleh dipilih semasa pendaftaran.",
+    "hintCompetitionFull": "Pertandingan ini sudah penuh."
   },
   "global/components/event-card": {
     "lblHost": "Penganjur",

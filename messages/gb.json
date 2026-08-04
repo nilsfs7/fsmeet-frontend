@@ -983,7 +983,12 @@
     "columnTitleName": "Name",
     "columnTitleGender": "Gender",
     "columnTitleCost": "Fee",
-    "columnTitleSelection": "Selection"
+    "columnTitleSelection": "Selection",
+    "hintRegistrationDisabledByHost": "Registration for this competition was turned off by the event host.",
+    "hintGenderMismatch": "This competition is for {gender} only.",
+    "hintMaxAgeMismatch": "This competition is limited to participants aged {maxAge} or younger.",
+    "hintFollowUpCompetition": "Follow-up competitions cannot be selected during registration.",
+    "hintCompetitionFull": "This competition is already full."
   },
   "global/components/event-card": {
     "lblHost": "Host",

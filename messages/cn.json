@@ -982,7 +982,12 @@
     "columnTitleName": "名称",
     "columnTitleGender": "性别",
     "columnTitleCost": "费用",
-    "columnTitleSelection": "选择"
+    "columnTitleSelection": "选择",
+    "hintRegistrationDisabledByHost": "主办方已关闭此比赛的报名。",
+    "hintGenderMismatch": "此比赛仅限{gender}参加。",
+    "hintMaxAgeMismatch": "此比赛仅限{maxAge}岁及以下参赛者。",
+    "hintFollowUpCompetition": "后续比赛无法在报名时选择。",
+    "hintCompetitionFull": "此比赛名额已满。"
   },
   "global/components/event-card": {
     "lblHost": "主办方",

@@ -982,7 +982,12 @@
     "columnTitleName": "الاسم",
     "columnTitleGender": "الجنس",
     "columnTitleCost": "الرسوم",
-    "columnTitleSelection": "الاختيار"
+    "columnTitleSelection": "الاختيار",
+    "hintRegistrationDisabledByHost": "تم إيقاف التسجيل لهذه المسابقة من قبل منظّم الفعالية.",
+    "hintGenderMismatch": "هذه المسابقة مخصّصة لـ {gender} فقط.",
+    "hintMaxAgeMismatch": "هذه المسابقة محدودة بالمشاركين بعمر {maxAge} أو أقل.",
+    "hintFollowUpCompetition": "لا يمكن اختيار المسابقات اللاحقة أثناء التسجيل.",
+    "hintCompetitionFull": "هذه المسابقة ممتلئة بالفعل."
   },
   "global/components/event-card": {
     "lblHost": "المنظّم",

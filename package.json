@@ -1,6 +1,6 @@
 {
   "name": "fsmeet-frontend",
-  "version": "2.10.0",
+  "version": "2.10.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3002",
@@ -72,7 +72,7 @@
     "autoprefixer": "^10.5.4",
     "eslint": "8.57.0",
     "eslint-config-next": "15.5.9",
-    "postcss": "^8.5.23",
+    "postcss": "^8.5.25",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "standard-version": "^9.5.0",
