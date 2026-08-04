@@ -964,7 +964,12 @@
     "columnTitleName": "Nom",
     "columnTitleGender": "Genre",
     "columnTitleCost": "Coût",
-    "columnTitleSelection": "Sélection"
+    "columnTitleSelection": "Sélection",
+    "hintRegistrationDisabledByHost": "L'inscription à cette compétition a été désactivée par l'organisateur.",
+    "hintGenderMismatch": "Cette compétition est réservée aux {gender}.",
+    "hintMaxAgeMismatch": "Cette compétition est limitée aux participants de {maxAge} ans ou moins.",
+    "hintFollowUpCompetition": "Les compétitions de suivi ne peuvent pas être sélectionnées à l'inscription.",
+    "hintCompetitionFull": "Cette compétition est déjà complète."
   },
   "global/components/event-card": {
     "lblHost": "Organisateur",

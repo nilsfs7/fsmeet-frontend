@@ -982,7 +982,12 @@
     "columnTitleName": "नाम",
     "columnTitleGender": "लिंग",
     "columnTitleCost": "शुल्क",
-    "columnTitleSelection": "चयन"
+    "columnTitleSelection": "चयन",
+    "hintRegistrationDisabledByHost": "इस प्रतियोगिता का पंजीकरण इवेंट होस्ट द्वारा बंद कर दिया गया है।",
+    "hintGenderMismatch": "यह प्रतियोगिता केवल {gender} के लिए है।",
+    "hintMaxAgeMismatch": "यह प्रतियोगिता {maxAge} वर्ष या उससे कम आयु के प्रतिभागियों तक सीमित है।",
+    "hintFollowUpCompetition": "फॉलो-अप प्रतियोगिताओं को पंजीकरण के दौरान नहीं चुना जा सकता।",
+    "hintCompetitionFull": "यह प्रतियोगिता पहले से पूर्ण है।"
   },
   "global/components/event-card": {
     "lblHost": "होस्ट",

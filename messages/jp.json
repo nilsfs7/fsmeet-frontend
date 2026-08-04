@@ -982,7 +982,12 @@
     "columnTitleName": "名前",
     "columnTitleGender": "性別",
     "columnTitleCost": "費用",
-    "columnTitleSelection": "選択"
+    "columnTitleSelection": "選択",
+    "hintRegistrationDisabledByHost": "この競技の登録は主催者によって無効にされています。",
+    "hintGenderMismatch": "この競技は{gender}のみです。",
+    "hintMaxAgeMismatch": "この競技は{maxAge}歳以下の参加者に限定されています。",
+    "hintFollowUpCompetition": "続編の競技は登録時に選択できません。",
+    "hintCompetitionFull": "この競技はすでに定員に達しています。"
   },
   "global/components/event-card": {
     "lblHost": "主催",

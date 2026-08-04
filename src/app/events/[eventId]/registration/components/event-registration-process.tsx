@@ -936,6 +936,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   amountRegistrations={Array.from(existingCompetitionRegistrations.values())}
                   paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
                   currency={event.currency}
+                  userAge={user.age}
+                  userGender={user.gender}
                   disabled={competitions.map(comp => {
                     // validate competition
                     if (comp.isFollowUpCompetition) {
