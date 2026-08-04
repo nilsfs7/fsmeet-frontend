@@ -16,6 +16,7 @@ export class ReadCompetitionResponseDto {
   description: string;
   rules: string;
   judges: ReadPartialUser1ResponseDto[];
+  registrationEnabled: boolean;
   eventId: string;
 
   constructor(
@@ -31,7 +32,8 @@ export class ReadCompetitionResponseDto {
     description: string,
     rules: string,
     judges: ReadPartialUser1ResponseDto[],
-    eventId: string
+    eventId: string,
+    registrationEnabled: boolean,
   ) {
     this.id = id;
     this.name = name;
@@ -45,6 +47,7 @@ export class ReadCompetitionResponseDto {
     this.description = description;
     this.rules = rules;
     this.judges = judges;
+    this.registrationEnabled = registrationEnabled;
     this.eventId = eventId;
   }
 }

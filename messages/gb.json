@@ -970,6 +970,7 @@
     "cbMaxAge": "Max Age",
     "cbMaxAmountParticipants": "Participant limit",
     "chbIsFollowUpComp": "Is follow-up comp?",
+    "chbRegistrationEnabled": "Registration open?",
     "inputPaticipantFee": "Participation Fee",
     "inputDescription": "Description",
     "inputDescriptionPlaceHolder": "Group stage (circles) and KO (Top 16).",

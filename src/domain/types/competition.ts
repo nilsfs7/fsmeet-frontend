@@ -17,4 +17,5 @@ export type Competition = {
   description: string;
   rules: string;
   judges: User[];
+  registrationEnabled: boolean;
 };

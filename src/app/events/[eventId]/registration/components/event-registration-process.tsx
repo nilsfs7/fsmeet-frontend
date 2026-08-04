@@ -942,6 +942,10 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                       return true;
                     }
 
+                    if (comp.registrationEnabled === false) {
+                      return true;
+                    }
+
                     // check if gender does not fit
                     if (comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender) {
                       return true;

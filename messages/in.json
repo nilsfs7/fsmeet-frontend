@@ -969,6 +969,7 @@
     "cbMaxAge": "अधिकतम आयु",
     "cbMaxAmountParticipants": "प्रतिभागी सीमा",
     "chbIsFollowUpComp": "क्या यह फॉलो-अप प्रतियोगिता है?",
+    "chbRegistrationEnabled": "क्या पंजीकरण खुला है?",
     "inputPaticipantFee": "भागीदारी शुल्क",
     "inputDescription": "विवरण",
     "inputDescriptionPlaceHolder": "ग्रुप स्टेज (सर्कल) और KO (टॉप 16)।",
