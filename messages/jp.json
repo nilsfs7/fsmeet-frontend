@@ -969,6 +969,7 @@
     "cbMaxAge": "年齢上限",
     "cbMaxAmountParticipants": "参加上限",
     "chbIsFollowUpComp": "続編のカテゴリですか？",
+    "chbRegistrationEnabled": "登録を受け付けますか？",
     "inputPaticipantFee": "参加費",
     "inputDescription": "説明",
     "inputDescriptionPlaceHolder": "予選（サークル）とKO（Top16）。",

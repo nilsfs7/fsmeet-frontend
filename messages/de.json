@@ -951,6 +951,7 @@
     "cbMaxAge": "Max. Alter",
     "cbMaxAmountParticipants": "Teilnehmerlimit",
     "chbIsFollowUpComp": "Ist ein Folgewettbewerb",
+    "chbRegistrationEnabled": "Registrierung geöffnet?",
     "inputPaticipantFee": "Teilnahmegebühr",
     "inputDescription": "Beschreibung",
     "inputDescriptionPlaceHolder": "Gruppenphase (Circles) und KO (Top 16).",

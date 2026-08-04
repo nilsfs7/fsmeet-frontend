@@ -969,6 +969,7 @@
     "cbMaxAge": "الحد الأقصى للعمر",
     "cbMaxAmountParticipants": "حد المشاركين",
     "chbIsFollowUpComp": "هل هي منافسة لاحقة؟",
+    "chbRegistrationEnabled": "هل التسجيل مفتوح؟",
     "inputPaticipantFee": "رسوم المشاركة",
     "inputDescription": "الوصف",
     "inputDescriptionPlaceHolder": "دور مجموعات (دوائر) وإقصائي (أفضل 16).",

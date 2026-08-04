@@ -969,6 +969,7 @@
     "cbMaxAge": "最大年龄",
     "cbMaxAmountParticipants": "参赛人数上限",
     "chbIsFollowUpComp": "是否为后续比赛？",
+    "chbRegistrationEnabled": "是否开放报名？",
     "inputPaticipantFee": "参赛费用",
     "inputDescription": "描述",
     "inputDescriptionPlaceHolder": "小组赛（循环）与淘汰赛（前 16）。",

@@ -36,8 +36,7 @@ const EDITOR_CARD_CLASS = cn(
   'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
 );
 
-const FIELD_ROW_CLASS =
-  'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
 const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const READONLY_VALUE_CLASS = 'min-w-0 text-sm text-foreground/90';
@@ -67,6 +66,7 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
   const [maxAge, setMaxAge] = useState<MaxAge>(comp?.maxAge || MaxAge.NONE);
   const [maxAmountParticipants, setMaxAmountParticipants] = useState(comp?.maxAmountParticipants || -1);
   const [isFollowUpCompetition, setIsFollowUpCompetition] = useState(!!comp?.isFollowUpCompetition);
+  const [registrationEnabled, setRegistrationEnabled] = useState(comp?.registrationEnabled !== false);
   const [participationFee, setParticipationFee] = useState(comp?.participationFee || 0);
   const [description, setDescription] = useState(comp?.description || '');
   const [rules, setRules] = useState(comp?.rules || '');
@@ -102,6 +102,7 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
       description,
       rules,
       judges,
+      registrationEnabled: isFollowUpCompetition ? false : registrationEnabled,
     });
   };
 
@@ -119,6 +120,7 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
       setMaxAge(comp.maxAge);
       setMaxAmountParticipants(comp.maxAmountParticipants);
       setIsFollowUpCompetition(comp.isFollowUpCompetition);
+      setRegistrationEnabled(comp.registrationEnabled !== false);
       setParticipationFee(comp.participationFee);
       setDescription(comp.description);
       setRules(comp.rules);
@@ -132,7 +134,7 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
 
   useEffect(() => {
     updateComp();
-  }, [name, compType, compGender, maxAge, maxAmountParticipants, isFollowUpCompetition, participationFee, description, rules, judges]);
+  }, [name, compType, compGender, maxAge, maxAmountParticipants, isFollowUpCompetition, registrationEnabled, participationFee, description, rules, judges]);
 
   return (
     <div className={EDITOR_CARD_CLASS}>
@@ -173,11 +175,16 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
         value={isFollowUpCompetition}
         onChange={() => {
           setIsFollowUpCompetition(prev => {
-            if (!prev) setParticipationFee(0);
+            if (!prev) {
+              setParticipationFee(0);
+              setRegistrationEnabled(false);
+            }
             return !prev;
           });
         }}
       />
+
+      {!isFollowUpCompetition && <CheckBox id="comp-registration-enabled" label={t('chbRegistrationEnabled')} value={registrationEnabled} onChange={() => setRegistrationEnabled(prev => !prev)} />}
 
       {!isFollowUpCompetition && (
         <CurInput
