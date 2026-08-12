@@ -15,7 +15,7 @@ import { Toaster, toast } from 'sonner';
 import { EventRegistrationInfo } from '@/domain/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
-import { createEventRegistration, createEventRegistration_v2, createEventRegistrationCheckoutLink, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
+import { createEventRegistration, createEventRegistration_v2, createEventRegistrationCheckout, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
 import Label from '@/components/label';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import moment, { Moment } from 'moment';
@@ -48,6 +48,8 @@ import { Offering } from '../../../../../domain/types/offering';
 import Separator from '@/components/separator';
 import { TShirtSize } from '../../../../../domain/enums/t-shirt-size';
 import { cn } from '@/lib/utils';
+import CheckoutForm from '@/components/stripe-checkout';
+import type { ReadStripeCheckoutResponseDto } from '@/infrastructure/clients/dtos/event/read-stripe-checkout.response.dto';
 
 /** @see `competition-editor.tsx` `EDITOR_CARD_CLASS` — same glass card + rhythm */
 const registrationStepClass = 'flex w-full min-w-0 max-w-2xl flex-col gap-3 self-center';
@@ -112,8 +114,34 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   const [offeringOrders, setOfferingOrders] = useState<string[]>([]);
   const [offeringTShirtSize, setOfferingShirtSize] = useState<string>(user.tShirtSize || menuTShirtSizesWithUnspecified[0].value);
   const [donationAmount, setDonationAmount] = useState<number>(0);
+  const [paymentCheckout, setPaymentCheckout] = useState<ReadStripeCheckoutResponseDto | null>(null);
+  const [paymentLoading, setPaymentLoading] = useState(false);
 
   const pageUrl = `${routeEvents}/${event.id}/registration`;
+  const paymentClientSecret = paymentCheckout ? paymentCheckout.clientSecret : null;
+  const paymentReturnUrl = typeof window !== 'undefined' ? `${window.location.origin}${pageUrl}/completed?fee=1&checkout=1` : `${pageUrl}/completed?fee=1&checkout=1`;
+
+  const startDirectCheckout = async (): Promise<boolean> => {
+    if (!event.id) return false;
+
+    setPaymentLoading(true);
+    try {
+      const dto = await createEventRegistrationCheckout(event.id, session);
+      if (!dto.clientSecret) {
+        throw new Error(t('errorMissingSecret'));
+      }
+      setPaymentCheckout(dto);
+      return true;
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : t('errorCheckout');
+      toast.error(message);
+      console.error(message);
+      setPaymentCheckout(null);
+      return false;
+    } finally {
+      setPaymentLoading(false);
+    }
+  };
 
   const handleFirstNameChanged = (value: string) => {
     const newUser = Object.assign({}, user);
@@ -486,6 +514,9 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
   const handleRegisterNowClicked = async () => {
     if (event.id) {
+      // Lock donation checkbox as soon as enroll is pressed.
+      setPaymentLoading(true);
+
       const useRegistrationV2 = event.paymentMethodStripe.enabled && registrationType;
       const redirectToCheckout = useRegistrationV2 && registrationFeeExists();
 
@@ -522,12 +553,15 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
             session,
           );
           cleanupCacheRegistrationInfo();
+          setRegistrationStatus(EventRegistrationStatus.PENDING);
 
           if (redirectToCheckout) {
-            successUrl += '&checkout=1';
-            const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, successUrl, session);
-            router.push(`${checkoutUrl}`);
+            const started = await startDirectCheckout();
+            if (!started) {
+              router.replace(pageUrl);
+            }
           } else {
+            setPaymentLoading(false);
             router.push(successUrl);
           }
         } else {
@@ -535,10 +569,14 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           if (session) {
             await createEventRegistration(event.id, session);
             cleanupCacheRegistrationInfo();
+            setPaymentLoading(false);
             router.push(successUrl);
+          } else {
+            setPaymentLoading(false);
           }
         }
       } catch (error: any) {
+        setPaymentLoading(false);
         toast.error(error.message);
         console.error(error.message);
       }
@@ -547,13 +585,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
   const handleProceedPaymentClicked = async () => {
     if (event.id && registrationType) {
-      try {
-        const checkoutUrl = await createEventRegistrationCheckoutLink(event.id, `${window.location.origin}${pageUrl}/completed?checkout=1`, session);
-        router.push(`${checkoutUrl}`);
-      } catch (error: any) {
-        toast.error(error.message);
-        console.error(error.message);
-      }
+      await startDirectCheckout();
     }
   };
 
@@ -1038,11 +1070,37 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                     accommodationOrders={accommodationOrders}
                     offeringOrders={offeringOrders}
                     paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                    donationLocked={registrationStatus !== 'Unregistered' || paymentLoading || !!paymentClientSecret}
                     onDonationCheckedChange={donationAmount => {
                       setDonationAmount(donationAmount);
                     }}
                   />
                 )}
+
+                {paymentClientSecret && (
+                  <div className="w-full rounded-xl border border-border/60 bg-background p-4">
+                    <CheckoutForm
+                      key={paymentClientSecret}
+                      clientSecret={paymentClientSecret}
+                      stripeAccount={paymentCheckout?.stripeAccountId || undefined}
+                      confirmPaymentBtnText={t('btnPay')}
+                      returnUrl={paymentReturnUrl}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Overview: embedded payment after Proceed Payment */}
+            {!page && paymentClientSecret && (
+              <div className="mx-auto mt-4 w-full min-w-0 max-w-2xl rounded-xl border border-border/60 bg-background p-4">
+                <CheckoutForm
+                  key={paymentClientSecret}
+                  clientSecret={paymentClientSecret}
+                  stripeAccount={paymentCheckout?.stripeAccountId || undefined}
+                  confirmPaymentBtnText={t('btnPay')}
+                  returnUrl={paymentReturnUrl}
+                />
               </div>
             )}
           </div>
@@ -1076,14 +1134,14 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           )}
 
           {/* Button Checkout */}
-          {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && (
-            <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleRegisterNowClicked}>
-              {getEnrollmentCtaLabel()}
+          {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && !paymentClientSecret && (
+            <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={paymentLoading} onClick={handleRegisterNowClicked}>
+              {paymentLoading ? t('btnWorking') : getEnrollmentCtaLabel()}
             </Button>
           )}
 
           {/* Button Unregister */}
-          {!page && registrationStatus === EventRegistrationStatus.PENDING && (
+          {!page && registrationStatus === EventRegistrationStatus.PENDING && !paymentClientSecret && (
             <Button
               type="button"
               variant="actionCritical"
@@ -1102,12 +1160,13 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           )}
 
           {/* Button Proceed Payment */}
-          {proceedPaymentButtonShown() && (
+          {proceedPaymentButtonShown() && !paymentClientSecret && (
             <Button
               type="button"
               variant="action"
               className={ctaActionButtonClassName}
               disabled={
+                paymentLoading ||
                 (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.dateFrom).unix() < moment().unix()) ||
                 (registrationType === EventRegistrationType.VISITOR && moment(event?.dateTo).unix() < moment().unix()) ||
                 false
@@ -1116,7 +1175,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                 handleProceedPaymentClicked();
               }}
             >
-              {t('btnProceedPayment')}
+              {paymentLoading ? t('btnWorking') : t('btnProceedPayment')}
             </Button>
           )}
         </div>

@@ -565,7 +565,11 @@
     "btnBackToOverview": "Annuler",
     "btnNextPage": "Continuer",
     "btnEnrollNow": "Iinscrire",
-    "btnEnrollNowWithCheckout": "Payer"
+    "btnEnrollNowWithCheckout": "Payer",
+    "btnPay": "Payer maintenant",
+    "btnWorking": "Démarrage du paiement…",
+    "errorMissingSecret": "Réponse de paiement incomplète. Réessaie ou contacte le support.",
+    "errorCheckout": "Impossible de démarrer le paiement. Réessaie ou contacte le support."
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Inscription soumise avec succès.",

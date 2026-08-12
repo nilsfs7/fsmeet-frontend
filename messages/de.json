@@ -565,7 +565,11 @@
     "btnBackToOverview": "Abbrechen",
     "btnNextPage": "Weiter",
     "btnEnrollNow": "Jetzt Anmelden",
-    "btnEnrollNowWithCheckout": "Bezahlen"
+    "btnEnrollNowWithCheckout": "Bezahlen",
+    "btnPay": "Jetzt zahlen",
+    "btnWorking": "Checkout wird gestartet…",
+    "errorMissingSecret": "Die Checkout-Antwort war unvollständig. Bitte erneut versuchen oder Support kontaktieren.",
+    "errorCheckout": "Zahlung konnte nicht gestartet werden. Bitte erneut versuchen oder Support kontaktieren."
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registrierung erfolgreich eingereicht.",

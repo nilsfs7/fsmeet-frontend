@@ -565,7 +565,11 @@
     "btnBackToOverview": "Cancelar",
     "btnNextPage": "Siguiente",
     "btnEnrollNow": "Inscríbete ahora",
-    "btnEnrollNowWithCheckout": "Pagar"
+    "btnEnrollNowWithCheckout": "Pagar",
+    "btnPay": "Pagar ahora",
+    "btnWorking": "Iniciando el pago…",
+    "errorMissingSecret": "La respuesta del checkout está incompleta. Inténtalo de nuevo o contacta soporte.",
+    "errorCheckout": "No se pudo iniciar el pago. Inténtalo de nuevo o contacta soporte."
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registro enviado con éxito.",

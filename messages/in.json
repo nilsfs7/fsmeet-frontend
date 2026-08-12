@@ -583,7 +583,11 @@
     "btnBackToOverview": "रद्द करें",
     "btnNextPage": "अगला",
     "btnEnrollNow": "अभी नामांकन करें",
-    "btnEnrollNowWithCheckout": "चेकआउट"
+    "btnEnrollNowWithCheckout": "चेकआउट",
+    "btnPay": "अभी भुगतान करें",
+    "btnWorking": "चेकआउट शुरू हो रहा है…",
+    "errorMissingSecret": "चेकआउट प्रतिक्रिया अधूरी है। फिर से कोशिश करें या सहायता से संपर्क करें।",
+    "errorCheckout": "भुगतान शुरू नहीं हो सका। फिर से कोशिश करें या सहायता से संपर्क करें।"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "पंजीकरण सफलतापूर्वक सबमिट हुआ।",

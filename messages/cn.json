@@ -583,7 +583,11 @@
     "btnBackToOverview": "取消",
     "btnNextPage": "下一步",
     "btnEnrollNow": "立即报名",
-    "btnEnrollNowWithCheckout": "结算"
+    "btnEnrollNowWithCheckout": "结算",
+    "btnPay": "立即支付",
+    "btnWorking": "正在开始结账…",
+    "errorMissingSecret": "结账响应不完整。请重试或联系支持。",
+    "errorCheckout": "无法开始付款。请重试或联系支持。"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "报名已成功提交。",

@@ -583,7 +583,11 @@
     "btnBackToOverview": "Cancel",
     "btnNextPage": "Next",
     "btnEnrollNow": "Enroll Now",
-    "btnEnrollNowWithCheckout": "Checkout"
+    "btnEnrollNowWithCheckout": "Checkout",
+    "btnPay": "Pay now",
+    "btnWorking": "Starting checkout…",
+    "errorMissingSecret": "Checkout response was incomplete. Try again or contact support.",
+    "errorCheckout": "Could not start payment. Try again or contact support."
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registration successfully submitted.",
