@@ -10,7 +10,6 @@ import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-
 import { UpdateVisaInvitationRequestStateBodyDto } from './dtos/event/update-visa-invitation-request-state.body.dto';
 import { ReadVisaInvitationRequestResponseDto } from './dtos/event/read-visa-invitation-request.response.dto';
 import { ReadEventRegistrationResponseDto } from './dtos/event/registration/read-event-registration.response.dto';
-import { CreateStripeCheckoutBodyDto } from './dtos/event/create-stripe-checkout.body.dto';
 import { ReadStripeCheckoutResponseDto } from './dtos/event/read-stripe-checkout.response.dto';
 import type { ReadLicenseInfoResponseDto } from './dtos/event/read-license-info.response.dto';
 import { CreateEventBodyDto } from './dtos/event/create-event.body.dto';
@@ -400,13 +399,11 @@ export async function getEventLicenseInfo(eventId: string, session: Session | nu
   throw Error(error.message);
 }
 
-export async function createEventLicenseCheckout(eventId: string, successUrl: string, session: Session | null): Promise<ReadStripeCheckoutResponseDto> {
+export async function createEventLicenseCheckout(eventId: string, session: Session | null): Promise<ReadStripeCheckoutResponseDto> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/license/checkout`;
-  const body = new CreateStripeCheckoutBodyDto(successUrl);
 
   const response = await fetch(url, {
     method: 'POST',
-    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
@@ -422,14 +419,11 @@ export async function createEventLicenseCheckout(eventId: string, successUrl: st
   throw Error(error.message);
 }
 
-export async function createEventRegistrationCheckoutLink(eventId: string, successUrl: string, session: Session | null): Promise<string> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout/hosted`;
-
-  const body = new CreateStripeCheckoutBodyDto(successUrl);
+export async function createEventRegistrationCheckout(eventId: string, session: Session | null): Promise<ReadStripeCheckoutResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout/payment_intent`;
 
   const response = await fetch(url, {
     method: 'POST',
-    body: JSON.stringify(body),
     headers: {
       ...defaultHeaders,
       Authorization: `Bearer ${session?.user?.accessToken}`,
@@ -437,17 +431,13 @@ export async function createEventRegistrationCheckoutLink(eventId: string, succe
   });
 
   if (response.ok) {
-    const dto: ReadStripeCheckoutResponseDto = await response.json();
-    console.info('Creating stripe checkout link for event registration successful');
-
-    if (!dto.checkoutUrl) {
-      throw Error('Unknown error. Missing checkout URL.');
-    }
-    return dto.checkoutUrl;
-  } else {
-    const error = await response.json();
-    throw Error(error.message);
+    const dto = (await response.json()) as ReadStripeCheckoutResponseDto;
+    console.info('Creating stripe payment intent for event registration successful');
+    return dto;
   }
+
+  const error = await response.json();
+  throw Error(error.message);
 }
 
 export async function createComment(eventId: string, message: string, session: Session | null): Promise<void> {

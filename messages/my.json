@@ -583,7 +583,11 @@
     "btnBackToOverview": "Batal",
     "btnNextPage": "Seterusnya",
     "btnEnrollNow": "Daftar Sekarang",
-    "btnEnrollNowWithCheckout": "Checkout"
+    "btnEnrollNowWithCheckout": "Checkout",
+    "btnPay": "Bayar sekarang",
+    "btnWorking": "Memulakan checkout…",
+    "errorMissingSecret": "Respons checkout tidak lengkap. Cuba lagi atau hubungi sokongan.",
+    "errorCheckout": "Tidak dapat memulakan pembayaran. Cuba lagi atau hubungi sokongan."
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Pendaftaran berjaya dihantar.",

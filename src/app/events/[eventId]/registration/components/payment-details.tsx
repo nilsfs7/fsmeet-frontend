@@ -23,6 +23,8 @@ interface IPaymentDetails {
   accommodationOrders: string[];
   offeringOrders: string[];
   paymentFeeCover: boolean;
+  /** When true, donation checkbox stays visible but cannot be changed. */
+  donationLocked?: boolean;
   onDonationCheckedChange: (donationAmount: number) => void;
 }
 
@@ -54,7 +56,17 @@ function AccordionRowTrigger({ children, className, ...rest }: { children: React
   );
 }
 
-export const PaymentDetails = ({ event, competitions, registrationType, compSignUps, accommodationOrders, offeringOrders, paymentFeeCover, onDonationCheckedChange }: IPaymentDetails) => {
+export const PaymentDetails = ({
+  event,
+  competitions,
+  registrationType,
+  compSignUps,
+  accommodationOrders,
+  offeringOrders,
+  paymentFeeCover,
+  donationLocked = false,
+  onDonationCheckedChange,
+}: IPaymentDetails) => {
   const t = useTranslations('global/components/payment-details');
   const tTable = useTranslations('global/components/offering-list');
 
@@ -106,25 +118,14 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
         <div className={registrationListScrollClass}>
           <div className="w-full min-w-0 text-sm text-foreground">
             <div className="bg-muted/80 text-foreground/90">
-              <div
-                className={cn(
-                  ROW_GRID,
-                  'text-left text-xs font-medium uppercase leading-normal tracking-wide sm:py-0',
-                )}
-              >
+              <div className={cn(ROW_GRID, 'text-left text-xs font-medium uppercase leading-normal tracking-wide sm:py-0')}>
                 <div className="min-w-0 py-2.5 pr-1 sm:pr-2 sm:py-3 sm:pl-0">{tTable('columnTitleDescription')}</div>
                 <div className="whitespace-nowrap py-2.5 pl-0 text-right sm:py-3">{tTable('columnTitleCost')}</div>
                 <div className="h-4 w-[1.25rem] min-w-[1.25rem] shrink-0" aria-hidden="true" />
               </div>
             </div>
 
-            <div
-              className={cn(
-                ROW_GRID,
-                'border-b border-border/50 py-2.5 sm:py-3',
-                rowHoverClass,
-              )}
-            >
+            <div className={cn(ROW_GRID, 'border-b border-border/50 py-2.5 sm:py-3', rowHoverClass)}>
               <div className="min-w-0 break-words pr-1 sm:pr-2">{t('feeEvent')}</div>
               <div className={priceColClass}>{formatMoney(eventFee)}</div>
               <PaymentTrailSpacer />
@@ -137,19 +138,13 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
                     <AccordionRowTrigger className={rowHoverClass}>
                       <div className="min-w-0 pr-1 font-normal sm:pr-2">{t('feeCompetitions')}</div>
                       <div className={priceColClass}>{formatMoney(compFeeSum)}</div>
-                      <ChevronDown
-                        className="h-4 w-4 shrink-0 text-foreground/80 transition-transform duration-200 group-data-[state=open]:rotate-180"
-                        aria-hidden="true"
-                      />
+                      <ChevronDown className="h-4 w-4 shrink-0 text-foreground/80 transition-transform duration-200 group-data-[state=open]:rotate-180" aria-hidden="true" />
                     </AccordionRowTrigger>
                   </AccordionPrimitive.Header>
                   <AccordionContent className="pb-0 pt-0">
                     <div className="border-t border-border/40 bg-muted/15 dark:bg-muted/10">
                       {selectedCompetitions.map(c => (
-                        <div
-                          key={c.id ?? c.name}
-                          className={cn(ROW_GRID, 'border-b border-border/40 py-2 pl-6 last:border-b-0 sm:pl-8', rowHoverClass)}
-                        >
+                        <div key={c.id ?? c.name} className={cn(ROW_GRID, 'border-b border-border/40 py-2 pl-6 last:border-b-0 sm:pl-8', rowHoverClass)}>
                           <div className="min-w-0 break-words pr-1 sm:pr-2">{c.name}</div>
                           <div className={priceColClass}>{formatMoney(compFee(c))}</div>
                           <PaymentTrailSpacer />
@@ -166,19 +161,13 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
                     <AccordionRowTrigger className={rowHoverClass}>
                       <div className="min-w-0 pr-1 font-normal sm:pr-2">{t('feeOfferings')}</div>
                       <div className={priceColClass}>{formatMoney(offeringsFeeSum)}</div>
-                      <ChevronDown
-                        className="h-4 w-4 shrink-0 text-foreground/80 transition-transform duration-200 group-data-[state=open]:rotate-180"
-                        aria-hidden="true"
-                      />
+                      <ChevronDown className="h-4 w-4 shrink-0 text-foreground/80 transition-transform duration-200 group-data-[state=open]:rotate-180" aria-hidden="true" />
                     </AccordionRowTrigger>
                   </AccordionPrimitive.Header>
                   <AccordionContent className="pb-0 pt-0">
                     <div className="border-t border-border/40 bg-muted/15 dark:bg-muted/10">
                       {selectedOfferings.map((o, index) => (
-                        <div
-                          key={o.id ?? `offering-${index}`}
-                          className={cn(ROW_GRID, 'border-b border-border/40 py-2 pl-6 last:border-b-0 sm:pl-8', rowHoverClass)}
-                        >
+                        <div key={o.id ?? `offering-${index}`} className={cn(ROW_GRID, 'border-b border-border/40 py-2 pl-6 last:border-b-0 sm:pl-8', rowHoverClass)}>
                           <div className="min-w-0 break-words pr-1 sm:pr-2">{o.description}</div>
                           <div className={priceColClass}>{formatMoney(paymentFeeCover ? o.costIncPaymentCosts : o.cost)}</div>
                           <PaymentTrailSpacer />
@@ -195,19 +184,13 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
                     <AccordionRowTrigger className={rowHoverClass}>
                       <div className="min-w-0 pr-1 font-normal sm:pr-2">{t('feeAccommodations')}</div>
                       <div className={priceColClass}>{formatMoney(accommodationsFeeSum)}</div>
-                      <ChevronDown
-                        className="h-4 w-4 shrink-0 text-foreground/80 transition-transform duration-200 group-data-[state=open]:rotate-180"
-                        aria-hidden="true"
-                      />
+                      <ChevronDown className="h-4 w-4 shrink-0 text-foreground/80 transition-transform duration-200 group-data-[state=open]:rotate-180" aria-hidden="true" />
                     </AccordionRowTrigger>
                   </AccordionPrimitive.Header>
                   <AccordionContent className="pb-0 pt-0">
                     <div className="border-t border-border/40 bg-muted/15 dark:bg-muted/10">
                       {selectedAccommodations.map((a, index) => (
-                        <div
-                          key={a.id ?? `accommodation-${index}`}
-                          className={cn(ROW_GRID, 'border-b border-border/40 py-2 pl-6 last:border-b-0 sm:pl-8', rowHoverClass)}
-                        >
+                        <div key={a.id ?? `accommodation-${index}`} className={cn(ROW_GRID, 'border-b border-border/40 py-2 pl-6 last:border-b-0 sm:pl-8', rowHoverClass)}>
                           <div className="min-w-0 break-words pr-1 sm:pr-2">{a.description}</div>
                           <div className={priceColClass}>{formatMoney(paymentFeeCover ? a.costIncPaymentCosts : a.cost)}</div>
                           <PaymentTrailSpacer />
@@ -220,15 +203,15 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
             </Accordion>
 
             {showDonationRow && (
-              <div
-                className={cn(ROW_GRID, 'border-b border-border/50 py-2.5 sm:py-3', rowHoverClass)}
-              >
+              <div className={cn(ROW_GRID, 'border-b border-border/50 py-2.5 sm:py-3', rowHoverClass, donationLocked && 'opacity-60')}>
                 <div className="flex min-w-0 items-center gap-2 pr-1 sm:pr-2">
                   <span className="break-words">{t('chbDonation')}</span>
                   <Checkbox
                     id="input-donation"
                     checked={donationChecked}
+                    disabled={donationLocked}
                     onCheckedChange={v => {
+                      if (donationLocked) return;
                       const on = v === true;
                       setDonationChecked(on);
                       onDonationCheckedChange(on ? getDonationAmount() : 0);
@@ -241,13 +224,7 @@ export const PaymentDetails = ({ event, competitions, registrationType, compSign
               </div>
             )}
 
-            <div
-              className={cn(
-                ROW_GRID,
-                'border-t border-border/60 bg-muted/30 py-2.5 font-semibold sm:py-3',
-                'text-foreground dark:bg-muted/25',
-              )}
-            >
+            <div className={cn(ROW_GRID, 'border-t border-border/60 bg-muted/30 py-2.5 font-semibold sm:py-3', 'text-foreground dark:bg-muted/25')}>
               <div className="min-w-0 break-words pr-1 sm:pr-2">{t('feeTotal')}</div>
               <div className={priceColClass}>{formatMoney(donationChecked ? getTotal() + getDonationAmount() : getTotal())}</div>
               <PaymentTrailSpacer />

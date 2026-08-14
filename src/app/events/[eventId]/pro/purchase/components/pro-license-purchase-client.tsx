@@ -32,10 +32,6 @@ function FieldRow({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-function resolveClientSecret(dto: ReadStripeCheckoutResponseDto): string | null {
-  return dto.clientSecret || dto.piClientSecret || null;
-}
-
 export function ProLicensePurchaseClient({ eventId, eventName, formattedLicensePrice }: { eventId: string; eventName: string; formattedLicensePrice: string }) {
   const t = useTranslations('/events/eventid/pro/purchase');
   const tReg = useTranslations('/events/eventid/registration');
@@ -53,13 +49,12 @@ export function ProLicensePurchaseClient({ eventId, eventName, formattedLicenseP
     }
     setLoading(true);
     try {
-      const dto = await createEventLicenseCheckout(eventId, successUrl, session);
+      const dto = await createEventLicenseCheckout(eventId, session);
       if (dto.checkoutUrl) {
         window.location.href = dto.checkoutUrl;
         return;
       }
-      const secret = resolveClientSecret(dto);
-      if (!secret) {
+      if (!dto.clientSecret) {
         throw new Error(t('errorMissingSecret'));
       }
       setCheckout(dto);
@@ -70,7 +65,7 @@ export function ProLicensePurchaseClient({ eventId, eventName, formattedLicenseP
     }
   };
 
-  const secret = checkout ? resolveClientSecret(checkout) : null;
+  const secret = checkout ? checkout.clientSecret : null;
 
   return (
     <div className="flex flex-col gap-4 pb-4">

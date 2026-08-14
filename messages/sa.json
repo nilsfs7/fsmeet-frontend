@@ -583,7 +583,11 @@
     "btnBackToOverview": "إلغاء",
     "btnNextPage": "التالي",
     "btnEnrollNow": "سجّل الآن",
-    "btnEnrollNowWithCheckout": "الدفع"
+    "btnEnrollNowWithCheckout": "الدفع",
+    "btnPay": "ادفع الآن",
+    "btnWorking": "جارٍ بدء الدفع…",
+    "errorMissingSecret": "استجابة الدفع غير مكتملة. حاول مجددًا أو اتصل بالدعم.",
+    "errorCheckout": "تعذّر بدء الدفع. حاول مجددًا أو اتصل بالدعم."
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "تم إرسال التسجيل بنجاح.",

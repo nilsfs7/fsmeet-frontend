@@ -583,7 +583,11 @@
     "btnBackToOverview": "キャンセル",
     "btnNextPage": "次へ",
     "btnEnrollNow": "今すぐ参加",
-    "btnEnrollNowWithCheckout": "支払いへ"
+    "btnEnrollNowWithCheckout": "支払いへ",
+    "btnPay": "支払う",
+    "btnWorking": "チェックアウトを開始中…",
+    "errorMissingSecret": "チェックアウトの応答が不完全です。再試行するかサポートへ連絡してください。",
+    "errorCheckout": "支払いを開始できませんでした。再試行するかサポートへ連絡してください。"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "参加登録が送信されました。",
