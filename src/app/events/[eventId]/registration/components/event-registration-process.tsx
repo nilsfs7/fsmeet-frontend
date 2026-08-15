@@ -287,6 +287,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
         if (event.type === EventType.COMPETITION_ONLINE) return true; // disable since only participants can join online competitions
 
         if (!event.paymentMethodStripe.enabled) return true; // disable since visitors can not can join non-stripe events
+
+        if (!event.enableVisitorRegistration) return true; // no visitor fallback after participant registration ended
       }
 
       return false;

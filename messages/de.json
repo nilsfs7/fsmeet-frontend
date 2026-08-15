@@ -942,7 +942,8 @@
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Art",
     "columnTitleFee": "Gebühr",
-    "columnTitleSelection": "Auswahl"
+    "columnTitleSelection": "Auswahl",
+    "hintRegistrationPeriodEnded": "Die Registrierungsperiode für Teilnehmer ist beendet."
   },
   "global/components/battle-grid": {
     "btnAddMatch": "Match hinzufügen"

@@ -1,6 +1,6 @@
 {
   "name": "fsmeet-frontend",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3002",
@@ -62,7 +62,7 @@
     "react-tabs": "^6.1.1",
     "react-textarea-autosize": "^8.5.9",
     "recharts": "2.15.4",
-    "sonner": "^2.0.7",
+    "sonner": "^2.0.8",
     "tailwind-merge": "^3.6.0",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.8.3"

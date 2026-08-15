@@ -960,7 +960,8 @@
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "النوع",
     "columnTitleFee": "الرسوم",
-    "columnTitleSelection": "الاختيار"
+    "columnTitleSelection": "الاختيار",
+    "hintRegistrationPeriodEnded": "انتهت فترة التسجيل للمشاركين."
   },
   "global/components/battle-grid": {
     "btnAddMatch": "إضافة مباراة"
