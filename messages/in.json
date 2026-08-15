@@ -960,7 +960,8 @@
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "प्रकार",
     "columnTitleFee": "शुल्क",
-    "columnTitleSelection": "चयन"
+    "columnTitleSelection": "चयन",
+    "hintRegistrationPeriodEnded": "प्रतिभागियों के लिए पंजीकरण अवधि समाप्त हो गई है।"
   },
   "global/components/battle-grid": {
     "btnAddMatch": "मैच जोड़ें"

@@ -960,7 +960,8 @@
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Jenis",
     "columnTitleFee": "Yuran",
-    "columnTitleSelection": "Pilihan"
+    "columnTitleSelection": "Pilihan",
+    "hintRegistrationPeriodEnded": "Tempoh pendaftaran untuk peserta telah berakhir."
   },
   "global/components/battle-grid": {
     "btnAddMatch": "Tambah Perlawanan"

@@ -942,7 +942,8 @@
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Tipo",
     "columnTitleFee": "Costo",
-    "columnTitleSelection": "Selección"
+    "columnTitleSelection": "Selección",
+    "hintRegistrationPeriodEnded": "El período de inscripción para participantes ha finalizado."
   },
   "global/components/battle-grid": {
     "btnAddMatch": "Añadir partido"

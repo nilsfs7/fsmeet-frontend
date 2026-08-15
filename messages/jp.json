@@ -960,7 +960,8 @@
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "種類",
     "columnTitleFee": "費用",
-    "columnTitleSelection": "選択"
+    "columnTitleSelection": "選択",
+    "hintRegistrationPeriodEnded": "参加者の登録期間は終了しました。"
   },
   "global/components/battle-grid": {
     "btnAddMatch": "試合を追加"

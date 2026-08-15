@@ -960,7 +960,8 @@
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "类型",
     "columnTitleFee": "费用",
-    "columnTitleSelection": "选择"
+    "columnTitleSelection": "选择",
+    "hintRegistrationPeriodEnded": "参赛者报名期已结束。"
   },
   "global/components/battle-grid": {
     "btnAddMatch": "添加比赛"
