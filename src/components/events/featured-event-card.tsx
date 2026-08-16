@@ -20,9 +20,9 @@ export interface FeaturedEventCardProps {
 
 const shellClassName = cn(
   'relative overflow-hidden rounded-xl border border-dashed border-border/70',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 
 /** Instagram-style portrait post (4:5) in a tall, narrow shell beside the event list. */
@@ -36,7 +36,7 @@ export function FeaturedEventCard({ event, badgeLabel, linkLabel }: FeaturedEven
     : `${getShortDateString(moment(event.dateFrom), false)} – ${getShortDateString(moment(event.dateTo))}`;
 
   const badge = (
-    <div className="pointer-events-none absolute right-2 top-2 z-[1] rounded-md bg-muted/90 px-1.5 py-0.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground shadow-xs">
+    <div className="pointer-events-none absolute right-2 top-2 z-1 rounded-md bg-muted/90 px-1.5 py-0.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground shadow-xs">
       {badgeLabel}
     </div>
   );
@@ -45,9 +45,9 @@ export function FeaturedEventCard({ event, badgeLabel, linkLabel }: FeaturedEven
     <Link
       href={href}
       className={cn(
-        'relative block w-full overflow-hidden rounded-lg bg-muted/30 outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring',
+        'relative block w-full overflow-hidden rounded-lg bg-muted/30 outline-hidden ring-offset-background focus-visible:ring-2 focus-visible:ring-ring',
         /* Feed portrait (~Instagram 4:5), same ratio as EventCard poster */
-        'aspect-[4/5]',
+        'aspect-4/5',
       )}
       aria-label={`${event.name} — ${linkLabel}`}
     >
@@ -81,12 +81,12 @@ export function FeaturedEventCard({ event, badgeLabel, linkLabel }: FeaturedEven
         {visual}
         <div className="flex min-w-0 flex-col gap-2">
           <h3 id={titleId} className="line-clamp-4 text-left text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg sm:leading-snug">
-            <Link href={href} className="outline-none ring-offset-background focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring">
+            <Link href={href} className="outline-hidden ring-offset-background focus-visible:rounded-sm focus-visible:ring-2 focus-visible:ring-ring">
               {event.name}
             </Link>
           </h3>
           <p className="type-body-sm text-foreground/75">{dateLine}</p>
-          {event.description ? <p className="type-body-sm line-clamp-6 break-words whitespace-pre-line text-foreground/85">{event.description}</p> : null}
+          {event.description ? <p className="type-body-sm line-clamp-6 wrap-break-word whitespace-pre-line text-foreground/85">{event.description}</p> : null}
           {cta}
         </div>
       </div>

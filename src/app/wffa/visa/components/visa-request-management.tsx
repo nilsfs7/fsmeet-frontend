@@ -20,23 +20,23 @@ import moment from 'moment';
 import { getShortDateString } from '@/functions/time';
 
 /** Same layout for Pending / Approved / Denied so columns line up vertically. */
-const VISA_TABLE_CLASS = 'table-fixed w-full min-w-[48rem] border-separate border-spacing-x-3 border-spacing-y-0';
+const VISA_TABLE_CLASS = 'table-fixed w-full min-w-3xl border-separate border-spacing-x-3 border-spacing-y-0';
 
 /** Extra horizontal padding so long text doesn’t touch column edges. */
-const VISA_HEAD_PAD = 'px-3 py-2.5 align-top !h-auto min-h-10';
+const VISA_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
 const VISA_CELL_PAD = 'py-2.5 px-3';
 
 const visaCol = {
   /** Most horizontal space */
-  applicant: 'w-[40%] min-w-[12rem] max-w-[60%]',
+  applicant: 'w-[40%] min-w-48 max-w-[60%]',
   /** 2-letter country codes only */
   country: 'w-[9ch] min-w-[9ch] max-w-[9ch] text-center',
   /** Max 12 characters (passport no.) */
   passport: 'w-[12ch] min-w-[12ch] max-w-[12ch]',
   /** DD.MM.YY */
   requestDate: 'w-[11ch] min-w-[11ch] max-w-[11ch] whitespace-nowrap',
-  approver: 'w-[20%] min-w-[7rem]',
-  actions: 'w-[18%] min-w-[8.5rem]',
+  approver: 'w-[20%] min-w-28',
+  actions: 'w-[18%] min-w-34',
 } as const;
 
 function formatDisplayName(firstName: string, lastName: string): string {

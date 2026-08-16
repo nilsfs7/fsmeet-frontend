@@ -121,7 +121,7 @@ export function ActivityTable({ rows }: IActivityTable) {
                   <div className="flex items-center gap-2">
                     {row.countryCode && (
                       <span className="inline-flex h-5 w-5 shrink-0 overflow-hidden rounded-full">
-                        <ReactCountryFlag className="!h-full !w-full" countryCode={row.countryCode} svg style={{ width: '100%', height: '100%', objectFit: 'cover' }} title={row.countryCode} />
+                        <ReactCountryFlag className="h-full! w-full!" countryCode={row.countryCode} svg style={{ width: '100%', height: '100%', objectFit: 'cover' }} title={row.countryCode} />
                       </span>
                     )}
                     <span className="whitespace-nowrap">{formatCountry(row.countryCode)}</span>

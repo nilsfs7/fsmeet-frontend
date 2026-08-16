@@ -1,6 +1,6 @@
 export function DataProtectionText() {
   return (
-    <div className="prose-flow select-text w-full break-words">
+    <div className="prose-flow select-text w-full wrap-break-word">
       <p className="not-prose text-sm text-muted-foreground">Version 1.0 – Stand: 02.05.2026</p>
       <p>Hinweis: Diese Datenschutzerklärung ist in deutscher und englischer Sprache verfügbar. Im Falle von Widersprüchen oder Auslegungsfragen ist die deutsche Version maßgeblich.</p>
 

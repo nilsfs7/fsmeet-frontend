@@ -63,7 +63,7 @@ const DialogEditRound = ({ title, queryParam, onCancel, onConfirm, cancelText, c
           <Input id="input-round-name" value={roundName} onChange={e => setRoundName(e.currentTarget.value)} />
         </div>
 
-        <div className="relative z-[60] grid grid-cols-2 items-center gap-2">
+        <div className="relative z-60 grid grid-cols-2 items-center gap-2">
           <div className="min-w-0">{t('dlgEditRoundDay')}</div>
           <div className="flex w-full">
             <ComboBox

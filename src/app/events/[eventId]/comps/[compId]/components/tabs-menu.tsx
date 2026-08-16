@@ -208,7 +208,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
                   <div className="text-base font-bold">{t('tabInfoSectionDescription')}</div>
 
                   <div className="m-2">
-                    <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-none" value={comp.description} />
+                    <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-hidden" value={comp.description} />
                   </div>
                 </div>
               </>
@@ -226,7 +226,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
               <div className="text-base font-bold">{t('tabInfoSectionRules')}</div>
 
               <div className="m-2">
-                <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-none" value={comp.rules} />
+                <TextareaAutosize readOnly className="w-full resize-none bg-transparent outline-hidden" value={comp.rules} />
               </div>
             </div>
           )}

@@ -89,7 +89,7 @@ export const AttendeeChoice = ({
             <table className="w-full min-w-0 text-sm text-foreground">
               <thead className="bg-muted/80 text-foreground/90">
                 <tr className="text-left text-xs font-medium uppercase leading-normal tracking-wide">
-                  <th className="min-w-0 max-w-[min(100%,_10rem)] py-2.5 pl-3 pr-1 sm:max-w-none sm:pr-2 sm:py-3 sm:pl-3">
+                  <th className="min-w-0 max-w-[min(100%,10rem)] py-2.5 pl-3 pr-1 sm:max-w-none sm:pr-2 sm:py-3 sm:pl-3">
                     {t('columnTitleAttendeeType')}
                   </th>
                   <th
@@ -114,7 +114,7 @@ export const AttendeeChoice = ({
 
                   return (
                     <tr key={regType} className="border-b border-border/50 last:border-b-0 hover:bg-muted/25 dark:hover:bg-muted/20">
-                      <td className="min-w-0 max-w-[10rem] break-words py-2.5 pl-3 pr-1 capitalize sm:max-w-none sm:pr-2 sm:py-3 sm:pl-3">
+                      <td className="min-w-0 max-w-40 wrap-break-word py-2.5 pl-3 pr-1 capitalize sm:max-w-none sm:pr-2 sm:py-3 sm:pl-3">
                         {regType}
                       </td>
                       <td className="w-[1%] whitespace-nowrap py-2.5 pl-1 pr-3 text-right tabular-nums sm:pl-2 sm:pr-3 sm:py-3">

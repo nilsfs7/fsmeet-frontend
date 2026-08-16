@@ -35,7 +35,7 @@ const ROW_GRID = 'grid w-full min-w-0 grid-cols-[minmax(0,1fr)_6.5rem_1.25rem] i
 const priceColClass = 'w-full min-w-0 text-right text-sm tabular-nums text-foreground';
 
 function PaymentTrailSpacer() {
-  return <div className="h-4 w-[1.25rem] min-w-[1.25rem] shrink-0" aria-hidden="true" />;
+  return <div className="h-4 w-5 min-w-5 shrink-0" aria-hidden="true" />;
 }
 
 function AccordionRowTrigger({ children, className, ...rest }: { children: ReactNode; className?: string } & ComponentProps<typeof AccordionPrimitive.Trigger>) {
@@ -43,7 +43,7 @@ function AccordionRowTrigger({ children, className, ...rest }: { children: React
     <AccordionPrimitive.Trigger
       className={cn(
         'group',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 data-[state=open]:text-foreground',
+        'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 data-[state=open]:text-foreground',
         'py-2.5 text-left text-sm font-normal',
         'hover:no-underline',
         ROW_GRID,
@@ -121,12 +121,12 @@ export const PaymentDetails = ({
               <div className={cn(ROW_GRID, 'text-left text-xs font-medium uppercase leading-normal tracking-wide sm:py-0')}>
                 <div className="min-w-0 py-2.5 pr-1 sm:pr-2 sm:py-3 sm:pl-0">{tTable('columnTitleDescription')}</div>
                 <div className="whitespace-nowrap py-2.5 pl-0 text-right sm:py-3">{tTable('columnTitleCost')}</div>
-                <div className="h-4 w-[1.25rem] min-w-[1.25rem] shrink-0" aria-hidden="true" />
+                <div className="h-4 w-5 min-w-5 shrink-0" aria-hidden="true" />
               </div>
             </div>
 
             <div className={cn(ROW_GRID, 'border-b border-border/50 py-2.5 sm:py-3', rowHoverClass)}>
-              <div className="min-w-0 break-words pr-1 sm:pr-2">{t('feeEvent')}</div>
+              <div className="min-w-0 wrap-break-word pr-1 sm:pr-2">{t('feeEvent')}</div>
               <div className={priceColClass}>{formatMoney(eventFee)}</div>
               <PaymentTrailSpacer />
             </div>
@@ -145,7 +145,7 @@ export const PaymentDetails = ({
                     <div className="border-t border-border/40 bg-muted/15 dark:bg-muted/10">
                       {selectedCompetitions.map(c => (
                         <div key={c.id ?? c.name} className={cn(ROW_GRID, 'border-b border-border/40 py-2 pl-6 last:border-b-0 sm:pl-8', rowHoverClass)}>
-                          <div className="min-w-0 break-words pr-1 sm:pr-2">{c.name}</div>
+                          <div className="min-w-0 wrap-break-word pr-1 sm:pr-2">{c.name}</div>
                           <div className={priceColClass}>{formatMoney(compFee(c))}</div>
                           <PaymentTrailSpacer />
                         </div>
@@ -168,7 +168,7 @@ export const PaymentDetails = ({
                     <div className="border-t border-border/40 bg-muted/15 dark:bg-muted/10">
                       {selectedOfferings.map((o, index) => (
                         <div key={o.id ?? `offering-${index}`} className={cn(ROW_GRID, 'border-b border-border/40 py-2 pl-6 last:border-b-0 sm:pl-8', rowHoverClass)}>
-                          <div className="min-w-0 break-words pr-1 sm:pr-2">{o.description}</div>
+                          <div className="min-w-0 wrap-break-word pr-1 sm:pr-2">{o.description}</div>
                           <div className={priceColClass}>{formatMoney(paymentFeeCover ? o.costIncPaymentCosts : o.cost)}</div>
                           <PaymentTrailSpacer />
                         </div>
@@ -191,7 +191,7 @@ export const PaymentDetails = ({
                     <div className="border-t border-border/40 bg-muted/15 dark:bg-muted/10">
                       {selectedAccommodations.map((a, index) => (
                         <div key={a.id ?? `accommodation-${index}`} className={cn(ROW_GRID, 'border-b border-border/40 py-2 pl-6 last:border-b-0 sm:pl-8', rowHoverClass)}>
-                          <div className="min-w-0 break-words pr-1 sm:pr-2">{a.description}</div>
+                          <div className="min-w-0 wrap-break-word pr-1 sm:pr-2">{a.description}</div>
                           <div className={priceColClass}>{formatMoney(paymentFeeCover ? a.costIncPaymentCosts : a.cost)}</div>
                           <PaymentTrailSpacer />
                         </div>
@@ -205,7 +205,7 @@ export const PaymentDetails = ({
             {showDonationRow && (
               <div className={cn(ROW_GRID, 'border-b border-border/50 py-2.5 sm:py-3', rowHoverClass, donationLocked && 'opacity-60')}>
                 <div className="flex min-w-0 items-center gap-2 pr-1 sm:pr-2">
-                  <span className="break-words">{t('chbDonation')}</span>
+                  <span className="wrap-break-word">{t('chbDonation')}</span>
                   <Checkbox
                     id="input-donation"
                     checked={donationChecked}
@@ -225,7 +225,7 @@ export const PaymentDetails = ({
             )}
 
             <div className={cn(ROW_GRID, 'border-t border-border/60 bg-muted/30 py-2.5 font-semibold sm:py-3', 'text-foreground dark:bg-muted/25')}>
-              <div className="min-w-0 break-words pr-1 sm:pr-2">{t('feeTotal')}</div>
+              <div className="min-w-0 wrap-break-word pr-1 sm:pr-2">{t('feeTotal')}</div>
               <div className={priceColClass}>{formatMoney(donationChecked ? getTotal() + getDonationAmount() : getTotal())}</div>
               <PaymentTrailSpacer />
             </div>

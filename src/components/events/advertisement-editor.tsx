@@ -14,9 +14,9 @@ import TextInputLarge from '../common/text-input-large';
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 
 interface AdvertisementEditorProps {
@@ -118,7 +118,7 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
           className="pt-2 text-sm font-medium leading-none"
         />
         <Input
-          className={cn('h-9 w-[4.5rem] shrink-0 text-right text-sm font-medium tabular-nums', 'border-border/60 bg-background/80 shadow-sm hover:border-primary/50 dark:bg-background/50')}
+          className={cn('h-9 w-18 shrink-0 text-right text-sm font-medium tabular-nums', 'border-border/60 bg-background/80 shadow-sm hover:border-primary/50 dark:bg-background/50')}
           id="advertisement-display-order"
           aria-label={t('inputDisplayOrder')}
           type="number"

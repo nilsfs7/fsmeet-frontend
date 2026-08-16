@@ -147,7 +147,7 @@ export function ArenaMatchScreen({
 
   if (!match) {
     return (
-      <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-6 text-center text-white">
+      <div className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-6 text-center text-white">
         <ArenaBackdrop imageUrl={bgUrl} overlayOpacity={overlayOpacity} />
         <div className="relative z-10">
           <h1 className="mt-4 max-w-2xl text-3xl font-bold md:text-4xl">Select a match to display</h1>
@@ -171,7 +171,7 @@ export function ArenaMatchScreen({
   const multiLayout = !isDuel ? multiPlayerLayout(slotCount) : null;
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-hidden bg-slate-950 text-white">
+    <div className="relative flex min-h-dvh flex-col overflow-hidden bg-slate-950 text-white">
       <ArenaBackdrop imageUrl={bgUrl} overlayOpacity={overlayOpacity} />
 
       <header className="relative z-20 shrink-0 px-4 py-6 text-center md:py-8">
@@ -209,7 +209,7 @@ export function ArenaMatchScreen({
                   )}
                 >
                   {/* Profile: circle + ring border */}
-                  <div className={cn('rounded-full bg-gradient-to-br from-white/25 to-white/5 p-[5px] shadow-[0_0_40px_rgba(0,0,0,0.45)]', 'ring-2 ring-white/20')}>
+                  <div className={cn('rounded-full bg-linear-to-br from-white/25 to-white/5 p-[5px] shadow-[0_0_40px_rgba(0,0,0,0.45)]', 'ring-2 ring-white/20')}>
                     <div className="overflow-hidden rounded-full bg-zinc-800">
                       <img src={imageSrc} alt="" className={cn('aspect-square object-cover', avatarClass)} />
                     </div>
@@ -227,7 +227,7 @@ export function ArenaMatchScreen({
                         title={countryCode}
                       >
                         <div className="h-full w-full overflow-hidden rounded-full">
-                          <ReactCountryFlag countryCode={countryCode!.toUpperCase()} svg style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="!rounded-full" />
+                          <ReactCountryFlag countryCode={countryCode!.toUpperCase()} svg style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="rounded-full!" />
                         </div>
                       </div>
                     ) : (

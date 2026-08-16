@@ -92,7 +92,7 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
       <div className={cn('mt-2 flex min-h-0 flex-1 flex-col overflow-y-auto scrollbar-none', constrainedContentClass)}>
         <div className="flex w-full min-w-0 flex-col items-center">
           <div className="w-full max-w-xs min-w-0">
-            <div className="mt-6 flex aspect-[4/5]">
+            <div className="mt-6 flex aspect-4/5">
               <img className="h-full w-full object-cover rounded-lg border border-primary shadow-xl shadow-primary" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
             </div>
 

@@ -18,11 +18,11 @@ import { cn } from '@/lib/utils';
 
 const cardSurface = cn(
   'group min-w-0 overflow-hidden rounded-xl border border-border/60',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
   'transition-all duration-200',
   'hover:border-primary/50 hover:shadow-md',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40',
 );
 
 interface IMatchProps {
@@ -71,7 +71,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
     <div
       className={cn(
         cardSurface,
-        isEditSingleSlot && 'border-warning/50 bg-warning/20 supports-[backdrop-filter]:bg-warning/15 dark:border-warning/40 dark:bg-warning/10 dark:supports-[backdrop-filter]:bg-warning/10',
+        isEditSingleSlot && 'border-warning/50 bg-warning/20 supports-backdrop-filter:bg-warning/15 dark:border-warning/40 dark:bg-warning/10 dark:supports-backdrop-filter:bg-warning/10',
       )}
     >
       <div className="p-2.5 sm:p-3">
@@ -201,7 +201,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
 
                   <Input
                     className={cn(
-                      'h-9 w-[4.5rem] shrink-0 text-right text-sm font-medium tabular-nums',
+                      'h-9 w-18 shrink-0 text-right text-sm font-medium tabular-nums',
                       'border-border/60 bg-background/80 shadow-sm hover:border-primary/50 dark:bg-background/50',
                     )}
                     id={`input-max-passing-${match.id}-${i}`}

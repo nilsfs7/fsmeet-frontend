@@ -352,10 +352,10 @@ export const EventsList = () => {
             )}
 
             <div className="flex w-full min-w-0 flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
-              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm')} onClick={clearAllFilters} disabled={!hasActiveFilters}>
+              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm')} onClick={clearAllFilters} disabled={!hasActiveFilters}>
                 {t('filterClearAll')}
               </Button>
-              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
+              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
                 {t('filterApply')}
               </Button>
             </div>

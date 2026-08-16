@@ -575,7 +575,7 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
             )}
 
             <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
-              <div className="w-full min-w-[10rem] sm:w-48">
+              <div className="w-full min-w-40 sm:w-48">
                 <span className="mb-1 block text-left text-xs text-zinc-600">{t('filterStateLabel')}</span>
                 <Select value={stateFilter} onValueChange={v => setStateFilter(v === 'all' ? 'all' : (v as FreestyleActsBookingRequestState))}>
                   <SelectTrigger aria-label={t('filterStateLabel')}>
@@ -624,7 +624,7 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
                       aria-label={`${t('tableColPreferredDate')}, ${t('tableSortByPreferredDate')}`}
                     />
                   </TableHead>
-                  <TableHead className="min-w-[8rem]" aria-sort={ariaSortForColumn('area', tableSort)}>
+                  <TableHead className="min-w-32" aria-sort={ariaSortForColumn('area', tableSort)}>
                     <SortColumnHeaderButton
                       column="area"
                       tableSort={tableSort}
@@ -644,7 +644,7 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
                       aria-label={`${t('tableColState')}, ${t('tableSortByState')}`}
                     />
                   </TableHead>
-                  <TableHead className="min-w-[6rem] text-right">{t('tableColActions')}</TableHead>
+                  <TableHead className="min-w-24 text-right">{t('tableColActions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -652,7 +652,7 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
                   <TableRow key={request.id}>
                     <TableCell className="whitespace-nowrap text-zinc-700">{formatDateTime(request.createdAt)}</TableCell>
                     <TableCell className="whitespace-nowrap text-zinc-700">{formatDate(request.preferredDate)}</TableCell>
-                    <TableCell className="max-w-[12rem] text-zinc-700" title={request.area}>
+                    <TableCell className="max-w-48 text-zinc-700" title={request.area}>
                       {truncateText(request.area, AREA_PREVIEW_LENGTH)}
                     </TableCell>
                     <TableCell className="whitespace-nowrap text-zinc-800">{stateIcon(request.state)}</TableCell>

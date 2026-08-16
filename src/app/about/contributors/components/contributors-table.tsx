@@ -43,9 +43,9 @@ export function ContributorsTable({ title, rows, colName, colContribution, colAn
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="min-w-[8rem] text-center align-middle">{colName}</TableHead>
-              <TableHead className="min-w-[10rem] text-center align-middle">{colContribution}</TableHead>
-              <TableHead className="min-w-[8rem] text-center align-middle">{colAnnouncement}</TableHead>
+              <TableHead className="min-w-32 text-center align-middle">{colName}</TableHead>
+              <TableHead className="min-w-40 text-center align-middle">{colContribution}</TableHead>
+              <TableHead className="min-w-32 text-center align-middle">{colAnnouncement}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -54,7 +54,7 @@ export function ContributorsTable({ title, rows, colName, colContribution, colAn
                 <TableCell className="align-middle text-center">
                   <Link
                     href={`${routeUsers}/${encodeURIComponent(row.user.username)}`}
-                    className="font-medium text-primary underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="font-medium text-primary underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   >
                     {formatContributorName(row.user)}
                   </Link>

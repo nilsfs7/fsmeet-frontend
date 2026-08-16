@@ -1,7 +1,7 @@
 export const ImprintText = () => {
   const email = 'nils.effinghausen@gmail.com';
   return (
-    <div className="prose-flow select-text w-full break-words">
+    <div className="prose-flow select-text w-full wrap-break-word">
       <h2>Allgemeine Informationspflichten (§&nbsp;5&nbsp;DDG)</h2>
       <h3 className="mt-4 text-base font-semibold">Anbieter</h3>
       <p>

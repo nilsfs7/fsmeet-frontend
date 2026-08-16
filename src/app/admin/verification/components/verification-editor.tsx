@@ -21,9 +21,9 @@ import { ArrowDown, ArrowUp } from 'lucide-react';
 /** Same glass card as `competition-editor` / `licenses-editor`; full width for admin tables. */
 const VERIFICATION_PANEL_CLASS = cn(
   'w-full min-w-0 flex flex-col gap-3',
-  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
   'text-sm',
 );
 
@@ -36,15 +36,15 @@ const FILTER_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none text-foregr
 const SECTION_TITLE_CLASS = 'mb-2 text-center text-sm font-semibold leading-tight text-foreground/90';
 
 /** Align with /wffa/visa and /admin/licenses table layout */
-const VERIFICATION_TABLE_CLASS = 'table-fixed w-full min-w-[40rem] border-separate border-spacing-x-3 border-spacing-y-0';
+const VERIFICATION_TABLE_CLASS = 'table-fixed w-full min-w-160 border-separate border-spacing-x-3 border-spacing-y-0';
 
-const VERIFICATION_HEAD_PAD = 'px-3 py-2.5 align-top !h-auto min-h-10';
+const VERIFICATION_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
 const VERIFICATION_CELL_PAD = 'py-2.5 px-3';
 
 const verificationCol = {
-  user: 'w-[34%] min-w-[11rem]',
-  state: 'w-[42%] min-w-[14rem]',
-  actions: 'w-[18%] min-w-[6.5rem]',
+  user: 'w-[34%] min-w-44',
+  state: 'w-[42%] min-w-56',
+  actions: 'w-[18%] min-w-26',
 } as const;
 
 function matchesUserFilter(user: User, query: string): boolean {

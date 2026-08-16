@@ -23,9 +23,9 @@ export interface AdvertisementCardProps {
 
 const shellClassName = cn(
   'relative overflow-hidden rounded-xl border border-dashed border-border/70',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 
 /** Sponsored tile styled like EventCard (border, radius); not a navigable event row. */
@@ -65,7 +65,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
   const trackedTargetUrl = buildAdvertisementTargetUrl(slot.targetUrl, slot.id);
 
   const badge = (
-    <div className="pointer-events-none absolute right-2 top-2 z-[1] rounded-md bg-muted/90 px-1.5 py-0.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground shadow-xs">
+    <div className="pointer-events-none absolute right-2 top-2 z-1 rounded-md bg-muted/90 px-1.5 py-0.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground shadow-xs">
       {badgeLabel}
     </div>
   );
@@ -77,8 +77,8 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
       rel={adLinkRel}
       onClick={handleClick}
       className={cn(
-        'relative block overflow-hidden rounded-lg bg-muted/30 outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring',
-        variant === 'sidebar' ? 'aspect-video w-full' : 'aspect-[4/5] h-full w-full',
+        'relative block overflow-hidden rounded-lg bg-muted/30 outline-hidden ring-offset-background focus-visible:ring-2 focus-visible:ring-ring',
+        variant === 'sidebar' ? 'aspect-video w-full' : 'aspect-4/5 h-full w-full',
       )}
       aria-label={`${slot.title} — sponsored`}
     >
@@ -102,7 +102,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
             <h3 id={titleId} className="line-clamp-3 text-left text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg sm:leading-snug">
               {slot.title}
             </h3>
-            <p className="type-body-sm line-clamp-4 break-words whitespace-pre-line text-foreground/85">{slot.description}</p>
+            <p className="type-body-sm line-clamp-4 wrap-break-word whitespace-pre-line text-foreground/85">{slot.description}</p>
             {cta}
           </div>
         </div>
@@ -119,7 +119,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
           <h3 id={titleId} className="line-clamp-2 pr-14 text-left text-base font-semibold leading-tight tracking-tight text-foreground sm:text-lg sm:leading-snug">
             {slot.title}
           </h3>
-          <p className="type-body-sm line-clamp-3 break-words whitespace-pre-line text-foreground/85">{slot.description}</p>
+          <p className="type-body-sm line-clamp-3 wrap-break-word whitespace-pre-line text-foreground/85">{slot.description}</p>
           {cta}
         </div>
 

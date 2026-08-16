@@ -8,11 +8,11 @@ interface IAttachmentCardProps {
 
 const cardSurface = cn(
   'group min-w-0 overflow-hidden rounded-xl border border-border/60',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
   'transition-all duration-200',
   'hover:border-primary/50 hover:shadow-md',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40',
 );
 
 const AttachmentCard = ({ attachment }: IAttachmentCardProps) => {
@@ -23,7 +23,7 @@ const AttachmentCard = ({ attachment }: IAttachmentCardProps) => {
       href={attachment.url || '#'}
       className={cn(
         'inline-block w-max max-w-full align-middle no-underline',
-        'rounded-xl outline-none',
+        'rounded-xl outline-hidden',
         'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
       )}
     >

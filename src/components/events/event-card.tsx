@@ -20,7 +20,7 @@ function MetaRow({ icon, children, className }: { icon: ReactNode; children: Rea
   return (
     <div className={cn('flex min-w-0 items-center gap-2', className)}>
       <div className="flex h-7 w-7 shrink-0 items-center justify-center [&>img]:h-full [&>img]:w-full [&>img]:object-contain">{icon}</div>
-      <div className="type-body-sm min-w-0 flex-1 break-words text-foreground/90 leading-snug">{children}</div>
+      <div className="type-body-sm min-w-0 flex-1 wrap-break-word text-foreground/90 leading-snug">{children}</div>
     </div>
   );
 }
@@ -43,11 +43,11 @@ const EventCard = ({ event }: IEventProps) => {
     <div
       className={cn(
         'group max-w-lg overflow-hidden rounded-xl border border-border/60',
-        'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-        'supports-[backdrop-filter]:bg-secondary-light/70',
+        'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
+        'supports-backdrop-filter:bg-secondary-light/70',
         'transition-all duration-200',
         'hover:border-primary/50 hover:shadow-md',
-        'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+        'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40',
       )}
     >
       <div className="flex min-h-0 items-stretch gap-2 p-2.5 sm:gap-3 sm:p-3">
@@ -82,7 +82,7 @@ const EventCard = ({ event }: IEventProps) => {
         </div>
 
         <div className="flex w-28 shrink-0 flex-col justify-center self-stretch sm:w-32">
-          <div className="relative w-full aspect-[4/5] overflow-hidden rounded-lg">
+          <div className="relative w-full aspect-4/5 overflow-hidden rounded-lg">
             {poster && <img className="h-full w-full object-cover object-center transition-transform duration-200 group-hover:scale-[1.02]" src={poster} alt={event.name} />}
             {!poster && <img className="h-full w-full object-cover object-center transition-transform duration-200 group-hover:scale-[1.02]" src={fallback} alt="" />}
           </div>

@@ -40,15 +40,15 @@ function matchesFilters(user: User, filterCountry: string, filterGender: string,
 }
 
 /** Align with /wffa/visa and /admin/verification table layout */
-const WFFA_TABLE_CLASS = 'table-fixed w-full min-w-[40rem] border-separate border-spacing-x-3 border-spacing-y-0';
+const WFFA_TABLE_CLASS = 'table-fixed w-full min-w-160 border-separate border-spacing-x-3 border-spacing-y-0';
 
-const WFFA_HEAD_PAD = 'px-3 py-2.5 align-top !h-auto min-h-10';
+const WFFA_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
 const WFFA_CELL_PAD = 'py-2.5 px-3';
 
 const wffaCol = {
-  user: 'w-[36%] min-w-[11rem]',
-  wffaId: 'w-[38%] min-w-[10rem]',
-  actions: 'w-[18%] min-w-[6.5rem]',
+  user: 'w-[36%] min-w-44',
+  wffaId: 'w-[38%] min-w-40',
+  actions: 'w-[18%] min-w-26',
 } as const;
 
 type UserWffaRow = { user: User; newWffaId: string };
@@ -160,7 +160,7 @@ function WffaIdTableSection({
                   <UserCell user={item.user} />
                   <TableCell className={cn(WFFA_CELL_PAD, 'text-primary align-top', wffaCol.wffaId)}>
                     <Input
-                      className="w-full max-w-[12rem]"
+                      className="w-full max-w-48"
                       value={item.newWffaId}
                       onChange={e => {
                         onWffaIdChange(item.user.username, e.currentTarget.value);
@@ -257,7 +257,7 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
       <div className="mx-2 overflow-y-auto pb-4">
         <div className="rounded-lg border border-primary bg-secondary-light p-2 text-sm">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
-            <div className="flex min-w-0 flex-1 flex-col gap-1 sm:max-w-[14rem]">
+            <div className="flex min-w-0 flex-1 flex-col gap-1 sm:max-w-56">
               <span className="text-xs font-medium text-primary/80">Name</span>
               <Input placeholder="Search…" value={filterName} onChange={e => setFilterName(e.target.value)} className="w-full" />
             </div>
@@ -265,7 +265,7 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
               <span className="text-xs font-medium text-primary/80">Country</span>
               <ComboBox menus={MENU_COUNTRY_FILTER} value={filterCountry} searchEnabled label="Country" className="w-full max-w-none" onChange={(value: string) => setFilterCountry(value)} />
             </div>
-            <div className="flex min-w-0 flex-col gap-1 sm:max-w-[12rem]">
+            <div className="flex min-w-0 flex-col gap-1 sm:max-w-48">
               <span className="text-xs font-medium text-primary/80">Gender</span>
               <ComboBox menus={MENU_GENDER_FILTER} value={filterGender} searchEnabled={false} label="Gender" className="w-full max-w-none" onChange={(value: string) => setFilterGender(value)} />
             </div>

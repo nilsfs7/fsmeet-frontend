@@ -19,9 +19,9 @@ import { ArrowDown, ArrowUp } from 'lucide-react';
 /** Same glass card treatment as `competition-editor` / `EDITOR_CARD_CLASS`; full width for admin table. */
 const LICENSE_PANEL_CLASS = cn(
   'w-full min-w-0 flex flex-col gap-3',
-  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
   'text-sm',
 );
 
@@ -33,15 +33,15 @@ const LICENSE_TABLE_WRAP_CLASS = cn(
 const FILTER_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none text-foreground';
 
 /** Align with /wffa/visa table layout */
-const LICENSE_TABLE_CLASS = 'table-fixed w-full min-w-[28rem] border-separate border-spacing-x-3 border-spacing-y-0';
+const LICENSE_TABLE_CLASS = 'table-fixed w-full min-w-md border-separate border-spacing-x-3 border-spacing-y-0';
 
-const LICENSE_HEAD_PAD = 'px-3 py-2.5 align-top !h-auto min-h-10';
+const LICENSE_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
 const LICENSE_CELL_PAD = 'py-2.5 px-3';
 
 const licenseCol = {
-  user: 'w-[55%] min-w-[12rem]',
+  user: 'w-[55%] min-w-48',
   amount: 'w-[10ch] min-w-[10ch] text-center',
-  actions: 'w-[22%] min-w-[8.5rem]',
+  actions: 'w-[22%] min-w-34',
 } as const;
 
 type UserNameMeta = { firstName?: string; lastName?: string };
