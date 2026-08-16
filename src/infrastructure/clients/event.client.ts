@@ -420,7 +420,7 @@ export async function createEventLicenseCheckout(eventId: string, session: Sessi
 }
 
 export async function createEventRegistrationCheckout(eventId: string, session: Session | null): Promise<ReadStripeCheckoutResponseDto> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/stripe/checkout/payment_intent`;
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations/checkout`;
 
   const response = await fetch(url, {
     method: 'POST',
