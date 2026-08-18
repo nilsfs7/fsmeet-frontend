@@ -32,7 +32,7 @@ export default async function About() {
       <PageTitle title={t('pageTitle')} />
 
       <PageInset variant="prose" className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto scrollbar-none">
-        <div className="prose-flow select-text w-full break-words">
+        <div className="prose-flow select-text w-full wrap-break-word">
           <p>{t('aboutText1')}</p>
           <p>
             {t('aboutText2')}

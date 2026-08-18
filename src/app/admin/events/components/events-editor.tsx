@@ -25,9 +25,9 @@ const DEFAULT_DATE_TO = moment('2099').endOf('year');
 /** Same glass card as `competition-editor` / `licenses-editor`; full width for admin table. */
 const EVENTS_PANEL_CLASS = cn(
   'w-full min-w-0 flex flex-col gap-3',
-  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
   'text-sm',
 );
 
@@ -39,16 +39,16 @@ const EVENTS_TABLE_WRAP_CLASS = cn(
 const FILTER_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none text-foreground';
 
 /** Align with /wffa/visa and /admin/licenses table layout */
-const EVENT_TABLE_CLASS = 'table-fixed w-full min-w-[42rem] border-separate border-spacing-x-3 border-spacing-y-0';
+const EVENT_TABLE_CLASS = 'table-fixed w-full min-w-2xl border-separate border-spacing-x-3 border-spacing-y-0';
 
-const EVENT_HEAD_PAD = 'px-3 py-2.5 align-top !h-auto min-h-10';
+const EVENT_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
 const EVENT_CELL_PAD = 'py-2.5 px-3';
 
 const eventCol = {
-  name: 'w-[36%] min-w-[10rem]',
-  admin: 'w-[22%] min-w-[7rem]',
-  state: 'w-[28%] min-w-[12rem]',
-  actions: 'w-[14%] min-w-[6rem]',
+  name: 'w-[36%] min-w-40',
+  admin: 'w-[22%] min-w-28',
+  state: 'w-[28%] min-w-48',
+  actions: 'w-[14%] min-w-24',
 } as const;
 
 const MENU_STATE_FILTER = [{ text: 'All states', value: '' }, ...menuEventStates];

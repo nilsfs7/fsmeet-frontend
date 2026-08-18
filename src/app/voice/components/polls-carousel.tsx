@@ -272,7 +272,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
     <>
       <Toaster richColors />
       <Dialog title={t('carouselDlgPollDescription')} queryParam="context" onConfirm={handleConfirmDialogClicked}>
-        <TextareaAutosize readOnly className="resize-none overflow-hidden outline-none" value={polls[getPollIndexById(selectedPollId)]?.description} />
+        <TextareaAutosize readOnly className="resize-none overflow-hidden outline-hidden" value={polls[getPollIndexById(selectedPollId)]?.description} />
       </Dialog>
       <div className="flex w-full max-w-xl justify-center">
         <Carousel
@@ -288,11 +288,11 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
               <CarouselItem key={`poll-${i}`}>
                 <div
                   className={
-                    'group h-[18rem] overflow-hidden rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 text-sm shadow-xs backdrop-blur-sm supports-[backdrop-filter]:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40'
+                    'group h-72 overflow-hidden rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 text-sm shadow-xs backdrop-blur-xs supports-backdrop-filter:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40'
                   }
                 >
                   <div className="flex h-full min-h-0 flex-col">
-                    <div className="grid grid-cols-[auto,1fr] justify-start items-start gap-2">
+                    <div className="grid grid-cols-[auto_1fr] justify-start items-start gap-2">
                       <div className="flex flex-col items-center gap-2">
                         <UserCard user={polls[i].questioner} showName={false} />
 
@@ -309,7 +309,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                         )}
                       </div>
 
-                      <h1 className="mt-2 flex items-center gap-2 break-words text-xl">{polls[i].question}</h1>
+                      <h1 className="mt-2 flex items-center gap-2 wrap-break-word text-xl">{polls[i].question}</h1>
                     </div>
 
                     <div className="mt-2 min-h-0 flex-1 overflow-y-auto px-1 scrollbar-none">
@@ -325,7 +325,7 @@ export const PollsCarousel = ({ initPolls, actingUser }: IPollsCarousel) => {
                         {polls[i].options.map((item, j: number) => {
                           return (
                             <div key={j.toString()} className={'flex py-1 gap-1'}>
-                              <div className="w-3/5 break-words">{`${j + 1}) ${item.option}`}</div>
+                              <div className="w-3/5 wrap-break-word">{`${j + 1}) ${item.option}`}</div>
 
                               <div className="w-2/5 flex justify-between items-center gap-1">
                                 <RadioGroupItem

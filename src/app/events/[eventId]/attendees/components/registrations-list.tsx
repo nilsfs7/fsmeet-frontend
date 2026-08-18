@@ -426,7 +426,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
                 </label>
                 <Input id="attendees-filter-name" type="search" value={nameQuery} onChange={e => setNameQuery(e.target.value)} placeholder={t('filterNamePlaceholder')} className="w-full" />
               </div>
-              <div className="w-full min-w-[10rem] sm:w-48">
+              <div className="w-full min-w-40 sm:w-48">
                 <span className="mb-1 block text-left text-xs text-zinc-600">{t('filterStatusLabel')}</span>
                 <Select value={statusFilter} onValueChange={v => setStatusFilter(v === 'all' ? 'all' : (v as EventRegistrationStatus))}>
                   <SelectTrigger aria-label={t('filterStatusLabel')}>
@@ -453,7 +453,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="min-w-[10rem]" aria-sort={ariaSortForColumn('name', tableSort)}>
+                  <TableHead className="min-w-40" aria-sort={ariaSortForColumn('name', tableSort)}>
                     <SortColumnHeaderButton
                       column="name"
                       tableSort={tableSort}
@@ -483,7 +483,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
                       aria-label={`${t('tableColStatus')}, ${t('tableSortByStatus')}`}
                     />
                   </TableHead>
-                  <TableHead className="min-w-[10rem] text-right">{t('tableColActions')}</TableHead>
+                  <TableHead className="min-w-40 text-right">{t('tableColActions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -494,7 +494,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
                       <TableCell className="align-middle">
                         <Link
                           href={`${routeUsers}/${encodeURIComponent(user.username)}`}
-                          className="font-medium text-primary underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                          className="font-medium text-primary underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                         >
                           {formatRegistrantFullName(user)}
                         </Link>

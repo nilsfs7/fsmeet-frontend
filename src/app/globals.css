@@ -1,16 +1,71 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-/* important for custom date-picker */
-.rdp-vhidden {
-  @apply hidden;
+@config "../../tailwind.config.ts";
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 
-/**
+@utility prose-flow {
+  /**
+   * Long-form / legal / article copy: readable measure + @tailwindcss/typography defaults.
+   * Use with `w-full` + `mx-auto` in the parent, or on the element directly.
+   */
+  @apply prose w-full max-w-prose text-pretty text-left;
+}
+
+@utility page-inset {
+  /**
+   * Spacing & layout contract (P0):
+   * - Rhythm: prefer Tailwind spacing scale (4px base: 1=4px, 2=8px, 3=12px, 4=16px, 6=24px, 8=32px…).
+   * - Page horizontal padding: px-4 sm:px-6 md:px-8 (matches `PageTitle` defaults).
+   * - Use `PageInset` or these classes so main content shares one max-width + padding.
+   */
+  @apply mx-auto w-full max-w-content px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
+}
+
+@utility page-inset-narrow {
+  @apply mx-auto w-full max-w-form px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
+}
+
+@utility page-inset-prose {
+  @apply mx-auto w-full max-w-prose px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
+}
+
+@utility scrollbar-none {
+  /** Still scrolls (overflow-y auto); track hidden so layout does not shift vs non-scrolling panes. */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer utilities {
+  /* important for custom date-picker */
+  .rdp-vhidden {
+    @apply hidden;
+  }
+
+  /**
  * Design tokens (RGB space-separated channels for Tailwind `rgb(var(--x) / <alpha-value>)`).
  * Ad-hoc colors in components should migrate to these over time.
  */
+}
 @layer base {
   :root {
     /* Core surfaces & text */
@@ -126,42 +181,5 @@
 
   body {
     @apply min-h-dvh bg-background text-foreground text-base antialiased;
-  }
-}
-
-@layer components {
-  /**
-   * Long-form / legal / article copy: readable measure + @tailwindcss/typography defaults.
-   * Use with `w-full` + `mx-auto` in the parent, or on the element directly.
-   */
-  .prose-flow {
-    @apply prose w-full max-w-prose text-pretty text-left;
-  }
-
-  /**
-   * Spacing & layout contract (P0):
-   * - Rhythm: prefer Tailwind spacing scale (4px base: 1=4px, 2=8px, 3=12px, 4=16px, 6=24px, 8=32px…).
-   * - Page horizontal padding: px-4 sm:px-6 md:px-8 (matches `PageTitle` defaults).
-   * - Use `PageInset` or these classes so main content shares one max-width + padding.
-   */
-  .page-inset {
-    @apply mx-auto w-full max-w-content px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
-  }
-  .page-inset-narrow {
-    @apply mx-auto w-full max-w-form px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
-  }
-  .page-inset-prose {
-    @apply mx-auto w-full max-w-prose px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
-  }
-}
-
-@layer utilities {
-  /** Still scrolls (overflow-y auto); track hidden so layout does not shift vs non-scrolling panes. */
-  .scrollbar-none {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
   }
 }

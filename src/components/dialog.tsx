@@ -13,7 +13,7 @@ import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 /** Above app overlays (e.g. event poster preview z-[100]) and below typical toast layers. */
-const URL_QUERY_DIALOG_Z = 'z-[200]';
+const URL_QUERY_DIALOG_Z = 'z-200';
 
 interface IDialogProps {
   title: string;
@@ -55,7 +55,7 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
 
   return createPortal(
     <div className={cn('fixed inset-0 overflow-y-auto', URL_QUERY_DIALOG_Z)} role="presentation">
-      <div className="absolute inset-0 bg-white/80 backdrop-blur-sm dark:bg-zinc-950/80" aria-hidden />
+      <div className="absolute inset-0 bg-white/80 backdrop-blur-xs dark:bg-zinc-950/80" aria-hidden />
       <div
         className={cn(
           'relative flex min-h-dvh w-full items-center justify-center',
@@ -64,7 +64,7 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
       >
         <div
           className={cn(
-            'relative z-[1] flex max-h-[min(85dvh,calc(100dvh-2rem))] w-full max-w-lg min-h-0 flex-col gap-4 overflow-hidden p-6',
+            'relative z-1 flex max-h-[min(85dvh,calc(100dvh-2rem))] w-full max-w-lg min-h-0 flex-col gap-4 overflow-hidden p-6',
             'border border-zinc-200 bg-white shadow-lg',
             'sm:rounded-lg',
             'dark:border-zinc-800 dark:bg-zinc-950',

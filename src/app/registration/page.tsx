@@ -9,14 +9,14 @@ import Link from 'next/link';
 
 const registrationSurfaceClass = cn(
   'group w-full max-w-lg overflow-hidden rounded-xl border border-border/60',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
   'transition-all duration-200',
   'hover:border-primary/50 hover:shadow-md',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40',
 );
 
-const legalLinkClass = 'text-foreground/90 no-underline underline-offset-2 transition-colors hover:underline focus-visible:underline focus-visible:outline-none';
+const legalLinkClass = 'text-foreground/90 no-underline underline-offset-2 transition-colors hover:underline focus-visible:underline focus-visible:outline-hidden';
 
 export default async function Registration() {
   const t = await getTranslations('/registration');

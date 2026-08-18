@@ -461,13 +461,13 @@ const Map = ({
                   <Button
                     type="button"
                     variant="action"
-                    className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm')}
+                    className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm')}
                     onClick={clearAllFilters}
                     disabled={!hasAnyFiltersActive}
                   >
                     {t('filterClearAll')}
                   </Button>
-                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
+                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
                     {t('filterApply')}
                   </Button>
                 </div>

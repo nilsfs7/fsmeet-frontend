@@ -40,7 +40,7 @@ const UserComment = ({ comment, canDelete, onClickReply, onClickDelete }: IUserC
             {comment.user.firstName} {comment.user.lastName}
           </Link>
 
-          <div className="break-words whitespace-pre-wrap text-foreground/90">{comment.message}</div>
+          <div className="wrap-break-word whitespace-pre-wrap text-foreground/90">{comment.message}</div>
         </div>
 
         <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 px-1 text-xs">

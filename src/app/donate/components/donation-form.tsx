@@ -27,9 +27,16 @@ export default function DonationForm() {
     return true;
   };
 
-  const handleAmountChanged = (values: { float: number | null; formatted: string; value: string }) => {
-    setAmount(convertCurrencyDecimalToInteger(values.float || 0, CurrencyCode.EUR));
-    setShowInitiateDonationButton(true);
+  const handleAmountChanged = (value: string | undefined, values?: { float: number | null; formatted: string; value: string }) => {
+    if (value === undefined || value === '') {
+      setAmount(0);
+      setShowInitiateDonationButton(true);
+      return;
+    }
+    if (values?.float != null && Number.isFinite(values.float)) {
+      setAmount(convertCurrencyDecimalToInteger(values.float, CurrencyCode.EUR));
+      setShowInitiateDonationButton(true);
+    }
   };
 
   const handleInitiateDonationClicked = async () => {
@@ -53,9 +60,7 @@ export default function DonationForm() {
         placeholder="35,00"
         value={convertCurrencyIntegerToDecimal(amount, CurrencyCode.EUR)}
         onValueChange={(value, name, values) => {
-          if (values) {
-            handleAmountChanged(values);
-          }
+          handleAmountChanged(value, values);
         }}
       />
 

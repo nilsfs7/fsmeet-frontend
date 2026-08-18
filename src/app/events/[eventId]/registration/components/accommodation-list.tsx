@@ -28,7 +28,7 @@ export const AccommodationList = ({ accommodations, paymentFeeCover, currency, d
         <table className="w-full min-w-0 text-sm text-foreground">
           <thead className="bg-muted/80 text-foreground/90">
             <tr className="text-left text-xs font-medium uppercase leading-normal tracking-wide">
-              <th className="min-w-0 max-w-[min(100%,_12rem)] py-2.5 pl-3 pr-1 sm:max-w-none sm:pr-2 sm:py-3 sm:pl-3">
+              <th className="min-w-0 max-w-[min(100%,12rem)] py-2.5 pl-3 pr-1 sm:max-w-none sm:pr-2 sm:py-3 sm:pl-3">
                 {t('columnTitleDescription')}
               </th>
               <th
@@ -46,7 +46,7 @@ export const AccommodationList = ({ accommodations, paymentFeeCover, currency, d
           <tbody>
             {accommodations.map((acc, i) => (
               <tr key={i} className="border-b border-border/50 last:border-b-0 hover:bg-muted/25 dark:hover:bg-muted/20">
-                <td className="min-w-0 max-w-[12rem] break-words py-2.5 pl-3 pr-1 sm:max-w-none sm:pr-2 sm:py-3 sm:pl-3">{acc.description}</td>
+                <td className="min-w-0 max-w-48 wrap-break-word py-2.5 pl-3 pr-1 sm:max-w-none sm:pr-2 sm:py-3 sm:pl-3">{acc.description}</td>
                 <td className="w-[1%] whitespace-nowrap py-2.5 pl-1 pr-3 text-right tabular-nums sm:pl-2 sm:pr-3 sm:py-3">
                   {`${paymentFeeCover ? convertCurrencyIntegerToDecimal(acc.costIncPaymentCosts, currency).toFixed(2) : convertCurrencyIntegerToDecimal(acc.cost, currency).toFixed(2)} ${getCurrencySymbol(currency)}`.replace(
                     '.',

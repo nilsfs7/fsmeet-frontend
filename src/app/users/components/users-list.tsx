@@ -155,7 +155,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
           </Link>
           <Link
             href={`${routeUsers}/${(row.getValue('user') as UserInfo).username}`}
-            className="font-medium text-primary underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="font-medium text-primary underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             <span className="capitalize">{`${(row.getValue('user') as UserInfo).firstName} ${(row.getValue('user') as UserInfo).lastName}`}</span>
           </Link>
@@ -407,10 +407,10 @@ export const UsersList = ({ columnData }: IUsersList) => {
               </div>
 
               <div className="flex w-full min-w-0 flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm')} onClick={clearAdvancedFilters} disabled={!hasAdvancedFilterActive}>
+                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm')} onClick={clearAdvancedFilters} disabled={!hasAdvancedFilterActive}>
                   {tEvents('filterClearAll')}
                 </Button>
-                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, '!min-w-0 px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
+                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
                   {tEvents('filterApply')}
                 </Button>
               </div>
@@ -429,7 +429,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
                     return (
                       <TableHead
                         key={header.id}
-                        className={cn(header.column.id === 'user' && 'min-w-[10rem]', ['userType', 'location', 'socials', 'country'].includes(header.column.id) && 'w-[1%] whitespace-nowrap')}
+                        className={cn(header.column.id === 'user' && 'min-w-40', ['userType', 'location', 'socials', 'country'].includes(header.column.id) && 'w-[1%] whitespace-nowrap')}
                       >
                         {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>

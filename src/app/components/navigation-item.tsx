@@ -15,7 +15,7 @@ export const NavigationItem = ({ targetRoute, image, label }: INavigationItem) =
         rounded-lg font-medium
         transition-all duration-20000 ease-in-out
         transform hover:scale-[1.02] active:scale-[0.98]
-        focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50
+        focus:outline-hidden focus:ring-2 focus:ring-primary focus:ring-opacity-50
         text-primary
         `}
       >

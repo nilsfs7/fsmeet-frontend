@@ -16,7 +16,7 @@ export function AppDataStateListSkeleton({ rows = 4, className }: AppDataStateLi
           <Skeleton className="h-16 w-16 shrink-0 rounded-md" />
           <div className="flex min-w-0 flex-1 flex-col justify-center gap-2">
             <Skeleton className="h-4 w-3/4 max-w-xs" />
-            <Skeleton className="h-3 w-1/2 max-w-[10rem]" />
+            <Skeleton className="h-3 w-1/2 max-w-40" />
             <Skeleton className="h-3 w-2/3 max-w-sm" />
           </div>
         </div>

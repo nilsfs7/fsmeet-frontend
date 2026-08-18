@@ -1,5 +1,3 @@
-import type { Config } from 'tailwindcss';
-
 /** Maps CSS variables (RGB triplet) to utilities with opacity, e.g. `text-primary/80` */
 const channel = (name: string) => `rgb(var(${name}) / <alpha-value>)` as const;
 
@@ -7,7 +5,7 @@ const neutral = Object.fromEntries(
   (['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'] as const).map(n => [n, channel(`--neutral-${n}`)]),
 ) as Record<string, string>;
 
-const config: Config = {
+const config = {
   darkMode: ['class'],
   content: ['./src/pages/**/*.{js,ts,jsx,tsx,mdx}', './src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {

@@ -71,7 +71,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
           <Input id="input-round-name" value={roundName} onChange={e => setRoundName(e.currentTarget.value)} />
         </div>
 
-        <div className="relative z-[60] grid grid-cols-2 items-center gap-2">
+        <div className="relative z-60 grid grid-cols-2 items-center gap-2">
           <div className="min-w-0">{t('dlgAddRoundDay')}</div>
           <div className="flex w-full">
             <ComboBox

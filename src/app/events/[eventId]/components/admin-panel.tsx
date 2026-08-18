@@ -23,7 +23,7 @@ const AdminPanel = async ({ event, competitions }: IAttachmentCardProps) => {
   const t = await getTranslations('/events/eventid');
 
   return (
-    <div className={cn('flex justify-between gap-2 rounded-xl border border-primary/25 bg-primary/5 p-2.5 shadow-sm backdrop-blur-sm', 'dark:border-primary/35 dark:bg-primary/10 dark:shadow-xs')}>
+    <div className={cn('flex justify-between gap-2 rounded-xl border border-primary/25 bg-primary/5 p-2.5 shadow-sm backdrop-blur-xs', 'dark:border-primary/35 dark:bg-primary/10 dark:shadow-xs')}>
       <div
         className={cn(
           'flex min-w-0 flex-1 gap-2',

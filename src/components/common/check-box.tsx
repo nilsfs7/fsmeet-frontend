@@ -12,7 +12,7 @@ interface ICheckBoxInput {
 
 const CheckBox = ({ id, label, value, disabled = false, onChange }: ICheckBoxInput) => {
   return (
-    <div className="grid min-w-0 w-full grid-cols-[minmax(0,1fr),minmax(0,1.5fr)] items-center gap-x-3 gap-y-1">
+    <div className="grid min-w-0 w-full grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] items-center gap-x-3 gap-y-1">
       <label htmlFor={id} className="min-w-0 text-sm font-medium leading-none">
         {label}
       </label>

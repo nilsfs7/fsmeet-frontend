@@ -48,7 +48,7 @@ export default async function Home() {
       </div>
 
       <PageInset className="flex min-h-0 min-w-0 flex-1 flex-col gap-6 overflow-y-auto scrollbar-none">
-        <div className="m-2 mt-6 flex flex-shrink-0 justify-center gap-2">
+        <div className="m-2 mt-6 flex shrink-0 justify-center gap-2">
           {actingUser?.type !== UserType.FAN && <CreateEventButton />}
 
           <Button asChild variant="action" className={ctaActionButtonClassName}>

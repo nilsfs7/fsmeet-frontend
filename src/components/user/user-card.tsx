@@ -17,11 +17,11 @@ interface IUserCardProps {
 
 const cardSurface = cn(
   'group min-w-0 max-w-lg overflow-hidden rounded-xl border border-border/60',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
+  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
   'transition-all duration-200',
   'hover:border-primary/50 hover:shadow-md',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40',
 );
 
 const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserCountryFlag = false, registrationStatus }: IUserCardProps) => {
@@ -40,7 +40,7 @@ const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserCo
       href={`${routeUsers}/${user.username}`}
       className={cn(
         'inline-block max-w-full align-middle no-underline',
-        'rounded-xl outline-none',
+        'rounded-xl outline-hidden',
         'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
       )}
     >
@@ -49,7 +49,7 @@ const UserCard = ({ user, showName = true, showFirstNameOnly = false, showUserCo
           {showUserCountryFlag ? (
             <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full">
               <ReactCountryFlag
-                className="!h-full !w-full"
+                className="h-full! w-full!"
                 countryCode={user.countryCode || ''}
                 svg
                 style={{

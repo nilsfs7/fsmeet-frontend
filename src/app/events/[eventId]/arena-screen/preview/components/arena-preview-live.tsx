@@ -76,7 +76,7 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
 
   if (!hasLoadedOnce && !loadError) {
     return (
-      <div className="flex min-h-[100dvh] items-center justify-center bg-slate-950 text-zinc-400">
+      <div className="flex min-h-dvh items-center justify-center bg-slate-950 text-zinc-400">
         <p className="text-sm">Loading arena…</p>
       </div>
     );
@@ -84,7 +84,7 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
 
   if (loadError && !hasLoadedOnce) {
     return (
-      <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-2 bg-slate-950 px-6 text-center text-zinc-300">
+      <div className="flex min-h-dvh flex-col items-center justify-center gap-2 bg-slate-950 px-6 text-center text-zinc-300">
         <p className="text-lg font-medium text-white">Could not load arena</p>
         <p className="text-sm text-destructive">{loadError}</p>
       </div>
@@ -93,7 +93,7 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
 
   if (!style) {
     return (
-      <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-2 bg-slate-950 px-6 text-center text-zinc-300">
+      <div className="flex min-h-dvh flex-col items-center justify-center gap-2 bg-slate-950 px-6 text-center text-zinc-300">
         <p className="text-lg font-medium text-white">Arena style not available</p>
       </div>
     );

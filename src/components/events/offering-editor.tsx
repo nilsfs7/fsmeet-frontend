@@ -15,9 +15,9 @@ import Separator from '../separator';
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 
 interface IOfferingEditorProps {
@@ -47,12 +47,16 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
   };
 
   const onCostValueChange = (
-    _v: string | undefined,
+    value: string | undefined,
     _n: string | undefined,
     values?: { float: number | null; formatted: string; value: string },
   ) => {
-    if (values) {
-      setCost(convertCurrencyDecimalToInteger(values.float || 0, currency));
+    if (value === undefined || value === '') {
+      setCost(0);
+      return;
+    }
+    if (values?.float != null && Number.isFinite(values.float)) {
+      setCost(convertCurrencyDecimalToInteger(values.float, currency));
     }
   };
 

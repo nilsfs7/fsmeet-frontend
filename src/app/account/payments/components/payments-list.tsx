@@ -343,8 +343,8 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
                           <TableHead
                             key={header.id}
                             className={cn(
-                              header.column.id === 'username' && 'min-w-[10rem]',
-                              header.column.id === 'date' && 'min-w-[9.5rem] whitespace-nowrap',
+                              header.column.id === 'username' && 'min-w-40',
+                              header.column.id === 'date' && 'min-w-38 whitespace-nowrap',
                               ['amount', 'actions'].includes(header.column.id) && 'w-[1%] whitespace-nowrap',
                             )}
                           >

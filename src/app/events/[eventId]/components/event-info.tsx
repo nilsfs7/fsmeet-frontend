@@ -42,16 +42,16 @@ import { Size } from '@/domain/enums/size';
 
 const cardSurface = cn(
   'h-fit min-w-0 overflow-hidden rounded-xl border border-border/60',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
+  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 
 function MetaRow({ icon, children, className }: { icon: ReactNode; children: ReactNode; className?: string }) {
   return (
     <div className={cn('flex min-w-0 items-center gap-2', className)}>
       <div className="flex h-7 w-7 shrink-0 items-center justify-center [&>img]:h-full [&>img]:w-full [&>img]:object-contain">{icon}</div>
-      <div className="type-body-sm min-w-0 flex-1 break-words text-foreground/90 leading-snug">{children}</div>
+      <div className="type-body-sm min-w-0 flex-1 wrap-break-word text-foreground/90 leading-snug">{children}</div>
     </div>
   );
 }
@@ -124,7 +124,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
       <VideoDialog queryParam="trailer" videoUrl={event.trailerUrl || ''} onCancel={handleCancelDialogClicked} />
 
       {posterPreviewOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-black/75 p-4" onClick={() => setPosterPreviewOpen(false)}>
+        <div className="fixed inset-0 z-100 flex items-center justify-center overflow-hidden bg-black/75 p-4" onClick={() => setPosterPreviewOpen(false)}>
           <img
             src={posterSrc}
             alt=""
@@ -174,10 +174,10 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                 <button
                   type="button"
                   onClick={() => setPosterPreviewOpen(true)}
-                  className="group relative w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="group relative w-full text-left outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label="Event poster, open preview"
                 >
-                  <div className={cn('relative w-full aspect-[4/5] overflow-hidden rounded-lg', !isCustomPoster && 'bg-muted/25 dark:bg-muted/20')}>
+                  <div className={cn('relative w-full aspect-4/5 overflow-hidden rounded-lg', !isCustomPoster && 'bg-muted/25 dark:bg-muted/20')}>
                     <img
                       src={posterSrc}
                       alt=""
@@ -241,7 +241,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
             <div className="flex h-fit min-w-0 flex-col type-body-sm text-foreground/90">
               <TextareaAutosize
                 readOnly
-                className={cn('h-full w-full resize-none bg-transparent text-foreground/90 outline-none', !descriptionExpanded && isDescriptionLong && 'max-h-28 overflow-hidden')}
+                className={cn('h-full w-full resize-none bg-transparent text-foreground/90 outline-hidden', !descriptionExpanded && isDescriptionLong && 'max-h-28 overflow-hidden')}
                 value={event.description}
               />
               {isDescriptionLong && (
@@ -250,7 +250,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-sm supports-[backdrop-filter]:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40"
+                    className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-xs supports-backdrop-filter:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40"
                     onClick={() => setDescriptionExpanded(prev => !prev)}
                     aria-label={descriptionExpanded ? t('tabOverviewBtnShowLessDescription') : t('tabOverviewBtnShowMoreDescription')}
                   >
@@ -290,7 +290,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
               {event.messangerInvitationUrl && showMessangerInvitationUrl && (
                 <div className={'grid grid-cols-3 items-center'}>
                   <div className="col-span-1">{`Group chat invitation link`}</div>
-                  <div className="col-span-2 hover:underline select-text break-words">
+                  <div className="col-span-2 hover:underline select-text wrap-break-word">
                     <a target="_blank" rel="noopener noreferrer" href={event.messangerInvitationUrl}>
                       <ActionButton action={Action.GOTOEXTERNAL} />
                     </a>
@@ -317,7 +317,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-sm supports-[backdrop-filter]:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50 dark:hover:border-primary/40"
+                  className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-xs supports-backdrop-filter:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40"
                   onClick={() => {
                     setShowMap(prev => !prev);
                   }}

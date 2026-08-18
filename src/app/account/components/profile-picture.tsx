@@ -7,16 +7,13 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
-const AVATAR_RING = cn(
-  'h-32 w-32 shrink-0 rounded-full border border-border/60 object-cover shadow-xs',
-  'transition-colors hover:border-primary/60 dark:border-border/50',
-);
+const AVATAR_RING = cn('h-32 w-32 shrink-0 rounded-full border border-border/60 object-cover shadow-xs', 'transition-colors hover:border-primary/60 dark:border-border/50');
 
 const PLACEHOLDER_SURFACE = cn(
   'flex h-32 w-32 shrink-0 flex-col items-center justify-center gap-2 rounded-full border border-border/60',
-  'bg-secondary-light/85 p-2 text-center shadow-xs backdrop-blur-sm',
-  'supports-[backdrop-filter]:bg-secondary-light/70',
-  'transition-colors hover:border-primary/60 dark:border-border/50 dark:bg-background/60 dark:supports-[backdrop-filter]:bg-background/50',
+  'bg-secondary-light/85 p-2 text-center shadow-xs backdrop-blur-xs',
+  'supports-backdrop-filter:bg-secondary-light/70',
+  'transition-colors hover:border-primary/60 dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 
 export const ProfilePicture = () => {
