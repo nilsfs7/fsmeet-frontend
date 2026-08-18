@@ -106,9 +106,14 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
     });
   };
 
-  const onParticipationFeeValueChange = (_v: string | undefined, _n: string | undefined, values?: { float: number | null; formatted: string; value: string }) => {
-    if (values) {
-      setParticipationFee(convertCurrencyDecimalToInteger(values.float || 0, event.currency));
+  const onParticipationFeeValueChange = (value: string | undefined, _n: string | undefined, values?: { float: number | null; formatted: string; value: string }) => {
+    if (value === undefined || value === '') {
+      setParticipationFee(0);
+      return;
+    }
+    // Keep parent state while typing incomplete decimals like "15,".
+    if (values?.float != null && Number.isFinite(values.float)) {
+      setParticipationFee(convertCurrencyDecimalToInteger(values.float, event.currency));
     }
   };
 

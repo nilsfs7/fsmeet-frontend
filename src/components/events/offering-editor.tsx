@@ -47,12 +47,16 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
   };
 
   const onCostValueChange = (
-    _v: string | undefined,
+    value: string | undefined,
     _n: string | undefined,
     values?: { float: number | null; formatted: string; value: string },
   ) => {
-    if (values) {
-      setCost(convertCurrencyDecimalToInteger(values.float || 0, currency));
+    if (value === undefined || value === '') {
+      setCost(0);
+      return;
+    }
+    if (values?.float != null && Number.isFinite(values.float)) {
+      setCost(convertCurrencyDecimalToInteger(values.float, currency));
     }
   };
 
