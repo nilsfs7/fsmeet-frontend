@@ -1,10 +1,29 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import CurrencyInput, { CurrencyInputOnChangeValues } from 'react-currency-input-field';
+import { useLocale } from 'next-intl';
 
-const DECIMAL_SEPARATOR = ',';
-const GROUP_SEPARATOR = '.';
+/** App locales are country codes (gb, de, …); expand to a BCP 47 tag via likely subtags. */
+function toIntlLocale(appLocale: string): string {
+  const region = appLocale.trim().toUpperCase();
+  try {
+    return new Intl.Locale(`und-${region}`).maximize().toString();
+  } catch {
+    return 'en-GB';
+  }
+}
+
+function getCurrencySeparators(appLocale: string): { decimalSeparator: string; groupSeparator: string } {
+  const intlLocale = toIntlLocale(appLocale);
+  const parts = new Intl.NumberFormat(intlLocale, { numberingSystem: 'latn' }).formatToParts(12345.6);
+  const decimalSeparator = parts.find(part => part.type === 'decimal')?.value ?? '.';
+  let groupSeparator = parts.find(part => part.type === 'group')?.value ?? '';
+  if (!groupSeparator || groupSeparator === decimalSeparator) {
+    groupSeparator = decimalSeparator === '.' ? ',' : '.';
+  }
+  return { decimalSeparator, groupSeparator };
+}
 
 interface ICurrencyInput {
   id: string;
@@ -17,26 +36,26 @@ interface ICurrencyInput {
   onKeyDown?: (event: any) => void;
 }
 
-function formatNumericValue(value: number): string {
-  return String(value).replace('.', DECIMAL_SEPARATOR);
+function formatNumericValue(value: number, decimalSeparator: string): string {
+  return String(value).replace('.', decimalSeparator);
 }
 
-function parseDisplayValue(display: string): number | null {
+function parseDisplayValue(display: string, decimalSeparator: string, groupSeparator: string): number | null {
   if (!display) {
     return null;
   }
-  const normalized = display.replaceAll(GROUP_SEPARATOR, '').replace(DECIMAL_SEPARATOR, '.');
+  const normalized = display.replaceAll(groupSeparator, '').replace(decimalSeparator, '.');
   const parsed = Number(normalized);
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-function isIncompleteDecimal(display: string): boolean {
-  return display.endsWith(DECIMAL_SEPARATOR);
+function isIncompleteDecimal(display: string, decimalSeparator: string): boolean {
+  return display.endsWith(decimalSeparator);
 }
 
-function toInitialDisplay(value: string | number | undefined): string {
+function toInitialDisplay(value: string | number | undefined, decimalSeparator: string): string {
   if (typeof value === 'number' && Number.isFinite(value)) {
-    return formatNumericValue(value);
+    return formatNumericValue(value, decimalSeparator);
   }
   if (typeof value === 'string') {
     return value;
@@ -45,7 +64,9 @@ function toInitialDisplay(value: string | number | undefined): string {
 }
 
 const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, onValueChange, onKeyDown }: ICurrencyInput) => {
-  const [display, setDisplay] = useState(() => toInitialDisplay(value));
+  const locale = useLocale();
+  const { decimalSeparator, groupSeparator } = useMemo(() => getCurrencySeparators(locale), [locale]);
+  const [display, setDisplay] = useState(() => toInitialDisplay(value, decimalSeparator));
 
   // Keep a local string so typing "15," is not wiped when the parent re-renders with a rounded number.
   useEffect(() => {
@@ -57,16 +78,16 @@ const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, 
       return;
     }
     setDisplay(prev => {
-      if (isIncompleteDecimal(prev)) {
+      if (isIncompleteDecimal(prev, decimalSeparator)) {
         return prev;
       }
-      const parsed = parseDisplayValue(prev);
+      const parsed = parseDisplayValue(prev, decimalSeparator, groupSeparator);
       if (parsed === value) {
         return prev;
       }
-      return formatNumericValue(value);
+      return formatNumericValue(value, decimalSeparator);
     });
-  }, [value]);
+  }, [value, decimalSeparator, groupSeparator]);
 
   const handleValueChange = (next: string | undefined, name?: string, values?: CurrencyInputOnChangeValues) => {
     setDisplay(next ?? '');
@@ -81,8 +102,8 @@ const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, 
       defaultValue={defValue}
       value={display}
       decimalsLimit={2}
-      decimalSeparator={DECIMAL_SEPARATOR}
-      groupSeparator={GROUP_SEPARATOR}
+      decimalSeparator={decimalSeparator}
+      groupSeparator={groupSeparator}
       onValueChange={handleValueChange}
       onKeyDown={onKeyDown}
     />
