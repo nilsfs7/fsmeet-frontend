@@ -53,6 +53,7 @@ import Separator from '@/components/separator';
 import { ActionButtonCopyToClipboard } from '@/components/common/action-button-copy-to-clipboard';
 import { menuSupportedLanguages } from '../../../domain/constants/menus/menu-supported-languages';
 import { cn } from '@/lib/utils';
+import { buildFreestyleActsFreestylerUrl } from '@/lib/freestyleacts-url';
 import CurInput from '@/components/common/currency-input';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
@@ -870,11 +871,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               {userInfo.jobProfileListingState === JobProfileListingState.APPROVED && (
                 <FieldRow label={t('tabJobsViewProfile')}>
                   <div className={FIELD_CONTROL_TALL_INNER}>
-                    <a
-                      href={`${(process.env.NEXT_PUBLIC_FRONTEND_URL_FREESTYLEACTS || '').replace(/\/$/, '')}/freestylers/${encodeURIComponent(userInfo.username)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href={buildFreestyleActsFreestylerUrl(userInfo.username)} target="_blank" rel="noopener noreferrer">
                       <ActionButton action={Action.GOTOEXTERNAL} tooltip={t('tabJobBtnViewProfile')} />
                     </a>
                   </div>

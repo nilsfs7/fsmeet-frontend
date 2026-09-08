@@ -877,7 +877,10 @@
     "accordionItemBattleStatisticsAmountWins": "Victorias",
     "accordionItemBattleStatisticsWinLossRatio": "Ratio de victorias",
     "accordionItemCompetitionHistory": "Historia de la competición",
-    "accordionItemCompetitionHistoryNoParticipations": "Aún no hay concursos disponibles."
+    "accordionItemCompetitionHistoryNoParticipations": "Aún no hay concursos disponibles.",
+    "btnBookViaFreestyleActs": "Reservar vía FreestyleActs",
+    "competitionHistoryShowAll": "Mostrar todos ({count})",
+    "competitionHistoryShowLess": "Mostrar menos"
   },
   "/voice": {
     "pageTitle": "Community Voice",

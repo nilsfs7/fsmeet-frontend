@@ -896,7 +896,10 @@
     "accordionItemBattleStatisticsAmountWins": "Wins",
     "accordionItemBattleStatisticsWinLossRatio": "Win ratio",
     "accordionItemCompetitionHistory": "Competition History",
-    "accordionItemCompetitionHistoryNoParticipations": "No participations, yet."
+    "accordionItemCompetitionHistoryNoParticipations": "No participations, yet.",
+    "btnBookViaFreestyleActs": "Book via FreestyleActs",
+    "competitionHistoryShowAll": "Show all ({count})",
+    "competitionHistoryShowLess": "Show less"
   },
   "/voice": {
     "pageTitle": "Community Voice",

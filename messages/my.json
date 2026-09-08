@@ -895,7 +895,10 @@
     "accordionItemBattleStatisticsAmountWins": "Menang",
     "accordionItemBattleStatisticsWinLossRatio": "Kadar menang",
     "accordionItemCompetitionHistory": "Sejarah Pertandingan",
-    "accordionItemCompetitionHistoryNoParticipations": "Belum ada penyertaan."
+    "accordionItemCompetitionHistoryNoParticipations": "Belum ada penyertaan.",
+    "btnBookViaFreestyleActs": "Tempah melalui FreestyleActs",
+    "competitionHistoryShowAll": "Tunjuk semua ({count})",
+    "competitionHistoryShowLess": "Tunjuk kurang"
   },
   "/voice": {
     "pageTitle": "Suara Komuniti",

@@ -895,7 +895,10 @@
     "accordionItemBattleStatisticsAmountWins": "الانتصارات",
     "accordionItemBattleStatisticsWinLossRatio": "نسبة الفوز",
     "accordionItemCompetitionHistory": "سجل المنافسات",
-    "accordionItemCompetitionHistoryNoParticipations": "لا توجد مشاركات بعد."
+    "accordionItemCompetitionHistoryNoParticipations": "لا توجد مشاركات بعد.",
+    "btnBookViaFreestyleActs": "احجز عبر FreestyleActs",
+    "competitionHistoryShowAll": "عرض الكل ({count})",
+    "competitionHistoryShowLess": "عرض أقل"
   },
   "/voice": {
     "pageTitle": "صوت المجتمع",

@@ -895,7 +895,10 @@
     "accordionItemBattleStatisticsAmountWins": "胜利",
     "accordionItemBattleStatisticsWinLossRatio": "胜率",
     "accordionItemCompetitionHistory": "参赛历史",
-    "accordionItemCompetitionHistoryNoParticipations": "暂无参赛记录。"
+    "accordionItemCompetitionHistoryNoParticipations": "暂无参赛记录。",
+    "btnBookViaFreestyleActs": "通过 FreestyleActs 预订",
+    "competitionHistoryShowAll": "显示全部 ({count})",
+    "competitionHistoryShowLess": "收起"
   },
   "/voice": {
     "pageTitle": "社区声音",
