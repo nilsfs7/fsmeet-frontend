@@ -13,6 +13,9 @@ export class UpdateUserBodyDto {
   tikTokHandle: string;
   youTubeHandle: string;
   website: string;
+  jobOfferShows: boolean;
+  jobOfferWalkActs: boolean;
+  jobOfferWorkshops: boolean;
   private: UpdatePrivateUserInfoBodyDto;
 
   constructor(
@@ -27,7 +30,10 @@ export class UpdateUserBodyDto {
     tikTokHandle: string,
     youTubeHandle: string,
     website: string,
-    privateUserInfo: UpdatePrivateUserInfoBodyDto
+    jobOfferShows: boolean,
+    jobOfferWalkActs: boolean,
+    jobOfferWorkshops: boolean,
+    privateUserInfo: UpdatePrivateUserInfoBodyDto,
   ) {
     this.username = username;
     this.firstName = firstName;
@@ -40,6 +46,9 @@ export class UpdateUserBodyDto {
     this.tikTokHandle = tikTokHandle;
     this.youTubeHandle = youTubeHandle;
     this.website = website;
+    this.jobOfferShows = jobOfferShows;
+    this.jobOfferWalkActs = jobOfferWalkActs;
+    this.jobOfferWorkshops = jobOfferWorkshops;
     this.private = privateUserInfo;
   }
 }

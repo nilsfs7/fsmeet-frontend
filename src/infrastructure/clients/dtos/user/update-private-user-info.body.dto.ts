@@ -14,9 +14,6 @@ export class UpdatePrivateUserInfoBodyDto {
   locLatitude: number;
   locLongitude: number;
   jobAcceptTerms: boolean;
-  jobOfferShows: boolean;
-  jobOfferWalkActs: boolean;
-  jobOfferWorkshops: boolean;
   jobShowExperience: ShowExperience;
   jobCarAvailable: boolean;
   jobPreferredTravelMethod: JobPreferredTravelMethod;
@@ -37,9 +34,6 @@ export class UpdatePrivateUserInfoBodyDto {
     locLatitude: number,
     locLongitude: number,
     jobAcceptTerms: boolean,
-    jobOfferShows: boolean,
-    jobOfferWalkActs: boolean,
-    jobOfferWorkshops: boolean,
     jobShowExperience: ShowExperience,
     jobCarAvailable: boolean,
     jobPreferredTravelMethod: JobPreferredTravelMethod,
@@ -59,9 +53,6 @@ export class UpdatePrivateUserInfoBodyDto {
     this.locLatitude = locLatitude;
     this.locLongitude = locLongitude;
     this.jobAcceptTerms = jobAcceptTerms;
-    this.jobOfferShows = jobOfferShows;
-    this.jobOfferWalkActs = jobOfferWalkActs;
-    this.jobOfferWorkshops = jobOfferWorkshops;
     this.jobShowExperience = jobShowExperience;
     this.jobCarAvailable = jobCarAvailable;
     this.jobPreferredTravelMethod = jobPreferredTravelMethod;
