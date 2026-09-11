@@ -3,7 +3,7 @@
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
-import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
+import { JobProfileState } from '@/domain/enums/job-profile-state';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession, signOut } from 'next-auth/react';
@@ -41,7 +41,7 @@ import {
   createStripeAccountOnboardingLink,
   createStripeLoginLink,
   deleteUser,
-  updateJobProfileListingState,
+  updateJobProfileState,
   updateUserVerificationState,
 } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
@@ -501,18 +501,18 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     }
   };
 
-  const handleRequestJobListingClicked = async () => {
+  const handleRequestJobProfileStateUpdateClicked = async () => {
     const username = userInfo.username || session?.user?.username || '';
     if (!username) {
       return;
     }
 
     try {
-      await updateJobProfileListingState(session, username, JobProfileListingState.PENDING);
+      await updateJobProfileState(session, username, JobProfileState.PENDING);
       const newUserInfo = Object.assign({}, userInfo);
-      newUserInfo.jobProfileListingState = JobProfileListingState.PENDING;
+      newUserInfo.jobProfileState = JobProfileState.PENDING;
       setUserInfo(newUserInfo);
-      toast.success(t('toastJobListingRequestSuccess'));
+      toast.success(t('toastJobProfileStateRequestSuccess'));
     } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
@@ -856,19 +856,19 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
 
               <FieldRow label={t('tabJobsListingStatus')}>
                 <div className={FIELD_CONTROL_TALL_INNER}>
-                  <Label text={userInfo.jobProfileListingState || JobProfileListingState.NOT_LISTED} />
+                  <Label text={userInfo.jobProfileState || JobProfileState.NOT_APPROVED} />
                 </div>
               </FieldRow>
 
-              {userInfo.jobProfileListingState !== JobProfileListingState.PENDING && userInfo.jobProfileListingState !== JobProfileListingState.APPROVED && (
+              {userInfo.jobProfileState !== JobProfileState.PENDING && userInfo.jobProfileState !== JobProfileState.APPROVED && (
                 <div className="flex justify-center">
-                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-auto')} onClick={handleRequestJobListingClicked}>
-                    {t('tabJobBtnRequestListing')}
+                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-auto')} onClick={handleRequestJobProfileStateUpdateClicked}>
+                    {t('tabJobBtnRequestApproval')}
                   </Button>
                 </div>
               )}
 
-              {userInfo.jobProfileListingState === JobProfileListingState.APPROVED && (
+              {userInfo.jobProfileState === JobProfileState.APPROVED && (
                 <FieldRow label={t('tabJobsViewProfile')}>
                   <div className={FIELD_CONTROL_TALL_INNER}>
                     <a href={buildFreestyleActsFreestylerUrl(userInfo.username)} target="_blank" rel="noopener noreferrer">

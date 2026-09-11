@@ -1,7 +1,7 @@
 import { ShowExperience } from '@/domain/enums/show-experience';
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
-import { JobProfileListingState } from '../enums/job-profile-listing-state';
+import { JobProfileState } from '../enums/job-profile-state';
 import { JobPreferredTravelMethod } from '../enums/job-preferred-travel-method';
 import { CurrencyCode } from '../enums/currency-code';
 
@@ -22,7 +22,7 @@ export type User = {
   youTubeHandle?: string;
   website?: string;
   verificationState?: UserVerificationState;
-  jobProfileListingState?: JobProfileListingState;
+  jobProfileState?: JobProfileState;
   birthday?: string;
   tShirtSize?: string;
   houseNumber?: string;

@@ -23,7 +23,7 @@ import type { User } from '@/domain/types/user';
 import { toAbsoluteUrl, truncateMetaDescription } from '@/lib/site-url';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildPersonJsonLd } from '@/lib/json-ld';
-import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
+import { JobProfileState } from '@/domain/enums/job-profile-state';
 import { ProfileSocials } from './components/profile-socials';
 import { ProfileMatchStats } from './components/profile-match-stats';
 import { ProfileAchievements } from './components/profile-achievements';
@@ -82,7 +82,7 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
   const session = await auth();
 
   const user = await getUser(params.username);
-  const showBookCta = user.jobProfileListingState === JobProfileListingState.APPROVED;
+  const showBookCta = user.jobProfileState === JobProfileState.APPROVED;
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">

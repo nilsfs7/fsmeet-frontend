@@ -1,6 +1,6 @@
-export enum JobProfileListingState {
+export enum JobProfileState {
   APPROVED = 'approved',
   DENIED = 'denied',
-  NOT_LISTED = 'not_listed',
+  NOT_APPROVED = 'not_approved',
   PENDING = 'pending',
 }
