@@ -119,8 +119,8 @@
     "tabJobsListingStatus": "स्थिति",
     "tabJobsViewProfile": "FSActs प्रोफ़ाइल",
     "tabJobBtnViewProfile": "देखें",
-    "tabJobBtnRequestListing": "लिस्टिंग का अनुरोध करें",
-    "toastJobListingRequestSuccess": "लिस्टिंग अनुरोध भेजा गया।",
+    "tabJobBtnRequestApproval": "अनुमोदन का अनुरोध करें",
+    "toastJobProfileStateRequestSuccess": "लिस्टिंग अनुरोध भेजा गया।",
     "tabJobsSectionTerms": "Jobs addendum",
     "tabJobsTerms": "Read addendum",
     "tabJobBtnReadTerms": "पढ़ें",
@@ -895,7 +895,10 @@
     "accordionItemBattleStatisticsAmountWins": "जीत",
     "accordionItemBattleStatisticsWinLossRatio": "विन रेशियो",
     "accordionItemCompetitionHistory": "प्रतियोगिता इतिहास",
-    "accordionItemCompetitionHistoryNoParticipations": "अभी तक कोई भागीदारी नहीं।"
+    "accordionItemCompetitionHistoryNoParticipations": "अभी तक कोई भागीदारी नहीं।",
+    "btnBookViaFreestyleActs": "FreestyleActs के माध्यम से बुक करें",
+    "competitionHistoryShowAll": "सभी दिखाएँ ({count})",
+    "competitionHistoryShowLess": "कम दिखाएँ"
   },
   "/voice": {
     "pageTitle": "कम्युनिटी वॉयस",

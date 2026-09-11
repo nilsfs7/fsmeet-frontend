@@ -119,8 +119,8 @@
     "tabJobsListingStatus": "Status",
     "tabJobsViewProfile": "FSActs-Profil",
     "tabJobBtnViewProfile": "Ansehen",
-    "tabJobBtnRequestListing": "Listung beantragen",
-    "toastJobListingRequestSuccess": "Listungsantrag gesendet.",
+    "tabJobBtnRequestApproval": "Freigabe beantragen",
+    "toastJobProfileStateRequestSuccess": "Listungsantrag gesendet.",
     "tabJobsSectionTerms": "Zusatzvereinbarung Jobs",
     "tabJobsTerms": "Zusatzvereinbarung ansehen",
     "tabJobBtnReadTerms": "Lesen",
@@ -877,7 +877,10 @@
     "accordionItemBattleStatisticsAmountWins": "Siege",
     "accordionItemBattleStatisticsWinLossRatio": "Siegverhältnis",
     "accordionItemCompetitionHistory": "Wettkampf Historie",
-    "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden."
+    "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden.",
+    "btnBookViaFreestyleActs": "Über FreestyleActs buchen",
+    "competitionHistoryShowAll": "Alle anzeigen ({count})",
+    "competitionHistoryShowLess": "Weniger anzeigen"
   },
   "/voice": {
     "pageTitle": "Community Voice",

@@ -1,6 +1,6 @@
 import { UserType } from '@/domain/enums/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
-import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
+import { JobProfileState } from '@/domain/enums/job-profile-state';
 import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { User } from '@/domain/types/user';
@@ -49,7 +49,7 @@ export async function getUser(username: string, session?: Session | null): Promi
       youTubeHandle: data.youTubeHandle,
       website: data.website,
       verificationState: data.verificationState,
-      jobProfileListingState: data.jobProfileListingState,
+      jobProfileState: data.jobProfileState,
       birthday: data.private?.birthday,
       tShirtSize: data.private?.tShirtSize,
       houseNumber: data.private?.houseNumber,
@@ -138,7 +138,7 @@ export async function getUsers(type?: UserType, gender?: Gender, countryCode?: s
       youTubeHandle: data.youTubeHandle,
       website: data.website,
       verificationState: data.verificationState,
-      jobProfileListingState: data.jobProfileListingState,
+      jobProfileState: data.jobProfileState,
       birthday: data.private?.birthday,
       tShirtSize: data.private?.tShirtSize,
       houseNumber: data.private?.houseNumber,
@@ -390,12 +390,12 @@ export async function updateUserVerificationState(session: Session | null, usern
   }
 }
 
-export async function updateJobProfileListingState(session: Session | null, username: string, jobProfileListingState: JobProfileListingState): Promise<void> {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/job-listing-state`;
+export async function updateJobProfileState(session: Session | null, username: string, jobProfileState: JobProfileState): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/job-profile-state`;
 
   const body = JSON.stringify({
     username,
-    jobProfileListingState,
+    jobProfileState,
   });
 
   const response = await fetch(url, {
@@ -408,7 +408,7 @@ export async function updateJobProfileListingState(session: Session | null, user
   });
 
   if (response.ok) {
-    console.info('Updating job profile listing state successful');
+    console.info('Updating job profile state successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

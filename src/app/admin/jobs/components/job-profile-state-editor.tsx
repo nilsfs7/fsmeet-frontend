@@ -9,10 +9,10 @@ import ComboBox from '@/components/common/combo-box';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import { User } from '@/domain/types/user';
-import { menuJobProfileListingStates } from '@/domain/constants/menus/menu-job-profile-listing-states';
-import { JobProfileListingState } from '@/domain/enums/job-profile-listing-state';
+import { menuJobProfileStates } from '@/domain/constants/menus/menu-job-profile-states';
+import { JobProfileState } from '@/domain/enums/job-profile-state';
 import { UserType } from '@/domain/enums/user-type';
-import { getUsers, updateJobProfileListingState } from '@/infrastructure/clients/user.client';
+import { getUsers, updateJobProfileState } from '@/infrastructure/clients/user.client';
 import { useSession } from 'next-auth/react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
@@ -63,8 +63,8 @@ function sortUsersByUserColumn(users: User[], descending: boolean): User[] {
   return list;
 }
 
-function listingStateOf(user: User): JobProfileListingState {
-  return user.jobProfileListingState ?? JobProfileListingState.NOT_LISTED;
+function approvalStateOf(user: User): JobProfileState {
+  return user.jobProfileState ?? JobProfileState.NOT_APPROVED;
 }
 
 function UserCell({ user }: { user: User }) {
@@ -81,10 +81,10 @@ function UserCell({ user }: { user: User }) {
   );
 }
 
-function JobListingTableSection({
+function JobProfileStateTableSection({
   title,
   items,
-  draftListingByUsername,
+  draftStateByUsername,
   onDraftStateChange,
   onSave,
   userSortDescending,
@@ -92,8 +92,8 @@ function JobListingTableSection({
 }: {
   title: string;
   items: User[];
-  draftListingByUsername: Record<string, JobProfileListingState | undefined>;
-  onDraftStateChange: (username: string, listingState: JobProfileListingState) => void;
+  draftStateByUsername: Record<string, JobProfileState | undefined>;
+  onDraftStateChange: (username: string, state: JobProfileState) => void;
   onSave: (user: User) => void;
   userSortDescending: boolean;
   onUserSortClick: () => void;
@@ -125,22 +125,22 @@ function JobListingTableSection({
                   {userSortDescending ? <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden /> : <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />}
                 </button>
               </TableHead>
-              <TableHead className={cn('text-foreground/90', HEAD_PAD, col.state)}>Listing state</TableHead>
+              <TableHead className={cn('text-foreground/90', HEAD_PAD, col.state)}>Profile state</TableHead>
               <TableHead className={cn('text-right text-foreground/90', HEAD_PAD, col.actions)}>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">
             {items.map(user => {
-              const comboValue = draftListingByUsername[user.username] ?? listingStateOf(user);
+              const comboValue = draftStateByUsername[user.username] ?? approvalStateOf(user);
               return (
                 <TableRow key={user.username} className="border-border/30 transition-colors hover:bg-muted/30 dark:hover:bg-muted/20">
                   <UserCell user={user} />
                   <TableCell className={cn(CELL_PAD, 'align-top text-foreground', col.state)}>
                     <ComboBox
-                      menus={menuJobProfileListingStates}
+                      menus={menuJobProfileStates}
                       value={comboValue}
                       searchEnabled={false}
-                      onChange={(value: JobProfileListingState) => {
+                      onChange={(value: JobProfileState) => {
                         onDraftStateChange(user.username, value);
                       }}
                     />
@@ -160,11 +160,11 @@ function JobListingTableSection({
   );
 }
 
-export const JobListingEditor = () => {
+export const JobProfileStateEditor = () => {
   const { data: session, status } = useSession();
   const [users, setUsers] = useState<User[]>([]);
   /** Unsaved ComboBox edits; table membership uses `users` only until Save. */
-  const [draftListingByUsername, setDraftListingByUsername] = useState<Record<string, JobProfileListingState | undefined>>({});
+  const [draftStateByUsername, setDraftStateByUsername] = useState<Record<string, JobProfileState | undefined>>({});
   const [loading, setLoading] = useState(true);
   const [filterUser, setFilterUser] = useState('');
   const [userSortDescending, setUserSortDescending] = useState(false);
@@ -174,7 +174,7 @@ export const JobListingEditor = () => {
     try {
       const data = await getUsers(UserType.FREESTYLER);
       setUsers(data);
-      setDraftListingByUsername({});
+      setDraftStateByUsername({});
     } catch (e: any) {
       console.error(e);
       toast.error(e?.message ?? 'Failed to load users.');
@@ -183,17 +183,17 @@ export const JobListingEditor = () => {
     }
   }, []);
 
-  const handleDraftListingStateChanged = (username: string, listingState: JobProfileListingState) => {
-    setDraftListingByUsername(prev => ({ ...prev, [username]: listingState }));
+  const handleDratStateChanged = (username: string, state: JobProfileState) => {
+    setDraftStateByUsername(prev => ({ ...prev, [username]: state }));
   };
 
   const handleSaveUserClicked = async (user: User) => {
-    const nextState = draftListingByUsername[user.username] ?? listingStateOf(user);
+    const nextState = draftStateByUsername[user.username] ?? approvalStateOf(user);
     try {
-      await updateJobProfileListingState(session, user.username, nextState);
-      toast.success(`Listing state for ${user.username} (${user.firstName}) updated.`);
-      setUsers(prev => prev.map(usr => (usr.username === user.username ? { ...usr, jobProfileListingState: nextState } : usr)));
-      setDraftListingByUsername(prev => {
+      await updateJobProfileState(session, user.username, nextState);
+      toast.success(`Profile state for ${user.username} (${user.firstName}) updated.`);
+      setUsers(prev => prev.map(usr => (usr.username === user.username ? { ...usr, jobProfileState: nextState } : usr)));
+      setDraftStateByUsername(prev => {
         const next = { ...prev };
         delete next[user.username];
         return next;
@@ -218,28 +218,28 @@ export const JobListingEditor = () => {
 
   const pending = useMemo(
     () => sortUsersByUserColumn(
-      filteredUsers.filter(u => listingStateOf(u) === JobProfileListingState.PENDING),
+      filteredUsers.filter(u => approvalStateOf(u) === JobProfileState.PENDING),
       userSortDescending,
     ),
     [filteredUsers, userSortDescending],
   );
   const denied = useMemo(
     () => sortUsersByUserColumn(
-      filteredUsers.filter(u => listingStateOf(u) === JobProfileListingState.DENIED),
+      filteredUsers.filter(u => approvalStateOf(u) === JobProfileState.DENIED),
       userSortDescending,
     ),
     [filteredUsers, userSortDescending],
   );
-  const notListed = useMemo(
+  const notApproved = useMemo(
     () => sortUsersByUserColumn(
-      filteredUsers.filter(u => listingStateOf(u) === JobProfileListingState.NOT_LISTED),
+      filteredUsers.filter(u => approvalStateOf(u) === JobProfileState.NOT_APPROVED),
       userSortDescending,
     ),
     [filteredUsers, userSortDescending],
   );
   const approved = useMemo(
     () => sortUsersByUserColumn(
-      filteredUsers.filter(u => listingStateOf(u) === JobProfileListingState.APPROVED),
+      filteredUsers.filter(u => approvalStateOf(u) === JobProfileState.APPROVED),
       userSortDescending,
     ),
     [filteredUsers, userSortDescending],
@@ -263,38 +263,38 @@ export const JobListingEditor = () => {
           )}
 
           <div className="flex min-w-0 flex-col gap-6">
-            <JobListingTableSection
-              title="Listing pending"
+            <JobProfileStateTableSection
+              title="Approval pending"
               items={pending}
-              draftListingByUsername={draftListingByUsername}
-              onDraftStateChange={handleDraftListingStateChanged}
+              draftStateByUsername={draftStateByUsername}
+              onDraftStateChange={handleDratStateChanged}
               onSave={handleSaveUserClicked}
               userSortDescending={userSortDescending}
               onUserSortClick={handleUserSortClick}
             />
-            <JobListingTableSection
+            <JobProfileStateTableSection
               title="Denied"
               items={denied}
-              draftListingByUsername={draftListingByUsername}
-              onDraftStateChange={handleDraftListingStateChanged}
+              draftStateByUsername={draftStateByUsername}
+              onDraftStateChange={handleDratStateChanged}
               onSave={handleSaveUserClicked}
               userSortDescending={userSortDescending}
               onUserSortClick={handleUserSortClick}
             />
-            <JobListingTableSection
-              title="Not listed"
-              items={notListed}
-              draftListingByUsername={draftListingByUsername}
-              onDraftStateChange={handleDraftListingStateChanged}
+            <JobProfileStateTableSection
+              title="Not approved"
+              items={notApproved}
+              draftStateByUsername={draftStateByUsername}
+              onDraftStateChange={handleDratStateChanged}
               onSave={handleSaveUserClicked}
               userSortDescending={userSortDescending}
               onUserSortClick={handleUserSortClick}
             />
-            <JobListingTableSection
+            <JobProfileStateTableSection
               title="Approved"
               items={approved}
-              draftListingByUsername={draftListingByUsername}
-              onDraftStateChange={handleDraftListingStateChanged}
+              draftStateByUsername={draftStateByUsername}
+              onDraftStateChange={handleDratStateChanged}
               onSave={handleSaveUserClicked}
               userSortDescending={userSortDescending}
               onUserSortClick={handleUserSortClick}

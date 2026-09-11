@@ -56,7 +56,7 @@ export function JobsTermsAddendumText() {
       <ul className="list-disc space-y-1 pl-5">
         <li>Du benötigst einen FSMeet-Account und musst diese Zusatzvereinbarung akzeptieren.</li>
         <li>Für die Nutzung ist ein kostenpflichtiges Monatsabonnement erforderlich (Zahlungsabwicklung über Stripe).</li>
-        <li>Eine öffentliche Listung kann zusätzliche Freigaben durch FSMeet voraussetzen (z.&nbsp;B. Listungsstatus).</li>
+        <li>Eine öffentliche Listung kann zusätzliche Freigaben durch FSMeet voraussetzen.</li>
         <li>Du bist verpflichtet, wahrheitsgemäße und aktuelle Angaben zu machen und deine Kontaktdaten aktuell zu halten.</li>
       </ul>
 
@@ -176,7 +176,7 @@ export function JobsTermsAddendumText() {
       <ul className="list-disc space-y-1 pl-5">
         <li>You need an FSMeet account and must accept this addendum.</li>
         <li>A paid monthly subscription is required (payments processed via Stripe).</li>
-        <li>Public listing may require additional approval by FSMeet (e.g. listing status).</li>
+        <li>Public listing may require additional approval by FSMeet.</li>
         <li>You must provide truthful, up-to-date information and keep your contact details current.</li>
       </ul>
 

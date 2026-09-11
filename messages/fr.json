@@ -119,8 +119,8 @@
     "tabJobsListingStatus": "Statut",
     "tabJobsViewProfile": "Profil FSActs",
     "tabJobBtnViewProfile": "Voir",
-    "tabJobBtnRequestListing": "Demander la publication",
-    "toastJobListingRequestSuccess": "Demande de publication envoyée.",
+    "tabJobBtnRequestApproval": "Demander l'approbation",
+    "toastJobProfileStateRequestSuccess": "Demande de publication envoyée.",
     "tabJobsSectionTerms": "Jobs addendum",
     "tabJobsTerms": "Read addendum",
     "tabJobBtnReadTerms": "Lire",
@@ -877,7 +877,10 @@
     "accordionItemBattleStatisticsAmountWins": "Victoires",
     "accordionItemBattleStatisticsWinLossRatio": "Ratio victoires/défaites",
     "accordionItemCompetitionHistory": "Historique des compétitions",
-    "accordionItemCompetitionHistoryNoParticipations": "Pas encore de participations."
+    "accordionItemCompetitionHistoryNoParticipations": "Pas encore de participations.",
+    "btnBookViaFreestyleActs": "Réserver via FreestyleActs",
+    "competitionHistoryShowAll": "Tout afficher ({count})",
+    "competitionHistoryShowLess": "Afficher moins"
   },
   "/voice": {
     "pageTitle": "Community Voice",

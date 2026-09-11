@@ -119,8 +119,8 @@
     "tabJobsListingStatus": "状态",
     "tabJobsViewProfile": "FSActs 资料",
     "tabJobBtnViewProfile": "查看",
-    "tabJobBtnRequestListing": "申请上架",
-    "toastJobListingRequestSuccess": "上架申请已提交。",
+    "tabJobBtnRequestApproval": "申请审批",
+    "toastJobProfileStateRequestSuccess": "上架申请已提交。",
     "tabJobsSectionTerms": "Jobs addendum",
     "tabJobsTerms": "Read addendum",
     "tabJobBtnReadTerms": "阅读",
@@ -895,7 +895,10 @@
     "accordionItemBattleStatisticsAmountWins": "胜利",
     "accordionItemBattleStatisticsWinLossRatio": "胜率",
     "accordionItemCompetitionHistory": "参赛历史",
-    "accordionItemCompetitionHistoryNoParticipations": "暂无参赛记录。"
+    "accordionItemCompetitionHistoryNoParticipations": "暂无参赛记录。",
+    "btnBookViaFreestyleActs": "通过 FreestyleActs 预订",
+    "competitionHistoryShowAll": "显示全部 ({count})",
+    "competitionHistoryShowLess": "收起"
   },
   "/voice": {
     "pageTitle": "社区声音",

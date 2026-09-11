@@ -119,8 +119,8 @@
     "tabJobsListingStatus": "ステータス",
     "tabJobsViewProfile": "FSActsプロフィール",
     "tabJobBtnViewProfile": "表示",
-    "tabJobBtnRequestListing": "掲載を申請",
-    "toastJobListingRequestSuccess": "掲載申請を送信しました。",
+    "tabJobBtnRequestApproval": "承認を申請",
+    "toastJobProfileStateRequestSuccess": "掲載申請を送信しました。",
     "tabJobsSectionTerms": "Jobs addendum",
     "tabJobsTerms": "Read addendum",
     "tabJobBtnReadTerms": "読む",
@@ -895,7 +895,10 @@
     "accordionItemBattleStatisticsAmountWins": "勝利数",
     "accordionItemBattleStatisticsWinLossRatio": "勝率",
     "accordionItemCompetitionHistory": "大会履歴",
-    "accordionItemCompetitionHistoryNoParticipations": "参加履歴はまだありません。"
+    "accordionItemCompetitionHistoryNoParticipations": "参加履歴はまだありません。",
+    "btnBookViaFreestyleActs": "FreestyleActs で予約",
+    "competitionHistoryShowAll": "すべて表示 ({count})",
+    "competitionHistoryShowLess": "少なく表示"
   },
   "/voice": {
     "pageTitle": "コミュニティボイス",
