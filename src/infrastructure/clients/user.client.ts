@@ -263,8 +263,6 @@ export async function updateUser(user: User, session: Session | null): Promise<U
       user.postCode,
       user.city,
       user.exposeLocation,
-      user.locLatitude,
-      user.locLongitude,
       user.jobAcceptTerms,
       user.jobShowExperience,
       user.jobCarAvailable,

@@ -11,8 +11,6 @@ export class UpdatePrivateUserInfoBodyDto {
   postCode: string;
   city: string;
   exposeLocation: boolean;
-  locLatitude: number;
-  locLongitude: number;
   jobAcceptTerms: boolean;
   jobShowExperience: ShowExperience;
   jobCarAvailable: boolean;
@@ -31,8 +29,6 @@ export class UpdatePrivateUserInfoBodyDto {
     postCode: string,
     city: string,
     exposeLocation: boolean,
-    locLatitude: number,
-    locLongitude: number,
     jobAcceptTerms: boolean,
     jobShowExperience: ShowExperience,
     jobCarAvailable: boolean,
@@ -50,8 +46,6 @@ export class UpdatePrivateUserInfoBodyDto {
     this.postCode = postCode;
     this.city = city;
     this.exposeLocation = exposeLocation;
-    this.locLatitude = locLatitude;
-    this.locLongitude = locLongitude;
     this.jobAcceptTerms = jobAcceptTerms;
     this.jobShowExperience = jobShowExperience;
     this.jobCarAvailable = jobCarAvailable;
