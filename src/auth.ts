@@ -10,8 +10,6 @@ import {
   routeFeedback,
   routeHome,
   routeLogin,
-  routeVoiceCreatePoll,
-  routeVoiceManage,
   routeWffaOverview,
 } from './domain/constants/routes';
 import { AdministrativeUser } from './domain/enums/administrative-user';
@@ -70,8 +68,6 @@ const config = {
         pathname.startsWith(routeFeedback) ||
         pathname.startsWith(routeEventSubs) ||
         pathname.startsWith(routeEventsCreate) ||
-        pathname.startsWith(routeVoiceManage) ||
-        pathname.startsWith(routeVoiceCreatePoll) ||
         pathname.startsWith(routeWffaOverview)
       ) {
         return !!auth;

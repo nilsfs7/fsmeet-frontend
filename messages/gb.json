@@ -901,26 +901,6 @@
     "competitionHistoryShowAll": "Show all ({count})",
     "competitionHistoryShowLess": "Show less"
   },
-  "/voice": {
-    "pageTitle": "Community Voice",
-    "carouselNoData": "No data",
-    "carouselBtnVote": "Vote",
-    "carouselBtnVotingEnded": "Voting ended",
-    "carouselBtnVotingExcluded": "Excluded",
-    "carouselTotalVotes": "Total votes",
-    "carouselDlgPollDescription": "Description",
-    "btnCopyUrlToast": "Poll URL copied to clipboard.",
-    "btnCopyUrlToolTip": "Copy poll URL",
-    "btnManagePolls": "My Polls"
-  },
-  "/voice/manage": {
-    "pageTitle": "Manage Polls",
-    "btnCreatePoll": "Create Poll"
-  },
-  "/voice/manage/create": {
-    "pageTitle": "Create Poll",
-    "btnCreate": "Create"
-  },
   "global/data-states": {
     "errorTitle": "Something went wrong",
     "loadFailed": "The data could not be loaded. Check your connection and try again.",
@@ -1085,33 +1065,6 @@
     "feeAccommodations": "Accommodations",
     "chbDonation": "1% donation to FSMeet",
     "feeTotal": "Total"
-  },
-  "global/components/poll-editor": {
-    "inputQuestion": "Question",
-    "inputDescription": "Context (optional)",
-    "inputOption": "Option",
-    "chbDeadlineEnabled": "Deadline",
-    "dateDeadline": "Deadline Date",
-    "sectionTargetGroup": "Target group",
-    "cbCountry": "Country"
-  },
-  "global/components/poll-list": {
-    "dlgAccountDeletePollTitle": "Delete poll",
-    "dlgAccountDeletePollText": "Are you sure?",
-    "inputSearchPlaceholder": "Search poll...",
-    "cbColumns": "Columns",
-    "tblColumnHeaderActions": "Edit",
-    "tblColumnHeaderUsername": "User",
-    "tblColumnHeaderName": "Questioner",
-    "tblColumnHeaderQuestion": "Question",
-    "tblColumnHeaderCreationDate": "Published",
-    "tblCreationDateDays": "days",
-    "tblCreationDateToday": "today",
-    "tblColumnHeaderTotalRatingScore": "Score",
-    "tblNoData": "No data",
-    "navCurrentPage1": "Page",
-    "navCurrentPage2": "of",
-    "navRowsPerPage": "Rows per page"
   },
   "global/components/profile-menu": {
     "login": "Login",

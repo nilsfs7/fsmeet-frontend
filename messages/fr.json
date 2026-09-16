@@ -882,26 +882,6 @@
     "competitionHistoryShowAll": "Tout afficher ({count})",
     "competitionHistoryShowLess": "Afficher moins"
   },
-  "/voice": {
-    "pageTitle": "Community Voice",
-    "carouselNoData": "Aucune donnée",
-    "carouselBtnVote": "Voter",
-    "carouselBtnVotingEnded": "Vote terminé",
-    "carouselBtnVotingExcluded": "Exclu",
-    "carouselTotalVotes": "Nombre total de votes",
-    "carouselDlgPollDescription": "Description",
-    "btnCopyUrlToast": "URL du sondage copiée dans le presse-papiers.",
-    "btnCopyUrlToolTip": "Copier l'URL du sondage",
-    "btnManagePolls": "Mes sondages"
-  },
-  "/voice/manage": {
-    "pageTitle": "Gérer Sondages",
-    "btnCreatePoll": "Créer un sondage"
-  },
-  "/voice/manage/create": {
-    "pageTitle": "Créer un sondage",
-    "btnCreate": "Créer"
-  },
   "global/data-states": {
     "errorTitle": "Une erreur s'est produite",
     "loadFailed": "Impossible de charger les données. Vérifiez la connexion et réessayez.",
@@ -1066,33 +1046,6 @@
     "feeAccommodations": "Hébergements",
     "chbDonation": "Don de 1 % à FSMeet",
     "feeTotal": "Somme totale"
-  },
-  "global/components/poll-editor": {
-    "inputQuestion": "Question",
-    "inputDescription": "Contexte (facultatif)",
-    "inputOption": "Option",
-    "chbDeadlineEnabled": "Date limite",
-    "dateDeadline": "Date d’échéance",
-    "sectionTargetGroup": "Groupe cible",
-    "cbCountry": "Pays"
-  },
-  "global/components/poll-list": {
-    "dlgAccountDeletePollTitle": "Supprimer le sondage",
-    "dlgAccountDeletePollText": "Es-tu sûr?",
-    "inputSearchPlaceholder": "Recherche de sondage...",
-    "cbColumns": "Colonnes",
-    "tblColumnHeaderActions": "Modifier",
-    "tblColumnHeaderUsername": "Utilisateur",
-    "tblColumnHeaderName": "Questionneur",
-    "tblColumnHeaderQuestion": "Question",
-    "tblColumnHeaderCreationDate": "Publié",
-    "tblCreationDateDays": "jours",
-    "tblCreationDateToday": "aujourd'hui",
-    "tblColumnHeaderTotalRatingScore": "Score",
-    "tblNoData": "Aucune donnée",
-    "navCurrentPage1": "Page",
-    "navCurrentPage2": "de",
-    "navRowsPerPage": "Lignes par page"
   },
   "global/components/profile-menu": {
     "login": "Se connecter",

@@ -900,26 +900,6 @@
     "competitionHistoryShowAll": "すべて表示 ({count})",
     "competitionHistoryShowLess": "少なく表示"
   },
-  "/voice": {
-    "pageTitle": "コミュニティボイス",
-    "carouselNoData": "データがありません",
-    "carouselBtnVote": "投票",
-    "carouselBtnVotingEnded": "投票終了",
-    "carouselBtnVotingExcluded": "対象外",
-    "carouselTotalVotes": "投票数合計",
-    "carouselDlgPollDescription": "説明",
-    "btnCopyUrlToast": "投票URLをクリップボードにコピーしました。",
-    "btnCopyUrlToolTip": "投票URLをコピー",
-    "btnManagePolls": "自分の投票"
-  },
-  "/voice/manage": {
-    "pageTitle": "投票を管理",
-    "btnCreatePoll": "投票を作成"
-  },
-  "/voice/manage/create": {
-    "pageTitle": "投票を作成",
-    "btnCreate": "作成"
-  },
   "global/data-states": {
     "errorTitle": "エラーが発生しました",
     "loadFailed": "データを読み込めませんでした。接続を確認して再試行してください。",
@@ -1084,33 +1064,6 @@
     "feeAccommodations": "宿泊",
     "chbDonation": "FSMeetへの1%寄付",
     "feeTotal": "合計"
-  },
-  "global/components/poll-editor": {
-    "inputQuestion": "質問",
-    "inputDescription": "背景（任意）",
-    "inputOption": "選択肢",
-    "chbDeadlineEnabled": "締切",
-    "dateDeadline": "締切日",
-    "sectionTargetGroup": "対象グループ",
-    "cbCountry": "国"
-  },
-  "global/components/poll-list": {
-    "dlgAccountDeletePollTitle": "投票を削除",
-    "dlgAccountDeletePollText": "本当に削除しますか？",
-    "inputSearchPlaceholder": "投票を検索...",
-    "cbColumns": "列",
-    "tblColumnHeaderActions": "編集",
-    "tblColumnHeaderUsername": "ユーザー",
-    "tblColumnHeaderName": "投稿者",
-    "tblColumnHeaderQuestion": "質問",
-    "tblColumnHeaderCreationDate": "公開日",
-    "tblCreationDateDays": "日前",
-    "tblCreationDateToday": "今日",
-    "tblColumnHeaderTotalRatingScore": "スコア",
-    "tblNoData": "データがありません",
-    "navCurrentPage1": "ページ",
-    "navCurrentPage2": "の",
-    "navRowsPerPage": "1ページあたりの行数"
   },
   "global/components/profile-menu": {
     "login": "ログイン",

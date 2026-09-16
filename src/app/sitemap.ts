@@ -13,7 +13,6 @@ import {
   routeStatistics,
   routeTermsOfService,
   routeUsers,
-  routeVoice,
 } from '@/domain/constants/routes';
 import { EventState } from '@/domain/enums/event-state';
 import { UserType } from '@/domain/enums/user-type';
@@ -26,7 +25,6 @@ const STATIC_PATHS: { path: string; changeFrequency: MetadataRoute.Sitemap[numbe
   { path: routeEvents, changeFrequency: 'daily', priority: 0.9 },
   { path: routeUsers, changeFrequency: 'daily', priority: 0.8 },
   { path: routeMap, changeFrequency: 'weekly', priority: 0.7 },
-  { path: routeVoice, changeFrequency: 'weekly', priority: 0.6 },
   { path: routeAbout, changeFrequency: 'monthly', priority: 0.5 },
   { path: routeContributors, changeFrequency: 'monthly', priority: 0.4 },
   { path: routeDonate, changeFrequency: 'monthly', priority: 0.4 },

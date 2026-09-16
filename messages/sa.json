@@ -900,26 +900,6 @@
     "competitionHistoryShowAll": "عرض الكل ({count})",
     "competitionHistoryShowLess": "عرض أقل"
   },
-  "/voice": {
-    "pageTitle": "صوت المجتمع",
-    "carouselNoData": "لا توجد بيانات",
-    "carouselBtnVote": "تصويت",
-    "carouselBtnVotingEnded": "انتهى التصويت",
-    "carouselBtnVotingExcluded": "مستبعد",
-    "carouselTotalVotes": "إجمالي الأصوات",
-    "carouselDlgPollDescription": "الوصف",
-    "btnCopyUrlToast": "تم نسخ رابط الاستطلاع إلى الحافظة.",
-    "btnCopyUrlToolTip": "نسخ رابط الاستطلاع",
-    "btnManagePolls": "استطلاعاتي"
-  },
-  "/voice/manage": {
-    "pageTitle": "إدارة الاستطلاعات",
-    "btnCreatePoll": "إنشاء استطلاع"
-  },
-  "/voice/manage/create": {
-    "pageTitle": "إنشاء استطلاع",
-    "btnCreate": "إنشاء"
-  },
   "global/data-states": {
     "errorTitle": "حدث خطأ",
     "loadFailed": "تعذر تحميل البيانات. تحقق من الاتصال وحاول مرة أخرى.",
@@ -1084,33 +1064,6 @@
     "feeAccommodations": "الإقامات",
     "chbDonation": "تبرع 1% لـ FSMeet",
     "feeTotal": "الإجمالي"
-  },
-  "global/components/poll-editor": {
-    "inputQuestion": "السؤال",
-    "inputDescription": "سياق (اختياري)",
-    "inputOption": "خيار",
-    "chbDeadlineEnabled": "الموعد النهائي",
-    "dateDeadline": "الموعد النهائي",
-    "sectionTargetGroup": "الفئة المستهدفة",
-    "cbCountry": "البلد"
-  },
-  "global/components/poll-list": {
-    "dlgAccountDeletePollTitle": "حذف الاستطلاع",
-    "dlgAccountDeletePollText": "هل أنت متأكد؟",
-    "inputSearchPlaceholder": "ابحث عن استطلاع...",
-    "cbColumns": "الأعمدة",
-    "tblColumnHeaderActions": "تعديل",
-    "tblColumnHeaderUsername": "المستخدم",
-    "tblColumnHeaderName": "صاحب السؤال",
-    "tblColumnHeaderQuestion": "السؤال",
-    "tblColumnHeaderCreationDate": "تاريخ النشر",
-    "tblCreationDateDays": "أيام",
-    "tblCreationDateToday": "اليوم",
-    "tblColumnHeaderTotalRatingScore": "النتيجة",
-    "tblNoData": "لا توجد بيانات",
-    "navCurrentPage1": "صفحة",
-    "navCurrentPage2": "من",
-    "navRowsPerPage": "عدد الصفوف لكل صفحة"
   },
   "global/components/profile-menu": {
     "login": "تسجيل الدخول",
