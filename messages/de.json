@@ -882,26 +882,6 @@
     "competitionHistoryShowAll": "Alle anzeigen ({count})",
     "competitionHistoryShowLess": "Weniger anzeigen"
   },
-  "/voice": {
-    "pageTitle": "Community Voice",
-    "carouselNoData": "Keine Daten",
-    "carouselBtnVote": "Abstimmen",
-    "carouselBtnVotingEnded": "Umfrage beendet",
-    "carouselBtnVotingExcluded": "Ausgeschlossen",
-    "carouselTotalVotes": "Stimmen gesamt",
-    "carouselDlgPollDescription": "Beschreibung",
-    "btnCopyUrlToast": "Umfrage-URL kopiert",
-    "btnCopyUrlToolTip": "Kopiere Umfrage-URL",
-    "btnManagePolls": "Meine Umfragen"
-  },
-  "/voice/manage": {
-    "pageTitle": "Umfragen verwalten",
-    "btnCreatePoll": "Umfrage erstellen"
-  },
-  "/voice/manage/create": {
-    "pageTitle": "Umfrage erstellen",
-    "btnCreate": "Erstellen"
-  },
   "global/data-states": {
     "errorTitle": "Etwas ist schiefgelaufen",
     "loadFailed": "Daten konnten nicht geladen werden. Bitte Verbindung prüfen und erneut versuchen.",
@@ -1066,33 +1046,6 @@
     "feeAccommodations": "Unterkünfte)",
     "chbDonation": "1% Spende an FSMeet",
     "feeTotal": "Summe"
-  },
-  "global/components/poll-editor": {
-    "inputQuestion": "Frage",
-    "inputDescription": "Kontext (optional)",
-    "inputOption": "Option",
-    "chbDeadlineEnabled": "Deadline",
-    "dateDeadline": "Frist-Datum",
-    "sectionTargetGroup": "Zielgruppe",
-    "cbCountry": "Land"
-  },
-  "global/components/poll-list": {
-    "dlgAccountDeletePollTitle": "Umfrage löschen",
-    "dlgAccountDeletePollText": "Bist du sicher?",
-    "inputSearchPlaceholder": "Suche Frage...",
-    "cbColumns": "Spalten",
-    "tblColumnHeaderActions": "Bearbeiten",
-    "tblColumnHeaderUsername": "Nutzer",
-    "tblColumnHeaderName": "Fragesteller",
-    "tblColumnHeaderQuestion": "Frage",
-    "tblColumnHeaderCreationDate": "Veröffentlicht",
-    "tblCreationDateDays": "Tage",
-    "tblCreationDateToday": "heute",
-    "tblColumnHeaderTotalRatingScore": "Wertung",
-    "tblNoData": "Keine Daten",
-    "navCurrentPage1": "Seite",
-    "navCurrentPage2": "von",
-    "navRowsPerPage": "Zeilen pro Seite"
   },
   "global/components/profile-menu": {
     "login": "Anmelden",

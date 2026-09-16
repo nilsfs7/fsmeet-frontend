@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Header } from '@/components/header';
 import { imgAbout, imgCommunity, imgFreestyler, imgMegaphone, imgProfileSettings, imgWorld } from '@/domain/constants/images';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import { routeAbout, routeAdminOverview, routeEvents, routeEventsCreate, routeHome, routeMap, routeUsers, routeVoice, routeWffaOverview } from '@/domain/constants/routes';
+import { routeAbout, routeAdminOverview, routeEvents, routeHome, routeMap, routeUsers, routeWffaOverview } from '@/domain/constants/routes';
 import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { auth } from '@/auth';
 import { EventsCarousel } from './components/events-carousel';
@@ -19,6 +19,7 @@ import PageTitle from '@/components/page-title';
 import { PageInset } from '@/components/layout/page-inset';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildOrganizationJsonLd } from '@/lib/json-ld';
+import { getVoiceBaseUrl } from '@/lib/voice-url';
 
 export default async function Home() {
   const [t, session, upcomingEvents, ongoingEvents, recentEvents, fetauredEvents] = await Promise.all([
@@ -67,7 +68,7 @@ export default async function Home() {
 
           <NavigationItem targetRoute={routeUsers} image={imgCommunity} label={t('navCommunity')} />
 
-          <NavigationItem targetRoute={routeVoice} image={imgMegaphone} label={t('navVoice')} />
+          <NavigationItem targetRoute={getVoiceBaseUrl()} image={imgMegaphone} label={t('navVoice')} />
         </div>
 
         {session?.user?.username === AdministrativeUser.ADMIN && <NavigationItem targetRoute={routeAdminOverview} image={imgProfileSettings} label={t('navAdminOverview')} />}

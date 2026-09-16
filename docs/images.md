@@ -105,14 +105,6 @@ Community
 
 - [Hourglass end](https://www.iconfinder.com/icons/8541951/hourglass_end_icon)
 
-- [Arrow Down](https://www.iconfinder.com/icons/211613/a_down_arrow_icon)
-
-- [Arrow Down Outline](https://www.iconfinder.com/icons/9024254/arrow_fat_down_light_icon)
-
-- [Arrow Up](https://www.iconfinder.com/icons/211622/a_up_arrow_icon)
-
-- [Arrow Up Outline](https://www.iconfinder.com/icons/9024256/arrow_fat_up_light_icon)
-
 Misc
 
 - [About](https://www.iconfinder.com/icons/9041227/info_circle_fill_icon)

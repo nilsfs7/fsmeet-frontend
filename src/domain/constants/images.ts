@@ -71,10 +71,6 @@ export const imgWorld = '/map/world.svg';
 export const imgCommunity = '/community/people.svg';
 
 export const imgMegaphone = '/voice/megaphone.svg';
-export const imgArrowDown = '/voice/arrow_down.svg';
-export const imgArrowDownOutline = '/voice/arrow_down_outline.svg';
-export const imgArrowUp = '/voice/arrow_up.svg';
-export const imgArrowUpOutline = '/voice/arrow_up_outline.svg';
 export const imgHourglassStart = '/voice/hourglass_start.svg';
 export const imgHourglassEnd = '/voice/hourglass_end.svg';
 

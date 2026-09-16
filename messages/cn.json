@@ -900,26 +900,6 @@
     "competitionHistoryShowAll": "显示全部 ({count})",
     "competitionHistoryShowLess": "收起"
   },
-  "/voice": {
-    "pageTitle": "社区声音",
-    "carouselNoData": "暂无数据",
-    "carouselBtnVote": "投票",
-    "carouselBtnVotingEnded": "投票已结束",
-    "carouselBtnVotingExcluded": "已排除",
-    "carouselTotalVotes": "总票数",
-    "carouselDlgPollDescription": "描述",
-    "btnCopyUrlToast": "投票链接已复制到剪贴板。",
-    "btnCopyUrlToolTip": "复制投票链接",
-    "btnManagePolls": "我的投票"
-  },
-  "/voice/manage": {
-    "pageTitle": "管理投票",
-    "btnCreatePoll": "创建投票"
-  },
-  "/voice/manage/create": {
-    "pageTitle": "创建投票",
-    "btnCreate": "创建"
-  },
   "global/data-states": {
     "errorTitle": "出错了",
     "loadFailed": "数据无法加载。请检查网络后重试。",
@@ -1084,33 +1064,6 @@
     "feeAccommodations": "住宿",
     "chbDonation": "向 FSMeet 捐赠 1%",
     "feeTotal": "总计"
-  },
-  "global/components/poll-editor": {
-    "inputQuestion": "问题",
-    "inputDescription": "背景（可选）",
-    "inputOption": "选项",
-    "chbDeadlineEnabled": "截止时间",
-    "dateDeadline": "截止日期",
-    "sectionTargetGroup": "目标群体",
-    "cbCountry": "国家"
-  },
-  "global/components/poll-list": {
-    "dlgAccountDeletePollTitle": "删除投票",
-    "dlgAccountDeletePollText": "你确定吗？",
-    "inputSearchPlaceholder": "搜索投票…",
-    "cbColumns": "列",
-    "tblColumnHeaderActions": "编辑",
-    "tblColumnHeaderUsername": "用户",
-    "tblColumnHeaderName": "提问者",
-    "tblColumnHeaderQuestion": "问题",
-    "tblColumnHeaderCreationDate": "发布",
-    "tblCreationDateDays": "天",
-    "tblCreationDateToday": "今天",
-    "tblColumnHeaderTotalRatingScore": "得分",
-    "tblNoData": "暂无数据",
-    "navCurrentPage1": "第",
-    "navCurrentPage2": "页，共",
-    "navRowsPerPage": "每页行数"
   },
   "global/components/profile-menu": {
     "login": "登录",

@@ -882,26 +882,6 @@
     "competitionHistoryShowAll": "Mostrar todos ({count})",
     "competitionHistoryShowLess": "Mostrar menos"
   },
-  "/voice": {
-    "pageTitle": "Community Voice",
-    "carouselNoData": "Sin datos",
-    "carouselBtnVote": "Votar",
-    "carouselBtnVotingEnded": "Votación terminada",
-    "carouselBtnVotingExcluded": "Excluido",
-    "carouselTotalVotes": "Votos totales",
-    "carouselDlgPollDescription": "Descripción",
-    "btnCopyUrlToast": "URL de la encuesta copiada al portapapeles.",
-    "btnCopyUrlToolTip": "Copiar la URL de la encuesta",
-    "btnManagePolls": "Mis encuestas"
-  },
-  "/voice/manage": {
-    "pageTitle": "Gestionar encuestas",
-    "btnCreatePoll": "Crear encuesta"
-  },
-  "/voice/manage/create": {
-    "pageTitle": "Crear encuesta",
-    "btnCreate": "Crear"
-  },
   "global/data-states": {
     "errorTitle": "Algo salió mal",
     "loadFailed": "No se pudieron cargar los datos. Comprueba la conexión e inténtalo de nuevo.",
@@ -1066,33 +1046,6 @@
     "feeAccommodations": "Alojamientos",
     "chbDonation": "Donación del 1% a FSMeet",
     "feeTotal": "Suma total"
-  },
-  "global/components/poll-editor": {
-    "inputQuestion": "Pregunta",
-    "inputDescription": "Contexto (opcional)",
-    "inputOption": "Opción",
-    "chbDeadlineEnabled": "Fecha límite",
-    "dateDeadline": "Fecha límite",
-    "sectionTargetGroup": "Grupo objetivo",
-    "cbCountry": "País"
-  },
-  "global/components/poll-list": {
-    "dlgAccountDeletePollTitle": "Eliminar encuesta",
-    "dlgAccountDeletePollText": "¿Está seguro?",
-    "inputSearchPlaceholder": "Buscar...",
-    "cbColumns": "Columnas",
-    "tblColumnHeaderActions": "Editar",
-    "tblColumnHeaderUsername": "Usuarios",
-    "tblColumnHeaderName": "Preguntador",
-    "tblColumnHeaderQuestion": "Pregunta",
-    "tblColumnHeaderCreationDate": "Publicado",
-    "tblCreationDateDays": "días",
-    "tblCreationDateToday": "hoy",
-    "tblColumnHeaderTotalRatingScore": "Puntuación",
-    "tblNoData": "Sin datos",
-    "navCurrentPage1": "Página",
-    "navCurrentPage2": "de",
-    "navRowsPerPage": "Líneas por página"
   },
   "global/components/profile-menu": {
     "login": "Conectarse",

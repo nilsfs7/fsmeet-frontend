@@ -900,26 +900,6 @@
     "competitionHistoryShowAll": "Tunjuk semua ({count})",
     "competitionHistoryShowLess": "Tunjuk kurang"
   },
-  "/voice": {
-    "pageTitle": "Suara Komuniti",
-    "carouselNoData": "Tiada data",
-    "carouselBtnVote": "Undi",
-    "carouselBtnVotingEnded": "Undian tamat",
-    "carouselBtnVotingExcluded": "Dikecualikan",
-    "carouselTotalVotes": "Jumlah undi",
-    "carouselDlgPollDescription": "Penerangan",
-    "btnCopyUrlToast": "URL undian telah disalin ke papan klip.",
-    "btnCopyUrlToolTip": "Salin URL undian",
-    "btnManagePolls": "Undian Saya"
-  },
-  "/voice/manage": {
-    "pageTitle": "Urus Undian",
-    "btnCreatePoll": "Cipta Undian"
-  },
-  "/voice/manage/create": {
-    "pageTitle": "Cipta Undian",
-    "btnCreate": "Cipta"
-  },
   "global/data-states": {
     "errorTitle": "Ralat berlaku",
     "loadFailed": "Data tidak dapat dimuatkan. Semak sambungan dan cuba lagi.",
@@ -1084,33 +1064,6 @@
     "feeAccommodations": "Penginapan",
     "chbDonation": "Derma 1% kepada FSMeet",
     "feeTotal": "Jumlah"
-  },
-  "global/components/poll-editor": {
-    "inputQuestion": "Soalan",
-    "inputDescription": "Konteks (pilihan)",
-    "inputOption": "Pilihan",
-    "chbDeadlineEnabled": "Tarikh akhir",
-    "dateDeadline": "Tarikh akhir",
-    "sectionTargetGroup": "Kumpulan sasaran",
-    "cbCountry": "Negara"
-  },
-  "global/components/poll-list": {
-    "dlgAccountDeletePollTitle": "Padam undian",
-    "dlgAccountDeletePollText": "Adakah anda pasti?",
-    "inputSearchPlaceholder": "Cari undian...",
-    "cbColumns": "Lajur",
-    "tblColumnHeaderActions": "Edit",
-    "tblColumnHeaderUsername": "Pengguna",
-    "tblColumnHeaderName": "Penanya",
-    "tblColumnHeaderQuestion": "Soalan",
-    "tblColumnHeaderCreationDate": "Diterbitkan",
-    "tblCreationDateDays": "hari",
-    "tblCreationDateToday": "hari ini",
-    "tblColumnHeaderTotalRatingScore": "Skor",
-    "tblNoData": "Tiada data",
-    "navCurrentPage1": "Halaman",
-    "navCurrentPage2": "daripada",
-    "navRowsPerPage": "Baris setiap halaman"
   },
   "global/components/profile-menu": {
     "login": "Log masuk",

@@ -900,26 +900,6 @@
     "competitionHistoryShowAll": "सभी दिखाएँ ({count})",
     "competitionHistoryShowLess": "कम दिखाएँ"
   },
-  "/voice": {
-    "pageTitle": "कम्युनिटी वॉयस",
-    "carouselNoData": "कोई डेटा नहीं",
-    "carouselBtnVote": "वोट करें",
-    "carouselBtnVotingEnded": "वोटिंग समाप्त",
-    "carouselBtnVotingExcluded": "बहिष्कृत",
-    "carouselTotalVotes": "कुल वोट",
-    "carouselDlgPollDescription": "विवरण",
-    "btnCopyUrlToast": "पोल URL क्लिपबोर्ड पर कॉपी हो गया।",
-    "btnCopyUrlToolTip": "पोल URL कॉपी करें",
-    "btnManagePolls": "मेरे पोल्स"
-  },
-  "/voice/manage": {
-    "pageTitle": "पोल्स प्रबंधित करें",
-    "btnCreatePoll": "पोल बनाएं"
-  },
-  "/voice/manage/create": {
-    "pageTitle": "पोल बनाएं",
-    "btnCreate": "बनाएं"
-  },
   "global/data-states": {
     "errorTitle": "कुछ गलत हो गया",
     "loadFailed": "डेटा लोड नहीं हो सका। कृपया कनेक्शन जांचें और पुनः प्रयास करें।",
@@ -1084,33 +1064,6 @@
     "feeAccommodations": "आवास",
     "chbDonation": "FSMeet को 1% दान",
     "feeTotal": "कुल"
-  },
-  "global/components/poll-editor": {
-    "inputQuestion": "प्रश्न",
-    "inputDescription": "संदर्भ (वैकल्पिक)",
-    "inputOption": "विकल्प",
-    "chbDeadlineEnabled": "डेडलाइन",
-    "dateDeadline": "डेडलाइन",
-    "sectionTargetGroup": "लक्षित समूह",
-    "cbCountry": "देश"
-  },
-  "global/components/poll-list": {
-    "dlgAccountDeletePollTitle": "पोल हटाएं",
-    "dlgAccountDeletePollText": "क्या आप सुनिश्चित हैं?",
-    "inputSearchPlaceholder": "पोल खोजें...",
-    "cbColumns": "कॉलम",
-    "tblColumnHeaderActions": "संपादित करें",
-    "tblColumnHeaderUsername": "यूज़र",
-    "tblColumnHeaderName": "प्रश्नकर्ता",
-    "tblColumnHeaderQuestion": "प्रश्न",
-    "tblColumnHeaderCreationDate": "प्रकाशित",
-    "tblCreationDateDays": "दिन",
-    "tblCreationDateToday": "आज",
-    "tblColumnHeaderTotalRatingScore": "स्कोर",
-    "tblNoData": "कोई डेटा नहीं",
-    "navCurrentPage1": "पेज",
-    "navCurrentPage2": "का",
-    "navRowsPerPage": "प्रति पेज पंक्तियां"
   },
   "global/components/profile-menu": {
     "login": "लॉगिन",
