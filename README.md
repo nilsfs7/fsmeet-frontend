@@ -5,12 +5,11 @@
 FSMeet is free to use and ad-free — built with love for the freestyle family.
 If you enjoy it, consider supporting with a small donation. Every bit helps keep it running!
 
-| Network                             | Donation Address                                                                                                                                                       |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bitcoin                             | [bc1qe0yujtzhgjqkmnxuta0wtrpme53et9q3st083p](https://mempool.space/address/bc1qe0yujtzhgjqkmnxuta0wtrpme53et9q3st083p)                                                 |
-| Ethereum (also Gnosis, Base, etc..) | [0x3b6F25F4E16F2Dd7208961D60a2934FBc01e2799](https://etherscan.io/address/0x3b6F25F4E16F2Dd7208961D60a2934FBc01e2799)                                                  |
-| Solana                              | [3TxQGtepnYypVYjfaDQHjSydfNnohTWJfMdGvCUMDT9i](https://solscan.io/account/3TxQGtepnYypVYjfaDQHjSydfNnohTWJfMdGvCUMDT9i)                                                |
-| Sui                                 | [0x4a0102160013f246dea5bca066c454edf0fa0464bf8c5eee6262e2990f313ef9](https://suivision.xyz/account/0x4a0102160013f246dea5bca066c454edf0fa0464bf8c5eee6262e2990f313ef9) |
+| Network                             | Donation Address                                                                                                        |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Bitcoin                             | [bc1qe0yujtzhgjqkmnxuta0wtrpme53et9q3st083p](https://mempool.space/address/bc1qe0yujtzhgjqkmnxuta0wtrpme53et9q3st083p)  |
+| Ethereum (also Gnosis, Base, etc..) | [0x3b6F25F4E16F2Dd7208961D60a2934FBc01e2799](https://etherscan.io/address/0x3b6F25F4E16F2Dd7208961D60a2934FBc01e2799)   |
+| Solana                              | [3TxQGtepnYypVYjfaDQHjSydfNnohTWJfMdGvCUMDT9i](https://solscan.io/account/3TxQGtepnYypVYjfaDQHjSydfNnohTWJfMdGvCUMDT9i) |
 
 ## Getting started for development
 

@@ -77,4 +77,3 @@ export const imgHourglassEnd = '/voice/hourglass_end.svg';
 export const imgBitcoin = '/crypto/bitcoin-btc-logo.svg';
 export const imgEthereum = '/crypto/ethereum-eth-logo.svg';
 export const imgSolana = '/crypto/solana-sol-logo.svg';
-export const imgSui = '/crypto/sui-sui-logo.svg';
