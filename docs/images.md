@@ -123,8 +123,6 @@ Donation
 
 - [Solana](https://cryptologos.cc/logos/solana-sol-logo.png?v=040)
 
-- ![Sui](https://cryptologos.cc/logos/sui-sui-logo.svg?v=040)
-
 Badges:
 
 - [Donation](https://www.iconfinder.com/icons/10559916/donor_helper_contributor_supporter_sponsor_icon)

@@ -4,7 +4,7 @@ import { CryptoCurrencyCode } from '@/domain/enums/crypto-currency-code';
 import { ActionButtonCopyToClipboard } from '@/components/common/action-button-copy-to-clipboard';
 import { truncateString } from '@/functions/string-manipulation';
 import { getTranslations } from 'next-intl/server';
-import { imgBitcoin, imgEthereum, imgSolana, imgSui } from '@/domain/constants/images';
+import { imgBitcoin, imgEthereum, imgSolana } from '@/domain/constants/images';
 
 interface ICryptoAddressProps {
   ticker: CryptoCurrencyCode;
@@ -19,8 +19,6 @@ const getLogo = (ticker: CryptoCurrencyCode): string => {
       return imgEthereum;
     case CryptoCurrencyCode.SOL:
       return imgSolana;
-    case CryptoCurrencyCode.SUI:
-      return imgSui;
 
     default:
       return '';
@@ -35,8 +33,6 @@ const getExplorerURL = (ticker: CryptoCurrencyCode, address: string): string => 
       return `https://etherscan.io/address/${address}`;
     case CryptoCurrencyCode.SOL:
       return `https://solscan.io/account/${address}`;
-    case CryptoCurrencyCode.SUI:
-      return `https://suivision.xyz/account/${address}`;
 
     default:
       return '';
