@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { User } from '@/domain/types/user';
 import { getUsers } from '@/infrastructure/clients/user.client';
-import { getEventCount, getUserCountByNationality, getUserCountByType, getUserCountOnMap, getUserGrowth } from '@/infrastructure/clients/statistic.client';
+import { getEventCount, getMobileUserCount, getUserCountByNationality, getUserCountByType, getUserCountOnMap, getUserGrowth } from '@/infrastructure/clients/statistic.client';
 import { ReadUserCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-count.response.dto';
 import Separator from '@/components/separator';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
@@ -16,6 +16,7 @@ export const Statistics = () => {
   const [userCountByType, setUserCountByType] = useState<ReadUserCountResponseDto>();
   const [userNationalityCount, setUserNationalityCount] = useState<{ countryCode: string; userCount: number }[]>([]);
   const [userCountOnMap, setUserCountOnMap] = useState<number>(0);
+  const [mobileUserCount, setMobileUserCount] = useState<number>(0);
   const [userGrowth, setUserGrowth] = useState<ReadUserGrowthResponseDto[]>([]);
   const [eventCount, setEventCount] = useState<ReadEventCountResponseDto[]>([]);
   const [hexColors, setHexColors] = useState<string[]>([]);
@@ -68,6 +69,10 @@ export const Statistics = () => {
 
     getUserCountOnMap().then(dto => {
       setUserCountOnMap(dto.userCountOnMap);
+    });
+
+    getMobileUserCount().then(dto => {
+      setMobileUserCount(dto.mobileUserCount);
     });
 
     getUserGrowth().then(dto => {
@@ -129,7 +134,11 @@ export const Statistics = () => {
 
           <div className="flex justify-end">{`Administrative users:`}</div>
           <div className="flex justify-start">{userCountByType?.userCountAdministrative}</div>
+
+          <div className="flex justify-end">{`Mobile users:`}</div>
+          <div className="flex justify-start">{mobileUserCount}</div>
         </div>
+        <div className="mt-2 text-center text-xs text-muted-foreground">{`Mobile users can have multiple mobile devices`}</div>
 
         {userCountByType?.userCountTotal && (
           <>

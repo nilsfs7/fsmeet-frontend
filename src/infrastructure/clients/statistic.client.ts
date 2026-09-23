@@ -1,5 +1,6 @@
 import { ReadEventCountResponseDto } from './dtos/event/read-event-count.response.dto';
 import { ReadUserGrowthResponseDto } from './dtos/event/read-user-growth.response.dto';
+import { ReadMobileUserCountResponseDto } from './dtos/statistics/read-mobile-user-count.response.dto';
 import { ReadTotalMatchPerformanceResponseDto } from './dtos/statistics/read-total-match-performance.response.dto';
 import { ReadUserCountOnMapResponseDto } from './dtos/statistics/read-user-count-on-map.response.dto';
 import { ReadUserCountResponseDto } from './dtos/statistics/read-user-count.response.dto';
@@ -44,6 +45,20 @@ export async function getUserCountOnMap(): Promise<ReadUserCountOnMapResponseDto
     return await response.json();
   } else {
     throw Error(`Error fetching user count on map.`);
+  }
+}
+
+export async function getMobileUserCount(): Promise<ReadMobileUserCountResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/statistics/users/count/mobile`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+  });
+
+  if (response.ok) {
+    return await response.json();
+  } else {
+    throw Error(`Error fetching mobile user count.`);
   }
 }
 
