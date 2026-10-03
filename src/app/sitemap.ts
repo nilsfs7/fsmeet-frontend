@@ -15,10 +15,13 @@ import {
   routeUsers,
 } from '@/domain/constants/routes';
 import { EventState } from '@/domain/enums/event-state';
+import { JobProfileState } from '@/domain/enums/job-profile-state';
 import { UserType } from '@/domain/enums/user-type';
+import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { getEvents } from '@/infrastructure/clients/event.client';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import { getSiteUrl } from '@/lib/site-url';
+import type { User } from '@/domain/types/user';
 
 const STATIC_PATHS: { path: string; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']; priority: number }[] = [
   { path: routeHome, changeFrequency: 'daily', priority: 1 },
@@ -37,6 +40,12 @@ const STATIC_PATHS: { path: string; changeFrequency: MetadataRoute.Sitemap[numbe
 ];
 
 const PUBLIC_EVENT_STATES = new Set<EventState>([EventState.APPROVED, EventState.ARCHIVED_PUBLIC]);
+
+function isSitemapUser(user: User): boolean {
+  if (!user.username) return false;
+  if (user.type === UserType.ADMINISTRATIVE || user.type === UserType.FAN) return false;
+  return user.verificationState === UserVerificationState.VERIFIED || user.jobProfileState === JobProfileState.APPROVED;
+}
 
 /** Revalidate sitemap at most once per hour. */
 export const revalidate = 3600;
@@ -72,8 +81,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const userEntries: MetadataRoute.Sitemap = [];
   if (usersResult.status === 'fulfilled' && Array.isArray(usersResult.value)) {
     for (const user of usersResult.value) {
-      if (!user.username) continue;
-      if (user.type === UserType.ADMINISTRATIVE || user.type === UserType.FAN) continue;
+      if (!isSitemapUser(user)) continue;
       userEntries.push({
         url: `${siteUrl}${routeUsers}/${encodeURIComponent(user.username)}`,
         lastModified: now,

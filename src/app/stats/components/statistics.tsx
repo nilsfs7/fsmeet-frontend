@@ -138,7 +138,7 @@ export const Statistics = () => {
           <div className="flex justify-end">{`Mobile users:`}</div>
           <div className="flex justify-start">{mobileUserCount}</div>
         </div>
-        <div className="mt-2 text-center text-xs text-muted-foreground">{`Mobile users can have multiple mobile devices`}</div>
+        <div className="mt-2 text-center text-xs text-muted-foreground">{`Mobile users can have multiple devices`}</div>
 
         {userCountByType?.userCountTotal && (
           <>
