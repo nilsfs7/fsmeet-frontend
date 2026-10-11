@@ -6,6 +6,7 @@ import { EventSubComment } from '@/domain/types/event-sub-comment';
 import { useEffect, useState } from 'react';
 import PostInput from '../../../../components/events/comment/post-input';
 import { useTranslations } from 'next-intl';
+import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
 const cardSurface = cn(
@@ -20,9 +21,18 @@ interface ICommentSectionProps {
   canDelete: boolean;
   username: string;
   userProfileImageUrl?: string;
-  onPostComment: (message: string) => void;
-  onPostReply: (commentId: string, message: string) => void;
+  onPostComment: (message: string) => Promise<void>;
+  onPostReply: (commentId: string, message: string) => Promise<void>;
   onDeleteComment: (commentId: string, isSubComment: boolean) => void;
+}
+
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error && error.message) return error.message;
+  if (typeof error === 'object' && error !== null && 'message' in error) {
+    const message = (error as { message?: unknown }).message;
+    if (typeof message === 'string' && message) return message;
+  }
+  return 'Something went wrong';
 }
 
 export const CommentSection = ({ eventComments, canDelete, username, userProfileImageUrl, onPostComment, onPostReply, onDeleteComment }: ICommentSectionProps) => {
@@ -41,19 +51,25 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
   };
 
   const handlePostCommentClicked = async () => {
-    if (newComment) {
-      onPostComment(newComment);
+    if (!newComment) return;
 
+    try {
+      await onPostComment(newComment);
       setNewComment('');
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error));
     }
   };
 
   const handlePostReplyClicked = async () => {
-    if (replyTo && replyMessage) {
-      onPostReply(replyTo, replyMessage);
+    if (!replyTo || !replyMessage) return;
 
+    try {
+      await onPostReply(replyTo, replyMessage);
       setReplyTo('');
       setReplyMessage('');
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error));
     }
   };
 
