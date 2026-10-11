@@ -66,14 +66,10 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
       return;
     }
 
-    if (event.id) {
-      try {
-        await createComment(event.id, message, session);
-        router.refresh();
-      } catch (error: any) {
-        console.error(error.message);
-      }
-    }
+    if (!event.id) return;
+
+    await createComment(event.id, message, session);
+    router.refresh();
   };
 
   const handlePostSubCommentClicked = async (commentId: string, message: string) => {
@@ -82,14 +78,10 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
       return;
     }
 
-    if (event.id) {
-      try {
-        await createSubComment(event.id, commentId, message, session);
-        router.refresh();
-      } catch (error: any) {
-        console.error(error.message);
-      }
-    }
+    if (!event.id) return;
+
+    await createSubComment(event.id, commentId, message, session);
+    router.refresh();
   };
 
   const handleDeleteCommentClicked = (commentId: string, isSubComment: boolean) => {
@@ -249,15 +241,9 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
                 canDelete={isEventAdminOrMaintainer(event, session)}
                 userProfileImageUrl={session?.user.imageUrl}
                 eventComments={comments || []}
-                onPostComment={(message: string) => {
-                  handlePostCommentClicked(message);
-                }}
-                onPostReply={(commentId: string, message: string) => {
-                  handlePostSubCommentClicked(commentId, message);
-                }}
-                onDeleteComment={(commentId: string, isSubComment: boolean) => {
-                  handleDeleteCommentClicked(commentId, isSubComment);
-                }}
+                onPostComment={handlePostCommentClicked}
+                onPostReply={handlePostSubCommentClicked}
+                onDeleteComment={handleDeleteCommentClicked}
               />
             </div>
           )}
