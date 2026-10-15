@@ -1,6 +1,16 @@
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { routeAdminEvents, routeAdminLicenses, routeStatistics, routeAdminUserVerification, routeAdminJobProfiles, routeHome, routeAdminBroadcast, routePushNotification } from '@/domain/constants/routes';
+import {
+  routeAdminEvents,
+  routeAdminLicenses,
+  routeStatistics,
+  routeAdminUserVerification,
+  routeAdminJobProfiles,
+  routeHome,
+  routeAdminBroadcast,
+  routePushNotification,
+  routeAdminScheduledMessaging,
+} from '@/domain/constants/routes';
 import ActionButton from '@/components/common/action-button';
 import Navigation from '@/components/navigation';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
@@ -29,6 +39,9 @@ export default async function AdminOverview() {
         </Button>
         <Button asChild variant="action" className={ctaActionButtonClassName}>
           <Link href={routeAdminBroadcast}>Broadcast</Link>
+        </Button>
+        <Button asChild variant="action" className={ctaActionButtonClassName}>
+          <Link href={routeAdminScheduledMessaging}>Scheduled Messaging</Link>
         </Button>
         <Button asChild variant="action" className={ctaActionButtonClassName}>
           <Link href={routeStatistics}>App Statistics</Link>

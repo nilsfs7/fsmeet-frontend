@@ -7,6 +7,7 @@ export const routeAdminUserVerification = '/admin/verification';
 export const routeAdminJobProfiles = '/admin/jobs';
 export const routePushNotification = '/admin/notification';
 export const routeAdminBroadcast = '/admin/broadcast';
+export const routeAdminScheduledMessaging = '/admin/scheduled-messaging';
 
 export const routeWffaOverview = '/wffa';
 export const routeWffaFreestylerIdManagement = '/wffa/wffaid';
