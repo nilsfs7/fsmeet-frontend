@@ -18,6 +18,7 @@ import { ReadStripeLoginLinkResponseDto } from './dtos/user/read-stripe-login-li
 import { defaultHeaders } from './default-headers';
 import { Platform } from '@/domain/enums/platform';
 import { CreateUserConfirmBodyDto } from './dtos/user/create-user-confirm.body.dto';
+import { CreateScheduleMapListingRemindersResponseDto } from './dtos/user/create-schedule-map-listing-reminders.response.dto';
 
 export async function getUser(username: string, session?: Session | null): Promise<User> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/${username}`;
@@ -539,4 +540,26 @@ export async function createStripeLoginLink(session: Session | null): Promise<st
     const error = await response.json();
     throw Error(error.message);
   }
+}
+
+/** App admins only. Schedules reminders for users not listed on the freestyler map. */
+export async function scheduleMapListingReminders(session: Session | null): Promise<CreateScheduleMapListingRemindersResponseDto> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/message/map-listing-reminders`;
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    const dto: CreateScheduleMapListingRemindersResponseDto = await response.json();
+    console.info('Scheduling map listing reminders successful');
+    return dto;
+  }
+
+  const error = await response.json();
+  throw Error(error.message);
 }
