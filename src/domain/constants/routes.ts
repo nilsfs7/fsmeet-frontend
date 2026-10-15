@@ -43,5 +43,4 @@ export const routeUsers = '/users';
 
 export const routeMap = '/map';
 
-export const routeRoadmap = '/roadmap';
 export const routeStatistics = '/stats';

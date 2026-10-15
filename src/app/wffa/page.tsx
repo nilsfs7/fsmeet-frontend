@@ -1,6 +1,6 @@
 import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
-import { routeWffaFreestylerIdManagement, routeHome, routeRoadmap, routeStatistics, routeVisaRequestManagement } from '@/domain/constants/routes';
+import { routeWffaFreestylerIdManagement, routeHome, routeStatistics, routeVisaRequestManagement } from '@/domain/constants/routes';
 import ActionButton from '@/components/common/action-button';
 import Navigation from '@/components/navigation';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
@@ -18,10 +18,6 @@ export default async function AdminOverviewWFFA() {
 
         <Button asChild variant="action" className={ctaActionButtonClassName}>
           <Link href={routeStatistics}>App Statistics</Link>
-        </Button>
-
-        <Button asChild variant="action" className={ctaActionButtonClassName}>
-          <Link href={routeRoadmap}>Roadmap</Link>
         </Button>
 
         <Button asChild variant="action" className={ctaActionButtonClassName}>
