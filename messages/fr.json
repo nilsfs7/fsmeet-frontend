@@ -303,6 +303,10 @@
     "tableColCost": "Coût",
     "tableColActions": "Actions",
     "tooltipEditAccommodation": "Modifier l'hébergement",
+    "tooltipMoveUp": "Monter",
+    "tooltipMoveDown": "Descendre",
+    "tooltipDragAccommodation": "Glisser pour réordonner",
+    "toastReorderFailed": "Impossible d'enregistrer l'ordre des hébergements.",
     "textNoAccommodations": "Aucun hébergement pour le moment."
   },
   "/events/eventid/accommodations/create": {
@@ -486,6 +490,10 @@
     "pageTitle": "Gérer les offres",
     "btnCreate": "Créer",
     "tooltipEditOffering": "Modifier l'offre",
+    "tooltipMoveUp": "Monter",
+    "tooltipMoveDown": "Descendre",
+    "tooltipDragOffering": "Glisser pour réordonner",
+    "toastReorderFailed": "Impossible d'enregistrer l'ordre des offres.",
     "textNoOfferings": "Aucune offre pour le moment."
   },
   "/events/eventid/offerings/create": {

@@ -321,6 +321,10 @@
     "tableColCost": "लागत",
     "tableColActions": "कार्य",
     "tooltipEditAccommodation": "आवास संपादित करें",
+    "tooltipMoveUp": "ऊपर ले जाएँ",
+    "tooltipMoveDown": "नीचे ले जाएँ",
+    "tooltipDragAccommodation": "क्रम बदलने के लिए खींचें",
+    "toastReorderFailed": "आवासों का क्रम सहेजा नहीं जा सका।",
     "textNoAccommodations": "अभी तक कोई आवास नहीं है।"
   },
   "/events/eventid/accommodations/create": {
@@ -504,6 +508,10 @@
     "pageTitle": "सेवाएं प्रबंधित करें",
     "btnCreate": "बनाएं",
     "tooltipEditOffering": "सेवा संपादित करें",
+    "tooltipMoveUp": "ऊपर ले जाएँ",
+    "tooltipMoveDown": "नीचे ले जाएँ",
+    "tooltipDragOffering": "क्रम बदलने के लिए खींचें",
+    "toastReorderFailed": "सेवाओं का क्रम सहेजा नहीं जा सका।",
     "textNoOfferings": "अभी तक कोई सेवाएं नहीं हैं।"
   },
   "/events/eventid/offerings/create": {

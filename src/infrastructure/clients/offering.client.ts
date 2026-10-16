@@ -3,6 +3,7 @@ import { CreateOfferingResponseDto } from './dtos/offering/create-offering.respo
 import { CreateOfferingBodyDto } from './dtos/offering/create-offering.body.dto';
 import { ReadOfferingResponseDto } from './dtos/offering/read-offering.response.dto';
 import { PatchOfferingBodyDto } from './dtos/offering/patch-offering.body.dto';
+import { PutOfferingOrderBodyDto } from './dtos/offering/put-offering-order.body.dto';
 import { defaultHeaders } from './default-headers';
 import { Platform } from '@/domain/enums/platform';
 
@@ -99,6 +100,30 @@ export async function updateOffering(
     const error = await response.json();
     throw Error(error.message);
   }
+}
+
+/** Replaces the listing order of every offering of an event. The first id receives index 0. */
+export async function updateOfferingOrder(eventId: string, offeringIds: string[], session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/offerings/order`;
+
+  const body = new PutOfferingOrderBodyDto(eventId, offeringIds);
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating offering order successful');
+    return;
+  }
+
+  const error = await response.json();
+  throw Error(error.message);
 }
 
 export async function updateOfferingPreview(id: string, image: File, session: Session | null): Promise<void> {

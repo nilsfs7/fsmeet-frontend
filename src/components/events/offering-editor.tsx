@@ -64,6 +64,7 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
     onOfferingUpdate({
       id: offering?.id,
       eventId: offering?.eventId,
+      index: offering?.index,
       description,
       mandatoryForParticipant,
       includesShirt,

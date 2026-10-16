@@ -303,6 +303,10 @@
     "tableColCost": "Kosten",
     "tableColActions": "Aktionen",
     "tooltipEditAccommodation": "Unterkunft bearbeiten",
+    "tooltipMoveUp": "Nach oben",
+    "tooltipMoveDown": "Nach unten",
+    "tooltipDragAccommodation": "Zum Sortieren ziehen",
+    "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden.",
     "textNoAccommodations": "Noch keine Unterkünfte."
   },
   "/events/eventid/attachments": {
@@ -486,6 +490,10 @@
     "pageTitle": "Angebote verwalten",
     "btnCreate": "Erstellen",
     "tooltipEditOffering": "Angebot bearbeiten",
+    "tooltipMoveUp": "Nach oben",
+    "tooltipMoveDown": "Nach unten",
+    "tooltipDragOffering": "Zum Sortieren ziehen",
+    "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden.",
     "textNoOfferings": "Noch keine Angebote."
   },
   "/events/eventid/offerings/create": {

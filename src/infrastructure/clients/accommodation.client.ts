@@ -3,6 +3,7 @@ import { CreateAccommodationResponseDto } from './dtos/accommodation/create-acco
 import { CreateAccommodationBodyDto } from './dtos/accommodation/create-accommodation.body.dto';
 import { ReadAccommodationResponseDto } from './dtos/accommodation/read-accommodation.response.dto';
 import { PatchAccommodationBodyDto } from './dtos/accommodation/patch-accommodation.body.dto';
+import { PutAccommodationOrderBodyDto } from './dtos/accommodation/put-accommodation-order.body.dto';
 import { defaultHeaders } from './default-headers';
 import { Platform } from '@/domain/enums/platform';
 
@@ -96,6 +97,30 @@ export async function updateAccommodation(id: string, description: string, cost:
     const error = await response.json();
     throw Error(error.message);
   }
+}
+
+/** Replaces the listing order of every accommodation of an event. The first id receives index 0. */
+export async function updateAccommodationOrder(eventId: string, accommodationIds: string[], session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/accommodations/order`;
+
+  const body = new PutAccommodationOrderBodyDto(eventId, accommodationIds);
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating accommodation order successful');
+    return;
+  }
+
+  const error = await response.json();
+  throw Error(error.message);
 }
 
 export async function updateAccommodationPreview(id: string, image: File, session: Session | null): Promise<void> {

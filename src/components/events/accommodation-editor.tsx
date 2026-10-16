@@ -63,6 +63,7 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
     onAccommodationUpdate({
       id: accommodation?.id,
       eventId: accommodation?.eventId,
+      index: accommodation?.index,
       description,
       website,
       imageUrlPreview: accommodation?.imageUrlPreview,
