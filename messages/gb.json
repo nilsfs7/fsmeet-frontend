@@ -321,6 +321,10 @@
     "tableColCost": "Cost",
     "tableColActions": "Actions",
     "tooltipEditAccommodation": "Edit accommodation",
+    "tooltipMoveUp": "Move up",
+    "tooltipMoveDown": "Move down",
+    "tooltipDragAccommodation": "Drag to reorder",
+    "toastReorderFailed": "Could not save the accommodation order.",
     "textNoAccommodations": "No accommodations yet."
   },
   "/events/eventid/accommodations/create": {

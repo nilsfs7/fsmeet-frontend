@@ -4685,10 +4685,10 @@ react-country-flag@^3.1.0:
   resolved "https://registry.yarnpkg.com/react-country-flag/-/react-country-flag-3.1.0.tgz#f0c4c332934a77d3e894ba4800634f7a887e53d4"
   integrity sha512-JWQFw1efdv9sTC+TGQvTKXQg1NKbDU2mBiAiRWcKM9F1sK+/zjhP2yGmm8YDddWyZdXVkR8Md47rPMJmo4YO5g==
 
-react-currency-input-field@^4.0.5:
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/react-currency-input-field/-/react-currency-input-field-4.0.6.tgz#e3ea8be85610d1a23f15800672a9000c58e85e2d"
-  integrity sha512-TdR5RQnefI4lC47h8Nt3kZJo5cfyoOpEm8Eqoa04TygZn3Bk6AYubJP7QPUQl4YQBeG1WQlaf8BvL1v9IpK5ig==
+react-currency-input-field@^4.0.14:
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/react-currency-input-field/-/react-currency-input-field-4.0.14.tgz#3e0cc749d6a76cc418a39e26c487107185e6c76c"
+  integrity sha512-ZSs1ZJjiOPN6FOl0hny091oX2vtPRMyqY4+OLdn/w3SJwFOkOQBvx4m/TmI0laDTq1XtYziB/FD4y45B4Msa5g==
 
 react-day-picker@8.10.1:
   version "8.10.1"

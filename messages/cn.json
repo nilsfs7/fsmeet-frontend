@@ -321,6 +321,10 @@
     "tableColCost": "费用",
     "tableColActions": "操作",
     "tooltipEditAccommodation": "编辑住宿",
+    "tooltipMoveUp": "上移",
+    "tooltipMoveDown": "下移",
+    "tooltipDragAccommodation": "拖动以排序",
+    "toastReorderFailed": "无法保存住宿顺序。",
     "textNoAccommodations": "暂无住宿。"
   },
   "/events/eventid/accommodations/create": {

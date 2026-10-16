@@ -96,7 +96,18 @@ export const PaymentDetails = ({
 
   const selectedOfferings = useMemo(() => event.offerings.filter(o => o.id && offeringOrders.includes(o.id)), [event.offerings, offeringOrders]);
 
-  const selectedAccommodations = useMemo(() => event.accommodations.filter(a => a.id && accommodationOrders.includes(a.id)), [event.accommodations, accommodationOrders]);
+  const selectedAccommodations = useMemo(
+    () =>
+      event.accommodations
+        .filter(a => a.id && accommodationOrders.includes(a.id))
+        .sort((a, b) => {
+          if (a.index == null && b.index == null) return 0;
+          if (a.index == null) return 1;
+          if (b.index == null) return -1;
+          return a.index - b.index;
+        }),
+    [event.accommodations, accommodationOrders],
+  );
 
   const compFeeSum = selectedCompetitions.reduce((acc, c) => acc + (paymentFeeCover ? c.participationFeeIncPaymentCosts : c.participationFee), 0);
 

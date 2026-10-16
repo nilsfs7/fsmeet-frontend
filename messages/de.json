@@ -303,6 +303,10 @@
     "tableColCost": "Kosten",
     "tableColActions": "Aktionen",
     "tooltipEditAccommodation": "Unterkunft bearbeiten",
+    "tooltipMoveUp": "Nach oben",
+    "tooltipMoveDown": "Nach unten",
+    "tooltipDragAccommodation": "Zum Sortieren ziehen",
+    "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden.",
     "textNoAccommodations": "Noch keine Unterkünfte."
   },
   "/events/eventid/attachments": {

@@ -321,6 +321,10 @@
     "tableColCost": "التكلفة",
     "tableColActions": "إجراءات",
     "tooltipEditAccommodation": "تعديل الإقامة",
+    "tooltipMoveUp": "تحريك لأعلى",
+    "tooltipMoveDown": "تحريك لأسفل",
+    "tooltipDragAccommodation": "اسحب لإعادة الترتيب",
+    "toastReorderFailed": "تعذر حفظ ترتيب الإقامات.",
     "textNoAccommodations": "لا توجد إقامات بعد."
   },
   "/events/eventid/accommodations/create": {

@@ -321,6 +321,10 @@
     "tableColCost": "費用",
     "tableColActions": "操作",
     "tooltipEditAccommodation": "宿泊を編集",
+    "tooltipMoveUp": "上へ移動",
+    "tooltipMoveDown": "下へ移動",
+    "tooltipDragAccommodation": "ドラッグして並べ替え",
+    "toastReorderFailed": "宿泊の順序を保存できませんでした。",
     "textNoAccommodations": "まだ宿泊がありません。"
   },
   "/events/eventid/accommodations/create": {

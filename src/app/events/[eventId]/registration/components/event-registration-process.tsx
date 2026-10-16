@@ -269,9 +269,16 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   };
 
   const getActiveAccommodations = (): Accommodation[] => {
-    return event.accommodations.filter(acc => {
-      if (acc.enabled) return acc;
-    });
+    return event.accommodations
+      .filter(acc => {
+        if (acc.enabled) return acc;
+      })
+      .sort((a, b) => {
+        if (a.index == null && b.index == null) return 0;
+        if (a.index == null) return 1;
+        if (b.index == null) return -1;
+        return a.index - b.index;
+      });
   };
 
   const hasActiveAccommodations = (): boolean => {

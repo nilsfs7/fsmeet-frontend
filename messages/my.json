@@ -321,6 +321,10 @@
     "tableColCost": "Kos",
     "tableColActions": "Tindakan",
     "tooltipEditAccommodation": "Edit Penginapan",
+    "tooltipMoveUp": "Alih ke atas",
+    "tooltipMoveDown": "Alih ke bawah",
+    "tooltipDragAccommodation": "Seret untuk susun semula",
+    "toastReorderFailed": "Tidak dapat menyimpan susunan penginapan.",
     "textNoAccommodations": "Belum ada penginapan."
   },
   "/events/eventid/accommodations/create": {
