@@ -337,6 +337,10 @@
     "pageTitle": "ドキュメントを管理",
     "btnCreate": "作成",
     "tooltipEditDocument": "ドキュメントを編集",
+    "tooltipMoveUp": "上へ移動",
+    "tooltipMoveDown": "下へ移動",
+    "tooltipDragAttachment": "ドラッグして並べ替え",
+    "toastReorderFailed": "ドキュメントの順序を保存できませんでした。",
     "textNoAttachments": "まだドキュメントがありません。"
   },
   "/events/eventid/attachments/attachmentid/edit": {
@@ -618,6 +622,10 @@
     "pageTitle": "スポンサーを管理",
     "btnCreate": "作成",
     "tooltipEditSponsor": "スポンサーを編集",
+    "tooltipMoveUp": "上へ移動",
+    "tooltipMoveDown": "下へ移動",
+    "tooltipDragSponsor": "ドラッグして並べ替え",
+    "toastReorderFailed": "スポンサーの順序を保存できませんでした。",
     "textNoSponsors": "まだスポンサーがありません。"
   },
   "/ads": {

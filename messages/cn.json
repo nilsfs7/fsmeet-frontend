@@ -337,6 +337,10 @@
     "pageTitle": "管理文档",
     "btnCreate": "创建",
     "tooltipEditDocument": "编辑文档",
+    "tooltipMoveUp": "上移",
+    "tooltipMoveDown": "下移",
+    "tooltipDragAttachment": "拖动以排序",
+    "toastReorderFailed": "无法保存文档顺序。",
     "textNoAttachments": "暂无文档。"
   },
   "/events/eventid/attachments/attachmentid/edit": {
@@ -618,6 +622,10 @@
     "pageTitle": "管理赞助商",
     "btnCreate": "创建",
     "tooltipEditSponsor": "编辑赞助商",
+    "tooltipMoveUp": "上移",
+    "tooltipMoveDown": "下移",
+    "tooltipDragSponsor": "拖动以排序",
+    "toastReorderFailed": "无法保存赞助商顺序。",
     "textNoSponsors": "暂无赞助商。"
   },
   "/ads": {

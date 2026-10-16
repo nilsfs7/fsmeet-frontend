@@ -3,6 +3,7 @@ import { CreateAttachmentResponseDto } from './dtos/attachment/create-attachment
 import { CreateAttachmentBodyDto } from './dtos/attachment/create-attachment.body.dto';
 import { ReadAttachmentResponseDto } from './dtos/attachment/read-attachment.response.dto';
 import { PatchAttachmentBodyDto } from './dtos/attachment/patch-attachment.body.dto';
+import { PutAttachmentOrderBodyDto } from './dtos/attachment/put-attachment-order.body.dto';
 import { defaultHeaders } from './default-headers';
 import { Platform } from '@/domain/enums/platform';
 
@@ -101,6 +102,30 @@ export async function updateAttachment(
     const error = await response.json();
     throw Error(error.message);
   }
+}
+
+/** Replaces the listing order of every attachment of an event. The first id receives index 0. */
+export async function updateAttachmentOrder(eventId: string, attachmentIds: string[], session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/attachments/order`;
+
+  const body = new PutAttachmentOrderBodyDto(eventId, attachmentIds);
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating attachment order successful');
+    return;
+  }
+
+  const error = await response.json();
+  throw Error(error.message);
 }
 
 export async function updateAttachmentFile(id: string, file: File, session: Session | null): Promise<void> {

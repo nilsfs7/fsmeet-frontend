@@ -337,6 +337,10 @@
     "pageTitle": "Urus Dokumen",
     "btnCreate": "Cipta",
     "tooltipEditDocument": "Edit Dokumen",
+    "tooltipMoveUp": "Alih ke atas",
+    "tooltipMoveDown": "Alih ke bawah",
+    "tooltipDragAttachment": "Seret untuk susun semula",
+    "toastReorderFailed": "Tidak dapat menyimpan susunan dokumen.",
     "textNoAttachments": "Belum ada dokumen."
   },
   "/events/eventid/attachments/attachmentid/edit": {
@@ -618,6 +622,10 @@
     "pageTitle": "Urus Penaja",
     "btnCreate": "Cipta",
     "tooltipEditSponsor": "Edit Penaja",
+    "tooltipMoveUp": "Alih ke atas",
+    "tooltipMoveDown": "Alih ke bawah",
+    "tooltipDragSponsor": "Seret untuk susun semula",
+    "toastReorderFailed": "Tidak dapat menyimpan susunan penaja.",
     "textNoSponsors": "Belum ada penaja."
   },
   "/ads": {

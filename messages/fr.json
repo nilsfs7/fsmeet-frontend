@@ -319,6 +319,10 @@
     "pageTitle": "Gérer les documents",
     "btnCreate": "Créer",
     "tooltipEditDocument": "Modifier le document",
+    "tooltipMoveUp": "Monter",
+    "tooltipMoveDown": "Descendre",
+    "tooltipDragAttachment": "Glisser pour réordonner",
+    "toastReorderFailed": "Impossible d'enregistrer l'ordre des documents.",
     "textNoAttachments": "Aucun document pour le moment."
   },
   "/events/eventid/attachments/attachmentid/edit": {
@@ -600,6 +604,10 @@
     "pageTitle": "Gérer les partenariats",
     "btnCreate": "Créer",
     "tooltipEditSponsor": "Modifier le partenaire",
+    "tooltipMoveUp": "Monter",
+    "tooltipMoveDown": "Descendre",
+    "tooltipDragSponsor": "Glisser pour réordonner",
+    "toastReorderFailed": "Impossible d'enregistrer l'ordre des sponsors.",
     "textNoSponsors": "Aucun sponsor pour le moment."
   },
   "/ads": {

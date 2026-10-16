@@ -309,6 +309,10 @@
     "pageTitle": "Dokumente verwalten",
     "btnCreate": "Dokument hinzufügen",
     "tooltipEditDocument": "Dokument bearbeiten",
+    "tooltipMoveUp": "Nach oben",
+    "tooltipMoveDown": "Nach unten",
+    "tooltipDragAttachment": "Zum Sortieren ziehen",
+    "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden.",
     "textNoAttachments": "Noch keine Dokumente."
   },
   "/events/eventid/attachments/attachmentid/edit": {
