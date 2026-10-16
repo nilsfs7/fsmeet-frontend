@@ -78,10 +78,7 @@ export async function generateMetadata(props: { params: Promise<{ username: stri
 
 export default async function PublicUserProfile(props: { params: Promise<{ username: string }> }) {
   const params = await props.params;
-  const t = await getTranslations('/users/username');
-  const session = await auth();
-
-  const user = await getUser(params.username);
+  const [t, session, user] = await Promise.all([getTranslations('/users/username'), auth(), getUser(params.username)]);
   const showBookCta = user.jobProfileState === JobProfileState.APPROVED;
 
   return (
