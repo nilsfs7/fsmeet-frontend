@@ -337,6 +337,10 @@
     "pageTitle": "إدارة المستندات",
     "btnCreate": "إنشاء",
     "tooltipEditDocument": "تعديل المستند",
+    "tooltipMoveUp": "تحريك لأعلى",
+    "tooltipMoveDown": "تحريك لأسفل",
+    "tooltipDragAttachment": "اسحب لإعادة الترتيب",
+    "toastReorderFailed": "تعذر حفظ ترتيب المستندات.",
     "textNoAttachments": "لا توجد مستندات بعد."
   },
   "/events/eventid/attachments/attachmentid/edit": {
@@ -618,6 +622,10 @@
     "pageTitle": "إدارة الرعاة",
     "btnCreate": "إنشاء",
     "tooltipEditSponsor": "تعديل الراعي",
+    "tooltipMoveUp": "تحريك لأعلى",
+    "tooltipMoveDown": "تحريك لأسفل",
+    "tooltipDragSponsor": "اسحب لإعادة الترتيب",
+    "toastReorderFailed": "تعذر حفظ ترتيب الرعاة.",
     "textNoSponsors": "لا يوجد رعاة بعد."
   },
   "/ads": {

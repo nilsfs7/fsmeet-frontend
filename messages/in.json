@@ -337,6 +337,10 @@
     "pageTitle": "दस्तावेज़ प्रबंधित करें",
     "btnCreate": "बनाएं",
     "tooltipEditDocument": "दस्तावेज़ संपादित करें",
+    "tooltipMoveUp": "ऊपर ले जाएँ",
+    "tooltipMoveDown": "नीचे ले जाएँ",
+    "tooltipDragAttachment": "क्रम बदलने के लिए खींचें",
+    "toastReorderFailed": "दस्तावेज़ों का क्रम सहेजा नहीं जा सका।",
     "textNoAttachments": "अभी तक कोई दस्तावेज़ नहीं है।"
   },
   "/events/eventid/attachments/attachmentid/edit": {
@@ -618,6 +622,10 @@
     "pageTitle": "प्रायोजक प्रबंधित करें",
     "btnCreate": "बनाएं",
     "tooltipEditSponsor": "प्रायोजक संपादित करें",
+    "tooltipMoveUp": "ऊपर ले जाएँ",
+    "tooltipMoveDown": "नीचे ले जाएँ",
+    "tooltipDragSponsor": "क्रम बदलने के लिए खींचें",
+    "toastReorderFailed": "प्रायोजकों का क्रम सहेजा नहीं जा सका।",
     "textNoSponsors": "अभी तक कोई प्रायोजक नहीं है।"
   },
   "/ads": {

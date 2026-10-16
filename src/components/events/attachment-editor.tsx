@@ -65,6 +65,7 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentFileUpda
     onAttachmentUpdate({
       id: attachment?.id,
       eventId: attachment?.eventId,
+      index: attachment?.index,
       name,
       isExternal,
       url,

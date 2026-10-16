@@ -337,6 +337,10 @@
     "pageTitle": "Manage Documents",
     "btnCreate": "Create",
     "tooltipEditDocument": "Edit document",
+    "tooltipMoveUp": "Move up",
+    "tooltipMoveDown": "Move down",
+    "tooltipDragAttachment": "Drag to reorder",
+    "toastReorderFailed": "Could not save the document order.",
     "textNoAttachments": "No documents yet."
   },
   "/events/eventid/attachments/attachmentid/edit": {

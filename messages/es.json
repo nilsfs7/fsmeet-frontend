@@ -319,6 +319,10 @@
     "pageTitle": "Gestionar documentos",
     "btnCreate": "Crear",
     "tooltipEditDocument": "Editar documento",
+    "tooltipMoveUp": "Subir",
+    "tooltipMoveDown": "Bajar",
+    "tooltipDragAttachment": "Arrastrar para reordenar",
+    "toastReorderFailed": "No se pudo guardar el orden de los documentos.",
     "textNoAttachments": "Todavia no hay documentos."
   },
   "/events/eventid/attachments/attachmentid/edit": {
@@ -600,6 +604,10 @@
     "pageTitle": "Gestionar patrocinadores",
     "btnCreate": "Añadir patrocinador",
     "tooltipEditSponsor": "Editar patrocinador",
+    "tooltipMoveUp": "Subir",
+    "tooltipMoveDown": "Bajar",
+    "tooltipDragSponsor": "Arrastrar para reordenar",
+    "toastReorderFailed": "No se pudo guardar el orden de los patrocinadores.",
     "textNoSponsors": "Todavia no hay patrocinadores."
   },
   "/ads": {
