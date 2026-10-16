@@ -1274,17 +1274,17 @@
   resolved "https://registry.yarnpkg.com/@schummar/icu-type-parser/-/icu-type-parser-1.21.5.tgz#75989085bbbf80ee325874a0137437bde77e9baf"
   integrity sha512-bXHSaW5jRTmke9Vd0h5P7BtWZG9Znqb8gSDxZnxaGSJnGwPLDPfS+3g0BKzeWqzgZPsIVZkM7m2tbo18cm5HBw==
 
-"@stripe/react-stripe-js@^6.10.0":
-  version "6.10.0"
-  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-6.10.0.tgz#d9b0930c0c12588ecf065584f291fa92aa6f1b99"
-  integrity sha512-9+jIJWClsih6RMNwnL0Ylsu6KIgFSufFmkIo3ww3vBw6SXQVC+ajsHqr8FSemT1NNJps9r7tEXEklAM2na/P/w==
+"@stripe/react-stripe-js@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-7.0.0.tgz#21d7475215558b6555b1ec4c2360cad4089d58a6"
+  integrity sha512-wKw6YM0p/IpGj7hcwdJL7UAb7s0hlO8kLJIXn0CezewYILQ8j/A7j55EHuHHjF6dV+cr4yZhbhg4QLRjovfM4A==
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^9.16.0":
-  version "9.16.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-9.16.0.tgz#6de20ff7af39a77c7338a1ef1026f8a245cb53e3"
-  integrity sha512-PNZmy9hbuiuiyjAsigMlQChzJqrNEzQUtYIL/z5w0dsx27Ha69SBTYa2o8/M0Hbfiz9V2qctqX2DBd5sa57qoA==
+"@stripe/stripe-js@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-10.1.0.tgz#9423e29bd86ba04c0c950c5b21890b7242f7c460"
+  integrity sha512-sLRPukMKMxvRVrgV3Za8LM0Yd2azrixQjfaiuzS8Fivlu/Gt7VbBuRiRZJIvfL3XxAw+FdfdmhHSvjAfLG3lkA==
 
 "@swc/core-darwin-arm64@1.16.2":
   version "1.16.2"
