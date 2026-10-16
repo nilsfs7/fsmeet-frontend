@@ -490,6 +490,10 @@
     "pageTitle": "Gestionar ofertas",
     "btnCreate": "Crear",
     "tooltipEditOffering": "Editar oferta",
+    "tooltipMoveUp": "Subir",
+    "tooltipMoveDown": "Bajar",
+    "tooltipDragOffering": "Arrastrar para reordenar",
+    "toastReorderFailed": "No se pudo guardar el orden de las ofertas.",
     "textNoOfferings": "Todavia no hay ofertas."
   },
   "/events/eventid/offerings/create": {

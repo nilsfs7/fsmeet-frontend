@@ -508,6 +508,10 @@
     "pageTitle": "Manage Offerings",
     "btnCreate": "Create",
     "tooltipEditOffering": "Edit offering",
+    "tooltipMoveUp": "Move up",
+    "tooltipMoveDown": "Move down",
+    "tooltipDragOffering": "Drag to reorder",
+    "toastReorderFailed": "Could not save the offering order.",
     "textNoOfferings": "No offerings yet."
   },
   "/events/eventid/offerings/create": {

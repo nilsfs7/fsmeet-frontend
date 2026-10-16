@@ -508,6 +508,10 @@
     "pageTitle": "Urus Tawaran",
     "btnCreate": "Cipta",
     "tooltipEditOffering": "Edit Tawaran",
+    "tooltipMoveUp": "Alih ke atas",
+    "tooltipMoveDown": "Alih ke bawah",
+    "tooltipDragOffering": "Seret untuk susun semula",
+    "toastReorderFailed": "Tidak dapat menyimpan susunan tawaran.",
     "textNoOfferings": "Belum ada tawaran."
   },
   "/events/eventid/offerings/create": {

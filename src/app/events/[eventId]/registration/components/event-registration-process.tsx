@@ -257,9 +257,16 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   };
 
   const getActiveOfferings = (): Offering[] => {
-    return event.offerings.filter(off => {
-      if (off.enabled) return off;
-    });
+    return event.offerings
+      .filter(off => {
+        if (off.enabled) return off;
+      })
+      .sort((a, b) => {
+        if (a.index == null && b.index == null) return 0;
+        if (a.index == null) return 1;
+        if (b.index == null) return -1;
+        return a.index - b.index;
+      });
   };
 
   const hasActiveOfferings = (): boolean => {

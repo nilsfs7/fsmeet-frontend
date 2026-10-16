@@ -8,21 +8,15 @@ import { getTranslations } from 'next-intl/server';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { auth } from '@/auth';
 import { getEvent } from '@/infrastructure/clients/event.client';
-import { getCurrencySymbol } from '@/functions/get-currency-symbol';
-import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
+import OfferingsList from './components/offerings-list';
 
 const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function EventOffering(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const [t, tAccommodation, session] = await Promise.all([
-    getTranslations('/events/eventid/offerings'),
-    getTranslations('/events/eventid/accommodations'),
-    auth(),
-  ]);
+  const [t, session] = await Promise.all([getTranslations('/events/eventid/offerings'), auth()]);
 
   const [event, offerings] = await Promise.all([getEvent(params.eventId, session), getOfferings(params.eventId)]);
 
@@ -35,40 +29,7 @@ export default async function EventOffering(props: { params: Promise<{ eventId: 
       <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
         <div className="flex flex-col gap-3 text-sm">
           <div className="min-h-0 min-w-0 overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{tAccommodation('tableColDescription')}</TableHead>
-                  <TableHead className="whitespace-nowrap">
-                    {tAccommodation('tableColCost')} ({getCurrencySymbol(event.currency)})
-                  </TableHead>
-                  <TableHead className="w-[1%] whitespace-nowrap text-right">{tAccommodation('tableColActions')}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {offerings.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={3} className="py-6 text-center text-muted-foreground">
-                      {t('textNoOfferings')}
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  offerings.map((offering, index) => (
-                    <TableRow key={offering.id ?? index}>
-                      <TableCell className="font-medium">{offering.description}</TableCell>
-                      <TableCell className="whitespace-nowrap">{convertCurrencyIntegerToDecimal(offering.cost, event.currency)}</TableCell>
-                      <TableCell className="text-right">
-                        <ActionButton
-                          href={`${routeEvents}/${params.eventId}/offerings/${offering.id}/edit`}
-                          action={Action.EDIT}
-                          tooltip={t('tooltipEditOffering')}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
+            <OfferingsList eventId={params.eventId} currency={event.currency} offerings={offerings} />
           </div>
         </div>
       </div>

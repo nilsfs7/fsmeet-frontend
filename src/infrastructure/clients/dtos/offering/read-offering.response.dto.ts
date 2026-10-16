@@ -1,5 +1,6 @@
 export class ReadOfferingResponseDto {
   id: string;
+  index: number;
   description: string;
   cost: number;
   costIncPaymentCosts: number;
@@ -11,6 +12,7 @@ export class ReadOfferingResponseDto {
 
   constructor(
     id: string,
+    index: number,
     description: string,
     cost: number,
     costIncPaymentCosts: number,
@@ -21,6 +23,7 @@ export class ReadOfferingResponseDto {
     eventId: string
   ) {
     this.id = id;
+    this.index = index;
     this.description = description;
     this.cost = cost;
     this.costIncPaymentCosts = costIncPaymentCosts;

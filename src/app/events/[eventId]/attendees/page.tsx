@@ -17,7 +17,7 @@ export default async function EventAttendees(props: { params: Promise<{ eventId:
   const params = await props.params;
   const [t, session] = await Promise.all([getTranslations('/events/eventid/attendees'), auth()]);
 
-  const [event, competitions, registrations, fetchedAccommodations, offerings] = await Promise.all([
+  const [event, competitions, registrations, fetchedAccommodations, fetchedOfferings] = await Promise.all([
     getEvent(params.eventId, session),
     getCompetitions(params.eventId, null),
     getEventRegistrations(params.eventId, null, session),
@@ -25,6 +25,7 @@ export default async function EventAttendees(props: { params: Promise<{ eventId:
     getOfferings(params.eventId),
   ]);
   const accommodations = [...fetchedAccommodations].sort((a, b) => a.index - b.index);
+  const offerings = [...fetchedOfferings].sort((a, b) => a.index - b.index);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

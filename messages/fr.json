@@ -490,6 +490,10 @@
     "pageTitle": "Gérer les offres",
     "btnCreate": "Créer",
     "tooltipEditOffering": "Modifier l'offre",
+    "tooltipMoveUp": "Monter",
+    "tooltipMoveDown": "Descendre",
+    "tooltipDragOffering": "Glisser pour réordonner",
+    "toastReorderFailed": "Impossible d'enregistrer l'ordre des offres.",
     "textNoOfferings": "Aucune offre pour le moment."
   },
   "/events/eventid/offerings/create": {

@@ -508,6 +508,10 @@
     "pageTitle": "إدارة العروض",
     "btnCreate": "إنشاء",
     "tooltipEditOffering": "تعديل العرض",
+    "tooltipMoveUp": "تحريك لأعلى",
+    "tooltipMoveDown": "تحريك لأسفل",
+    "tooltipDragOffering": "اسحب لإعادة الترتيب",
+    "toastReorderFailed": "تعذر حفظ ترتيب العروض.",
     "textNoOfferings": "لا توجد عروض بعد."
   },
   "/events/eventid/offerings/create": {

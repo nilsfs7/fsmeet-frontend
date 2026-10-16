@@ -508,6 +508,10 @@
     "pageTitle": "提供内容を管理",
     "btnCreate": "作成",
     "tooltipEditOffering": "提供内容を編集",
+    "tooltipMoveUp": "上へ移動",
+    "tooltipMoveDown": "下へ移動",
+    "tooltipDragOffering": "ドラッグして並べ替え",
+    "toastReorderFailed": "提供内容の順序を保存できませんでした。",
     "textNoOfferings": "まだ提供内容がありません。"
   },
   "/events/eventid/offerings/create": {

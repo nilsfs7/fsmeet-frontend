@@ -508,6 +508,10 @@
     "pageTitle": "管理选项/套餐",
     "btnCreate": "创建",
     "tooltipEditOffering": "编辑选项/套餐",
+    "tooltipMoveUp": "上移",
+    "tooltipMoveDown": "下移",
+    "tooltipDragOffering": "拖动以排序",
+    "toastReorderFailed": "无法保存选项/套餐顺序。",
     "textNoOfferings": "暂无选项/套餐。"
   },
   "/events/eventid/offerings/create": {
