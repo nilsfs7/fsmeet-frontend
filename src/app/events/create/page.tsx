@@ -11,8 +11,7 @@ export default async function EventCreation() {
     return <LoadingSpinner />;
   }
 
-  const eventAdmin = await getUser(session.user.username, session);
-  const license = await getLicense(session, session.user.username);
+  const [eventAdmin, license] = await Promise.all([getUser(session.user.username, session), getLicense(session, session.user.username)]);
 
   return <EventCreationProcess eventAdmin={eventAdmin} licenses={license.amountEventLicenses} />;
 }
