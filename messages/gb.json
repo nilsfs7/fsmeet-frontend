@@ -618,6 +618,10 @@
     "pageTitle": "Manage Sponsors",
     "btnCreate": "Create",
     "tooltipEditSponsor": "Edit sponsor",
+    "tooltipMoveUp": "Move up",
+    "tooltipMoveDown": "Move down",
+    "tooltipDragSponsor": "Drag to reorder",
+    "toastReorderFailed": "Could not save the sponsor order.",
     "textNoSponsors": "No sponsors yet."
   },
   "/ads": {

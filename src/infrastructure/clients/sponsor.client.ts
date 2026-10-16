@@ -2,6 +2,7 @@ import { Session } from 'next-auth';
 import { ReadSponsorResponseDto } from './dtos/sponsor/read-sponsor.response.dto';
 import { CreateSponsorBodyDto } from './dtos/sponsor/create-sponsor.body.dto';
 import { PatchSponsorBodyDto } from './dtos/sponsor/patch-sponsor.body.dto';
+import { PutSponsorOrderBodyDto } from './dtos/sponsor/put-sponsor-order.body.dto';
 import { CreateSponsorResponseDto } from './dtos/sponsor/create-sponsor.response.dto';
 import { defaultHeaders } from './default-headers';
 import { Platform } from '@/domain/enums/platform';
@@ -83,6 +84,30 @@ export async function updateSponsor(id: string, name: string, website: string, i
     const error = await response.json();
     throw Error(error.message);
   }
+}
+
+/** Replaces the listing order of every sponsor of an event. The first id receives index 0. */
+export async function updateSponsorOrder(eventId: string, sponsorIds: string[], session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/sponsors/order`;
+
+  const body = new PutSponsorOrderBodyDto(eventId, sponsorIds);
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating sponsor order successful');
+    return;
+  }
+
+  const error = await response.json();
+  throw Error(error.message);
 }
 
 export async function updateSponsorLogo(id: string, image: File, session: Session | null): Promise<void> {

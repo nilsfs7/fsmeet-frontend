@@ -43,6 +43,7 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
     onSponsorUpdate({
       id: sponsor?.id,
       eventId: sponsor?.eventId,
+      index: sponsor?.index,
       name,
       website,
       imageUrlLogo: sponsor?.imageUrlLogo,
