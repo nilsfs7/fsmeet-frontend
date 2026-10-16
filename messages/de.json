@@ -600,6 +600,10 @@
     "pageTitle": "Sponsoren verwalten",
     "btnCreate": "Sponsor hinzufügen",
     "tooltipEditSponsor": "Sponsor bearbeiten",
+    "tooltipMoveUp": "Nach oben",
+    "tooltipMoveDown": "Nach unten",
+    "tooltipDragSponsor": "Zum Sortieren ziehen",
+    "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden.",
     "textNoSponsors": "Noch keine Sponsoren."
   },
   "/ads": {
