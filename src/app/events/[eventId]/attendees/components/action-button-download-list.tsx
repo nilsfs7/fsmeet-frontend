@@ -6,7 +6,6 @@ import { Event } from '@/domain/types/event';
 import { Toaster } from 'sonner';
 import moment from 'moment';
 import { ConfigOptions, download, generateCsv, mkConfig } from 'export-to-csv';
-import { AcceptedData } from 'export-to-csv/output/lib/types';
 import { EventRegistration } from '@/domain/types/event-registration';
 import { Offering } from '@/domain/types/offering';
 import { Accommodation } from '@/domain/types/accommodation';
@@ -17,6 +16,8 @@ import { getShortDateString } from '../../../../../functions/time';
 const CSV_EMPTY = '';
 const CSV_MARK = 'x';
 
+/** `AcceptedData` from export-to-csv, which is not exported from the package root. */
+type AcceptedData = Parameters<ReturnType<typeof generateCsv>>[0][number][string];
 type CsvRow = Record<string, AcceptedData>;
 
 /** One column per item: "x" when `item.id` is in `selectedIds`, else empty. */

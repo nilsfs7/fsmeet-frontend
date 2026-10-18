@@ -1,3 +1,6 @@
+import animate from 'tailwindcss-animate';
+import typography from '@tailwindcss/typography';
+
 /** Maps CSS variables (RGB triplet) to utilities with opacity, e.g. `text-primary/80` */
 const channel = (name: string) => `rgb(var(${name}) / <alpha-value>)` as const;
 
@@ -124,7 +127,7 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
+  plugins: [animate, typography],
 };
 
 export default config;

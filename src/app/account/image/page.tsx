@@ -12,7 +12,7 @@ export default async function AccountImage() {
   const t = await getTranslations('/account/image');
   const session = await auth();
 
-  // TODO: remove because redirect is done by middleware anyway
+  // TODO: remove because redirect is done by proxy anyway
   if (!session?.user?.username) {
     redirect(routeLogin, RedirectType.replace);
   }
