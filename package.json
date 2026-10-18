@@ -1,12 +1,12 @@
 {
   "name": "fsmeet-frontend",
-  "version": "2.21.0",
+  "version": "2.21.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3002",
     "build": "next build",
     "start": "next start -p 3001",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint .",
     "release:major": "standard-version --release-as major && git push --follow-tags",
     "release:minor": "standard-version --release-as minor && git push --follow-tags",
     "release:patch": "standard-version --release-as patch && git push --follow-tags"
@@ -70,8 +70,8 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
-    "eslint": "8.57.0",
-    "eslint-config-next": "15.5.9",
+    "eslint": "^10.13.0",
+    "eslint-config-next": "^16.4.2",
     "postcss": "^8.5.31",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
