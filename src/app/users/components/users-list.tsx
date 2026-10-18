@@ -23,6 +23,7 @@ import { useMemo, useState } from 'react';
 import { countries } from 'countries-list';
 import { UserType } from '@/domain/enums/user-type';
 import { Gender } from '@/domain/enums/gender';
+import { menuUserType } from '@/domain/constants/menus/menu-user-type';
 import { routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
@@ -113,6 +114,19 @@ export const UsersList = ({ columnData }: IUsersList) => {
         return { code, name: meta?.name || code };
       })
       .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
+  }, [columnData]);
+
+  const userTypeOptions = useMemo(() => {
+    const seen = new Set<string>();
+    for (const row of columnData) {
+      if (row.userType) seen.add(row.userType);
+    }
+    const ordered = menuUserType.filter(item => seen.has(item.value)).map(item => ({ value: item.value, label: item.text }));
+    const known = new Set(ordered.map(item => item.value));
+    for (const value of seen) {
+      if (!known.has(value)) ordered.push({ value, label: value });
+    }
+    return ordered;
   }, [columnData]);
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -244,8 +258,11 @@ export const UsersList = ({ columnData }: IUsersList) => {
           <img src={getUserTypeImages(row.getValue('userType') as UserType).path} alt="" />
         </div>
       ),
-
       enableSorting: false,
+      filterFn: (row, _columnId, filterValue): boolean => {
+        if (filterValue == null || filterValue === '') return true;
+        return row.original.userType === filterValue;
+      },
     },
 
     {
@@ -317,12 +334,14 @@ export const UsersList = ({ columnData }: IUsersList) => {
 
   const countryFilterActive = Boolean(table.getColumn('country')?.getFilterValue());
   const genderFilterActive = Boolean(table.getColumn('gender')?.getFilterValue());
-  const hasAdvancedFilterActive = countryFilterActive || genderFilterActive;
+  const userTypeFilterActive = Boolean(table.getColumn('userType')?.getFilterValue());
+  const hasAdvancedFilterActive = countryFilterActive || genderFilterActive || userTypeFilterActive;
   const showAdvancedDot = hasHiddenColumns || hasAdvancedFilterActive;
 
   const clearAdvancedFilters = () => {
     table.getColumn('country')?.setFilterValue(undefined);
     table.getColumn('gender')?.setFilterValue(undefined);
+    table.getColumn('userType')?.setFilterValue(undefined);
   };
 
   return (
@@ -369,6 +388,23 @@ export const UsersList = ({ columnData }: IUsersList) => {
                     {countryOptions.map(({ code, name }) => (
                       <SelectItem key={code} value={code}>
                         {name} ({code})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('tblColumnType')}</div>
+                <Select value={(table.getColumn('userType')?.getFilterValue() as string | undefined) ?? ALL} onValueChange={v => table.getColumn('userType')?.setFilterValue(v === ALL ? undefined : v)}>
+                  <SelectTrigger className={selectTriggerClass}>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL}>{tEvents('filterAll')}</SelectItem>
+                    {userTypeOptions.map(({ value, label }) => (
+                      <SelectItem key={value} value={value}>
+                        {label}
                       </SelectItem>
                     ))}
                   </SelectContent>
