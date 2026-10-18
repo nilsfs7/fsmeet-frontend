@@ -15,7 +15,7 @@ export default async function Account() {
   const t = await getTranslations('/account');
   const session = await auth();
 
-  // TODO: remove because redirect is done by middleware anyway
+  // TODO: remove because redirect is done by proxy anyway
   if (!session?.user?.username) {
     redirect(routeLogin, RedirectType.replace);
   }

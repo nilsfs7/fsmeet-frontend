@@ -12,12 +12,14 @@ import { Toaster, toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { ConfigOptions, download, generateCsv, mkConfig } from 'export-to-csv';
-import { AcceptedData } from 'export-to-csv/output/lib/types';
 import { MatchSlot } from '@/domain/types/match-slot';
 import { User } from '@/domain/types/user';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { Competition } from '@/domain/types/competition';
 import { roundMatchesAscending, type Round } from '@/domain/types/round';
+
+/** `AcceptedData` from export-to-csv, which is not exported from the package root. */
+type AcceptedData = Parameters<ReturnType<typeof generateCsv>>[0][number][string];
 
 interface IActionButtonDownloadResults {
   event: Event;
