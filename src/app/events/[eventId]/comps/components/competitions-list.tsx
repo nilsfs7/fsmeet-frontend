@@ -1,14 +1,12 @@
 'use client';
 
-import { useRef, useState, type ReactNode } from 'react';
-import { IconChevronDown, IconChevronUp, IconGripVertical } from '@tabler/icons-react';
+import { useRef, useState } from 'react';
+import { IconGripVertical } from '@tabler/icons-react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { toast, Toaster } from 'sonner';
 import ActionButton from '@/components/common/action-button';
-import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { routeEvents } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { Competition } from '@/domain/types/competition';
@@ -128,13 +126,7 @@ export const CompetitionsList = ({ eventId, competitions }: CompetitionsListProp
                   </div>
                 </TableCell>
                 <TableCell className="w-[1%] text-right">
-                  <div className="grid grid-cols-[repeat(3,auto)] justify-items-end gap-1 sm:flex sm:items-center sm:justify-end">
-                    <ReorderButton label={t('tooltipMoveUp')} disabled={isSaving || index === 0} onClick={() => void reorder(index, index - 1)}>
-                      <IconChevronUp className="h-5 w-5" stroke={2} />
-                    </ReorderButton>
-                    <ReorderButton label={t('tooltipMoveDown')} disabled={isSaving || index === items.length - 1} onClick={() => void reorder(index, index + 1)}>
-                      <IconChevronDown className="h-5 w-5" stroke={2} />
-                    </ReorderButton>
+                  <div className="grid grid-cols-[repeat(2,auto)] justify-items-end gap-1 sm:grid-cols-[repeat(4,auto)]">
                     <ActionButton href={`${routeEvents}/${eventId}/comps/${comp.id}/edit`} action={Action.EDIT} tooltip={t('btnEdit')} />
                     <ActionButton href={`${routeEvents}/${eventId}/comps/${comp.id}/edit/pool`} action={Action.MANAGE_USERS} tooltip={t('btnPool')} />
                     <ActionButton href={`${routeEvents}/${eventId}/comps/${comp.id}/edit/mode`} action={Action.MANAGE_GAME_MODE} tooltip={t('btnGameMode')} />
@@ -147,24 +139,5 @@ export const CompetitionsList = ({ eventId, competitions }: CompetitionsListProp
         </TableBody>
       </Table>
     </>
-  );
-};
-
-function ReorderButton({ label, disabled, onClick, children }: { label: string; disabled: boolean; onClick: () => void; children: ReactNode }) {
-  const control = (
-    <Button type="button" variant="actionIcon" size="icon" aria-label={label} disabled={disabled} onClick={onClick}>
-      {children}
-    </Button>
-  );
-
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>{disabled ? <span className="inline-flex">{control}</span> : control}</TooltipTrigger>
-        <TooltipContent>
-          <p>{label}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
   );
 }

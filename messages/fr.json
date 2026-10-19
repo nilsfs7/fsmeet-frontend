@@ -303,8 +303,6 @@
     "tableColCost": "Coût",
     "tableColActions": "Actions",
     "tooltipEditAccommodation": "Modifier l'hébergement",
-    "tooltipMoveUp": "Monter",
-    "tooltipMoveDown": "Descendre",
     "tooltipDragAccommodation": "Glisser pour réordonner",
     "toastReorderFailed": "Impossible d'enregistrer l'ordre des hébergements.",
     "textNoAccommodations": "Aucun hébergement pour le moment."
@@ -323,8 +321,6 @@
     "pageTitle": "Gérer les documents",
     "btnCreate": "Créer",
     "tooltipEditDocument": "Modifier le document",
-    "tooltipMoveUp": "Monter",
-    "tooltipMoveDown": "Descendre",
     "tooltipDragAttachment": "Glisser pour réordonner",
     "toastReorderFailed": "Impossible d'enregistrer l'ordre des documents.",
     "textNoAttachments": "Aucun document pour le moment."
@@ -346,8 +342,6 @@
     "btnGameMode": "Mode",
     "btnSeedingAndResults": "Classement & Résultats",
     "btnCreate": "Créer",
-    "tooltipMoveUp": "Monter",
-    "tooltipMoveDown": "Descendre",
     "tooltipDragCompetition": "Glisser pour réordonner",
     "tableColName": "Nom",
     "tableColActions": "Actions",
@@ -497,8 +491,6 @@
     "pageTitle": "Gérer les offres",
     "btnCreate": "Créer",
     "tooltipEditOffering": "Modifier l'offre",
-    "tooltipMoveUp": "Monter",
-    "tooltipMoveDown": "Descendre",
     "tooltipDragOffering": "Glisser pour réordonner",
     "toastReorderFailed": "Impossible d'enregistrer l'ordre des offres.",
     "textNoOfferings": "Aucune offre pour le moment."
@@ -619,8 +611,6 @@
     "pageTitle": "Gérer les partenariats",
     "btnCreate": "Créer",
     "tooltipEditSponsor": "Modifier le partenaire",
-    "tooltipMoveUp": "Monter",
-    "tooltipMoveDown": "Descendre",
     "tooltipDragSponsor": "Glisser pour réordonner",
     "toastReorderFailed": "Impossible d'enregistrer l'ordre des sponsors.",
     "textNoSponsors": "Aucun sponsor pour le moment."

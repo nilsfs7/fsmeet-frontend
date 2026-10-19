@@ -303,8 +303,6 @@
     "tableColCost": "Kosten",
     "tableColActions": "Aktionen",
     "tooltipEditAccommodation": "Unterkunft bearbeiten",
-    "tooltipMoveUp": "Nach oben",
-    "tooltipMoveDown": "Nach unten",
     "tooltipDragAccommodation": "Zum Sortieren ziehen",
     "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden.",
     "textNoAccommodations": "Noch keine Unterkünfte."
@@ -313,8 +311,6 @@
     "pageTitle": "Dokumente verwalten",
     "btnCreate": "Dokument hinzufügen",
     "tooltipEditDocument": "Dokument bearbeiten",
-    "tooltipMoveUp": "Nach oben",
-    "tooltipMoveDown": "Nach unten",
     "tooltipDragAttachment": "Zum Sortieren ziehen",
     "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden.",
     "textNoAttachments": "Noch keine Dokumente."
@@ -346,8 +342,6 @@
     "btnGameMode": "Modus",
     "btnSeedingAndResults": "Zuweisung & Ergebnisse",
     "btnCreate": "Erstellen",
-    "tooltipMoveUp": "Nach oben",
-    "tooltipMoveDown": "Nach unten",
     "tooltipDragCompetition": "Zum Sortieren ziehen",
     "tableColName": "Name",
     "tableColActions": "Aktionen",
@@ -497,8 +491,6 @@
     "pageTitle": "Angebote verwalten",
     "btnCreate": "Erstellen",
     "tooltipEditOffering": "Angebot bearbeiten",
-    "tooltipMoveUp": "Nach oben",
-    "tooltipMoveDown": "Nach unten",
     "tooltipDragOffering": "Zum Sortieren ziehen",
     "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden.",
     "textNoOfferings": "Noch keine Angebote."
@@ -619,8 +611,6 @@
     "pageTitle": "Sponsoren verwalten",
     "btnCreate": "Sponsor hinzufügen",
     "tooltipEditSponsor": "Sponsor bearbeiten",
-    "tooltipMoveUp": "Nach oben",
-    "tooltipMoveDown": "Nach unten",
     "tooltipDragSponsor": "Zum Sortieren ziehen",
     "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden.",
     "textNoSponsors": "Noch keine Sponsoren."

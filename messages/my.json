@@ -321,8 +321,6 @@
     "tableColCost": "Kos",
     "tableColActions": "Tindakan",
     "tooltipEditAccommodation": "Edit Penginapan",
-    "tooltipMoveUp": "Alih ke atas",
-    "tooltipMoveDown": "Alih ke bawah",
     "tooltipDragAccommodation": "Seret untuk susun semula",
     "toastReorderFailed": "Tidak dapat menyimpan susunan penginapan.",
     "textNoAccommodations": "Belum ada penginapan."
@@ -341,8 +339,6 @@
     "pageTitle": "Urus Dokumen",
     "btnCreate": "Cipta",
     "tooltipEditDocument": "Edit Dokumen",
-    "tooltipMoveUp": "Alih ke atas",
-    "tooltipMoveDown": "Alih ke bawah",
     "tooltipDragAttachment": "Seret untuk susun semula",
     "toastReorderFailed": "Tidak dapat menyimpan susunan dokumen.",
     "textNoAttachments": "Belum ada dokumen."
@@ -364,8 +360,6 @@
     "btnGameMode": "Mod",
     "btnSeedingAndResults": "Seeding & Keputusan",
     "btnCreate": "Cipta",
-    "tooltipMoveUp": "Alih ke atas",
-    "tooltipMoveDown": "Alih ke bawah",
     "tooltipDragCompetition": "Seret untuk susun semula",
     "tableColName": "Nama",
     "tableColActions": "Tindakan",
@@ -515,8 +509,6 @@
     "pageTitle": "Urus Tawaran",
     "btnCreate": "Cipta",
     "tooltipEditOffering": "Edit Tawaran",
-    "tooltipMoveUp": "Alih ke atas",
-    "tooltipMoveDown": "Alih ke bawah",
     "tooltipDragOffering": "Seret untuk susun semula",
     "toastReorderFailed": "Tidak dapat menyimpan susunan tawaran.",
     "textNoOfferings": "Belum ada tawaran."
@@ -637,8 +629,6 @@
     "pageTitle": "Urus Penaja",
     "btnCreate": "Cipta",
     "tooltipEditSponsor": "Edit Penaja",
-    "tooltipMoveUp": "Alih ke atas",
-    "tooltipMoveDown": "Alih ke bawah",
     "tooltipDragSponsor": "Seret untuk susun semula",
     "toastReorderFailed": "Tidak dapat menyimpan susunan penaja.",
     "textNoSponsors": "Belum ada penaja."

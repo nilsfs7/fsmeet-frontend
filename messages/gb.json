@@ -321,8 +321,6 @@
     "tableColCost": "Cost",
     "tableColActions": "Actions",
     "tooltipEditAccommodation": "Edit accommodation",
-    "tooltipMoveUp": "Move up",
-    "tooltipMoveDown": "Move down",
     "tooltipDragAccommodation": "Drag to reorder",
     "toastReorderFailed": "Could not save the accommodation order.",
     "textNoAccommodations": "No accommodations yet."
@@ -341,8 +339,6 @@
     "pageTitle": "Manage Documents",
     "btnCreate": "Create",
     "tooltipEditDocument": "Edit document",
-    "tooltipMoveUp": "Move up",
-    "tooltipMoveDown": "Move down",
     "tooltipDragAttachment": "Drag to reorder",
     "toastReorderFailed": "Could not save the document order.",
     "textNoAttachments": "No documents yet."
@@ -364,8 +360,6 @@
     "btnGameMode": "Mode",
     "btnSeedingAndResults": "Seeding & Results",
     "btnCreate": "Create",
-    "tooltipMoveUp": "Move up",
-    "tooltipMoveDown": "Move down",
     "tooltipDragCompetition": "Drag to reorder",
     "tableColName": "Name",
     "tableColActions": "Actions",
@@ -515,8 +509,6 @@
     "pageTitle": "Manage Offerings",
     "btnCreate": "Create",
     "tooltipEditOffering": "Edit offering",
-    "tooltipMoveUp": "Move up",
-    "tooltipMoveDown": "Move down",
     "tooltipDragOffering": "Drag to reorder",
     "toastReorderFailed": "Could not save the offering order.",
     "textNoOfferings": "No offerings yet."
@@ -637,8 +629,6 @@
     "pageTitle": "Manage Sponsors",
     "btnCreate": "Create",
     "tooltipEditSponsor": "Edit sponsor",
-    "tooltipMoveUp": "Move up",
-    "tooltipMoveDown": "Move down",
     "tooltipDragSponsor": "Drag to reorder",
     "toastReorderFailed": "Could not save the sponsor order.",
     "textNoSponsors": "No sponsors yet."

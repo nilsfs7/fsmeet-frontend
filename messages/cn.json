@@ -321,8 +321,6 @@
     "tableColCost": "费用",
     "tableColActions": "操作",
     "tooltipEditAccommodation": "编辑住宿",
-    "tooltipMoveUp": "上移",
-    "tooltipMoveDown": "下移",
     "tooltipDragAccommodation": "拖动以排序",
     "toastReorderFailed": "无法保存住宿顺序。",
     "textNoAccommodations": "暂无住宿。"
@@ -341,8 +339,6 @@
     "pageTitle": "管理文档",
     "btnCreate": "创建",
     "tooltipEditDocument": "编辑文档",
-    "tooltipMoveUp": "上移",
-    "tooltipMoveDown": "下移",
     "tooltipDragAttachment": "拖动以排序",
     "toastReorderFailed": "无法保存文档顺序。",
     "textNoAttachments": "暂无文档。"
@@ -364,8 +360,6 @@
     "btnGameMode": "模式",
     "btnSeedingAndResults": "种子位与结果",
     "btnCreate": "创建",
-    "tooltipMoveUp": "上移",
-    "tooltipMoveDown": "下移",
     "tooltipDragCompetition": "拖动以排序",
     "tableColName": "名称",
     "tableColActions": "操作",
@@ -515,8 +509,6 @@
     "pageTitle": "管理选项/套餐",
     "btnCreate": "创建",
     "tooltipEditOffering": "编辑选项/套餐",
-    "tooltipMoveUp": "上移",
-    "tooltipMoveDown": "下移",
     "tooltipDragOffering": "拖动以排序",
     "toastReorderFailed": "无法保存选项/套餐顺序。",
     "textNoOfferings": "暂无选项/套餐。"
@@ -637,8 +629,6 @@
     "pageTitle": "管理赞助商",
     "btnCreate": "创建",
     "tooltipEditSponsor": "编辑赞助商",
-    "tooltipMoveUp": "上移",
-    "tooltipMoveDown": "下移",
     "tooltipDragSponsor": "拖动以排序",
     "toastReorderFailed": "无法保存赞助商顺序。",
     "textNoSponsors": "暂无赞助商。"

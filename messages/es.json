@@ -303,8 +303,6 @@
     "tableColCost": "Costo",
     "tableColActions": "Acciones",
     "tooltipEditAccommodation": "Editar alojamiento",
-    "tooltipMoveUp": "Subir",
-    "tooltipMoveDown": "Bajar",
     "tooltipDragAccommodation": "Arrastrar para reordenar",
     "toastReorderFailed": "No se pudo guardar el orden de los alojamientos.",
     "textNoAccommodations": "Todavia no hay alojamientos."
@@ -323,8 +321,6 @@
     "pageTitle": "Gestionar documentos",
     "btnCreate": "Crear",
     "tooltipEditDocument": "Editar documento",
-    "tooltipMoveUp": "Subir",
-    "tooltipMoveDown": "Bajar",
     "tooltipDragAttachment": "Arrastrar para reordenar",
     "toastReorderFailed": "No se pudo guardar el orden de los documentos.",
     "textNoAttachments": "Todavia no hay documentos."
@@ -346,8 +342,6 @@
     "btnGameMode": "Modo",
     "btnSeedingAndResults": "Asignación y resultados",
     "btnCreate": "Crear",
-    "tooltipMoveUp": "Subir",
-    "tooltipMoveDown": "Bajar",
     "tooltipDragCompetition": "Arrastrar para reordenar",
     "tableColName": "Nombre",
     "tableColActions": "Acciones",
@@ -497,8 +491,6 @@
     "pageTitle": "Gestionar ofertas",
     "btnCreate": "Crear",
     "tooltipEditOffering": "Editar oferta",
-    "tooltipMoveUp": "Subir",
-    "tooltipMoveDown": "Bajar",
     "tooltipDragOffering": "Arrastrar para reordenar",
     "toastReorderFailed": "No se pudo guardar el orden de las ofertas.",
     "textNoOfferings": "Todavia no hay ofertas."
@@ -619,8 +611,6 @@
     "pageTitle": "Gestionar patrocinadores",
     "btnCreate": "Añadir patrocinador",
     "tooltipEditSponsor": "Editar patrocinador",
-    "tooltipMoveUp": "Subir",
-    "tooltipMoveDown": "Bajar",
     "tooltipDragSponsor": "Arrastrar para reordenar",
     "toastReorderFailed": "No se pudo guardar el orden de los patrocinadores.",
     "textNoSponsors": "Todavia no hay patrocinadores."

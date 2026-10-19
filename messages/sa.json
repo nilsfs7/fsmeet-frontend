@@ -321,8 +321,6 @@
     "tableColCost": "التكلفة",
     "tableColActions": "إجراءات",
     "tooltipEditAccommodation": "تعديل الإقامة",
-    "tooltipMoveUp": "تحريك لأعلى",
-    "tooltipMoveDown": "تحريك لأسفل",
     "tooltipDragAccommodation": "اسحب لإعادة الترتيب",
     "toastReorderFailed": "تعذر حفظ ترتيب الإقامات.",
     "textNoAccommodations": "لا توجد إقامات بعد."
@@ -341,8 +339,6 @@
     "pageTitle": "إدارة المستندات",
     "btnCreate": "إنشاء",
     "tooltipEditDocument": "تعديل المستند",
-    "tooltipMoveUp": "تحريك لأعلى",
-    "tooltipMoveDown": "تحريك لأسفل",
     "tooltipDragAttachment": "اسحب لإعادة الترتيب",
     "toastReorderFailed": "تعذر حفظ ترتيب المستندات.",
     "textNoAttachments": "لا توجد مستندات بعد."
@@ -364,8 +360,6 @@
     "btnGameMode": "الوضع",
     "btnSeedingAndResults": "التصنيف والنتائج",
     "btnCreate": "إنشاء",
-    "tooltipMoveUp": "تحريك لأعلى",
-    "tooltipMoveDown": "تحريك لأسفل",
     "tooltipDragCompetition": "اسحب لإعادة الترتيب",
     "tableColName": "الاسم",
     "tableColActions": "إجراءات",
@@ -515,8 +509,6 @@
     "pageTitle": "إدارة العروض",
     "btnCreate": "إنشاء",
     "tooltipEditOffering": "تعديل العرض",
-    "tooltipMoveUp": "تحريك لأعلى",
-    "tooltipMoveDown": "تحريك لأسفل",
     "tooltipDragOffering": "اسحب لإعادة الترتيب",
     "toastReorderFailed": "تعذر حفظ ترتيب العروض.",
     "textNoOfferings": "لا توجد عروض بعد."
@@ -637,8 +629,6 @@
     "pageTitle": "إدارة الرعاة",
     "btnCreate": "إنشاء",
     "tooltipEditSponsor": "تعديل الراعي",
-    "tooltipMoveUp": "تحريك لأعلى",
-    "tooltipMoveDown": "تحريك لأسفل",
     "tooltipDragSponsor": "اسحب لإعادة الترتيب",
     "toastReorderFailed": "تعذر حفظ ترتيب الرعاة.",
     "textNoSponsors": "لا يوجد رعاة بعد."
