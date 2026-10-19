@@ -16,6 +16,7 @@ import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { ReadOfferingResponseDto } from '@/infrastructure/clients/dtos/offering/read-offering.response.dto';
 import { updateOfferingOrder } from '@/infrastructure/clients/offering.client';
+import { compareByIndex } from '@/functions/compare-by-index';
 import { cn } from '@/lib/utils';
 
 interface OfferingsListProps {
@@ -25,7 +26,7 @@ interface OfferingsListProps {
 }
 
 function sortByIndex(offerings: ReadOfferingResponseDto[]) {
-  return [...offerings].sort((a, b) => a.index - b.index);
+  return [...offerings].sort(compareByIndex);
 }
 
 function moveItem<T>(items: T[], from: number, to: number) {

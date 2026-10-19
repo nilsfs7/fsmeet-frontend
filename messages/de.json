@@ -345,7 +345,14 @@
     "btnPool": "Pool",
     "btnGameMode": "Modus",
     "btnSeedingAndResults": "Zuweisung & Ergebnisse",
-    "btnAddNew": "Neuen hinzufügen"
+    "btnCreate": "Erstellen",
+    "tooltipMoveUp": "Nach oben",
+    "tooltipMoveDown": "Nach unten",
+    "tooltipDragCompetition": "Zum Sortieren ziehen",
+    "tableColName": "Name",
+    "tableColActions": "Aktionen",
+    "textNoCompetitions": "Noch keine Wettbewerbe.",
+    "toastReorderFailed": "Die Reihenfolge konnte nicht gespeichert werden."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena-Screen",

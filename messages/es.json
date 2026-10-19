@@ -345,7 +345,14 @@
     "btnPool": "Grupo de jugadores",
     "btnGameMode": "Modo",
     "btnSeedingAndResults": "Asignación y resultados",
-    "btnAddNew": "Añadir nuevo"
+    "btnCreate": "Crear",
+    "tooltipMoveUp": "Subir",
+    "tooltipMoveDown": "Bajar",
+    "tooltipDragCompetition": "Arrastrar para reordenar",
+    "tableColName": "Nombre",
+    "tableColActions": "Acciones",
+    "textNoCompetitions": "Todavía no hay competiciones.",
+    "toastReorderFailed": "No se pudo guardar el orden de las competiciones."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Pantalla arena",

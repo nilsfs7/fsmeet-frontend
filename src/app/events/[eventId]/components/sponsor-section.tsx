@@ -3,21 +3,15 @@
 import { Sponsor } from '@/domain/types/sponsor';
 import SponsorCard from './sponsor-card';
 import { useTranslations } from 'next-intl';
+import { compareByIndex } from '@/functions/compare-by-index';
 
 interface ISponsorSectionProps {
   eventSponsors: Sponsor[];
 }
 
-function compareSponsorIndex(a: Sponsor, b: Sponsor): number {
-  if (a.index == null && b.index == null) return 0;
-  if (a.index == null) return 1;
-  if (b.index == null) return -1;
-  return a.index - b.index;
-}
-
 export const SponsorSection = ({ eventSponsors }: ISponsorSectionProps) => {
   const t = useTranslations('/events/eventid');
-  const orderedSponsors = [...eventSponsors].sort(compareSponsorIndex);
+  const orderedSponsors = [...eventSponsors].sort(compareByIndex);
 
   if (
     !eventSponsors.some(sponsor => {

@@ -363,7 +363,14 @@
     "btnPool": "选手池",
     "btnGameMode": "模式",
     "btnSeedingAndResults": "种子位与结果",
-    "btnAddNew": "新增"
+    "btnCreate": "创建",
+    "tooltipMoveUp": "上移",
+    "tooltipMoveDown": "下移",
+    "tooltipDragCompetition": "拖动以排序",
+    "tableColName": "名称",
+    "tableColActions": "操作",
+    "textNoCompetitions": "暂无比赛。",
+    "toastReorderFailed": "无法保存比赛顺序。"
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "赛场大屏",

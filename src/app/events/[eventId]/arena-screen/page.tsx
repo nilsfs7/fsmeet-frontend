@@ -10,14 +10,18 @@ import { OpenArenaPreviewButton } from './components/open-arena-preview-button';
 import { getTranslations } from 'next-intl/server';
 import { cn } from '@/lib/utils';
 import { CompetitionType } from '@/domain/enums/competition-type';
+import { compareByIndex } from '@/functions/compare-by-index';
 
 const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function ArenaScreen(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
-  const [t, competitions] = await Promise.all([getTranslations('/events/eventid/arena-screen'), getCompetitions(params.eventId, CompetitionType.BATTLES)]);
+  const [t, fetchedCompetitions] = await Promise.all([getTranslations('/events/eventid/arena-screen'), getCompetitions(params.eventId, CompetitionType.BATTLES)]);
 
-  const options = competitions.filter((c): c is typeof c & { id: string } => Boolean(c.id)).map(c => ({ id: c.id, name: c.name }));
+  const options = [...fetchedCompetitions]
+    .sort(compareByIndex)
+    .filter((c): c is typeof c & { id: string } => Boolean(c.id))
+    .map(c => ({ id: c.id, name: c.name }));
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

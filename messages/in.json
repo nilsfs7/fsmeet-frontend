@@ -363,7 +363,14 @@
     "btnPool": "पूल",
     "btnGameMode": "मोड",
     "btnSeedingAndResults": "सीडिंग और परिणाम",
-    "btnAddNew": "नया जोड़ें"
+    "btnCreate": "बनाएं",
+    "tooltipMoveUp": "ऊपर ले जाएँ",
+    "tooltipMoveDown": "नीचे ले जाएँ",
+    "tooltipDragCompetition": "क्रम बदलने के लिए खींचें",
+    "tableColName": "नाम",
+    "tableColActions": "कार्य",
+    "textNoCompetitions": "अभी तक कोई प्रतियोगिता नहीं है।",
+    "toastReorderFailed": "प्रतियोगिताओं का क्रम सहेजा नहीं जा सका।"
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena screen",

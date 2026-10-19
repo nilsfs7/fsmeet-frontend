@@ -2,6 +2,7 @@ import { Competition } from '@/domain/types/competition';
 import { createRound, type Round } from '@/domain/types/round';
 import { Session } from 'next-auth';
 import { CreateRoundBodyDto } from './dtos/competition/create-round.body.dto';
+import { PutCompetitionOrderBodyDto } from './dtos/competition/put-competition-order.body.dto';
 import { CreateMatchBodyDto } from './dtos/competition/create-match.body.dto';
 import moment from 'moment';
 import { ReadPartialUser1ResponseDto } from './dtos/user/read-partial-user-1.response.dto';
@@ -196,6 +197,30 @@ export async function updateCompetition(comp: Competition, session: Session | nu
     const error = await response.json();
     throw Error(error.message);
   }
+}
+
+/** Replaces the listing order of every competition of an event. The first id receives index 0. */
+export async function updateCompetitionOrder(eventId: string, competitionIds: string[], session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions/order`;
+
+  const body = new PutCompetitionOrderBodyDto(eventId, competitionIds);
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating competition order successful');
+    return;
+  }
+
+  const error = await response.json();
+  throw Error(error.message);
 }
 
 export async function updateRounds(compId: string, rounds: Round[], session: Session | null): Promise<void> {

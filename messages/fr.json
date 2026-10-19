@@ -345,7 +345,14 @@
     "btnPool": "Joueurs",
     "btnGameMode": "Mode",
     "btnSeedingAndResults": "Classement & Résultats",
-    "btnAddNew": "Ajouter"
+    "btnCreate": "Créer",
+    "tooltipMoveUp": "Monter",
+    "tooltipMoveDown": "Descendre",
+    "tooltipDragCompetition": "Glisser pour réordonner",
+    "tableColName": "Nom",
+    "tableColActions": "Actions",
+    "textNoCompetitions": "Aucune compétition pour le moment.",
+    "toastReorderFailed": "Impossible d'enregistrer l'ordre des compétitions."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Écran arène",

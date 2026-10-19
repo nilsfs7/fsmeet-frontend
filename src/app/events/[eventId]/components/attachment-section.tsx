@@ -4,21 +4,15 @@ import { Attachment } from '@/domain/types/attachment';
 import AttachmentCard from './attachment-card';
 import { useTranslations } from 'next-intl';
 import moment from 'moment';
+import { compareByIndex } from '@/functions/compare-by-index';
 
 interface IAttachmentSectionProps {
   eventAttachments: Attachment[];
 }
 
-function compareAttachmentIndex(a: Attachment, b: Attachment): number {
-  if (a.index == null && b.index == null) return 0;
-  if (a.index == null) return 1;
-  if (b.index == null) return -1;
-  return a.index - b.index;
-}
-
 export const AttachmentSection = ({ eventAttachments }: IAttachmentSectionProps) => {
   const t = useTranslations('/events/eventid');
-  const orderedAttachments = [...eventAttachments].sort(compareAttachmentIndex);
+  const orderedAttachments = [...eventAttachments].sort(compareByIndex);
 
   if (
     !eventAttachments.some(attachment => {

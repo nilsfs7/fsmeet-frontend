@@ -363,7 +363,14 @@
     "btnPool": "Pool",
     "btnGameMode": "Mode",
     "btnSeedingAndResults": "Seeding & Results",
-    "btnAddNew": "Add new"
+    "btnCreate": "Create",
+    "tooltipMoveUp": "Move up",
+    "tooltipMoveDown": "Move down",
+    "tooltipDragCompetition": "Drag to reorder",
+    "tableColName": "Name",
+    "tableColActions": "Actions",
+    "textNoCompetitions": "No competitions yet.",
+    "toastReorderFailed": "Could not save the competition order."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena screen",

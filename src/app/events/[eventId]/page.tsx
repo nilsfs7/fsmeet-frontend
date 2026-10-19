@@ -7,6 +7,7 @@ import { TabsMenu } from './components/tabs-menu';
 import { auth } from '@/auth';
 import { getComments, getEvent } from '@/infrastructure/clients/event.client';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
+import { compareByIndex } from '@/functions/compare-by-index';
 import { getSponsors } from '@/infrastructure/clients/sponsor.client';
 import { getTranslations } from 'next-intl/server';
 import { ActionButtonCopyEventUrl } from './components/action-button-copy-event-url';
@@ -64,13 +65,14 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
   const params = await props.params;
   const [t, session] = await Promise.all([getTranslations('/events/eventid'), auth()]);
 
-  const [event, competitions, sponsors, attachments, comments] = await Promise.all([
+  const [event, fetchedCompetitions, sponsors, attachments, comments] = await Promise.all([
     getEvent(params.eventId, session),
     getCompetitions(params.eventId, null),
     getSponsors(params.eventId),
     getAttachments(params.eventId),
     getComments(params.eventId),
   ]);
+  const competitions = [...fetchedCompetitions].sort(compareByIndex);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

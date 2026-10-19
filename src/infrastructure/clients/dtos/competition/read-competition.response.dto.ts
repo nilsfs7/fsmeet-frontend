@@ -5,6 +5,7 @@ import { ReadPartialUser1ResponseDto } from '../user/read-partial-user-1.respons
 
 export class ReadCompetitionResponseDto {
   id: string;
+  index: number;
   name: string;
   type: CompetitionType;
   gender: CompetitionGender;
@@ -21,6 +22,7 @@ export class ReadCompetitionResponseDto {
 
   constructor(
     id: string,
+    index: number,
     name: string,
     type: CompetitionType,
     gender: CompetitionGender,
@@ -36,6 +38,7 @@ export class ReadCompetitionResponseDto {
     registrationEnabled: boolean,
   ) {
     this.id = id;
+    this.index = index;
     this.name = name;
     this.type = type;
     this.gender = gender;

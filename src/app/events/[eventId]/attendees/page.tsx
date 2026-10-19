@@ -9,6 +9,7 @@ import { getAccommodations } from '@/infrastructure/clients/accommodation.client
 import { getOfferings } from '@/infrastructure/clients/offering.client';
 import { ActionButtonDownloadList } from './components/action-button-download-list';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
+import { compareByIndex } from '@/functions/compare-by-index';
 import { cn } from '@/lib/utils';
 
 const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
@@ -17,15 +18,16 @@ export default async function EventAttendees(props: { params: Promise<{ eventId:
   const params = await props.params;
   const [t, session] = await Promise.all([getTranslations('/events/eventid/attendees'), auth()]);
 
-  const [event, competitions, registrations, fetchedAccommodations, fetchedOfferings] = await Promise.all([
+  const [event, fetchedCompetitions, registrations, fetchedAccommodations, fetchedOfferings] = await Promise.all([
     getEvent(params.eventId, session),
     getCompetitions(params.eventId, null),
     getEventRegistrations(params.eventId, null, session),
     getAccommodations(params.eventId),
     getOfferings(params.eventId),
   ]);
-  const accommodations = [...fetchedAccommodations].sort((a, b) => a.index - b.index);
-  const offerings = [...fetchedOfferings].sort((a, b) => a.index - b.index);
+  const competitions = [...fetchedCompetitions].sort(compareByIndex);
+  const accommodations = [...fetchedAccommodations].sort(compareByIndex);
+  const offerings = [...fetchedOfferings].sort(compareByIndex);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

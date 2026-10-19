@@ -16,6 +16,7 @@ import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { ReadAccommodationResponseDto } from '@/infrastructure/clients/dtos/accommodation/read-accommodation.response.dto';
 import { updateAccommodationOrder } from '@/infrastructure/clients/accommodation.client';
+import { compareByIndex } from '@/functions/compare-by-index';
 import { cn } from '@/lib/utils';
 
 interface AccommodationsListProps {
@@ -25,7 +26,7 @@ interface AccommodationsListProps {
 }
 
 function sortByIndex(accommodations: ReadAccommodationResponseDto[]) {
-  return [...accommodations].sort((a, b) => a.index - b.index);
+  return [...accommodations].sort(compareByIndex);
 }
 
 function moveItem<T>(items: T[], from: number, to: number) {

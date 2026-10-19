@@ -13,6 +13,7 @@ import { routeEvents } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { ReadSponsorResponseDto } from '@/infrastructure/clients/dtos/sponsor/read-sponsor.response.dto';
 import { updateSponsorOrder } from '@/infrastructure/clients/sponsor.client';
+import { compareByIndex } from '@/functions/compare-by-index';
 import { cn } from '@/lib/utils';
 
 interface SponsorsListProps {
@@ -21,7 +22,7 @@ interface SponsorsListProps {
 }
 
 function sortByIndex(sponsors: ReadSponsorResponseDto[]) {
-  return [...sponsors].sort((a, b) => a.index - b.index);
+  return [...sponsors].sort(compareByIndex);
 }
 
 function moveItem<T>(items: T[], from: number, to: number) {

@@ -91,6 +91,7 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
     onCompUpdate({
       id: comp?.id,
       eventId: comp?.eventId,
+      index: comp?.index,
       name,
       type: compType,
       gender: compGender,

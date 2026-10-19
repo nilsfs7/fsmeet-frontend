@@ -363,7 +363,14 @@
     "btnPool": "القائمة",
     "btnGameMode": "الوضع",
     "btnSeedingAndResults": "التصنيف والنتائج",
-    "btnAddNew": "إضافة جديد"
+    "btnCreate": "إنشاء",
+    "tooltipMoveUp": "تحريك لأعلى",
+    "tooltipMoveDown": "تحريك لأسفل",
+    "tooltipDragCompetition": "اسحب لإعادة الترتيب",
+    "tableColName": "الاسم",
+    "tableColActions": "إجراءات",
+    "textNoCompetitions": "لا توجد مسابقات بعد.",
+    "toastReorderFailed": "تعذر حفظ ترتيب المسابقات."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "شاشة الساحة",

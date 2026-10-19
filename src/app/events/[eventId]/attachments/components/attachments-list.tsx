@@ -13,6 +13,7 @@ import { routeEvents } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { ReadAttachmentResponseDto } from '@/infrastructure/clients/dtos/attachment/read-attachment.response.dto';
 import { updateAttachmentOrder } from '@/infrastructure/clients/attachment.client';
+import { compareByIndex } from '@/functions/compare-by-index';
 import { cn } from '@/lib/utils';
 
 interface AttachmentsListProps {
@@ -21,7 +22,7 @@ interface AttachmentsListProps {
 }
 
 function sortByIndex(attachments: ReadAttachmentResponseDto[]) {
-  return [...attachments].sort((a, b) => a.index - b.index);
+  return [...attachments].sort(compareByIndex);
 }
 
 function moveItem<T>(items: T[], from: number, to: number) {

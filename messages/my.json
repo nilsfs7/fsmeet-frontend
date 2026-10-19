@@ -363,7 +363,14 @@
     "btnPool": "Pool",
     "btnGameMode": "Mod",
     "btnSeedingAndResults": "Seeding & Keputusan",
-    "btnAddNew": "Tambah baharu"
+    "btnCreate": "Cipta",
+    "tooltipMoveUp": "Alih ke atas",
+    "tooltipMoveDown": "Alih ke bawah",
+    "tooltipDragCompetition": "Seret untuk susun semula",
+    "tableColName": "Nama",
+    "tableColActions": "Tindakan",
+    "textNoCompetitions": "Belum ada pertandingan.",
+    "toastReorderFailed": "Tidak dapat menyimpan susunan pertandingan."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Skrin arena",

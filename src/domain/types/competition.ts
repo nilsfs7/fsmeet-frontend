@@ -6,6 +6,7 @@ import { User } from './user';
 export type Competition = {
   id: string | undefined;
   eventId: string | undefined;
+  index: number | undefined;
   name: string;
   type: CompetitionType;
   gender: CompetitionGender;

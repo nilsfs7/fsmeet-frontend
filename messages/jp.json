@@ -363,7 +363,14 @@
     "btnPool": "選手一覧",
     "btnGameMode": "モード",
     "btnSeedingAndResults": "シード＆結果",
-    "btnAddNew": "新規追加"
+    "btnCreate": "作成",
+    "tooltipMoveUp": "上へ移動",
+    "tooltipMoveDown": "下へ移動",
+    "tooltipDragCompetition": "ドラッグして並べ替え",
+    "tableColName": "名前",
+    "tableColActions": "操作",
+    "textNoCompetitions": "まだ競技がありません。",
+    "toastReorderFailed": "競技の順序を保存できませんでした。"
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "アリーナ画面",
