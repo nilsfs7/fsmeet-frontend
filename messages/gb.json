@@ -321,8 +321,6 @@
     "tableColCost": "Cost",
     "tableColActions": "Actions",
     "tooltipEditAccommodation": "Edit accommodation",
-    "tooltipMoveUp": "Move up",
-    "tooltipMoveDown": "Move down",
     "tooltipDragAccommodation": "Drag to reorder",
     "toastReorderFailed": "Could not save the accommodation order.",
     "textNoAccommodations": "No accommodations yet."
@@ -341,8 +339,6 @@
     "pageTitle": "Manage Documents",
     "btnCreate": "Create",
     "tooltipEditDocument": "Edit document",
-    "tooltipMoveUp": "Move up",
-    "tooltipMoveDown": "Move down",
     "tooltipDragAttachment": "Drag to reorder",
     "toastReorderFailed": "Could not save the document order.",
     "textNoAttachments": "No documents yet."
@@ -363,7 +359,12 @@
     "btnPool": "Pool",
     "btnGameMode": "Mode",
     "btnSeedingAndResults": "Seeding & Results",
-    "btnAddNew": "Add new"
+    "btnCreate": "Create",
+    "tooltipDragCompetition": "Drag to reorder",
+    "tableColName": "Name",
+    "tableColActions": "Actions",
+    "textNoCompetitions": "No competitions yet.",
+    "toastReorderFailed": "Could not save the competition order."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena screen",
@@ -508,8 +509,6 @@
     "pageTitle": "Manage Offerings",
     "btnCreate": "Create",
     "tooltipEditOffering": "Edit offering",
-    "tooltipMoveUp": "Move up",
-    "tooltipMoveDown": "Move down",
     "tooltipDragOffering": "Drag to reorder",
     "toastReorderFailed": "Could not save the offering order.",
     "textNoOfferings": "No offerings yet."
@@ -630,8 +629,6 @@
     "pageTitle": "Manage Sponsors",
     "btnCreate": "Create",
     "tooltipEditSponsor": "Edit sponsor",
-    "tooltipMoveUp": "Move up",
-    "tooltipMoveDown": "Move down",
     "tooltipDragSponsor": "Drag to reorder",
     "toastReorderFailed": "Could not save the sponsor order.",
     "textNoSponsors": "No sponsors yet."
@@ -1032,9 +1029,6 @@
     "inputVisitorFee": "Visitor Fee",
     "lblFreeMethods": "Free payment methods",
     "chbCashAccept": "Accept Cash",
-    "chbPayPalAccept": "Accept PayPal",
-    "inputPayPalUsername": "PayPal User Handle",
-    "lnkPayPalVerifyAccount": "Verify PayPal Account",
     "chbBankSepaAccept": "Accept Bank Transfer (SEPA)",
     "inputBankSepaBank": "SEPA Bankname",
     "inputBankSepaRecipeint": "SEPA Recipient",

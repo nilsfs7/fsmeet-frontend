@@ -303,8 +303,6 @@
     "tableColCost": "Costo",
     "tableColActions": "Acciones",
     "tooltipEditAccommodation": "Editar alojamiento",
-    "tooltipMoveUp": "Subir",
-    "tooltipMoveDown": "Bajar",
     "tooltipDragAccommodation": "Arrastrar para reordenar",
     "toastReorderFailed": "No se pudo guardar el orden de los alojamientos.",
     "textNoAccommodations": "Todavia no hay alojamientos."
@@ -323,8 +321,6 @@
     "pageTitle": "Gestionar documentos",
     "btnCreate": "Crear",
     "tooltipEditDocument": "Editar documento",
-    "tooltipMoveUp": "Subir",
-    "tooltipMoveDown": "Bajar",
     "tooltipDragAttachment": "Arrastrar para reordenar",
     "toastReorderFailed": "No se pudo guardar el orden de los documentos.",
     "textNoAttachments": "Todavia no hay documentos."
@@ -345,7 +341,12 @@
     "btnPool": "Grupo de jugadores",
     "btnGameMode": "Modo",
     "btnSeedingAndResults": "Asignación y resultados",
-    "btnAddNew": "Añadir nuevo"
+    "btnCreate": "Crear",
+    "tooltipDragCompetition": "Arrastrar para reordenar",
+    "tableColName": "Nombre",
+    "tableColActions": "Acciones",
+    "textNoCompetitions": "Todavía no hay competiciones.",
+    "toastReorderFailed": "No se pudo guardar el orden de las competiciones."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Pantalla arena",
@@ -490,8 +491,6 @@
     "pageTitle": "Gestionar ofertas",
     "btnCreate": "Crear",
     "tooltipEditOffering": "Editar oferta",
-    "tooltipMoveUp": "Subir",
-    "tooltipMoveDown": "Bajar",
     "tooltipDragOffering": "Arrastrar para reordenar",
     "toastReorderFailed": "No se pudo guardar el orden de las ofertas.",
     "textNoOfferings": "Todavia no hay ofertas."
@@ -612,8 +611,6 @@
     "pageTitle": "Gestionar patrocinadores",
     "btnCreate": "Añadir patrocinador",
     "tooltipEditSponsor": "Editar patrocinador",
-    "tooltipMoveUp": "Subir",
-    "tooltipMoveDown": "Bajar",
     "tooltipDragSponsor": "Arrastrar para reordenar",
     "toastReorderFailed": "No se pudo guardar el orden de los patrocinadores.",
     "textNoSponsors": "Todavia no hay patrocinadores."
@@ -1013,9 +1010,6 @@
     "inputVisitorFee": "Cuota de visitante",
     "lblFreeMethods": "Métodos de pago gratuitos",
     "chbCashAccept": "Aceptar efectivo",
-    "chbPayPalAccept": "Aceptar PayPal",
-    "inputPayPalUsername": "Nombre de usuario de PayPal",
-    "lnkPayPalVerifyAccount": "Verificar cuenta PayPaln",
     "chbBankSepaAccept": "Aceptar transferencia bancaria (SEPA)",
     "inputBankSepaBank": "Nombre del banco (SEPA)",
     "inputBankSepaRecipeint": "Destinatario (SEPA)",

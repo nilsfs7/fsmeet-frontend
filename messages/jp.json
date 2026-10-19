@@ -321,8 +321,6 @@
     "tableColCost": "費用",
     "tableColActions": "操作",
     "tooltipEditAccommodation": "宿泊を編集",
-    "tooltipMoveUp": "上へ移動",
-    "tooltipMoveDown": "下へ移動",
     "tooltipDragAccommodation": "ドラッグして並べ替え",
     "toastReorderFailed": "宿泊の順序を保存できませんでした。",
     "textNoAccommodations": "まだ宿泊がありません。"
@@ -341,8 +339,6 @@
     "pageTitle": "ドキュメントを管理",
     "btnCreate": "作成",
     "tooltipEditDocument": "ドキュメントを編集",
-    "tooltipMoveUp": "上へ移動",
-    "tooltipMoveDown": "下へ移動",
     "tooltipDragAttachment": "ドラッグして並べ替え",
     "toastReorderFailed": "ドキュメントの順序を保存できませんでした。",
     "textNoAttachments": "まだドキュメントがありません。"
@@ -363,7 +359,12 @@
     "btnPool": "選手一覧",
     "btnGameMode": "モード",
     "btnSeedingAndResults": "シード＆結果",
-    "btnAddNew": "新規追加"
+    "btnCreate": "作成",
+    "tooltipDragCompetition": "ドラッグして並べ替え",
+    "tableColName": "名前",
+    "tableColActions": "操作",
+    "textNoCompetitions": "まだ競技がありません。",
+    "toastReorderFailed": "競技の順序を保存できませんでした。"
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "アリーナ画面",
@@ -508,8 +509,6 @@
     "pageTitle": "提供内容を管理",
     "btnCreate": "作成",
     "tooltipEditOffering": "提供内容を編集",
-    "tooltipMoveUp": "上へ移動",
-    "tooltipMoveDown": "下へ移動",
     "tooltipDragOffering": "ドラッグして並べ替え",
     "toastReorderFailed": "提供内容の順序を保存できませんでした。",
     "textNoOfferings": "まだ提供内容がありません。"
@@ -630,8 +629,6 @@
     "pageTitle": "スポンサーを管理",
     "btnCreate": "作成",
     "tooltipEditSponsor": "スポンサーを編集",
-    "tooltipMoveUp": "上へ移動",
-    "tooltipMoveDown": "下へ移動",
     "tooltipDragSponsor": "ドラッグして並べ替え",
     "toastReorderFailed": "スポンサーの順序を保存できませんでした。",
     "textNoSponsors": "まだスポンサーがありません。"
@@ -1031,9 +1028,6 @@
     "inputVisitorFee": "観客費",
     "lblFreeMethods": "無料の支払い方法",
     "chbCashAccept": "現金対応",
-    "chbPayPalAccept": "PayPal対応",
-    "inputPayPalUsername": "PayPalユーザー名",
-    "lnkPayPalVerifyAccount": "PayPalアカウントを確認",
     "chbBankSepaAccept": "銀行振込（SEPA）対応",
     "inputBankSepaBank": "SEPA銀行名",
     "inputBankSepaRecipeint": "SEPA受取人",

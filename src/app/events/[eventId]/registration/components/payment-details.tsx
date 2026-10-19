@@ -14,6 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Accordion, AccordionContent, AccordionItem } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
 import { registrationListScrollClass, registrationListShellClass } from './registration-list-layout';
+import { compareByIndex } from '@/functions/compare-by-index';
 
 interface IPaymentDetails {
   event: Event;
@@ -92,18 +93,16 @@ export const PaymentDetails = ({
     return Math.round(getTotal() * 0.01); // 1% of total sum
   };
 
-  const selectedCompetitions = useMemo(() => competitions.filter(c => c.id && compSignUps.includes(c.id)), [competitions, compSignUps]);
+  const selectedCompetitions = useMemo(
+    () => competitions.filter(c => c.id && compSignUps.includes(c.id)).sort(compareByIndex),
+    [competitions, compSignUps],
+  );
 
   const selectedOfferings = useMemo(
     () =>
       event.offerings
         .filter(o => o.id && offeringOrders.includes(o.id))
-        .sort((a, b) => {
-          if (a.index == null && b.index == null) return 0;
-          if (a.index == null) return 1;
-          if (b.index == null) return -1;
-          return a.index - b.index;
-        }),
+        .sort(compareByIndex),
     [event.offerings, offeringOrders],
   );
 
@@ -111,12 +110,7 @@ export const PaymentDetails = ({
     () =>
       event.accommodations
         .filter(a => a.id && accommodationOrders.includes(a.id))
-        .sort((a, b) => {
-          if (a.index == null && b.index == null) return 0;
-          if (a.index == null) return 1;
-          if (b.index == null) return -1;
-          return a.index - b.index;
-        }),
+        .sort(compareByIndex),
     [event.accommodations, accommodationOrders],
   );
 

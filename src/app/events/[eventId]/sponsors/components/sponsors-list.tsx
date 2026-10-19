@@ -1,18 +1,17 @@
 'use client';
 
-import { useRef, useState, type ReactNode } from 'react';
-import { IconChevronDown, IconChevronUp, IconGripVertical } from '@tabler/icons-react';
+import { useRef, useState } from 'react';
+import { IconGripVertical } from '@tabler/icons-react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { toast, Toaster } from 'sonner';
 import ActionButton from '@/components/common/action-button';
-import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { routeEvents } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { ReadSponsorResponseDto } from '@/infrastructure/clients/dtos/sponsor/read-sponsor.response.dto';
 import { updateSponsorOrder } from '@/infrastructure/clients/sponsor.client';
+import { compareByIndex } from '@/functions/compare-by-index';
 import { cn } from '@/lib/utils';
 
 interface SponsorsListProps {
@@ -21,7 +20,7 @@ interface SponsorsListProps {
 }
 
 function sortByIndex(sponsors: ReadSponsorResponseDto[]) {
-  return [...sponsors].sort((a, b) => a.index - b.index);
+  return [...sponsors].sort(compareByIndex);
 }
 
 function moveItem<T>(items: T[], from: number, to: number) {
@@ -128,12 +127,6 @@ const SponsorsList = ({ eventId, sponsors }: SponsorsListProps) => {
                 <TableCell className="font-medium">{sponsor.name}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-1">
-                    <ReorderButton label={t('tooltipMoveUp')} disabled={isSaving || index === 0} onClick={() => void reorder(index, index - 1)}>
-                      <IconChevronUp className="h-5 w-5" stroke={2} />
-                    </ReorderButton>
-                    <ReorderButton label={t('tooltipMoveDown')} disabled={isSaving || index === items.length - 1} onClick={() => void reorder(index, index + 1)}>
-                      <IconChevronDown className="h-5 w-5" stroke={2} />
-                    </ReorderButton>
                     <ActionButton href={`${routeEvents}/${eventId}/sponsors/${sponsor.id}/edit`} action={Action.EDIT} tooltip={t('tooltipEditSponsor')} />
                   </div>
                 </TableCell>
@@ -145,24 +138,5 @@ const SponsorsList = ({ eventId, sponsors }: SponsorsListProps) => {
     </>
   );
 };
-
-function ReorderButton({ label, disabled, onClick, children }: { label: string; disabled: boolean; onClick: () => void; children: ReactNode }) {
-  const control = (
-    <Button type="button" variant="actionIcon" size="icon" aria-label={label} disabled={disabled} onClick={onClick}>
-      {children}
-    </Button>
-  );
-
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>{disabled ? <span className="inline-flex">{control}</span> : control}</TooltipTrigger>
-        <TooltipContent>
-          <p>{label}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-}
 
 export default SponsorsList;

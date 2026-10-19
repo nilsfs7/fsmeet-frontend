@@ -321,8 +321,6 @@
     "tableColCost": "लागत",
     "tableColActions": "कार्य",
     "tooltipEditAccommodation": "आवास संपादित करें",
-    "tooltipMoveUp": "ऊपर ले जाएँ",
-    "tooltipMoveDown": "नीचे ले जाएँ",
     "tooltipDragAccommodation": "क्रम बदलने के लिए खींचें",
     "toastReorderFailed": "आवासों का क्रम सहेजा नहीं जा सका।",
     "textNoAccommodations": "अभी तक कोई आवास नहीं है।"
@@ -341,8 +339,6 @@
     "pageTitle": "दस्तावेज़ प्रबंधित करें",
     "btnCreate": "बनाएं",
     "tooltipEditDocument": "दस्तावेज़ संपादित करें",
-    "tooltipMoveUp": "ऊपर ले जाएँ",
-    "tooltipMoveDown": "नीचे ले जाएँ",
     "tooltipDragAttachment": "क्रम बदलने के लिए खींचें",
     "toastReorderFailed": "दस्तावेज़ों का क्रम सहेजा नहीं जा सका।",
     "textNoAttachments": "अभी तक कोई दस्तावेज़ नहीं है।"
@@ -363,7 +359,12 @@
     "btnPool": "पूल",
     "btnGameMode": "मोड",
     "btnSeedingAndResults": "सीडिंग और परिणाम",
-    "btnAddNew": "नया जोड़ें"
+    "btnCreate": "बनाएं",
+    "tooltipDragCompetition": "क्रम बदलने के लिए खींचें",
+    "tableColName": "नाम",
+    "tableColActions": "कार्य",
+    "textNoCompetitions": "अभी तक कोई प्रतियोगिता नहीं है।",
+    "toastReorderFailed": "प्रतियोगिताओं का क्रम सहेजा नहीं जा सका।"
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena screen",
@@ -508,8 +509,6 @@
     "pageTitle": "सेवाएं प्रबंधित करें",
     "btnCreate": "बनाएं",
     "tooltipEditOffering": "सेवा संपादित करें",
-    "tooltipMoveUp": "ऊपर ले जाएँ",
-    "tooltipMoveDown": "नीचे ले जाएँ",
     "tooltipDragOffering": "क्रम बदलने के लिए खींचें",
     "toastReorderFailed": "सेवाओं का क्रम सहेजा नहीं जा सका।",
     "textNoOfferings": "अभी तक कोई सेवाएं नहीं हैं।"
@@ -630,8 +629,6 @@
     "pageTitle": "प्रायोजक प्रबंधित करें",
     "btnCreate": "बनाएं",
     "tooltipEditSponsor": "प्रायोजक संपादित करें",
-    "tooltipMoveUp": "ऊपर ले जाएँ",
-    "tooltipMoveDown": "नीचे ले जाएँ",
     "tooltipDragSponsor": "क्रम बदलने के लिए खींचें",
     "toastReorderFailed": "प्रायोजकों का क्रम सहेजा नहीं जा सका।",
     "textNoSponsors": "अभी तक कोई प्रायोजक नहीं है।"
@@ -1031,9 +1028,6 @@
     "inputVisitorFee": "दर्शक शुल्क",
     "lblFreeMethods": "मुफ़्त भुगतान विधियां",
     "chbCashAccept": "नकद स्वीकार करें",
-    "chbPayPalAccept": "PayPal स्वीकार करें",
-    "inputPayPalUsername": "PayPal यूज़र हैंडल",
-    "lnkPayPalVerifyAccount": "PayPal अकाउंट सत्यापित करें",
     "chbBankSepaAccept": "बैंक ट्रांसफर स्वीकार करें (SEPA)",
     "inputBankSepaBank": "SEPA बैंक नाम",
     "inputBankSepaRecipeint": "SEPA प्राप्तकर्ता",

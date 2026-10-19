@@ -15,14 +15,12 @@ import type { ReadLicenseInfoResponseDto } from './dtos/event/read-license-info.
 import { CreateEventBodyDto } from './dtos/event/create-event.body.dto';
 import { CreateEventMaintainerBodyDto } from './dtos/event/create-event-maintainer.body.dto';
 import { CreatePaymentMethodCashBodyDto } from './dtos/event/payment/create-payment-method-cash.body.dto';
-import { CreatePaymentMethodPayPalBodyDto } from './dtos/event/payment/create-payment-method-paypal.body.dto';
 import { CreatePaymentMethodSepaBodyDto } from './dtos/event/payment/create-payment-method-sepa.body.dto';
 import { CreatePaymentMethodStripeBodyDto } from './dtos/event/payment/create-payment-method-stripe.body.dto';
 import moment, { Moment } from 'moment';
 import { UpdateEventBodyDto } from './dtos/event/update-event.body.dto';
 import { UpdateEventMaintainerBodyDto } from './dtos/event/update-event-maintainer.body.dto';
 import { UpdatePaymentMethodCashBodyDto } from './dtos/event/payment/update-payment-method-cash.body.dto';
-import { UpdatePaymentMethodPayPalBodyDto } from './dtos/event/payment/update-payment-method-paypal.body.dto';
 import { UpdatePaymentMethodSepaBodyDto } from './dtos/event/payment/update-payment-method-sepa.body.dto';
 import { UpdatePaymentMethodStripeBodyDto } from './dtos/event/payment/update-payment-method-stripe.body.dto';
 import { CreateEventResponseDto } from './dtos/event/create-event.response.dto';
@@ -229,7 +227,6 @@ export async function createEvent(event: Event, session: Session | null): Promis
     event?.livestreamUrl,
     event?.messangerInvitationUrl,
     new CreatePaymentMethodCashBodyDto(event?.paymentMethodCash.enabled),
-    new CreatePaymentMethodPayPalBodyDto(event?.paymentMethodPayPal.enabled, event?.paymentMethodPayPal.payPalHandle),
     new CreatePaymentMethodSepaBodyDto(
       event?.paymentMethodSepa.enabled,
       event?.paymentMethodSepa.bank,
@@ -591,8 +588,6 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     event?.livestreamUrl,
     event?.messangerInvitationUrl,
     new UpdatePaymentMethodCashBodyDto(event?.paymentMethodCash.enabled),
-    new UpdatePaymentMethodPayPalBodyDto(event?.paymentMethodPayPal.enabled, event?.paymentMethodPayPal.payPalHandle),
-
     new UpdatePaymentMethodSepaBodyDto(
       event?.paymentMethodSepa.enabled,
       event?.paymentMethodSepa.bank,

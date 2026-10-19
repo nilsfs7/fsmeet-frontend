@@ -321,8 +321,6 @@
     "tableColCost": "التكلفة",
     "tableColActions": "إجراءات",
     "tooltipEditAccommodation": "تعديل الإقامة",
-    "tooltipMoveUp": "تحريك لأعلى",
-    "tooltipMoveDown": "تحريك لأسفل",
     "tooltipDragAccommodation": "اسحب لإعادة الترتيب",
     "toastReorderFailed": "تعذر حفظ ترتيب الإقامات.",
     "textNoAccommodations": "لا توجد إقامات بعد."
@@ -341,8 +339,6 @@
     "pageTitle": "إدارة المستندات",
     "btnCreate": "إنشاء",
     "tooltipEditDocument": "تعديل المستند",
-    "tooltipMoveUp": "تحريك لأعلى",
-    "tooltipMoveDown": "تحريك لأسفل",
     "tooltipDragAttachment": "اسحب لإعادة الترتيب",
     "toastReorderFailed": "تعذر حفظ ترتيب المستندات.",
     "textNoAttachments": "لا توجد مستندات بعد."
@@ -363,7 +359,12 @@
     "btnPool": "القائمة",
     "btnGameMode": "الوضع",
     "btnSeedingAndResults": "التصنيف والنتائج",
-    "btnAddNew": "إضافة جديد"
+    "btnCreate": "إنشاء",
+    "tooltipDragCompetition": "اسحب لإعادة الترتيب",
+    "tableColName": "الاسم",
+    "tableColActions": "إجراءات",
+    "textNoCompetitions": "لا توجد مسابقات بعد.",
+    "toastReorderFailed": "تعذر حفظ ترتيب المسابقات."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "شاشة الساحة",
@@ -508,8 +509,6 @@
     "pageTitle": "إدارة العروض",
     "btnCreate": "إنشاء",
     "tooltipEditOffering": "تعديل العرض",
-    "tooltipMoveUp": "تحريك لأعلى",
-    "tooltipMoveDown": "تحريك لأسفل",
     "tooltipDragOffering": "اسحب لإعادة الترتيب",
     "toastReorderFailed": "تعذر حفظ ترتيب العروض.",
     "textNoOfferings": "لا توجد عروض بعد."
@@ -630,8 +629,6 @@
     "pageTitle": "إدارة الرعاة",
     "btnCreate": "إنشاء",
     "tooltipEditSponsor": "تعديل الراعي",
-    "tooltipMoveUp": "تحريك لأعلى",
-    "tooltipMoveDown": "تحريك لأسفل",
     "tooltipDragSponsor": "اسحب لإعادة الترتيب",
     "toastReorderFailed": "تعذر حفظ ترتيب الرعاة.",
     "textNoSponsors": "لا يوجد رعاة بعد."
@@ -1031,9 +1028,6 @@
     "inputVisitorFee": "رسوم الزائر",
     "lblFreeMethods": "طرق دفع مجانية",
     "chbCashAccept": "قبول الدفع نقداً",
-    "chbPayPalAccept": "قبول PayPal",
-    "inputPayPalUsername": "اسم مستخدم PayPal",
-    "lnkPayPalVerifyAccount": "توثيق حساب PayPal",
     "chbBankSepaAccept": "قبول التحويل البنكي (SEPA)",
     "inputBankSepaBank": "اسم بنك SEPA",
     "inputBankSepaRecipeint": "مستلم SEPA",

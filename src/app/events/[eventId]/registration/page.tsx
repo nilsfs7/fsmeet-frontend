@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import { validateSession } from '@/functions/validate-session';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
+import { compareByIndex } from '@/functions/compare-by-index';
 
 export default async function EventRegistration(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -17,7 +18,8 @@ export default async function EventRegistration(props: { params: Promise<{ event
     redirect(loginRouteWithCallbackUrl);
   }
 
-  const [event, competitions, user] = await Promise.all([getEvent(params.eventId, session), getCompetitions(params.eventId, null), getUser(session?.user.username ? session.user.username : '', session)]);
+  const [event, fetchedCompetitions, user] = await Promise.all([getEvent(params.eventId, session), getCompetitions(params.eventId, null), getUser(session?.user.username ? session.user.username : '', session)]);
+  const competitions = [...fetchedCompetitions].sort(compareByIndex);
 
   return <EventRegistrationProcess event={event} competitions={competitions} attendee={user} />;
 }

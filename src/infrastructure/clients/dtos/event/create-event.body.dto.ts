@@ -2,7 +2,6 @@ import { EventType } from '@/domain/enums/event-type';
 import { Moment } from 'moment';
 import { CreateEventMaintainerBodyDto } from './create-event-maintainer.body.dto';
 import { CreatePaymentMethodCashBodyDto } from './payment/create-payment-method-cash.body.dto';
-import { CreatePaymentMethodPayPalBodyDto } from './payment/create-payment-method-paypal.body.dto';
 import { CreatePaymentMethodSepaBodyDto } from './payment/create-payment-method-sepa.body.dto';
 import { CreatePaymentMethodStripeBodyDto } from './payment/create-payment-method-stripe.body.dto';
 import { CurrencyCode } from '@/domain/enums/currency-code';
@@ -37,7 +36,6 @@ export class CreateEventBodyDto {
   livestreamUrl: string | null;
   messengerInvitationUrl: string | null;
   paymentMethodCash: CreatePaymentMethodCashBodyDto;
-  paymentMethodPayPal: CreatePaymentMethodPayPalBodyDto;
   paymentMethodSepa: CreatePaymentMethodSepaBodyDto;
   paymentMethodStripe: CreatePaymentMethodStripeBodyDto;
   showUserCountryFlag: boolean;
@@ -78,7 +76,6 @@ export class CreateEventBodyDto {
     livestreamUrl: string | null,
     messengerInvitationUrl: string | null,
     paymentMethodCash: CreatePaymentMethodCashBodyDto,
-    paymentMethodPayPal: CreatePaymentMethodPayPalBodyDto,
     paymentMethodSepa: CreatePaymentMethodSepaBodyDto,
     paymentMethodStripe: CreatePaymentMethodStripeBodyDto,
     showUserCountryFlag: boolean,
@@ -120,7 +117,6 @@ export class CreateEventBodyDto {
     this.paymentMethodCash = paymentMethodCash;
     this.paymentMethodSepa = paymentMethodSepa;
     this.paymentMethodStripe = paymentMethodStripe;
-    this.paymentMethodPayPal = paymentMethodPayPal;
     this.showUserCountryFlag = showUserCountryFlag;
     this.registrationCollectPhoneNumber = registrationCollectPhoneNumber;
     this.autoApproveRegistrations = autoApproveRegistrations;

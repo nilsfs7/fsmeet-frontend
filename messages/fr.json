@@ -303,8 +303,6 @@
     "tableColCost": "Coût",
     "tableColActions": "Actions",
     "tooltipEditAccommodation": "Modifier l'hébergement",
-    "tooltipMoveUp": "Monter",
-    "tooltipMoveDown": "Descendre",
     "tooltipDragAccommodation": "Glisser pour réordonner",
     "toastReorderFailed": "Impossible d'enregistrer l'ordre des hébergements.",
     "textNoAccommodations": "Aucun hébergement pour le moment."
@@ -323,8 +321,6 @@
     "pageTitle": "Gérer les documents",
     "btnCreate": "Créer",
     "tooltipEditDocument": "Modifier le document",
-    "tooltipMoveUp": "Monter",
-    "tooltipMoveDown": "Descendre",
     "tooltipDragAttachment": "Glisser pour réordonner",
     "toastReorderFailed": "Impossible d'enregistrer l'ordre des documents.",
     "textNoAttachments": "Aucun document pour le moment."
@@ -345,7 +341,12 @@
     "btnPool": "Joueurs",
     "btnGameMode": "Mode",
     "btnSeedingAndResults": "Classement & Résultats",
-    "btnAddNew": "Ajouter"
+    "btnCreate": "Créer",
+    "tooltipDragCompetition": "Glisser pour réordonner",
+    "tableColName": "Nom",
+    "tableColActions": "Actions",
+    "textNoCompetitions": "Aucune compétition pour le moment.",
+    "toastReorderFailed": "Impossible d'enregistrer l'ordre des compétitions."
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Écran arène",
@@ -490,8 +491,6 @@
     "pageTitle": "Gérer les offres",
     "btnCreate": "Créer",
     "tooltipEditOffering": "Modifier l'offre",
-    "tooltipMoveUp": "Monter",
-    "tooltipMoveDown": "Descendre",
     "tooltipDragOffering": "Glisser pour réordonner",
     "toastReorderFailed": "Impossible d'enregistrer l'ordre des offres.",
     "textNoOfferings": "Aucune offre pour le moment."
@@ -612,8 +611,6 @@
     "pageTitle": "Gérer les partenariats",
     "btnCreate": "Créer",
     "tooltipEditSponsor": "Modifier le partenaire",
-    "tooltipMoveUp": "Monter",
-    "tooltipMoveDown": "Descendre",
     "tooltipDragSponsor": "Glisser pour réordonner",
     "toastReorderFailed": "Impossible d'enregistrer l'ordre des sponsors.",
     "textNoSponsors": "Aucun sponsor pour le moment."
@@ -1013,9 +1010,6 @@
     "inputVisitorFee": "Frais de visite",
     "lblFreeMethods": "Méthodes de paiement gratuites",
     "chbCashAccept": "Accepter l'argent liquide",
-    "chbPayPalAccept": "Accepter PayPal",
-    "inputPayPalUsername": "Identifiant PayPal",
-    "lnkPayPalVerifyAccount": "Vérifier le compte PayPal",
     "chbBankSepaAccept": "Accepter le virement bancaire (SEPA)",
     "inputBankSepaBank": "Nom de la banque SEPA",
     "inputBankSepaRecipeint": "Bénéficiaire SEPA",

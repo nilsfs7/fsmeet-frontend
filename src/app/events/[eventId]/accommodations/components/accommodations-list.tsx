@@ -1,14 +1,12 @@
 'use client';
 
-import { useRef, useState, type ReactNode } from 'react';
-import { IconChevronDown, IconChevronUp, IconGripVertical } from '@tabler/icons-react';
+import { useRef, useState } from 'react';
+import { IconGripVertical } from '@tabler/icons-react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { toast, Toaster } from 'sonner';
 import ActionButton from '@/components/common/action-button';
-import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { routeEvents } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { CurrencyCode } from '@/domain/enums/currency-code';
@@ -16,6 +14,7 @@ import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { ReadAccommodationResponseDto } from '@/infrastructure/clients/dtos/accommodation/read-accommodation.response.dto';
 import { updateAccommodationOrder } from '@/infrastructure/clients/accommodation.client';
+import { compareByIndex } from '@/functions/compare-by-index';
 import { cn } from '@/lib/utils';
 
 interface AccommodationsListProps {
@@ -25,7 +24,7 @@ interface AccommodationsListProps {
 }
 
 function sortByIndex(accommodations: ReadAccommodationResponseDto[]) {
-  return [...accommodations].sort((a, b) => a.index - b.index);
+  return [...accommodations].sort(compareByIndex);
 }
 
 function moveItem<T>(items: T[], from: number, to: number) {
@@ -135,12 +134,6 @@ const AccommodationsList = ({ eventId, currency, accommodations }: Accommodation
                 <TableCell className="whitespace-nowrap">{convertCurrencyIntegerToDecimal(accommodation.cost, currency)}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-1">
-                    <ReorderButton label={t('tooltipMoveUp')} disabled={isSaving || index === 0} onClick={() => void reorder(index, index - 1)}>
-                      <IconChevronUp className="h-5 w-5" stroke={2} />
-                    </ReorderButton>
-                    <ReorderButton label={t('tooltipMoveDown')} disabled={isSaving || index === items.length - 1} onClick={() => void reorder(index, index + 1)}>
-                      <IconChevronDown className="h-5 w-5" stroke={2} />
-                    </ReorderButton>
                     <ActionButton
                       href={`${routeEvents}/${eventId}/accommodations/${accommodation.id}/edit`}
                       action={Action.EDIT}
@@ -156,24 +149,5 @@ const AccommodationsList = ({ eventId, currency, accommodations }: Accommodation
     </>
   );
 };
-
-function ReorderButton({ label, disabled, onClick, children }: { label: string; disabled: boolean; onClick: () => void; children: ReactNode }) {
-  const control = (
-    <Button type="button" variant="actionIcon" size="icon" aria-label={label} disabled={disabled} onClick={onClick}>
-      {children}
-    </Button>
-  );
-
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>{disabled ? <span className="inline-flex">{control}</span> : control}</TooltipTrigger>
-        <TooltipContent>
-          <p>{label}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-}
 
 export default AccommodationsList;
