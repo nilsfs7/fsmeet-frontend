@@ -8,7 +8,6 @@ import { EventType } from '@/domain/enums/event-type';
 import CheckBox from '../common/check-box';
 import TextInputLarge from '../common/text-input-large';
 import { PaymentMethodCash } from '@/domain/types/payment-method-cash';
-import { PaymentMethodPayPal } from '@/domain/types/payment-method-paypal';
 import { PaymentMethodSepa } from '@/domain/types/payment-method-sepa';
 import ComboBox from '../common/combo-box';
 import { menuEventTypes } from '@/domain/constants/menus/menu-event-types';
@@ -122,8 +121,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [visitorFee, setVisitorFee] = useState(event?.visitorFee || 0);
   const [currency, setCurrency] = useState(event?.currency || CurrencyCode.EUR);
   const [paymentMethodCashEnabled, setPaymentMethodCashEnabled] = useState<boolean>(event?.paymentMethodCash?.enabled || false);
-  const [paymentMethodPayPalEnabled, setPaymentMethodPayPalEnabled] = useState<boolean>(event?.paymentMethodPayPal?.enabled || false);
-  const [paymentMethodPayPalHandle, setPaymentMethodPayPalHandle] = useState<string>(event?.paymentMethodPayPal?.payPalHandle || '');
   const [paymentMethodSepaEnabled, setPaymentMethodSepaEnabled] = useState<boolean>(event?.paymentMethodSepa?.enabled || false);
   const [paymentMethodSepaBank, setPaymentMethodSepaBank] = useState<string>(event?.paymentMethodSepa?.bank || '');
   const [paymentMethodSepaRecipient, setPaymentMethodSepaRecipient] = useState<string>(event?.paymentMethodSepa?.recipient || '');
@@ -279,10 +276,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
   const updateEvent = () => {
     const paymentMethodCash: PaymentMethodCash = { enabled: paymentMethodCashEnabled };
-    const paymentMethodPayPal: PaymentMethodPayPal = {
-      enabled: paymentMethodPayPalEnabled,
-      payPalHandle: paymentMethodPayPalHandle,
-    };
     const paymentMethodSepa: PaymentMethodSepa = {
       enabled: paymentMethodSepaEnabled,
       bank: paymentMethodSepaBank,
@@ -326,7 +319,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       visitorFeeIncPaymentCosts: -1,
       currency,
       paymentMethodCash,
-      paymentMethodPayPal,
       paymentMethodSepa,
       paymentMethodStripe,
       showUserCountryFlag,
@@ -384,8 +376,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         setLivestreamUrl(event.livestreamUrl);
         setMessangerInvitationUrl(event.messangerInvitationUrl);
         setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
-        setPaymentMethodPayPalEnabled(event.paymentMethodPayPal.enabled);
-        setPaymentMethodPayPalHandle(event.paymentMethodPayPal.payPalHandle);
         setPaymentMethodSepaEnabled(event.paymentMethodSepa.enabled);
         setPaymentMethodSepaBank(event.paymentMethodSepa.bank);
         setPaymentMethodSepaRecipient(event.paymentMethodSepa.recipient);
@@ -450,8 +440,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     visitorFee,
     currency,
     paymentMethodCashEnabled,
-    paymentMethodPayPalEnabled,
-    paymentMethodPayPalHandle,
     paymentMethodSepaEnabled,
     paymentMethodSepaBank,
     paymentMethodSepaRecipient,
@@ -844,44 +832,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           />
 
           <CheckBox
-            id={'paymentMethodPayPalEnabled'}
-            label={`- ${t('chbPayPalAccept')}`}
-            value={paymentMethodPayPalEnabled}
-            onChange={() => {
-              setPaymentMethodPayPalEnabled(!paymentMethodPayPalEnabled);
-
-              if (!paymentMethodPayPalEnabled === true) {
-                disableStripe();
-              }
-            }}
-          />
-
-          {paymentMethodPayPalEnabled && (
-            <>
-              <TextInput
-                id={'paymentMethodPayPal'}
-                label={t('inputPayPalUsername')}
-                placeholder="username"
-                value={paymentMethodPayPalHandle}
-                onChange={e => {
-                  setPaymentMethodPayPalHandle(e.currentTarget.value);
-                }}
-              />
-
-              {paymentMethodPayPalHandle && (
-                <FieldRow label={t('lnkPayPalVerifyAccount')}>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={`https://paypal.me/${paymentMethodPayPalHandle}`}
-                    className={cn(READONLY_VALUE_CLASS, 'min-w-0 break-all hover:underline')}
-                  >{`https://paypal.me/${paymentMethodPayPalHandle}`}</a>
-                </FieldRow>
-              )}
-            </>
-          )}
-
-          <CheckBox
             id={'paymentMethodSepaEnabled'}
             label={`- ${t('chbBankSepaAccept')}`}
             value={paymentMethodSepaEnabled}
@@ -960,7 +910,6 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
               if (!paymentMethodStripeEnabled === true) {
                 setPaymentMethodCashEnabled(false);
-                setPaymentMethodPayPalEnabled(false);
                 setPaymentMethodSepaEnabled(false);
               } else {
                 disableStripe();

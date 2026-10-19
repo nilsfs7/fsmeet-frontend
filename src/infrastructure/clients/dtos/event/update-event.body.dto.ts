@@ -1,7 +1,6 @@
 import { Moment } from 'moment';
 import { UpdateEventMaintainerBodyDto } from './update-event-maintainer.body.dto';
 import { UpdatePaymentMethodCashBodyDto } from './payment/update-payment-method-cash.body.dto';
-import { UpdatePaymentMethodPayPalBodyDto } from './payment/update-payment-method-paypal.body.dto';
 import { UpdatePaymentMethodSepaBodyDto } from './payment/update-payment-method-sepa.body.dto';
 import { UpdatePaymentMethodStripeBodyDto } from './payment/update-payment-method-stripe.body.dto';
 import { CurrencyCode } from '@/domain/enums/currency-code';
@@ -35,7 +34,6 @@ export class UpdateEventBodyDto {
   livestreamUrl: string | null;
   messengerInvitationUrl: string | null;
   paymentMethodCash: UpdatePaymentMethodCashBodyDto;
-  paymentMethodPayPal: UpdatePaymentMethodPayPalBodyDto;
   paymentMethodSepa: UpdatePaymentMethodSepaBodyDto;
   paymentMethodStripe: UpdatePaymentMethodStripeBodyDto;
   showUserCountryFlag: boolean;
@@ -75,7 +73,6 @@ export class UpdateEventBodyDto {
     livestreamUrl: string | null,
     messengerInvitationUrl: string | null,
     paymentMethodCash: UpdatePaymentMethodCashBodyDto,
-    paymentMethodPayPal: UpdatePaymentMethodPayPalBodyDto,
     paymentMethodSepa: UpdatePaymentMethodSepaBodyDto,
     paymentMethodStripe: UpdatePaymentMethodStripeBodyDto,
     showUserCountryFlag: boolean,
@@ -114,7 +111,6 @@ export class UpdateEventBodyDto {
     this.livestreamUrl = livestreamUrl;
     this.messengerInvitationUrl = messengerInvitationUrl;
     this.paymentMethodCash = paymentMethodCash;
-    this.paymentMethodPayPal = paymentMethodPayPal;
     this.paymentMethodSepa = paymentMethodSepa;
     this.paymentMethodStripe = paymentMethodStripe;
     this.showUserCountryFlag = showUserCountryFlag;

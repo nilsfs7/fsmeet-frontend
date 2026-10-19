@@ -134,10 +134,6 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
       paymentMethodCash: {
         enabled: false,
       },
-      paymentMethodPayPal: {
-        enabled: false,
-        payPalHandle: '',
-      },
       paymentMethodSepa: {
         enabled: false,
         bank: '',

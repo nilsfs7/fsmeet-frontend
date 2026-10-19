@@ -1,6 +1,5 @@
 import { EventType } from '@/domain/enums/event-type';
 import { PaymentMethodCash } from './payment-method-cash';
-import { PaymentMethodPayPal } from './payment-method-paypal';
 import { PaymentMethodSepa } from './payment-method-sepa';
 import { PaymentMethodStripe } from './payment-method-stripe';
 import { EventState } from '@/domain/enums/event-state';
@@ -45,7 +44,6 @@ export type Event = {
   livestreamUrl: string | null;
   messangerInvitationUrl: string | null;
   paymentMethodCash: PaymentMethodCash;
-  paymentMethodPayPal: PaymentMethodPayPal;
   paymentMethodSepa: PaymentMethodSepa;
   paymentMethodStripe: PaymentMethodStripe;
   showUserCountryFlag: boolean;
