@@ -15,7 +15,7 @@ import { Toaster, toast } from 'sonner';
 import { EventRegistrationInfo } from '@/domain/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
-import { createEventRegistration, createEventRegistration_v2, createEventRegistrationCheckout, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
+import { createEventRegistration_v1, createEventRegistration_v2, createEventRegistrationCheckout, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
 import Label from '@/components/label';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import moment, { Moment } from 'moment';
@@ -574,7 +574,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
         } else {
           // use registration v1
           if (session) {
-            await createEventRegistration(event.id, session);
+            await createEventRegistration_v1(event.id, compSignUps, session);
             cleanupCacheRegistrationInfo();
             setPaymentLoading(false);
             router.push(successUrl);

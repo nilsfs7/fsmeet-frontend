@@ -308,10 +308,10 @@ export async function getEventRegistration(eventId: string, username: string | n
   }
 }
 
-export async function createEventRegistration(eventId: string, session: Session | null): Promise<void> {
+export async function createEventRegistration_v1(eventId: string, compSignUps: string[], session: Session | null): Promise<void> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations`;
 
-  const body = new CreateEventRegistrationBodyDto(EventRegistrationType.PARTICIPANT, null, null, [], [], [], null, null, null, 0);
+  const body = new CreateEventRegistrationBodyDto(EventRegistrationType.PARTICIPANT, null, null, compSignUps, [], [], null, null, null, 0);
 
   const response = await fetch(url, {
     method: 'POST',
