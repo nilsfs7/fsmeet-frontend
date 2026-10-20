@@ -197,7 +197,7 @@ export async function createEvent(event: Event, session: Session | null): Promis
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events`;
 
   const body = new CreateEventBodyDto(
-    event?.name.trim(),
+    event?.name,
     event?.alias,
     event.maintainers.map(maintainer => {
       return new CreateEventMaintainerBodyDto(maintainer.username);
@@ -210,13 +210,13 @@ export async function createEvent(event: Event, session: Session | null): Promis
     event.currency,
     moment(event?.registrationOpen),
     moment(event?.registrationDeadline),
-    event?.description.trim(),
-    event?.venueName.trim(),
-    event?.venueHouseNo.trim(),
-    event?.venueStreet.trim(),
-    event?.venuePostCode.trim(),
-    event?.venueCity.trim(),
-    event?.venueCountryCode.trim(),
+    event?.description,
+    event?.venueName,
+    event?.venueHouseNo,
+    event?.venueStreet,
+    event?.venuePostCode,
+    event?.venueCity,
+    event?.venueCountryCode,
     event?.type,
     event?.category,
     event?.isWffaRanked,
@@ -559,7 +559,7 @@ export async function updateEvent(event: Event, session: Session | null): Promis
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${event?.id}`;
 
   const body = new UpdateEventBodyDto(
-    event?.name.trim(),
+    event?.name,
     event?.alias,
     event.maintainers.map(maintainer => {
       return new UpdateEventMaintainerBodyDto(maintainer.username);
@@ -572,13 +572,13 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     event.currency,
     moment(event?.registrationOpen),
     moment(event?.registrationDeadline),
-    event?.description.trim(),
-    event?.venueName.trim(),
-    event?.venueHouseNo.trim(),
-    event?.venueStreet.trim(),
-    event?.venuePostCode.trim(),
-    event?.venueCity.trim(),
-    event?.venueCountryCode.trim(),
+    event?.description,
+    event?.venueName,
+    event?.venueHouseNo,
+    event?.venueStreet,
+    event?.venuePostCode,
+    event?.venueCity,
+    event?.venueCountryCode,
     event?.category,
     event?.isWffaRanked,
     event?.prizeMoney,
