@@ -121,50 +121,50 @@ export const Participants = ({ event, competition }: IParticipants) => {
       <Toaster richColors />
 
       <div className="my-2 flex flex-col justify-center">
-          {eventRegistrations.length === 0 && <div className="m-2 text-center">{t('textNoRegistrations')}</div>}
-          {eventRegistrations.length > 0 && <div className="m-2 text-center">{`${t('textAmountOfRegistrations')}: ${competitionParticipants.length}`}</div>}
+        {eventRegistrations.length === 0 && <div className="m-2 text-center">{t('textNoRegistrations')}</div>}
+        {eventRegistrations.length > 0 && <div className="m-2 text-center">{`${t('textAmountOfRegistrations')}: ${competitionParticipants.length}`}</div>}
 
-          {eventRegistrations.map((registration, index) => {
-            return (
-              <div key={index} className="m-1 flex items-center">
-                <div className="mx-1 flex w-1/2 justify-end">
-                  <UserCard user={registration.user} showUserCountryFlag={event?.showUserCountryFlag} />
-                </div>
-                <div className="mx-1 flex w-1/2 justify-start">
-                  <div className="flex">
-                    {competitionParticipants.some(e => e.username === registration.user.username) && (
-                      <>
-                        <div className="flex h-full w-20 items-center justify-center">{t('btnAssigned')}</div>
-                        <div className="ml-1">
-                          <ActionButton
-                            action={Action.DELETE}
-                            onClick={() => {
-                              // @ts-ignore
-                              handleRemoveParticipantClicked(competition.id, registration.user.username);
-                            }}
-                          />
-                        </div>
-                      </>
-                    )}
-                    {!competitionParticipants.some(e => e.username === registration.user.username) && (
-                      <>
-                        <div className="flex h-full w-20 items-center justify-center">{t('btnUnassigned')}</div>
-                        <div className="mx-1">
-                          <ActionButton
-                            action={Action.ADD}
-                            onClick={() => {
-                              // @ts-ignore
-                              handleAddParticipantClicked(competition.id, registration.user.username);
-                            }}
-                          />
-                        </div>
-                      </>
-                    )}
-                  </div>
+        {eventRegistrations.map((registration, index) => {
+          return (
+            <div key={index} className="m-1 flex items-center">
+              <div className="mx-1 flex w-1/2 justify-end">
+                <UserCard user={registration.user} showUserCountryFlag={event?.showUserCountryFlag} />
+              </div>
+              <div className="mx-1 flex w-1/2 justify-start">
+                <div className="flex">
+                  {competitionParticipants.some(e => e.username === registration.user.username) && (
+                    <>
+                      <div className="flex h-full w-20 items-center justify-center">{t('btnAssigned')}</div>
+                      <div className="ml-1">
+                        <ActionButton
+                          action={Action.REMOVE}
+                          onClick={() => {
+                            // @ts-ignore
+                            handleRemoveParticipantClicked(competition.id, registration.user.username);
+                          }}
+                        />
+                      </div>
+                    </>
+                  )}
+                  {!competitionParticipants.some(e => e.username === registration.user.username) && (
+                    <>
+                      <div className="flex h-full w-20 items-center justify-center">{t('btnUnassigned')}</div>
+                      <div className="mx-1">
+                        <ActionButton
+                          action={Action.ADD}
+                          onClick={() => {
+                            // @ts-ignore
+                            handleAddParticipantClicked(competition.id, registration.user.username);
+                          }}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
       </div>
     </>
   );

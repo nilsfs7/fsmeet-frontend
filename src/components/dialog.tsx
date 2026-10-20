@@ -26,7 +26,8 @@ interface IDialogProps {
   children: React.ReactNode;
 }
 
-const dialogFooterClassName = 'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end';
+const dialogFooterClassName = 'flex flex-row items-center justify-between gap-2';
+const dialogTextButtonClassName = cn(ctaActionButtonClassName, 'min-w-0 sm:min-w-36');
 
 const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmText, executeCancelAfterConfirmClicked = true, children }: IDialogProps) => {
   const searchParams = useSearchParams();
@@ -86,7 +87,7 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
               <>
                 {!cancelText && <ActionButton action={Action.CANCEL} onClick={clickCancel} />}
                 {cancelText && (
-                  <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={clickCancel}>
+                  <Button type="button" variant="action" className={dialogTextButtonClassName} onClick={clickCancel}>
                     {cancelText}
                   </Button>
                 )}
@@ -94,14 +95,14 @@ const Dialog = ({ title, queryParam, onCancel, onConfirm, cancelText, confirmTex
             )}
 
             {onConfirm && (
-              <>
+              <div className="ml-auto min-w-0">
                 {!confirmText && <ActionButton action={Action.ACCEPT} onClick={clickConfirm} />}
                 {confirmText && (
-                  <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={clickConfirm}>
+                  <Button type="button" variant="action" className={dialogTextButtonClassName} onClick={clickConfirm}>
                     {confirmText}
                   </Button>
                 )}
-              </>
+              </div>
             )}
           </div>
         </div>

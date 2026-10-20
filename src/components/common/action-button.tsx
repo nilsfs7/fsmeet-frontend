@@ -160,15 +160,7 @@ const ActionButton = ({ action, tooltip = '', size = Size.M, style = ButtonStyle
         </Link>
       </Button>
     ) : (
-      <Button
-        type="button"
-        variant={variant}
-        size={buttonSize}
-        className={cn(sizeClass, sponsorCardSurfaceClass)}
-        disabled={disabled}
-        onClick={onClick}
-        aria-label={ariaLabel}
-      >
+      <Button type="button" variant={variant} size={buttonSize} className={cn(sizeClass, sponsorCardSurfaceClass)} disabled={disabled} onClick={onClick} aria-label={ariaLabel}>
         {icon}
       </Button>
     );
