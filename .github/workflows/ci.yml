@@ -6,7 +6,6 @@ on:
       - main
       - dev
       - dev-ui
-      - v2
   pull_request:
     branches:
       - main
@@ -41,13 +40,6 @@ jobs:
               
               echo "TAGS=nilsfs7/fsmeet-frontend:dev-ui" >> "$GITHUB_ENV"
               echo "AUTH_URL=https://dev-ui.fsmeet.dffb.org" >> "$GITHUB_ENV"
-              echo "BACKEND_URL=https://api.fsmeet.dffb.org" >> "$GITHUB_ENV"
-          fi
-          if [[ $GITHUB_REF == 'refs/heads/v2' ]]; then
-              echo "set values for v2 image"
-              
-              echo "TAGS=nilsfs7/fsmeet-frontend:v2" >> "$GITHUB_ENV"
-              echo "AUTH_URL=https://v2.fsmeet.dffb.org" >> "$GITHUB_ENV"
               echo "BACKEND_URL=https://api.fsmeet.dffb.org" >> "$GITHUB_ENV"
           fi
         
