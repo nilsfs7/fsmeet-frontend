@@ -4,7 +4,7 @@
  * URL query–driven video lightbox (e.g. `?trailer=1`).
  * Portals to `document.body` so `position: fixed` stays viewport-relative.
  */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { useSearchParams } from 'next/navigation';
 import ActionButton from './common/action-button';
@@ -20,6 +20,8 @@ interface IVideoDialogProps {
   onCancel: () => void;
 }
 
+const subscribeNoop = () => () => {};
+
 function toEmbedUrl(url: string): string {
   return url.replace('/watch?v=', '/embed/').replace('/shorts/', '/embed/').replace('youtu.be/', 'youtube.com/embed/');
 }
@@ -27,14 +29,12 @@ function toEmbedUrl(url: string): string {
 const VideoDialog = ({ queryParam, videoUrl, onCancel }: IVideoDialogProps) => {
   const searchParams = useSearchParams();
   const showDialog = searchParams?.get(queryParam) === '1';
-  const [mounted, setMounted] = useState(false);
-  const onCancelRef = useRef(onCancel);
-  onCancelRef.current = onCancel;
+  const mounted = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
   const embedUrl = toEmbedUrl(videoUrl);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!showDialog) return;
@@ -43,7 +43,7 @@ const VideoDialog = ({ queryParam, videoUrl, onCancel }: IVideoDialogProps) => {
     document.body.style.overflow = 'hidden';
 
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onCancelRef.current();
+      if (event.key === 'Escape') onCancel();
     };
     window.addEventListener('keydown', onKey);
 
@@ -51,7 +51,7 @@ const VideoDialog = ({ queryParam, videoUrl, onCancel }: IVideoDialogProps) => {
       document.body.style.overflow = prevOverflow;
       window.removeEventListener('keydown', onKey);
     };
-  }, [showDialog]);
+  }, [showDialog, onCancel]);
 
   if (!showDialog || !mounted) {
     return null;
@@ -65,7 +65,7 @@ const VideoDialog = ({ queryParam, videoUrl, onCancel }: IVideoDialogProps) => {
           'relative flex min-h-full w-full items-center justify-center',
           'p-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-6',
         )}
-        onClick={() => onCancelRef.current()}
+        onClick={onCancel}
       >
         <div
           className="flex w-[min(100%,64rem,calc((100dvh-7rem-env(safe-area-inset-top)-env(safe-area-inset-bottom))*16/9))] max-w-5xl flex-col gap-3"
@@ -89,7 +89,7 @@ const VideoDialog = ({ queryParam, videoUrl, onCancel }: IVideoDialogProps) => {
           </div>
 
           <div className="flex flex-row items-center justify-between">
-            <ActionButton action={Action.CANCEL} onClick={() => onCancelRef.current()} />
+            <ActionButton action={Action.CANCEL} onClick={onCancel} />
           </div>
         </div>
       </div>
