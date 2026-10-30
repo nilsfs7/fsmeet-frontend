@@ -1,259 +1,296 @@
 'use client';
 
-import LoadingSpinner from '@/components/animation/loading-spinner';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import Link from 'next/link';
+import { Minus, Plus } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { toast, Toaster } from 'sonner';
 import ActionButton from '@/components/common/action-button';
-import { routeUsers } from '@/domain/constants/routes';
+import Navigation from '@/components/navigation';
+import { PageInset } from '@/components/layout/page-inset';
+import { AppDataStateEmpty } from '@/components/shared/app-data-state-empty';
+import { AppDataStateError } from '@/components/shared/app-data-state-error';
+import { AppDataStateListSkeleton } from '@/components/shared/app-data-state-list-skeleton';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { routeAdminOverview, routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
+import { AdministrativeUser } from '@/domain/enums/administrative-user';
+import { License } from '@/domain/types/license';
 import { getLicenses, updateLicense } from '@/infrastructure/clients/license.client';
 import { getUsers } from '@/infrastructure/clients/user.client';
-import { License } from '@/domain/types/license';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Toaster, toast } from 'sonner';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { ArrowDown, ArrowUp } from 'lucide-react';
 
-/** Same glass card treatment as `competition-editor` / `EDITOR_CARD_CLASS`; full width for admin table. */
-const LICENSE_PANEL_CLASS = cn(
-  'w-full min-w-0 flex flex-col gap-3',
-  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
-  'text-sm',
+const MAX_LICENSES = 99;
+
+type NameMeta = { firstName?: string; lastName?: string };
+type SortKey = 'name' | 'amount';
+
+const cardSurface = cn(
+  'min-w-0 rounded-xl border border-border/60 bg-secondary-light/85 p-3 shadow-xs sm:p-4',
+  'dark:border-border/50 dark:bg-background/60',
 );
 
-const LICENSE_TABLE_WRAP_CLASS = cn(
-  'min-w-0 overflow-hidden rounded-lg border border-border/50 bg-background/40',
-  'dark:bg-background/30',
-);
-
-const FILTER_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none text-foreground';
-
-/** Align with /wffa/visa table layout */
-const LICENSE_TABLE_CLASS = 'table-fixed w-full min-w-md border-separate border-spacing-x-3 border-spacing-y-0';
-
-const LICENSE_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
-const LICENSE_CELL_PAD = 'py-2.5 px-3';
-
-const licenseCol = {
-  user: 'w-[55%] min-w-48',
-  amount: 'w-[10ch] min-w-[10ch] text-center',
-  actions: 'w-[22%] min-w-34',
-} as const;
-
-type UserNameMeta = { firstName?: string; lastName?: string };
-
-function formatLicenseUserLabel(username: string, meta?: UserNameMeta): string {
-  const name = [meta?.firstName, meta?.lastName].filter(Boolean).join(' ').trim();
-  return name ? `${username} (${name})` : username;
+function displayName(meta?: NameMeta): string {
+  return [meta?.firstName, meta?.lastName].filter(Boolean).join(' ').trim();
 }
 
-function matchesUserFilter(license: License, query: string, meta?: UserNameMeta): boolean {
-  const q = query.trim().toLowerCase();
-  if (!q) return true;
-  if (license.username.toLowerCase().includes(q)) return true;
-  const first = (meta?.firstName ?? '').toLowerCase();
-  const last = (meta?.lastName ?? '').toLowerCase();
-  return first.includes(q) || last.includes(q) || `${first} ${last}`.trim().includes(q);
+function matchesQuery(license: License, query: string, meta?: NameMeta): boolean {
+  const needle = query.trim().toLowerCase();
+  if (!needle) return true;
+  const name = displayName(meta).toLowerCase();
+  return license.username.toLowerCase().includes(needle) || name.includes(needle);
 }
 
-type LicenseSortColumn = 'user' | 'amount';
+function displayedAmount(license: License, drafts: Record<string, number>): number {
+  return drafts[license.username] ?? license.amountEventLicenses;
+}
 
-function sortLicenses(licenses: License[], column: LicenseSortColumn, descending: boolean): License[] {
+async function mapWithConcurrency<T>(items: T[], limit: number, worker: (item: T) => Promise<void>) {
+  let cursor = 0;
+  const runners = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (cursor < items.length) {
+      const item = items[cursor++];
+      await worker(item);
+    }
+  });
+  await Promise.all(runners);
+}
+
+function sortLicenses(licenses: License[], sort: SortKey, names: Record<string, NameMeta>): License[] {
   const list = [...licenses];
   list.sort((a, b) => {
-    if (column === 'user') {
-      const cmp = a.username.localeCompare(b.username);
-      if (cmp !== 0) return descending ? -cmp : cmp;
-      return a.amountEventLicenses - b.amountEventLicenses;
+    if (sort === 'amount' && a.amountEventLicenses !== b.amountEventLicenses) {
+      return b.amountEventLicenses - a.amountEventLicenses;
     }
-    const cmp = a.amountEventLicenses - b.amountEventLicenses;
-    if (cmp !== 0) return descending ? -cmp : cmp;
-    return a.username.localeCompare(b.username);
+    const nameA = displayName(names[a.username]) || a.username;
+    const nameB = displayName(names[b.username]) || b.username;
+    const byName = nameA.localeCompare(nameB, undefined, { sensitivity: 'base' });
+    return byName !== 0 ? byName : a.username.localeCompare(b.username);
   });
   return list;
 }
 
 export const LicensesEditor = () => {
   const { data: session, status } = useSession();
-  const [licenses, setLicenses] = useState<License[]>([]);
-  const [userMetaByUsername, setUserMetaByUsername] = useState<Record<string, UserNameMeta>>({});
-  const [loading, setLoading] = useState(true);
-  const [filterUser, setFilterUser] = useState('');
-  const [sort, setSort] = useState<{ column: LicenseSortColumn; descending: boolean }>({ column: 'user', descending: false });
+  const isAdmin = session?.user?.username === AdministrativeUser.ADMIN;
 
-  const loadLicenses = useCallback(
-    async (showInitialSpinner: boolean) => {
-      if (status !== 'authenticated' || !session) {
-        if (showInitialSpinner) setLoading(false);
-        return;
-      }
-      if (showInitialSpinner) setLoading(true);
-      try {
-        const data = await getLicenses(session);
-        setLicenses(data);
-        try {
-          const allUsers = await getUsers();
-          const meta: Record<string, UserNameMeta> = {};
-          for (const u of allUsers) {
-            meta[u.username] = { firstName: u.firstName, lastName: u.lastName };
-          }
-          setUserMetaByUsername(meta);
-        } catch (err) {
-          console.error(err);
-          setUserMetaByUsername({});
-        }
-      } catch (e: any) {
-        console.error(e);
-        toast.error(e?.message ?? 'Failed to load licenses.');
-      } finally {
-        if (showInitialSpinner) setLoading(false);
-      }
-    },
-    [session, status],
-  );
-
-  const handleUpdateLicenseClicked = async (license: License, diff: number) => {
-    const newAmount = license.amountEventLicenses + diff;
-    if (newAmount >= 0 && newAmount < 100) {
-      const lics = Array.from(licenses);
-      lics.forEach(lic => {
-        if (lic.username === license.username) {
-          lic.amountEventLicenses = newAmount;
-        }
-      });
-      setLicenses(lics);
-
-      try {
-        await updateLicense(session, license);
-        toast.success(`Licenses for ${license.username} updated (${license.amountEventLicenses}).`);
-      } catch (error: any) {
-        toast.error(error.message);
-        console.error(error.message);
-        await loadLicenses(false);
-      }
-    }
-  };
+  const [licenses, setLicenses] = useState<License[] | null>(null);
+  const [names, setNames] = useState<Record<string, NameMeta>>({});
+  const [loadError, setLoadError] = useState('');
+  const [reloadKey, setReloadKey] = useState(0);
+  const [query, setQuery] = useState('');
+  const [sort, setSort] = useState<SortKey>('name');
+  const [draftByUsername, setDraftByUsername] = useState<Record<string, number>>({});
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (status === 'loading') return;
-    if (status !== 'authenticated') {
-      setLoading(false);
-      return;
-    }
-    loadLicenses(true);
-  }, [status, loadLicenses]);
+    if (status === 'loading' || !isAdmin) return;
 
-  const filteredLicenses = useMemo(
-    () => licenses.filter(lic => matchesUserFilter(lic, filterUser, userMetaByUsername[lic.username])),
-    [licenses, filterUser, userMetaByUsername],
+    let cancelled = false;
+    getLicenses(session)
+      .then(async data => {
+        if (!Array.isArray(data)) throw new Error('Licenses could not be loaded.');
+        let meta: Record<string, NameMeta> = {};
+        try {
+          const users = await getUsers();
+          if (Array.isArray(users)) {
+            for (const user of users) {
+              meta[user.username] = { firstName: user.firstName, lastName: user.lastName };
+            }
+          }
+        } catch {
+          meta = {};
+        }
+        if (cancelled) return;
+        setLicenses(data);
+        setNames(meta);
+        setDraftByUsername({});
+        setLoadError('');
+      })
+      .catch((error: unknown) => {
+        if (!cancelled) setLoadError(error instanceof Error && error.message ? error.message : 'Licenses could not be loaded.');
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [status, isAdmin, session, reloadKey]);
+
+  const visibleLicenses = useMemo(() => {
+    const filtered = (licenses ?? []).filter(license => matchesQuery(license, query, names[license.username]));
+    return sortLicenses(filtered, sort, names);
+  }, [licenses, names, query, sort]);
+
+  const dirtyLicenses = useMemo(
+    () => (licenses ?? []).filter(license => draftByUsername[license.username] !== undefined && draftByUsername[license.username] !== license.amountEventLicenses),
+    [licenses, draftByUsername],
   );
 
-  const sortedFilteredLicenses = useMemo(
-    () => sortLicenses(filteredLicenses, sort.column, sort.descending),
-    [filteredLicenses, sort.column, sort.descending],
-  );
-
-  const handleSortColumnClick = useCallback((column: LicenseSortColumn) => {
-    setSort(prev => {
-      if (prev.column === column) return { ...prev, descending: !prev.descending };
-      return { column, descending: false };
+  const handleAdjust = (license: License, diff: number) => {
+    if (!isAdmin || saving) return;
+    const nextAmount = displayedAmount(license, draftByUsername) + diff;
+    if (nextAmount < 0 || nextAmount > MAX_LICENSES) return;
+    setDraftByUsername(current => {
+      const next = { ...current };
+      if (nextAmount === license.amountEventLicenses) delete next[license.username];
+      else next[license.username] = nextAmount;
+      return next;
     });
-  }, []);
+  };
 
-  if (loading || status === 'loading') {
-    return <LoadingSpinner />;
+  const handleSave = async () => {
+    if (!isAdmin || dirtyLicenses.length === 0 || saving) return;
+    setSaving(true);
+    const saved: string[] = [];
+    const failed: string[] = [];
+
+    await mapWithConcurrency(dirtyLicenses, 4, async license => {
+      const amount = draftByUsername[license.username];
+      if (amount === undefined) return;
+      try {
+        await updateLicense(session, { username: license.username, amountEventLicenses: amount });
+        saved.push(license.username);
+      } catch {
+        failed.push(license.username);
+      }
+    });
+
+    setLicenses(current =>
+      (current ?? []).map(license => {
+        const amount = draftByUsername[license.username];
+        return saved.includes(license.username) && amount !== undefined ? { ...license, amountEventLicenses: amount } : license;
+      }),
+    );
+    setDraftByUsername(current => {
+      const next = { ...current };
+      for (const username of saved) delete next[username];
+      return next;
+    });
+    setSaving(false);
+
+    if (failed.length === 0) toast.success(saved.length === 1 ? '1 license updated.' : `${saved.length} licenses updated.`);
+    else toast.error(`Saved ${saved.length}. Could not update ${failed.join(', ')}.`);
+  };
+
+  let content: ReactNode;
+  if (status !== 'loading' && !isAdmin) {
+    content = <AppDataStateError title="Admin only" message="Only the user admin can manage licenses." className="max-w-none" />;
+  } else if (loadError) {
+    content = (
+      <AppDataStateError
+        title="Could not load licenses"
+        message={loadError}
+        onRetry={() => {
+          setLicenses(null);
+          setLoadError('');
+          setReloadKey(key => key + 1);
+        }}
+        className="max-w-none"
+      />
+    );
+  } else if (status === 'loading' || licenses === null) {
+    content = <AppDataStateListSkeleton rows={5} className="max-w-none" />;
+  } else {
+    content = (
+      <div className="flex flex-col gap-4 text-sm">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+          <div className="min-w-0 flex-1 sm:max-w-sm">
+            <label className="mb-1 block text-xs text-muted-foreground" htmlFor="admin-licenses-search">
+              Search
+            </label>
+            <Input id="admin-licenses-search" type="search" value={query} placeholder="Name or username" onChange={event => setQuery(event.target.value)} />
+          </div>
+          <div className="min-w-0 sm:w-40">
+            <span className="mb-1 block text-xs text-muted-foreground">Sort</span>
+            <Select value={sort} onValueChange={value => setSort(value as SortKey)}>
+              <SelectTrigger aria-label="Sort">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="name">Name</SelectItem>
+                <SelectItem value="amount">Amount</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        <p className="text-xs text-muted-foreground">
+          {visibleLicenses.length} of {licenses.length}
+        </p>
+
+        {licenses.length === 0 ? (
+          <div className="flex justify-center">
+            <AppDataStateEmpty title="No licenses" />
+          </div>
+        ) : visibleLicenses.length === 0 ? (
+          <div className="flex justify-center">
+            <AppDataStateEmpty title="No matching licenses" description="Change the search." />
+          </div>
+        ) : (
+          <ul className="flex flex-col gap-3">
+            {visibleLicenses.map(license => {
+              const amount = displayedAmount(license, draftByUsername);
+              const dirty = draftByUsername[license.username] !== undefined && draftByUsername[license.username] !== license.amountEventLicenses;
+              const name = displayName(names[license.username]);
+              return (
+                <li key={license.username} className={cardSurface}>
+                  <Link href={`${routeUsers}/${license.username}`} className="wrap-break-word text-base font-semibold leading-snug hover:underline">
+                    {license.username}
+                  </Link>
+                  {name && <p className="mt-0.5 text-xs text-muted-foreground">{name}</p>}
+
+                  <div className="mt-3">
+                    <span className="mb-1 block text-xs text-muted-foreground">Event licenses</span>
+                    <div className={cn('inline-flex items-center gap-1 rounded-lg border border-border px-1 py-1', dirty && 'border-primary')}>
+                      <Button
+                        type="button"
+                        variant="actionIcon"
+                        size="iconSm"
+                        aria-label={`Remove one license from ${license.username}`}
+                        disabled={saving || amount <= 0}
+                        onClick={() => handleAdjust(license, -1)}
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                      <span className="min-w-8 text-center text-base font-semibold tabular-nums">{amount}</span>
+                      <Button
+                        type="button"
+                        variant="actionIcon"
+                        size="iconSm"
+                        aria-label={`Add one license for ${license.username}`}
+                        disabled={saving || amount >= MAX_LICENSES}
+                        onClick={() => handleAdjust(license, 1)}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Toaster richColors />
-
-      <div className="mx-2 min-h-0 overflow-y-auto pb-4 scrollbar-none">
-        <div className={LICENSE_PANEL_CLASS}>
-          {licenses.length > 0 && (
-            <div className="flex flex-col gap-1.5 sm:max-w-sm">
-              <span className={FILTER_LABEL_CLASS}>User</span>
-              <Input placeholder="Search…" value={filterUser} onChange={e => setFilterUser(e.target.value)} className="w-full" />
-            </div>
-          )}
-
-          {licenses.length === 0 ? (
-            <p className="text-center text-sm text-muted-foreground">No entries</p>
-          ) : filteredLicenses.length === 0 ? (
-            <p className="text-center text-sm text-muted-foreground">No matching entries</p>
-          ) : (
-            <div className={LICENSE_TABLE_WRAP_CLASS}>
-              <Table className={LICENSE_TABLE_CLASS}>
-                <TableHeader>
-                  <TableRow className="border-border/40 hover:bg-transparent dark:hover:bg-transparent">
-                    <TableHead className={cn('text-foreground', LICENSE_HEAD_PAD, licenseCol.user)}>
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1.5 text-left font-medium text-foreground/90 transition-colors hover:text-foreground"
-                        onClick={() => handleSortColumnClick('user')}
-                        title={sort.column === 'user' ? (sort.descending ? 'Sort user ascending' : 'Sort user descending') : 'Sort by user'}
-                      >
-                        User
-                        {sort.column === 'user' &&
-                          (sort.descending ? (
-                            <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
-                          ) : (
-                            <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
-                          ))}
-                      </button>
-                    </TableHead>
-                    <TableHead className={cn('text-center text-foreground', LICENSE_HEAD_PAD, licenseCol.amount)} title="Event licenses">
-                      <button
-                        type="button"
-                        className="inline-flex w-full items-center justify-center gap-1.5 font-medium text-foreground/90 transition-colors hover:text-foreground"
-                        onClick={() => handleSortColumnClick('amount')}
-                        title={sort.column === 'amount' ? (sort.descending ? 'Sort amount ascending' : 'Sort amount descending') : 'Sort by amount'}
-                      >
-                        Amount
-                        {sort.column === 'amount' &&
-                          (sort.descending ? (
-                            <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
-                          ) : (
-                            <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
-                          ))}
-                      </button>
-                    </TableHead>
-                    <TableHead className={cn('text-right text-foreground/90', LICENSE_HEAD_PAD, licenseCol.actions)}>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody className="[&_tr:first-child_td]:pt-3">
-                  {sortedFilteredLicenses.map(license => (
-                    <TableRow
-                      key={license.username}
-                      className="border-border/30 transition-colors hover:bg-muted/30 dark:hover:bg-muted/20"
-                    >
-                      <TableCell className={cn(LICENSE_CELL_PAD, 'align-top text-foreground', licenseCol.user)}>
-                        <Link
-                          href={`${routeUsers}/${license.username}`}
-                          className="font-medium text-primary underline-offset-2 hover:underline hover:text-primary/90"
-                        >
-                          {formatLicenseUserLabel(license.username, userMetaByUsername[license.username])}
-                        </Link>
-                      </TableCell>
-                      <TableCell className={cn(LICENSE_CELL_PAD, 'align-top tabular-nums text-foreground', licenseCol.amount)}>{license.amountEventLicenses}</TableCell>
-                      <TableCell className={cn(LICENSE_CELL_PAD, 'align-top', licenseCol.actions)}>
-                        <div className="flex justify-end gap-1">
-                          <ActionButton action={Action.ADD} onClick={() => handleUpdateLicenseClicked(license, 1)} />
-                          <ActionButton action={Action.REMOVE} onClick={() => handleUpdateLicenseClicked(license, -1)} />
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          )}
-        </div>
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <PageInset>{content}</PageInset>
       </div>
-    </>
+
+      <Navigation>
+        <ActionButton href={routeAdminOverview} action={Action.BACK} />
+        {isAdmin && licenses && (
+          <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={dirtyLicenses.length === 0 || saving} onClick={() => void handleSave()}>
+            {saving ? 'Saving…' : dirtyLicenses.length > 0 ? `Save (${dirtyLicenses.length})` : 'Save'}
+          </Button>
+        )}
+      </Navigation>
+    </div>
   );
 };
