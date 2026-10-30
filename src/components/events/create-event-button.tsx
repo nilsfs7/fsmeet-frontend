@@ -6,14 +6,15 @@ import { useRouter } from 'next/navigation';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { UnlistedEventsCreateDialog } from '@/components/events/unlisted-events-create-dialog';
 import { routeEventsCreate, routeLogin } from '@/domain/constants/routes';
-import { isBlockedByUnlistedEvents, UNLISTED_EVENTS_CREATE_MESSAGE } from '@/functions/unlisted-events';
+import { isBlockedByUnlistedEvents } from '@/functions/unlisted-events';
 import { getEvents } from '@/infrastructure/clients/event.client';
 
 export function CreateEventButton({ label }: { label: string }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [checking, setChecking] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
+  const [blocked, setBlocked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleClick = async () => {
     if (status === 'loading' || checking) return;
@@ -27,13 +28,13 @@ export function CreateEventButton({ label }: { label: string }) {
       const events = await getEvents(session.user.username, null, null, null, null, session);
       if (!Array.isArray(events)) throw new Error('Events could not be loaded.');
       if (isBlockedByUnlistedEvents(events)) {
-        setMessage(UNLISTED_EVENTS_CREATE_MESSAGE);
+        setBlocked(true);
         return;
       }
       router.push(routeEventsCreate);
     } catch (error: unknown) {
       console.error(error);
-      setMessage(error instanceof Error && error.message ? error.message : 'Events could not be loaded.');
+      setErrorMessage(error instanceof Error && error.message ? error.message : 'Events could not be loaded.');
     } finally {
       setChecking(false);
     }
@@ -42,10 +43,13 @@ export function CreateEventButton({ label }: { label: string }) {
   return (
     <>
       <UnlistedEventsCreateDialog
-        open={message !== null}
-        message={message ?? undefined}
+        open={blocked || errorMessage !== null}
+        message={errorMessage ?? undefined}
         onOpenChange={open => {
-          if (!open) setMessage(null);
+          if (!open) {
+            setBlocked(false);
+            setErrorMessage(null);
+          }
         }}
       />
       <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={status === 'loading' || checking} onClick={() => void handleClick()}>

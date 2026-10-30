@@ -1,6 +1,6 @@
 {
   "name": "fsmeet-frontend",
-  "version": "2.27.0",
+  "version": "2.27.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3002",
@@ -70,7 +70,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
-    "eslint": "^10.13.0",
+    "eslint": "^10.14.0",
     "eslint-config-next": "^16.4.2",
     "postcss": "^8.5.32",
     "prettier": "^3.9.10",

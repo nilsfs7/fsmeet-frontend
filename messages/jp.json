@@ -834,7 +834,8 @@
     "pageSuccessBtnShowEvent": "イベントを見る",
     "btnBackToOverview": "キャンセル",
     "btnNextPage": "次へ",
-    "btnCreateEvent": "作成"
+    "btnCreateEvent": "作成",
+    "dlgUnlistedEvents": "未掲載のイベントが2件以上ある間は、別のイベントを作成できません。"
   },
   "/events/manage": {
     "pageTitle": "イベント管理",

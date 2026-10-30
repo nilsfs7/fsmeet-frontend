@@ -834,7 +834,8 @@
     "pageSuccessBtnShowEvent": "查看活动",
     "btnBackToOverview": "取消",
     "btnNextPage": "下一步",
-    "btnCreateEvent": "创建"
+    "btnCreateEvent": "创建",
+    "dlgUnlistedEvents": "当你有 2 个或更多未列出的活动时，无法再创建活动。"
   },
   "/events/manage": {
     "pageTitle": "管理活动",
