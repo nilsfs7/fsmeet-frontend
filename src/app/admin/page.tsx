@@ -2,7 +2,6 @@ import { Action } from '@/domain/enums/action';
 import Link from 'next/link';
 import {
   routeAdminEvents,
-  routeAdminLicenses,
   routeStatistics,
   routeAdminUserVerification,
   routeAdminJobProfiles,
@@ -24,9 +23,6 @@ export default async function AdminOverview() {
       <div className="mx-2 flex items-center flex-col gap-2">
         <Button asChild variant="action" className={ctaActionButtonClassName}>
           <Link href={routeAdminEvents}>Events</Link>
-        </Button>
-        <Button asChild variant="action" className={ctaActionButtonClassName}>
-          <Link href={routeAdminLicenses}>Licenses</Link>
         </Button>
         <Button asChild variant="action" className={ctaActionButtonClassName}>
           <Link href={routeAdminUserVerification}>User Verification</Link>

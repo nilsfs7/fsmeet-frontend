@@ -11,7 +11,9 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { Event } from '@/domain/types/event';
 import { User } from '@/domain/types/user';
 import { Toaster, toast } from 'sonner';
-import { createEvent } from '@/infrastructure/clients/event.client';
+import { UnlistedEventsCreateDialog } from '@/components/events/unlisted-events-create-dialog';
+import { isBlockedByUnlistedEvents } from '@/functions/unlisted-events';
+import { createEvent, getEvents } from '@/infrastructure/clients/event.client';
 import moment, { Moment } from 'moment';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
@@ -66,7 +68,6 @@ function MetaRow({ icon, children, className }: { icon: ReactNode; children: Rea
 
 interface IEventCreationProcess {
   eventAdmin: User;
-  licenses: number;
 }
 
 enum CreationProcessPage {
@@ -76,7 +77,7 @@ enum CreationProcessPage {
   OVERVIEW = '4',
 }
 
-export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationProcess) => {
+export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
   const t = useTranslations(routeEventsCreate);
 
   const { data: session } = useSession();
@@ -95,6 +96,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
   const [dateTo, setDateTo] = useState<string>();
   const [registrationDateFrom, setRegistrationDateFrom] = useState<string>(moment().startOf('day').utc().format());
   const [registrationDateTo, setRegistrationDateTo] = useState<string>();
+  const [unlistedBlocked, setUnlistedBlocked] = useState(false);
 
   const pageUrl = `${routeEventsCreate}`;
 
@@ -327,6 +329,15 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
 
   const handleCreateEventClicked = async (): Promise<string | void> => {
     try {
+      if (session?.user?.username) {
+        const ownedEvents = await getEvents(session.user.username, null, null, null, null, session);
+        if (!Array.isArray(ownedEvents)) throw new Error('Events could not be loaded.');
+        if (isBlockedByUnlistedEvents(ownedEvents)) {
+          setUnlistedBlocked(true);
+          return;
+        }
+      }
+
       const response = await createEvent(generateEvent(), session);
 
       setEventId(response.id);
@@ -387,6 +398,7 @@ export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationPro
   return (
     <div className="min-h-0 flex-1 flex flex-col">
       <Toaster richColors />
+      <UnlistedEventsCreateDialog open={unlistedBlocked} onOpenChange={setUnlistedBlocked} />
 
       {page && <PageTitle title={`${t('pageTitleEventCreationFlow')}`} />}
 

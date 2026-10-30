@@ -362,10 +362,7 @@ export const Participants = ({ event, competition, registrations, initialPool }:
             <DialogTitle>{t('dlgWithoutSignUpTitle')}</DialogTitle>
             <DialogDescription>{confirmRow && t('dlgWithoutSignUpText', { name: formatUserFullName(confirmRow.user), competition: competition.name })}</DialogDescription>
           </DialogHeader>
-          <div className="flex flex-row items-center justify-between gap-2">
-            <Button type="button" variant="outline" className="rounded-lg" onClick={() => setConfirmRow(null)}>
-              {t('btnCancel')}
-            </Button>
+          <div className="flex flex-row items-center justify-end gap-2">
             <Button
               type="button"
               variant="actionWarning"
@@ -396,10 +393,7 @@ export const Participants = ({ event, competition, registrations, initialPool }:
               <p className="text-xs text-muted-foreground tabular-nums">{t('dlgBulkProgress', { done: bulkProgress.done, total: bulkProgress.total })}</p>
             </div>
           )}
-          <div className="flex flex-row items-center justify-between gap-2">
-            <Button type="button" variant="outline" className="rounded-lg" disabled={!!bulkProgress} onClick={() => setBulkOpen(false)}>
-              {t('btnCancel')}
-            </Button>
+          <div className="flex flex-row items-center justify-end gap-2">
             <Button type="button" variant="action" className="rounded-lg" disabled={!!bulkProgress || bulkCandidates.length === 0} onClick={() => void handleBulkConfirm()}>
               {t('btnAddAll')}
             </Button>

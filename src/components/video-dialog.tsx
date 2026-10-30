@@ -1,18 +1,11 @@
 'use client';
 
 /**
- * URL query–driven video lightbox (e.g. `?trailer=1`).
- * Portals to `document.body` so `position: fixed` stays viewport-relative.
+ * URL query–driven video dialog (e.g. `?trailer=1`).
+ * Uses the shared Radix dialog so overlay, motion, and chrome match every other dialog.
  */
-import { useEffect, useSyncExternalStore } from 'react';
-import { createPortal } from 'react-dom';
 import { useSearchParams } from 'next/navigation';
-import ActionButton from './common/action-button';
-import { Action } from '@/domain/enums/action';
-import { cn } from '@/lib/utils';
-
-/** Above app overlays (e.g. event poster preview) and aligned with the URL query dialog. */
-const VIDEO_DIALOG_Z = 'z-[200]';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface IVideoDialogProps {
   queryParam: string;
@@ -20,81 +13,44 @@ interface IVideoDialogProps {
   onCancel: () => void;
 }
 
-const subscribeNoop = () => () => {};
-
 function toEmbedUrl(url: string): string {
   return url.replace('/watch?v=', '/embed/').replace('/shorts/', '/embed/').replace('youtu.be/', 'youtube.com/embed/');
 }
 
 const VideoDialog = ({ queryParam, videoUrl, onCancel }: IVideoDialogProps) => {
   const searchParams = useSearchParams();
-  const showDialog = searchParams?.get(queryParam) === '1';
-  const mounted = useSyncExternalStore(
-    subscribeNoop,
-    () => true,
-    () => false,
-  );
+  const open = searchParams?.get(queryParam) === '1';
   const embedUrl = toEmbedUrl(videoUrl);
 
-  useEffect(() => {
-    if (!showDialog) return;
-
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onCancel();
-    };
-    window.addEventListener('keydown', onKey);
-
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [showDialog, onCancel]);
-
-  if (!showDialog || !mounted) {
-    return null;
-  }
-
-  return createPortal(
-    <div className={cn('fixed inset-0 overflow-y-auto', VIDEO_DIALOG_Z)} role="presentation">
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" aria-hidden />
-      <div
-        className={cn(
-          'relative flex min-h-full w-full items-center justify-center',
-          'p-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-6',
-        )}
-        onClick={onCancel}
+  return (
+    <Dialog
+      open={open}
+      onOpenChange={next => {
+        if (!next) onCancel();
+      }}
+    >
+      <DialogContent
+        aria-describedby={undefined}
+        className="w-[min(calc(100%-2rem-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px)),64rem,calc((100dvh-7rem-env(safe-area-inset-top)-env(safe-area-inset-bottom))*16/9))] max-w-none pt-10"
       >
-        <div
-          className="flex w-[min(100%,64rem,calc((100dvh-7rem-env(safe-area-inset-top)-env(safe-area-inset-bottom))*16/9))] max-w-5xl flex-col gap-3"
-          role="dialog"
-          aria-modal
-          aria-label="Video"
-          onClick={event => event.stopPropagation()}
-        >
-          <div className="overflow-hidden rounded-xl border border-white/10 bg-black shadow-2xl">
-            <div className="aspect-video w-full">
-              {embedUrl && (
-                <iframe
-                  className="h-full w-full border-0"
-                  src={embedUrl}
-                  title="Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-                  allowFullScreen
-                />
-              )}
-            </div>
-          </div>
-
-          <div className="flex flex-row items-center justify-between">
-            <ActionButton action={Action.CANCEL} onClick={onCancel} />
+        <DialogHeader className="sr-only">
+          <DialogTitle>Video</DialogTitle>
+        </DialogHeader>
+        <div className="overflow-hidden rounded-lg bg-black">
+          <div className="aspect-video w-full">
+            {embedUrl && (
+              <iframe
+                className="h-full w-full border-0"
+                src={embedUrl}
+                title="Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                allowFullScreen
+              />
+            )}
           </div>
         </div>
-      </div>
-    </div>,
-    document.body,
+      </DialogContent>
+    </Dialog>
   );
 };
 

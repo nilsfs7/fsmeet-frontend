@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import {
   imgAccommodation,
   imgCalender,
@@ -19,6 +19,7 @@ import {
 import TextareaAutosize from 'react-textarea-autosize';
 import { getShortDateString } from '@/functions/time';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Event } from '@/domain/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
@@ -75,24 +76,6 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
   const isCustomPoster = Boolean(event.imageUrlPoster);
   const isDescriptionLong = (event.description?.length || 0) > 320;
 
-  useEffect(() => {
-    if (!posterPreviewOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [posterPreviewOpen]);
-
-  useEffect(() => {
-    if (!posterPreviewOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setPosterPreviewOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [posterPreviewOpen]);
-
   let eventFee = event.participationFee > 0 ? `${convertCurrencyIntegerToDecimal(event.participationFee, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}` : 'free';
   if (event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee) {
     eventFee = `${convertCurrencyIntegerToDecimal(event.participationFeeIncPaymentCosts, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}`;
@@ -123,16 +106,18 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
     <>
       <VideoDialog queryParam="trailer" videoUrl={event.trailerUrl || ''} onCancel={handleCancelDialogClicked} />
 
-      {posterPreviewOpen && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center overflow-hidden bg-black/75 p-4" onClick={() => setPosterPreviewOpen(false)}>
+      <Dialog open={posterPreviewOpen} onOpenChange={setPosterPreviewOpen}>
+        <DialogContent aria-describedby={undefined} className="w-auto max-w-[min(100vw-2rem,64rem)]">
+          <DialogHeader className="sr-only">
+            <DialogTitle>{event.name}</DialogTitle>
+          </DialogHeader>
           <img
             src={posterSrc}
             alt=""
-            className={cn('max-h-[min(100dvh-2rem,100%)] max-w-[min(100vw-2rem,100%)]', isCustomPoster ? 'object-contain' : 'object-contain p-8')}
-            onClick={e => e.stopPropagation()}
+            className={cn('max-h-[min(70dvh,100%)] w-full object-contain', !isCustomPoster && 'p-8')}
           />
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
 
       <div className={cardSurface}>
         <div className="p-2.5 sm:p-3 md:p-4">

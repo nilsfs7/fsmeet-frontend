@@ -8,7 +8,7 @@ import PageTitle from '@/components/page-title';
 import { getEvents } from '@/infrastructure/clients/event.client';
 import { auth } from '@/auth';
 import { TabsMenu } from './components/tabs-menu';
-import { EventManageCreateEventButton } from './components/create-event-button';
+import { CreateEventButton } from '@/components/events/create-event-button';
 import { getTranslations } from 'next-intl/server';
 import { User } from '@/domain/types/user';
 import { getUser } from '@/infrastructure/clients/user.client';
@@ -74,7 +74,7 @@ export default async function MyEventsOverview() {
         </div>
 
         <div className="flex min-w-0 flex-wrap justify-end gap-1">
-          {actingUser?.type !== UserType.FAN && <EventManageCreateEventButton />}
+          {actingUser?.type !== UserType.FAN && <CreateEventButton label={t('btnCreate')} />}
         </div>
       </Navigation>
     </div>

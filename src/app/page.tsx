@@ -12,7 +12,7 @@ import { getTranslations } from 'next-intl/server';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/domain/types/user';
 import { NavigationItem } from './components/navigation-item';
-import { CreateEventButton } from './components/create-event-button';
+import { CreateEventButton } from '@/components/events/create-event-button';
 import { UserType } from '@/domain/enums/user-type';
 import { pageRootClipClassName } from '@/components/layout/app-shell-content';
 import PageTitle from '@/components/page-title';
@@ -50,7 +50,7 @@ export default async function Home() {
 
       <PageInset className="flex min-h-0 min-w-0 flex-1 flex-col gap-6 overflow-y-auto scrollbar-none">
         <div className="m-2 mt-6 flex shrink-0 justify-center gap-2">
-          {actingUser?.type !== UserType.FAN && <CreateEventButton />}
+          {actingUser?.type !== UserType.FAN && <CreateEventButton label={t('btnCreateEvent')} />}
 
           <Button asChild variant="action" className={ctaActionButtonClassName}>
             <Link href={routeEvents}>{t('btnShowAllEvents')}</Link>

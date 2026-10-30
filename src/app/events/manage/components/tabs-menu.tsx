@@ -1,10 +1,9 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { routeEventSubs, routeEvents } from '@/domain/constants/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import Dialog from '@/components/dialog';
 import { switchTab } from '@/functions/switch-tab';
 import EventCard from '@/components/events/event-card';
 import { Event } from '@/domain/types/event';
@@ -30,17 +29,8 @@ export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSu
   const searchParams = useSearchParams();
   const tab = searchParams?.get('tab');
 
-  const handleCancelDialogClicked = async () => {
-    router.replace(`${routeEventSubs}`);
-  };
-
   return (
     <>
-      <Dialog title="License Warning" queryParam="license" onCancel={handleCancelDialogClicked}>
-        <p>Out of licenses to create new events. Contact us to get more.</p>
-        <p>By deleting any event that is not listed publicly, you can reclaim 1 license. Note that once an event is public it is not eligible for a reclaim.</p>
-      </Dialog>
-
       <Tabs defaultValue={tab || `registrations`} className="flex flex-col h-full">
         <TabsList>
           <TabsTrigger

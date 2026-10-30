@@ -1,5 +1,4 @@
 import { EventCreationProcess } from './components/event-creation-process';
-import { getLicense } from '../../../infrastructure/clients/license.client';
 import { auth } from '../../../auth';
 import LoadingSpinner from '../../../components/animation/loading-spinner';
 import { getUser } from '../../../infrastructure/clients/user.client';
@@ -11,7 +10,7 @@ export default async function EventCreation() {
     return <LoadingSpinner />;
   }
 
-  const [eventAdmin, license] = await Promise.all([getUser(session.user.username, session), getLicense(session, session.user.username)]);
+  const eventAdmin = await getUser(session.user.username, session);
 
-  return <EventCreationProcess eventAdmin={eventAdmin} licenses={license.amountEventLicenses} />;
+  return <EventCreationProcess eventAdmin={eventAdmin} />;
 }
