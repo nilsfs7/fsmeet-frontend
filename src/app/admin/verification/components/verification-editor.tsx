@@ -1,329 +1,298 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Action } from '@/domain/enums/action';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { routeUsers } from '@/domain/constants/routes';
-import ActionButton from '@/components/common/action-button';
-import ComboBox from '@/components/common/combo-box';
-import LoadingSpinner from '@/components/animation/loading-spinner';
-import { Toaster, toast } from 'sonner';
-import { User } from '@/domain/types/user';
-import { menuUserVerificationStates } from '@/domain/constants/menus/menu-user-verification-states';
-import { UserVerificationState } from '@/domain/enums/user-verification-state';
-import { getUsers, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { useSession } from 'next-auth/react';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { toast, Toaster } from 'sonner';
+import ActionButton from '@/components/common/action-button';
+import Navigation from '@/components/navigation';
+import { PageInset } from '@/components/layout/page-inset';
+import { AppDataStateEmpty } from '@/components/shared/app-data-state-empty';
+import { AppDataStateError } from '@/components/shared/app-data-state-error';
+import { AppDataStateListSkeleton } from '@/components/shared/app-data-state-list-skeleton';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { routeAdminOverview, routeUsers } from '@/domain/constants/routes';
+import { Action } from '@/domain/enums/action';
+import { AdministrativeUser } from '@/domain/enums/administrative-user';
+import { UserVerificationState } from '@/domain/enums/user-verification-state';
+import { User } from '@/domain/types/user';
+import { getUsers, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { cn } from '@/lib/utils';
-import { ArrowDown, ArrowUp } from 'lucide-react';
 
-/** Same glass card as `competition-editor` / `licenses-editor`; full width for admin tables. */
-const VERIFICATION_PANEL_CLASS = cn(
-  'w-full min-w-0 flex flex-col gap-3',
-  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
-  'text-sm',
+const ALL_STATES = 'all';
+
+const STATE_LABEL: Record<UserVerificationState, string> = {
+  [UserVerificationState.VERIFICATION_PENDING]: 'Waiting for verification',
+  [UserVerificationState.NOT_VERIFIED]: 'Not verified',
+  [UserVerificationState.DENIED]: 'Denied',
+  [UserVerificationState.VERIFIED]: 'Verified',
+};
+
+const STATE_RANK: Record<UserVerificationState, number> = {
+  [UserVerificationState.VERIFICATION_PENDING]: 0,
+  [UserVerificationState.NOT_VERIFIED]: 1,
+  [UserVerificationState.DENIED]: 2,
+  [UserVerificationState.VERIFIED]: 3,
+};
+
+type SortKey = 'name' | 'state';
+
+const cardSurface = cn(
+  'min-w-0 rounded-xl border border-border/60 bg-secondary-light/85 p-3 shadow-xs sm:p-4',
+  'dark:border-border/50 dark:bg-background/60',
 );
 
-const VERIFICATION_TABLE_WRAP_CLASS = cn(
-  'min-w-0 overflow-hidden rounded-lg border border-border/50 bg-background/40',
-  'dark:bg-background/30',
-);
-
-const FILTER_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none text-foreground';
-const SECTION_TITLE_CLASS = 'mb-2 text-center text-sm font-semibold leading-tight text-foreground/90';
-
-/** Align with /wffa/visa and /admin/licenses table layout */
-const VERIFICATION_TABLE_CLASS = 'table-fixed w-full min-w-160 border-separate border-spacing-x-3 border-spacing-y-0';
-
-const VERIFICATION_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
-const VERIFICATION_CELL_PAD = 'py-2.5 px-3';
-
-const verificationCol = {
-  user: 'w-[34%] min-w-44',
-  state: 'w-[42%] min-w-56',
-  actions: 'w-[18%] min-w-26',
-} as const;
-
-function matchesUserFilter(user: User, query: string): boolean {
-  const q = query.trim().toLowerCase();
-  if (!q) return true;
-  const u = user.username.toLowerCase();
-  const first = (user.firstName ?? '').toLowerCase();
-  const last = (user.lastName ?? '').toLowerCase();
-  return u.includes(q) || first.includes(q) || last.includes(q) || `${first} ${last}`.trim().includes(q);
+function displayName(user: User): string {
+  return [user.firstName, user.lastName].filter(Boolean).join(' ').trim();
 }
 
-function sortUsersByUserColumn(users: User[], descending: boolean): User[] {
+function matchesQuery(user: User, query: string): boolean {
+  const needle = query.trim().toLowerCase();
+  if (!needle) return true;
+  const name = displayName(user).toLowerCase();
+  return user.username.toLowerCase().includes(needle) || name.includes(needle) || (user.nickName?.toLowerCase().includes(needle) ?? false);
+}
+
+function displayedState(user: User, drafts: Record<string, UserVerificationState>): UserVerificationState | undefined {
+  return drafts[user.username] ?? user.verificationState;
+}
+
+async function mapWithConcurrency<T>(items: T[], limit: number, worker: (item: T) => Promise<void>) {
+  let cursor = 0;
+  const runners = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (cursor < items.length) {
+      const item = items[cursor++];
+      await worker(item);
+    }
+  });
+  await Promise.all(runners);
+}
+
+function sortUsers(users: User[], sort: SortKey): User[] {
   const list = [...users];
   list.sort((a, b) => {
-    const cmp = a.username.localeCompare(b.username);
-    if (cmp !== 0) return descending ? -cmp : cmp;
-    return (a.firstName ?? '').localeCompare(b.firstName ?? '');
+    if (sort === 'state') {
+      const rankA = STATE_RANK[a.verificationState ?? UserVerificationState.NOT_VERIFIED];
+      const rankB = STATE_RANK[b.verificationState ?? UserVerificationState.NOT_VERIFIED];
+      if (rankA !== rankB) return rankA - rankB;
+    }
+    const byName = (displayName(a) || a.username).localeCompare(displayName(b) || b.username, undefined, { sensitivity: 'base' });
+    return byName !== 0 ? byName : a.username.localeCompare(b.username);
   });
   return list;
 }
 
-function UserCell({ user }: { user: User }) {
-  const profileHref = `${routeUsers}/${user.username}`;
-  return (
-    <TableCell className={cn(VERIFICATION_CELL_PAD, 'align-top text-foreground', verificationCol.user)}>
-      <div className="flex min-w-0 flex-col gap-0.5">
-        <Link
-          href={profileHref}
-          className="font-medium text-primary underline-offset-2 hover:underline hover:text-primary/90"
-        >
-          {user.username}
-        </Link>
-        <span className="text-sm text-muted-foreground">({user.firstName})</span>
-      </div>
-    </TableCell>
-  );
-}
+export const VerificationEditor = () => {
+  const { data: session, status } = useSession();
+  const isAdmin = session?.user?.username === AdministrativeUser.ADMIN;
 
-function VerificationTableSection({
-  title,
-  items,
-  draftVerificationByUsername,
-  onDraftStateChange,
-  onSave,
-  userSortDescending,
-  onUserSortClick,
-}: {
-  title: string;
-  items: User[];
-  draftVerificationByUsername: Record<string, UserVerificationState | undefined>;
-  onDraftStateChange: (username: string, verificationState: UserVerificationState) => void;
-  onSave: (user: User) => void;
-  userSortDescending: boolean;
-  onUserSortClick: () => void;
-}) {
-  if (items.length === 0) {
-    return (
-      <div>
-        <h2 className={SECTION_TITLE_CLASS}>{title}</h2>
-        <p className="text-center text-sm text-muted-foreground">No entries</p>
+  const [users, setUsers] = useState<User[] | null>(null);
+  const [loadError, setLoadError] = useState('');
+  const [reloadKey, setReloadKey] = useState(0);
+  const [query, setQuery] = useState('');
+  const [stateFilter, setStateFilter] = useState(ALL_STATES);
+  const [sort, setSort] = useState<SortKey>('state');
+  const [draftByUsername, setDraftByUsername] = useState<Record<string, UserVerificationState>>({});
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (status === 'loading' || !isAdmin) return;
+
+    let cancelled = false;
+    getUsers()
+      .then(data => {
+        if (cancelled) return;
+        setUsers(data);
+        setDraftByUsername({});
+        setLoadError('');
+      })
+      .catch((error: unknown) => {
+        if (!cancelled) setLoadError(error instanceof Error && error.message ? error.message : 'Users could not be loaded.');
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [status, isAdmin, reloadKey]);
+
+  const visibleUsers = useMemo(() => {
+    const filtered = (users ?? []).filter(user => {
+      if (stateFilter !== ALL_STATES && user.verificationState !== stateFilter) return false;
+      return matchesQuery(user, query);
+    });
+    return sortUsers(filtered, sort);
+  }, [users, stateFilter, query, sort]);
+
+  const dirtyUsers = useMemo(
+    () => (users ?? []).filter(user => draftByUsername[user.username] && draftByUsername[user.username] !== user.verificationState),
+    [users, draftByUsername],
+  );
+
+  const handleDraftChanged = (user: User, nextState: UserVerificationState) => {
+    if (!isAdmin || saving) return;
+    setDraftByUsername(current => {
+      const next = { ...current };
+      if (nextState === user.verificationState) delete next[user.username];
+      else next[user.username] = nextState;
+      return next;
+    });
+  };
+
+  const handleSave = async () => {
+    if (!isAdmin || dirtyUsers.length === 0 || saving) return;
+    setSaving(true);
+    const saved: string[] = [];
+    const failed: string[] = [];
+
+    await mapWithConcurrency(dirtyUsers, 4, async user => {
+      const nextState = draftByUsername[user.username];
+      if (!nextState) return;
+      try {
+        await updateUserVerificationState(session, user.username, nextState);
+        saved.push(user.username);
+      } catch {
+        failed.push(user.username);
+      }
+    });
+
+    setUsers(current => (current ?? []).map(user => (saved.includes(user.username) ? { ...user, verificationState: draftByUsername[user.username] } : user)));
+    setDraftByUsername(current => {
+      const next = { ...current };
+      for (const username of saved) delete next[username];
+      return next;
+    });
+    setSaving(false);
+
+    if (failed.length === 0) toast.success(saved.length === 1 ? '1 user updated.' : `${saved.length} users updated.`);
+    else toast.error(`Saved ${saved.length}. Could not update ${failed.join(', ')}.`);
+  };
+
+  let content: ReactNode;
+  if (status !== 'loading' && !isAdmin) {
+    content = <AppDataStateError title="Admin only" message="Only the user admin can manage verification." className="max-w-none" />;
+  } else if (loadError) {
+    content = (
+      <AppDataStateError
+        title="Could not load users"
+        message={loadError}
+        onRetry={() => {
+          setUsers(null);
+          setLoadError('');
+          setReloadKey(key => key + 1);
+        }}
+        className="max-w-none"
+      />
+    );
+  } else if (status === 'loading' || users === null) {
+    content = <AppDataStateListSkeleton rows={5} className="max-w-none" />;
+  } else {
+    content = (
+      <div className="flex flex-col gap-4 text-sm">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+          <div className="min-w-0 flex-1 sm:max-w-sm">
+            <label className="mb-1 block text-xs text-muted-foreground" htmlFor="admin-verification-search">
+              Search
+            </label>
+            <Input id="admin-verification-search" type="search" value={query} placeholder="Name or username" onChange={event => setQuery(event.target.value)} />
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:contents">
+            <div className="min-w-0 sm:w-56">
+              <span className="mb-1 block text-xs text-muted-foreground">State</span>
+              <Select value={stateFilter} onValueChange={setStateFilter}>
+                <SelectTrigger aria-label="State">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={ALL_STATES}>All states</SelectItem>
+                  {Object.values(UserVerificationState).map(state => (
+                    <SelectItem key={state} value={state}>
+                      {STATE_LABEL[state]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="min-w-0 sm:w-40">
+              <span className="mb-1 block text-xs text-muted-foreground">Sort</span>
+              <Select value={sort} onValueChange={value => setSort(value as SortKey)}>
+                <SelectTrigger aria-label="Sort">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="state">State</SelectItem>
+                  <SelectItem value="name">Name</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+
+        <p className="text-xs text-muted-foreground">
+          {visibleUsers.length} of {users.length}
+        </p>
+
+        {users.length === 0 ? (
+          <div className="flex justify-center">
+            <AppDataStateEmpty title="No users" />
+          </div>
+        ) : visibleUsers.length === 0 ? (
+          <div className="flex justify-center">
+            <AppDataStateEmpty title="No matching users" description="Change the search or the state filter." />
+          </div>
+        ) : (
+          <ul className="flex flex-col gap-3">
+            {visibleUsers.map(user => {
+              const state = displayedState(user, draftByUsername);
+              const dirty = Boolean(draftByUsername[user.username] && draftByUsername[user.username] !== user.verificationState);
+              const name = displayName(user);
+              return (
+                <li key={user.username} className={cardSurface}>
+                  <Link href={`${routeUsers}/${user.username}`} className="wrap-break-word text-base font-semibold leading-snug hover:underline">
+                    {user.username}
+                  </Link>
+                  {name && <p className="mt-0.5 text-xs text-muted-foreground">{name}</p>}
+
+                  <div className="mt-3 max-w-xs">
+                    <span className="mb-1 block text-xs text-muted-foreground">Verification</span>
+                    <Select value={state ?? ''} disabled={saving} onValueChange={value => handleDraftChanged(user, value as UserVerificationState)}>
+                      <SelectTrigger aria-label={`Verification of ${user.username}`} className={cn(dirty && 'border-primary')}>
+                        <SelectValue placeholder="Not set" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.values(UserVerificationState).map(option => (
+                          <SelectItem key={option} value={option}>
+                            {STATE_LABEL[option]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     );
   }
 
   return (
-    <div>
-      <h2 className={SECTION_TITLE_CLASS}>{title}</h2>
-      <div className={VERIFICATION_TABLE_WRAP_CLASS}>
-        <Table className={VERIFICATION_TABLE_CLASS}>
-          <TableHeader>
-            <TableRow className="border-border/40 hover:bg-transparent dark:hover:bg-transparent">
-              <TableHead className={cn('text-foreground', VERIFICATION_HEAD_PAD, verificationCol.user)}>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-1.5 text-left font-medium text-foreground/90 transition-colors hover:text-foreground"
-                  onClick={onUserSortClick}
-                  title={userSortDescending ? 'Sort user ascending' : 'Sort user descending'}
-                >
-                  User
-                  {userSortDescending ? (
-                    <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
-                  ) : (
-                    <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
-                  )}
-                </button>
-              </TableHead>
-              <TableHead className={cn('text-foreground/90', VERIFICATION_HEAD_PAD, verificationCol.state)}>Verification state</TableHead>
-              <TableHead className={cn('text-right text-foreground/90', VERIFICATION_HEAD_PAD, verificationCol.actions)}>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody className="[&_tr:first-child_td]:pt-3">
-            {items.map(user => {
-              const comboValue = draftVerificationByUsername[user.username] ?? user.verificationState ?? '';
-              return (
-                <TableRow
-                  key={user.username}
-                  className="border-border/30 transition-colors hover:bg-muted/30 dark:hover:bg-muted/20"
-                >
-                  <UserCell user={user} />
-                  <TableCell className={cn(VERIFICATION_CELL_PAD, 'align-top text-foreground', verificationCol.state)}>
-                    <ComboBox
-                      menus={menuUserVerificationStates}
-                      value={comboValue}
-                      searchEnabled={false}
-                      onChange={(value: UserVerificationState) => {
-                        onDraftStateChange(user.username, value);
-                      }}
-                    />
-                  </TableCell>
-                  <TableCell className={cn(VERIFICATION_CELL_PAD, 'align-top', verificationCol.actions)}>
-                    <div className="flex justify-end gap-1">
-                      <ActionButton action={Action.SAVE} onClick={() => onSave(user)} />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
-    </div>
-  );
-}
-
-export const VerificationEditor = () => {
-  const { data: session, status } = useSession();
-  const [users, setUsers] = useState<User[]>([]);
-  /** Unsaved ComboBox edits; table membership uses `users` only until Save. */
-  const [draftVerificationByUsername, setDraftVerificationByUsername] = useState<
-    Record<string, UserVerificationState | undefined>
-  >({});
-  const [loading, setLoading] = useState(true);
-  const [filterUser, setFilterUser] = useState('');
-  const [userSortDescending, setUserSortDescending] = useState(false);
-
-  const loadUsers = useCallback(async (showInitialSpinner: boolean) => {
-    if (showInitialSpinner) setLoading(true);
-    try {
-      const data = await getUsers();
-      setUsers(data);
-      setDraftVerificationByUsername({});
-    } catch (e: any) {
-      console.error(e);
-      toast.error(e?.message ?? 'Failed to load users.');
-    } finally {
-      if (showInitialSpinner) setLoading(false);
-    }
-  }, []);
-
-  const handleDraftVerificationStateChanged = (username: string, verificationState: UserVerificationState) => {
-    setDraftVerificationByUsername(prev => ({ ...prev, [username]: verificationState }));
-  };
-
-  const handleSaveUserClicked = async (user: User) => {
-    const nextState = draftVerificationByUsername[user.username] ?? user.verificationState;
-    try {
-      if (nextState) {
-        await updateUserVerificationState(session, user.username, nextState);
-        toast.success(`Verification state for ${user.username} (${user.firstName}) updated.`);
-        setUsers(prev =>
-          prev.map(usr => (usr.username === user.username ? { ...usr, verificationState: nextState } : usr)),
-        );
-        setDraftVerificationByUsername(prev => {
-          const next = { ...prev };
-          delete next[user.username];
-          return next;
-        });
-      }
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
-      await loadUsers(false);
-    }
-  };
-
-  const handleUserSortClick = useCallback(() => {
-    setUserSortDescending(d => !d);
-  }, []);
-
-  useEffect(() => {
-    if (status === 'loading') return;
-    loadUsers(true);
-  }, [status, loadUsers]);
-
-  const filteredUsers = useMemo(
-    () => users.filter(u => matchesUserFilter(u, filterUser)),
-    [users, filterUser],
-  );
-
-  const pending = useMemo(
-    () =>
-      sortUsersByUserColumn(
-        filteredUsers.filter(u => u.verificationState === UserVerificationState.VERIFICATION_PENDING),
-        userSortDescending,
-      ),
-    [filteredUsers, userSortDescending],
-  );
-  const denied = useMemo(
-    () =>
-      sortUsersByUserColumn(
-        filteredUsers.filter(u => u.verificationState === UserVerificationState.DENIED),
-        userSortDescending,
-      ),
-    [filteredUsers, userSortDescending],
-  );
-  const notVerified = useMemo(
-    () =>
-      sortUsersByUserColumn(
-        filteredUsers.filter(u => u.verificationState === UserVerificationState.NOT_VERIFIED),
-        userSortDescending,
-      ),
-    [filteredUsers, userSortDescending],
-  );
-  const verified = useMemo(
-    () =>
-      sortUsersByUserColumn(
-        filteredUsers.filter(u => u.verificationState === UserVerificationState.VERIFIED),
-        userSortDescending,
-      ),
-    [filteredUsers, userSortDescending],
-  );
-
-  if (loading || status === 'loading') {
-    return <LoadingSpinner />;
-  }
-
-  return (
-    <>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Toaster richColors />
-
-      <div className="mx-2 min-h-0 overflow-y-auto pb-4 scrollbar-none">
-        <div className={VERIFICATION_PANEL_CLASS}>
-          {users.length > 0 && (
-            <div className="flex flex-col gap-1.5 sm:max-w-sm">
-              <span className={FILTER_LABEL_CLASS}>User</span>
-              <Input placeholder="Search…" value={filterUser} onChange={e => setFilterUser(e.target.value)} className="w-full" />
-            </div>
-          )}
-
-          <div className="flex min-w-0 flex-col gap-6">
-            <VerificationTableSection
-              title="Verification pending"
-              items={pending}
-              draftVerificationByUsername={draftVerificationByUsername}
-              onDraftStateChange={handleDraftVerificationStateChanged}
-              onSave={handleSaveUserClicked}
-              userSortDescending={userSortDescending}
-              onUserSortClick={handleUserSortClick}
-            />
-            <VerificationTableSection
-              title="Denied"
-              items={denied}
-              draftVerificationByUsername={draftVerificationByUsername}
-              onDraftStateChange={handleDraftVerificationStateChanged}
-              onSave={handleSaveUserClicked}
-              userSortDescending={userSortDescending}
-              onUserSortClick={handleUserSortClick}
-            />
-            <VerificationTableSection
-              title="Not verified"
-              items={notVerified}
-              draftVerificationByUsername={draftVerificationByUsername}
-              onDraftStateChange={handleDraftVerificationStateChanged}
-              onSave={handleSaveUserClicked}
-              userSortDescending={userSortDescending}
-              onUserSortClick={handleUserSortClick}
-            />
-            <VerificationTableSection
-              title="Verified"
-              items={verified}
-              draftVerificationByUsername={draftVerificationByUsername}
-              onDraftStateChange={handleDraftVerificationStateChanged}
-              onSave={handleSaveUserClicked}
-              userSortDescending={userSortDescending}
-              onUserSortClick={handleUserSortClick}
-            />
-          </div>
-        </div>
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <PageInset>{content}</PageInset>
       </div>
-    </>
+
+      <Navigation>
+        <ActionButton href={routeAdminOverview} action={Action.BACK} />
+        {isAdmin && users && (
+          <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={dirtyUsers.length === 0 || saving} onClick={() => void handleSave()}>
+            {saving ? 'Saving…' : dirtyUsers.length > 0 ? `Save (${dirtyUsers.length})` : 'Save'}
+          </Button>
+        )}
+      </Navigation>
+    </div>
   );
 };
