@@ -1,70 +1,103 @@
 'use client';
 
-import LoadingSpinner from '@/components/animation/loading-spinner';
-import ActionButton from '@/components/common/action-button';
-import { routeEvents, routeUsers } from '@/domain/constants/routes';
-import { Action } from '@/domain/enums/action';
-import { getEvents, updateEventState } from '@/infrastructure/clients/event.client';
-import { useSession } from 'next-auth/react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Toaster, toast } from 'sonner';
 import moment from 'moment';
-import { EventState } from '@/domain/enums/event-state';
-import { Event } from '@/domain/types/event';
-import { menuEventStates } from '@/domain/constants/menus/menu-event-states';
-import ComboBox from '@/components/common/combo-box';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useSession } from 'next-auth/react';
+import { toast, Toaster } from 'sonner';
+import { IconAlertTriangle, IconTrash } from '@tabler/icons-react';
+import ActionButton from '@/components/common/action-button';
+import Navigation from '@/components/navigation';
+import { PageInset } from '@/components/layout/page-inset';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { AppDataStateEmpty } from '@/components/shared/app-data-state-empty';
+import { AppDataStateError } from '@/components/shared/app-data-state-error';
+import { AppDataStateListSkeleton } from '@/components/shared/app-data-state-list-skeleton';
+import { routeAdminOverview, routeEvents, routeUsers } from '@/domain/constants/routes';
+import { Action } from '@/domain/enums/action';
+import { AdministrativeUser } from '@/domain/enums/administrative-user';
+import { EventState } from '@/domain/enums/event-state';
+import { EventType } from '@/domain/enums/event-type';
+import { Event } from '@/domain/types/event';
+import { getShortDateString } from '@/functions/time';
+import { getCompetitions } from '@/infrastructure/clients/competition.client';
+import { deleteEvent, getEvents, updateEventState } from '@/infrastructure/clients/event.client';
 import { cn } from '@/lib/utils';
-import { ArrowDown, ArrowUp } from 'lucide-react';
 
-const DEFAULT_DATE_FROM = moment('2000').startOf('year');
-const DEFAULT_DATE_TO = moment('2099').endOf('year');
+const DATE_FROM = moment('2000').startOf('year');
+const DATE_TO = moment('2099').endOf('year');
+const ALL_STATES = 'all';
 
-/** Same glass card as `competition-editor` / `licenses-editor`; full width for admin table. */
-const EVENTS_PANEL_CLASS = cn(
-  'w-full min-w-0 flex flex-col gap-3',
-  'rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 sm:p-3 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
-  'text-sm',
+const STATE_LABEL: Record<EventState, string> = {
+  [EventState.CREATED]: 'Created',
+  [EventState.WAITING_FOR_APPROVAL]: 'Waiting for approval',
+  [EventState.APPROVED]: 'Approved',
+  [EventState.DENIED]: 'Denied',
+  [EventState.ARCHIVED_HIDDEN]: 'Archived, hidden',
+  [EventState.ARCHIVED_PUBLIC]: 'Archived, public',
+};
+
+const TYPE_LABEL: Record<EventType, string> = {
+  [EventType.COMPETITION]: 'Competition',
+  [EventType.COMPETITION_ONLINE]: 'Online competition',
+  [EventType.MEETING]: 'Meeting',
+};
+
+type SortKey = 'dateDesc' | 'dateAsc' | 'name' | 'state';
+
+const cardSurface = cn(
+  'min-w-0 rounded-xl border border-border/60 bg-secondary-light/85 p-3 shadow-xs sm:p-4',
+  'dark:border-border/50 dark:bg-background/60',
 );
 
-const EVENTS_TABLE_WRAP_CLASS = cn(
-  'min-w-0 overflow-hidden rounded-lg border border-border/50 bg-background/40',
-  'dark:bg-background/30',
-);
-
-const FILTER_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none text-foreground';
-
-/** Align with /wffa/visa and /admin/licenses table layout */
-const EVENT_TABLE_CLASS = 'table-fixed w-full min-w-2xl border-separate border-spacing-x-3 border-spacing-y-0';
-
-const EVENT_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
-const EVENT_CELL_PAD = 'py-2.5 px-3';
-
-const eventCol = {
-  name: 'w-[36%] min-w-40',
-  admin: 'w-[22%] min-w-28',
-  state: 'w-[28%] min-w-48',
-  actions: 'w-[14%] min-w-24',
-} as const;
-
-const MENU_STATE_FILTER = [{ text: 'All states', value: '' }, ...menuEventStates];
-
-function matchesEventFilters(event: Event, filterName: string, filterState: string): boolean {
-  if (filterState && event.state !== filterState) return false;
-  const q = filterName.trim().toLowerCase();
-  if (q && !event.name.toLowerCase().includes(q)) return false;
-  return true;
+function eventDateLabel(event: Event): string {
+  const from = moment(event.dateFrom);
+  const to = moment(event.dateTo);
+  if (!from.isValid()) return '';
+  if (from.isSame(to, 'day')) return getShortDateString(from);
+  return `${getShortDateString(from, false)} – ${getShortDateString(to)}`;
 }
 
-function sortEventsByStateThenName(events: Event[], descending: boolean): Event[] {
+function matchesQuery(event: Event, query: string): boolean {
+  const needle = query.trim().toLowerCase();
+  if (!needle) return true;
+  return [event.name, event.alias, event.admin, event.venueCity].some(value => value?.toLowerCase().includes(needle));
+}
+
+function isCompetitionEvent(event: Event): boolean {
+  return event.type === EventType.COMPETITION || event.type === EventType.COMPETITION_ONLINE;
+}
+
+function displayedState(event: Event, drafts: Record<string, EventState>): EventState {
+  return (event.id && drafts[event.id]) || event.state;
+}
+
+async function mapWithConcurrency<T>(items: T[], limit: number, worker: (item: T) => Promise<void>) {
+  let cursor = 0;
+  const runners = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (cursor < items.length) {
+      const item = items[cursor++];
+      await worker(item);
+    }
+  });
+  await Promise.all(runners);
+}
+
+function sortEvents(events: Event[], sort: SortKey, drafts: Record<string, EventState>): Event[] {
   const list = [...events];
   list.sort((a, b) => {
-    const byState = a.state.localeCompare(b.state);
-    if (byState !== 0) return descending ? -byState : byState;
+    if (sort === 'name') return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+    if (sort === 'state') {
+      const stateA = STATE_LABEL[displayedState(a, drafts)] ?? displayedState(a, drafts);
+      const stateB = STATE_LABEL[displayedState(b, drafts)] ?? displayedState(b, drafts);
+      const byState = stateA.localeCompare(stateB);
+      return byState !== 0 ? byState : a.name.localeCompare(b.name);
+    }
+    const delta = moment(a.dateFrom).valueOf() - moment(b.dateFrom).valueOf();
+    if (delta !== 0) return sort === 'dateAsc' ? delta : -delta;
     return a.name.localeCompare(b.name);
   });
   return list;
@@ -72,208 +105,340 @@ function sortEventsByStateThenName(events: Event[], descending: boolean): Event[
 
 export const EventsEditor = () => {
   const { data: session, status } = useSession();
-  const [events, setEvents] = useState<Event[]>([]);
-  /** Unsaved ComboBox edits; committed state lives on `events` until Save. */
-  const [draftStateByEventId, setDraftStateByEventId] = useState<Partial<Record<string, EventState>>>({});
-  const [loading, setLoading] = useState(true);
-  const [filterName, setFilterName] = useState('');
-  const [filterState, setFilterState] = useState('');
-  /** Sort table rows by committed `event.state` (asc = A→Z of state string). */
-  const [stateSortDescending, setStateSortDescending] = useState(false);
+  const isAdmin = session?.user?.username === AdministrativeUser.ADMIN;
 
-  const loadEvents = useCallback(
-    async (showInitialSpinner: boolean) => {
-      if (status !== 'authenticated' || !session) {
-        if (showInitialSpinner) setLoading(false);
-        return;
-      }
-      if (showInitialSpinner) setLoading(true);
-      try {
-        const data = await getEvents(null, null, null, DEFAULT_DATE_FROM, DEFAULT_DATE_TO, session);
+  const [events, setEvents] = useState<Event[] | null>(null);
+  const [loadError, setLoadError] = useState('');
+  const [reloadKey, setReloadKey] = useState(0);
+  const [query, setQuery] = useState('');
+  const [stateFilter, setStateFilter] = useState(ALL_STATES);
+  const [sort, setSort] = useState<SortKey>('dateDesc');
+  const [draftStateByEventId, setDraftStateByEventId] = useState<Record<string, EventState>>({});
+  const [competitionCountByEventId, setCompetitionCountByEventId] = useState<Record<string, number>>({});
+  const [saving, setSaving] = useState(false);
+  const [busyIds, setBusyIds] = useState<Set<string>>(new Set());
+  const [pendingDelete, setPendingDelete] = useState<Event | null>(null);
+
+  useEffect(() => {
+    if (status === 'loading' || !session || !isAdmin) return;
+
+    let cancelled = false;
+    getEvents(null, null, null, DATE_FROM, DATE_TO, session)
+      .then(async data => {
+        if (cancelled) return;
         setEvents(data);
         setDraftStateByEventId({});
-      } catch (e: any) {
-        console.error(e);
-        toast.error(e?.message ?? 'Failed to load events.');
-      } finally {
-        if (showInitialSpinner) setLoading(false);
-      }
-    },
-    [session, status],
+        setLoadError('');
+
+        const counts: Record<string, number> = {};
+        await mapWithConcurrency(
+          data.filter(event => event.id && isCompetitionEvent(event)),
+          6,
+          async event => {
+            if (!event.id) return;
+            try {
+              const competitions = await getCompetitions(event.id, null);
+              counts[event.id] = competitions.length;
+            } catch {
+              // Leave the count unset so a failed lookup does not look like “no competitions”.
+            }
+          },
+        );
+        if (!cancelled) setCompetitionCountByEventId(counts);
+      })
+      .catch((error: unknown) => {
+        if (!cancelled) setLoadError(error instanceof Error && error.message ? error.message : 'Events could not be loaded.');
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [status, session, isAdmin, reloadKey]);
+
+  const visibleEvents = useMemo(() => {
+    const filtered = (events ?? []).filter(event => (stateFilter === ALL_STATES || displayedState(event, draftStateByEventId) === stateFilter) && matchesQuery(event, query));
+    return sortEvents(filtered, sort, draftStateByEventId);
+  }, [events, draftStateByEventId, stateFilter, query, sort]);
+
+  const dirtyEvents = useMemo(
+    () => (events ?? []).filter(event => event.id && draftStateByEventId[event.id] && draftStateByEventId[event.id] !== event.state),
+    [events, draftStateByEventId],
   );
 
-  const handleDraftEventStateChanged = (eventId: string, state: EventState) => {
-    setDraftStateByEventId(prev => ({ ...prev, [eventId]: state }));
+  const setBusy = (eventId: string, busy: boolean) => {
+    setBusyIds(prev => {
+      const next = new Set(prev);
+      if (busy) next.add(eventId);
+      else next.delete(eventId);
+      return next;
+    });
   };
 
-  const handleSaveEventClicked = async (event: Event) => {
+  const handleDraftStateChanged = (event: Event, nextState: EventState) => {
+    if (!isAdmin || !event.id || saving) return;
     const eventId = event.id;
-    if (!eventId) return;
+    setDraftStateByEventId(current => {
+      const next = { ...current };
+      if (nextState === event.state) delete next[eventId];
+      else next[eventId] = nextState;
+      return next;
+    });
+  };
 
-    const nextState = draftStateByEventId[eventId] ?? event.state;
+  const handleSave = async () => {
+    if (!isAdmin || dirtyEvents.length === 0 || saving) return;
+    setSaving(true);
+    const savedIds: string[] = [];
+    const failedNames: string[] = [];
 
+    await mapWithConcurrency(dirtyEvents, 4, async event => {
+      const eventId = event.id;
+      const nextState = eventId ? draftStateByEventId[eventId] : undefined;
+      if (!eventId || !nextState) return;
+      try {
+        await updateEventState(session, eventId, nextState);
+        savedIds.push(eventId);
+      } catch {
+        failedNames.push(event.name);
+      }
+    });
+
+    setEvents(current => (current ?? []).map(event => (event.id && savedIds.includes(event.id) ? { ...event, state: draftStateByEventId[event.id] } : event)));
+    setDraftStateByEventId(current => {
+      const next = { ...current };
+      for (const eventId of savedIds) delete next[eventId];
+      return next;
+    });
+    setSaving(false);
+
+    if (failedNames.length === 0) toast.success(savedIds.length === 1 ? '1 event updated.' : `${savedIds.length} events updated.`);
+    else toast.error(`Saved ${savedIds.length}. Could not update ${failedNames.join(', ')}.`);
+  };
+
+  const handleConfirmDelete = async () => {
+    const event = pendingDelete;
+    if (!isAdmin || !event?.id) return;
+    const eventId = event.id;
+    setBusy(eventId, true);
     try {
-      await updateEventState(session, eventId, nextState);
-      toast.success(`State for ${event.name} (${eventId}) updated.`);
-      setEvents(prev => prev.map(evt => (evt.id === eventId ? { ...evt, state: nextState } : evt)));
-      setDraftStateByEventId(prev => {
-        const next = { ...prev };
+      await deleteEvent(eventId, session);
+      setEvents(current => (current ?? []).filter(item => item.id !== eventId));
+      setDraftStateByEventId(current => {
+        const next = { ...current };
         delete next[eventId];
         return next;
       });
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
-      await loadEvents(false);
+      setPendingDelete(null);
+      toast.success(`${event.name} deleted.`);
+    } catch (error: unknown) {
+      toast.error(error instanceof Error && error.message ? error.message : 'The event could not be deleted.');
+    } finally {
+      setBusy(eventId, false);
     }
   };
 
-  useEffect(() => {
-    if (status === 'loading') return;
-    if (status !== 'authenticated') {
-      setLoading(false);
-      return;
-    }
-    loadEvents(true);
-  }, [status, loadEvents]);
+  let content: ReactNode;
+  if (status !== 'loading' && !isAdmin) {
+    content = <AppDataStateError title="Admin only" message="Only the user admin can manage events." className="max-w-none" />;
+  } else if (loadError) {
+    content = (
+      <AppDataStateError
+        title="Could not load events"
+        message={loadError}
+        onRetry={() => {
+          setEvents(null);
+          setLoadError('');
+          setReloadKey(key => key + 1);
+        }}
+        className="max-w-none"
+      />
+    );
+  } else if (status === 'loading' || events === null) {
+    content = <AppDataStateListSkeleton rows={5} className="max-w-none" />;
+  } else {
+    content = (
+      <div className="flex flex-col gap-4 text-sm">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+          <div className="min-w-0 flex-1 sm:max-w-sm">
+            <label className="mb-1 block text-xs text-muted-foreground" htmlFor="admin-events-search">
+              Search
+            </label>
+            <Input id="admin-events-search" type="search" value={query} placeholder="Name, admin or city" onChange={event => setQuery(event.target.value)} />
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:contents">
+            <div className="min-w-0 sm:w-52">
+              <span className="mb-1 block text-xs text-muted-foreground">State</span>
+              <Select value={stateFilter} onValueChange={setStateFilter}>
+                <SelectTrigger aria-label="State">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={ALL_STATES}>All states</SelectItem>
+                  {Object.values(EventState).map(state => (
+                    <SelectItem key={state} value={state}>
+                      {STATE_LABEL[state]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="min-w-0 sm:w-44">
+              <span className="mb-1 block text-xs text-muted-foreground">Sort</span>
+              <Select value={sort} onValueChange={value => setSort(value as SortKey)}>
+                <SelectTrigger aria-label="Sort">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="dateDesc">Newest date</SelectItem>
+                  <SelectItem value="dateAsc">Oldest date</SelectItem>
+                  <SelectItem value="name">Name</SelectItem>
+                  <SelectItem value="state">State</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
 
-  const filteredEvents = useMemo(
-    () => events.filter(ev => matchesEventFilters(ev, filterName, filterState)),
-    [events, filterName, filterState],
-  );
+        <p className="text-xs text-muted-foreground">
+          {visibleEvents.length} of {events.length}
+        </p>
 
-  const sortedFilteredEvents = useMemo(
-    () => sortEventsByStateThenName(filteredEvents, stateSortDescending),
-    [filteredEvents, stateSortDescending],
-  );
+        {events.length === 0 ? (
+          <div className="flex justify-center">
+            <AppDataStateEmpty title="No events" />
+          </div>
+        ) : visibleEvents.length === 0 ? (
+          <div className="flex justify-center">
+            <AppDataStateEmpty title="No matching events" description="Change the search or the state filter." />
+          </div>
+        ) : (
+          <ul className="flex flex-col gap-3">
+            {visibleEvents.map(event => {
+              const eventId = event.id ?? '';
+              const busy = busyIds.has(eventId);
+              const state = displayedState(event, draftStateByEventId);
+              const dirty = Boolean(eventId && draftStateByEventId[eventId] && draftStateByEventId[eventId] !== event.state);
+              const missingCompetitions = isCompetitionEvent(event) && eventId in competitionCountByEventId && competitionCountByEventId[eventId] === 0;
+              const missingDescription = !event.description?.trim();
+              return (
+                <li key={eventId || event.name} className={cn(cardSurface, (missingCompetitions || missingDescription) && 'border-warning/60')}>
+                  <div className="flex min-w-0 items-start gap-3">
+                    <div className="min-w-0 flex-1">
+                      {event.id ? (
+                        <Link href={`${routeEvents}/${event.id}`} className="wrap-break-word text-base font-semibold leading-snug hover:underline">
+                          {event.name}
+                        </Link>
+                      ) : (
+                        <p className="text-base font-semibold leading-snug">{event.name}</p>
+                      )}
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        {[TYPE_LABEL[event.type] ?? event.type, event.venueCity, eventDateLabel(event)].filter(Boolean).join(' · ')}
+                      </p>
+                      {event.admin && (
+                        <Link href={`${routeUsers}/${event.admin}`} className="mt-1 inline-block text-xs font-medium text-primary hover:underline">
+                          {event.admin}
+                        </Link>
+                      )}
+                      {(missingCompetitions || missingDescription) && (
+                        <div className="mt-2 flex flex-col gap-1">
+                          {missingDescription && (
+                            <p className="flex items-start gap-1.5 text-xs text-amber-700 dark:text-amber-400">
+                              <IconAlertTriangle className="mt-px h-4 w-4 shrink-0" stroke={2} aria-hidden />
+                              No description.
+                            </p>
+                          )}
+                          {missingCompetitions && (
+                            <p className="flex items-start gap-1.5 text-xs text-amber-700 dark:text-amber-400">
+                              <IconAlertTriangle className="mt-px h-4 w-4 shrink-0" stroke={2} aria-hidden />
+                              No competitions listed.
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="h-9 shrink-0 gap-1 rounded-lg border-critical/40 px-2.5 text-critical hover:bg-critical/10"
+                      disabled={!event.id || busy}
+                      onClick={() => setPendingDelete(event)}
+                    >
+                      <IconTrash className="h-4 w-4" stroke={2} aria-hidden />
+                      <span className="sr-only sm:not-sr-only">Delete</span>
+                    </Button>
+                  </div>
 
-  if (loading || status === 'loading') {
-    return <LoadingSpinner />;
+                  <div className="mt-3 max-w-xs">
+                    <span className="mb-1 block text-xs text-muted-foreground">State</span>
+                    <Select value={state} disabled={!event.id || busy || saving} onValueChange={value => handleDraftStateChanged(event, value as EventState)}>
+                      <SelectTrigger aria-label={`State of ${event.name}`} className={cn(dirty && 'border-primary')}>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.values(EventState).map(state => (
+                          <SelectItem key={state} value={state}>
+                            {STATE_LABEL[state]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <Toaster richColors />
-
-      <div className="mx-2 min-h-0 overflow-y-auto pb-4 scrollbar-none">
-        <div className={EVENTS_PANEL_CLASS}>
-          {events.length > 0 && (
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
-              <div className="flex min-w-0 flex-1 flex-col gap-1.5 sm:max-w-sm">
-                <span className={FILTER_LABEL_CLASS}>Event name</span>
-                <Input
-                  placeholder="Search…"
-                  value={filterName}
-                  onChange={e => setFilterName(e.target.value)}
-                  className="w-full"
-                />
-              </div>
-              <div className="flex min-w-0 flex-col gap-1.5 sm:max-w-[min(100%,16rem)]">
-                <span className={FILTER_LABEL_CLASS}>State</span>
-                <ComboBox
-                  menus={MENU_STATE_FILTER}
-                  value={filterState}
-                  searchEnabled={false}
-                  label="State"
-                  className="w-full max-w-none"
-                  onChange={(value: string) => setFilterState(value)}
-                />
-              </div>
-            </div>
-          )}
-
-          {events.length === 0 ? (
-            <p className="text-center text-sm text-muted-foreground">No entries</p>
-          ) : filteredEvents.length === 0 ? (
-            <p className="text-center text-sm text-muted-foreground">No matching events</p>
-          ) : (
-            <div className={EVENTS_TABLE_WRAP_CLASS}>
-              <Table className={EVENT_TABLE_CLASS}>
-                <TableHeader>
-                  <TableRow className="border-border/40 hover:bg-transparent dark:hover:bg-transparent">
-                    <TableHead className={cn('text-foreground/90', EVENT_HEAD_PAD, eventCol.name)}>Event</TableHead>
-                    <TableHead className={cn('text-foreground/90', EVENT_HEAD_PAD, eventCol.admin)}>Admin</TableHead>
-                    <TableHead className={cn('text-foreground', EVENT_HEAD_PAD, eventCol.state)}>
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-1.5 text-left font-medium text-foreground/90 transition-colors hover:text-foreground"
-                        onClick={() => setStateSortDescending(d => !d)}
-                        title={stateSortDescending ? 'Sort state ascending' : 'Sort state descending'}
-                      >
-                        State
-                        {stateSortDescending ? (
-                          <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
-                        ) : (
-                          <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />
-                        )}
-                      </button>
-                    </TableHead>
-                    <TableHead className={cn('text-right text-foreground/90', EVENT_HEAD_PAD, eventCol.actions)}>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody className="[&_tr:first-child_td]:pt-3">
-                  {sortedFilteredEvents.map(event => {
-                    const id = event.id ?? '';
-                    const comboValue = id ? (draftStateByEventId[id] ?? event.state) : event.state;
-                    const dirty = Boolean(id && comboValue !== event.state);
-
-                    return (
-                      <TableRow
-                        key={id || event.name}
-                        className="border-border/30 transition-colors hover:bg-muted/30 dark:hover:bg-muted/20"
-                      >
-                        <TableCell className={cn(EVENT_CELL_PAD, 'align-top text-foreground', eventCol.name)}>
-                          {event.id ? (
-                            <Link
-                              href={`${routeEvents}/${event.id}`}
-                              className="font-medium text-primary underline-offset-2 hover:underline hover:text-primary/90"
-                            >
-                              {event.name}
-                            </Link>
-                          ) : (
-                            <span className="text-foreground">{event.name}</span>
-                          )}
-                        </TableCell>
-                        <TableCell className={cn(EVENT_CELL_PAD, 'align-top text-foreground', eventCol.admin)}>
-                          {event.admin ? (
-                            <Link
-                              href={`${routeUsers}/${event.admin}`}
-                              className="font-medium text-primary underline-offset-2 hover:underline hover:text-primary/90"
-                            >
-                              {event.admin}
-                            </Link>
-                          ) : (
-                            <span className="text-muted-foreground">—</span>
-                          )}
-                        </TableCell>
-                        <TableCell className={cn(EVENT_CELL_PAD, 'align-top text-foreground', eventCol.state)}>
-                          {id ? (
-                            <ComboBox
-                              menus={menuEventStates}
-                              value={comboValue}
-                              searchEnabled={false}
-                              onChange={(value: EventState) => {
-                                handleDraftEventStateChanged(id, value);
-                              }}
-                            />
-                          ) : (
-                            menuEventStates.find(m => m.value === event.state)?.text ?? String(event.state)
-                          )}
-                        </TableCell>
-                        <TableCell className={cn(EVENT_CELL_PAD, 'align-top', eventCol.actions)}>
-                          <div className="flex justify-end gap-1">
-                            {id && dirty && <ActionButton action={Action.SAVE} onClick={() => handleSaveEventClicked(event)} />}
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </div>
-          )}
-        </div>
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <PageInset>{content}</PageInset>
       </div>
-    </>
+
+      <Navigation>
+        <ActionButton href={routeAdminOverview} action={Action.BACK} />
+        {isAdmin && events && (
+          <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={dirtyEvents.length === 0 || saving} onClick={() => void handleSave()}>
+            {saving ? 'Saving…' : dirtyEvents.length > 0 ? `Save (${dirtyEvents.length})` : 'Save'}
+          </Button>
+        )}
+      </Navigation>
+
+      <Dialog
+        open={pendingDelete !== null}
+        onOpenChange={open => {
+          if (open || (pendingDelete?.id && busyIds.has(pendingDelete.id))) return;
+          setPendingDelete(null);
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete event</DialogTitle>
+            <DialogDescription>
+              {pendingDelete ? `Delete “${pendingDelete.name}”? Registrations, competitions and results of this event are removed. This cannot be undone.` : ''}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-row items-center justify-between gap-2">
+            <Button type="button" variant="outline" className="rounded-lg" disabled={pendingDelete?.id ? busyIds.has(pendingDelete.id) : false} onClick={() => setPendingDelete(null)}>
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="actionCritical"
+              className="rounded-lg"
+              disabled={!pendingDelete?.id || busyIds.has(pendingDelete.id)}
+              onClick={() => void handleConfirmDelete()}
+            >
+              Delete
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
