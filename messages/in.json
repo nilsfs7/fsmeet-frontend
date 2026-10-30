@@ -834,7 +834,8 @@
     "pageSuccessBtnShowEvent": "इवेंट देखें",
     "btnBackToOverview": "रद्द करें",
     "btnNextPage": "अगला",
-    "btnCreateEvent": "बनाएं"
+    "btnCreateEvent": "बनाएं",
+    "dlgUnlistedEvents": "जब आपके 2 या अधिक इवेंट सूचीबद्ध नहीं हों, तब आप दूसरा इवेंट नहीं बना सकते।"
   },
   "/events/manage": {
     "pageTitle": "इवेंट प्रबंधित करें",

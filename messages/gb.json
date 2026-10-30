@@ -834,7 +834,8 @@
     "pageSuccessBtnShowEvent": "Show Event",
     "btnBackToOverview": "Cancel",
     "btnNextPage": "Next",
-    "btnCreateEvent": "Create"
+    "btnCreateEvent": "Create",
+    "dlgUnlistedEvents": "Cannot create another event while 2 or more of your events are not listed."
   },
   "/events/manage": {
     "pageTitle": "Manage Events",

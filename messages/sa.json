@@ -834,7 +834,8 @@
     "pageSuccessBtnShowEvent": "عرض الفعالية",
     "btnBackToOverview": "إلغاء",
     "btnNextPage": "التالي",
-    "btnCreateEvent": "إنشاء"
+    "btnCreateEvent": "إنشاء",
+    "dlgUnlistedEvents": "لا يمكنك إنشاء فعالية أخرى بينما تكون فعاليتان أو أكثر من فعالياتك غير مدرجة."
   },
   "/events/manage": {
     "pageTitle": "إدارة الفعاليات",

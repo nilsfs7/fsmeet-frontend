@@ -816,7 +816,8 @@
     "pageSuccessBtnShowEvent": "Mostrar",
     "btnBackToOverview": "Cancelar",
     "btnNextPage": "Siguiente",
-    "btnCreateEvent": "Crear"
+    "btnCreateEvent": "Crear",
+    "dlgUnlistedEvents": "No puedes crear otro evento mientras 2 o más de tus eventos no estén listados."
   },
   "/events/manage": {
     "pageTitle": "Gestionar eventos",

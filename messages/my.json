@@ -834,7 +834,8 @@
     "pageSuccessBtnShowEvent": "Tunjukkan Acara",
     "btnBackToOverview": "Batal",
     "btnNextPage": "Seterusnya",
-    "btnCreateEvent": "Cipta"
+    "btnCreateEvent": "Cipta",
+    "dlgUnlistedEvents": "Anda tidak boleh mencipta acara lain semasa 2 atau lebih acara anda tidak disenaraikan."
   },
   "/events/manage": {
     "pageTitle": "Urus Acara",
