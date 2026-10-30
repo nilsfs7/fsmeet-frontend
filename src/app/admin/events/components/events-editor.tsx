@@ -423,10 +423,7 @@ export const EventsEditor = () => {
               {pendingDelete ? `Delete “${pendingDelete.name}”? Registrations, competitions and results of this event are removed. This cannot be undone.` : ''}
             </DialogDescription>
           </DialogHeader>
-          <div className="flex flex-row items-center justify-between gap-2">
-            <Button type="button" variant="outline" className="rounded-lg" disabled={pendingDelete?.id ? busyIds.has(pendingDelete.id) : false} onClick={() => setPendingDelete(null)}>
-              Cancel
-            </Button>
+          <div className="flex flex-row items-center justify-end gap-2">
             <Button
               type="button"
               variant="actionCritical"

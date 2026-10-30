@@ -1,11 +1,10 @@
-import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { routeEventsCreate, routeHome } from '@/domain/constants/routes';
+import { CreateEventButton } from '@/components/events/create-event-button';
+import { routeHome } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { Header } from '@/components/header';
-import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { EventsList } from './components/events-list';
 
 export default async function EventsOverview() {
@@ -23,9 +22,7 @@ export default async function EventsOverview() {
         </div>
 
         <div className="flex min-w-0 flex-wrap justify-end gap-1">
-          <Button asChild variant="action" className={ctaActionButtonClassName}>
-            <Link href={routeEventsCreate}>{t('btnCreateEvent')}</Link>
-          </Button>
+          <CreateEventButton label={t('btnCreateEvent')} />
         </div>
       </Navigation>
     </div>
