@@ -2,7 +2,6 @@ export const routeHome = '/';
 
 export const routeAdminOverview = '/admin';
 export const routeAdminEvents = '/admin/events';
-export const routeAdminLicenses = '/admin/licenses';
 export const routeAdminUserVerification = '/admin/verification';
 export const routeAdminJobProfiles = '/admin/jobs';
 export const routePushNotification = '/admin/notification';

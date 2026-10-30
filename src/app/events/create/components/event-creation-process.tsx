@@ -66,7 +66,6 @@ function MetaRow({ icon, children, className }: { icon: ReactNode; children: Rea
 
 interface IEventCreationProcess {
   eventAdmin: User;
-  licenses: number;
 }
 
 enum CreationProcessPage {
@@ -76,7 +75,7 @@ enum CreationProcessPage {
   OVERVIEW = '4',
 }
 
-export const EventCreationProcess = ({ eventAdmin, licenses }: IEventCreationProcess) => {
+export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
   const t = useTranslations(routeEventsCreate);
 
   const { data: session } = useSession();
