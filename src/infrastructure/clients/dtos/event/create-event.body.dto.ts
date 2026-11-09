@@ -35,6 +35,7 @@ export class CreateEventBodyDto {
   trailerUrl: string | null;
   livestreamUrl: string | null;
   messengerInvitationUrl: string | null;
+  donationUrl: string | null;
   paymentMethodCash: CreatePaymentMethodCashBodyDto;
   paymentMethodSepa: CreatePaymentMethodSepaBodyDto;
   paymentMethodStripe: CreatePaymentMethodStripeBodyDto;
@@ -75,6 +76,7 @@ export class CreateEventBodyDto {
     trailerUrl: string | null,
     livestreamUrl: string | null,
     messengerInvitationUrl: string | null,
+    donationUrl: string | null,
     paymentMethodCash: CreatePaymentMethodCashBodyDto,
     paymentMethodSepa: CreatePaymentMethodSepaBodyDto,
     paymentMethodStripe: CreatePaymentMethodStripeBodyDto,
@@ -114,6 +116,7 @@ export class CreateEventBodyDto {
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;
     this.messengerInvitationUrl = messengerInvitationUrl;
+    this.donationUrl = donationUrl;
     this.paymentMethodCash = paymentMethodCash;
     this.paymentMethodSepa = paymentMethodSepa;
     this.paymentMethodStripe = paymentMethodStripe;

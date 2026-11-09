@@ -33,6 +33,7 @@ export class UpdateEventBodyDto {
   trailerUrl: string | null;
   livestreamUrl: string | null;
   messengerInvitationUrl: string | null;
+  donationUrl: string | null;
   paymentMethodCash: UpdatePaymentMethodCashBodyDto;
   paymentMethodSepa: UpdatePaymentMethodSepaBodyDto;
   paymentMethodStripe: UpdatePaymentMethodStripeBodyDto;
@@ -72,6 +73,7 @@ export class UpdateEventBodyDto {
     trailerUrl: string | null,
     livestreamUrl: string | null,
     messengerInvitationUrl: string | null,
+    donationUrl: string | null,
     paymentMethodCash: UpdatePaymentMethodCashBodyDto,
     paymentMethodSepa: UpdatePaymentMethodSepaBodyDto,
     paymentMethodStripe: UpdatePaymentMethodStripeBodyDto,
@@ -110,6 +112,7 @@ export class UpdateEventBodyDto {
     this.trailerUrl = trailerUrl;
     this.livestreamUrl = livestreamUrl;
     this.messengerInvitationUrl = messengerInvitationUrl;
+    this.donationUrl = donationUrl;
     this.paymentMethodCash = paymentMethodCash;
     this.paymentMethodSepa = paymentMethodSepa;
     this.paymentMethodStripe = paymentMethodStripe;

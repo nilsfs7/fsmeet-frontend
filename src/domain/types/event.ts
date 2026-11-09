@@ -42,7 +42,8 @@ export type Event = {
   participantSnacks: boolean;
   trailerUrl: string | null;
   livestreamUrl: string | null;
-  messangerInvitationUrl: string | null;
+  messengerInvitationUrl: string | null;
+  donationUrl: string | null;
   paymentMethodCash: PaymentMethodCash;
   paymentMethodSepa: PaymentMethodSepa;
   paymentMethodStripe: PaymentMethodStripe;
