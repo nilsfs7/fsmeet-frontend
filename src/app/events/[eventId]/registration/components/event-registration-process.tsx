@@ -348,12 +348,12 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     return false;
   };
 
-  const getEnrollmentCtaLabel = (): string => {
+  const getRegisterCtaLabel = (): string => {
     if (event.paymentMethodStripe.enabled && registrationFeeExists()) {
-      return t('btnEnrollNowWithCheckout');
+      return t('btnRegisterNowWithCheckout');
     }
 
-    return t('btnEnrollNow');
+    return t('btnRegisterNow');
   };
 
   const addMandatoryOfferings = () => {
@@ -531,7 +531,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
   const handleRegisterNowClicked = async () => {
     if (event.id) {
-      // Lock donation checkbox as soon as enroll is pressed.
+      // Lock donation checkbox as soon as register is pressed.
       setPaymentLoading(true);
 
       const useRegistrationV2 = event.paymentMethodStripe.enabled && registrationType;
@@ -1153,7 +1153,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           {/* Button Checkout */}
           {page === RegistrationProcessPage.CHECKOUT_OVERVIEW && registrationStatus === 'Unregistered' && !paymentClientSecret && (
             <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={paymentLoading} onClick={handleRegisterNowClicked}>
-              {paymentLoading ? t('btnWorking') : getEnrollmentCtaLabel()}
+              {paymentLoading ? t('btnWorking') : getRegisterCtaLabel()}
             </Button>
           )}
 
