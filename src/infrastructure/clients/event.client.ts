@@ -225,7 +225,8 @@ export async function createEvent(event: Event, session: Session | null): Promis
     event?.participantSnacks,
     event?.trailerUrl,
     event?.livestreamUrl,
-    event?.messangerInvitationUrl,
+    event?.messengerInvitationUrl,
+    event?.donationUrl,
     new CreatePaymentMethodCashBodyDto(event?.paymentMethodCash.enabled),
     new CreatePaymentMethodSepaBodyDto(
       event?.paymentMethodSepa.enabled,
@@ -586,7 +587,8 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     event?.participantSnacks,
     event?.trailerUrl,
     event?.livestreamUrl,
-    event?.messangerInvitationUrl,
+    event?.messengerInvitationUrl,
+    event?.donationUrl,
     new UpdatePaymentMethodCashBodyDto(event?.paymentMethodCash.enabled),
     new UpdatePaymentMethodSepaBodyDto(
       event?.paymentMethodSepa.enabled,

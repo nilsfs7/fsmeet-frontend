@@ -214,7 +214,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
         {/* Details */}
         <TabsContent value="overview" className="overflow-hidden overflow-y-auto scrollbar-none">
-          {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessangerInvitationUrl={isEventAdmin(event, session) || isInEventRegistrations(eventRegistrations, session)} />}
+          {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessengerInvitationUrl={isEventAdmin(event, session) || isInEventRegistrations(eventRegistrations, session)} />}
 
           {sponsors?.length > 0 && (
             <div className="mt-2">

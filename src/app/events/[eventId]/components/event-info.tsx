@@ -18,7 +18,8 @@ import {
 } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getShortDateString } from '@/functions/time';
-import { Button } from '@/components/ui/button';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { QRCodeSVG } from 'qrcode.react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Event } from '@/domain/types/event';
 import moment from 'moment';
@@ -60,16 +61,17 @@ function MetaRow({ icon, children, className }: { icon: ReactNode; children: Rea
 interface IEventProps {
   event: Event;
   eventAdmin: User;
-  showMessangerInvitationUrl: boolean;
+  showMessengerInvitationUrl: boolean;
 }
 
-export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEventProps) => {
+export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEventProps) => {
   const t = useTranslations('/events/eventid');
 
   const router = useRouter();
 
   const [showMap, setShowMap] = useState<boolean>(false);
   const [posterPreviewOpen, setPosterPreviewOpen] = useState(false);
+  const [donationQrOpen, setDonationQrOpen] = useState(false);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
 
   const posterSrc = event.imageUrlPoster || (event.type === EventType.MEETING ? imgMeeting : imgCompetition);
@@ -111,13 +113,29 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
           <DialogHeader className="sr-only">
             <DialogTitle>{event.name}</DialogTitle>
           </DialogHeader>
-          <img
-            src={posterSrc}
-            alt=""
-            className={cn('max-h-[min(70dvh,100%)] w-full object-contain', !isCustomPoster && 'p-8')}
-          />
+          <img src={posterSrc} alt="" className={cn('max-h-[min(70dvh,100%)] w-full object-contain', !isCustomPoster && 'p-8')} />
         </DialogContent>
       </Dialog>
+
+      {event.donationUrl && (
+        <Dialog open={donationQrOpen} onOpenChange={setDonationQrOpen}>
+          <DialogContent aria-describedby={undefined} className="max-w-sm">
+            <DialogHeader className="items-center text-center sm:text-center">
+              <DialogTitle>{t('tabOverviewDonation')}</DialogTitle>
+            </DialogHeader>
+            <div className="flex flex-col items-center gap-4">
+              <div className="rounded-lg bg-white p-3">
+                <QRCodeSVG value={event.donationUrl} size={208} level="M" title={t('tabOverviewDonation')} />
+              </div>
+              <Button asChild variant="action" className={ctaActionButtonClassName}>
+                <a href={event.donationUrl} target="_blank" rel="noopener noreferrer">
+                  {t('tabOverviewDonationOpenLink')}
+                </a>
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
 
       <div className={cardSurface}>
         <div className="p-2.5 sm:p-3 md:p-4">
@@ -248,7 +266,7 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
           </div>
         )}
 
-        {(event.trailerUrl || event.livestreamUrl || (event.messangerInvitationUrl && showMessangerInvitationUrl)) && (
+        {(event.trailerUrl || event.livestreamUrl || event.donationUrl || (event.messengerInvitationUrl && showMessengerInvitationUrl)) && (
           <div className="border-t border-border/50 px-2.5 sm:px-3 md:px-4 py-2.5 sm:py-3">
             <div className="flex flex-col gap-2 type-body-sm text-foreground">
               {event.trailerUrl && (
@@ -272,14 +290,26 @@ export const EventInfo = ({ event, eventAdmin, showMessangerInvitationUrl }: IEv
                 </div>
               )}
 
-              {event.messangerInvitationUrl && showMessangerInvitationUrl && (
+              {event.messengerInvitationUrl && showMessengerInvitationUrl && (
                 <div className={'grid grid-cols-3 items-center'}>
                   <div className="col-span-1">{`Group chat invitation link`}</div>
                   <div className="col-span-2 hover:underline select-text wrap-break-word">
-                    <a target="_blank" rel="noopener noreferrer" href={event.messangerInvitationUrl}>
+                    <a target="_blank" rel="noopener noreferrer" href={event.messengerInvitationUrl}>
                       <ActionButton action={Action.GOTOEXTERNAL} />
                     </a>
                   </div>
+                </div>
+              )}
+
+              {event.donationUrl && (
+                <div className={'grid grid-cols-3 items-center'}>
+                  <div className="col-span-1">{t('tabOverviewDonation')}</div>
+                  <ActionButton
+                    action={Action.DONATE}
+                    onClick={() => {
+                      setDonationQrOpen(true);
+                    }}
+                  />
                 </div>
               )}
             </div>

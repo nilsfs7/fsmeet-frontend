@@ -132,7 +132,8 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
       participantSnacks: false,
       trailerUrl: null,
       livestreamUrl: null,
-      messangerInvitationUrl: null,
+      messengerInvitationUrl: null,
+      donationUrl: null,
       paymentMethodCash: {
         enabled: false,
       },

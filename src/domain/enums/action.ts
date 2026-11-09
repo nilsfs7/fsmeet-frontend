@@ -7,6 +7,7 @@ export enum Action {
   COPY,
   DENY,
   DELETE,
+  DONATE,
   DOWNLOAD,
   EDIT,
   GOTOMAP,

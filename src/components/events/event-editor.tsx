@@ -115,7 +115,8 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
   const [participantSnacks, setParticipantSnacks] = useState<boolean>(event?.participantSnacks || false);
   const [trailerUrl, setTrailerUrl] = useState(event?.trailerUrl || null);
   const [livestreamUrl, setLivestreamUrl] = useState(event?.livestreamUrl || null);
-  const [messangerInvitationUrl, setMessangerInvitationUrl] = useState(event?.messangerInvitationUrl || null);
+  const [messengerInvitationUrl, setMessengerInvitationUrl] = useState(event?.messengerInvitationUrl || null);
+  const [donationUrl, setDonationUrl] = useState(event?.donationUrl || null);
   const [participationFee, setParticipationFee] = useState(event?.participationFee || 0);
   const [enableVisitorRegistration, setEnableVisitorRegistration] = useState<boolean>(event?.enableVisitorRegistration || eventType !== EventType.COMPETITION_ONLINE);
   const [visitorFee, setVisitorFee] = useState(event?.visitorFee || 0);
@@ -311,7 +312,8 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       participantSnacks,
       trailerUrl,
       livestreamUrl,
-      messangerInvitationUrl,
+      messengerInvitationUrl,
+      donationUrl,
       participationFee,
       participationFeeIncPaymentCosts: -1,
       enableVisitorRegistration,
@@ -374,7 +376,8 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         setParticipantSnacks(event.participantSnacks);
         setTrailerUrl(event.trailerUrl);
         setLivestreamUrl(event.livestreamUrl);
-        setMessangerInvitationUrl(event.messangerInvitationUrl);
+        setMessengerInvitationUrl(event.messengerInvitationUrl);
+        setDonationUrl(event.donationUrl);
         setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
         setPaymentMethodSepaEnabled(event.paymentMethodSepa.enabled);
         setPaymentMethodSepaBank(event.paymentMethodSepa.bank);
@@ -434,7 +437,8 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     participantSnacks,
     trailerUrl,
     livestreamUrl,
-    messangerInvitationUrl,
+    messengerInvitationUrl,
+    donationUrl,
     participationFee,
     enableVisitorRegistration,
     visitorFee,
@@ -679,12 +683,23 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       />
 
       <TextInput
-        id={'messangerInvitationUrl'}
-        label={t('inputMessangerInvitationUrl')}
+        id={'messengerInvitationUrl'}
+        label={t('inputMessengerInvitationUrl')}
         placeholder="https://chat.whatsapp.com/FcFFSq0ybgT4tsk48ZQoxJ"
-        value={messangerInvitationUrl || ''}
+        value={messengerInvitationUrl || ''}
         onChange={e => {
-          setMessangerInvitationUrl(e.currentTarget.value || null);
+          setMessengerInvitationUrl(e.currentTarget.value || null);
+        }}
+      />
+
+      <TextInput
+        id={'donationUrl'}
+        label={t('inputDonationUrl')}
+        placeholder="https://www.paypal.com/donate"
+        value={donationUrl || ''}
+        labelTooltip={t('tooltipDonation')}
+        onChange={e => {
+          setDonationUrl(e.currentTarget.value || null);
         }}
       />
 
