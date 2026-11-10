@@ -580,6 +580,12 @@
     "pageTitle": "सेवा बनाएं",
     "btnCreate": "बनाएं"
   },
+  "/events/eventid/offerings/edit": {
+    "pageTitle": "सेवा संपादित करें",
+    "dlgDeleteTitle": "सेवा हटाएं",
+    "dlgDeleteText": "क्या आप वाकई इस सेवा को हटाना चाहते हैं?",
+    "btnSave": "सहेजें"
+  },
   "/events/eventid/attendees": {
     "pageTitle": "प्रतिभागी प्रबंधित करें",
     "sectionParticipantsTitle": "प्रतिभागी",
@@ -809,6 +815,12 @@
   "/events/eventid/sponsors/create": {
     "pageTitle": "प्रायोजक बनाएं",
     "btnCreate": "नया जोड़ें"
+  },
+  "/events/eventid/sponsors/edit": {
+    "pageTitle": "प्रायोजक संपादित करें",
+    "dlgDeleteTitle": "प्रायोजक हटाएं",
+    "dlgDeleteText": "क्या आप वाकई इस प्रायोजक को हटाना चाहते हैं?",
+    "btnSave": "सहेजें"
   },
   "/events/eventid/stats": {
     "pageTitle": "आंकड़े"

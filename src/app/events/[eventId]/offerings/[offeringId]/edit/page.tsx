@@ -19,8 +19,10 @@ import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { getEvent } from '@/infrastructure/clients/event.client';
 import { Event } from '@/domain/types/event';
+import { useTranslations } from 'next-intl';
 
 export default function EditEventOffering(props: { params: Promise<{ eventId: string; offeringId: string }> }) {
+  const t = useTranslations('/events/eventid/offerings/edit');
   const params = use(props.params);
   const { data: session, status } = useSession();
 
@@ -81,13 +83,12 @@ export default function EditEventOffering(props: { params: Promise<{ eventId: st
     <>
       <Toaster richColors />
 
-      <Dialog title="Delete Offering" queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
-        <p>{`Do you really want to delete this offering?`}</p>
+      <Dialog title={t('dlgDeleteTitle')} queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
+        <p>{t('dlgDeleteText')}</p>
       </Dialog>
 
       <div className="min-h-0 flex-1 flex flex-col">
-        {/* todo: translations */}
-        <PageTitle title="Edit Offering" />
+        <PageTitle title={t('pageTitle')} />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <OfferingEditor
@@ -108,7 +109,7 @@ export default function EditEventOffering(props: { params: Promise<{ eventId: st
           <div className="flex gap-1">
             <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
             <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveClicked}>
-              Save
+              {t('btnSave')}
             </Button>
           </div>
         </Navigation>

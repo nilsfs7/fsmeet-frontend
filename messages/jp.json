@@ -580,6 +580,12 @@
     "pageTitle": "提供内容を作成",
     "btnCreate": "作成"
   },
+  "/events/eventid/offerings/edit": {
+    "pageTitle": "提供内容を編集",
+    "dlgDeleteTitle": "提供内容を削除",
+    "dlgDeleteText": "この提供内容を本当に削除しますか？",
+    "btnSave": "保存"
+  },
   "/events/eventid/attendees": {
     "pageTitle": "参加者を管理",
     "sectionParticipantsTitle": "参加者",
@@ -809,6 +815,12 @@
   "/events/eventid/sponsors/create": {
     "pageTitle": "スポンサーを作成",
     "btnCreate": "新規追加"
+  },
+  "/events/eventid/sponsors/edit": {
+    "pageTitle": "スポンサーを編集",
+    "dlgDeleteTitle": "スポンサーを削除",
+    "dlgDeleteText": "このスポンサーを本当に削除しますか？",
+    "btnSave": "保存"
   },
   "/events/eventid/stats": {
     "pageTitle": "統計"

@@ -16,10 +16,12 @@ import SponsorEditor from '@/components/events/sponsor-editor';
 import Dialog from '@/components/dialog';
 import NavigateBackButton from '@/components/navigate-back-button';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
+import { useTranslations } from 'next-intl';
 
 export default function EditEventSponsor(props: { params: Promise<{ eventId: string; sponsorId: string }> }) {
+  const t = useTranslations('/events/eventid/sponsors/edit');
   const params = use(props.params);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -73,12 +75,12 @@ export default function EditEventSponsor(props: { params: Promise<{ eventId: str
     <>
       <Toaster richColors />
 
-      <Dialog title="Delete Sponsor" queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
-        <p>{`Do you really want to delete this sponsor?`}</p>
+      <Dialog title={t('dlgDeleteTitle')} queryParam="delete" onCancel={handleCancelDeleteClicked} onConfirm={handleConfirmDeleteClicked}>
+        <p>{t('dlgDeleteText')}</p>
       </Dialog>
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title="Edit Sponsor" />
+        <PageTitle title={t('pageTitle')} />
 
         <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
           <SponsorEditor
@@ -98,7 +100,7 @@ export default function EditEventSponsor(props: { params: Promise<{ eventId: str
           <div className="flex gap-1">
             <ActionButton action={Action.DELETE} onClick={handleDeleteClicked} />
             <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleSaveClicked}>
-              Save
+              {t('btnSave')}
             </Button>
           </div>
         </Navigation>

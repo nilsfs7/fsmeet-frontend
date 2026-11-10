@@ -562,6 +562,12 @@
     "pageTitle": "Crear oferta",
     "btnCreate": "Crear"
   },
+  "/events/eventid/offerings/edit": {
+    "pageTitle": "Editar oferta",
+    "dlgDeleteTitle": "Eliminar oferta",
+    "dlgDeleteText": "¿Desea realmente eliminar esta oferta?",
+    "btnSave": "Guardar"
+  },
   "/events/eventid/attendees": {
     "pageTitle": "Gestionar a los participantes",
     "sectionParticipantsTitle": "Participantes",
@@ -791,6 +797,12 @@
   "/events/eventid/sponsors/create": {
     "pageTitle": "Crear patrocinador",
     "btnCreate": "Crear"
+  },
+  "/events/eventid/sponsors/edit": {
+    "pageTitle": "Editar patrocinador",
+    "dlgDeleteTitle": "Eliminar patrocinador",
+    "dlgDeleteText": "¿Desea realmente eliminar este patrocinador?",
+    "btnSave": "Guardar"
   },
   "/events/eventid/stats": {
     "pageTitle": "Estadística"
