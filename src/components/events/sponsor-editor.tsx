@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import TextInput from '../common/text-input';
 import { Sponsor } from '@/domain/types/sponsor';
 import { imgUserDefaultImg } from '@/domain/constants/images';
@@ -55,12 +55,14 @@ const SponsorEditor = ({ sponsor, onSponsorUpdate, onSponsorLogoUpdate }: ISpons
     onSponsorLogoUpdate(imgLogo);
   };
 
+  const hydratedSponsorId = useRef<string | undefined>(undefined);
+
   useEffect(() => {
-    if (sponsor) {
-      setSponsorName(sponsor.name);
-      setSponsorWebsite(sponsor.website);
-      setIsPublic(sponsor.isPublic);
-    }
+    if (!sponsor?.id || hydratedSponsorId.current === sponsor.id) return;
+    hydratedSponsorId.current = sponsor.id;
+    setSponsorName(sponsor.name);
+    setSponsorWebsite(sponsor.website);
+    setIsPublic(sponsor.isPublic);
   }, [sponsor]);
 
   useEffect(() => {

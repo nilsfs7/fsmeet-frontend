@@ -580,6 +580,12 @@
     "pageTitle": "创建选项/套餐",
     "btnCreate": "创建"
   },
+  "/events/eventid/offerings/edit": {
+    "pageTitle": "编辑选项/套餐",
+    "dlgDeleteTitle": "删除选项/套餐",
+    "dlgDeleteText": "确定要删除此选项/套餐吗？",
+    "btnSave": "保存"
+  },
   "/events/eventid/attendees": {
     "pageTitle": "管理参与者",
     "sectionParticipantsTitle": "参与者",
@@ -809,6 +815,12 @@
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",
     "btnCreate": "新增"
+  },
+  "/events/eventid/sponsors/edit": {
+    "pageTitle": "编辑赞助商",
+    "dlgDeleteTitle": "删除赞助商",
+    "dlgDeleteText": "确定要删除此赞助商吗？",
+    "btnSave": "保存"
   },
   "/events/eventid/stats": {
     "pageTitle": "统计"

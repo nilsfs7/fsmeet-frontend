@@ -580,6 +580,12 @@
     "pageTitle": "Cipta Tawaran",
     "btnCreate": "Cipta"
   },
+  "/events/eventid/offerings/edit": {
+    "pageTitle": "Edit Tawaran",
+    "dlgDeleteTitle": "Padam Tawaran",
+    "dlgDeleteText": "Adakah anda benar-benar mahu memadamkan tawaran ini?",
+    "btnSave": "Simpan"
+  },
   "/events/eventid/attendees": {
     "pageTitle": "Urus Peserta",
     "sectionParticipantsTitle": "Peserta",
@@ -809,6 +815,12 @@
   "/events/eventid/sponsors/create": {
     "pageTitle": "Cipta Penaja",
     "btnCreate": "Tambah baharu"
+  },
+  "/events/eventid/sponsors/edit": {
+    "pageTitle": "Edit Penaja",
+    "dlgDeleteTitle": "Padam Penaja",
+    "dlgDeleteText": "Adakah anda benar-benar mahu memadamkan penaja ini?",
+    "btnSave": "Simpan"
   },
   "/events/eventid/stats": {
     "pageTitle": "Statistik"

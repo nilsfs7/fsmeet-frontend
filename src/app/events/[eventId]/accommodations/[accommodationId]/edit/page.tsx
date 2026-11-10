@@ -24,7 +24,7 @@ import { useTranslations } from 'next-intl';
 export default function EditEventAccommodation(props: { params: Promise<{ eventId: string; accommodationId: string }> }) {
   const t = useTranslations('/events/eventid/accommodations/edit');
   const params = use(props.params);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -70,14 +70,18 @@ export default function EditEventAccommodation(props: { params: Promise<{ eventI
   };
 
   useEffect(() => {
-    getEvent(params.eventId, session).then(event => {
-      setEvent(event);
-    });
+    if (event === undefined) {
+      getEvent(params.eventId, session).then(event => {
+        setEvent(event);
+      });
+    }
 
-    getAccommodation(params.accommodationId).then(accommodation => {
-      setAccommodation(accommodation);
-    });
-  }, [session]);
+    if (accommodation === undefined) {
+      getAccommodation(params.accommodationId).then(accommodation => {
+        setAccommodation(accommodation);
+      });
+    }
+  }, [event === undefined, accommodation === undefined]);
 
   return (
     <>

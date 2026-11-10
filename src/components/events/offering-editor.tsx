@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import TextInput from '../common/text-input';
 import { Offering } from '@/domain/types/offering';
 import { imgImagePlaceholder } from '@/domain/constants/images';
@@ -79,14 +79,16 @@ const OfferingEditor = ({ currency, offering, onOfferingUpdate, onOfferingPrevie
     onOfferingPreviewUpdate(imgPreview);
   };
 
+  const hydratedOfferingId = useRef<string | undefined>(undefined);
+
   useEffect(() => {
-    if (offering) {
-      setOfferingDescription(offering.description);
-      setCost(offering.cost);
-      setMandatoryForParticipant(offering.mandatoryForParticipant);
-      setIncludesShirt(offering.includesShirt);
-      setEnabled(offering.enabled);
-    }
+    if (!offering?.id || hydratedOfferingId.current === offering.id) return;
+    hydratedOfferingId.current = offering.id;
+    setOfferingDescription(offering.description);
+    setCost(offering.cost);
+    setMandatoryForParticipant(offering.mandatoryForParticipant);
+    setIncludesShirt(offering.includesShirt);
+    setEnabled(offering.enabled);
   }, [offering]);
 
   useEffect(() => {

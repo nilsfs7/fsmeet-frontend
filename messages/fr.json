@@ -562,6 +562,12 @@
     "pageTitle": "Créer une offre",
     "btnCreate": "Créer"
   },
+  "/events/eventid/offerings/edit": {
+    "pageTitle": "Modifier l'offre",
+    "dlgDeleteTitle": "Supprimer l'offre",
+    "dlgDeleteText": "Voulez-vous vraiment supprimer cette offre ?",
+    "btnSave": "Enregistrer"
+  },
   "/events/eventid/attendees": {
     "pageTitle": "Gérer les participants",
     "sectionParticipantsTitle": "Participants",
@@ -791,6 +797,12 @@
   "/events/eventid/sponsors/create": {
     "pageTitle": "Créer un partenaire",
     "btnCreate": "Ajouter un nouveau"
+  },
+  "/events/eventid/sponsors/edit": {
+    "pageTitle": "Modifier le partenaire",
+    "dlgDeleteTitle": "Supprimer le partenaire",
+    "dlgDeleteText": "Voulez-vous vraiment supprimer ce partenaire ?",
+    "btnSave": "Enregistrer"
   },
   "/events/eventid/stats": {
     "pageTitle": "Statistiques"

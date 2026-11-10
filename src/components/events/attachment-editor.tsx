@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import TextInput from '../common/text-input';
 import { Attachment } from '@/domain/types/attachment';
 import { useTranslations } from 'next-intl';
@@ -81,15 +81,17 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentFileUpda
     }
   };
 
+  const hydratedAttachmentId = useRef<string | undefined>(undefined);
+
   useEffect(() => {
-    if (attachment) {
-      setAttachmentName(attachment.name);
-      setIsExternal(attachment.isExternal);
-      setUrl(attachment.url || null);
-      setExpires(attachment.expires);
-      setExpiryDate(attachment.expiryDate);
-      setEnabled(attachment.enabled);
-    }
+    if (!attachment?.id || hydratedAttachmentId.current === attachment.id) return;
+    hydratedAttachmentId.current = attachment.id;
+    setAttachmentName(attachment.name);
+    setIsExternal(attachment.isExternal);
+    setUrl(attachment.url || null);
+    setExpires(attachment.expires);
+    setExpiryDate(attachment.expiryDate);
+    setEnabled(attachment.enabled);
   }, [attachment]);
 
   useEffect(() => {

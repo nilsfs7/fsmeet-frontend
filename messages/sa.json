@@ -580,6 +580,12 @@
     "pageTitle": "إنشاء عرض",
     "btnCreate": "إنشاء"
   },
+  "/events/eventid/offerings/edit": {
+    "pageTitle": "تعديل العرض",
+    "dlgDeleteTitle": "حذف العرض",
+    "dlgDeleteText": "هل تريد حقاً حذف هذا العرض؟",
+    "btnSave": "حفظ"
+  },
   "/events/eventid/attendees": {
     "pageTitle": "إدارة المشاركين",
     "sectionParticipantsTitle": "المشاركون",
@@ -809,6 +815,12 @@
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",
     "btnCreate": "إضافة جديد"
+  },
+  "/events/eventid/sponsors/edit": {
+    "pageTitle": "تعديل الراعي",
+    "dlgDeleteTitle": "حذف الراعي",
+    "dlgDeleteText": "هل تريد حقاً حذف هذا الراعي؟",
+    "btnSave": "حفظ"
   },
   "/events/eventid/stats": {
     "pageTitle": "الإحصائيات"
