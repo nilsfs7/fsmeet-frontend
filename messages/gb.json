@@ -274,6 +274,7 @@
     "dlgEventUnregisterBtnConfirm": "Confirm",
     "dlgDeleteCommentTitle": "Delete Comment",
     "dlgDeleteCommentText": "Delete comment? This cannot be undone.",
+    "dlgVideoTitle": "Video",
     "adminPanelTitle": "Admin Panel",
     "adminPanelBtnEditEventToolTip": "Event info",
     "adminPanelBtnManageAttendeesToolTip": "Attendees",
@@ -306,6 +307,15 @@
     "tabOverviewBtnShowLessDescription": "Show less",
     "tabOverviewDonation": "Donation",
     "tabOverviewDonationOpenLink": "Open link",
+    "tabOverviewTrailer": "Trailer",
+    "tabOverviewLivestream": "Livestream",
+    "tabOverviewGroupChat": "Group chat invitation link",
+    "tabOverviewPosterPreview": "Event poster, open preview",
+    "tabOverviewFeeFree": "Free",
+    "tabOverviewOnline": "Online",
+    "toastCommentFailed": "Something went wrong",
+    "metaFallbackTitle": "Event",
+    "metaFallbackDescription": "Freestyle Football event on FSMeet",
     "tabCompetitionsTitle": "Competitions",
     "tabCompetitionsSectionCompetitions": "Competitions",
     "tabRegistrationsTitle": "Participants",
@@ -1069,7 +1079,8 @@
   },
   "global/components/event-card": {
     "lblHost": "Host",
-    "lblDeadline": "Deadline"
+    "lblDeadline": "Deadline",
+    "lblNotListed": "Not listed"
   },
   "global/components/event-editor": {
     "sectionGeneral": "General",

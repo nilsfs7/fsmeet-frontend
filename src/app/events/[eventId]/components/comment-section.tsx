@@ -26,13 +26,13 @@ interface ICommentSectionProps {
   onDeleteComment: (commentId: string, isSubComment: boolean) => void;
 }
 
-function getErrorMessage(error: unknown): string {
+function getErrorMessage(error: unknown, fallback: string): string {
   if (error instanceof Error && error.message) return error.message;
   if (typeof error === 'object' && error !== null && 'message' in error) {
     const message = (error as { message?: unknown }).message;
     if (typeof message === 'string' && message) return message;
   }
-  return 'Something went wrong';
+  return fallback;
 }
 
 export const CommentSection = ({ eventComments, canDelete, username, userProfileImageUrl, onPostComment, onPostReply, onDeleteComment }: ICommentSectionProps) => {
@@ -57,7 +57,7 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
       await onPostComment(newComment);
       setNewComment('');
     } catch (error: unknown) {
-      toast.error(getErrorMessage(error));
+      toast.error(getErrorMessage(error, t('toastCommentFailed')));
     }
   };
 
@@ -69,7 +69,7 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
       setReplyTo('');
       setReplyMessage('');
     } catch (error: unknown) {
-      toast.error(getErrorMessage(error));
+      toast.error(getErrorMessage(error, t('toastCommentFailed')));
     }
   };
 

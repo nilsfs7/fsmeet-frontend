@@ -274,6 +274,7 @@
     "dlgEventUnregisterBtnConfirm": "Sahkan",
     "dlgDeleteCommentTitle": "Padam Komen",
     "dlgDeleteCommentText": "Padam komen? Ini tidak boleh dibatalkan.",
+    "dlgVideoTitle": "Video",
     "adminPanelTitle": "Panel Admin",
     "adminPanelBtnEditEventToolTip": "Maklumat acara",
     "adminPanelBtnManageAttendeesToolTip": "Hadirin",
@@ -306,6 +307,15 @@
     "tabOverviewBtnShowLessDescription": "Tunjukkan kurang",
     "tabOverviewDonation": "Derma",
     "tabOverviewDonationOpenLink": "Buka pautan",
+    "tabOverviewTrailer": "Treler",
+    "tabOverviewLivestream": "Siaran langsung",
+    "tabOverviewGroupChat": "Pautan jemputan sembang kumpulan",
+    "tabOverviewPosterPreview": "Poster acara, buka pratonton",
+    "tabOverviewFeeFree": "Percuma",
+    "tabOverviewOnline": "Dalam talian",
+    "toastCommentFailed": "Sesuatu telah berlaku",
+    "metaFallbackTitle": "Acara",
+    "metaFallbackDescription": "Acara bola sepak freestyle di FSMeet",
     "tabCompetitionsTitle": "Pertandingan",
     "tabCompetitionsSectionCompetitions": "Pertandingan",
     "tabRegistrationsTitle": "Peserta",
@@ -1068,7 +1078,8 @@
   },
   "global/components/event-card": {
     "lblHost": "Penganjur",
-    "lblDeadline": "Tarikh akhir"
+    "lblDeadline": "Tarikh akhir",
+    "lblNotListed": "Tidak disenaraikan"
   },
   "global/components/event-editor": {
     "sectionGeneral": "Umum",

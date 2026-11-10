@@ -274,6 +274,7 @@
     "dlgEventUnregisterBtnConfirm": "पुष्टि करें",
     "dlgDeleteCommentTitle": "टिप्पणी हटाएं",
     "dlgDeleteCommentText": "टिप्पणी हटाएं? इसे वापस नहीं किया जा सकता।",
+    "dlgVideoTitle": "वीडियो",
     "adminPanelTitle": "एडमिन पैनल",
     "adminPanelBtnEditEventToolTip": "इवेंट जानकारी",
     "adminPanelBtnManageAttendeesToolTip": "उपस्थित लोग",
@@ -306,6 +307,15 @@
     "tabOverviewBtnShowLessDescription": "कम दिखाएं",
     "tabOverviewDonation": "दान",
     "tabOverviewDonationOpenLink": "लिंक खोलें",
+    "tabOverviewTrailer": "ट्रेलर",
+    "tabOverviewLivestream": "लाइवस्ट्रीम",
+    "tabOverviewGroupChat": "ग्रुप चैट आमंत्रण लिंक",
+    "tabOverviewPosterPreview": "इवेंट पोस्टर, पूर्वावलोकन खोलें",
+    "tabOverviewFeeFree": "मुफ़्त",
+    "tabOverviewOnline": "ऑनलाइन",
+    "toastCommentFailed": "कुछ गलत हो गया",
+    "metaFallbackTitle": "इवेंट",
+    "metaFallbackDescription": "FSMeet पर फ्रीस्टाइल फुटबॉल इवेंट",
     "tabCompetitionsTitle": "प्रतियोगिताएं",
     "tabCompetitionsSectionCompetitions": "प्रतियोगिताएं",
     "tabRegistrationsTitle": "प्रतिभागी",
@@ -1068,7 +1078,8 @@
   },
   "global/components/event-card": {
     "lblHost": "होस्ट",
-    "lblDeadline": "डेडलाइन"
+    "lblDeadline": "डेडलाइन",
+    "lblNotListed": "सूचीबद्ध नहीं"
   },
   "global/components/event-editor": {
     "sectionGeneral": "सामान्य",

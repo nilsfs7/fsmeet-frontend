@@ -274,6 +274,7 @@
     "dlgEventUnregisterBtnConfirm": "تأكيد",
     "dlgDeleteCommentTitle": "حذف التعليق",
     "dlgDeleteCommentText": "حذف التعليق؟ لا يمكن التراجع عن ذلك.",
+    "dlgVideoTitle": "فيديو",
     "adminPanelTitle": "لوحة الإدارة",
     "adminPanelBtnEditEventToolTip": "معلومات الفعالية",
     "adminPanelBtnManageAttendeesToolTip": "الحاضرون",
@@ -306,6 +307,15 @@
     "tabOverviewBtnShowLessDescription": "إظهار أقل",
     "tabOverviewDonation": "تبرع",
     "tabOverviewDonationOpenLink": "فتح الرابط",
+    "tabOverviewTrailer": "عرض تشويقي",
+    "tabOverviewLivestream": "بث مباشر",
+    "tabOverviewGroupChat": "رابط دعوة الدردشة الجماعية",
+    "tabOverviewPosterPreview": "ملصق الفعالية، فتح المعاينة",
+    "tabOverviewFeeFree": "مجاني",
+    "tabOverviewOnline": "عبر الإنترنت",
+    "toastCommentFailed": "حدث خطأ ما",
+    "metaFallbackTitle": "فعالية",
+    "metaFallbackDescription": "فعالية كرة قدم حرة على FSMeet",
     "tabCompetitionsTitle": "المنافسات",
     "tabCompetitionsSectionCompetitions": "المنافسات",
     "tabRegistrationsTitle": "المشاركون",
@@ -1068,7 +1078,8 @@
   },
   "global/components/event-card": {
     "lblHost": "المنظّم",
-    "lblDeadline": "آخر موعد"
+    "lblDeadline": "آخر موعد",
+    "lblNotListed": "غير مدرج"
   },
   "global/components/event-editor": {
     "sectionGeneral": "عام",

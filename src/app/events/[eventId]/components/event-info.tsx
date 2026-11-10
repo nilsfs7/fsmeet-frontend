@@ -78,7 +78,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
   const isCustomPoster = Boolean(event.imageUrlPoster);
   const isDescriptionLong = (event.description?.length || 0) > 320;
 
-  let eventFee = event.participationFee > 0 ? `${convertCurrencyIntegerToDecimal(event.participationFee, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}` : 'free';
+  let eventFee = event.participationFee > 0 ? `${convertCurrencyIntegerToDecimal(event.participationFee, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}` : t('tabOverviewFeeFree');
   if (event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee) {
     eventFee = `${convertCurrencyIntegerToDecimal(event.participationFeeIncPaymentCosts, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}`;
   }
@@ -106,7 +106,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
 
   return (
     <>
-      <VideoDialog queryParam="trailer" videoUrl={event.trailerUrl || ''} onCancel={handleCancelDialogClicked} />
+      <VideoDialog queryParam="trailer" videoUrl={event.trailerUrl || ''} title={t('dlgVideoTitle')} onCancel={handleCancelDialogClicked} />
 
       <Dialog open={posterPreviewOpen} onOpenChange={setPosterPreviewOpen}>
         <DialogContent aria-describedby={undefined} className="w-auto max-w-[min(100vw-2rem,64rem)]">
@@ -152,7 +152,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
                     ? getShortDateString(moment(event.dateFrom))
                     : `${getShortDateString(moment(event.dateFrom), false)} – ${getShortDateString(moment(event.dateTo))}`}
                 </MetaRow>
-                <MetaRow icon={<img src={imgLocation} alt="" />}>{event.type === EventType.COMPETITION_ONLINE ? 'online' : event.venueCity}</MetaRow>
+                <MetaRow icon={<img src={imgLocation} alt="" />}>{event.type === EventType.COMPETITION_ONLINE ? t('tabOverviewOnline') : event.venueCity}</MetaRow>
                 <MetaRow
                   icon={<img src={moment(event.registrationDeadline) > moment() ? imgHourglassStart : imgHourglassEnd} alt="" />}
                 >{`${getShortDateString(moment(event.registrationOpen), false)} – ${getShortDateString(moment(event.registrationDeadline))}`}</MetaRow>
@@ -178,7 +178,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
                   type="button"
                   onClick={() => setPosterPreviewOpen(true)}
                   className="group relative w-full text-left outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                  aria-label="Event poster, open preview"
+                  aria-label={t('tabOverviewPosterPreview')}
                 >
                   <div className={cn('relative w-full aspect-4/5 overflow-hidden rounded-lg', !isCustomPoster && 'bg-muted/25 dark:bg-muted/20')}>
                     <img
@@ -271,7 +271,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
             <div className="flex flex-col gap-2 type-body-sm text-foreground">
               {event.trailerUrl && (
                 <div className={'grid grid-cols-3 items-center'}>
-                  <div className="col-span-1">{`Trailer`}</div>
+                  <div className="col-span-1">{t('tabOverviewTrailer')}</div>
                   <ActionButton
                     action={Action.PLAY}
                     onClick={() => {
@@ -283,7 +283,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
 
               {event.livestreamUrl && (
                 <div className={'grid grid-cols-3 items-center'}>
-                  <div className="col-span-1">{`Livestream`}</div>
+                  <div className="col-span-1">{t('tabOverviewLivestream')}</div>
                   <a target="_blank" rel="noopener noreferrer" href={event.livestreamUrl}>
                     <ActionButton action={Action.GOTOEXTERNAL} />
                   </a>
@@ -292,7 +292,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
 
               {event.messengerInvitationUrl && showMessengerInvitationUrl && (
                 <div className={'grid grid-cols-3 items-center'}>
-                  <div className="col-span-1">{`Group chat invitation link`}</div>
+                  <div className="col-span-1">{t('tabOverviewGroupChat')}</div>
                   <div className="col-span-2 hover:underline select-text wrap-break-word">
                     <a target="_blank" rel="noopener noreferrer" href={event.messengerInvitationUrl}>
                       <ActionButton action={Action.GOTOEXTERNAL} />

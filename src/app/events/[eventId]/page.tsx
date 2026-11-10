@@ -34,7 +34,8 @@ export async function generateMetadata(props: { params: Promise<{ eventId: strin
     const placeParts = [event.venueCity, event.venueCountryCode].filter(Boolean);
     const placeLabel = placeParts.join(', ');
     const fallbackDescription = [dateLabel, placeLabel].filter(Boolean).join(' · ');
-    const description = truncateMetaDescription(event.description?.trim() || fallbackDescription || `Freestyle Football event on FSMeet`);
+    const t = await getTranslations('/events/eventid');
+    const description = truncateMetaDescription(event.description?.trim() || fallbackDescription || t('metaFallbackDescription'));
     const image = toAbsoluteUrl(event.imageUrlPoster);
     const canonicalPath = `${routeEvents}/${event.id}`;
 
@@ -57,7 +58,8 @@ export async function generateMetadata(props: { params: Promise<{ eventId: strin
       },
     };
   } catch {
-    return { title: 'Event' };
+    const t = await getTranslations('/events/eventid');
+    return { title: t('metaFallbackTitle') };
   }
 }
 
