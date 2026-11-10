@@ -347,59 +347,13 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
     }
   };
 
-  // updates inputs with given event
+  // Session refreshes when the browser tab regains focus. Fields are initialized from
+  // `event` and must stay as the user left them.
   useEffect(() => {
-    if (editorMode === EditorMode.EDIT) {
-      if (event) {
-        setEventName(event.name);
-        setEventAlias(event.alias);
-        setMaintainers(event.maintainers);
-        setDateFrom(event.dateFrom);
-        setDateTo(event.dateTo);
-        setParticipationFee(event.participationFee);
-        setEnableVisitorRegistration(event.enableVisitorRegistration);
-        setVisitorFee(event.visitorFee);
-        setRegistrationOpen(event.registrationOpen);
-        setRegistrationDeadline(event.registrationDeadline);
-        setDescription(event.description);
-        setVenueName(event.venueName);
-        setVenueHouseNo(event.venueHouseNo);
-        setVenueStreet(event.venueStreet);
-        setVenuePostCode(event.venuePostCode);
-        setVenueCity(event.venueCity);
-        setVenueCountryCode(event.venueCountryCode);
-        setEventType(event.type);
-        setEventCategory(event.category);
-        setIsWffaRanked(event.isWffaRanked);
-        setPrizeMoney(event.prizeMoney);
-        setParticipantDrinks(event.participantDrinks);
-        setParticipantSnacks(event.participantSnacks);
-        setTrailerUrl(event.trailerUrl);
-        setLivestreamUrl(event.livestreamUrl);
-        setMessengerInvitationUrl(event.messengerInvitationUrl);
-        setDonationUrl(event.donationUrl);
-        setPaymentMethodCashEnabled(event.paymentMethodCash.enabled);
-        setPaymentMethodSepaEnabled(event.paymentMethodSepa.enabled);
-        setPaymentMethodSepaBank(event.paymentMethodSepa.bank);
-        setPaymentMethodSepaRecipient(event.paymentMethodSepa.recipient);
-        setPaymentMethodSepaIban(event.paymentMethodSepa.iban);
-        setPaymentMethodSepaReference(event.paymentMethodSepa.reference);
-        setPaymentMethodStripeEnabled(event.paymentMethodStripe.enabled);
-        setPaymentMethodStripeCoverProviderFee(event.paymentMethodStripe.coverProviderFee);
-        setShowUserCountryFlag(event.showUserCountryFlag);
-        setRegistrationCollectPhoneNumber(event.registrationCollectPhoneNumber);
-        setAutoApproveRegistrations(event.autoApproveRegistrations);
-        setNotifyOnRegistration(event.notifyOnRegistration);
-        setAllowComments(event.allowComments);
-        setNotifyOnComment(event.notifyOnComment);
-        setWaiver(event.waiver);
-        setVisaInvitationRequestsEnabled(event.visaInvitationRequestsEnabled);
-      }
-
-      if (event?.admin)
-        getUser(event.admin, session).then(eventAdmin => {
-          setEventAdmin(eventAdmin);
-        });
+    if (editorMode === EditorMode.EDIT && event?.admin) {
+      getUser(event.admin, session).then(eventAdmin => {
+        setEventAdmin(eventAdmin);
+      });
     }
   }, [session]);
 

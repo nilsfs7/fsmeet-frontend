@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import TextInput from '../common/text-input';
 import { Competition } from '@/domain/types/competition';
 import TextInputLarge from '../common/text-input-large';
@@ -118,24 +118,28 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
     }
   };
 
-  useEffect(() => {
-    if (comp) {
-      setCompName(comp.name);
-      setCompType(comp.type);
-      setCompGender(comp.gender);
-      setMaxAge(comp.maxAge);
-      setMaxAmountParticipants(comp.maxAmountParticipants);
-      setIsFollowUpCompetition(comp.isFollowUpCompetition);
-      setRegistrationEnabled(comp.registrationEnabled !== false);
-      setParticipationFee(comp.participationFee);
-      setDescription(comp.description);
-      setRules(comp.rules);
-      setJudges(comp.judges);
-    }
+  const hydratedCompId = useRef<string | undefined>(undefined);
 
+  useEffect(() => {
     getUsers().then(allUsers => {
       setUsers(allUsers.filter(u => u.type !== UserType.ADMINISTRATIVE && u.type !== UserType.FAN && isNaturalPerson(u.type)));
     });
+  }, []);
+
+  useEffect(() => {
+    if (!comp?.id || hydratedCompId.current === comp.id) return;
+    hydratedCompId.current = comp.id;
+    setCompName(comp.name);
+    setCompType(comp.type);
+    setCompGender(comp.gender);
+    setMaxAge(comp.maxAge);
+    setMaxAmountParticipants(comp.maxAmountParticipants);
+    setIsFollowUpCompetition(comp.isFollowUpCompetition);
+    setRegistrationEnabled(comp.registrationEnabled !== false);
+    setParticipationFee(comp.participationFee);
+    setDescription(comp.description);
+    setRules(comp.rules);
+    setJudges(comp.judges);
   }, [comp]);
 
   useEffect(() => {

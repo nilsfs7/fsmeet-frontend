@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import TextInput from '../common/text-input';
 import { Accommodation } from '@/domain/types/accommodation';
 import { imgImagePlaceholder } from '@/domain/constants/images';
@@ -79,13 +79,15 @@ const AccommodationEditor = ({ currency, accommodation, onAccommodationUpdate, o
     }
   };
 
+  const hydratedAccommodationId = useRef<string | undefined>(undefined);
+
   useEffect(() => {
-    if (accommodation) {
-      setAccommodationDescription(accommodation.description);
-      setAccommodationWebsite(accommodation.website);
-      setCost(accommodation.cost);
-      setEnabled(accommodation.enabled);
-    }
+    if (!accommodation?.id || hydratedAccommodationId.current === accommodation.id) return;
+    hydratedAccommodationId.current = accommodation.id;
+    setAccommodationDescription(accommodation.description);
+    setAccommodationWebsite(accommodation.website);
+    setCost(accommodation.cost);
+    setEnabled(accommodation.enabled);
   }, [accommodation]);
 
   useEffect(() => {
