@@ -11,6 +11,7 @@
     "navMap": "Carte",
     "navCommunity": "Communauté",
     "navVoice": "Votes",
+    "navTraining": "Entraînement",
     "navAdminOverview": "Admin",
     "navWffaOverview": "WFFA",
     "navAbout": "À propos",
@@ -21,6 +22,7 @@
     "exploreMapText": "Trouve des freestylers près de chez toi et affiche-toi sur la carte.",
     "exploreCommunityText": "Parcours athlètes, juges, organisateurs et marques.",
     "exploreVoiceText": "Donne ton avis sur les propositions qui façonnent la scène.",
+    "exploreTrainingText": "Entraîne tes skills et suis ta progression.",
     "exploreAboutText": "Découvre FSMeet, qui le développe et comment le soutenir."
   },
   "/about": {
@@ -1444,6 +1446,7 @@
     "navMap": "Carte",
     "navCommunity": "Communauté",
     "navVoice": "Voice",
+    "navTraining": "Entraînement",
     "navAbout": "À propos",
     "btnCreateEvent": "Créer un événement",
     "menuOpen": "Ouvrir le menu",

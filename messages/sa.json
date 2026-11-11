@@ -11,6 +11,7 @@
     "navMap": "الخريطة",
     "navCommunity": "المجتمع",
     "navVoice": "الصوت",
+    "navTraining": "التدريب",
     "navAdminOverview": "الإدارة",
     "navWffaOverview": "WFFA",
     "navAbout": "حول",
@@ -21,6 +22,7 @@
     "exploreMapText": "اعثر على لاعبي الفريستايل بالقرب منك وأظهر نفسك على الخريطة.",
     "exploreCommunityText": "تصفح الرياضيين والحكام والمنظمين والعلامات التجارية.",
     "exploreVoiceText": "شارك برأيك في المقترحات التي تشكل المشهد.",
+    "exploreTrainingText": "درّب مهاراتك وتابع تقدّمك.",
     "exploreAboutText": "تعرف على FSMeet ومن يطوره وكيف تدعمه."
   },
   "/about": {
@@ -1444,6 +1446,7 @@
     "navMap": "الخريطة",
     "navCommunity": "المجتمع",
     "navVoice": "Voice",
+    "navTraining": "التدريب",
     "navAbout": "حول",
     "btnCreateEvent": "إنشاء فعالية",
     "menuOpen": "فتح القائمة",

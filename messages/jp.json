@@ -11,6 +11,7 @@
     "navMap": "マップ",
     "navCommunity": "コミュニティ",
     "navVoice": "ボイス",
+    "navTraining": "トレーニング",
     "navAdminOverview": "管理",
     "navWffaOverview": "WFFA",
     "navAbout": "概要",
@@ -21,6 +22,7 @@
     "exploreMapText": "近くのフリースタイラーを見つけて、マップに自分を表示しよう。",
     "exploreCommunityText": "選手、ジャッジ、主催者、ブランドを探す。",
     "exploreVoiceText": "シーンを形作る提案に意見を届けよう。",
+    "exploreTrainingText": "技を練習して上達を記録しよう。",
     "exploreAboutText": "FSMeetについて、開発者と応援方法を知る。"
   },
   "/about": {
@@ -1444,6 +1446,7 @@
     "navMap": "マップ",
     "navCommunity": "コミュニティ",
     "navVoice": "Voice",
+    "navTraining": "トレーニング",
     "navAbout": "概要",
     "btnCreateEvent": "イベントを作成",
     "menuOpen": "メニューを開く",

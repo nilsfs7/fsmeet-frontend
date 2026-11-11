@@ -11,6 +11,7 @@
     "navMap": "地图",
     "navCommunity": "社区",
     "navVoice": "声音",
+    "navTraining": "训练",
     "navAdminOverview": "管理",
     "navWffaOverview": "WFFA",
     "navAbout": "关于",
@@ -21,6 +22,7 @@
     "exploreMapText": "找到你附近的花式足球玩家，并在地图上展示自己。",
     "exploreCommunityText": "浏览运动员、裁判、组织者和品牌。",
     "exploreVoiceText": "就塑造圈子的提案发表意见。",
+    "exploreTrainingText": "练习技巧，记录你的进步。",
     "exploreAboutText": "了解 FSMeet、开发者以及如何支持它。"
   },
   "/about": {
@@ -1444,6 +1446,7 @@
     "navMap": "地图",
     "navCommunity": "社区",
     "navVoice": "Voice",
+    "navTraining": "训练",
     "navAbout": "关于",
     "btnCreateEvent": "创建活动",
     "menuOpen": "打开菜单",

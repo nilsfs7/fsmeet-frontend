@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { IconArrowUpRight, IconCalendarEvent, IconHome, IconInfoCircle, IconMap2, IconMenu2, IconSpeakerphone, IconUsers, IconX } from '@tabler/icons-react';
+import { IconArrowUpRight, IconCalendarEvent, IconHome, IconInfoCircle, IconMap2, IconMenu2, IconSpeakerphone, IconBarbell, IconUsers, IconX } from '@tabler/icons-react';
 import LanguagePicker from './language-picker';
 import { appShellContentClass } from '@/components/layout/app-shell-content';
 import { LogoFSMeet } from './logo';
@@ -15,6 +15,7 @@ import { CreateEventButton } from '@/components/events/create-event-button';
 import { routeAbout, routeEvents, routeEventsCreate, routeHome, routeMap, routeUsers } from '@/domain/constants/routes';
 import { UserType } from '@/domain/enums/user-type';
 import { getVoiceBaseUrl } from '@/lib/voice-url';
+import { getTrainingBaseUrl } from '@/lib/training-url';
 import { cn } from '@/lib/utils';
 
 type NavIcon = typeof IconHome;
@@ -47,6 +48,7 @@ export const AppHeader = () => {
   if (isChromeless(pathname)) return null;
 
   const voiceUrl = getVoiceBaseUrl();
+  const trainingUrl = getTrainingBaseUrl();
   const canCreateEvents = session?.user?.type !== UserType.FAN;
 
   const primary: NavEntry[] = [
@@ -54,6 +56,7 @@ export const AppHeader = () => {
     { href: routeMap, label: t('navMap'), Icon: IconMap2 },
     { href: routeUsers, label: t('navCommunity'), Icon: IconUsers },
     ...(voiceUrl ? [{ href: voiceUrl, label: t('navVoice'), Icon: IconSpeakerphone, external: true }] : []),
+    ...(trainingUrl ? [{ href: trainingUrl, label: t('navTraining'), Icon: IconBarbell, external: true }] : []),
   ];
   const secondary: NavEntry[] = [{ href: routeAbout, label: t('navAbout'), Icon: IconInfoCircle }];
 
@@ -74,7 +77,7 @@ export const AppHeader = () => {
         </div>
 
         {/* desktop destinations */}
-        <nav aria-label="Main" className="hidden min-w-0 flex-1 items-center gap-1 md:flex">
+        <nav aria-label="Main" className="hidden min-w-0 flex-1 items-center gap-0.5 md:flex xl:gap-1">
           {[...primary, ...secondary].map(entry => (
             <Link
               key={entry.href}
@@ -83,12 +86,13 @@ export const AppHeader = () => {
               rel={entry.external ? 'noopener noreferrer' : undefined}
               aria-current={isActive(entry) ? 'page' : undefined}
               className={cn(
-                'inline-flex h-9 items-center gap-1.5 rounded-lg px-3 text-sm font-medium text-muted-foreground transition-colors',
+                'inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2 text-sm font-medium text-muted-foreground transition-colors xl:px-3',
                 'hover:bg-muted hover:text-foreground',
                 isActive(entry) && 'bg-brand-soft text-brand-strong hover:bg-brand-soft hover:text-brand-strong',
               )}
             >
-              <entry.Icon className="h-4 w-4" stroke={1.75} />
+              {/* icons only where there is room (xl+) so all destinations fit at md/lg */}
+              <entry.Icon className="hidden h-4 w-4 xl:block" stroke={1.75} />
               {entry.label}
               {entry.external && <IconArrowUpRight className="h-3.5 w-3.5 opacity-60" stroke={1.75} />}
             </Link>

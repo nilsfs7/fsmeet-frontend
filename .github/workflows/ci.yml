@@ -21,6 +21,7 @@ jobs:
       BACKEND_URL: https://api.dev.fsmeet.dffb.org
       FRONTEND_URL_FREESTYLEACTS: https://dev.freestyleacts.dffb.org
       FRONTEND_URL_VOICE: https://dev.voice.fsmeet.dffb.org
+      FRONTEND_URL_TRAINING: https://dev.training.fsmeet.dffb.org
     steps:
       - name: Set environment by branch
         id: build-args
@@ -34,6 +35,7 @@ jobs:
               echo "BACKEND_URL=https://api.fsmeet.dffb.org" >> "$GITHUB_ENV"
               echo "FRONTEND_URL_FREESTYLEACTS=https://freestyleacts.com" >> "$GITHUB_ENV"
               echo "FRONTEND_URL_VOICE=https://voice.fsmeet.com" >> "$GITHUB_ENV"
+              echo "FRONTEND_URL_TRAINING=https://training.fsmeet.com" >> "$GITHUB_ENV"
           fi
           if [[ $GITHUB_REF == 'refs/heads/lora' ]]; then
               echo "set values for lora image"
@@ -69,6 +71,7 @@ jobs:
             BACKEND_URL=${{ env.BACKEND_URL }}
             FRONTEND_URL_FREESTYLEACTS=${{ env.FRONTEND_URL_FREESTYLEACTS }}
             FRONTEND_URL_VOICE=${{ env.FRONTEND_URL_VOICE }}
+            FRONTEND_URL_TRAINING=${{ env.FRONTEND_URL_TRAINING }}
             BUILD_TIME=${{ env.BUILD_TIME }}
             COMMIT_SHA=${{ env.SHA }}
             GMAPS_API_KEY=${{ env.MAPS_API_KEY }}

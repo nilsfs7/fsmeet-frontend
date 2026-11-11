@@ -11,6 +11,7 @@
     "navMap": "मैप",
     "navCommunity": "समुदाय",
     "navVoice": "आवाज़",
+    "navTraining": "ट्रेनिंग",
     "navAdminOverview": "एडमिन",
     "navWffaOverview": "WFFA",
     "navAbout": "परिचय",
@@ -21,6 +22,7 @@
     "exploreMapText": "अपने पास के फ्रीस्टाइलर्स खोजें और मैप पर खुद को दिखाएं।",
     "exploreCommunityText": "एथलीट, जज, आयोजक और ब्रांड देखें।",
     "exploreVoiceText": "सीन को आकार देने वाले प्रस्तावों पर अपनी राय दें।",
+    "exploreTrainingText": "अपने स्किल्स की ट्रेनिंग करें और अपनी प्रगति देखें।",
     "exploreAboutText": "जानें FSMeet क्या है, इसे कौन बनाता है और कैसे सपोर्ट करें।"
   },
   "/about": {
@@ -1444,6 +1446,7 @@
     "navMap": "मैप",
     "navCommunity": "कम्युनिटी",
     "navVoice": "Voice",
+    "navTraining": "ट्रेनिंग",
     "navAbout": "परिचय",
     "btnCreateEvent": "इवेंट बनाएं",
     "menuOpen": "मेनू खोलें",

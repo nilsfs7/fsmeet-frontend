@@ -11,6 +11,7 @@
     "navMap": "Peta",
     "navCommunity": "Komuniti",
     "navVoice": "Suara",
+    "navTraining": "Latihan",
     "navAdminOverview": "Admin",
     "navWffaOverview": "WFFA",
     "navAbout": "Tentang",
@@ -21,6 +22,7 @@
     "exploreMapText": "Cari freestyler berdekatan dan paparkan diri anda pada peta.",
     "exploreCommunityText": "Lihat atlet, juri, penganjur dan jenama.",
     "exploreVoiceText": "Suarakan pendapat tentang cadangan yang membentuk komuniti.",
+    "exploreTrainingText": "Latih kemahiran anda dan jejaki kemajuan anda.",
     "exploreAboutText": "Ketahui apa itu FSMeet, siapa yang membinanya dan cara menyokongnya."
   },
   "/about": {
@@ -1444,6 +1446,7 @@
     "navMap": "Peta",
     "navCommunity": "Komuniti",
     "navVoice": "Voice",
+    "navTraining": "Latihan",
     "navAbout": "Tentang",
     "btnCreateEvent": "Cipta acara",
     "menuOpen": "Buka menu",

@@ -15,7 +15,8 @@ import { PageInset } from '@/components/layout/page-inset';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildOrganizationJsonLd } from '@/lib/json-ld';
 import { getVoiceBaseUrl } from '@/lib/voice-url';
-import { IconArrowRight, IconArrowUpRight, IconInfoCircle, IconMap2, IconSpeakerphone, IconUsers } from '@tabler/icons-react';
+import { getTrainingBaseUrl } from '@/lib/training-url';
+import { IconArrowRight, IconArrowUpRight, IconInfoCircle, IconMap2, IconSpeakerphone, IconBarbell, IconUsers } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
 
 export default async function Home() {
@@ -34,10 +35,12 @@ export default async function Home() {
   }
 
   const voiceUrl = getVoiceBaseUrl();
+  const trainingUrl = getTrainingBaseUrl();
   const explore = [
     { href: routeMap, label: t('navMap'), text: t('exploreMapText'), Icon: IconMap2, tone: 'bg-sky-50 text-sky-700' },
     { href: routeUsers, label: t('navCommunity'), text: t('exploreCommunityText'), Icon: IconUsers, tone: 'bg-violet-50 text-violet-700' },
     ...(voiceUrl ? [{ href: voiceUrl, label: t('navVoice'), text: t('exploreVoiceText'), Icon: IconSpeakerphone, tone: 'bg-amber-50 text-amber-700', external: true }] : []),
+    ...(trainingUrl ? [{ href: trainingUrl, label: t('navTraining'), text: t('exploreTrainingText'), Icon: IconBarbell, tone: 'bg-emerald-50 text-emerald-700', external: true }] : []),
     { href: routeAbout, label: t('navAbout'), text: t('exploreAboutText'), Icon: IconInfoCircle, tone: 'bg-neutral-100 text-neutral-700' },
   ];
 
@@ -95,7 +98,7 @@ export default async function Home() {
           {/* explore side features */}
           <section className="flex flex-col gap-4">
             <h2 className="text-heading-2">{t('exploreTitle')}</h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {explore.map(item => (
                 <Link
                   key={item.href}
