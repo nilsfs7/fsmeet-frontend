@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ChevronsUpDown, ChevronDown, ChevronUp } from 'lucide-react';
 import ReactCountryFlag from 'react-country-flag';
+import { IconMapPin } from '@tabler/icons-react';
 import {
   type Column,
   type ColumnDef,
@@ -26,8 +27,8 @@ import { Gender } from '@/domain/enums/gender';
 import { menuUserType } from '@/domain/constants/menus/menu-user-type';
 import { routeUsers } from '@/domain/constants/routes';
 import Link from 'next/link';
-import { imgUserDefaultImg, imgWorld } from '@/domain/constants/images';
-import { getUserTypeImages } from '@/functions/user-type';
+import { imgUserDefaultImg } from '@/domain/constants/images';
+import { UserTypeIcon } from '@/components/user/user-type-icon';
 import SocialLink from '@/components/user/social-link';
 import { SocialPlatform } from '@/domain/enums/social-platform';
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
@@ -254,9 +255,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
       accessorKey: 'userType',
       header: () => t('tblColumnType'),
       cell: ({ row }) => (
-        <div className="h-8 w-8">
-          <img src={getUserTypeImages(row.getValue('userType') as UserType).path} alt="" />
-        </div>
+        <UserTypeIcon userType={row.getValue('userType') as UserType} variant="tile" />
       ),
       enableSorting: false,
       filterFn: (row, _columnId, filterValue): boolean => {
@@ -272,8 +271,8 @@ export const UsersList = ({ columnData }: IUsersList) => {
         <div className="flex items-center gap-2">
           {(row.getValue('location') as Location).city && (
             <Link href={(row.getValue('location') as Location).mapLink}>
-              <span className="inline-flex h-8 w-8">
-                <img src={imgWorld} alt="" />
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+                <IconMapPin className="h-5 w-5" stroke={1.75} aria-hidden />
               </span>
             </Link>
           )}

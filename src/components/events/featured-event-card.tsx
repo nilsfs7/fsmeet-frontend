@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { Event } from '@/domain/types/event';
 import { routeEvents } from '@/domain/constants/routes';
 import { EventType } from '@/domain/enums/event-type';
-import { imgCompetition, imgMeeting } from '@/domain/constants/images';
+import { EventPosterPlaceholder } from '@/components/events/event-type-icon';
 import { getShortDateString } from '@/functions/time';
 
 export interface FeaturedEventCardProps {
@@ -30,7 +30,6 @@ export function FeaturedEventCard({ event, badgeLabel, linkLabel }: FeaturedEven
   const href = `${routeEvents}/${event.id}`;
   const titleId = `featured-event-title-${event.id}`;
   const poster = event.imageUrlPoster;
-  const fallback = event.type === EventType.MEETING ? imgMeeting : imgCompetition;
   const dateLine = moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
     ? getShortDateString(moment(event.dateFrom))
     : `${getShortDateString(moment(event.dateFrom), false)} – ${getShortDateString(moment(event.dateTo))}`;
@@ -54,9 +53,7 @@ export function FeaturedEventCard({ event, badgeLabel, linkLabel }: FeaturedEven
       {poster ? (
         <Image src={poster} alt="" fill className="object-cover" sizes="(max-width: 1024px) 90vw, 260px" />
       ) : (
-        // Static fallback assets (same pattern as EventCard)
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={fallback} alt="" className="absolute inset-0 h-full w-full object-cover object-center" />
+        <EventPosterPlaceholder eventType={event.type} className="absolute inset-0" />
       )}
     </Link>
   );

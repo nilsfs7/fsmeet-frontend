@@ -46,6 +46,12 @@
   @apply mx-auto w-full max-w-prose px-4 pb-6 sm:px-6 sm:pb-8 md:px-8;
 }
 
+@utility type-body-sm {
+  /** Secondary body copy (14px / 1.45): meta rows, helper text, table cells. Pair with `sm:text-*` to scale up. */
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
 @utility scrollbar-none {
   /** Still scrolls (overflow-y auto); track hidden so layout does not shift vs non-scrolling panes. */
   -ms-overflow-style: none;

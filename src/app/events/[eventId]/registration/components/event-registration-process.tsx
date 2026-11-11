@@ -55,15 +55,15 @@ import type { ReadStripeCheckoutResponseDto } from '@/infrastructure/clients/dto
 /** @see `competition-editor.tsx` `EDITOR_CARD_CLASS` — same glass card + rhythm */
 const registrationStepClass = 'flex w-full min-w-0 max-w-2xl flex-col gap-3 self-center';
 const registrationStepIntroTextClass = 'm-0 text-balance text-sm text-foreground/90';
-const registrationSectionHeadingClass = 'text-sm font-semibold leading-tight text-foreground/90';
+const registrationSectionHeadingClass = 'text-base font-semibold leading-tight text-foreground';
 const registrationFormPanelClass = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 self-center rounded-xl border border-border/60 bg-secondary-light/85 p-2.5',
-  'shadow-xs backdrop-blur-xs supports-backdrop-filter:bg-secondary-light/70',
+  'gap-4 self-center rounded-2xl border border-border bg-background p-4 sm:gap-5 sm:p-6',
+  'shadow-xs',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
-const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
-const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-1 gap-1.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:items-center sm:gap-x-4';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-tight text-foreground/80';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const READONLY_VALUE_CLASS = 'min-w-0 text-sm text-foreground/90';
 

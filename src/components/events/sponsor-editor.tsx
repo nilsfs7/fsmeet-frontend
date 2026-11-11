@@ -11,8 +11,7 @@ import Separator from '../separator';
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
+  'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 

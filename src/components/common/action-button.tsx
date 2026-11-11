@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react';
 import {
   IconArrowLeft,
+  IconMapPin,
   IconBuilding,
   IconChartBar,
   IconCircleCheck,
@@ -34,7 +35,6 @@ import {
 import Link from 'next/link';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
-import { imgWorld } from '@/domain/constants/images';
 import { ButtonStyle } from '@/domain/enums/button-style';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -44,7 +44,7 @@ type TablerActionIcon = ComponentType<{ className?: string; stroke?: number }>;
 
 type ActionIconConfig = { kind: 'icon'; Icon: TablerActionIcon } | { kind: 'img'; src: string; alt: string };
 
-/** Tabler icon for each action; `GOTOMAP` uses a raster asset. */
+/** Tabler icon for each action. */
 const ACTION_ICON: Record<Action, ActionIconConfig> = {
   [Action.ADD]: { kind: 'icon', Icon: IconCirclePlus },
   [Action.ACCEPT]: { kind: 'icon', Icon: IconCircleCheck },
@@ -57,7 +57,7 @@ const ACTION_ICON: Record<Action, ActionIconConfig> = {
   [Action.DONATE]: { kind: 'icon', Icon: IconHeartHandshake },
   [Action.DOWNLOAD]: { kind: 'icon', Icon: IconCloudDownload },
   [Action.EDIT]: { kind: 'icon', Icon: IconPencil },
-  [Action.GOTOMAP]: { kind: 'img', src: imgWorld, alt: '' },
+  [Action.GOTOMAP]: { kind: 'icon', Icon: IconMapPin },
   [Action.GOTOEXTERNAL]: { kind: 'icon', Icon: IconExternalLink },
   [Action.HIDE]: { kind: 'icon', Icon: IconEyeOff },
   [Action.INFO]: { kind: 'icon', Icon: IconInfoCircle },

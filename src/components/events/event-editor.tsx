@@ -44,17 +44,16 @@ import { cn } from '@/lib/utils';
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
+  'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
-const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
-const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-1 gap-1.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:items-center sm:gap-x-4';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-tight text-foreground/80';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
 const READONLY_VALUE_CLASS = 'min-w-0 text-sm text-foreground/90';
 const FILE_INPUT_CLASS = 'w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground';
-const SECTION_H2 = 'text-sm font-semibold leading-tight text-foreground/90';
+const SECTION_H2 = 'text-base font-semibold leading-tight text-foreground';
 
 function FieldRow({ label, children }: { label: string; children: ReactNode }) {
   return (

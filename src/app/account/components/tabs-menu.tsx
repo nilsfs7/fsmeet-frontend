@@ -60,15 +60,14 @@ import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
+  'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
-const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
-const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
-const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
+const FIELD_ROW_CLASS = 'flex min-w-0 flex-col gap-1.5';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-tight text-foreground';
+const FIELD_CONTROL_CLASS = 'min-w-0 w-full [&>button]:w-full [&_button[aria-haspopup=dialog]]:w-full';
 const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
-const SECTION_H2 = 'text-sm font-semibold leading-tight text-foreground/90';
+const SECTION_H2 = 'text-base font-semibold leading-tight text-foreground';
 
 function FieldRow({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -617,8 +616,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         <p>{t('dlgAccountDeleteAccountText')}</p>
       </Dialog>
 
-      <Tabs defaultValue={tab || `general`} className="flex h-full min-h-0 flex-col">
-        <TabsList>
+      <Tabs defaultValue={tab || `general`} className="flex h-full min-h-0 w-full max-w-2xl flex-col">
+        <TabsList className="max-w-full shrink-0 self-center overflow-x-auto">
           <TabsTrigger
             value="general"
             onClick={() => {

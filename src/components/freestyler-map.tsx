@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { User } from '@/domain/types/user';
 import { routeUsers } from '@/domain/constants/routes';
 import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
+import { UserTypeIcon } from '@/components/user/user-type-icon';
 import { UserType } from '@/domain/enums/user-type';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import Link from 'next/link';
@@ -547,7 +548,7 @@ const Map = ({
 
                         {user.type !== UserType.FREESTYLER && (
                           <div className="grid grid-flow-col justify-start items-center gap-1">
-                            <img src={getUserTypeImages(user.type, undefined).path} className="h-6 w-6 object-cover" />
+                            <UserTypeIcon userType={user.type} variant="tile" className="h-6 w-6 rounded-md" />
 
                             {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
                           </div>

@@ -1,6 +1,7 @@
 'use client';
 
-import { imgCompetition, imgMeeting, imgUserDefaultImg } from '@/domain/constants/images';
+import { imgUserDefaultImg } from '@/domain/constants/images';
+import { EventPosterPlaceholder } from '@/components/events/event-type-icon';
 import { IconCalendarEvent, IconHourglassHigh, IconHourglassOff, IconMapPin, IconWorld } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
 import { getShortDateString } from '@/functions/time';
@@ -47,7 +48,6 @@ const EventCard = ({ event }: IEventProps) => {
   }, [event.admin]);
 
   const poster = event.imageUrlPoster;
-  const fallback = event.type === EventType.MEETING ? imgMeeting : imgCompetition;
   const registrationOpen = moment(event.registrationDeadline) > moment();
   const typeLabel = event.type === EventType.MEETING ? t('eventTypeMeet') : event.type === EventType.COMPETITION_ONLINE ? t('eventTypeCompOnline') : t('eventTypeComp');
 
@@ -63,7 +63,7 @@ const EventCard = ({ event }: IEventProps) => {
         <div className="relative w-24 shrink-0 self-start overflow-hidden rounded-xl bg-muted sm:w-28">
           <div className="aspect-4/5 w-full">
             {poster && <img className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]" src={poster} alt={event.name} />}
-            {!poster && <img className="h-full w-full object-contain object-center p-5 opacity-60" src={fallback} alt="" />}
+            {!poster && <EventPosterPlaceholder eventType={event.type} />}
           </div>
         </div>
 

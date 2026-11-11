@@ -1,12 +1,14 @@
+import { IconMapPin } from '@tabler/icons-react';
 import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
-import { imgUserDefaultImg, imgVerifiedCheckmark, imgWorld } from '@/domain/constants/images';
+import { imgUserDefaultImg, imgVerifiedCheckmark } from '@/domain/constants/images';
 import { routeAccount, routeMap, routeUsers } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { UserType } from '@/domain/enums/user-type';
 import Link from 'next/link';
 import ReactCountryFlag from 'react-country-flag';
-import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
+import { getUserTypeLabels } from '@/functions/user-type';
+import { UserTypeIcon } from '@/components/user/user-type-icon';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { auth } from '@/auth';
 import { getUser } from '@/infrastructure/clients/user.client';
@@ -107,7 +109,7 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
 
                 <div className="flex flex-wrap items-center gap-2">
                   <span className={profileChipClass}>
-                    <img src={getUserTypeImages(user.type, user.gender).path} className="h-4 w-4 object-contain" alt="" />
+                    <UserTypeIcon userType={user.type} />
                     {getUserTypeLabels(user.type, t)}
                   </span>
 
@@ -120,7 +122,7 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
 
                   {user.city && (
                     <Link className={cn(profileChipClass, 'hover:border-foreground/20 hover:bg-muted')} href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
-                      <img src={imgWorld} className="h-4 w-4 rounded-full object-cover" alt="" />
+                      <IconMapPin className="h-4 w-4 text-muted-foreground" stroke={1.75} aria-hidden />
                       {user.city}
                     </Link>
                   )}
