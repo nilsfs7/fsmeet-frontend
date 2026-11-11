@@ -274,6 +274,7 @@
     "dlgEventUnregisterBtnConfirm": "確認",
     "dlgDeleteCommentTitle": "コメントを削除",
     "dlgDeleteCommentText": "コメントを削除しますか？この操作は取り消せません。",
+    "dlgVideoTitle": "動画",
     "adminPanelTitle": "管理パネル",
     "adminPanelBtnEditEventToolTip": "イベント情報",
     "adminPanelBtnManageAttendeesToolTip": "出席者",
@@ -306,6 +307,15 @@
     "tabOverviewBtnShowLessDescription": "表示を減らす",
     "tabOverviewDonation": "寄付",
     "tabOverviewDonationOpenLink": "リンクを開く",
+    "tabOverviewTrailer": "トレーラー",
+    "tabOverviewLivestream": "ライブ配信",
+    "tabOverviewGroupChat": "グループチャットの招待リンク",
+    "tabOverviewPosterPreview": "イベントポスター、プレビューを開く",
+    "tabOverviewFeeFree": "無料",
+    "tabOverviewOnline": "オンライン",
+    "toastCommentFailed": "問題が発生しました",
+    "metaFallbackTitle": "イベント",
+    "metaFallbackDescription": "FSMeetのフリースタイルフットボールイベント",
     "tabCompetitionsTitle": "カテゴリ",
     "tabCompetitionsSectionCompetitions": "カテゴリ",
     "tabRegistrationsTitle": "参加者",
@@ -1068,7 +1078,8 @@
   },
   "global/components/event-card": {
     "lblHost": "主催",
-    "lblDeadline": "締切"
+    "lblDeadline": "締切",
+    "lblNotListed": "未掲載"
   },
   "global/components/event-editor": {
     "sectionGeneral": "基本情報",

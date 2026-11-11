@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 interface IVideoDialogProps {
   queryParam: string;
   videoUrl: string;
+  title: string;
   onCancel: () => void;
 }
 
@@ -17,7 +18,7 @@ function toEmbedUrl(url: string): string {
   return url.replace('/watch?v=', '/embed/').replace('/shorts/', '/embed/').replace('youtu.be/', 'youtube.com/embed/');
 }
 
-const VideoDialog = ({ queryParam, videoUrl, onCancel }: IVideoDialogProps) => {
+const VideoDialog = ({ queryParam, videoUrl, title, onCancel }: IVideoDialogProps) => {
   const searchParams = useSearchParams();
   const open = searchParams?.get(queryParam) === '1';
   const embedUrl = toEmbedUrl(videoUrl);
@@ -34,7 +35,7 @@ const VideoDialog = ({ queryParam, videoUrl, onCancel }: IVideoDialogProps) => {
         className="w-[min(calc(100%-2rem-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px)),64rem,calc((100dvh-7rem-env(safe-area-inset-top)-env(safe-area-inset-bottom))*16/9))] max-w-none pt-10"
       >
         <DialogHeader className="sr-only">
-          <DialogTitle>Video</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <div className="overflow-hidden rounded-lg bg-black">
           <div className="aspect-video w-full">
@@ -42,7 +43,7 @@ const VideoDialog = ({ queryParam, videoUrl, onCancel }: IVideoDialogProps) => {
               <iframe
                 className="h-full w-full border-0"
                 src={embedUrl}
-                title="Video"
+                title={title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                 allowFullScreen
               />

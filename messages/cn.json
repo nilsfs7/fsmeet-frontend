@@ -274,6 +274,7 @@
     "dlgEventUnregisterBtnConfirm": "确认",
     "dlgDeleteCommentTitle": "删除评论",
     "dlgDeleteCommentText": "删除评论？此操作无法撤销。",
+    "dlgVideoTitle": "视频",
     "adminPanelTitle": "管理面板",
     "adminPanelBtnEditEventToolTip": "活动信息",
     "adminPanelBtnManageAttendeesToolTip": "与会者",
@@ -306,6 +307,15 @@
     "tabOverviewBtnShowLessDescription": "显示更少",
     "tabOverviewDonation": "捐赠",
     "tabOverviewDonationOpenLink": "打开链接",
+    "tabOverviewTrailer": "预告片",
+    "tabOverviewLivestream": "直播",
+    "tabOverviewGroupChat": "群聊邀请链接",
+    "tabOverviewPosterPreview": "活动海报，打开预览",
+    "tabOverviewFeeFree": "免费",
+    "tabOverviewOnline": "线上",
+    "toastCommentFailed": "出了点问题",
+    "metaFallbackTitle": "活动",
+    "metaFallbackDescription": "FSMeet 上的花式足球活动",
     "tabCompetitionsTitle": "比赛项目",
     "tabCompetitionsSectionCompetitions": "比赛项目",
     "tabRegistrationsTitle": "参与者",
@@ -1068,7 +1078,8 @@
   },
   "global/components/event-card": {
     "lblHost": "主办方",
-    "lblDeadline": "截止时间"
+    "lblDeadline": "截止时间",
+    "lblNotListed": "未公开"
   },
   "global/components/event-editor": {
     "sectionGeneral": "基本信息",
