@@ -18,7 +18,8 @@ export default async function EventsOverview() {
           <ActionButton href={routeHome} action={Action.BACK} />
         </div>
 
-        <div className="flex min-w-0 flex-wrap justify-end gap-1">
+        {/* the global header shows "Create event" from lg upwards */}
+        <div className="flex min-w-0 flex-wrap justify-end gap-1 lg:hidden">
           <CreateEventButton label={t('btnCreateEvent')} />
         </div>
       </Navigation>
