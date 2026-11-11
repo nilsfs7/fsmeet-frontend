@@ -1118,6 +1118,7 @@
   },
   "/users": {
     "pageTitle": "Community",
+    "pageDescription": "Discover freestylers, judges, organizers and brands from around the world.",
     "inputSearchPlaceholder": "Search name...",
     "tableSortByName": "Sort by name",
     "tableSortByCountry": "Sort by country",
@@ -1139,7 +1140,15 @@
     "navFirst": "First page",
     "navPrevious": "Previous page",
     "navNext": "Next page",
-    "navLast": "Last page"
+    "navLast": "Last page",
+    "sortLabel": "Sort",
+    "sortNameAsc": "Name (A–Z)",
+    "sortNameDesc": "Name (Z–A)",
+    "sortCountryAsc": "Country (A–Z)",
+    "sortCountryDesc": "Country (Z–A)",
+    "cbCardDetails": "Show on cards",
+    "membersCount": "{count, plural, =0 {No members found} one {# member} other {# members}}",
+    "lnkShowOnMap": "Show on map"
   },
   "/users/username": {
     "accordionItemSocials": "Socials",

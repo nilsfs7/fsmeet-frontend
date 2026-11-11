@@ -1093,6 +1093,7 @@
   },
   "/users": {
     "pageTitle": "Communauté",
+    "pageDescription": "Découvre des freestylers, juges, organisateurs et marques du monde entier.",
     "inputSearchPlaceholder": "Rechercher par nom...",
     "tableSortByName": "Trier par nom",
     "tableSortByCountry": "Trier par pays",
@@ -1114,7 +1115,15 @@
     "navFirst": "Première page",
     "navPrevious": "Page précédente",
     "navNext": "Page suivante",
-    "navLast": "Dernière page"
+    "navLast": "Dernière page",
+    "sortLabel": "Trier",
+    "sortNameAsc": "Nom (A–Z)",
+    "sortNameDesc": "Nom (Z–A)",
+    "sortCountryAsc": "Pays (A–Z)",
+    "sortCountryDesc": "Pays (Z–A)",
+    "cbCardDetails": "Afficher sur les cartes",
+    "membersCount": "{count, plural, =0 {Aucun membre trouvé} one {# membre} other {# membres}}",
+    "lnkShowOnMap": "Voir sur la carte"
   },
   "/users/username": {
     "accordionItemSocials": "Réseaux sociaux",

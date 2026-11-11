@@ -1118,6 +1118,7 @@
   },
   "/users": {
     "pageTitle": "المجتمع",
+    "pageDescription": "اكتشف لاعبي الفريستايل والحكام والمنظمين والعلامات التجارية من جميع أنحاء العالم.",
     "inputSearchPlaceholder": "ابحث عن الاسم...",
     "tableSortByName": "ترتيب حسب الاسم",
     "tableSortByCountry": "ترتيب حسب البلد",
@@ -1139,7 +1140,15 @@
     "navFirst": "الصفحة الأولى",
     "navPrevious": "الصفحة السابقة",
     "navNext": "الصفحة التالية",
-    "navLast": "الصفحة الأخيرة"
+    "navLast": "الصفحة الأخيرة",
+    "sortLabel": "ترتيب",
+    "sortNameAsc": "الاسم (أ–ي)",
+    "sortNameDesc": "الاسم (ي–أ)",
+    "sortCountryAsc": "الدولة (أ–ي)",
+    "sortCountryDesc": "الدولة (ي–أ)",
+    "cbCardDetails": "إظهار على البطاقات",
+    "membersCount": "{count, plural, =0 {لم يتم العثور على أعضاء} one {عضو واحد} other {# أعضاء}}",
+    "lnkShowOnMap": "عرض على الخريطة"
   },
   "/users/username": {
     "accordionItemSocials": "الحسابات",

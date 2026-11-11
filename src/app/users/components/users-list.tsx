@@ -1,11 +1,10 @@
 'use client';
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ChevronsUpDown, ChevronDown, ChevronUp } from 'lucide-react';
 import ReactCountryFlag from 'react-country-flag';
-import { IconMapPin } from '@tabler/icons-react';
+import { IconAdjustmentsHorizontal, IconArrowsSort, IconMapPin, IconSearch, IconUsers } from '@tabler/icons-react';
 import {
   type Column,
   type ColumnDef,
@@ -13,7 +12,6 @@ import {
   type Row,
   SortingState,
   VisibilityState,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -101,7 +99,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
   const t = useTranslations('/users');
   const tEvents = useTranslations('/events');
 
-  const selectTriggerClass = 'h-9 w-full min-w-0 border-border/60 bg-background/80 text-left dark:border-zinc-700';
+  const selectTriggerClass = 'h-9 w-full min-w-0 rounded-xl border-border bg-background text-left';
 
   const countryOptions = useMemo(() => {
     const seen = new Set<string>();
@@ -254,9 +252,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
     {
       accessorKey: 'userType',
       header: () => t('tblColumnType'),
-      cell: ({ row }) => (
-        <UserTypeIcon userType={row.getValue('userType') as UserType} variant="tile" />
-      ),
+      cell: ({ row }) => <UserTypeIcon userType={row.getValue('userType') as UserType} variant="tile" />,
       enableSorting: false,
       filterFn: (row, _columnId, filterValue): boolean => {
         if (filterValue == null || filterValue === '') return true;
@@ -343,41 +339,80 @@ export const UsersList = ({ columnData }: IUsersList) => {
     table.getColumn('userType')?.setFilterValue(undefined);
   };
 
+  const advancedFilterCount = [countryFilterActive, genderFilterActive, userTypeFilterActive].filter(Boolean).length;
+  const filteredCount = table.getFilteredRowModel().rows.length;
+  const isVisible = (id: string) => table.getColumn(id)?.getIsVisible() ?? true;
+
+  const typeLabel = (value: string) => userTypeOptions.find(o => o.value === value)?.label || value;
+
+  const sortValue = sorting[0] ? `${sorting[0].id}-${sorting[0].desc ? 'desc' : 'asc'}` : 'user-asc';
+  const handleSortChange = (value: string) => {
+    const [id, dir] = value.split('-');
+    setSorting([{ id, desc: dir === 'desc' }]);
+  };
+
   return (
-    <div className={cn('text-sm flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-y-auto scrollbar-none')}>
-      <div className="flex w-full min-w-0 max-w-lg flex-col gap-2 self-center">
-        <div className="w-full min-w-0">
-          <Input
-            id="users-filter-name"
-            type="search"
-            aria-label={t('tblColumnName')}
-            placeholder={t('inputSearchPlaceholder')}
-            value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
-            onChange={e => {
-              table.getColumn('user')?.setFilterValue(e.target.value);
-            }}
-            autoComplete="off"
-            spellCheck={false}
-            className="h-9 w-full bg-background/80"
-          />
+    <div className={cn('text-sm flex min-h-0 min-w-0 flex-1 flex-col gap-4 overflow-y-auto scrollbar-none pb-2')}>
+      {/* toolbar */}
+      <div className="rounded-2xl border border-border bg-background p-2 shadow-xs">
+        <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="relative min-w-0 flex-1">
+            <IconSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" stroke={1.75} aria-hidden />
+            <Input
+              id="users-filter-name"
+              type="search"
+              aria-label={t('tblColumnName')}
+              placeholder={t('inputSearchPlaceholder')}
+              value={(table.getColumn('user')?.getFilterValue() as string) ?? ''}
+              onChange={e => {
+                table.getColumn('user')?.setFilterValue(e.target.value);
+              }}
+              autoComplete="off"
+              spellCheck={false}
+              className="h-10 w-full rounded-xl pl-9"
+            />
+          </div>
+
+          <div className="flex min-w-0 items-center gap-2">
+            <Select value={sortValue} onValueChange={handleSortChange}>
+              <SelectTrigger className="h-10 min-w-0 flex-1 justify-start gap-2 rounded-xl sm:w-48 sm:flex-none" aria-label={t('sortLabel')}>
+                <IconArrowsSort className="h-4 w-4 shrink-0 text-muted-foreground" stroke={1.75} aria-hidden />
+                <span className="min-w-0 flex-1 truncate text-left">
+                  <SelectValue />
+                </span>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="user-asc">{t('sortNameAsc')}</SelectItem>
+                <SelectItem value="user-desc">{t('sortNameDesc')}</SelectItem>
+                <SelectItem value="country-asc">{t('sortCountryAsc')}</SelectItem>
+                <SelectItem value="country-desc">{t('sortCountryDesc')}</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <button
+              type="button"
+              onClick={() => setAdvancedOpen(v => !v)}
+              aria-expanded={advancedOpen}
+              aria-label={tEvents('searchAdvancedLabel')}
+              className={cn(
+                'inline-flex h-10 shrink-0 items-center gap-1.5 rounded-xl border px-3 text-sm font-medium transition-colors',
+                advancedOpen || showAdvancedDot ? 'border-brand/40 bg-brand-soft text-brand-strong' : 'border-border bg-background text-foreground hover:bg-muted',
+              )}
+            >
+              <IconAdjustmentsHorizontal className="h-4 w-4" stroke={1.75} aria-hidden />
+              <span>{tEvents('searchAdvancedLabel')}</span>
+              {advancedFilterCount > 0 && (
+                <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand px-1 text-2xs font-semibold text-brand-foreground">{advancedFilterCount}</span>
+              )}
+            </button>
+          </div>
         </div>
 
-        <div className="w-full min-w-0">
-          <button
-            type="button"
-            onClick={() => setAdvancedOpen(v => !v)}
-            className="flex w-full min-w-0 items-center justify-center gap-2 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            aria-expanded={advancedOpen}
-          >
-            {showAdvancedDot ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden /> : null}
-            <span className="font-medium text-foreground/90">{tEvents('searchAdvancedLabel')}</span>
-            <ChevronDown className={cn('h-4 w-4 shrink-0 transition-transform duration-200', advancedOpen && 'rotate-180')} aria-hidden />
-          </button>
-
-          {advancedOpen && (
-            <div className="space-y-3 pt-0.5 pb-1">
+        {advancedOpen && (
+          <div className="mt-2 space-y-4 border-t border-border/70 px-1 pb-1 pt-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               <div>
-                <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('filterCountry')}</div>
+                <div className="mb-1 text-xs font-medium text-muted-foreground">{t('filterCountry')}</div>
                 <Select value={(table.getColumn('country')?.getFilterValue() as string | undefined) ?? ALL} onValueChange={v => table.getColumn('country')?.setFilterValue(v === ALL ? undefined : v)}>
                   <SelectTrigger className={selectTriggerClass}>
                     <SelectValue />
@@ -394,8 +429,11 @@ export const UsersList = ({ columnData }: IUsersList) => {
               </div>
 
               <div>
-                <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('tblColumnType')}</div>
-                <Select value={(table.getColumn('userType')?.getFilterValue() as string | undefined) ?? ALL} onValueChange={v => table.getColumn('userType')?.setFilterValue(v === ALL ? undefined : v)}>
+                <div className="mb-1 text-xs font-medium text-muted-foreground">{t('tblColumnType')}</div>
+                <Select
+                  value={(table.getColumn('userType')?.getFilterValue() as string | undefined) ?? ALL}
+                  onValueChange={v => table.getColumn('userType')?.setFilterValue(v === ALL ? undefined : v)}
+                >
                   <SelectTrigger className={selectTriggerClass}>
                     <SelectValue />
                   </SelectTrigger>
@@ -411,7 +449,7 @@ export const UsersList = ({ columnData }: IUsersList) => {
               </div>
 
               <div>
-                <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('filterGender')}</div>
+                <div className="mb-1 text-xs font-medium text-muted-foreground">{t('filterGender')}</div>
                 <Select value={(table.getColumn('gender')?.getFilterValue() as string | undefined) ?? ALL} onValueChange={v => table.getColumn('gender')?.setFilterValue(v === ALL ? undefined : v)}>
                   <SelectTrigger className={selectTriggerClass}>
                     <SelectValue />
@@ -423,94 +461,146 @@ export const UsersList = ({ columnData }: IUsersList) => {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
 
-              <div>
-                <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('cbColumns')}</div>
-                <div className="flex flex-col gap-2.5" role="group" aria-label={t('cbColumns')}>
-                  {table
-                    .getAllColumns()
-                    .filter(column => column.getCanHide())
-                    .map(column => (
-                      <div key={column.id} className="flex items-center gap-2">
-                        <Checkbox id={`users-list-col-${column.id}`} checked={column.getIsVisible()} onCheckedChange={v => column.toggleVisibility(!!v)} />
-                        <label htmlFor={`users-list-col-${column.id}`} className="cursor-pointer text-sm font-medium leading-none text-zinc-800 dark:text-zinc-200">
-                          {getColumnNameById(column.id)}
-                        </label>
-                      </div>
-                    ))}
-                </div>
-              </div>
-
-              <div className="flex w-full min-w-0 flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
-                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm')} onClick={clearAdvancedFilters} disabled={!hasAdvancedFilterActive}>
-                  {tEvents('filterClearAll')}
-                </Button>
-                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
-                  {tEvents('filterApply')}
-                </Button>
+            <div>
+              <div className="mb-2 text-xs font-medium text-muted-foreground">{t('cbCardDetails')}</div>
+              <div className="flex flex-wrap gap-x-5 gap-y-2.5" role="group" aria-label={t('cbCardDetails')}>
+                {table
+                  .getAllColumns()
+                  .filter(column => column.getCanHide())
+                  .map(column => (
+                    <div key={column.id} className="flex items-center gap-2">
+                      <Checkbox id={`users-list-col-${column.id}`} checked={column.getIsVisible()} onCheckedChange={v => column.toggleVisibility(!!v)} />
+                      <label htmlFor={`users-list-col-${column.id}`} className="cursor-pointer text-sm font-medium leading-none text-foreground">
+                        {getColumnNameById(column.id)}
+                      </label>
+                    </div>
+                  ))}
               </div>
             </div>
-          )}
-        </div>
+
+            <div className="flex w-full min-w-0 items-center justify-between gap-2">
+              <Button type="button" variant="outline" className="h-9 min-w-0 rounded-xl px-3 text-sm" onClick={clearAdvancedFilters} disabled={!hasAdvancedFilterActive}>
+                {tEvents('filterClearAll')}
+              </Button>
+              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'h-9 min-w-0! px-4 text-sm')} onClick={() => setAdvancedOpen(false)}>
+                {tEvents('filterApply')}
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
 
-      {table.getRowModel().rows.length > 0 && (
-        <div className="min-h-0 min-w-0 max-w-full flex-1 overflow-x-auto scrollbar-none">
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map(headerGroup => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map(header => {
-                    return (
-                      <TableHead
-                        key={header.id}
-                        className={cn(header.column.id === 'user' && 'min-w-40', ['userType', 'location', 'socials', 'country'].includes(header.column.id) && 'w-[1%] whitespace-nowrap')}
-                      >
-                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                      </TableHead>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
+      <div className="-mt-1 px-1 text-xs text-muted-foreground" aria-live="polite">
+        {t('membersCount', { count: filteredCount })}
+      </div>
 
-            <TableBody>
-              {table.getRowModel().rows.map(row => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id} className="align-middle text-zinc-800">
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+      {/* member cards */}
+      {table.getRowModel().rows.length > 0 && (
+        <ul className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {table.getRowModel().rows.map(row => {
+            const info = row.original;
+            const name = `${info.user.firstName} ${info.user.lastName}`.trim();
+            const profileHref = `${routeUsers}/${info.user.username}`;
+            const country = (info.country || '').trim();
+            const hasCountry = country && country !== '--';
+            const socials = info.socials;
+            const hasExternalSocials = socials.insta || socials.tikTok || socials.youTube || socials.website;
+
+            return (
+              <li key={row.id} className="group relative flex min-w-0 flex-col gap-3 rounded-2xl border border-border bg-background p-4 shadow-xs transition-shadow hover:shadow-md">
+                <div className="flex min-w-0 items-center gap-3">
+                  <Link href={profileHref} className="shrink-0" tabIndex={-1} aria-hidden>
+                    <img src={info.user.imageUrl ? info.user.imageUrl : imgUserDefaultImg} className="h-12 w-12 rounded-full bg-muted object-cover ring-1 ring-border" alt="" />
+                  </Link>
+                  <div className="min-w-0 flex-1">
+                    <Link
+                      href={profileHref}
+                      className="block truncate text-base font-semibold capitalize text-foreground underline-offset-2 hover:text-brand-strong hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      {name}
+                    </Link>
+                    <div className="mt-1 flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                      {isVisible('userType') && info.userType && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <UserTypeIcon userType={info.userType} variant="tile" className="h-5 w-5 rounded-md" />
+                          {typeLabel(info.userType)}
+                        </span>
+                      )}
+                      {isVisible('country') && hasCountry && (
+                        <span className="inline-flex items-center gap-1.5" title={COUNTRIES_MAP[country.toUpperCase()]?.name || country}>
+                          <ReactCountryFlag countryCode={country} svg style={{ width: '1.1rem', height: '0.8rem', borderRadius: '2px' }} aria-hidden />
+                          {COUNTRIES_MAP[country.toUpperCase()]?.name || country.toUpperCase()}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {((isVisible('location') && info.location.city) || (isVisible('socials') && hasExternalSocials)) && (
+                  <div className="mt-auto flex min-w-0 items-center justify-between gap-2 border-t border-border/70 pt-3">
+                    {isVisible('location') && info.location.city ? (
+                      <Link
+                        href={info.location.mapLink}
+                        className="inline-flex min-w-0 items-center gap-1 rounded-lg px-1.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                        title={t('lnkShowOnMap')}
+                      >
+                        <IconMapPin className="h-4 w-4 shrink-0" stroke={1.75} aria-hidden />
+                        <span className="truncate">{info.location.city}</span>
+                      </Link>
+                    ) : (
+                      <span />
+                    )}
+                    {isVisible('socials') && hasExternalSocials && (
+                      <div className="inline-flex flex-nowrap items-center gap-1.5 [&_img]:h-6 [&_img]:w-6">
+                        {socials.insta && <SocialLink platform={SocialPlatform.INSTAGRAM} path={socials.insta} showPath={false} />}
+                        {socials.tikTok && <SocialLink platform={SocialPlatform.TIKTOK} path={socials.tikTok} showPath={false} />}
+                        {socials.youTube && <SocialLink platform={SocialPlatform.YOUTUBE} path={socials.youTube} showPath={false} />}
+                        {socials.website && <SocialLink platform={SocialPlatform.WEBSITE} path={socials.website} showPath={false} />}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
+      {table.getRowModel().rows?.length === 0 && (
+        <div className="flex flex-col items-center gap-2 rounded-2xl border border-dashed border-border bg-background/60 px-4 py-10 text-center text-muted-foreground">
+          <IconUsers className="h-8 w-8" stroke={1.5} aria-hidden />
+          {t('tblNoData')}
         </div>
       )}
 
-      {table.getRowModel().rows?.length === 0 && <div className="m-1 flex justify-center text-zinc-600">{t('tblNoData')}</div>}
-
-      {columnData.length > 0 && (
+      {table.getPageCount() > 1 && (
         <div className="mt-1 flex shrink-0 flex-wrap items-center gap-2">
-          <div className="mr-auto text-xs text-zinc-600 sm:text-sm">
+          <div className="mr-auto text-xs text-muted-foreground sm:text-sm">
             {`${t('navCurrentPage1')} ${table.getState().pagination.pageIndex + 1} ${t('navCurrentPage2')} ${Math.max(1, table.getPageCount())}`}
           </div>
 
           <div className="flex items-center gap-1">
-            <Button variant="outline" size="sm" className="hidden h-8 w-8 p-0 sm:inline-flex" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
+            <Button variant="outline" size="sm" className="hidden h-9 w-9 rounded-xl p-0 sm:inline-flex" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
               <span className="sr-only">{t('navFirst')}</span>
               <DoubleArrowLeftIcon className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="sm" className="h-8 w-8 p-0" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+            <Button variant="outline" size="sm" className="h-9 w-9 rounded-xl p-0" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
               <span className="sr-only">{t('navPrevious')}</span>
               <ChevronLeftIcon className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="sm" className="h-8 w-8 p-0" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+            <Button variant="outline" size="sm" className="h-9 w-9 rounded-xl p-0" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
               <span className="sr-only">{t('navNext')}</span>
               <ChevronRightIcon className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="sm" className="hidden h-8 w-8 p-0 sm:inline-flex" onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden h-9 w-9 rounded-xl p-0 sm:inline-flex"
+              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              disabled={!table.getCanNextPage()}
+            >
               <span className="sr-only">{t('navLast')}</span>
               <DoubleArrowRightIcon className="h-4 w-4" />
             </Button>

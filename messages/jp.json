@@ -1118,6 +1118,7 @@
   },
   "/users": {
     "pageTitle": "コミュニティ",
+    "pageDescription": "世界中のフリースタイラー、ジャッジ、主催者、ブランドを見つけよう。",
     "inputSearchPlaceholder": "名前を検索...",
     "tableSortByName": "氏名で並べ替え",
     "tableSortByCountry": "国で並べ替え",
@@ -1139,7 +1140,15 @@
     "navFirst": "最初のページ",
     "navPrevious": "前のページ",
     "navNext": "次のページ",
-    "navLast": "最後のページ"
+    "navLast": "最後のページ",
+    "sortLabel": "並べ替え",
+    "sortNameAsc": "名前 (A–Z)",
+    "sortNameDesc": "名前 (Z–A)",
+    "sortCountryAsc": "国 (A–Z)",
+    "sortCountryDesc": "国 (Z–A)",
+    "cbCardDetails": "カードに表示",
+    "membersCount": "{count, plural, =0 {メンバーが見つかりません} other {#人のメンバー}}",
+    "lnkShowOnMap": "地図で見る"
   },
   "/users/username": {
     "accordionItemSocials": "SNS",

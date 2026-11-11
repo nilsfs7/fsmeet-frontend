@@ -1093,6 +1093,7 @@
   },
   "/users": {
     "pageTitle": "Freestyle Szene",
+    "pageDescription": "Entdecke Freestyler, Judges, Veranstalter und Marken aus aller Welt.",
     "inputSearchPlaceholder": "Suche Name...",
     "tableSortByName": "Nach Name sortieren",
     "tableSortByCountry": "Nach Land sortieren",
@@ -1114,7 +1115,15 @@
     "navFirst": "Erste Seite",
     "navPrevious": "Vorherige Seite",
     "navNext": "Nächste Seite",
-    "navLast": "Letzte Seite"
+    "navLast": "Letzte Seite",
+    "sortLabel": "Sortieren",
+    "sortNameAsc": "Name (A–Z)",
+    "sortNameDesc": "Name (Z–A)",
+    "sortCountryAsc": "Land (A–Z)",
+    "sortCountryDesc": "Land (Z–A)",
+    "cbCardDetails": "Auf Karten anzeigen",
+    "membersCount": "{count, plural, =0 {Keine Mitglieder gefunden} one {# Mitglied} other {# Mitglieder}}",
+    "lnkShowOnMap": "Auf der Karte zeigen"
   },
   "/users/username": {
     "accordionItemSocials": "Socials",

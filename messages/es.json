@@ -1093,6 +1093,7 @@
   },
   "/users": {
     "pageTitle": "Escena del Freestyle",
+    "pageDescription": "Descubre freestylers, jueces, organizadores y marcas de todo el mundo.",
     "inputSearchPlaceholder": "Buscar nombre...",
     "tableSortByName": "Ordenar por nombre",
     "tableSortByCountry": "Ordenar por país",
@@ -1114,7 +1115,15 @@
     "navFirst": "Primera página",
     "navPrevious": "Página anterior",
     "navNext": "Página siguiente",
-    "navLast": "Última página"
+    "navLast": "Última página",
+    "sortLabel": "Ordenar",
+    "sortNameAsc": "Nombre (A–Z)",
+    "sortNameDesc": "Nombre (Z–A)",
+    "sortCountryAsc": "País (A–Z)",
+    "sortCountryDesc": "País (Z–A)",
+    "cbCardDetails": "Mostrar en tarjetas",
+    "membersCount": "{count, plural, =0 {No se encontraron miembros} one {# miembro} other {# miembros}}",
+    "lnkShowOnMap": "Ver en el mapa"
   },
   "/users/username": {
     "accordionItemSocials": "Redes sociales",
