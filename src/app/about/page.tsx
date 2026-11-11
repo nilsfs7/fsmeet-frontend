@@ -72,7 +72,7 @@ export default async function About() {
             </a>
           </p>
 
-          <nav className="not-prose mt-8 flex flex-col gap-2 border-t border-border pt-6" aria-label="Legal">
+          <nav className="not-prose mt-8 flex flex-col gap-2 border-t border-border pt-6" aria-label={t('ariaLegal')}>
             <Link href={routeContributors} className="font-medium text-primary underline underline-offset-4">
               {t('lnkContributors')}
             </Link>

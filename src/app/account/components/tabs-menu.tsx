@@ -409,7 +409,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       user.stripeAccountId = id;
       setUserInfo(user);
 
-      toast.success('Stripe account generated.');
+      toast.success(t('toastStripeAccount'));
     } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
@@ -493,7 +493,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     if (userInfo.instagramHandle) {
       try {
         await updateUserVerificationState(session, session?.user?.username || '', UserVerificationState.VERIFICATION_PENDING);
-        toast.success('Requesting verification successful.');
+        toast.success(t('toastVerificationRequested'));
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);

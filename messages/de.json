@@ -26,7 +26,8 @@
     "lnkImprint": "Impressum",
     "lnkTermsOfService": "Nutzungsbedingungen",
     "lnkPrivacyPolicy": "Datenschutzerklärung",
-    "build": "Version"
+    "build": "Version",
+    "ariaLegal": "Rechtliches"
   },
   "/about/contributors": {
     "pageTitle": "Mitwirkende",
@@ -160,7 +161,11 @@
     "dlgJobsTermsBaseToSNote": "Diese Zusatzvereinbarung ergänzt die <tos>FSMeet-Nutzungsbedingungen</tos> und gilt nur für das optionale Jobs-Feature.",
     "dlgJobsTermsLiabilityTitle": "Verantwortung",
     "dlgJobsTermsLiabilityText1": "FSMeet tritt ausschließlich als Vermittler auf und stellt die technische Plattform bereit. FSMeet ist nicht Vertragspartei zwischen Artist und Kunde. Die Durchführung des Jobs sowie die Zahlung liegen in der Verantwortung des Artisten bzw. des Kunden. FSMeet übernimmt keine Garantie für Anfragen, Abschlüsse oder Zahlungen.",
-    "toastJobTermsUpdated": "Die Jobs-Zusatzvereinbarung wurde aktualisiert. Bitte lies sie und akzeptiere sie erneut."
+    "toastJobTermsUpdated": "Die Jobs-Zusatzvereinbarung wurde aktualisiert. Bitte lies sie und akzeptiere sie erneut.",
+    "toastProfileUpdated": "Profil aktualisiert.",
+    "toastProfileLoadFailed": "Nutzerdaten konnten nicht aus dem Sitzungsspeicher geladen werden.",
+    "toastStripeAccount": "Stripe-Konto erstellt.",
+    "toastVerificationRequested": "Verifizierung angefragt."
   },
   "/account/deleted": {
     "textGoodbye": "Mach's gut!",
@@ -234,7 +239,8 @@
     "pageTitle": "Event bearbeiten",
     "dlgEventDeletionTitle": "Event löschen",
     "dlgEventDeletionText": "Möchtest du das Event wirklich löschen?",
-    "btnSave": "Speichern"
+    "btnSave": "Speichern",
+    "toastFileTooBig": "Datei zu groß für den Browser-Speicher."
   },
   "/events/eventid": {
     "dlgEventStateTitle": "Event Sichtbarkeit",
@@ -376,7 +382,49 @@
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena-Screen",
-    "pageDescription": "Wähle einen Wettbewerb für die Live-Vorschau. Die Arena-Anzeige aktualisiert sich bei der Auswahl."
+    "pageDescription": "Wähle einen Wettbewerb für die Live-Vorschau. Die Arena-Anzeige aktualisiert sich bei der Auswahl.",
+    "btnOpen": "Arena-Bildschirm öffnen",
+    "noCompetitions": "Keine Wettbewerbe für dieses Event.",
+    "labelCompetition": "Wettbewerb",
+    "placeholderCompetition": "Wettbewerb wählen",
+    "loadingBattles": "Battles werden geladen …",
+    "errorLoadBattles": "Battles für diesen Wettbewerb konnten nicht geladen werden.",
+    "labelBattle": "Battle",
+    "errorSignInMatch": "Melde dich an, um das Arena-Battle festzulegen.",
+    "errorUpdate": "Arena-Bildschirm konnte nicht aktualisiert werden.",
+    "saving": "Speichern …",
+    "placeholderBattle": "Battle wählen",
+    "noBattles": "In diesem Wettbewerb gibt es noch kein Battle mit einer Match-ID.",
+    "errorLoadSettings": "Arena-Einstellungen konnten nicht geladen werden.",
+    "errorSignInSave": "Melde dich an, um die Arena-Einstellungen zu speichern.",
+    "toastSaved": "Arena-Einstellungen gespeichert.",
+    "errorSave": "Einstellungen konnten nicht gespeichert werden.",
+    "errorSignInUpload": "Melde dich an, um ein Hintergrundbild hochzuladen.",
+    "toastBackground": "Hintergrundbild aktualisiert.",
+    "errorUpload": "Upload fehlgeschlagen.",
+    "settingsTitle": "Anzeige",
+    "settingsLoading": "Laden …",
+    "settingsSummaryOpen": "Hintergrundbild, Abdunkelung und Anzeigeoptionen.",
+    "settingsSummaryClosed": "Hintergrund, Abdunkelung, Beschriftung, Flaggen — zum Bearbeiten klicken.",
+    "loadingSettings": "Einstellungen werden geladen …",
+    "backgroundImage": "Hintergrundbild",
+    "backgroundPreview": "Aktuelle Hintergrundvorschau",
+    "noImage": "Kein Bild gesetzt (in der Vorschau einfarbiger Hintergrund).",
+    "uploading": "Hochladen …",
+    "chooseImage": "Bild wählen …",
+    "overlay": "Abdunkelung ({percent} %)",
+    "showPositions": "Positionsnummern anzeigen",
+    "reversePositions": "Positionsnummern umkehren",
+    "showFlags": "Länderflaggen anzeigen",
+    "showLastName": "Nachnamen anzeigen",
+    "saveSettings": "Anzeige speichern",
+    "signInSettings": "Melde dich an, um die Arena-Einstellungen zu ändern.",
+    "loadingArena": "Arena wird geladen …",
+    "errorLoadArenaTitle": "Arena konnte nicht geladen werden",
+    "errorLoadArena": "Arena-Bildschirm konnte nicht geladen werden",
+    "styleUnavailable": "Arena-Stil nicht verfügbar",
+    "openSlot": "Offener Slot",
+    "noCountry": "Kein Land"
   },
   "/events/eventid/pro": {
     "pageTitle": "Event-Lizenz",
@@ -440,7 +488,10 @@
     "dlgDownloadResultsTitle": "Ergebnisse runterladen",
     "dlgDownloadResultsText": "Export für WFFA World Rankings erstellen.",
     "dlgDownloadResultsCbAddPlayerNames": "Namen hinzufügen",
-    "dlgDownloadResultsBtnDownload": "Runterladen"
+    "dlgDownloadResultsBtnDownload": "Runterladen",
+    "toastMatchesInconsistent": "Die Battles scheinen uneinheitliche Daten zu haben.",
+    "toastResultsProcessed": "Battle-Ergebnisse verarbeitet.",
+    "toastExportInconsistent": "Der Export der Battle-Ergebnisse ist uneinheitlich."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Teilnehmer-Pool verwalten",
@@ -534,17 +585,24 @@
     "textNoSufficientPool": "Du musst mindestens zwei Teilnehmer zum Pool hinzufügen.",
     "btnSave": "Save",
     "btnUpdate": "Update",
-    "btnDelete": "Save"
+    "btnDelete": "Save",
+    "toastRoundsCreated": "Runden erfolgreich erstellt",
+    "toastRoundsUpdated": "Runden erfolgreich aktualisiert",
+    "toastRoundDeleted": "Runde erfolgreich gelöscht",
+    "defaultRoundName": "Runde {index}",
+    "defaultMatchName": "Battle {index}"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Zuweisung & Ergebnisse",
-    "textNoGameMode": "Du hast noch keinen Turniermodus erstellt."
+    "textNoGameMode": "Du hast noch keinen Turniermodus erstellt.",
+    "toastSlotUpdated": "Slot aktualisiert"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Wettbewerb anpassen",
     "btnSave": "Speichern",
     "dlgDeleteCompetitionTitle": "Wettbewerb löschen",
-    "dlgDeleteCompetitionText": "Möchtest du diesen Wettbewerb wirklich löschen?"
+    "dlgDeleteCompetitionText": "Möchtest du diesen Wettbewerb wirklich löschen?",
+    "toastUpdated": "Wettbewerb erfolgreich aktualisiert"
   },
   "/events/eventid/comps/create": {
     "pageTitle": "Wettbewerb erstellen",
@@ -613,7 +671,9 @@
     "tableSortByType": "Nach Typ sortieren",
     "tableSortByStatus": "Nach Status sortieren",
     "textNoFilterMatch": "Keine Treffer für die gewählten Filter.",
-    "alertPendingRegistrations": "{count, plural, =1 {Es gibt eine ausstehende Anmeldung, die geprüft werden muss.} other {Es gibt # ausstehende Anmeldungen, die geprüft werden müssen.}}"
+    "alertPendingRegistrations": "{count, plural, =1 {Es gibt eine ausstehende Anmeldung, die geprüft werden muss.} other {Es gibt # ausstehende Anmeldungen, die geprüft werden müssen.}}",
+    "toastRemoved": "{name} entfernt",
+    "toastStatusUpdated": "Status für {name} aktualisiert"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Registrierungsübersicht",
@@ -815,7 +875,15 @@
     "btnSave": "Speichern"
   },
   "/events/eventid/stats": {
-    "pageTitle": "Statistiken"
+    "pageTitle": "Statistiken",
+    "chartAttendees": "Anzahl der Teilnehmer",
+    "labelParticipants": "Teilnehmer",
+    "labelVisitors": "Besucher",
+    "chartGender": "Teilnehmer nach Geschlecht",
+    "labelMale": "Männlich",
+    "labelFemale": "Weiblich",
+    "chartCountry": "Teilnehmer nach Land",
+    "chartAge": "Teilnehmer nach Alter"
   },
   "/events/create": {
     "pageTitleEventCreationFlow": "Eventerstellung",
@@ -922,7 +990,8 @@
   },
   "/password/reset": {
     "inputPassword": "Neues Passwort",
-    "btnSave": "Speichern"
+    "btnSave": "Speichern",
+    "errorMissingResetLink": "Dieser Link ist ungültig oder unvollständig. Öffne den Link aus der E-Mail zum Zurücksetzen."
   },
   "/registration": {
     "headlineCreateAccount": "Konto anlegen",
@@ -965,7 +1034,11 @@
     "tblNoData": "Keine Daten",
     "navCurrentPage1": "Seite",
     "navCurrentPage2": "von",
-    "navRowsPerPage": "Zeilen pro Seite"
+    "navRowsPerPage": "Zeilen pro Seite",
+    "navFirst": "Erste Seite",
+    "navPrevious": "Vorherige Seite",
+    "navNext": "Nächste Seite",
+    "navLast": "Letzte Seite"
   },
   "/users/username": {
     "accordionItemSocials": "Socials",
@@ -979,7 +1052,8 @@
     "accordionItemCompetitionHistoryNoParticipations": "Noch keine Wettkämpfe vorhanden.",
     "btnBookViaFreestyleActs": "Über FreestyleActs buchen",
     "competitionHistoryShowAll": "Alle anzeigen ({count})",
-    "competitionHistoryShowLess": "Weniger anzeigen"
+    "competitionHistoryShowLess": "Weniger anzeigen",
+    "toastUserDeleted": "Nutzer gelöscht."
   },
   "global/data-states": {
     "errorTitle": "Etwas ist schiefgelaufen",
@@ -1028,7 +1102,9 @@
     "hintRegistrationPeriodEnded": "Die Registrierungsperiode für Teilnehmer ist beendet."
   },
   "global/components/battle-grid": {
-    "btnAddMatch": "Match hinzufügen"
+    "btnAddMatch": "Match hinzufügen",
+    "labelAssignSlot": "Slot zuweisen",
+    "labelUnassigned": "nicht zugewiesen"
   },
   "global/components/competition-editor": {
     "inputName": "Wettbewerb Name",
@@ -1119,7 +1195,9 @@
     "chbAllowCommentsAndQuestions": "Kommentarfunktion einschalten",
     "chbNotifyOnComment": "Bei neuem Kommentar benachrichtigen",
     "inputWaiver": "Verzichtserklärung",
-    "chbVisaInvitationRequestsEnabled": "Visa-Einladungen anbieten"
+    "chbVisaInvitationRequestsEnabled": "Visa-Einladungen anbieten",
+    "toastPosterDeleted": "Poster gelöscht",
+    "placeholderWaiver": "Mit der Teilnahme an diesem Event bestätige ich ..."
   },
   "global/components/loading-spinner": {
     "textLoading": "Lädt..."
@@ -1160,5 +1238,132 @@
     "inputName": "Sponsor Name",
     "inputWebsite": "Website",
     "chbIsPublic": "Veröffentlichen?"
+  },
+  "/wffa": {
+    "pageTitle": "Admin-Übersicht (WFFA)",
+    "linkIds": "Freestyler-IDs",
+    "linkStatistics": "App-Statistik",
+    "linkVisa": "Visa-Anträge"
+  },
+  "/wffa/ids": {
+    "pageTitle": "Freestyler-IDs verwalten",
+    "noEntries": "Keine Einträge",
+    "colUser": "Nutzer",
+    "colId": "Freestyler-ID",
+    "colActions": "Aktionen",
+    "sortUserAsc": "Nutzer aufsteigend sortieren",
+    "sortUserDesc": "Nutzer absteigend sortieren",
+    "sortByUser": "Nach Nutzer sortieren",
+    "sortIdAsc": "ID aufsteigend sortieren",
+    "sortIdDesc": "ID absteigend sortieren",
+    "sortById": "Nach Freestyler-ID sortieren",
+    "filterName": "Name",
+    "search": "Suchen …",
+    "filterCountry": "Land",
+    "filterGender": "Geschlecht",
+    "allCountries": "Alle Länder",
+    "allGenders": "Alle",
+    "withoutId": "Ohne Freestyler-ID",
+    "withId": "Mit Freestyler-ID",
+    "toastReloadFailed": "Nutzer konnten nicht neu geladen werden.",
+    "toastUpdated": "Freestyler-ID für {username} ({firstName}) aktualisiert."
+  },
+  "/wffa/visa": {
+    "pageTitle": "Visa-Anträge verwalten",
+    "pending": "Offen",
+    "approved": "Genehmigt",
+    "denied": "Abgelehnt",
+    "noEntries": "Keine Einträge",
+    "applicant": "Antragsteller",
+    "country": "Land",
+    "countryCode": "Ländercode",
+    "passport": "Reisepass",
+    "passportNumber": "Reisepassnummer",
+    "requested": "Beantragt",
+    "requestDate": "Antragsdatum",
+    "approver": "Genehmiger",
+    "actions": "Aktionen",
+    "document": "Dokument",
+    "toastLoadFailed": "Visa-Anträge konnten nicht geladen werden.",
+    "toastApproved": "Visa-Antrag für {name} genehmigt.",
+    "toastDenied": "Visa-Antrag für {name} abgelehnt."
+  },
+  "/stats": {
+    "pageTitle": "Statistik",
+    "userCount": "Nutzerzahlen",
+    "freestylers": "Freestyler:",
+    "associations": "Verbände:",
+    "brands": "Marken:",
+    "djs": "DJs:",
+    "organizers": "Veranstalter:",
+    "mcs": "MCs:",
+    "media": "Medien:",
+    "fans": "Fans / Familie / Unterstützer:",
+    "totalUserCount": "Nutzer insgesamt",
+    "totalUsers": "Nutzer insgesamt:",
+    "realUsers": "Echte Nutzer:",
+    "adminUsers": "Administrative Nutzer:",
+    "mobileUsers": "Mobile Nutzer:",
+    "mobileHint": "Mobile Nutzer können mehrere Geräte haben",
+    "mapShare": "Anteil auf der Freestyler-Karte",
+    "usersOnMap": "Nutzer auf der Karte:",
+    "nationalityShare": "Anteil nach Nationalität",
+    "growthTitle": "Nutzerwachstum",
+    "growthDesc": "Kumulierte Nutzerzahl",
+    "growthFreestylerTitle": "Nutzerwachstum (Freestyler)",
+    "growthFreestylerDesc": "Kumulierte Nutzerzahl (Freestyler)",
+    "eventsCreated": "Erstellte Events",
+    "eventsCreatedDesc": "Kumulierte Event-Zahl",
+    "compsCreated": "Erstellte Wettbewerbe",
+    "compsCreatedDesc": "Kumulierte Wettbewerbszahl",
+    "onlineCreated": "Erstellte Online-Wettbewerbe",
+    "onlineCreatedDesc": "Kumulierte Online-Wettbewerbszahl",
+    "meetingsCreated": "Erstellte Treffen",
+    "meetingsCreatedDesc": "Kumulierte Treffen-Zahl",
+    "labelTotal": "Gesamt",
+    "labelMale": "Männlich",
+    "labelFemale": "Weiblich",
+    "labelMaleFreestylers": "Männliche Freestyler",
+    "labelFemaleFreestylers": "Weibliche Freestyler",
+    "labelCompetitions": "Wettbewerbe",
+    "labelOnline": "Online-Wettbewerbe",
+    "labelMeetings": "Treffen"
+  },
+  "/terms": {
+    "pageTitle": "Nutzungsbedingungen (FSMeet)"
+  },
+  "global/ui": {
+    "close": "Schließen",
+    "loading": "Laden",
+    "language": "Sprache",
+    "search": "Suchen ...",
+    "select": "Auswählen",
+    "noData": "Keine Daten gefunden.",
+    "appNav": "App"
+  },
+  "/account/payments": {
+    "pageTitle": "Zahlungen verwalten",
+    "dlgInitiateRefundTitle": "Erstattung starten",
+    "dlgInitiateRefundText1": "Möchtest du diese Zahlung vollständig erstatten? Das kann nicht rückgängig gemacht werden.",
+    "dlgInitiateRefundText2": "Zum Schutz der Konten kannst du nur eine Erstattung pro Tag starten.",
+    "inputSearchPlaceholder": "Nutzername suchen...",
+    "cbColumns": "Spalten",
+    "tblColumnUsername": "Nutzername",
+    "tblColumnAmount": "Betrag",
+    "tblColumnDate": "Datum",
+    "tblColumnActionsCopyPaymentId": "Zahlungs-ID kopieren",
+    "tblColumnActionsViewPaymentDetails": "Zahlungsdetails ansehen (kommt bald)",
+    "tblColumnActionsRefundPayment": "Erstattung starten",
+    "tblNoData": "Keine Daten",
+    "navCurrentPage1": "Seite",
+    "navCurrentPage2": "von",
+    "navRowsPerPage": "Zeilen pro Seite",
+    "toastRefundInitiated": "Erstattung gestartet.",
+    "toastMissingIntent": "Intent-ID fehlt in der URL.",
+    "navFirst": "Zur ersten Seite",
+    "navPrevious": "Zur vorherigen Seite",
+    "navNext": "Zur nächsten Seite",
+    "navLast": "Zur letzten Seite",
+    "openMenu": "Menü öffnen"
   }
 }

@@ -26,7 +26,8 @@
     "lnkImprint": "بيانات النشر",
     "lnkTermsOfService": "شروط الخدمة",
     "lnkPrivacyPolicy": "سياسة الخصوصية",
-    "build": "الإصدار"
+    "build": "الإصدار",
+    "ariaLegal": "قانوني"
   },
   "/about/contributors": {
     "pageTitle": "المساهمون",
@@ -160,7 +161,11 @@
     "dlgJobsTermsBaseToSNote": "This addendum supplements the <tos>FSMeet Terms of Service</tos> and applies only to the optional Jobs feature.",
     "dlgJobsTermsLiabilityTitle": "Responsibility",
     "dlgJobsTermsLiabilityText1": "FSMeet acts solely as an intermediary and provides the technical platform. FSMeet is not a party to contracts between artist and client. Performance of the job and payment are the responsibility of the artist and/or the client. FSMeet does not guarantee requests, deals or payments.",
-    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again."
+    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again.",
+    "toastProfileUpdated": "تم تحديث الملف الشخصي.",
+    "toastProfileLoadFailed": "تعذر تحميل بيانات المستخدم من تخزين الجلسة.",
+    "toastStripeAccount": "تم إنشاء حساب Stripe.",
+    "toastVerificationRequested": "تم طلب التحقق."
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",
@@ -188,7 +193,14 @@
     "tblNoData": "لا توجد بيانات",
     "navCurrentPage1": "صفحة",
     "navCurrentPage2": "من",
-    "navRowsPerPage": "عدد الصفوف لكل صفحة"
+    "navRowsPerPage": "عدد الصفوف لكل صفحة",
+    "toastRefundInitiated": "تم بدء الاسترداد.",
+    "toastMissingIntent": "معرّف النية غير موجود في الرابط.",
+    "navFirst": "الانتقال إلى الصفحة الأولى",
+    "navPrevious": "الانتقال إلى الصفحة السابقة",
+    "navNext": "الانتقال إلى الصفحة التالية",
+    "navLast": "الانتقال إلى الصفحة الأخيرة",
+    "openMenu": "فتح القائمة"
   },
   "/donate": {
     "pageTitle": "تبرع",
@@ -252,7 +264,8 @@
     "pageTitle": "تعديل الفعالية",
     "dlgEventDeletionTitle": "حذف الفعالية",
     "dlgEventDeletionText": "هل تريد حقاً حذف هذه الفعالية؟",
-    "btnSave": "حفظ"
+    "btnSave": "حفظ",
+    "toastFileTooBig": "الملف أكبر من أن يُحفظ في المتصفح."
   },
   "/events/eventid": {
     "dlgEventStateTitle": "ظهور الفعالية",
@@ -394,7 +407,49 @@
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "شاشة الساحة",
-    "pageDescription": "اختر مباراة للمعاينة المباشرة. تُحدَّث شاشة الملعب عند الاختيار."
+    "pageDescription": "اختر مباراة للمعاينة المباشرة. تُحدَّث شاشة الملعب عند الاختيار.",
+    "btnOpen": "فتح شاشة الساحة",
+    "noCompetitions": "لا توجد مسابقات لهذه الفعالية.",
+    "labelCompetition": "مسابقة",
+    "placeholderCompetition": "اختر مسابقة",
+    "loadingBattles": "جارٍ تحميل المباريات…",
+    "errorLoadBattles": "تعذر تحميل مباريات هذه المسابقة.",
+    "labelBattle": "مباراة",
+    "errorSignInMatch": "سجّل الدخول لتحديد مباراة الساحة.",
+    "errorUpdate": "تعذر تحديث شاشة الساحة.",
+    "saving": "جارٍ الحفظ…",
+    "placeholderBattle": "اختر مباراة",
+    "noBattles": "لا توجد مباريات بمعرّف في هذه المسابقة بعد.",
+    "errorLoadSettings": "تعذر تحميل إعدادات شاشة الساحة.",
+    "errorSignInSave": "سجّل الدخول لحفظ إعدادات الشاشة.",
+    "toastSaved": "تم حفظ إعدادات شاشة الساحة.",
+    "errorSave": "تعذر حفظ الإعدادات.",
+    "errorSignInUpload": "سجّل الدخول لرفع صورة الخلفية.",
+    "toastBackground": "تم تحديث صورة الخلفية.",
+    "errorUpload": "فشل الرفع.",
+    "settingsTitle": "إعدادات العرض",
+    "settingsLoading": "جارٍ التحميل…",
+    "settingsSummaryOpen": "صورة الخلفية والتعتيم وخيارات الشاشة.",
+    "settingsSummaryClosed": "الخلفية والتعتيم والتسميات والأعلام — انقر للتعديل.",
+    "loadingSettings": "جارٍ تحميل الإعدادات…",
+    "backgroundImage": "صورة الخلفية",
+    "backgroundPreview": "معاينة الخلفية الحالية",
+    "noImage": "لا توجد صورة (خلفية مصمتة في المعاينة).",
+    "uploading": "جارٍ الرفع…",
+    "chooseImage": "اختر صورة…",
+    "overlay": "درجة التعتيم ({percent}%)",
+    "showPositions": "إظهار أرقام المراكز",
+    "reversePositions": "عكس ترقيم المراكز",
+    "showFlags": "إظهار أعلام الدول",
+    "showLastName": "إظهار أسماء العائلة",
+    "saveSettings": "حفظ إعدادات العرض",
+    "signInSettings": "سجّل الدخول لتغيير إعدادات الساحة.",
+    "loadingArena": "جارٍ تحميل الساحة…",
+    "errorLoadArenaTitle": "تعذر تحميل الساحة",
+    "errorLoadArena": "تعذر تحميل شاشة الساحة",
+    "styleUnavailable": "نمط الساحة غير متاح",
+    "openSlot": "خانة فارغة",
+    "noCountry": "لا بلد"
   },
   "/events/eventid/pro": {
     "pageTitle": "ترخيص الفعالية",
@@ -458,7 +513,10 @@
     "dlgDownloadResultsTitle": "تحميل النتائج",
     "dlgDownloadResultsText": "تصدير نتائج المنافسة للتصنيفات العالمية.",
     "dlgDownloadResultsCbAddPlayerNames": "إضافة أسماء اللاعبين",
-    "dlgDownloadResultsBtnDownload": "تحميل"
+    "dlgDownloadResultsBtnDownload": "تحميل",
+    "toastMatchesInconsistent": "يبدو أن بيانات المباريات غير متسقة.",
+    "toastResultsProcessed": "تمت معالجة نتائج المباريات.",
+    "toastExportInconsistent": "تصدير النتائج غير متسق."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "إدارة قائمة اللاعبين",
@@ -552,17 +610,24 @@
     "textNoSufficientPool": "أضف لاعبين على الأقل إلى قائمة المنافسة قبل إنشاء نمط لعب.",
     "btnSave": "حفظ",
     "btnUpdate": "تحديث",
-    "btnDelete": "حفظ"
+    "btnDelete": "حفظ",
+    "toastRoundsCreated": "تم إنشاء الجولات",
+    "toastRoundsUpdated": "تم تحديث الجولات",
+    "toastRoundDeleted": "تم حذف الجولة",
+    "defaultRoundName": "جولة {index}",
+    "defaultMatchName": "مباراة {index}"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "التصنيف والنتائج",
-    "textNoGameMode": "لم تقم بإعداد نمط اللعب بعد."
+    "textNoGameMode": "لم تقم بإعداد نمط اللعب بعد.",
+    "toastSlotUpdated": "تم تحديث الخانة"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "تعديل المنافسة",
     "btnSave": "حفظ",
     "dlgDeleteCompetitionTitle": "حذف المنافسة",
-    "dlgDeleteCompetitionText": "هل تريد حقاً حذف هذه المنافسة؟"
+    "dlgDeleteCompetitionText": "هل تريد حقاً حذف هذه المنافسة؟",
+    "toastUpdated": "تم تحديث المسابقة"
   },
   "/events/eventid/comps/create": {
     "pageTitle": "إنشاء منافسة",
@@ -631,7 +696,9 @@
     "tableSortByType": "ترتيب حسب النوع",
     "tableSortByStatus": "ترتيب حسب الحالة",
     "textNoFilterMatch": "لا يوجد حضور يطابق عوامل التصفية.",
-    "alertPendingRegistrations": "توجد {count} تسجيلات بانتظار موافقتك."
+    "alertPendingRegistrations": "توجد {count} تسجيلات بانتظار موافقتك.",
+    "toastRemoved": "تمت إزالة {name}",
+    "toastStatusUpdated": "تم تحديث حالة {name}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "نظرة عامة على تسجيل الفعالية",
@@ -833,7 +900,15 @@
     "btnSave": "حفظ"
   },
   "/events/eventid/stats": {
-    "pageTitle": "الإحصائيات"
+    "pageTitle": "الإحصائيات",
+    "chartAttendees": "عدد الحضور",
+    "labelParticipants": "مشاركون",
+    "labelVisitors": "زوار",
+    "chartGender": "المشاركون حسب الجنس",
+    "labelMale": "ذكر",
+    "labelFemale": "أنثى",
+    "chartCountry": "المشاركون حسب البلد",
+    "chartAge": "المشاركون حسب العمر"
   },
   "/events/create": {
     "pageTitleEventCreationFlow": "إنشاء فعالية",
@@ -940,7 +1015,8 @@
   },
   "/password/reset": {
     "inputPassword": "كلمة مرور جديدة",
-    "btnSave": "حفظ"
+    "btnSave": "حفظ",
+    "errorMissingResetLink": "رابط إعادة التعيين غير صالح أو غير مكتمل. افتح الرابط من رسالة إعادة تعيين كلمة المرور."
   },
   "/registration": {
     "headlineCreateAccount": "أنشئ حسابًا",
@@ -983,7 +1059,11 @@
     "tblNoData": "لا توجد بيانات",
     "navCurrentPage1": "صفحة",
     "navCurrentPage2": "من",
-    "navRowsPerPage": "عدد الصفوف لكل صفحة"
+    "navRowsPerPage": "عدد الصفوف لكل صفحة",
+    "navFirst": "الصفحة الأولى",
+    "navPrevious": "الصفحة السابقة",
+    "navNext": "الصفحة التالية",
+    "navLast": "الصفحة الأخيرة"
   },
   "/users/username": {
     "accordionItemSocials": "الحسابات",
@@ -997,7 +1077,8 @@
     "accordionItemCompetitionHistoryNoParticipations": "لا توجد مشاركات بعد.",
     "btnBookViaFreestyleActs": "احجز عبر FreestyleActs",
     "competitionHistoryShowAll": "عرض الكل ({count})",
-    "competitionHistoryShowLess": "عرض أقل"
+    "competitionHistoryShowLess": "عرض أقل",
+    "toastUserDeleted": "تم حذف المستخدم."
   },
   "global/data-states": {
     "errorTitle": "حدث خطأ",
@@ -1046,7 +1127,9 @@
     "hintRegistrationPeriodEnded": "انتهت فترة التسجيل للمشاركين."
   },
   "global/components/battle-grid": {
-    "btnAddMatch": "إضافة مباراة"
+    "btnAddMatch": "إضافة مباراة",
+    "labelAssignSlot": "تعيين خانة",
+    "labelUnassigned": "غير معيّن"
   },
   "global/components/competition-editor": {
     "inputName": "اسم المنافسة",
@@ -1137,7 +1220,9 @@
     "chbAllowCommentsAndQuestions": "السماح بالتعليقات",
     "chbNotifyOnComment": "إشعار عند تعليق",
     "inputWaiver": "إقرار",
-    "chbVisaInvitationRequestsEnabled": "تقديم دعوات التأشيرة"
+    "chbVisaInvitationRequestsEnabled": "تقديم دعوات التأشيرة",
+    "toastPosterDeleted": "تم حذف الملصق",
+    "placeholderWaiver": "بمشاركتي في هذه الفعالية، أقر ..."
   },
   "global/components/loading-spinner": {
     "textLoading": "جارٍ التحميل..."
@@ -1178,5 +1263,107 @@
     "inputName": "اسم الراعي",
     "inputWebsite": "الموقع الإلكتروني",
     "chbIsPublic": "إظهار للعامة؟"
+  },
+  "/wffa": {
+    "pageTitle": "نظرة المسؤول (WFFA)",
+    "linkIds": "معرّفات الفريستايل",
+    "linkStatistics": "إحصاءات التطبيق",
+    "linkVisa": "طلبات التأشيرة"
+  },
+  "/wffa/ids": {
+    "pageTitle": "إدارة معرّفات الفريستايل",
+    "noEntries": "لا توجد إدخالات",
+    "colUser": "المستخدم",
+    "colId": "معرّف الفريستايل",
+    "colActions": "إجراءات",
+    "sortUserAsc": "ترتيب المستخدم تصاعدياً",
+    "sortUserDesc": "ترتيب المستخدم تنازلياً",
+    "sortByUser": "ترتيب حسب المستخدم",
+    "sortIdAsc": "ترتيب المعرّف تصاعدياً",
+    "sortIdDesc": "ترتيب المعرّف تنازلياً",
+    "sortById": "ترتيب حسب معرّف الفريستايل",
+    "filterName": "الاسم",
+    "search": "بحث…",
+    "filterCountry": "البلد",
+    "filterGender": "الجنس",
+    "allCountries": "كل الدول",
+    "allGenders": "الكل",
+    "withoutId": "بدون معرّف فريستايل",
+    "withId": "مع معرّف فريستايل",
+    "toastReloadFailed": "تعذر إعادة تحميل المستخدمين.",
+    "toastUpdated": "تم تحديث معرّف الفريستايل لـ {username} ({firstName})."
+  },
+  "/wffa/visa": {
+    "pageTitle": "إدارة طلبات التأشيرة",
+    "pending": "قيد الانتظار",
+    "approved": "موافق عليه",
+    "denied": "مرفوض",
+    "noEntries": "لا توجد إدخالات",
+    "applicant": "مقدّم الطلب",
+    "country": "البلد",
+    "countryCode": "رمز البلد",
+    "passport": "جواز السفر",
+    "passportNumber": "رقم جواز السفر",
+    "requested": "تاريخ الطلب",
+    "requestDate": "تاريخ الطلب",
+    "approver": "المعتمد",
+    "actions": "إجراءات",
+    "document": "مستند",
+    "toastLoadFailed": "تعذر تحميل طلبات التأشيرة.",
+    "toastApproved": "تمت الموافقة على طلب التأشيرة لـ {name}.",
+    "toastDenied": "تم رفض طلب التأشيرة لـ {name}."
+  },
+  "/stats": {
+    "pageTitle": "إحصاءات",
+    "userCount": "عدد المستخدمين",
+    "freestylers": "فريستايلر:",
+    "associations": "الاتحادات:",
+    "brands": "العلامات:",
+    "djs": "المنسقون:",
+    "organizers": "منظمو الفعاليات:",
+    "mcs": "مقدّمو الحفل:",
+    "media": "الإعلام:",
+    "fans": "المعجبون / العائلة / الداعمون:",
+    "totalUserCount": "إجمالي المستخدمين",
+    "totalUsers": "إجمالي المستخدمين:",
+    "realUsers": "مستخدمون حقيقيون:",
+    "adminUsers": "مستخدمون إداريون:",
+    "mobileUsers": "مستخدمو الجوال:",
+    "mobileHint": "يمكن لمستخدمي الجوال امتلاك عدة أجهزة",
+    "mapShare": "حصة المستخدمين على خريطة الفريستايل",
+    "usersOnMap": "مستخدمون على الخريطة:",
+    "nationalityShare": "الحصة حسب الجنسية",
+    "growthTitle": "نمو المستخدمين",
+    "growthDesc": "العدد التراكمي للمستخدمين",
+    "growthFreestylerTitle": "نمو المستخدمين (فريستايل)",
+    "growthFreestylerDesc": "العدد التراكمي (فريستايل)",
+    "eventsCreated": "الفعاليات المنشأة",
+    "eventsCreatedDesc": "العدد التراكمي للفعاليات",
+    "compsCreated": "المسابقات المنشأة",
+    "compsCreatedDesc": "العدد التراكمي للمسابقات",
+    "onlineCreated": "المسابقات المنشأة عبر الإنترنت",
+    "onlineCreatedDesc": "العدد التراكمي للمسابقات عبر الإنترنت",
+    "meetingsCreated": "اللقاءات المنشأة",
+    "meetingsCreatedDesc": "العدد التراكمي للقاءات",
+    "labelTotal": "الإجمالي",
+    "labelMale": "ذكر",
+    "labelFemale": "أنثى",
+    "labelMaleFreestylers": "فريستايلر ذكور",
+    "labelFemaleFreestylers": "فريستايلر إناث",
+    "labelCompetitions": "مسابقات",
+    "labelOnline": "مسابقات عبر الإنترنت",
+    "labelMeetings": "لقاءات"
+  },
+  "/terms": {
+    "pageTitle": "شروط الخدمة (FSMeet)"
+  },
+  "global/ui": {
+    "close": "إغلاق",
+    "loading": "جارٍ التحميل",
+    "language": "اللغة",
+    "search": "بحث ...",
+    "select": "اختيار",
+    "noData": "لم يُعثر على بيانات.",
+    "appNav": "التطبيق"
   }
 }

@@ -26,7 +26,8 @@
     "lnkImprint": "出版信息",
     "lnkTermsOfService": "服务条款",
     "lnkPrivacyPolicy": "隐私政策",
-    "build": "构建"
+    "build": "构建",
+    "ariaLegal": "法律信息"
   },
   "/about/contributors": {
     "pageTitle": "贡献者",
@@ -160,7 +161,11 @@
     "dlgJobsTermsBaseToSNote": "This addendum supplements the <tos>FSMeet Terms of Service</tos> and applies only to the optional Jobs feature.",
     "dlgJobsTermsLiabilityTitle": "Responsibility",
     "dlgJobsTermsLiabilityText1": "FSMeet acts solely as an intermediary and provides the technical platform. FSMeet is not a party to contracts between artist and client. Performance of the job and payment are the responsibility of the artist and/or the client. FSMeet does not guarantee requests, deals or payments.",
-    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again."
+    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again.",
+    "toastProfileUpdated": "资料已更新。",
+    "toastProfileLoadFailed": "无法从会话存储加载用户信息。",
+    "toastStripeAccount": "已创建 Stripe 账户。",
+    "toastVerificationRequested": "已申请认证。"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",
@@ -188,7 +193,14 @@
     "tblNoData": "暂无数据",
     "navCurrentPage1": "第",
     "navCurrentPage2": "页，共",
-    "navRowsPerPage": "每页行数"
+    "navRowsPerPage": "每页行数",
+    "toastRefundInitiated": "已发起退款。",
+    "toastMissingIntent": "网址中缺少意图 ID。",
+    "navFirst": "转到第一页",
+    "navPrevious": "转到上一页",
+    "navNext": "转到下一页",
+    "navLast": "转到最后一页",
+    "openMenu": "打开菜单"
   },
   "/donate": {
     "pageTitle": "捐赠",
@@ -252,7 +264,8 @@
     "pageTitle": "编辑活动",
     "dlgEventDeletionTitle": "删除活动",
     "dlgEventDeletionText": "你确定要删除这个活动吗？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "toastFileTooBig": "文件过大，无法保存在浏览器中。"
   },
   "/events/eventid": {
     "dlgEventStateTitle": "活动可见性",
@@ -394,7 +407,49 @@
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "赛场大屏",
-    "pageDescription": "选择要在实时预览中显示的比赛项目。选择后竞技场屏幕会立即更新。"
+    "pageDescription": "选择要在实时预览中显示的比赛项目。选择后竞技场屏幕会立即更新。",
+    "btnOpen": "打开场地屏幕",
+    "noCompetitions": "此活动没有比赛。",
+    "labelCompetition": "比赛",
+    "placeholderCompetition": "选择比赛",
+    "loadingBattles": "正在加载比赛…",
+    "errorLoadBattles": "无法加载该比赛的对阵。",
+    "labelBattle": "比赛",
+    "errorSignInMatch": "请登录以设置场地比赛。",
+    "errorUpdate": "无法更新场地屏幕。",
+    "saving": "正在保存…",
+    "placeholderBattle": "选择比赛",
+    "noBattles": "此比赛还没有带编号的对阵。",
+    "errorLoadSettings": "无法加载场地屏幕设置。",
+    "errorSignInSave": "请登录以保存场地屏幕设置。",
+    "toastSaved": "场地屏幕设置已保存。",
+    "errorSave": "无法保存设置。",
+    "errorSignInUpload": "请登录以上传背景图。",
+    "toastBackground": "背景图已更新。",
+    "errorUpload": "上传失败。",
+    "settingsTitle": "显示设置",
+    "settingsLoading": "加载中…",
+    "settingsSummaryOpen": "背景图、遮罩和画面选项。",
+    "settingsSummaryClosed": "背景、遮罩、标签、国旗——点击编辑。",
+    "loadingSettings": "正在加载设置…",
+    "backgroundImage": "背景图",
+    "backgroundPreview": "当前背景预览",
+    "noImage": "未设置图片（预览为纯色背景）。",
+    "uploading": "正在上传…",
+    "chooseImage": "选择图片…",
+    "overlay": "遮罩暗度（{percent}%）",
+    "showPositions": "显示位置编号",
+    "reversePositions": "反转位置编号",
+    "showFlags": "显示国旗",
+    "showLastName": "显示姓氏",
+    "saveSettings": "保存显示设置",
+    "signInSettings": "请登录以更改场地设置。",
+    "loadingArena": "正在加载场地…",
+    "errorLoadArenaTitle": "无法加载场地",
+    "errorLoadArena": "无法加载场地屏幕",
+    "styleUnavailable": "场地样式不可用",
+    "openSlot": "空位",
+    "noCountry": "无国家"
   },
   "/events/eventid/pro": {
     "pageTitle": "活动许可证",
@@ -458,7 +513,10 @@
     "dlgDownloadResultsTitle": "下载结果",
     "dlgDownloadResultsText": "导出用于世界排名的比赛结果。",
     "dlgDownloadResultsCbAddPlayerNames": "添加选手姓名",
-    "dlgDownloadResultsBtnDownload": "下载"
+    "dlgDownloadResultsBtnDownload": "下载",
+    "toastMatchesInconsistent": "比赛数据似乎不一致。",
+    "toastResultsProcessed": "已处理比赛结果。",
+    "toastExportInconsistent": "比赛结果导出不一致。"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "管理选手池",
@@ -552,17 +610,24 @@
     "textNoSufficientPool": "在创建比赛模式前，请至少向比赛选手池添加 2 名选手。",
     "btnSave": "保存",
     "btnUpdate": "更新",
-    "btnDelete": "保存"
+    "btnDelete": "保存",
+    "toastRoundsCreated": "回合已创建",
+    "toastRoundsUpdated": "回合已更新",
+    "toastRoundDeleted": "回合已删除",
+    "defaultRoundName": "回合 {index}",
+    "defaultMatchName": "比赛 {index}"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "种子位与结果",
-    "textNoGameMode": "你尚未配置比赛模式。"
+    "textNoGameMode": "你尚未配置比赛模式。",
+    "toastSlotUpdated": "席位已更新"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "编辑比赛项目",
     "btnSave": "保存",
     "dlgDeleteCompetitionTitle": "删除比赛项目",
-    "dlgDeleteCompetitionText": "你确定要删除这个比赛项目吗？"
+    "dlgDeleteCompetitionText": "你确定要删除这个比赛项目吗？",
+    "toastUpdated": "比赛已更新"
   },
   "/events/eventid/comps/create": {
     "pageTitle": "创建比赛项目",
@@ -631,7 +696,9 @@
     "tableSortByType": "按类型排序",
     "tableSortByStatus": "按状态排序",
     "textNoFilterMatch": "没有符合筛选条件的与会者。",
-    "alertPendingRegistrations": "{count, plural, other{有 # 个待处理报名，请及时审核。}}"
+    "alertPendingRegistrations": "{count, plural, other{有 # 个待处理报名，请及时审核。}}",
+    "toastRemoved": "已移除 {name}",
+    "toastStatusUpdated": "已更新 {name} 的状态"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "活动报名概览",
@@ -833,7 +900,15 @@
     "btnSave": "保存"
   },
   "/events/eventid/stats": {
-    "pageTitle": "统计"
+    "pageTitle": "统计",
+    "chartAttendees": "出席人数",
+    "labelParticipants": "选手",
+    "labelVisitors": "观众",
+    "chartGender": "按性别统计的选手",
+    "labelMale": "男",
+    "labelFemale": "女",
+    "chartCountry": "按国家统计的选手",
+    "chartAge": "按年龄统计的选手"
   },
   "/events/create": {
     "pageTitleEventCreationFlow": "创建活动",
@@ -940,7 +1015,8 @@
   },
   "/password/reset": {
     "inputPassword": "新密码",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "errorMissingResetLink": "此重置链接无效或不完整。请打开密码重置邮件中的链接。"
   },
   "/registration": {
     "headlineCreateAccount": "创建账户",
@@ -983,7 +1059,11 @@
     "tblNoData": "暂无数据",
     "navCurrentPage1": "第",
     "navCurrentPage2": "页，共",
-    "navRowsPerPage": "每页行数"
+    "navRowsPerPage": "每页行数",
+    "navFirst": "第一页",
+    "navPrevious": "上一页",
+    "navNext": "下一页",
+    "navLast": "最后一页"
   },
   "/users/username": {
     "accordionItemSocials": "社交账号",
@@ -997,7 +1077,8 @@
     "accordionItemCompetitionHistoryNoParticipations": "暂无参赛记录。",
     "btnBookViaFreestyleActs": "通过 FreestyleActs 预订",
     "competitionHistoryShowAll": "显示全部 ({count})",
-    "competitionHistoryShowLess": "收起"
+    "competitionHistoryShowLess": "收起",
+    "toastUserDeleted": "用户已删除。"
   },
   "global/data-states": {
     "errorTitle": "出错了",
@@ -1046,7 +1127,9 @@
     "hintRegistrationPeriodEnded": "参赛者报名期已结束。"
   },
   "global/components/battle-grid": {
-    "btnAddMatch": "添加比赛"
+    "btnAddMatch": "添加比赛",
+    "labelAssignSlot": "分配席位",
+    "labelUnassigned": "未分配"
   },
   "global/components/competition-editor": {
     "inputName": "比赛名称",
@@ -1137,7 +1220,9 @@
     "chbAllowCommentsAndQuestions": "允许评论",
     "chbNotifyOnComment": "有评论时通知",
     "inputWaiver": "免责声明",
-    "chbVisaInvitationRequestsEnabled": "提供签证邀请"
+    "chbVisaInvitationRequestsEnabled": "提供签证邀请",
+    "toastPosterDeleted": "海报已删除",
+    "placeholderWaiver": "参加本活动即表示我确认……"
   },
   "global/components/loading-spinner": {
     "textLoading": "加载中…"
@@ -1178,5 +1263,107 @@
     "inputName": "赞助商名称",
     "inputWebsite": "网站",
     "chbIsPublic": "公开展示？"
+  },
+  "/wffa": {
+    "pageTitle": "管理概览（WFFA）",
+    "linkIds": "花式足球选手 ID",
+    "linkStatistics": "应用统计",
+    "linkVisa": "签证申请"
+  },
+  "/wffa/ids": {
+    "pageTitle": "花式足球选手 ID 管理",
+    "noEntries": "没有条目",
+    "colUser": "用户",
+    "colId": "花式足球选手 ID",
+    "colActions": "操作",
+    "sortUserAsc": "按用户升序",
+    "sortUserDesc": "按用户降序",
+    "sortByUser": "按用户排序",
+    "sortIdAsc": "按 ID 升序",
+    "sortIdDesc": "按 ID 降序",
+    "sortById": "按花式足球选手 ID 排序",
+    "filterName": "姓名",
+    "search": "搜索…",
+    "filterCountry": "国家",
+    "filterGender": "性别",
+    "allCountries": "所有国家",
+    "allGenders": "全部",
+    "withoutId": "没有花式足球选手 ID",
+    "withId": "已有花式足球选手 ID",
+    "toastReloadFailed": "无法重新加载用户。",
+    "toastUpdated": "已更新 {username}（{firstName}）的花式足球选手 ID。"
+  },
+  "/wffa/visa": {
+    "pageTitle": "签证申请管理",
+    "pending": "待处理",
+    "approved": "已批准",
+    "denied": "已拒绝",
+    "noEntries": "没有条目",
+    "applicant": "申请人",
+    "country": "国家",
+    "countryCode": "国家代码",
+    "passport": "护照",
+    "passportNumber": "护照号码",
+    "requested": "申请日期",
+    "requestDate": "申请日期",
+    "approver": "审批人",
+    "actions": "操作",
+    "document": "文件",
+    "toastLoadFailed": "无法加载签证申请。",
+    "toastApproved": "已批准 {name} 的签证申请。",
+    "toastDenied": "已拒绝 {name} 的签证申请。"
+  },
+  "/stats": {
+    "pageTitle": "统计",
+    "userCount": "用户数量",
+    "freestylers": "花式足球选手：",
+    "associations": "协会：",
+    "brands": "品牌：",
+    "djs": "DJ：",
+    "organizers": "活动组织者：",
+    "mcs": "主持人：",
+    "media": "媒体：",
+    "fans": "粉丝 / 家人 / 支持者：",
+    "totalUserCount": "用户总数",
+    "totalUsers": "用户总数：",
+    "realUsers": "真实用户：",
+    "adminUsers": "管理用户：",
+    "mobileUsers": "移动用户：",
+    "mobileHint": "移动用户可以有多台设备",
+    "mapShare": "花式足球地图上的用户占比",
+    "usersOnMap": "地图上的用户：",
+    "nationalityShare": "按国籍的用户占比",
+    "growthTitle": "用户增长",
+    "growthDesc": "累计用户数",
+    "growthFreestylerTitle": "用户增长（花式足球选手）",
+    "growthFreestylerDesc": "累计用户数（花式足球选手）",
+    "eventsCreated": "已创建的活动",
+    "eventsCreatedDesc": "累计活动数",
+    "compsCreated": "已创建的比赛",
+    "compsCreatedDesc": "累计比赛数",
+    "onlineCreated": "已创建的线上比赛",
+    "onlineCreatedDesc": "累计线上比赛数",
+    "meetingsCreated": "已创建的聚会",
+    "meetingsCreatedDesc": "累计聚会数",
+    "labelTotal": "总计",
+    "labelMale": "男",
+    "labelFemale": "女",
+    "labelMaleFreestylers": "男性花式足球选手",
+    "labelFemaleFreestylers": "女性花式足球选手",
+    "labelCompetitions": "比赛",
+    "labelOnline": "线上比赛",
+    "labelMeetings": "聚会"
+  },
+  "/terms": {
+    "pageTitle": "服务条款（FSMeet）"
+  },
+  "global/ui": {
+    "close": "关闭",
+    "loading": "加载中",
+    "language": "语言",
+    "search": "搜索...",
+    "select": "选择",
+    "noData": "未找到数据。",
+    "appNav": "应用"
   }
 }

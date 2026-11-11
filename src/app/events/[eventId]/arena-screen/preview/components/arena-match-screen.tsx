@@ -4,6 +4,7 @@ import { imgUserDefaultImg } from '@/domain/constants/images';
 import { MatchSlot } from '@/domain/types/match-slot';
 import { cn } from '@/lib/utils';
 import ReactCountryFlag from 'react-country-flag';
+import { useTranslations } from 'next-intl';
 
 /** Plain match data (RSC → client must not receive class instances). */
 export type ArenaMatchPlain = {
@@ -141,6 +142,7 @@ export function ArenaMatchScreen({
   showFlags,
   showLastName,
 }: ArenaMatchScreenProps) {
+  const t = useTranslations('/events/eventid/arena-screen');
   const userByUsername = new Map(participants.map(p => [p.username, p]));
   const bgUrl = backgroundImageUrl.trim();
   const overlayOpacity = Math.min(1, Math.max(0, backgroundOverlayOpacity));
@@ -187,7 +189,7 @@ export function ArenaMatchScreen({
             const positionIndex = slotCount - 1 - index;
             const user = slot.name ? userByUsername.get(slot.name) : undefined;
             const imageSrc = user?.imageUrl || imgUserDefaultImg;
-            const name = slot.name ? displayNameForUser(user, showLastName) : 'Open slot';
+            const name = slot.name ? displayNameForUser(user, showLastName) : t('openSlot');
             const countryCode = user?.countryCode;
             const showFlag = Boolean(countryCode && countryCode.length >= 2);
             const avatarClass = isDuel ? AVATAR_SIZE_DUEL : AVATAR_SIZE;
@@ -237,7 +239,7 @@ export function ArenaMatchScreen({
                           flagClass,
                           isDuel ? FLAG_OVERLAP[positionIndex] : multiLayout!.flagOverlap[positionIndex],
                         )}
-                        title="No country"
+                        title={t('noCountry')}
                       >
                         <span className="rounded-full px-1">—</span>
                       </div>

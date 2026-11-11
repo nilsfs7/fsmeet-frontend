@@ -6,10 +6,12 @@ import { getArenaScreen, updateArenaScreenBackgroundImage, upsertArenaScreen } f
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Toaster, toast } from 'sonner';
 
 export function ArenaScreenSettings({ eventId }: { eventId: string }) {
+  const t = useTranslations('/events/eventid/arena-screen');
   const { data: session, status } = useSession();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -36,7 +38,7 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
       setShowLastName(s.showLastName ?? true);
       setBackgroundPreviewUrl(s.backgroundImageUrl?.trim() ?? '');
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Could not load arena screen settings.');
+      toast.error(e instanceof Error ? e.message : t('errorLoadSettings'));
     } finally {
       setLoading(false);
     }
@@ -48,7 +50,7 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
 
   const handleSaveSettings = async () => {
     if (status !== 'authenticated' || !session) {
-      toast.error('Sign in to save arena screen settings.');
+      toast.error(t('errorSignInSave'));
       return;
     }
     setSaving(true);
@@ -65,10 +67,10 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
         showLastName,
         session,
       );
-      toast.success('Arena screen settings saved.');
+      toast.success(t('toastSaved'));
       await load();
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : 'Failed to save settings.');
+      toast.error(e instanceof Error ? e.message : t('errorSave'));
     } finally {
       setSaving(false);
     }
@@ -79,17 +81,17 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
     e.target.value = '';
     if (!file) return;
     if (status !== 'authenticated' || !session) {
-      toast.error('Sign in to upload a background image.');
+      toast.error(t('errorSignInUpload'));
       return;
     }
     setUploadingBg(true);
     try {
       await updateArenaScreenBackgroundImage(eventId, file, session);
-      toast.success('Background image updated.');
+      toast.success(t('toastBackground'));
       const data = await getArenaScreen(eventId);
       setBackgroundPreviewUrl(data.style.backgroundImageUrl?.trim() ?? '');
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Upload failed.');
+      toast.error(err instanceof Error ? err.message : t('errorUpload'));
     } finally {
       setUploadingBg(false);
     }
@@ -106,9 +108,9 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
           aria-expanded={settingsOpen}
         >
           <div className="min-w-0 flex-1">
-            <h2 className="text-lg font-semibold text-primary">Display settings</h2>
+            <h2 className="text-lg font-semibold text-primary">{t('settingsTitle')}</h2>
             <p className="mt-0.5 text-sm text-muted-foreground">
-              {loading ? 'Loading…' : settingsOpen ? 'Background image, overlay, and on-screen options.' : 'Background, overlay, labels, flags — click to edit.'}
+              {loading ? t('settingsLoading') : settingsOpen ? t('settingsSummaryOpen') : t('settingsSummaryClosed')}
             </p>
           </div>
           <ChevronDown className={`h-5 w-5 shrink-0 text-primary transition-transform ${settingsOpen ? 'rotate-180' : ''}`} aria-hidden />
@@ -117,20 +119,20 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
         {settingsOpen && (
           <div className="space-y-4 border-t border-secondary-dark px-4 pb-4 pt-2">
             {loading ? (
-              <p className="py-4 text-sm text-muted-foreground">Loading settings…</p>
+              <p className="py-4 text-sm text-muted-foreground">{t('loadingSettings')}</p>
             ) : (
               <>
           <div>
-            <p className="mb-2 text-sm font-medium text-primary">Background image</p>
+            <p className="mb-2 text-sm font-medium text-primary">{t('backgroundImage')}</p>
             {backgroundPreviewUrl ? (
               <div
                 className="mb-3 h-24 w-full max-w-md rounded-md border border-secondary-dark bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${backgroundPreviewUrl})` }}
                 role="img"
-                aria-label="Current background preview"
+                aria-label={t('backgroundPreview')}
               />
             ) : (
-              <p className="mb-3 text-xs text-muted-foreground">No image set (solid backdrop in preview).</p>
+              <p className="mb-3 text-xs text-muted-foreground">{t('noImage')}</p>
             )}
             <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleBackgroundFile} />
             <Button
@@ -140,13 +142,13 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
               disabled={uploadingBg || status !== 'authenticated'}
               onClick={() => fileInputRef.current?.click()}
             >
-              {uploadingBg ? 'Uploading…' : 'Choose image…'}
+              {uploadingBg ? t('uploading') : t('chooseImage')}
             </Button>
           </div>
 
           <div>
             <label htmlFor="arena-overlay" className="text-sm font-medium text-primary">
-              Overlay darkness ({Math.round(backgroundOverlayOpacity * 100)}%)
+              {t('overlay', { percent: Math.round(backgroundOverlayOpacity * 100) })}
             </label>
             <input
               id="arena-overlay"
@@ -171,7 +173,7 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
                 }}
               />
               <label htmlFor="arena-show-pos" className="text-sm text-primary">
-                Show position labels
+                {t('showPositions')}
               </label>
             </div>
             <div className="flex items-center gap-2">
@@ -185,19 +187,19 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
                 htmlFor="arena-rev-pos"
                 className={cn('text-sm text-primary', !showPositions && 'cursor-not-allowed opacity-50')}
               >
-                Reverse position numbering
+                {t('reversePositions')}
               </label>
             </div>
             <div className="flex items-center gap-2">
               <Checkbox id="arena-flags" checked={showFlags} onCheckedChange={v => setShowFlags(v === true)} />
               <label htmlFor="arena-flags" className="text-sm text-primary">
-                Show country flags
+                {t('showFlags')}
               </label>
             </div>
             <div className="flex items-center gap-2">
               <Checkbox id="arena-lastname" checked={showLastName} onCheckedChange={v => setShowLastName(v === true)} />
               <label htmlFor="arena-lastname" className="text-sm text-primary">
-                Show last names
+                {t('showLastName')}
               </label>
             </div>
           </div>
@@ -209,9 +211,9 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
             disabled={saving || status !== 'authenticated'}
             onClick={() => void handleSaveSettings()}
           >
-            {saving ? 'Saving…' : 'Save display settings'}
+            {saving ? t('saving') : t('saveSettings')}
           </Button>
-          {status !== 'authenticated' && <p className="text-xs text-muted-foreground">Sign in to change arena settings.</p>}
+          {status !== 'authenticated' && <p className="text-xs text-muted-foreground">{t('signInSettings')}</p>}
               </>
             )}
           </div>

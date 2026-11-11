@@ -11,8 +11,10 @@ import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { ChartArea } from '../../../components/charts/chart-area';
 import { ReadEventCountResponseDto } from '../../../infrastructure/clients/dtos/event/read-event-count.response.dto';
 import { ReadUserGrowthResponseDto } from '../../../infrastructure/clients/dtos/event/read-user-growth.response.dto';
+import { useTranslations } from 'next-intl';
 
 export const Statistics = () => {
+  const t = useTranslations('/stats');
   const [userCountByType, setUserCountByType] = useState<ReadUserCountResponseDto>();
   const [userNationalityCount, setUserNationalityCount] = useState<{ countryCode: string; userCount: number }[]>([]);
   const [userCountOnMap, setUserCountOnMap] = useState<number>(0);
@@ -95,50 +97,50 @@ export const Statistics = () => {
   return (
     <div className="mx-2 overflow-y-auto">
       <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
-        <div className="flex justify-center text-lg">{`User Count`}</div>
+        <div className="flex justify-center text-lg">{t('userCount')}</div>
         <div className="grid grid-cols-2 gap-2 mt-2">
-          <div className="flex justify-end">{`Freestylers:`}</div>
+          <div className="flex justify-end">{t('freestylers')}</div>
           <div className="flex justify-start">{userCountByType?.userCountFreestylers}</div>
 
-          <div className="flex justify-end">{`Associations:`}</div>
+          <div className="flex justify-end">{t('associations')}</div>
           <div className="flex justify-start">{userCountByType?.userCountAssociations}</div>
 
-          <div className="flex justify-end">{`Brands:`}</div>
+          <div className="flex justify-end">{t('brands')}</div>
           <div className="flex justify-start">{userCountByType?.userCountBrands}</div>
 
-          <div className="flex justify-end">{`DJs:`}</div>
+          <div className="flex justify-end">{t('djs')}</div>
           <div className="flex justify-start">{userCountByType?.userCountDJs}</div>
 
-          <div className="flex justify-end">{`Event organizers:`}</div>
+          <div className="flex justify-end">{t('organizers')}</div>
           <div className="flex justify-start">{userCountByType?.userCountEventOrganizers}</div>
 
-          <div className="flex justify-end">{`MCs:`}</div>
+          <div className="flex justify-end">{t('mcs')}</div>
           <div className="flex justify-start">{userCountByType?.userCountMCs}</div>
 
-          <div className="flex justify-end">{`Media:`}</div>
+          <div className="flex justify-end">{t('media')}</div>
           <div className="flex justify-start">{userCountByType?.userCountMedia}</div>
 
-          <div className="flex justify-end">{`Fans / Family Members / Supporters:`}</div>
+          <div className="flex justify-end">{t('fans')}</div>
           <div className="flex justify-start">{userCountByType?.userCountFans}</div>
         </div>
         <div className="m-2">
           <Separator />
         </div>
-        <div className="flex justify-center text-lg">{`Total User Count`}</div>
+        <div className="flex justify-center text-lg">{t('totalUserCount')}</div>
         <div className="grid grid-cols-2 gap-2 mt-2">
-          <div className="flex justify-end"> {`Total users:`}</div>
+          <div className="flex justify-end">{t('totalUsers')}</div>
           <div className="flex justify-start">{userCountByType?.userCountTotal}</div>
 
-          <div className="flex justify-end">{`Real users:`}</div>
+          <div className="flex justify-end">{t('realUsers')}</div>
           <div className="flex justify-start">{userCountByType?.userCountNonAdministrative}</div>
 
-          <div className="flex justify-end">{`Administrative users:`}</div>
+          <div className="flex justify-end">{t('adminUsers')}</div>
           <div className="flex justify-start">{userCountByType?.userCountAdministrative}</div>
 
-          <div className="flex justify-end">{`Mobile users:`}</div>
+          <div className="flex justify-end">{t('mobileUsers')}</div>
           <div className="flex justify-start">{mobileUserCount}</div>
         </div>
-        <div className="mt-2 text-center text-xs text-muted-foreground">{`Mobile users can have multiple devices`}</div>
+        <div className="mt-2 text-center text-xs text-muted-foreground">{t('mobileHint')}</div>
 
         {userCountByType?.userCountTotal && (
           <>
@@ -146,13 +148,13 @@ export const Statistics = () => {
               <Separator />
             </div>
 
-            <div className="flex justify-center text-lg">{`User Share on Freestyler Map`}</div>
+            <div className="flex justify-center text-lg">{t('mapShare')}</div>
 
             <div className="grid grid-cols-2 gap-2 mt-2">
-              <div className="flex justify-end">{`Users on map:`}</div>
+              <div className="flex justify-end">{t('usersOnMap')}</div>
               <div className="flex justify-start">{`${userCountOnMap} (${((userCountOnMap / userCountByType?.userCountTotal) * 100).toFixed(1)}%)`}</div>
 
-              <div className="flex justify-end"> {`Total users:`}</div>
+              <div className="flex justify-end">{t('totalUsers')}</div>
               <div className="flex justify-start">{userCountByType?.userCountTotal}</div>
             </div>
           </>
@@ -161,7 +163,7 @@ export const Statistics = () => {
         <div className="m-2">
           <Separator />
         </div>
-        <div className="flex justify-center text-lg">{`User Share by Nationality`}</div>
+        <div className="flex justify-center text-lg">{t('nationalityShare')}</div>
         <div className="flex justify-center">
           <PieChart width={400} height={400}>
             <Pie data={userNationalityCount} dataKey="userCount" nameKey="countryCode" cx="50%" cy="50%" outerRadius={100} fill="#ccd6dd" label={renderLabel}>
@@ -182,20 +184,20 @@ export const Statistics = () => {
             data={userGrowth.map(ds => {
               return { date: ds.date.toString(), l1: ds.total, l2: ds.malesCount, l3: ds.femalesCount };
             })}
-            labels={['Total', 'Male', 'Female']}
+            labels={[t('labelTotal'), t('labelMale'), t('labelFemale')]}
             colors={['--chart-1', '--chart-2', '--chart-5']}
-            title={'User Growth'}
-            description={'Cumulative user count'}
+            title={t('growthTitle')}
+            description={t('growthDesc')}
           />
 
           <ChartArea
             data={userGrowth.map(ds => {
               return { date: ds.date.toString(), l1: ds.maleFreestylersCount + ds.femaleFreestylersCount, l2: ds.maleFreestylersCount, l3: ds.femaleFreestylersCount };
             })}
-            labels={['Total', 'Male Freestylers', 'Female Freestylers']}
+            labels={[t('labelTotal'), t('labelMaleFreestylers'), t('labelFemaleFreestylers')]}
             colors={['--chart-1', '--chart-2', '--chart-5']}
-            title={'User Growth (Freestyler)'}
-            description={'Cumulative user count (freestylers)'}
+            title={t('growthFreestylerTitle')}
+            description={t('growthFreestylerDesc')}
           />
 
           {/* todo: all in one attempts */}
@@ -213,36 +215,36 @@ export const Statistics = () => {
             data={eventCount.map(ds => {
               return { date: ds.date.toString(), l1: ds.total };
             })}
-            labels={['Total']}
-            title={'Events created'}
-            description={'Cumulative event count'}
+            labels={[t('labelTotal')]}
+            title={t('eventsCreated')}
+            description={t('eventsCreatedDesc')}
           />
 
           <ChartArea
             data={eventCount.map(ds => {
               return { date: ds.date.toString(), l1: ds.compsCount };
             })}
-            labels={['Competitions']}
-            title={'Competitions created'}
-            description={'Cumulative competition count'}
+            labels={[t('labelCompetitions')]}
+            title={t('compsCreated')}
+            description={t('compsCreatedDesc')}
           />
 
           <ChartArea
             data={eventCount.map(ds => {
               return { date: ds.date.toString(), l1: ds.onlineCompsCount };
             })}
-            labels={['Online Competitions']}
-            title={'Online competitions created'}
-            description={'Cumulative online competition count'}
+            labels={[t('labelOnline')]}
+            title={t('onlineCreated')}
+            description={t('onlineCreatedDesc')}
           />
 
           <ChartArea
             data={eventCount.map(ds => {
               return { date: ds.date.toString(), l1: ds.meetingsCount };
             })}
-            labels={['Meetings']}
-            title={'Meetings created'}
-            description={'Cumulative meeting count'}
+            labels={[t('labelMeetings')]}
+            title={t('meetingsCreated')}
+            description={t('meetingsCreatedDesc')}
           />
         </div>
       </div>

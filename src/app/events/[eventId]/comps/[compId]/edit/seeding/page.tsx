@@ -56,7 +56,7 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
 
     try {
       await updateMatchSlots(params.eventId, params.compId, matchId, slotIndex, username, result, session);
-      toast.success('Slot updated');
+      toast.success(t('toastSlotUpdated'));
     } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);

@@ -15,6 +15,7 @@ import { Match } from '@/domain/types/match';
 import ReactCountryFlag from 'react-country-flag';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 const cardSurface = cn(
   'group min-w-0 overflow-hidden rounded-xl border border-border/60',
@@ -39,8 +40,9 @@ interface IMatchProps {
 }
 
 const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, seedingEnabled = false, showUserCountryFlag = false, onEditMatch, onDeleteMatch, onUpdateSlot }: IMatchProps) => {
+  const t = useTranslations('global/components/battle-grid');
   const playerMenu: MenuItem[] = [];
-  playerMenu.push({ text: 'unassigned', value: '' });
+  playerMenu.push({ text: t('labelUnassigned'), value: '' });
   usersMap.forEach(user => {
     playerMenu.push({ text: `${user.firstName} ${user.lastName} (${user.username})`, value: user.username });
   });
@@ -193,7 +195,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                     menus={playerMenu}
                     value={matchSlot && matchSlot?.name ? matchSlot.name : ''}
                     searchEnabled={true}
-                    label={'Assign slot'}
+                    label={t('labelAssignSlot')}
                     onChange={(value: any) => {
                       handleSlotUpdateName(i, value);
                     }}

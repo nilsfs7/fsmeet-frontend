@@ -26,7 +26,8 @@
     "lnkImprint": "Imprint",
     "lnkTermsOfService": "Terma perkhidmatan",
     "lnkPrivacyPolicy": "Dasar Privasi",
-    "build": "Binaan"
+    "build": "Binaan",
+    "ariaLegal": "Perundangan"
   },
   "/about/contributors": {
     "pageTitle": "Penyumbang",
@@ -160,7 +161,11 @@
     "dlgJobsTermsBaseToSNote": "This addendum supplements the <tos>FSMeet Terms of Service</tos> and applies only to the optional Jobs feature.",
     "dlgJobsTermsLiabilityTitle": "Responsibility",
     "dlgJobsTermsLiabilityText1": "FSMeet acts solely as an intermediary and provides the technical platform. FSMeet is not a party to contracts between artist and client. Performance of the job and payment are the responsibility of the artist and/or the client. FSMeet does not guarantee requests, deals or payments.",
-    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again."
+    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again.",
+    "toastProfileUpdated": "Profil dikemas kini.",
+    "toastProfileLoadFailed": "Gagal memuatkan maklumat pengguna daripada storan sesi.",
+    "toastStripeAccount": "Akaun Stripe dijana.",
+    "toastVerificationRequested": "Permintaan pengesahan berjaya."
   },
   "/account/deleted": {
     "textGoodbye": "Selamat tinggal!",
@@ -188,7 +193,14 @@
     "tblNoData": "Tiada data",
     "navCurrentPage1": "Halaman",
     "navCurrentPage2": "daripada",
-    "navRowsPerPage": "Baris setiap halaman"
+    "navRowsPerPage": "Baris setiap halaman",
+    "toastRefundInitiated": "Bayaran balik dimulakan.",
+    "toastMissingIntent": "ID niat tiada dalam URL.",
+    "navFirst": "Pergi ke halaman pertama",
+    "navPrevious": "Pergi ke halaman sebelumnya",
+    "navNext": "Pergi ke halaman seterusnya",
+    "navLast": "Pergi ke halaman terakhir",
+    "openMenu": "Buka menu"
   },
   "/donate": {
     "pageTitle": "Derma",
@@ -252,7 +264,8 @@
     "pageTitle": "Edit Acara",
     "dlgEventDeletionTitle": "Padam Acara",
     "dlgEventDeletionText": "Adakah anda benar-benar mahu memadam acara ini?",
-    "btnSave": "Simpan"
+    "btnSave": "Simpan",
+    "toastFileTooBig": "Fail terlalu besar untuk storan pelayar."
   },
   "/events/eventid": {
     "dlgEventStateTitle": "Keterlihatan Acara",
@@ -394,7 +407,49 @@
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Skrin arena",
-    "pageDescription": "Pilih pertandingan untuk pratayang langsung. Skrin arena dikemas kini apabila anda memilih."
+    "pageDescription": "Pilih pertandingan untuk pratayang langsung. Skrin arena dikemas kini apabila anda memilih.",
+    "btnOpen": "Buka skrin arena",
+    "noCompetitions": "Tiada pertandingan untuk acara ini.",
+    "labelCompetition": "Pertandingan",
+    "placeholderCompetition": "Pilih pertandingan",
+    "loadingBattles": "Memuatkan perlawanan…",
+    "errorLoadBattles": "Tidak dapat memuatkan perlawanan untuk pertandingan ini.",
+    "labelBattle": "Perlawanan",
+    "errorSignInMatch": "Log masuk untuk menetapkan perlawanan arena.",
+    "errorUpdate": "Gagal mengemas kini skrin arena.",
+    "saving": "Menyimpan…",
+    "placeholderBattle": "Pilih perlawanan",
+    "noBattles": "Belum ada perlawanan dengan id dalam pertandingan ini.",
+    "errorLoadSettings": "Tidak dapat memuatkan tetapan skrin arena.",
+    "errorSignInSave": "Log masuk untuk menyimpan tetapan.",
+    "toastSaved": "Tetapan skrin arena disimpan.",
+    "errorSave": "Gagal menyimpan tetapan.",
+    "errorSignInUpload": "Log masuk untuk muat naik imej latar.",
+    "toastBackground": "Imej latar dikemas kini.",
+    "errorUpload": "Muat naik gagal.",
+    "settingsTitle": "Tetapan paparan",
+    "settingsLoading": "Memuatkan…",
+    "settingsSummaryOpen": "Imej latar, lapisan dan pilihan pada skrin.",
+    "settingsSummaryClosed": "Latar, lapisan, label, bendera — klik untuk edit.",
+    "loadingSettings": "Memuatkan tetapan…",
+    "backgroundImage": "Imej latar",
+    "backgroundPreview": "Pratonton latar semasa",
+    "noImage": "Tiada imej (latar kosong dalam pratonton).",
+    "uploading": "Memuat naik…",
+    "chooseImage": "Pilih imej…",
+    "overlay": "Kegelapan lapisan ({percent}%)",
+    "showPositions": "Tunjuk label posisi",
+    "reversePositions": "Songsangkan nombor posisi",
+    "showFlags": "Tunjuk bendera negara",
+    "showLastName": "Tunjuk nama keluarga",
+    "saveSettings": "Simpan tetapan paparan",
+    "signInSettings": "Log masuk untuk mengubah tetapan arena.",
+    "loadingArena": "Memuatkan arena…",
+    "errorLoadArenaTitle": "Tidak dapat memuatkan arena",
+    "errorLoadArena": "Gagal memuatkan skrin arena",
+    "styleUnavailable": "Gaya arena tidak tersedia",
+    "openSlot": "Slot kosong",
+    "noCountry": "Tiada negara"
   },
   "/events/eventid/pro": {
     "pageTitle": "Lesen acara",
@@ -458,7 +513,10 @@
     "dlgDownloadResultsTitle": "Muat Turun Keputusan",
     "dlgDownloadResultsText": "Eksport keputusan pertandingan untuk ranking dunia.",
     "dlgDownloadResultsCbAddPlayerNames": "Tambah nama pemain",
-    "dlgDownloadResultsBtnDownload": "Muat turun"
+    "dlgDownloadResultsBtnDownload": "Muat turun",
+    "toastMatchesInconsistent": "Perlawanan nampaknya mempunyai data yang tidak konsisten.",
+    "toastResultsProcessed": "Keputusan perlawanan diproses.",
+    "toastExportInconsistent": "Eksport keputusan tidak konsisten."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Urus Pool Pemain",
@@ -552,17 +610,24 @@
     "textNoSufficientPool": "Tambah sekurang-kurangnya 2 pemain ke dalam pool pertandingan sebelum mencipta mod permainan.",
     "btnSave": "Simpan",
     "btnUpdate": "Kemas kini",
-    "btnDelete": "Simpan"
+    "btnDelete": "Simpan",
+    "toastRoundsCreated": "Pusingan berjaya dicipta",
+    "toastRoundsUpdated": "Pusingan berjaya dikemas kini",
+    "toastRoundDeleted": "Pusingan berjaya dipadam",
+    "defaultRoundName": "Pusingan {index}",
+    "defaultMatchName": "Perlawanan {index}"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Keputusan",
-    "textNoGameMode": "Anda belum mengkonfigurasi mod permainan lagi."
+    "textNoGameMode": "Anda belum mengkonfigurasi mod permainan lagi.",
+    "toastSlotUpdated": "Slot dikemas kini"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Edit Pertandingan",
     "btnSave": "Simpan",
     "dlgDeleteCompetitionTitle": "Padam Pertandingan",
-    "dlgDeleteCompetitionText": "Adakah anda benar-benar mahu memadam pertandingan ini?"
+    "dlgDeleteCompetitionText": "Adakah anda benar-benar mahu memadam pertandingan ini?",
+    "toastUpdated": "Pertandingan berjaya dikemas kini"
   },
   "/events/eventid/comps/create": {
     "pageTitle": "Cipta Pertandingan",
@@ -631,7 +696,9 @@
     "tableSortByType": "Isih mengikut jenis",
     "tableSortByStatus": "Isih mengikut status",
     "textNoFilterMatch": "Tiada hadirin yang sepadan dengan penapis.",
-    "alertPendingRegistrations": "{count, plural, other{Ada # pendaftaran menunggu semakan.}}"
+    "alertPendingRegistrations": "{count, plural, other{Ada # pendaftaran menunggu semakan.}}",
+    "toastRemoved": "{name} dialih keluar",
+    "toastStatusUpdated": "Status untuk {name} dikemas kini"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Gambaran Keseluruhan Pendaftaran Acara",
@@ -833,7 +900,15 @@
     "btnSave": "Simpan"
   },
   "/events/eventid/stats": {
-    "pageTitle": "Statistik"
+    "pageTitle": "Statistik",
+    "chartAttendees": "Jumlah hadirin",
+    "labelParticipants": "Peserta",
+    "labelVisitors": "Pelawat",
+    "chartGender": "Peserta mengikut jantina",
+    "labelMale": "Lelaki",
+    "labelFemale": "Perempuan",
+    "chartCountry": "Peserta mengikut negara",
+    "chartAge": "Peserta mengikut umur"
   },
   "/events/create": {
     "pageTitleEventCreationFlow": "Penciptaan Acara",
@@ -940,7 +1015,8 @@
   },
   "/password/reset": {
     "inputPassword": "Kata laluan baharu",
-    "btnSave": "Simpan"
+    "btnSave": "Simpan",
+    "errorMissingResetLink": "Pautan tetapan semula ini tidak sah atau tidak lengkap. Buka pautan daripada e-mel tetapan semula kata laluan."
   },
   "/registration": {
     "headlineCreateAccount": "Cipta akaun",
@@ -983,7 +1059,11 @@
     "tblNoData": "Tiada data",
     "navCurrentPage1": "Halaman",
     "navCurrentPage2": "daripada",
-    "navRowsPerPage": "Baris setiap halaman"
+    "navRowsPerPage": "Baris setiap halaman",
+    "navFirst": "Halaman pertama",
+    "navPrevious": "Halaman sebelumnya",
+    "navNext": "Halaman seterusnya",
+    "navLast": "Halaman terakhir"
   },
   "/users/username": {
     "accordionItemSocials": "Media sosial",
@@ -997,7 +1077,8 @@
     "accordionItemCompetitionHistoryNoParticipations": "Belum ada penyertaan.",
     "btnBookViaFreestyleActs": "Tempah melalui FreestyleActs",
     "competitionHistoryShowAll": "Tunjuk semua ({count})",
-    "competitionHistoryShowLess": "Tunjuk kurang"
+    "competitionHistoryShowLess": "Tunjuk kurang",
+    "toastUserDeleted": "Pengguna dipadam."
   },
   "global/data-states": {
     "errorTitle": "Ralat berlaku",
@@ -1046,7 +1127,9 @@
     "hintRegistrationPeriodEnded": "Tempoh pendaftaran untuk peserta telah berakhir."
   },
   "global/components/battle-grid": {
-    "btnAddMatch": "Tambah Perlawanan"
+    "btnAddMatch": "Tambah Perlawanan",
+    "labelAssignSlot": "Tetapkan slot",
+    "labelUnassigned": "belum ditetapkan"
   },
   "global/components/competition-editor": {
     "inputName": "Nama Pertandingan",
@@ -1137,7 +1220,9 @@
     "chbAllowCommentsAndQuestions": "Benarkan komen",
     "chbNotifyOnComment": "Maklumkan apabila ada komen",
     "inputWaiver": "Pelepasan liabiliti",
-    "chbVisaInvitationRequestsEnabled": "Tawarkan jemputan visa"
+    "chbVisaInvitationRequestsEnabled": "Tawarkan jemputan visa",
+    "toastPosterDeleted": "Poster dipadam",
+    "placeholderWaiver": "Dengan menyertai acara ini, saya mengakui ..."
   },
   "global/components/loading-spinner": {
     "textLoading": "Memuat..."
@@ -1178,5 +1263,107 @@
     "inputName": "Nama Penaja",
     "inputWebsite": "Laman web",
     "chbIsPublic": "Papar kepada umum?"
+  },
+  "/wffa": {
+    "pageTitle": "Gambaran Admin (WFFA)",
+    "linkIds": "ID Freestyler",
+    "linkStatistics": "Statistik Apl",
+    "linkVisa": "Permohonan Visa"
+  },
+  "/wffa/ids": {
+    "pageTitle": "Pengurusan ID Freestyler",
+    "noEntries": "Tiada entri",
+    "colUser": "Pengguna",
+    "colId": "ID Freestyler",
+    "colActions": "Tindakan",
+    "sortUserAsc": "Isih pengguna menaik",
+    "sortUserDesc": "Isih pengguna menurun",
+    "sortByUser": "Isih mengikut pengguna",
+    "sortIdAsc": "Isih ID menaik",
+    "sortIdDesc": "Isih ID menurun",
+    "sortById": "Isih mengikut ID Freestyler",
+    "filterName": "Nama",
+    "search": "Cari…",
+    "filterCountry": "Negara",
+    "filterGender": "Jantina",
+    "allCountries": "Semua negara",
+    "allGenders": "Semua",
+    "withoutId": "Tanpa ID Freestyler",
+    "withId": "Dengan ID Freestyler",
+    "toastReloadFailed": "Gagal memuatkan semula pengguna.",
+    "toastUpdated": "ID Freestyler untuk {username} ({firstName}) dikemas kini."
+  },
+  "/wffa/visa": {
+    "pageTitle": "Pengurusan Permohonan Visa",
+    "pending": "Belum selesai",
+    "approved": "Diluluskan",
+    "denied": "Ditolak",
+    "noEntries": "Tiada entri",
+    "applicant": "Pemohon",
+    "country": "Negara",
+    "countryCode": "Kod negara",
+    "passport": "Pasport",
+    "passportNumber": "Nombor pasport",
+    "requested": "Dimohon",
+    "requestDate": "Tarikh permohonan",
+    "approver": "Pelulus",
+    "actions": "Tindakan",
+    "document": "Dokumen",
+    "toastLoadFailed": "Gagal memuatkan permohonan visa.",
+    "toastApproved": "Permohonan visa untuk {name} diluluskan.",
+    "toastDenied": "Permohonan visa untuk {name} ditolak."
+  },
+  "/stats": {
+    "pageTitle": "Statistik",
+    "userCount": "Bilangan Pengguna",
+    "freestylers": "Freestyler:",
+    "associations": "Persatuan:",
+    "brands": "Jenama:",
+    "djs": "DJ:",
+    "organizers": "Penganjur acara:",
+    "mcs": "MC:",
+    "media": "Media:",
+    "fans": "Peminat / Keluarga / Penyokong:",
+    "totalUserCount": "Jumlah Pengguna",
+    "totalUsers": "Jumlah pengguna:",
+    "realUsers": "Pengguna sebenar:",
+    "adminUsers": "Pengguna pentadbiran:",
+    "mobileUsers": "Pengguna mudah alih:",
+    "mobileHint": "Pengguna mudah alih boleh mempunyai beberapa peranti",
+    "mapShare": "Bahagian pada Peta Freestyler",
+    "usersOnMap": "Pengguna pada peta:",
+    "nationalityShare": "Bahagian mengikut kewarganegaraan",
+    "growthTitle": "Pertumbuhan Pengguna",
+    "growthDesc": "Jumlah pengguna terkumpul",
+    "growthFreestylerTitle": "Pertumbuhan (Freestyler)",
+    "growthFreestylerDesc": "Jumlah terkumpul (freestyler)",
+    "eventsCreated": "Acara dicipta",
+    "eventsCreatedDesc": "Jumlah acara terkumpul",
+    "compsCreated": "Pertandingan dicipta",
+    "compsCreatedDesc": "Jumlah pertandingan terkumpul",
+    "onlineCreated": "Pertandingan dalam talian dicipta",
+    "onlineCreatedDesc": "Jumlah pertandingan dalam talian terkumpul",
+    "meetingsCreated": "Pertemuan dicipta",
+    "meetingsCreatedDesc": "Jumlah pertemuan terkumpul",
+    "labelTotal": "Jumlah",
+    "labelMale": "Lelaki",
+    "labelFemale": "Perempuan",
+    "labelMaleFreestylers": "Freestyler lelaki",
+    "labelFemaleFreestylers": "Freestyler perempuan",
+    "labelCompetitions": "Pertandingan",
+    "labelOnline": "Pertandingan dalam talian",
+    "labelMeetings": "Pertemuan"
+  },
+  "/terms": {
+    "pageTitle": "Terma Perkhidmatan (FSMeet)"
+  },
+  "global/ui": {
+    "close": "Tutup",
+    "loading": "Memuatkan",
+    "language": "Bahasa",
+    "search": "Cari ...",
+    "select": "Pilih",
+    "noData": "Tiada data dijumpai.",
+    "appNav": "Apl"
   }
 }

@@ -175,7 +175,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         await deleteEventPoster(event?.id, session);
         setImgPoster(undefined);
         setImgPosterObjectURL(undefined);
-        toast.info('Poster deleted');
+        toast.info(t('toastPosterDeleted'));
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -1039,7 +1039,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       <TextInputLarge
         id={'waiver'}
         label={t('inputWaiver')}
-        placeholder="By participating in this event, I acknowledge ..."
+        placeholder={t('placeholderWaiver')}
         value={waiver}
         resizable={true}
         onChange={e => {

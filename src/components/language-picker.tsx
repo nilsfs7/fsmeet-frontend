@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { getSupportedlanguages } from '../functions/get-supported-languages';
 import { cn } from '@/lib/utils';
 import type { CSSProperties } from 'react';
+import { useTranslations } from 'next-intl';
 
 const flagFrameClass =
   'flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-border/50 transition-colors hover:border-primary/50';
@@ -20,6 +21,7 @@ const flagStyle: CSSProperties = {
 };
 
 const LanguagePicker = () => {
+  const t = useTranslations('global/ui');
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [locale, setLocale] = useState<string>('GB');
@@ -71,7 +73,7 @@ const LanguagePicker = () => {
       >
         <button
           type="button"
-          aria-label="Language"
+          aria-label={t('language')}
           aria-expanded={opened}
           aria-haspopup="listbox"
           onClick={handleMenuClicked}

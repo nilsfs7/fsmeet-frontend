@@ -3,6 +3,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { upsertArenaScreen } from '@/infrastructure/clients/event.client';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 
 export type ArenaCompetitionOption = { id: string; name: string };
@@ -21,6 +22,7 @@ type RoundJson = {
 type BattleOption = { value: string; label: string };
 
 export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: string; competitions: ArenaCompetitionOption[] }) {
+  const t = useTranslations('/events/eventid/arena-screen');
   const { data: session } = useSession();
   const [competitionId, setCompetitionId] = useState<string | undefined>();
   const [battles, setBattles] = useState<BattleOption[]>([]);
@@ -60,20 +62,20 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
       }
       setBattles(items);
     } catch {
-      setRoundsError('Could not load battles for this competition.');
+      setRoundsError(t('errorLoadBattles'));
     } finally {
       setLoadingRounds(false);
     }
   }, []);
 
   if (competitions.length === 0) {
-    return <p className="mt-4 text-sm text-muted-foreground">No competitions for this event.</p>;
+    return <p className="mt-4 text-sm text-muted-foreground">{t('noCompetitions')}</p>;
   }
 
   return (
     <div className="mt-6 flex flex-col gap-6">
       <div>
-        <p className="mb-2 text-sm font-medium text-primary">Competition</p>
+        <p className="mb-2 text-sm font-medium text-primary">{t('labelCompetition')}</p>
         <Select
           value={competitionId}
           onValueChange={id => {
@@ -82,7 +84,7 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
           }}
         >
           <SelectTrigger className="w-full border-secondary-dark bg-background text-primary">
-            <SelectValue placeholder="Select competition" />
+            <SelectValue placeholder={t('placeholderCompetition')} />
           </SelectTrigger>
           <SelectContent className="border-secondary-dark bg-background text-primary">
             {competitions.map(c => (
@@ -94,33 +96,33 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
         </Select>
       </div>
 
-      {loadingRounds && <p className="text-sm text-muted-foreground">Loading battles…</p>}
+      {loadingRounds && <p className="text-sm text-muted-foreground">{t('loadingBattles')}</p>}
       {roundsError && <p className="text-sm text-destructive">{roundsError}</p>}
 
       {!loadingRounds && competitionId && battles.length > 0 && (
         <div>
-          <p className="mb-2 text-sm font-medium text-primary">Battle</p>
+          <p className="mb-2 text-sm font-medium text-primary">{t('labelBattle')}</p>
           <Select
             key={competitionId}
             disabled={savingArena}
             onValueChange={async matchId => {
               setArenaSaveError(null);
               if (!session) {
-                setArenaSaveError('Sign in to set the arena match.');
+                setArenaSaveError(t('errorSignInMatch'));
                 return;
               }
               setSavingArena(true);
               try {
                 await upsertArenaScreen(eventId, matchId, null, true, true, true, true, session);
               } catch (e) {
-                setArenaSaveError(e instanceof Error ? e.message : 'Failed to update arena screen.');
+                setArenaSaveError(e instanceof Error ? e.message : t('errorUpdate'));
               } finally {
                 setSavingArena(false);
               }
             }}
           >
             <SelectTrigger className="w-full border-secondary-dark bg-background text-primary">
-              <SelectValue placeholder={savingArena ? 'Saving…' : 'Select battle'} />
+              <SelectValue placeholder={savingArena ? t('saving') : t('placeholderBattle')} />
             </SelectTrigger>
             <SelectContent className="max-h-72 border-secondary-dark bg-background text-primary">
               {battles.map(b => (
@@ -134,7 +136,7 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
         </div>
       )}
 
-      {!loadingRounds && competitionId && battles.length === 0 && !roundsError && <p className="text-sm text-muted-foreground">No battles with a match id in this competition yet.</p>}
+      {!loadingRounds && competitionId && battles.length === 0 && !roundsError && <p className="text-sm text-muted-foreground">{t('noBattles')}</p>}
     </div>
   );
 }

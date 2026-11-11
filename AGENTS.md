@@ -46,7 +46,14 @@
 - **Max widths:** `max-w-content` (72rem) for default pages; `max-w-form` (40rem) for form-heavy screens; `max-w-prose` (or `PageInset` `prose` variant) for reading.
 - **Implementation:** Wrap main scrollable content in `PageInset` from `@/components/layout/page-inset` (or use utility classes `page-inset` / `page-inset-narrow` / `page-inset-prose` in `globals.css`). Full-bleed or `h-[100dvh]` tool UIs can skip `PageInset` on the outer shell but should still use the same spacing scale inside.
 
+## Versioning (`package.json` `version`)
+
+- **Patch** (third number): every fix or improvement, e.g. `2.28.2` → `2.28.3`.
+- **Minor** (second number): new features or breaking changes, reset patch to `0`, e.g. `2.28.3` → `2.29.0`.
+- **Major** (first number): only for huge changes such as a full refactor or a new main feature, reset the other two to `0`.
+
 ## AI guidelines
 
 - Before changing routes, read the existing layouts.
 - If shadcn/ui components are missing, add them (`npx shadcn@latest add ...`).
+- **Admin UI:** Screens under `src/app/admin` stay English and hardcoded. Do not add message keys or `useTranslations` / `getTranslations` for them. Only the admin account uses these screens.

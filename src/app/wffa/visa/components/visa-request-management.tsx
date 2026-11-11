@@ -6,6 +6,7 @@ import ActionButton from '@/components/common/action-button';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { Toaster, toast } from 'sonner';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { getVisaInvitationRequests, updateVisaInvitationRequest } from '@/infrastructure/clients/event.client';
 import { VisaInvitationRequest } from '@/domain/types/visa-invitation-request';
 import { VisaInvitationRequestApprovalState } from '@/domain/enums/visa-request-approval-state';
@@ -71,6 +72,7 @@ function ApplicantCell({ item, verificationByUsername }: { item: VisaInvitationR
 }
 
 export const VisaRequestManagement = () => {
+  const t = useTranslations('/wffa/visa');
   const { data: session, status } = useSession();
 
   const [visaInvitationRequestsMap, setVisaInvitationRequests] = useState<VisaInvitationRequest[]>([]);
@@ -100,7 +102,7 @@ export const VisaRequestManagement = () => {
         setVerificationByUsername(next);
       } catch (e: any) {
         console.error(e);
-        toast.error(e?.message ?? 'Failed to load visa requests.');
+        toast.error(e?.message ?? t('toastLoadFailed'));
       } finally {
         if (showInitialSpinner) setLoading(false);
       }
@@ -111,7 +113,7 @@ export const VisaRequestManagement = () => {
   const handleApproveClicked = async (req: VisaInvitationRequest) => {
     try {
       await updateVisaInvitationRequest(req.id, VisaInvitationRequestApprovalState.APPROVED, session);
-      toast.success(`Visa request approved for ${req.firstName} ${req.lastName}.`);
+      toast.success(t('toastApproved', { name: `${req.firstName} ${req.lastName}` }));
       await loadVisaRequestsAndVerification(false);
     } catch (error: any) {
       toast.error(error.message);
@@ -122,7 +124,7 @@ export const VisaRequestManagement = () => {
   const handleDeniedClicked = async (req: VisaInvitationRequest) => {
     try {
       await updateVisaInvitationRequest(req.id, VisaInvitationRequestApprovalState.DENIED, session);
-      toast.success(`Visa request denied for ${req.firstName} ${req.lastName}.`);
+      toast.success(t('toastDenied', { name: `${req.firstName} ${req.lastName}` }));
       await loadVisaRequestsAndVerification(false);
     } catch (error: any) {
       toast.error(error.message);
@@ -173,34 +175,35 @@ function PendingTable({
   onApprove: (req: VisaInvitationRequest) => void;
   onDeny: (req: VisaInvitationRequest) => void;
 }) {
+  const t = useTranslations('/wffa/visa');
   if (items.length === 0) {
     return (
       <div className="mb-6">
-        <h2 className="mb-2 text-center text-base font-semibold text-primary">Pending</h2>
-        <p className="text-center text-sm text-primary/70">No entries</p>
+        <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('pending')}</h2>
+        <p className="text-center text-sm text-primary/70">{t('noEntries')}</p>
       </div>
     );
   }
 
   return (
     <div className="mb-6">
-      <h2 className="mb-2 text-center text-base font-semibold text-primary">Pending</h2>
+      <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('pending')}</h2>
       <div className="rounded-md border border-secondary-dark bg-background">
         <Table className={VISA_TABLE_CLASS}>
           <TableHeader>
             <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.applicant)}>Applicant</TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.country)} title="Country code">
-                Country
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.applicant)}>{t('applicant')}</TableHead>
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.country)} title={t('countryCode')}>
+                {t('country')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title="Passport number">
-                Passport
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title={t('passportNumber')}>
+                {t('passport')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title="Request date">
-                Requested
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title={t('requestDate')}>
+                {t('requested')}
               </TableHead>
               <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}></TableHead>
-              <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>Actions</TableHead>
+              <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">
@@ -231,34 +234,35 @@ function PendingTable({
 }
 
 function ApprovedTable({ items, verificationByUsername }: { items: VisaInvitationRequest[]; verificationByUsername: Record<string, UserVerificationState | undefined> }) {
+  const t = useTranslations('/wffa/visa');
   if (items.length === 0) {
     return (
       <div className="mb-6">
-        <h2 className="mb-2 text-center text-base font-semibold text-primary">Approved</h2>
-        <p className="text-center text-sm text-primary/70">No entries</p>
+        <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('approved')}</h2>
+        <p className="text-center text-sm text-primary/70">{t('noEntries')}</p>
       </div>
     );
   }
 
   return (
     <div className="mb-6">
-      <h2 className="mb-2 text-center text-base font-semibold text-primary">Approved</h2>
+      <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('approved')}</h2>
       <div className="rounded-md border border-secondary-dark bg-background">
         <Table className={VISA_TABLE_CLASS}>
           <TableHeader>
             <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent p-2">
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.applicant)}>Applicant</TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.country)} title="Country code">
-                Country
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.applicant)}>{t('applicant')}</TableHead>
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.country)} title={t('countryCode')}>
+                {t('country')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title="Passport number">
-                Passport
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title={t('passportNumber')}>
+                {t('passport')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title="Request date">
-                Requested
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title={t('requestDate')}>
+                {t('requested')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}>Approver</TableHead>
-              <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>Document</TableHead>
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}>{t('approver')}</TableHead>
+              <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>{t('document')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">
@@ -308,34 +312,35 @@ function DeniedTable({
   verificationByUsername: Record<string, UserVerificationState | undefined>;
   onApprove: (req: VisaInvitationRequest) => void;
 }) {
+  const t = useTranslations('/wffa/visa');
   if (items.length === 0) {
     return (
       <div className="mb-6">
-        <h2 className="mb-2 text-center text-base font-semibold text-primary">Denied</h2>
-        <p className="text-center text-sm text-primary/70">No entries</p>
+        <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('denied')}</h2>
+        <p className="text-center text-sm text-primary/70">{t('noEntries')}</p>
       </div>
     );
   }
 
   return (
     <div className="mb-6">
-      <h2 className="mb-2 text-center text-base font-semibold text-primary">Denied</h2>
+      <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('denied')}</h2>
       <div className="rounded-md border border-secondary-dark bg-background">
         <Table className={VISA_TABLE_CLASS}>
           <TableHeader>
             <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.applicant)}>Applicant</TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.country)} title="Country code">
-                Country
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.applicant)}>{t('applicant')}</TableHead>
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.country)} title={t('countryCode')}>
+                {t('country')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title="Passport number">
-                Passport
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title={t('passportNumber')}>
+                {t('passport')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title="Request date">
-                Requested
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title={t('requestDate')}>
+                {t('requested')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}>Approver</TableHead>
-              <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>Actions</TableHead>
+              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}>{t('approver')}</TableHead>
+              <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">

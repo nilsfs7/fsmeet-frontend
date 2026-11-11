@@ -48,7 +48,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     if (compId) {
       try {
         await createRounds(compId?.toString(), rounds, session);
-        toast.success(`Rounds successfully created`);
+        toast.success(t('toastRoundsCreated'));
         router.refresh(); // TODO: remove, must reload to switch from save to update method.
       } catch (error: any) {
         toast.error(error.message);
@@ -61,7 +61,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     if (compId) {
       try {
         await updateRounds(compId?.toString(), rounds, session);
-        toast.success(`Rounds successfully updated`);
+        toast.success(t('toastRoundsUpdated'));
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -73,7 +73,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     if (compId) {
       try {
         await deleteRounds(compId?.toString(), session);
-        toast.success(`Round successfully deleted`);
+        toast.success(t('toastRoundDeleted'));
         router.refresh();
       } catch (error: any) {
         toast.error(error.message);
@@ -155,7 +155,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     const newRound = createRound(rnds.length, roundName, roundDate, roundTimeLimit, advancingTotal, []);
 
     for (let i = 0; i < Math.ceil(getAvailablePlayers() / slotsPerMatch); i++) {
-      roundAddMatch(newRound, `Match ${i + 1}`, null, false, slotsPerMatch);
+      roundAddMatch(newRound, t('defaultMatchName', { index: i + 1 }), null, false, slotsPerMatch);
     }
 
     rnds.push(newRound);

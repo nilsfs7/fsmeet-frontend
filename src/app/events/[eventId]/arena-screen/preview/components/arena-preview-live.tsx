@@ -5,6 +5,7 @@ import { ReadMatchResponseDto } from '@/infrastructure/clients/dtos/competition/
 import { ReadPartialUser2ResponseDto } from '@/infrastructure/clients/dtos/user/read-partial-user-2.response.dto';
 import { ReadArenaScreenStyleResponseDto } from '@/infrastructure/clients/dtos/event/read-arena-screen-style.response.dto';
 import { useCallback, useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { ArenaMatchScreen, type ArenaMatchPlain, type ArenaParticipantPlain } from './arena-match-screen';
 
 const POLL_MS = 5000;
@@ -46,6 +47,7 @@ function styleToScreenProps(style: ReadArenaScreenStyleResponseDto) {
 }
 
 export function ArenaPreviewLive({ eventId }: { eventId: string }) {
+  const t = useTranslations('/events/eventid/arena-screen');
   const [loadError, setLoadError] = useState<string | null>(null);
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
 
@@ -64,7 +66,7 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
       setParticipants(arenaParticipantsToPlain(arenaScreen.participants ?? []));
       setStyle(arenaScreen.style);
     } catch (e) {
-      setLoadError(e instanceof Error ? e.message : 'Failed to load arena screen');
+      setLoadError(e instanceof Error ? e.message : t('errorLoadArena'));
     }
   }, [eventId]);
 
@@ -77,7 +79,7 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
   if (!hasLoadedOnce && !loadError) {
     return (
       <div className="flex min-h-dvh items-center justify-center bg-slate-950 text-zinc-400">
-        <p className="text-sm">Loading arena…</p>
+        <p className="text-sm">{t('loadingArena')}</p>
       </div>
     );
   }
@@ -85,7 +87,7 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
   if (loadError && !hasLoadedOnce) {
     return (
       <div className="flex min-h-dvh flex-col items-center justify-center gap-2 bg-slate-950 px-6 text-center text-zinc-300">
-        <p className="text-lg font-medium text-white">Could not load arena</p>
+        <p className="text-lg font-medium text-white">{t('errorLoadArenaTitle')}</p>
         <p className="text-sm text-destructive">{loadError}</p>
       </div>
     );
@@ -94,7 +96,7 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
   if (!style) {
     return (
       <div className="flex min-h-dvh flex-col items-center justify-center gap-2 bg-slate-950 px-6 text-center text-zinc-300">
-        <p className="text-lg font-medium text-white">Arena style not available</p>
+        <p className="text-lg font-medium text-white">{t('styleUnavailable')}</p>
       </div>
     );
   }

@@ -12,6 +12,7 @@ import { User } from '@/domain/types/user';
 import { getUsers, updateUserWffaId } from '@/infrastructure/clients/user.client';
 import { UserType } from '@/domain/enums/user-type';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
@@ -21,8 +22,6 @@ import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { menuGender } from '@/domain/constants/menus/menu-gender';
 
-const MENU_COUNTRY_FILTER = [{ text: 'All countries', value: '' }, ...menuCountries];
-const MENU_GENDER_FILTER = [{ text: 'All', value: '' }, ...menuGender];
 
 function matchesNameFilter(user: User, query: string): boolean {
   const q = query.trim().toLowerCase();
@@ -109,11 +108,12 @@ function WffaIdTableSection({
   sortDescending: boolean;
   onSortColumnClick: (column: WffaSortColumn) => void;
 }) {
+  const t = useTranslations('/wffa/ids');
   if (items.length === 0) {
     return (
       <div className="mb-6">
         <h2 className="mb-2 text-center text-base font-semibold text-primary">{title}</h2>
-        <p className="text-center text-sm text-primary/70">No entries</p>
+        <p className="text-center text-sm text-primary/70">{t('noEntries')}</p>
       </div>
     );
   }
@@ -130,9 +130,9 @@ function WffaIdTableSection({
                   type="button"
                   className="inline-flex items-center gap-1.5 text-left font-medium hover:text-primary/80"
                   onClick={() => onSortColumnClick('user')}
-                  title={sortColumn === 'user' ? (sortDescending ? 'Sort user ascending' : 'Sort user descending') : 'Sort by user'}
+                  title={sortColumn === 'user' ? (sortDescending ? t('sortUserAsc') : t('sortUserDesc')) : t('sortByUser')}
                 >
-                  User
+                  {t('colUser')}
                   {sortColumn === 'user' &&
                     (sortDescending ? <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden /> : <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />)}
                 </button>
@@ -142,14 +142,14 @@ function WffaIdTableSection({
                   type="button"
                   className="inline-flex items-center gap-1.5 text-left font-medium hover:text-primary/80"
                   onClick={() => onSortColumnClick('wffaId')}
-                  title={sortColumn === 'wffaId' ? (sortDescending ? 'Sort ID ascending' : 'Sort ID descending') : 'Sort by Freestyler ID'}
+                  title={sortColumn === 'wffaId' ? (sortDescending ? t('sortIdAsc') : t('sortIdDesc')) : t('sortById')}
                 >
-                  Freestyler ID
+                  {t('colId')}
                   {sortColumn === 'wffaId' &&
                     (sortDescending ? <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden /> : <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />)}
                 </button>
               </TableHead>
-              <TableHead className={cn('text-right text-primary', WFFA_HEAD_PAD, wffaCol.actions)}>Actions</TableHead>
+              <TableHead className={cn('text-right text-primary', WFFA_HEAD_PAD, wffaCol.actions)}>{t('colActions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">
@@ -181,6 +181,7 @@ function WffaIdTableSection({
 }
 
 export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
+  const t = useTranslations('/wffa/ids');
   const { data: session, status } = useSession();
 
   const [usersMap, setUsersMap] = useState<UserWffaRow[]>(() => initialUsers.map(user => ({ user, newWffaId: user.wffaId || '' })));
@@ -188,6 +189,8 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
   const [filterGender, setFilterGender] = useState('');
   const [filterName, setFilterName] = useState('');
   const [sort, setSort] = useState<{ column: WffaSortColumn; descending: boolean }>({ column: 'user', descending: false });
+  const countryFilterMenus = useMemo(() => [{ text: t('allCountries'), value: '' }, ...menuCountries], [t]);
+  const genderFilterMenus = useMemo(() => [{ text: t('allGenders'), value: '' }, ...menuGender], [t]);
 
   const loadFreestylers = useCallback(async () => {
     try {
@@ -195,9 +198,9 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
       setUsersMap(data.map(user => ({ user, newWffaId: user.wffaId || '' })));
     } catch (e: any) {
       console.error(e);
-      toast.error(e?.message ?? 'Failed to reload users.');
+      toast.error(e?.message ?? t('toastReloadFailed'));
     }
-  }, []);
+  }, [t]);
 
   const handleWffaIdChanged = (username: string, wffaId: string) => {
     const upper = wffaId.toUpperCase();
@@ -210,7 +213,7 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
 
     try {
       await updateUserWffaId(session, user.username, item.newWffaId);
-      toast.success(`Freestyler ID for ${user.username} (${user.firstName}) updated.`);
+      toast.success(t('toastUpdated', { username: user.username, firstName: user.firstName ?? '' }));
       setUsersMap(prev => prev.map(row => (row.user.username === user.username ? { user: { ...row.user, wffaId: item.newWffaId }, newWffaId: item.newWffaId } : row)));
     } catch (error: any) {
       toast.error(error.message);
@@ -258,21 +261,21 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
         <div className="rounded-lg border border-primary bg-secondary-light p-2 text-sm">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
             <div className="flex min-w-0 flex-1 flex-col gap-1 sm:max-w-56">
-              <span className="text-xs font-medium text-primary/80">Name</span>
-              <Input placeholder="Search…" value={filterName} onChange={e => setFilterName(e.target.value)} className="w-full" />
+              <span className="text-xs font-medium text-primary/80">{t('filterName')}</span>
+              <Input placeholder={t('search')} value={filterName} onChange={e => setFilterName(e.target.value)} className="w-full" />
             </div>
             <div className="flex min-w-0 flex-col gap-1 sm:max-w-[min(100%,14rem)]">
-              <span className="text-xs font-medium text-primary/80">Country</span>
-              <ComboBox menus={MENU_COUNTRY_FILTER} value={filterCountry} searchEnabled label="Country" className="w-full max-w-none" onChange={(value: string) => setFilterCountry(value)} />
+              <span className="text-xs font-medium text-primary/80">{t('filterCountry')}</span>
+              <ComboBox menus={countryFilterMenus} value={filterCountry} searchEnabled label={t('filterCountry')} className="w-full max-w-none" onChange={(value: string) => setFilterCountry(value)} />
             </div>
             <div className="flex min-w-0 flex-col gap-1 sm:max-w-48">
-              <span className="text-xs font-medium text-primary/80">Gender</span>
-              <ComboBox menus={MENU_GENDER_FILTER} value={filterGender} searchEnabled={false} label="Gender" className="w-full max-w-none" onChange={(value: string) => setFilterGender(value)} />
+              <span className="text-xs font-medium text-primary/80">{t('filterGender')}</span>
+              <ComboBox menus={genderFilterMenus} value={filterGender} searchEnabled={false} label={t('filterGender')} className="w-full max-w-none" onChange={(value: string) => setFilterGender(value)} />
             </div>
           </div>
 
           <WffaIdTableSection
-            title="Without Freestyler ID"
+            title={t('withoutId')}
             items={sortedWithoutSavedId}
             onWffaIdChange={handleWffaIdChanged}
             onSave={handleSaveUserClicked}
@@ -281,7 +284,7 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
             onSortColumnClick={handleSortColumnClick}
           />
           <WffaIdTableSection
-            title="With Freestyler ID"
+            title={t('withId')}
             items={sortedWithSavedId}
             onWffaIdChange={handleWffaIdChanged}
             onSave={handleSaveUserClicked}
