@@ -13,7 +13,15 @@
     "navVoice": "声音",
     "navAdminOverview": "管理",
     "navWffaOverview": "WFFA",
-    "navAbout": "关于"
+    "navAbout": "关于",
+    "heroEyebrow": "花式足球社区",
+    "eventsTitle": "活动",
+    "eventsSubtitle": "进行中、即将开始和近期亮点",
+    "exploreTitle": "探索社区",
+    "exploreMapText": "找到你附近的花式足球玩家，并在地图上展示自己。",
+    "exploreCommunityText": "浏览运动员、裁判、组织者和品牌。",
+    "exploreVoiceText": "就塑造圈子的提案发表意见。",
+    "exploreAboutText": "了解 FSMeet、开发者以及如何支持它。"
   },
   "/about": {
     "pageTitle": "关于",
@@ -1365,5 +1373,20 @@
     "select": "选择",
     "noData": "未找到数据。",
     "appNav": "应用"
+  },
+  "global/components/app-header": {
+    "navHome": "首页",
+    "navEvents": "活动",
+    "navMap": "地图",
+    "navCommunity": "社区",
+    "navVoice": "Voice",
+    "navAbout": "关于",
+    "btnCreateEvent": "创建活动",
+    "menuOpen": "打开菜单",
+    "menuClose": "关闭菜单",
+    "sectionDiscover": "发现",
+    "sectionMore": "更多",
+    "menuItemAdmin": "管理",
+    "menuItemWffa": "WFFA"
   }
 }

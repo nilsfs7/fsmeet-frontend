@@ -13,7 +13,15 @@
     "navVoice": "Suara",
     "navAdminOverview": "Admin",
     "navWffaOverview": "WFFA",
-    "navAbout": "Tentang"
+    "navAbout": "Tentang",
+    "heroEyebrow": "Komuniti bola sepak gaya bebas",
+    "eventsTitle": "Acara",
+    "eventsSubtitle": "Sedang berlangsung, akan datang dan sorotan terkini",
+    "exploreTitle": "Terokai komuniti",
+    "exploreMapText": "Cari freestyler berdekatan dan paparkan diri anda pada peta.",
+    "exploreCommunityText": "Lihat atlet, juri, penganjur dan jenama.",
+    "exploreVoiceText": "Suarakan pendapat tentang cadangan yang membentuk komuniti.",
+    "exploreAboutText": "Ketahui apa itu FSMeet, siapa yang membinanya dan cara menyokongnya."
   },
   "/about": {
     "pageTitle": "Tentang",
@@ -1365,5 +1373,20 @@
     "select": "Pilih",
     "noData": "Tiada data dijumpai.",
     "appNav": "Apl"
+  },
+  "global/components/app-header": {
+    "navHome": "Laman Utama",
+    "navEvents": "Acara",
+    "navMap": "Peta",
+    "navCommunity": "Komuniti",
+    "navVoice": "Voice",
+    "navAbout": "Tentang",
+    "btnCreateEvent": "Cipta acara",
+    "menuOpen": "Buka menu",
+    "menuClose": "Tutup menu",
+    "sectionDiscover": "Terokai",
+    "sectionMore": "Lagi",
+    "menuItemAdmin": "Admin",
+    "menuItemWffa": "WFFA"
   }
 }

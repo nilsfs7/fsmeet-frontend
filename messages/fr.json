@@ -13,7 +13,15 @@
     "navVoice": "Votes",
     "navAdminOverview": "Admin",
     "navWffaOverview": "WFFA",
-    "navAbout": "À propos"
+    "navAbout": "À propos",
+    "heroEyebrow": "Communauté de football freestyle",
+    "eventsTitle": "Événements",
+    "eventsSubtitle": "En cours, à venir et temps forts récents",
+    "exploreTitle": "Explorer la communauté",
+    "exploreMapText": "Trouve des freestylers près de chez toi et affiche-toi sur la carte.",
+    "exploreCommunityText": "Parcours athlètes, juges, organisateurs et marques.",
+    "exploreVoiceText": "Donne ton avis sur les propositions qui façonnent la scène.",
+    "exploreAboutText": "Découvre FSMeet, qui le développe et comment le soutenir."
   },
   "/about": {
     "pageTitle": "À propos",
@@ -1365,5 +1373,20 @@
     "navNext": "Aller à la page suivante",
     "navLast": "Aller à la dernière page",
     "openMenu": "Ouvrir le menu"
+  },
+  "global/components/app-header": {
+    "navHome": "Accueil",
+    "navEvents": "Événements",
+    "navMap": "Carte",
+    "navCommunity": "Communauté",
+    "navVoice": "Voice",
+    "navAbout": "À propos",
+    "btnCreateEvent": "Créer un événement",
+    "menuOpen": "Ouvrir le menu",
+    "menuClose": "Fermer le menu",
+    "sectionDiscover": "Découvrir",
+    "sectionMore": "Plus",
+    "menuItemAdmin": "Admin",
+    "menuItemWffa": "WFFA"
   }
 }

@@ -13,7 +13,15 @@
     "navVoice": "ボイス",
     "navAdminOverview": "管理",
     "navWffaOverview": "WFFA",
-    "navAbout": "概要"
+    "navAbout": "概要",
+    "heroEyebrow": "フリースタイルフットボールコミュニティ",
+    "eventsTitle": "イベント",
+    "eventsSubtitle": "開催中・今後・最近のハイライト",
+    "exploreTitle": "コミュニティを探索",
+    "exploreMapText": "近くのフリースタイラーを見つけて、マップに自分を表示しよう。",
+    "exploreCommunityText": "選手、ジャッジ、主催者、ブランドを探す。",
+    "exploreVoiceText": "シーンを形作る提案に意見を届けよう。",
+    "exploreAboutText": "FSMeetについて、開発者と応援方法を知る。"
   },
   "/about": {
     "pageTitle": "概要",
@@ -1365,5 +1373,20 @@
     "select": "選択",
     "noData": "データがありません。",
     "appNav": "アプリ"
+  },
+  "global/components/app-header": {
+    "navHome": "ホーム",
+    "navEvents": "イベント",
+    "navMap": "マップ",
+    "navCommunity": "コミュニティ",
+    "navVoice": "Voice",
+    "navAbout": "概要",
+    "btnCreateEvent": "イベントを作成",
+    "menuOpen": "メニューを開く",
+    "menuClose": "メニューを閉じる",
+    "sectionDiscover": "見つける",
+    "sectionMore": "その他",
+    "menuItemAdmin": "管理",
+    "menuItemWffa": "WFFA"
   }
 }

@@ -12,7 +12,7 @@ import type { CSSProperties } from 'react';
 import { useTranslations } from 'next-intl';
 
 const flagFrameClass =
-  'flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-border/50 transition-colors hover:border-primary/50';
+  'flex h-6 w-6 items-center justify-center overflow-hidden rounded-full ring-1 ring-border';
 const flagStyle: CSSProperties = {
   width: '100%',
   height: '100%',
@@ -62,28 +62,22 @@ const LanguagePicker = () => {
 
   return (
     <div ref={containerRef} className="relative">
-      <div
+      <button
+        type="button"
+        aria-label={t('language')}
+        aria-expanded={opened}
+        aria-haspopup="listbox"
+        onClick={handleMenuClicked}
         className={cn(
-          'static flex h-14 w-14 cursor-pointer items-center justify-center rounded-xl border border-border/60 bg-secondary-light p-1 shadow-xs',
-          'transition-all duration-200',
-          'hover:border-primary/50 hover:shadow-md',
-          'dark:border-border/50 dark:bg-background dark:hover:border-primary/40',
-          opened && 'border-primary/50 shadow-md',
+          'flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background shadow-xs transition-all duration-150',
+          'hover:border-foreground/20 hover:shadow-sm',
+          opened && 'border-foreground/20 shadow-sm',
         )}
       >
-        <button
-          type="button"
-          aria-label={t('language')}
-          aria-expanded={opened}
-          aria-haspopup="listbox"
-          onClick={handleMenuClicked}
-          className="flex h-full w-full items-center justify-center"
-        >
-          <div className={flagFrameClass}>
-            <ReactCountryFlag countryCode={locale} svg style={flagStyle} title="" />
-          </div>
-        </button>
-      </div>
+        <div className={flagFrameClass}>
+          <ReactCountryFlag countryCode={locale} svg style={flagStyle} title="" />
+        </div>
+      </button>
 
       <Transition
         as={Fragment}
@@ -98,8 +92,7 @@ const LanguagePicker = () => {
         <div
           role="listbox"
           className={cn(
-            'absolute right-0 top-14 z-50 mt-2 w-14 overflow-hidden rounded-xl border border-border/60 bg-secondary-light shadow-xs',
-            'dark:border-border/50 dark:bg-background',
+            'absolute right-0 top-12 z-50 grid w-[7.5rem] grid-cols-3 gap-1 overflow-hidden rounded-2xl border border-border bg-background p-1.5 shadow-lg',
           )}
         >
           {supportedLanguages.map((language, index) => {
@@ -107,9 +100,9 @@ const LanguagePicker = () => {
               <div
                 key={`${language}-${index.toString()}`}
                 className={cn(
-                  'flex h-12 cursor-pointer items-center justify-center transition-colors',
-                  'hover:bg-muted/50 dark:hover:bg-muted/30',
-                  activeIndex === index && 'bg-muted/50 dark:bg-muted/30',
+                  'flex h-9 cursor-pointer items-center justify-center rounded-lg transition-colors',
+                  'hover:bg-muted',
+                  (activeIndex === index || language === locale) && 'bg-muted',
                 )}
                 onMouseEnter={() => setActiveIndex(index)}
                 onMouseLeave={() => setActiveIndex(undefined)}

@@ -13,7 +13,15 @@
     "navVoice": "आवाज़",
     "navAdminOverview": "एडमिन",
     "navWffaOverview": "WFFA",
-    "navAbout": "परिचय"
+    "navAbout": "परिचय",
+    "heroEyebrow": "फ्रीस्टाइल फ़ुटबॉल कम्युनिटी",
+    "eventsTitle": "इवेंट्स",
+    "eventsSubtitle": "चल रहे, आने वाले और हाल के हाइलाइट्स",
+    "exploreTitle": "कम्युनिटी एक्सप्लोर करें",
+    "exploreMapText": "अपने पास के फ्रीस्टाइलर्स खोजें और मैप पर खुद को दिखाएं।",
+    "exploreCommunityText": "एथलीट, जज, आयोजक और ब्रांड देखें।",
+    "exploreVoiceText": "सीन को आकार देने वाले प्रस्तावों पर अपनी राय दें।",
+    "exploreAboutText": "जानें FSMeet क्या है, इसे कौन बनाता है और कैसे सपोर्ट करें।"
   },
   "/about": {
     "pageTitle": "परिचय",
@@ -1365,5 +1373,20 @@
     "select": "चुनें",
     "noData": "कोई डेटा नहीं मिला।",
     "appNav": "ऐप"
+  },
+  "global/components/app-header": {
+    "navHome": "होम",
+    "navEvents": "इवेंट्स",
+    "navMap": "मैप",
+    "navCommunity": "कम्युनिटी",
+    "navVoice": "Voice",
+    "navAbout": "परिचय",
+    "btnCreateEvent": "इवेंट बनाएं",
+    "menuOpen": "मेनू खोलें",
+    "menuClose": "मेनू बंद करें",
+    "sectionDiscover": "खोजें",
+    "sectionMore": "और",
+    "menuItemAdmin": "एडमिन",
+    "menuItemWffa": "WFFA"
   }
 }

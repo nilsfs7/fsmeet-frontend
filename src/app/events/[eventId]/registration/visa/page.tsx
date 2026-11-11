@@ -20,7 +20,6 @@ import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { User } from '@/domain/types/user';
 import { useRouter } from 'next/navigation';
-import { Header } from '@/components/header';
 import { toTitleCase } from '@/functions/string-manipulation';
 import { cn } from '@/lib/utils';
 
@@ -166,8 +165,6 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
       <Toaster richColors />
 
       <div className="absolute inset-0 flex min-h-0 flex-col">
-        <Header />
-
         <PageTitle title={t('pageTitle')} />
 
         <div className={visaMainScrollClass}>

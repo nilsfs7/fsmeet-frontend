@@ -1,4 +1,3 @@
-import { Header } from '@/components/header';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
@@ -99,8 +98,6 @@ export default async function Contributors() {
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">
-      <Header />
-
       <PageTitle title={t('pageTitle')} />
 
       <PageInset variant="prose" className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">

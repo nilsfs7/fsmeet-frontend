@@ -2,7 +2,6 @@ import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import { Header } from '@/components/header';
 import PageTitle from '@/components/page-title';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import { ColumnInfo, UsersList } from './components/users-list';
@@ -62,8 +61,6 @@ export default async function Users() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <Header />
-
       <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>

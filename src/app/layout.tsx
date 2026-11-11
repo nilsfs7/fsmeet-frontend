@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import LocalizationProvider from '@/lib/providers';
 import { AppShellColumn } from '@/components/layout/app-shell-column';
+import { AppHeader } from '@/components/header';
 import { cn } from '@/lib/utils';
 import { getSiteUrl } from '@/lib/site-url';
 
@@ -47,7 +48,11 @@ export default async function RootLayout({
           <SessionProvider>
             <LocalizationProvider>
               <NextIntlClientProvider messages={messages}>
-                <AppShellColumn>{children}</AppShellColumn>
+                <AppShellColumn>
+                  <AppHeader />
+                  {/* `relative` so `absolute inset-0` pages layer below the app bar, not over it */}
+                  <div className="relative flex min-h-0 flex-1 flex-col">{children}</div>
+                </AppShellColumn>
               </NextIntlClientProvider>
             </LocalizationProvider>
           </SessionProvider>

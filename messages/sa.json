@@ -13,7 +13,15 @@
     "navVoice": "الصوت",
     "navAdminOverview": "الإدارة",
     "navWffaOverview": "WFFA",
-    "navAbout": "حول"
+    "navAbout": "حول",
+    "heroEyebrow": "مجتمع كرة القدم الحرة",
+    "eventsTitle": "الفعاليات",
+    "eventsSubtitle": "الجارية والقادمة وأبرز الفعاليات الأخيرة",
+    "exploreTitle": "استكشف المجتمع",
+    "exploreMapText": "اعثر على لاعبي الفريستايل بالقرب منك وأظهر نفسك على الخريطة.",
+    "exploreCommunityText": "تصفح الرياضيين والحكام والمنظمين والعلامات التجارية.",
+    "exploreVoiceText": "شارك برأيك في المقترحات التي تشكل المشهد.",
+    "exploreAboutText": "تعرف على FSMeet ومن يطوره وكيف تدعمه."
   },
   "/about": {
     "pageTitle": "حول",
@@ -1365,5 +1373,20 @@
     "select": "اختيار",
     "noData": "لم يُعثر على بيانات.",
     "appNav": "التطبيق"
+  },
+  "global/components/app-header": {
+    "navHome": "الرئيسية",
+    "navEvents": "الفعاليات",
+    "navMap": "الخريطة",
+    "navCommunity": "المجتمع",
+    "navVoice": "Voice",
+    "navAbout": "حول",
+    "btnCreateEvent": "إنشاء فعالية",
+    "menuOpen": "فتح القائمة",
+    "menuClose": "إغلاق القائمة",
+    "sectionDiscover": "اكتشف",
+    "sectionMore": "المزيد",
+    "menuItemAdmin": "الإدارة",
+    "menuItemWffa": "WFFA"
   }
 }

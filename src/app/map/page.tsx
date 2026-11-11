@@ -1,4 +1,3 @@
-import { Header } from '@/components/header';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
@@ -46,8 +45,6 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {!iframeView && (
         <>
-          <Header />
-
           <div className={constrainedContentClass}>
             <PageTitle title={t('pageTitle')} />
           </div>

@@ -5,8 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
-import { routeAccount, routeAds, routeEventSubs, routeFeedback, routeHome, routeJobs, routeLogin, routeUsers } from '@/domain/constants/routes';
-import { imgProfileAds, imgProfileEvents, imgProfileFeedback, imgProfileJobs, imgProfileLogout, imgProfileSettings, imgUserNoImg } from '@/domain/constants/images';
+import { routeAccount, routeAdminOverview, routeAds, routeEventSubs, routeFeedback, routeHome, routeJobs, routeLogin, routeUsers, routeWffaOverview } from '@/domain/constants/routes';
+import { imgUserNoImg } from '@/domain/constants/images';
+import { IconAd2, IconBriefcase, IconCalendarUser, IconChevronDown, IconLogout, IconMessageCircle, IconSettings, IconShieldCheck, IconUserCircle, IconWorld, type Icon } from '@tabler/icons-react';
+import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { UserType } from '@/domain/enums/user-type';
@@ -21,6 +23,7 @@ const ProfileMenu = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [userTypeFromApi, setUserTypeFromApi] = useState<UserType | undefined>(undefined);
   const [countryCodeFromApi, setCountryCodeFromApi] = useState<string | undefined>(undefined);
+  const [isWffaMember, setIsWffaMember] = useState<boolean>(false);
 
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
@@ -51,6 +54,7 @@ const ProfileMenu = () => {
     if (!uname || !session?.user?.accessToken) {
       setUserTypeFromApi(undefined);
       setCountryCodeFromApi(undefined);
+      setIsWffaMember(false);
       return;
     }
     let cancelled = false;
@@ -62,6 +66,7 @@ const ProfileMenu = () => {
         setUserTypeFromApi(undefined);
       }
       setCountryCodeFromApi(user.countryCode);
+      setIsWffaMember(!!user.isWffaMember);
     });
     return () => {
       cancelled = true;
@@ -94,6 +99,14 @@ const ProfileMenu = () => {
 
   const onFeedbackClicked = () => {
     router.push(routeFeedback);
+  };
+
+  const onAdminClicked = () => {
+    router.push(routeAdminOverview);
+  };
+
+  const onWffaClicked = () => {
+    router.push(routeWffaOverview);
   };
 
   const onLogoutClicked = async () => {
@@ -130,14 +143,20 @@ const ProfileMenu = () => {
   // Temporarily limited to German freestylers (same gate as account Jobs tab)
   const showJobsMenu = effectiveUserType === UserType.FREESTYLER && countryCodeFromApi === 'DE';
 
-  const menuEntries = [
-    { label: t('menuItemMyEvents'), icon: imgProfileEvents, action: onEventsClicked },
-    { label: t('menuItemPublicProfile'), icon: imgUserNoImg, action: onPublicProfileClicked },
-    { label: t('menuItemSettings'), icon: imgProfileSettings, action: onAccountClicked },
-    ...(showAdsMenu ? [{ label: t('menuItemAds'), icon: imgProfileAds, action: onAdsClicked }] : []),
-    ...(showJobsMenu ? [{ label: t('menuItemJobs'), icon: imgProfileJobs, action: onJobsClicked }] : []),
-    { label: t('menuItemFeedback'), icon: imgProfileFeedback, action: onFeedbackClicked },
-    { label: t('menuItemLogout'), icon: imgProfileLogout, action: onLogoutClicked },
+  const isAdmin = (username ?? session?.user?.username) === AdministrativeUser.ADMIN;
+  const tHeader = useTranslations('global/components/app-header');
+
+  type MenuEntry = { label: string; Icon: Icon; action: () => void; critical?: boolean; divider?: boolean };
+  const menuEntries: MenuEntry[] = [
+    { label: t('menuItemMyEvents'), Icon: IconCalendarUser, action: onEventsClicked },
+    { label: t('menuItemPublicProfile'), Icon: IconUserCircle, action: onPublicProfileClicked },
+    { label: t('menuItemSettings'), Icon: IconSettings, action: onAccountClicked },
+    ...(showAdsMenu ? [{ label: t('menuItemAds'), Icon: IconAd2, action: onAdsClicked }] : []),
+    ...(showJobsMenu ? [{ label: t('menuItemJobs'), Icon: IconBriefcase, action: onJobsClicked }] : []),
+    ...(isWffaMember || isAdmin ? [{ label: tHeader('menuItemWffa'), Icon: IconWorld, action: onWffaClicked, divider: true }] : []),
+    ...(isAdmin ? [{ label: tHeader('menuItemAdmin'), Icon: IconShieldCheck, action: onAdminClicked, divider: !(isWffaMember || isAdmin) }] : []),
+    { label: t('menuItemFeedback'), Icon: IconMessageCircle, action: onFeedbackClicked, divider: true },
+    { label: t('menuItemLogout'), Icon: IconLogout, action: onLogoutClicked, critical: true },
   ];
 
   const isAuthenticated = () => {
@@ -151,23 +170,30 @@ const ProfileMenu = () => {
 
   return (
     <div ref={containerRef} className="relative">
-      {/* picture and name  */}
-      <div
+      {/* avatar + name (name hidden on small screens) */}
+      <button
+        type="button"
+        data-shot="account-menu"
+        aria-haspopup="menu"
+        aria-expanded={isAuthenticated() && opened}
+        onClick={onClickProfile}
         className={cn(
-          'static flex h-14 min-w-[100px] max-w-[180px] cursor-pointer items-center justify-center rounded-xl border border-border/60 bg-secondary-light p-1 shadow-xs',
-          'transition-all duration-200',
-          'hover:border-primary/50 hover:shadow-md',
-          'dark:border-border/50 dark:bg-background dark:hover:border-primary/40',
-          opened && isAuthenticated() && 'border-primary/50 shadow-md',
+          'flex h-10 max-w-[200px] items-center gap-2 rounded-full border border-border bg-background shadow-xs transition-all duration-150',
+          'hover:border-foreground/20 hover:shadow-sm',
+          isAuthenticated() ? 'pl-1 pr-1 sm:pr-3' : 'px-4 text-sm font-semibold',
+          opened && isAuthenticated() && 'border-foreground/20 shadow-sm',
         )}
       >
-        <button type="button" className="flex items-center gap-2" onClick={onClickProfile}>
-          <div className="h-11 w-11">
-            <img src={imageUrl ? imageUrl : imgUserNoImg} className="h-full w-full rounded-full object-cover" />
-          </div>
-          <div className="truncate hover:text-clip">{username || t('login')}</div>
-        </button>
-      </div>
+        {isAuthenticated() ? (
+          <>
+            <img src={imageUrl ? imageUrl : imgUserNoImg} className="h-8 w-8 shrink-0 rounded-full object-cover" alt="" />
+            <span className="hidden truncate text-sm font-medium sm:inline">{username}</span>
+            <IconChevronDown className={cn('hidden h-4 w-4 shrink-0 text-muted-foreground transition-transform sm:block', opened && 'rotate-180')} stroke={1.75} />
+          </>
+        ) : (
+          <span>{t('login')}</span>
+        )}
+      </button>
 
       {/* actions menu */}
       <Transition
@@ -180,26 +206,33 @@ const ProfileMenu = () => {
         leaveTo="transform opacity-0 scale-95"
         show={isAuthenticated() && opened}
       >
-        <div
-          role="menu"
-          className={cn('absolute right-0 top-14 z-50 mt-2 min-w-max overflow-hidden rounded-xl border border-border/60 bg-secondary-light shadow-xs', 'dark:border-border/50 dark:bg-background')}
-        >
+        <div role="menu" className="absolute right-0 top-12 z-50 w-60 origin-top-right overflow-hidden rounded-2xl border border-border bg-background p-1.5 shadow-lg">
+          <div className="flex items-center gap-3 px-2.5 pb-2.5 pt-1.5">
+            <img src={imageUrl ? imageUrl : imgUserNoImg} className="h-9 w-9 rounded-full object-cover" alt="" />
+            <div className="min-w-0 truncate text-sm font-semibold">{username}</div>
+          </div>
           {menuEntries.map((entry, index) => {
             return (
-              <div
-                key={`${entry.label}-${index.toString()}`}
-                className={cn(
-                  'flex h-12 cursor-pointer items-center px-2 text-foreground transition-colors',
-                  'hover:bg-muted/50 dark:hover:bg-muted/30',
-                  activeIndex === index && 'bg-muted/50 dark:bg-muted/30',
-                )}
-                onMouseEnter={() => setActiveIndex(index)}
-                onMouseLeave={() => setActiveIndex(undefined)}
-                onClick={entry.action}
-                role="menuitem"
-              >
-                <img src={entry.icon} className="mx-1 w-6 object-contain" alt="" />
-                <div className="type-body-sm mx-1 sm:text-base">{entry.label}</div>
+              <div key={`${entry.label}-${index.toString()}`}>
+                {(entry.divider || index === 0) && <div className="mx-1 my-1 h-px bg-border" aria-hidden />}
+                <div
+                  className={cn(
+                    'flex h-10 cursor-pointer items-center gap-3 rounded-lg px-2.5 text-sm font-medium transition-colors',
+                    entry.critical ? 'text-critical-dark' : 'text-foreground',
+                    'hover:bg-muted',
+                    activeIndex === index && 'bg-muted',
+                  )}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(undefined)}
+                  onClick={() => {
+                    setOpened(false);
+                    void entry.action();
+                  }}
+                  role="menuitem"
+                >
+                  <entry.Icon className={cn('h-[18px] w-[18px]', entry.critical ? 'text-critical-dark' : 'text-muted-foreground')} stroke={1.75} />
+                  <span>{entry.label}</span>
+                </div>
               </div>
             );
           })}

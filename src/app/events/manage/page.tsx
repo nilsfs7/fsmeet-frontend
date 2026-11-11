@@ -3,7 +3,6 @@ import Navigation from '@/components/navigation';
 import { routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
-import { Header } from '@/components/header';
 import PageTitle from '@/components/page-title';
 import { getEvents } from '@/infrastructure/clients/event.client';
 import { auth } from '@/auth';
@@ -56,8 +55,6 @@ export default async function MyEventsOverview() {
 
   return (
     <div className="min-h-0 flex-1 flex flex-col overflow-hidden">
-      <Header showMenu />
-
       <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>
