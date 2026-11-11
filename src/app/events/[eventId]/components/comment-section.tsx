@@ -9,12 +9,7 @@ import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
-const cardSurface = cn(
-  'h-fit min-w-0 overflow-hidden rounded-xl border border-border/60',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
-);
+const cardSurface = cn('h-fit min-w-0 overflow-hidden rounded-2xl border border-border bg-background shadow-xs');
 
 interface ICommentSectionProps {
   eventComments: EventComment[];
@@ -86,7 +81,7 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
 
   return (
     <div className={cardSurface}>
-      <div className="flex min-h-0 min-w-0 flex-col gap-3 p-2.5 sm:p-3 md:p-4">
+      <div className="flex min-h-0 min-w-0 flex-col gap-3 p-4 sm:p-6">
         <h2 className="text-base font-semibold leading-tight tracking-tight text-foreground">
           {t('tabOverviewSectionComments')}
         </h2>

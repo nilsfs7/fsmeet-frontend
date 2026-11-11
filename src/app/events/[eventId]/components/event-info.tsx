@@ -3,13 +3,10 @@
 import { useState, type ReactNode } from 'react';
 import {
   imgAccommodation,
-  imgCompetition,
-  imgMeeting,
   imgParticipantDrinks,
   imgParticipantDrinksAndSnacks,
   imgParticipantSnacks,
   imgPrizeMoney,
-  imgRanked,
   imgUserDefaultImg,
 } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -41,7 +38,9 @@ import { Size } from '@/domain/enums/size';
 
 const cardSurface = cn('h-fit min-w-0 overflow-hidden rounded-2xl border border-border bg-background shadow-xs');
 
-const sectionClass = 'border-t border-border/70 px-4 py-4 sm:px-6 sm:py-5';
+const sectionClass = 'border-t border-border/70 px-4 py-4 first:border-t-0 sm:px-6 sm:py-5';
+
+const sectionTitleClass = 'mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground';
 
 const softButtonClass = 'h-8 gap-1 rounded-lg border border-border bg-background px-2.5 text-foreground shadow-xs transition-colors hover:bg-muted';
 
@@ -75,12 +74,9 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
   const router = useRouter();
 
   const [showMap, setShowMap] = useState<boolean>(false);
-  const [posterPreviewOpen, setPosterPreviewOpen] = useState(false);
   const [donationQrOpen, setDonationQrOpen] = useState(false);
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
 
-  const posterSrc = event.imageUrlPoster || (event.type === EventType.MEETING ? imgMeeting : imgCompetition);
-  const isCustomPoster = Boolean(event.imageUrlPoster);
   const isDescriptionLong = (event.description?.length || 0) > 320;
 
   let eventFee = event.participationFee > 0 ? `${convertCurrencyIntegerToDecimal(event.participationFee, event.currency).toFixed(2).replace('.', ',')} ${getCurrencySymbol(event.currency)}` : t('tabOverviewFeeFree');
@@ -113,15 +109,6 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
     <>
       <VideoDialog queryParam="trailer" videoUrl={event.trailerUrl || ''} title={t('dlgVideoTitle')} onCancel={handleCancelDialogClicked} />
 
-      <Dialog open={posterPreviewOpen} onOpenChange={setPosterPreviewOpen}>
-        <DialogContent aria-describedby={undefined} className="w-auto max-w-[min(100vw-2rem,64rem)]">
-          <DialogHeader className="sr-only">
-            <DialogTitle>{event.name}</DialogTitle>
-          </DialogHeader>
-          <img src={posterSrc} alt="" className={cn('max-h-[min(70dvh,100%)] w-full object-contain', !isCustomPoster && 'p-8')} />
-        </DialogContent>
-      </Dialog>
-
       {event.donationUrl && (
         <Dialog open={donationQrOpen} onOpenChange={setDonationQrOpen}>
           <DialogContent aria-describedby={undefined} className="max-w-sm">
@@ -143,68 +130,9 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
       )}
 
       <div className={cardSurface}>
-        <div className="p-4 sm:p-6">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6 md:gap-8">
-            <div className="order-2 flex min-w-0 flex-1 flex-col gap-4 sm:order-1">
-              <div className="flex flex-col gap-2">
-                {!isPublicEventState(event.state) && <NotListedLabel className="w-fit" />}
-                <h1 className="min-w-0 text-balance text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl">{event.name}</h1>
-              </div>
-
-              <div className="flex flex-col gap-2.5">
-                <MetaRow icon={<IconCalendarEvent stroke={1.75} />}>
-                  {moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
-                    ? getShortDateString(moment(event.dateFrom))
-                    : `${getShortDateString(moment(event.dateFrom), false)} – ${getShortDateString(moment(event.dateTo))}`}
-                </MetaRow>
-                <MetaRow icon={event.type === EventType.COMPETITION_ONLINE ? <IconWorld stroke={1.75} /> : <IconMapPin stroke={1.75} />}>{event.type === EventType.COMPETITION_ONLINE ? t('tabOverviewOnline') : event.venueCity}</MetaRow>
-                <MetaRow
-                  icon={moment(event.registrationDeadline) > moment() ? <IconHourglassHigh stroke={1.75} /> : <IconHourglassOff stroke={1.75} />}
-                >{`${getShortDateString(moment(event.registrationOpen), false)} – ${getShortDateString(moment(event.registrationDeadline))}`}</MetaRow>
-                <div className="flex min-w-0 items-center gap-3">
-                  <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-border">
-                    <Link className="block h-full w-full" href={`${routeUsers}/${event.admin}`}>
-                      <img src={eventAdmin?.imageUrl || imgUserDefaultImg} className="h-full w-full object-cover" alt="" />
-                    </Link>
-                  </div>
-                  <div className="min-w-0 flex-1 text-sm font-medium text-foreground">
-                    <Link className="hover:underline" href={`${routeUsers}/${event.admin}`}>
-                      {eventAdmin?.lastName && `${eventAdmin?.firstName} ${eventAdmin?.lastName}`}
-                      {!eventAdmin?.lastName && eventAdmin?.firstName && `${eventAdmin?.firstName}`}
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className={cn('order-1 w-full shrink-0 sm:order-2 sm:w-48 md:w-56 lg:w-64', !isCustomPoster && 'hidden sm:block')}>
-              <div className="mx-auto w-full max-w-sm overflow-hidden rounded-xl shadow-sm sm:mx-0 sm:max-w-none">
-                <button
-                  type="button"
-                  onClick={() => setPosterPreviewOpen(true)}
-                  className="group relative w-full text-left outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                  aria-label={t('tabOverviewPosterPreview')}
-                >
-                  <div className={cn('relative w-full aspect-4/5 overflow-hidden rounded-xl', !isCustomPoster && 'bg-muted')}>
-                    <img
-                      src={posterSrc}
-                      alt=""
-                      className={cn(
-                        'h-full w-full transition-transform duration-200 group-hover:scale-[1.02] group-focus-visible:scale-[1.02]',
-                        isCustomPoster ? 'object-cover object-center' : 'object-contain object-center p-4 sm:p-5',
-                      )}
-                    />
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {(event.isWffaRanked || event.prizeMoney > 0 || event.accommodations.length > 0 || event.participantDrinks || event.participantSnacks) && (
+        {(event.prizeMoney > 0 || event.accommodations.length > 0 || event.participantDrinks || event.participantSnacks) && (
           <div className={sectionClass}>
             <div className="flex min-w-0 flex-wrap items-center gap-2">
-              {event.isWffaRanked && <Perk icon={imgRanked} label={t('tabOverviewPerkWffaRanked')} />}
               {event.prizeMoney > 0 && <Perk icon={imgPrizeMoney} label={t('tabOverviewPerkPrizeMoney')} />}
               {event.accommodations.length > 0 && <Perk icon={imgAccommodation} label={t('tabOverviewPerkAccommodation')} />}
               {event.participantDrinks && !event.participantSnacks && <Perk icon={imgParticipantDrinks} label={t('tabOverviewPerkParticipantDrinks')} />}
@@ -216,7 +144,8 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
 
         {event.description && (
           <div className={sectionClass}>
-            <div className="flex h-fit min-w-0 flex-col text-sm leading-relaxed text-foreground/90">
+            <h2 className={sectionTitleClass}>{t('sectionAbout')}</h2>
+            <div className="flex h-fit min-w-0 flex-col text-[15px] leading-relaxed text-foreground/90">
               <TextareaAutosize
                 readOnly
                 className={cn('h-full w-full resize-none bg-transparent text-foreground/90 outline-hidden', !descriptionExpanded && isDescriptionLong && 'max-h-28 overflow-hidden')}
@@ -243,6 +172,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
 
         {(event.trailerUrl || event.livestreamUrl || event.donationUrl || (event.messengerInvitationUrl && showMessengerInvitationUrl)) && (
           <div className={sectionClass}>
+            <h2 className={sectionTitleClass}>{t('sectionLinks')}</h2>
             <div className="flex flex-col gap-2 text-sm font-medium text-foreground">
               {event.trailerUrl && (
                 <div className={'grid grid-cols-3 items-center'}>
@@ -293,8 +223,8 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
 
         {event.type !== EventType.COMPETITION_ONLINE && event.venueCity && (
           <div className={sectionClass}>
-            <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('tabOverviewVenueAddress')}</div>
-            <div className="mt-1 flex min-w-0 flex-col gap-2 sm:flex-row sm:items-end sm:gap-2">
+            <h2 className={sectionTitleClass}>{t('tabOverviewVenueAddress')}</h2>
+            <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
               <div className="min-w-0 select-text text-sm text-foreground/90">
                 <p className="mb-1 font-semibold text-foreground">{event.venueName}</p>
                 <p>{`${event.venueStreet} ${event.venueHouseNo}`}</p>

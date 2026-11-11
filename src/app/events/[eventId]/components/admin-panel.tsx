@@ -23,14 +23,14 @@ const AdminPanel = async ({ event, competitions }: IAttachmentCardProps) => {
   const t = await getTranslations('/events/eventid');
 
   return (
-    <div className={cn('flex justify-between gap-2 rounded-xl border border-primary/25 bg-primary/5 p-2.5 shadow-sm backdrop-blur-xs', 'dark:border-primary/35 dark:bg-primary/10 dark:shadow-xs')}>
+    <div className="flex flex-col gap-3 rounded-2xl border border-dashed border-brand/40 bg-brand-soft/50 p-3 sm:flex-row sm:items-center sm:justify-between sm:px-4 dark:bg-brand/10">
       <div
         className={cn(
           'flex min-w-0 flex-1 gap-2',
-          'flex-col items-start sm:flex-row sm:flex-wrap sm:items-center'
+          'flex-row flex-wrap items-center'
         )}
       >
-        <div className="flex shrink-0 items-center text-sm font-semibold text-primary">{t('adminPanelTitle')}</div>
+        <div className="flex shrink-0 items-center text-sm font-semibold text-brand-strong">{t('adminPanelTitle')}</div>
         {!isArchivedEventState(event.state) &&
           (event.licenseType === LicenseType.PRO ? (
             <Label text={'Pro'} />
@@ -42,9 +42,9 @@ const AdminPanel = async ({ event, competitions }: IAttachmentCardProps) => {
             </Button>
           ))}
       </div>
-      <div className="flex flex-col sm:flex-row gap-1">
+      <div className="flex flex-wrap gap-1.5 sm:justify-end">
         {/* row 1 */}
-        <div className="flex justify-end gap-1">
+        <div className="contents">
           {!isArchivedEventState(event.state) && (
             <>
               <ActionButton href={`${routeEvents}/${event.id}/edit`} action={Action.EDIT} tooltip={t('adminPanelBtnEditEventToolTip')} />
@@ -61,7 +61,7 @@ const AdminPanel = async ({ event, competitions }: IAttachmentCardProps) => {
         </div>
 
         {/* row 2 */}
-        <div className="flex justify-end gap-1">
+        <div className="contents">
           {!isArchivedEventState(event.state) && (
             <>
               {/* todo: restrict im backend falls trotzdem accommodations eingestellt werden */}
@@ -82,7 +82,7 @@ const AdminPanel = async ({ event, competitions }: IAttachmentCardProps) => {
         </div>
 
         {/* row 3 */}
-        <div className="flex justify-end gap-1">
+        <div className="contents">
           {!isArchivedEventState(event.state) && (
             <>
               <ActionButton

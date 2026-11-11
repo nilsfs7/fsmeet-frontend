@@ -180,7 +180,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
         <p>{t('dlgDeleteCommentText')}</p>
       </Dialog>
 
-      <Tabs defaultValue={tab || `overview`} className="flex flex-col h-full">
+      <Tabs defaultValue={tab || `overview`} className="flex flex-col">
         <TabsList className="self-start">
           <TabsTrigger
             value="overview"
@@ -213,7 +213,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
         </TabsList>
 
         {/* Details */}
-        <TabsContent value="overview" className="overflow-hidden overflow-y-auto pb-6 scrollbar-none">
+        <TabsContent value="overview">
           {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessengerInvitationUrl={isEventAdmin(event, session) || isInEventRegistrations(eventRegistrations, session)} />}
 
           {sponsors?.length > 0 && (
@@ -251,14 +251,14 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
         {/* Competitions */}
         {event.id && competitions.length > 0 && (
-          <TabsContent value="competitions" className="overflow-hidden overflow-y-auto pb-6 scrollbar-none">
+          <TabsContent value="competitions">
             <CompetitionSection competitions={competitions} eventId={event.id} />
           </TabsContent>
         )}
 
         {/* Attendees */}
         {(participantRegistrations.length > 0 || visitorRegistrations.length > 0) && (
-          <TabsContent value="registrations" className="overflow-hidden overflow-y-auto pb-6 scrollbar-none">
+          <TabsContent value="registrations">
             <div className="flex flex-col gap-2">
               {participantRegistrations.length > 0 && (
                 <UserSection
