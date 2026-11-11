@@ -95,7 +95,7 @@ export default async function Contributors() {
         <PageInset className="flex flex-col gap-8 pb-6 pt-4 sm:gap-10 sm:pt-6">
           <div className="flex flex-col items-center gap-1 text-center">
             <h1 className="text-heading-1">{t('pageTitle')}</h1>
-            <p className="max-w-[36rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
+            <p className="max-w-[44rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
           </div>
 
           <ContributorsTable title={t('sectionMainContributors')} rows={mainRows} colContribution={t('tableColContribution')} lnkAnnouncement={t('lnkAnnouncement')} />

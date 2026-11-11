@@ -43,7 +43,7 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
       {!iframeView && (
         <div className="mx-auto flex w-full max-w-content flex-col items-center gap-1 px-4 pt-4 text-center sm:px-6 sm:pt-6 md:px-8">
           <h1 className="text-heading-1">{t('pageTitle')}</h1>
-          <p className="max-w-[36rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
+          <p className="max-w-[44rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
         </div>
       )}
 

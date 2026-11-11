@@ -63,7 +63,7 @@ export default async function Users() {
       <div className={cn('flex min-h-0 flex-1 flex-col overflow-y-auto', constrainedContentClass)}>
         <div className="flex flex-col items-center gap-1 pb-4 pt-4 text-center sm:pt-6">
           <h1 className="text-heading-1">{t('pageTitle')}</h1>
-          <p className="max-w-[36rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
+          <p className="max-w-[44rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
         </div>
         <UsersList columnData={columnData} />
       </div>
