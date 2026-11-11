@@ -1045,6 +1045,7 @@
   },
   "/map": {
     "pageTitle": "Freestyler Map",
+    "pageDescription": "Find freestylers, crews and organizers near you and put yourself on the map.",
     "dlgAddPinTitle": "Add Your Pin",
     "dlgAddPinCornfirmText": "Confirm",
     "dlgAddPinInputCity": "City",
@@ -1061,7 +1062,8 @@
     "btnCopyUrlToast": "Map URL copied to clipboard.",
     "btnCopyUrlToolTip": "Copy map URL",
     "infoWindowGoToProfileInternal": "Click for profile",
-    "infoWindowGoToProfileExternal": "View on FSMeet"
+    "infoWindowGoToProfileExternal": "View on FSMeet",
+    "resultsCount": "{count, plural, =0 {Nobody matches your filters} one {# person on the map} other {# people on the map}}"
   },
   "/password/forgot": {
     "inputUsername": "Username / Email",

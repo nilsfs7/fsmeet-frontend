@@ -1020,6 +1020,7 @@
   },
   "/map": {
     "pageTitle": "Carte des Freestylers",
+    "pageDescription": "Trouve des freestylers, crews et organisateurs près de chez toi et ajoute-toi sur la carte.",
     "dlgAddPinTitle": "Ajoutez votre localisation",
     "dlgAddPinCornfirmText": "Confirmer",
     "dlgAddPinInputCity": "Ville",
@@ -1036,7 +1037,8 @@
     "btnCopyUrlToast": "URL de la carte copiée dans le presse-papiers.",
     "btnCopyUrlToolTip": "Copier l'URL de la carte",
     "infoWindowGoToProfileInternal": "Cliquez pour voir le profil",
-    "infoWindowGoToProfileExternal": "Voir sur FSMeet"
+    "infoWindowGoToProfileExternal": "Voir sur FSMeet",
+    "resultsCount": "{count, plural, =0 {Personne ne correspond à tes filtres} one {# personne sur la carte} other {# personnes sur la carte}}"
   },
   "/password/forgot": {
     "inputUsername": "Nom d'utilisateur / E-mail",

@@ -1045,6 +1045,7 @@
   },
   "/map": {
     "pageTitle": "フリースタイラーマップ",
+    "pageDescription": "近くのフリースタイラーやクルー、主催者を見つけて、自分も地図に載せよう。",
     "dlgAddPinTitle": "ピンを追加",
     "dlgAddPinCornfirmText": "確認",
     "dlgAddPinInputCity": "都市",
@@ -1061,7 +1062,8 @@
     "btnCopyUrlToast": "マップURLをクリップボードにコピーしました。",
     "btnCopyUrlToolTip": "マップURLをコピー",
     "infoWindowGoToProfileInternal": "クリックでプロフィール",
-    "infoWindowGoToProfileExternal": "FSMeetで見る"
+    "infoWindowGoToProfileExternal": "FSMeetで見る",
+    "resultsCount": "{count, plural, =0 {条件に一致する人はいません} other {地図上に#人}}"
   },
   "/password/forgot": {
     "inputUsername": "ユーザー名／メール",

@@ -1045,6 +1045,7 @@
   },
   "/map": {
     "pageTitle": "फ्रीस्टाइलर मैप",
+    "pageDescription": "अपने आस-पास फ्रीस्टाइलर्स, क्रू और आयोजकों को खोजें और खुद को मैप पर जोड़ें।",
     "dlgAddPinTitle": "अपना पिन जोड़ें",
     "dlgAddPinCornfirmText": "पुष्टि करें",
     "dlgAddPinInputCity": "शहर",
@@ -1061,7 +1062,8 @@
     "btnCopyUrlToast": "मैप URL क्लिपबोर्ड पर कॉपी हो गया।",
     "btnCopyUrlToolTip": "मैप URL कॉपी करें",
     "infoWindowGoToProfileInternal": "प्रोफ़ाइल के लिए क्लिक करें",
-    "infoWindowGoToProfileExternal": "FSMeet पर देखें"
+    "infoWindowGoToProfileExternal": "FSMeet पर देखें",
+    "resultsCount": "{count, plural, =0 {आपके फ़िल्टर से कोई मेल नहीं खाता} one {मैप पर # व्यक्ति} other {मैप पर # लोग}}"
   },
   "/password/forgot": {
     "inputUsername": "यूज़रनेम / ईमेल",

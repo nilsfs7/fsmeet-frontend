@@ -1,5 +1,4 @@
 import Navigation from '@/components/navigation';
-import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { getUser, getUsers } from '@/infrastructure/clients/user.client';
@@ -15,8 +14,6 @@ import { FreestylerMap } from '@/components/freestyler-map';
 import { AddMapPinButton } from './components/add-map-pin-button';
 import { getSupportedlanguages } from '../../functions/get-supported-languages';
 import { cn } from '@/lib/utils';
-
-const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 export default async function Map(props: { searchParams: Promise<{ iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string }> }) {
   const searchParams = await props.searchParams;
@@ -44,14 +41,13 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {!iframeView && (
-        <>
-          <div className={constrainedContentClass}>
-            <PageTitle title={t('pageTitle')} />
-          </div>
-        </>
+        <div className="mx-auto flex w-full max-w-content flex-col items-center gap-1 px-4 pt-4 text-center sm:px-6 sm:pt-6 md:px-8">
+          <h1 className="text-heading-1">{t('pageTitle')}</h1>
+          <p className="max-w-[36rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
+        </div>
       )}
 
-      <div className={cn('min-h-0 flex flex-1 flex-col', !iframeView && 'mt-2')}>
+      <div className={cn('flex min-h-[22rem] flex-1 flex-col', !iframeView && 'mx-auto w-full max-w-content px-3 pb-3 pt-3 sm:px-6 sm:pb-4 sm:pt-4 md:px-8')}>
         <FreestylerMap
           userList={users.filter(u => u.type !== UserType.ADMINISTRATIVE)}
           selectedUsernames={[searchParams?.user || '']}

@@ -1020,6 +1020,7 @@
   },
   "/map": {
     "pageTitle": "Mapa del Freestyle",
+    "pageDescription": "Encuentra freestylers, crews y organizadores cerca de ti y ponte en el mapa.",
     "dlgAddPinTitle": "Inscríbete",
     "dlgAddPinCornfirmText": "Confirmar",
     "dlgAddPinInputCity": "Ciudad",
@@ -1036,7 +1037,8 @@
     "btnCopyUrlToast": "URL del mapa copiada al portapapeles.",
     "btnCopyUrlToolTip": "Copiar la URL del mapa",
     "infoWindowGoToProfileInternal": "Haz clic para ver el perfil",
-    "infoWindowGoToProfileExternal": "Ver en FSMeet"
+    "infoWindowGoToProfileExternal": "Ver en FSMeet",
+    "resultsCount": "{count, plural, =0 {Nadie coincide con tus filtros} one {# persona en el mapa} other {# personas en el mapa}}"
   },
   "/password/forgot": {
     "inputUsername": "Nombre de usuario / e-mail",

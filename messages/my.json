@@ -1045,6 +1045,7 @@
   },
   "/map": {
     "pageTitle": "Peta Freestyler",
+    "pageDescription": "Cari freestyler, krew dan penganjur berhampiran anda dan letakkan diri anda di peta.",
     "dlgAddPinTitle": "Tambah Pin Anda",
     "dlgAddPinCornfirmText": "Sahkan",
     "dlgAddPinInputCity": "Bandar",
@@ -1061,7 +1062,8 @@
     "btnCopyUrlToast": "URL peta telah disalin ke papan klip.",
     "btnCopyUrlToolTip": "Salin URL peta",
     "infoWindowGoToProfileInternal": "Klik untuk profil",
-    "infoWindowGoToProfileExternal": "Lihat di FSMeet"
+    "infoWindowGoToProfileExternal": "Lihat di FSMeet",
+    "resultsCount": "{count, plural, =0 {Tiada siapa yang sepadan dengan penapis anda} other {# orang di peta}}"
   },
   "/password/forgot": {
     "inputUsername": "Nama pengguna / E-mel",

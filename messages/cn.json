@@ -1045,6 +1045,7 @@
   },
   "/map": {
     "pageTitle": "自由式选手地图",
+    "pageDescription": "查找你附近的花式足球玩家、团队和组织者，并把自己加到地图上。",
     "dlgAddPinTitle": "添加你的定位",
     "dlgAddPinCornfirmText": "确认",
     "dlgAddPinInputCity": "城市",
@@ -1061,7 +1062,8 @@
     "btnCopyUrlToast": "地图链接已复制到剪贴板。",
     "btnCopyUrlToolTip": "复制地图链接",
     "infoWindowGoToProfileInternal": "点击查看资料",
-    "infoWindowGoToProfileExternal": "在 FSMeet 查看"
+    "infoWindowGoToProfileExternal": "在 FSMeet 查看",
+    "resultsCount": "{count, plural, =0 {没有符合筛选条件的人} other {地图上有 # 人}}"
   },
   "/password/forgot": {
     "inputUsername": "用户名 / 邮箱",
