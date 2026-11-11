@@ -4,6 +4,7 @@ import { Event } from '@/domain/types/event';
 import EventEditor from '@/components/events/event-editor';
 import { EditorMode } from '@/domain/enums/editor-mode';
 import { Toaster, toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 import { fileToBase64 } from '@/functions/base-64';
 import { User } from '@/domain/types/user';
 
@@ -13,6 +14,8 @@ interface IEditor {
 }
 
 export const Editor = ({ users, event }: IEditor) => {
+  const t = useTranslations('/events/edit');
+
   const cacheEventInfo = async (event: Event) => {
     try {
       sessionStorage.setItem('eventInfo', JSON.stringify(event));
@@ -28,7 +31,7 @@ export const Editor = ({ users, event }: IEditor) => {
       sessionStorage.setItem('imgEventPoster', base64String);
     } catch (error: any) {
       if (error.toString().toLowerCase().includes('exceeded the quota')) {
-        toast.error('File too big for browser storage.');
+        toast.error(t('toastFileTooBig'));
       } else {
         toast.error(error.message);
       }

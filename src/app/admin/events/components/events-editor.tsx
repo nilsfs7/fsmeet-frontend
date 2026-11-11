@@ -31,6 +31,8 @@ const DATE_FROM = moment('2000').startOf('year');
 const DATE_TO = moment('2099').endOf('year');
 const ALL_STATES = 'all';
 
+type SortKey = 'dateDesc' | 'dateAsc' | 'name' | 'state';
+
 const STATE_LABEL: Record<EventState, string> = {
   [EventState.CREATED]: 'Created',
   [EventState.WAITING_FOR_APPROVAL]: 'Waiting for approval',
@@ -45,8 +47,6 @@ const TYPE_LABEL: Record<EventType, string> = {
   [EventType.COMPETITION_ONLINE]: 'Online competition',
   [EventType.MEETING]: 'Meeting',
 };
-
-type SortKey = 'dateDesc' | 'dateAsc' | 'name' | 'state';
 
 const cardSurface = cn(
   'min-w-0 rounded-xl border border-border/60 bg-secondary-light/85 p-3 shadow-xs sm:p-4',
@@ -147,7 +147,7 @@ export const EventsEditor = () => {
         if (!cancelled) setCompetitionCountByEventId(counts);
       })
       .catch((error: unknown) => {
-        if (!cancelled) setLoadError(error instanceof Error && error.message ? error.message : 'Events could not be loaded.');
+        if (!cancelled) setLoadError(error instanceof Error && error.message ? error.message : 'Could not load events');
       });
 
     return () => {
@@ -332,7 +332,7 @@ export const EventsEditor = () => {
                         <p className="text-base font-semibold leading-snug">{event.name}</p>
                       )}
                       <p className="mt-0.5 text-xs text-muted-foreground">
-                        {[TYPE_LABEL[event.type] ?? event.type, event.venueCity, eventDateLabel(event)].filter(Boolean).join(' · ')}
+                        {[TYPE_LABEL[event.type], event.venueCity, eventDateLabel(event)].filter(Boolean).join(' · ')}
                       </p>
                       {event.admin && (
                         <Link href={`${routeUsers}/${event.admin}`} className="mt-1 inline-block text-xs font-medium text-primary hover:underline">

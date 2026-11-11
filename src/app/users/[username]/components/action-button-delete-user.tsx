@@ -5,19 +5,21 @@ import { Action } from '@/domain/enums/action';
 import { deleteUser } from '@/infrastructure/clients/user.client';
 import { useSession } from 'next-auth/react';
 import { Toaster, toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 interface IActionButtonDeleteUser {
   username: string;
 }
 
 export const ActionButtonDeleteUser = ({ username }: IActionButtonDeleteUser) => {
+  const t = useTranslations('/users/username');
   const { data: session, status } = useSession();
 
   const handleDeleteAccountClicked = async () => {
     try {
       await deleteUser(username, session);
 
-      toast.success('User deleted.');
+      toast.success(t('toastUserDeleted'));
     } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);

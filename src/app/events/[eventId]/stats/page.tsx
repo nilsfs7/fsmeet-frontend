@@ -107,9 +107,9 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
             <ChartPie
               key={'amount-attendees'}
               data={[registeredParticipants.length, registeredVisitors.length]}
-              labels={['Participants', 'Visitors']}
+              labels={[t('labelParticipants'), t('labelVisitors')]}
               colors={['--chart-1', '--chart-2']}
-              title={'Amount of Attendees'}
+              title={t('chartAttendees')}
             />
           </div>
 
@@ -120,14 +120,14 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
             <ChartPie
               key={'gender-participants'}
               data={[maleParticipants.length, femaleParticipants.length]}
-              labels={['Male', 'Female']}
+              labels={[t('labelMale'), t('labelFemale')]}
               colors={['--chart-1', '--chart-5']}
-              title={'Participants by Gender'}
+              title={t('chartGender')}
             />
 
-            <ChartPie key={'country-participants'} data={Array.from(countryCountSorted.values())} labels={countryLabels} title={'Participants by Country'} />
+            <ChartPie key={'country-participants'} data={Array.from(countryCountSorted.values())} labels={countryLabels} title={t('chartCountry')} />
 
-            <ChartParticipantAge key={'age-participants'} data={participantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={'Participants by Age'} />
+            <ChartParticipantAge key={'age-participants'} data={participantAges} labels={['<16', '16-20', '21-25', '26-30', '>30']} title={t('chartAge')} />
           </div>
         </div>
       </div>

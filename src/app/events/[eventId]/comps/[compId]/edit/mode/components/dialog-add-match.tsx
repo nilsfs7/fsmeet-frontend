@@ -26,13 +26,13 @@ const DialogAddMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, co
   const matchIndex = +(searchParams?.get('mid') || 0);
   const [slotsPerMatch, setSlotsPerMatch] = useState<number>(2);
 
-  const [matchName, setMatchName] = useState<string>(`Match ${matchIndex + 1}`);
+  const [matchName, setMatchName] = useState<string>(t('defaultMatchName', { index: matchIndex + 1 }));
   const [matchTime, setMatchTime] = useState<string | null>(null);
   const [isExtraMatch, setIsExtraMatch] = useState<boolean>(false);
 
   useEffect(() => {
     if (showDialog === '1') {
-      setMatchName(`Match ${matchIndex + 1}`);
+      setMatchName(t('defaultMatchName', { index: matchIndex + 1 }));
       setSlotsPerMatch(2);
     }
   }, [showDialog, matchIndex]);

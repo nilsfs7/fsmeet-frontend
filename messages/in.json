@@ -26,7 +26,8 @@
     "lnkImprint": "कानूनी जानकारी",
     "lnkTermsOfService": "सेवा की शर्तें",
     "lnkPrivacyPolicy": "गोपनीयता नीति",
-    "build": "बिल्ड"
+    "build": "बिल्ड",
+    "ariaLegal": "कानूनी"
   },
   "/about/contributors": {
     "pageTitle": "योगदानकर्ता",
@@ -160,7 +161,11 @@
     "dlgJobsTermsBaseToSNote": "This addendum supplements the <tos>FSMeet Terms of Service</tos> and applies only to the optional Jobs feature.",
     "dlgJobsTermsLiabilityTitle": "Responsibility",
     "dlgJobsTermsLiabilityText1": "FSMeet acts solely as an intermediary and provides the technical platform. FSMeet is not a party to contracts between artist and client. Performance of the job and payment are the responsibility of the artist and/or the client. FSMeet does not guarantee requests, deals or payments.",
-    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again."
+    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again.",
+    "toastProfileUpdated": "प्रोफ़ाइल अपडेट हुई।",
+    "toastProfileLoadFailed": "सेशन स्टोरेज से उपयोगकर्ता जानकारी लोड नहीं हो सकी।",
+    "toastStripeAccount": "Stripe खाता बन गया।",
+    "toastVerificationRequested": "सत्यापन का अनुरोध हो गया।"
   },
   "/account/deleted": {
     "textGoodbye": "अलविदा!",
@@ -188,7 +193,14 @@
     "tblNoData": "कोई डेटा नहीं",
     "navCurrentPage1": "पेज",
     "navCurrentPage2": "का",
-    "navRowsPerPage": "प्रति पेज पंक्तियां"
+    "navRowsPerPage": "प्रति पेज पंक्तियां",
+    "toastRefundInitiated": "रिफंड शुरू हुआ।",
+    "toastMissingIntent": "URL में इंटेंट आईडी नहीं है।",
+    "navFirst": "पहले पेज पर जाएँ",
+    "navPrevious": "पिछले पेज पर जाएँ",
+    "navNext": "अगले पेज पर जाएँ",
+    "navLast": "अंतिम पेज पर जाएँ",
+    "openMenu": "मेनू खोलें"
   },
   "/donate": {
     "pageTitle": "दान करें",
@@ -252,7 +264,8 @@
     "pageTitle": "इवेंट संपादित करें",
     "dlgEventDeletionTitle": "इवेंट हटाएं",
     "dlgEventDeletionText": "क्या आप वास्तव में इस इवेंट को हटाना चाहते हैं?",
-    "btnSave": "सहेजें"
+    "btnSave": "सहेजें",
+    "toastFileTooBig": "फ़ाइल ब्राउज़र स्टोरेज के लिए बहुत बड़ी है।"
   },
   "/events/eventid": {
     "dlgEventStateTitle": "इवेंट दृश्यता",
@@ -394,7 +407,49 @@
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena screen",
-    "pageDescription": "लाइव पूर्वावलोकन के लिए एक मैच चुनें। चुनते ही अखाड़ा स्क्रीन अपडेट हो जाती है।"
+    "pageDescription": "लाइव पूर्वावलोकन के लिए एक मैच चुनें। चुनते ही अखाड़ा स्क्रीन अपडेट हो जाती है।",
+    "btnOpen": "एरीना स्क्रीन खोलें",
+    "noCompetitions": "इस इवेंट के लिए कोई प्रतियोगिता नहीं है।",
+    "labelCompetition": "प्रतियोगिता",
+    "placeholderCompetition": "प्रतियोगिता चुनें",
+    "loadingBattles": "मैच लोड हो रहे हैं…",
+    "errorLoadBattles": "इस प्रतियोगिता के मैच लोड नहीं हो सके।",
+    "labelBattle": "मैच",
+    "errorSignInMatch": "एरीना मैच सेट करने के लिए साइन इन करें।",
+    "errorUpdate": "एरीना स्क्रीन अपडेट नहीं हो सकी।",
+    "saving": "सहेजा जा रहा है…",
+    "placeholderBattle": "मैच चुनें",
+    "noBattles": "इस प्रतियोगिता में अभी कोई आईडी वाला मैच नहीं है।",
+    "errorLoadSettings": "एरीना स्क्रीन सेटिंग लोड नहीं हो सकीं।",
+    "errorSignInSave": "सेटिंग सहेजने के लिए साइन इन करें।",
+    "toastSaved": "एरीना स्क्रीन सेटिंग सहेजी गई।",
+    "errorSave": "सेटिंग सहेजी नहीं जा सकीं।",
+    "errorSignInUpload": "बैकग्राउंड अपलोड करने के लिए साइन इन करें।",
+    "toastBackground": "बैकग्राउंड अपडेट हुआ।",
+    "errorUpload": "अपलोड विफल रहा।",
+    "settingsTitle": "डिस्प्ले सेटिंग",
+    "settingsLoading": "लोड हो रहा है…",
+    "settingsSummaryOpen": "बैकग्राउंड, ओवरले और स्क्रीन विकल्प।",
+    "settingsSummaryClosed": "बैकग्राउंड, ओवरले, लेबल, झंडे — संपादित करने के लिए क्लिक करें।",
+    "loadingSettings": "सेटिंग लोड हो रही हैं…",
+    "backgroundImage": "बैकग्राउंड",
+    "backgroundPreview": "मौजूदा बैकग्राउंड पूर्वावलोकन",
+    "noImage": "कोई छवि नहीं (पूर्वावलोकन में सादा बैकग्राउंड)।",
+    "uploading": "अपलोड हो रहा है…",
+    "chooseImage": "छवि चुनें…",
+    "overlay": "ओवरले का अंधेरा ({percent}%)",
+    "showPositions": "पोज़िशन नंबर दिखाएँ",
+    "reversePositions": "पोज़िशन नंबर उलटें",
+    "showFlags": "देश के झंडे दिखाएँ",
+    "showLastName": "उपनाम दिखाएँ",
+    "saveSettings": "डिस्प्ले सेटिंग सहेजें",
+    "signInSettings": "एरीना सेटिंग बदलने के लिए साइन इन करें।",
+    "loadingArena": "एरीना लोड हो रही है…",
+    "errorLoadArenaTitle": "एरीना लोड नहीं हो सकी",
+    "errorLoadArena": "एरीना स्क्रीन लोड नहीं हो सकी",
+    "styleUnavailable": "एरीना स्टाइल उपलब्ध नहीं",
+    "openSlot": "खाली स्लॉट",
+    "noCountry": "कोई देश नहीं"
   },
   "/events/eventid/pro": {
     "pageTitle": "इवेंट लाइसेंस",
@@ -458,7 +513,10 @@
     "dlgDownloadResultsTitle": "परिणाम डाउनलोड करें",
     "dlgDownloadResultsText": "विश्व रैंकिंग के लिए प्रतियोगिता परिणाम निर्यात करें।",
     "dlgDownloadResultsCbAddPlayerNames": "खिलाड़ियों के नाम जोड़ें",
-    "dlgDownloadResultsBtnDownload": "डाउनलोड करें"
+    "dlgDownloadResultsBtnDownload": "डाउनलोड करें",
+    "toastMatchesInconsistent": "मैच के डेटा असंगत लगते हैं।",
+    "toastResultsProcessed": "मैच परिणाम प्रोसेस हो गए।",
+    "toastExportInconsistent": "परिणामों का एक्सपोर्ट असंगत है।"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "खिलाड़ी पूल प्रबंधित करें",
@@ -552,17 +610,24 @@
     "textNoSufficientPool": "गेम मोड बनाने से पहले प्रतियोगिता पूल में कम से कम 2 खिलाड़ी जोड़ें।",
     "btnSave": "सहेजें",
     "btnUpdate": "अपडेट करें",
-    "btnDelete": "हटाएं"
+    "btnDelete": "हटाएं",
+    "toastRoundsCreated": "राउंड बन गए",
+    "toastRoundsUpdated": "राउंड अपडेट हो गए",
+    "toastRoundDeleted": "राउंड हटाया गया",
+    "defaultRoundName": "राउंड {index}",
+    "defaultMatchName": "मैच {index}"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "सीडिंग और परिणाम",
-    "textNoGameMode": "आपने अभी तक गेम मोड कॉन्फ़िगर नहीं किया है।"
+    "textNoGameMode": "आपने अभी तक गेम मोड कॉन्फ़िगर नहीं किया है।",
+    "toastSlotUpdated": "स्लॉट अपडेट हुआ"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "प्रतियोगिता संपादित करें",
     "btnSave": "सहेजें",
     "dlgDeleteCompetitionTitle": "प्रतियोगिता हटाएं",
-    "dlgDeleteCompetitionText": "क्या आप वास्तव में इस प्रतियोगिता को हटाना चाहते हैं?"
+    "dlgDeleteCompetitionText": "क्या आप वास्तव में इस प्रतियोगिता को हटाना चाहते हैं?",
+    "toastUpdated": "प्रतियोगिता अपडेट हो गई"
   },
   "/events/eventid/comps/create": {
     "pageTitle": "प्रतियोगिता बनाएं",
@@ -631,7 +696,9 @@
     "tableSortByType": "प्रकार के अनुसार क्रम",
     "tableSortByStatus": "स्थिति के अनुसार क्रम",
     "textNoFilterMatch": "फ़िल्टर से कोई उपस्थित नहीं मिला।",
-    "alertPendingRegistrations": "{count, plural, other{समीक्षा के लिए # लंबित पंजीकरण हैं।}}"
+    "alertPendingRegistrations": "{count, plural, other{समीक्षा के लिए # लंबित पंजीकरण हैं।}}",
+    "toastRemoved": "{name} हटाया गया",
+    "toastStatusUpdated": "{name} का स्टेटस अपडेट हुआ"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "इवेंट पंजीकरण सारांश",
@@ -833,7 +900,15 @@
     "btnSave": "सहेजें"
   },
   "/events/eventid/stats": {
-    "pageTitle": "आंकड़े"
+    "pageTitle": "आंकड़े",
+    "chartAttendees": "उपस्थित लोगों की संख्या",
+    "labelParticipants": "प्रतिभागी",
+    "labelVisitors": "दर्शक",
+    "chartGender": "लिंग के अनुसार प्रतिभागी",
+    "labelMale": "पुरुष",
+    "labelFemale": "महिला",
+    "chartCountry": "देश के अनुसार प्रतिभागी",
+    "chartAge": "आयु के अनुसार प्रतिभागी"
   },
   "/events/create": {
     "pageTitleEventCreationFlow": "इवेंट निर्माण",
@@ -940,7 +1015,8 @@
   },
   "/password/reset": {
     "inputPassword": "नया पासवर्ड",
-    "btnSave": "सेव करें"
+    "btnSave": "सेव करें",
+    "errorMissingResetLink": "यह रीसेट लिंक अमान्य या अधूरा है। पासवर्ड रीसेट ईमेल वाला लिंक खोलें।"
   },
   "/registration": {
     "headlineCreateAccount": "अकाउंट बनाएं",
@@ -983,7 +1059,11 @@
     "tblNoData": "कोई डेटा नहीं",
     "navCurrentPage1": "पेज",
     "navCurrentPage2": "का",
-    "navRowsPerPage": "प्रति पेज पंक्तियां"
+    "navRowsPerPage": "प्रति पेज पंक्तियां",
+    "navFirst": "पहला पेज",
+    "navPrevious": "पिछला पेज",
+    "navNext": "अगला पेज",
+    "navLast": "अंतिम पेज"
   },
   "/users/username": {
     "accordionItemSocials": "सोशल्स",
@@ -997,7 +1077,8 @@
     "accordionItemCompetitionHistoryNoParticipations": "अभी तक कोई भागीदारी नहीं।",
     "btnBookViaFreestyleActs": "FreestyleActs के माध्यम से बुक करें",
     "competitionHistoryShowAll": "सभी दिखाएँ ({count})",
-    "competitionHistoryShowLess": "कम दिखाएँ"
+    "competitionHistoryShowLess": "कम दिखाएँ",
+    "toastUserDeleted": "उपयोगकर्ता हटाया गया।"
   },
   "global/data-states": {
     "errorTitle": "कुछ गलत हो गया",
@@ -1046,7 +1127,9 @@
     "hintRegistrationPeriodEnded": "प्रतिभागियों के लिए पंजीकरण अवधि समाप्त हो गई है।"
   },
   "global/components/battle-grid": {
-    "btnAddMatch": "मैच जोड़ें"
+    "btnAddMatch": "मैच जोड़ें",
+    "labelAssignSlot": "स्लॉट असाइन करें",
+    "labelUnassigned": "असाइन नहीं"
   },
   "global/components/competition-editor": {
     "inputName": "प्रतियोगिता का नाम",
@@ -1137,7 +1220,9 @@
     "chbAllowCommentsAndQuestions": "कमेंट्स की अनुमति दें",
     "chbNotifyOnComment": "कमेंट पर सूचित करें",
     "inputWaiver": "वेवर",
-    "chbVisaInvitationRequestsEnabled": "वीज़ा आमंत्रण उपलब्ध कराएं"
+    "chbVisaInvitationRequestsEnabled": "वीज़ा आमंत्रण उपलब्ध कराएं",
+    "toastPosterDeleted": "पोस्टर हटाया गया",
+    "placeholderWaiver": "इस इवेंट में भाग लेकर मैं स्वीकार करता/करती हूँ ..."
   },
   "global/components/loading-spinner": {
     "textLoading": "लोड हो रहा है..."
@@ -1178,5 +1263,107 @@
     "inputName": "प्रायोजक का नाम",
     "inputWebsite": "वेबसाइट",
     "chbIsPublic": "सार्वजनिक रूप से दिखाएं?"
+  },
+  "/wffa": {
+    "pageTitle": "एडमिन अवलोकन (WFFA)",
+    "linkIds": "फ्रीस्टाइलर आईडी",
+    "linkStatistics": "ऐप आँकड़े",
+    "linkVisa": "वीज़ा अनुरोध"
+  },
+  "/wffa/ids": {
+    "pageTitle": "फ्रीस्टाइलर आईडी प्रबंधन",
+    "noEntries": "कोई प्रविष्टि नहीं",
+    "colUser": "उपयोगकर्ता",
+    "colId": "फ्रीस्टाइलर आईडी",
+    "colActions": "कार्रवाइयाँ",
+    "sortUserAsc": "उपयोगकर्ता आरोही क्रम",
+    "sortUserDesc": "उपयोगकर्ता अवरोही क्रम",
+    "sortByUser": "उपयोगकर्ता के अनुसार क्रम",
+    "sortIdAsc": "आईडी आरोही क्रम",
+    "sortIdDesc": "आईडी अवरोही क्रम",
+    "sortById": "फ्रीस्टाइलर आईडी के अनुसार क्रम",
+    "filterName": "नाम",
+    "search": "खोजें…",
+    "filterCountry": "देश",
+    "filterGender": "लिंग",
+    "allCountries": "सभी देश",
+    "allGenders": "सभी",
+    "withoutId": "बिना फ्रीस्टाइलर आईडी",
+    "withId": "फ्रीस्टाइलर आईडी के साथ",
+    "toastReloadFailed": "उपयोगकर्ता फिर से लोड नहीं हो सके।",
+    "toastUpdated": "{username} ({firstName}) की फ्रीस्टाइलर आईडी अपडेट हुई।"
+  },
+  "/wffa/visa": {
+    "pageTitle": "वीज़ा अनुरोध प्रबंधन",
+    "pending": "लंबित",
+    "approved": "स्वीकृत",
+    "denied": "अस्वीकृत",
+    "noEntries": "कोई प्रविष्टि नहीं",
+    "applicant": "आवेदक",
+    "country": "देश",
+    "countryCode": "देश कोड",
+    "passport": "पासपोर्ट",
+    "passportNumber": "पासपोर्ट नंबर",
+    "requested": "अनुरोधित",
+    "requestDate": "अनुरोध तिथि",
+    "approver": "अनुमोदक",
+    "actions": "कार्रवाइयाँ",
+    "document": "दस्तावेज़",
+    "toastLoadFailed": "वीज़ा अनुरोध लोड नहीं हो सके।",
+    "toastApproved": "{name} का वीज़ा अनुरोध स्वीकृत।",
+    "toastDenied": "{name} का वीज़ा अनुरोध अस्वीकृत।"
+  },
+  "/stats": {
+    "pageTitle": "आँकड़े",
+    "userCount": "उपयोगकर्ता संख्या",
+    "freestylers": "फ्रीस्टाइलर:",
+    "associations": "एसोसिएशन:",
+    "brands": "ब्रांड:",
+    "djs": "डीजे:",
+    "organizers": "इवेंट आयोजक:",
+    "mcs": "एमसी:",
+    "media": "मीडिया:",
+    "fans": "प्रशंसक / परिवार / समर्थक:",
+    "totalUserCount": "कुल उपयोगकर्ता",
+    "totalUsers": "कुल उपयोगकर्ता:",
+    "realUsers": "वास्तविक उपयोगकर्ता:",
+    "adminUsers": "प्रशासनिक उपयोगकर्ता:",
+    "mobileUsers": "मोबाइल उपयोगकर्ता:",
+    "mobileHint": "मोबाइल उपयोगकर्ताओं के कई डिवाइस हो सकते हैं",
+    "mapShare": "फ्रीस्टाइलर मैप पर हिस्सा",
+    "usersOnMap": "मैप पर उपयोगकर्ता:",
+    "nationalityShare": "राष्ट्रीयता के अनुसार हिस्सा",
+    "growthTitle": "उपयोगकर्ता वृद्धि",
+    "growthDesc": "संचयी उपयोगकर्ता संख्या",
+    "growthFreestylerTitle": "उपयोगकर्ता वृद्धि (फ्रीस्टाइलर)",
+    "growthFreestylerDesc": "संचयी संख्या (फ्रीस्टाइलर)",
+    "eventsCreated": "बनाए गए इवेंट",
+    "eventsCreatedDesc": "संचयी इवेंट संख्या",
+    "compsCreated": "बनाई गई प्रतियोगिताएँ",
+    "compsCreatedDesc": "संचयी प्रतियोगिता संख्या",
+    "onlineCreated": "बनाई गई ऑनलाइन प्रतियोगिताएँ",
+    "onlineCreatedDesc": "संचयी ऑनलाइन संख्या",
+    "meetingsCreated": "बनाई गई मीटिंग",
+    "meetingsCreatedDesc": "संचयी मीटिंग संख्या",
+    "labelTotal": "कुल",
+    "labelMale": "पुरुष",
+    "labelFemale": "महिला",
+    "labelMaleFreestylers": "पुरुष फ्रीस्टाइलर",
+    "labelFemaleFreestylers": "महिला फ्रीस्टाइलर",
+    "labelCompetitions": "प्रतियोगिताएँ",
+    "labelOnline": "ऑनलाइन प्रतियोगिताएँ",
+    "labelMeetings": "मीटिंग"
+  },
+  "/terms": {
+    "pageTitle": "सेवा की शर्तें (FSMeet)"
+  },
+  "global/ui": {
+    "close": "बंद करें",
+    "loading": "लोड हो रहा है",
+    "language": "भाषा",
+    "search": "खोजें ...",
+    "select": "चुनें",
+    "noData": "कोई डेटा नहीं मिला।",
+    "appNav": "ऐप"
   }
 }

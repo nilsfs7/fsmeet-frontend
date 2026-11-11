@@ -150,11 +150,11 @@ export const ActionButtonDownloadResults = ({ event, comp, rounds }: IActionButt
     console.info('amount matches (check value): ', checkValueAmountMatches);
 
     if (checkValueAmountMatches === 0) {
-      toast.error('Matches seems to have inconsistent data.');
+      toast.error(t('toastMatchesInconsistent'));
     } else if (data.length === checkValueAmountMatches) {
-      toast.info('Processed battle results.');
+      toast.info(t('toastResultsProcessed'));
     } else {
-      toast.error('Export of battle results is inconsistent.');
+      toast.error(t('toastExportInconsistent'));
     }
     return data;
   };

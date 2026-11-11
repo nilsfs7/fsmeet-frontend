@@ -34,7 +34,7 @@ export default function CompetitionEditing(props: { params: Promise<{ eventId: s
     if (comp) {
       try {
         await updateCompetition(comp, session);
-        toast.success(`Competition successfully updated`);
+        toast.success(t('toastUpdated'));
         router.replace(addFetchTrigger(`${routeEvents}/${params.eventId}/comps`));
       } catch (error: any) {
         toast.error(error.message);

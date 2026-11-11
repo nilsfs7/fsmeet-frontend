@@ -26,7 +26,8 @@
     "lnkImprint": "運営者情報",
     "lnkTermsOfService": "利用規約",
     "lnkPrivacyPolicy": "プライバシーポリシー",
-    "build": "バージョン"
+    "build": "バージョン",
+    "ariaLegal": "法的情報"
   },
   "/about/contributors": {
     "pageTitle": "協力者",
@@ -160,7 +161,11 @@
     "dlgJobsTermsBaseToSNote": "This addendum supplements the <tos>FSMeet Terms of Service</tos> and applies only to the optional Jobs feature.",
     "dlgJobsTermsLiabilityTitle": "Responsibility",
     "dlgJobsTermsLiabilityText1": "FSMeet acts solely as an intermediary and provides the technical platform. FSMeet is not a party to contracts between artist and client. Performance of the job and payment are the responsibility of the artist and/or the client. FSMeet does not guarantee requests, deals or payments.",
-    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again."
+    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again.",
+    "toastProfileUpdated": "プロフィールを更新しました。",
+    "toastProfileLoadFailed": "セッション保存データからユーザー情報を読み込めませんでした。",
+    "toastStripeAccount": "Stripeアカウントを作成しました。",
+    "toastVerificationRequested": "認証を申請しました。"
   },
   "/account/deleted": {
     "textGoodbye": "さようなら！",
@@ -188,7 +193,14 @@
     "tblNoData": "データがありません",
     "navCurrentPage1": "ページ",
     "navCurrentPage2": "の",
-    "navRowsPerPage": "1ページあたりの行数"
+    "navRowsPerPage": "1ページあたりの行数",
+    "toastRefundInitiated": "返金を開始しました。",
+    "toastMissingIntent": "URLにインテントIDがありません。",
+    "navFirst": "最初のページへ",
+    "navPrevious": "前のページへ",
+    "navNext": "次のページへ",
+    "navLast": "最後のページへ",
+    "openMenu": "メニューを開く"
   },
   "/donate": {
     "pageTitle": "寄付",
@@ -252,7 +264,8 @@
     "pageTitle": "イベントを編集",
     "dlgEventDeletionTitle": "イベントを削除",
     "dlgEventDeletionText": "このイベントを本当に削除しますか？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "toastFileTooBig": "ファイルが大きすぎてブラウザに保存できません。"
   },
   "/events/eventid": {
     "dlgEventStateTitle": "イベントの公開設定",
@@ -394,7 +407,49 @@
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "アリーナ画面",
-    "pageDescription": "ライブプレビュー用の大会を選んでください。選択するとアリーナ画面が更新されます。"
+    "pageDescription": "ライブプレビュー用の大会を選んでください。選択するとアリーナ画面が更新されます。",
+    "btnOpen": "アリーナ画面を開く",
+    "noCompetitions": "このイベントに競技はありません。",
+    "labelCompetition": "競技",
+    "placeholderCompetition": "競技を選択",
+    "loadingBattles": "試合を読み込み中…",
+    "errorLoadBattles": "この競技の試合を読み込めませんでした。",
+    "labelBattle": "試合",
+    "errorSignInMatch": "アリーナの試合を設定するにはログインしてください。",
+    "errorUpdate": "アリーナ画面を更新できませんでした。",
+    "saving": "保存中…",
+    "placeholderBattle": "試合を選択",
+    "noBattles": "この競技にはまだ試合IDのあるバトルがありません。",
+    "errorLoadSettings": "アリーナ画面の設定を読み込めませんでした。",
+    "errorSignInSave": "設定を保存するにはログインしてください。",
+    "toastSaved": "アリーナ画面の設定を保存しました。",
+    "errorSave": "設定を保存できませんでした。",
+    "errorSignInUpload": "背景画像をアップロードするにはログインしてください。",
+    "toastBackground": "背景画像を更新しました。",
+    "errorUpload": "アップロードに失敗しました。",
+    "settingsTitle": "表示設定",
+    "settingsLoading": "読み込み中…",
+    "settingsSummaryOpen": "背景画像、オーバーレイ、画面上のオプション。",
+    "settingsSummaryClosed": "背景、オーバーレイ、ラベル、国旗 — クリックして編集。",
+    "loadingSettings": "設定を読み込み中…",
+    "backgroundImage": "背景画像",
+    "backgroundPreview": "現在の背景プレビュー",
+    "noImage": "画像未設定（プレビューは単色背景）。",
+    "uploading": "アップロード中…",
+    "chooseImage": "画像を選択…",
+    "overlay": "オーバーレイの暗さ（{percent}%）",
+    "showPositions": "ポジション番号を表示",
+    "reversePositions": "ポジション番号を反転",
+    "showFlags": "国旗を表示",
+    "showLastName": "姓を表示",
+    "saveSettings": "表示設定を保存",
+    "signInSettings": "設定を変更するにはログインしてください。",
+    "loadingArena": "アリーナを読み込み中…",
+    "errorLoadArenaTitle": "アリーナを読み込めませんでした",
+    "errorLoadArena": "アリーナ画面を読み込めませんでした",
+    "styleUnavailable": "アリーナスタイルを利用できません",
+    "openSlot": "空きスロット",
+    "noCountry": "国なし"
   },
   "/events/eventid/pro": {
     "pageTitle": "イベントライセンス",
@@ -458,7 +513,10 @@
     "dlgDownloadResultsTitle": "結果をダウンロード",
     "dlgDownloadResultsText": "世界ランキング用にカテゴリ結果を書き出します。",
     "dlgDownloadResultsCbAddPlayerNames": "選手名を追加",
-    "dlgDownloadResultsBtnDownload": "ダウンロード"
+    "dlgDownloadResultsBtnDownload": "ダウンロード",
+    "toastMatchesInconsistent": "試合データが一貫していないようです。",
+    "toastResultsProcessed": "試合結果を処理しました。",
+    "toastExportInconsistent": "試合結果の書き出しが一貫していません。"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "選手一覧を管理",
@@ -552,17 +610,24 @@
     "textNoSufficientPool": "トーナメントを作成する前に、選手一覧に最低2人の選手を追加してください。",
     "btnSave": "保存",
     "btnUpdate": "更新",
-    "btnDelete": "削除"
+    "btnDelete": "削除",
+    "toastRoundsCreated": "ラウンドを作成しました",
+    "toastRoundsUpdated": "ラウンドを更新しました",
+    "toastRoundDeleted": "ラウンドを削除しました",
+    "defaultRoundName": "ラウンド {index}",
+    "defaultMatchName": "試合 {index}"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "シード＆結果",
-    "textNoGameMode": "トーナメントがまだ設定されていません。"
+    "textNoGameMode": "トーナメントがまだ設定されていません。",
+    "toastSlotUpdated": "スロットを更新しました"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "カテゴリを編集",
     "btnSave": "保存",
     "dlgDeleteCompetitionTitle": "カテゴリを削除",
-    "dlgDeleteCompetitionText": "このカテゴリを本当に削除しますか？"
+    "dlgDeleteCompetitionText": "このカテゴリを本当に削除しますか？",
+    "toastUpdated": "競技を更新しました"
   },
   "/events/eventid/comps/create": {
     "pageTitle": "カテゴリを作成",
@@ -631,7 +696,9 @@
     "tableSortByType": "種別で並べ替え",
     "tableSortByStatus": "ステータスで並べ替え",
     "textNoFilterMatch": "条件に合う出席者はいません。",
-    "alertPendingRegistrations": "{count, plural, other{未処理の申込が # 件あります。確認が必要です。}}"
+    "alertPendingRegistrations": "{count, plural, other{未処理の申込が # 件あります。確認が必要です。}}",
+    "toastRemoved": "{name} を削除しました",
+    "toastStatusUpdated": "{name} のステータスを更新しました"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "参加登録の概要",
@@ -833,7 +900,15 @@
     "btnSave": "保存"
   },
   "/events/eventid/stats": {
-    "pageTitle": "統計"
+    "pageTitle": "統計",
+    "chartAttendees": "参加者数",
+    "labelParticipants": "参加者",
+    "labelVisitors": "来場者",
+    "chartGender": "性別別の参加者",
+    "labelMale": "男性",
+    "labelFemale": "女性",
+    "chartCountry": "国別の参加者",
+    "chartAge": "年齢別の参加者"
   },
   "/events/create": {
     "pageTitleEventCreationFlow": "イベント作成",
@@ -940,7 +1015,8 @@
   },
   "/password/reset": {
     "inputPassword": "新しいパスワード",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "errorMissingResetLink": "このリセットリンクは無効か不完全です。パスワード再設定メールのリンクを開いてください。"
   },
   "/registration": {
     "headlineCreateAccount": "アカウントを作成",
@@ -983,7 +1059,11 @@
     "tblNoData": "データがありません",
     "navCurrentPage1": "ページ",
     "navCurrentPage2": "の",
-    "navRowsPerPage": "1ページあたりの行数"
+    "navRowsPerPage": "1ページあたりの行数",
+    "navFirst": "最初のページ",
+    "navPrevious": "前のページ",
+    "navNext": "次のページ",
+    "navLast": "最後のページ"
   },
   "/users/username": {
     "accordionItemSocials": "SNS",
@@ -997,7 +1077,8 @@
     "accordionItemCompetitionHistoryNoParticipations": "参加履歴はまだありません。",
     "btnBookViaFreestyleActs": "FreestyleActs で予約",
     "competitionHistoryShowAll": "すべて表示 ({count})",
-    "competitionHistoryShowLess": "少なく表示"
+    "competitionHistoryShowLess": "少なく表示",
+    "toastUserDeleted": "ユーザーを削除しました。"
   },
   "global/data-states": {
     "errorTitle": "エラーが発生しました",
@@ -1046,7 +1127,9 @@
     "hintRegistrationPeriodEnded": "参加者の登録期間は終了しました。"
   },
   "global/components/battle-grid": {
-    "btnAddMatch": "試合を追加"
+    "btnAddMatch": "試合を追加",
+    "labelAssignSlot": "スロットを割り当て",
+    "labelUnassigned": "未割り当て"
   },
   "global/components/competition-editor": {
     "inputName": "カテゴリ名",
@@ -1137,7 +1220,9 @@
     "chbAllowCommentsAndQuestions": "コメントを許可",
     "chbNotifyOnComment": "コメント時に通知",
     "inputWaiver": "同意書（免責）",
-    "chbVisaInvitationRequestsEnabled": "ビザ招待状を提供"
+    "chbVisaInvitationRequestsEnabled": "ビザ招待状を提供",
+    "toastPosterDeleted": "ポスターを削除しました",
+    "placeholderWaiver": "このイベントに参加することで、私は確認します…"
   },
   "global/components/loading-spinner": {
     "textLoading": "読み込み中..."
@@ -1178,5 +1263,107 @@
     "inputName": "スポンサー名",
     "inputWebsite": "ウェブサイト",
     "chbIsPublic": "公開しますか？"
+  },
+  "/wffa": {
+    "pageTitle": "管理概要（WFFA）",
+    "linkIds": "フリースタイラーID",
+    "linkStatistics": "アプリ統計",
+    "linkVisa": "ビザ申請"
+  },
+  "/wffa/ids": {
+    "pageTitle": "フリースタイラーID管理",
+    "noEntries": "項目はありません",
+    "colUser": "ユーザー",
+    "colId": "フリースタイラーID",
+    "colActions": "操作",
+    "sortUserAsc": "ユーザーを昇順",
+    "sortUserDesc": "ユーザーを降順",
+    "sortByUser": "ユーザーで並べ替え",
+    "sortIdAsc": "IDを昇順",
+    "sortIdDesc": "IDを降順",
+    "sortById": "フリースタイラーIDで並べ替え",
+    "filterName": "名前",
+    "search": "検索…",
+    "filterCountry": "国",
+    "filterGender": "性別",
+    "allCountries": "すべての国",
+    "allGenders": "すべて",
+    "withoutId": "フリースタイラーIDなし",
+    "withId": "フリースタイラーIDあり",
+    "toastReloadFailed": "ユーザーを再読み込みできませんでした。",
+    "toastUpdated": "{username}（{firstName}）のフリースタイラーIDを更新しました。"
+  },
+  "/wffa/visa": {
+    "pageTitle": "ビザ申請管理",
+    "pending": "保留中",
+    "approved": "承認済み",
+    "denied": "却下",
+    "noEntries": "項目はありません",
+    "applicant": "申請者",
+    "country": "国",
+    "countryCode": "国コード",
+    "passport": "パスポート",
+    "passportNumber": "パスポート番号",
+    "requested": "申請日",
+    "requestDate": "申請日",
+    "approver": "承認者",
+    "actions": "操作",
+    "document": "書類",
+    "toastLoadFailed": "ビザ申請を読み込めませんでした。",
+    "toastApproved": "{name} のビザ申請を承認しました。",
+    "toastDenied": "{name} のビザ申請を却下しました。"
+  },
+  "/stats": {
+    "pageTitle": "統計",
+    "userCount": "ユーザー数",
+    "freestylers": "フリースタイラー：",
+    "associations": "協会：",
+    "brands": "ブランド：",
+    "djs": "DJ：",
+    "organizers": "イベント主催者：",
+    "mcs": "MC：",
+    "media": "メディア：",
+    "fans": "ファン / 家族 / サポーター：",
+    "totalUserCount": "ユーザー総数",
+    "totalUsers": "ユーザー総数：",
+    "realUsers": "実ユーザー：",
+    "adminUsers": "管理ユーザー：",
+    "mobileUsers": "モバイルユーザー：",
+    "mobileHint": "モバイルユーザーは複数の端末を持てます",
+    "mapShare": "フリースタイラーマップ上の割合",
+    "usersOnMap": "マップ上のユーザー：",
+    "nationalityShare": "国籍別の割合",
+    "growthTitle": "ユーザー増加",
+    "growthDesc": "累計ユーザー数",
+    "growthFreestylerTitle": "ユーザー増加（フリースタイラー）",
+    "growthFreestylerDesc": "累計ユーザー数（フリースタイラー）",
+    "eventsCreated": "作成されたイベント",
+    "eventsCreatedDesc": "累計イベント数",
+    "compsCreated": "作成された競技",
+    "compsCreatedDesc": "累計競技数",
+    "onlineCreated": "作成されたオンライン競技",
+    "onlineCreatedDesc": "累計オンライン競技数",
+    "meetingsCreated": "作成されたミーティング",
+    "meetingsCreatedDesc": "累計ミーティング数",
+    "labelTotal": "合計",
+    "labelMale": "男性",
+    "labelFemale": "女性",
+    "labelMaleFreestylers": "男性フリースタイラー",
+    "labelFemaleFreestylers": "女性フリースタイラー",
+    "labelCompetitions": "競技",
+    "labelOnline": "オンライン競技",
+    "labelMeetings": "ミーティング"
+  },
+  "/terms": {
+    "pageTitle": "利用規約（FSMeet）"
+  },
+  "global/ui": {
+    "close": "閉じる",
+    "loading": "読み込み中",
+    "language": "言語",
+    "search": "検索...",
+    "select": "選択",
+    "noData": "データがありません。",
+    "appNav": "アプリ"
   }
 }

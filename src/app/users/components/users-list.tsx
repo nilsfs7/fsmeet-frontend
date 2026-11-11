@@ -500,19 +500,19 @@ export const UsersList = ({ columnData }: IUsersList) => {
 
           <div className="flex items-center gap-1">
             <Button variant="outline" size="sm" className="hidden h-8 w-8 p-0 sm:inline-flex" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
-              <span className="sr-only">First page</span>
+              <span className="sr-only">{t('navFirst')}</span>
               <DoubleArrowLeftIcon className="h-4 w-4" />
             </Button>
             <Button variant="outline" size="sm" className="h-8 w-8 p-0" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-              <span className="sr-only">Previous page</span>
+              <span className="sr-only">{t('navPrevious')}</span>
               <ChevronLeftIcon className="h-4 w-4" />
             </Button>
             <Button variant="outline" size="sm" className="h-8 w-8 p-0" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-              <span className="sr-only">Next page</span>
+              <span className="sr-only">{t('navNext')}</span>
               <ChevronRightIcon className="h-4 w-4" />
             </Button>
             <Button variant="outline" size="sm" className="hidden h-8 w-8 p-0 sm:inline-flex" onClick={() => table.setPageIndex(table.getPageCount() - 1)} disabled={!table.getCanNextPage()}>
-              <span className="sr-only">Last page</span>
+              <span className="sr-only">{t('navLast')}</span>
               <DoubleArrowRightIcon className="h-4 w-4" />
             </Button>
           </div>

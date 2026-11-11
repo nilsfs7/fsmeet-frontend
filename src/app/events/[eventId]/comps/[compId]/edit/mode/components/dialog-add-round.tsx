@@ -46,7 +46,7 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
 
   useEffect(() => {
     if (showDialog === '1') {
-      setRoundName(`Round ${roundIndex + 1}`);
+      setRoundName(t('defaultRoundName', { index: roundIndex + 1 }));
       setRoundDate(dateFrom);
       setRoundTimeLimit(false);
       setAdvancingTotal(getAdvancing());

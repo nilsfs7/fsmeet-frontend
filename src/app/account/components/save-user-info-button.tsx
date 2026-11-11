@@ -20,13 +20,13 @@ export const SaveUserInfoButton = () => {
 
       try {
         await updateUser(user, session);
-        toast.success('Profile updated.');
+        toast.success(t('toastProfileUpdated'));
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
       }
     } else {
-      const msg = 'Failed loading user info from session storage.';
+      const msg = t('toastProfileLoadFailed');
       toast.error(msg);
       console.error(msg);
     }

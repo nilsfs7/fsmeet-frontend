@@ -26,7 +26,8 @@
     "lnkImprint": "Imprint",
     "lnkTermsOfService": "Terms of Service",
     "lnkPrivacyPolicy": "Privacy policy",
-    "build": "Build"
+    "build": "Build",
+    "ariaLegal": "Legal"
   },
   "/about/contributors": {
     "pageTitle": "Contributors",
@@ -160,7 +161,11 @@
     "dlgJobsTermsBaseToSNote": "This addendum supplements the <tos>FSMeet Terms of Service</tos> and applies only to the optional Jobs feature.",
     "dlgJobsTermsLiabilityTitle": "Responsibility",
     "dlgJobsTermsLiabilityText1": "FSMeet acts solely as an intermediary and provides the technical platform. FSMeet is not a party to contracts between artist and client. Performance of the job and payment are the responsibility of the artist and/or the client. FSMeet does not guarantee requests, deals or payments.",
-    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again."
+    "toastJobTermsUpdated": "The Jobs addendum was updated. Please read it and accept it again.",
+    "toastProfileUpdated": "Profile updated.",
+    "toastProfileLoadFailed": "Failed loading user info from session storage.",
+    "toastStripeAccount": "Stripe account generated.",
+    "toastVerificationRequested": "Requesting verification successful."
   },
   "/account/deleted": {
     "textGoodbye": "Goodbye!",
@@ -188,7 +193,14 @@
     "tblNoData": "No data",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "of",
-    "navRowsPerPage": "Rows per page"
+    "navRowsPerPage": "Rows per page",
+    "toastRefundInitiated": "Refund initiated.",
+    "toastMissingIntent": "Missing intent ID in URL.",
+    "navFirst": "Go to first page",
+    "navPrevious": "Go to previous page",
+    "navNext": "Go to next page",
+    "navLast": "Go to last page",
+    "openMenu": "Open menu"
   },
   "/donate": {
     "pageTitle": "Donate",
@@ -252,7 +264,8 @@
     "pageTitle": "Edit Event",
     "dlgEventDeletionTitle": "Delete Event",
     "dlgEventDeletionText": "Do you really want to delete this event?",
-    "btnSave": "Save"
+    "btnSave": "Save",
+    "toastFileTooBig": "File too big for browser storage."
   },
   "/events/eventid": {
     "dlgEventStateTitle": "Event Visibility",
@@ -394,7 +407,49 @@
   },
   "/events/eventid/arena-screen": {
     "pageTitle": "Arena screen",
-    "pageDescription": "Choose a match for the live preview. The arena screen updates when you select one."
+    "pageDescription": "Choose a match for the live preview. The arena screen updates when you select one.",
+    "btnOpen": "Open arena screen",
+    "noCompetitions": "No competitions for this event.",
+    "labelCompetition": "Competition",
+    "placeholderCompetition": "Select competition",
+    "loadingBattles": "Loading battles…",
+    "errorLoadBattles": "Could not load battles for this competition.",
+    "labelBattle": "Battle",
+    "errorSignInMatch": "Sign in to set the arena match.",
+    "errorUpdate": "Failed to update arena screen.",
+    "saving": "Saving…",
+    "placeholderBattle": "Select battle",
+    "noBattles": "No battles with a match id in this competition yet.",
+    "errorLoadSettings": "Could not load arena screen settings.",
+    "errorSignInSave": "Sign in to save arena screen settings.",
+    "toastSaved": "Arena screen settings saved.",
+    "errorSave": "Failed to save settings.",
+    "errorSignInUpload": "Sign in to upload a background image.",
+    "toastBackground": "Background image updated.",
+    "errorUpload": "Upload failed.",
+    "settingsTitle": "Display settings",
+    "settingsLoading": "Loading…",
+    "settingsSummaryOpen": "Background image, overlay, and on-screen options.",
+    "settingsSummaryClosed": "Background, overlay, labels, flags — click to edit.",
+    "loadingSettings": "Loading settings…",
+    "backgroundImage": "Background image",
+    "backgroundPreview": "Current background preview",
+    "noImage": "No image set (solid backdrop in preview).",
+    "uploading": "Uploading…",
+    "chooseImage": "Choose image…",
+    "overlay": "Overlay darkness ({percent}%)",
+    "showPositions": "Show position labels",
+    "reversePositions": "Reverse position numbering",
+    "showFlags": "Show country flags",
+    "showLastName": "Show last names",
+    "saveSettings": "Save display settings",
+    "signInSettings": "Sign in to change arena settings.",
+    "loadingArena": "Loading arena…",
+    "errorLoadArenaTitle": "Could not load arena",
+    "errorLoadArena": "Failed to load arena screen",
+    "styleUnavailable": "Arena style not available",
+    "openSlot": "Open slot",
+    "noCountry": "No country"
   },
   "/events/eventid/pro": {
     "pageTitle": "Event License",
@@ -458,7 +513,10 @@
     "dlgDownloadResultsTitle": "Download Results",
     "dlgDownloadResultsText": "Export competition results for world rankings.",
     "dlgDownloadResultsCbAddPlayerNames": "Add player names",
-    "dlgDownloadResultsBtnDownload": "Download"
+    "dlgDownloadResultsBtnDownload": "Download",
+    "toastMatchesInconsistent": "Matches seem to have inconsistent data.",
+    "toastResultsProcessed": "Processed battle results.",
+    "toastExportInconsistent": "Export of battle results is inconsistent."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Manage Player Pool",
@@ -552,17 +610,24 @@
     "textNoSufficientPool": "Add at least 2 players to the competition pool before creating a game mode.",
     "btnSave": "Save",
     "btnUpdate": "Update",
-    "btnDelete": "Save"
+    "btnDelete": "Save",
+    "toastRoundsCreated": "Rounds successfully created",
+    "toastRoundsUpdated": "Rounds successfully updated",
+    "toastRoundDeleted": "Round successfully deleted",
+    "defaultRoundName": "Round {index}",
+    "defaultMatchName": "Match {index}"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Results",
-    "textNoGameMode": "You have not configured a game mode, yet."
+    "textNoGameMode": "You have not configured a game mode, yet.",
+    "toastSlotUpdated": "Slot updated"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Edit Competition",
     "btnSave": "Save",
     "dlgDeleteCompetitionTitle": "Delete Competition",
-    "dlgDeleteCompetitionText": "Do you really want to delete this competition?"
+    "dlgDeleteCompetitionText": "Do you really want to delete this competition?",
+    "toastUpdated": "Competition successfully updated"
   },
   "/events/eventid/comps/create": {
     "pageTitle": "Create Competition",
@@ -631,7 +696,9 @@
     "tableSortByType": "Sort by type",
     "tableSortByStatus": "Sort by status",
     "textNoFilterMatch": "No attendees match your filters.",
-    "alertPendingRegistrations": "{count, plural, one {There is # pending registration awaiting your review.} other {There are # pending registrations awaiting your review.}}"
+    "alertPendingRegistrations": "{count, plural, one {There is # pending registration awaiting your review.} other {There are # pending registrations awaiting your review.}}",
+    "toastRemoved": "{name} removed",
+    "toastStatusUpdated": "Status for {name} updated"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Event Registration Overview",
@@ -833,7 +900,15 @@
     "btnSave": "Save"
   },
   "/events/eventid/stats": {
-    "pageTitle": "Statistics"
+    "pageTitle": "Statistics",
+    "chartAttendees": "Amount of Attendees",
+    "labelParticipants": "Participants",
+    "labelVisitors": "Visitors",
+    "chartGender": "Participants by Gender",
+    "labelMale": "Male",
+    "labelFemale": "Female",
+    "chartCountry": "Participants by Country",
+    "chartAge": "Participants by Age"
   },
   "/events/create": {
     "pageTitleEventCreationFlow": "Event Creation",
@@ -984,7 +1059,11 @@
     "tblNoData": "No data",
     "navCurrentPage1": "Page",
     "navCurrentPage2": "of",
-    "navRowsPerPage": "Rows per page"
+    "navRowsPerPage": "Rows per page",
+    "navFirst": "First page",
+    "navPrevious": "Previous page",
+    "navNext": "Next page",
+    "navLast": "Last page"
   },
   "/users/username": {
     "accordionItemSocials": "Socials",
@@ -998,7 +1077,8 @@
     "accordionItemCompetitionHistoryNoParticipations": "No participations, yet.",
     "btnBookViaFreestyleActs": "Book via FreestyleActs",
     "competitionHistoryShowAll": "Show all ({count})",
-    "competitionHistoryShowLess": "Show less"
+    "competitionHistoryShowLess": "Show less",
+    "toastUserDeleted": "User deleted."
   },
   "global/data-states": {
     "errorTitle": "Something went wrong",
@@ -1047,7 +1127,9 @@
     "hintRegistrationPeriodEnded": "The registration period for participants has ended."
   },
   "global/components/battle-grid": {
-    "btnAddMatch": "Add Match"
+    "btnAddMatch": "Add Match",
+    "labelAssignSlot": "Assign slot",
+    "labelUnassigned": "unassigned"
   },
   "global/components/competition-editor": {
     "inputName": "Competition Name",
@@ -1138,7 +1220,9 @@
     "chbAllowCommentsAndQuestions": "Allow Comments",
     "chbNotifyOnComment": "Notify On Comment",
     "inputWaiver": "Waiver",
-    "chbVisaInvitationRequestsEnabled": "Offer visa invitations"
+    "chbVisaInvitationRequestsEnabled": "Offer visa invitations",
+    "toastPosterDeleted": "Poster deleted",
+    "placeholderWaiver": "By participating in this event, I acknowledge ..."
   },
   "global/components/loading-spinner": {
     "textLoading": "Loading..."
@@ -1179,5 +1263,107 @@
     "inputName": "Sponsor Name",
     "inputWebsite": "Website",
     "chbIsPublic": "Show publicly?"
+  },
+  "/wffa": {
+    "pageTitle": "Admin Overview (WFFA)",
+    "linkIds": "Freestyler IDs",
+    "linkStatistics": "App Statistics",
+    "linkVisa": "Visa Requests"
+  },
+  "/wffa/ids": {
+    "pageTitle": "Freestyler ID Management",
+    "noEntries": "No entries",
+    "colUser": "User",
+    "colId": "Freestyler ID",
+    "colActions": "Actions",
+    "sortUserAsc": "Sort user ascending",
+    "sortUserDesc": "Sort user descending",
+    "sortByUser": "Sort by user",
+    "sortIdAsc": "Sort ID ascending",
+    "sortIdDesc": "Sort ID descending",
+    "sortById": "Sort by Freestyler ID",
+    "filterName": "Name",
+    "search": "Search…",
+    "filterCountry": "Country",
+    "filterGender": "Gender",
+    "allCountries": "All countries",
+    "allGenders": "All",
+    "withoutId": "Without Freestyler ID",
+    "withId": "With Freestyler ID",
+    "toastReloadFailed": "Failed to reload users.",
+    "toastUpdated": "Freestyler ID for {username} ({firstName}) updated."
+  },
+  "/wffa/visa": {
+    "pageTitle": "Visa Request Management",
+    "pending": "Pending",
+    "approved": "Approved",
+    "denied": "Denied",
+    "noEntries": "No entries",
+    "applicant": "Applicant",
+    "country": "Country",
+    "countryCode": "Country code",
+    "passport": "Passport",
+    "passportNumber": "Passport number",
+    "requested": "Requested",
+    "requestDate": "Request date",
+    "approver": "Approver",
+    "actions": "Actions",
+    "document": "Document",
+    "toastLoadFailed": "Failed to load visa requests.",
+    "toastApproved": "Visa request approved for {name}.",
+    "toastDenied": "Visa request denied for {name}."
+  },
+  "/stats": {
+    "pageTitle": "Statistics",
+    "userCount": "User Count",
+    "freestylers": "Freestylers:",
+    "associations": "Associations:",
+    "brands": "Brands:",
+    "djs": "DJs:",
+    "organizers": "Event organizers:",
+    "mcs": "MCs:",
+    "media": "Media:",
+    "fans": "Fans / Family Members / Supporters:",
+    "totalUserCount": "Total User Count",
+    "totalUsers": "Total users:",
+    "realUsers": "Real users:",
+    "adminUsers": "Administrative users:",
+    "mobileUsers": "Mobile users:",
+    "mobileHint": "Mobile users can have multiple devices",
+    "mapShare": "User Share on Freestyler Map",
+    "usersOnMap": "Users on map:",
+    "nationalityShare": "User Share by Nationality",
+    "growthTitle": "User Growth",
+    "growthDesc": "Cumulative user count",
+    "growthFreestylerTitle": "User Growth (Freestyler)",
+    "growthFreestylerDesc": "Cumulative user count (freestylers)",
+    "eventsCreated": "Events created",
+    "eventsCreatedDesc": "Cumulative event count",
+    "compsCreated": "Competitions created",
+    "compsCreatedDesc": "Cumulative competition count",
+    "onlineCreated": "Online competitions created",
+    "onlineCreatedDesc": "Cumulative online competition count",
+    "meetingsCreated": "Meetings created",
+    "meetingsCreatedDesc": "Cumulative meeting count",
+    "labelTotal": "Total",
+    "labelMale": "Male",
+    "labelFemale": "Female",
+    "labelMaleFreestylers": "Male Freestylers",
+    "labelFemaleFreestylers": "Female Freestylers",
+    "labelCompetitions": "Competitions",
+    "labelOnline": "Online Competitions",
+    "labelMeetings": "Meetings"
+  },
+  "/terms": {
+    "pageTitle": "Terms of Service (FSMeet)"
+  },
+  "global/ui": {
+    "close": "Close",
+    "loading": "Loading",
+    "language": "Language",
+    "search": "Search ...",
+    "select": "Select",
+    "noData": "No data found.",
+    "appNav": "App"
   }
 }

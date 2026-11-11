@@ -1,5 +1,8 @@
+'use client';
+
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 type AppDataStateListSkeletonProps = {
   /** Number of card-shaped rows (default tuned for event list) */
@@ -9,8 +12,9 @@ type AppDataStateListSkeletonProps = {
 
 /** Loading placeholder for vertical card lists (P1: replace ad-hoc spinners). */
 export function AppDataStateListSkeleton({ rows = 4, className }: AppDataStateListSkeletonProps) {
+  const t = useTranslations('global/ui');
   return (
-    <div className={cn('grid w-full max-w-lg gap-3', className)} role="status" aria-busy="true" aria-label="Loading">
+    <div className={cn('grid w-full max-w-lg gap-3', className)} role="status" aria-busy="true" aria-label={t('loading')}>
       {Array.from({ length: rows }, (_, i) => (
         <div key={i} className="flex gap-3 rounded-lg border border-border bg-background p-3">
           <Skeleton className="h-16 w-16 shrink-0 rounded-md" />

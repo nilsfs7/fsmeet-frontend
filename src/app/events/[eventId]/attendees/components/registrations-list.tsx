@@ -278,7 +278,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
     if (eventId) {
       try {
         await deleteEventRegistration(eventId, username, session);
-        toast.success(`${username} removed`);
+        toast.success(t('toastRemoved', { name: username }));
         router.refresh();
       } catch (error: any) {
         toast.error(error.message);
@@ -291,7 +291,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
     if (eventId) {
       try {
         await updateEventRegistrationStatus(eventId, username, status, session);
-        toast.success(`Status for ${username} updated`);
+        toast.success(t('toastStatusUpdated', { name: username }));
         router.refresh();
       } catch (error: any) {
         toast.error(error.message);

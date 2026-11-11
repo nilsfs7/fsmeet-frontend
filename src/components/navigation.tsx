@@ -1,5 +1,8 @@
+'use client';
+
 import { appShellContentClass } from '@/components/layout/app-shell-content';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 /** Matches `Header` surface: border, glass, shadow, dark tokens. */
 const navShellClass = cn(
@@ -18,6 +21,7 @@ interface INavigationProps {
 }
 
 const Navigation = ({ reverse = false, className, noTopGap = false, children }: INavigationProps) => {
+  const t = useTranslations('global/ui');
   const bar = (
     <div
       className={cn(
@@ -33,7 +37,7 @@ const Navigation = ({ reverse = false, className, noTopGap = false, children }: 
   return (
     <div className={cn('mt-auto w-full shrink-0 flex min-w-0 flex-col', className)} role="presentation">
       {!noTopGap && <div className="h-4 w-full min-h-4 shrink-0" aria-hidden />}
-      <nav className={navShellClass} aria-label="App">
+      <nav className={navShellClass} aria-label={t('appNav')}>
         <div className={appShellContentClass}>{bar}</div>
       </nav>
     </div>
