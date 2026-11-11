@@ -70,13 +70,21 @@
   :root {
     /* Core surfaces & text */
     --background: 255 255 255;
+    /* App canvas behind cards (subtle cool grey so white cards lift off the page) */
+    --canvas: 246 247 249;
+
+    /* Brand accent: "pitch green" for primary CTAs, active nav and highlights */
+    --brand: 5 150 105; /* #059669 */
+    --brand-strong: 4 120 87; /* #047857 */
+    --brand-soft: 236 253 245; /* #ecfdf5 */
+    --brand-foreground: 255 255 255;
     --foreground: 20 29 38; /* #141D26 — default body text / “ink” */
     --primary: 20 29 38; /* same as legacy `primary`: borders, emphasis */
     --primary-foreground: 255 255 255;
 
     /* Secondary surface scale (maps to previous secondary-*) */
     --secondary: 225 232 237; /* #e1e8ed */
-    --secondary-light: 248 249 250; /* #f8f9fa */
+    --secondary-light: 255 255 255; /* card / raised surface (was #f8f9fa) */
     --secondary-dark: 204 214 221; /* #ccd6dd */
 
     /* Muted (subtle text & fills) */
@@ -114,23 +122,23 @@
     --neutral-950: 2 6 23;
 
     /* Border & focus */
-    --border: 204 214 221; /* align with previous secondary-dark usage */
-    --input: 204 214 221;
-    --ring: 20 29 38;
+    --border: 226 232 240; /* slate-200: lighter hairlines */
+    --input: 213 221 230;
+    --ring: 5 150 105;
 
     /* Radius */
     --radius-sm: 0.25rem; /* 4px */
     --radius-md: 0.375rem; /* 6px */
-    --radius-lg: 0.5rem; /* 8px */
-    --radius-xl: 0.75rem; /* 12px */
-    --radius-2xl: 1rem; /* 16px */
+    --radius-lg: 0.625rem; /* 10px */
+    --radius-xl: 0.875rem; /* 14px */
+    --radius-2xl: 1.25rem; /* 20px */
     --radius-full: 9999px;
 
     /* Elevation (subtle, UI-scale) */
-    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xs: 0 1px 2px 0 rgb(16 24 40 / 0.04);
+    --shadow-sm: 0 1px 3px 0 rgb(16 24 40 / 0.06), 0 1px 2px -1px rgb(16 24 40 / 0.04);
+    --shadow-md: 0 8px 20px -6px rgb(16 24 40 / 0.1), 0 2px 6px -2px rgb(16 24 40 / 0.05);
+    --shadow-lg: 0 20px 40px -12px rgb(16 24 40 / 0.18), 0 4px 10px -4px rgb(16 24 40 / 0.06);
 
     /* shadcn charts */
     --chart-1: oklch(0.488 0.243 264.376);
@@ -142,6 +150,11 @@
 
   .dark {
     --background: 15 23 42; /* ~ slate-900 */
+    --canvas: 2 6 23;
+    --brand: 16 185 129;
+    --brand-strong: 52 211 153;
+    --brand-soft: 6 78 59;
+    --brand-foreground: 2 6 23;
     --foreground: 248 250 252;
     --primary: 248 250 252;
     --primary-foreground: 15 23 42;
@@ -180,6 +193,14 @@
   }
 
   body {
-    @apply min-h-dvh bg-background text-foreground text-base antialiased;
+    @apply min-h-dvh bg-canvas text-foreground text-base antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply tracking-tight;
   }
 }

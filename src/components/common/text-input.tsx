@@ -35,7 +35,7 @@ const TextInput = ({
   onChange,
   onKeyDown,
 }: ITextInput) => {
-  const inputClass = cn('w-full', readOnly && 'bg-secondary-light');
+  const inputClass = cn('w-full', readOnly && 'bg-muted');
 
   const input = (
     <Input
