@@ -81,7 +81,7 @@ export default function EditEventAccommodation(props: { params: Promise<{ eventI
         setAccommodation(accommodation);
       });
     }
-  }, [event === undefined, accommodation === undefined]);
+  }, [event === undefined, accommodation === undefined, session?.user?.username]);
 
   return (
     <>

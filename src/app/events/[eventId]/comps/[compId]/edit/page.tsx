@@ -24,7 +24,7 @@ import LoadingSpinner from '@/components/animation/loading-spinner';
 export default function CompetitionEditing(props: { params: Promise<{ eventId: string; compId: string }> }) {
   const params = use(props.params);
   const t = useTranslations('/events/eventid/comps/edit');
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   const [event, setEvent] = useState<Event>();
@@ -62,6 +62,9 @@ export default function CompetitionEditing(props: { params: Promise<{ eventId: s
   };
 
   useEffect(() => {
+    // wait for the session: unlisted events are only returned to authenticated admins
+    if (status === 'loading') return;
+
     getEvent(params.eventId, session)
       .then((event: Event) => {
         setEvent(event);
@@ -73,7 +76,7 @@ export default function CompetitionEditing(props: { params: Promise<{ eventId: s
     getCompetition(params.compId).then((comp: Competition) => {
       setComp(comp);
     });
-  }, []);
+  }, [status]);
 
   if (!event) {
     return <LoadingSpinner />;

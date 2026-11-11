@@ -51,7 +51,7 @@ export default function CreateOffering(props: { params: Promise<{ eventId: strin
     getEvent(params.eventId, session).then(event => {
       setEvent(event);
     });
-  }, [event === undefined]);
+  }, [event === undefined, session?.user?.username]); // refetch once the session is known (unlisted events need auth)
 
   return (
     <>
