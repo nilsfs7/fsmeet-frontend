@@ -1,5 +1,4 @@
 import Navigation from '@/components/navigation';
-import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
@@ -90,38 +89,25 @@ export default async function Contributors() {
     });
   }
 
-  const colName = t('tableColName');
-  const colContribution = t('tableColContribution');
-  const colProposal = t('tableColProposal');
-  const colAnnouncement = t('tableColAnnouncement');
-  const noAnnouncement = t('tableNoAnnouncement');
-
   return (
     <div className="min-h-0 flex-1 flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <PageInset className="flex flex-col gap-8 pb-6 pt-4 sm:gap-10 sm:pt-6">
+          <div className="flex flex-col items-center gap-1 text-center">
+            <h1 className="text-heading-1">{t('pageTitle')}</h1>
+            <p className="max-w-[36rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
+          </div>
 
-      <PageInset variant="prose" className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto">
-        <div className="flex w-full min-w-0 flex-col items-center gap-6 text-center sm:gap-8">
-          <ContributorsTable
-            title={t('sectionMainContributors')}
-            rows={mainRows}
-            colName={colName}
-            colContribution={colContribution}
-            colAnnouncement={colAnnouncement}
-            noAnnouncement={noAnnouncement}
-            className="self-center"
-          />
+          <ContributorsTable title={t('sectionMainContributors')} rows={mainRows} colContribution={t('tableColContribution')} lnkAnnouncement={t('lnkAnnouncement')} />
           <ContributorsTable
             title={t('sectionCommunityProposals')}
+            description={t('sectionCommunityProposalsText')}
             rows={communityRows}
-            colName={colName}
-            colContribution={colProposal}
-            colAnnouncement={colAnnouncement}
-            noAnnouncement={noAnnouncement}
-            className="self-center"
+            colContribution={t('tableColProposal')}
+            lnkAnnouncement={t('lnkAnnouncement')}
           />
-        </div>
-      </PageInset>
+        </PageInset>
+      </div>
 
       <Navigation>
         <ActionButton href={routeAbout} action={Action.BACK} />

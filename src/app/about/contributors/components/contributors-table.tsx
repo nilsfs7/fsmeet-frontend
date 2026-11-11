@@ -1,9 +1,7 @@
 import Link from 'next/link';
-import SocialLink from '@/components/user/social-link';
 import { routeUsers } from '@/domain/constants/routes';
-import { SocialPlatform } from '@/domain/enums/social-platform';
 import { User } from '@/domain/types/user';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { imgInstagramLogo, imgUserDefaultImg } from '@/domain/constants/images';
 import { cn } from '@/lib/utils';
 
 function formatContributorName(user: User): string {
@@ -17,63 +15,64 @@ function formatContributorName(user: User): string {
 export type ContributorsTableRow = {
   user: User;
   contribution: string;
-  /** Instagram path segment, e.g. `p/ABC` — opens SocialLink to announcement */
+  /** Instagram path segment, e.g. `p/ABC` — links to the announcement post */
   instagramPath?: string;
 };
 
 type ContributorsTableProps = {
   title: string;
+  description?: string;
   rows: ContributorsTableRow[];
-  colName: string;
+  /** Label of the contribution line (e.g. "Contribution" / "Proposal"), announced to screen readers. */
   colContribution: string;
-  colAnnouncement: string;
-  noAnnouncement: string;
+  lnkAnnouncement: string;
   className?: string;
 };
 
-export function ContributorsTable({ title, rows, colName, colContribution, colAnnouncement, noAnnouncement, className }: ContributorsTableProps) {
+/** Contributors section rendered as a responsive grid of person cards. */
+export function ContributorsTable({ title, description, rows, colContribution, lnkAnnouncement, className }: ContributorsTableProps) {
   if (rows.length === 0) {
     return null;
   }
 
   return (
-    <div className={cn('w-full min-w-0 max-w-3xl', className)}>
-      <h2 className="mb-2 text-left text-lg font-semibold text-foreground">{title}</h2>
-      <div className="min-h-0 min-w-0 max-w-full overflow-x-auto scrollbar-none">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="min-w-32 text-center align-middle">{colName}</TableHead>
-              <TableHead className="min-w-40 text-center align-middle">{colContribution}</TableHead>
-              <TableHead className="min-w-32 text-center align-middle">{colAnnouncement}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.user.username}>
-                <TableCell className="align-middle text-center">
-                  <Link
-                    href={`${routeUsers}/${encodeURIComponent(row.user.username)}`}
-                    className="font-medium text-primary underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                  >
-                    {formatContributorName(row.user)}
-                  </Link>
-                </TableCell>
-                <TableCell className="align-middle text-center text-foreground/90">{row.contribution}</TableCell>
-                <TableCell className="align-middle text-center">
-                  {row.instagramPath ? (
-                    <div className="flex justify-center">
-                      <SocialLink showPath={false} platform={SocialPlatform.INSTAGRAM} path={row.instagramPath} />
-                    </div>
-                  ) : (
-                    <span className="text-muted-foreground">{noAnnouncement}</span>
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+    <section className={cn('w-full min-w-0', className)}>
+      <div className="mb-3">
+        <h2 className="text-xl font-semibold text-foreground">{title}</h2>
+        {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
       </div>
-    </div>
+      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {rows.map((row, i) => (
+          <li key={`${row.user.username}-${i}`} className="flex min-w-0 flex-col justify-between gap-3 rounded-2xl border border-border bg-background p-4 shadow-xs">
+            <div className="flex min-w-0 items-center gap-3">
+              <img src={row.user.imageUrl || imgUserDefaultImg} alt="" className="h-12 w-12 shrink-0 rounded-full bg-muted object-cover ring-1 ring-border" />
+              <div className="min-w-0">
+                <Link
+                  href={`${routeUsers}/${encodeURIComponent(row.user.username)}`}
+                  className="block truncate font-semibold text-foreground underline-offset-2 hover:text-brand-strong hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  {formatContributorName(row.user)}
+                </Link>
+                <div className="mt-0.5 text-sm text-muted-foreground">
+                  <span className="sr-only">{colContribution}: </span>
+                  {row.contribution}
+                </div>
+              </div>
+            </div>
+            {row.instagramPath && (
+              <a
+                href={`https://www.instagram.com/${row.instagramPath}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-fit items-center gap-1.5 rounded-lg border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <img src={imgInstagramLogo} alt="" className="h-4 w-4" />
+                {lnkAnnouncement}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
