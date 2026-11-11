@@ -1,9 +1,10 @@
 'use client';
 
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import { imgCelebration } from '@/domain/constants/images';
+import { AuthCard } from '@/components/auth/auth-card';
+import { cn } from '@/lib/utils';
+import { IconConfetti } from '@tabler/icons-react';
 import { routeEvents } from '@/domain/constants/routes';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -39,30 +40,29 @@ export default function EventRegistrationCompleted(props: { params: Promise<{ ev
   }, [secUntilEnabled]);
 
   return (
-    <div className={'absolute inset-0 flex flex-col'}>
-      <div className="p-2 h-full grid overflow-y-auto">
-        <div className={'h-full flex flex-col justify-center'}>
-          <div className="mx-2 text-center">
-            <Image src={imgCelebration} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={''} />
-            <div className="mt-2">{t('registrationSuccess')}</div>
-
-            {checkout && <div className="mt-2">{t(`textPaymentCompleted`)}</div>}
-            {!checkout && eventHasFee && <div className="mt-2">{t(`textPaymentOutstanding`)}</div>}
-
-            <div className="mt-2">
-              {buttonDisabled ? (
-                <Button type="button" variant="action" className={ctaActionButtonClassName} disabled>
-                  {`${secUntilEnabled.toString()} ...`}
-                </Button>
-              ) : (
-                <Button asChild variant="action" className={ctaActionButtonClassName}>
-                  <Link href={`${routeEvents}/${params.eventId}`}>{t('btnBack')}</Link>
-                </Button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 sm:px-6 md:px-8">
+      <AuthCard
+        icon={<IconConfetti stroke={1.75} aria-hidden />}
+        title={t('registrationSuccess')}
+        description={
+          (checkout || eventHasFee) && (
+            <>
+              {checkout && <p>{t('textPaymentCompleted')}</p>}
+              {!checkout && eventHasFee && <p>{t('textPaymentOutstanding')}</p>}
+            </>
+          )
+        }
+      >
+        {buttonDisabled ? (
+          <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')} disabled>
+            {`${secUntilEnabled.toString()} ...`}
+          </Button>
+        ) : (
+          <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}>
+            <Link href={`${routeEvents}/${params.eventId}`}>{t('btnBack')}</Link>
+          </Button>
+        )}
+      </AuthCard>
     </div>
   );
 }
