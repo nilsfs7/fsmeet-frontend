@@ -1031,17 +1031,32 @@
   },
   "/password/forgot": {
     "inputUsername": "اسم المستخدم / البريد الإلكتروني",
-    "btnResetPassword": "إعادة تعيين كلمة المرور"
+    "btnResetPassword": "إعادة تعيين كلمة المرور",
+    "pageTitle": "هل نسيت كلمة المرور؟",
+    "pageDescription": "أدخل اسم المستخدم أو البريد الإلكتروني وسنرسل لك رابطًا لتعيين كلمة مرور جديدة.",
+    "lnkBackToLogin": "العودة إلى تسجيل الدخول"
   },
   "/password/forgot/pending": {
     "thankYouText1": "تحقق من بريدك.",
     "thankYouText2": "تم إرسال رابط إعادة التعيين.",
-    "btnBackHome": "العودة إلى الرئيسية"
+    "btnBackHome": "العودة إلى الرئيسية",
+    "hintSpam": "لم يصلك البريد؟ تحقق من مجلد الرسائل غير المرغوب فيها أو اطلب رابطًا جديدًا.",
+    "btnRequestNewLink": "طلب رابط جديد",
+    "btnBackToLogin": "العودة إلى تسجيل الدخول"
   },
   "/password/reset": {
     "inputPassword": "كلمة مرور جديدة",
     "btnSave": "حفظ",
-    "errorMissingResetLink": "رابط إعادة التعيين غير صالح أو غير مكتمل. افتح الرابط من رسالة إعادة تعيين كلمة المرور."
+    "errorMissingResetLink": "رابط إعادة التعيين غير صالح أو غير مكتمل. افتح الرابط من رسالة إعادة تعيين كلمة المرور.",
+    "pageTitle": "تعيين كلمة مرور جديدة",
+    "pageDescription": "اختر كلمة مرور جديدة لحسابك في FSMeet.",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "invalidLinkTitle": "رابط إعادة التعيين غير صالح",
+    "btnRequestNewLink": "طلب رابط جديد",
+    "successTitle": "تم تغيير كلمة المرور",
+    "successText": "تم تحديث كلمة المرور. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+    "btnGoToLogin": "الذهاب إلى تسجيل الدخول"
   },
   "/registration": {
     "headlineCreateAccount": "أنشئ حسابًا",

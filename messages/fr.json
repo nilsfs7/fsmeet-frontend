@@ -1006,17 +1006,32 @@
   },
   "/password/forgot": {
     "inputUsername": "Nom d'utilisateur / E-mail",
-    "btnResetPassword": "Réinitialiser le mot de passe"
+    "btnResetPassword": "Réinitialiser le mot de passe",
+    "pageTitle": "Mot de passe oublié ?",
+    "pageDescription": "Saisis ton nom d'utilisateur ou ton adresse e-mail et nous t'enverrons un lien pour définir un nouveau mot de passe.",
+    "lnkBackToLogin": "Retour à la connexion"
   },
   "/password/forgot/pending": {
     "thankYouText1": "Vérifiez votre e-mail.",
     "thankYouText2": "Un lien de réinitialisation vous a été envoyé.",
-    "btnBackHome": "Retour à l'accueil"
+    "btnBackHome": "Retour à l'accueil",
+    "hintSpam": "Pas reçu d'e-mail ? Vérifie tes spams ou demande un nouveau lien.",
+    "btnRequestNewLink": "Demander un nouveau lien",
+    "btnBackToLogin": "Retour à la connexion"
   },
   "/password/reset": {
     "inputPassword": "Nouveau mot de passe",
     "btnSave": "Enregistrer",
-    "errorMissingResetLink": "Ce lien est invalide ou incomplet. Ouvrez le lien reçu dans l'e-mail de réinitialisation."
+    "errorMissingResetLink": "Ce lien est invalide ou incomplet. Ouvrez le lien reçu dans l'e-mail de réinitialisation.",
+    "pageTitle": "Définir un nouveau mot de passe",
+    "pageDescription": "Choisis un nouveau mot de passe pour ton compte FSMeet.",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "invalidLinkTitle": "Lien de réinitialisation invalide",
+    "btnRequestNewLink": "Demander un nouveau lien",
+    "successTitle": "Mot de passe modifié",
+    "successText": "Ton mot de passe a été mis à jour. Tu peux maintenant te connecter avec ton nouveau mot de passe.",
+    "btnGoToLogin": "Aller à la connexion"
   },
   "/registration": {
     "headlineCreateAccount": "Créer un compte",

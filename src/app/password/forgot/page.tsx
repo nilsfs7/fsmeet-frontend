@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import { IconKey } from '@tabler/icons-react';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import TextInput from '@/components/common/text-input';
 import { useRouter } from 'next/navigation';
@@ -12,20 +14,14 @@ import { Toaster, toast } from 'sonner';
 import { createPasswordReset } from '@/infrastructure/clients/user.client';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
-
-/** @see `competition-editor.tsx` `EDITOR_CARD_CLASS` */
-const EDITOR_CARD_CLASS = cn(
-  'flex w-full min-w-0 max-w-lg flex-col overflow-y-auto scrollbar-none',
-  'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
-  'sm:gap-3 sm:p-3',
-);
+import { AuthCard } from '@/components/auth/auth-card';
 
 export default function ForgotPassword() {
   const t = useTranslations('/password/forgot');
 
   const router = useRouter();
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const handleInputChangeUsername = (event: any) => {
     const uname: string = event.target.value;
@@ -39,12 +35,15 @@ export default function ForgotPassword() {
   };
 
   const handleResetClicked = async () => {
+    if (submitting || !usernameOrEmail.trim()) return;
+    setSubmitting(true);
     try {
       await createPasswordReset(usernameOrEmail);
       router.replace(routePasswordPending);
     } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
+      setSubmitting(false);
     }
   };
 
@@ -54,31 +53,37 @@ export default function ForgotPassword() {
 
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <div className="min-h-0 flex-1 overflow-y-auto px-4 sm:px-6 md:px-8">
-          <div className="flex min-h-full flex-col items-center justify-center py-4">
-            <div className={EDITOR_CARD_CLASS}>
-              <TextInput
-                id={'usernameOrEmail'}
-                label={t('inputUsername')}
-                placeholder="max"
-                value={usernameOrEmail}
-                onChange={e => {
-                  handleInputChangeUsername(e);
-                }}
-                onKeyDown={handleInputKeypressUsername}
-              />
+          <AuthCard
+            icon={<IconKey stroke={1.75} aria-hidden />}
+            title={t('pageTitle')}
+            description={t('pageDescription')}
+            footer={
+              <Link href={routeLogin} className="font-medium text-foreground/90 underline-offset-2 hover:underline">
+                {t('lnkBackToLogin')}
+              </Link>
+            }
+          >
+            <TextInput
+              id={'usernameOrEmail'}
+              label={t('inputUsername')}
+              placeholder="max"
+              value={usernameOrEmail}
+              onChange={e => {
+                handleInputChangeUsername(e);
+              }}
+              onKeyDown={handleInputKeypressUsername}
+            />
 
-              <div className="w-full min-w-0">
-                <Button
-                  type="button"
-                  variant="action"
-                  className={cn(ctaActionButtonClassName, 'w-full min-w-0')}
-                  onClick={handleResetClicked}
-                >
-                  {t('btnResetPassword')}
-                </Button>
-              </div>
-            </div>
-          </div>
+            <Button
+              type="button"
+              variant="action"
+              className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}
+              onClick={handleResetClicked}
+              disabled={submitting || !usernameOrEmail.trim()}
+            >
+              {t('btnResetPassword')}
+            </Button>
+          </AuthCard>
         </div>
 
         <Navigation>

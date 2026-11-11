@@ -1006,17 +1006,32 @@
   },
   "/password/forgot": {
     "inputUsername": "Nutzername / E-Mail",
-    "btnResetPassword": "Passwort zurücksetzen"
+    "btnResetPassword": "Passwort zurücksetzen",
+    "pageTitle": "Passwort vergessen?",
+    "pageDescription": "Gib deinen Benutzernamen oder deine E-Mail-Adresse ein und wir schicken dir einen Link, um ein neues Passwort festzulegen.",
+    "lnkBackToLogin": "Zurück zum Login"
   },
   "/password/forgot/pending": {
     "thankYouText1": "Prüfe dein Mailpostfach.",
     "thankYouText2": "Wir haben dir einen Link geschickt.",
-    "btnBackHome": "Zur Homepage"
+    "btnBackHome": "Zur Homepage",
+    "hintSpam": "Keine E-Mail erhalten? Schau in deinen Spam-Ordner oder fordere einen neuen Link an.",
+    "btnRequestNewLink": "Neuen Link anfordern",
+    "btnBackToLogin": "Zurück zum Login"
   },
   "/password/reset": {
     "inputPassword": "Neues Passwort",
     "btnSave": "Speichern",
-    "errorMissingResetLink": "Dieser Link ist ungültig oder unvollständig. Öffne den Link aus der E-Mail zum Zurücksetzen."
+    "errorMissingResetLink": "Dieser Link ist ungültig oder unvollständig. Öffne den Link aus der E-Mail zum Zurücksetzen.",
+    "pageTitle": "Neues Passwort festlegen",
+    "pageDescription": "Wähle ein neues Passwort für dein FSMeet-Konto.",
+    "showPassword": "Passwort anzeigen",
+    "hidePassword": "Passwort verbergen",
+    "invalidLinkTitle": "Link ungültig",
+    "btnRequestNewLink": "Neuen Link anfordern",
+    "successTitle": "Passwort geändert",
+    "successText": "Dein Passwort wurde aktualisiert. Du kannst dich jetzt mit deinem neuen Passwort anmelden.",
+    "btnGoToLogin": "Zum Login"
   },
   "/registration": {
     "headlineCreateAccount": "Konto anlegen",

@@ -1031,17 +1031,32 @@
   },
   "/password/forgot": {
     "inputUsername": "ユーザー名／メール",
-    "btnResetPassword": "パスワードをリセット"
+    "btnResetPassword": "パスワードをリセット",
+    "pageTitle": "パスワードをお忘れですか？",
+    "pageDescription": "ユーザー名またはメールアドレスを入力してください。新しいパスワードを設定するためのリンクをお送りします。",
+    "lnkBackToLogin": "ログインに戻る"
   },
   "/password/forgot/pending": {
     "thankYouText1": "メールを確認してください。",
     "thankYouText2": "リセット用リンクを送信しました。",
-    "btnBackHome": "ホームに戻る"
+    "btnBackHome": "ホームに戻る",
+    "hintSpam": "メールが届きませんか？迷惑メールフォルダを確認するか、新しいリンクをリクエストしてください。",
+    "btnRequestNewLink": "新しいリンクをリクエスト",
+    "btnBackToLogin": "ログインに戻る"
   },
   "/password/reset": {
     "inputPassword": "新しいパスワード",
     "btnSave": "保存",
-    "errorMissingResetLink": "このリセットリンクは無効か不完全です。パスワード再設定メールのリンクを開いてください。"
+    "errorMissingResetLink": "このリセットリンクは無効か不完全です。パスワード再設定メールのリンクを開いてください。",
+    "pageTitle": "新しいパスワードを設定",
+    "pageDescription": "FSMeetアカウントの新しいパスワードを入力してください。",
+    "showPassword": "パスワードを表示",
+    "hidePassword": "パスワードを隠す",
+    "invalidLinkTitle": "リセットリンクが無効です",
+    "btnRequestNewLink": "新しいリンクをリクエスト",
+    "successTitle": "パスワードを変更しました",
+    "successText": "パスワードが更新されました。新しいパスワードでログインできます。",
+    "btnGoToLogin": "ログインへ"
   },
   "/registration": {
     "headlineCreateAccount": "アカウントを作成",

@@ -1006,17 +1006,32 @@
   },
   "/password/forgot": {
     "inputUsername": "Nombre de usuario / e-mail",
-    "btnResetPassword": "Restaurar contraseña"
+    "btnResetPassword": "Restaurar contraseña",
+    "pageTitle": "¿Olvidaste tu contraseña?",
+    "pageDescription": "Introduce tu nombre de usuario o correo electrónico y te enviaremos un enlace para crear una nueva contraseña.",
+    "lnkBackToLogin": "Volver al inicio de sesión"
   },
   "/password/forgot/pending": {
     "thankYouText1": "Comprueba tu buzón.",
     "thankYouText2": "Te hemos enviado un enlace.",
-    "btnBackHome": "A la página de inicio"
+    "btnBackHome": "A la página de inicio",
+    "hintSpam": "¿No recibiste el correo? Revisa la carpeta de spam o solicita un nuevo enlace.",
+    "btnRequestNewLink": "Solicitar nuevo enlace",
+    "btnBackToLogin": "Volver al inicio de sesión"
   },
   "/password/reset": {
     "inputPassword": "Nueva contraseña",
     "btnSave": "Guardar",
-    "errorMissingResetLink": "Este enlace no es válido o está incompleto. Abre el enlace del correo para restablecer la contraseña."
+    "errorMissingResetLink": "Este enlace no es válido o está incompleto. Abre el enlace del correo para restablecer la contraseña.",
+    "pageTitle": "Crear una nueva contraseña",
+    "pageDescription": "Elige una nueva contraseña para tu cuenta de FSMeet.",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "invalidLinkTitle": "Enlace no válido",
+    "btnRequestNewLink": "Solicitar nuevo enlace",
+    "successTitle": "Contraseña cambiada",
+    "successText": "Tu contraseña se ha actualizado. Ya puedes iniciar sesión con tu nueva contraseña.",
+    "btnGoToLogin": "Ir al inicio de sesión"
   },
   "/registration": {
     "headlineCreateAccount": "Crea tu cuenta",

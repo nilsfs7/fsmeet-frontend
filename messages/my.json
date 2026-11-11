@@ -1031,17 +1031,32 @@
   },
   "/password/forgot": {
     "inputUsername": "Nama pengguna / E-mel",
-    "btnResetPassword": "Tetapkan Semula Kata Laluan"
+    "btnResetPassword": "Tetapkan Semula Kata Laluan",
+    "pageTitle": "Lupa kata laluan?",
+    "pageDescription": "Masukkan nama pengguna atau alamat e-mel anda dan kami akan menghantar pautan untuk menetapkan kata laluan baharu.",
+    "lnkBackToLogin": "Kembali ke log masuk"
   },
   "/password/forgot/pending": {
     "thankYouText1": "Semak e-mel anda.",
     "thankYouText2": "Pautan tetapan semula telah dihantar kepada anda.",
-    "btnBackHome": "Kembali ke laman utama"
+    "btnBackHome": "Kembali ke laman utama",
+    "hintSpam": "Tidak menerima e-mel? Semak folder spam anda atau minta pautan baharu.",
+    "btnRequestNewLink": "Minta pautan baharu",
+    "btnBackToLogin": "Kembali ke log masuk"
   },
   "/password/reset": {
     "inputPassword": "Kata laluan baharu",
     "btnSave": "Simpan",
-    "errorMissingResetLink": "Pautan tetapan semula ini tidak sah atau tidak lengkap. Buka pautan daripada e-mel tetapan semula kata laluan."
+    "errorMissingResetLink": "Pautan tetapan semula ini tidak sah atau tidak lengkap. Buka pautan daripada e-mel tetapan semula kata laluan.",
+    "pageTitle": "Tetapkan kata laluan baharu",
+    "pageDescription": "Pilih kata laluan baharu untuk akaun FSMeet anda.",
+    "showPassword": "Tunjukkan kata laluan",
+    "hidePassword": "Sembunyikan kata laluan",
+    "invalidLinkTitle": "Pautan tetapan semula tidak sah",
+    "btnRequestNewLink": "Minta pautan baharu",
+    "successTitle": "Kata laluan ditukar",
+    "successText": "Kata laluan anda telah dikemas kini. Anda kini boleh log masuk dengan kata laluan baharu.",
+    "btnGoToLogin": "Pergi ke log masuk"
   },
   "/registration": {
     "headlineCreateAccount": "Cipta akaun",

@@ -1031,17 +1031,32 @@
   },
   "/password/forgot": {
     "inputUsername": "用户名 / 邮箱",
-    "btnResetPassword": "重置密码"
+    "btnResetPassword": "重置密码",
+    "pageTitle": "忘记密码？",
+    "pageDescription": "输入你的用户名或电子邮箱，我们会向你发送设置新密码的链接。",
+    "lnkBackToLogin": "返回登录"
   },
   "/password/forgot/pending": {
     "thankYouText1": "请查看你的邮箱。",
     "thankYouText2": "重置链接已发送给你。",
-    "btnBackHome": "返回首页"
+    "btnBackHome": "返回首页",
+    "hintSpam": "没有收到邮件？请检查垃圾邮件文件夹或重新申请链接。",
+    "btnRequestNewLink": "重新申请链接",
+    "btnBackToLogin": "返回登录"
   },
   "/password/reset": {
     "inputPassword": "新密码",
     "btnSave": "保存",
-    "errorMissingResetLink": "此重置链接无效或不完整。请打开密码重置邮件中的链接。"
+    "errorMissingResetLink": "此重置链接无效或不完整。请打开密码重置邮件中的链接。",
+    "pageTitle": "设置新密码",
+    "pageDescription": "为你的 FSMeet 账户设置一个新密码。",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
+    "invalidLinkTitle": "重置链接无效",
+    "btnRequestNewLink": "重新申请链接",
+    "successTitle": "密码已更改",
+    "successText": "你的密码已更新。现在可以使用新密码登录。",
+    "btnGoToLogin": "前往登录"
   },
   "/registration": {
     "headlineCreateAccount": "创建账户",

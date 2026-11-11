@@ -1031,17 +1031,32 @@
   },
   "/password/forgot": {
     "inputUsername": "Username / Email",
-    "btnResetPassword": "Reset Password"
+    "btnResetPassword": "Reset Password",
+    "pageTitle": "Forgot your password?",
+    "pageDescription": "Enter your username or email address and we'll send you a link to set a new password.",
+    "lnkBackToLogin": "Back to login"
   },
   "/password/forgot/pending": {
     "thankYouText1": "Check your mail.",
     "thankYouText2": "A reset link was sent to you.",
-    "btnBackHome": "Back home"
+    "btnBackHome": "Back home",
+    "hintSpam": "Didn't get an email? Check your spam folder or request a new link.",
+    "btnRequestNewLink": "Request new link",
+    "btnBackToLogin": "Back to login"
   },
   "/password/reset": {
     "inputPassword": "New password",
     "btnSave": "Save",
-    "errorMissingResetLink": "This reset link is invalid or incomplete. Open the link from your password reset email."
+    "errorMissingResetLink": "This reset link is invalid or incomplete. Open the link from your password reset email.",
+    "pageTitle": "Set a new password",
+    "pageDescription": "Choose a new password for your FSMeet account.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "invalidLinkTitle": "Reset link not valid",
+    "btnRequestNewLink": "Request new link",
+    "successTitle": "Password changed",
+    "successText": "Your password was updated. You can now log in with your new password.",
+    "btnGoToLogin": "Go to login"
   },
   "/registration": {
     "headlineCreateAccount": "Create your account",

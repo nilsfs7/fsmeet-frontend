@@ -1,25 +1,37 @@
-import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import { imgMailIncoming } from '@/domain/constants/images';
-import { routeHome } from '@/domain/constants/routes';
-import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
 import Link from 'next/link';
+import { IconMailForward } from '@tabler/icons-react';
+import { getTranslations } from 'next-intl/server';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { routeHome, routeLogin, routePasswordForgot } from '@/domain/constants/routes';
+import { AuthCard } from '@/components/auth/auth-card';
+import { cn } from '@/lib/utils';
 
 export default async function PasswordResetRequestPending() {
   const t = await getTranslations('/password/forgot/pending');
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col justify-center px-4 py-4 sm:px-6 md:px-8">
-      <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-2 py-6 text-center">
-        <Image src={imgMailIncoming} width={0} height={0} sizes="100vw" className="h-12 w-full max-w-xs object-contain" alt="" />
-        <p className="type-body-sm text-foreground/90">{t('thankYouText1')}</p>
-        <p className="type-body-sm text-foreground/90">{t('thankYouText2')}</p>
-        <div className="flex flex-wrap justify-center gap-2">
-          <Button asChild variant="action" className={ctaActionButtonClassName}>
-            <Link href={routeHome}>{t('btnBackHome')}</Link>
-          </Button>
-        </div>
-      </div>
+    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 sm:px-6 md:px-8">
+      <AuthCard
+        icon={<IconMailForward stroke={1.75} aria-hidden />}
+        title={t('thankYouText1')}
+        description={t('thankYouText2')}
+        footer={
+          <Link href={routeHome} className="font-medium text-foreground/90 underline-offset-2 hover:underline">
+            {t('btnBackHome')}
+          </Link>
+        }
+      >
+        <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}>
+          <Link href={routeLogin}>{t('btnBackToLogin')}</Link>
+        </Button>
+
+        <p className="text-center text-sm text-muted-foreground">
+          {t('hintSpam')}{' '}
+          <Link href={routePasswordForgot} className="font-medium text-brand-strong underline-offset-2 hover:underline">
+            {t('btnRequestNewLink')}
+          </Link>
+        </p>
+      </AuthCard>
     </div>
   );
 }

@@ -1031,17 +1031,32 @@
   },
   "/password/forgot": {
     "inputUsername": "यूज़रनेम / ईमेल",
-    "btnResetPassword": "पासवर्ड रीसेट करें"
+    "btnResetPassword": "पासवर्ड रीसेट करें",
+    "pageTitle": "पासवर्ड भूल गए?",
+    "pageDescription": "अपना यूज़रनेम या ईमेल पता दर्ज करें, हम आपको नया पासवर्ड सेट करने के लिए एक लिंक भेजेंगे।",
+    "lnkBackToLogin": "लॉगिन पर वापस जाएँ"
   },
   "/password/forgot/pending": {
     "thankYouText1": "अपना मेल चेक करें।",
     "thankYouText2": "रीसेट लिंक भेज दिया गया है।",
-    "btnBackHome": "होम पर वापस"
+    "btnBackHome": "होम पर वापस",
+    "hintSpam": "ईमेल नहीं मिला? अपना स्पैम फ़ोल्डर देखें या नया लिंक मँगवाएँ।",
+    "btnRequestNewLink": "नया लिंक मँगवाएँ",
+    "btnBackToLogin": "लॉगिन पर वापस जाएँ"
   },
   "/password/reset": {
     "inputPassword": "नया पासवर्ड",
     "btnSave": "सेव करें",
-    "errorMissingResetLink": "यह रीसेट लिंक अमान्य या अधूरा है। पासवर्ड रीसेट ईमेल वाला लिंक खोलें।"
+    "errorMissingResetLink": "यह रीसेट लिंक अमान्य या अधूरा है। पासवर्ड रीसेट ईमेल वाला लिंक खोलें।",
+    "pageTitle": "नया पासवर्ड सेट करें",
+    "pageDescription": "अपने FSMeet खाते के लिए नया पासवर्ड चुनें।",
+    "showPassword": "पासवर्ड दिखाएँ",
+    "hidePassword": "पासवर्ड छिपाएँ",
+    "invalidLinkTitle": "रीसेट लिंक मान्य नहीं है",
+    "btnRequestNewLink": "नया लिंक मँगवाएँ",
+    "successTitle": "पासवर्ड बदल गया",
+    "successText": "आपका पासवर्ड अपडेट हो गया है। अब आप नए पासवर्ड से लॉगिन कर सकते हैं।",
+    "btnGoToLogin": "लॉगिन पर जाएँ"
   },
   "/registration": {
     "headlineCreateAccount": "अकाउंट बनाएं",
