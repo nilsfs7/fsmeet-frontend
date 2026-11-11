@@ -63,6 +63,7 @@ function pickInlineAdvertisement(ads: ReadAdvertisementResponseDto[], adSlot: nu
 
 export const EventsList = () => {
   const t = useTranslations('/events');
+  const tHeader = useTranslations('global/components/app-header');
   const tData = useTranslations('global/data-states');
   const tDataRef = useRef(tData);
   tDataRef.current = tData;
@@ -226,37 +227,40 @@ export const EventsList = () => {
 
   return (
     <>
-      <div className="mt-2 flex justify-center gap-2">
-        <div>
-          <div className="mx-2">{t('datePickerFrom')}</div>
-          <DatePicker
-            date={dateFrom}
-            fromDate={moment().subtract(2, 'y')}
-            toDate={dateTo}
-            onChange={newDate => {
-              handleDateFromChanged(newDate);
-            }}
-          />
-        </div>
+      <div className="mx-auto flex w-full max-w-content flex-col gap-3 px-4 pt-4 sm:flex-row sm:items-end sm:justify-between sm:px-6 sm:pt-6 md:px-8">
+        <h1 className="text-heading-1">{tHeader('navEvents')}</h1>
+        <div className="flex gap-2">
+          <div>
+            <div className="mb-1 text-xs font-medium text-muted-foreground">{t('datePickerFrom')}</div>
+            <DatePicker
+              date={dateFrom}
+              fromDate={moment().subtract(2, 'y')}
+              toDate={dateTo}
+              onChange={newDate => {
+                handleDateFromChanged(newDate);
+              }}
+            />
+          </div>
 
-        <div>
-          <div className="mx-2">{t('datePickerTo')}</div>
-          <DatePicker
-            date={dateTo}
-            fromDate={dateFrom}
-            toDate={moment().add(2, 'y')}
-            onChange={newDate => {
-              handleDateToChanged(newDate);
-            }}
-          />
+          <div>
+            <div className="mb-1 text-xs font-medium text-muted-foreground">{t('datePickerTo')}</div>
+            <DatePicker
+              date={dateTo}
+              fromDate={dateFrom}
+              toDate={moment().add(2, 'y')}
+              onChange={newDate => {
+                handleDateToChanged(newDate);
+              }}
+            />
+          </div>
         </div>
       </div>
 
-      <div className="mt-1.5 w-full min-w-0 max-w-lg px-2 sm:mx-auto sm:px-0">
+      <div className="mt-3 w-full min-w-0 max-w-lg px-4 sm:mx-auto sm:px-0">
         <button
           type="button"
           onClick={() => setAdvancedOpen(v => !v)}
-          className="flex w-full min-w-0 items-center justify-center gap-2 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+          className="flex h-10 w-full min-w-0 items-center justify-center gap-2 rounded-xl border border-border bg-background text-sm text-muted-foreground shadow-xs transition-colors hover:text-foreground"
           aria-expanded={advancedOpen}
         >
           {hasActiveFilters ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden /> : null}
@@ -363,7 +367,7 @@ export const EventsList = () => {
         )}
       </div>
 
-      <div className="mt-2 flex min-h-0 max-h-full justify-center overflow-y-auto px-2 scrollbar-none">
+      <div className="mt-4 flex min-h-0 max-h-full justify-center overflow-y-auto px-4 pb-6 scrollbar-none">
         <div className={cn('w-full', showDesktopSideGrid && 'lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-x-6')}>
           {showDesktopAdColumn && (
             <aside className="hidden lg:col-start-1 lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-end lg:self-start">
@@ -371,12 +375,7 @@ export const EventsList = () => {
             </aside>
           )}
 
-          <div
-            className={cn(
-              'mx-auto grid min-w-0 w-full max-w-lg justify-items-center gap-2',
-              showDesktopSideGrid && 'lg:col-start-2 lg:mx-0 lg:justify-self-center',
-            )}
-          >
+          <div className={cn('mx-auto grid min-w-0 w-full max-w-lg justify-items-center gap-3', showDesktopSideGrid && 'lg:col-start-2 lg:mx-0 lg:justify-self-center')}>
             {loadState === 'loading' && <AppDataStateListSkeleton />}
 
             {loadState === 'error' && errorMessage && (

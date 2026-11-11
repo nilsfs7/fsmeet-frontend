@@ -23,7 +23,7 @@ import { toAbsoluteUrl, truncateMetaDescription } from '@/lib/site-url';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildEventJsonLd } from '@/lib/json-ld';
 
-const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+const constrainedContentClass = 'mx-auto w-full max-w-4xl min-w-0 px-4 sm:px-6';
 
 export async function generateMetadata(props: { params: Promise<{ eventId: string }> }): Promise<Metadata> {
   const { eventId } = await props.params;
@@ -86,7 +86,7 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
         </div>
       )}
 
-      <div className={cn('mt-2 flex-1 overflow-hidden', constrainedContentClass)}>
+      <div className={cn('mt-4 flex-1 overflow-hidden sm:mt-6', constrainedContentClass)}>
         <TabsMenu event={event} competitions={competitions} sponsors={sponsors} attachments={attachments} comments={comments} />
       </div>
 

@@ -3,11 +3,7 @@
 import { useState, type ReactNode } from 'react';
 import {
   imgAccommodation,
-  imgCalender,
   imgCompetition,
-  imgHourglassEnd,
-  imgHourglassStart,
-  imgLocation,
   imgMeeting,
   imgParticipantDrinks,
   imgParticipantDrinksAndSnacks,
@@ -40,20 +36,29 @@ import { LocationMap } from '../../../../components/location-map';
 import { NotListedLabel } from '@/components/events/not-listed-label';
 import { cn } from '@/lib/utils';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { IconCalendarEvent, IconHourglassHigh, IconHourglassOff, IconMapPin, IconWorld } from '@tabler/icons-react';
 import { Size } from '@/domain/enums/size';
 
-const cardSurface = cn(
-  'h-fit min-w-0 overflow-hidden rounded-xl border border-border/60',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
-);
+const cardSurface = cn('h-fit min-w-0 overflow-hidden rounded-2xl border border-border bg-background shadow-xs');
+
+const sectionClass = 'border-t border-border/70 px-4 py-4 sm:px-6 sm:py-5';
+
+const softButtonClass = 'h-8 gap-1 rounded-lg border border-border bg-background px-2.5 text-foreground shadow-xs transition-colors hover:bg-muted';
 
 function MetaRow({ icon, children, className }: { icon: ReactNode; children: ReactNode; className?: string }) {
   return (
-    <div className={cn('flex min-w-0 items-center gap-2', className)}>
-      <div className="flex h-7 w-7 shrink-0 items-center justify-center [&>img]:h-full [&>img]:w-full [&>img]:object-contain">{icon}</div>
-      <div className="type-body-sm min-w-0 flex-1 wrap-break-word text-foreground/90 leading-snug">{children}</div>
+    <div className={cn('flex min-w-0 items-center gap-3', className)}>
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground/80 [&>svg]:h-[18px] [&>svg]:w-[18px]">{icon}</div>
+      <div className="min-w-0 flex-1 wrap-break-word text-sm font-medium leading-snug text-foreground">{children}</div>
+    </div>
+  );
+}
+
+function Perk({ icon, label }: { icon: string; label: string }) {
+  return (
+    <div className="inline-flex w-fit min-w-0 items-center gap-2 rounded-full border border-border bg-muted/60 py-1 pl-1.5 pr-3">
+      <img src={icon} alt="" className="h-5 w-5 object-contain" />
+      <div className="text-sm font-medium leading-snug text-foreground">{label}</div>
     </div>
   );
 }
@@ -138,31 +143,31 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
       )}
 
       <div className={cardSurface}>
-        <div className="p-2.5 sm:p-3 md:p-4">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5 md:gap-6">
-            <div className="order-2 flex min-w-0 flex-1 flex-col gap-2.5 sm:order-1 sm:gap-3">
-              <h1 className="min-w-0 text-balance text-lg font-semibold leading-tight tracking-tight text-foreground sm:text-xl">
-                {!isPublicEventState(event.state) && <NotListedLabel className="mb-1 sm:mb-0" />}
-                <span className="align-middle">{event.name}</span>
-              </h1>
+        <div className="p-4 sm:p-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6 md:gap-8">
+            <div className="order-2 flex min-w-0 flex-1 flex-col gap-4 sm:order-1">
+              <div className="flex flex-col gap-2">
+                {!isPublicEventState(event.state) && <NotListedLabel className="w-fit" />}
+                <h1 className="min-w-0 text-balance text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl">{event.name}</h1>
+              </div>
 
-              <div className="flex flex-col gap-1.5 sm:gap-2">
-                <MetaRow icon={<img src={imgCalender} alt="" />}>
+              <div className="flex flex-col gap-2.5">
+                <MetaRow icon={<IconCalendarEvent stroke={1.75} />}>
                   {moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
                     ? getShortDateString(moment(event.dateFrom))
                     : `${getShortDateString(moment(event.dateFrom), false)} – ${getShortDateString(moment(event.dateTo))}`}
                 </MetaRow>
-                <MetaRow icon={<img src={imgLocation} alt="" />}>{event.type === EventType.COMPETITION_ONLINE ? t('tabOverviewOnline') : event.venueCity}</MetaRow>
+                <MetaRow icon={event.type === EventType.COMPETITION_ONLINE ? <IconWorld stroke={1.75} /> : <IconMapPin stroke={1.75} />}>{event.type === EventType.COMPETITION_ONLINE ? t('tabOverviewOnline') : event.venueCity}</MetaRow>
                 <MetaRow
-                  icon={<img src={moment(event.registrationDeadline) > moment() ? imgHourglassStart : imgHourglassEnd} alt="" />}
+                  icon={moment(event.registrationDeadline) > moment() ? <IconHourglassHigh stroke={1.75} /> : <IconHourglassOff stroke={1.75} />}
                 >{`${getShortDateString(moment(event.registrationOpen), false)} – ${getShortDateString(moment(event.registrationDeadline))}`}</MetaRow>
-                <div className="flex min-w-0 items-center gap-2">
-                  <div className="h-7 w-7 shrink-0 overflow-hidden rounded-full">
+                <div className="flex min-w-0 items-center gap-3">
+                  <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-border">
                     <Link className="block h-full w-full" href={`${routeUsers}/${event.admin}`}>
                       <img src={eventAdmin?.imageUrl || imgUserDefaultImg} className="h-full w-full object-cover" alt="" />
                     </Link>
                   </div>
-                  <div className="type-body-sm min-w-0 flex-1 font-medium text-foreground/90">
+                  <div className="min-w-0 flex-1 text-sm font-medium text-foreground">
                     <Link className="hover:underline" href={`${routeUsers}/${event.admin}`}>
                       {eventAdmin?.lastName && `${eventAdmin?.firstName} ${eventAdmin?.lastName}`}
                       {!eventAdmin?.lastName && eventAdmin?.firstName && `${eventAdmin?.firstName}`}
@@ -173,14 +178,14 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
             </div>
 
             <div className={cn('order-1 w-full shrink-0 sm:order-2 sm:w-48 md:w-56 lg:w-64', !isCustomPoster && 'hidden sm:block')}>
-              <div className="mx-auto w-full max-w-sm overflow-hidden rounded-lg sm:mx-0 sm:max-w-none">
+              <div className="mx-auto w-full max-w-sm overflow-hidden rounded-xl shadow-sm sm:mx-0 sm:max-w-none">
                 <button
                   type="button"
                   onClick={() => setPosterPreviewOpen(true)}
                   className="group relative w-full text-left outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   aria-label={t('tabOverviewPosterPreview')}
                 >
-                  <div className={cn('relative w-full aspect-4/5 overflow-hidden rounded-lg', !isCustomPoster && 'bg-muted/25 dark:bg-muted/20')}>
+                  <div className={cn('relative w-full aspect-4/5 overflow-hidden rounded-xl', !isCustomPoster && 'bg-muted')}>
                     <img
                       src={posterSrc}
                       alt=""
@@ -197,51 +202,21 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
         </div>
 
         {(event.isWffaRanked || event.prizeMoney > 0 || event.accommodations.length > 0 || event.participantDrinks || event.participantSnacks) && (
-          <div className="border-t border-border/50 px-2.5 py-2.5 sm:px-3 sm:py-3 md:px-4">
-            <div className="flex min-w-0 flex-wrap items-start gap-3">
-              {event.isWffaRanked && (
-                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
-                  <img src={imgRanked} alt="" className="h-7 w-7 object-contain" />
-                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkWffaRanked')}</div>
-                </div>
-              )}
-              {event.prizeMoney > 0 && (
-                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
-                  <img src={imgPrizeMoney} alt="" className="h-7 w-7 object-contain" />
-                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkPrizeMoney')}</div>
-                </div>
-              )}
-              {event.accommodations.length > 0 && (
-                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
-                  <img src={imgAccommodation} alt="" className="h-7 w-7 object-contain" />
-                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkAccommodation')}</div>
-                </div>
-              )}
-              {event.participantDrinks && !event.participantSnacks && (
-                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
-                  <img src={imgParticipantDrinks} alt="" className="h-7 w-7 object-contain" />
-                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkParticipantDrinks')}</div>
-                </div>
-              )}
-              {event.participantSnacks && !event.participantDrinks && (
-                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
-                  <img src={imgParticipantSnacks} alt="" className="h-7 w-7 object-contain" />
-                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkParticipantSnacks')}</div>
-                </div>
-              )}
-              {event.participantDrinks && event.participantSnacks && (
-                <div className="inline-flex w-fit min-w-0 flex-col items-center gap-1 px-1 py-0.5">
-                  <img src={imgParticipantDrinksAndSnacks} alt="" className="h-7 w-7 object-contain" />
-                  <div className="type-body-sm text-foreground/90 leading-snug">{t('tabOverviewPerkParticipantDrinksAndSnacks')}</div>
-                </div>
-              )}
+          <div className={sectionClass}>
+            <div className="flex min-w-0 flex-wrap items-center gap-2">
+              {event.isWffaRanked && <Perk icon={imgRanked} label={t('tabOverviewPerkWffaRanked')} />}
+              {event.prizeMoney > 0 && <Perk icon={imgPrizeMoney} label={t('tabOverviewPerkPrizeMoney')} />}
+              {event.accommodations.length > 0 && <Perk icon={imgAccommodation} label={t('tabOverviewPerkAccommodation')} />}
+              {event.participantDrinks && !event.participantSnacks && <Perk icon={imgParticipantDrinks} label={t('tabOverviewPerkParticipantDrinks')} />}
+              {event.participantSnacks && !event.participantDrinks && <Perk icon={imgParticipantSnacks} label={t('tabOverviewPerkParticipantSnacks')} />}
+              {event.participantDrinks && event.participantSnacks && <Perk icon={imgParticipantDrinksAndSnacks} label={t('tabOverviewPerkParticipantDrinksAndSnacks')} />}
             </div>
           </div>
         )}
 
         {event.description && (
-          <div className="border-t border-border/50 px-2.5 sm:px-3 md:px-4 py-2.5 sm:py-3">
-            <div className="flex h-fit min-w-0 flex-col type-body-sm text-foreground/90">
+          <div className={sectionClass}>
+            <div className="flex h-fit min-w-0 flex-col text-sm leading-relaxed text-foreground/90">
               <TextareaAutosize
                 readOnly
                 className={cn('h-full w-full resize-none bg-transparent text-foreground/90 outline-hidden', !descriptionExpanded && isDescriptionLong && 'max-h-28 overflow-hidden')}
@@ -253,7 +228,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
                     type="button"
                     variant="ghost"
                     size="sm"
-                    className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-xs supports-backdrop-filter:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40"
+                    className={softButtonClass}
                     onClick={() => setDescriptionExpanded(prev => !prev)}
                     aria-label={descriptionExpanded ? t('tabOverviewBtnShowLessDescription') : t('tabOverviewBtnShowMoreDescription')}
                   >
@@ -267,8 +242,8 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
         )}
 
         {(event.trailerUrl || event.livestreamUrl || event.donationUrl || (event.messengerInvitationUrl && showMessengerInvitationUrl)) && (
-          <div className="border-t border-border/50 px-2.5 sm:px-3 md:px-4 py-2.5 sm:py-3">
-            <div className="flex flex-col gap-2 type-body-sm text-foreground">
+          <div className={sectionClass}>
+            <div className="flex flex-col gap-2 text-sm font-medium text-foreground">
               {event.trailerUrl && (
                 <div className={'grid grid-cols-3 items-center'}>
                   <div className="col-span-1">{t('tabOverviewTrailer')}</div>
@@ -317,11 +292,11 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
         )}
 
         {event.type !== EventType.COMPETITION_ONLINE && event.venueCity && (
-          <div className="border-t border-border/50 px-2.5 sm:px-3 md:px-4 py-2.5 sm:py-3">
-            <div className="text-base font-bold">{t('tabOverviewVenueAddress')}</div>
+          <div className={sectionClass}>
+            <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('tabOverviewVenueAddress')}</div>
             <div className="mt-1 flex min-w-0 flex-col gap-2 sm:flex-row sm:items-end sm:gap-2">
-              <div className="type-body-sm min-w-0 select-text text-foreground/90">
-                <p className="mb-2">{event.venueName}</p>
+              <div className="min-w-0 select-text text-sm text-foreground/90">
+                <p className="mb-1 font-semibold text-foreground">{event.venueName}</p>
                 <p>{`${event.venueStreet} ${event.venueHouseNo}`}</p>
                 <p>{`${event.venuePostCode} ${event.venueCity}`}</p>
                 <p>{getCountryNameByCode(event.venueCountryCode)}</p>
@@ -332,7 +307,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="h-8 gap-1 rounded-lg border border-border/60 bg-secondary-light/85 px-2 text-foreground shadow-xs backdrop-blur-xs supports-backdrop-filter:bg-secondary-light/70 transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40"
+                  className={softButtonClass}
                   onClick={() => {
                     setShowMap(prev => !prev);
                   }}
@@ -350,7 +325,7 @@ export const EventInfo = ({ event, eventAdmin, showMessengerInvitationUrl }: IEv
 
             {showMap && (
               <div className="mt-2 flex w-full justify-center">
-                <div className="w-full max-h-[60vh] aspect-square overflow-hidden rounded-lg border border-border/60 transition-colors hover:border-primary/50">
+                <div className="w-full max-h-[60vh] aspect-square overflow-hidden rounded-xl border border-border">
                   <LocationMap address={`${event.venueHouseNo} ${event.venueStreet} ${event.venuePostCode} ${event.venueCity}`} />
                 </div>
               </div>

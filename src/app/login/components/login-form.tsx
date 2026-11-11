@@ -78,7 +78,7 @@ export const LoginForm = () => {
     <>
       <Toaster richColors />
 
-      <div className="flex min-w-0 flex-1 flex-col gap-1.5 sm:gap-2">
+      <div className="flex min-w-0 flex-1 flex-col gap-3">
         <TextInput
           id={'usernameOrEmail'}
           label={t('inputUsername')}
@@ -99,11 +99,11 @@ export const LoginForm = () => {
           onKeyDown={handleInputKeypressPassword}
         />
 
-        <div className="w-full min-w-0 pt-1">
+        <div className="w-full min-w-0 pt-2">
           <Button
             type="button"
             variant="action"
-            className={cn(ctaActionButtonClassName, 'w-full min-w-0')}
+            className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}
             onClick={handleLoginClicked}
           >
             {t('btnLogin')}
@@ -111,10 +111,10 @@ export const LoginForm = () => {
         </div>
 
         <div className="flex w-full min-w-0 items-center justify-between gap-3 pt-1 sm:pt-2">
-          <Link href={`${routePasswordForgot}`} className="type-body-sm min-w-0 shrink text-foreground/90 no-underline hover:underline">
+          <Link href={`${routePasswordForgot}`} className="min-w-0 shrink text-sm text-muted-foreground no-underline hover:text-foreground hover:underline">
             {t('lnkResetPassword')}
           </Link>
-          <Link href={`${routeRegistration}`} className="type-body-sm min-w-0 shrink text-right text-foreground/90 no-underline hover:underline">
+          <Link href={`${routeRegistration}`} className="min-w-0 shrink text-right text-sm font-semibold text-brand-strong no-underline hover:underline">
             {t('lnkNewAccount')}
           </Link>
         </div>

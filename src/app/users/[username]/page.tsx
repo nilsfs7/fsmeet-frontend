@@ -8,7 +8,6 @@ import Link from 'next/link';
 import ReactCountryFlag from 'react-country-flag';
 import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
 import { UserVerificationState } from '@/domain/enums/user-verification-state';
-import { Header } from '@/components/header';
 import { auth } from '@/auth';
 import { getUser } from '@/infrastructure/clients/user.client';
 import { AdministrativeUser } from '@/domain/enums/administrative-user';
@@ -31,6 +30,8 @@ import { ProfileCompetitionHistory } from './components/profile-competition-hist
 import { BookViaFreestyleActsButton } from './components/book-via-freestyleacts-button';
 
 const constrainedContentClass = cn(appShellContentClass, 'max-w-content');
+
+const profileChipClass = 'inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1 text-sm font-medium text-foreground transition-colors';
 
 function getUserDisplayName(user: User): string {
   if (user.nickName?.trim()) return user.nickName.trim();
@@ -85,74 +86,45 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
     <div className="min-h-0 flex-1 flex flex-col">
       <JsonLd data={buildPersonJsonLd(user)} />
 
-      <Header />
-
       <div className={cn('mt-2 flex min-h-0 flex-1 flex-col overflow-y-auto scrollbar-none', constrainedContentClass)}>
         <div className="flex w-full min-w-0 flex-col gap-6 pb-6 pt-4 md:pt-6">
-          <div className="grid w-full min-w-0 grid-cols-1 gap-6 md:grid-cols-[minmax(0,20rem)_1fr] md:items-start">
-            <div className="mx-auto w-full max-w-sm md:mx-0 md:max-w-none">
-              <div className="flex aspect-4/5">
-                <img
-                  className="h-full w-full rounded-lg border border-primary object-cover shadow-xl shadow-primary"
-                  src={user.imageUrl ? user.imageUrl : imgUserDefaultImg}
-                  alt="user-image"
-                />
+          <div className="grid w-full min-w-0 grid-cols-1 gap-6 rounded-3xl border border-border bg-background p-4 shadow-xs sm:p-6 md:grid-cols-[minmax(0,18rem)_1fr] md:items-start md:gap-8">
+            <div className="mx-auto w-full max-w-xs md:mx-0 md:max-w-none">
+              <div className="flex aspect-4/5 overflow-hidden rounded-2xl bg-muted shadow-md ring-1 ring-border">
+                <img className="h-full w-full object-cover" src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="user-image" />
               </div>
             </div>
 
-            <div className="flex min-w-0 flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <div className="flex items-start gap-1 text-lg">
-                  {user.verificationState === UserVerificationState.VERIFIED && (
-                    <div className="flex h-6 w-6 items-center">
-                      <img src={imgVerifiedCheckmark} alt="user verified checkmark" />
-                    </div>
+            <div className="flex min-w-0 flex-col gap-5">
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-1">
+                  <h1 className="flex items-center gap-2 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+                    <span className="min-w-0 wrap-break-word">{getUserDisplayName(user)}</span>
+                    {user.verificationState === UserVerificationState.VERIFIED && <img className="h-6 w-6 shrink-0" src={imgVerifiedCheckmark} alt="user verified checkmark" />}
+                  </h1>
+                  {user.nickName && user.firstName && <div className="text-base text-muted-foreground">{[user.firstName, user.lastName].filter(Boolean).join(' ')}</div>}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className={profileChipClass}>
+                    <img src={getUserTypeImages(user.type, user.gender).path} className="h-4 w-4 object-contain" alt="" />
+                    {getUserTypeLabels(user.type, t)}
+                  </span>
+
+                  {user.countryCode && user.countryCode != '--' && (
+                    <span className={profileChipClass}>
+                      <ReactCountryFlag countryCode={user.countryCode} svg style={{ width: '1rem', height: '0.75rem', borderRadius: '2px' }} title={user.countryCode} />
+                      {getCountryNameByCode(user.countryCode)}
+                    </span>
                   )}
 
-                  <div className="w-fit">
-                    {user.nickName && <div>{user.nickName}</div>}
-                    {user.firstName && user.lastName && <div>{`${user.firstName} ${user.lastName}`}</div>}
-                    {user.firstName && !user.lastName && <div>{`${user.firstName}`}</div>}
-                  </div>
+                  {user.city && (
+                    <Link className={cn(profileChipClass, 'hover:border-foreground/20 hover:bg-muted')} href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
+                      <img src={imgWorld} className="h-4 w-4 rounded-full object-cover" alt="" />
+                      {user.city}
+                    </Link>
+                  )}
                 </div>
-
-                <div className="flex items-start gap-1">
-                  <div className="w-6">
-                    <img src={getUserTypeImages(user.type, user.gender).path} className="object-cover" alt="" />
-                  </div>
-                  <div className="w-fit">{getUserTypeLabels(user.type, t)}</div>
-                </div>
-
-                {user.countryCode && user.countryCode != '--' && (
-                  <div className="flex items-center gap-1">
-                    <div className="flex w-6">
-                      <ReactCountryFlag
-                        countryCode={user.countryCode}
-                        svg
-                        style={{
-                          width: '100%',
-                        }}
-                        title={user.countryCode}
-                      />
-                    </div>
-                    <div>{getCountryNameByCode(user.countryCode)}</div>
-                  </div>
-                )}
-
-                {user.city && (
-                  <div className="flex items-start gap-1">
-                    <div className="w-6">
-                      <Link href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
-                        <img src={imgWorld} className="rounded-full object-cover" alt="" />
-                      </Link>
-                    </div>
-                    <div className="w-fit">
-                      <Link className="hover:underline" href={`${routeMap}?user=${user.username}&lat=${user.locLatitude}&lng=${user.locLongitude}&zoom=7`}>
-                        {user.city}
-                      </Link>
-                    </div>
-                  </div>
-                )}
               </div>
 
               <ProfileSocials user={user} />

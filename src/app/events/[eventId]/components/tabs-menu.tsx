@@ -181,7 +181,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
       </Dialog>
 
       <Tabs defaultValue={tab || `overview`} className="flex flex-col h-full">
-        <TabsList>
+        <TabsList className="self-start">
           <TabsTrigger
             value="overview"
             onClick={() => {
@@ -213,11 +213,11 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
         </TabsList>
 
         {/* Details */}
-        <TabsContent value="overview" className="overflow-hidden overflow-y-auto scrollbar-none">
+        <TabsContent value="overview" className="overflow-hidden overflow-y-auto pb-6 scrollbar-none">
           {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessengerInvitationUrl={isEventAdmin(event, session) || isInEventRegistrations(eventRegistrations, session)} />}
 
           {sponsors?.length > 0 && (
-            <div className="mt-2">
+            <div className="mt-4">
               <SponsorSection eventSponsors={sponsors} />
             </div>
           )}
@@ -229,13 +229,13 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
               }
             }
           }) && (
-            <div className="mt-2">
+            <div className="mt-4">
               <AttachmentSection eventAttachments={attachments} />
             </div>
           )}
 
           {event.allowComments && session?.user?.username && (
-            <div className="mt-2">
+            <div className="mt-4">
               <CommentSection
                 username={session.user.username}
                 canDelete={isEventAdminOrMaintainer(event, session)}
@@ -251,14 +251,14 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
         {/* Competitions */}
         {event.id && competitions.length > 0 && (
-          <TabsContent value="competitions" className="overflow-hidden overflow-y-auto scrollbar-none">
+          <TabsContent value="competitions" className="overflow-hidden overflow-y-auto pb-6 scrollbar-none">
             <CompetitionSection competitions={competitions} eventId={event.id} />
           </TabsContent>
         )}
 
         {/* Attendees */}
         {(participantRegistrations.length > 0 || visitorRegistrations.length > 0) && (
-          <TabsContent value="registrations" className="overflow-hidden overflow-y-auto scrollbar-none">
+          <TabsContent value="registrations" className="overflow-hidden overflow-y-auto pb-6 scrollbar-none">
             <div className="flex flex-col gap-2">
               {participantRegistrations.length > 0 && (
                 <UserSection
