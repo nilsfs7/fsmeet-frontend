@@ -185,7 +185,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
 
         {/* Info */}
         <TabsContent value="info" className="overflow-hidden overflow-y-auto scrollbar-none">
-          <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
+          <div className={'rounded-2xl border border-border bg-background p-3 text-sm shadow-xs'}>
             <div className="text-base font-bold">{t('tabInfoSectionGeneral')}</div>
 
             <div className="grid grid-cols-2 m-2 gap-4 w-fit">
@@ -222,7 +222,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
           )}
 
           {comp?.rules && (
-            <div className={'mt-2 rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
+            <div className={'mt-3 rounded-2xl border border-border bg-background p-3 text-sm shadow-xs'}>
               <div className="text-base font-bold">{t('tabInfoSectionRules')}</div>
 
               <div className="m-2">

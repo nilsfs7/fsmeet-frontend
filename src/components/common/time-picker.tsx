@@ -93,7 +93,7 @@ export function TimePicker({ value, onChange, className, disabled, id }: TimePic
           variant="outline"
           disabled={disabled}
           className={cn(
-            'min-w-[100px] justify-start text-left font-normal border-secondary-dark bg-background text-primary hover:border-primary hover:bg-background',
+            'min-w-[100px] justify-start text-left font-normal border-input bg-background text-foreground shadow-xs hover:border-neutral-400 hover:bg-background',
             !parsed && 'text-muted-foreground',
             className,
           )}
@@ -102,14 +102,14 @@ export function TimePicker({ value, onChange, className, disabled, id }: TimePic
           {displayLabel}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-3 border-secondary-dark bg-background text-primary" align="start" onOpenAutoFocus={e => e.preventDefault()}>
+      <PopoverContent className="w-auto p-3 border-border bg-background text-foreground" align="start" onOpenAutoFocus={e => e.preventDefault()}>
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <Select value={String(hours).padStart(2, '0')} onValueChange={handleHoursChanged}>
-              <SelectTrigger id="time-picker-hours" className="w-16 h-9 border-secondary-dark bg-background text-primary focus:ring-primary focus:ring-offset-0">
+              <SelectTrigger id="time-picker-hours" className="w-16 h-9 border-input bg-background text-foreground focus:ring-brand/30 focus:ring-offset-0">
                 <SelectValue placeholder="HH" />
               </SelectTrigger>
-              <SelectContent className="border-secondary-dark bg-background text-primary max-h-48">
+              <SelectContent className="border-border bg-background text-foreground max-h-48">
                 {hourOptions.map(h => (
                   <SelectItem key={h} value={h} className="focus:bg-secondary focus:text-primary">
                     {h}
@@ -119,10 +119,10 @@ export function TimePicker({ value, onChange, className, disabled, id }: TimePic
             </Select>
             <span className="text-primary font-medium">:</span>
             <Select value={String(minutes).padStart(2, '0')} onValueChange={handleMinutesChanged}>
-              <SelectTrigger id="time-picker-minutes" className="w-16 h-9 border-secondary-dark bg-background text-primary focus:ring-primary focus:ring-offset-0">
+              <SelectTrigger id="time-picker-minutes" className="w-16 h-9 border-input bg-background text-foreground focus:ring-brand/30 focus:ring-offset-0">
                 <SelectValue placeholder="mm" />
               </SelectTrigger>
-              <SelectContent className="border-secondary-dark bg-background text-primary max-h-48">
+              <SelectContent className="border-border bg-background text-foreground max-h-48">
                 {minuteOptions.map(m => (
                   <SelectItem key={m} value={m} className="focus:bg-secondary focus:text-primary">
                     {m}

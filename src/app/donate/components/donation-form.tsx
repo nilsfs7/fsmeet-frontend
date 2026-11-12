@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import CurInput from '../../../components/common/currency-input';
@@ -53,7 +54,7 @@ export default function DonationForm() {
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className="flex flex-col items-stretch gap-3">
       <CurInput
         id={'amount'}
         label={`${t('inputAmount')} (${getCurrencySymbol(CurrencyCode.EUR)})`}
@@ -68,7 +69,7 @@ export default function DonationForm() {
         <Button
           type="button"
           variant="action"
-          className={ctaActionButtonClassName}
+          className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}
           disabled={!enableInitiateDonationButton()}
           onClick={() => {
             setShowInitiateDonationButton(false);

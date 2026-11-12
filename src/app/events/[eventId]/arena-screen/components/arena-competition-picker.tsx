@@ -83,10 +83,10 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
             void loadBattles(id);
           }}
         >
-          <SelectTrigger className="w-full border-secondary-dark bg-background text-primary">
+          <SelectTrigger className="w-full border-border bg-background text-foreground">
             <SelectValue placeholder={t('placeholderCompetition')} />
           </SelectTrigger>
-          <SelectContent className="border-secondary-dark bg-background text-primary">
+          <SelectContent className="border-border bg-background text-foreground">
             {competitions.map(c => (
               <SelectItem key={c.id} value={c.id} className="focus:bg-secondary focus:text-primary">
                 {c.name}
@@ -121,10 +121,10 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
               }
             }}
           >
-            <SelectTrigger className="w-full border-secondary-dark bg-background text-primary">
+            <SelectTrigger className="w-full border-border bg-background text-foreground">
               <SelectValue placeholder={savingArena ? t('saving') : t('placeholderBattle')} />
             </SelectTrigger>
-            <SelectContent className="max-h-72 border-secondary-dark bg-background text-primary">
+            <SelectContent className="max-h-72 border-border bg-background text-foreground">
               {battles.map(b => (
                 <SelectItem key={b.value} value={b.value} className="focus:bg-secondary focus:text-primary">
                   {b.label}

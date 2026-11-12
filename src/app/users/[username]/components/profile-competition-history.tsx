@@ -241,7 +241,7 @@ export function ProfileCompetitionHistory({ username }: ProfileCompetitionHistor
             const isDetailsLoading = detailsLoadingIds.has(entry.competitionId) && !detailsReady;
 
             return (
-              <div key={entry.competitionId} className="flex flex-col rounded-lg border border-secondary-dark">
+              <div key={entry.competitionId} className="flex flex-col rounded-2xl border border-border bg-background shadow-xs">
                 <button
                   type="button"
                   className="flex w-full items-start justify-between gap-3 p-3 text-left hover:bg-muted/40"
@@ -277,7 +277,7 @@ export function ProfileCompetitionHistory({ username }: ProfileCompetitionHistor
                 </button>
 
                 {isExpanded && (
-                  <div className="border-t border-secondary-dark p-3">
+                  <div className="border-t border-border p-3">
                     {isDetailsLoading && <LoadingSpinner centerScreen={false} />}
 
                     {detailsReady &&

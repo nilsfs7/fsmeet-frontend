@@ -100,7 +100,7 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
   return (
     <>
       <Toaster richColors />
-      <section className="mt-10 rounded-lg border border-secondary-dark bg-secondary-light/30">
+      <section className="mt-10 rounded-2xl border border-border bg-background shadow-xs">
         <button
           type="button"
           className="flex w-full items-center justify-between gap-3 rounded-lg p-4 text-left transition-colors hover:bg-secondary-light/50"
@@ -117,7 +117,7 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
         </button>
 
         {settingsOpen && (
-          <div className="space-y-4 border-t border-secondary-dark px-4 pb-4 pt-2">
+          <div className="space-y-4 border-t border-border px-4 pb-4 pt-2">
             {loading ? (
               <p className="py-4 text-sm text-muted-foreground">{t('loadingSettings')}</p>
             ) : (
@@ -126,7 +126,7 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
             <p className="mb-2 text-sm font-medium text-primary">{t('backgroundImage')}</p>
             {backgroundPreviewUrl ? (
               <div
-                className="mb-3 h-24 w-full max-w-md rounded-md border border-secondary-dark bg-cover bg-center bg-no-repeat"
+                className="mb-3 h-24 w-full max-w-md rounded-md border border-border bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${backgroundPreviewUrl})` }}
                 role="img"
                 aria-label={t('backgroundPreview')}
