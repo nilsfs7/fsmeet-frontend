@@ -498,7 +498,14 @@
     "errorLoadArena": "تعذر تحميل شاشة الساحة",
     "styleUnavailable": "نمط الساحة غير متاح",
     "openSlot": "خانة فارغة",
-    "noCountry": "لا بلد"
+    "noCountry": "لا بلد",
+    "sectionLiveMatch": "المباراة المباشرة",
+    "sectionLiveMatchHint": "اختر المسابقة والمواجهة التي يجب أن تعرضها شاشة الساحة الآن.",
+    "sectionShow": "العرض على الشاشة",
+    "sectionShowHint": "يفتح عرض الساحة بملء الشاشة في علامة تبويب جديدة، ويتحدّث تلقائيًا كل بضع ثوانٍ.",
+    "noMatchSelected": "اختر مباراة لعرضها",
+    "labelPosition": "المركز {position}",
+    "textRetrying": "تتم إعادة المحاولة تلقائيًا كل بضع ثوانٍ."
   },
   "/events/eventid/pro": {
     "pageTitle": "ترخيص الفعالية",

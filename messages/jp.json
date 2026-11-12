@@ -498,7 +498,14 @@
     "errorLoadArena": "アリーナ画面を読み込めませんでした",
     "styleUnavailable": "アリーナスタイルを利用できません",
     "openSlot": "空きスロット",
-    "noCountry": "国なし"
+    "noCountry": "国なし",
+    "sectionLiveMatch": "ライブ試合",
+    "sectionLiveMatchHint": "アリーナスクリーンに今表示する大会とバトルを選んでください。",
+    "sectionShow": "画面に表示",
+    "sectionShowHint": "フルスクリーンのアリーナ画面を新しいタブで開きます。数秒ごとに自動更新されます。",
+    "noMatchSelected": "表示する試合を選択してください",
+    "labelPosition": "ポジション {position}",
+    "textRetrying": "数秒ごとに自動で再試行します。"
   },
   "/events/eventid/pro": {
     "pageTitle": "イベントライセンス",

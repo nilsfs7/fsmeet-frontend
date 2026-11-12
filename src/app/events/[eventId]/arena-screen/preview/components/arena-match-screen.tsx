@@ -152,7 +152,8 @@ export function ArenaMatchScreen({
       <div className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-6 text-center text-white">
         <ArenaBackdrop imageUrl={bgUrl} overlayOpacity={overlayOpacity} />
         <div className="relative z-10">
-          <h1 className="mt-4 max-w-2xl text-3xl font-bold md:text-4xl">Select a match to display</h1>
+          {competitionName && <p className="text-xs font-semibold uppercase tracking-[0.35em] text-amber-400/95 md:text-sm">{competitionName}</p>}
+          <h1 className="mt-4 max-w-2xl text-3xl font-bold md:text-4xl">{t('noMatchSelected')}</h1>
         </div>
       </div>
     );
@@ -249,7 +250,7 @@ export function ArenaMatchScreen({
                 <div className={cn('flex w-full flex-col gap-1', isDuel ? (positionIndex % 2 === 1 ? 'items-end text-right' : 'items-start text-left') : multiLayout!.nameAlign[positionIndex])}>
                   {showPositions && slotCount > 2 && (
                     <p className="text-xs font-semibold tracking-widest text-zinc-500 normal-case">
-                      Position {reversePositionLabels ? slotCount - positionIndex : positionIndex + 1}
+                      {t('labelPosition', { position: reversePositionLabels ? slotCount - positionIndex : positionIndex + 1 })}
                     </p>
                   )}
                   <h2 className="text-xl font-bold leading-tight text-white drop-shadow-md sm:text-2xl md:text-3xl">{name}</h2>

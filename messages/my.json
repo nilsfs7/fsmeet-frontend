@@ -498,7 +498,14 @@
     "errorLoadArena": "Gagal memuatkan skrin arena",
     "styleUnavailable": "Gaya arena tidak tersedia",
     "openSlot": "Slot kosong",
-    "noCountry": "Tiada negara"
+    "noCountry": "Tiada negara",
+    "sectionLiveMatch": "Perlawanan langsung",
+    "sectionLiveMatchHint": "Pilih pertandingan dan pertarungan yang perlu dipaparkan pada skrin arena sekarang.",
+    "sectionShow": "Papar pada skrin",
+    "sectionShowHint": "Membuka paparan arena skrin penuh dalam tab baharu. Ia dikemas kini secara automatik setiap beberapa saat.",
+    "noMatchSelected": "Pilih perlawanan untuk dipaparkan",
+    "labelPosition": "Kedudukan {position}",
+    "textRetrying": "Mencuba semula secara automatik setiap beberapa saat."
   },
   "/events/eventid/pro": {
     "pageTitle": "Lesen acara",

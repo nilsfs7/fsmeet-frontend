@@ -498,7 +498,14 @@
     "errorLoadArena": "एरीना स्क्रीन लोड नहीं हो सकी",
     "styleUnavailable": "एरीना स्टाइल उपलब्ध नहीं",
     "openSlot": "खाली स्लॉट",
-    "noCountry": "कोई देश नहीं"
+    "noCountry": "कोई देश नहीं",
+    "sectionLiveMatch": "लाइव मैच",
+    "sectionLiveMatchHint": "वह प्रतियोगिता और बैटल चुनें जो एरीना स्क्रीन पर अभी दिखनी चाहिए।",
+    "sectionShow": "स्क्रीन पर दिखाएं",
+    "sectionShowHint": "पूर्ण-स्क्रीन एरीना व्यू नए टैब में खोलता है। यह हर कुछ सेकंड में अपने-आप रीफ़्रेश होता है।",
+    "noMatchSelected": "दिखाने के लिए कोई मैच चुनें",
+    "labelPosition": "स्थान {position}",
+    "textRetrying": "हर कुछ सेकंड में अपने-आप फिर से कोशिश होती है।"
   },
   "/events/eventid/pro": {
     "pageTitle": "इवेंट लाइसेंस",

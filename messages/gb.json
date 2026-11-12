@@ -498,7 +498,14 @@
     "errorLoadArena": "Failed to load arena screen",
     "styleUnavailable": "Arena style not available",
     "openSlot": "Open slot",
-    "noCountry": "No country"
+    "noCountry": "No country",
+    "sectionLiveMatch": "Live match",
+    "sectionLiveMatchHint": "Pick the competition and the battle that the arena screen should show right now.",
+    "sectionShow": "Show on screen",
+    "sectionShowHint": "Opens the full-screen arena view in a new tab. It refreshes automatically every few seconds.",
+    "noMatchSelected": "Select a match to display",
+    "labelPosition": "Position {position}",
+    "textRetrying": "Retrying automatically every few seconds."
   },
   "/events/eventid/pro": {
     "pageTitle": "Event License",

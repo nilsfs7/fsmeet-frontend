@@ -473,7 +473,14 @@
     "errorLoadArena": "Arena-Bildschirm konnte nicht geladen werden",
     "styleUnavailable": "Arena-Stil nicht verfügbar",
     "openSlot": "Offener Slot",
-    "noCountry": "Kein Land"
+    "noCountry": "Kein Land",
+    "sectionLiveMatch": "Live-Match",
+    "sectionLiveMatchHint": "Wähle den Wettbewerb und das Battle, das der Arena-Screen gerade zeigen soll.",
+    "sectionShow": "Auf dem Bildschirm zeigen",
+    "sectionShowHint": "Öffnet die Vollbild-Arena-Ansicht in einem neuen Tab. Sie aktualisiert sich alle paar Sekunden automatisch.",
+    "noMatchSelected": "Wähle ein Match zur Anzeige",
+    "labelPosition": "Position {position}",
+    "textRetrying": "Neuer Versuch automatisch alle paar Sekunden."
   },
   "/events/eventid/pro": {
     "pageTitle": "Event-Lizenz",

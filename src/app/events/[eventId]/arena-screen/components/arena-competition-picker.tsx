@@ -69,13 +69,13 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
   }, []);
 
   if (competitions.length === 0) {
-    return <p className="mt-4 text-sm text-muted-foreground">{t('noCompetitions')}</p>;
+    return <p className="mt-4 rounded-xl border border-dashed border-border px-3 py-4 text-center text-sm text-muted-foreground">{t('noCompetitions')}</p>;
   }
 
   return (
-    <div className="mt-6 flex flex-col gap-6">
+    <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
       <div>
-        <p className="mb-2 text-sm font-medium text-primary">{t('labelCompetition')}</p>
+        <p className="mb-1.5 text-sm font-medium text-foreground">{t('labelCompetition')}</p>
         <Select
           value={competitionId}
           onValueChange={id => {
@@ -101,7 +101,7 @@ export function ArenaCompetitionPicker({ eventId, competitions }: { eventId: str
 
       {!loadingRounds && competitionId && battles.length > 0 && (
         <div>
-          <p className="mb-2 text-sm font-medium text-primary">{t('labelBattle')}</p>
+          <p className="mb-1.5 text-sm font-medium text-foreground">{t('labelBattle')}</p>
           <Select
             key={competitionId}
             disabled={savingArena}

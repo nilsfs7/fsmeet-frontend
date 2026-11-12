@@ -473,7 +473,14 @@
     "errorLoadArena": "Impossible de charger l'écran d'arène",
     "styleUnavailable": "Style d’arène indisponible",
     "openSlot": "Créneau libre",
-    "noCountry": "Aucun pays"
+    "noCountry": "Aucun pays",
+    "sectionLiveMatch": "Match en direct",
+    "sectionLiveMatchHint": "Choisis la compétition et le battle que l’écran de l’arène doit afficher maintenant.",
+    "sectionShow": "Afficher à l’écran",
+    "sectionShowHint": "Ouvre la vue plein écran de l’arène dans un nouvel onglet. Elle s’actualise automatiquement toutes les quelques secondes.",
+    "noMatchSelected": "Choisis un match à afficher",
+    "labelPosition": "Position {position}",
+    "textRetrying": "Nouvelle tentative automatique toutes les quelques secondes."
   },
   "/events/eventid/pro": {
     "pageTitle": "Licence événement",

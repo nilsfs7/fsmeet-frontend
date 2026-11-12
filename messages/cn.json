@@ -498,7 +498,14 @@
     "errorLoadArena": "无法加载场地屏幕",
     "styleUnavailable": "场地样式不可用",
     "openSlot": "空位",
-    "noCountry": "无国家"
+    "noCountry": "无国家",
+    "sectionLiveMatch": "当前比赛",
+    "sectionLiveMatchHint": "选择竞技场屏幕当前要显示的比赛和对战。",
+    "sectionShow": "在屏幕上显示",
+    "sectionShowHint": "在新标签页中打开全屏竞技场视图，每隔几秒自动刷新。",
+    "noMatchSelected": "请选择要显示的比赛",
+    "labelPosition": "位置 {position}",
+    "textRetrying": "每隔几秒自动重试。"
   },
   "/events/eventid/pro": {
     "pageTitle": "活动许可证",

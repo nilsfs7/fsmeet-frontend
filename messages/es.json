@@ -473,7 +473,14 @@
     "errorLoadArena": "No se pudo cargar la pantalla de arena",
     "styleUnavailable": "Estilo de arena no disponible",
     "openSlot": "Plaza libre",
-    "noCountry": "Sin país"
+    "noCountry": "Sin país",
+    "sectionLiveMatch": "Enfrentamiento en directo",
+    "sectionLiveMatchHint": "Elige la competición y la batalla que debe mostrar ahora la pantalla de la arena.",
+    "sectionShow": "Mostrar en pantalla",
+    "sectionShowHint": "Abre la vista de la arena a pantalla completa en una pestaña nueva. Se actualiza automáticamente cada pocos segundos.",
+    "noMatchSelected": "Selecciona un enfrentamiento para mostrar",
+    "labelPosition": "Posición {position}",
+    "textRetrying": "Se reintenta automáticamente cada pocos segundos."
   },
   "/events/eventid/pro": {
     "pageTitle": "Licencia del evento",
