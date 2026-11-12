@@ -25,7 +25,7 @@ import { Event } from '@/domain/types/event';
 export default function Seeding(props: { params: Promise<{ eventId: string; compId: string }> }) {
   const params = use(props.params);
   const t = useTranslations('/events/eventid/comps/compid/edit/seeding');
-  const { data: session } = useSession();
+  const { data: session, status: sessionStatus } = useSession();
 
   const [event, setEvent] = useState<Event>();
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
@@ -73,11 +73,18 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
     }
   };
 
+  // Load the event with the session (once it is known) so unlisted events resolve for their organizers,
+  // otherwise e.g. the country flag setting is missing.
   useEffect(() => {
-    getEvent(params.eventId).then(event => {
-      setEvent(event);
-    });
+    if (sessionStatus === 'loading') return;
+    getEvent(params.eventId, session)
+      .then(event => {
+        setEvent(event);
+      })
+      .catch(error => console.error(error?.message ?? error));
+  }, [sessionStatus, session, params.eventId]);
 
+  useEffect(() => {
     getCompetitionParticipants(params.compId).then(participants => {
       const usersMap = new Map();
       participants.map(participant => {
