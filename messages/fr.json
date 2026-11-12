@@ -394,11 +394,13 @@
     "pageTitle": "Modifier le document",
     "dlgDeleteFileTitle": "Supprimer le document",
     "dlgDeleteFileText": "Voulez-vous vraiment supprimer ce document?",
-    "btnSave": "Enregistrer"
+    "btnSave": "Enregistrer",
+    "pageDescription": "Téléverse un fichier ou ajoute le lien d’un document que les participants pourront ouvrir sur la page de l’événement."
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "Créer un document",
-    "btnCreate": "Créer"
+    "btnCreate": "Créer",
+    "pageDescription": "Téléverse un fichier ou ajoute le lien d’un document que les participants pourront ouvrir sur la page de l’événement."
   },
   "/events/eventid/comps": {
     "pageTitle": "Gérer les compétitions",
@@ -740,7 +742,10 @@
     "textNoFilterMatch": "Aucun inscrit ne correspond aux filtres.",
     "alertPendingRegistrations": "{count, plural, =1 {Il y a une inscription en attente de validation.} other {Il y a # inscriptions en attente de validation.}}",
     "toastRemoved": "{name} retiré",
-    "toastStatusUpdated": "Statut de {name} mis à jour"
+    "toastStatusUpdated": "Statut de {name} mis à jour",
+    "statTotal": "Toutes les inscriptions",
+    "textShown": "{shown} sur {total} affichés",
+    "btnClearSearch": "Effacer la recherche"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Aperçu de l'inscription",
@@ -954,13 +959,15 @@
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Créer un partenaire",
-    "btnCreate": "Ajouter un nouveau"
+    "btnCreate": "Ajouter un nouveau",
+    "pageDescription": "Ajoute un sponsor avec son nom, son site et son logo. Les sponsors publics apparaissent sur la page de l’événement."
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "Modifier le partenaire",
     "dlgDeleteTitle": "Supprimer le partenaire",
     "dlgDeleteText": "Voulez-vous vraiment supprimer ce partenaire ?",
-    "btnSave": "Enregistrer"
+    "btnSave": "Enregistrer",
+    "pageDescription": "Ajoute un sponsor avec son nom, son site et son logo. Les sponsors publics apparaissent sur la page de l’événement."
   },
   "/events/eventid/stats": {
     "pageTitle": "Statistiques",
@@ -1251,7 +1258,15 @@
     "inputUrl": "URL",
     "chbExpires": "Expire",
     "datePickerExpiryDate": "Date d'expiration",
-    "chbEnabled": "Actif"
+    "chbEnabled": "Actif",
+    "sectionSource": "Source",
+    "optSourceFile": "Téléverser un fichier",
+    "optSourceLink": "Lien externe",
+    "lblCurrentFile": "Fichier actuel :",
+    "lblChooseFile": "Choisir un fichier",
+    "lblReplaceFile": "Remplacer le fichier",
+    "hintDropFile": "Clique ou dépose un fichier ici",
+    "sectionAvailability": "Disponibilité"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Type",
@@ -1405,7 +1420,10 @@
   "global/components/sponsor-editor": {
     "inputName": "Nom du partenaire",
     "inputWebsite": "Site web",
-    "chbIsPublic": "Rendre public?"
+    "chbIsPublic": "Rendre public?",
+    "lblLogo": "Logo",
+    "lblChooseLogo": "Choisir un logo",
+    "hintLogo": "Les images carrées conviennent le mieux"
   },
   "/wffa": {
     "pageTitle": "Aperçu admin (WFFA)",

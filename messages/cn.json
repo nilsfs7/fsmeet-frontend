@@ -419,11 +419,13 @@
     "pageTitle": "编辑文档",
     "dlgDeleteFileTitle": "删除文档",
     "dlgDeleteFileText": "你确定要删除这个文档吗？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "pageDescription": "上传文件或添加文档链接，参与者可在活动页面打开。"
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "创建文档",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "pageDescription": "上传文件或添加文档链接，参与者可在活动页面打开。"
   },
   "/events/eventid/comps": {
     "pageTitle": "管理比赛项目",
@@ -765,7 +767,10 @@
     "textNoFilterMatch": "没有符合筛选条件的与会者。",
     "alertPendingRegistrations": "{count, plural, other{有 # 个待处理报名，请及时审核。}}",
     "toastRemoved": "已移除 {name}",
-    "toastStatusUpdated": "已更新 {name} 的状态"
+    "toastStatusUpdated": "已更新 {name} 的状态",
+    "statTotal": "全部报名",
+    "textShown": "显示 {shown} / {total}",
+    "btnClearSearch": "清除搜索"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "活动报名概览",
@@ -979,13 +984,15 @@
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",
-    "btnCreate": "新增"
+    "btnCreate": "新增",
+    "pageDescription": "添加赞助商的名称、网站和标志。公开的赞助商会显示在活动页面上。"
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "编辑赞助商",
     "dlgDeleteTitle": "删除赞助商",
     "dlgDeleteText": "确定要删除此赞助商吗？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "pageDescription": "添加赞助商的名称、网站和标志。公开的赞助商会显示在活动页面上。"
   },
   "/events/eventid/stats": {
     "pageTitle": "统计",
@@ -1276,7 +1283,15 @@
     "inputUrl": "链接",
     "chbExpires": "是否过期",
     "datePickerExpiryDate": "过期日期",
-    "chbEnabled": "启用"
+    "chbEnabled": "启用",
+    "sectionSource": "来源",
+    "optSourceFile": "上传文件",
+    "optSourceLink": "外部链接",
+    "lblCurrentFile": "当前文件：",
+    "lblChooseFile": "选择文件",
+    "lblReplaceFile": "替换文件",
+    "hintDropFile": "点击或将文件拖到此处",
+    "sectionAvailability": "可用性"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "类型",
@@ -1430,7 +1445,10 @@
   "global/components/sponsor-editor": {
     "inputName": "赞助商名称",
     "inputWebsite": "网站",
-    "chbIsPublic": "公开展示？"
+    "chbIsPublic": "公开展示？",
+    "lblLogo": "标志",
+    "lblChooseLogo": "选择标志",
+    "hintLogo": "建议使用正方形图片"
   },
   "/wffa": {
     "pageTitle": "管理概览（WFFA）",

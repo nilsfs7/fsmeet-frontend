@@ -394,11 +394,13 @@
     "pageTitle": "Editar documento",
     "dlgDeleteFileTitle": "Eliminar documento",
     "dlgDeleteFileText": "¿Realmente quieres eliminar este documento?",
-    "btnSave": "Guardar"
+    "btnSave": "Guardar",
+    "pageDescription": "Sube un archivo o enlaza un documento que los asistentes puedan abrir en la página del evento."
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "Crear documento",
-    "btnCreate": "Crear"
+    "btnCreate": "Crear",
+    "pageDescription": "Sube un archivo o enlaza un documento que los asistentes puedan abrir en la página del evento."
   },
   "/events/eventid/comps": {
     "pageTitle": "Gestionar las competiciones",
@@ -740,7 +742,10 @@
     "textNoFilterMatch": "Ningún asistente coincide con los filtros.",
     "alertPendingRegistrations": "{count, plural, one {Hay 1 inscripción pendiente de revisar.} other {Hay # inscripciones pendientes de revisar.}}",
     "toastRemoved": "{name} eliminado",
-    "toastStatusUpdated": "Estado de {name} actualizado"
+    "toastStatusUpdated": "Estado de {name} actualizado",
+    "statTotal": "Todas las inscripciones",
+    "textShown": "Mostrando {shown} de {total}",
+    "btnClearSearch": "Borrar búsqueda"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Descripción general del registro",
@@ -954,13 +959,15 @@
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Crear patrocinador",
-    "btnCreate": "Crear"
+    "btnCreate": "Crear",
+    "pageDescription": "Añade un patrocinador con nombre, web y logo. Los patrocinadores públicos se muestran en la página del evento."
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "Editar patrocinador",
     "dlgDeleteTitle": "Eliminar patrocinador",
     "dlgDeleteText": "¿Desea realmente eliminar este patrocinador?",
-    "btnSave": "Guardar"
+    "btnSave": "Guardar",
+    "pageDescription": "Añade un patrocinador con nombre, web y logo. Los patrocinadores públicos se muestran en la página del evento."
   },
   "/events/eventid/stats": {
     "pageTitle": "Estadística",
@@ -1251,7 +1258,15 @@
     "inputUrl": "URL",
     "chbExpires": "Expira",
     "datePickerExpiryDate": "Fecha de caducidad",
-    "chbEnabled": "Activo"
+    "chbEnabled": "Activo",
+    "sectionSource": "Origen",
+    "optSourceFile": "Subir archivo",
+    "optSourceLink": "Enlace externo",
+    "lblCurrentFile": "Archivo actual:",
+    "lblChooseFile": "Elegir un archivo",
+    "lblReplaceFile": "Reemplazar archivo",
+    "hintDropFile": "Haz clic o suelta un archivo aquí",
+    "sectionAvailability": "Disponibilidad"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Tipo",
@@ -1405,7 +1420,10 @@
   "global/components/sponsor-editor": {
     "inputName": "Nombre del patrocinador",
     "inputWebsite": "Página web",
-    "chbIsPublic": "¿Publicar?"
+    "chbIsPublic": "¿Publicar?",
+    "lblLogo": "Logo",
+    "lblChooseLogo": "Elegir un logo",
+    "hintLogo": "Las imágenes cuadradas quedan mejor"
   },
   "/wffa": {
     "pageTitle": "Resumen de administración (WFFA)",

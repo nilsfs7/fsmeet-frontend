@@ -419,11 +419,13 @@
     "pageTitle": "Edit Document",
     "dlgDeleteFileTitle": "Delete Document",
     "dlgDeleteFileText": "Do you really want to delete this document?",
-    "btnSave": "Save"
+    "btnSave": "Save",
+    "pageDescription": "Upload a file or link a document that attendees can open on the event page."
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "Create document",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "pageDescription": "Upload a file or link a document that attendees can open on the event page."
   },
   "/events/eventid/comps": {
     "pageTitle": "Manage Competitions",
@@ -765,7 +767,10 @@
     "textNoFilterMatch": "No attendees match your filters.",
     "alertPendingRegistrations": "{count, plural, one {There is # pending registration awaiting your review.} other {There are # pending registrations awaiting your review.}}",
     "toastRemoved": "{name} removed",
-    "toastStatusUpdated": "Status for {name} updated"
+    "toastStatusUpdated": "Status for {name} updated",
+    "statTotal": "All registrations",
+    "textShown": "Showing {shown} of {total}",
+    "btnClearSearch": "Clear search"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Event Registration Overview",
@@ -979,13 +984,15 @@
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Create Sponsor",
-    "btnCreate": "Add new"
+    "btnCreate": "Add new",
+    "pageDescription": "Add a sponsor with name, website and logo. Public sponsors are shown on the event page."
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "Edit Sponsor",
     "dlgDeleteTitle": "Delete Sponsor",
     "dlgDeleteText": "Do you really want to delete this sponsor?",
-    "btnSave": "Save"
+    "btnSave": "Save",
+    "pageDescription": "Add a sponsor with name, website and logo. Public sponsors are shown on the event page."
   },
   "/events/eventid/stats": {
     "pageTitle": "Statistics",
@@ -1276,7 +1283,15 @@
     "inputUrl": "URL",
     "chbExpires": "Expires",
     "datePickerExpiryDate": "Expiry date",
-    "chbEnabled": "Active"
+    "chbEnabled": "Active",
+    "sectionSource": "Source",
+    "optSourceFile": "Upload file",
+    "optSourceLink": "External link",
+    "lblCurrentFile": "Current file:",
+    "lblChooseFile": "Choose a file",
+    "lblReplaceFile": "Replace file",
+    "hintDropFile": "Click or drop a file here",
+    "sectionAvailability": "Availability"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Type",
@@ -1430,7 +1445,10 @@
   "global/components/sponsor-editor": {
     "inputName": "Sponsor Name",
     "inputWebsite": "Website",
-    "chbIsPublic": "Show publicly?"
+    "chbIsPublic": "Show publicly?",
+    "lblLogo": "Logo",
+    "lblChooseLogo": "Choose a logo",
+    "hintLogo": "Square images work best"
   },
   "/wffa": {
     "pageTitle": "Admin Overview (WFFA)",

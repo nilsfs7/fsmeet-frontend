@@ -419,11 +419,13 @@
     "pageTitle": "दस्तावेज़ संपादित करें",
     "dlgDeleteFileTitle": "दस्तावेज़ हटाएं",
     "dlgDeleteFileText": "क्या आप वास्तव में इस दस्तावेज़ को हटाना चाहते हैं?",
-    "btnSave": "सहेजें"
+    "btnSave": "सहेजें",
+    "pageDescription": "कोई फ़ाइल अपलोड करें या किसी दस्तावेज़ का लिंक जोड़ें जिसे प्रतिभागी इवेंट पेज पर खोल सकें।"
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "दस्तावेज़ बनाएं",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "pageDescription": "कोई फ़ाइल अपलोड करें या किसी दस्तावेज़ का लिंक जोड़ें जिसे प्रतिभागी इवेंट पेज पर खोल सकें।"
   },
   "/events/eventid/comps": {
     "pageTitle": "प्रतियोगिताएं प्रबंधित करें",
@@ -765,7 +767,10 @@
     "textNoFilterMatch": "फ़िल्टर से कोई उपस्थित नहीं मिला।",
     "alertPendingRegistrations": "{count, plural, other{समीक्षा के लिए # लंबित पंजीकरण हैं।}}",
     "toastRemoved": "{name} हटाया गया",
-    "toastStatusUpdated": "{name} का स्टेटस अपडेट हुआ"
+    "toastStatusUpdated": "{name} का स्टेटस अपडेट हुआ",
+    "statTotal": "सभी पंजीकरण",
+    "textShown": "{total} में से {shown} दिखाए गए",
+    "btnClearSearch": "खोज साफ़ करें"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "इवेंट पंजीकरण सारांश",
@@ -979,13 +984,15 @@
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "प्रायोजक बनाएं",
-    "btnCreate": "नया जोड़ें"
+    "btnCreate": "नया जोड़ें",
+    "pageDescription": "नाम, वेबसाइट और लोगो के साथ प्रायोजक जोड़ें। सार्वजनिक प्रायोजक इवेंट पेज पर दिखते हैं।"
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "प्रायोजक संपादित करें",
     "dlgDeleteTitle": "प्रायोजक हटाएं",
     "dlgDeleteText": "क्या आप वाकई इस प्रायोजक को हटाना चाहते हैं?",
-    "btnSave": "सहेजें"
+    "btnSave": "सहेजें",
+    "pageDescription": "नाम, वेबसाइट और लोगो के साथ प्रायोजक जोड़ें। सार्वजनिक प्रायोजक इवेंट पेज पर दिखते हैं।"
   },
   "/events/eventid/stats": {
     "pageTitle": "आंकड़े",
@@ -1276,7 +1283,15 @@
     "inputUrl": "URL",
     "chbExpires": "समाप्त होता है",
     "datePickerExpiryDate": "समाप्ति तिथि",
-    "chbEnabled": "सक्रिय"
+    "chbEnabled": "सक्रिय",
+    "sectionSource": "स्रोत",
+    "optSourceFile": "फ़ाइल अपलोड करें",
+    "optSourceLink": "बाहरी लिंक",
+    "lblCurrentFile": "वर्तमान फ़ाइल:",
+    "lblChooseFile": "फ़ाइल चुनें",
+    "lblReplaceFile": "फ़ाइल बदलें",
+    "hintDropFile": "क्लिक करें या फ़ाइल यहाँ छोड़ें",
+    "sectionAvailability": "उपलब्धता"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "प्रकार",
@@ -1430,7 +1445,10 @@
   "global/components/sponsor-editor": {
     "inputName": "प्रायोजक का नाम",
     "inputWebsite": "वेबसाइट",
-    "chbIsPublic": "सार्वजनिक रूप से दिखाएं?"
+    "chbIsPublic": "सार्वजनिक रूप से दिखाएं?",
+    "lblLogo": "लोगो",
+    "lblChooseLogo": "लोगो चुनें",
+    "hintLogo": "वर्गाकार चित्र सबसे अच्छे रहते हैं"
   },
   "/wffa": {
     "pageTitle": "एडमिन अवलोकन (WFFA)",

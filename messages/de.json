@@ -384,11 +384,13 @@
     "pageTitle": "Dokument editieren",
     "dlgDeleteFileTitle": "Dokument löschen",
     "dlgDeleteFileText": "Möchtest du das Dokument wirklich löschen?",
-    "btnSave": "Speichern"
+    "btnSave": "Speichern",
+    "pageDescription": "Lade eine Datei hoch oder verlinke ein Dokument, das Teilnehmende auf der Eventseite öffnen können."
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "Dokument erstellen",
-    "btnCreate": "Erstellen"
+    "btnCreate": "Erstellen",
+    "pageDescription": "Lade eine Datei hoch oder verlinke ein Dokument, das Teilnehmende auf der Eventseite öffnen können."
   },
   "/events/eventid/accommodations/create": {
     "pageTitle": "Unterkunft erstellen",
@@ -740,7 +742,10 @@
     "textNoFilterMatch": "Keine Treffer für die gewählten Filter.",
     "alertPendingRegistrations": "{count, plural, =1 {Es gibt eine ausstehende Anmeldung, die geprüft werden muss.} other {Es gibt # ausstehende Anmeldungen, die geprüft werden müssen.}}",
     "toastRemoved": "{name} entfernt",
-    "toastStatusUpdated": "Status für {name} aktualisiert"
+    "toastStatusUpdated": "Status für {name} aktualisiert",
+    "statTotal": "Alle Anmeldungen",
+    "textShown": "{shown} von {total} angezeigt",
+    "btnClearSearch": "Suche löschen"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Registrierungsübersicht",
@@ -954,13 +959,15 @@
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Sponsor erstellen",
-    "btnCreate": "Erstellen"
+    "btnCreate": "Erstellen",
+    "pageDescription": "Füge einen Sponsor mit Name, Website und Logo hinzu. Öffentliche Sponsoren werden auf der Eventseite angezeigt."
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "Sponsor bearbeiten",
     "dlgDeleteTitle": "Sponsor löschen",
     "dlgDeleteText": "Möchten Sie diesen Sponsor wirklich löschen?",
-    "btnSave": "Speichern"
+    "btnSave": "Speichern",
+    "pageDescription": "Füge einen Sponsor mit Name, Website und Logo hinzu. Öffentliche Sponsoren werden auf der Eventseite angezeigt."
   },
   "/events/eventid/stats": {
     "pageTitle": "Statistiken",
@@ -1251,7 +1258,15 @@
     "inputUrl": "URL",
     "chbExpires": "Läuft ab",
     "datePickerExpiryDate": "Ablaufdatum",
-    "chbEnabled": "Aktiv"
+    "chbEnabled": "Aktiv",
+    "sectionSource": "Quelle",
+    "optSourceFile": "Datei hochladen",
+    "optSourceLink": "Externer Link",
+    "lblCurrentFile": "Aktuelle Datei:",
+    "lblChooseFile": "Datei auswählen",
+    "lblReplaceFile": "Datei ersetzen",
+    "hintDropFile": "Klicken oder Datei hierher ziehen",
+    "sectionAvailability": "Verfügbarkeit"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Art",
@@ -1405,7 +1420,10 @@
   "global/components/sponsor-editor": {
     "inputName": "Sponsor Name",
     "inputWebsite": "Website",
-    "chbIsPublic": "Veröffentlichen?"
+    "chbIsPublic": "Veröffentlichen?",
+    "lblLogo": "Logo",
+    "lblChooseLogo": "Logo auswählen",
+    "hintLogo": "Quadratische Bilder eignen sich am besten"
   },
   "/wffa": {
     "pageTitle": "Admin-Übersicht (WFFA)",

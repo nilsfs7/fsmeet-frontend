@@ -419,11 +419,13 @@
     "pageTitle": "ドキュメントを編集",
     "dlgDeleteFileTitle": "ドキュメントを削除",
     "dlgDeleteFileText": "このドキュメントを本当に削除しますか？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "pageDescription": "参加者がイベントページで開けるファイルをアップロードするか、ドキュメントへのリンクを追加します。"
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "ドキュメントを作成",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "pageDescription": "参加者がイベントページで開けるファイルをアップロードするか、ドキュメントへのリンクを追加します。"
   },
   "/events/eventid/comps": {
     "pageTitle": "カテゴリを管理",
@@ -765,7 +767,10 @@
     "textNoFilterMatch": "条件に合う出席者はいません。",
     "alertPendingRegistrations": "{count, plural, other{未処理の申込が # 件あります。確認が必要です。}}",
     "toastRemoved": "{name} を削除しました",
-    "toastStatusUpdated": "{name} のステータスを更新しました"
+    "toastStatusUpdated": "{name} のステータスを更新しました",
+    "statTotal": "すべての登録",
+    "textShown": "{total}件中{shown}件を表示",
+    "btnClearSearch": "検索をクリア"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "参加登録の概要",
@@ -979,13 +984,15 @@
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "スポンサーを作成",
-    "btnCreate": "新規追加"
+    "btnCreate": "新規追加",
+    "pageDescription": "名前・ウェブサイト・ロゴでスポンサーを追加します。公開スポンサーはイベントページに表示されます。"
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "スポンサーを編集",
     "dlgDeleteTitle": "スポンサーを削除",
     "dlgDeleteText": "このスポンサーを本当に削除しますか？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "pageDescription": "名前・ウェブサイト・ロゴでスポンサーを追加します。公開スポンサーはイベントページに表示されます。"
   },
   "/events/eventid/stats": {
     "pageTitle": "統計",
@@ -1276,7 +1283,15 @@
     "inputUrl": "URL",
     "chbExpires": "期限あり",
     "datePickerExpiryDate": "期限日",
-    "chbEnabled": "有効"
+    "chbEnabled": "有効",
+    "sectionSource": "ソース",
+    "optSourceFile": "ファイルをアップロード",
+    "optSourceLink": "外部リンク",
+    "lblCurrentFile": "現在のファイル：",
+    "lblChooseFile": "ファイルを選択",
+    "lblReplaceFile": "ファイルを差し替え",
+    "hintDropFile": "クリックまたはここにファイルをドロップ",
+    "sectionAvailability": "公開設定"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "種類",
@@ -1430,7 +1445,10 @@
   "global/components/sponsor-editor": {
     "inputName": "スポンサー名",
     "inputWebsite": "ウェブサイト",
-    "chbIsPublic": "公開しますか？"
+    "chbIsPublic": "公開しますか？",
+    "lblLogo": "ロゴ",
+    "lblChooseLogo": "ロゴを選択",
+    "hintLogo": "正方形の画像がおすすめです"
   },
   "/wffa": {
     "pageTitle": "管理概要（WFFA）",
