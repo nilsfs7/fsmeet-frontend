@@ -1,17 +1,38 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { User } from '@/domain/types/user';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import { getEventCount, getMobileUserCount, getUserCountByNationality, getUserCountByType, getUserCountOnMap, getUserGrowth } from '@/infrastructure/clients/statistic.client';
 import { ReadUserCountResponseDto } from '@/infrastructure/clients/dtos/statistics/read-user-count.response.dto';
-import Separator from '@/components/separator';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { ChartArea } from '../../../components/charts/chart-area';
 import { ReadEventCountResponseDto } from '../../../infrastructure/clients/dtos/event/read-event-count.response.dto';
 import { ReadUserGrowthResponseDto } from '../../../infrastructure/clients/dtos/event/read-user-growth.response.dto';
 import { useTranslations } from 'next-intl';
+
+function StatCard({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="min-w-0 rounded-2xl border border-border bg-background p-5 shadow-xs">
+      <h2 className="mb-3 text-base font-semibold text-foreground">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function StatRows({ rows }: { rows: [string, number | undefined][] }) {
+  return (
+    <dl className="divide-y divide-border/60">
+      {rows.map(([label, value]) => (
+        <div key={label} className="flex items-center justify-between gap-3 py-1.5">
+          <dt className="text-muted-foreground">{label.replace(/:\s*$/, '')}</dt>
+          <dd className="font-semibold tabular-nums text-foreground">{value ?? '–'}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
 
 export const Statistics = () => {
   const t = useTranslations('/stats');
@@ -94,92 +115,72 @@ export const Statistics = () => {
     return <LoadingSpinner />;
   }
 
+  const total = userCountByType?.userCountTotal ?? 0;
+  const mapShare = total ? (userCountOnMap / total) * 100 : 0;
+  const typeRows: [string, number | undefined][] = [
+    [t('freestylers'), userCountByType?.userCountFreestylers],
+    [t('associations'), userCountByType?.userCountAssociations],
+    [t('brands'), userCountByType?.userCountBrands],
+    [t('djs'), userCountByType?.userCountDJs],
+    [t('organizers'), userCountByType?.userCountEventOrganizers],
+    [t('mcs'), userCountByType?.userCountMCs],
+    [t('media'), userCountByType?.userCountMedia],
+    [t('fans'), userCountByType?.userCountFans],
+  ];
+  const totalRows: [string, number | undefined][] = [
+    [t('totalUsers'), userCountByType?.userCountTotal],
+    [t('realUsers'), userCountByType?.userCountNonAdministrative],
+    [t('adminUsers'), userCountByType?.userCountAdministrative],
+    [t('mobileUsers'), mobileUserCount],
+  ];
+
   return (
-    <div className="mx-2 overflow-y-auto">
-      <div className={'rounded-lg border border-primary bg-secondary-light p-2 text-sm'}>
-        <div className="flex justify-center text-lg">{t('userCount')}</div>
-        <div className="grid grid-cols-2 gap-2 mt-2">
-          <div className="flex justify-end">{t('freestylers')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountFreestylers}</div>
+    <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 text-sm">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <StatCard title={t('userCount')}>
+            <StatRows rows={typeRows} />
+          </StatCard>
 
-          <div className="flex justify-end">{t('associations')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountAssociations}</div>
+          <StatCard title={t('totalUserCount')}>
+            <StatRows rows={totalRows} />
+            <p className="mt-3 text-xs text-muted-foreground">{t('mobileHint')}</p>
+          </StatCard>
 
-          <div className="flex justify-end">{t('brands')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountBrands}</div>
-
-          <div className="flex justify-end">{t('djs')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountDJs}</div>
-
-          <div className="flex justify-end">{t('organizers')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountEventOrganizers}</div>
-
-          <div className="flex justify-end">{t('mcs')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountMCs}</div>
-
-          <div className="flex justify-end">{t('media')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountMedia}</div>
-
-          <div className="flex justify-end">{t('fans')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountFans}</div>
-        </div>
-        <div className="m-2">
-          <Separator />
-        </div>
-        <div className="flex justify-center text-lg">{t('totalUserCount')}</div>
-        <div className="grid grid-cols-2 gap-2 mt-2">
-          <div className="flex justify-end">{t('totalUsers')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountTotal}</div>
-
-          <div className="flex justify-end">{t('realUsers')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountNonAdministrative}</div>
-
-          <div className="flex justify-end">{t('adminUsers')}</div>
-          <div className="flex justify-start">{userCountByType?.userCountAdministrative}</div>
-
-          <div className="flex justify-end">{t('mobileUsers')}</div>
-          <div className="flex justify-start">{mobileUserCount}</div>
-        </div>
-        <div className="mt-2 text-center text-xs text-muted-foreground">{t('mobileHint')}</div>
-
-        {userCountByType?.userCountTotal && (
-          <>
-            <div className="m-2">
-              <Separator />
-            </div>
-
-            <div className="flex justify-center text-lg">{t('mapShare')}</div>
-
-            <div className="grid grid-cols-2 gap-2 mt-2">
-              <div className="flex justify-end">{t('usersOnMap')}</div>
-              <div className="flex justify-start">{`${userCountOnMap} (${((userCountOnMap / userCountByType?.userCountTotal) * 100).toFixed(1)}%)`}</div>
-
-              <div className="flex justify-end">{t('totalUsers')}</div>
-              <div className="flex justify-start">{userCountByType?.userCountTotal}</div>
-            </div>
-          </>
-        )}
-
-        <div className="m-2">
-          <Separator />
-        </div>
-        <div className="flex justify-center text-lg">{t('nationalityShare')}</div>
-        <div className="flex justify-center">
-          <PieChart width={400} height={400}>
-            <Pie data={userNationalityCount} dataKey="userCount" nameKey="countryCode" cx="50%" cy="50%" outerRadius={100} fill="#ccd6dd" label={renderLabel}>
-              {userNationalityCount.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={hexColors[index % hexColors.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-          </PieChart>
+          {total > 0 && (
+            <StatCard title={t('mapShare')}>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-bold tabular-nums text-foreground">{mapShare.toFixed(1)}%</span>
+              </div>
+              <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-muted">
+                <div className="h-full rounded-full bg-brand" style={{ width: `${Math.min(100, mapShare)}%` }} />
+              </div>
+              <div className="mt-4">
+                <StatRows
+                  rows={[
+                    [t('usersOnMap'), userCountOnMap],
+                    [t('totalUsers'), total],
+                  ]}
+                />
+              </div>
+            </StatCard>
+          )}
         </div>
 
-        <div className="m-2">
-          <Separator />
-        </div>
+        <StatCard title={t('nationalityShare')}>
+          <div className="flex justify-center overflow-hidden">
+            <PieChart width={360} height={340}>
+              <Pie data={userNationalityCount} dataKey="userCount" nameKey="countryCode" cx="50%" cy="50%" outerRadius={100} fill="#ccd6dd" label={renderLabel}>
+                {userNationalityCount.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={hexColors[index % hexColors.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </div>
+        </StatCard>
 
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <ChartArea
             data={userGrowth.map(ds => {
               return { date: ds.date.toString(), l1: ds.total, l2: ds.malesCount, l3: ds.femalesCount };

@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { IconGripVertical } from '@tabler/icons-react';
+import { IconPaperclip, IconGripVertical } from '@tabler/icons-react';
+import { EmptyState } from '@/components/common/empty-state';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { toast, Toaster } from 'sonner';
@@ -68,6 +69,10 @@ const AttachmentsList = ({ eventId, attachments }: AttachmentsListProps) => {
     setDraggingIndex(null);
     setDropIndex(null);
   };
+
+  if (items.length === 0) {
+    return <EmptyState icon={<IconPaperclip stroke={1.75} aria-hidden />} title={t('textNoAttachments')} />;
+  }
 
   return (
     <>

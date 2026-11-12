@@ -56,7 +56,7 @@ export function ChartPie({ data, labels, colors = [], title, description, tickLi
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-base font-semibold">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
