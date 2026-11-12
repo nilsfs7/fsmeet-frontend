@@ -706,7 +706,9 @@
   },
   "/events/eventid/not-found": {
     "textNotFound": "未找到活动。",
-    "btnBackToEvents": "返回概览"
+    "btnBackToEvents": "返回概览",
+    "textNotFoundHint": "链接可能已过期，或活动已被删除或未公开。",
+    "btnBackHome": "返回首页"
   },
   "/events/eventid/offerings": {
     "pageTitle": "管理选项/套餐",
@@ -849,7 +851,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "你的申请已成功发送！",
     "textSuccess2": "等待审核。",
-    "btnBack": "返回"
+    "btnBack": "返回",
+    "btnEvent": "前往活动"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "管理赞助商",

@@ -706,7 +706,9 @@
   },
   "/events/eventid/not-found": {
     "textNotFound": "イベントが見つかりませんでした。",
-    "btnBackToEvents": "概要に戻る"
+    "btnBackToEvents": "概要に戻る",
+    "textNotFoundHint": "リンクが古いか、イベントが削除されたか非公開の可能性があります。",
+    "btnBackHome": "ホームに戻る"
   },
   "/events/eventid/offerings": {
     "pageTitle": "提供内容を管理",
@@ -849,7 +851,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "申請を送信しました！",
     "textSuccess2": "承認をお待ちください。",
-    "btnBack": "戻る"
+    "btnBack": "戻る",
+    "btnEvent": "イベントへ"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "スポンサーを管理",

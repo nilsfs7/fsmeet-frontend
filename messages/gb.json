@@ -706,7 +706,9 @@
   },
   "/events/eventid/not-found": {
     "textNotFound": "Event not found.",
-    "btnBackToEvents": "Back To Overview"
+    "btnBackToEvents": "Back To Overview",
+    "textNotFoundHint": "The link may be outdated, or the event was removed or is not public.",
+    "btnBackHome": "Back home"
   },
   "/events/eventid/offerings": {
     "pageTitle": "Manage Offerings",
@@ -849,7 +851,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "Your request was sent successfully!",
     "textSuccess2": "Waiting for approval.",
-    "btnBack": "Back"
+    "btnBack": "Back",
+    "btnEvent": "Go to event"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Manage Sponsors",

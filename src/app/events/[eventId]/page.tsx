@@ -1,7 +1,8 @@
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
 import Link from 'next/link';
-import { routeEvents } from '@/domain/constants/routes';
+import { routeEventNotFound, routeEvents } from '@/domain/constants/routes';
+import { notFound } from 'next/navigation';
 import Navigation from '@/components/navigation';
 import { TabsMenu } from './components/tabs-menu';
 import { auth } from '@/auth';
@@ -71,6 +72,8 @@ export async function generateMetadata(props: { params: Promise<{ eventId: strin
 
 export default async function EventDetails(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
+  // Unknown short links (/e/[alias]) redirect here; show the event not-found page instead of a generic error.
+  if (`${routeEvents}/${params.eventId}` === routeEventNotFound) notFound();
   const [t, session] = await Promise.all([getTranslations('/events/eventid'), auth()]);
 
   const [event, fetchedCompetitions, sponsors, attachments, comments] = await Promise.all([

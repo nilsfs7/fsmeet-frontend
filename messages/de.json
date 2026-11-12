@@ -681,7 +681,9 @@
   },
   "/events/eventid/not-found": {
     "textNotFound": "Event nicht gefunden.",
-    "btnBackToEvents": "Zur Übersicht"
+    "btnBackToEvents": "Zur Übersicht",
+    "textNotFoundHint": "Der Link ist evtl. veraltet, oder das Event wurde entfernt bzw. ist nicht öffentlich.",
+    "btnBackHome": "Zur Startseite"
   },
   "/events/eventid/offerings": {
     "pageTitle": "Angebote verwalten",
@@ -824,7 +826,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "Deine Anfrage wurde erfolgreich gesendet!",
     "textSuccess2": "Warte auf Bestätigung.",
-    "btnBack": "Zurück"
+    "btnBack": "Zurück",
+    "btnEvent": "Zum Event"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Sponsoren verwalten",

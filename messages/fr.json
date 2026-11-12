@@ -681,7 +681,9 @@
   },
   "/events/eventid/not-found": {
     "textNotFound": "Événement introuvable.",
-    "btnBackToEvents": "Retour à l'aperçu"
+    "btnBackToEvents": "Retour à l'aperçu",
+    "textNotFoundHint": "Le lien est peut-être obsolète, ou l’événement a été supprimé ou n’est pas public.",
+    "btnBackHome": "Retour à l’accueil"
   },
   "/events/eventid/offerings": {
     "pageTitle": "Gérer les offres",
@@ -824,7 +826,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "Votre demande a été envoyée avec succès!",
     "textSuccess2": "En attente d'approbation.",
-    "btnBack": "Retour"
+    "btnBack": "Retour",
+    "btnEvent": "Aller à l’événement"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Gérer les partenariats",

@@ -706,7 +706,9 @@
   },
   "/events/eventid/not-found": {
     "textNotFound": "Acara tidak ditemui.",
-    "btnBackToEvents": "Kembali Ke Gambaran Keseluruhan"
+    "btnBackToEvents": "Kembali Ke Gambaran Keseluruhan",
+    "textNotFoundHint": "Pautan mungkin sudah lapuk, atau acara telah dipadam atau tidak awam.",
+    "btnBackHome": "Kembali ke laman utama"
   },
   "/events/eventid/offerings": {
     "pageTitle": "Urus Tawaran",
@@ -849,7 +851,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "Permohonan anda berjaya dihantar!",
     "textSuccess2": "Menunggu kelulusan.",
-    "btnBack": "Kembali"
+    "btnBack": "Kembali",
+    "btnEvent": "Pergi ke acara"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Urus Penaja",

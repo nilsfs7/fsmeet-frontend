@@ -706,7 +706,9 @@
   },
   "/events/eventid/not-found": {
     "textNotFound": "इवेंट नहीं मिला।",
-    "btnBackToEvents": "सारांश पर वापस जाएं"
+    "btnBackToEvents": "सारांश पर वापस जाएं",
+    "textNotFoundHint": "लिंक पुराना हो सकता है, या इवेंट हटा दिया गया है या सार्वजनिक नहीं है।",
+    "btnBackHome": "होम पर वापस जाएं"
   },
   "/events/eventid/offerings": {
     "pageTitle": "सेवाएं प्रबंधित करें",
@@ -849,7 +851,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "आपका अनुरोध सफलतापूर्वक भेजा गया!",
     "textSuccess2": "स्वीकृति की प्रतीक्षा करें।",
-    "btnBack": "वापस"
+    "btnBack": "वापस",
+    "btnEvent": "इवेंट पर जाएं"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "प्रायोजक प्रबंधित करें",

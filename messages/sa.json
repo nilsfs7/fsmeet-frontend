@@ -706,7 +706,9 @@
   },
   "/events/eventid/not-found": {
     "textNotFound": "لم يتم العثور على الفعالية.",
-    "btnBackToEvents": "العودة إلى النظرة العامة"
+    "btnBackToEvents": "العودة إلى النظرة العامة",
+    "textNotFoundHint": "قد يكون الرابط قديمًا، أو أن الفعالية حُذفت أو ليست عامة.",
+    "btnBackHome": "العودة إلى الرئيسية"
   },
   "/events/eventid/offerings": {
     "pageTitle": "إدارة العروض",
@@ -849,7 +851,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "تم إرسال طلبك بنجاح!",
     "textSuccess2": "بانتظار الموافقة.",
-    "btnBack": "رجوع"
+    "btnBack": "رجوع",
+    "btnEvent": "الانتقال إلى الفعالية"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "إدارة الرعاة",
