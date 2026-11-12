@@ -359,7 +359,10 @@
     "lblParticipantsRegistered": "{count, plural, =0 {Noch keine Teilnehmer} one {# Teilnehmer} other {# Teilnehmer}}",
     "sectionAbout": "Über dieses Event",
     "sectionLinks": "Links",
-    "lblCategory": "Kategorie"
+    "lblCategory": "Kategorie",
+    "tabOverviewSectionSponsorsPresentedBy": "Präsentiert von",
+    "tabOverviewSectionSponsorsHint": "Danke an die Partner, die dieses Event möglich machen.",
+    "tabOverviewSectionSponsorsVisit": "Website besuchen (öffnet in neuem Tab)"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Unterkünfte verwalten",

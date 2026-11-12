@@ -384,7 +384,10 @@
     "lblParticipantsRegistered": "{count, plural, =0 {No participants yet} one {# participant} other {# participants}}",
     "sectionAbout": "About this event",
     "sectionLinks": "Links",
-    "lblCategory": "Category"
+    "lblCategory": "Category",
+    "tabOverviewSectionSponsorsPresentedBy": "Presented by",
+    "tabOverviewSectionSponsorsHint": "Thanks to the partners who make this event possible.",
+    "tabOverviewSectionSponsorsVisit": "Visit website (opens in new tab)"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Manage Accommodations",

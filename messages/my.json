@@ -384,7 +384,10 @@
     "lblParticipantsRegistered": "{count, plural, =0 {Belum ada peserta} other {# peserta}}",
     "sectionAbout": "Tentang acara ini",
     "sectionLinks": "Pautan",
-    "lblCategory": "Kategori"
+    "lblCategory": "Kategori",
+    "tabOverviewSectionSponsorsPresentedBy": "Dipersembahkan oleh",
+    "tabOverviewSectionSponsorsHint": "Terima kasih kepada rakan kongsi yang menjayakan acara ini.",
+    "tabOverviewSectionSponsorsVisit": "Lawati laman web (tab baharu)"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Urus Penginapan",

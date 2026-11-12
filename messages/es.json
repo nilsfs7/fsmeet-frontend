@@ -359,7 +359,10 @@
     "lblParticipantsRegistered": "{count, plural, =0 {Aún no hay participantes} one {# participante} other {# participantes}}",
     "sectionAbout": "Sobre este evento",
     "sectionLinks": "Enlaces",
-    "lblCategory": "Categoría"
+    "lblCategory": "Categoría",
+    "tabOverviewSectionSponsorsPresentedBy": "Presentado por",
+    "tabOverviewSectionSponsorsHint": "Gracias a los patrocinadores que hacen posible este evento.",
+    "tabOverviewSectionSponsorsVisit": "Visitar sitio web (nueva pestaña)"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Administrar alojamientos",

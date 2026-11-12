@@ -359,7 +359,10 @@
     "lblParticipantsRegistered": "{count, plural, =0 {Aucun participant} one {# participant} other {# participants}}",
     "sectionAbout": "À propos de cet événement",
     "sectionLinks": "Liens",
-    "lblCategory": "Catégorie"
+    "lblCategory": "Catégorie",
+    "tabOverviewSectionSponsorsPresentedBy": "Présenté par",
+    "tabOverviewSectionSponsorsHint": "Merci aux partenaires qui rendent cet événement possible.",
+    "tabOverviewSectionSponsorsVisit": "Visiter le site (nouvel onglet)"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Gérer les hébergements",

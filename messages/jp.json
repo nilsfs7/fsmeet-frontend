@@ -384,7 +384,10 @@
     "lblParticipantsRegistered": "{count, plural, =0 {参加者はまだいません} other {参加者 #人}}",
     "sectionAbout": "イベントについて",
     "sectionLinks": "リンク",
-    "lblCategory": "カテゴリー"
+    "lblCategory": "カテゴリー",
+    "tabOverviewSectionSponsorsPresentedBy": "提供",
+    "tabOverviewSectionSponsorsHint": "このイベントを支えてくださるパートナーの皆さまに感謝します。",
+    "tabOverviewSectionSponsorsVisit": "ウェブサイトを開く（新しいタブ）"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "宿泊を管理",

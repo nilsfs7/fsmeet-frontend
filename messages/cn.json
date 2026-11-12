@@ -384,7 +384,10 @@
     "lblParticipantsRegistered": "{count, plural, =0 {暂无参赛者} other {# 名参赛者}}",
     "sectionAbout": "关于此活动",
     "sectionLinks": "链接",
-    "lblCategory": "类别"
+    "lblCategory": "类别",
+    "tabOverviewSectionSponsorsPresentedBy": "赞助呈现",
+    "tabOverviewSectionSponsorsHint": "感谢让本次活动成为可能的合作伙伴。",
+    "tabOverviewSectionSponsorsVisit": "访问网站（新标签页）"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "管理住宿",

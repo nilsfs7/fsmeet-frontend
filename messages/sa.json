@@ -384,7 +384,10 @@
     "lblParticipantsRegistered": "{count, plural, =0 {لا يوجد مشاركون بعد} one {مشارك واحد} other {# مشاركين}}",
     "sectionAbout": "عن هذه الفعالية",
     "sectionLinks": "روابط",
-    "lblCategory": "الفئة"
+    "lblCategory": "الفئة",
+    "tabOverviewSectionSponsorsPresentedBy": "برعاية",
+    "tabOverviewSectionSponsorsHint": "شكرًا للشركاء الذين جعلوا هذه الفعالية ممكنة.",
+    "tabOverviewSectionSponsorsVisit": "زيارة الموقع (في علامة تبويب جديدة)"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "إدارة الإقامات",
