@@ -898,7 +898,10 @@
     "pageDescription": "FSMeetで商品やサービスを宣伝しましょう。",
     "chipActive": "有効",
     "chipInactive": "無効",
-    "lblOrder": "表示順 {order}"
+    "hintReorder": "ハンドルをドラッグして広告の表示順を変更できます。",
+    "tooltipDragAd": "ドラッグして並べ替え",
+    "toastReorderFailed": "広告の順序を更新できませんでした。",
+    "toastReorderUnavailable": "広告の並べ替えはまだ利用できません。後でもう一度お試しください。"
   },
   "/ads/create": {
     "pageTitle": "広告を作成",
@@ -1288,8 +1291,6 @@
     "placeholderDescription": "商品説明",
     "inputTargetUrl": "リンク先URL",
     "tooltipTargetUrl": "ウェブサイトまたは商品へのリンク。",
-    "inputDisplayOrder": "表示順",
-    "tooltipDisplayOrder": "複数ある場合の広告の表示順です。0 が最初に表示されます。",
     "chbEnabled": "有効",
     "lblImage": "画像",
     "lblChooseImage": "画像を選択",

@@ -9,7 +9,7 @@ import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { useSession } from 'next-auth/react';
 import type { Advertisement } from '@/domain/types/advertisement';
-import { createAdvertisement, updateAdvertisementImage } from '@/infrastructure/clients/advertisement.client';
+import { createAdvertisement, getAdvertisements, updateAdvertisementImage } from '@/infrastructure/clients/advertisement.client';
 import AdvertisementEditor from '@/components/events/advertisement-editor';
 import NavigateBackButton from '@/components/navigate-back-button';
 import { useTranslations } from 'next-intl';
@@ -33,7 +33,11 @@ export default function CreateAdvertisementPage() {
     }
     if (advertisement) {
       try {
-        const res = await createAdvertisement(advertisement, session);
+        // the backend requires a display order: append the new ad after the user's existing ads (reorder via drag & drop on the list)
+        const displayOrder = await getAdvertisements(username)
+          .then(ads => ads.reduce((max, ad) => Math.max(max, ad.displayOrder ?? -1), -1) + 1)
+          .catch(() => 0);
+        const res = await createAdvertisement({ ...advertisement, displayOrder }, session);
 
         if (advertisementImage) {
           await updateAdvertisementImage(res.id, advertisementImage, session);

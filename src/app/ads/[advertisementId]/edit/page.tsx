@@ -36,7 +36,11 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
     }
 
     try {
-      await updateAdvertisement(params.advertisementId, { ...advertisement, username: advertisement.username || username }, session);
+      // display order is managed via drag & drop on the ads list: keep the current stored value
+      const displayOrder = await getAdvertisement(params.advertisementId)
+        .then(current => current.displayOrder)
+        .catch(() => advertisement.displayOrder);
+      await updateAdvertisement(params.advertisementId, { ...advertisement, displayOrder, username: advertisement.username || username }, session);
 
       if (advertisementImage) {
         await updateAdvertisementImage(params.advertisementId, advertisementImage, session);

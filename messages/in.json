@@ -898,7 +898,10 @@
     "pageDescription": "FSMeet पर अपने प्रोडक्ट और सेवाओं का प्रचार करें।",
     "chipActive": "सक्रिय",
     "chipInactive": "निष्क्रिय",
-    "lblOrder": "क्रम {order}"
+    "hintReorder": "विज्ञापनों के दिखने का क्रम बदलने के लिए उन्हें हैंडल से खींचें।",
+    "tooltipDragAd": "क्रम बदलने के लिए खींचें",
+    "toastReorderFailed": "विज्ञापनों का क्रम अपडेट नहीं हो सका।",
+    "toastReorderUnavailable": "विज्ञापनों का क्रम बदलना अभी उपलब्ध नहीं है। कृपया बाद में पुनः प्रयास करें।"
   },
   "/ads/create": {
     "pageTitle": "विज्ञापन बनाएं",
@@ -1288,8 +1291,6 @@
     "placeholderDescription": "उत्पाद विवरण",
     "inputTargetUrl": "लक्ष्य URL",
     "tooltipTargetUrl": "आपकी वेबसाइट या उत्पाद का लिंक।",
-    "inputDisplayOrder": "प्रदर्शन क्रम",
-    "tooltipDisplayOrder": "एक से अधिक विज्ञापन होने पर किस क्रम में दिखेंगे। 0 सबसे पहले दिखता है।",
     "chbEnabled": "सक्रिय",
     "lblImage": "इमेज",
     "lblChooseImage": "इमेज चुनें",

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
 import TextInput from '../common/text-input';
 import { Advertisement } from '@/domain/types/advertisement';
 import { imgImagePlaceholder } from '@/domain/constants/images';
@@ -8,8 +8,6 @@ import { useTranslations } from 'next-intl';
 import CheckBox from '../common/check-box';
 import { cn } from '@/lib/utils';
 import { IconPhotoUp } from '@tabler/icons-react';
-import { Input } from '@/components/ui/input';
-import { FieldLabel } from '@/components/common/field-label';
 import { FileDropzone } from '@/components/common/file-dropzone';
 import TextInputLarge from '../common/text-input-large';
 
@@ -34,7 +32,6 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
   const [title, setTitle] = useState(advertisement?.title ?? '');
   const [description, setDescription] = useState(advertisement?.description ?? '');
   const [targetUrl, setTargetUrl] = useState(advertisement?.targetUrl ?? '');
-  const [displayOrder, setDisplayOrder] = useState(String(Math.max(0, advertisement?.displayOrder ?? 0)));
   const [imgPreview, setImgPreview] = useState<File>();
   const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
   const [enabled, setEnabled] = useState(advertisement?.enabled ?? true);
@@ -44,26 +41,6 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
     setImgPreviewObjectURL(URL.createObjectURL(f));
   };
 
-  const parseDisplayOrder = (raw: string): number => {
-    const n = Number.parseInt(raw, 10);
-    if (!Number.isFinite(n)) return 0;
-    return Math.max(0, n);
-  };
-
-  const onDisplayOrderChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const raw = e.currentTarget.value;
-    if (raw === '') {
-      setDisplayOrder('');
-      return;
-    }
-    const n = Number.parseInt(raw, 10);
-    if (!Number.isFinite(n)) {
-      setDisplayOrder('');
-      return;
-    }
-    setDisplayOrder(String(Math.max(0, n)));
-  };
-
   const pushAdvertisement = () => {
     onAdvertisementUpdate({
       id: advertisement?.id,
@@ -71,7 +48,8 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
       description,
       targetUrl,
       imageUrl: advertisement?.imageUrl,
-      displayOrder: parseDisplayOrder(displayOrder),
+      // order is managed by drag & drop on the ads list; keep the stored value (create page appends new ads at the end)
+      displayOrder: advertisement?.displayOrder ?? 0,
       enabled,
       username,
     });
@@ -85,7 +63,7 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
 
   useEffect(() => {
     pushAdvertisement();
-  }, [title, description, targetUrl, displayOrder, enabled, username]);
+  }, [title, description, targetUrl, enabled, username]);
 
   useEffect(() => {
     pushImage();
@@ -150,26 +128,7 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
 
         <section className="flex flex-col gap-3 border-t border-border pt-4 sm:pt-5">
           <h2 className={SECTION_TITLE_CLASS}>{t('sectionVisibility')}</h2>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
-            <div className="flex min-h-11 flex-1 items-center justify-between gap-3 rounded-xl border border-border px-3 py-2">
-              <FieldLabel id="advertisement-display-order" label={t('inputDisplayOrder')} tooltip={t('tooltipDisplayOrder')} className="text-sm font-medium leading-none" />
-              <Input
-                className="h-9 w-20 shrink-0 text-right text-sm font-medium tabular-nums"
-                id="advertisement-display-order"
-                aria-label={t('inputDisplayOrder')}
-                type="number"
-                inputMode="numeric"
-                placeholder="0"
-                min={0}
-                max={99}
-                value={displayOrder}
-                onChange={onDisplayOrderChange}
-              />
-            </div>
-            <div className="sm:w-48">
-              <CheckBox id="advertisement-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
-            </div>
-          </div>
+          <CheckBox id="advertisement-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
         </section>
       </div>
 

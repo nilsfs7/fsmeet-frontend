@@ -898,7 +898,10 @@
     "pageDescription": "Promosikan produk dan perkhidmatan anda di FSMeet.",
     "chipActive": "Aktif",
     "chipInactive": "Tidak aktif",
-    "lblOrder": "Susunan {order}"
+    "hintReorder": "Seret iklan melalui pemegang untuk menukar susunan paparannya.",
+    "tooltipDragAd": "Seret untuk menyusun semula",
+    "toastReorderFailed": "Tidak dapat mengemas kini susunan iklan.",
+    "toastReorderUnavailable": "Penyusunan semula iklan belum tersedia. Sila cuba lagi kemudian."
   },
   "/ads/create": {
     "pageTitle": "Cipta Iklan",
@@ -1288,8 +1291,6 @@
     "placeholderDescription": "Penerangan produk",
     "inputTargetUrl": "URL destinasi",
     "tooltipTargetUrl": "Pautan ke laman web atau produk anda.",
-    "inputDisplayOrder": "Susunan paparan",
-    "tooltipDisplayOrder": "Urutan iklan dipaparkan apabila ada lebih daripada satu. 0 dipaparkan dahulu.",
     "chbEnabled": "Aktif",
     "lblImage": "Imej",
     "lblChooseImage": "Pilih imej",

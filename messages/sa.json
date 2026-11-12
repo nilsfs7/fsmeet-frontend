@@ -898,7 +898,10 @@
     "pageDescription": "روّج لمنتجاتك وخدماتك على FSMeet.",
     "chipActive": "نشط",
     "chipInactive": "غير نشط",
-    "lblOrder": "الترتيب {order}"
+    "hintReorder": "اسحب الإعلانات من المقبض لتغيير ترتيب عرضها.",
+    "tooltipDragAd": "اسحب لإعادة الترتيب",
+    "toastReorderFailed": "تعذّر تحديث ترتيب الإعلانات.",
+    "toastReorderUnavailable": "إعادة ترتيب الإعلانات غير متاحة بعد. يرجى المحاولة لاحقًا."
   },
   "/ads/create": {
     "pageTitle": "إنشاء إعلان",
@@ -1288,8 +1291,6 @@
     "placeholderDescription": "وصف المنتج",
     "inputTargetUrl": "رابط الوجهة",
     "tooltipTargetUrl": "رابط إلى موقعك أو منتجك.",
-    "inputDisplayOrder": "ترتيب العرض",
-    "tooltipDisplayOrder": "ترتيب ظهور الإعلانات عند وجود أكثر من واحد. يُعرض 0 أولاً.",
     "chbEnabled": "مفعّل",
     "lblImage": "الصورة",
     "lblChooseImage": "اختر صورة",

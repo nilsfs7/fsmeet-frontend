@@ -898,7 +898,10 @@
     "pageDescription": "在 FSMeet 上推广你的产品和服务。",
     "chipActive": "已启用",
     "chipInactive": "未启用",
-    "lblOrder": "顺序 {order}"
+    "hintReorder": "拖动手柄即可更改广告的显示顺序。",
+    "tooltipDragAd": "拖动以排序",
+    "toastReorderFailed": "无法更新广告顺序。",
+    "toastReorderUnavailable": "广告排序功能暂不可用，请稍后再试。"
   },
   "/ads/create": {
     "pageTitle": "创建广告",
@@ -1288,8 +1291,6 @@
     "placeholderDescription": "产品描述",
     "inputTargetUrl": "目标链接",
     "tooltipTargetUrl": "指向您网站或产品的链接。",
-    "inputDisplayOrder": "展示顺序",
-    "tooltipDisplayOrder": "有多个广告时的展示顺序。数字越小越靠前，0 最先显示。",
     "chbEnabled": "启用",
     "lblImage": "图片",
     "lblChooseImage": "选择图片",

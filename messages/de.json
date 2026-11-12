@@ -873,7 +873,10 @@
     "pageDescription": "Bewirb deine Produkte und Angebote auf FSMeet.",
     "chipActive": "Aktiv",
     "chipInactive": "Inaktiv",
-    "lblOrder": "Reihenfolge {order}"
+    "hintReorder": "Ziehe Anzeigen am Griff, um die Reihenfolge der Ausspielung zu ändern.",
+    "tooltipDragAd": "Zum Sortieren ziehen",
+    "toastReorderFailed": "Die Reihenfolge der Anzeigen konnte nicht gespeichert werden.",
+    "toastReorderUnavailable": "Das Sortieren von Anzeigen ist noch nicht verfügbar. Bitte versuche es später erneut."
   },
   "/ads/create": {
     "pageTitle": "Anzeige erstellen",
@@ -1263,8 +1266,6 @@
     "placeholderDescription": "Produktbeschreibung",
     "inputTargetUrl": "Ziel-URL",
     "tooltipTargetUrl": "Link zu deiner Website oder deinem Produkt.",
-    "inputDisplayOrder": "Anzeigereihenfolge",
-    "tooltipDisplayOrder": "Reihenfolge, in der Anzeigen bei mehreren Einträgen erscheinen. 0 wird zuerst angezeigt.",
     "chbEnabled": "Aktiv",
     "lblImage": "Bild",
     "lblChooseImage": "Bild auswählen",
