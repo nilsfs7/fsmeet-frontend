@@ -71,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "账户设置",
+    "pageDescription": "管理你的个人资料、地图标记、工作和账户。",
     "profilePictureAddPicture": "添加图片",
     "profilePictureNoFileChosen": "未选择文件",
     "btnSave": "保存",
@@ -186,7 +187,11 @@
     "toastProfileUpdated": "资料已更新。",
     "toastProfileLoadFailed": "无法从会话存储加载用户信息。",
     "toastStripeAccount": "已创建 Stripe 账户。",
-    "toastVerificationRequested": "已申请认证。"
+    "toastVerificationRequested": "已申请认证。",
+    "btnChangePicture": "更换头像",
+    "btnViewProfile": "查看个人资料",
+    "tabAccountSectionDangerZone": "危险区域",
+    "tabAccountDeleteAccountHint": "删除账户是永久性的，无法撤销。"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",
@@ -196,7 +201,11 @@
   "/account/image": {
     "pageTitle": "账户设置",
     "btnUpload": "上传",
-    "btnDelete": "删除"
+    "btnDelete": "删除",
+    "pageTitlePicture": "头像",
+    "pageDescription": "方形图片效果最佳。你的头像会显示在个人资料、地图和活动列表中。",
+    "lblChooseImage": "选择图片",
+    "hintImage": "JPG、PNG 或 WebP"
   },
   "/account/payments": {
     "pageTitle": "管理收款",
@@ -1008,11 +1017,15 @@
   },
   "/events/manage": {
     "pageTitle": "管理活动",
+    "pageDescription": "在一个地方管理你的报名和你举办的活动。",
     "tabRegistrationsTitle": "报名",
     "tabRegistrationsTextNoEvents": "你还没有报名任何活动。",
     "tabEventsHostedTitle": "我的活动",
     "tabEventsHostedTextNoEvents": "你还没有创建任何活动。",
-    "btnCreate": "创建活动"
+    "btnCreate": "创建活动",
+    "sectionHosting": "主办",
+    "sectionCoOrganizing": "协办",
+    "btnBrowseEvents": "浏览活动"
   },
   "/feedback": {
     "pageTitle": "反馈",

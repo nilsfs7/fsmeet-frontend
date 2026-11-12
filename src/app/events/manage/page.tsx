@@ -56,11 +56,11 @@ export default async function MyEventsOverview() {
   return (
     <div className="min-h-0 flex-1 flex flex-col overflow-hidden">
       <div className={constrainedContentClass}>
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={t('pageDescription')} />
       </div>
 
-      <div className={cn('mt-2 flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden', constrainedContentClass)}>
-        <div className="min-h-0 w-full min-w-0 flex-1 overflow-y-auto scrollbar-none">
+      <div className={cn('flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden', constrainedContentClass)}>
+        <div className="min-h-0 w-full min-w-0 flex-1 overflow-y-auto scrollbar-none pb-4">
           <TabsMenu actingUser={actingUser} eventsOwning={eventsOwning} eventsMaintaining={eventsMaintaining} eventsSubscribed={eventsSubscribed} />
         </div>
       </div>
@@ -70,9 +70,7 @@ export default async function MyEventsOverview() {
           <ActionButton href={routeHome} action={Action.BACK} />
         </div>
 
-        <div className="flex min-w-0 flex-wrap justify-end gap-1">
-          {actingUser?.type !== UserType.FAN && <CreateEventButton label={t('btnCreate')} />}
-        </div>
+        <div className="flex min-w-0 flex-wrap justify-end gap-1">{actingUser?.type !== UserType.FAN && <CreateEventButton label={t('btnCreate')} />}</div>
       </Navigation>
     </div>
   );

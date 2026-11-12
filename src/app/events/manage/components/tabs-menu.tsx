@@ -12,12 +12,34 @@ import { isEventAdmin } from '@/functions/is-event-admin';
 import { useSession } from 'next-auth/react';
 import { User } from '@/domain/types/user';
 import { UserType } from '@/domain/enums/user-type';
+import { EmptyState } from '@/components/common/empty-state';
+import { CreateEventButton } from '@/components/events/create-event-button';
+import { Button } from '@/components/ui/button';
+import { IconCalendarPlus, IconTicket } from '@tabler/icons-react';
 
 interface ITabsMenu {
   actingUser: User;
   eventsOwning: Event[];
   eventsMaintaining: Event[];
   eventsSubscribed: Event[];
+}
+
+function CountBadge({ count }: { count: number }) {
+  return <span className="ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-muted px-1.5 text-2xs font-semibold text-muted-foreground">{count}</span>;
+}
+
+function EventGrid({ events, keyPrefix }: { events: Event[]; keyPrefix: string }) {
+  return (
+    <ul className="grid min-w-0 grid-cols-1 gap-3 lg:grid-cols-2">
+      {events.map((event: Event, i: number) => (
+        <li key={`${keyPrefix}-${i.toString()}`} className="min-w-0">
+          <Link href={`${routeEvents}/${event.id}`} className="block rounded-2xl focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand">
+            <EventCard event={event} />
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSubscribed }: ITabsMenu) => {
@@ -29,82 +51,70 @@ export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSu
   const searchParams = useSearchParams();
   const tab = searchParams?.get('tab');
 
+  const maintainingOnly = eventsMaintaining.filter(event => !isEventAdmin(event, session));
+
   return (
-    <>
-      <Tabs defaultValue={tab || `registrations`} className="flex flex-col h-full">
-        <TabsList>
+    <Tabs defaultValue={tab || `registrations`} className="flex h-full flex-col">
+      <TabsList className="self-center">
+        <TabsTrigger
+          value="registrations"
+          onClick={() => {
+            switchTab(router, 'registrations');
+          }}
+        >
+          {t('tabRegistrationsTitle')}
+          <CountBadge count={eventsSubscribed.length} />
+        </TabsTrigger>
+
+        {actingUser.type !== UserType.FAN && (
           <TabsTrigger
-            value="registrations"
+            value="myevents"
             onClick={() => {
-              switchTab(router, 'registrations');
+              switchTab(router, 'myevents');
             }}
           >
-            {t('tabRegistrationsTitle')}
+            {t('tabEventsHostedTitle')}
+            <CountBadge count={eventsOwning.length + maintainingOnly.length} />
           </TabsTrigger>
+        )}
+      </TabsList>
 
-          {actingUser.type !== UserType.FAN && (
-            <TabsTrigger
-              value="myevents"
-              onClick={() => {
-                switchTab(router, 'myevents');
-              }}
-            >
-              {t('tabEventsHostedTitle')}
-            </TabsTrigger>
-          )}
-        </TabsList>
+      <TabsContent value="registrations" className="data-[state=active]:mt-5">
+        {eventsSubscribed.length === 0 ? (
+          <EmptyState
+            icon={<IconTicket stroke={1.75} aria-hidden />}
+            title={t('tabRegistrationsTextNoEvents')}
+            action={
+              <Button asChild variant="outline" className="h-10 rounded-xl px-4">
+                <Link href={routeEvents}>{t('btnBrowseEvents')}</Link>
+              </Button>
+            }
+          />
+        ) : (
+          <EventGrid events={eventsSubscribed} keyPrefix="event-subscribed" />
+        )}
+      </TabsContent>
 
-        <TabsContent value="registrations" className="overflow-y-auto scrollbar-none">
-          {eventsSubscribed.length === 0 && <div className="flex  justify-center">{t('tabRegistrationsTextNoEvents')}</div>}
-
-          {eventsSubscribed.length > 0 && (
-            <div className="grid gap-2 justify-center">
-              <div className="grid gap-2">
-                {eventsSubscribed.map((event: Event, i: number) => {
-                  return (
-                    <div key={`event-subscribed-${i.toString()}`}>
-                      <Link href={`${routeEvents}/${event.id}`}>
-                        <EventCard event={event} />
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </TabsContent>
-
-        <TabsContent value="myevents" className="overflow-y-auto scrollbar-none">
-          {eventsOwning.length === 0 && eventsMaintaining.length === 0 && <div className="flex justify-center">{t('tabEventsHostedTextNoEvents')}</div>}
-
-          <div className="grid gap-2 justify-center">
-            <div className="grid gap-2">
-              {eventsOwning.map((event: Event, i: number) => {
-                return (
-                  <div key={`event-owning-${i.toString()}`}>
-                    <Link href={`${routeEvents}/${event.id}`}>
-                      <EventCard event={event} />
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="grid gap-2">
-              {eventsMaintaining.map((event: Event, i: number) => {
-                if (!isEventAdmin(event, session))
-                  return (
-                    <div key={`event-maintaining-${i.toString()}`}>
-                      <Link href={`${routeEvents}/${event.id}`}>
-                        <EventCard event={event} />
-                      </Link>
-                    </div>
-                  );
-              })}
-            </div>
+      <TabsContent value="myevents" className="data-[state=active]:mt-5">
+        {eventsOwning.length === 0 && maintainingOnly.length === 0 ? (
+          <EmptyState icon={<IconCalendarPlus stroke={1.75} aria-hidden />} title={t('tabEventsHostedTextNoEvents')} action={<CreateEventButton label={t('btnCreate')} />} />
+        ) : (
+          <div className="flex flex-col gap-6">
+            {eventsOwning.length > 0 && (
+              <section className="flex flex-col gap-3">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{t('sectionHosting')}</h2>
+                <EventGrid events={eventsOwning} keyPrefix="event-owning" />
+              </section>
+            )}
+            {maintainingOnly.length > 0 && (
+              <section className="flex flex-col gap-3">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{t('sectionCoOrganizing')}</h2>
+                <EventGrid events={maintainingOnly} keyPrefix="event-maintaining" />
+              </section>
+            )}
           </div>
-        </TabsContent>
-      </Tabs>
-    </>
+        )}
+      </TabsContent>
+    </Tabs>
   );
 };

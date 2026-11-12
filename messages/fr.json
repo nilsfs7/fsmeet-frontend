@@ -71,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "Paramètres du compte",
+    "pageDescription": "Gère ton profil, ton épingle sur la carte, tes jobs et ton compte.",
     "profilePictureAddPicture": "Ajouter une photo",
     "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Enregistrer",
@@ -186,7 +187,11 @@
     "toastProfileUpdated": "Profil mis à jour.",
     "toastProfileLoadFailed": "Impossible de charger les informations depuis le stockage de session.",
     "toastStripeAccount": "Compte Stripe créé.",
-    "toastVerificationRequested": "Demande de vérification envoyée."
+    "toastVerificationRequested": "Demande de vérification envoyée.",
+    "btnChangePicture": "Changer la photo",
+    "btnViewProfile": "Voir le profil",
+    "tabAccountSectionDangerZone": "Zone de danger",
+    "tabAccountDeleteAccountHint": "La suppression de ton compte est définitive et irréversible."
   },
   "/account/deleted": {
     "textGoodbye": "Au revoir !",
@@ -196,7 +201,11 @@
   "/account/image": {
     "pageTitle": "Paramètres du compte",
     "btnUpload": "Charger",
-    "btnDelete": "Supprimer"
+    "btnDelete": "Supprimer",
+    "pageTitlePicture": "Photo de profil",
+    "pageDescription": "Les images carrées rendent le mieux. Ta photo apparaît sur ton profil, la carte et les listes d'événements.",
+    "lblChooseImage": "Choisir une image",
+    "hintImage": "JPG, PNG ou WebP"
   },
   "/donate": {
     "pageTitle": "Faire un don",
@@ -983,11 +992,15 @@
   },
   "/events/manage": {
     "pageTitle": "Gérer les événements",
+    "pageDescription": "Tes inscriptions et les événements que tu organises, au même endroit.",
     "tabRegistrationsTitle": "Inscriptions",
     "tabRegistrationsTextNoEvents": "Vous n'êtes pas encore inscrit à un événement",
     "tabEventsHostedTitle": "Mes événements",
     "tabEventsHostedTextNoEvents": "Vous n'avez pas encore créé d'événements.",
-    "btnCreate": "Créer un événement"
+    "btnCreate": "Créer un événement",
+    "sectionHosting": "Organisateur",
+    "sectionCoOrganizing": "Co-organisateur",
+    "btnBrowseEvents": "Parcourir les événements"
   },
   "/feedback": {
     "pageTitle": "Avis",

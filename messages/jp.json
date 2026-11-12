@@ -71,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "アカウント設定",
+    "pageDescription": "プロフィール、地図のピン、仕事、アカウントを管理します。",
     "profilePictureAddPicture": "写真を追加",
     "profilePictureNoFileChosen": "ファイルが選択されていません",
     "btnSave": "保存",
@@ -186,7 +187,11 @@
     "toastProfileUpdated": "プロフィールを更新しました。",
     "toastProfileLoadFailed": "セッション保存データからユーザー情報を読み込めませんでした。",
     "toastStripeAccount": "Stripeアカウントを作成しました。",
-    "toastVerificationRequested": "認証を申請しました。"
+    "toastVerificationRequested": "認証を申請しました。",
+    "btnChangePicture": "写真を変更",
+    "btnViewProfile": "プロフィールを見る",
+    "tabAccountSectionDangerZone": "危険な操作",
+    "tabAccountDeleteAccountHint": "アカウントの削除は永久的で、元に戻せません。"
   },
   "/account/deleted": {
     "textGoodbye": "さようなら！",
@@ -196,7 +201,11 @@
   "/account/image": {
     "pageTitle": "アカウント設定",
     "btnUpload": "アップロード",
-    "btnDelete": "削除"
+    "btnDelete": "削除",
+    "pageTitlePicture": "プロフィール写真",
+    "pageDescription": "正方形の画像がおすすめです。写真はプロフィール、地図、イベント一覧に表示されます。",
+    "lblChooseImage": "画像を選択",
+    "hintImage": "JPG、PNG、WebP"
   },
   "/account/payments": {
     "pageTitle": "支払い管理",
@@ -1008,11 +1017,15 @@
   },
   "/events/manage": {
     "pageTitle": "イベント管理",
+    "pageDescription": "参加登録したイベントと主催イベントをまとめて管理。",
     "tabRegistrationsTitle": "参加登録",
     "tabRegistrationsTextNoEvents": "まだどのイベントにも参加登録していません。",
     "tabEventsHostedTitle": "自分のイベント",
     "tabEventsHostedTextNoEvents": "まだイベントを作成していません。",
-    "btnCreate": "イベントを作成"
+    "btnCreate": "イベントを作成",
+    "sectionHosting": "主催",
+    "sectionCoOrganizing": "共同主催",
+    "btnBrowseEvents": "イベントを探す"
   },
   "/feedback": {
     "pageTitle": "フィードバック",

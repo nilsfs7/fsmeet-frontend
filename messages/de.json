@@ -71,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "Profileinstellungen",
+    "pageDescription": "Verwalte dein Profil, deinen Kartenpin, Jobs und dein Konto.",
     "profilePictureAddPicture": "Bild hochladen",
     "profilePictureNoFileChosen": "Keine Datei ausgewählt",
     "btnSave": "Speichern",
@@ -186,7 +187,11 @@
     "toastProfileUpdated": "Profil aktualisiert.",
     "toastProfileLoadFailed": "Nutzerdaten konnten nicht aus dem Sitzungsspeicher geladen werden.",
     "toastStripeAccount": "Stripe-Konto erstellt.",
-    "toastVerificationRequested": "Verifizierung angefragt."
+    "toastVerificationRequested": "Verifizierung angefragt.",
+    "btnChangePicture": "Bild ändern",
+    "btnViewProfile": "Profil ansehen",
+    "tabAccountSectionDangerZone": "Gefahrenzone",
+    "tabAccountDeleteAccountHint": "Das Löschen deines Kontos ist endgültig und kann nicht rückgängig gemacht werden."
   },
   "/account/deleted": {
     "textGoodbye": "Mach's gut!",
@@ -196,7 +201,11 @@
   "/account/image": {
     "pageTitle": "Profileinstellungen",
     "btnUpload": "Hochladen",
-    "btnDelete": "Löschen"
+    "btnDelete": "Löschen",
+    "pageTitlePicture": "Profilbild",
+    "pageDescription": "Quadratische Bilder sehen am besten aus. Dein Bild erscheint auf deinem Profil, der Karte und in Eventlisten.",
+    "lblChooseImage": "Bild auswählen",
+    "hintImage": "JPG, PNG oder WebP"
   },
   "/donate": {
     "pageTitle": "Spenden",
@@ -983,11 +992,15 @@
   },
   "/events/manage": {
     "pageTitle": "Events verwalten",
+    "pageDescription": "Deine Anmeldungen und die Events, die du veranstaltest, an einem Ort.",
     "tabRegistrationsTitle": "Registrierungen",
     "tabRegistrationsTextNoEvents": "Du hast dich noch für kein Event angemeldet.",
     "tabEventsHostedTitle": "Meine Events",
     "tabEventsHostedTextNoEvents": "Du hast noch kein Event erstellt.",
-    "btnCreate": "Event erstellen"
+    "btnCreate": "Event erstellen",
+    "sectionHosting": "Veranstalter",
+    "sectionCoOrganizing": "Mitorganisator",
+    "btnBrowseEvents": "Events entdecken"
   },
   "/feedback": {
     "pageTitle": "Feedback",

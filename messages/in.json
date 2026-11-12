@@ -71,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "खाता सेटिंग्स",
+    "pageDescription": "अपनी प्रोफ़ाइल, मैप पिन, जॉब्स और अकाउंट प्रबंधित करें।",
     "profilePictureAddPicture": "तस्वीर जोड़ें",
     "profilePictureNoFileChosen": "कोई फ़ाइल नहीं चुनी गई",
     "btnSave": "सहेजें",
@@ -186,7 +187,11 @@
     "toastProfileUpdated": "प्रोफ़ाइल अपडेट हुई।",
     "toastProfileLoadFailed": "सेशन स्टोरेज से उपयोगकर्ता जानकारी लोड नहीं हो सकी।",
     "toastStripeAccount": "Stripe खाता बन गया।",
-    "toastVerificationRequested": "सत्यापन का अनुरोध हो गया।"
+    "toastVerificationRequested": "सत्यापन का अनुरोध हो गया।",
+    "btnChangePicture": "फ़ोटो बदलें",
+    "btnViewProfile": "प्रोफ़ाइल देखें",
+    "tabAccountSectionDangerZone": "डेंजर ज़ोन",
+    "tabAccountDeleteAccountHint": "अकाउंट डिलीट करना स्थायी है और इसे वापस नहीं लिया जा सकता।"
   },
   "/account/deleted": {
     "textGoodbye": "अलविदा!",
@@ -196,7 +201,11 @@
   "/account/image": {
     "pageTitle": "खाता सेटिंग्स",
     "btnUpload": "अपलोड करें",
-    "btnDelete": "हटाएं"
+    "btnDelete": "हटाएं",
+    "pageTitlePicture": "प्रोफ़ाइल फ़ोटो",
+    "pageDescription": "चौकोर फ़ोटो सबसे अच्छी लगती है। आपकी फ़ोटो प्रोफ़ाइल, मैप और इवेंट लिस्ट में दिखती है।",
+    "lblChooseImage": "फ़ोटो चुनें",
+    "hintImage": "JPG, PNG या WebP"
   },
   "/account/payments": {
     "pageTitle": "भुगतान प्रबंधित करें",
@@ -1008,11 +1017,15 @@
   },
   "/events/manage": {
     "pageTitle": "इवेंट प्रबंधित करें",
+    "pageDescription": "आपके रजिस्ट्रेशन और आपके इवेंट्स एक ही जगह।",
     "tabRegistrationsTitle": "पंजीकरण",
     "tabRegistrationsTextNoEvents": "आपने अभी तक किसी इवेंट के लिए साइन अप नहीं किया है।",
     "tabEventsHostedTitle": "मेरे इवेंट",
     "tabEventsHostedTextNoEvents": "आपने अभी तक कोई इवेंट नहीं बनाया है।",
-    "btnCreate": "इवेंट बनाएं"
+    "btnCreate": "इवेंट बनाएं",
+    "sectionHosting": "होस्टिंग",
+    "sectionCoOrganizing": "सह-आयोजक",
+    "btnBrowseEvents": "इवेंट्स देखें"
   },
   "/feedback": {
     "pageTitle": "प्रतिक्रिया",

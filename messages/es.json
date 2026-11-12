@@ -71,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "Configuración del perfil",
+    "pageDescription": "Gestiona tu perfil, tu pin en el mapa, trabajos y cuenta.",
     "profilePictureAddPicture": "Subir foto",
     "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Guardar",
@@ -186,7 +187,11 @@
     "toastProfileUpdated": "Perfil actualizado.",
     "toastProfileLoadFailed": "No se pudo cargar la información desde el almacenamiento de sesión.",
     "toastStripeAccount": "Cuenta de Stripe creada.",
-    "toastVerificationRequested": "Solicitud de verificación enviada."
+    "toastVerificationRequested": "Solicitud de verificación enviada.",
+    "btnChangePicture": "Cambiar foto",
+    "btnViewProfile": "Ver perfil",
+    "tabAccountSectionDangerZone": "Zona de peligro",
+    "tabAccountDeleteAccountHint": "Eliminar tu cuenta es permanente y no se puede deshacer."
   },
   "/account/deleted": {
     "textGoodbye": "¡Cuídese!",
@@ -196,7 +201,11 @@
   "/account/image": {
     "pageTitle": "Configuración del perfil",
     "btnUpload": "Cargar",
-    "btnDelete": "Eliminar"
+    "btnDelete": "Eliminar",
+    "pageTitlePicture": "Foto de perfil",
+    "pageDescription": "Las imágenes cuadradas se ven mejor. Tu foto aparece en tu perfil, el mapa y las listas de eventos.",
+    "lblChooseImage": "Elegir una imagen",
+    "hintImage": "JPG, PNG o WebP"
   },
   "/donate": {
     "pageTitle": "Donar",
@@ -983,11 +992,15 @@
   },
   "/events/manage": {
     "pageTitle": "Gestionar eventos",
+    "pageDescription": "Tus inscripciones y los eventos que organizas, en un solo lugar.",
     "tabRegistrationsTitle": "Inscripciones",
     "tabRegistrationsTextNoEvents": "Aún no te has inscrito en ningún evento.",
     "tabEventsHostedTitle": "Mis eventos",
     "tabEventsHostedTextNoEvents": "Aún no has creado ningún evento.",
-    "btnCreate": "Crear evento"
+    "btnCreate": "Crear evento",
+    "sectionHosting": "Organizador",
+    "sectionCoOrganizing": "Coorganizador",
+    "btnBrowseEvents": "Ver eventos"
   },
   "/feedback": {
     "pageTitle": "Comentarios",

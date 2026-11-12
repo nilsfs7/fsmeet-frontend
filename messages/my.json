@@ -71,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "Tetapan Akaun",
+    "pageDescription": "Urus profil, pin peta, kerja dan akaun anda.",
     "profilePictureAddPicture": "Tambah gambar",
     "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Simpan",
@@ -186,7 +187,11 @@
     "toastProfileUpdated": "Profil dikemas kini.",
     "toastProfileLoadFailed": "Gagal memuatkan maklumat pengguna daripada storan sesi.",
     "toastStripeAccount": "Akaun Stripe dijana.",
-    "toastVerificationRequested": "Permintaan pengesahan berjaya."
+    "toastVerificationRequested": "Permintaan pengesahan berjaya.",
+    "btnChangePicture": "Tukar gambar",
+    "btnViewProfile": "Lihat profil",
+    "tabAccountSectionDangerZone": "Zon bahaya",
+    "tabAccountDeleteAccountHint": "Pemadaman akaun adalah kekal dan tidak boleh dibuat asal."
   },
   "/account/deleted": {
     "textGoodbye": "Selamat tinggal!",
@@ -196,7 +201,11 @@
   "/account/image": {
     "pageTitle": "Tetapan Akaun",
     "btnUpload": "Muat naik",
-    "btnDelete": "Padam"
+    "btnDelete": "Padam",
+    "pageTitlePicture": "Gambar profil",
+    "pageDescription": "Imej segi empat sama kelihatan terbaik. Gambar anda dipaparkan pada profil, peta dan senarai acara.",
+    "lblChooseImage": "Pilih imej",
+    "hintImage": "JPG, PNG atau WebP"
   },
   "/account/payments": {
     "pageTitle": "Urus Pembayaran",
@@ -1008,11 +1017,15 @@
   },
   "/events/manage": {
     "pageTitle": "Urus Acara",
+    "pageDescription": "Pendaftaran anda dan acara yang anda anjurkan di satu tempat.",
     "tabRegistrationsTitle": "Pendaftaran",
     "tabRegistrationsTextNoEvents": "Anda belum mendaftar untuk mana-mana acara lagi.",
     "tabEventsHostedTitle": "Acara Saya",
     "tabEventsHostedTextNoEvents": "Anda belum mencipta sebarang acara lagi.",
-    "btnCreate": "Cipta Acara"
+    "btnCreate": "Cipta Acara",
+    "sectionHosting": "Penganjur",
+    "sectionCoOrganizing": "Penganjur bersama",
+    "btnBrowseEvents": "Lihat acara"
   },
   "/feedback": {
     "pageTitle": "Maklum balas",

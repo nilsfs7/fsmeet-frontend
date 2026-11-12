@@ -71,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "Account Settings",
+    "pageDescription": "Manage your profile, map pin, jobs and account.",
     "profilePictureAddPicture": "Add picture",
     "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Save",
@@ -186,7 +187,11 @@
     "toastProfileUpdated": "Profile updated.",
     "toastProfileLoadFailed": "Failed loading user info from session storage.",
     "toastStripeAccount": "Stripe account generated.",
-    "toastVerificationRequested": "Requesting verification successful."
+    "toastVerificationRequested": "Requesting verification successful.",
+    "btnChangePicture": "Change picture",
+    "btnViewProfile": "View profile",
+    "tabAccountSectionDangerZone": "Danger zone",
+    "tabAccountDeleteAccountHint": "Deleting your account is permanent and cannot be undone."
   },
   "/account/deleted": {
     "textGoodbye": "Goodbye!",
@@ -196,7 +201,11 @@
   "/account/image": {
     "pageTitle": "Account Settings",
     "btnUpload": "Upload",
-    "btnDelete": "Delete"
+    "btnDelete": "Delete",
+    "pageTitlePicture": "Profile picture",
+    "pageDescription": "Square images look best. Your picture is shown on your profile, the map and in event lists.",
+    "lblChooseImage": "Choose an image",
+    "hintImage": "JPG, PNG or WebP"
   },
   "/account/payments": {
     "pageTitle": "Manage Payments",
@@ -1008,11 +1017,15 @@
   },
   "/events/manage": {
     "pageTitle": "Manage Events",
+    "pageDescription": "Your registrations and the events you host in one place.",
     "tabRegistrationsTitle": "Registrations",
     "tabRegistrationsTextNoEvents": "You have not signed up for any event, yet.",
     "tabEventsHostedTitle": "My Events",
     "tabEventsHostedTextNoEvents": "You have not created any events, yet.",
-    "btnCreate": "Create Event"
+    "btnCreate": "Create Event",
+    "sectionHosting": "Hosting",
+    "sectionCoOrganizing": "Co-organizing",
+    "btnBrowseEvents": "Browse events"
   },
   "/feedback": {
     "pageTitle": "Feedback",

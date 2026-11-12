@@ -71,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "إعدادات الحساب",
+    "pageDescription": "أدر ملفك الشخصي ودبوس الخريطة والوظائف وحسابك.",
     "profilePictureAddPicture": "إضافة صورة",
     "profilePictureNoFileChosen": "لم يتم اختيار ملف",
     "btnSave": "حفظ",
@@ -186,7 +187,11 @@
     "toastProfileUpdated": "تم تحديث الملف الشخصي.",
     "toastProfileLoadFailed": "تعذر تحميل بيانات المستخدم من تخزين الجلسة.",
     "toastStripeAccount": "تم إنشاء حساب Stripe.",
-    "toastVerificationRequested": "تم طلب التحقق."
+    "toastVerificationRequested": "تم طلب التحقق.",
+    "btnChangePicture": "تغيير الصورة",
+    "btnViewProfile": "عرض الملف الشخصي",
+    "tabAccountSectionDangerZone": "منطقة الخطر",
+    "tabAccountDeleteAccountHint": "حذف حسابك نهائي ولا يمكن التراجع عنه."
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",
@@ -196,7 +201,11 @@
   "/account/image": {
     "pageTitle": "إعدادات الحساب",
     "btnUpload": "رفع",
-    "btnDelete": "حذف"
+    "btnDelete": "حذف",
+    "pageTitlePicture": "صورة الملف الشخصي",
+    "pageDescription": "الصور المربعة تبدو أفضل. تظهر صورتك في ملفك الشخصي والخريطة وقوائم الفعاليات.",
+    "lblChooseImage": "اختر صورة",
+    "hintImage": "JPG أو PNG أو WebP"
   },
   "/account/payments": {
     "pageTitle": "إدارة المدفوعات",
@@ -1008,11 +1017,15 @@
   },
   "/events/manage": {
     "pageTitle": "إدارة الفعاليات",
+    "pageDescription": "تسجيلاتك والفعاليات التي تنظمها في مكان واحد.",
     "tabRegistrationsTitle": "التسجيلات",
     "tabRegistrationsTextNoEvents": "لم تسجل في أي فعالية بعد.",
     "tabEventsHostedTitle": "فعالياتي",
     "tabEventsHostedTextNoEvents": "لم تقم بإنشاء أي فعالية بعد.",
-    "btnCreate": "إنشاء فعالية"
+    "btnCreate": "إنشاء فعالية",
+    "sectionHosting": "المنظِّم",
+    "sectionCoOrganizing": "منظِّم مشارك",
+    "btnBrowseEvents": "تصفح الفعاليات"
   },
   "/feedback": {
     "pageTitle": "الملاحظات",
