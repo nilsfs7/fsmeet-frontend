@@ -1157,17 +1157,32 @@
     "cbCountry": "البلد",
     "inputEmail": "البريد الإلكتروني",
     "inputPassword": "كلمة المرور",
-    "btnSignUp": "إنشاء حساب"
+    "btnSignUp": "إنشاء حساب",
+    "sectionProfile": "الملف الشخصي",
+    "sectionAccount": "بيانات الدخول",
+    "hintUsername": "بأحرف صغيرة ومن دون مسافات. يظهر في رابط ملفك العام.",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "textHaveAccount": "لديك حساب بالفعل؟",
+    "lnkSignIn": "تسجيل الدخول"
   },
   "/registration/confirm": {
     "registrationSuccess": "تم التسجيل بنجاح",
     "registrationFailure": "حدث خطأ ما",
-    "btnProceed": "متابعة"
+    "btnProceed": "متابعة",
+    "successText": "تم تأكيد حسابك. يمكنك الآن تسجيل الدخول.",
+    "failureText": "رابط التأكيد غير صالح أو منتهي الصلاحية، أو أن الحساب مؤكد بالفعل. جرّب تسجيل الدخول.",
+    "btnBackHome": "العودة إلى الرئيسية"
   },
   "/registration/pending": {
     "registrationPendingText1": "تم إرسال رابط التأكيد إلى",
     "registrationPendingText2": "قد يستغرق وصول البريد بعض الوقت. تحقق أيضاً من البريد العشوائي إن لم يصلك شيء.",
-    "btnBackHome": "العودة إلى الرئيسية"
+    "btnBackHome": "العودة إلى الرئيسية",
+    "titleCheckInbox": "تحقق من بريدك الوارد",
+    "step1": "افتح الرسالة الواردة من FSMeet.",
+    "step2": "انقر على رابط التأكيد.",
+    "step3": "سجّل الدخول بحسابك الجديد.",
+    "btnGoToLogin": "الانتقال إلى تسجيل الدخول"
   },
   "/users": {
     "pageTitle": "المجتمع",

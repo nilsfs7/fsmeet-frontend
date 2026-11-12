@@ -1157,17 +1157,32 @@
     "cbCountry": "Country",
     "inputEmail": "E-Mail",
     "inputPassword": "Password",
-    "btnSignUp": "Sign Up"
+    "btnSignUp": "Sign Up",
+    "sectionProfile": "Profile",
+    "sectionAccount": "Login details",
+    "hintUsername": "Lowercase, without spaces. It appears in your public profile link.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "textHaveAccount": "Already have an account?",
+    "lnkSignIn": "Sign in"
   },
   "/registration/confirm": {
     "registrationSuccess": "Registration successful",
     "registrationFailure": "Something went wrong",
-    "btnProceed": "Proceed"
+    "btnProceed": "Proceed",
+    "successText": "Your account is confirmed. You can now sign in.",
+    "failureText": "The confirmation link is invalid or has expired, or the account is already confirmed. Try signing in.",
+    "btnBackHome": "Back home"
   },
   "/registration/pending": {
     "registrationPendingText1": "A confirmation link was sent to",
     "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
-    "btnBackHome": "Back home"
+    "btnBackHome": "Back home",
+    "titleCheckInbox": "Check your inbox",
+    "step1": "Open the email from FSMeet.",
+    "step2": "Click the confirmation link.",
+    "step3": "Sign in with your new account.",
+    "btnGoToLogin": "Go to login"
   },
   "/users": {
     "pageTitle": "Community",

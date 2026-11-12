@@ -1157,17 +1157,32 @@
     "cbCountry": "Negara",
     "inputEmail": "E-mel",
     "inputPassword": "Kata laluan",
-    "btnSignUp": "Daftar"
+    "btnSignUp": "Daftar",
+    "sectionProfile": "Profil",
+    "sectionAccount": "Butiran log masuk",
+    "hintUsername": "Huruf kecil, tanpa ruang. Ia dipaparkan dalam pautan profil awam anda.",
+    "showPassword": "Tunjukkan kata laluan",
+    "hidePassword": "Sembunyikan kata laluan",
+    "textHaveAccount": "Sudah mempunyai akaun?",
+    "lnkSignIn": "Log masuk"
   },
   "/registration/confirm": {
     "registrationSuccess": "Pendaftaran berjaya",
     "registrationFailure": "Ada masalah berlaku",
-    "btnProceed": "Teruskan"
+    "btnProceed": "Teruskan",
+    "successText": "Akaun anda telah disahkan. Anda kini boleh log masuk.",
+    "failureText": "Pautan pengesahan tidak sah atau telah tamat tempoh, atau akaun telah disahkan. Cuba log masuk.",
+    "btnBackHome": "Kembali ke laman utama"
   },
   "/registration/pending": {
     "registrationPendingText1": "Pautan pengesahan telah dihantar kepada",
     "registrationPendingText2": "Ia mungkin mengambil sedikit masa untuk e-mel anda sampai. Juga semak spam jika anda tidak menerimanya.",
-    "btnBackHome": "Kembali ke laman utama"
+    "btnBackHome": "Kembali ke laman utama",
+    "titleCheckInbox": "Semak peti masuk anda",
+    "step1": "Buka e-mel daripada FSMeet.",
+    "step2": "Klik pautan pengesahan.",
+    "step3": "Log masuk dengan akaun baharu anda.",
+    "btnGoToLogin": "Pergi ke log masuk"
   },
   "/users": {
     "pageTitle": "Komuniti",

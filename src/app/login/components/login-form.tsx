@@ -11,6 +11,7 @@ import TextInput from '../../../components/common/text-input';
 import { Toaster, toast } from 'sonner';
 import { getSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
+import { withCallbackUrl } from '@/functions/with-callback-url';
 
 export const LoginForm = () => {
   const t = useTranslations('/login');
@@ -100,12 +101,7 @@ export const LoginForm = () => {
         />
 
         <div className="w-full min-w-0 pt-2">
-          <Button
-            type="button"
-            variant="action"
-            className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}
-            onClick={handleLoginClicked}
-          >
+          <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')} onClick={handleLoginClicked}>
             {t('btnLogin')}
           </Button>
         </div>
@@ -114,7 +110,7 @@ export const LoginForm = () => {
           <Link href={`${routePasswordForgot}`} className="min-w-0 shrink text-sm text-muted-foreground no-underline hover:text-foreground hover:underline">
             {t('lnkResetPassword')}
           </Link>
-          <Link href={`${routeRegistration}`} className="min-w-0 shrink text-right text-sm font-semibold text-brand-strong no-underline hover:underline">
+          <Link href={withCallbackUrl(routeRegistration, callbackUrl)} className="min-w-0 shrink text-right text-sm font-semibold text-brand-strong no-underline hover:underline">
             {t('lnkNewAccount')}
           </Link>
         </div>

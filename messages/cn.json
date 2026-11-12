@@ -1157,17 +1157,32 @@
     "cbCountry": "国家",
     "inputEmail": "邮箱",
     "inputPassword": "密码",
-    "btnSignUp": "注册"
+    "btnSignUp": "注册",
+    "sectionProfile": "个人资料",
+    "sectionAccount": "登录信息",
+    "hintUsername": "小写且不含空格，将显示在你的公开主页链接中。",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
+    "textHaveAccount": "已有账号？",
+    "lnkSignIn": "登录"
   },
   "/registration/confirm": {
     "registrationSuccess": "注册成功",
     "registrationFailure": "出现问题",
-    "btnProceed": "继续"
+    "btnProceed": "继续",
+    "successText": "你的账号已确认，现在可以登录了。",
+    "failureText": "确认链接无效或已过期，或账号已确认。请尝试登录。",
+    "btnBackHome": "返回首页"
   },
   "/registration/pending": {
     "registrationPendingText1": "确认链接已发送至",
     "registrationPendingText2": "邮件送达可能需要一些时间。如果没有收到，也请检查垃圾邮件。",
-    "btnBackHome": "返回首页"
+    "btnBackHome": "返回首页",
+    "titleCheckInbox": "请查收邮件",
+    "step1": "打开来自 FSMeet 的邮件。",
+    "step2": "点击确认链接。",
+    "step3": "使用新账号登录。",
+    "btnGoToLogin": "前往登录"
   },
   "/users": {
     "pageTitle": "社区",

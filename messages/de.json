@@ -1132,17 +1132,32 @@
     "cbCountry": "Land",
     "inputEmail": "E-Mail",
     "inputPassword": "Passwort",
-    "btnSignUp": "Registrieren"
+    "btnSignUp": "Registrieren",
+    "sectionProfile": "Profil",
+    "sectionAccount": "Zugangsdaten",
+    "hintUsername": "Kleinbuchstaben, ohne Leerzeichen. Er erscheint im Link zu deinem öffentlichen Profil.",
+    "showPassword": "Passwort anzeigen",
+    "hidePassword": "Passwort verbergen",
+    "textHaveAccount": "Du hast schon ein Konto?",
+    "lnkSignIn": "Anmelden"
   },
   "/registration/confirm": {
     "registrationSuccess": "Registrierung erfolgreich",
     "registrationFailure": "Etwas ist schief gelaufen",
-    "btnProceed": "Fortfahren"
+    "btnProceed": "Fortfahren",
+    "successText": "Dein Konto ist bestätigt. Du kannst dich jetzt anmelden.",
+    "failureText": "Der Bestätigungslink ist ungültig oder abgelaufen, oder das Konto ist bereits bestätigt. Versuche dich anzumelden.",
+    "btnBackHome": "Zur Startseite"
   },
   "/registration/pending": {
     "registrationPendingText1": "Ein Bestätigungslink wurde an folgende Adresse gesendet:",
     "registrationPendingText2": "Es könnte eine Weile dauern, bis die Mail versendet wird. Prüfe auch deinen Spam, solltest du nichts erhalten.",
-    "btnBackHome": "Zur Homepage"
+    "btnBackHome": "Zur Homepage",
+    "titleCheckInbox": "Schau in dein Postfach",
+    "step1": "Öffne die E-Mail von FSMeet.",
+    "step2": "Klicke auf den Bestätigungslink.",
+    "step3": "Melde dich mit deinem neuen Konto an.",
+    "btnGoToLogin": "Zur Anmeldung"
   },
   "/users": {
     "pageTitle": "Freestyle Szene",

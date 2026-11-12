@@ -1157,17 +1157,32 @@
     "cbCountry": "国",
     "inputEmail": "メール",
     "inputPassword": "パスワード",
-    "btnSignUp": "登録"
+    "btnSignUp": "登録",
+    "sectionProfile": "プロフィール",
+    "sectionAccount": "ログイン情報",
+    "hintUsername": "小文字・スペースなし。公開プロフィールのリンクに表示されます。",
+    "showPassword": "パスワードを表示",
+    "hidePassword": "パスワードを隠す",
+    "textHaveAccount": "すでにアカウントをお持ちですか？",
+    "lnkSignIn": "ログイン"
   },
   "/registration/confirm": {
     "registrationSuccess": "登録が完了しました",
     "registrationFailure": "問題が発生しました",
-    "btnProceed": "続行"
+    "btnProceed": "続行",
+    "successText": "アカウントが確認されました。ログインできます。",
+    "failureText": "確認リンクが無効か期限切れ、またはアカウントはすでに確認済みです。ログインをお試しください。",
+    "btnBackHome": "ホームに戻る"
   },
   "/registration/pending": {
     "registrationPendingText1": "確認リンクを次の宛先に送信しました：",
     "registrationPendingText2": "届くまで時間がかかる場合があります。届かない場合は迷惑メールも確認してください。",
-    "btnBackHome": "ホームに戻る"
+    "btnBackHome": "ホームに戻る",
+    "titleCheckInbox": "メールを確認してください",
+    "step1": "FSMeet からのメールを開きます。",
+    "step2": "確認リンクをクリックします。",
+    "step3": "新しいアカウントでログインします。",
+    "btnGoToLogin": "ログインへ"
   },
   "/users": {
     "pageTitle": "コミュニティ",

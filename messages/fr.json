@@ -1132,17 +1132,32 @@
     "cbCountry": "Pays",
     "inputEmail": "E-mail",
     "inputPassword": "Mot de passe",
-    "btnSignUp": "S'inscrire"
+    "btnSignUp": "S'inscrire",
+    "sectionProfile": "Profil",
+    "sectionAccount": "Identifiants",
+    "hintUsername": "En minuscules, sans espaces. Il apparaît dans le lien de ton profil public.",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "textHaveAccount": "Tu as déjà un compte ?",
+    "lnkSignIn": "Se connecter"
   },
   "/registration/confirm": {
     "registrationSuccess": "Inscription réussie",
     "registrationFailure": "Une erreur est survenue",
-    "btnProceed": "Continuer"
+    "btnProceed": "Continuer",
+    "successText": "Ton compte est confirmé. Tu peux maintenant te connecter.",
+    "failureText": "Le lien de confirmation est invalide ou a expiré, ou le compte est déjà confirmé. Essaie de te connecter.",
+    "btnBackHome": "Retour à l’accueil"
   },
   "/registration/pending": {
     "registrationPendingText1": "Un lien de confirmation a été envoyé à",
     "registrationPendingText2": "Cela peut prendre un certain temps avant que votre e-mail ne soit envoyé. Vérifiez également votre dossier spam si vous n'avez rien reçu.",
-    "btnBackHome": "Retour à l'accueil"
+    "btnBackHome": "Retour à l'accueil",
+    "titleCheckInbox": "Vérifie ta boîte mail",
+    "step1": "Ouvre l’e-mail de FSMeet.",
+    "step2": "Clique sur le lien de confirmation.",
+    "step3": "Connecte-toi avec ton nouveau compte.",
+    "btnGoToLogin": "Aller à la connexion"
   },
   "/users": {
     "pageTitle": "Communauté",

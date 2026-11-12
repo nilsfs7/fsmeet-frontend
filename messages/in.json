@@ -1157,17 +1157,32 @@
     "cbCountry": "देश",
     "inputEmail": "ईमेल",
     "inputPassword": "पासवर्ड",
-    "btnSignUp": "साइन अप"
+    "btnSignUp": "साइन अप",
+    "sectionProfile": "प्रोफ़ाइल",
+    "sectionAccount": "लॉगिन विवरण",
+    "hintUsername": "छोटे अक्षरों में, बिना स्पेस के। यह आपकी सार्वजनिक प्रोफ़ाइल के लिंक में दिखता है।",
+    "showPassword": "पासवर्ड दिखाएं",
+    "hidePassword": "पासवर्ड छिपाएं",
+    "textHaveAccount": "पहले से खाता है?",
+    "lnkSignIn": "साइन इन करें"
   },
   "/registration/confirm": {
     "registrationSuccess": "रजिस्ट्रेशन सफल",
     "registrationFailure": "कुछ गलत हो गया",
-    "btnProceed": "आगे बढ़ें"
+    "btnProceed": "आगे बढ़ें",
+    "successText": "आपका खाता पुष्टि हो गया है। अब आप साइन इन कर सकते हैं।",
+    "failureText": "पुष्टि लिंक अमान्य है या समाप्त हो गया है, या खाता पहले से पुष्टि है। साइन इन करके देखें।",
+    "btnBackHome": "होम पर वापस जाएं"
   },
   "/registration/pending": {
     "registrationPendingText1": "एक पुष्टि लिंक भेजा गया है",
     "registrationPendingText2": "मेल आने में थोड़ा समय लग सकता है। अगर नहीं मिला तो स्पैम भी चेक करें।",
-    "btnBackHome": "होम पर वापस"
+    "btnBackHome": "होम पर वापस",
+    "titleCheckInbox": "अपना इनबॉक्स देखें",
+    "step1": "FSMeet का ईमेल खोलें।",
+    "step2": "पुष्टि लिंक पर क्लिक करें।",
+    "step3": "अपने नए खाते से साइन इन करें।",
+    "btnGoToLogin": "लॉगिन पर जाएं"
   },
   "/users": {
     "pageTitle": "कम्युनिटी",

@@ -1132,17 +1132,32 @@
     "cbCountry": "País",
     "inputEmail": "correo electrónico",
     "inputPassword": "contraseña",
-    "btnSignUp": "Registrarse"
+    "btnSignUp": "Registrarse",
+    "sectionProfile": "Perfil",
+    "sectionAccount": "Datos de acceso",
+    "hintUsername": "En minúsculas y sin espacios. Aparece en el enlace de tu perfil público.",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "textHaveAccount": "¿Ya tienes una cuenta?",
+    "lnkSignIn": "Iniciar sesión"
   },
   "/registration/confirm": {
     "registrationSuccess": "Registro efectuado con éxito",
     "registrationFailure": "Algo ha ido mal",
-    "btnProceed": "Continuar"
+    "btnProceed": "Continuar",
+    "successText": "Tu cuenta está confirmada. Ya puedes iniciar sesión.",
+    "failureText": "El enlace de confirmación no es válido o ha caducado, o la cuenta ya está confirmada. Prueba a iniciar sesión.",
+    "btnBackHome": "Volver al inicio"
   },
   "/registration/pending": {
     "registrationPendingText1": "Se ha enviado un enlace de confirmación a la siguiente dirección:",
     "registrationPendingText2": "El correo puede tardar un poco en llegar. Comprueba también tu correo no deseado si no has recibido nada.",
-    "btnBackHome": "A la página de inicio"
+    "btnBackHome": "A la página de inicio",
+    "titleCheckInbox": "Revisa tu correo",
+    "step1": "Abre el correo de FSMeet.",
+    "step2": "Haz clic en el enlace de confirmación.",
+    "step3": "Inicia sesión con tu nueva cuenta.",
+    "btnGoToLogin": "Ir al inicio de sesión"
   },
   "/users": {
     "pageTitle": "Escena del Freestyle",
