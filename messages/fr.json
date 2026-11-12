@@ -694,7 +694,7 @@
     "btnSubmit": "Soumettre"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "Événement introuvable.",
+    "textNotFound": "Événement introuvable",
     "btnBackToEvents": "Retour à l'aperçu",
     "textNotFoundHint": "Le lien est peut-être obsolète, ou l’événement a été supprimé ou n’est pas public.",
     "btnBackHome": "Retour à l’accueil"
@@ -1278,7 +1278,9 @@
     "lblChooseFile": "Choisir un fichier",
     "lblReplaceFile": "Remplacer le fichier",
     "hintDropFile": "Clique ou dépose un fichier ici",
-    "sectionAvailability": "Disponibilité"
+    "sectionAvailability": "Disponibilité",
+    "lblUploadedFile": "Document importé",
+    "lnkOpenFile": "Ouvrir"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Type",

@@ -59,7 +59,7 @@ export default function ResetPassword() {
   };
 
   const requestNewLink = (
-    <Button asChild variant="outline" className="h-11 w-full min-w-0 rounded-xl">
+    <Button asChild variant="outline" className="h-11 w-full min-w-0 rounded-xl text-base font-semibold">
       <Link href={routePasswordForgot}>{t('btnRequestNewLink')}</Link>
     </Button>
   );

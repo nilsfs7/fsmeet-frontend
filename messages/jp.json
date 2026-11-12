@@ -719,7 +719,7 @@
     "btnSubmit": "送信"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "イベントが見つかりませんでした。",
+    "textNotFound": "イベントが見つかりませんでした",
     "btnBackToEvents": "概要に戻る",
     "textNotFoundHint": "リンクが古いか、イベントが削除されたか非公開の可能性があります。",
     "btnBackHome": "ホームに戻る"
@@ -1303,7 +1303,9 @@
     "lblChooseFile": "ファイルを選択",
     "lblReplaceFile": "ファイルを差し替え",
     "hintDropFile": "クリックまたはここにファイルをドロップ",
-    "sectionAvailability": "公開設定"
+    "sectionAvailability": "公開設定",
+    "lblUploadedFile": "アップロード済みのドキュメント",
+    "lnkOpenFile": "開く"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "種類",

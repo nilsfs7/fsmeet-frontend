@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import CheckBox from '../common/check-box';
 import { DatePicker } from '../common/date-picker';
 import moment, { type Moment } from 'moment';
-import { getFilenameFromUrl, truncateString } from '@/functions/string-manipulation';
+import { getFilenameFromUrl } from '@/functions/string-manipulation';
 import { cn } from '@/lib/utils';
 import { FileDropzone } from '../common/file-dropzone';
 import { IconFileUpload, IconLink, IconPaperclip } from '@tabler/icons-react';
@@ -140,9 +140,12 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentFileUpda
               <div className="flex min-w-0 items-center gap-2 rounded-xl border border-border bg-muted/40 px-3 py-2 text-sm">
                 <IconPaperclip className="h-4 w-4 shrink-0 text-muted-foreground" stroke={1.75} aria-hidden />
                 <span className="text-muted-foreground">{t('lblCurrentFile')}</span>
-                <span className="min-w-0 truncate font-medium text-foreground" title={getFilenameFromUrl(attachment.url)}>
-                  {truncateString(getFilenameFromUrl(attachment.url), 3, 7)}
+                <span className="min-w-0 flex-1 truncate font-medium text-foreground" title={getFilenameFromUrl(attachment.url)}>
+                  {/\.[a-z0-9]{2,5}$/i.test(getFilenameFromUrl(attachment.url)) ? getFilenameFromUrl(attachment.url) : t('lblUploadedFile')}
                 </span>
+                <a href={attachment.url} target="_blank" rel="noopener noreferrer" className="shrink-0 text-xs font-semibold text-brand-strong no-underline hover:underline">
+                  {t('lnkOpenFile')}
+                </a>
               </div>
             )}
             <FileDropzone

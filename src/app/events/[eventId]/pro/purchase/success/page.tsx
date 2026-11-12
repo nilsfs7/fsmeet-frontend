@@ -16,7 +16,7 @@ export default async function EventProLicensePurchaseSuccess(props: { params: Pr
         <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}>
           <Link href={`${routeEvents}/${params.eventId}`}>{t('btnEvent')}</Link>
         </Button>
-        <Button asChild variant="outline" className="h-11 w-full min-w-0 rounded-xl">
+        <Button asChild variant="outline" className="h-11 w-full min-w-0 rounded-xl text-base font-semibold">
           <Link href={`${routeEvents}/${params.eventId}/pro`}>{t('btnProInfo')}</Link>
         </Button>
       </StatusCard>

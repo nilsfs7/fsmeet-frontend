@@ -719,7 +719,7 @@
     "btnSubmit": "提交"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "未找到活动。",
+    "textNotFound": "未找到活动",
     "btnBackToEvents": "返回概览",
     "textNotFoundHint": "链接可能已过期，或活动已被删除或未公开。",
     "btnBackHome": "返回首页"
@@ -1303,7 +1303,9 @@
     "lblChooseFile": "选择文件",
     "lblReplaceFile": "替换文件",
     "hintDropFile": "点击或将文件拖到此处",
-    "sectionAvailability": "可用性"
+    "sectionAvailability": "可用性",
+    "lblUploadedFile": "已上传的文档",
+    "lnkOpenFile": "打开"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "类型",

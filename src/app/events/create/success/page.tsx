@@ -39,7 +39,7 @@ export default async function EventCreateSuccessPage(props: { searchParams: Prom
         <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}>
           <Link href={`${routeEvents}/${eventId}/edit`}>{t('pageSuccessBtnEditEvent')}</Link>
         </Button>
-        <Button asChild variant="outline" className="h-11 w-full min-w-0 rounded-xl">
+        <Button asChild variant="outline" className="h-11 w-full min-w-0 rounded-xl text-base font-semibold">
           <Link href={`${routeEvents}/${eventId}`}>{t('pageSuccessBtnShowEvent')}</Link>
         </Button>
       </AuthCard>

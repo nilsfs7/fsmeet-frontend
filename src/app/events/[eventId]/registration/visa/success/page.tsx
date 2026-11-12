@@ -16,7 +16,7 @@ export default async function ThankYou(props: { params: Promise<{ eventId: strin
         <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}>
           <Link href={`${routeEvents}/${params.eventId}/registration`}>{t('btnBack')}</Link>
         </Button>
-        <Button asChild variant="outline" className="h-11 w-full min-w-0 rounded-xl">
+        <Button asChild variant="outline" className="h-11 w-full min-w-0 rounded-xl text-base font-semibold">
           <Link href={`${routeEvents}/${params.eventId}`}>{t('btnEvent')}</Link>
         </Button>
       </StatusCard>

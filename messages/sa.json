@@ -719,7 +719,7 @@
     "btnSubmit": "إرسال"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "لم يتم العثور على الفعالية.",
+    "textNotFound": "لم يتم العثور على الفعالية",
     "btnBackToEvents": "العودة إلى النظرة العامة",
     "textNotFoundHint": "قد يكون الرابط قديمًا، أو أن الفعالية حُذفت أو ليست عامة.",
     "btnBackHome": "العودة إلى الرئيسية"
@@ -1303,7 +1303,9 @@
     "lblChooseFile": "اختر ملفًا",
     "lblReplaceFile": "استبدال الملف",
     "hintDropFile": "انقر أو أسقط ملفًا هنا",
-    "sectionAvailability": "الإتاحة"
+    "sectionAvailability": "الإتاحة",
+    "lblUploadedFile": "مستند مرفوع",
+    "lnkOpenFile": "فتح"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "النوع",

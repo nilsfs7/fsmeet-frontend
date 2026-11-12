@@ -694,7 +694,7 @@
     "btnSubmit": "Senden"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "Event nicht gefunden.",
+    "textNotFound": "Event nicht gefunden",
     "btnBackToEvents": "Zur Übersicht",
     "textNotFoundHint": "Der Link ist evtl. veraltet, oder das Event wurde entfernt bzw. ist nicht öffentlich.",
     "btnBackHome": "Zur Startseite"
@@ -1278,7 +1278,9 @@
     "lblChooseFile": "Datei auswählen",
     "lblReplaceFile": "Datei ersetzen",
     "hintDropFile": "Klicken oder Datei hierher ziehen",
-    "sectionAvailability": "Verfügbarkeit"
+    "sectionAvailability": "Verfügbarkeit",
+    "lblUploadedFile": "Hochgeladenes Dokument",
+    "lnkOpenFile": "Öffnen"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Art",

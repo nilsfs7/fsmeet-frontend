@@ -719,7 +719,7 @@
     "btnSubmit": "Submit"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "Event not found.",
+    "textNotFound": "Event not found",
     "btnBackToEvents": "Back To Overview",
     "textNotFoundHint": "The link may be outdated, or the event was removed or is not public.",
     "btnBackHome": "Back home"
@@ -1303,7 +1303,9 @@
     "lblChooseFile": "Choose a file",
     "lblReplaceFile": "Replace file",
     "hintDropFile": "Click or drop a file here",
-    "sectionAvailability": "Availability"
+    "sectionAvailability": "Availability",
+    "lblUploadedFile": "Uploaded document",
+    "lnkOpenFile": "Open"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Type",

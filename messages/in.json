@@ -719,7 +719,7 @@
     "btnSubmit": "सबमिट करें"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "इवेंट नहीं मिला।",
+    "textNotFound": "इवेंट नहीं मिला",
     "btnBackToEvents": "सारांश पर वापस जाएं",
     "textNotFoundHint": "लिंक पुराना हो सकता है, या इवेंट हटा दिया गया है या सार्वजनिक नहीं है।",
     "btnBackHome": "होम पर वापस जाएं"
@@ -1303,7 +1303,9 @@
     "lblChooseFile": "फ़ाइल चुनें",
     "lblReplaceFile": "फ़ाइल बदलें",
     "hintDropFile": "क्लिक करें या फ़ाइल यहाँ छोड़ें",
-    "sectionAvailability": "उपलब्धता"
+    "sectionAvailability": "उपलब्धता",
+    "lblUploadedFile": "अपलोड किया गया दस्तावेज़",
+    "lnkOpenFile": "खोलें"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "प्रकार",

@@ -694,7 +694,7 @@
     "btnSubmit": "Enviar"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "Evento no encontrado.",
+    "textNotFound": "Evento no encontrado",
     "btnBackToEvents": "A la visión general",
     "textNotFoundHint": "Puede que el enlace esté desactualizado o que el evento se haya eliminado o no sea público.",
     "btnBackHome": "Volver al inicio"
@@ -1278,7 +1278,9 @@
     "lblChooseFile": "Elegir un archivo",
     "lblReplaceFile": "Reemplazar archivo",
     "hintDropFile": "Haz clic o suelta un archivo aquí",
-    "sectionAvailability": "Disponibilidad"
+    "sectionAvailability": "Disponibilidad",
+    "lblUploadedFile": "Documento subido",
+    "lnkOpenFile": "Abrir"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Tipo",

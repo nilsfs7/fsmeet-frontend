@@ -719,7 +719,7 @@
     "btnSubmit": "Hantar"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "Acara tidak ditemui.",
+    "textNotFound": "Acara tidak ditemui",
     "btnBackToEvents": "Kembali Ke Gambaran Keseluruhan",
     "textNotFoundHint": "Pautan mungkin sudah lapuk, atau acara telah dipadam atau tidak awam.",
     "btnBackHome": "Kembali ke laman utama"
@@ -1303,7 +1303,9 @@
     "lblChooseFile": "Pilih fail",
     "lblReplaceFile": "Ganti fail",
     "hintDropFile": "Klik atau lepaskan fail di sini",
-    "sectionAvailability": "Ketersediaan"
+    "sectionAvailability": "Ketersediaan",
+    "lblUploadedFile": "Dokumen dimuat naik",
+    "lnkOpenFile": "Buka"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Jenis",

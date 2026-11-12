@@ -109,7 +109,7 @@ export const RegistrationForm = ({ callbackUrl }: IRegistrationForm) => {
       <Toaster richColors />
 
       <form
-        className="flex min-w-0 flex-1 flex-col gap-6"
+        className="flex min-w-0 flex-1 flex-col gap-6 lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8 lg:gap-y-6"
         noValidate
         onSubmit={e => {
           // Submitting is handled by the button and Enter in the password field (unchanged behaviour).
@@ -230,7 +230,7 @@ export const RegistrationForm = ({ callbackUrl }: IRegistrationForm) => {
           </div>
         </FormSection>
 
-        <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')} onClick={handleCreateClicked} disabled={submitting}>
+        <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0 lg:col-span-2 lg:mx-auto lg:max-w-sm')} onClick={handleCreateClicked} disabled={submitting}>
           {t('btnSignUp')}
         </Button>
       </form>
