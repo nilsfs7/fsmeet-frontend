@@ -1564,7 +1564,9 @@
     "search": "Cari ...",
     "select": "Pilih",
     "noData": "Tiada data dijumpai.",
-    "appNav": "Apl"
+    "appNav": "Apl",
+    "time": "Masa",
+    "clearTime": "Kosongkan masa"
   },
   "global/components/app-header": {
     "navHome": "Laman Utama",

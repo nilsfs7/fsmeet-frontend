@@ -1539,7 +1539,9 @@
     "search": "Suchen ...",
     "select": "Auswählen",
     "noData": "Keine Daten gefunden.",
-    "appNav": "App"
+    "appNav": "App",
+    "time": "Uhrzeit",
+    "clearTime": "Uhrzeit entfernen"
   },
   "/account/payments": {
     "pageTitle": "Zahlungen verwalten",

@@ -1564,7 +1564,9 @@
     "search": "खोजें ...",
     "select": "चुनें",
     "noData": "कोई डेटा नहीं मिला।",
-    "appNav": "ऐप"
+    "appNav": "ऐप",
+    "time": "समय",
+    "clearTime": "समय हटाएं"
   },
   "global/components/app-header": {
     "navHome": "होम",

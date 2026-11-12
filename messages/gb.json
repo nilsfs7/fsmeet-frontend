@@ -1564,7 +1564,9 @@
     "search": "Search ...",
     "select": "Select",
     "noData": "No data found.",
-    "appNav": "App"
+    "appNav": "App",
+    "time": "Time",
+    "clearTime": "Clear time"
   },
   "global/components/app-header": {
     "navHome": "Home",

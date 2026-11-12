@@ -1564,7 +1564,9 @@
     "search": "بحث ...",
     "select": "اختيار",
     "noData": "لم يُعثر على بيانات.",
-    "appNav": "التطبيق"
+    "appNav": "التطبيق",
+    "time": "الوقت",
+    "clearTime": "مسح الوقت"
   },
   "global/components/app-header": {
     "navHome": "الرئيسية",

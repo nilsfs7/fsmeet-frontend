@@ -27,7 +27,16 @@ const DialogOverlay = React.forwardRef<React.ElementRef<typeof DialogPrimitive.O
 ));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Content>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>>(({ className, children, ...props }, ref) => {
+/**
+ * @radix-ui/react-dialog ships its own copy of the dismissable-layer / focus-scope packages, so popovers, selects
+ * and menus opened from inside a dialog are not recognised as nested layers. Without this guard the dialog treats
+ * every interaction with them as "outside" (blocking pointer events and closing).
+ */
+const isInsideFloatingLayer = (target: EventTarget | null): boolean =>
+  target instanceof Element && !!target.closest('[data-radix-popper-content-wrapper], [role="listbox"], [role="menu"]');
+
+const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Content>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>>(
+  ({ className, children, onPointerDownOutside, onInteractOutside, onFocusOutside, ...props }, ref) => {
   const t = useTranslations('global/ui');
   return (
   <DialogPortal>
@@ -38,6 +47,18 @@ const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.C
         'fixed left-[50%] top-[50%] z-[200] grid w-[calc(100%-2rem-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px))] max-h-[calc(100dvh-2rem-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px))] max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 overflow-y-auto rounded-lg border border-zinc-200 bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] dark:border-zinc-800 dark:bg-zinc-950',
         className,
       )}
+      onPointerDownOutside={event => {
+        if (isInsideFloatingLayer(event.target)) event.preventDefault();
+        onPointerDownOutside?.(event);
+      }}
+      onInteractOutside={event => {
+        if (isInsideFloatingLayer(event.target)) event.preventDefault();
+        onInteractOutside?.(event);
+      }}
+      onFocusOutside={event => {
+        if (isInsideFloatingLayer(event.target)) event.preventDefault();
+        onFocusOutside?.(event);
+      }}
       {...props}
     >
       {children}
@@ -48,7 +69,8 @@ const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.C
     </DialogPrimitive.Content>
   </DialogPortal>
   );
-});
+  },
+);
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn('flex flex-col space-y-1.5 text-center sm:text-left', className)} {...props} />;

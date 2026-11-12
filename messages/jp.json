@@ -1564,7 +1564,9 @@
     "search": "検索...",
     "select": "選択",
     "noData": "データがありません。",
-    "appNav": "アプリ"
+    "appNav": "アプリ",
+    "time": "時刻",
+    "clearTime": "時刻をクリア"
   },
   "global/components/app-header": {
     "navHome": "ホーム",

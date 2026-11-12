@@ -1539,7 +1539,9 @@
     "search": "Buscar ...",
     "select": "Seleccionar",
     "noData": "No se encontraron datos.",
-    "appNav": "App"
+    "appNav": "App",
+    "time": "Hora",
+    "clearTime": "Borrar hora"
   },
   "/account/payments": {
     "pageTitle": "Gestionar pagos",

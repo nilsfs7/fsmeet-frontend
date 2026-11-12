@@ -1,13 +1,9 @@
 'use client';
 
 import * as React from 'react';
-import { Clock } from 'lucide-react';
+import { IconClock, IconX } from '@tabler/icons-react';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import ActionButton from './action-button';
-import { Action } from '../../domain/enums/action';
 
 /**
  * Parses a value that may be ISO string, "HH:mm", or other date string
@@ -42,102 +38,50 @@ export interface TimePickerProps {
   id?: string;
 }
 
+/**
+ * Native time input (keyboard + mobile wheel friendly). It deliberately avoids a popover: popovers opened
+ * from inside our Radix dialogs lose focus to the dialog's focus trap, which made typing a time impossible.
+ * Emits "HH:mm" or null, like the previous implementation.
+ */
 export function TimePicker({ value, onChange, className, disabled, id }: TimePickerProps) {
+  const t = useTranslations('global/ui');
   const parsed = parseTimeValue(value ?? null);
-  const [open, setOpen] = React.useState(false);
-  const [hours, setHours] = React.useState(parsed?.hours ?? 0);
-  const [minutes, setMinutes] = React.useState(parsed?.minutes ?? 0);
-
-  // Sync internal state when value prop changes (e.g. when opening with existing value)
-  React.useEffect(() => {
-    const p = parseTimeValue(value ?? null);
-    if (p) {
-      setHours(p.hours);
-      setMinutes(p.minutes);
-    }
-  }, [value, open]);
-
-  const handleHoursChanged = (value: string) => {
-    const v = parseInt(value, 10);
-    setHours(v);
-    onChange?.(formatTime(v, minutes));
-  };
-
-  const handleMinutesChanged = (value: string) => {
-    const v = parseInt(value, 10);
-    setMinutes(v);
-    onChange?.(formatTime(hours, v));
-  };
-
-  const handleClearTimeClicked = () => {
-    onChange?.(null);
-    setOpen(false);
-  };
-
-  const handleSaveTimeClicked = () => {
-    onChange?.(formatTime(hours, minutes));
-    setOpen(false);
-  };
-
-  const hourOptions = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'));
-  const minuteOptions = Array.from({ length: 60 }, (_, i) => String(i).padStart(2, '0'));
-
-  const displayLabel = parsed ? formatTime(hours, minutes) : 'Pick time';
+  const inputValue = parsed ? formatTime(parsed.hours, parsed.minutes) : '';
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          id={id}
+    <div
+      className={cn(
+        'relative flex h-10 w-full min-w-[120px] items-center rounded-lg border border-input bg-background shadow-xs focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/20',
+        disabled && 'opacity-50',
+        className,
+      )}
+    >
+      <IconClock className="pointer-events-none absolute left-3 h-4 w-4 text-muted-foreground" stroke={1.75} aria-hidden />
+      <input
+        id={id}
+        type="time"
+        step={60}
+        value={inputValue}
+        disabled={disabled}
+        aria-label={t('time')}
+        onChange={e => {
+          const v = e.currentTarget.value;
+          const p = parseTimeValue(v);
+          onChange?.(p ? formatTime(p.hours, p.minutes) : null);
+        }}
+        className="h-full w-full min-w-0 rounded-lg bg-transparent pl-9 pr-9 text-sm text-foreground outline-hidden [&::-webkit-calendar-picker-indicator]:hidden"
+      />
+      {parsed && !disabled && (
+        <button
           type="button"
-          variant="outline"
-          disabled={disabled}
-          className={cn(
-            'min-w-[100px] justify-start text-left font-normal border-input bg-background text-foreground shadow-xs hover:border-neutral-400 hover:bg-background',
-            !parsed && 'text-muted-foreground',
-            className,
-          )}
+          onClick={() => onChange?.(null)}
+          className="absolute right-1.5 flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          aria-label={t('clearTime')}
+          title={t('clearTime')}
         >
-          <Clock className="mr-2 h-4 w-4" />
-          {displayLabel}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-3 border-border bg-background text-foreground" align="start" onOpenAutoFocus={e => e.preventDefault()}>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <Select value={String(hours).padStart(2, '0')} onValueChange={handleHoursChanged}>
-              <SelectTrigger id="time-picker-hours" className="w-16 h-9 border-input bg-background text-foreground focus:ring-brand/30 focus:ring-offset-0">
-                <SelectValue placeholder="HH" />
-              </SelectTrigger>
-              <SelectContent className="border-border bg-background text-foreground max-h-48">
-                {hourOptions.map(h => (
-                  <SelectItem key={h} value={h} className="focus:bg-secondary focus:text-primary">
-                    {h}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <span className="text-primary font-medium">:</span>
-            <Select value={String(minutes).padStart(2, '0')} onValueChange={handleMinutesChanged}>
-              <SelectTrigger id="time-picker-minutes" className="w-16 h-9 border-input bg-background text-foreground focus:ring-brand/30 focus:ring-offset-0">
-                <SelectValue placeholder="mm" />
-              </SelectTrigger>
-              <SelectContent className="border-border bg-background text-foreground max-h-48">
-                {minuteOptions.map(m => (
-                  <SelectItem key={m} value={m} className="focus:bg-secondary focus:text-primary">
-                    {m}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex justify-between">
-            <ActionButton action={Action.DELETE} disabled={!parsed} onClick={handleClearTimeClicked} />
-            <ActionButton action={Action.SAVE} onClick={handleSaveTimeClicked} />
-          </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+          <IconX className="h-4 w-4" stroke={1.75} aria-hidden />
+        </button>
+      )}
+    </div>
   );
 }

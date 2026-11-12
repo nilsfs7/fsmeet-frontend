@@ -1564,7 +1564,9 @@
     "search": "搜索...",
     "select": "选择",
     "noData": "未找到数据。",
-    "appNav": "应用"
+    "appNav": "应用",
+    "time": "时间",
+    "clearTime": "清除时间"
   },
   "global/components/app-header": {
     "navHome": "首页",
