@@ -848,7 +848,11 @@
     "tooltipViewStats": "View statistics",
     "textNoAds": "No ads yet.",
     "tableColDescription": "Description",
-    "tableColActions": "Actions"
+    "tableColActions": "Actions",
+    "pageDescription": "Promote your products and services across FSMeet.",
+    "chipActive": "Active",
+    "chipInactive": "Inactive",
+    "lblOrder": "Order {order}"
   },
   "/ads/create": {
     "pageTitle": "Create Ad",
@@ -1033,25 +1037,31 @@
     "pageDescription": "Pick a category below to share your thoughts with us.",
     "pageGeneralFeedback": "General Feedback",
     "btnFeatures": "Request Feature",
-    "btnBugs": "Report Bug"
+    "btnBugs": "Report Bug",
+    "descGeneral": "Tell us what you like or what could be better.",
+    "descFeatures": "Suggest a new feature or an improvement.",
+    "descBugs": "Something broken? Let us know what happened."
   },
   "/feedback/bugs": {
     "pageTitle": "Report Bug",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Describe any misbehavior you noticed.",
-    "btnSubmit": "Submit"
+    "btnSubmit": "Submit",
+    "pageDescription": "Describe what you did, what you expected and what happened instead."
   },
   "/feedback/features": {
     "pageTitle": "Feature Request",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Do you have an idea or improvement for us?",
-    "btnSubmit": "Submit"
+    "btnSubmit": "Submit",
+    "pageDescription": "Share your idea – the more detail, the better."
   },
   "/feedback/general": {
     "pageTitle": "Send Feedback",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Any feedback is highly appreciated!",
-    "btnSubmit": "Submit"
+    "btnSubmit": "Submit",
+    "pageDescription": "Tell us what you like or what could be better."
   },
   "/feedback/thankyou": {
     "thankYouText1": "Thank you!",
@@ -1215,7 +1225,9 @@
     "tooltipTargetUrl": "Link to your website or product.",
     "inputDisplayOrder": "Display order",
     "tooltipDisplayOrder": "Order in which ads are shown when having multiple. 0 is shown first.",
-    "chbEnabled": "Active"
+    "chbEnabled": "Active",
+    "lblImage": "Image",
+    "lblChooseImage": "Choose an image"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Description",

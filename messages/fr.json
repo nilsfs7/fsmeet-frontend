@@ -823,7 +823,11 @@
     "tooltipViewStats": "Voir les statistiques",
     "textNoAds": "Aucune annonce pour le moment.",
     "tableColDescription": "Description",
-    "tableColActions": "Actions"
+    "tableColActions": "Actions",
+    "pageDescription": "Fais la promotion de tes produits et services sur FSMeet.",
+    "chipActive": "Active",
+    "chipInactive": "Inactive",
+    "lblOrder": "Ordre {order}"
   },
   "/ads/create": {
     "pageTitle": "Créer une annonce",
@@ -1008,25 +1012,31 @@
     "pageDescription": "Choisis une catégorie ci-dessous pour nous envoyer ton retour.",
     "pageGeneralFeedback": "Retour d'expérience général",
     "btnFeatures": "Proposer une fonctionnalité",
-    "btnBugs": "Signaler un bug"
+    "btnBugs": "Signaler un bug",
+    "descGeneral": "Dis-nous ce que tu aimes ou ce qui pourrait être amélioré.",
+    "descFeatures": "Propose une nouvelle fonctionnalité ou une amélioration.",
+    "descBugs": "Quelque chose ne marche pas ? Dis-nous ce qui s'est passé."
   },
   "/feedback/bugs": {
     "pageTitle": "Signaler un bug",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Décrivez le mieux possible tout dysfonctionnement que vous avez remarqué.",
-    "btnSubmit": "Soumettre"
+    "btnSubmit": "Soumettre",
+    "pageDescription": "Décris ce que tu as fait, ce que tu attendais et ce qui s'est passé à la place."
   },
   "/feedback/features": {
     "pageTitle": "Proposer une fonctionnalité",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Avez-vous une idée ou une amélioration à nous suggérer ?",
-    "btnSubmit": "Soumettre"
+    "btnSubmit": "Soumettre",
+    "pageDescription": "Partage ton idée – plus il y a de détails, mieux c’est."
   },
   "/feedback/general": {
     "pageTitle": "Envoyer un retour d'expérience",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Tout retour d'expérience est grandement apprécié !",
-    "btnSubmit": "Soumettre"
+    "btnSubmit": "Soumettre",
+    "pageDescription": "Dis-nous ce que tu aimes ou ce qui pourrait être amélioré."
   },
   "/feedback/thankyou": {
     "thankYouText1": "Merci !",
@@ -1190,7 +1200,9 @@
     "tooltipTargetUrl": "Lien vers votre site web ou produit.",
     "inputDisplayOrder": "Ordre d'affichage",
     "tooltipDisplayOrder": "Ordre d'affichage des annonces lorsqu'il y en a plusieurs. 0 est affiché en premier.",
-    "chbEnabled": "Actif"
+    "chbEnabled": "Actif",
+    "lblImage": "Image",
+    "lblChooseImage": "Choisir une image"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Description",

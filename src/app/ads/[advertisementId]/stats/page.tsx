@@ -1,3 +1,4 @@
+import { IconClick, IconPointer } from '@tabler/icons-react';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
 import { routeAds } from '@/domain/constants/routes';
@@ -6,14 +7,11 @@ import PageTitle from '@/components/page-title';
 import { getTranslations } from 'next-intl/server';
 import { getAdvertisement, getAdvertisementActivity } from '@/infrastructure/clients/advertisement.client';
 import { auth } from '@/auth';
-import { cn } from '@/lib/utils';
 import { Platform } from '@/domain/enums/platform';
 import moment from 'moment';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ChartLine } from '@/components/charts/chart-line';
 import { ActivityTable, type ActivityTableRow, type DisplayPlatform } from './components/activity-table';
-
-const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
 
 function toDisplayPlatform(platform: Platform): DisplayPlatform {
   return platform === Platform.WEB ? 'web' : 'mobile';
@@ -67,34 +65,44 @@ export default async function AdvertisementStatsPage(props: { params: Promise<{ 
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <div className={constrainedContentClass}>
-        <PageTitle title={advertisementTitle ? t('pageTitleWithAd', { title: advertisementTitle }) : t('pageTitle')} />
-      </div>
+      <PageTitle title={advertisementTitle ? t('pageTitleWithAd', { title: advertisementTitle }) : t('pageTitle')} />
 
-      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto scrollbar-none', constrainedContentClass)}>
-        {loadError ? (
-          <Alert variant="destructive" className="max-w-lg">
-            <AlertTitle>{tGlobal('errorTitle')}</AlertTitle>
-            <AlertDescription>{t('toastLoadFailed')}</AlertDescription>
-          </Alert>
-        ) : (
-          <div className="flex flex-col gap-4 text-sm">
-            <div className="grid gap-2 sm:grid-cols-2">
-              <div className="rounded-lg border border-border/60 bg-secondary-light/85 p-4 dark:bg-background/60">
-                <p className="text-2xs font-medium uppercase tracking-wide text-muted-foreground sm:text-xs">{t('summaryTotalClicks')}</p>
-                <p className="mt-1 text-2xl font-semibold tabular-nums text-foreground">{totalClicks}</p>
+      <div className="min-h-0 flex-1 overflow-y-auto scrollbar-none px-4 pb-6 sm:px-6 md:px-8">
+        <div className="mx-auto w-full max-w-4xl">
+          {loadError ? (
+            <Alert variant="destructive" className="max-w-lg">
+              <AlertTitle>{tGlobal('errorTitle')}</AlertTitle>
+              <AlertDescription>{t('toastLoadFailed')}</AlertDescription>
+            </Alert>
+          ) : (
+            <div className="flex flex-col gap-5 text-sm">
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="flex items-center gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-strong">
+                    <IconClick className="h-5 w-5" stroke={1.75} aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('summaryTotalClicks')}</p>
+                    <p className="text-2xl font-bold tabular-nums text-foreground">{totalClicks}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">
+                    <IconPointer className="h-5 w-5" stroke={1.75} aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('summaryTotalHovers')}</p>
+                    <p className="text-2xl font-bold tabular-nums text-foreground">{totalHovers}</p>
+                  </div>
+                </div>
               </div>
-              <div className="rounded-lg border border-border/60 bg-secondary-light/85 p-4 dark:bg-background/60">
-                <p className="text-2xs font-medium uppercase tracking-wide text-muted-foreground sm:text-xs">{t('summaryTotalHovers')}</p>
-                <p className="mt-1 text-2xl font-semibold tabular-nums text-foreground">{totalHovers}</p>
-              </div>
+
+              {chartData.length > 0 && <ChartLine data={chartData} labels={[t('tableColClicks'), t('tableColHovers')]} title={t('chartActivityTitle')} description={t('chartActivityDescription')} />}
+
+              <ActivityTable rows={activityRows} />
             </div>
-
-            {chartData.length > 0 && <ChartLine data={chartData} labels={[t('tableColClicks'), t('tableColHovers')]} title={t('chartActivityTitle')} description={t('chartActivityDescription')} />}
-
-            <ActivityTable rows={activityRows} />
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       <Navigation>

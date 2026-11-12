@@ -823,7 +823,11 @@
     "tooltipViewStats": "Ver estadísticas",
     "textNoAds": "Aún no hay anuncios.",
     "tableColDescription": "Descripción",
-    "tableColActions": "Acciones"
+    "tableColActions": "Acciones",
+    "pageDescription": "Promociona tus productos y servicios en FSMeet.",
+    "chipActive": "Activo",
+    "chipInactive": "Inactivo",
+    "lblOrder": "Orden {order}"
   },
   "/ads/create": {
     "pageTitle": "Crear anuncio",
@@ -1008,25 +1012,31 @@
     "pageDescription": "Elige una categoría para enviarnos tus comentarios.",
     "pageGeneralFeedback": "Feedback",
     "btnFeatures": "Solicitud de funcionesn",
-    "btnBugs": "Informar de un error"
+    "btnBugs": "Informar de un error",
+    "descGeneral": "Cuéntanos qué te gusta o qué podría mejorar.",
+    "descFeatures": "Sugiere una nueva función o una mejora.",
+    "descBugs": "¿Algo no funciona? Cuéntanos qué pasó."
   },
   "/feedback/bugs": {
     "pageTitle": "Informar de un error",
     "inputMessage": "Mensaje",
     "inputMessagePlaceholder": "Describa un error que haya descubierto.",
-    "btnSubmit": "Enviar"
+    "btnSubmit": "Enviar",
+    "pageDescription": "Describe qué hiciste, qué esperabas y qué ocurrió en su lugar."
   },
   "/feedback/features": {
     "pageTitle": "Solicitud de funciones",
     "inputMessage": "Mensaje",
     "inputMessagePlaceholder": "¿Tienes nuevas ideas o mejoras para nosotros?",
-    "btnSubmit": "Enviar"
+    "btnSubmit": "Enviar",
+    "pageDescription": "Comparte tu idea: cuantos más detalles, mejor."
   },
   "/feedback/general": {
     "pageTitle": "Enviar comentarios",
     "inputMessage": "Mensaje",
     "inputMessagePlaceholder": "Esperamos tus comentarios.",
-    "btnSubmit": "Enviar"
+    "btnSubmit": "Enviar",
+    "pageDescription": "Cuéntanos qué te gusta o qué podría mejorar."
   },
   "/feedback/thankyou": {
     "thankYouText1": "¡Muchas gracias!",
@@ -1190,7 +1200,9 @@
     "tooltipTargetUrl": "Enlace a tu sitio web o producto.",
     "inputDisplayOrder": "Orden de visualización",
     "tooltipDisplayOrder": "Orden en que se muestran los anuncios si hay varios. El 0 se muestra primero.",
-    "chbEnabled": "Activo"
+    "chbEnabled": "Activo",
+    "lblImage": "Imagen",
+    "lblChooseImage": "Elegir una imagen"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Descripción",

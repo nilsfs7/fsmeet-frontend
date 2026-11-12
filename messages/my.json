@@ -848,7 +848,11 @@
     "tooltipViewStats": "Lihat statistik",
     "textNoAds": "Belum ada iklan.",
     "tableColDescription": "Penerangan",
-    "tableColActions": "Tindakan"
+    "tableColActions": "Tindakan",
+    "pageDescription": "Promosikan produk dan perkhidmatan anda di FSMeet.",
+    "chipActive": "Aktif",
+    "chipInactive": "Tidak aktif",
+    "lblOrder": "Susunan {order}"
   },
   "/ads/create": {
     "pageTitle": "Cipta Iklan",
@@ -1033,25 +1037,31 @@
     "pageDescription": "Pilih kategori di bawah untuk menghantar maklum balas anda.",
     "pageGeneralFeedback": "Maklum Balas Umum",
     "btnFeatures": "Cadangan Ciri",
-    "btnBugs": "Lapor Pepijat"
+    "btnBugs": "Lapor Pepijat",
+    "descGeneral": "Beritahu kami apa yang anda suka atau apa yang boleh diperbaiki.",
+    "descFeatures": "Cadangkan ciri baharu atau penambahbaikan.",
+    "descBugs": "Ada yang rosak? Beritahu kami apa yang berlaku."
   },
   "/feedback/bugs": {
     "pageTitle": "Lapor Pepijat",
     "inputMessage": "Mesej",
     "inputMessagePlaceholder": "Terangkan sebarang salah laku yang anda perasan.",
-    "btnSubmit": "Hantar"
+    "btnSubmit": "Hantar",
+    "pageDescription": "Terangkan apa yang anda lakukan, apa yang dijangka dan apa yang berlaku."
   },
   "/feedback/features": {
     "pageTitle": "Permintaan Ciri",
     "inputMessage": "Mesej",
     "inputMessagePlaceholder": "Ada idea atau penambahbaikan untuk kami?",
-    "btnSubmit": "Hantar"
+    "btnSubmit": "Hantar",
+    "pageDescription": "Kongsi idea anda – lebih terperinci lebih baik."
   },
   "/feedback/general": {
     "pageTitle": "Hantar Maklum Balas",
     "inputMessage": "Mesej",
     "inputMessagePlaceholder": "Sebarang maklum balas amat dihargai!",
-    "btnSubmit": "Hantar"
+    "btnSubmit": "Hantar",
+    "pageDescription": "Beritahu kami apa yang anda suka atau apa yang boleh diperbaiki."
   },
   "/feedback/thankyou": {
     "thankYouText1": "Terima kasih!",
@@ -1215,7 +1225,9 @@
     "tooltipTargetUrl": "Pautan ke laman web atau produk anda.",
     "inputDisplayOrder": "Susunan paparan",
     "tooltipDisplayOrder": "Urutan iklan dipaparkan apabila ada lebih daripada satu. 0 dipaparkan dahulu.",
-    "chbEnabled": "Aktif"
+    "chbEnabled": "Aktif",
+    "lblImage": "Imej",
+    "lblChooseImage": "Pilih imej"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Penerangan",

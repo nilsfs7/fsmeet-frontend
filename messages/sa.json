@@ -848,7 +848,11 @@
     "tooltipViewStats": "عرض الإحصائيات",
     "textNoAds": "لا توجد إعلانات بعد.",
     "tableColDescription": "الوصف",
-    "tableColActions": "الإجراءات"
+    "tableColActions": "الإجراءات",
+    "pageDescription": "روّج لمنتجاتك وخدماتك على FSMeet.",
+    "chipActive": "نشط",
+    "chipInactive": "غير نشط",
+    "lblOrder": "الترتيب {order}"
   },
   "/ads/create": {
     "pageTitle": "إنشاء إعلان",
@@ -1033,25 +1037,31 @@
     "pageDescription": "اختر أدناه نوع الملاحظات التي تريد إرسالها.",
     "pageGeneralFeedback": "ملاحظات عامة",
     "btnFeatures": "طلب ميزة",
-    "btnBugs": "الإبلاغ عن خلل"
+    "btnBugs": "الإبلاغ عن خلل",
+    "descGeneral": "أخبرنا بما يعجبك أو بما يمكن تحسينه.",
+    "descFeatures": "اقترح ميزة جديدة أو تحسينًا.",
+    "descBugs": "هل هناك خلل؟ أخبرنا بما حدث."
   },
   "/feedback/bugs": {
     "pageTitle": "الإبلاغ عن خلل",
     "inputMessage": "رسالة",
     "inputMessagePlaceholder": "صف أي سلوك غير صحيح لاحظته.",
-    "btnSubmit": "إرسال"
+    "btnSubmit": "إرسال",
+    "pageDescription": "صف ما فعلته وما توقعته وما حدث بدلاً من ذلك."
   },
   "/feedback/features": {
     "pageTitle": "طلب ميزة",
     "inputMessage": "رسالة",
     "inputMessagePlaceholder": "هل لديك فكرة أو تحسين لنا؟",
-    "btnSubmit": "إرسال"
+    "btnSubmit": "إرسال",
+    "pageDescription": "شارك فكرتك – كلما زادت التفاصيل كان أفضل."
   },
   "/feedback/general": {
     "pageTitle": "إرسال ملاحظات",
     "inputMessage": "رسالة",
     "inputMessagePlaceholder": "أي ملاحظات محل تقدير كبير!",
-    "btnSubmit": "إرسال"
+    "btnSubmit": "إرسال",
+    "pageDescription": "أخبرنا بما يعجبك أو بما يمكن تحسينه."
   },
   "/feedback/thankyou": {
     "thankYouText1": "شكراً لك!",
@@ -1215,7 +1225,9 @@
     "tooltipTargetUrl": "رابط إلى موقعك أو منتجك.",
     "inputDisplayOrder": "ترتيب العرض",
     "tooltipDisplayOrder": "ترتيب ظهور الإعلانات عند وجود أكثر من واحد. يُعرض 0 أولاً.",
-    "chbEnabled": "مفعّل"
+    "chbEnabled": "مفعّل",
+    "lblImage": "الصورة",
+    "lblChooseImage": "اختر صورة"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "الوصف",

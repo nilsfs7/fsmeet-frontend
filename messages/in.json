@@ -848,7 +848,11 @@
     "tooltipViewStats": "आँकड़े देखें",
     "textNoAds": "अभी तक कोई विज्ञापन नहीं।",
     "tableColDescription": "विवरण",
-    "tableColActions": "कार्रवाइयाँ"
+    "tableColActions": "कार्रवाइयाँ",
+    "pageDescription": "FSMeet पर अपने प्रोडक्ट और सेवाओं का प्रचार करें।",
+    "chipActive": "सक्रिय",
+    "chipInactive": "निष्क्रिय",
+    "lblOrder": "क्रम {order}"
   },
   "/ads/create": {
     "pageTitle": "विज्ञापन बनाएं",
@@ -1033,25 +1037,31 @@
     "pageDescription": "नीचे एक विकल्प चुनकर हमें अपनी प्रतिक्रिया भेजें।",
     "pageGeneralFeedback": "सामान्य फीडबैक",
     "btnFeatures": "फीचर अनुरोध",
-    "btnBugs": "बग रिपोर्ट करें"
+    "btnBugs": "बग रिपोर्ट करें",
+    "descGeneral": "हमें बताएं कि आपको क्या पसंद है या क्या बेहतर हो सकता है।",
+    "descFeatures": "कोई नया फ़ीचर या सुधार सुझाएं।",
+    "descBugs": "कुछ खराब है? हमें बताएं क्या हुआ।"
   },
   "/feedback/bugs": {
     "pageTitle": "बग रिपोर्ट करें",
     "inputMessage": "संदेश",
     "inputMessagePlaceholder": "आपने जो भी समस्या देखी उसका विवरण दें।",
-    "btnSubmit": "सबमिट करें"
+    "btnSubmit": "सबमिट करें",
+    "pageDescription": "बताएं आपने क्या किया, क्या उम्मीद थी और इसके बजाय क्या हुआ।"
   },
   "/feedback/features": {
     "pageTitle": "फीचर अनुरोध",
     "inputMessage": "संदेश",
     "inputMessagePlaceholder": "क्या आपके पास हमारे लिए कोई आइडिया या सुधार है?",
-    "btnSubmit": "सबमिट करें"
+    "btnSubmit": "सबमिट करें",
+    "pageDescription": "अपना आइडिया शेयर करें – जितनी ज़्यादा जानकारी, उतना बेहतर।"
   },
   "/feedback/general": {
     "pageTitle": "फीडबैक भेजें",
     "inputMessage": "संदेश",
     "inputMessagePlaceholder": "किसी भी फीडबैक की बहुत सराहना की जाती है!",
-    "btnSubmit": "सबमिट करें"
+    "btnSubmit": "सबमिट करें",
+    "pageDescription": "हमें बताएं कि आपको क्या पसंद है या क्या बेहतर हो सकता है।"
   },
   "/feedback/thankyou": {
     "thankYouText1": "धन्यवाद!",
@@ -1215,7 +1225,9 @@
     "tooltipTargetUrl": "आपकी वेबसाइट या उत्पाद का लिंक।",
     "inputDisplayOrder": "प्रदर्शन क्रम",
     "tooltipDisplayOrder": "एक से अधिक विज्ञापन होने पर किस क्रम में दिखेंगे। 0 सबसे पहले दिखता है।",
-    "chbEnabled": "सक्रिय"
+    "chbEnabled": "सक्रिय",
+    "lblImage": "इमेज",
+    "lblChooseImage": "इमेज चुनें"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "विवरण",

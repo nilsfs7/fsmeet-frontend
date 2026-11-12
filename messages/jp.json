@@ -848,7 +848,11 @@
     "tooltipViewStats": "統計を表示",
     "textNoAds": "広告はまだありません。",
     "tableColDescription": "説明",
-    "tableColActions": "操作"
+    "tableColActions": "操作",
+    "pageDescription": "FSMeetで商品やサービスを宣伝しましょう。",
+    "chipActive": "有効",
+    "chipInactive": "無効",
+    "lblOrder": "表示順 {order}"
   },
   "/ads/create": {
     "pageTitle": "広告を作成",
@@ -1033,25 +1037,31 @@
     "pageDescription": "下の種類を選んで、フィードバックを送ってください。",
     "pageGeneralFeedback": "一般フィードバック",
     "btnFeatures": "機能リクエスト",
-    "btnBugs": "不具合報告"
+    "btnBugs": "不具合報告",
+    "descGeneral": "気に入っている点や改善点を教えてください。",
+    "descFeatures": "新機能や改善を提案してください。",
+    "descBugs": "不具合がありましたか？何が起きたか教えてください。"
   },
   "/feedback/bugs": {
     "pageTitle": "不具合を報告",
     "inputMessage": "メッセージ",
     "inputMessagePlaceholder": "気づいた不具合の内容を教えてください。",
-    "btnSubmit": "送信"
+    "btnSubmit": "送信",
+    "pageDescription": "行った操作、期待した結果、実際に起きたことを教えてください。"
   },
   "/feedback/features": {
     "pageTitle": "機能リクエスト",
     "inputMessage": "メッセージ",
     "inputMessagePlaceholder": "アイデアや改善案はありますか？",
-    "btnSubmit": "送信"
+    "btnSubmit": "送信",
+    "pageDescription": "アイデアを共有してください。詳しいほど助かります。"
   },
   "/feedback/general": {
     "pageTitle": "フィードバックを送る",
     "inputMessage": "メッセージ",
     "inputMessagePlaceholder": "どんなフィードバックでも大歓迎です！",
-    "btnSubmit": "送信"
+    "btnSubmit": "送信",
+    "pageDescription": "気に入っている点や改善点を教えてください。"
   },
   "/feedback/thankyou": {
     "thankYouText1": "ありがとうございます！",
@@ -1215,7 +1225,9 @@
     "tooltipTargetUrl": "ウェブサイトまたは商品へのリンク。",
     "inputDisplayOrder": "表示順",
     "tooltipDisplayOrder": "複数ある場合の広告の表示順です。0 が最初に表示されます。",
-    "chbEnabled": "有効"
+    "chbEnabled": "有効",
+    "lblImage": "画像",
+    "lblChooseImage": "画像を選択"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "説明",

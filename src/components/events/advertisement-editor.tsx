@@ -7,7 +7,7 @@ import { imgImagePlaceholder } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
 import CheckBox from '../common/check-box';
 import { cn } from '@/lib/utils';
-import Separator from '../separator';
+import { IconPhotoUp } from '@tabler/icons-react';
 import { Input } from '@/components/ui/input';
 import { FieldLabel } from '@/components/common/field-label';
 import TextInputLarge from '../common/text-input-large';
@@ -107,45 +107,60 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
         }}
       />
 
-      <TextInput id="advertisement-target-url" label={t('inputTargetUrl')} placeholder="https://" value={targetUrl} labelTooltip={t('tooltipTargetUrl')} onChange={e => setTargetUrl(e.currentTarget.value)} />
+      <TextInput
+        id="advertisement-target-url"
+        label={t('inputTargetUrl')}
+        placeholder="https://"
+        value={targetUrl}
+        labelTooltip={t('tooltipTargetUrl')}
+        onChange={e => setTargetUrl(e.currentTarget.value)}
+      />
 
-      <div className="grid grid-cols-2 items-start gap-x-2 gap-y-1">
-        <FieldLabel
-          id="advertisement-display-order"
-          label={t('inputDisplayOrder')}
-          tooltip={t('tooltipDisplayOrder')}
-          className="pt-2 text-sm font-medium leading-none"
-        />
-        <Input
-          className={cn('h-9 w-18 shrink-0 text-right text-sm font-medium tabular-nums', 'border-border/60 bg-background/80 shadow-sm hover:border-primary/50 dark:bg-background/50')}
-          id="advertisement-display-order"
-          aria-label={t('inputDisplayOrder')}
-          type="number"
-          placeholder="0"
-          min={0}
-          max={99}
-          value={displayOrder}
-          onChange={onDisplayOrderChange}
-        />
-      </div>
-
-      <div className="py-1">
-        <Separator />
-      </div>
-      <div className="flex min-w-0 flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
-        <div className="shrink-0">
-          <img src={previewSrc} alt="" className="h-12 w-12 rounded-lg border border-border/60 object-cover" />
+      <div className="flex flex-col gap-2">
+        <span className="text-sm font-medium leading-none">{t('lblImage')}</span>
+        <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch">
+          <img
+            src={previewSrc}
+            alt=""
+            className={cn(
+              'h-28 w-28 shrink-0 self-center rounded-2xl border border-border/60 bg-muted sm:self-auto',
+              previewSrc === imgImagePlaceholder ? 'object-contain p-7 opacity-40 dark:invert' : 'object-cover',
+            )}
+          />
+          <label
+            className={cn(
+              'flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-border px-4 py-5 text-center transition-colors',
+              'hover:border-brand/50 hover:bg-brand-soft/30 focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/30',
+            )}
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-soft text-brand-strong">
+              <IconPhotoUp className="h-5 w-5" stroke={1.75} aria-hidden />
+            </span>
+            <span className="max-w-full truncate text-sm font-semibold text-foreground">{imgPreview ? imgPreview.name : t('lblChooseImage')}</span>
+            <input type="file" accept="image/*" className="sr-only" onChange={uploadToClient} />
+          </label>
         </div>
-        <div className="min-w-0 flex-1">
-          <input
-            type="file"
-            accept="image/*"
-            className="w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground"
-            onChange={uploadToClient}
+      </div>
+
+      <div className="flex flex-col gap-3 rounded-2xl border border-border/70 bg-muted/30 p-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center justify-between gap-3 sm:justify-start">
+          <FieldLabel id="advertisement-display-order" label={t('inputDisplayOrder')} tooltip={t('tooltipDisplayOrder')} className="text-sm font-medium leading-none" />
+          <Input
+            className="h-9 w-20 shrink-0 text-right text-sm font-medium tabular-nums"
+            id="advertisement-display-order"
+            aria-label={t('inputDisplayOrder')}
+            type="number"
+            placeholder="0"
+            min={0}
+            max={99}
+            value={displayOrder}
+            onChange={onDisplayOrderChange}
           />
         </div>
+        <div className="sm:w-48">
+          <CheckBox id="advertisement-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
+        </div>
       </div>
-      <CheckBox id="advertisement-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
     </div>
   );
 };

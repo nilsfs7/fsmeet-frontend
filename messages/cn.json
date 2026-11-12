@@ -848,7 +848,11 @@
     "tooltipViewStats": "查看统计",
     "textNoAds": "暂无广告。",
     "tableColDescription": "描述",
-    "tableColActions": "操作"
+    "tableColActions": "操作",
+    "pageDescription": "在 FSMeet 上推广你的产品和服务。",
+    "chipActive": "已启用",
+    "chipInactive": "未启用",
+    "lblOrder": "顺序 {order}"
   },
   "/ads/create": {
     "pageTitle": "创建广告",
@@ -1033,25 +1037,31 @@
     "pageDescription": "请选择一项，向我们发送反馈。",
     "pageGeneralFeedback": "通用反馈",
     "btnFeatures": "功能建议",
-    "btnBugs": "报告问题"
+    "btnBugs": "报告问题",
+    "descGeneral": "告诉我们你喜欢什么，或哪些地方可以改进。",
+    "descFeatures": "建议新功能或改进。",
+    "descBugs": "有地方出错了？告诉我们发生了什么。"
   },
   "/feedback/bugs": {
     "pageTitle": "报告问题",
     "inputMessage": "留言",
     "inputMessagePlaceholder": "描述你注意到的任何异常行为。",
-    "btnSubmit": "提交"
+    "btnSubmit": "提交",
+    "pageDescription": "请描述你做了什么、预期结果以及实际发生了什么。"
   },
   "/feedback/features": {
     "pageTitle": "功能建议",
     "inputMessage": "留言",
     "inputMessagePlaceholder": "你有什么想法或改进建议吗？",
-    "btnSubmit": "提交"
+    "btnSubmit": "提交",
+    "pageDescription": "分享你的想法——越详细越好。"
   },
   "/feedback/general": {
     "pageTitle": "发送反馈",
     "inputMessage": "留言",
     "inputMessagePlaceholder": "任何反馈都非常感谢！",
-    "btnSubmit": "提交"
+    "btnSubmit": "提交",
+    "pageDescription": "告诉我们你喜欢什么，或哪些地方可以改进。"
   },
   "/feedback/thankyou": {
     "thankYouText1": "谢谢！",
@@ -1215,7 +1225,9 @@
     "tooltipTargetUrl": "指向您网站或产品的链接。",
     "inputDisplayOrder": "展示顺序",
     "tooltipDisplayOrder": "有多个广告时的展示顺序。数字越小越靠前，0 最先显示。",
-    "chbEnabled": "启用"
+    "chbEnabled": "启用",
+    "lblImage": "图片",
+    "lblChooseImage": "选择图片"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "描述",

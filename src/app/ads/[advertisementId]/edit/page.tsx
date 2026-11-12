@@ -92,7 +92,7 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
       <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title={t('pageTitle')} />
 
-        <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
+        <div className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
           {advertisement ? (
             <AdvertisementEditor
               key={advertisement.id}
