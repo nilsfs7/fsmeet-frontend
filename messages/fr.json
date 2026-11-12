@@ -555,7 +555,15 @@
     "tabInfoParticipants": "Participants",
     "tabInfoRounds": "Tours",
     "textNoScheduleTitle": "Pas encore de programme",
-    "textNoScheduleDescription": "L’organisateur n’a pas encore créé de programme pour cette compétition. Reviens plus tard."
+    "textNoScheduleDescription": "L’organisateur n’a pas encore créé de programme pour cette compétition. Reviens plus tard.",
+    "btnCopyUrlToolTip": "Copier l'URL de la compétition",
+    "btnCopyUrlToast": "URL de la compétition copiée dans le presse-papiers."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "Compétition introuvable",
+    "textNotFoundHint": "Ce lien de compétition n'est pas valide ou la compétition n'existe plus.",
+    "btnBackHome": "Retour à l’accueil",
+    "btnBackToEvents": "Retour à l'aperçu"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Gérer les groupes",
@@ -1313,6 +1321,12 @@
   "global/components/competition-editor": {
     "inputName": "Nom de la compétition",
     "inputNamePlaceHolder": "Battles Homme ou Femme",
+    "inputAlias": "Alias de la compétition",
+    "tooltipAlias": "Permet une URL de compétition plus courte et plus lisible (/e/<alias de l'événement>/c/<alias de la compétition>), plus facile à partager.",
+    "aliasHintRules": "Lettres minuscules et chiffres uniquement, 16 caractères max. Doit être unique au sein de cet événement.",
+    "aliasHintUrl": "URL courte :",
+    "aliasHintNoEventAlias": "Définissez d'abord un alias d'événement dans l'éditeur d'événement pour donner une URL courte à cette compétition.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "Type",
     "cbGender": "Genre",
     "cbMaxAge": "Âge maximum",

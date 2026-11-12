@@ -580,7 +580,15 @@
     "tabInfoParticipants": "المشاركون",
     "tabInfoRounds": "الجولات",
     "textNoScheduleTitle": "لا يوجد جدول بعد",
-    "textNoScheduleDescription": "لم يُنشئ المنظم جدولًا لهذه المسابقة بعد. عُد لاحقًا."
+    "textNoScheduleDescription": "لم يُنشئ المنظم جدولًا لهذه المسابقة بعد. عُد لاحقًا.",
+    "btnCopyUrlToolTip": "نسخ رابط المسابقة",
+    "btnCopyUrlToast": "تم نسخ رابط المسابقة إلى الحافظة."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "المسابقة غير موجودة",
+    "textNotFoundHint": "رابط المسابقة هذا غير صالح أو أن المسابقة لم تعد موجودة.",
+    "btnBackHome": "العودة إلى الرئيسية",
+    "btnBackToEvents": "العودة إلى النظرة العامة"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "إدارة قائمة اللاعبين",
@@ -1338,6 +1346,12 @@
   "global/components/competition-editor": {
     "inputName": "اسم المنافسة",
     "inputNamePlaceHolder": "نزالات الرجال",
+    "inputAlias": "الاسم المستعار للمسابقة",
+    "tooltipAlias": "يُستخدم لرابط مسابقة أقصر وأوضح (/e/<الاسم المستعار للفعالية>/c/<الاسم المستعار للمسابقة>) يسهل مشاركته.",
+    "aliasHintRules": "أحرف لاتينية صغيرة وأرقام فقط، 16 حرفًا كحد أقصى. يجب أن يكون فريدًا داخل هذه الفعالية.",
+    "aliasHintUrl": "الرابط المختصر:",
+    "aliasHintNoEventAlias": "عيّن أولاً اسمًا مستعارًا للفعالية في محرر الفعالية لمنح هذه المسابقة رابطًا مختصرًا.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "النوع",
     "cbGender": "الجنس",
     "cbMaxAge": "الحد الأقصى للعمر",

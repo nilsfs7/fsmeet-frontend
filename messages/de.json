@@ -555,7 +555,15 @@
     "tabInfoParticipants": "Teilnehmer",
     "tabInfoRounds": "Runden",
     "textNoScheduleTitle": "Noch kein Spielplan",
-    "textNoScheduleDescription": "Für diesen Wettbewerb wurde noch kein Spielplan angelegt. Schau später wieder vorbei."
+    "textNoScheduleDescription": "Für diesen Wettbewerb wurde noch kein Spielplan angelegt. Schau später wieder vorbei.",
+    "btnCopyUrlToolTip": "Wettbewerbs-URL kopieren",
+    "btnCopyUrlToast": "Wettbewerbs-URL in die Zwischenablage kopiert."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "Wettbewerb nicht gefunden",
+    "textNotFoundHint": "Dieser Wettbewerbslink ist ungültig oder der Wettbewerb existiert nicht mehr.",
+    "btnBackHome": "Zur Startseite",
+    "btnBackToEvents": "Zur Übersicht"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Teilnehmer-Pool verwalten",
@@ -1313,6 +1321,12 @@
   "global/components/competition-editor": {
     "inputName": "Wettbewerb Name",
     "inputNamePlaceHolder": "Battles Männer",
+    "inputAlias": "Wettbewerbs-Alias",
+    "tooltipAlias": "Für eine kürzere, übersichtlichere Wettbewerbs-URL (/e/<Event-Alias>/c/<Wettbewerbs-Alias>), die sich leichter teilen lässt.",
+    "aliasHintRules": "Nur Kleinbuchstaben und Ziffern, max. 16 Zeichen. Muss innerhalb dieses Events eindeutig sein.",
+    "aliasHintUrl": "Kurz-URL:",
+    "aliasHintNoEventAlias": "Lege zuerst im Event-Editor einen Event-Alias fest, um diesem Wettbewerb eine Kurz-URL zu geben.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "Art",
     "cbGender": "Geschlecht",
     "cbMaxAge": "Max. Alter",

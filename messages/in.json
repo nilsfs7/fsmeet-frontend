@@ -580,7 +580,15 @@
     "tabInfoParticipants": "प्रतिभागी",
     "tabInfoRounds": "राउंड",
     "textNoScheduleTitle": "अभी कोई शेड्यूल नहीं",
-    "textNoScheduleDescription": "आयोजक ने अभी इस प्रतियोगिता का शेड्यूल नहीं बनाया है। बाद में देखें।"
+    "textNoScheduleDescription": "आयोजक ने अभी इस प्रतियोगिता का शेड्यूल नहीं बनाया है। बाद में देखें।",
+    "btnCopyUrlToolTip": "प्रतियोगिता URL कॉपी करें",
+    "btnCopyUrlToast": "प्रतियोगिता URL क्लिपबोर्ड पर कॉपी हो गया।"
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "प्रतियोगिता नहीं मिली",
+    "textNotFoundHint": "यह प्रतियोगिता लिंक अमान्य है या प्रतियोगिता अब मौजूद नहीं है।",
+    "btnBackHome": "होम पर वापस जाएं",
+    "btnBackToEvents": "सारांश पर वापस जाएं"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "खिलाड़ी पूल प्रबंधित करें",
@@ -1338,6 +1346,12 @@
   "global/components/competition-editor": {
     "inputName": "प्रतियोगिता का नाम",
     "inputNamePlaceHolder": "पुरुष बैटल्स",
+    "inputAlias": "प्रतियोगिता उपनाम",
+    "tooltipAlias": "साझा करने में आसान, छोटे और साफ़ प्रतियोगिता URL (/e/<इवेंट उपनाम>/c/<प्रतियोगिता उपनाम>) के लिए उपयोग होता है।",
+    "aliasHintRules": "केवल छोटे अक्षर और अंक, अधिकतम 16 अक्षर। इस इवेंट में अद्वितीय होना चाहिए।",
+    "aliasHintUrl": "छोटा URL:",
+    "aliasHintNoEventAlias": "इस प्रतियोगिता को छोटा URL देने के लिए पहले इवेंट एडिटर में इवेंट उपनाम सेट करें।",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "प्रकार",
     "cbGender": "लिंग",
     "cbMaxAge": "अधिकतम आयु",

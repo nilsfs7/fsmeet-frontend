@@ -580,7 +580,15 @@
     "tabInfoParticipants": "Participants",
     "tabInfoRounds": "Rounds",
     "textNoScheduleTitle": "No schedule yet",
-    "textNoScheduleDescription": "The organizer has not created a schedule for this competition yet. Check back later."
+    "textNoScheduleDescription": "The organizer has not created a schedule for this competition yet. Check back later.",
+    "btnCopyUrlToolTip": "Copy competition URL",
+    "btnCopyUrlToast": "Competition URL copied to clipboard."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "Competition not found",
+    "textNotFoundHint": "This competition link is invalid or the competition no longer exists.",
+    "btnBackHome": "Back home",
+    "btnBackToEvents": "Back To Overview"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Manage Player Pool",
@@ -1338,6 +1346,12 @@
   "global/components/competition-editor": {
     "inputName": "Competition Name",
     "inputNamePlaceHolder": "Male Battles",
+    "inputAlias": "Competition Alias",
+    "tooltipAlias": "Used for a shorter, cleaner competition URL (/e/<event alias>/c/<competition alias>) that is easier to share.",
+    "aliasHintRules": "Lower-case letters and digits only, max. 16 characters. Must be unique within this event.",
+    "aliasHintUrl": "Short URL:",
+    "aliasHintNoEventAlias": "Set an event alias in the event editor first to give this competition a short URL.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "Type",
     "cbGender": "Gender",
     "cbMaxAge": "Max Age",

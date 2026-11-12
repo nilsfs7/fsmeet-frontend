@@ -555,7 +555,15 @@
     "tabInfoParticipants": "Participantes",
     "tabInfoRounds": "Rondas",
     "textNoScheduleTitle": "Aún no hay calendario",
-    "textNoScheduleDescription": "La organización aún no ha creado un calendario para esta competición. Vuelve más tarde."
+    "textNoScheduleDescription": "La organización aún no ha creado un calendario para esta competición. Vuelve más tarde.",
+    "btnCopyUrlToolTip": "Copiar URL de la competición",
+    "btnCopyUrlToast": "URL de la competición copiada al portapapeles."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "Competición no encontrada",
+    "textNotFoundHint": "Este enlace de competición no es válido o la competición ya no existe.",
+    "btnBackHome": "Volver al inicio",
+    "btnBackToEvents": "A la visión general"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Gestionar el grupo de participantes",
@@ -1313,6 +1321,12 @@
   "global/components/competition-editor": {
     "inputName": "Nombre de la competición",
     "inputNamePlaceHolder": "Batallas hombres",
+    "inputAlias": "Alias de la competición",
+    "tooltipAlias": "Se usa para una URL de competición más corta y clara (/e/<alias del evento>/c/<alias de la competición>), más fácil de compartir.",
+    "aliasHintRules": "Solo letras minúsculas y números, máx. 16 caracteres. Debe ser único dentro de este evento.",
+    "aliasHintUrl": "URL corta:",
+    "aliasHintNoEventAlias": "Primero define un alias del evento en el editor de eventos para dar a esta competición una URL corta.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "Tipo",
     "cbGender": "Genero",
     "cbMaxAge": "Max. Edad",

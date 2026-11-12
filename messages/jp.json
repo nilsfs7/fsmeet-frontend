@@ -580,7 +580,15 @@
     "tabInfoParticipants": "参加者",
     "tabInfoRounds": "ラウンド",
     "textNoScheduleTitle": "スケジュールはまだありません",
-    "textNoScheduleDescription": "この大会のスケジュールはまだ作成されていません。後でもう一度確認してください。"
+    "textNoScheduleDescription": "この大会のスケジュールはまだ作成されていません。後でもう一度確認してください。",
+    "btnCopyUrlToolTip": "大会URLをコピー",
+    "btnCopyUrlToast": "大会URLをクリップボードにコピーしました。"
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "大会が見つかりません",
+    "textNotFoundHint": "この大会リンクは無効か、大会が存在しません。",
+    "btnBackHome": "ホームに戻る",
+    "btnBackToEvents": "概要に戻る"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "選手一覧を管理",
@@ -1338,6 +1346,12 @@
   "global/components/competition-editor": {
     "inputName": "カテゴリ名",
     "inputNamePlaceHolder": "男子バトル",
+    "inputAlias": "大会エイリアス",
+    "tooltipAlias": "共有しやすい短く分かりやすい大会URL（/e/<イベントエイリアス>/c/<大会エイリアス>）に使用されます。",
+    "aliasHintRules": "小文字の英字と数字のみ、最大16文字。このイベント内で一意である必要があります。",
+    "aliasHintUrl": "短縮URL：",
+    "aliasHintNoEventAlias": "この大会に短縮URLを付けるには、まずイベントエディターでイベントエイリアスを設定してください。",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "種類",
     "cbGender": "性別",
     "cbMaxAge": "年齢上限",

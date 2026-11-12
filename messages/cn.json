@@ -580,7 +580,15 @@
     "tabInfoParticipants": "参赛者",
     "tabInfoRounds": "轮次",
     "textNoScheduleTitle": "尚无赛程",
-    "textNoScheduleDescription": "主办方尚未为本比赛创建赛程，请稍后再来查看。"
+    "textNoScheduleDescription": "主办方尚未为本比赛创建赛程，请稍后再来查看。",
+    "btnCopyUrlToolTip": "复制比赛网址",
+    "btnCopyUrlToast": "比赛网址已复制到剪贴板。"
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "未找到比赛",
+    "textNotFoundHint": "此比赛链接无效或比赛已不存在。",
+    "btnBackHome": "返回首页",
+    "btnBackToEvents": "返回概览"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "管理选手池",
@@ -1338,6 +1346,12 @@
   "global/components/competition-editor": {
     "inputName": "比赛名称",
     "inputNamePlaceHolder": "男子对战",
+    "inputAlias": "比赛别名",
+    "tooltipAlias": "用于更短、更清晰、便于分享的比赛网址（/e/<活动别名>/c/<比赛别名>）。",
+    "aliasHintRules": "仅限小写字母和数字，最多 16 个字符。在本活动内必须唯一。",
+    "aliasHintUrl": "短网址：",
+    "aliasHintNoEventAlias": "请先在活动编辑器中设置活动别名，才能为此比赛设置短网址。",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "类型",
     "cbGender": "性别",
     "cbMaxAge": "最大年龄",

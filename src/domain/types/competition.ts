@@ -8,6 +8,8 @@ export type Competition = {
   eventId: string | undefined;
   index: number | undefined;
   name: string;
+  /** Public alias, unique within the event. Empty/undefined when not set. */
+  alias?: string | null;
   type: CompetitionType;
   gender: CompetitionGender;
   maxAge: MaxAge;

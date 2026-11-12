@@ -580,7 +580,15 @@
     "tabInfoParticipants": "Peserta",
     "tabInfoRounds": "Pusingan",
     "textNoScheduleTitle": "Belum ada jadual",
-    "textNoScheduleDescription": "Penganjur belum membuat jadual untuk pertandingan ini. Sila semak semula nanti."
+    "textNoScheduleDescription": "Penganjur belum membuat jadual untuk pertandingan ini. Sila semak semula nanti.",
+    "btnCopyUrlToolTip": "Salin URL pertandingan",
+    "btnCopyUrlToast": "URL pertandingan disalin ke papan keratan."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "Pertandingan tidak ditemui",
+    "textNotFoundHint": "Pautan pertandingan ini tidak sah atau pertandingan tidak lagi wujud.",
+    "btnBackHome": "Kembali ke laman utama",
+    "btnBackToEvents": "Kembali Ke Gambaran Keseluruhan"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Urus Pool Pemain",
@@ -1338,6 +1346,12 @@
   "global/components/competition-editor": {
     "inputName": "Nama Pertandingan",
     "inputNamePlaceHolder": "Battle Lelaki",
+    "inputAlias": "Alias Pertandingan",
+    "tooltipAlias": "Digunakan untuk URL pertandingan yang lebih pendek dan kemas (/e/<alias acara>/c/<alias pertandingan>) yang mudah dikongsi.",
+    "aliasHintRules": "Huruf kecil dan digit sahaja, maks. 16 aksara. Mesti unik dalam acara ini.",
+    "aliasHintUrl": "URL pendek:",
+    "aliasHintNoEventAlias": "Tetapkan alias acara dalam editor acara dahulu untuk memberi pertandingan ini URL pendek.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "Jenis",
     "cbGender": "Jantina",
     "cbMaxAge": "Umur Maksimum",
