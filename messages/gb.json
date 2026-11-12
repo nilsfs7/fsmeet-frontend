@@ -949,7 +949,8 @@
     "dlgRequestInfoTravelFee": "Travel fee",
     "dlgRequestInfoMessage": "Message",
     "alertPendingRequests": "{count, plural, one {There is # pending booking request awaiting your review.} other {There are # pending booking requests awaiting your review.}}",
-    "dlgOfferTravelFeeShortDistanceHint": "No travel fee is suggested for one-way distances under {km} km. You can still adjust it."
+    "dlgOfferTravelFeeShortDistanceHint": "No travel fee is suggested for one-way distances under {km} km. You can still adjust it.",
+    "pageDescription": "Booking requests you received via FreestyleActs."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Create Sponsor",
@@ -1377,7 +1378,11 @@
     "pageTitle": "Admin Overview (WFFA)",
     "linkIds": "Freestyler IDs",
     "linkStatistics": "App Statistics",
-    "linkVisa": "Visa Requests"
+    "linkVisa": "Visa Requests",
+    "pageDescription": "Tools for WFFA administrators.",
+    "linkIdsText": "Assign and edit WFFA freestyler IDs",
+    "linkVisaText": "Review and approve visa invitation letters",
+    "linkStatisticsText": "Users, events and activity"
   },
   "/wffa/ids": {
     "pageTitle": "Freestyler ID Management",

@@ -2,7 +2,8 @@
 
 import { type ReactNode, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { IconBan, IconCheck, IconHourglass } from '@tabler/icons-react';
+import { IconBan, IconBriefcase, IconCheck, IconFilterOff, IconHourglass } from '@tabler/icons-react';
+import { EmptyState } from '@/components/common/empty-state';
 import { Action } from '@/domain/enums/action';
 import ActionButton from '@/components/common/action-button';
 import { FreestyleActsBookingRequestState } from '@/domain/enums/freestyleacts-booking-request-state';
@@ -19,7 +20,6 @@ import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { AlertTriangle, ChevronsUpDown, ChevronUp, ChevronDown } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -101,7 +101,7 @@ function SortColumnHeaderButton({
       onClick={() => onCycle(column)}
       title={title}
       aria-label={ariaLabel}
-      className={cn('inline-flex items-center gap-1.5 text-left font-medium hover:underline', 'whitespace-nowrap text-zinc-900 dark:text-zinc-100')}
+      className={cn('inline-flex items-center gap-1.5 text-left font-medium hover:underline', 'whitespace-nowrap uppercase')}
     >
       {label}
       {showDir === 'asc' ? (
@@ -109,7 +109,7 @@ function SortColumnHeaderButton({
       ) : showDir === 'desc' ? (
         <ChevronDown className="h-4 w-4 shrink-0 opacity-80" aria-hidden />
       ) : (
-        <ChevronsUpDown className="h-4 w-4 shrink-0 text-zinc-500" aria-hidden />
+        <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-60" aria-hidden />
       )}
     </button>
   );
@@ -232,24 +232,25 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
 
   const stateIcon = (state: FreestyleActsBookingRequestState) => {
     const label = stateLabel(state);
-    const common = 'h-4 w-4 shrink-0';
-    const wrap = (node: ReactNode) => (
-      <span className="inline-flex h-7 w-7 items-center justify-center" title={label} aria-label={label} role="img">
+    const common = 'h-3.5 w-3.5 shrink-0';
+    const wrap = (node: ReactNode, tone: string) => (
+      <span className={cn('inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold', tone)} title={label}>
         {node}
+        {label}
       </span>
     );
 
     switch (state) {
       case FreestyleActsBookingRequestState.REQUEST_PENDING:
       case FreestyleActsBookingRequestState.OFFER_PENDING:
-        return wrap(<IconHourglass className={cn(common, 'text-amber-600 dark:text-amber-400')} stroke={2} aria-hidden />);
+        return wrap(<IconHourglass className={common} stroke={2} aria-hidden />, 'bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300');
       case FreestyleActsBookingRequestState.ACCEPTED:
-        return wrap(<IconCheck className={cn(common, 'text-success')} stroke={2} aria-hidden />);
+        return wrap(<IconCheck className={common} stroke={2} aria-hidden />, 'bg-brand-soft text-brand-strong');
       case FreestyleActsBookingRequestState.REJECTED_BY_ARTIST:
       case FreestyleActsBookingRequestState.REJECTED_BY_CLIENT:
-        return wrap(<IconBan className={cn(common, 'text-destructive')} stroke={2} aria-hidden />);
+        return wrap(<IconBan className={common} stroke={2} aria-hidden />, 'bg-destructive/10 text-destructive');
       default:
-        return <span className="text-zinc-600">{label}</span>;
+        return <span className="text-muted-foreground">{label}</span>;
     }
   };
 
@@ -368,72 +369,72 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
       <Toaster richColors />
 
       <Dialog title={t('dlgRequestInfoTitle')} queryParam="info" onCancel={resetDialogState}>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoClient')}:`}</p>
           <p>{selectedRequest?.clientName ?? na}</p>
         </div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoEmail')}:`}</p>
           <p>{selectedRequest?.email ?? na}</p>
         </div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoPhone')}:`}</p>
           <p>{selectedRequest?.phone ?? na}</p>
         </div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoDate')}:`}</p>
           <p>{formatDateTime(selectedRequest?.createdAt ?? null)}</p>
         </div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoPreferredDate')}:`}</p>
           <p>{formatDate(selectedRequest?.preferredDate ?? null)}</p>
         </div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoReference')}:`}</p>
           <p>{selectedRequest?.referenceLabel ?? na}</p>
         </div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoService')}:`}</p>
           <p>{selectedRequest?.service ?? na}</p>
         </div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoVenue')}:`}</p>
           <p>{selectedRequest?.venue ?? na}</p>
         </div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoArea')}:`}</p>
           <p>{selectedRequest?.area ?? na}</p>
         </div>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
           <p>{`${t('dlgRequestInfoState')}:`}</p>
           <p>{selectedRequest ? stateLabel(selectedRequest.state) : na}</p>
         </div>
         {selectedRequest && selectedRequest.proposedArtistFee > 0 && (
-          <div className="grid grid-cols-2 gap-1">
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
             <p>{`${t('dlgRequestInfoProposedArtistFee')}:`}</p>
             <p>{formatFee(selectedRequest.proposedArtistFee)}</p>
           </div>
         )}
         {selectedRequest && selectedRequest.artistFee > 0 && (
-          <div className="grid grid-cols-2 gap-1">
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
             <p>{`${t('dlgRequestInfoArtistFee')}:`}</p>
             <p>{formatFee(selectedRequest.artistFee)}</p>
           </div>
         )}
         {selectedRequest?.proposedTravelMethod && (
-          <div className="grid grid-cols-2 gap-1">
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
             <p>{`${t('dlgRequestInfoTravelMethod')}:`}</p>
             <p>{selectedRequest.proposedTravelMethod === JobPreferredTravelMethod.CAR ? t('travelMethodCar') : t('travelMethodPublicTransport')}</p>
           </div>
         )}
         {selectedRequest && selectedRequest.travelFee != null && selectedRequest.travelFee > 0 && (
-          <div className="grid grid-cols-2 gap-1">
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
             <p>{`${t('dlgRequestInfoTravelFee')}:`}</p>
             <p>{formatFee(selectedRequest.travelFee)}</p>
           </div>
         )}
         {selectedRequest?.message && (
-          <div className="grid grid-cols-2 gap-1">
+          <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 border-b border-border/60 py-1.5 text-left text-sm last:border-0 [&>p:first-child]:text-muted-foreground">
             <p>{`${t('dlgRequestInfoMessage')}:`}</p>
             <p>{selectedRequest.message}</p>
           </div>
@@ -449,7 +450,7 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
         executeCancelAfterConfirmClicked={false}
       >
         <p className="mb-3">{t('dlgOfferText')}</p>
-        <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="jobs-offer-artist-fee">
+        <label className="mb-1 block text-left text-xs text-muted-foreground" htmlFor="jobs-offer-artist-fee">
           {t('dlgOfferArtistFeeLabel', { currency: currencySymbol })}
         </label>
         <Input
@@ -466,15 +467,13 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
 
         {jobCarAvailable ? (
           <div className="mb-3">
-            <span className="mb-1 block text-left text-xs text-zinc-600">{t('dlgOfferTravelMethodLabel')}</span>
+            <span className="mb-1 block text-left text-xs text-muted-foreground">{t('dlgOfferTravelMethodLabel')}</span>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 className={cn(
-                  'rounded-md border px-3 py-2 text-left text-sm transition-colors',
-                  travelMethod === JobPreferredTravelMethod.PUBLIC_TRANSPORT
-                    ? 'border-primary bg-primary/10 text-foreground'
-                    : 'border-zinc-200 bg-white text-zinc-700 hover:border-primary/40 dark:border-zinc-800 dark:bg-zinc-950',
+                  'rounded-xl border px-3 py-2.5 text-left text-sm font-medium transition-colors',
+                  travelMethod === JobPreferredTravelMethod.PUBLIC_TRANSPORT ? 'border-brand/50 bg-brand-soft text-brand-strong' : 'border-border bg-background text-foreground hover:border-brand/40',
                 )}
                 onClick={() => setTravelMethod(JobPreferredTravelMethod.PUBLIC_TRANSPORT)}
               >
@@ -483,10 +482,8 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
               <button
                 type="button"
                 className={cn(
-                  'rounded-md border px-3 py-2 text-left text-sm transition-colors',
-                  travelMethod === JobPreferredTravelMethod.CAR
-                    ? 'border-primary bg-primary/10 text-foreground'
-                    : 'border-zinc-200 bg-white text-zinc-700 hover:border-primary/40 dark:border-zinc-800 dark:bg-zinc-950',
+                  'rounded-xl border px-3 py-2.5 text-left text-sm font-medium transition-colors',
+                  travelMethod === JobPreferredTravelMethod.CAR ? 'border-brand/50 bg-brand-soft text-brand-strong' : 'border-border bg-background text-foreground hover:border-brand/40',
                 )}
                 onClick={() => {
                   setTravelMethod(JobPreferredTravelMethod.CAR);
@@ -498,22 +495,18 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
             </div>
           </div>
         ) : (
-          <p className="mb-3 text-xs text-zinc-600">{t('dlgOfferTravelMethodFixed', { method: t('travelMethodPublicTransport') })}</p>
+          <p className="mb-3 text-xs text-muted-foreground">{t('dlgOfferTravelMethodFixed', { method: t('travelMethodPublicTransport') })}</p>
         )}
 
         {effectiveTravelMethod === JobPreferredTravelMethod.CAR && (
           <>
-            <p className="mb-1 text-xs text-zinc-600">
+            <p className="mb-1 text-xs text-muted-foreground">
               {t('dlgOfferDistanceInfo', {
                 distance: selectedDistanceKm != null ? selectedDistanceKm : na,
               })}
             </p>
-            {isBelowChargeableDistance && (
-              <p className="mb-2 text-xs text-zinc-500">
-                {t('dlgOfferTravelFeeShortDistanceHint', { km: MIN_CHARGEABLE_DISTANCE_KM })}
-              </p>
-            )}
-            <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="jobs-offer-km-rate">
+            {isBelowChargeableDistance && <p className="mb-2 text-xs text-muted-foreground">{t('dlgOfferTravelFeeShortDistanceHint', { km: MIN_CHARGEABLE_DISTANCE_KM })}</p>}
+            <label className="mb-1 block text-left text-xs text-muted-foreground" htmlFor="jobs-offer-km-rate">
               {t('dlgOfferKmRateLabel', { currency: currencySymbol })}
             </label>
             <Input
@@ -531,20 +524,16 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
               placeholder={String(defaultKmRate)}
               className="mb-1 w-full"
             />
-            {!isBelowChargeableDistance && (
-              <p className="mb-3 text-xs text-zinc-500">{t('dlgOfferTravelFeeFromRateHint', { amount: formatAmount(computedCarTravelFee) })}</p>
-            )}
+            {!isBelowChargeableDistance && <p className="mb-3 text-xs text-muted-foreground">{t('dlgOfferTravelFeeFromRateHint', { amount: formatAmount(computedCarTravelFee) })}</p>}
             {isBelowChargeableDistance && <div className="mb-3" />}
           </>
         )}
 
         {isBelowChargeableDistance && effectiveTravelMethod !== JobPreferredTravelMethod.CAR && (
-          <p className="mb-2 text-xs text-zinc-500">
-            {t('dlgOfferTravelFeeShortDistanceHint', { km: MIN_CHARGEABLE_DISTANCE_KM })}
-          </p>
+          <p className="mb-2 text-xs text-muted-foreground">{t('dlgOfferTravelFeeShortDistanceHint', { km: MIN_CHARGEABLE_DISTANCE_KM })}</p>
         )}
 
-        <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="jobs-offer-travel-fee">
+        <label className="mb-1 block text-left text-xs text-muted-foreground" htmlFor="jobs-offer-travel-fee">
           {t('dlgOfferTravelFeeLabel', { currency: currencySymbol })}
         </label>
         <Input
@@ -564,7 +553,7 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
         <p>{t('dlgRejectText')}</p>
       </Dialog>
 
-      <div className={cn('text-sm flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-y-auto scrollbar-none')}>
+      <div className={cn('text-sm flex min-h-0 min-w-0 flex-1 flex-col gap-4 overflow-y-auto scrollbar-none pb-4')}>
         {bookingRequests.length > 0 && (
           <>
             {pendingCount > 0 && (
@@ -574,33 +563,46 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
               </Alert>
             )}
 
-            <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
-              <div className="w-full min-w-40 sm:w-48">
-                <span className="mb-1 block text-left text-xs text-zinc-600">{t('filterStateLabel')}</span>
-                <Select value={stateFilter} onValueChange={v => setStateFilter(v === 'all' ? 'all' : (v as FreestyleActsBookingRequestState))}>
-                  <SelectTrigger aria-label={t('filterStateLabel')}>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">{t('filterStateAll')}</SelectItem>
-                    <SelectItem value={FreestyleActsBookingRequestState.REQUEST_PENDING}>{t('stateRequestPending')}</SelectItem>
-                    <SelectItem value={FreestyleActsBookingRequestState.OFFER_PENDING}>{t('stateOfferPending')}</SelectItem>
-                    <SelectItem value={FreestyleActsBookingRequestState.ACCEPTED}>{t('stateAccepted')}</SelectItem>
-                    <SelectItem value={FreestyleActsBookingRequestState.REJECTED_BY_ARTIST}>{t('stateRejectedByArtist')}</SelectItem>
-                    <SelectItem value={FreestyleActsBookingRequestState.REJECTED_BY_CLIENT}>{t('stateRejectedByClient')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            <div className="-mx-1 flex min-w-0 shrink-0 gap-1.5 overflow-x-auto px-1 pb-1 scrollbar-none" role="tablist" aria-label={t('filterStateLabel')}>
+              {(
+                [
+                  ['all', t('filterStateAll')],
+                  [FreestyleActsBookingRequestState.REQUEST_PENDING, t('stateRequestPending')],
+                  [FreestyleActsBookingRequestState.OFFER_PENDING, t('stateOfferPending')],
+                  [FreestyleActsBookingRequestState.ACCEPTED, t('stateAccepted')],
+                  [FreestyleActsBookingRequestState.REJECTED_BY_ARTIST, t('stateRejectedByArtist')],
+                  [FreestyleActsBookingRequestState.REJECTED_BY_CLIENT, t('stateRejectedByClient')],
+                ] as [StateFilter, string][]
+              ).map(([value, label]) => {
+                const count = value === 'all' ? bookingRequests.length : bookingRequests.filter(r => r.state === value).length;
+                const active = stateFilter === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setStateFilter(value)}
+                    className={cn(
+                      'inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
+                      active ? 'border-brand/40 bg-brand-soft text-brand-strong' : 'border-border bg-background text-muted-foreground hover:text-foreground',
+                    )}
+                  >
+                    {label}
+                    <span className={cn('rounded-full px-1.5 text-2xs font-semibold', active ? 'bg-brand text-brand-foreground' : 'bg-muted text-muted-foreground')}>{count}</span>
+                  </button>
+                );
+              })}
             </div>
           </>
         )}
 
-        {bookingRequests.length === 0 && <div className="m-1 flex justify-center text-zinc-600">{t('textNoRequests')}</div>}
+        {bookingRequests.length === 0 && <EmptyState icon={<IconBriefcase stroke={1.75} aria-hidden />} title={t('textNoRequests')} />}
 
-        {bookingRequests.length > 0 && filteredRequests.length === 0 && <div className="m-1 flex justify-center text-zinc-600">{t('textNoFilterMatch')}</div>}
+        {bookingRequests.length > 0 && filteredRequests.length === 0 && <EmptyState icon={<IconFilterOff stroke={1.75} aria-hidden />} title={t('textNoFilterMatch')} className="py-8" />}
 
         {bookingRequests.length > 0 && displayedRequests.length > 0 && (
-          <div className="min-h-0 min-w-0 max-w-full overflow-x-auto scrollbar-none">
+          <div className="hidden min-h-0 min-w-0 max-w-full overflow-x-auto scrollbar-none sm:block">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -650,14 +652,14 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
               <TableBody>
                 {displayedRequests.map(request => (
                   <TableRow key={request.id}>
-                    <TableCell className="whitespace-nowrap text-zinc-700">{formatDateTime(request.createdAt)}</TableCell>
-                    <TableCell className="whitespace-nowrap text-zinc-700">{formatDate(request.preferredDate)}</TableCell>
-                    <TableCell className="max-w-48 text-zinc-700" title={request.area}>
+                    <TableCell className="whitespace-nowrap text-foreground">{formatDateTime(request.createdAt)}</TableCell>
+                    <TableCell className="whitespace-nowrap text-foreground">{formatDate(request.preferredDate)}</TableCell>
+                    <TableCell className="max-w-56 truncate text-foreground" title={request.area}>
                       {truncateText(request.area, AREA_PREVIEW_LENGTH)}
                     </TableCell>
-                    <TableCell className="whitespace-nowrap text-zinc-800">{stateIcon(request.state)}</TableCell>
+                    <TableCell className="whitespace-nowrap text-foreground">{stateIcon(request.state)}</TableCell>
                     <TableCell className="text-right align-middle">
-                      <div className="inline-flex flex-wrap items-center justify-end gap-1">
+                      <div className="inline-flex flex-nowrap items-center justify-end gap-1">
                         <ActionButton
                           action={Action.INFO}
                           tooltip={t('tooltipViewRequest')}
@@ -690,6 +692,38 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
               </TableBody>
             </Table>
           </div>
+        )}
+
+        {bookingRequests.length > 0 && displayedRequests.length > 0 && (
+          <ul className="flex shrink-0 flex-col gap-3 sm:hidden">
+            {displayedRequests.map(request => (
+              <li key={request.id} className="rounded-2xl border border-border bg-background p-4 shadow-xs">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="line-clamp-2 font-semibold text-foreground" title={request.area}>
+                      {request.area}
+                    </p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">
+                      {t('tableColPreferredDate')}: {formatDate(request.preferredDate)}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {t('tableColDate')}: {formatDateTime(request.createdAt)}
+                    </p>
+                  </div>
+                  {stateIcon(request.state)}
+                </div>
+                <div className="mt-3 flex items-center justify-end gap-1 border-t border-border/60 pt-3">
+                  <ActionButton action={Action.INFO} tooltip={t('tooltipViewRequest')} onClick={() => handleInfoClicked(request.id)} />
+                  {request.state === FreestyleActsBookingRequestState.REQUEST_PENDING && (
+                    <>
+                      <ActionButton action={Action.ACCEPT} tooltip={t('tooltipSubmitOffer')} onClick={() => handleOfferClicked(request.id)} />
+                      <ActionButton action={Action.DENY} tooltip={t('tooltipRejectRequest')} onClick={() => handleRejectClicked(request.id)} />
+                    </>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </>

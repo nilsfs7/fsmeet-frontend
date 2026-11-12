@@ -924,7 +924,8 @@
     "dlgRequestInfoTravelMethod": "Mode de transport",
     "dlgRequestInfoTravelFee": "Frais de déplacement",
     "dlgOfferTravelFeeFromRateHint": "Suggestion selon le taux kilométrique : {amount} (modifiable ci-dessous)",
-    "dlgOfferTravelFeeShortDistanceHint": "Aucun frais de déplacement n'est proposé pour les distances aller simple inférieures à {km} km."
+    "dlgOfferTravelFeeShortDistanceHint": "Aucun frais de déplacement n'est proposé pour les distances aller simple inférieures à {km} km.",
+    "pageDescription": "Les demandes de réservation reçues via FreestyleActs."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Créer un partenaire",
@@ -1352,7 +1353,11 @@
     "pageTitle": "Aperçu admin (WFFA)",
     "linkIds": "IDs freestyler",
     "linkStatistics": "Statistiques de l'app",
-    "linkVisa": "Demandes de visa"
+    "linkVisa": "Demandes de visa",
+    "pageDescription": "Outils pour les administrateurs WFFA.",
+    "linkIdsText": "Attribuer et modifier les identifiants WFFA",
+    "linkVisaText": "Examiner et approuver les lettres d'invitation pour visa",
+    "linkStatisticsText": "Utilisateurs, événements et activité"
   },
   "/wffa/ids": {
     "pageTitle": "Gestion des IDs freestyler",

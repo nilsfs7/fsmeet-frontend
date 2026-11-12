@@ -949,7 +949,8 @@
     "dlgRequestInfoTravelMethod": "出行方式",
     "dlgRequestInfoTravelFee": "差旅费",
     "dlgOfferTravelFeeFromRateHint": "根据里程费率建议：{amount}（可在下方修改总额）",
-    "dlgOfferTravelFeeShortDistanceHint": "单程距离低于 {km} 公里时不建议收取差旅费。"
+    "dlgOfferTravelFeeShortDistanceHint": "单程距离低于 {km} 公里时不建议收取差旅费。",
+    "pageDescription": "你通过 FreestyleActs 收到的预约请求。"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",
@@ -1377,7 +1378,11 @@
     "pageTitle": "管理概览（WFFA）",
     "linkIds": "花式足球选手 ID",
     "linkStatistics": "应用统计",
-    "linkVisa": "签证申请"
+    "linkVisa": "签证申请",
+    "pageDescription": "WFFA 管理员工具。",
+    "linkIdsText": "分配和编辑 WFFA 选手 ID",
+    "linkVisaText": "审核并批准签证邀请函",
+    "linkStatisticsText": "用户、活动和动态"
   },
   "/wffa/ids": {
     "pageTitle": "花式足球选手 ID 管理",

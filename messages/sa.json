@@ -949,7 +949,8 @@
     "dlgRequestInfoTravelMethod": "وسيلة السفر",
     "dlgRequestInfoTravelFee": "تكلفة السفر",
     "dlgOfferTravelFeeFromRateHint": "مقترح من سعر الكيلومتر: {amount} (يمكنك تعديل الإجمالي أدناه)",
-    "dlgOfferTravelFeeShortDistanceHint": "لا يُقترح أي تكلفة سفر للمسافات ذهابًا أقل من {km} كم."
+    "dlgOfferTravelFeeShortDistanceHint": "لا يُقترح أي تكلفة سفر للمسافات ذهابًا أقل من {km} كم.",
+    "pageDescription": "طلبات الحجز التي تلقيتها عبر FreestyleActs."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",
@@ -1377,7 +1378,11 @@
     "pageTitle": "نظرة المسؤول (WFFA)",
     "linkIds": "معرّفات الفريستايل",
     "linkStatistics": "إحصاءات التطبيق",
-    "linkVisa": "طلبات التأشيرة"
+    "linkVisa": "طلبات التأشيرة",
+    "pageDescription": "أدوات لمسؤولي WFFA.",
+    "linkIdsText": "تعيين وتعديل معرّفات لاعبي WFFA",
+    "linkVisaText": "مراجعة واعتماد خطابات دعوة التأشيرة",
+    "linkStatisticsText": "المستخدمون والفعاليات والنشاط"
   },
   "/wffa/ids": {
     "pageTitle": "إدارة معرّفات الفريستايل",

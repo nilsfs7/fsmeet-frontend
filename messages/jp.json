@@ -949,7 +949,8 @@
     "dlgRequestInfoTravelMethod": "移動手段",
     "dlgRequestInfoTravelFee": "旅費",
     "dlgOfferTravelFeeFromRateHint": "キロ単価からの提案：{amount}（下で合計を編集できます）",
-    "dlgOfferTravelFeeShortDistanceHint": "片道距離が {km} km未満の場合、旅費は提案されません。"
+    "dlgOfferTravelFeeShortDistanceHint": "片道距離が {km} km未満の場合、旅費は提案されません。",
+    "pageDescription": "FreestyleActs経由で受け取った予約リクエスト。"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "スポンサーを作成",
@@ -1377,7 +1378,11 @@
     "pageTitle": "管理概要（WFFA）",
     "linkIds": "フリースタイラーID",
     "linkStatistics": "アプリ統計",
-    "linkVisa": "ビザ申請"
+    "linkVisa": "ビザ申請",
+    "pageDescription": "WFFA管理者向けツール。",
+    "linkIdsText": "WFFAフリースタイラーIDの付与と編集",
+    "linkVisaText": "ビザ招待状の確認と承認",
+    "linkStatisticsText": "ユーザー、イベント、アクティビティ"
   },
   "/wffa/ids": {
     "pageTitle": "フリースタイラーID管理",

@@ -924,7 +924,8 @@
     "dlgRequestInfoTravelMethod": "Reiseart",
     "dlgRequestInfoTravelFee": "Reisekosten",
     "dlgOfferTravelFeeFromRateHint": "Vorschlag aus Kilometerpauschale: {amount} (Gesamtbetrag unten anpassbar)",
-    "dlgOfferTravelFeeShortDistanceHint": "Bei Entfernungen unter {km} km (einfache Strecke) werden keine Reisekosten vorgeschlagen. Du kannst diese trotzdem anpassen."
+    "dlgOfferTravelFeeShortDistanceHint": "Bei Entfernungen unter {km} km (einfache Strecke) werden keine Reisekosten vorgeschlagen. Du kannst diese trotzdem anpassen.",
+    "pageDescription": "Buchungsanfragen, die du über FreestyleActs erhalten hast."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Sponsor erstellen",
@@ -1352,7 +1353,11 @@
     "pageTitle": "Admin-Übersicht (WFFA)",
     "linkIds": "Freestyler-IDs",
     "linkStatistics": "App-Statistik",
-    "linkVisa": "Visa-Anträge"
+    "linkVisa": "Visa-Anträge",
+    "pageDescription": "Werkzeuge für WFFA-Administratoren.",
+    "linkIdsText": "WFFA-Freestyler-IDs vergeben und bearbeiten",
+    "linkVisaText": "Visa-Einladungsschreiben prüfen und freigeben",
+    "linkStatisticsText": "Nutzer, Events und Aktivität"
   },
   "/wffa/ids": {
     "pageTitle": "Freestyler-IDs verwalten",

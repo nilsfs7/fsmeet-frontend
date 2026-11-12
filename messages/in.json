@@ -949,7 +949,8 @@
     "dlgRequestInfoTravelMethod": "यात्रा का तरीका",
     "dlgRequestInfoTravelFee": "यात्रा शुल्क",
     "dlgOfferTravelFeeFromRateHint": "किलोमीटर दर से सुझाव: {amount} (नीचे कुल राशि संपादित कर सकते हैं)",
-    "dlgOfferTravelFeeShortDistanceHint": "{km} किमी से कम एक तरफ़ा दूरी पर कोई यात्रा शुल्क सुझाया नहीं जाता।"
+    "dlgOfferTravelFeeShortDistanceHint": "{km} किमी से कम एक तरफ़ा दूरी पर कोई यात्रा शुल्क सुझाया नहीं जाता।",
+    "pageDescription": "FreestyleActs के ज़रिए मिली बुकिंग रिक्वेस्ट।"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "प्रायोजक बनाएं",
@@ -1377,7 +1378,11 @@
     "pageTitle": "एडमिन अवलोकन (WFFA)",
     "linkIds": "फ्रीस्टाइलर आईडी",
     "linkStatistics": "ऐप आँकड़े",
-    "linkVisa": "वीज़ा अनुरोध"
+    "linkVisa": "वीज़ा अनुरोध",
+    "pageDescription": "WFFA एडमिनिस्ट्रेटर्स के लिए टूल्स।",
+    "linkIdsText": "WFFA फ्रीस्टाइलर ID असाइन और एडिट करें",
+    "linkVisaText": "वीज़ा इनविटेशन लेटर की समीक्षा और स्वीकृति",
+    "linkStatisticsText": "यूज़र्स, इवेंट्स और गतिविधि"
   },
   "/wffa/ids": {
     "pageTitle": "फ्रीस्टाइलर आईडी प्रबंधन",

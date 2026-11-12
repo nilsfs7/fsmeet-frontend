@@ -949,7 +949,8 @@
     "dlgRequestInfoTravelMethod": "Kaedah perjalanan",
     "dlgRequestInfoTravelFee": "Yuran perjalanan",
     "dlgOfferTravelFeeFromRateHint": "Cadangan dari kadar km: {amount} (boleh edit jumlah di bawah)",
-    "dlgOfferTravelFeeShortDistanceHint": "Tiada yuran perjalanan dicadangkan untuk jarak sehala di bawah {km} km."
+    "dlgOfferTravelFeeShortDistanceHint": "Tiada yuran perjalanan dicadangkan untuk jarak sehala di bawah {km} km.",
+    "pageDescription": "Permintaan tempahan yang anda terima melalui FreestyleActs."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Cipta Penaja",
@@ -1377,7 +1378,11 @@
     "pageTitle": "Gambaran Admin (WFFA)",
     "linkIds": "ID Freestyler",
     "linkStatistics": "Statistik Apl",
-    "linkVisa": "Permohonan Visa"
+    "linkVisa": "Permohonan Visa",
+    "pageDescription": "Alat untuk pentadbir WFFA.",
+    "linkIdsText": "Tetapkan dan sunting ID freestyler WFFA",
+    "linkVisaText": "Semak dan luluskan surat jemputan visa",
+    "linkStatisticsText": "Pengguna, acara dan aktiviti"
   },
   "/wffa/ids": {
     "pageTitle": "Pengurusan ID Freestyler",
