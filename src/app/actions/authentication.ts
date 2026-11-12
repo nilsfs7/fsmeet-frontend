@@ -1,6 +1,6 @@
 'use server';
 
-import { signIn } from '@/auth';
+import { LoginRejected, signIn } from '@/auth';
 import { AccessDenied } from '@auth/core/errors';
 
 export async function loginUserWithCredentials(username: string, password: string): Promise<{ status: number; message: string }> {
@@ -11,7 +11,11 @@ export async function loginUserWithCredentials(username: string, password: strin
       redirect: false,
     });
     return { status: 200, message: 'Ok.' };
-  } catch (error: any) {
+  } catch (error: unknown) {
+    if (error instanceof LoginRejected) {
+      return { status: error.status, message: error.serverMessage };
+    }
+
     if (error instanceof AccessDenied) {
       return { status: 401, message: 'Unauthorized.' };
     }

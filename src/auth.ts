@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { AuthError } from '@auth/core/errors';
 import { jwtDecode } from 'jwt-decode';
 import {
   routeAccount,
@@ -16,6 +17,27 @@ import { AdministrativeUser } from './domain/enums/administrative-user';
 import type { UserType } from './domain/enums/user-type';
 import { defaultHeaders } from './infrastructure/clients/default-headers';
 
+export class LoginRejected extends AuthError {
+  status: number;
+  serverMessage: string;
+
+  constructor(status: number, serverMessage: string) {
+    super(serverMessage);
+    this.status = status;
+    this.serverMessage = serverMessage;
+  }
+}
+
+function loginErrorMessage(body: { message?: unknown } | null): string {
+  const message = body?.message;
+  if (Array.isArray(message)) {
+    const text = message.filter((item): item is string => typeof item === 'string' && item.length > 0).join(' ');
+    if (text) return text;
+  }
+  if (typeof message === 'string' && message) return message;
+  return 'Login failed.';
+}
+
 const credentialsConfig = CredentialsProvider({
   name: 'Credentials',
   credentials: {
@@ -23,25 +45,25 @@ const credentialsConfig = CredentialsProvider({
     password: { label: 'Password', type: 'password' },
   },
   async authorize(credentials): Promise<any> {
-    if (credentials?.usernameOrEmail && credentials?.password) {
-      const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`;
-      const body = JSON.stringify({ usernameOrEmail: credentials.usernameOrEmail, password: credentials.password });
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/auth/login`;
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        usernameOrEmail: credentials?.usernameOrEmail ?? '',
+        password: credentials?.password ?? '',
+      }),
+      headers: {
+        ...defaultHeaders,
+      },
+    });
 
-      const response = await fetch(url, {
-        method: 'POST',
-        body: body,
-        headers: {
-          ...defaultHeaders,
-        },
-      });
-
-      const responseBody = await response.json();
-      if (responseBody) {
-        return responseBody;
-      }
+    const responseBody = await response.json().catch(() => null);
+    if (!response.ok || !responseBody?.accessToken) {
+      const status = typeof responseBody?.statusCode === 'number' ? responseBody.statusCode : response.status;
+      throw new LoginRejected(status, loginErrorMessage(responseBody));
     }
 
-    return null;
+    return responseBody;
   },
 });
 
