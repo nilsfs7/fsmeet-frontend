@@ -1579,7 +1579,8 @@
     "noData": "データがありません。",
     "appNav": "アプリ",
     "time": "時刻",
-    "clearTime": "時刻をクリア"
+    "clearTime": "時刻をクリア",
+    "mainNav": "メインナビゲーション"
   },
   "global/components/app-header": {
     "navHome": "ホーム",
@@ -1631,5 +1632,9 @@
     "statusSeeded": "{count}枠 割り当て済み",
     "statusOpen": "未設定",
     "btnViewCompetition": "大会ページを見る"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "詳しく見る",
+    "sponsored": "スポンサー"
   }
 }

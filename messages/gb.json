@@ -1579,7 +1579,8 @@
     "noData": "No data found.",
     "appNav": "App",
     "time": "Time",
-    "clearTime": "Clear time"
+    "clearTime": "Clear time",
+    "mainNav": "Main"
   },
   "global/components/app-header": {
     "navHome": "Home",
@@ -1631,5 +1632,9 @@
     "statusSeeded": "{count, plural, one {# slot filled} other {# slots filled}}",
     "statusOpen": "Not set up yet",
     "btnViewCompetition": "View competition page"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "Read more",
+    "sponsored": "sponsored"
   }
 }

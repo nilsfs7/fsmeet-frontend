@@ -1579,7 +1579,8 @@
     "noData": "Tiada data dijumpai.",
     "appNav": "Apl",
     "time": "Masa",
-    "clearTime": "Kosongkan masa"
+    "clearTime": "Kosongkan masa",
+    "mainNav": "Navigasi utama"
   },
   "global/components/app-header": {
     "navHome": "Laman Utama",
@@ -1631,5 +1632,9 @@
     "statusSeeded": "{count} slot diisi",
     "statusOpen": "Belum disediakan",
     "btnViewCompetition": "Lihat halaman pertandingan"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "Baca lagi",
+    "sponsored": "ditaja"
   }
 }

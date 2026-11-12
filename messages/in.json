@@ -1579,7 +1579,8 @@
     "noData": "कोई डेटा नहीं मिला।",
     "appNav": "ऐप",
     "time": "समय",
-    "clearTime": "समय हटाएं"
+    "clearTime": "समय हटाएं",
+    "mainNav": "मुख्य नेविगेशन"
   },
   "global/components/app-header": {
     "navHome": "होम",
@@ -1631,5 +1632,9 @@
     "statusSeeded": "{count, plural, one {# स्लॉट भरा} other {# स्लॉट भरे}}",
     "statusOpen": "अभी सेट नहीं",
     "btnViewCompetition": "प्रतियोगिता पेज देखें"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "और पढ़ें",
+    "sponsored": "प्रायोजित"
   }
 }

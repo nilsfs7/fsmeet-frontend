@@ -1579,7 +1579,8 @@
     "noData": "لم يُعثر على بيانات.",
     "appNav": "التطبيق",
     "time": "الوقت",
-    "clearTime": "مسح الوقت"
+    "clearTime": "مسح الوقت",
+    "mainNav": "التنقل الرئيسي"
   },
   "global/components/app-header": {
     "navHome": "الرئيسية",
@@ -1631,5 +1632,9 @@
     "statusSeeded": "{count, plural, one {تم شغل مكان واحد} other {تم شغل # أماكن}}",
     "statusOpen": "لم يُعدّ بعد",
     "btnViewCompetition": "عرض صفحة المسابقة"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "اقرأ المزيد",
+    "sponsored": "ممول"
   }
 }

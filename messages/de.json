@@ -1554,7 +1554,8 @@
     "noData": "Keine Daten gefunden.",
     "appNav": "App",
     "time": "Uhrzeit",
-    "clearTime": "Uhrzeit entfernen"
+    "clearTime": "Uhrzeit entfernen",
+    "mainNav": "Hauptnavigation"
   },
   "/account/payments": {
     "pageTitle": "Zahlungen verwalten",
@@ -1631,5 +1632,9 @@
     "statusSeeded": "{count, plural, one {# Platz belegt} other {# Plätze belegt}}",
     "statusOpen": "Noch nicht eingerichtet",
     "btnViewCompetition": "Wettbewerbsseite ansehen"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "Mehr erfahren",
+    "sponsored": "gesponsert"
   }
 }

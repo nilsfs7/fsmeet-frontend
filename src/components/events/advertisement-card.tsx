@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import type { ReadAdvertisementResponseDto } from '@/infrastructure/clients/dtos/advertisement/read-advertisement-response-dto';
 import { createActivity } from '@/infrastructure/clients/advertisement.client';
@@ -49,6 +50,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
   const slot = advertisement;
   const titleId = `advertisement-title-${slot.id}-${slotIndex}-${variant}`;
 
+  const t = useTranslations('global/components/advertisement-card');
   const { data: session } = useSession();
   const hoverTracked = useRef(false);
 
@@ -80,7 +82,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
         'relative block overflow-hidden rounded-lg bg-muted/30 outline-hidden ring-offset-background focus-visible:ring-2 focus-visible:ring-ring',
         variant === 'sidebar' ? 'aspect-video w-full' : 'aspect-4/5 h-full w-full',
       )}
-      aria-label={`${slot.title} — sponsored`}
+      aria-label={`${slot.title} — ${t('sponsored')}`}
     >
       <Image src={slot.imageUrl} alt="" fill className="object-cover" sizes={variant === 'sidebar' ? '(max-width: 1024px) min(100vw, 42rem), 320px' : '(max-width: 640px) 112px, 128px'} />
     </a>
@@ -88,7 +90,7 @@ export function AdvertisementCard({ advertisement, badgeLabel, slotIndex = 0, va
 
   const cta = (
     <a href={trackedTargetUrl} target="_blank" rel={adLinkRel} onClick={handleClick} className="type-body-sm pt-0.5 font-medium text-primary underline-offset-4 hover:underline">
-      Read more
+      {t('readMore')}
     </a>
   );
 

@@ -1554,7 +1554,8 @@
     "noData": "No se encontraron datos.",
     "appNav": "App",
     "time": "Hora",
-    "clearTime": "Borrar hora"
+    "clearTime": "Borrar hora",
+    "mainNav": "Navegación principal"
   },
   "/account/payments": {
     "pageTitle": "Gestionar pagos",
@@ -1631,5 +1632,9 @@
     "statusSeeded": "{count, plural, one {# puesto asignado} other {# puestos asignados}}",
     "statusOpen": "Aún sin configurar",
     "btnViewCompetition": "Ver la página de la competición"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "Más información",
+    "sponsored": "patrocinado"
   }
 }

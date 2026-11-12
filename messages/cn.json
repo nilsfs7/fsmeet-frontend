@@ -1579,7 +1579,8 @@
     "noData": "未找到数据。",
     "appNav": "应用",
     "time": "时间",
-    "clearTime": "清除时间"
+    "clearTime": "清除时间",
+    "mainNav": "主导航"
   },
   "global/components/app-header": {
     "navHome": "首页",
@@ -1631,5 +1632,9 @@
     "statusSeeded": "已分配 {count} 个位置",
     "statusOpen": "尚未设置",
     "btnViewCompetition": "查看比赛页面"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "了解更多",
+    "sponsored": "赞助"
   }
 }

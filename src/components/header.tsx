@@ -42,6 +42,7 @@ const isEventsRoute = (pathname: string) => pathname === routeEvents || (pathnam
 export const AppHeader = () => {
   const pathname = usePathname() ?? routeHome;
   const t = useTranslations('global/components/app-header');
+  const tUi = useTranslations('global/ui');
   const { data: session } = useSession();
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -77,7 +78,7 @@ export const AppHeader = () => {
         </div>
 
         {/* desktop destinations */}
-        <nav aria-label="Main" className="hidden min-w-0 flex-1 items-center gap-0.5 md:flex xl:gap-1">
+        <nav aria-label={tUi('mainNav')} className="hidden min-w-0 flex-1 items-center gap-0.5 md:flex xl:gap-1">
           {[...primary, ...secondary].map(entry => (
             <Link
               key={entry.href}
