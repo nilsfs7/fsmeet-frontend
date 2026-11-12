@@ -1512,5 +1512,25 @@
   },
   "global/components/date-picker": {
     "placeholder": "选择日期"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "按姓名搜索",
+    "clearSearch": "清除搜索",
+    "all": "全部",
+    "status": "状态",
+    "type": "类型",
+    "country": "国家",
+    "gender": "性别",
+    "competition": "比赛",
+    "statusApproved": "已批准",
+    "statusPending": "待处理",
+    "typeParticipants": "参赛者",
+    "typeVisitors": "观众",
+    "genderMale": "男",
+    "genderFemale": "女",
+    "competitionNone": "未报名比赛",
+    "shown": "显示 {shown} / {total}",
+    "reset": "重置筛选",
+    "noMatch": "没有符合筛选条件的人。"
   }
 }

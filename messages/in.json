@@ -1512,5 +1512,25 @@
   },
   "global/components/date-picker": {
     "placeholder": "तारीख चुनें"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "नाम से खोजें",
+    "clearSearch": "खोज साफ़ करें",
+    "all": "सभी",
+    "status": "स्थिति",
+    "type": "प्रकार",
+    "country": "देश",
+    "gender": "लिंग",
+    "competition": "प्रतियोगिता",
+    "statusApproved": "स्वीकृत",
+    "statusPending": "लंबित",
+    "typeParticipants": "प्रतिभागी",
+    "typeVisitors": "दर्शक",
+    "genderMale": "पुरुष",
+    "genderFemale": "महिला",
+    "competitionNone": "कोई प्रतियोगिता नहीं",
+    "shown": "{total} में से {shown} दिखाए जा रहे हैं",
+    "reset": "फ़िल्टर रीसेट करें",
+    "noMatch": "इन फ़िल्टर से कोई मेल नहीं खाता।"
   }
 }

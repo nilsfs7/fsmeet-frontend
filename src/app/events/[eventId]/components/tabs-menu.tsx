@@ -7,7 +7,6 @@ import { Event } from '@/domain/types/event';
 import { toast, Toaster } from 'sonner';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { switchTab } from '@/functions/switch-tab';
-import UserSection from '@/components/events/user-section';
 import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import { EventRegistration } from '@/domain/types/event-registration';
 import { useEffect, useState } from 'react';
@@ -27,6 +26,7 @@ import { CompetitionSection } from './competition-section';
 import { isEventAdmin } from '@/functions/is-event-admin';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { Competition } from '@/domain/types/competition';
+import { RegistrationsPanel } from './registrations-panel';
 import { AttachmentSection } from './attachment-section';
 import { Attachment } from '@/domain/types/attachment';
 import moment from 'moment';
@@ -259,33 +259,12 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
         {/* Attendees */}
         {(participantRegistrations.length > 0 || visitorRegistrations.length > 0) && (
           <TabsContent value="registrations">
-            <div className="flex flex-col gap-2">
-              {participantRegistrations.length > 0 && (
-                <UserSection
-                  sectionTitle={t('tabRegistrationsSectionRegistrationParticipants')}
-                  users={participantRegistrations.map(registration => {
-                    return registration.user;
-                  })}
-                  showUserCountryFlag={event.showUserCountryFlag}
-                  registrationStatus={participantRegistrations.map(registration => {
-                    return registration.status;
-                  })}
-                />
-              )}
-
-              {visitorRegistrations.length > 0 && (
-                <UserSection
-                  sectionTitle={t('tabRegistrationsSectionRegistrationVisitors')}
-                  users={visitorRegistrations.map(registration => {
-                    return registration.user;
-                  })}
-                  showUserCountryFlag={event.showUserCountryFlag}
-                  registrationStatus={visitorRegistrations.map(registration => {
-                    return registration.status;
-                  })}
-                />
-              )}
-            </div>
+            <RegistrationsPanel
+              participantRegistrations={participantRegistrations}
+              visitorRegistrations={visitorRegistrations}
+              competitions={competitions}
+              showUserCountryFlag={Boolean(event.showUserCountryFlag)}
+            />
           </TabsContent>
         )}
       </Tabs>

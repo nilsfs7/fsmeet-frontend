@@ -1512,5 +1512,25 @@
   },
   "global/components/date-picker": {
     "placeholder": "Choisir une date"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "Rechercher par nom",
+    "clearSearch": "Effacer la recherche",
+    "all": "Tous",
+    "status": "Statut",
+    "type": "Type",
+    "country": "Pays",
+    "gender": "Genre",
+    "competition": "Compétition",
+    "statusApproved": "Approuvé",
+    "statusPending": "En attente",
+    "typeParticipants": "Participants",
+    "typeVisitors": "Visiteurs",
+    "genderMale": "Homme",
+    "genderFemale": "Femme",
+    "competitionNone": "Aucune compétition",
+    "shown": "{shown} sur {total} affichés",
+    "reset": "Réinitialiser les filtres",
+    "noMatch": "Personne ne correspond à ces filtres."
   }
 }

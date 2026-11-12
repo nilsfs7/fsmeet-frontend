@@ -16,6 +16,7 @@ import BattleGrid from '@/components/comp/battle-grid';
 import TextareaAutosize from 'react-textarea-autosize';
 import { MaxAge } from '@/domain/enums/max-age';
 import UserSection from '@/components/events/user-section';
+import { ParticipantsPanel } from './participants-panel';
 import { Switch } from '@/components/ui/switch';
 import LoadingSpinner from '@/components/animation/loading-spinner';
 import { UserType } from '@/domain/enums/user-type';
@@ -238,7 +239,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
         {/* Participants */}
         {usersMap.size > 0 && (
           <TabsContent value="participants" className="overflow-hidden overflow-y-auto scrollbar-none">
-            <UserSection sectionTitle={t('tabParticipantsSectionParticipants')} showUserCountryFlag={event.showUserCountryFlag} users={Array.from(usersMap.values())} />
+            <ParticipantsPanel title={t('tabParticipantsSectionParticipants')} showUserCountryFlag={Boolean(event.showUserCountryFlag)} users={Array.from(usersMap.values()) as User[]} />
           </TabsContent>
         )}
       </Tabs>

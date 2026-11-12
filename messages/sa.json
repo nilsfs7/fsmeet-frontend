@@ -1512,5 +1512,25 @@
   },
   "global/components/date-picker": {
     "placeholder": "اختر تاريخًا"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "ابحث بالاسم",
+    "clearSearch": "مسح البحث",
+    "all": "الكل",
+    "status": "الحالة",
+    "type": "النوع",
+    "country": "الدولة",
+    "gender": "الجنس",
+    "competition": "المسابقة",
+    "statusApproved": "مقبول",
+    "statusPending": "قيد الانتظار",
+    "typeParticipants": "المشاركون",
+    "typeVisitors": "الزوار",
+    "genderMale": "ذكر",
+    "genderFemale": "أنثى",
+    "competitionNone": "بدون مسابقة",
+    "shown": "عرض {shown} من {total}",
+    "reset": "إعادة ضبط الفلاتر",
+    "noMatch": "لا أحد يطابق هذه الفلاتر."
   }
 }

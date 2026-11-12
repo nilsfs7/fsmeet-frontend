@@ -1512,5 +1512,25 @@
   },
   "global/components/date-picker": {
     "placeholder": "Pick a date"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "Search by name",
+    "clearSearch": "Clear search",
+    "all": "All",
+    "status": "Status",
+    "type": "Type",
+    "country": "Country",
+    "gender": "Gender",
+    "competition": "Competition",
+    "statusApproved": "Approved",
+    "statusPending": "Pending",
+    "typeParticipants": "Participants",
+    "typeVisitors": "Visitors",
+    "genderMale": "Male",
+    "genderFemale": "Female",
+    "competitionNone": "No competition",
+    "shown": "Showing {shown} of {total}",
+    "reset": "Reset filters",
+    "noMatch": "No one matches these filters."
   }
 }

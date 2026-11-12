@@ -1512,5 +1512,25 @@
   },
   "global/components/date-picker": {
     "placeholder": "Pilih tarikh"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "Cari mengikut nama",
+    "clearSearch": "Kosongkan carian",
+    "all": "Semua",
+    "status": "Status",
+    "type": "Jenis",
+    "country": "Negara",
+    "gender": "Jantina",
+    "competition": "Pertandingan",
+    "statusApproved": "Diluluskan",
+    "statusPending": "Belum selesai",
+    "typeParticipants": "Peserta",
+    "typeVisitors": "Pengunjung",
+    "genderMale": "Lelaki",
+    "genderFemale": "Perempuan",
+    "competitionNone": "Tiada pertandingan",
+    "shown": "Memaparkan {shown} daripada {total}",
+    "reset": "Tetapkan semula penapis",
+    "noMatch": "Tiada sesiapa sepadan dengan penapis ini."
   }
 }

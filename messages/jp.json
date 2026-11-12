@@ -1512,5 +1512,25 @@
   },
   "global/components/date-picker": {
     "placeholder": "日付を選択"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "名前で検索",
+    "clearSearch": "検索をクリア",
+    "all": "すべて",
+    "status": "ステータス",
+    "type": "種別",
+    "country": "国",
+    "gender": "性別",
+    "competition": "大会",
+    "statusApproved": "承認済み",
+    "statusPending": "保留中",
+    "typeParticipants": "参加者",
+    "typeVisitors": "観覧者",
+    "genderMale": "男性",
+    "genderFemale": "女性",
+    "competitionNone": "大会なし",
+    "shown": "{total}件中{shown}件を表示",
+    "reset": "フィルターをリセット",
+    "noMatch": "条件に一致する人はいません。"
   }
 }
