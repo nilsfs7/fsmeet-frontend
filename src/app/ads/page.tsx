@@ -11,6 +11,14 @@ import { EmptyState } from '@/components/common/empty-state';
 import { IconPlus, IconSpeakerphone } from '@tabler/icons-react';
 import { auth } from '@/auth';
 import AdsList from './components/ads-list';
+import { withImageVersion } from '@/functions/image-cache';
+import type { ReadAdvertisementResponseDto } from '@/infrastructure/clients/dtos/advertisement/read-advertisement-response-dto';
+
+/** Replaced images keep their URL: version them per request so the list never shows a stale cached file. */
+function withFreshImageUrls(advertisements: ReadAdvertisementResponseDto[]): ReadAdvertisementResponseDto[] {
+  const version = Date.now();
+  return advertisements.map(ad => ({ ...ad, imageUrl: withImageVersion(ad.imageUrl, version) ?? '' }));
+}
 
 export default async function Ads() {
   const t = await getTranslations('/ads');
@@ -38,7 +46,7 @@ export default async function Ads() {
               }
             />
           ) : (
-            <AdsList key={advertisements.map(ad => `${ad.id}:${ad.displayOrder}`).join(',')} advertisements={advertisements} />
+            <AdsList key={advertisements.map(ad => `${ad.id}:${ad.displayOrder}`).join(',')} advertisements={withFreshImageUrls(advertisements)} />
           )}
         </div>
       </div>

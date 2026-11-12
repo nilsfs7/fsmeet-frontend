@@ -10,6 +10,7 @@ import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/page-title';
 import { useSession } from 'next-auth/react';
+import { refreshCachedImage, withImageVersion } from '@/functions/image-cache';
 import { deleteAdvertisement, getAdvertisement, updateAdvertisement, updateAdvertisementImage } from '@/infrastructure/clients/advertisement.client';
 import AdvertisementEditor from '@/components/events/advertisement-editor';
 import Dialog from '@/components/dialog';
@@ -27,6 +28,7 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
 
   const [advertisement, setAdvertisement] = useState<Advertisement>();
   const [advertisementImage, setAdvertisementImage] = useState<File>();
+  const [storedImageUrl, setStoredImageUrl] = useState<string>();
 
   const username = session?.user?.username ?? '';
 
@@ -44,6 +46,8 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
 
       if (advertisementImage) {
         await updateAdvertisementImage(params.advertisementId, advertisementImage, session);
+        // the new file is stored under the same URL: refresh this browser's cached copy
+        await refreshCachedImage(storedImageUrl);
       }
 
       router.replace(addFetchTrigger(routeAds));
@@ -76,7 +80,8 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
   useEffect(() => {
     void getAdvertisement(params.advertisementId)
       .then(dto => {
-        setAdvertisement(dto);
+        setStoredImageUrl(dto.imageUrl);
+        setAdvertisement({ ...dto, imageUrl: withImageVersion(dto.imageUrl, Date.now()) ?? '' });
       })
       .catch((error: unknown) => {
         const message = error instanceof Error ? error.message : t('toastLoadFailed');
