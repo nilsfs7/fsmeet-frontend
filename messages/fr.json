@@ -538,7 +538,10 @@
     "dlgDownloadResultsBtnDownload": "Télécharger",
     "toastMatchesInconsistent": "Les battles semblent avoir des données incohérentes.",
     "toastResultsProcessed": "Résultats des battles traités.",
-    "toastExportInconsistent": "L'export des résultats est incohérent."
+    "toastExportInconsistent": "L'export des résultats est incohérent.",
+    "tabInfoNone": "Aucune",
+    "tabInfoParticipants": "Participants",
+    "tabInfoRounds": "Tours"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Gérer les groupes",
@@ -1226,7 +1229,12 @@
   "global/components/battle-grid": {
     "btnAddMatch": "Ajouter une battle",
     "labelAssignSlot": "Attribuer un créneau",
-    "labelUnassigned": "non attribué"
+    "labelUnassigned": "non attribué",
+    "labelExtraMatch": "Extra",
+    "labelTbd": "À déterminer",
+    "labelResult": "Résultat",
+    "labelTimeLimit": "Temps limité",
+    "labelMatchCount": "{count, plural, one {# match} other {# matchs}}"
   },
   "global/components/competition-editor": {
     "inputName": "Nom de la compétition",

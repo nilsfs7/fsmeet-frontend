@@ -563,7 +563,10 @@
     "dlgDownloadResultsBtnDownload": "下载",
     "toastMatchesInconsistent": "比赛数据似乎不一致。",
     "toastResultsProcessed": "已处理比赛结果。",
-    "toastExportInconsistent": "比赛结果导出不一致。"
+    "toastExportInconsistent": "比赛结果导出不一致。",
+    "tabInfoNone": "无",
+    "tabInfoParticipants": "参赛者",
+    "tabInfoRounds": "轮次"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "管理选手池",
@@ -1251,7 +1254,12 @@
   "global/components/battle-grid": {
     "btnAddMatch": "添加比赛",
     "labelAssignSlot": "分配席位",
-    "labelUnassigned": "未分配"
+    "labelUnassigned": "未分配",
+    "labelExtraMatch": "加赛",
+    "labelTbd": "待定",
+    "labelResult": "结果",
+    "labelTimeLimit": "限时",
+    "labelMatchCount": "{count} 场比赛"
   },
   "global/components/competition-editor": {
     "inputName": "比赛名称",

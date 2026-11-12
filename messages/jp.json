@@ -563,7 +563,10 @@
     "dlgDownloadResultsBtnDownload": "ダウンロード",
     "toastMatchesInconsistent": "試合データが一貫していないようです。",
     "toastResultsProcessed": "試合結果を処理しました。",
-    "toastExportInconsistent": "試合結果の書き出しが一貫していません。"
+    "toastExportInconsistent": "試合結果の書き出しが一貫していません。",
+    "tabInfoNone": "なし",
+    "tabInfoParticipants": "参加者",
+    "tabInfoRounds": "ラウンド"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "選手一覧を管理",
@@ -1251,7 +1254,12 @@
   "global/components/battle-grid": {
     "btnAddMatch": "試合を追加",
     "labelAssignSlot": "スロットを割り当て",
-    "labelUnassigned": "未割り当て"
+    "labelUnassigned": "未割り当て",
+    "labelExtraMatch": "追加",
+    "labelTbd": "未定",
+    "labelResult": "結果",
+    "labelTimeLimit": "時間制限",
+    "labelMatchCount": "{count}試合"
   },
   "global/components/competition-editor": {
     "inputName": "カテゴリ名",

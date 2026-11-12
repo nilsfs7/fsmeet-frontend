@@ -538,7 +538,10 @@
     "dlgDownloadResultsBtnDownload": "Runterladen",
     "toastMatchesInconsistent": "Die Battles scheinen uneinheitliche Daten zu haben.",
     "toastResultsProcessed": "Battle-Ergebnisse verarbeitet.",
-    "toastExportInconsistent": "Der Export der Battle-Ergebnisse ist uneinheitlich."
+    "toastExportInconsistent": "Der Export der Battle-Ergebnisse ist uneinheitlich.",
+    "tabInfoNone": "Keine",
+    "tabInfoParticipants": "Teilnehmer",
+    "tabInfoRounds": "Runden"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Teilnehmer-Pool verwalten",
@@ -1226,7 +1229,12 @@
   "global/components/battle-grid": {
     "btnAddMatch": "Match hinzufügen",
     "labelAssignSlot": "Slot zuweisen",
-    "labelUnassigned": "nicht zugewiesen"
+    "labelUnassigned": "nicht zugewiesen",
+    "labelExtraMatch": "Extra",
+    "labelTbd": "Noch offen",
+    "labelResult": "Ergebnis",
+    "labelTimeLimit": "Zeitlimit",
+    "labelMatchCount": "{count, plural, one {# Match} other {# Matches}}"
   },
   "global/components/competition-editor": {
     "inputName": "Wettbewerb Name",

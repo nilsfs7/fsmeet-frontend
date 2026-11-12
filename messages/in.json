@@ -563,7 +563,10 @@
     "dlgDownloadResultsBtnDownload": "डाउनलोड करें",
     "toastMatchesInconsistent": "मैच के डेटा असंगत लगते हैं।",
     "toastResultsProcessed": "मैच परिणाम प्रोसेस हो गए।",
-    "toastExportInconsistent": "परिणामों का एक्सपोर्ट असंगत है।"
+    "toastExportInconsistent": "परिणामों का एक्सपोर्ट असंगत है।",
+    "tabInfoNone": "कोई नहीं",
+    "tabInfoParticipants": "प्रतिभागी",
+    "tabInfoRounds": "राउंड"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "खिलाड़ी पूल प्रबंधित करें",
@@ -1251,7 +1254,12 @@
   "global/components/battle-grid": {
     "btnAddMatch": "मैच जोड़ें",
     "labelAssignSlot": "स्लॉट असाइन करें",
-    "labelUnassigned": "असाइन नहीं"
+    "labelUnassigned": "असाइन नहीं",
+    "labelExtraMatch": "अतिरिक्त",
+    "labelTbd": "तय होना बाकी",
+    "labelResult": "परिणाम",
+    "labelTimeLimit": "समय सीमा",
+    "labelMatchCount": "{count, plural, one {# मैच} other {# मैच}}"
   },
   "global/components/competition-editor": {
     "inputName": "प्रतियोगिता का नाम",

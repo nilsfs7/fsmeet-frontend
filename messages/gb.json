@@ -563,7 +563,10 @@
     "dlgDownloadResultsBtnDownload": "Download",
     "toastMatchesInconsistent": "Matches seem to have inconsistent data.",
     "toastResultsProcessed": "Processed battle results.",
-    "toastExportInconsistent": "Export of battle results is inconsistent."
+    "toastExportInconsistent": "Export of battle results is inconsistent.",
+    "tabInfoNone": "None",
+    "tabInfoParticipants": "Participants",
+    "tabInfoRounds": "Rounds"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Manage Player Pool",
@@ -1251,7 +1254,12 @@
   "global/components/battle-grid": {
     "btnAddMatch": "Add Match",
     "labelAssignSlot": "Assign slot",
-    "labelUnassigned": "unassigned"
+    "labelUnassigned": "unassigned",
+    "labelExtraMatch": "Extra",
+    "labelTbd": "To be decided",
+    "labelResult": "Result",
+    "labelTimeLimit": "Time limit",
+    "labelMatchCount": "{count, plural, one {# match} other {# matches}}"
   },
   "global/components/competition-editor": {
     "inputName": "Competition Name",

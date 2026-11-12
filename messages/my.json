@@ -563,7 +563,10 @@
     "dlgDownloadResultsBtnDownload": "Muat turun",
     "toastMatchesInconsistent": "Perlawanan nampaknya mempunyai data yang tidak konsisten.",
     "toastResultsProcessed": "Keputusan perlawanan diproses.",
-    "toastExportInconsistent": "Eksport keputusan tidak konsisten."
+    "toastExportInconsistent": "Eksport keputusan tidak konsisten.",
+    "tabInfoNone": "Tiada",
+    "tabInfoParticipants": "Peserta",
+    "tabInfoRounds": "Pusingan"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Urus Pool Pemain",
@@ -1251,7 +1254,12 @@
   "global/components/battle-grid": {
     "btnAddMatch": "Tambah Perlawanan",
     "labelAssignSlot": "Tetapkan slot",
-    "labelUnassigned": "belum ditetapkan"
+    "labelUnassigned": "belum ditetapkan",
+    "labelExtraMatch": "Tambahan",
+    "labelTbd": "Belum ditentukan",
+    "labelResult": "Keputusan",
+    "labelTimeLimit": "Had masa",
+    "labelMatchCount": "{count} perlawanan"
   },
   "global/components/competition-editor": {
     "inputName": "Nama Pertandingan",

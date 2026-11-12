@@ -22,7 +22,7 @@ export default async function CompetitionDetails(props: { params: Promise<{ even
   return (
     <>
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={comp.name} />
+        <PageTitle title={comp.name} description={event.name} />
 
         <TabsMenu comp={comp} event={event} />
 

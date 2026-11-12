@@ -563,7 +563,10 @@
     "dlgDownloadResultsBtnDownload": "تحميل",
     "toastMatchesInconsistent": "يبدو أن بيانات المباريات غير متسقة.",
     "toastResultsProcessed": "تمت معالجة نتائج المباريات.",
-    "toastExportInconsistent": "تصدير النتائج غير متسق."
+    "toastExportInconsistent": "تصدير النتائج غير متسق.",
+    "tabInfoNone": "لا يوجد",
+    "tabInfoParticipants": "المشاركون",
+    "tabInfoRounds": "الجولات"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "إدارة قائمة اللاعبين",
@@ -1251,7 +1254,12 @@
   "global/components/battle-grid": {
     "btnAddMatch": "إضافة مباراة",
     "labelAssignSlot": "تعيين خانة",
-    "labelUnassigned": "غير معيّن"
+    "labelUnassigned": "غير معيّن",
+    "labelExtraMatch": "إضافية",
+    "labelTbd": "لم يُحدَّد بعد",
+    "labelResult": "النتيجة",
+    "labelTimeLimit": "وقت محدد",
+    "labelMatchCount": "{count, plural, one {مباراة واحدة} other {# مباريات}}"
   },
   "global/components/competition-editor": {
     "inputName": "اسم المنافسة",

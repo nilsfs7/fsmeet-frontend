@@ -7,8 +7,10 @@ import { Moment } from 'moment';
 import ActionButton from '../common/action-button';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
-import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import moment from 'moment';
+import { Button } from '@/components/ui/button';
+import { IconPlus } from '@tabler/icons-react';
+import { cn } from '@/lib/utils';
+import { RoundHeader } from './round-header';
 import { useTranslations } from 'next-intl';
 
 interface IBattleGridProps {
@@ -43,69 +45,62 @@ const BattleGrid = ({
   const t = useTranslations('global/components/battle-grid');
 
   return (
-    <div className="flex overflow-y-auto">
+    <div className="flex w-max min-w-full gap-3 pb-2">
       {rounds.map((round: Round, i: number) => {
+        const editing = editingEnabled || seedingEnabled;
         return (
-          <div key={`rnd-${round.roundIndex}`} className={`${i > 0 ? 'ml-1' : ''} ${i < rounds.length - 1 ? 'mr-1' : ''}`}>
-            <div className={`h-full flex flex-col`}>
-              <div className={`flex justify-between items-center px-2 ${editingEnabled && 'mb-2 gap-2'}`}>
-                <div className={`text-lg ${!editingEnabled ? 'flex w-full justify-center' : ''} `}>{round.name}</div>
-                <div className="flex gap-1 justify-end w-fit">
-                  {onEditRound && <ActionButton action={Action.EDIT} size={Size.S} onClick={() => onEditRound(round.roundIndex)} />}
-                  {onDeleteRound && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteRound(round.roundIndex, round.name)} />}
-                </div>
-              </div>
-              <div className={`px-2 h-6`}>
-                <div className={`text-sm ${!editingEnabled ? 'flex w-full justify-center' : ''} `}>
-                  {moment(round.date).isValid() &&
-                    moment(round.date)
-                      .locale('en')
-                      .format(`dddd ${!editingEnabled && !seedingEnabled ? '' : ', MMMM D'}`)}
-                </div>
-              </div>
+          <div key={`rnd-${round.roundIndex}`} className={cn('flex shrink-0 flex-col', seedingEnabled ? 'w-72' : 'w-60')}>
+            <div className="mb-2 rounded-2xl border border-border bg-background px-3 py-2.5 shadow-xs">
+              <RoundHeader
+                round={round}
+                actions={
+                  (onEditRound || onDeleteRound) && (
+                    <>
+                      {onEditRound && <ActionButton action={Action.EDIT} size={Size.S} onClick={() => onEditRound(round.roundIndex)} />}
+                      {onDeleteRound && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteRound(round.roundIndex, round.name)} />}
+                    </>
+                  )
+                }
+              />
+            </div>
 
-              <div className={`h-full flex flex-col ${!editingEnabled ? 'justify-center' : ''} mt-2`}>
-                <div className="flex w-52 flex-col justify-center">
-                  {round.matches.map((match, j) => {
-                    return (
-                      <div key={`match-${j}`} className={`${j > 0 ? 'mt-1' : ''} ${j < round.matches.length - 1 ? 'mb-1' : ''}`}>
-                        <MatchCard
-                          match={match}
-                          usersMap={usersMap}
-                          editingEnabled={editingEnabled}
-                          seedingEnabled={seedingEnabled}
-                          showUserCountryFlag={showUserCountryFlag}
-                          onUpdateTime={(matchIndex: number, matchId: string, time: Moment | null) => {
-                            onUpdateTime && onUpdateTime(rounds[i].roundIndex, matchIndex, matchId, time);
-                          }}
-                          onEditMatch={(matchIndex: number) => {
-                            onEditMatch && onEditMatch(round.roundIndex, matchIndex);
-                          }}
-                          onDeleteMatch={(matchIndex: number) => {
-                            onDeleteMatch && onDeleteMatch(round.roundIndex, matchIndex);
-                          }}
-                          onUpdateSlot={(matchId: string, slotIndex: number, username: string, result: number) => {
-                            onUpdateSlot && onUpdateSlot(rounds[i].roundIndex, matchId, slotIndex, username, result);
-                          }}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
+            <div className={cn('flex flex-1 flex-col gap-2', !editing && 'justify-around')}>
+              {round.matches.map((match, j) => {
+                return (
+                  <MatchCard
+                    key={`match-${j}`}
+                    match={match}
+                    usersMap={usersMap}
+                    editingEnabled={editingEnabled}
+                    seedingEnabled={seedingEnabled}
+                    showUserCountryFlag={showUserCountryFlag}
+                    onUpdateTime={(matchIndex: number, matchId: string, time: Moment | null) => {
+                      onUpdateTime && onUpdateTime(rounds[i].roundIndex, matchIndex, matchId, time);
+                    }}
+                    onEditMatch={(matchIndex: number) => {
+                      onEditMatch && onEditMatch(round.roundIndex, matchIndex);
+                    }}
+                    onDeleteMatch={(matchIndex: number) => {
+                      onDeleteMatch && onDeleteMatch(round.roundIndex, matchIndex);
+                    }}
+                    onUpdateSlot={(matchId: string, slotIndex: number, username: string, result: number) => {
+                      onUpdateSlot && onUpdateSlot(rounds[i].roundIndex, matchId, slotIndex, username, result);
+                    }}
+                  />
+                );
+              })}
 
-                {editingEnabled && onAddMatch && (
-                  <div className="flex justify-center mt-2 gap-2 items-center">
-                    <Button
-                      type="button"
-                      variant="action"
-                      className={ctaActionButtonClassName}
-                      onClick={() => onAddMatch(round.roundIndex)}
-                    >
-                      {t('btnAddMatch')}
-                    </Button>
-                  </div>
-                )}
-              </div>
+              {editingEnabled && onAddMatch && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="h-10 w-full rounded-2xl border-dashed text-muted-foreground hover:border-brand/50 hover:text-brand-strong"
+                  onClick={() => onAddMatch(round.roundIndex)}
+                >
+                  <IconPlus className="h-4 w-4" stroke={2} aria-hidden />
+                  {t('btnAddMatch')}
+                </Button>
+              )}
             </div>
           </div>
         );
