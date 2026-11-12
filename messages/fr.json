@@ -871,7 +871,8 @@
     "pageTitle": "Créer une annonce",
     "btnCreate": "Créer",
     "toastNeedLogin": "Vous devez être connecté pour créer une annonce.",
-    "toastCreateFailed": "Impossible de créer l'annonce."
+    "toastCreateFailed": "Impossible de créer l'annonce.",
+    "pageDescription": "Décris ton produit, ajoute une image et un lien – l’aperçu montre le rendu."
   },
   "/ads/edit": {
     "pageTitle": "Modifier l'annonce",
@@ -880,7 +881,8 @@
     "btnSave": "Enregistrer",
     "toastSaveFailed": "Impossible d'enregistrer l'annonce.",
     "toastDeleteFailed": "Impossible de supprimer l'annonce.",
-    "toastLoadFailed": "Impossible de charger l'annonce."
+    "toastLoadFailed": "Impossible de charger l'annonce.",
+    "pageDescription": "Modifie le contenu, l’image et la visibilité de ton annonce."
   },
   "/ads/stats": {
     "pageTitle": "Statistiques de l'annonce",
@@ -1257,7 +1259,14 @@
     "tooltipDisplayOrder": "Ordre d'affichage des annonces lorsqu'il y en a plusieurs. 0 est affiché en premier.",
     "chbEnabled": "Actif",
     "lblImage": "Image",
-    "lblChooseImage": "Choisir une image"
+    "lblChooseImage": "Choisir une image",
+    "sectionContent": "Contenu",
+    "sectionVisibility": "Visibilité",
+    "hintImage": "Clique ou dépose une image (JPG, PNG, WebP)",
+    "lblPreview": "Aperçu",
+    "lblAdBadge": "Annonce",
+    "hintPreview": "Aperçu approximatif de ton annonce à côté de la liste des événements.",
+    "hintPreviewInactive": "Cette annonce est inactive et n’est affichée à personne."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Description",

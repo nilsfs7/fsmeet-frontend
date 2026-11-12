@@ -896,7 +896,8 @@
     "pageTitle": "Create Ad",
     "btnCreate": "Create",
     "toastNeedLogin": "You must be logged in to create an ad.",
-    "toastCreateFailed": "Could not create the ad."
+    "toastCreateFailed": "Could not create the ad.",
+    "pageDescription": "Describe your product, add an image and link – the preview shows how it will look."
   },
   "/ads/edit": {
     "pageTitle": "Edit Ad",
@@ -905,7 +906,8 @@
     "btnSave": "Save",
     "toastSaveFailed": "Could not save the ad.",
     "toastDeleteFailed": "Could not delete the ad.",
-    "toastLoadFailed": "Could not load the ad."
+    "toastLoadFailed": "Could not load the ad.",
+    "pageDescription": "Update the content, image and visibility of your ad."
   },
   "/ads/stats": {
     "pageTitle": "Ad Statistics",
@@ -1282,7 +1284,14 @@
     "tooltipDisplayOrder": "Order in which ads are shown when having multiple. 0 is shown first.",
     "chbEnabled": "Active",
     "lblImage": "Image",
-    "lblChooseImage": "Choose an image"
+    "lblChooseImage": "Choose an image",
+    "sectionContent": "Content",
+    "sectionVisibility": "Visibility",
+    "hintImage": "Click or drop an image (JPG, PNG, WebP)",
+    "lblPreview": "Preview",
+    "lblAdBadge": "Ad",
+    "hintPreview": "Roughly how your ad appears next to the events list.",
+    "hintPreviewInactive": "This ad is inactive and is not shown to anyone."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Description",

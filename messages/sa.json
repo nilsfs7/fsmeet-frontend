@@ -896,7 +896,8 @@
     "pageTitle": "إنشاء إعلان",
     "btnCreate": "إنشاء",
     "toastNeedLogin": "يجب تسجيل الدخول لإنشاء إعلان.",
-    "toastCreateFailed": "تعذر إنشاء الإعلان."
+    "toastCreateFailed": "تعذر إنشاء الإعلان.",
+    "pageDescription": "صف منتجك وأضف صورة ورابطًا – تعرض المعاينة الشكل النهائي."
   },
   "/ads/edit": {
     "pageTitle": "تعديل الإعلان",
@@ -905,7 +906,8 @@
     "btnSave": "حفظ",
     "toastSaveFailed": "تعذر حفظ الإعلان.",
     "toastDeleteFailed": "تعذر حذف الإعلان.",
-    "toastLoadFailed": "تعذر تحميل الإعلان."
+    "toastLoadFailed": "تعذر تحميل الإعلان.",
+    "pageDescription": "حدّث محتوى إعلانك وصورته وظهوره."
   },
   "/ads/stats": {
     "pageTitle": "إحصائيات الإعلان",
@@ -1282,7 +1284,14 @@
     "tooltipDisplayOrder": "ترتيب ظهور الإعلانات عند وجود أكثر من واحد. يُعرض 0 أولاً.",
     "chbEnabled": "مفعّل",
     "lblImage": "الصورة",
-    "lblChooseImage": "اختر صورة"
+    "lblChooseImage": "اختر صورة",
+    "sectionContent": "المحتوى",
+    "sectionVisibility": "الظهور",
+    "hintImage": "انقر أو أسقط صورة (JPG، PNG، WebP)",
+    "lblPreview": "معاينة",
+    "lblAdBadge": "إعلان",
+    "hintPreview": "هكذا سيظهر إعلانك تقريبًا بجانب قائمة الفعاليات.",
+    "hintPreviewInactive": "هذا الإعلان غير نشط ولا يظهر لأي أحد."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "الوصف",

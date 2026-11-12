@@ -9,7 +9,7 @@ import { getAdvertisement, getAdvertisementActivity } from '@/infrastructure/cli
 import { auth } from '@/auth';
 import { Platform } from '@/domain/enums/platform';
 import moment from 'moment';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AppDataStateError } from '@/components/shared/app-data-state-error';
 import { ChartLine } from '@/components/charts/chart-line';
 import { ActivityTable, type ActivityTableRow, type DisplayPlatform } from './components/activity-table';
 
@@ -70,10 +70,7 @@ export default async function AdvertisementStatsPage(props: { params: Promise<{ 
       <div className="min-h-0 flex-1 overflow-y-auto scrollbar-none px-4 pb-6 sm:px-6 md:px-8">
         <div className="mx-auto w-full max-w-4xl">
           {loadError ? (
-            <Alert variant="destructive" className="max-w-lg">
-              <AlertTitle>{tGlobal('errorTitle')}</AlertTitle>
-              <AlertDescription>{t('toastLoadFailed')}</AlertDescription>
-            </Alert>
+            <AppDataStateError title={tGlobal('errorTitle')} message={t('toastLoadFailed')} className="mx-auto" />
           ) : (
             <div className="flex flex-col gap-5 text-sm">
               <div className="grid gap-3 sm:grid-cols-2">

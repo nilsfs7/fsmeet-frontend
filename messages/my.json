@@ -896,7 +896,8 @@
     "pageTitle": "Cipta Iklan",
     "btnCreate": "Cipta",
     "toastNeedLogin": "Anda mesti log masuk untuk mencipta iklan.",
-    "toastCreateFailed": "Tidak dapat mencipta iklan."
+    "toastCreateFailed": "Tidak dapat mencipta iklan.",
+    "pageDescription": "Terangkan produk anda, tambah imej dan pautan – pratonton menunjukkan rupanya."
   },
   "/ads/edit": {
     "pageTitle": "Edit Iklan",
@@ -905,7 +906,8 @@
     "btnSave": "Simpan",
     "toastSaveFailed": "Tidak dapat menyimpan iklan.",
     "toastDeleteFailed": "Tidak dapat memadamkan iklan.",
-    "toastLoadFailed": "Tidak dapat memuatkan iklan."
+    "toastLoadFailed": "Tidak dapat memuatkan iklan.",
+    "pageDescription": "Kemas kini kandungan, imej dan keterlihatan iklan anda."
   },
   "/ads/stats": {
     "pageTitle": "Statistik Iklan",
@@ -1282,7 +1284,14 @@
     "tooltipDisplayOrder": "Urutan iklan dipaparkan apabila ada lebih daripada satu. 0 dipaparkan dahulu.",
     "chbEnabled": "Aktif",
     "lblImage": "Imej",
-    "lblChooseImage": "Pilih imej"
+    "lblChooseImage": "Pilih imej",
+    "sectionContent": "Kandungan",
+    "sectionVisibility": "Keterlihatan",
+    "hintImage": "Klik atau lepaskan imej (JPG, PNG, WebP)",
+    "lblPreview": "Pratonton",
+    "lblAdBadge": "Iklan",
+    "hintPreview": "Lebih kurang beginilah iklan anda dipaparkan di sebelah senarai acara.",
+    "hintPreviewInactive": "Iklan ini tidak aktif dan tidak dipaparkan kepada sesiapa."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Penerangan",

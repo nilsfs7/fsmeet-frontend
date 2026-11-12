@@ -871,7 +871,8 @@
     "pageTitle": "Crear anuncio",
     "btnCreate": "Crear",
     "toastNeedLogin": "Debes iniciar sesión para crear un anuncio.",
-    "toastCreateFailed": "No se pudo crear el anuncio."
+    "toastCreateFailed": "No se pudo crear el anuncio.",
+    "pageDescription": "Describe tu producto, añade una imagen y un enlace: la vista previa muestra cómo se verá."
   },
   "/ads/edit": {
     "pageTitle": "Editar anuncio",
@@ -880,7 +881,8 @@
     "btnSave": "Guardar",
     "toastSaveFailed": "No se pudo guardar el anuncio.",
     "toastDeleteFailed": "No se pudo eliminar el anuncio.",
-    "toastLoadFailed": "No se pudo cargar el anuncio."
+    "toastLoadFailed": "No se pudo cargar el anuncio.",
+    "pageDescription": "Actualiza el contenido, la imagen y la visibilidad de tu anuncio."
   },
   "/ads/stats": {
     "pageTitle": "Estadísticas del anuncio",
@@ -1257,7 +1259,14 @@
     "tooltipDisplayOrder": "Orden en que se muestran los anuncios si hay varios. El 0 se muestra primero.",
     "chbEnabled": "Activo",
     "lblImage": "Imagen",
-    "lblChooseImage": "Elegir una imagen"
+    "lblChooseImage": "Elegir una imagen",
+    "sectionContent": "Contenido",
+    "sectionVisibility": "Visibilidad",
+    "hintImage": "Haz clic o suelta una imagen (JPG, PNG, WebP)",
+    "lblPreview": "Vista previa",
+    "lblAdBadge": "Anuncio",
+    "hintPreview": "Así aparecerá aproximadamente tu anuncio junto a la lista de eventos.",
+    "hintPreviewInactive": "Este anuncio está inactivo y no se muestra a nadie."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Descripción",

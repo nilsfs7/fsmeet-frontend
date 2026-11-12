@@ -10,10 +10,13 @@ import { cn } from '@/lib/utils';
 import { IconPhotoUp } from '@tabler/icons-react';
 import { Input } from '@/components/ui/input';
 import { FieldLabel } from '@/components/common/field-label';
+import { FileDropzone } from '@/components/common/file-dropzone';
 import TextInputLarge from '../common/text-input-large';
 
+const SECTION_TITLE_CLASS = 'text-xs font-semibold uppercase tracking-wide text-muted-foreground';
+
 const EDITOR_CARD_CLASS = cn(
-  'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
+  'flex w-full min-w-0 flex-col',
   'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
@@ -36,12 +39,9 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
   const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
   const [enabled, setEnabled] = useState(advertisement?.enabled ?? true);
 
-  const uploadToClient = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files?.[0]) {
-      const f = event.target.files[0];
-      setImgPreview(f);
-      setImgPreviewObjectURL(URL.createObjectURL(f));
-    }
+  const selectImage = (f: File) => {
+    setImgPreview(f);
+    setImgPreviewObjectURL(URL.createObjectURL(f));
   };
 
   const parseDisplayOrder = (raw: string): number => {
@@ -92,75 +92,103 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
   }, [imgPreviewObjectURL]);
 
   const previewSrc = imgPreviewObjectURL ?? (advertisement?.imageUrl ? advertisement.imageUrl : imgImagePlaceholder);
+  const hasImage = previewSrc !== imgImagePlaceholder;
+  const previewHost = (() => {
+    try {
+      return new URL(targetUrl).host.replace(/^www\./, '');
+    } catch {
+      return targetUrl;
+    }
+  })();
 
   return (
-    <div className={EDITOR_CARD_CLASS}>
-      <TextInput id="advertisement-title" label={t('inputTitle')} placeholder={t('placeholderTitle')} value={title} onChange={e => setTitle(e.currentTarget.value)} />
-      <TextInputLarge
-        id={'description'}
-        label={t('inputDescription')}
-        placeholder={t('placeholderDescription')}
-        value={description}
-        resizable={true}
-        onChange={e => {
-          setDescription(e.currentTarget.value);
-        }}
-      />
-
-      <TextInput
-        id="advertisement-target-url"
-        label={t('inputTargetUrl')}
-        placeholder="https://"
-        value={targetUrl}
-        labelTooltip={t('tooltipTargetUrl')}
-        onChange={e => setTargetUrl(e.currentTarget.value)}
-      />
-
-      <div className="flex flex-col gap-2">
-        <span className="text-sm font-medium leading-none">{t('lblImage')}</span>
-        <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch">
-          <img
-            src={previewSrc}
-            alt=""
-            className={cn(
-              'h-28 w-28 shrink-0 self-center rounded-2xl border border-border/60 bg-muted sm:self-auto',
-              previewSrc === imgImagePlaceholder ? 'object-contain p-7 opacity-40 dark:invert' : 'object-cover',
-            )}
+    <div className="grid w-full max-w-5xl min-w-0 grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-6">
+      <div className={EDITOR_CARD_CLASS}>
+        <section className="flex flex-col gap-4">
+          <h2 className={SECTION_TITLE_CLASS}>{t('sectionContent')}</h2>
+          <TextInput id="advertisement-title" label={t('inputTitle')} placeholder={t('placeholderTitle')} value={title} onChange={e => setTitle(e.currentTarget.value)} />
+          <TextInputLarge
+            id={'description'}
+            label={t('inputDescription')}
+            placeholder={t('placeholderDescription')}
+            value={description}
+            resizable={true}
+            onChange={e => {
+              setDescription(e.currentTarget.value);
+            }}
           />
-          <label
-            className={cn(
-              'flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-border px-4 py-5 text-center transition-colors',
-              'hover:border-brand/50 hover:bg-brand-soft/30 focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/30',
-            )}
-          >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-soft text-brand-strong">
-              <IconPhotoUp className="h-5 w-5" stroke={1.75} aria-hidden />
-            </span>
-            <span className="max-w-full truncate text-sm font-semibold text-foreground">{imgPreview ? imgPreview.name : t('lblChooseImage')}</span>
-            <input type="file" accept="image/*" className="sr-only" onChange={uploadToClient} />
-          </label>
-        </div>
+
+          <TextInput
+            id="advertisement-target-url"
+            label={t('inputTargetUrl')}
+            placeholder="https://"
+            value={targetUrl}
+            labelTooltip={t('tooltipTargetUrl')}
+            onChange={e => setTargetUrl(e.currentTarget.value)}
+          />
+        </section>
+
+        <section className="flex flex-col gap-3 border-t border-border pt-4 sm:pt-5">
+          <h2 className={SECTION_TITLE_CLASS}>{t('lblImage')}</h2>
+          <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch">
+            <img
+              src={previewSrc}
+              alt=""
+              className={cn('h-28 w-28 shrink-0 self-center rounded-2xl border border-border/60 bg-muted sm:self-auto', hasImage ? 'object-cover' : 'object-contain p-7 opacity-40 dark:invert')}
+            />
+            <FileDropzone
+              className="min-w-0 flex-1"
+              label={t('lblChooseImage')}
+              hint={t('hintImage')}
+              fileName={imgPreview?.name}
+              accept="image/*"
+              icon={<IconPhotoUp className="h-5 w-5" stroke={1.75} aria-hidden />}
+              onFile={selectImage}
+            />
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3 border-t border-border pt-4 sm:pt-5">
+          <h2 className={SECTION_TITLE_CLASS}>{t('sectionVisibility')}</h2>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+            <div className="flex min-h-11 flex-1 items-center justify-between gap-3 rounded-xl border border-border px-3 py-2">
+              <FieldLabel id="advertisement-display-order" label={t('inputDisplayOrder')} tooltip={t('tooltipDisplayOrder')} className="text-sm font-medium leading-none" />
+              <Input
+                className="h-9 w-20 shrink-0 text-right text-sm font-medium tabular-nums"
+                id="advertisement-display-order"
+                aria-label={t('inputDisplayOrder')}
+                type="number"
+                inputMode="numeric"
+                placeholder="0"
+                min={0}
+                max={99}
+                value={displayOrder}
+                onChange={onDisplayOrderChange}
+              />
+            </div>
+            <div className="sm:w-48">
+              <CheckBox id="advertisement-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
+            </div>
+          </div>
+        </section>
       </div>
 
-      <div className="flex flex-col gap-3 rounded-2xl border border-border/70 bg-muted/30 p-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center justify-between gap-3 sm:justify-start">
-          <FieldLabel id="advertisement-display-order" label={t('inputDisplayOrder')} tooltip={t('tooltipDisplayOrder')} className="text-sm font-medium leading-none" />
-          <Input
-            className="h-9 w-20 shrink-0 text-right text-sm font-medium tabular-nums"
-            id="advertisement-display-order"
-            aria-label={t('inputDisplayOrder')}
-            type="number"
-            placeholder="0"
-            min={0}
-            max={99}
-            value={displayOrder}
-            onChange={onDisplayOrderChange}
-          />
+      <aside className="flex min-w-0 flex-col gap-2 lg:sticky lg:top-0">
+        <h2 className={cn(SECTION_TITLE_CLASS, 'px-1')}>{t('lblPreview')}</h2>
+        <div className={cn('relative overflow-hidden rounded-2xl border border-dashed border-border bg-background shadow-xs', !enabled && 'opacity-60')}>
+          <span className="absolute right-2 top-2 z-1 rounded-md bg-muted/90 px-1.5 py-0.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground">{t('lblAdBadge')}</span>
+          <div className="flex aspect-[16/10] w-full items-center justify-center bg-muted/40">
+            {/* eslint-disable-next-line @next/next/no-img-element -- live preview of a local object URL */}
+            <img src={previewSrc} alt="" className={cn('h-full w-full', hasImage ? 'object-contain' : 'object-contain p-10 opacity-40 dark:invert')} />
+          </div>
+          <div className="flex flex-col gap-1 p-3">
+            <p className={cn('line-clamp-2 font-semibold', title ? 'text-foreground' : 'text-muted-foreground')}>{title || t('placeholderTitle')}</p>
+            <p className={cn('line-clamp-3 text-sm', description ? 'text-muted-foreground' : 'text-muted-foreground/60')}>{description || t('placeholderDescription')}</p>
+            {previewHost && <p className="truncate pt-1 text-xs font-medium text-brand-strong">{previewHost}</p>}
+          </div>
         </div>
-        <div className="sm:w-48">
-          <CheckBox id="advertisement-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
-        </div>
-      </div>
+        <p className="px-1 text-xs text-muted-foreground">{enabled ? t('hintPreview') : t('hintPreviewInactive')}</p>
+      </aside>
     </div>
   );
 };

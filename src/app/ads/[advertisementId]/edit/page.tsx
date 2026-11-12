@@ -90,7 +90,7 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
       </Dialog>
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={t('pageDescription')} />
 
         <div className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
           {advertisement ? (
@@ -105,7 +105,12 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
                 setAdvertisementImage(file);
               }}
             />
-          ) : null}
+          ) : (
+            <div className="grid w-full max-w-5xl grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-6" aria-busy="true">
+              <div className="h-[28rem] animate-pulse rounded-2xl bg-muted/60" />
+              <div className="hidden h-72 animate-pulse rounded-2xl bg-muted/60 lg:block" />
+            </div>
+          )}
         </div>
 
         <Navigation>

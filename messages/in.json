@@ -896,7 +896,8 @@
     "pageTitle": "विज्ञापन बनाएं",
     "btnCreate": "बनाएं",
     "toastNeedLogin": "विज्ञापन बनाने के लिए लॉग इन करें।",
-    "toastCreateFailed": "विज्ञापन नहीं बना पाए।"
+    "toastCreateFailed": "विज्ञापन नहीं बना पाए।",
+    "pageDescription": "अपने प्रोडक्ट का वर्णन करें, इमेज और लिंक जोड़ें – पूर्वावलोकन दिखाता है कि यह कैसा दिखेगा।"
   },
   "/ads/edit": {
     "pageTitle": "विज्ञापन संपादित करें",
@@ -905,7 +906,8 @@
     "btnSave": "सहेजें",
     "toastSaveFailed": "विज्ञापन सहेजा नहीं जा सका।",
     "toastDeleteFailed": "विज्ञापन हटाया नहीं जा सका।",
-    "toastLoadFailed": "विज्ञापन लोड नहीं हो सका।"
+    "toastLoadFailed": "विज्ञापन लोड नहीं हो सका।",
+    "pageDescription": "अपने विज्ञापन की सामग्री, इमेज और दृश्यता अपडेट करें।"
   },
   "/ads/stats": {
     "pageTitle": "विज्ञापन आँकड़े",
@@ -1282,7 +1284,14 @@
     "tooltipDisplayOrder": "एक से अधिक विज्ञापन होने पर किस क्रम में दिखेंगे। 0 सबसे पहले दिखता है।",
     "chbEnabled": "सक्रिय",
     "lblImage": "इमेज",
-    "lblChooseImage": "इमेज चुनें"
+    "lblChooseImage": "इमेज चुनें",
+    "sectionContent": "सामग्री",
+    "sectionVisibility": "दृश्यता",
+    "hintImage": "क्लिक करें या इमेज छोड़ें (JPG, PNG, WebP)",
+    "lblPreview": "पूर्वावलोकन",
+    "lblAdBadge": "विज्ञापन",
+    "hintPreview": "इवेंट सूची के पास आपका विज्ञापन लगभग ऐसा दिखेगा।",
+    "hintPreviewInactive": "यह विज्ञापन निष्क्रिय है और किसी को नहीं दिखता।"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "विवरण",

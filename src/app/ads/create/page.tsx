@@ -53,7 +53,7 @@ export default function CreateAdvertisementPage() {
       <Toaster richColors />
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={t('pageDescription')} />
 
         <div className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
           <AdvertisementEditor

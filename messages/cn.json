@@ -896,7 +896,8 @@
     "pageTitle": "创建广告",
     "btnCreate": "创建",
     "toastNeedLogin": "请先登录后再创建广告。",
-    "toastCreateFailed": "无法创建广告。"
+    "toastCreateFailed": "无法创建广告。",
+    "pageDescription": "描述你的产品，添加图片和链接——预览会显示效果。"
   },
   "/ads/edit": {
     "pageTitle": "编辑广告",
@@ -905,7 +906,8 @@
     "btnSave": "保存",
     "toastSaveFailed": "无法保存广告。",
     "toastDeleteFailed": "无法删除广告。",
-    "toastLoadFailed": "无法加载广告。"
+    "toastLoadFailed": "无法加载广告。",
+    "pageDescription": "更新广告的内容、图片和可见性。"
   },
   "/ads/stats": {
     "pageTitle": "广告统计",
@@ -1282,7 +1284,14 @@
     "tooltipDisplayOrder": "有多个广告时的展示顺序。数字越小越靠前，0 最先显示。",
     "chbEnabled": "启用",
     "lblImage": "图片",
-    "lblChooseImage": "选择图片"
+    "lblChooseImage": "选择图片",
+    "sectionContent": "内容",
+    "sectionVisibility": "可见性",
+    "hintImage": "点击或拖放图片（JPG、PNG、WebP）",
+    "lblPreview": "预览",
+    "lblAdBadge": "广告",
+    "hintPreview": "广告在活动列表旁的大致显示效果。",
+    "hintPreviewInactive": "此广告未启用，不会向任何人显示。"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "描述",

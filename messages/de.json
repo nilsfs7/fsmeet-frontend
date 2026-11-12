@@ -871,7 +871,8 @@
     "pageTitle": "Anzeige erstellen",
     "btnCreate": "Erstellen",
     "toastNeedLogin": "Du musst angemeldet sein, um eine Anzeige zu erstellen.",
-    "toastCreateFailed": "Die Anzeige konnte nicht erstellt werden."
+    "toastCreateFailed": "Die Anzeige konnte nicht erstellt werden.",
+    "pageDescription": "Beschreibe dein Produkt, füge Bild und Link hinzu – die Vorschau zeigt, wie es aussieht."
   },
   "/ads/edit": {
     "pageTitle": "Anzeige bearbeiten",
@@ -880,7 +881,8 @@
     "btnSave": "Speichern",
     "toastSaveFailed": "Die Anzeige konnte nicht gespeichert werden.",
     "toastDeleteFailed": "Die Anzeige konnte nicht gelöscht werden.",
-    "toastLoadFailed": "Die Anzeige konnte nicht geladen werden."
+    "toastLoadFailed": "Die Anzeige konnte nicht geladen werden.",
+    "pageDescription": "Bearbeite Inhalt, Bild und Sichtbarkeit deiner Anzeige."
   },
   "/ads/stats": {
     "pageTitle": "Anzeigenstatistik",
@@ -1257,7 +1259,14 @@
     "tooltipDisplayOrder": "Reihenfolge, in der Anzeigen bei mehreren Einträgen erscheinen. 0 wird zuerst angezeigt.",
     "chbEnabled": "Aktiv",
     "lblImage": "Bild",
-    "lblChooseImage": "Bild auswählen"
+    "lblChooseImage": "Bild auswählen",
+    "sectionContent": "Inhalt",
+    "sectionVisibility": "Sichtbarkeit",
+    "hintImage": "Klicken oder Bild ablegen (JPG, PNG, WebP)",
+    "lblPreview": "Vorschau",
+    "lblAdBadge": "Anzeige",
+    "hintPreview": "So ungefähr erscheint deine Anzeige neben der Eventliste.",
+    "hintPreviewInactive": "Diese Anzeige ist inaktiv und wird niemandem angezeigt."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Beschreibung",
