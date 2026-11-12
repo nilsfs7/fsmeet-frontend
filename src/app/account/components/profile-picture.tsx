@@ -1,42 +1,58 @@
 'use client';
 
-import { imgUserAddImg } from '@/domain/constants/images';
-import { routeAccountImage } from '@/domain/constants/routes';
+import { imgUserDefaultImg } from '@/domain/constants/images';
+import { routeAccountImage, routeUsers } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { IconCamera, IconUserCircle } from '@tabler/icons-react';
 
-const AVATAR_RING = cn('h-32 w-32 shrink-0 rounded-full border border-border/60 object-cover shadow-xs', 'transition-colors hover:border-primary/60 dark:border-border/50');
+interface IProfilePicture {
+  username: string;
+  displayName?: string;
+  /** Server-side image URL; the locally cached one (set after an upload) wins. */
+  imageUrl?: string;
+}
 
-const PLACEHOLDER_SURFACE = cn(
-  'flex h-32 w-32 shrink-0 flex-col items-center justify-center gap-2 rounded-full border border-border/60',
-  'bg-secondary-light/85 p-2 text-center shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
-  'transition-colors hover:border-primary/60 dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
-);
-
-export const ProfilePicture = () => {
+/** Account header: avatar (links to picture upload), name, username and quick actions. */
+export const ProfilePicture = ({ username, displayName, imageUrl: initialImageUrl }: IProfilePicture) => {
   const t = useTranslations('/account');
 
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState(initialImageUrl || '');
 
   useEffect(() => {
-    setImageUrl(localStorage.getItem('imageUrl') || '');
+    const cached = localStorage.getItem('imageUrl');
+    if (cached) setImageUrl(cached);
   }, []);
 
   return (
-    <div className="flex justify-center py-2">
-      <Link href={routeAccountImage} className="block min-w-0">
-        {!imageUrl && (
-          <div className={PLACEHOLDER_SURFACE}>
-            <img className="w-16 shrink-0 object-contain" src={imgUserAddImg} alt="" />
-            <span className="text-sm font-medium leading-tight text-foreground/90">{t('profilePictureAddPicture')}</span>
-          </div>
-        )}
-
-        {imageUrl && <img src={imageUrl} alt="" className={AVATAR_RING} />}
+    <section className="flex w-full max-w-2xl flex-col items-center gap-4 self-center rounded-3xl border border-border bg-background p-5 shadow-xs sm:flex-row sm:p-6">
+      <Link
+        href={routeAccountImage}
+        className="group relative block shrink-0 rounded-full focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand"
+        aria-label={t('btnChangePicture')}
+      >
+        <img src={imageUrl || imgUserDefaultImg} alt="" className="h-24 w-24 rounded-full bg-muted object-cover ring-1 ring-border sm:h-20 sm:w-20" />
+        <span className="absolute -bottom-0.5 -right-0.5 flex h-8 w-8 items-center justify-center rounded-full border-2 border-background bg-brand text-brand-foreground shadow-sm transition-transform group-hover:scale-105">
+          <IconCamera className="h-4 w-4" stroke={2} aria-hidden />
+        </span>
       </Link>
-    </div>
+
+      <div className="min-w-0 flex-1 text-center sm:text-left">
+        <div className="truncate text-xl font-semibold text-foreground">{displayName || username}</div>
+        <div className="truncate text-sm text-muted-foreground">@{username}</div>
+        {!imageUrl && <div className="mt-1 text-xs text-muted-foreground">{t('profilePictureAddPicture')}</div>}
+      </div>
+
+      <div className="flex flex-wrap justify-center gap-2">
+        <Button asChild variant="outline" className="h-10 rounded-xl px-4">
+          <Link href={`${routeUsers}/${username}`}>
+            <IconUserCircle className="h-4 w-4" stroke={1.75} aria-hidden />
+            {t('btnViewProfile')}
+          </Link>
+        </Button>
+      </div>
+    </section>
   );
 };

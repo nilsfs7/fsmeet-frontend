@@ -22,8 +22,6 @@ import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { prefixRequired } from '@/functions/prefix-required';
 import CheckBox from '@/components/common/check-box';
 import Link from 'next/link';
-import ActionButton from '@/components/common/action-button';
-import { Action } from '@/domain/enums/action';
 import Dialog from '@/components/dialog';
 import SocialLink from '@/components/user/social-link';
 import { SocialPlatform } from '@/domain/enums/social-platform';
@@ -36,14 +34,7 @@ import { menuJobPreferredTravelMethod } from '@/domain/constants/menus/menu-job-
 import { menuCurrencies } from '@/domain/constants/menus/menu-currencies';
 import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { menuPhoneCountryCodesWithUnspecified } from '@/domain/constants/menus/menu-phone-county-codes';
-import {
-  createStripeAccount,
-  createStripeAccountOnboardingLink,
-  createStripeLoginLink,
-  deleteUser,
-  updateJobProfileState,
-  updateUserVerificationState,
-} from '@/infrastructure/clients/user.client';
+import { createStripeAccount, createStripeAccountOnboardingLink, createStripeLoginLink, deleteUser, updateJobProfileState, updateUserVerificationState } from '@/infrastructure/clients/user.client';
 import { switchTab } from '@/functions/switch-tab';
 import { useTranslations } from 'next-intl';
 import Label from '@/components/label';
@@ -53,16 +44,30 @@ import Separator from '@/components/separator';
 import { ActionButtonCopyToClipboard } from '@/components/common/action-button-copy-to-clipboard';
 import { menuSupportedLanguages } from '../../../domain/constants/menus/menu-supported-languages';
 import { cn } from '@/lib/utils';
+import {
+  IconAdjustmentsHorizontal,
+  IconAlertTriangle,
+  IconArrowUpRight,
+  IconBell,
+  IconBriefcase,
+  IconCar,
+  IconCreditCard,
+  IconFileText,
+  IconLogout,
+  IconMap2,
+  IconMapPin,
+  IconPhone,
+  IconRosetteDiscountCheck,
+  IconShare,
+  IconSparkles,
+  IconTrash,
+  IconUser,
+} from '@tabler/icons-react';
 import { buildFreestyleActsFreestylerUrl } from '@/lib/freestyleacts-url';
 import CurInput from '@/components/common/currency-input';
 import { CurrencyCode } from '@/domain/enums/currency-code';
 import { convertCurrencyDecimalToInteger, convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 
-const EDITOR_CARD_CLASS = cn(
-  'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
-);
 const FIELD_ROW_CLASS = 'flex min-w-0 flex-col gap-1.5';
 const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-tight text-foreground';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full [&>button]:w-full [&_button[aria-haspopup=dialog]]:w-full';
@@ -77,6 +82,42 @@ function FieldRow({ label, children }: { label: string; children: ReactNode }) {
     </div>
   );
 }
+
+function SettingsCard({ title, description, icon, tone = 'default', children }: { title: string; description?: ReactNode; icon?: ReactNode; tone?: 'default' | 'danger'; children: ReactNode }) {
+  return (
+    <section className={cn('flex w-full min-w-0 flex-col gap-4 rounded-3xl border bg-background p-5 shadow-xs sm:p-6', tone === 'danger' ? 'border-destructive/30' : 'border-border')}>
+      <div className="flex items-start gap-3">
+        {icon && (
+          <span
+            className={cn(
+              'flex h-9 w-9 shrink-0 items-center justify-center rounded-xl [&>svg]:h-5 [&>svg]:w-5',
+              tone === 'danger' ? 'bg-destructive/10 text-destructive' : 'bg-brand-soft text-brand-strong',
+            )}
+          >
+            {icon}
+          </span>
+        )}
+        <div className="min-w-0 pt-0.5">
+          <h2 className={SECTION_H2}>{title}</h2>
+          {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
+        </div>
+      </div>
+      <div className="flex min-w-0 flex-col gap-4">{children}</div>
+    </section>
+  );
+}
+
+/** Label/value row with the action on the right on wider screens. */
+function SettingsRow({ label, children }: { label: ReactNode; children: ReactNode }) {
+  return (
+    <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div className="min-w-0 text-sm text-foreground">{label}</div>
+      <div className="flex min-w-0 flex-wrap items-center gap-2">{children}</div>
+    </div>
+  );
+}
+
+const TAB_CONTENT_CLASS = 'flex min-h-0 flex-col gap-4 data-[state=active]:mt-5';
 
 interface ITabsMenu {
   user: User;
@@ -616,8 +657,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         <p>{t('dlgAccountDeleteAccountText')}</p>
       </Dialog>
 
-      <Tabs defaultValue={tab || `general`} className="flex h-full min-h-0 w-full max-w-2xl flex-col">
-        <TabsList className="max-w-full shrink-0 self-center overflow-x-auto">
+      <Tabs defaultValue={tab || `general`} className="flex w-full max-w-2xl flex-col">
+        <TabsList className="max-w-full shrink-0 flex-nowrap justify-start self-center overflow-x-auto scrollbar-none">
           <TabsTrigger
             value="general"
             onClick={() => {
@@ -661,10 +702,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
         </TabsList>
 
         {/* General */}
-        <TabsContent value="general" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
-          <div className={EDITOR_CARD_CLASS}>
-            <h2 className={SECTION_H2}>{t('tabGeneralSectionGeneral')}</h2>
-
+        <TabsContent value="general" className={TAB_CONTENT_CLASS}>
+          <SettingsCard title={t('tabGeneralSectionGeneral')} icon={<IconUser stroke={1.75} aria-hidden />}>
             <TextInput
               id={'firstName'}
               label={getLabelForFirstName(userInfo.type, tf)}
@@ -754,15 +793,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 </FieldRow>
               </>
             )}
+          </SettingsCard>
 
-            {user.type !== UserType.FAN && (
-              <>
-                <div className="py-1">
-                  <Separator />
-                </div>
-
-                <h2 className={SECTION_H2}>{t('tabGeneralSectionSocials')}</h2>
-
+          {user.type !== UserType.FAN && (
+            <SettingsCard title={t('tabGeneralSectionSocials')} icon={<IconShare stroke={1.75} aria-hidden />}>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <TextInput
                   id={'instagramHandle'}
                   label={t('tabGeneralInstagramHandle')}
@@ -802,17 +837,15 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                     handleWebsiteChanged(e.currentTarget.value);
                   }}
                 />
-              </>
-            )}
-          </div>
+              </div>
+            </SettingsCard>
+          )}
         </TabsContent>
 
         {/* Freestyler Map */}
         {user.type !== UserType.FAN && (
-          <TabsContent value="map" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
-            <div className={EDITOR_CARD_CLASS}>
-              <h2 className={SECTION_H2}>{t('tabMapSectionLocation')}</h2>
-
+          <TabsContent value="map" className={TAB_CONTENT_CLASS}>
+            <SettingsCard title={t('tabMapSectionLocation')} icon={<IconMapPin stroke={1.75} aria-hidden />}>
               <TextInput
                 id={'city'}
                 label={t('tabMapCity')}
@@ -833,61 +866,49 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
               />
 
               {userInfo.exposeLocation && userInfo.locLatitude && userInfo.locLongitude && (
-                <div className="flex min-w-0 flex-wrap items-center gap-2">
-                  <Link
-                    href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}
-                    className="min-w-0 text-sm text-foreground/90 hover:underline"
-                  >
+                <Button asChild variant="outline" className="h-10 w-fit rounded-xl px-4">
+                  <Link href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`}>
+                    <IconMap2 className="h-4 w-4" stroke={1.75} aria-hidden />
                     {t('tabMapShowOnMap')}
                   </Link>
-                  <ActionButton href={`${routeMap}?user=${session?.user?.username}&lat=${userInfo.locLatitude}&lng=${userInfo.locLongitude}&zoom=7`} action={Action.GOTOMAP} />
-                </div>
+                </Button>
               )}
-            </div>
+            </SettingsCard>
           </TabsContent>
         )}
 
         {/* Jobs */}
         {user.type !== UserType.FAN && (
-          <TabsContent value="jobs" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
-            <div className={EDITOR_CARD_CLASS}>
-              <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobsSectionListing')}</h2>
-
-              <FieldRow label={t('tabJobsListingStatus')}>
-                <div className={FIELD_CONTROL_TALL_INNER}>
-                  <Label text={userInfo.jobProfileState || JobProfileState.NOT_APPROVED} />
-                </div>
-              </FieldRow>
+          <TabsContent value="jobs" className={TAB_CONTENT_CLASS}>
+            <SettingsCard title={t('tabJobsSectionListing')} icon={<IconBriefcase stroke={1.75} aria-hidden />}>
+              <SettingsRow label={t('tabJobsListingStatus')}>
+                <Label text={userInfo.jobProfileState || JobProfileState.NOT_APPROVED} />
+              </SettingsRow>
 
               {userInfo.jobProfileState !== JobProfileState.PENDING && userInfo.jobProfileState !== JobProfileState.APPROVED && (
-                <div className="flex justify-center">
-                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-auto')} onClick={handleRequestJobProfileStateUpdateClicked}>
-                    {t('tabJobBtnRequestApproval')}
-                  </Button>
-                </div>
+                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-fit')} onClick={handleRequestJobProfileStateUpdateClicked}>
+                  {t('tabJobBtnRequestApproval')}
+                </Button>
               )}
 
               {userInfo.jobProfileState === JobProfileState.APPROVED && (
-                <FieldRow label={t('tabJobsViewProfile')}>
-                  <div className={FIELD_CONTROL_TALL_INNER}>
+                <SettingsRow label={t('tabJobsViewProfile')}>
+                  <Button asChild variant="outline" className="h-10 rounded-xl px-4">
                     <a href={buildFreestyleActsFreestylerUrl(userInfo.username)} target="_blank" rel="noopener noreferrer">
-                      <ActionButton action={Action.GOTOEXTERNAL} tooltip={t('tabJobBtnViewProfile')} />
+                      {t('tabJobBtnViewProfile')}
+                      <IconArrowUpRight className="h-4 w-4 opacity-70" stroke={1.75} aria-hidden />
                     </a>
-                  </div>
-                </FieldRow>
+                  </Button>
+                </SettingsRow>
               )}
+            </SettingsCard>
 
-              <div className="py-1">
-                <Separator />
-              </div>
-
-              <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobsSectionTerms')}</h2>
-
-              <FieldRow label={t('tabJobsTerms')}>
-                <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-auto sm:justify-self-end')} onClick={handleTermsAndConditionsClicked}>
+            <SettingsCard title={t('tabJobsSectionTerms')} icon={<IconFileText stroke={1.75} aria-hidden />}>
+              <SettingsRow label={t('tabJobsTerms')}>
+                <Button type="button" variant="outline" className="h-10 rounded-xl px-4" onClick={handleTermsAndConditionsClicked}>
                   {t('tabJobBtnReadTerms')}
                 </Button>
-              </FieldRow>
+              </SettingsRow>
 
               <CheckBox
                 id={'terms'}
@@ -897,14 +918,11 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   handleAcceptTermsChanged(!userInfo.jobAcceptTerms);
                 }}
               />
+            </SettingsCard>
 
-              {userInfo.jobAcceptTerms && (
-                <>
-                  <div className="py-1">
-                    <Separator />
-                  </div>
-                  <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobSectionOffer')}</h2>
-
+            {userInfo.jobAcceptTerms && (
+              <>
+                <SettingsCard title={t('tabJobSectionOffer')} icon={<IconSparkles stroke={1.75} aria-hidden />}>
                   <CheckBox
                     id={'offeringShow'}
                     label={t('tabJobOfferingShow')}
@@ -931,12 +949,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       handleOfferWorkshopsChanged(!userInfo.jobOfferWorkshops);
                     }}
                   />
+                </SettingsCard>
 
-                  <div className="py-1">
-                    <Separator />
-                  </div>
-                  <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobSectionContact')}</h2>
-
+                <SettingsCard title={t('tabJobSectionContact')} icon={<IconPhone stroke={1.75} aria-hidden />}>
                   <FieldRow label={t('tabJobPhoneCountryCode')}>
                     <ComboBox
                       menus={menuPhoneCountryCodesWithUnspecified}
@@ -958,12 +973,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       handlePhoneNumberChanged(e.currentTarget.value);
                     }}
                   />
+                </SettingsCard>
 
-                  <div className="py-1">
-                    <Separator />
-                  </div>
-                  <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobSectionTravel')}</h2>
-
+                <SettingsCard title={t('tabJobSectionTravel')} icon={<IconCar stroke={1.75} aria-hidden />}>
                   <CheckBox
                     id={'carAvailable'}
                     label={t('tabJobCarAvailable')}
@@ -1000,12 +1012,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       />
                     </>
                   )}
+                </SettingsCard>
 
-                  <div className="py-1">
-                    <Separator />
-                  </div>
-                  <h2 className={cn(SECTION_H2, 'underline')}>{t('tabJobSectionOther')}</h2>
-
+                <SettingsCard title={t('tabJobSectionOther')} icon={<IconAdjustmentsHorizontal stroke={1.75} aria-hidden />}>
                   <FieldRow label={t('tabJobExperience')}>
                     <ComboBox
                       menus={menuShowExperience}
@@ -1027,17 +1036,15 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       }}
                     />
                   </FieldRow>
-                </>
-              )}
-            </div>
+                </SettingsCard>
+              </>
+            )}
           </TabsContent>
         )}
 
         {/* Account */}
-        <TabsContent value="account" className="flex min-h-0 flex-col items-center overflow-hidden overflow-y-auto">
-          <div className={EDITOR_CARD_CLASS}>
-            <h2 className={cn(SECTION_H2, 'text-center')}>{t('tabAccountSectionNotification')}</h2>
-
+        <TabsContent value="account" className={TAB_CONTENT_CLASS}>
+          <SettingsCard title={t('tabAccountSectionNotification')} icon={<IconBell stroke={1.75} aria-hidden />}>
             <FieldRow label={t('tabAccountLanguagePreference')}>
               <ComboBox
                 menus={menuSupportedLanguages}
@@ -1048,81 +1055,65 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 }}
               />
             </FieldRow>
+          </SettingsCard>
 
-            <div className="py-1">
-              <Separator />
-            </div>
+          {user.type !== UserType.FAN && (
+            <>
+              <SettingsCard title={t('tabAccountSectionVerification')} icon={<IconRosetteDiscountCheck stroke={1.75} aria-hidden />}>
+                <SettingsRow label={t('tabAccountVerificationStatus')}>
+                  <Label text={userInfo?.verificationState || 'n/a'} />
+                </SettingsRow>
 
-            {user.type !== UserType.FAN && (
-              <>
-                <h2 className={cn(SECTION_H2, 'text-center')}>{t('tabAccountSectionVerification')}</h2>
+                {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (
+                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-fit')} onClick={handleVerificationRequestClicked}>
+                    {t('tabAccountBtnVerify')}
+                  </Button>
+                )}
+              </SettingsCard>
 
-                <div className="mt-4 flex flex-col justify-center items-center gap-2 text-center">
-                  <div className="flex gap-2 items-center">
-                    <div>{`${t('tabAccountVerificationStatus')}:`}</div>
-                    <Label text={userInfo?.verificationState || 'n/a'} />
-                  </div>
-
-                  {userInfo.verificationState !== UserVerificationState.VERIFIED && userInfo.verificationState !== UserVerificationState.VERIFICATION_PENDING && (
-                    <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleVerificationRequestClicked}>
-                      {t('tabAccountBtnVerify')}
-                    </Button>
-                  )}
-                </div>
-
-                <div className="py-1">
-                  <Separator />
-                </div>
-
-                <h2 className={cn(SECTION_H2, 'text-center')}>{t('tabAccountSectionPayments')}</h2>
-
+              <SettingsCard title={t('tabAccountSectionPayments')} icon={<IconCreditCard stroke={1.75} aria-hidden />}>
                 {!userInfo.stripeAccountId && (
-                  <div className="mt-4 flex justify-center">
-                    <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateStripeAccountClicked}>
-                      {t('tabAccountBtnRequestPaymentsAccount')}
-                    </Button>
-                  </div>
+                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'w-full sm:w-fit')} onClick={handleCreateStripeAccountClicked}>
+                    {t('tabAccountBtnRequestPaymentsAccount')}
+                  </Button>
                 )}
 
                 {userInfo.stripeAccountId && (
                   <>
-                    <div className="mt-4 flex flex-col items-center gap-4">
-                      <div>{`${t('tabAccountLblStripeAccount')}: ${userInfo.stripeAccountId}`}</div>
-                      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateStripeAccountOnboardingLinkClicked}>
+                    <SettingsRow label={t('tabAccountLblStripeAccount')}>
+                      <code className="rounded-lg bg-muted px-2 py-1 font-mono text-xs text-foreground">{userInfo.stripeAccountId}</code>
+                    </SettingsRow>
+                    <div className="flex flex-wrap gap-2">
+                      <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'min-w-0')}>
+                        <Link href={routeAccountPayments}>{t('tabAccountBtnManagePayments')}</Link>
+                      </Button>
+                      <Button type="button" variant="outline" className="h-10 rounded-xl px-4" onClick={handleCreateStripeAccountOnboardingLinkClicked}>
                         {t('tabAccountBtnEditPaymentsAccount')}
                       </Button>
-
-                      <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCreateStripeLoginLinkClicked}>
+                      <Button type="button" variant="outline" className="h-10 rounded-xl px-4" onClick={handleCreateStripeLoginLinkClicked}>
                         {t('tabAccountBtnViewPaymentsInStripe')}
-                      </Button>
-
-                      <Button asChild variant="action" className={ctaActionButtonClassName}>
-                        <Link href={routeAccountPayments}>{t('tabAccountBtnManagePayments')}</Link>
+                        <IconArrowUpRight className="h-4 w-4 opacity-70" stroke={1.75} aria-hidden />
                       </Button>
                     </div>
                   </>
                 )}
+              </SettingsCard>
+            </>
+          )}
 
-                <div className="py-1">
-                  <Separator />
-                </div>
-              </>
-            )}
+          <SettingsCard title={t('tabAccountSectionAccountManagement')} icon={<IconLogout stroke={1.75} aria-hidden />}>
+            <Button type="button" variant="outline" className="h-10 w-full rounded-xl px-4 sm:w-fit" onClick={handleLogoutClicked}>
+              <IconLogout className="h-4 w-4" stroke={1.75} aria-hidden />
+              {t('tabAccountBtnLogout')}
+            </Button>
+          </SettingsCard>
 
-            <h2 className={cn(SECTION_H2, 'text-center')}>{t('tabAccountSectionAccountManagement')}</h2>
-
-            <div className="mt-4 flex justify-center">
-              <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleLogoutClicked}>
-                {t('tabAccountBtnLogout')}
-              </Button>
-            </div>
-
-            <div className="mt-4 flex justify-center">
-              <Button type="button" variant="actionCritical" className={ctaActionButtonClassName} onClick={handleDeleteAccountClicked}>
-                {t('tabAccountBtnDeleteAccount')}
-              </Button>
-            </div>
-          </div>
+          <SettingsCard title={t('tabAccountSectionDangerZone')} description={t('tabAccountDeleteAccountHint')} icon={<IconAlertTriangle stroke={1.75} aria-hidden />} tone="danger">
+            <Button type="button" variant="actionCritical" className={cn(ctaActionButtonClassName, 'w-full sm:w-fit')} onClick={handleDeleteAccountClicked}>
+              <IconTrash className="h-4 w-4" stroke={1.75} aria-hidden />
+              {t('tabAccountBtnDeleteAccount')}
+            </Button>
+          </SettingsCard>
         </TabsContent>
       </Tabs>
     </>

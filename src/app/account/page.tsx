@@ -24,16 +24,11 @@ export default async function Account() {
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+      <PageTitle title={t('pageTitle')} description={t('pageDescription')} />
 
-      <div className="flex min-h-0 flex-1 flex-col overflow-auto px-4 sm:px-6 md:px-8">
-        <ProfilePicture />
-
-        <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
-          <div className="flex min-h-0 min-w-0 flex-1 flex-col items-center overflow-auto">
-            <TabsMenu user={user} />
-          </div>
-        </div>
+      <div className="flex min-h-0 flex-1 flex-col items-center gap-5 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+        <ProfilePicture username={user.username} displayName={[user.firstName, user.lastName].filter(Boolean).join(' ')} imageUrl={user.imageUrl} />
+        <TabsMenu user={user} />
       </div>
 
       <Navigation>

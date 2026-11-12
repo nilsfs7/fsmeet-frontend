@@ -19,7 +19,7 @@ export default async function AccountImage() {
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">
-      <PageTitle title={t('pageTitle')} />
+      <PageTitle title={t('pageTitlePicture')} description={t('pageDescription')} />
 
       <ProfilePictureUpload />
 

@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import Image from 'next/image';
+import { AuthCard } from '@/components/auth/auth-card';
+import { cn } from '@/lib/utils';
+import { IconHeartHandshake } from '@tabler/icons-react';
 import { routeHome } from '@/domain/constants/routes';
-import { imgGoodBye } from '@/domain/constants/images';
 import { signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
@@ -22,20 +23,12 @@ export default function AccountDeleted() {
   }, []);
 
   return (
-    <div className={'absolute inset-0 flex flex-col items-center justify-center'}>
-      <div className="py-2">
-        <Image src={imgGoodBye} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={'image'} />
-        <div className="m-1 text-center text-lg font-bold">
-          <div>{t('textGoodbye')}</div>
-          <div>{t('textConfirmation')}</div>
-        </div>
-      </div>
-
-      <div className="py-2">
-        <Button asChild variant="action" className={ctaActionButtonClassName}>
+    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 sm:px-6 md:px-8">
+      <AuthCard icon={<IconHeartHandshake stroke={1.75} aria-hidden />} title={t('textGoodbye')} description={t('textConfirmation')}>
+        <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}>
           <Link href={routeHome}>{t('btnBackHome')}</Link>
         </Button>
-      </div>
+      </AuthCard>
     </div>
   );
 }
