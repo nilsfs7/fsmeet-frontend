@@ -1344,7 +1344,9 @@
     "inputWaiver": "वेवर",
     "chbVisaInvitationRequestsEnabled": "वीज़ा आमंत्रण उपलब्ध कराएं",
     "toastPosterDeleted": "पोस्टर हटाया गया",
-    "placeholderWaiver": "इस इवेंट में भाग लेकर मैं स्वीकार करता/करती हूँ ..."
+    "placeholderWaiver": "इस इवेंट में भाग लेकर मैं स्वीकार करता/करती हूँ ...",
+    "lblPoster": "पोस्टर",
+    "lblChoosePoster": "पोस्टर इमेज चुनें"
   },
   "global/components/loading-spinner": {
     "textLoading": "लोड हो रहा है..."

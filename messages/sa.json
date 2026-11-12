@@ -1344,7 +1344,9 @@
     "inputWaiver": "إقرار",
     "chbVisaInvitationRequestsEnabled": "تقديم دعوات التأشيرة",
     "toastPosterDeleted": "تم حذف الملصق",
-    "placeholderWaiver": "بمشاركتي في هذه الفعالية، أقر ..."
+    "placeholderWaiver": "بمشاركتي في هذه الفعالية، أقر ...",
+    "lblPoster": "الملصق",
+    "lblChoosePoster": "اختر صورة الملصق"
   },
   "global/components/loading-spinner": {
     "textLoading": "جارٍ التحميل..."

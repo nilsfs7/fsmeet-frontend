@@ -1319,7 +1319,9 @@
     "inputWaiver": "Renoncer",
     "chbVisaInvitationRequestsEnabled": "Proposer des invitations de visa",
     "toastPosterDeleted": "Affiche supprimée",
-    "placeholderWaiver": "En participant à cet événement, je reconnais ..."
+    "placeholderWaiver": "En participant à cet événement, je reconnais ...",
+    "lblPoster": "Affiche",
+    "lblChoosePoster": "Choisir une image d'affiche"
   },
   "global/components/loading-spinner": {
     "textLoading": "Chargement.."

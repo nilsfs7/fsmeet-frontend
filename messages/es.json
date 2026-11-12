@@ -1319,7 +1319,9 @@
     "inputWaiver": "Exención",
     "chbVisaInvitationRequestsEnabled": "Ofrecer invitaciones para visas",
     "toastPosterDeleted": "Póster eliminado",
-    "placeholderWaiver": "Al participar en este evento, reconozco ..."
+    "placeholderWaiver": "Al participar en este evento, reconozco ...",
+    "lblPoster": "Póster",
+    "lblChoosePoster": "Elegir imagen del póster"
   },
   "global/components/loading-spinner": {
     "textLoading": "Cargando..."

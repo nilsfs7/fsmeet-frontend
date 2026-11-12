@@ -1344,7 +1344,9 @@
     "inputWaiver": "Waiver",
     "chbVisaInvitationRequestsEnabled": "Offer visa invitations",
     "toastPosterDeleted": "Poster deleted",
-    "placeholderWaiver": "By participating in this event, I acknowledge ..."
+    "placeholderWaiver": "By participating in this event, I acknowledge ...",
+    "lblPoster": "Poster",
+    "lblChoosePoster": "Choose a poster image"
   },
   "global/components/loading-spinner": {
     "textLoading": "Loading..."

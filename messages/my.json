@@ -1344,7 +1344,9 @@
     "inputWaiver": "Pelepasan liabiliti",
     "chbVisaInvitationRequestsEnabled": "Tawarkan jemputan visa",
     "toastPosterDeleted": "Poster dipadam",
-    "placeholderWaiver": "Dengan menyertai acara ini, saya mengakui ..."
+    "placeholderWaiver": "Dengan menyertai acara ini, saya mengakui ...",
+    "lblPoster": "Poster",
+    "lblChoosePoster": "Pilih imej poster"
   },
   "global/components/loading-spinner": {
     "textLoading": "Memuat..."

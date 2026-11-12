@@ -15,7 +15,6 @@ import CurInput from '../common/currency-input';
 import { EventState } from '@/domain/enums/event-state';
 import { DatePicker } from '../common/date-picker';
 import { EditorMode } from '@/domain/enums/editor-mode';
-import Separator from '../separator';
 import Link from 'next/link';
 import { routeAccount, routeEvents } from '@/domain/constants/routes';
 import { useTranslations } from 'next-intl';
@@ -41,6 +40,7 @@ import { menuEventCategories } from '@/domain/constants/menus/menu-event-categor
 import { UserVerificationState } from '../../domain/enums/user-verification-state';
 import { LicenseType } from '../../domain/enums/license-type';
 import { cn } from '@/lib/utils';
+import { IconPhotoUp } from '@tabler/icons-react';
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
@@ -50,10 +50,17 @@ const EDITOR_CARD_CLASS = cn(
 const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-1 gap-1.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:items-center sm:gap-x-4';
 const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-tight text-foreground/80';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
-const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
 const READONLY_VALUE_CLASS = 'min-w-0 text-sm text-foreground/90';
-const FILE_INPUT_CLASS = 'w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground';
 const SECTION_H2 = 'text-base font-semibold leading-tight text-foreground';
+
+function SectionHeader({ title, first = false }: { title: string; first?: boolean }) {
+  return (
+    <div className={cn('-mx-4 flex items-center gap-2 border-border/70 bg-muted/40 px-4 py-2.5 sm:-mx-6 sm:px-6', first ? '-mt-4 rounded-t-2xl border-b sm:-mt-6' : 'mt-2 border-y')}>
+      <span className="h-4 w-1 rounded-full bg-brand" aria-hidden />
+      <h2 className={SECTION_H2}>{title}</h2>
+    </div>
+  );
+}
 
 function FieldRow({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -421,7 +428,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
   return (
     <div className={EDITOR_CARD_CLASS}>
-      <h2 className={cn(SECTION_H2, 'pt-0.5')}>{t('sectionGeneral')}</h2>
+      <SectionHeader first title={t('sectionGeneral')} />
 
       <TextInput
         id={'name'}
@@ -492,24 +499,38 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         </FieldRow>
       )}
 
-      <div className="flex min-w-0 flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
-        <div className="flex min-w-0 items-center gap-2">
-          <img
-            src={imgPosterObjectURL ? imgPosterObjectURL : event?.imageUrlPoster ? event.imageUrlPoster : imgImagePlaceholder}
-            alt=""
-            className="h-12 w-12 shrink-0 rounded-lg border border-border/60 object-cover"
-          />
-          {event?.imageUrlPoster && (
-            <ActionButton
-              action={Action.DELETE}
-              onClick={() => {
-                handleDeleteEventPosterClicked();
-              }}
+      <div className="flex min-w-0 flex-col gap-2">
+        <span className={FIELD_LABEL_CLASS}>{t('lblPoster')}</span>
+        <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch">
+          <div className="relative shrink-0 self-center sm:self-auto">
+            <img
+              src={imgPosterObjectURL ? imgPosterObjectURL : event?.imageUrlPoster ? event.imageUrlPoster : imgImagePlaceholder}
+              alt=""
+              className={cn('h-28 w-28 rounded-2xl border border-border/60 bg-muted', imgPosterObjectURL || event?.imageUrlPoster ? 'object-cover' : 'object-contain p-7 opacity-40 dark:invert')}
             />
-          )}
-        </div>
-        <div className="min-w-0 flex-1">
-          <input type="file" accept="image/*" className={FILE_INPUT_CLASS} onChange={uploadToClient} />
+            {event?.imageUrlPoster && (
+              <div className="absolute -right-2 -top-2">
+                <ActionButton
+                  action={Action.DELETE}
+                  onClick={() => {
+                    handleDeleteEventPosterClicked();
+                  }}
+                />
+              </div>
+            )}
+          </div>
+          <label
+            className={cn(
+              'flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl border-2 border-dashed border-border px-4 py-5 text-center transition-colors',
+              'hover:border-brand/50 hover:bg-brand-soft/30 focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/30',
+            )}
+          >
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-soft text-brand-strong">
+              <IconPhotoUp className="h-5 w-5" stroke={1.75} aria-hidden />
+            </span>
+            <span className="max-w-full truncate text-sm font-semibold text-foreground">{imgPoster ? imgPoster.name : t('lblChoosePoster')}</span>
+            <input type="file" accept="image/*" className="sr-only" onChange={uploadToClient} />
+          </label>
         </div>
       </div>
 
@@ -524,66 +545,72 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         }}
       />
 
-      <FieldRow label={t('datePickerFrom')}>
-        <div className={FIELD_CONTROL_TALL_INNER}>
-          <DatePicker
-            date={moment(dateFrom)}
-            fromDate={moment('2020')}
-            toDate={moment().add(2, 'y')}
-            onChange={value => {
-              if (value) {
-                setDateFrom(value.startOf('day').utc().format());
-                setDateTo(value.endOf('day').utc().format());
-              }
-            }}
-          />
+      <div className="grid min-w-0 grid-cols-1 gap-4 rounded-2xl border border-border/70 bg-muted/20 p-3 sm:grid-cols-2 sm:p-4">
+        <div className="flex min-w-0 flex-col gap-1.5">
+          <span className={FIELD_LABEL_CLASS}>{t('datePickerFrom')}</span>
+          <div>
+            <DatePicker
+              date={moment(dateFrom)}
+              fromDate={moment('2020')}
+              toDate={moment().add(2, 'y')}
+              onChange={value => {
+                if (value) {
+                  setDateFrom(value.startOf('day').utc().format());
+                  setDateTo(value.endOf('day').utc().format());
+                }
+              }}
+            />
+          </div>
         </div>
-      </FieldRow>
 
-      <FieldRow label={t('datePickerTo')}>
-        <div className={FIELD_CONTROL_TALL_INNER}>
-          <DatePicker
-            date={moment(dateTo)}
-            fromDate={moment('2020')}
-            toDate={moment().add(2, 'y')}
-            onChange={value => {
-              if (value) {
-                setDateTo(value.endOf('day').utc().format());
-              }
-            }}
-          />
+        <div className="flex min-w-0 flex-col gap-1.5">
+          <span className={FIELD_LABEL_CLASS}>{t('datePickerTo')}</span>
+          <div>
+            <DatePicker
+              date={moment(dateTo)}
+              fromDate={moment('2020')}
+              toDate={moment().add(2, 'y')}
+              onChange={value => {
+                if (value) {
+                  setDateTo(value.endOf('day').utc().format());
+                }
+              }}
+            />
+          </div>
         </div>
-      </FieldRow>
 
-      <FieldRow label={t('datePickerRegistrationFrom')}>
-        <div className={FIELD_CONTROL_TALL_INNER}>
-          <DatePicker
-            date={moment(registrationOpen)}
-            fromDate={moment('2020')}
-            toDate={moment().add(2, 'y')}
-            onChange={value => {
-              if (value) {
-                setRegistrationOpen(value.startOf('day').utc().format());
-              }
-            }}
-          />
+        <div className="flex min-w-0 flex-col gap-1.5">
+          <span className={FIELD_LABEL_CLASS}>{t('datePickerRegistrationFrom')}</span>
+          <div>
+            <DatePicker
+              date={moment(registrationOpen)}
+              fromDate={moment('2020')}
+              toDate={moment().add(2, 'y')}
+              onChange={value => {
+                if (value) {
+                  setRegistrationOpen(value.startOf('day').utc().format());
+                }
+              }}
+            />
+          </div>
         </div>
-      </FieldRow>
 
-      <FieldRow label={t('datePickerRegistrationTo')}>
-        <div className={FIELD_CONTROL_TALL_INNER}>
-          <DatePicker
-            date={moment(registrationDeadline)}
-            fromDate={moment('2020')}
-            toDate={moment().add(2, 'y')}
-            onChange={value => {
-              if (value) {
-                setRegistrationDeadline(value.endOf('day').utc().format());
-              }
-            }}
-          />
+        <div className="flex min-w-0 flex-col gap-1.5">
+          <span className={FIELD_LABEL_CLASS}>{t('datePickerRegistrationTo')}</span>
+          <div>
+            <DatePicker
+              date={moment(registrationDeadline)}
+              fromDate={moment('2020')}
+              toDate={moment().add(2, 'y')}
+              onChange={value => {
+                if (value) {
+                  setRegistrationDeadline(value.endOf('day').utc().format());
+                }
+              }}
+            />
+          </div>
         </div>
-      </FieldRow>
+      </div>
 
       <CurInput
         id={'prizeMoney'}
@@ -658,10 +685,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
       {eventType != EventType.COMPETITION_ONLINE && (
         <>
-          <div className="py-1">
-            <Separator />
-          </div>
-          <h2 className={SECTION_H2}>{t('sectionLocation')}</h2>
+          <SectionHeader title={t('sectionLocation')} />
 
           <TextInput
             id={'venueName'}
@@ -726,10 +750,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         </>
       )}
 
-      <div className="py-1">
-        <Separator />
-      </div>
-      <h2 className={SECTION_H2}>{t('sectionPayment')}</h2>
+      <SectionHeader title={t('sectionPayment')} />
 
       <FieldRow label={t('cbPaymentCurrency')}>
         <ComboBox
@@ -901,10 +922,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
       {/* only allow event admin to edit maintainers */}
       {(editorMode === EditorMode.CREATE || isEventAdmin(event, session)) && (
         <>
-          <div className="py-1">
-            <Separator />
-          </div>
-          <h2 className={SECTION_H2}>{t('sectionMaintainers')}</h2>
+          <SectionHeader title={t('sectionMaintainers')} />
           <p className="min-w-0 text-sm text-foreground/90">{t('cbMaintainers')}</p>
           <div className="flex min-w-0 flex-col gap-3">
             {users.length > 0 &&
@@ -958,10 +976,7 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
         </>
       )}
 
-      <div className="py-1">
-        <Separator />
-      </div>
-      <h2 className={SECTION_H2}>{t('sectionOther')}</h2>
+      <SectionHeader title={t('sectionOther')} />
 
       <CheckBox
         id={'showUserCountryFlag'}

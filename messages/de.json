@@ -1319,7 +1319,9 @@
     "inputWaiver": "Verzichtserklärung",
     "chbVisaInvitationRequestsEnabled": "Visa-Einladungen anbieten",
     "toastPosterDeleted": "Poster gelöscht",
-    "placeholderWaiver": "Mit der Teilnahme an diesem Event bestätige ich ..."
+    "placeholderWaiver": "Mit der Teilnahme an diesem Event bestätige ich ...",
+    "lblPoster": "Poster",
+    "lblChoosePoster": "Posterbild auswählen"
   },
   "global/components/loading-spinner": {
     "textLoading": "Lädt..."

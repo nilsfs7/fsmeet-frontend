@@ -1344,7 +1344,9 @@
     "inputWaiver": "同意書（免責）",
     "chbVisaInvitationRequestsEnabled": "ビザ招待状を提供",
     "toastPosterDeleted": "ポスターを削除しました",
-    "placeholderWaiver": "このイベントに参加することで、私は確認します…"
+    "placeholderWaiver": "このイベントに参加することで、私は確認します…",
+    "lblPoster": "ポスター",
+    "lblChoosePoster": "ポスター画像を選択"
   },
   "global/components/loading-spinner": {
     "textLoading": "読み込み中..."

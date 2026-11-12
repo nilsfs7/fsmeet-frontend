@@ -1344,7 +1344,9 @@
     "inputWaiver": "免责声明",
     "chbVisaInvitationRequestsEnabled": "提供签证邀请",
     "toastPosterDeleted": "海报已删除",
-    "placeholderWaiver": "参加本活动即表示我确认……"
+    "placeholderWaiver": "参加本活动即表示我确认……",
+    "lblPoster": "海报",
+    "lblChoosePoster": "选择海报图片"
   },
   "global/components/loading-spinner": {
     "textLoading": "加载中…"
