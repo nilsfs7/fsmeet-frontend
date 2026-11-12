@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { IconArrowUpRight, IconCalendarEvent, IconHome, IconInfoCircle, IconMap2, IconMenu2, IconSpeakerphone, IconArrowUp, IconUsers, IconX } from '@tabler/icons-react';
+import { IconArrowUpRight, IconCalendarEvent, IconHome, IconInfoCircle, IconMap2, IconMenu2, IconSpeakerphone, IconTrendingUp, IconUsers, IconX } from '@tabler/icons-react';
 import LanguagePicker from './language-picker';
 import { appShellContentClass } from '@/components/layout/app-shell-content';
 import { LogoFSMeet } from './logo';
@@ -56,7 +56,7 @@ export const AppHeader = () => {
     { href: routeMap, label: t('navMap'), Icon: IconMap2 },
     { href: routeUsers, label: t('navCommunity'), Icon: IconUsers },
     ...(voiceUrl ? [{ href: voiceUrl, label: t('navVoice'), Icon: IconSpeakerphone, external: true }] : []),
-    ...(trainingUrl ? [{ href: trainingUrl, label: t('navTraining'), Icon: IconArrowUp, external: true }] : []),
+    ...(trainingUrl ? [{ href: trainingUrl, label: t('navTraining'), Icon: IconTrendingUp, external: true }] : []),
   ];
   const secondary: NavEntry[] = [{ href: routeAbout, label: t('navAbout'), Icon: IconInfoCircle }];
 
