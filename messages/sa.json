@@ -1477,5 +1477,8 @@
     "sectionMore": "المزيد",
     "menuItemAdmin": "الإدارة",
     "menuItemWffa": "WFFA"
+  },
+  "global/components/date-picker": {
+    "placeholder": "اختر تاريخًا"
   }
 }
