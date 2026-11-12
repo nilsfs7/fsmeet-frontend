@@ -44,6 +44,8 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [filteredByUser, setFilteredByUser] = useState<string>();
   const [showMyBattlesOnlyEnabled, setShowMyBattlesOnlyEnabled] = useState<boolean>(false);
+  // The initial tab depends on the participants (the tab only exists with participants), so wait for both requests.
+  const [participantsLoaded, setParticipantsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     if (comp.id) {
@@ -55,37 +57,40 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
         }
       });
 
-      getCompetitionParticipants(comp.id).then(participants => {
-        const compParticipants: User[] = [];
-        const participantsMenu: MenuItem[] = [{ text: t('tabScheduleComboBoxParticipantFilterItemUnselected'), value: '' }];
+      getCompetitionParticipants(comp.id)
+        .then(participants => {
+          const compParticipants: User[] = [];
+          const participantsMenu: MenuItem[] = [{ text: t('tabScheduleComboBoxParticipantFilterItemUnselected'), value: '' }];
 
-        participants.map(participant => {
-          const user: User = {
-            username: participant.username,
-            type: UserType.FREESTYLER,
-            firstName: participant.firstName,
-            lastName: participant.lastName,
-            imageUrl: participant.imageUrl,
-          };
-          compParticipants.push(user);
+          participants.map(participant => {
+            const user: User = {
+              username: participant.username,
+              type: UserType.FREESTYLER,
+              firstName: participant.firstName,
+              lastName: participant.lastName,
+              imageUrl: participant.imageUrl,
+            };
+            compParticipants.push(user);
 
-          const participantMenuItem: MenuItem = { text: user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`, value: user.username };
-          participantsMenu.push(participantMenuItem);
+            const participantMenuItem: MenuItem = { text: user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`, value: user.username };
+            participantsMenu.push(participantMenuItem);
 
-          return user;
-        });
-        setParticipantsMenu(participantsMenu);
+            return user;
+          });
+          setParticipantsMenu(participantsMenu);
 
-        const usersMap = new Map();
-        participants.map(participant => {
-          usersMap.set(participant.username, participant);
-        });
-        setUsersMap(usersMap);
-      });
+          const usersMap = new Map();
+          participants.map(participant => {
+            usersMap.set(participant.username, participant);
+          });
+          setUsersMap(usersMap);
+        })
+        .catch(error => console.error(error))
+        .finally(() => setParticipantsLoaded(true));
     }
   }, []);
 
-  if (!rounds) {
+  if (!rounds || !participantsLoaded) {
     return <LoadingSpinner />;
   }
 
