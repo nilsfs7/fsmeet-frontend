@@ -88,10 +88,13 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
     return <LoadingSpinner />;
   }
 
+  // Info is the default; an explicit ?tab= is honoured as long as that tab exists for this competition.
+  const availableTabs = [...(rounds.length > 0 ? ['schedule'] : []), ...(rounds.length > 1 ? ['grid'] : []), 'info', 'participants'];
+  const initialTab = tab && availableTabs.includes(tab) ? tab : 'info';
+
   return (
     <div className="mx-2 overflow-hidden">
-      {/* TODO: comp serverseitig laden und tabs so wählen ->    {tab || rounds.length > 0 ? `schedule`: `info`} */}
-      <Tabs defaultValue={tab || `schedule`} className="flex flex-col h-full">
+      <Tabs defaultValue={initialTab} className="flex flex-col h-full">
         <TabsList>
           {rounds.length > 0 && (
             <TabsTrigger
