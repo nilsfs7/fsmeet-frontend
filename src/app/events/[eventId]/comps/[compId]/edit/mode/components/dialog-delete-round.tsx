@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Dialog from '@/components/dialog';
 import { useTranslations } from 'next-intl';
+import { DialogDeleteNotice } from './dialog-fields';
 
 interface IDialogProps {
   title: string;
@@ -41,9 +42,7 @@ const DialogDeleteRound = ({ title, queryParam, onCancel, onConfirm, cancelText,
       cancelText={cancelText}
       confirmText={confirmText}
     >
-      <div className="flex min-w-0 flex-col">
-        <div className="min-w-0">{`${roundName} - ${t('dlgDeleteRoundText')}`}</div>
-      </div>
+      <DialogDeleteNotice name={roundName} text={t('dlgDeleteRoundText')} hint={t('dlgDeleteRoundHint')} />
     </Dialog>
   );
 };

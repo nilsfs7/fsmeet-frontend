@@ -690,7 +690,9 @@
     "textNoRounds": "还没有轮次。从第一轮开始吧。",
     "btnGoToPool": "前往选手池",
     "chipUnsavedChanges": "有未保存的更改",
-    "hintReorder": "拖动比赛卡片或使用箭头调整同一轮内的顺序，然后保存。"
+    "hintReorder": "拖动比赛卡片或使用箭头调整同一轮内的顺序，然后保存。",
+    "dlgDeleteRoundHint": "本轮的所有比赛也会被删除。 保存比赛模式后更改才会生效。",
+    "dlgApplyHint": "保存比赛模式后更改才会生效。"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "种子位与结果",

@@ -690,7 +690,9 @@
     "textNoRounds": "No rounds yet. Start with the first round.",
     "btnGoToPool": "Go to pool",
     "chipUnsavedChanges": "Unsaved changes",
-    "hintReorder": "Drag match cards or use the arrows to change their order within a round, then save."
+    "hintReorder": "Drag match cards or use the arrows to change their order within a round, then save.",
+    "dlgDeleteRoundHint": "All matches of this round are removed too. Changes take effect once you save the game mode.",
+    "dlgApplyHint": "Changes take effect once you save the game mode."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Results",

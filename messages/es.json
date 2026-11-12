@@ -665,7 +665,9 @@
     "textNoRounds": "Todavía no hay rondas. Empieza por la primera.",
     "btnGoToPool": "Ir al grupo",
     "chipUnsavedChanges": "Cambios sin guardar",
-    "hintReorder": "Arrastra las tarjetas o usa las flechas para cambiar su orden dentro de una ronda y luego guarda."
+    "hintReorder": "Arrastra las tarjetas o usa las flechas para cambiar su orden dentro de una ronda y luego guarda.",
+    "dlgDeleteRoundHint": "También se eliminan todos los enfrentamientos de esta ronda. Los cambios se aplican al guardar el modo de juego.",
+    "dlgApplyHint": "Los cambios se aplican al guardar el modo de juego."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Asignación y resultados",

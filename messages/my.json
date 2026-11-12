@@ -690,7 +690,9 @@
     "textNoRounds": "Belum ada pusingan. Mulakan dengan pusingan pertama.",
     "btnGoToPool": "Pergi ke kumpulan",
     "chipUnsavedChanges": "Perubahan belum disimpan",
-    "hintReorder": "Seret kad perlawanan atau gunakan anak panah untuk menukar susunan dalam pusingan, kemudian simpan."
+    "hintReorder": "Seret kad perlawanan atau gunakan anak panah untuk menukar susunan dalam pusingan, kemudian simpan.",
+    "dlgDeleteRoundHint": "Semua perlawanan dalam pusingan ini turut dibuang. Perubahan berkuat kuasa selepas anda menyimpan mod permainan.",
+    "dlgApplyHint": "Perubahan berkuat kuasa selepas anda menyimpan mod permainan."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Keputusan",

@@ -665,7 +665,9 @@
     "textNoRounds": "Noch keine Runden. Beginne mit der ersten Runde.",
     "btnGoToPool": "Zum Pool",
     "chipUnsavedChanges": "Ungespeicherte Änderungen",
-    "hintReorder": "Ziehe Match-Karten oder nutze die Pfeile, um ihre Reihenfolge innerhalb einer Runde zu ändern, und speichere dann."
+    "hintReorder": "Ziehe Match-Karten oder nutze die Pfeile, um ihre Reihenfolge innerhalb einer Runde zu ändern, und speichere dann.",
+    "dlgDeleteRoundHint": "Alle Matches dieser Runde werden ebenfalls entfernt. Änderungen werden erst wirksam, wenn du den Spielmodus speicherst.",
+    "dlgApplyHint": "Änderungen werden erst wirksam, wenn du den Spielmodus speicherst."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Zuweisung & Ergebnisse",

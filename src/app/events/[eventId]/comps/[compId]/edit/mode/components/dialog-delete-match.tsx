@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Dialog from '@/components/dialog';
 import { useTranslations } from 'next-intl';
+import { DialogDeleteNotice } from './dialog-fields';
 
 interface IDialogProps {
   title: string;
@@ -42,9 +43,7 @@ const DialogDeleteMatch = ({ title, queryParam, onCancel, onConfirm, cancelText,
       cancelText={cancelText}
       confirmText={confirmText}
     >
-      <div className="flex min-w-0 flex-col">
-        <div className="min-w-0">{`${matchName} - ${t('dlgDeleteMatchText')}`}</div>
-      </div>
+      <DialogDeleteNotice name={matchName} text={t('dlgDeleteMatchText')} hint={t('dlgApplyHint')} />
     </Dialog>
   );
 };

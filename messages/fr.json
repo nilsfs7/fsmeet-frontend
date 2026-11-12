@@ -665,7 +665,9 @@
     "textNoRounds": "Aucun tour pour l’instant. Commence par le premier tour.",
     "btnGoToPool": "Aller au pool",
     "chipUnsavedChanges": "Modifications non enregistrées",
-    "hintReorder": "Glisse les cartes de match ou utilise les flèches pour changer leur ordre dans un tour, puis enregistre."
+    "hintReorder": "Glisse les cartes de match ou utilise les flèches pour changer leur ordre dans un tour, puis enregistre.",
+    "dlgDeleteRoundHint": "Tous les matchs de ce tour sont aussi supprimés. Les modifications prennent effet une fois le mode de jeu enregistré.",
+    "dlgApplyHint": "Les modifications prennent effet une fois le mode de jeu enregistré."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Tirage au sort et résultats",

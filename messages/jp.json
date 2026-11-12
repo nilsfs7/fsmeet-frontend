@@ -690,7 +690,9 @@
     "textNoRounds": "まだラウンドがありません。最初のラウンドから始めましょう。",
     "btnGoToPool": "出場者へ",
     "chipUnsavedChanges": "未保存の変更",
-    "hintReorder": "試合カードをドラッグするか矢印でラウンド内の順番を変更し、保存してください。"
+    "hintReorder": "試合カードをドラッグするか矢印でラウンド内の順番を変更し、保存してください。",
+    "dlgDeleteRoundHint": "このラウンドの試合もすべて削除されます。 変更はゲームモードを保存すると反映されます。",
+    "dlgApplyHint": "変更はゲームモードを保存すると反映されます。"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "シード＆結果",
