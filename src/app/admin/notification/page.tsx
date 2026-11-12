@@ -107,95 +107,97 @@ export default function PushNotification() {
       <Toaster richColors />
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={'Push Notification'} />
+        <PageTitle title={'Push Notification'} description="Send a push notification to a single device token." />
 
-        <div className="mx-2 rounded-lg border border-primary bg-secondary-light overflow-y-auto gap-2 p-2">
-          <div>
-            <TextInput
-              id={'token'}
-              label={'Token'}
-              value={token}
-              onChange={e => {
-                setToken(e.currentTarget.value);
-              }}
-            />
-          </div>
-
-          <div>
-            <TextInput
-              id={'title'}
-              label={'Title'}
-              value={title}
-              onChange={e => {
-                handleInputTitleChanged(e.currentTarget.value);
-              }}
-            />
-          </div>
-
-          <div className="h-64 w-full rounded-lg bg-secondary-light">
-            <TextInputLarge
-              id={'message'}
-              label={'Message'}
-              value={message}
-              onChange={e => {
-                handleInputMessageChanged(e.currentTarget.value);
-              }}
-            />
-          </div>
-
-          <div className="mx-2 flex items-center gap-2">
-            <div>{`Action`}</div>
-            <div className="flex w-full">
-              <ComboBox
-                menus={menuNotificationActions}
-                value={action}
-                searchEnabled={false}
-                onChange={(value: NotificationAction) => {
-                  setAction(value);
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+          <div className="mx-auto flex w-full max-w-2xl flex-col gap-4 rounded-3xl border border-border bg-background p-5 shadow-xs sm:p-6">
+            <div>
+              <TextInput
+                id={'token'}
+                label={'Token'}
+                value={token}
+                onChange={e => {
+                  setToken(e.currentTarget.value);
                 }}
               />
             </div>
-          </div>
 
-          <CheckBox
-            id={'isAnnouncement'}
-            label={'Is Announcement'}
-            value={isAnnouncement}
-            onChange={e => {
-              handleCheckBoxIsAnnouncementChanged();
-            }}
-          />
+            <div>
+              <TextInput
+                id={'title'}
+                label={'Title'}
+                value={title}
+                onChange={e => {
+                  handleInputTitleChanged(e.currentTarget.value);
+                }}
+              />
+            </div>
 
-          <div className="mx-2 flex flex-col gap-2">
-            {arbDataItems.map(item => {
-              return (
-                <div key={`row-${item}`} className="flex gap-2 items-center">
-                  <div className="w-1/4">{item}</div>
+            <div className="w-full">
+              <TextInputLarge
+                id={'message'}
+                label={'Message'}
+                value={message}
+                onChange={e => {
+                  handleInputMessageChanged(e.currentTarget.value);
+                }}
+              />
+            </div>
 
-                  <div className="flex w-full gap-2 items-center">
-                    <Input
-                      id={`inputArbData-${item}`}
-                      className="h-full w-full p-1"
-                      onChange={e => {
-                        handleInputArbitraryDataChanged(item, e.currentTarget.value);
-                      }}
-                    />
+            <div className="flex items-center gap-3">
+              <div className="shrink-0 text-sm font-medium">{`Action`}</div>
+              <div className="flex w-full">
+                <ComboBox
+                  menus={menuNotificationActions}
+                  value={action}
+                  searchEnabled={false}
+                  onChange={(value: NotificationAction) => {
+                    setAction(value);
+                  }}
+                />
+              </div>
+            </div>
 
-                    <ActionButton
-                      action={Action.DELETE}
-                      onClick={() => {
-                        clearInput(`inputArbData-${item}`);
-                        removeArbData(item);
-                      }}
-                    />
+            <CheckBox
+              id={'isAnnouncement'}
+              label={'Is Announcement'}
+              value={isAnnouncement}
+              onChange={e => {
+                handleCheckBoxIsAnnouncementChanged();
+              }}
+            />
+
+            <div className="flex flex-col gap-2 empty:hidden">
+              {arbDataItems.map(item => {
+                return (
+                  <div key={`row-${item}`} className="flex gap-2 items-center">
+                    <div className="w-1/4 truncate font-mono text-xs text-muted-foreground">{item}</div>
+
+                    <div className="flex w-full gap-2 items-center">
+                      <Input
+                        id={`inputArbData-${item}`}
+                        className="h-9 w-full"
+                        onChange={e => {
+                          handleInputArbitraryDataChanged(item, e.currentTarget.value);
+                        }}
+                      />
+
+                      <ActionButton
+                        action={Action.DELETE}
+                        onClick={() => {
+                          clearInput(`inputArbData-${item}`);
+                          removeArbData(item);
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
 
-          <div className="w-full">
-            <TextInput id={'arbitraryData'} label={'Arbitrary Data'} value={JSON.stringify(arbitraryData)} readOnly={true} />
+            <div className="w-full">
+              <TextInput id={'arbitraryData'} label={'Arbitrary Data'} value={JSON.stringify(arbitraryData)} readOnly={true} />
+            </div>
           </div>
         </div>
 

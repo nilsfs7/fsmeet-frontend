@@ -39,10 +39,7 @@ const STATE_RANK: Record<UserVerificationState, number> = {
 
 type SortKey = 'name' | 'state';
 
-const cardSurface = cn(
-  'min-w-0 rounded-xl border border-border/60 bg-secondary-light/85 p-3 shadow-xs sm:p-4',
-  'dark:border-border/50 dark:bg-background/60',
-);
+const cardSurface = cn('min-w-0 rounded-2xl border border-border bg-background p-4 shadow-xs', 'dark:border-border/50 dark:bg-background/60');
 
 function displayName(user: User): string {
   return [user.firstName, user.lastName].filter(Boolean).join(' ').trim();
@@ -125,10 +122,7 @@ export const VerificationEditor = () => {
     return sortUsers(filtered, sort);
   }, [users, stateFilter, query, sort]);
 
-  const dirtyUsers = useMemo(
-    () => (users ?? []).filter(user => draftByUsername[user.username] && draftByUsername[user.username] !== user.verificationState),
-    [users, draftByUsername],
-  );
+  const dirtyUsers = useMemo(() => (users ?? []).filter(user => draftByUsername[user.username] && draftByUsername[user.username] !== user.verificationState), [users, draftByUsername]);
 
   const handleDraftChanged = (user: User, nextState: UserVerificationState) => {
     if (!isAdmin || saving) return;
@@ -257,7 +251,7 @@ export const VerificationEditor = () => {
                   <div className="mt-3 max-w-xs">
                     <span className="mb-1 block text-xs text-muted-foreground">Verification</span>
                     <Select value={state ?? ''} disabled={saving} onValueChange={value => handleDraftChanged(user, value as UserVerificationState)}>
-                      <SelectTrigger aria-label={`Verification of ${user.username}`} className={cn(dirty && 'border-primary')}>
+                      <SelectTrigger aria-label={`Verification of ${user.username}`} className={cn(dirty && 'border-brand ring-2 ring-brand/20')}>
                         <SelectValue placeholder="Not set" />
                       </SelectTrigger>
                       <SelectContent>
