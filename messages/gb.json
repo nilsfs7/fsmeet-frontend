@@ -566,7 +566,9 @@
     "toastExportInconsistent": "Export of battle results is inconsistent.",
     "tabInfoNone": "None",
     "tabInfoParticipants": "Participants",
-    "tabInfoRounds": "Rounds"
+    "tabInfoRounds": "Rounds",
+    "textNoScheduleTitle": "No schedule yet",
+    "textNoScheduleDescription": "The organizer has not created a schedule for this competition yet. Check back later."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Manage Player Pool",
@@ -674,7 +676,9 @@
     "hintMode": "Build the rounds from first to last. The players advancing from one round are the players available in the next.",
     "noteFinalSet": "The final round is set. Adjust matches if needed, then save.",
     "textNoRounds": "No rounds yet. Start with the first round.",
-    "btnGoToPool": "Go to pool"
+    "btnGoToPool": "Go to pool",
+    "chipUnsavedChanges": "Unsaved changes",
+    "hintReorder": "Drag match cards or use the arrows to change their order within a round, then save."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Results",
@@ -1270,7 +1274,10 @@
     "labelTbd": "To be decided",
     "labelResult": "Result",
     "labelTimeLimit": "Time limit",
-    "labelMatchCount": "{count, plural, one {# match} other {# matches}}"
+    "labelMatchCount": "{count, plural, one {# match} other {# matches}}",
+    "btnMoveMatchUp": "Move “{name}” up",
+    "btnMoveMatchDown": "Move “{name}” down",
+    "labelDragToReorder": "Drag to reorder"
   },
   "global/components/competition-editor": {
     "inputName": "Competition Name",

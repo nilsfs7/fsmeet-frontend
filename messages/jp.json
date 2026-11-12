@@ -566,7 +566,9 @@
     "toastExportInconsistent": "試合結果の書き出しが一貫していません。",
     "tabInfoNone": "なし",
     "tabInfoParticipants": "参加者",
-    "tabInfoRounds": "ラウンド"
+    "tabInfoRounds": "ラウンド",
+    "textNoScheduleTitle": "スケジュールはまだありません",
+    "textNoScheduleDescription": "この大会のスケジュールはまだ作成されていません。後でもう一度確認してください。"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "選手一覧を管理",
@@ -674,7 +676,9 @@
     "hintMode": "最初から最後までラウンドを作成します。勝ち上がった人数が次のラウンドの出場者数になります。",
     "noteFinalSet": "決勝ラウンドが設定されました。必要に応じて試合を調整して保存してください。",
     "textNoRounds": "まだラウンドがありません。最初のラウンドから始めましょう。",
-    "btnGoToPool": "出場者へ"
+    "btnGoToPool": "出場者へ",
+    "chipUnsavedChanges": "未保存の変更",
+    "hintReorder": "試合カードをドラッグするか矢印でラウンド内の順番を変更し、保存してください。"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "シード＆結果",
@@ -1270,7 +1274,10 @@
     "labelTbd": "未定",
     "labelResult": "結果",
     "labelTimeLimit": "時間制限",
-    "labelMatchCount": "{count}試合"
+    "labelMatchCount": "{count}試合",
+    "btnMoveMatchUp": "「{name}」を上へ移動",
+    "btnMoveMatchDown": "「{name}」を下へ移動",
+    "labelDragToReorder": "ドラッグして並べ替え"
   },
   "global/components/competition-editor": {
     "inputName": "カテゴリ名",

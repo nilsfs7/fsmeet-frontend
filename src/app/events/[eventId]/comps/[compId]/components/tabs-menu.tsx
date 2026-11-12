@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState, type ReactNode } from 'react';
-import { IconCake, IconGenderBigender, IconListNumbers, IconTournament, IconUsers } from '@tabler/icons-react';
+import { IconCake, IconCalendarOff, IconGenderBigender, IconListNumbers, IconTournament, IconUsers } from '@tabler/icons-react';
+import { EmptyState } from '@/components/common/empty-state';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession } from 'next-auth/react';
 import { User } from '@/domain/types/user';
@@ -89,7 +90,8 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
   }
 
   // Info is the default; an explicit ?tab= is honoured as long as that tab exists for this competition.
-  const availableTabs = [...(rounds.length > 0 ? ['schedule'] : []), ...(rounds.length > 1 ? ['grid'] : []), 'info', 'participants'];
+  // Schedule and bracket are always offered; without rounds they explain that no schedule exists yet.
+  const availableTabs = ['schedule', 'grid', 'info', ...(usersMap.size > 0 ? ['participants'] : [])];
   const initialTab = tab && availableTabs.includes(tab) ? tab : 'info';
 
   const maxAgeText = comp?.maxAge !== MaxAge.NONE ? String(comp?.maxAge) : t('tabInfoNone');
@@ -98,34 +100,32 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
     [t('tabInfoGender'), comp?.gender ?? '', <IconGenderBigender key="g" className="h-5 w-5" stroke={1.75} aria-hidden />],
     [t('tabInfoMaxAge'), maxAgeText, <IconCake key="a" className="h-5 w-5" stroke={1.75} aria-hidden />],
     [t('tabInfoParticipants'), String(usersMap.size), <IconUsers key="p" className="h-5 w-5" stroke={1.75} aria-hidden />],
-    [t('tabInfoRounds'), String(rounds.length), <IconListNumbers key="r" className="h-5 w-5" stroke={1.75} aria-hidden />],
+    ...(rounds.length > 0 ? ([[t('tabInfoRounds'), String(rounds.length), <IconListNumbers key="r" className="h-5 w-5" stroke={1.75} aria-hidden />]] as [string, string, ReactNode][]) : []),
   ];
+
+  const noSchedule = <EmptyState icon={<IconCalendarOff stroke={1.75} aria-hidden />} title={t('textNoScheduleTitle')} description={t('textNoScheduleDescription')} />;
 
   return (
     <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
       <Tabs defaultValue={initialTab} className="mx-auto flex w-full max-w-content flex-col gap-4">
         <TabsList className="flex-nowrap justify-start self-start overflow-x-auto scrollbar-none max-w-full">
-          {rounds.length > 0 && (
-            <TabsTrigger
-              value="schedule"
-              onClick={() => {
-                switchTab(router, 'schedule');
-              }}
-            >
-              {t('tabScheduleTitle')}
-            </TabsTrigger>
-          )}
+          <TabsTrigger
+            value="schedule"
+            onClick={() => {
+              switchTab(router, 'schedule');
+            }}
+          >
+            {t('tabScheduleTitle')}
+          </TabsTrigger>
 
-          {rounds.length > 1 && (
-            <TabsTrigger
-              value="grid"
-              onClick={() => {
-                switchTab(router, 'grid');
-              }}
-            >
-              {t('tabBattlGridTitle')}
-            </TabsTrigger>
-          )}
+          <TabsTrigger
+            value="grid"
+            onClick={() => {
+              switchTab(router, 'grid');
+            }}
+          >
+            {t('tabBattlGridTitle')}
+          </TabsTrigger>
 
           <TabsTrigger
             value="info"
@@ -150,59 +150,60 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
         </TabsList>
 
         {/* Schedule */}
-        {rounds.length > 0 && (
-          <TabsContent value="schedule" className="mt-0 flex flex-col gap-4">
-            {rounds.length > 1 && (
-              <div className="flex flex-col gap-3 rounded-2xl border border-border bg-background p-3 shadow-xs sm:flex-row sm:items-center sm:justify-between sm:p-4">
-                <div className="flex min-w-0 flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
-                  <ComboBox
-                    menus={participantsMenu}
-                    value={filteredByUser || ''}
-                    label={t('tabScheduleComboBoxParticipantFilterLabel')}
-                    searchEnabled={true}
-                    onChange={(value: any) => {
-                      setFilteredByUser(value);
+        <TabsContent value="schedule" className="mt-0 flex flex-col gap-4">
+          {rounds.length === 0 && noSchedule}
+          {rounds.length > 1 && (
+            <div className="flex flex-col gap-3 rounded-2xl border border-border bg-background p-3 shadow-xs sm:flex-row sm:items-center sm:justify-between sm:p-4">
+              <div className="flex min-w-0 flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
+                <ComboBox
+                  menus={participantsMenu}
+                  value={filteredByUser || ''}
+                  label={t('tabScheduleComboBoxParticipantFilterLabel')}
+                  searchEnabled={true}
+                  onChange={(value: any) => {
+                    setFilteredByUser(value);
 
-                      if (value !== session?.user?.username) {
-                        setShowMyBattlesOnlyEnabled(false);
-                      }
+                    if (value !== session?.user?.username) {
+                      setShowMyBattlesOnlyEnabled(false);
+                    }
+                  }}
+                />
+              </div>
+
+              {session?.user?.username && usersMap.get(session.user.username) && (
+                <label className="flex shrink-0 cursor-pointer items-center justify-between gap-3 rounded-xl border border-border px-3 py-2 text-sm font-medium sm:justify-start">
+                  {t('tabScheduleSwitchMyBattlesOnly')}
+                  <Switch
+                    checked={showMyBattlesOnlyEnabled}
+                    onCheckedChange={checked => {
+                      setShowMyBattlesOnlyEnabled(checked);
+                      checked ? setFilteredByUser(session.user.username) : setFilteredByUser('');
                     }}
                   />
-                </div>
+                </label>
+              )}
+            </div>
+          )}
 
-                {session?.user?.username && usersMap.get(session.user.username) && (
-                  <label className="flex shrink-0 cursor-pointer items-center justify-between gap-3 rounded-xl border border-border px-3 py-2 text-sm font-medium sm:justify-start">
-                    {t('tabScheduleSwitchMyBattlesOnly')}
-                    <Switch
-                      checked={showMyBattlesOnlyEnabled}
-                      onCheckedChange={checked => {
-                        setShowMyBattlesOnlyEnabled(checked);
-                        checked ? setFilteredByUser(session.user.username) : setFilteredByUser('');
-                      }}
-                    />
-                  </label>
-                )}
-              </div>
-            )}
-
-            <BattleList rounds={rounds} usersMap={usersMap} filteredByUser={filteredByUser} showUserCountryFlag={event.showUserCountryFlag} />
-          </TabsContent>
-        )}
+          {rounds.length > 0 && <BattleList rounds={rounds} usersMap={usersMap} filteredByUser={filteredByUser} showUserCountryFlag={event.showUserCountryFlag} />}
+        </TabsContent>
 
         {/* Battle Grid */}
-        {rounds.length > 1 && (
-          <TabsContent value="grid" className="mt-0">
+        <TabsContent value="grid" className="mt-0">
+          {rounds.length === 0 ? (
+            noSchedule
+          ) : (
             <div className="overflow-x-auto rounded-2xl border border-border bg-muted/30 p-3 sm:p-4">
               <BattleGrid rounds={rounds} usersMap={usersMap} showUserCountryFlag={event.showUserCountryFlag} />
             </div>
-          </TabsContent>
-        )}
+          )}
+        </TabsContent>
 
         {/* Info */}
         <TabsContent value="info" className="mt-0 flex flex-col gap-4">
           <section className="rounded-2xl border border-border bg-background p-4 shadow-xs sm:p-5">
             <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t('tabInfoSectionGeneral')}</h2>
-            <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            <dl className={`grid grid-cols-2 gap-3 sm:grid-cols-3 ${infoTiles.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-5'}`}>
               {infoTiles.map(([label, value, icon]) => (
                 <div key={label} className="flex min-w-0 items-center gap-3 rounded-xl bg-muted/40 p-3">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand-strong">{icon}</span>

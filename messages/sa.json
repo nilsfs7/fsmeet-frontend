@@ -566,7 +566,9 @@
     "toastExportInconsistent": "تصدير النتائج غير متسق.",
     "tabInfoNone": "لا يوجد",
     "tabInfoParticipants": "المشاركون",
-    "tabInfoRounds": "الجولات"
+    "tabInfoRounds": "الجولات",
+    "textNoScheduleTitle": "لا يوجد جدول بعد",
+    "textNoScheduleDescription": "لم يُنشئ المنظم جدولًا لهذه المسابقة بعد. عُد لاحقًا."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "إدارة قائمة اللاعبين",
@@ -674,7 +676,9 @@
     "hintMode": "أنشئ الجولات من الأولى إلى الأخيرة. اللاعبون المتأهلون من جولة هم المتاحون في الجولة التالية.",
     "noteFinalSet": "تم تحديد الجولة النهائية. عدّل المباريات إن لزم ثم احفظ.",
     "textNoRounds": "لا توجد جولات بعد. ابدأ بالجولة الأولى.",
-    "btnGoToPool": "الانتقال إلى المجموعة"
+    "btnGoToPool": "الانتقال إلى المجموعة",
+    "chipUnsavedChanges": "تغييرات غير محفوظة",
+    "hintReorder": "اسحب بطاقات المباريات أو استخدم الأسهم لتغيير ترتيبها داخل الجولة، ثم احفظ."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "التصنيف والنتائج",
@@ -1270,7 +1274,10 @@
     "labelTbd": "لم يُحدَّد بعد",
     "labelResult": "النتيجة",
     "labelTimeLimit": "وقت محدد",
-    "labelMatchCount": "{count, plural, one {مباراة واحدة} other {# مباريات}}"
+    "labelMatchCount": "{count, plural, one {مباراة واحدة} other {# مباريات}}",
+    "btnMoveMatchUp": "نقل \"{name}\" للأعلى",
+    "btnMoveMatchDown": "نقل \"{name}\" للأسفل",
+    "labelDragToReorder": "اسحب لإعادة الترتيب"
   },
   "global/components/competition-editor": {
     "inputName": "اسم المنافسة",

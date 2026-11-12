@@ -541,7 +541,9 @@
     "toastExportInconsistent": "Der Export der Battle-Ergebnisse ist uneinheitlich.",
     "tabInfoNone": "Keine",
     "tabInfoParticipants": "Teilnehmer",
-    "tabInfoRounds": "Runden"
+    "tabInfoRounds": "Runden",
+    "textNoScheduleTitle": "Noch kein Spielplan",
+    "textNoScheduleDescription": "Für diesen Wettbewerb wurde noch kein Spielplan angelegt. Schau später wieder vorbei."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Teilnehmer-Pool verwalten",
@@ -649,7 +651,9 @@
     "hintMode": "Lege die Runden von der ersten bis zur letzten an. Wer in einer Runde weiterkommt, steht in der nächsten zur Verfügung.",
     "noteFinalSet": "Die Finalrunde steht. Passe die Matches bei Bedarf an und speichere dann.",
     "textNoRounds": "Noch keine Runden. Beginne mit der ersten Runde.",
-    "btnGoToPool": "Zum Pool"
+    "btnGoToPool": "Zum Pool",
+    "chipUnsavedChanges": "Ungespeicherte Änderungen",
+    "hintReorder": "Ziehe Match-Karten oder nutze die Pfeile, um ihre Reihenfolge innerhalb einer Runde zu ändern, und speichere dann."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Zuweisung & Ergebnisse",
@@ -1245,7 +1249,10 @@
     "labelTbd": "Noch offen",
     "labelResult": "Ergebnis",
     "labelTimeLimit": "Zeitlimit",
-    "labelMatchCount": "{count, plural, one {# Match} other {# Matches}}"
+    "labelMatchCount": "{count, plural, one {# Match} other {# Matches}}",
+    "btnMoveMatchUp": "„{name}“ nach oben verschieben",
+    "btnMoveMatchDown": "„{name}“ nach unten verschieben",
+    "labelDragToReorder": "Zum Sortieren ziehen"
   },
   "global/components/competition-editor": {
     "inputName": "Wettbewerb Name",

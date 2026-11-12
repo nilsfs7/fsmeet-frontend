@@ -49,6 +49,8 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   const [rounds, setRounds] = useState<Round[]>(() => structuredClone(roundsInit));
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [refreshKey, setRefreshKey] = useState(0);
+  // Saved game mode with local edits (e.g. reordered matches) that still need "Update".
+  const [unsavedChanges, setUnsavedChanges] = useState(false);
 
   const totalMatches = rounds.reduce((sum, round) => sum + round.matches.length, 0);
   const finalSet = rounds.length > 0 && rounds[rounds.length - 1].advancingTotal <= 1;
@@ -72,6 +74,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
       try {
         await updateRounds(compId?.toString(), rounds, session);
         toast.success(t('toastRoundsUpdated'));
+        setUnsavedChanges(false);
         setRefreshKey(k => k + 1);
       } catch (error: any) {
         toast.error(error.message);
@@ -172,6 +175,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
 
     rnds.push(newRound);
     setRounds(rnds);
+    setUnsavedChanges(true);
   };
 
   const handleConfirmEditRoundClicked = async (roundIndex: number, roundName: string, roundDate: string, roundTimeLimit: boolean, advancingTotal: number) => {
@@ -181,6 +185,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     rnds[roundIndex].timeLimit = roundTimeLimit;
     rnds[roundIndex].advancingTotal = advancingTotal;
     setRounds(rnds);
+    setUnsavedChanges(true);
   };
 
   const handleConfirmDeleteRoundClicked = async (roundIndex: number) => {
@@ -192,6 +197,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
       }
     });
     setRounds(rnds);
+    setUnsavedChanges(true);
   };
 
   const handleConfirmAddMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, amountSlots: number, isExtraMatch: boolean) => {
@@ -199,6 +205,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     matchTime = setRoundDateToMatchTime(rnds[roundIndex].date, matchTime);
     roundAddMatch(rnds[roundIndex], matchName, matchTime, isExtraMatch, amountSlots);
     setRounds(rnds);
+    setUnsavedChanges(true);
   };
 
   const handleConfirmEditMatchClicked = async (roundIndex: number, matchIndex: number, matchName: string, matchTime: string | null, slots: number, isExtraMatch: boolean) => {
@@ -217,6 +224,22 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     rnds[roundIndex].matches = mtchs;
 
     setRounds(rnds);
+    setUnsavedChanges(true);
+  };
+
+  const handleMoveMatch = (roundIndex: number, from: number, to: number) => {
+    const rnds = Array.from(rounds);
+    const mtchs = Array.from(rnds[roundIndex].matches);
+    if (to < 0 || to >= mtchs.length || from === to) return;
+    const [moved] = mtchs.splice(from, 1);
+    mtchs.splice(to, 0, moved);
+    // The position in the round is persisted as matchIndex (the competition page sorts by it).
+    mtchs.forEach((mtch, index) => {
+      mtch.matchIndex = index;
+    });
+    rnds[roundIndex] = { ...rnds[roundIndex], matches: mtchs };
+    setRounds(rnds);
+    setUnsavedChanges(true);
   };
 
   const handleConfirmDeleteMatchClicked = async (roundIndex: number, matchIndex: number) => {
@@ -228,6 +251,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
       }
     });
     setRounds(rnds);
+    setUnsavedChanges(true);
   };
 
   useEffect(() => {
@@ -334,8 +358,12 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
                 {!gameModeApplied && rounds.length > 0 && (
                   <span className="rounded-full bg-amber-100 px-2.5 py-1 font-semibold text-amber-800 dark:bg-amber-500/15 dark:text-amber-300">{t('chipNotSaved')}</span>
                 )}
+                {gameModeApplied && unsavedChanges && (
+                  <span className="rounded-full bg-amber-100 px-2.5 py-1 font-semibold text-amber-800 dark:bg-amber-500/15 dark:text-amber-300">{t('chipUnsavedChanges')}</span>
+                )}
               </div>
               <p className="text-sm text-muted-foreground">{finalSet ? t('noteFinalSet') : t('hintMode')}</p>
+              {rounds.some(round => round.matches.length > 1) && <p className="text-sm text-muted-foreground">{t('hintReorder')}</p>}
             </div>
 
             {numParticipants > 1 && (rounds.length === 0 || getLastRound().advancingTotal > 1) && (
@@ -382,6 +410,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
                 onDeleteMatch={(roundIndex: number, matchIndex: number) => {
                   handleDeleteMatchClicked(roundIndex, matchIndex);
                 }}
+                onMoveMatch={handleMoveMatch}
               />
             </div>
           )}

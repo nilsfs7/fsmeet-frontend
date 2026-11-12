@@ -566,7 +566,9 @@
     "toastExportInconsistent": "परिणामों का एक्सपोर्ट असंगत है।",
     "tabInfoNone": "कोई नहीं",
     "tabInfoParticipants": "प्रतिभागी",
-    "tabInfoRounds": "राउंड"
+    "tabInfoRounds": "राउंड",
+    "textNoScheduleTitle": "अभी कोई शेड्यूल नहीं",
+    "textNoScheduleDescription": "आयोजक ने अभी इस प्रतियोगिता का शेड्यूल नहीं बनाया है। बाद में देखें।"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "खिलाड़ी पूल प्रबंधित करें",
@@ -674,7 +676,9 @@
     "hintMode": "पहले से आख़िरी तक राउंड बनाएं। एक राउंड से आगे बढ़ने वाले खिलाड़ी अगले राउंड में उपलब्ध होते हैं।",
     "noteFinalSet": "फ़ाइनल राउंड तय है। ज़रूरत हो तो मैच बदलें, फिर सेव करें।",
     "textNoRounds": "अभी कोई राउंड नहीं। पहले राउंड से शुरू करें।",
-    "btnGoToPool": "पूल पर जाएं"
+    "btnGoToPool": "पूल पर जाएं",
+    "chipUnsavedChanges": "बिना सेव किए बदलाव",
+    "hintReorder": "राउंड के अंदर क्रम बदलने के लिए मैच कार्ड खींचें या तीरों का उपयोग करें, फिर सेव करें।"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "सीडिंग और परिणाम",
@@ -1270,7 +1274,10 @@
     "labelTbd": "तय होना बाकी",
     "labelResult": "परिणाम",
     "labelTimeLimit": "समय सीमा",
-    "labelMatchCount": "{count, plural, one {# मैच} other {# मैच}}"
+    "labelMatchCount": "{count, plural, one {# मैच} other {# मैच}}",
+    "btnMoveMatchUp": "“{name}” को ऊपर ले जाएं",
+    "btnMoveMatchDown": "“{name}” को नीचे ले जाएं",
+    "labelDragToReorder": "क्रम बदलने के लिए खींचें"
   },
   "global/components/competition-editor": {
     "inputName": "प्रतियोगिता का नाम",

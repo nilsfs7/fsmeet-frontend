@@ -541,7 +541,9 @@
     "toastExportInconsistent": "La exportación de resultados es incoherente.",
     "tabInfoNone": "Ninguna",
     "tabInfoParticipants": "Participantes",
-    "tabInfoRounds": "Rondas"
+    "tabInfoRounds": "Rondas",
+    "textNoScheduleTitle": "Aún no hay calendario",
+    "textNoScheduleDescription": "La organización aún no ha creado un calendario para esta competición. Vuelve más tarde."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Gestionar el grupo de participantes",
@@ -649,7 +651,9 @@
     "hintMode": "Crea las rondas de la primera a la última. Quienes avanzan en una ronda son los disponibles en la siguiente.",
     "noteFinalSet": "La ronda final está definida. Ajusta los enfrentamientos si hace falta y guarda.",
     "textNoRounds": "Todavía no hay rondas. Empieza por la primera.",
-    "btnGoToPool": "Ir al grupo"
+    "btnGoToPool": "Ir al grupo",
+    "chipUnsavedChanges": "Cambios sin guardar",
+    "hintReorder": "Arrastra las tarjetas o usa las flechas para cambiar su orden dentro de una ronda y luego guarda."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Asignación y resultados",
@@ -1245,7 +1249,10 @@
     "labelTbd": "Por decidir",
     "labelResult": "Resultado",
     "labelTimeLimit": "Tiempo límite",
-    "labelMatchCount": "{count, plural, one {# enfrentamiento} other {# enfrentamientos}}"
+    "labelMatchCount": "{count, plural, one {# enfrentamiento} other {# enfrentamientos}}",
+    "btnMoveMatchUp": "Subir «{name}»",
+    "btnMoveMatchDown": "Bajar «{name}»",
+    "labelDragToReorder": "Arrastra para reordenar"
   },
   "global/components/competition-editor": {
     "inputName": "Nombre de la competición",

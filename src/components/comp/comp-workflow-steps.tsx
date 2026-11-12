@@ -38,6 +38,8 @@ export function CompWorkflowSteps({ eventId, compId, current, refreshKey = 0 }: 
   }, [compId, refreshKey]);
 
   const base = `${routeEvents}/${eventId}/comps/${compId}`;
+  // The public page opens on the tab that matches the current step.
+  const viewTab: Record<CompWorkflowStep, string> = { details: 'info', pool: 'participants', mode: 'grid', seeding: 'grid' };
   const steps: { id: CompWorkflowStep; href: string; label: string; status: string | null; done: boolean; Icon: Icon }[] = [
     { id: 'details', href: `${base}/edit`, label: t('stepDetails'), status: null, done: true, Icon: IconPencil },
     { id: 'pool', href: `${base}/edit/pool`, label: t('stepPool'), status: poolCount === null ? null : t('statusPool', { count: poolCount }), done: (poolCount ?? 0) >= 2, Icon: IconUsers },
@@ -95,7 +97,7 @@ export function CompWorkflowSteps({ eventId, compId, current, refreshKey = 0 }: 
         })}
       </ol>
       <div className="flex justify-end">
-        <Link href={base} className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-brand-strong">
+        <Link href={`${base}?tab=${viewTab[current]}`} className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-brand-strong">
           {t('btnViewCompetition')}
           <IconExternalLink className="h-3.5 w-3.5" stroke={1.75} aria-hidden />
         </Link>

@@ -566,7 +566,9 @@
     "toastExportInconsistent": "Eksport keputusan tidak konsisten.",
     "tabInfoNone": "Tiada",
     "tabInfoParticipants": "Peserta",
-    "tabInfoRounds": "Pusingan"
+    "tabInfoRounds": "Pusingan",
+    "textNoScheduleTitle": "Belum ada jadual",
+    "textNoScheduleDescription": "Penganjur belum membuat jadual untuk pertandingan ini. Sila semak semula nanti."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Urus Pool Pemain",
@@ -674,7 +676,9 @@
     "hintMode": "Bina pusingan dari pertama hingga terakhir. Pemain yang mara dari satu pusingan ialah pemain bagi pusingan seterusnya.",
     "noteFinalSet": "Pusingan akhir telah ditetapkan. Laraskan perlawanan jika perlu, kemudian simpan.",
     "textNoRounds": "Belum ada pusingan. Mulakan dengan pusingan pertama.",
-    "btnGoToPool": "Pergi ke kumpulan"
+    "btnGoToPool": "Pergi ke kumpulan",
+    "chipUnsavedChanges": "Perubahan belum disimpan",
+    "hintReorder": "Seret kad perlawanan atau gunakan anak panah untuk menukar susunan dalam pusingan, kemudian simpan."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Keputusan",
@@ -1270,7 +1274,10 @@
     "labelTbd": "Belum ditentukan",
     "labelResult": "Keputusan",
     "labelTimeLimit": "Had masa",
-    "labelMatchCount": "{count} perlawanan"
+    "labelMatchCount": "{count} perlawanan",
+    "btnMoveMatchUp": "Alih “{name}” ke atas",
+    "btnMoveMatchDown": "Alih “{name}” ke bawah",
+    "labelDragToReorder": "Seret untuk menyusun semula"
   },
   "global/components/competition-editor": {
     "inputName": "Nama Pertandingan",

@@ -566,7 +566,9 @@
     "toastExportInconsistent": "比赛结果导出不一致。",
     "tabInfoNone": "无",
     "tabInfoParticipants": "参赛者",
-    "tabInfoRounds": "轮次"
+    "tabInfoRounds": "轮次",
+    "textNoScheduleTitle": "尚无赛程",
+    "textNoScheduleDescription": "主办方尚未为本比赛创建赛程，请稍后再来查看。"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "管理选手池",
@@ -674,7 +676,9 @@
     "hintMode": "从第一轮到最后一轮依次创建。每轮晋级的选手就是下一轮可用的选手。",
     "noteFinalSet": "决赛轮已设置。如有需要请调整比赛，然后保存。",
     "textNoRounds": "还没有轮次。从第一轮开始吧。",
-    "btnGoToPool": "前往选手池"
+    "btnGoToPool": "前往选手池",
+    "chipUnsavedChanges": "有未保存的更改",
+    "hintReorder": "拖动比赛卡片或使用箭头调整同一轮内的顺序，然后保存。"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "种子位与结果",
@@ -1270,7 +1274,10 @@
     "labelTbd": "待定",
     "labelResult": "结果",
     "labelTimeLimit": "限时",
-    "labelMatchCount": "{count} 场比赛"
+    "labelMatchCount": "{count} 场比赛",
+    "btnMoveMatchUp": "上移“{name}”",
+    "btnMoveMatchDown": "下移“{name}”",
+    "labelDragToReorder": "拖动以排序"
   },
   "global/components/competition-editor": {
     "inputName": "比赛名称",

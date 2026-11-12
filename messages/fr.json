@@ -541,7 +541,9 @@
     "toastExportInconsistent": "L'export des résultats est incohérent.",
     "tabInfoNone": "Aucune",
     "tabInfoParticipants": "Participants",
-    "tabInfoRounds": "Tours"
+    "tabInfoRounds": "Tours",
+    "textNoScheduleTitle": "Pas encore de programme",
+    "textNoScheduleDescription": "L’organisateur n’a pas encore créé de programme pour cette compétition. Reviens plus tard."
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Gérer les groupes",
@@ -649,7 +651,9 @@
     "hintMode": "Crée les tours du premier au dernier. Les joueurs qualifiés d’un tour sont ceux disponibles au tour suivant.",
     "noteFinalSet": "Le tour final est défini. Ajuste les matchs si besoin, puis enregistre.",
     "textNoRounds": "Aucun tour pour l’instant. Commence par le premier tour.",
-    "btnGoToPool": "Aller au pool"
+    "btnGoToPool": "Aller au pool",
+    "chipUnsavedChanges": "Modifications non enregistrées",
+    "hintReorder": "Glisse les cartes de match ou utilise les flèches pour changer leur ordre dans un tour, puis enregistre."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Tirage au sort et résultats",
@@ -1245,7 +1249,10 @@
     "labelTbd": "À déterminer",
     "labelResult": "Résultat",
     "labelTimeLimit": "Temps limité",
-    "labelMatchCount": "{count, plural, one {# match} other {# matchs}}"
+    "labelMatchCount": "{count, plural, one {# match} other {# matchs}}",
+    "btnMoveMatchUp": "Monter « {name} »",
+    "btnMoveMatchDown": "Descendre « {name} »",
+    "labelDragToReorder": "Glisser pour réordonner"
   },
   "global/components/competition-editor": {
     "inputName": "Nom de la compétition",
