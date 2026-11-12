@@ -665,12 +665,23 @@
     "toastRoundsUpdated": "تم تحديث الجولات",
     "toastRoundDeleted": "تم حذف الجولة",
     "defaultRoundName": "جولة {index}",
-    "defaultMatchName": "مباراة {index}"
+    "defaultMatchName": "مباراة {index}",
+    "btnAddRound": "إضافة جولة",
+    "statPlayers": "{count, plural, one {لاعب واحد في المجموعة} other {# لاعبين في المجموعة}}",
+    "statRounds": "{count, plural, one {جولة واحدة} other {# جولات}}",
+    "statMatches": "{count, plural, one {مباراة واحدة} other {# مباريات}}",
+    "chipNotSaved": "لم يُحفظ بعد",
+    "hintMode": "أنشئ الجولات من الأولى إلى الأخيرة. اللاعبون المتأهلون من جولة هم المتاحون في الجولة التالية.",
+    "noteFinalSet": "تم تحديد الجولة النهائية. عدّل المباريات إن لزم ثم احفظ.",
+    "textNoRounds": "لا توجد جولات بعد. ابدأ بالجولة الأولى.",
+    "btnGoToPool": "الانتقال إلى المجموعة"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "التصنيف والنتائج",
     "textNoGameMode": "لم تقم بإعداد نمط اللعب بعد.",
-    "toastSlotUpdated": "تم تحديث الخانة"
+    "toastSlotUpdated": "تم تحديث الخانة",
+    "btnGoToGameMode": "إعداد نظام اللعب",
+    "hintSeeding": "عيّن لاعبًا لكل مكان وأدخل النتائج. يتم حفظ كل تغيير فورًا، والنتيجة الأعلى تفوز."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "تعديل المنافسة",
@@ -1540,5 +1551,17 @@
     "shown": "عرض {shown} من {total}",
     "reset": "إعادة ضبط الفلاتر",
     "noMatch": "لا أحد يطابق هذه الفلاتر."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "خطوات إعداد المسابقة",
+    "stepDetails": "التفاصيل",
+    "stepPool": "المجموعة",
+    "stepGameMode": "نظام اللعب",
+    "stepSeeding": "التوزيع والنتائج",
+    "statusPool": "{count, plural, one {لاعب واحد} other {# لاعبين}}",
+    "statusRounds": "{count, plural, one {جولة واحدة} other {# جولات}}",
+    "statusSeeded": "{count, plural, one {تم شغل مكان واحد} other {تم شغل # أماكن}}",
+    "statusOpen": "لم يُعدّ بعد",
+    "btnViewCompetition": "عرض صفحة المسابقة"
   }
 }

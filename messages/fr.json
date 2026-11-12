@@ -640,12 +640,23 @@
     "toastRoundsUpdated": "Manches mises à jour",
     "toastRoundDeleted": "Manche supprimée",
     "defaultRoundName": "Manche {index}",
-    "defaultMatchName": "Battle {index}"
+    "defaultMatchName": "Battle {index}",
+    "btnAddRound": "Ajouter un tour",
+    "statPlayers": "{count, plural, one {# joueur dans le pool} other {# joueurs dans le pool}}",
+    "statRounds": "{count, plural, one {# tour} other {# tours}}",
+    "statMatches": "{count, plural, one {# match} other {# matchs}}",
+    "chipNotSaved": "Pas encore enregistré",
+    "hintMode": "Crée les tours du premier au dernier. Les joueurs qualifiés d’un tour sont ceux disponibles au tour suivant.",
+    "noteFinalSet": "Le tour final est défini. Ajuste les matchs si besoin, puis enregistre.",
+    "textNoRounds": "Aucun tour pour l’instant. Commence par le premier tour.",
+    "btnGoToPool": "Aller au pool"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Tirage au sort et résultats",
     "textNoGameMode": "Vous n'avez pas encore configuré de tournois.",
-    "toastSlotUpdated": "Créneau mis à jour"
+    "toastSlotUpdated": "Créneau mis à jour",
+    "btnGoToGameMode": "Configurer le format",
+    "hintSeeding": "Attribue un joueur à chaque place et saisis les résultats. Chaque modification est enregistrée immédiatement ; le meilleur résultat gagne."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Modifier la compétition",
@@ -1540,5 +1551,17 @@
     "shown": "{shown} sur {total} affichés",
     "reset": "Réinitialiser les filtres",
     "noMatch": "Personne ne correspond à ces filtres."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "Étapes de configuration de la compétition",
+    "stepDetails": "Détails",
+    "stepPool": "Pool",
+    "stepGameMode": "Format",
+    "stepSeeding": "Têtes de série & résultats",
+    "statusPool": "{count, plural, one {# joueur} other {# joueurs}}",
+    "statusRounds": "{count, plural, one {# tour} other {# tours}}",
+    "statusSeeded": "{count, plural, one {# place attribuée} other {# places attribuées}}",
+    "statusOpen": "Pas encore configuré",
+    "btnViewCompetition": "Voir la page de la compétition"
   }
 }

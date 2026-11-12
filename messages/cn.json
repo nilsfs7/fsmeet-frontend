@@ -665,12 +665,23 @@
     "toastRoundsUpdated": "回合已更新",
     "toastRoundDeleted": "回合已删除",
     "defaultRoundName": "回合 {index}",
-    "defaultMatchName": "比赛 {index}"
+    "defaultMatchName": "比赛 {index}",
+    "btnAddRound": "添加轮次",
+    "statPlayers": "选手池中 {count} 人",
+    "statRounds": "{count} 轮",
+    "statMatches": "{count} 场比赛",
+    "chipNotSaved": "尚未保存",
+    "hintMode": "从第一轮到最后一轮依次创建。每轮晋级的选手就是下一轮可用的选手。",
+    "noteFinalSet": "决赛轮已设置。如有需要请调整比赛，然后保存。",
+    "textNoRounds": "还没有轮次。从第一轮开始吧。",
+    "btnGoToPool": "前往选手池"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "种子位与结果",
     "textNoGameMode": "你尚未配置比赛模式。",
-    "toastSlotUpdated": "席位已更新"
+    "toastSlotUpdated": "席位已更新",
+    "btnGoToGameMode": "设置赛制",
+    "hintSeeding": "为每个位置分配选手并填写结果。每次更改都会立即保存；结果更高者获胜。"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "编辑比赛项目",
@@ -1540,5 +1551,17 @@
     "shown": "显示 {shown} / {total}",
     "reset": "重置筛选",
     "noMatch": "没有符合筛选条件的人。"
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "比赛设置步骤",
+    "stepDetails": "详情",
+    "stepPool": "选手池",
+    "stepGameMode": "赛制",
+    "stepSeeding": "种子与结果",
+    "statusPool": "{count} 名选手",
+    "statusRounds": "{count} 轮",
+    "statusSeeded": "已分配 {count} 个位置",
+    "statusOpen": "尚未设置",
+    "btnViewCompetition": "查看比赛页面"
   }
 }

@@ -665,12 +665,23 @@
     "toastRoundsUpdated": "Pusingan berjaya dikemas kini",
     "toastRoundDeleted": "Pusingan berjaya dipadam",
     "defaultRoundName": "Pusingan {index}",
-    "defaultMatchName": "Perlawanan {index}"
+    "defaultMatchName": "Perlawanan {index}",
+    "btnAddRound": "Tambah pusingan",
+    "statPlayers": "{count} pemain dalam kumpulan",
+    "statRounds": "{count} pusingan",
+    "statMatches": "{count} perlawanan",
+    "chipNotSaved": "Belum disimpan",
+    "hintMode": "Bina pusingan dari pertama hingga terakhir. Pemain yang mara dari satu pusingan ialah pemain bagi pusingan seterusnya.",
+    "noteFinalSet": "Pusingan akhir telah ditetapkan. Laraskan perlawanan jika perlu, kemudian simpan.",
+    "textNoRounds": "Belum ada pusingan. Mulakan dengan pusingan pertama.",
+    "btnGoToPool": "Pergi ke kumpulan"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Keputusan",
     "textNoGameMode": "Anda belum mengkonfigurasi mod permainan lagi.",
-    "toastSlotUpdated": "Slot dikemas kini"
+    "toastSlotUpdated": "Slot dikemas kini",
+    "btnGoToGameMode": "Sediakan mod permainan",
+    "hintSeeding": "Tetapkan pemain bagi setiap slot dan masukkan keputusan. Setiap perubahan disimpan serta-merta; keputusan lebih tinggi menang."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Edit Pertandingan",
@@ -1540,5 +1551,17 @@
     "shown": "Memaparkan {shown} daripada {total}",
     "reset": "Tetapkan semula penapis",
     "noMatch": "Tiada sesiapa sepadan dengan penapis ini."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "Langkah persediaan pertandingan",
+    "stepDetails": "Butiran",
+    "stepPool": "Kumpulan",
+    "stepGameMode": "Mod permainan",
+    "stepSeeding": "Pembenihan & keputusan",
+    "statusPool": "{count} pemain",
+    "statusRounds": "{count} pusingan",
+    "statusSeeded": "{count} slot diisi",
+    "statusOpen": "Belum disediakan",
+    "btnViewCompetition": "Lihat halaman pertandingan"
   }
 }

@@ -665,12 +665,23 @@
     "toastRoundsUpdated": "Rounds successfully updated",
     "toastRoundDeleted": "Round successfully deleted",
     "defaultRoundName": "Round {index}",
-    "defaultMatchName": "Match {index}"
+    "defaultMatchName": "Match {index}",
+    "btnAddRound": "Add round",
+    "statPlayers": "{count, plural, one {# player in pool} other {# players in pool}}",
+    "statRounds": "{count, plural, one {# round} other {# rounds}}",
+    "statMatches": "{count, plural, one {# match} other {# matches}}",
+    "chipNotSaved": "Not saved yet",
+    "hintMode": "Build the rounds from first to last. The players advancing from one round are the players available in the next.",
+    "noteFinalSet": "The final round is set. Adjust matches if needed, then save.",
+    "textNoRounds": "No rounds yet. Start with the first round.",
+    "btnGoToPool": "Go to pool"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Results",
     "textNoGameMode": "You have not configured a game mode, yet.",
-    "toastSlotUpdated": "Slot updated"
+    "toastSlotUpdated": "Slot updated",
+    "btnGoToGameMode": "Set up game mode",
+    "hintSeeding": "Assign a player to each slot and enter results. Every change is saved immediately; the higher result wins the match."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Edit Competition",
@@ -1540,5 +1551,17 @@
     "shown": "Showing {shown} of {total}",
     "reset": "Reset filters",
     "noMatch": "No one matches these filters."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "Competition setup steps",
+    "stepDetails": "Details",
+    "stepPool": "Pool",
+    "stepGameMode": "Game mode",
+    "stepSeeding": "Seeding & results",
+    "statusPool": "{count, plural, one {# player} other {# players}}",
+    "statusRounds": "{count, plural, one {# round} other {# rounds}}",
+    "statusSeeded": "{count, plural, one {# slot filled} other {# slots filled}}",
+    "statusOpen": "Not set up yet",
+    "btnViewCompetition": "View competition page"
   }
 }

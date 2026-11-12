@@ -10,7 +10,13 @@ import BattleGrid from '@/components/comp/battle-grid';
 import { Toaster, toast } from 'sonner';
 import PageTitle from '@/components/page-title';
 import { User } from '@/domain/types/user';
-import { getCompetitionParticipants, getRounds, updateMatchSlots } from '@/infrastructure/clients/competition.client';
+import { getCompetition, getCompetitionParticipants, getRounds, updateMatchSlots } from '@/infrastructure/clients/competition.client';
+import { Competition } from '@/domain/types/competition';
+import Link from 'next/link';
+import { IconInfoCircle, IconTournament } from '@tabler/icons-react';
+import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { EmptyState } from '@/components/common/empty-state';
+import { CompWorkflowSteps } from '@/components/comp/comp-workflow-steps';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { getEvent } from '@/infrastructure/clients/event.client';
@@ -24,6 +30,9 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
   const [event, setEvent] = useState<Event>();
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
   const [rounds, setRounds] = useState<Round[]>([]);
+  const [loaded, setLoaded] = useState(false);
+  const [comp, setComp] = useState<Competition>();
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleSlotUpdated = async (roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => {
     const rnds = Array.from(rounds);
@@ -57,6 +66,7 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
     try {
       await updateMatchSlots(params.eventId, params.compId, matchId, slotIndex, username, result, session);
       toast.success(t('toastSlotUpdated'));
+      setRefreshKey(k => k + 1);
     } catch (error: any) {
       toast.error(error.message);
       console.error(error.message);
@@ -79,6 +89,11 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
 
     getRounds(params.compId).then(rounds => {
       setRounds(rounds);
+      setLoaded(true);
+    });
+
+    getCompetition(params.compId).then(comp => {
+      setComp(comp);
     });
   }, []);
 
@@ -87,21 +102,44 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
       <Toaster richColors />
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={comp?.name} />
 
-        <div className="min-h-0 flex-1 overflow-y-auto">
-          <div className="my-2 flex justify-center">
-            {rounds.length === 0 && <div>{t('textNoGameMode')}</div>}
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+          <div className="mx-auto flex w-full max-w-content flex-col gap-4">
+            <CompWorkflowSteps eventId={params.eventId} compId={params.compId} current="seeding" refreshKey={refreshKey} />
 
-            <BattleGrid
-              rounds={rounds}
-              usersMap={usersMap}
-              seedingEnabled={true}
-              showUserCountryFlag={event?.showUserCountryFlag}
-              onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => {
-                handleSlotUpdated(roundIndex, matchId, slotIndex, username, result);
-              }}
-            />
+            {loaded && rounds.length === 0 && (
+              <EmptyState
+                icon={<IconTournament stroke={1.75} aria-hidden />}
+                title={t('textNoGameMode')}
+                action={
+                  <Button asChild variant="action" className={ctaActionButtonClassName}>
+                    <Link href={`${routeEvents}/${params.eventId}/comps/${params.compId}/edit/mode`}>{t('btnGoToGameMode')}</Link>
+                  </Button>
+                }
+              />
+            )}
+
+            {rounds.length > 0 && (
+              <>
+                <div className="flex items-start gap-3 rounded-2xl border border-border bg-background p-4 text-sm text-muted-foreground shadow-xs">
+                  <IconInfoCircle className="mt-0.5 h-4 w-4 shrink-0 text-brand-strong" stroke={2} aria-hidden />
+                  <p>{t('hintSeeding')}</p>
+                </div>
+
+                <div className="overflow-x-auto rounded-2xl border border-border bg-muted/30 p-3 sm:p-4">
+                  <BattleGrid
+                    rounds={rounds}
+                    usersMap={usersMap}
+                    seedingEnabled={true}
+                    showUserCountryFlag={event?.showUserCountryFlag}
+                    onUpdateSlot={(roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => {
+                      handleSlotUpdated(roundIndex, matchId, slotIndex, username, result);
+                    }}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
 

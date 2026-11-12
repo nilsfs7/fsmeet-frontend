@@ -20,6 +20,7 @@ import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { CompWorkflowSteps } from '@/components/comp/comp-workflow-steps';
 
 export default function CompetitionEditing(props: { params: Promise<{ eventId: string; compId: string }> }) {
   const params = use(props.params);
@@ -91,17 +92,22 @@ export default function CompetitionEditing(props: { params: Promise<{ eventId: s
       </Dialog>
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={comp?.name} />
 
-        <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
-          <CompetitionEditor
-            event={event}
-            editorMode={EditorMode.EDIT}
-            comp={comp}
-            onCompUpdate={(comp: Competition) => {
-              setComp(comp);
-            }}
-          />
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+          <div className="mx-auto flex w-full max-w-content flex-col items-center gap-4">
+            <div className="w-full max-w-3xl">
+              <CompWorkflowSteps eventId={params.eventId} compId={params.compId} current="details" />
+            </div>
+            <CompetitionEditor
+              event={event}
+              editorMode={EditorMode.EDIT}
+              comp={comp}
+              onCompUpdate={(comp: Competition) => {
+                setComp(comp);
+              }}
+            />
+          </div>
         </div>
 
         <Navigation>

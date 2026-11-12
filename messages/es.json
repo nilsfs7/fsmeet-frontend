@@ -640,12 +640,23 @@
     "toastRoundsUpdated": "Rondas actualizadas",
     "toastRoundDeleted": "Ronda eliminada",
     "defaultRoundName": "Ronda {index}",
-    "defaultMatchName": "Batalla {index}"
+    "defaultMatchName": "Batalla {index}",
+    "btnAddRound": "Añadir ronda",
+    "statPlayers": "{count, plural, one {# jugador en el grupo} other {# jugadores en el grupo}}",
+    "statRounds": "{count, plural, one {# ronda} other {# rondas}}",
+    "statMatches": "{count, plural, one {# enfrentamiento} other {# enfrentamientos}}",
+    "chipNotSaved": "Aún sin guardar",
+    "hintMode": "Crea las rondas de la primera a la última. Quienes avanzan en una ronda son los disponibles en la siguiente.",
+    "noteFinalSet": "La ronda final está definida. Ajusta los enfrentamientos si hace falta y guarda.",
+    "textNoRounds": "Todavía no hay rondas. Empieza por la primera.",
+    "btnGoToPool": "Ir al grupo"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Asignación y resultados",
     "textNoGameMode": "Aún no has creado un modo de torneo.",
-    "toastSlotUpdated": "Plaza actualizada"
+    "toastSlotUpdated": "Plaza actualizada",
+    "btnGoToGameMode": "Configurar el modo de juego",
+    "hintSeeding": "Asigna un jugador a cada puesto e introduce los resultados. Cada cambio se guarda al instante; gana el resultado más alto."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Adaptar la Competición",
@@ -1540,5 +1551,17 @@
     "shown": "Mostrando {shown} de {total}",
     "reset": "Restablecer filtros",
     "noMatch": "Nadie coincide con estos filtros."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "Pasos de configuración de la competición",
+    "stepDetails": "Detalles",
+    "stepPool": "Grupo",
+    "stepGameMode": "Modo de juego",
+    "stepSeeding": "Cabezas de serie y resultados",
+    "statusPool": "{count, plural, one {# jugador} other {# jugadores}}",
+    "statusRounds": "{count, plural, one {# ronda} other {# rondas}}",
+    "statusSeeded": "{count, plural, one {# puesto asignado} other {# puestos asignados}}",
+    "statusOpen": "Aún sin configurar",
+    "btnViewCompetition": "Ver la página de la competición"
   }
 }

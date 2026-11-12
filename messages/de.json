@@ -640,12 +640,23 @@
     "toastRoundsUpdated": "Runden erfolgreich aktualisiert",
     "toastRoundDeleted": "Runde erfolgreich gelöscht",
     "defaultRoundName": "Runde {index}",
-    "defaultMatchName": "Battle {index}"
+    "defaultMatchName": "Battle {index}",
+    "btnAddRound": "Runde hinzufügen",
+    "statPlayers": "{count, plural, one {# Spieler im Pool} other {# Spieler im Pool}}",
+    "statRounds": "{count, plural, one {# Runde} other {# Runden}}",
+    "statMatches": "{count, plural, one {# Match} other {# Matches}}",
+    "chipNotSaved": "Noch nicht gespeichert",
+    "hintMode": "Lege die Runden von der ersten bis zur letzten an. Wer in einer Runde weiterkommt, steht in der nächsten zur Verfügung.",
+    "noteFinalSet": "Die Finalrunde steht. Passe die Matches bei Bedarf an und speichere dann.",
+    "textNoRounds": "Noch keine Runden. Beginne mit der ersten Runde.",
+    "btnGoToPool": "Zum Pool"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Zuweisung & Ergebnisse",
     "textNoGameMode": "Du hast noch keinen Turniermodus erstellt.",
-    "toastSlotUpdated": "Slot aktualisiert"
+    "toastSlotUpdated": "Slot aktualisiert",
+    "btnGoToGameMode": "Spielmodus einrichten",
+    "hintSeeding": "Weise jedem Platz einen Spieler zu und trage Ergebnisse ein. Jede Änderung wird sofort gespeichert; das höhere Ergebnis gewinnt."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Wettbewerb anpassen",
@@ -1540,5 +1551,17 @@
     "shown": "{shown} von {total} angezeigt",
     "reset": "Filter zurücksetzen",
     "noMatch": "Niemand passt zu diesen Filtern."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "Schritte zur Wettbewerbseinrichtung",
+    "stepDetails": "Details",
+    "stepPool": "Pool",
+    "stepGameMode": "Spielmodus",
+    "stepSeeding": "Setzung & Ergebnisse",
+    "statusPool": "{count, plural, one {# Spieler} other {# Spieler}}",
+    "statusRounds": "{count, plural, one {# Runde} other {# Runden}}",
+    "statusSeeded": "{count, plural, one {# Platz belegt} other {# Plätze belegt}}",
+    "statusOpen": "Noch nicht eingerichtet",
+    "btnViewCompetition": "Wettbewerbsseite ansehen"
   }
 }

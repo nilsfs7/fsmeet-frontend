@@ -22,6 +22,11 @@ import BattleGrid from '@/components/comp/battle-grid';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { routeEvents } from '@/domain/constants/routes';
 import { User } from '@/domain/types/user';
+import Link from 'next/link';
+import { IconPlus, IconTournament, IconUsers } from '@tabler/icons-react';
+import { EmptyState } from '@/components/common/empty-state';
+import { CompWorkflowSteps } from '@/components/comp/comp-workflow-steps';
+import { cn } from '@/lib/utils';
 
 interface IRoundEditor {
   event: Event;
@@ -43,12 +48,17 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
   const [gameModeApplied, setGameModeApplied] = useState<boolean>();
   const [rounds, setRounds] = useState<Round[]>(() => structuredClone(roundsInit));
   const [usersMap, setUsersMap] = useState<Map<string, User>>(new Map<string, User>());
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const totalMatches = rounds.reduce((sum, round) => sum + round.matches.length, 0);
+  const finalSet = rounds.length > 0 && rounds[rounds.length - 1].advancingTotal <= 1;
 
   const handleSaveClicked = async () => {
     if (compId) {
       try {
         await createRounds(compId?.toString(), rounds, session);
         toast.success(t('toastRoundsCreated'));
+        setRefreshKey(k => k + 1);
         router.refresh(); // TODO: remove, must reload to switch from save to update method.
       } catch (error: any) {
         toast.error(error.message);
@@ -62,6 +72,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
       try {
         await updateRounds(compId?.toString(), rounds, session);
         toast.success(t('toastRoundsUpdated'));
+        setRefreshKey(k => k + 1);
       } catch (error: any) {
         toast.error(error.message);
         console.error(error.message);
@@ -74,6 +85,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
       try {
         await deleteRounds(compId?.toString(), session);
         toast.success(t('toastRoundDeleted'));
+        setRefreshKey(k => k + 1);
         router.refresh();
       } catch (error: any) {
         toast.error(error.message);
@@ -309,41 +321,70 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
         confirmText={t('dlgDeleteMatchBtnConfirm')}
       />
 
-      <div className={`mx-2 flex flex-col overflow-hidden`}>
-        {numParticipants > 1 && (
-          <div className={'mt-2 flex flex-col items-center'}>
-            {(rounds.length === 0 || getLastRound().advancingTotal > 1) && (
-              <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleAddRoundClicked}>
-                Add Round
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+        <div className="mx-auto flex w-full max-w-content flex-col gap-4">
+          <CompWorkflowSteps eventId={event.id ?? ''} compId={compId} current="mode" refreshKey={refreshKey} />
+
+          <div className="flex flex-col gap-3 rounded-2xl border border-border bg-background p-4 shadow-xs sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex min-w-0 flex-col gap-2">
+              <div className="flex flex-wrap items-center gap-2 text-xs">
+                <span className="rounded-full bg-muted px-2.5 py-1 font-semibold text-foreground">{t('statPlayers', { count: numParticipants })}</span>
+                <span className="rounded-full bg-muted px-2.5 py-1 font-semibold text-foreground">{t('statRounds', { count: rounds.length })}</span>
+                <span className="rounded-full bg-muted px-2.5 py-1 font-semibold text-foreground">{t('statMatches', { count: totalMatches })}</span>
+                {!gameModeApplied && rounds.length > 0 && (
+                  <span className="rounded-full bg-amber-100 px-2.5 py-1 font-semibold text-amber-800 dark:bg-amber-500/15 dark:text-amber-300">{t('chipNotSaved')}</span>
+                )}
+              </div>
+              <p className="text-sm text-muted-foreground">{finalSet ? t('noteFinalSet') : t('hintMode')}</p>
+            </div>
+
+            {numParticipants > 1 && (rounds.length === 0 || getLastRound().advancingTotal > 1) && (
+              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'shrink-0')} onClick={handleAddRoundClicked}>
+                <IconPlus className="h-4 w-4" stroke={2} aria-hidden />
+                {t('btnAddRound')}
               </Button>
             )}
           </div>
-        )}
 
-        <div className={'mt-2 flex justify-center overflow-y-auto'}>
-          {numParticipants < 2 && <div>{t('textNoSufficientPool')}</div>}
+          {numParticipants < 2 && (
+            <EmptyState
+              icon={<IconUsers stroke={1.75} aria-hidden />}
+              title={t('textNoSufficientPool')}
+              action={
+                <Button asChild variant="outline" className="rounded-xl">
+                  <Link href={`${routeEvents}/${event.id}/comps/${compId}/edit/pool`}>{t('btnGoToPool')}</Link>
+                </Button>
+              }
+            />
+          )}
 
-          <BattleGrid
-            rounds={rounds}
-            usersMap={usersMap}
-            editingEnabled={true}
-            showUserCountryFlag={event.showUserCountryFlag}
-            onEditRound={(roundIndex: number) => {
-              handleEditRoundClicked(roundIndex);
-            }}
-            onDeleteRound={(roundIndex: number) => {
-              handleDeleteRoundClicked(roundIndex);
-            }}
-            onAddMatch={(roundIndex: number) => {
-              handleAddMatchClicked(roundIndex);
-            }}
-            onEditMatch={(roundIndex: number, matchIndex: number) => {
-              handleEditMatchClicked(roundIndex, matchIndex);
-            }}
-            onDeleteMatch={(roundIndex: number, matchIndex: number) => {
-              handleDeleteMatchClicked(roundIndex, matchIndex);
-            }}
-          />
+          {numParticipants > 1 && rounds.length === 0 && <EmptyState icon={<IconTournament stroke={1.75} aria-hidden />} title={t('textNoRounds')} />}
+
+          {rounds.length > 0 && (
+            <div className="overflow-x-auto rounded-2xl border border-border bg-muted/30 p-3 sm:p-4">
+              <BattleGrid
+                rounds={rounds}
+                usersMap={usersMap}
+                editingEnabled={true}
+                showUserCountryFlag={event.showUserCountryFlag}
+                onEditRound={(roundIndex: number) => {
+                  handleEditRoundClicked(roundIndex);
+                }}
+                onDeleteRound={(roundIndex: number) => {
+                  handleDeleteRoundClicked(roundIndex);
+                }}
+                onAddMatch={(roundIndex: number) => {
+                  handleAddMatchClicked(roundIndex);
+                }}
+                onEditMatch={(roundIndex: number, matchIndex: number) => {
+                  handleEditMatchClicked(roundIndex, matchIndex);
+                }}
+                onDeleteMatch={(roundIndex: number, matchIndex: number) => {
+                  handleDeleteMatchClicked(roundIndex, matchIndex);
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
 

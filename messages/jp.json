@@ -665,12 +665,23 @@
     "toastRoundsUpdated": "ラウンドを更新しました",
     "toastRoundDeleted": "ラウンドを削除しました",
     "defaultRoundName": "ラウンド {index}",
-    "defaultMatchName": "試合 {index}"
+    "defaultMatchName": "試合 {index}",
+    "btnAddRound": "ラウンドを追加",
+    "statPlayers": "出場者 {count}人",
+    "statRounds": "{count}ラウンド",
+    "statMatches": "{count}試合",
+    "chipNotSaved": "未保存",
+    "hintMode": "最初から最後までラウンドを作成します。勝ち上がった人数が次のラウンドの出場者数になります。",
+    "noteFinalSet": "決勝ラウンドが設定されました。必要に応じて試合を調整して保存してください。",
+    "textNoRounds": "まだラウンドがありません。最初のラウンドから始めましょう。",
+    "btnGoToPool": "出場者へ"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "シード＆結果",
     "textNoGameMode": "トーナメントがまだ設定されていません。",
-    "toastSlotUpdated": "スロットを更新しました"
+    "toastSlotUpdated": "スロットを更新しました",
+    "btnGoToGameMode": "試合形式を設定",
+    "hintSeeding": "各枠に選手を割り当て、結果を入力してください。変更はすぐに保存され、高い結果が勝ちとなります。"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "カテゴリを編集",
@@ -1540,5 +1551,17 @@
     "shown": "{total}件中{shown}件を表示",
     "reset": "フィルターをリセット",
     "noMatch": "条件に一致する人はいません。"
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "大会設定のステップ",
+    "stepDetails": "詳細",
+    "stepPool": "出場者",
+    "stepGameMode": "試合形式",
+    "stepSeeding": "組み合わせ・結果",
+    "statusPool": "{count}人",
+    "statusRounds": "{count}ラウンド",
+    "statusSeeded": "{count}枠 割り当て済み",
+    "statusOpen": "未設定",
+    "btnViewCompetition": "大会ページを見る"
   }
 }
