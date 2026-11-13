@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession, signOut } from 'next-auth/react';
 import { User } from '@/domain/types/user';
 import { onUserSaved } from './user-saved-event';
-import { classifyStripeLoginLinkError, isDashboardKnownUnavailable, openPendingTab, rememberDashboardUnavailable, type StripeDashboardIssue } from './stripe-login-link';
+import { classifyStripeLoginLinkError, forgetDashboardUnavailable, isDashboardKnownUnavailable, openPendingTab, rememberDashboardUnavailable, type StripeDashboardIssue } from './stripe-login-link';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Toaster, toast } from 'sonner';
 import { routeAbout, routeAccount, routeAccountDeleted, routeAccountPayments, routeHome, routeMap } from '@/domain/constants/routes';
@@ -464,10 +464,14 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const [stripeDashboardIssue, setStripeDashboardIssue] = useState<StripeDashboardIssue>();
   const [stripeDashboardKnownUnavailable, setStripeDashboardKnownUnavailable] = useState(false);
 
+  const stripeReturned = searchParams?.get('stripeReturn') === '1';
   useEffect(() => {
+    if (!userInfo.stripeAccountId) return;
+    // back from Stripe onboarding: give the dashboard another try
+    if (stripeReturned) forgetDashboardUnavailable(userInfo.stripeAccountId);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- sessionStorage is only readable after mount
-    if (userInfo.stripeAccountId) setStripeDashboardKnownUnavailable(isDashboardKnownUnavailable(userInfo.stripeAccountId));
-  }, [userInfo.stripeAccountId]);
+    setStripeDashboardKnownUnavailable(isDashboardKnownUnavailable(userInfo.stripeAccountId));
+  }, [userInfo.stripeAccountId, stripeReturned]);
 
   const handleCreateStripeAccountOnboardingLinkClicked = async () => {
     if (stripeBusy) return;

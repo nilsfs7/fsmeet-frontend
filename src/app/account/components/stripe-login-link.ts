@@ -4,9 +4,11 @@ import { StripeLoginLinkError } from '@/infrastructure/clients/user.client';
 export type StripeDashboardIssue = 'unavailable' | 'onboarding' | 'session' | 'generic';
 
 /**
- * Stripe only creates login links for connected accounts with Express Dashboard access
- * (`controller.stripe_dashboard.type = express`). The backend currently answers that case with a bare 500,
- * so a 500 is treated as "dashboard not available" too; explicit 4xx codes/messages are mapped when the backend sends them.
+ * Maps the login-link error to what the user can do next.
+ * - 412 Precondition Failed: the backend's answer when the connected account hasn't finished Stripe onboarding
+ *   (Stripe then refuses the login link) -> "finish Stripe setup".
+ * - explicit codes/messages about onboarding -> "finish Stripe setup".
+ * - dashboard-type problems (409/422, or a dashboard message without 412) and legacy 500s -> "dashboard not available" (fallback).
  */
 export function classifyStripeLoginLinkError(error: unknown): StripeDashboardIssue {
   if (!(error instanceof StripeLoginLinkError)) return 'generic';
@@ -14,7 +16,7 @@ export function classifyStripeLoginLinkError(error: unknown): StripeDashboardIss
   const message = (error.message || '').toLowerCase();
 
   if (error.status === 401 || error.status === 403) return 'session';
-  if (code.includes('onboarding') || message.includes('onboarding') || message.includes('details_submitted')) return 'onboarding';
+  if (error.status === 412 || code.includes('onboarding') || message.includes('onboarding') || message.includes('details_submitted')) return 'onboarding';
   if (code.includes('dashboard') || message.includes('express dashboard') || message.includes('not an express account') || message.includes('edit link')) return 'unavailable';
   if (error.status === 409 || error.status === 422 || error.status === 500) return 'unavailable';
   return 'generic';
@@ -28,6 +30,14 @@ export function rememberDashboardUnavailable(stripeAccountId: string) {
     sessionStorage.setItem(STORAGE_PREFIX + stripeAccountId, '1');
   } catch {
     // storage unavailable (private mode): the hint just won't persist
+  }
+}
+
+export function forgetDashboardUnavailable(stripeAccountId: string) {
+  try {
+    sessionStorage.removeItem(STORAGE_PREFIX + stripeAccountId);
+  } catch {
+    // ignore
   }
 }
 
