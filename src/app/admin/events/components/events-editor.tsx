@@ -48,10 +48,7 @@ const TYPE_LABEL: Record<EventType, string> = {
   [EventType.MEETING]: 'Meeting',
 };
 
-const cardSurface = cn(
-  'min-w-0 rounded-xl border border-border/60 bg-secondary-light/85 p-3 shadow-xs sm:p-4',
-  'dark:border-border/50 dark:bg-background/60',
-);
+const cardSurface = cn('min-w-0 rounded-2xl border border-border bg-background p-4 shadow-xs', 'dark:border-border/50 dark:bg-background/60');
 
 function eventDateLabel(event: Event): string {
   const from = moment(event.dateFrom);
@@ -160,10 +157,7 @@ export const EventsEditor = () => {
     return sortEvents(filtered, sort, draftStateByEventId);
   }, [events, draftStateByEventId, stateFilter, query, sort]);
 
-  const dirtyEvents = useMemo(
-    () => (events ?? []).filter(event => event.id && draftStateByEventId[event.id] && draftStateByEventId[event.id] !== event.state),
-    [events, draftStateByEventId],
-  );
+  const dirtyEvents = useMemo(() => (events ?? []).filter(event => event.id && draftStateByEventId[event.id] && draftStateByEventId[event.id] !== event.state), [events, draftStateByEventId]);
 
   const setBusy = (eventId: string, busy: boolean) => {
     setBusyIds(prev => {
@@ -331,11 +325,9 @@ export const EventsEditor = () => {
                       ) : (
                         <p className="text-base font-semibold leading-snug">{event.name}</p>
                       )}
-                      <p className="mt-0.5 text-xs text-muted-foreground">
-                        {[TYPE_LABEL[event.type], event.venueCity, eventDateLabel(event)].filter(Boolean).join(' · ')}
-                      </p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">{[TYPE_LABEL[event.type], event.venueCity, eventDateLabel(event)].filter(Boolean).join(' · ')}</p>
                       {event.admin && (
-                        <Link href={`${routeUsers}/${event.admin}`} className="mt-1 inline-block text-xs font-medium text-primary hover:underline">
+                        <Link href={`${routeUsers}/${event.admin}`} className="mt-1 inline-block text-xs font-medium text-brand-strong hover:underline">
                           {event.admin}
                         </Link>
                       )}
@@ -372,7 +364,7 @@ export const EventsEditor = () => {
                   <div className="mt-3 max-w-xs">
                     <span className="mb-1 block text-xs text-muted-foreground">State</span>
                     <Select value={state} disabled={!event.id || busy || saving} onValueChange={value => handleDraftStateChanged(event, value as EventState)}>
-                      <SelectTrigger aria-label={`State of ${event.name}`} className={cn(dirty && 'border-primary')}>
+                      <SelectTrigger aria-label={`State of ${event.name}`} className={cn(dirty && 'border-brand ring-2 ring-brand/20')}>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -419,18 +411,10 @@ export const EventsEditor = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Delete event</DialogTitle>
-            <DialogDescription>
-              {pendingDelete ? `Delete “${pendingDelete.name}”? Registrations, competitions and results of this event are removed. This cannot be undone.` : ''}
-            </DialogDescription>
+            <DialogDescription>{pendingDelete ? `Delete “${pendingDelete.name}”? Registrations, competitions and results of this event are removed. This cannot be undone.` : ''}</DialogDescription>
           </DialogHeader>
           <div className="flex flex-row items-center justify-end gap-2">
-            <Button
-              type="button"
-              variant="actionCritical"
-              className="rounded-lg"
-              disabled={!pendingDelete?.id || busyIds.has(pendingDelete.id)}
-              onClick={() => void handleConfirmDelete()}
-            >
+            <Button type="button" variant="actionCritical" className="rounded-lg" disabled={!pendingDelete?.id || busyIds.has(pendingDelete.id)} onClick={() => void handleConfirmDelete()}>
               Delete
             </Button>
           </div>

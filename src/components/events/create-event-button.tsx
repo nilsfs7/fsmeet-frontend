@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { IconPlus } from '@tabler/icons-react';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { UnlistedEventsCreateDialog } from '@/components/events/unlisted-events-create-dialog';
 import { routeEventsCreate, routeLogin } from '@/domain/constants/routes';
 import { isBlockedByUnlistedEvents } from '@/functions/unlisted-events';
 import { getEvents } from '@/infrastructure/clients/event.client';
 
-export function CreateEventButton({ label }: { label: string }) {
+export function CreateEventButton({ label, compact = false }: { label: string; /** Smaller app-bar variant with a plus icon. */ compact?: boolean }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [checking, setChecking] = useState(false);
@@ -52,7 +53,15 @@ export function CreateEventButton({ label }: { label: string }) {
           }
         }}
       />
-      <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={status === 'loading' || checking} onClick={() => void handleClick()}>
+      <Button
+        type="button"
+        variant="action"
+        size={compact ? 'sm' : 'default'}
+        className={compact ? 'rounded-xl px-3.5 font-semibold' : ctaActionButtonClassName}
+        disabled={status === 'loading' || checking}
+        onClick={() => void handleClick()}
+      >
+        {compact && <IconPlus className="h-4 w-4" stroke={2} />}
         {label}
       </Button>
     </>

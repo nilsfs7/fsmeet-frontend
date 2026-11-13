@@ -1,31 +1,29 @@
 'use client';
 
-import { useEffect, useRef, useState, type ChangeEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import TextInput from '../common/text-input';
 import { Attachment } from '@/domain/types/attachment';
 import { useTranslations } from 'next-intl';
 import CheckBox from '../common/check-box';
 import { DatePicker } from '../common/date-picker';
 import moment, { type Moment } from 'moment';
-import { getFilenameFromUrl, truncateString } from '@/functions/string-manipulation';
+import { getFilenameFromUrl } from '@/functions/string-manipulation';
 import { cn } from '@/lib/utils';
-import Separator from '../separator';
+import { FileDropzone } from '../common/file-dropzone';
+import { IconFileUpload, IconLink, IconPaperclip } from '@tabler/icons-react';
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
+  'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 
-const FIELD_ROW_CLASS =
-  'grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
-const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-1 gap-1.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:items-center sm:gap-x-4';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-tight text-foreground/80';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
 
-const FILE_INPUT_CLASS =
-  'w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground';
+const SECTION_TITLE_CLASS = 'text-xs font-semibold uppercase tracking-wide text-muted-foreground';
 
 function expiryMoment(expiryDate: string | null | undefined): Moment | undefined {
   if (!expiryDate) {
@@ -53,12 +51,9 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentFileUpda
   const [expiryDate, setExpiryDate] = useState<string | null>(attachment?.expiryDate || null);
   const [enabled, setEnabled] = useState(attachment?.enabled ?? true);
 
-  const uploadToClient = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files?.[0]) {
-      const f = event.target.files[0];
-      setFile(f);
-      setFileObjectURL(URL.createObjectURL(f));
-    }
+  const uploadToClient = (f: File) => {
+    setFile(f);
+    setFileObjectURL(URL.createObjectURL(f));
   };
 
   const updateAttachment = () => {
@@ -102,69 +97,93 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentFileUpda
     updateAttachmentFile();
   }, [fileObjectURL]);
 
+  const sourceOptions = [
+    { external: false, label: t('optSourceFile'), Icon: IconFileUpload },
+    { external: true, label: t('optSourceLink'), Icon: IconLink },
+  ];
+
   return (
     <div className={EDITOR_CARD_CLASS}>
-      <TextInput
-        id="attachment-name"
-        label={t('inputName')}
-        placeholder="Parental Form"
-        value={name}
-        onChange={e => setAttachmentName(e.currentTarget.value)}
-      />
+      <TextInput id="attachment-name" label={t('inputName')} placeholder="Parental Form" value={name} onChange={e => setAttachmentName(e.currentTarget.value)} />
 
-      <CheckBox id="attachment-external" label={t('chbIsExternal')} value={isExternal} onChange={() => setIsExternal(p => !p)} />
+      <div className="flex min-w-0 flex-col gap-3">
+        <span className={SECTION_TITLE_CLASS}>{t('sectionSource')}</span>
+        {/* Same state as the former "Is external link" checkbox */}
+        <div className="grid grid-cols-2 gap-1 rounded-xl bg-muted p-1" role="radiogroup" aria-label={t('sectionSource')}>
+          {sourceOptions.map(option => {
+            const active = isExternal === option.external;
+            return (
+              <button
+                key={String(option.external)}
+                type="button"
+                role="radio"
+                aria-checked={active}
+                id={option.external ? 'attachment-external' : undefined}
+                onClick={() => setIsExternal(option.external)}
+                className={cn(
+                  'flex min-w-0 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                  active ? 'bg-background text-foreground shadow-xs' : 'text-muted-foreground hover:text-foreground',
+                )}
+              >
+                <option.Icon className="h-4 w-4 shrink-0" stroke={1.75} aria-hidden />
+                <span className="truncate">{option.label}</span>
+              </button>
+            );
+          })}
+        </div>
 
-      {isExternal && (
-        <TextInput
-          id="attachment-url"
-          label={t('inputUrl')}
-          placeholder="https://dffb.org/form.pdf"
-          value={url ?? ''}
-          onChange={e => setUrl(e.currentTarget.value || null)}
-        />
-      )}
+        {isExternal && <TextInput id="attachment-url" label={t('inputUrl')} placeholder="https://dffb.org/form.pdf" value={url ?? ''} onChange={e => setUrl(e.currentTarget.value || null)} />}
 
-      {!isExternal && (
-        <>
-          <div className="py-1">
-            <Separator />
-          </div>
-          <div className="flex min-w-0 flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-4">
-            {attachment?.url && (
-              <div className="min-w-0 text-sm text-foreground/90 sm:max-w-48">
-                {truncateString(getFilenameFromUrl(attachment.url), 3, 7)}
+        {!isExternal && (
+          <div className="flex min-w-0 flex-col gap-2">
+            {attachment?.url && !attachment.isExternal && (
+              <div className="flex min-w-0 items-center gap-2 rounded-xl border border-border bg-muted/40 px-3 py-2 text-sm">
+                <IconPaperclip className="h-4 w-4 shrink-0 text-muted-foreground" stroke={1.75} aria-hidden />
+                <span className="text-muted-foreground">{t('lblCurrentFile')}</span>
+                <span className="min-w-0 flex-1 truncate font-medium text-foreground" title={getFilenameFromUrl(attachment.url)}>
+                  {/\.[a-z0-9]{2,5}$/i.test(getFilenameFromUrl(attachment.url)) ? getFilenameFromUrl(attachment.url) : t('lblUploadedFile')}
+                </span>
+                <a href={attachment.url} target="_blank" rel="noopener noreferrer" className="shrink-0 text-xs font-semibold text-brand-strong no-underline hover:underline">
+                  {t('lnkOpenFile')}
+                </a>
               </div>
             )}
-            <div className="min-w-0 flex-1">
-              <input type="file" className={FILE_INPUT_CLASS} onChange={uploadToClient} />
+            <FileDropzone
+              label={attachment?.url && !attachment.isExternal ? t('lblReplaceFile') : t('lblChooseFile')}
+              hint={t('hintDropFile')}
+              fileName={file?.name}
+              icon={<IconFileUpload stroke={1.75} aria-hidden />}
+              onFile={uploadToClient}
+            />
+          </div>
+        )}
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-3">
+        <span className={SECTION_TITLE_CLASS}>{t('sectionAvailability')}</span>
+        <CheckBox id="attachment-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
+        <CheckBox id="attachment-expires" label={t('chbExpires')} value={expires} onChange={() => setExpires(p => !p)} />
+
+        {expires && (
+          <div className={FIELD_ROW_CLASS}>
+            <div className={FIELD_LABEL_CLASS}>{t('datePickerExpiryDate')}</div>
+            <div className={FIELD_CONTROL_CLASS}>
+              <div className={FIELD_CONTROL_TALL_INNER}>
+                <DatePicker
+                  date={expiryMoment(expiryDate)}
+                  fromDate={moment('2020')}
+                  toDate={moment().add(2, 'y')}
+                  onChange={value => {
+                    if (value) {
+                      setExpiryDate(value.startOf('day').utc().format());
+                    }
+                  }}
+                />
+              </div>
             </div>
           </div>
-        </>
-      )}
-
-      <CheckBox id="attachment-expires" label={t('chbExpires')} value={expires} onChange={() => setExpires(p => !p)} />
-
-      {expires && (
-        <div className={FIELD_ROW_CLASS}>
-          <div className={FIELD_LABEL_CLASS}>{t('datePickerExpiryDate')}</div>
-          <div className={FIELD_CONTROL_CLASS}>
-            <div className={FIELD_CONTROL_TALL_INNER}>
-              <DatePicker
-                date={expiryMoment(expiryDate)}
-                fromDate={moment('2020')}
-                toDate={moment().add(2, 'y')}
-                onChange={value => {
-                  if (value) {
-                    setExpiryDate(value.startOf('day').utc().format());
-                  }
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      <CheckBox id="attachment-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
+        )}
+      </div>
     </div>
   );
 };

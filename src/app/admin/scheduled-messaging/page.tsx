@@ -45,10 +45,10 @@ export default function ScheduledMessaging() {
       <Toaster richColors />
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title="Scheduled Messaging" />
+        <PageTitle title="Scheduled Messaging" description="Queue reminder messages for groups of users." />
 
         <PageInset className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto">
-          <div className="rounded-lg border border-primary bg-secondary-light p-4">
+          <div className="mx-auto w-full max-w-2xl rounded-3xl border border-border bg-background p-5 shadow-xs sm:p-6">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
                 <div className="shrink-0 text-sm font-medium">Message</div>
@@ -64,7 +64,7 @@ export default function ScheduledMessaging() {
                 </div>
               </div>
 
-              <p className="type-body-sm text-foreground/80">Schedules a reminder for every freestyler who is not listed on the freestyler map.</p>
+              <p className="text-sm text-muted-foreground">Schedules a reminder for every freestyler who is not listed on the freestyler map.</p>
             </div>
           </div>
         </PageInset>

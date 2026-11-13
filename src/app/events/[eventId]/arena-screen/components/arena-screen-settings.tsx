@@ -57,16 +57,7 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
     try {
       const latest = await getArenaScreen(eventId);
       const activeMatchId = latest.activeMatch?.id ?? null;
-      await upsertArenaScreen(
-        eventId,
-        activeMatchId,
-        backgroundOverlayOpacity,
-        showPositions,
-        reversePositionLabels,
-        showFlags,
-        showLastName,
-        session,
-      );
+      await upsertArenaScreen(eventId, activeMatchId, backgroundOverlayOpacity, showPositions, reversePositionLabels, showFlags, showLastName, session);
       toast.success(t('toastSaved'));
       await load();
     } catch (e) {
@@ -100,120 +91,101 @@ export function ArenaScreenSettings({ eventId }: { eventId: string }) {
   return (
     <>
       <Toaster richColors />
-      <section className="mt-10 rounded-lg border border-secondary-dark bg-secondary-light/30">
+      <section className="rounded-2xl border border-border bg-background shadow-xs">
         <button
           type="button"
-          className="flex w-full items-center justify-between gap-3 rounded-lg p-4 text-left transition-colors hover:bg-secondary-light/50"
+          className="flex w-full items-center justify-between gap-3 rounded-2xl p-4 text-left transition-colors hover:bg-muted/40 sm:p-5"
           onClick={() => setSettingsOpen(o => !o)}
           aria-expanded={settingsOpen}
         >
           <div className="min-w-0 flex-1">
-            <h2 className="text-lg font-semibold text-primary">{t('settingsTitle')}</h2>
-            <p className="mt-0.5 text-sm text-muted-foreground">
-              {loading ? t('settingsLoading') : settingsOpen ? t('settingsSummaryOpen') : t('settingsSummaryClosed')}
-            </p>
+            <div className="flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-soft text-xs font-bold text-brand-strong">2</span>
+              <h2 className="text-base font-semibold text-foreground">{t('settingsTitle')}</h2>
+            </div>
+            <p className="mt-0.5 text-sm text-muted-foreground">{loading ? t('settingsLoading') : settingsOpen ? t('settingsSummaryOpen') : t('settingsSummaryClosed')}</p>
           </div>
-          <ChevronDown className={`h-5 w-5 shrink-0 text-primary transition-transform ${settingsOpen ? 'rotate-180' : ''}`} aria-hidden />
+          <ChevronDown className={`h-5 w-5 shrink-0 text-muted-foreground transition-transform ${settingsOpen ? 'rotate-180' : ''}`} aria-hidden />
         </button>
 
         {settingsOpen && (
-          <div className="space-y-4 border-t border-secondary-dark px-4 pb-4 pt-2">
+          <div className="space-y-4 border-t border-border px-4 pb-4 pt-2">
             {loading ? (
               <p className="py-4 text-sm text-muted-foreground">{t('loadingSettings')}</p>
             ) : (
               <>
-          <div>
-            <p className="mb-2 text-sm font-medium text-primary">{t('backgroundImage')}</p>
-            {backgroundPreviewUrl ? (
-              <div
-                className="mb-3 h-24 w-full max-w-md rounded-md border border-secondary-dark bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: `url(${backgroundPreviewUrl})` }}
-                role="img"
-                aria-label={t('backgroundPreview')}
-              />
-            ) : (
-              <p className="mb-3 text-xs text-muted-foreground">{t('noImage')}</p>
-            )}
-            <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleBackgroundFile} />
-            <Button
-              type="button"
-              variant="action"
-              className={ctaActionButtonClassName}
-              disabled={uploadingBg || status !== 'authenticated'}
-              onClick={() => fileInputRef.current?.click()}
-            >
-              {uploadingBg ? t('uploading') : t('chooseImage')}
-            </Button>
-          </div>
+                <div>
+                  <p className="mb-2 text-sm font-medium text-foreground">{t('backgroundImage')}</p>
+                  {backgroundPreviewUrl ? (
+                    <div
+                      className="mb-3 h-24 w-full max-w-md rounded-md border border-border bg-cover bg-center bg-no-repeat"
+                      style={{ backgroundImage: `url(${backgroundPreviewUrl})` }}
+                      role="img"
+                      aria-label={t('backgroundPreview')}
+                    />
+                  ) : (
+                    <p className="mb-3 text-xs text-muted-foreground">{t('noImage')}</p>
+                  )}
+                  <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleBackgroundFile} />
+                  <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={uploadingBg || status !== 'authenticated'} onClick={() => fileInputRef.current?.click()}>
+                    {uploadingBg ? t('uploading') : t('chooseImage')}
+                  </Button>
+                </div>
 
-          <div>
-            <label htmlFor="arena-overlay" className="text-sm font-medium text-primary">
-              {t('overlay', { percent: Math.round(backgroundOverlayOpacity * 100) })}
-            </label>
-            <input
-              id="arena-overlay"
-              type="range"
-              min={0}
-              max={1}
-              step={0.05}
-              value={backgroundOverlayOpacity}
-              onChange={ev => setBackgroundOverlayOpacity(Number(ev.target.value))}
-              className="mt-2 block w-full max-w-md accent-primary"
-            />
-          </div>
+                <div>
+                  <label htmlFor="arena-overlay" className="text-sm font-medium text-foreground">
+                    {t('overlay', { percent: Math.round(backgroundOverlayOpacity * 100) })}
+                  </label>
+                  <input
+                    id="arena-overlay"
+                    type="range"
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    value={backgroundOverlayOpacity}
+                    onChange={ev => setBackgroundOverlayOpacity(Number(ev.target.value))}
+                    className="mt-2 block w-full max-w-md accent-primary"
+                  />
+                </div>
 
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <Checkbox
-                id="arena-show-pos"
-                checked={showPositions}
-                onCheckedChange={v => {
-                  const on = v === true;
-                  setShowPositions(on);
-                }}
-              />
-              <label htmlFor="arena-show-pos" className="text-sm text-primary">
-                {t('showPositions')}
-              </label>
-            </div>
-            <div className="flex items-center gap-2">
-              <Checkbox
-                id="arena-rev-pos"
-                checked={reversePositionLabels}
-                disabled={!showPositions}
-                onCheckedChange={v => setReversePositionLabels(v === true)}
-              />
-              <label
-                htmlFor="arena-rev-pos"
-                className={cn('text-sm text-primary', !showPositions && 'cursor-not-allowed opacity-50')}
-              >
-                {t('reversePositions')}
-              </label>
-            </div>
-            <div className="flex items-center gap-2">
-              <Checkbox id="arena-flags" checked={showFlags} onCheckedChange={v => setShowFlags(v === true)} />
-              <label htmlFor="arena-flags" className="text-sm text-primary">
-                {t('showFlags')}
-              </label>
-            </div>
-            <div className="flex items-center gap-2">
-              <Checkbox id="arena-lastname" checked={showLastName} onCheckedChange={v => setShowLastName(v === true)} />
-              <label htmlFor="arena-lastname" className="text-sm text-primary">
-                {t('showLastName')}
-              </label>
-            </div>
-          </div>
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="arena-show-pos"
+                      checked={showPositions}
+                      onCheckedChange={v => {
+                        const on = v === true;
+                        setShowPositions(on);
+                      }}
+                    />
+                    <label htmlFor="arena-show-pos" className="text-sm text-foreground">
+                      {t('showPositions')}
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Checkbox id="arena-rev-pos" checked={reversePositionLabels} disabled={!showPositions} onCheckedChange={v => setReversePositionLabels(v === true)} />
+                    <label htmlFor="arena-rev-pos" className={cn('text-sm text-foreground', !showPositions && 'cursor-not-allowed opacity-50')}>
+                      {t('reversePositions')}
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Checkbox id="arena-flags" checked={showFlags} onCheckedChange={v => setShowFlags(v === true)} />
+                    <label htmlFor="arena-flags" className="text-sm text-foreground">
+                      {t('showFlags')}
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Checkbox id="arena-lastname" checked={showLastName} onCheckedChange={v => setShowLastName(v === true)} />
+                    <label htmlFor="arena-lastname" className="text-sm text-foreground">
+                      {t('showLastName')}
+                    </label>
+                  </div>
+                </div>
 
-          <Button
-            type="button"
-            variant="action"
-            className={ctaActionButtonClassName}
-            disabled={saving || status !== 'authenticated'}
-            onClick={() => void handleSaveSettings()}
-          >
-            {saving ? t('saving') : t('saveSettings')}
-          </Button>
-          {status !== 'authenticated' && <p className="text-xs text-muted-foreground">{t('signInSettings')}</p>}
+                <Button type="button" variant="action" className={ctaActionButtonClassName} disabled={saving || status !== 'authenticated'} onClick={() => void handleSaveSettings()}>
+                  {saving ? t('saving') : t('saveSettings')}
+                </Button>
+                {status !== 'authenticated' && <p className="text-xs text-muted-foreground">{t('signInSettings')}</p>}
               </>
             )}
           </div>

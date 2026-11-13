@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import CurrencyInput, { CurrencyInputOnChangeValues } from 'react-currency-input-field';
 import { useLocale } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 /** App locales are country codes (gb, de, …); expand to a BCP 47 tag via likely subtags. */
 function toIntlLocale(appLocale: string): string {
@@ -97,7 +98,10 @@ const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, 
   const input = (
     <CurrencyInput
       id={id}
-      className={labelOnTop ? 'h-full w-full rounded-lg border border-secondary-dark p-1' : 'h-full w-full rounded-lg p-1'}
+      className={cn(
+        'flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm tabular-nums shadow-xs transition-colors placeholder:text-muted-foreground',
+        'hover:border-neutral-400 focus-visible:outline-hidden focus-visible:border-brand focus-visible:ring-4 focus-visible:ring-brand/15 dark:hover:border-neutral-500',
+      )}
       placeholder={placeholder}
       defaultValue={defValue}
       value={display}
@@ -111,17 +115,17 @@ const CurInput = ({ id, label, labelOnTop = true, placeholder, defValue, value, 
 
   if (labelOnTop) {
     return (
-      <div className="flex h-[100%] flex-col gap-1.5">
+      <div className="flex flex-col gap-1.5">
         <label htmlFor={id} className="text-sm font-medium leading-none">
           {label}
         </label>
-        <div className="flex h-full min-w-0">{input}</div>
+        <div className="flex min-w-0">{input}</div>
       </div>
     );
   }
 
   return (
-    <div className="grid h-full grid-cols-2 items-start gap-x-2 gap-y-1">
+    <div className="grid grid-cols-2 items-start gap-x-2 gap-y-1">
       <label htmlFor={id} className="pt-2 text-sm font-medium leading-none">
         {label}
       </label>

@@ -11,9 +11,19 @@
     "navMap": "マップ",
     "navCommunity": "コミュニティ",
     "navVoice": "ボイス",
+    "navTraining": "トレーニング",
     "navAdminOverview": "管理",
     "navWffaOverview": "WFFA",
-    "navAbout": "概要"
+    "navAbout": "概要",
+    "heroEyebrow": "フリースタイルフットボールコミュニティ",
+    "eventsTitle": "イベント",
+    "eventsSubtitle": "開催中・今後・最近のハイライト",
+    "exploreTitle": "コミュニティを探索",
+    "exploreMapText": "近くのフリースタイラーを見つけて、マップに自分を表示しよう。",
+    "exploreCommunityText": "選手、ジャッジ、主催者、ブランドを探す。",
+    "exploreVoiceText": "シーンを形作る提案に意見を届けよう。",
+    "exploreTrainingText": "技を練習して上達を記録しよう。",
+    "exploreAboutText": "FSMeetについて、開発者と応援方法を知る。"
   },
   "/about": {
     "pageTitle": "概要",
@@ -27,10 +37,20 @@
     "lnkTermsOfService": "利用規約",
     "lnkPrivacyPolicy": "プライバシーポリシー",
     "build": "バージョン",
-    "ariaLegal": "法的情報"
+    "ariaLegal": "法的情報",
+    "heroEyebrow": "FSMeetについて",
+    "sectionGetInvolved": "参加しよう",
+    "btnFeedback": "フィードバックを送る",
+    "sectionSupport": "FSMeetを支援",
+    "supportText": "FSMeetはコミュニティのために無料です。寄付はサーバーと開発の費用に役立ちます。",
+    "contributorsText": "FSMeetを開発・翻訳・形作っている人たちを紹介します。",
+    "btnShowContributors": "コントリビューターを見る",
+    "sectionOpenSource": "オープンソース",
+    "openSourceText": "FSMeetのフロントエンドはGitHubでオープンソースです。"
   },
   "/about/contributors": {
     "pageTitle": "協力者",
+    "pageDescription": "FSMeetを開発・翻訳・形作っている人たち。",
     "sectionMainContributors": "主要協力者",
     "textHeadOfDevelopment": "開発責任者",
     "textMobileAppDevelopment": "モバイルアプリ開発",
@@ -39,6 +59,7 @@
     "textJapaneseAndOtherLanguagesTranslation": "翻訳 - 日本語とその他の言語",
     "textUxAdvisor": "UXアドバイザー",
     "sectionCommunityProposals": "コミュニティ提案",
+    "sectionCommunityProposalsText": "FSMeetに採用されたコミュニティのアイデア。",
     "textPersonalSchedule": "選手向け個人スケジュール",
     "textSearchByGender": "性別でフリースタイラーマップを検索",
     "lnkAnnouncement": "お知らせ",
@@ -50,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "アカウント設定",
+    "pageDescription": "プロフィール、地図のピン、仕事、アカウントを管理します。",
     "profilePictureAddPicture": "写真を追加",
     "profilePictureNoFileChosen": "ファイルが選択されていません",
     "btnSave": "保存",
@@ -165,7 +187,24 @@
     "toastProfileUpdated": "プロフィールを更新しました。",
     "toastProfileLoadFailed": "セッション保存データからユーザー情報を読み込めませんでした。",
     "toastStripeAccount": "Stripeアカウントを作成しました。",
-    "toastVerificationRequested": "認証を申請しました。"
+    "toastVerificationRequested": "認証を申請しました。",
+    "btnChangePicture": "写真を変更",
+    "btnViewProfile": "プロフィールを見る",
+    "tabAccountSectionDangerZone": "危険な操作",
+    "tabAccountDeleteAccountHint": "アカウントの削除は永久的で、元に戻せません。",
+    "lblStripeDashboardOpening": "Stripeを開いています…",
+    "alertStripeDashboardUnavailableTitle": "Stripeダッシュボードは利用できません",
+    "alertStripeDashboardUnavailableText": "この支払いアカウントではStripeダッシュボードを開けません。支払いは引き続き「支払いを管理」で確認できます。Stripeの設定がまだ完了していない場合は、「情報を編集」から完了してください。",
+    "alertStripeOnboardingIncompleteTitle": "Stripeの設定が完了していません",
+    "alertStripeOnboardingIncompleteText": "Stripeの設定がまだ完了していません。Stripeダッシュボードを利用するには設定を完了してください。",
+    "alertStripeDashboardErrorTitle": "Stripeダッシュボードを開けませんでした",
+    "toastStripeDashboardGeneric": "Stripeダッシュボードを開けませんでした。しばらくしてから再度お試しいただくか、サポートにお問い合わせください。",
+    "toastStripeDashboardSession": "セッションの有効期限が切れました。もう一度ログインしてください。",
+    "btnFinishStripeSetup": "Stripeの設定を完了する",
+    "btnContactSupport": "サポートに問い合わせる",
+    "errWebsiteInvalid": "有効なウェブアドレスを入力してください（例: https://example.com）。",
+    "errCityRequiredForPin": "地図にピンを公開するには都市を入力するか、公開のチェックを外してください。",
+    "toastFixErrors": "保存する前に、強調表示された項目を修正してください。"
   },
   "/account/deleted": {
     "textGoodbye": "さようなら！",
@@ -175,7 +214,11 @@
   "/account/image": {
     "pageTitle": "アカウント設定",
     "btnUpload": "アップロード",
-    "btnDelete": "削除"
+    "btnDelete": "削除",
+    "pageTitlePicture": "プロフィール写真",
+    "pageDescription": "正方形の画像がおすすめです。写真はプロフィール、地図、イベント一覧に表示されます。",
+    "lblChooseImage": "画像を選択",
+    "hintImage": "JPG、PNG、WebP"
   },
   "/account/payments": {
     "pageTitle": "支払い管理",
@@ -337,7 +380,32 @@
     "btnCopyUrlToast": "イベントURLをクリップボードにコピーしました。",
     "btnCopyUrlToolTip": "イベントURLをコピー",
     "btnRegistration": "参加登録",
-    "btnFeedback": "フィードバック"
+    "btnFeedback": "フィードバック",
+    "cardRegistrationTitle": "エントリー",
+    "regStatusOpen": "受付中",
+    "regStatusUpcoming": "受付前",
+    "regStatusClosed": "受付終了",
+    "regOpensOn": "{date} 受付開始",
+    "regClosesOn": "{date} 締切",
+    "regClosedOn": "{date} に締切",
+    "regDaysLeft": "{count, plural, =0 {本日締切} other {残り#日}}",
+    "lblVisitorFee": "観覧料",
+    "lblOrganizer": "主催者",
+    "lblWhen": "日時",
+    "lblWhere": "場所",
+    "lblEventOver": "このイベントは終了しました。",
+    "lblParticipantsRegistered": "{count, plural, =0 {参加者はまだいません} other {参加者 #人}}",
+    "sectionAbout": "イベントについて",
+    "sectionLinks": "リンク",
+    "lblCategory": "カテゴリー",
+    "tabOverviewSectionSponsorsPresentedBy": "提供",
+    "tabOverviewSectionSponsorsHint": "このイベントを支えてくださるパートナーの皆さまに感謝します。",
+    "tabOverviewSectionSponsorsVisit": "ウェブサイトを開く（新しいタブ）",
+    "toastCommentPosted": "コメントを投稿しました",
+    "toastReplyPosted": "返信を投稿しました",
+    "btnPostComment": "コメントを投稿",
+    "btnPostReply": "返信を投稿",
+    "btnReply": "返信"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "宿泊を管理",
@@ -372,11 +440,13 @@
     "pageTitle": "ドキュメントを編集",
     "dlgDeleteFileTitle": "ドキュメントを削除",
     "dlgDeleteFileText": "このドキュメントを本当に削除しますか？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "pageDescription": "参加者がイベントページで開けるファイルをアップロードするか、ドキュメントへのリンクを追加します。"
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "ドキュメントを作成",
-    "btnCreate": "作成"
+    "btnCreate": "作成",
+    "pageDescription": "参加者がイベントページで開けるファイルをアップロードするか、ドキュメントへのリンクを追加します。"
   },
   "/events/eventid/comps": {
     "pageTitle": "カテゴリを管理",
@@ -449,7 +519,14 @@
     "errorLoadArena": "アリーナ画面を読み込めませんでした",
     "styleUnavailable": "アリーナスタイルを利用できません",
     "openSlot": "空きスロット",
-    "noCountry": "国なし"
+    "noCountry": "国なし",
+    "sectionLiveMatch": "ライブ試合",
+    "sectionLiveMatchHint": "アリーナスクリーンに今表示する大会とバトルを選んでください。",
+    "sectionShow": "画面に表示",
+    "sectionShowHint": "フルスクリーンのアリーナ画面を新しいタブで開きます。数秒ごとに自動更新されます。",
+    "noMatchSelected": "表示する試合を選択してください",
+    "labelPosition": "ポジション {position}",
+    "textRetrying": "数秒ごとに自動で再試行します。"
   },
   "/events/eventid/pro": {
     "pageTitle": "イベントライセンス",
@@ -516,7 +593,20 @@
     "dlgDownloadResultsBtnDownload": "ダウンロード",
     "toastMatchesInconsistent": "試合データが一貫していないようです。",
     "toastResultsProcessed": "試合結果を処理しました。",
-    "toastExportInconsistent": "試合結果の書き出しが一貫していません。"
+    "toastExportInconsistent": "試合結果の書き出しが一貫していません。",
+    "tabInfoNone": "なし",
+    "tabInfoParticipants": "参加者",
+    "tabInfoRounds": "ラウンド",
+    "textNoScheduleTitle": "スケジュールはまだありません",
+    "textNoScheduleDescription": "この大会のスケジュールはまだ作成されていません。後でもう一度確認してください。",
+    "btnCopyUrlToolTip": "大会URLをコピー",
+    "btnCopyUrlToast": "大会URLをクリップボードにコピーしました。"
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "大会が見つかりません",
+    "textNotFoundHint": "この大会リンクは無効か、大会が存在しません。",
+    "btnBackHome": "ホームに戻る",
+    "btnBackToEvents": "概要に戻る"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "選手一覧を管理",
@@ -615,12 +705,27 @@
     "toastRoundsUpdated": "ラウンドを更新しました",
     "toastRoundDeleted": "ラウンドを削除しました",
     "defaultRoundName": "ラウンド {index}",
-    "defaultMatchName": "試合 {index}"
+    "defaultMatchName": "試合 {index}",
+    "btnAddRound": "ラウンドを追加",
+    "statPlayers": "出場者 {count}人",
+    "statRounds": "{count}ラウンド",
+    "statMatches": "{count}試合",
+    "chipNotSaved": "未保存",
+    "hintMode": "最初から最後までラウンドを作成します。勝ち上がった人数が次のラウンドの出場者数になります。",
+    "noteFinalSet": "決勝ラウンドが設定されました。必要に応じて試合を調整して保存してください。",
+    "textNoRounds": "まだラウンドがありません。最初のラウンドから始めましょう。",
+    "btnGoToPool": "出場者へ",
+    "chipUnsavedChanges": "未保存の変更",
+    "hintReorder": "試合カードをドラッグするか矢印でラウンド内の順番を変更し、保存してください。",
+    "dlgDeleteRoundHint": "このラウンドの試合もすべて削除されます。 変更はゲームモードを保存すると反映されます。",
+    "dlgApplyHint": "変更はゲームモードを保存すると反映されます。"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "シード＆結果",
     "textNoGameMode": "トーナメントがまだ設定されていません。",
-    "toastSlotUpdated": "スロットを更新しました"
+    "toastSlotUpdated": "スロットを更新しました",
+    "btnGoToGameMode": "試合形式を設定",
+    "hintSeeding": "各枠に選手を割り当て、結果を入力してください。変更はすぐに保存され、高い結果が勝ちとなります。"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "カテゴリを編集",
@@ -640,8 +745,10 @@
     "btnSubmit": "送信"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "イベントが見つかりませんでした。",
-    "btnBackToEvents": "概要に戻る"
+    "textNotFound": "イベントが見つかりませんでした",
+    "btnBackToEvents": "概要に戻る",
+    "textNotFoundHint": "リンクが古いか、イベントが削除されたか非公開の可能性があります。",
+    "btnBackHome": "ホームに戻る"
   },
   "/events/eventid/offerings": {
     "pageTitle": "提供内容を管理",
@@ -698,7 +805,10 @@
     "textNoFilterMatch": "条件に合う出席者はいません。",
     "alertPendingRegistrations": "{count, plural, other{未処理の申込が # 件あります。確認が必要です。}}",
     "toastRemoved": "{name} を削除しました",
-    "toastStatusUpdated": "{name} のステータスを更新しました"
+    "toastStatusUpdated": "{name} のステータスを更新しました",
+    "statTotal": "すべての登録",
+    "textShown": "{total}件中{shown}件を表示",
+    "btnClearSearch": "検索をクリア"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "参加登録の概要",
@@ -744,7 +854,22 @@
     "btnPay": "支払う",
     "btnWorking": "チェックアウトを開始中…",
     "errorMissingSecret": "チェックアウトの応答が不完全です。再試行するかサポートへ連絡してください。",
-    "errorCheckout": "支払いを開始できませんでした。再試行するかサポートへ連絡してください。"
+    "errorCheckout": "支払いを開始できませんでした。再試行するかサポートへ連絡してください。",
+    "stepDetails": "あなたの情報",
+    "stepCompetitions": "競技",
+    "stepOfferings": "オプション",
+    "stepAccommodations": "宿泊",
+    "stepCheckout": "確認",
+    "stepCounter": "ステップ {current} / {total}",
+    "summaryTitle": "選択内容",
+    "typeParticipant": "参加者",
+    "typeVisitor": "観客",
+    "summaryNone": "まだ何も選択されていません",
+    "statusUnregistered": "未登録",
+    "statusPending": "保留中",
+    "statusApproved": "承認済み",
+    "statusDenied": "却下",
+    "daysLeft": "残り{count}日"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "参加登録が送信されました。",
@@ -769,7 +894,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "申請を送信しました！",
     "textSuccess2": "承認をお待ちください。",
-    "btnBack": "戻る"
+    "btnBack": "戻る",
+    "btnEvent": "イベントへ"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "スポンサーを管理",
@@ -786,13 +912,21 @@
     "tooltipViewStats": "統計を表示",
     "textNoAds": "広告はまだありません。",
     "tableColDescription": "説明",
-    "tableColActions": "操作"
+    "tableColActions": "操作",
+    "pageDescription": "FSMeetで商品やサービスを宣伝しましょう。",
+    "chipActive": "有効",
+    "chipInactive": "無効",
+    "hintReorder": "ハンドルをドラッグして広告の表示順を変更できます。",
+    "tooltipDragAd": "ドラッグして並べ替え",
+    "toastReorderFailed": "広告の順序を更新できませんでした。",
+    "toastReorderUnavailable": "広告の並べ替えはまだ利用できません。後でもう一度お試しください。"
   },
   "/ads/create": {
     "pageTitle": "広告を作成",
     "btnCreate": "作成",
     "toastNeedLogin": "広告を作成するにはログインしてください。",
-    "toastCreateFailed": "広告を作成できませんでした。"
+    "toastCreateFailed": "広告を作成できませんでした。",
+    "pageDescription": "商品の説明・画像・リンクを追加してください。プレビューで見た目を確認できます。"
   },
   "/ads/edit": {
     "pageTitle": "広告を編集",
@@ -801,7 +935,8 @@
     "btnSave": "保存",
     "toastSaveFailed": "広告を保存できませんでした。",
     "toastDeleteFailed": "広告を削除できませんでした。",
-    "toastLoadFailed": "広告を読み込めませんでした。"
+    "toastLoadFailed": "広告を読み込めませんでした。",
+    "pageDescription": "広告の内容・画像・表示設定を更新します。"
   },
   "/ads/stats": {
     "pageTitle": "広告統計",
@@ -887,17 +1022,20 @@
     "dlgRequestInfoTravelMethod": "移動手段",
     "dlgRequestInfoTravelFee": "旅費",
     "dlgOfferTravelFeeFromRateHint": "キロ単価からの提案：{amount}（下で合計を編集できます）",
-    "dlgOfferTravelFeeShortDistanceHint": "片道距離が {km} km未満の場合、旅費は提案されません。"
+    "dlgOfferTravelFeeShortDistanceHint": "片道距離が {km} km未満の場合、旅費は提案されません。",
+    "pageDescription": "FreestyleActs経由で受け取った予約リクエスト。"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "スポンサーを作成",
-    "btnCreate": "新規追加"
+    "btnCreate": "新規追加",
+    "pageDescription": "名前・ウェブサイト・ロゴでスポンサーを追加します。公開スポンサーはイベントページに表示されます。"
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "スポンサーを編集",
     "dlgDeleteTitle": "スポンサーを削除",
     "dlgDeleteText": "このスポンサーを本当に削除しますか？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "pageDescription": "名前・ウェブサイト・ロゴでスポンサーを追加します。公開スポンサーはイベントページに表示されます。"
   },
   "/events/eventid/stats": {
     "pageTitle": "統計",
@@ -934,40 +1072,81 @@
     "btnBackToOverview": "キャンセル",
     "btnNextPage": "次へ",
     "btnCreateEvent": "作成",
-    "dlgUnlistedEvents": "未掲載のイベントが2件以上ある間は、別のイベントを作成できません。"
+    "dlgUnlistedEvents": "未掲載のイベントが2件以上ある間は、別のイベントを作成できません。",
+    "stepType": "種類",
+    "stepFormat": "形式",
+    "stepDetails": "詳細",
+    "stepReview": "確認",
+    "stepCounter": "ステップ {current} / {total}",
+    "pageEventTypeCompetitionHint": "参加者向けのバトル、ランキング、審査。",
+    "pageEventTypeMeetingHint": "ジャム、ワークショップ、交流会。",
+    "pageCompTypeOnsiteHint": "参加者が会場に集まります。",
+    "pageCompTypeOnlineHint": "参加者がオンラインで動画を提出します。",
+    "sectionBasics": "基本情報",
+    "sectionEventDates": "開催日",
+    "sectionRegistrationPeriod": "登録期間",
+    "errNameTooShort": "イベント名は3文字以上必要です。",
+    "errDateOrder": "終了日は開始日より前にできません。",
+    "errRegistrationOrder": "登録締切は登録開始より前にできません。",
+    "errRegistrationAfterStart": "登録締切はイベント開始より後にできません。",
+    "reviewHintUnlisted": "管理者が承認するまで、イベントは非公開のままです。その他の詳細は作成後に追加できます。",
+    "pageEventTypeLaterHint": "会場、料金、競技はイベント作成後に追加します。"
   },
   "/events/manage": {
     "pageTitle": "イベント管理",
+    "pageDescription": "参加登録したイベントと主催イベントをまとめて管理。",
     "tabRegistrationsTitle": "参加登録",
     "tabRegistrationsTextNoEvents": "まだどのイベントにも参加登録していません。",
     "tabEventsHostedTitle": "自分のイベント",
     "tabEventsHostedTextNoEvents": "まだイベントを作成していません。",
-    "btnCreate": "イベントを作成"
+    "btnCreate": "イベントを作成",
+    "sectionHosting": "主催",
+    "sectionCoOrganizing": "共同主催",
+    "btnBrowseEvents": "イベントを探す",
+    "inputSearchPlaceholder": "名前、エイリアス、都市で検索",
+    "btnFilters": "フィルター",
+    "filterStatus": "ステータス",
+    "statusListed": "掲載中",
+    "statusWaiting": "承認待ち",
+    "statusNotListed": "非掲載",
+    "filterTime": "期間",
+    "timeUpcoming": "開催予定・開催中",
+    "timePast": "終了",
+    "lblResultCount": "{total}件中{shown}件のイベント",
+    "btnResetFilters": "フィルターをリセット",
+    "emptyFilteredTitle": "該当するイベントがありません",
+    "emptyFilteredText": "別のキーワードで検索するか、フィルターをリセットしてください。"
   },
   "/feedback": {
     "pageTitle": "フィードバック",
     "pageDescription": "下の種類を選んで、フィードバックを送ってください。",
     "pageGeneralFeedback": "一般フィードバック",
     "btnFeatures": "機能リクエスト",
-    "btnBugs": "不具合報告"
+    "btnBugs": "不具合報告",
+    "descGeneral": "気に入っている点や改善点を教えてください。",
+    "descFeatures": "新機能や改善を提案してください。",
+    "descBugs": "不具合がありましたか？何が起きたか教えてください。"
   },
   "/feedback/bugs": {
     "pageTitle": "不具合を報告",
     "inputMessage": "メッセージ",
     "inputMessagePlaceholder": "気づいた不具合の内容を教えてください。",
-    "btnSubmit": "送信"
+    "btnSubmit": "送信",
+    "pageDescription": "行った操作、期待した結果、実際に起きたことを教えてください。"
   },
   "/feedback/features": {
     "pageTitle": "機能リクエスト",
     "inputMessage": "メッセージ",
     "inputMessagePlaceholder": "アイデアや改善案はありますか？",
-    "btnSubmit": "送信"
+    "btnSubmit": "送信",
+    "pageDescription": "アイデアを共有してください。詳しいほど助かります。"
   },
   "/feedback/general": {
     "pageTitle": "フィードバックを送る",
     "inputMessage": "メッセージ",
     "inputMessagePlaceholder": "どんなフィードバックでも大歓迎です！",
-    "btnSubmit": "送信"
+    "btnSubmit": "送信",
+    "pageDescription": "気に入っている点や改善点を教えてください。"
   },
   "/feedback/thankyou": {
     "thankYouText1": "ありがとうございます！",
@@ -986,6 +1165,7 @@
   },
   "/map": {
     "pageTitle": "フリースタイラーマップ",
+    "pageDescription": "近くのフリースタイラーやクルー、主催者を見つけて、自分も地図に載せよう。",
     "dlgAddPinTitle": "ピンを追加",
     "dlgAddPinCornfirmText": "確認",
     "dlgAddPinInputCity": "都市",
@@ -1002,21 +1182,37 @@
     "btnCopyUrlToast": "マップURLをクリップボードにコピーしました。",
     "btnCopyUrlToolTip": "マップURLをコピー",
     "infoWindowGoToProfileInternal": "クリックでプロフィール",
-    "infoWindowGoToProfileExternal": "FSMeetで見る"
+    "infoWindowGoToProfileExternal": "FSMeetで見る",
+    "resultsCount": "{count, plural, =0 {条件に一致する人はいません} other {地図上に#人}}"
   },
   "/password/forgot": {
     "inputUsername": "ユーザー名／メール",
-    "btnResetPassword": "パスワードをリセット"
+    "btnResetPassword": "パスワードをリセット",
+    "pageTitle": "パスワードをお忘れですか？",
+    "pageDescription": "ユーザー名またはメールアドレスを入力してください。新しいパスワードを設定するためのリンクをお送りします。",
+    "lnkBackToLogin": "ログインに戻る"
   },
   "/password/forgot/pending": {
     "thankYouText1": "メールを確認してください。",
     "thankYouText2": "リセット用リンクを送信しました。",
-    "btnBackHome": "ホームに戻る"
+    "btnBackHome": "ホームに戻る",
+    "hintSpam": "メールが届きませんか？迷惑メールフォルダを確認するか、新しいリンクをリクエストしてください。",
+    "btnRequestNewLink": "新しいリンクをリクエスト",
+    "btnBackToLogin": "ログインに戻る"
   },
   "/password/reset": {
     "inputPassword": "新しいパスワード",
     "btnSave": "保存",
-    "errorMissingResetLink": "このリセットリンクは無効か不完全です。パスワード再設定メールのリンクを開いてください。"
+    "errorMissingResetLink": "このリセットリンクは無効か不完全です。パスワード再設定メールのリンクを開いてください。",
+    "pageTitle": "新しいパスワードを設定",
+    "pageDescription": "FSMeetアカウントの新しいパスワードを入力してください。",
+    "showPassword": "パスワードを表示",
+    "hidePassword": "パスワードを隠す",
+    "invalidLinkTitle": "リセットリンクが無効です",
+    "btnRequestNewLink": "新しいリンクをリクエスト",
+    "successTitle": "パスワードを変更しました",
+    "successText": "パスワードが更新されました。新しいパスワードでログインできます。",
+    "btnGoToLogin": "ログインへ"
   },
   "/registration": {
     "headlineCreateAccount": "アカウントを作成",
@@ -1028,20 +1224,36 @@
     "cbCountry": "国",
     "inputEmail": "メール",
     "inputPassword": "パスワード",
-    "btnSignUp": "登録"
+    "btnSignUp": "登録",
+    "sectionProfile": "プロフィール",
+    "sectionAccount": "ログイン情報",
+    "hintUsername": "小文字・スペースなし。公開プロフィールのリンクに表示されます。",
+    "showPassword": "パスワードを表示",
+    "hidePassword": "パスワードを隠す",
+    "textHaveAccount": "すでにアカウントをお持ちですか？",
+    "lnkSignIn": "ログイン"
   },
   "/registration/confirm": {
     "registrationSuccess": "登録が完了しました",
     "registrationFailure": "問題が発生しました",
-    "btnProceed": "続行"
+    "btnProceed": "続行",
+    "successText": "アカウントが確認されました。ログインできます。",
+    "failureText": "確認リンクが無効か期限切れ、またはアカウントはすでに確認済みです。ログインをお試しください。",
+    "btnBackHome": "ホームに戻る"
   },
   "/registration/pending": {
     "registrationPendingText1": "確認リンクを次の宛先に送信しました：",
     "registrationPendingText2": "届くまで時間がかかる場合があります。届かない場合は迷惑メールも確認してください。",
-    "btnBackHome": "ホームに戻る"
+    "btnBackHome": "ホームに戻る",
+    "titleCheckInbox": "メールを確認してください",
+    "step1": "FSMeet からのメールを開きます。",
+    "step2": "確認リンクをクリックします。",
+    "step3": "新しいアカウントでログインします。",
+    "btnGoToLogin": "ログインへ"
   },
   "/users": {
     "pageTitle": "コミュニティ",
+    "pageDescription": "世界中のフリースタイラー、ジャッジ、主催者、ブランドを見つけよう。",
     "inputSearchPlaceholder": "名前を検索...",
     "tableSortByName": "氏名で並べ替え",
     "tableSortByCountry": "国で並べ替え",
@@ -1063,7 +1275,15 @@
     "navFirst": "最初のページ",
     "navPrevious": "前のページ",
     "navNext": "次のページ",
-    "navLast": "最後のページ"
+    "navLast": "最後のページ",
+    "sortLabel": "並べ替え",
+    "sortNameAsc": "名前 (A–Z)",
+    "sortNameDesc": "名前 (Z–A)",
+    "sortCountryAsc": "国 (A–Z)",
+    "sortCountryDesc": "国 (Z–A)",
+    "cbCardDetails": "カードに表示",
+    "membersCount": "{count, plural, =0 {メンバーが見つかりません} other {#人のメンバー}}",
+    "lnkShowOnMap": "地図で見る"
   },
   "/users/username": {
     "accordionItemSocials": "SNS",
@@ -1103,9 +1323,16 @@
     "placeholderDescription": "商品説明",
     "inputTargetUrl": "リンク先URL",
     "tooltipTargetUrl": "ウェブサイトまたは商品へのリンク。",
-    "inputDisplayOrder": "表示順",
-    "tooltipDisplayOrder": "複数ある場合の広告の表示順です。0 が最初に表示されます。",
-    "chbEnabled": "有効"
+    "chbEnabled": "有効",
+    "lblImage": "画像",
+    "lblChooseImage": "画像を選択",
+    "sectionContent": "内容",
+    "sectionVisibility": "表示設定",
+    "hintImage": "クリックまたは画像をドロップ（JPG、PNG、WebP）",
+    "lblPreview": "プレビュー",
+    "lblAdBadge": "広告",
+    "hintPreview": "イベント一覧の横に表示される広告のおおよそのイメージです。",
+    "hintPreviewInactive": "この広告は無効のため、誰にも表示されません。"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "説明",
@@ -1118,7 +1345,17 @@
     "inputUrl": "URL",
     "chbExpires": "期限あり",
     "datePickerExpiryDate": "期限日",
-    "chbEnabled": "有効"
+    "chbEnabled": "有効",
+    "sectionSource": "ソース",
+    "optSourceFile": "ファイルをアップロード",
+    "optSourceLink": "外部リンク",
+    "lblCurrentFile": "現在のファイル：",
+    "lblChooseFile": "ファイルを選択",
+    "lblReplaceFile": "ファイルを差し替え",
+    "hintDropFile": "クリックまたはここにファイルをドロップ",
+    "sectionAvailability": "公開設定",
+    "lblUploadedFile": "アップロード済みのドキュメント",
+    "lnkOpenFile": "開く"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "種類",
@@ -1129,11 +1366,30 @@
   "global/components/battle-grid": {
     "btnAddMatch": "試合を追加",
     "labelAssignSlot": "スロットを割り当て",
-    "labelUnassigned": "未割り当て"
+    "labelUnassigned": "未割り当て",
+    "labelExtraMatch": "追加",
+    "labelTbd": "未定",
+    "labelResult": "結果",
+    "labelTimeLimit": "時間制限",
+    "labelMatchCount": "{count}試合",
+    "btnMoveMatchUp": "「{name}」を上へ移動",
+    "btnMoveMatchDown": "「{name}」を下へ移動",
+    "labelDragToReorder": "ドラッグして並べ替え",
+    "labelStartAt": "開始ラウンド",
+    "labelAlsoInRound": "このラウンドのその他",
+    "labelNextRound": "次：{name}",
+    "btnPreviousRound": "前のラウンド",
+    "btnNextRound": "次のラウンド"
   },
   "global/components/competition-editor": {
     "inputName": "カテゴリ名",
     "inputNamePlaceHolder": "男子バトル",
+    "inputAlias": "大会エイリアス",
+    "tooltipAlias": "共有しやすい短く分かりやすい大会URL（/e/<イベントエイリアス>/c/<大会エイリアス>）に使用されます。",
+    "aliasHintRules": "小文字の英字と数字のみ、最大16文字。このイベント内で一意である必要があります。",
+    "aliasHintUrl": "短縮URL：",
+    "aliasHintNoEventAlias": "この大会に短縮URLを付けるには、まずイベントエディターでイベントエイリアスを設定してください。",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "種類",
     "cbGender": "性別",
     "cbMaxAge": "年齢上限",
@@ -1222,7 +1478,9 @@
     "inputWaiver": "同意書（免責）",
     "chbVisaInvitationRequestsEnabled": "ビザ招待状を提供",
     "toastPosterDeleted": "ポスターを削除しました",
-    "placeholderWaiver": "このイベントに参加することで、私は確認します…"
+    "placeholderWaiver": "このイベントに参加することで、私は確認します…",
+    "lblPoster": "ポスター",
+    "lblChoosePoster": "ポスター画像を選択"
   },
   "global/components/loading-spinner": {
     "textLoading": "読み込み中..."
@@ -1262,13 +1520,20 @@
   "global/components/sponsor-editor": {
     "inputName": "スポンサー名",
     "inputWebsite": "ウェブサイト",
-    "chbIsPublic": "公開しますか？"
+    "chbIsPublic": "公開しますか？",
+    "lblLogo": "ロゴ",
+    "lblChooseLogo": "ロゴを選択",
+    "hintLogo": "正方形の画像がおすすめです"
   },
   "/wffa": {
     "pageTitle": "管理概要（WFFA）",
     "linkIds": "フリースタイラーID",
     "linkStatistics": "アプリ統計",
-    "linkVisa": "ビザ申請"
+    "linkVisa": "ビザ申請",
+    "pageDescription": "WFFA管理者向けツール。",
+    "linkIdsText": "WFFAフリースタイラーIDの付与と編集",
+    "linkVisaText": "ビザ招待状の確認と承認",
+    "linkStatisticsText": "ユーザー、イベント、アクティビティ"
   },
   "/wffa/ids": {
     "pageTitle": "フリースタイラーID管理",
@@ -1364,6 +1629,64 @@
     "search": "検索...",
     "select": "選択",
     "noData": "データがありません。",
-    "appNav": "アプリ"
+    "appNav": "アプリ",
+    "time": "時刻",
+    "clearTime": "時刻をクリア",
+    "mainNav": "メインナビゲーション"
+  },
+  "global/components/app-header": {
+    "navHome": "ホーム",
+    "navEvents": "イベント",
+    "navMap": "マップ",
+    "navCommunity": "コミュニティ",
+    "navVoice": "Voice",
+    "navTraining": "トレーニング",
+    "navAbout": "概要",
+    "btnCreateEvent": "イベントを作成",
+    "menuOpen": "メニューを開く",
+    "menuClose": "メニューを閉じる",
+    "sectionDiscover": "見つける",
+    "sectionMore": "その他",
+    "menuItemAdmin": "管理",
+    "menuItemWffa": "WFFA"
+  },
+  "global/components/date-picker": {
+    "placeholder": "日付を選択"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "名前で検索",
+    "clearSearch": "検索をクリア",
+    "all": "すべて",
+    "status": "ステータス",
+    "type": "種別",
+    "country": "国",
+    "gender": "性別",
+    "competition": "大会",
+    "statusApproved": "承認済み",
+    "statusPending": "保留中",
+    "typeParticipants": "参加者",
+    "typeVisitors": "観覧者",
+    "genderMale": "男性",
+    "genderFemale": "女性",
+    "competitionNone": "大会なし",
+    "shown": "{total}件中{shown}件を表示",
+    "reset": "フィルターをリセット",
+    "noMatch": "条件に一致する人はいません。"
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "大会設定のステップ",
+    "stepDetails": "詳細",
+    "stepPool": "出場者",
+    "stepGameMode": "試合形式",
+    "stepSeeding": "組み合わせ・結果",
+    "statusPool": "{count}人",
+    "statusRounds": "{count}ラウンド",
+    "statusSeeded": "{count}枠 割り当て済み",
+    "statusOpen": "未設定",
+    "btnViewCompetition": "大会ページを見る"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "詳しく見る",
+    "sponsored": "スポンサー"
   }
 }

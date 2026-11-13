@@ -2,8 +2,6 @@ import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import { Header } from '@/components/header';
-import PageTitle from '@/components/page-title';
 import { getUsers } from '@/infrastructure/clients/user.client';
 import { ColumnInfo, UsersList } from './components/users-list';
 import { UserType } from '@/domain/enums/user-type';
@@ -62,13 +60,11 @@ export default async function Users() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <Header />
-
-      <div className={constrainedContentClass}>
-        <PageTitle title={t('pageTitle')} />
-      </div>
-
-      <div className={cn('mt-2 flex min-h-0 flex-1 flex-col overflow-hidden', constrainedContentClass)}>
+      <div className={cn('flex min-h-0 flex-1 flex-col overflow-y-auto', constrainedContentClass)}>
+        <div className="flex flex-col items-center gap-1 pb-4 pt-4 text-center sm:pt-6">
+          <h1 className="text-heading-1">{t('pageTitle')}</h1>
+          <p className="max-w-[44rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
+        </div>
         <UsersList columnData={columnData} />
       </div>
 

@@ -31,15 +31,21 @@ import Separator from '../separator';
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
+  'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 
-const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
-const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-1 gap-1.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:items-center sm:gap-x-4';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-tight text-foreground/80';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const READONLY_VALUE_CLASS = 'min-w-0 text-sm text-foreground/90';
+
+export const COMP_ALIAS_MAX_LENGTH = 16;
+
+/** Mirrors the backend: lower-case letters and digits only, max 16 characters (empty = no alias). */
+export function isValidCompAlias(input: string): boolean {
+  return input.length <= COMP_ALIAS_MAX_LENGTH && (input.length === 0 || /^[a-z0-9]+$/.test(input));
+}
 
 function FieldRow({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -61,6 +67,9 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
   const t = useTranslations('global/components/competition-editor');
 
   const [name, setCompName] = useState(comp?.name || '');
+  const [alias, setCompAlias] = useState(comp?.alias || '');
+  // the backend only accepts a competition alias when the event has one; an existing alias can still be cleared
+  const aliasEditable = !!event.alias || !!comp?.alias;
   const [compType, setCompType] = useState(comp?.type || CompetitionType.BATTLES);
   const [compGender, setCompGender] = useState(comp?.gender || CompetitionGender.MIXED);
   const [maxAge, setMaxAge] = useState<MaxAge>(comp?.maxAge || MaxAge.NONE);
@@ -93,6 +102,7 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
       eventId: comp?.eventId,
       index: comp?.index,
       name,
+      alias: aliasEditable ? alias : undefined,
       type: compType,
       gender: compGender,
       maxAge,
@@ -130,6 +140,7 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
     if (!comp?.id || hydratedCompId.current === comp.id) return;
     hydratedCompId.current = comp.id;
     setCompName(comp.name);
+    setCompAlias(comp.alias || '');
     setCompType(comp.type);
     setCompGender(comp.gender);
     setMaxAge(comp.maxAge);
@@ -144,11 +155,38 @@ const CompetitionEditor = ({ event, editorMode, comp, onCompUpdate }: ICompetiti
 
   useEffect(() => {
     updateComp();
-  }, [name, compType, compGender, maxAge, maxAmountParticipants, isFollowUpCompetition, registrationEnabled, participationFee, description, rules, judges]);
+  }, [name, alias, compType, compGender, maxAge, maxAmountParticipants, isFollowUpCompetition, registrationEnabled, participationFee, description, rules, judges]);
 
   return (
     <div className={EDITOR_CARD_CLASS}>
       <TextInput id="comp-name" label={t('inputName')} placeholder={t('inputNamePlaceHolder')} value={name} onChange={e => setCompName(e.currentTarget.value)} />
+
+      <div className="flex min-w-0 flex-col gap-1.5">
+        <TextInput
+          id="comp-alias"
+          label={t('inputAlias')}
+          labelTooltip={t('tooltipAlias')}
+          placeholder={t('inputAliasPlaceHolder')}
+          value={alias}
+          maxInputLength={COMP_ALIAS_MAX_LENGTH}
+          readOnly={!aliasEditable}
+          onChange={e => {
+            const next = e.currentTarget.value.toLowerCase();
+            if (isValidCompAlias(next)) setCompAlias(next);
+          }}
+        />
+        <p className="text-xs text-muted-foreground" data-testid="comp-alias-hint">
+          {!event.alias ? (
+            t('aliasHintNoEventAlias')
+          ) : alias ? (
+            <>
+              {t('aliasHintUrl')} <span className="break-all font-mono text-foreground/80">{`/e/${event.alias}/c/${alias}`}</span>
+            </>
+          ) : (
+            t('aliasHintRules')
+          )}
+        </p>
+      </div>
 
       <FieldRow label={t('cbType')}>
         {editorMode === EditorMode.CREATE ? (

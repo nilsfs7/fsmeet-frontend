@@ -10,6 +10,7 @@ import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import PageTitle from '@/components/page-title';
 import { useSession } from 'next-auth/react';
+import { refreshCachedImage, withImageVersion } from '@/functions/image-cache';
 import { deleteAdvertisement, getAdvertisement, updateAdvertisement, updateAdvertisementImage } from '@/infrastructure/clients/advertisement.client';
 import AdvertisementEditor from '@/components/events/advertisement-editor';
 import Dialog from '@/components/dialog';
@@ -27,6 +28,7 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
 
   const [advertisement, setAdvertisement] = useState<Advertisement>();
   const [advertisementImage, setAdvertisementImage] = useState<File>();
+  const [storedImageUrl, setStoredImageUrl] = useState<string>();
 
   const username = session?.user?.username ?? '';
 
@@ -36,10 +38,16 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
     }
 
     try {
-      await updateAdvertisement(params.advertisementId, { ...advertisement, username: advertisement.username || username }, session);
+      // display order is managed via drag & drop on the ads list: keep the current stored value
+      const displayOrder = await getAdvertisement(params.advertisementId)
+        .then(current => current.displayOrder)
+        .catch(() => advertisement.displayOrder);
+      await updateAdvertisement(params.advertisementId, { ...advertisement, displayOrder, username: advertisement.username || username }, session);
 
       if (advertisementImage) {
         await updateAdvertisementImage(params.advertisementId, advertisementImage, session);
+        // the new file is stored under the same URL: refresh this browser's cached copy
+        await refreshCachedImage(storedImageUrl);
       }
 
       router.replace(addFetchTrigger(routeAds));
@@ -72,7 +80,8 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
   useEffect(() => {
     void getAdvertisement(params.advertisementId)
       .then(dto => {
-        setAdvertisement(dto);
+        setStoredImageUrl(dto.imageUrl);
+        setAdvertisement({ ...dto, imageUrl: withImageVersion(dto.imageUrl, Date.now()) ?? '' });
       })
       .catch((error: unknown) => {
         const message = error instanceof Error ? error.message : t('toastLoadFailed');
@@ -90,9 +99,9 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
       </Dialog>
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={t('pageDescription')} />
 
-        <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
+        <div className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
           {advertisement ? (
             <AdvertisementEditor
               key={advertisement.id}
@@ -105,7 +114,12 @@ export default function EditAdvertisementPage(props: { params: Promise<{ adverti
                 setAdvertisementImage(file);
               }}
             />
-          ) : null}
+          ) : (
+            <div className="grid w-full max-w-5xl grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-6" aria-busy="true">
+              <div className="h-[28rem] animate-pulse rounded-2xl bg-muted/60" />
+              <div className="hidden h-72 animate-pulse rounded-2xl bg-muted/60 lg:block" />
+            </div>
+          )}
         </div>
 
         <Navigation>

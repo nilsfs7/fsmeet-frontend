@@ -11,9 +11,19 @@
     "navMap": "Map",
     "navCommunity": "Community",
     "navVoice": "Voice",
+    "navTraining": "Training",
     "navAdminOverview": "Admin",
     "navWffaOverview": "WFFA",
-    "navAbout": "About"
+    "navAbout": "About",
+    "heroEyebrow": "Freestyle football community",
+    "eventsTitle": "Events",
+    "eventsSubtitle": "Ongoing, upcoming and recent highlights",
+    "exploreTitle": "Explore the community",
+    "exploreMapText": "Find freestylers near you and show yourself on the map.",
+    "exploreCommunityText": "Browse athletes, judges, organizers and brands.",
+    "exploreVoiceText": "Have your say on proposals that shape the scene.",
+    "exploreTrainingText": "Train your skills and track your progress.",
+    "exploreAboutText": "Learn what FSMeet is, who builds it and how to support it."
   },
   "/about": {
     "pageTitle": "About",
@@ -27,10 +37,20 @@
     "lnkTermsOfService": "Terms of Service",
     "lnkPrivacyPolicy": "Privacy policy",
     "build": "Build",
-    "ariaLegal": "Legal"
+    "ariaLegal": "Legal",
+    "heroEyebrow": "About FSMeet",
+    "sectionGetInvolved": "Get involved",
+    "btnFeedback": "Send feedback",
+    "sectionSupport": "Support FSMeet",
+    "supportText": "FSMeet is free for the community. Donations help cover servers and development.",
+    "contributorsText": "Meet the people who build, translate and shape FSMeet.",
+    "btnShowContributors": "Show contributors",
+    "sectionOpenSource": "Open source",
+    "openSourceText": "The FSMeet frontend is open source on GitHub."
   },
   "/about/contributors": {
     "pageTitle": "Contributors",
+    "pageDescription": "The people who build, translate and shape FSMeet.",
     "sectionMainContributors": "Main Contributors",
     "textHeadOfDevelopment": "Head of development",
     "textMobileAppDevelopment": "Mobile app development",
@@ -39,6 +59,7 @@
     "textJapaneseAndOtherLanguagesTranslation": "Translator - Japanese and other languages",
     "textUxAdvisor": "UX advisor",
     "sectionCommunityProposals": "Community Proposals",
+    "sectionCommunityProposalsText": "Ideas from the community that made it into FSMeet.",
     "textPersonalSchedule": "Personal schedule for athletes",
     "textSearchByGender": "Search freestyler map by gender",
     "lnkAnnouncement": "Announcement",
@@ -50,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "Account Settings",
+    "pageDescription": "Manage your profile, map pin, jobs and account.",
     "profilePictureAddPicture": "Add picture",
     "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Save",
@@ -165,7 +187,24 @@
     "toastProfileUpdated": "Profile updated.",
     "toastProfileLoadFailed": "Failed loading user info from session storage.",
     "toastStripeAccount": "Stripe account generated.",
-    "toastVerificationRequested": "Requesting verification successful."
+    "toastVerificationRequested": "Requesting verification successful.",
+    "btnChangePicture": "Change picture",
+    "btnViewProfile": "View profile",
+    "tabAccountSectionDangerZone": "Danger zone",
+    "tabAccountDeleteAccountHint": "Deleting your account is permanent and cannot be undone.",
+    "lblStripeDashboardOpening": "Opening Stripe…",
+    "alertStripeDashboardUnavailableTitle": "Stripe dashboard not available",
+    "alertStripeDashboardUnavailableText": "The Stripe dashboard can't be opened for this payment account. Your payments are still listed under “Manage payments”. If you haven't finished your Stripe setup yet, complete it via “Edit Info”.",
+    "alertStripeOnboardingIncompleteTitle": "Stripe setup not finished",
+    "alertStripeOnboardingIncompleteText": "Your Stripe setup isn't complete yet. Finish it to access the Stripe dashboard.",
+    "alertStripeDashboardErrorTitle": "Stripe dashboard couldn't be opened",
+    "toastStripeDashboardGeneric": "The Stripe dashboard couldn't be opened. Please try again later or contact support.",
+    "toastStripeDashboardSession": "Your session has expired. Please log in again.",
+    "btnFinishStripeSetup": "Finish Stripe setup",
+    "btnContactSupport": "Contact support",
+    "errWebsiteInvalid": "Please enter a valid web address, e.g. https://example.com.",
+    "errCityRequiredForPin": "Enter a city to publish your pin on the map, or untick publishing.",
+    "toastFixErrors": "Please fix the highlighted fields before saving."
   },
   "/account/deleted": {
     "textGoodbye": "Goodbye!",
@@ -175,7 +214,11 @@
   "/account/image": {
     "pageTitle": "Account Settings",
     "btnUpload": "Upload",
-    "btnDelete": "Delete"
+    "btnDelete": "Delete",
+    "pageTitlePicture": "Profile picture",
+    "pageDescription": "Square images look best. Your picture is shown on your profile, the map and in event lists.",
+    "lblChooseImage": "Choose an image",
+    "hintImage": "JPG, PNG or WebP"
   },
   "/account/payments": {
     "pageTitle": "Manage Payments",
@@ -337,7 +380,32 @@
     "btnCopyUrlToast": "Event URL copied to clipboard.",
     "btnCopyUrlToolTip": "Copy event URL",
     "btnRegistration": "Registration",
-    "btnFeedback": "Feedback"
+    "btnFeedback": "Feedback",
+    "cardRegistrationTitle": "Registration",
+    "regStatusOpen": "Open",
+    "regStatusUpcoming": "Not open yet",
+    "regStatusClosed": "Closed",
+    "regOpensOn": "Opens {date}",
+    "regClosesOn": "Closes {date}",
+    "regClosedOn": "Closed on {date}",
+    "regDaysLeft": "{count, plural, =0 {Last day} one {# day left} other {# days left}}",
+    "lblVisitorFee": "Visitor fee",
+    "lblOrganizer": "Organizer",
+    "lblWhen": "When",
+    "lblWhere": "Where",
+    "lblEventOver": "This event has ended.",
+    "lblParticipantsRegistered": "{count, plural, =0 {No participants yet} one {# participant} other {# participants}}",
+    "sectionAbout": "About this event",
+    "sectionLinks": "Links",
+    "lblCategory": "Category",
+    "tabOverviewSectionSponsorsPresentedBy": "Presented by",
+    "tabOverviewSectionSponsorsHint": "Thanks to the partners who make this event possible.",
+    "tabOverviewSectionSponsorsVisit": "Visit website (opens in new tab)",
+    "toastCommentPosted": "Comment posted",
+    "toastReplyPosted": "Reply posted",
+    "btnPostComment": "Post comment",
+    "btnPostReply": "Post reply",
+    "btnReply": "Reply"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Manage Accommodations",
@@ -372,11 +440,13 @@
     "pageTitle": "Edit Document",
     "dlgDeleteFileTitle": "Delete Document",
     "dlgDeleteFileText": "Do you really want to delete this document?",
-    "btnSave": "Save"
+    "btnSave": "Save",
+    "pageDescription": "Upload a file or link a document that attendees can open on the event page."
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "Create document",
-    "btnCreate": "Create"
+    "btnCreate": "Create",
+    "pageDescription": "Upload a file or link a document that attendees can open on the event page."
   },
   "/events/eventid/comps": {
     "pageTitle": "Manage Competitions",
@@ -449,7 +519,14 @@
     "errorLoadArena": "Failed to load arena screen",
     "styleUnavailable": "Arena style not available",
     "openSlot": "Open slot",
-    "noCountry": "No country"
+    "noCountry": "No country",
+    "sectionLiveMatch": "Live match",
+    "sectionLiveMatchHint": "Pick the competition and the battle that the arena screen should show right now.",
+    "sectionShow": "Show on screen",
+    "sectionShowHint": "Opens the full-screen arena view in a new tab. It refreshes automatically every few seconds.",
+    "noMatchSelected": "Select a match to display",
+    "labelPosition": "Position {position}",
+    "textRetrying": "Retrying automatically every few seconds."
   },
   "/events/eventid/pro": {
     "pageTitle": "Event License",
@@ -516,7 +593,20 @@
     "dlgDownloadResultsBtnDownload": "Download",
     "toastMatchesInconsistent": "Matches seem to have inconsistent data.",
     "toastResultsProcessed": "Processed battle results.",
-    "toastExportInconsistent": "Export of battle results is inconsistent."
+    "toastExportInconsistent": "Export of battle results is inconsistent.",
+    "tabInfoNone": "None",
+    "tabInfoParticipants": "Participants",
+    "tabInfoRounds": "Rounds",
+    "textNoScheduleTitle": "No schedule yet",
+    "textNoScheduleDescription": "The organizer has not created a schedule for this competition yet. Check back later.",
+    "btnCopyUrlToolTip": "Copy competition URL",
+    "btnCopyUrlToast": "Competition URL copied to clipboard."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "Competition not found",
+    "textNotFoundHint": "This competition link is invalid or the competition no longer exists.",
+    "btnBackHome": "Back home",
+    "btnBackToEvents": "Back To Overview"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Manage Player Pool",
@@ -615,12 +705,27 @@
     "toastRoundsUpdated": "Rounds successfully updated",
     "toastRoundDeleted": "Round successfully deleted",
     "defaultRoundName": "Round {index}",
-    "defaultMatchName": "Match {index}"
+    "defaultMatchName": "Match {index}",
+    "btnAddRound": "Add round",
+    "statPlayers": "{count, plural, one {# player in pool} other {# players in pool}}",
+    "statRounds": "{count, plural, one {# round} other {# rounds}}",
+    "statMatches": "{count, plural, one {# match} other {# matches}}",
+    "chipNotSaved": "Not saved yet",
+    "hintMode": "Build the rounds from first to last. The players advancing from one round are the players available in the next.",
+    "noteFinalSet": "The final round is set. Adjust matches if needed, then save.",
+    "textNoRounds": "No rounds yet. Start with the first round.",
+    "btnGoToPool": "Go to pool",
+    "chipUnsavedChanges": "Unsaved changes",
+    "hintReorder": "Drag match cards or use the arrows to change their order within a round, then save.",
+    "dlgDeleteRoundHint": "All matches of this round are removed too. Changes take effect once you save the game mode.",
+    "dlgApplyHint": "Changes take effect once you save the game mode."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Results",
     "textNoGameMode": "You have not configured a game mode, yet.",
-    "toastSlotUpdated": "Slot updated"
+    "toastSlotUpdated": "Slot updated",
+    "btnGoToGameMode": "Set up game mode",
+    "hintSeeding": "Assign a player to each slot and enter results. Every change is saved immediately; the higher result wins the match."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Edit Competition",
@@ -640,8 +745,10 @@
     "btnSubmit": "Submit"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "Event not found.",
-    "btnBackToEvents": "Back To Overview"
+    "textNotFound": "Event not found",
+    "btnBackToEvents": "Back To Overview",
+    "textNotFoundHint": "The link may be outdated, or the event was removed or is not public.",
+    "btnBackHome": "Back home"
   },
   "/events/eventid/offerings": {
     "pageTitle": "Manage Offerings",
@@ -698,7 +805,10 @@
     "textNoFilterMatch": "No attendees match your filters.",
     "alertPendingRegistrations": "{count, plural, one {There is # pending registration awaiting your review.} other {There are # pending registrations awaiting your review.}}",
     "toastRemoved": "{name} removed",
-    "toastStatusUpdated": "Status for {name} updated"
+    "toastStatusUpdated": "Status for {name} updated",
+    "statTotal": "All registrations",
+    "textShown": "Showing {shown} of {total}",
+    "btnClearSearch": "Clear search"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Event Registration Overview",
@@ -744,7 +854,22 @@
     "btnPay": "Pay now",
     "btnWorking": "Starting checkout…",
     "errorMissingSecret": "Checkout response was incomplete. Try again or contact support.",
-    "errorCheckout": "Could not start payment. Try again or contact support."
+    "errorCheckout": "Could not start payment. Try again or contact support.",
+    "stepDetails": "Your details",
+    "stepCompetitions": "Competitions",
+    "stepOfferings": "Extras",
+    "stepAccommodations": "Accommodation",
+    "stepCheckout": "Review",
+    "stepCounter": "Step {current} of {total}",
+    "summaryTitle": "Your selection",
+    "typeParticipant": "Participant",
+    "typeVisitor": "Visitor",
+    "summaryNone": "Nothing selected yet",
+    "statusUnregistered": "Not registered",
+    "statusPending": "Pending",
+    "statusApproved": "Approved",
+    "statusDenied": "Denied",
+    "daysLeft": "{count, plural, one {# day left} other {# days left}}"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Registration successfully submitted.",
@@ -769,7 +894,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "Your request was sent successfully!",
     "textSuccess2": "Waiting for approval.",
-    "btnBack": "Back"
+    "btnBack": "Back",
+    "btnEvent": "Go to event"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Manage Sponsors",
@@ -786,13 +912,21 @@
     "tooltipViewStats": "View statistics",
     "textNoAds": "No ads yet.",
     "tableColDescription": "Description",
-    "tableColActions": "Actions"
+    "tableColActions": "Actions",
+    "pageDescription": "Promote your products and services across FSMeet.",
+    "chipActive": "Active",
+    "chipInactive": "Inactive",
+    "hintReorder": "Drag ads by the handle to change the order in which they are shown.",
+    "tooltipDragAd": "Drag to reorder",
+    "toastReorderFailed": "Could not update the ad order.",
+    "toastReorderUnavailable": "Reordering ads is not available yet. Please try again later."
   },
   "/ads/create": {
     "pageTitle": "Create Ad",
     "btnCreate": "Create",
     "toastNeedLogin": "You must be logged in to create an ad.",
-    "toastCreateFailed": "Could not create the ad."
+    "toastCreateFailed": "Could not create the ad.",
+    "pageDescription": "Describe your product, add an image and link – the preview shows how it will look."
   },
   "/ads/edit": {
     "pageTitle": "Edit Ad",
@@ -801,7 +935,8 @@
     "btnSave": "Save",
     "toastSaveFailed": "Could not save the ad.",
     "toastDeleteFailed": "Could not delete the ad.",
-    "toastLoadFailed": "Could not load the ad."
+    "toastLoadFailed": "Could not load the ad.",
+    "pageDescription": "Update the content, image and visibility of your ad."
   },
   "/ads/stats": {
     "pageTitle": "Ad Statistics",
@@ -887,17 +1022,20 @@
     "dlgRequestInfoTravelFee": "Travel fee",
     "dlgRequestInfoMessage": "Message",
     "alertPendingRequests": "{count, plural, one {There is # pending booking request awaiting your review.} other {There are # pending booking requests awaiting your review.}}",
-    "dlgOfferTravelFeeShortDistanceHint": "No travel fee is suggested for one-way distances under {km} km. You can still adjust it."
+    "dlgOfferTravelFeeShortDistanceHint": "No travel fee is suggested for one-way distances under {km} km. You can still adjust it.",
+    "pageDescription": "Booking requests you received via FreestyleActs."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Create Sponsor",
-    "btnCreate": "Add new"
+    "btnCreate": "Add new",
+    "pageDescription": "Add a sponsor with name, website and logo. Public sponsors are shown on the event page."
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "Edit Sponsor",
     "dlgDeleteTitle": "Delete Sponsor",
     "dlgDeleteText": "Do you really want to delete this sponsor?",
-    "btnSave": "Save"
+    "btnSave": "Save",
+    "pageDescription": "Add a sponsor with name, website and logo. Public sponsors are shown on the event page."
   },
   "/events/eventid/stats": {
     "pageTitle": "Statistics",
@@ -934,40 +1072,81 @@
     "btnBackToOverview": "Cancel",
     "btnNextPage": "Next",
     "btnCreateEvent": "Create",
-    "dlgUnlistedEvents": "Cannot create another event while 2 or more of your events are not listed."
+    "dlgUnlistedEvents": "Cannot create another event while 2 or more of your events are not listed.",
+    "stepType": "Type",
+    "stepFormat": "Format",
+    "stepDetails": "Details",
+    "stepReview": "Review",
+    "stepCounter": "Step {current} of {total}",
+    "pageEventTypeCompetitionHint": "Battles, rankings and judging for participants.",
+    "pageEventTypeMeetingHint": "Jams, workshops and get-togethers.",
+    "pageCompTypeOnsiteHint": "Participants meet at a venue.",
+    "pageCompTypeOnlineHint": "Participants submit videos online.",
+    "sectionBasics": "Basics",
+    "sectionEventDates": "Event dates",
+    "sectionRegistrationPeriod": "Registration period",
+    "errNameTooShort": "The event name needs at least 3 characters.",
+    "errDateOrder": "The end date must not be before the start date.",
+    "errRegistrationOrder": "The registration deadline must not be before registration opens.",
+    "errRegistrationAfterStart": "The registration deadline must not be after the event starts.",
+    "reviewHintUnlisted": "Your event stays unlisted until an admin approves it. You can add all further details after creating it.",
+    "pageEventTypeLaterHint": "Location, fees and competitions are added after the event has been created."
   },
   "/events/manage": {
     "pageTitle": "Manage Events",
+    "pageDescription": "Your registrations and the events you host in one place.",
     "tabRegistrationsTitle": "Registrations",
     "tabRegistrationsTextNoEvents": "You have not signed up for any event, yet.",
     "tabEventsHostedTitle": "My Events",
     "tabEventsHostedTextNoEvents": "You have not created any events, yet.",
-    "btnCreate": "Create Event"
+    "btnCreate": "Create Event",
+    "sectionHosting": "Hosting",
+    "sectionCoOrganizing": "Co-organizing",
+    "btnBrowseEvents": "Browse events",
+    "inputSearchPlaceholder": "Search name, alias or city",
+    "btnFilters": "Filters",
+    "filterStatus": "Status",
+    "statusListed": "Listed",
+    "statusWaiting": "Waiting for approval",
+    "statusNotListed": "Not listed",
+    "filterTime": "Time",
+    "timeUpcoming": "Upcoming & ongoing",
+    "timePast": "Past",
+    "lblResultCount": "{shown} of {total} events",
+    "btnResetFilters": "Reset filters",
+    "emptyFilteredTitle": "No matching events",
+    "emptyFilteredText": "Try another search term or reset the filters."
   },
   "/feedback": {
     "pageTitle": "Feedback",
     "pageDescription": "Pick a category below to share your thoughts with us.",
     "pageGeneralFeedback": "General Feedback",
     "btnFeatures": "Request Feature",
-    "btnBugs": "Report Bug"
+    "btnBugs": "Report Bug",
+    "descGeneral": "Tell us what you like or what could be better.",
+    "descFeatures": "Suggest a new feature or an improvement.",
+    "descBugs": "Something broken? Let us know what happened."
   },
   "/feedback/bugs": {
     "pageTitle": "Report Bug",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Describe any misbehavior you noticed.",
-    "btnSubmit": "Submit"
+    "btnSubmit": "Submit",
+    "pageDescription": "Describe what you did, what you expected and what happened instead."
   },
   "/feedback/features": {
     "pageTitle": "Feature Request",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Do you have an idea or improvement for us?",
-    "btnSubmit": "Submit"
+    "btnSubmit": "Submit",
+    "pageDescription": "Share your idea – the more detail, the better."
   },
   "/feedback/general": {
     "pageTitle": "Send Feedback",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Any feedback is highly appreciated!",
-    "btnSubmit": "Submit"
+    "btnSubmit": "Submit",
+    "pageDescription": "Tell us what you like or what could be better."
   },
   "/feedback/thankyou": {
     "thankYouText1": "Thank you!",
@@ -986,6 +1165,7 @@
   },
   "/map": {
     "pageTitle": "Freestyler Map",
+    "pageDescription": "Find freestylers, crews and organizers near you and put yourself on the map.",
     "dlgAddPinTitle": "Add Your Pin",
     "dlgAddPinCornfirmText": "Confirm",
     "dlgAddPinInputCity": "City",
@@ -1002,21 +1182,37 @@
     "btnCopyUrlToast": "Map URL copied to clipboard.",
     "btnCopyUrlToolTip": "Copy map URL",
     "infoWindowGoToProfileInternal": "Click for profile",
-    "infoWindowGoToProfileExternal": "View on FSMeet"
+    "infoWindowGoToProfileExternal": "View on FSMeet",
+    "resultsCount": "{count, plural, =0 {Nobody matches your filters} one {# person on the map} other {# people on the map}}"
   },
   "/password/forgot": {
     "inputUsername": "Username / Email",
-    "btnResetPassword": "Reset Password"
+    "btnResetPassword": "Reset Password",
+    "pageTitle": "Forgot your password?",
+    "pageDescription": "Enter your username or email address and we'll send you a link to set a new password.",
+    "lnkBackToLogin": "Back to login"
   },
   "/password/forgot/pending": {
     "thankYouText1": "Check your mail.",
     "thankYouText2": "A reset link was sent to you.",
-    "btnBackHome": "Back home"
+    "btnBackHome": "Back home",
+    "hintSpam": "Didn't get an email? Check your spam folder or request a new link.",
+    "btnRequestNewLink": "Request new link",
+    "btnBackToLogin": "Back to login"
   },
   "/password/reset": {
     "inputPassword": "New password",
     "btnSave": "Save",
-    "errorMissingResetLink": "This reset link is invalid or incomplete. Open the link from your password reset email."
+    "errorMissingResetLink": "This reset link is invalid or incomplete. Open the link from your password reset email.",
+    "pageTitle": "Set a new password",
+    "pageDescription": "Choose a new password for your FSMeet account.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "invalidLinkTitle": "Reset link not valid",
+    "btnRequestNewLink": "Request new link",
+    "successTitle": "Password changed",
+    "successText": "Your password was updated. You can now log in with your new password.",
+    "btnGoToLogin": "Go to login"
   },
   "/registration": {
     "headlineCreateAccount": "Create your account",
@@ -1028,20 +1224,36 @@
     "cbCountry": "Country",
     "inputEmail": "E-Mail",
     "inputPassword": "Password",
-    "btnSignUp": "Sign Up"
+    "btnSignUp": "Sign Up",
+    "sectionProfile": "Profile",
+    "sectionAccount": "Login details",
+    "hintUsername": "Lowercase, without spaces. It appears in your public profile link.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "textHaveAccount": "Already have an account?",
+    "lnkSignIn": "Sign in"
   },
   "/registration/confirm": {
     "registrationSuccess": "Registration successful",
     "registrationFailure": "Something went wrong",
-    "btnProceed": "Proceed"
+    "btnProceed": "Proceed",
+    "successText": "Your account is confirmed. You can now sign in.",
+    "failureText": "The confirmation link is invalid or has expired, or the account is already confirmed. Try signing in.",
+    "btnBackHome": "Back home"
   },
   "/registration/pending": {
     "registrationPendingText1": "A confirmation link was sent to",
     "registrationPendingText2": "It may take a while until your mail is delivered. Also check your spam if you didn't receive anything.",
-    "btnBackHome": "Back home"
+    "btnBackHome": "Back home",
+    "titleCheckInbox": "Check your inbox",
+    "step1": "Open the email from FSMeet.",
+    "step2": "Click the confirmation link.",
+    "step3": "Sign in with your new account.",
+    "btnGoToLogin": "Go to login"
   },
   "/users": {
     "pageTitle": "Community",
+    "pageDescription": "Discover freestylers, judges, organizers and brands from around the world.",
     "inputSearchPlaceholder": "Search name...",
     "tableSortByName": "Sort by name",
     "tableSortByCountry": "Sort by country",
@@ -1063,7 +1275,15 @@
     "navFirst": "First page",
     "navPrevious": "Previous page",
     "navNext": "Next page",
-    "navLast": "Last page"
+    "navLast": "Last page",
+    "sortLabel": "Sort",
+    "sortNameAsc": "Name (A–Z)",
+    "sortNameDesc": "Name (Z–A)",
+    "sortCountryAsc": "Country (A–Z)",
+    "sortCountryDesc": "Country (Z–A)",
+    "cbCardDetails": "Show on cards",
+    "membersCount": "{count, plural, =0 {No members found} one {# member} other {# members}}",
+    "lnkShowOnMap": "Show on map"
   },
   "/users/username": {
     "accordionItemSocials": "Socials",
@@ -1103,9 +1323,16 @@
     "placeholderDescription": "Product description",
     "inputTargetUrl": "Target URL",
     "tooltipTargetUrl": "Link to your website or product.",
-    "inputDisplayOrder": "Display order",
-    "tooltipDisplayOrder": "Order in which ads are shown when having multiple. 0 is shown first.",
-    "chbEnabled": "Active"
+    "chbEnabled": "Active",
+    "lblImage": "Image",
+    "lblChooseImage": "Choose an image",
+    "sectionContent": "Content",
+    "sectionVisibility": "Visibility",
+    "hintImage": "Click or drop an image (JPG, PNG, WebP)",
+    "lblPreview": "Preview",
+    "lblAdBadge": "Ad",
+    "hintPreview": "Roughly how your ad appears next to the events list.",
+    "hintPreviewInactive": "This ad is inactive and is not shown to anyone."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Description",
@@ -1118,7 +1345,17 @@
     "inputUrl": "URL",
     "chbExpires": "Expires",
     "datePickerExpiryDate": "Expiry date",
-    "chbEnabled": "Active"
+    "chbEnabled": "Active",
+    "sectionSource": "Source",
+    "optSourceFile": "Upload file",
+    "optSourceLink": "External link",
+    "lblCurrentFile": "Current file:",
+    "lblChooseFile": "Choose a file",
+    "lblReplaceFile": "Replace file",
+    "hintDropFile": "Click or drop a file here",
+    "sectionAvailability": "Availability",
+    "lblUploadedFile": "Uploaded document",
+    "lnkOpenFile": "Open"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Type",
@@ -1129,11 +1366,30 @@
   "global/components/battle-grid": {
     "btnAddMatch": "Add Match",
     "labelAssignSlot": "Assign slot",
-    "labelUnassigned": "unassigned"
+    "labelUnassigned": "unassigned",
+    "labelExtraMatch": "Extra",
+    "labelTbd": "To be decided",
+    "labelResult": "Result",
+    "labelTimeLimit": "Time limit",
+    "labelMatchCount": "{count, plural, one {# match} other {# matches}}",
+    "btnMoveMatchUp": "Move “{name}” up",
+    "btnMoveMatchDown": "Move “{name}” down",
+    "labelDragToReorder": "Drag to reorder",
+    "labelStartAt": "Start at",
+    "labelAlsoInRound": "Also in this round",
+    "labelNextRound": "Next: {name}",
+    "btnPreviousRound": "Previous round",
+    "btnNextRound": "Next round"
   },
   "global/components/competition-editor": {
     "inputName": "Competition Name",
     "inputNamePlaceHolder": "Male Battles",
+    "inputAlias": "Competition Alias",
+    "tooltipAlias": "Used for a shorter, cleaner competition URL (/e/<event alias>/c/<competition alias>) that is easier to share.",
+    "aliasHintRules": "Lower-case letters and digits only, max. 16 characters. Must be unique within this event.",
+    "aliasHintUrl": "Short URL:",
+    "aliasHintNoEventAlias": "Set an event alias in the event editor first to give this competition a short URL.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "Type",
     "cbGender": "Gender",
     "cbMaxAge": "Max Age",
@@ -1222,7 +1478,9 @@
     "inputWaiver": "Waiver",
     "chbVisaInvitationRequestsEnabled": "Offer visa invitations",
     "toastPosterDeleted": "Poster deleted",
-    "placeholderWaiver": "By participating in this event, I acknowledge ..."
+    "placeholderWaiver": "By participating in this event, I acknowledge ...",
+    "lblPoster": "Poster",
+    "lblChoosePoster": "Choose a poster image"
   },
   "global/components/loading-spinner": {
     "textLoading": "Loading..."
@@ -1262,13 +1520,20 @@
   "global/components/sponsor-editor": {
     "inputName": "Sponsor Name",
     "inputWebsite": "Website",
-    "chbIsPublic": "Show publicly?"
+    "chbIsPublic": "Show publicly?",
+    "lblLogo": "Logo",
+    "lblChooseLogo": "Choose a logo",
+    "hintLogo": "Square images work best"
   },
   "/wffa": {
     "pageTitle": "Admin Overview (WFFA)",
     "linkIds": "Freestyler IDs",
     "linkStatistics": "App Statistics",
-    "linkVisa": "Visa Requests"
+    "linkVisa": "Visa Requests",
+    "pageDescription": "Tools for WFFA administrators.",
+    "linkIdsText": "Assign and edit WFFA freestyler IDs",
+    "linkVisaText": "Review and approve visa invitation letters",
+    "linkStatisticsText": "Users, events and activity"
   },
   "/wffa/ids": {
     "pageTitle": "Freestyler ID Management",
@@ -1364,6 +1629,64 @@
     "search": "Search ...",
     "select": "Select",
     "noData": "No data found.",
-    "appNav": "App"
+    "appNav": "App",
+    "time": "Time",
+    "clearTime": "Clear time",
+    "mainNav": "Main"
+  },
+  "global/components/app-header": {
+    "navHome": "Home",
+    "navEvents": "Events",
+    "navMap": "Map",
+    "navCommunity": "Community",
+    "navVoice": "Voice",
+    "navTraining": "Training",
+    "navAbout": "About",
+    "btnCreateEvent": "Create event",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "sectionDiscover": "Discover",
+    "sectionMore": "More",
+    "menuItemAdmin": "Admin",
+    "menuItemWffa": "WFFA"
+  },
+  "global/components/date-picker": {
+    "placeholder": "Pick a date"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "Search by name",
+    "clearSearch": "Clear search",
+    "all": "All",
+    "status": "Status",
+    "type": "Type",
+    "country": "Country",
+    "gender": "Gender",
+    "competition": "Competition",
+    "statusApproved": "Approved",
+    "statusPending": "Pending",
+    "typeParticipants": "Participants",
+    "typeVisitors": "Visitors",
+    "genderMale": "Male",
+    "genderFemale": "Female",
+    "competitionNone": "No competition",
+    "shown": "Showing {shown} of {total}",
+    "reset": "Reset filters",
+    "noMatch": "No one matches these filters."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "Competition setup steps",
+    "stepDetails": "Details",
+    "stepPool": "Pool",
+    "stepGameMode": "Game mode",
+    "stepSeeding": "Seeding & results",
+    "statusPool": "{count, plural, one {# player} other {# players}}",
+    "statusRounds": "{count, plural, one {# round} other {# rounds}}",
+    "statusSeeded": "{count, plural, one {# slot filled} other {# slots filled}}",
+    "statusOpen": "Not set up yet",
+    "btnViewCompetition": "View competition page"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "Read more",
+    "sponsored": "sponsored"
   }
 }

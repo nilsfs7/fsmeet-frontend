@@ -11,9 +11,19 @@
     "navMap": "الخريطة",
     "navCommunity": "المجتمع",
     "navVoice": "الصوت",
+    "navTraining": "التدريب",
     "navAdminOverview": "الإدارة",
     "navWffaOverview": "WFFA",
-    "navAbout": "حول"
+    "navAbout": "حول",
+    "heroEyebrow": "مجتمع كرة القدم الحرة",
+    "eventsTitle": "الفعاليات",
+    "eventsSubtitle": "الجارية والقادمة وأبرز الفعاليات الأخيرة",
+    "exploreTitle": "استكشف المجتمع",
+    "exploreMapText": "اعثر على لاعبي الفريستايل بالقرب منك وأظهر نفسك على الخريطة.",
+    "exploreCommunityText": "تصفح الرياضيين والحكام والمنظمين والعلامات التجارية.",
+    "exploreVoiceText": "شارك برأيك في المقترحات التي تشكل المشهد.",
+    "exploreTrainingText": "درّب مهاراتك وتابع تقدّمك.",
+    "exploreAboutText": "تعرف على FSMeet ومن يطوره وكيف تدعمه."
   },
   "/about": {
     "pageTitle": "حول",
@@ -27,10 +37,20 @@
     "lnkTermsOfService": "شروط الخدمة",
     "lnkPrivacyPolicy": "سياسة الخصوصية",
     "build": "الإصدار",
-    "ariaLegal": "قانوني"
+    "ariaLegal": "قانوني",
+    "heroEyebrow": "حول FSMeet",
+    "sectionGetInvolved": "شارك معنا",
+    "btnFeedback": "أرسل ملاحظاتك",
+    "sectionSupport": "ادعم FSMeet",
+    "supportText": "FSMeet مجاني للمجتمع. تساعد التبرعات في تغطية تكاليف الخوادم والتطوير.",
+    "contributorsText": "تعرّف على الأشخاص الذين يطوّرون FSMeet ويترجمونه ويشكّلونه.",
+    "btnShowContributors": "عرض المساهمين",
+    "sectionOpenSource": "مفتوح المصدر",
+    "openSourceText": "واجهة FSMeet مفتوحة المصدر على GitHub."
   },
   "/about/contributors": {
     "pageTitle": "المساهمون",
+    "pageDescription": "الأشخاص الذين يطوّرون FSMeet ويترجمونه ويشكّلونه.",
     "sectionMainContributors": "المساهمون الرئيسيون",
     "textHeadOfDevelopment": "رئيس التطوير",
     "textMobileAppDevelopment": "تطوير تطبيقات الجوال",
@@ -39,6 +59,7 @@
     "textJapaneseAndOtherLanguagesTranslation": "مترجم - اليابانية وغيرها",
     "textUxAdvisor": "مستشار تجربة المستخدم",
     "sectionCommunityProposals": "اقتراحات المجتمع",
+    "sectionCommunityProposalsText": "أفكار من المجتمع أصبحت جزءًا من FSMeet.",
     "textPersonalSchedule": "جدول شخصي للرياضيين",
     "textSearchByGender": "البحث في خريطة الفريستايل حسب الجنس",
     "lnkAnnouncement": "إعلان",
@@ -50,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "إعدادات الحساب",
+    "pageDescription": "أدر ملفك الشخصي ودبوس الخريطة والوظائف وحسابك.",
     "profilePictureAddPicture": "إضافة صورة",
     "profilePictureNoFileChosen": "لم يتم اختيار ملف",
     "btnSave": "حفظ",
@@ -165,7 +187,24 @@
     "toastProfileUpdated": "تم تحديث الملف الشخصي.",
     "toastProfileLoadFailed": "تعذر تحميل بيانات المستخدم من تخزين الجلسة.",
     "toastStripeAccount": "تم إنشاء حساب Stripe.",
-    "toastVerificationRequested": "تم طلب التحقق."
+    "toastVerificationRequested": "تم طلب التحقق.",
+    "btnChangePicture": "تغيير الصورة",
+    "btnViewProfile": "عرض الملف الشخصي",
+    "tabAccountSectionDangerZone": "منطقة الخطر",
+    "tabAccountDeleteAccountHint": "حذف حسابك نهائي ولا يمكن التراجع عنه.",
+    "lblStripeDashboardOpening": "جارٍ فتح Stripe…",
+    "alertStripeDashboardUnavailableTitle": "لوحة تحكم Stripe غير متاحة",
+    "alertStripeDashboardUnavailableText": "لا يمكن فتح لوحة تحكم Stripe لحساب الدفع هذا. لا تزال مدفوعاتك متاحة ضمن «إدارة المدفوعات». إذا لم تُكمل إعداد Stripe بعد، فأكمله عبر «تعديل المعلومات».",
+    "alertStripeOnboardingIncompleteTitle": "لم يكتمل إعداد Stripe",
+    "alertStripeOnboardingIncompleteText": "لم يكتمل إعداد Stripe الخاص بك بعد. أكمله للوصول إلى لوحة تحكم Stripe.",
+    "alertStripeDashboardErrorTitle": "تعذر فتح لوحة تحكم Stripe",
+    "toastStripeDashboardGeneric": "تعذر فتح لوحة تحكم Stripe. يرجى المحاولة لاحقًا أو التواصل مع الدعم.",
+    "toastStripeDashboardSession": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+    "btnFinishStripeSetup": "إكمال إعداد Stripe",
+    "btnContactSupport": "التواصل مع الدعم",
+    "errWebsiteInvalid": "يرجى إدخال عنوان ويب صالح، مثل https://example.com.",
+    "errCityRequiredForPin": "أدخل مدينة لنشر دبوسك على الخريطة، أو ألغِ تحديد النشر.",
+    "toastFixErrors": "يرجى تصحيح الحقول المميزة قبل الحفظ."
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",
@@ -175,7 +214,11 @@
   "/account/image": {
     "pageTitle": "إعدادات الحساب",
     "btnUpload": "رفع",
-    "btnDelete": "حذف"
+    "btnDelete": "حذف",
+    "pageTitlePicture": "صورة الملف الشخصي",
+    "pageDescription": "الصور المربعة تبدو أفضل. تظهر صورتك في ملفك الشخصي والخريطة وقوائم الفعاليات.",
+    "lblChooseImage": "اختر صورة",
+    "hintImage": "JPG أو PNG أو WebP"
   },
   "/account/payments": {
     "pageTitle": "إدارة المدفوعات",
@@ -337,7 +380,32 @@
     "btnCopyUrlToast": "تم نسخ رابط الفعالية إلى الحافظة.",
     "btnCopyUrlToolTip": "نسخ رابط الفعالية",
     "btnRegistration": "التسجيل",
-    "btnFeedback": "الملاحظات"
+    "btnFeedback": "الملاحظات",
+    "cardRegistrationTitle": "التسجيل",
+    "regStatusOpen": "مفتوح",
+    "regStatusUpcoming": "لم يفتح بعد",
+    "regStatusClosed": "مغلق",
+    "regOpensOn": "يفتح في {date}",
+    "regClosesOn": "يغلق في {date}",
+    "regClosedOn": "أغلق في {date}",
+    "regDaysLeft": "{count, plural, =0 {اليوم الأخير} one {يوم واحد متبقٍ} other {# أيام متبقية}}",
+    "lblVisitorFee": "رسوم الزائر",
+    "lblOrganizer": "المنظم",
+    "lblWhen": "متى",
+    "lblWhere": "أين",
+    "lblEventOver": "انتهت هذه الفعالية.",
+    "lblParticipantsRegistered": "{count, plural, =0 {لا يوجد مشاركون بعد} one {مشارك واحد} other {# مشاركين}}",
+    "sectionAbout": "عن هذه الفعالية",
+    "sectionLinks": "روابط",
+    "lblCategory": "الفئة",
+    "tabOverviewSectionSponsorsPresentedBy": "برعاية",
+    "tabOverviewSectionSponsorsHint": "شكرًا للشركاء الذين جعلوا هذه الفعالية ممكنة.",
+    "tabOverviewSectionSponsorsVisit": "زيارة الموقع (في علامة تبويب جديدة)",
+    "toastCommentPosted": "تم نشر التعليق",
+    "toastReplyPosted": "تم نشر الرد",
+    "btnPostComment": "نشر التعليق",
+    "btnPostReply": "نشر الرد",
+    "btnReply": "رد"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "إدارة الإقامات",
@@ -372,11 +440,13 @@
     "pageTitle": "تعديل المستند",
     "dlgDeleteFileTitle": "حذف المستند",
     "dlgDeleteFileText": "هل تريد حقاً حذف هذا المستند؟",
-    "btnSave": "حفظ"
+    "btnSave": "حفظ",
+    "pageDescription": "ارفع ملفًا أو أضف رابط مستند يمكن للحضور فتحه في صفحة الفعالية."
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "إنشاء مستند",
-    "btnCreate": "إنشاء"
+    "btnCreate": "إنشاء",
+    "pageDescription": "ارفع ملفًا أو أضف رابط مستند يمكن للحضور فتحه في صفحة الفعالية."
   },
   "/events/eventid/comps": {
     "pageTitle": "إدارة المنافسات",
@@ -449,7 +519,14 @@
     "errorLoadArena": "تعذر تحميل شاشة الساحة",
     "styleUnavailable": "نمط الساحة غير متاح",
     "openSlot": "خانة فارغة",
-    "noCountry": "لا بلد"
+    "noCountry": "لا بلد",
+    "sectionLiveMatch": "المباراة المباشرة",
+    "sectionLiveMatchHint": "اختر المسابقة والمواجهة التي يجب أن تعرضها شاشة الساحة الآن.",
+    "sectionShow": "العرض على الشاشة",
+    "sectionShowHint": "يفتح عرض الساحة بملء الشاشة في علامة تبويب جديدة، ويتحدّث تلقائيًا كل بضع ثوانٍ.",
+    "noMatchSelected": "اختر مباراة لعرضها",
+    "labelPosition": "المركز {position}",
+    "textRetrying": "تتم إعادة المحاولة تلقائيًا كل بضع ثوانٍ."
   },
   "/events/eventid/pro": {
     "pageTitle": "ترخيص الفعالية",
@@ -516,7 +593,20 @@
     "dlgDownloadResultsBtnDownload": "تحميل",
     "toastMatchesInconsistent": "يبدو أن بيانات المباريات غير متسقة.",
     "toastResultsProcessed": "تمت معالجة نتائج المباريات.",
-    "toastExportInconsistent": "تصدير النتائج غير متسق."
+    "toastExportInconsistent": "تصدير النتائج غير متسق.",
+    "tabInfoNone": "لا يوجد",
+    "tabInfoParticipants": "المشاركون",
+    "tabInfoRounds": "الجولات",
+    "textNoScheduleTitle": "لا يوجد جدول بعد",
+    "textNoScheduleDescription": "لم يُنشئ المنظم جدولًا لهذه المسابقة بعد. عُد لاحقًا.",
+    "btnCopyUrlToolTip": "نسخ رابط المسابقة",
+    "btnCopyUrlToast": "تم نسخ رابط المسابقة إلى الحافظة."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "المسابقة غير موجودة",
+    "textNotFoundHint": "رابط المسابقة هذا غير صالح أو أن المسابقة لم تعد موجودة.",
+    "btnBackHome": "العودة إلى الرئيسية",
+    "btnBackToEvents": "العودة إلى النظرة العامة"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "إدارة قائمة اللاعبين",
@@ -615,12 +705,27 @@
     "toastRoundsUpdated": "تم تحديث الجولات",
     "toastRoundDeleted": "تم حذف الجولة",
     "defaultRoundName": "جولة {index}",
-    "defaultMatchName": "مباراة {index}"
+    "defaultMatchName": "مباراة {index}",
+    "btnAddRound": "إضافة جولة",
+    "statPlayers": "{count, plural, one {لاعب واحد في المجموعة} other {# لاعبين في المجموعة}}",
+    "statRounds": "{count, plural, one {جولة واحدة} other {# جولات}}",
+    "statMatches": "{count, plural, one {مباراة واحدة} other {# مباريات}}",
+    "chipNotSaved": "لم يُحفظ بعد",
+    "hintMode": "أنشئ الجولات من الأولى إلى الأخيرة. اللاعبون المتأهلون من جولة هم المتاحون في الجولة التالية.",
+    "noteFinalSet": "تم تحديد الجولة النهائية. عدّل المباريات إن لزم ثم احفظ.",
+    "textNoRounds": "لا توجد جولات بعد. ابدأ بالجولة الأولى.",
+    "btnGoToPool": "الانتقال إلى المجموعة",
+    "chipUnsavedChanges": "تغييرات غير محفوظة",
+    "hintReorder": "اسحب بطاقات المباريات أو استخدم الأسهم لتغيير ترتيبها داخل الجولة، ثم احفظ.",
+    "dlgDeleteRoundHint": "ستُحذف جميع مباريات هذه الجولة أيضًا. تسري التغييرات بعد حفظ نمط اللعب.",
+    "dlgApplyHint": "تسري التغييرات بعد حفظ نمط اللعب."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "التصنيف والنتائج",
     "textNoGameMode": "لم تقم بإعداد نمط اللعب بعد.",
-    "toastSlotUpdated": "تم تحديث الخانة"
+    "toastSlotUpdated": "تم تحديث الخانة",
+    "btnGoToGameMode": "إعداد نظام اللعب",
+    "hintSeeding": "عيّن لاعبًا لكل مكان وأدخل النتائج. يتم حفظ كل تغيير فورًا، والنتيجة الأعلى تفوز."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "تعديل المنافسة",
@@ -640,8 +745,10 @@
     "btnSubmit": "إرسال"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "لم يتم العثور على الفعالية.",
-    "btnBackToEvents": "العودة إلى النظرة العامة"
+    "textNotFound": "لم يتم العثور على الفعالية",
+    "btnBackToEvents": "العودة إلى النظرة العامة",
+    "textNotFoundHint": "قد يكون الرابط قديمًا، أو أن الفعالية حُذفت أو ليست عامة.",
+    "btnBackHome": "العودة إلى الرئيسية"
   },
   "/events/eventid/offerings": {
     "pageTitle": "إدارة العروض",
@@ -698,7 +805,10 @@
     "textNoFilterMatch": "لا يوجد حضور يطابق عوامل التصفية.",
     "alertPendingRegistrations": "توجد {count} تسجيلات بانتظار موافقتك.",
     "toastRemoved": "تمت إزالة {name}",
-    "toastStatusUpdated": "تم تحديث حالة {name}"
+    "toastStatusUpdated": "تم تحديث حالة {name}",
+    "statTotal": "كل التسجيلات",
+    "textShown": "عرض {shown} من {total}",
+    "btnClearSearch": "مسح البحث"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "نظرة عامة على تسجيل الفعالية",
@@ -744,7 +854,22 @@
     "btnPay": "ادفع الآن",
     "btnWorking": "جارٍ بدء الدفع…",
     "errorMissingSecret": "استجابة الدفع غير مكتملة. حاول مجددًا أو اتصل بالدعم.",
-    "errorCheckout": "تعذّر بدء الدفع. حاول مجددًا أو اتصل بالدعم."
+    "errorCheckout": "تعذّر بدء الدفع. حاول مجددًا أو اتصل بالدعم.",
+    "stepDetails": "بياناتك",
+    "stepCompetitions": "المسابقات",
+    "stepOfferings": "إضافات",
+    "stepAccommodations": "الإقامة",
+    "stepCheckout": "المراجعة",
+    "stepCounter": "الخطوة {current} من {total}",
+    "summaryTitle": "اختياراتك",
+    "typeParticipant": "مشارك",
+    "typeVisitor": "زائر",
+    "summaryNone": "لم يتم اختيار شيء بعد",
+    "statusUnregistered": "غير مسجل",
+    "statusPending": "قيد الانتظار",
+    "statusApproved": "مقبول",
+    "statusDenied": "مرفوض",
+    "daysLeft": "{count, plural, one {متبقٍ يوم واحد} other {متبقٍ # أيام}}"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "تم إرسال التسجيل بنجاح.",
@@ -769,7 +894,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "تم إرسال طلبك بنجاح!",
     "textSuccess2": "بانتظار الموافقة.",
-    "btnBack": "رجوع"
+    "btnBack": "رجوع",
+    "btnEvent": "الانتقال إلى الفعالية"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "إدارة الرعاة",
@@ -786,13 +912,21 @@
     "tooltipViewStats": "عرض الإحصائيات",
     "textNoAds": "لا توجد إعلانات بعد.",
     "tableColDescription": "الوصف",
-    "tableColActions": "الإجراءات"
+    "tableColActions": "الإجراءات",
+    "pageDescription": "روّج لمنتجاتك وخدماتك على FSMeet.",
+    "chipActive": "نشط",
+    "chipInactive": "غير نشط",
+    "hintReorder": "اسحب الإعلانات من المقبض لتغيير ترتيب عرضها.",
+    "tooltipDragAd": "اسحب لإعادة الترتيب",
+    "toastReorderFailed": "تعذّر تحديث ترتيب الإعلانات.",
+    "toastReorderUnavailable": "إعادة ترتيب الإعلانات غير متاحة بعد. يرجى المحاولة لاحقًا."
   },
   "/ads/create": {
     "pageTitle": "إنشاء إعلان",
     "btnCreate": "إنشاء",
     "toastNeedLogin": "يجب تسجيل الدخول لإنشاء إعلان.",
-    "toastCreateFailed": "تعذر إنشاء الإعلان."
+    "toastCreateFailed": "تعذر إنشاء الإعلان.",
+    "pageDescription": "صف منتجك وأضف صورة ورابطًا – تعرض المعاينة الشكل النهائي."
   },
   "/ads/edit": {
     "pageTitle": "تعديل الإعلان",
@@ -801,7 +935,8 @@
     "btnSave": "حفظ",
     "toastSaveFailed": "تعذر حفظ الإعلان.",
     "toastDeleteFailed": "تعذر حذف الإعلان.",
-    "toastLoadFailed": "تعذر تحميل الإعلان."
+    "toastLoadFailed": "تعذر تحميل الإعلان.",
+    "pageDescription": "حدّث محتوى إعلانك وصورته وظهوره."
   },
   "/ads/stats": {
     "pageTitle": "إحصائيات الإعلان",
@@ -887,17 +1022,20 @@
     "dlgRequestInfoTravelMethod": "وسيلة السفر",
     "dlgRequestInfoTravelFee": "تكلفة السفر",
     "dlgOfferTravelFeeFromRateHint": "مقترح من سعر الكيلومتر: {amount} (يمكنك تعديل الإجمالي أدناه)",
-    "dlgOfferTravelFeeShortDistanceHint": "لا يُقترح أي تكلفة سفر للمسافات ذهابًا أقل من {km} كم."
+    "dlgOfferTravelFeeShortDistanceHint": "لا يُقترح أي تكلفة سفر للمسافات ذهابًا أقل من {km} كم.",
+    "pageDescription": "طلبات الحجز التي تلقيتها عبر FreestyleActs."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "إنشاء راعٍ",
-    "btnCreate": "إضافة جديد"
+    "btnCreate": "إضافة جديد",
+    "pageDescription": "أضف راعيًا بالاسم والموقع والشعار. يظهر الرعاة العامون في صفحة الفعالية."
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "تعديل الراعي",
     "dlgDeleteTitle": "حذف الراعي",
     "dlgDeleteText": "هل تريد حقاً حذف هذا الراعي؟",
-    "btnSave": "حفظ"
+    "btnSave": "حفظ",
+    "pageDescription": "أضف راعيًا بالاسم والموقع والشعار. يظهر الرعاة العامون في صفحة الفعالية."
   },
   "/events/eventid/stats": {
     "pageTitle": "الإحصائيات",
@@ -934,40 +1072,81 @@
     "btnBackToOverview": "إلغاء",
     "btnNextPage": "التالي",
     "btnCreateEvent": "إنشاء",
-    "dlgUnlistedEvents": "لا يمكنك إنشاء فعالية أخرى بينما تكون فعاليتان أو أكثر من فعالياتك غير مدرجة."
+    "dlgUnlistedEvents": "لا يمكنك إنشاء فعالية أخرى بينما تكون فعاليتان أو أكثر من فعالياتك غير مدرجة.",
+    "stepType": "النوع",
+    "stepFormat": "الصيغة",
+    "stepDetails": "التفاصيل",
+    "stepReview": "المراجعة",
+    "stepCounter": "الخطوة {current} من {total}",
+    "pageEventTypeCompetitionHint": "مواجهات وتصنيفات وتحكيم للمشاركين.",
+    "pageEventTypeMeetingHint": "جلسات وورش عمل ولقاءات.",
+    "pageCompTypeOnsiteHint": "يلتقي المشاركون في مكان الفعالية.",
+    "pageCompTypeOnlineHint": "يرسل المشاركون مقاطع فيديو عبر الإنترنت.",
+    "sectionBasics": "الأساسيات",
+    "sectionEventDates": "تواريخ الفعالية",
+    "sectionRegistrationPeriod": "فترة التسجيل",
+    "errNameTooShort": "يجب أن يتكون اسم الفعالية من 3 أحرف على الأقل.",
+    "errDateOrder": "لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ البدء.",
+    "errRegistrationOrder": "لا يمكن أن يكون موعد إغلاق التسجيل قبل فتحه.",
+    "errRegistrationAfterStart": "لا يمكن أن يكون موعد إغلاق التسجيل بعد بدء الفعالية.",
+    "reviewHintUnlisted": "تبقى فعاليتك غير مدرجة حتى يوافق عليها أحد المشرفين. يمكنك إضافة باقي التفاصيل بعد الإنشاء.",
+    "pageEventTypeLaterHint": "تتم إضافة الموقع والرسوم والمسابقات بعد إنشاء الفعالية."
   },
   "/events/manage": {
     "pageTitle": "إدارة الفعاليات",
+    "pageDescription": "تسجيلاتك والفعاليات التي تنظمها في مكان واحد.",
     "tabRegistrationsTitle": "التسجيلات",
     "tabRegistrationsTextNoEvents": "لم تسجل في أي فعالية بعد.",
     "tabEventsHostedTitle": "فعالياتي",
     "tabEventsHostedTextNoEvents": "لم تقم بإنشاء أي فعالية بعد.",
-    "btnCreate": "إنشاء فعالية"
+    "btnCreate": "إنشاء فعالية",
+    "sectionHosting": "المنظِّم",
+    "sectionCoOrganizing": "منظِّم مشارك",
+    "btnBrowseEvents": "تصفح الفعاليات",
+    "inputSearchPlaceholder": "ابحث بالاسم أو الاسم المختصر أو المدينة",
+    "btnFilters": "عوامل التصفية",
+    "filterStatus": "الحالة",
+    "statusListed": "منشورة",
+    "statusWaiting": "بانتظار الموافقة",
+    "statusNotListed": "غير منشورة",
+    "filterTime": "الوقت",
+    "timeUpcoming": "قادمة وجارية",
+    "timePast": "سابقة",
+    "lblResultCount": "{shown} من {total} فعالية",
+    "btnResetFilters": "إعادة تعيين عوامل التصفية",
+    "emptyFilteredTitle": "لا توجد فعاليات مطابقة",
+    "emptyFilteredText": "جرّب كلمة بحث أخرى أو أعد تعيين عوامل التصفية."
   },
   "/feedback": {
     "pageTitle": "الملاحظات",
     "pageDescription": "اختر أدناه نوع الملاحظات التي تريد إرسالها.",
     "pageGeneralFeedback": "ملاحظات عامة",
     "btnFeatures": "طلب ميزة",
-    "btnBugs": "الإبلاغ عن خلل"
+    "btnBugs": "الإبلاغ عن خلل",
+    "descGeneral": "أخبرنا بما يعجبك أو بما يمكن تحسينه.",
+    "descFeatures": "اقترح ميزة جديدة أو تحسينًا.",
+    "descBugs": "هل هناك خلل؟ أخبرنا بما حدث."
   },
   "/feedback/bugs": {
     "pageTitle": "الإبلاغ عن خلل",
     "inputMessage": "رسالة",
     "inputMessagePlaceholder": "صف أي سلوك غير صحيح لاحظته.",
-    "btnSubmit": "إرسال"
+    "btnSubmit": "إرسال",
+    "pageDescription": "صف ما فعلته وما توقعته وما حدث بدلاً من ذلك."
   },
   "/feedback/features": {
     "pageTitle": "طلب ميزة",
     "inputMessage": "رسالة",
     "inputMessagePlaceholder": "هل لديك فكرة أو تحسين لنا؟",
-    "btnSubmit": "إرسال"
+    "btnSubmit": "إرسال",
+    "pageDescription": "شارك فكرتك – كلما زادت التفاصيل كان أفضل."
   },
   "/feedback/general": {
     "pageTitle": "إرسال ملاحظات",
     "inputMessage": "رسالة",
     "inputMessagePlaceholder": "أي ملاحظات محل تقدير كبير!",
-    "btnSubmit": "إرسال"
+    "btnSubmit": "إرسال",
+    "pageDescription": "أخبرنا بما يعجبك أو بما يمكن تحسينه."
   },
   "/feedback/thankyou": {
     "thankYouText1": "شكراً لك!",
@@ -986,6 +1165,7 @@
   },
   "/map": {
     "pageTitle": "خريطة لاعبي الفريستايل",
+    "pageDescription": "ابحث عن لاعبي الفريستايل والفرق والمنظمين بالقرب منك وأضف نفسك إلى الخريطة.",
     "dlgAddPinTitle": "أضف علامتك",
     "dlgAddPinCornfirmText": "تأكيد",
     "dlgAddPinInputCity": "المدينة",
@@ -1002,21 +1182,37 @@
     "btnCopyUrlToast": "تم نسخ رابط الخريطة إلى الحافظة.",
     "btnCopyUrlToolTip": "نسخ رابط الخريطة",
     "infoWindowGoToProfileInternal": "انقر للملف الشخصي",
-    "infoWindowGoToProfileExternal": "عرض على FSMeet"
+    "infoWindowGoToProfileExternal": "عرض على FSMeet",
+    "resultsCount": "{count, plural, =0 {لا أحد يطابق عوامل التصفية} one {شخص واحد على الخريطة} other {# أشخاص على الخريطة}}"
   },
   "/password/forgot": {
     "inputUsername": "اسم المستخدم / البريد الإلكتروني",
-    "btnResetPassword": "إعادة تعيين كلمة المرور"
+    "btnResetPassword": "إعادة تعيين كلمة المرور",
+    "pageTitle": "هل نسيت كلمة المرور؟",
+    "pageDescription": "أدخل اسم المستخدم أو البريد الإلكتروني وسنرسل لك رابطًا لتعيين كلمة مرور جديدة.",
+    "lnkBackToLogin": "العودة إلى تسجيل الدخول"
   },
   "/password/forgot/pending": {
     "thankYouText1": "تحقق من بريدك.",
     "thankYouText2": "تم إرسال رابط إعادة التعيين.",
-    "btnBackHome": "العودة إلى الرئيسية"
+    "btnBackHome": "العودة إلى الرئيسية",
+    "hintSpam": "لم يصلك البريد؟ تحقق من مجلد الرسائل غير المرغوب فيها أو اطلب رابطًا جديدًا.",
+    "btnRequestNewLink": "طلب رابط جديد",
+    "btnBackToLogin": "العودة إلى تسجيل الدخول"
   },
   "/password/reset": {
     "inputPassword": "كلمة مرور جديدة",
     "btnSave": "حفظ",
-    "errorMissingResetLink": "رابط إعادة التعيين غير صالح أو غير مكتمل. افتح الرابط من رسالة إعادة تعيين كلمة المرور."
+    "errorMissingResetLink": "رابط إعادة التعيين غير صالح أو غير مكتمل. افتح الرابط من رسالة إعادة تعيين كلمة المرور.",
+    "pageTitle": "تعيين كلمة مرور جديدة",
+    "pageDescription": "اختر كلمة مرور جديدة لحسابك في FSMeet.",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "invalidLinkTitle": "رابط إعادة التعيين غير صالح",
+    "btnRequestNewLink": "طلب رابط جديد",
+    "successTitle": "تم تغيير كلمة المرور",
+    "successText": "تم تحديث كلمة المرور. يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة.",
+    "btnGoToLogin": "الذهاب إلى تسجيل الدخول"
   },
   "/registration": {
     "headlineCreateAccount": "أنشئ حسابًا",
@@ -1028,20 +1224,36 @@
     "cbCountry": "البلد",
     "inputEmail": "البريد الإلكتروني",
     "inputPassword": "كلمة المرور",
-    "btnSignUp": "إنشاء حساب"
+    "btnSignUp": "إنشاء حساب",
+    "sectionProfile": "الملف الشخصي",
+    "sectionAccount": "بيانات الدخول",
+    "hintUsername": "بأحرف صغيرة ومن دون مسافات. يظهر في رابط ملفك العام.",
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "textHaveAccount": "لديك حساب بالفعل؟",
+    "lnkSignIn": "تسجيل الدخول"
   },
   "/registration/confirm": {
     "registrationSuccess": "تم التسجيل بنجاح",
     "registrationFailure": "حدث خطأ ما",
-    "btnProceed": "متابعة"
+    "btnProceed": "متابعة",
+    "successText": "تم تأكيد حسابك. يمكنك الآن تسجيل الدخول.",
+    "failureText": "رابط التأكيد غير صالح أو منتهي الصلاحية، أو أن الحساب مؤكد بالفعل. جرّب تسجيل الدخول.",
+    "btnBackHome": "العودة إلى الرئيسية"
   },
   "/registration/pending": {
     "registrationPendingText1": "تم إرسال رابط التأكيد إلى",
     "registrationPendingText2": "قد يستغرق وصول البريد بعض الوقت. تحقق أيضاً من البريد العشوائي إن لم يصلك شيء.",
-    "btnBackHome": "العودة إلى الرئيسية"
+    "btnBackHome": "العودة إلى الرئيسية",
+    "titleCheckInbox": "تحقق من بريدك الوارد",
+    "step1": "افتح الرسالة الواردة من FSMeet.",
+    "step2": "انقر على رابط التأكيد.",
+    "step3": "سجّل الدخول بحسابك الجديد.",
+    "btnGoToLogin": "الانتقال إلى تسجيل الدخول"
   },
   "/users": {
     "pageTitle": "المجتمع",
+    "pageDescription": "اكتشف لاعبي الفريستايل والحكام والمنظمين والعلامات التجارية من جميع أنحاء العالم.",
     "inputSearchPlaceholder": "ابحث عن الاسم...",
     "tableSortByName": "ترتيب حسب الاسم",
     "tableSortByCountry": "ترتيب حسب البلد",
@@ -1063,7 +1275,15 @@
     "navFirst": "الصفحة الأولى",
     "navPrevious": "الصفحة السابقة",
     "navNext": "الصفحة التالية",
-    "navLast": "الصفحة الأخيرة"
+    "navLast": "الصفحة الأخيرة",
+    "sortLabel": "ترتيب",
+    "sortNameAsc": "الاسم (أ–ي)",
+    "sortNameDesc": "الاسم (ي–أ)",
+    "sortCountryAsc": "الدولة (أ–ي)",
+    "sortCountryDesc": "الدولة (ي–أ)",
+    "cbCardDetails": "إظهار على البطاقات",
+    "membersCount": "{count, plural, =0 {لم يتم العثور على أعضاء} one {عضو واحد} other {# أعضاء}}",
+    "lnkShowOnMap": "عرض على الخريطة"
   },
   "/users/username": {
     "accordionItemSocials": "الحسابات",
@@ -1103,9 +1323,16 @@
     "placeholderDescription": "وصف المنتج",
     "inputTargetUrl": "رابط الوجهة",
     "tooltipTargetUrl": "رابط إلى موقعك أو منتجك.",
-    "inputDisplayOrder": "ترتيب العرض",
-    "tooltipDisplayOrder": "ترتيب ظهور الإعلانات عند وجود أكثر من واحد. يُعرض 0 أولاً.",
-    "chbEnabled": "مفعّل"
+    "chbEnabled": "مفعّل",
+    "lblImage": "الصورة",
+    "lblChooseImage": "اختر صورة",
+    "sectionContent": "المحتوى",
+    "sectionVisibility": "الظهور",
+    "hintImage": "انقر أو أسقط صورة (JPG، PNG، WebP)",
+    "lblPreview": "معاينة",
+    "lblAdBadge": "إعلان",
+    "hintPreview": "هكذا سيظهر إعلانك تقريبًا بجانب قائمة الفعاليات.",
+    "hintPreviewInactive": "هذا الإعلان غير نشط ولا يظهر لأي أحد."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "الوصف",
@@ -1118,7 +1345,17 @@
     "inputUrl": "الرابط",
     "chbExpires": "ينتهي",
     "datePickerExpiryDate": "تاريخ الانتهاء",
-    "chbEnabled": "مفعّل"
+    "chbEnabled": "مفعّل",
+    "sectionSource": "المصدر",
+    "optSourceFile": "رفع ملف",
+    "optSourceLink": "رابط خارجي",
+    "lblCurrentFile": "الملف الحالي:",
+    "lblChooseFile": "اختر ملفًا",
+    "lblReplaceFile": "استبدال الملف",
+    "hintDropFile": "انقر أو أسقط ملفًا هنا",
+    "sectionAvailability": "الإتاحة",
+    "lblUploadedFile": "مستند مرفوع",
+    "lnkOpenFile": "فتح"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "النوع",
@@ -1129,11 +1366,30 @@
   "global/components/battle-grid": {
     "btnAddMatch": "إضافة مباراة",
     "labelAssignSlot": "تعيين خانة",
-    "labelUnassigned": "غير معيّن"
+    "labelUnassigned": "غير معيّن",
+    "labelExtraMatch": "إضافية",
+    "labelTbd": "لم يُحدَّد بعد",
+    "labelResult": "النتيجة",
+    "labelTimeLimit": "وقت محدد",
+    "labelMatchCount": "{count, plural, one {مباراة واحدة} other {# مباريات}}",
+    "btnMoveMatchUp": "نقل \"{name}\" للأعلى",
+    "btnMoveMatchDown": "نقل \"{name}\" للأسفل",
+    "labelDragToReorder": "اسحب لإعادة الترتيب",
+    "labelStartAt": "البدء من",
+    "labelAlsoInRound": "أيضًا في هذه الجولة",
+    "labelNextRound": "التالي: {name}",
+    "btnPreviousRound": "الجولة السابقة",
+    "btnNextRound": "الجولة التالية"
   },
   "global/components/competition-editor": {
     "inputName": "اسم المنافسة",
     "inputNamePlaceHolder": "نزالات الرجال",
+    "inputAlias": "الاسم المستعار للمسابقة",
+    "tooltipAlias": "يُستخدم لرابط مسابقة أقصر وأوضح (/e/<الاسم المستعار للفعالية>/c/<الاسم المستعار للمسابقة>) يسهل مشاركته.",
+    "aliasHintRules": "أحرف لاتينية صغيرة وأرقام فقط، 16 حرفًا كحد أقصى. يجب أن يكون فريدًا داخل هذه الفعالية.",
+    "aliasHintUrl": "الرابط المختصر:",
+    "aliasHintNoEventAlias": "عيّن أولاً اسمًا مستعارًا للفعالية في محرر الفعالية لمنح هذه المسابقة رابطًا مختصرًا.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "النوع",
     "cbGender": "الجنس",
     "cbMaxAge": "الحد الأقصى للعمر",
@@ -1222,7 +1478,9 @@
     "inputWaiver": "إقرار",
     "chbVisaInvitationRequestsEnabled": "تقديم دعوات التأشيرة",
     "toastPosterDeleted": "تم حذف الملصق",
-    "placeholderWaiver": "بمشاركتي في هذه الفعالية، أقر ..."
+    "placeholderWaiver": "بمشاركتي في هذه الفعالية، أقر ...",
+    "lblPoster": "الملصق",
+    "lblChoosePoster": "اختر صورة الملصق"
   },
   "global/components/loading-spinner": {
     "textLoading": "جارٍ التحميل..."
@@ -1262,13 +1520,20 @@
   "global/components/sponsor-editor": {
     "inputName": "اسم الراعي",
     "inputWebsite": "الموقع الإلكتروني",
-    "chbIsPublic": "إظهار للعامة؟"
+    "chbIsPublic": "إظهار للعامة؟",
+    "lblLogo": "الشعار",
+    "lblChooseLogo": "اختر شعارًا",
+    "hintLogo": "الصور المربعة هي الأفضل"
   },
   "/wffa": {
     "pageTitle": "نظرة المسؤول (WFFA)",
     "linkIds": "معرّفات الفريستايل",
     "linkStatistics": "إحصاءات التطبيق",
-    "linkVisa": "طلبات التأشيرة"
+    "linkVisa": "طلبات التأشيرة",
+    "pageDescription": "أدوات لمسؤولي WFFA.",
+    "linkIdsText": "تعيين وتعديل معرّفات لاعبي WFFA",
+    "linkVisaText": "مراجعة واعتماد خطابات دعوة التأشيرة",
+    "linkStatisticsText": "المستخدمون والفعاليات والنشاط"
   },
   "/wffa/ids": {
     "pageTitle": "إدارة معرّفات الفريستايل",
@@ -1364,6 +1629,64 @@
     "search": "بحث ...",
     "select": "اختيار",
     "noData": "لم يُعثر على بيانات.",
-    "appNav": "التطبيق"
+    "appNav": "التطبيق",
+    "time": "الوقت",
+    "clearTime": "مسح الوقت",
+    "mainNav": "التنقل الرئيسي"
+  },
+  "global/components/app-header": {
+    "navHome": "الرئيسية",
+    "navEvents": "الفعاليات",
+    "navMap": "الخريطة",
+    "navCommunity": "المجتمع",
+    "navVoice": "Voice",
+    "navTraining": "التدريب",
+    "navAbout": "حول",
+    "btnCreateEvent": "إنشاء فعالية",
+    "menuOpen": "فتح القائمة",
+    "menuClose": "إغلاق القائمة",
+    "sectionDiscover": "اكتشف",
+    "sectionMore": "المزيد",
+    "menuItemAdmin": "الإدارة",
+    "menuItemWffa": "WFFA"
+  },
+  "global/components/date-picker": {
+    "placeholder": "اختر تاريخًا"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "ابحث بالاسم",
+    "clearSearch": "مسح البحث",
+    "all": "الكل",
+    "status": "الحالة",
+    "type": "النوع",
+    "country": "الدولة",
+    "gender": "الجنس",
+    "competition": "المسابقة",
+    "statusApproved": "مقبول",
+    "statusPending": "قيد الانتظار",
+    "typeParticipants": "المشاركون",
+    "typeVisitors": "الزوار",
+    "genderMale": "ذكر",
+    "genderFemale": "أنثى",
+    "competitionNone": "بدون مسابقة",
+    "shown": "عرض {shown} من {total}",
+    "reset": "إعادة ضبط الفلاتر",
+    "noMatch": "لا أحد يطابق هذه الفلاتر."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "خطوات إعداد المسابقة",
+    "stepDetails": "التفاصيل",
+    "stepPool": "المجموعة",
+    "stepGameMode": "نظام اللعب",
+    "stepSeeding": "التوزيع والنتائج",
+    "statusPool": "{count, plural, one {لاعب واحد} other {# لاعبين}}",
+    "statusRounds": "{count, plural, one {جولة واحدة} other {# جولات}}",
+    "statusSeeded": "{count, plural, one {تم شغل مكان واحد} other {تم شغل # أماكن}}",
+    "statusOpen": "لم يُعدّ بعد",
+    "btnViewCompetition": "عرض صفحة المسابقة"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "اقرأ المزيد",
+    "sponsored": "ممول"
   }
 }

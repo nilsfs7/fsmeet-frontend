@@ -50,7 +50,7 @@ export default function CreateAccommodation(props: { params: Promise<{ eventId: 
     getEvent(params.eventId, session).then(event => {
       setEvent(event);
     });
-  }, [event === undefined]);
+  }, [event === undefined, session?.user?.username]); // refetch once the session is known (unlisted events need auth)
 
   return (
     <>

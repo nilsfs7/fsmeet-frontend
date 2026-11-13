@@ -6,6 +6,7 @@ import { ReadAdvertisementResponseDto } from './dtos/advertisement/read-advertis
 import { CreateAdvertisementBodyDto } from './dtos/advertisement/create-advertisement.body.dto';
 import { CreateAdvertisementResponseDto } from './dtos/advertisement/create-advertisement.response.dto';
 import { PatchAdvertisementBodyDto } from './dtos/advertisement/patch-advertisement.body.dto';
+import { PutAdvertisementOrderBodyDto } from './dtos/advertisement/put-advertisement-order.body.dto';
 import { CreateActivityBodyDto } from './dtos/advertisement/create-activity.body.dto';
 import { UserActivity } from '@/domain/enums/user-activity';
 import { ReadAdvertisementActivityResponseDto } from './dtos/advertisement/read-activity.response.dto';
@@ -132,6 +133,41 @@ export async function deleteAdvertisement(id: string, session: Session | null): 
     const error = await response.json();
     throw Error(error.message);
   }
+}
+
+/** Error from the order endpoint; `status` lets the UI tell a missing endpoint (404) apart from other failures. */
+export class AdvertisementOrderError extends Error {
+  status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
+/** Replaces the listing order of all ads of the authenticated user (first id gets display order 0). */
+export async function updateAdvertisementOrder(advertisementIds: string[], session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements/order`;
+
+  const body = new PutAdvertisementOrderBodyDto(advertisementIds);
+
+  const response = await fetch(url, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Updating advertisement order successful');
+    return;
+  }
+
+  const error = await response.json().catch(() => null);
+  const message = Array.isArray(error?.message) ? error.message.join(' ') : typeof error?.message === 'string' ? error.message : '';
+  throw new AdvertisementOrderError(response.status, message);
 }
 
 export async function getAdvertisementActivity(advertisementId: string, session: Session | null): Promise<ReadAdvertisementActivityResponseDto[]> {

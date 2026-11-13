@@ -1,15 +1,17 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Roboto } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { SessionProvider } from 'next-auth/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import LocalizationProvider from '@/lib/providers';
 import { AppShellColumn } from '@/components/layout/app-shell-column';
+import { AppHeader } from '@/components/header';
 import { cn } from '@/lib/utils';
 import { getSiteUrl } from '@/lib/site-url';
+import { htmlLangForLocale } from '@/i18n/locales';
 
-const fontRoboto = Roboto({ subsets: ['latin'], weight: ['400'] });
+const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 
 const siteDescription = 'Freestyle Football community and event platform. Discover events, athletes, and competitions worldwide.';
 
@@ -40,14 +42,18 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="h-dvh min-h-0 overflow-hidden">
-      <body className={cn(fontRoboto.className, 'm-0 h-dvh min-h-0 overflow-hidden p-0')}>
+    <html lang={htmlLangForLocale(locale)} className={cn(fontSans.variable, 'h-dvh min-h-0 overflow-hidden')}>
+      <body className={cn(fontSans.className, 'm-0 h-dvh min-h-0 overflow-hidden p-0')}>
         {/* Single height pass-through: providers (fragments) do not establish a % height for the shell. */}
         <div className="h-full min-h-0">
           <SessionProvider>
             <LocalizationProvider>
               <NextIntlClientProvider messages={messages}>
-                <AppShellColumn>{children}</AppShellColumn>
+                <AppShellColumn>
+                  <AppHeader />
+                  {/* `relative` so `absolute inset-0` pages layer below the app bar, not over it */}
+                  <div className="relative flex min-h-0 flex-1 flex-col">{children}</div>
+                </AppShellColumn>
               </NextIntlClientProvider>
             </LocalizationProvider>
           </SessionProvider>

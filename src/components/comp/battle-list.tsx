@@ -1,9 +1,8 @@
 import { roundContainsParticipant, roundMatchesAscending, type Round } from '@/domain/types/round';
 import MatchCard from './match-card';
-import Separator from '../separator';
 import { User } from '@/domain/types/user';
-import moment from 'moment';
 import { matchContainsParticipant } from '@/domain/types/match';
+import { RoundHeader } from './round-header';
 
 interface IBattleListProps {
   rounds: Round[];
@@ -14,53 +13,24 @@ interface IBattleListProps {
 
 const BattleList = ({ rounds, usersMap, filteredByUser = null, showUserCountryFlag = false }: IBattleListProps) => {
   return (
-    <div className={'flex w-full flex-col justify-center'}>
+    <div className="flex w-full flex-col gap-4">
       {rounds.map((round: Round, i: number) => {
         if (filteredByUser && !roundContainsParticipant(round, filteredByUser)) {
-          return;
+          return null;
         }
 
         return (
-          <div key={`rnd-${i}`} className="mx-1 flex justify-center">
-            <div className="flex h-full w-52 flex-col justify-center">
-              <div className="flex items-center justify-center gap-1">
-                <div className="text-center text-lg">{round.name}</div>
-                {round.timeLimit && <div className="text-center text-sm">{`(time limit)`}</div>}
-              </div>
+          <section key={`rnd-${i}`} className="rounded-2xl border border-border bg-background/60 p-3 shadow-xs sm:p-4">
+            <RoundHeader round={round} className="mb-3" />
 
-              <div className={`px-2 h-6`}>
-                <div className={`text-center text-sm`}>{moment(round.date).isValid() && moment(round.date).locale('en').format(`dddd, MMMM D`)}</div>
-              </div>
-
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
               {roundMatchesAscending(round).map((match, j) => {
-                if (filteredByUser) {
-                  if (!matchContainsParticipant(match, filteredByUser)) return;
-                }
+                if (filteredByUser && !matchContainsParticipant(match, filteredByUser)) return null;
 
-                return (
-                  <div key={`match-${j}`} className={`${i > 0 || j > 0 ? 'mt-1' : ''} ${i < rounds.length - 1 ? 'mb-1' : ''} `}>
-                    <MatchCard match={match} usersMap={usersMap} showTime={true} showUserCountryFlag={showUserCountryFlag} />
-                  </div>
-                );
+                return <MatchCard key={`match-${j}`} match={match} usersMap={usersMap} showTime={true} showUserCountryFlag={showUserCountryFlag} />;
               })}
-
-              {i < rounds.length - 1 && (
-                <>
-                  {!filteredByUser && (
-                    <div className="my-2">
-                      <Separator />
-                    </div>
-                  )}
-
-                  {filteredByUser && roundContainsParticipant(rounds[i + 1], filteredByUser) && (
-                    <div className="my-2">
-                      <Separator />
-                    </div>
-                  )}
-                </>
-              )}
             </div>
-          </div>
+          </section>
         );
       })}
     </div>

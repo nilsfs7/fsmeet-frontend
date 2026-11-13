@@ -5,7 +5,6 @@ import Navigation from '@/components/navigation';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
-import PageTitle from '@/components/page-title';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Event } from '@/domain/types/event';
@@ -21,8 +20,10 @@ import TextInput from '@/components/common/text-input';
 import { DatePicker } from '@/components/common/date-picker';
 import { EventType } from '@/domain/enums/event-type';
 import ComboBox from '@/components/common/combo-box';
-import TextAndImageButton from '../../../../components/common/text-and-image-button';
-import { imgCalender, imgCompetition, imgCompetitionOnline, imgCompetitionOnsite, imgLocation, imgMeeting } from '../../../../domain/constants/images';
+import { ChoiceCard } from '@/components/common/choice-card';
+import { LabeledStepper } from '@/components/common/labeled-stepper';
+import { EventPosterPlaceholder, EventTypeGlyph } from '@/components/events/event-type-icon';
+import { IconAlertTriangle, IconCalendarEvent, IconHourglass, IconInfoCircle, IconMapPin, IconTrophy, IconUsersGroup, IconWorld } from '@tabler/icons-react';
 import { CurrencyCode } from '../../../../domain/enums/currency-code';
 import { EventCategory } from '../../../../domain/enums/event-category';
 import { EventState } from '../../../../domain/enums/event-state';
@@ -37,15 +38,14 @@ import { cn } from '@/lib/utils';
 
 const EDITOR_CARD_CLASS = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
+  'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
-const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
-const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-1 gap-1.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:items-center sm:gap-x-4';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-tight text-foreground/80';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
 const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
-const SECTION_H2 = 'text-sm font-semibold leading-tight text-foreground/90';
+const SECTION_H2 = 'text-base font-semibold leading-tight text-foreground';
 
 function FieldRow({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -56,12 +56,22 @@ function FieldRow({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
+/** Stacked label + full-width control (date pickers, combo boxes). */
+function DateField({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="flex min-w-0 flex-col gap-1.5">
+      <div className="text-sm font-medium leading-none text-foreground">{label}</div>
+      <div className="min-w-0 [&>button]:w-full [&_button[aria-haspopup=dialog]]:w-full">{children}</div>
+    </div>
+  );
+}
+
 /** Matches `MetaRow` on the event details page (`event-info.tsx`). */
 function MetaRow({ icon, children, className }: { icon: ReactNode; children: ReactNode; className?: string }) {
   return (
-    <div className={cn('flex min-w-0 items-center gap-2', className)}>
-      <div className="flex h-7 w-7 shrink-0 items-center justify-center [&>img]:h-full [&>img]:w-full [&>img]:object-contain">{icon}</div>
-      <div className="type-body-sm min-w-0 flex-1 wrap-break-word text-foreground/90 leading-snug">{children}</div>
+    <div className={cn('flex min-w-0 items-center gap-3', className)}>
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground/80 [&>svg]:h-[18px] [&>svg]:w-[18px]">{icon}</div>
+      <div className="min-w-0 flex-1 wrap-break-word text-sm font-medium leading-snug text-foreground">{children}</div>
     </div>
   );
 }
@@ -378,7 +388,7 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
       setEventName(eventInfo?.name);
       setEventType(eventInfo?.type);
       setDateFrom(eventInfo?.dateFrom);
-      setDateTo(eventInfo?.dateFrom);
+      setDateTo(eventInfo?.dateTo);
       setRegistrationDateFrom(eventInfo?.registrationOpen);
       setRegistrationDateTo(eventInfo?.registrationDeadline);
       setVenueCountryCode(eventInfo?.venueCountryCode);
@@ -396,67 +406,102 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
     }
   });
 
+  const stepPages: CreationProcessPage[] =
+    eventType === EventType.MEETING
+      ? [CreationProcessPage.EVENT_TYPE, CreationProcessPage.GENERAL_DETAILS, CreationProcessPage.OVERVIEW]
+      : [CreationProcessPage.EVENT_TYPE, CreationProcessPage.COMP_TYPE, CreationProcessPage.GENERAL_DETAILS, CreationProcessPage.OVERVIEW];
+  const stepLabels = stepPages.map(p =>
+    p === CreationProcessPage.EVENT_TYPE ? t('stepType') : p === CreationProcessPage.COMP_TYPE ? t('stepFormat') : p === CreationProcessPage.GENERAL_DETAILS ? t('stepDetails') : t('stepReview'),
+  );
+  const currentStepIndex = stepPages.indexOf(page as CreationProcessPage);
+
+  // explain why "Next" is disabled instead of leaving the user guessing
+  const validationHints: string[] = [];
+  if (page === CreationProcessPage.GENERAL_DETAILS) {
+    if (eventName && eventName.length < 3) validationHints.push(t('errNameTooShort'));
+    if (dateFrom && dateTo && dateFrom > dateTo) validationHints.push(t('errDateOrder'));
+    if (registrationDateFrom && registrationDateTo && registrationDateFrom > registrationDateTo) validationHints.push(t('errRegistrationOrder'));
+    if (registrationDateTo && dateFrom && registrationDateTo > dateFrom) validationHints.push(t('errRegistrationAfterStart'));
+  }
+
+  const dateRange = dateFrom && dateTo ? `${getShortDateString(moment(dateFrom), false)} – ${getShortDateString(moment(dateTo))}` : undefined;
+  const registrationRange = registrationDateFrom && registrationDateTo ? `${getShortDateString(moment(registrationDateFrom), false)} – ${getShortDateString(moment(registrationDateTo))}` : undefined;
+
   return (
     <div className="min-h-0 flex-1 flex flex-col">
       <Toaster richColors />
       <UnlistedEventsCreateDialog open={unlistedBlocked} onOpenChange={setUnlistedBlocked} />
 
-      {page && <PageTitle title={`${t('pageTitleEventCreationFlow')}`} />}
-
       <div className="min-h-0 flex-1 overflow-y-auto">
-        <div className="mx-auto flex w-full max-w-content flex-col items-center px-4 py-4 sm:px-6 md:px-8">
+        <div className="mx-auto flex w-full max-w-2xl min-w-0 flex-col gap-5 px-4 pb-8 pt-4 sm:gap-6 sm:px-6 sm:pt-6">
+          {page && (
+            <header className="flex flex-col gap-4">
+              <h1 className="text-heading-1 text-center sm:text-left">{t('pageTitleEventCreationFlow')}</h1>
+              <LabeledStepper steps={stepLabels} currentIndex={currentStepIndex} counterLabel={t('stepCounter', { current: currentStepIndex + 1, total: stepPages.length })} />
+            </header>
+          )}
+
           {/* Page: General Event Type Choice */}
           {page && page === CreationProcessPage.EVENT_TYPE && (
-            <div className="flex w-full max-w-2xl min-w-0 flex-col items-center gap-4">
-              <p className="w-full text-balance text-center text-foreground">{t('pageEventTypeDescription')}</p>
-              <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
-                <TextAndImageButton
-                  text={t('pageEventTypeCompetition')}
-                  image={imgCompetition}
+            <section className="flex min-w-0 flex-col gap-3">
+              <h2 className={SECTION_H2}>{t('pageEventTypeDescription')}</h2>
+              <p className="flex items-start gap-2 rounded-xl border border-border/70 bg-muted/40 px-3 py-2.5 text-sm text-muted-foreground" data-testid="create-event-later-hint">
+                <IconInfoCircle className="mt-0.5 h-4 w-4 shrink-0" stroke={1.75} aria-hidden />
+                {t('pageEventTypeLaterHint')}
+              </p>
+              <div className="grid grid-cols-1 gap-3">
+                <ChoiceCard
+                  title={t('pageEventTypeCompetition')}
+                  description={t('pageEventTypeCompetitionHint')}
+                  Icon={IconTrophy}
                   onClick={() => {
                     handleEventTypeChoiceClicked(EventType.COMPETITION);
                   }}
                 />
-                <TextAndImageButton
-                  text={t('pageEventTypeMeeting')}
-                  image={imgMeeting}
+                <ChoiceCard
+                  title={t('pageEventTypeMeeting')}
+                  description={t('pageEventTypeMeetingHint')}
+                  Icon={IconUsersGroup}
+                  tone="bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300"
                   onClick={() => {
                     handleEventTypeChoiceClicked(EventType.MEETING);
                   }}
                 />
               </div>
-            </div>
+            </section>
           )}
 
           {/* Page: Comp Type Choice */}
           {page && page === CreationProcessPage.COMP_TYPE && (
-            <div className="flex w-full max-w-2xl min-w-0 flex-col items-center gap-4">
-              <p className="w-full text-balance text-center text-foreground">{t('pageCompTypeDescription')}</p>
-              <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
-                <TextAndImageButton
-                  text={t('pageCompTypeOnsite')}
-                  image={imgCompetitionOnsite}
+            <section className="flex min-w-0 flex-col gap-3">
+              <h2 className={SECTION_H2}>{t('pageCompTypeDescription')}</h2>
+              <div className="grid grid-cols-1 gap-3">
+                <ChoiceCard
+                  title={t('pageCompTypeOnsite')}
+                  description={t('pageCompTypeOnsiteHint')}
+                  Icon={IconMapPin}
                   onClick={() => {
                     handleCompTypeChoiceClicked(EventType.COMPETITION);
                   }}
                 />
-                <TextAndImageButton
-                  text={t('pageCompTypeOnline')}
-                  image={imgCompetitionOnline}
+                <ChoiceCard
+                  title={t('pageCompTypeOnline')}
+                  description={t('pageCompTypeOnlineHint')}
+                  Icon={IconWorld}
+                  tone="bg-sky-50 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300"
                   onClick={() => {
                     handleCompTypeChoiceClicked(EventType.COMPETITION_ONLINE);
                   }}
                 />
               </div>
-            </div>
+            </section>
           )}
 
           {/* Page: General Details */}
           {page && page === CreationProcessPage.GENERAL_DETAILS && (
-            <div className={EDITOR_CARD_CLASS}>
-              <h2 className={cn(SECTION_H2, 'text-center sm:text-left')}>{t('pageGeneralDetailsDescription')}</h2>
-
-              <div className="flex flex-col gap-3">
+            <div className="flex min-w-0 flex-col gap-4">
+              <section className={EDITOR_CARD_CLASS}>
+                <h2 className={SECTION_H2}>{t('sectionBasics')}</h2>
                 <TextInput
                   id={'name'}
                   label={t('pageGeneralDetailsInputName')}
@@ -467,33 +512,38 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
                   }}
                 />
 
-                {eventType !== EventType.MEETING && (
-                  <FieldRow label={t('pageGeneralDetailsCbCategory')}>
-                    <ComboBox
-                      menus={menuEventCategories(eventAdmin?.isWffaMember || false)}
-                      value={eventCategory}
-                      onChange={(value: EventCategory) => {
-                        handleEventCatergoryChanged(value);
-                      }}
-                    />
-                  </FieldRow>
-                )}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {eventType !== EventType.MEETING && (
+                    <DateField label={t('pageGeneralDetailsCbCategory')}>
+                      <ComboBox
+                        menus={menuEventCategories(eventAdmin?.isWffaMember || false)}
+                        value={eventCategory}
+                        onChange={(value: EventCategory) => {
+                          handleEventCatergoryChanged(value);
+                        }}
+                      />
+                    </DateField>
+                  )}
 
-                {eventType !== EventType.COMPETITION_ONLINE && (
-                  <FieldRow label={t('pageGeneralDetailsCbVenueCountry')}>
-                    <ComboBox
-                      menus={menuCountries}
-                      value={venueCountryCode || eventAdmin?.countryCode || ''}
-                      searchEnabled={true}
-                      onChange={(value: any) => {
-                        handleVenueCountryCodeChanged(value);
-                      }}
-                    />
-                  </FieldRow>
-                )}
+                  {eventType !== EventType.COMPETITION_ONLINE && (
+                    <DateField label={t('pageGeneralDetailsCbVenueCountry')}>
+                      <ComboBox
+                        menus={menuCountries}
+                        value={venueCountryCode || eventAdmin?.countryCode || ''}
+                        searchEnabled={true}
+                        onChange={(value: any) => {
+                          handleVenueCountryCodeChanged(value);
+                        }}
+                      />
+                    </DateField>
+                  )}
+                </div>
+              </section>
 
-                <FieldRow label={t('pageGeneralDetailsDatePickerFrom')}>
-                  <div className={FIELD_CONTROL_TALL_INNER}>
+              <section className={EDITOR_CARD_CLASS}>
+                <h2 className={SECTION_H2}>{t('sectionEventDates')}</h2>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <DateField label={t('pageGeneralDetailsDatePickerFrom')}>
                     <DatePicker
                       date={dateFrom ? moment(dateFrom) : undefined}
                       fromDate={moment('2020')}
@@ -504,11 +554,8 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
                         }
                       }}
                     />
-                  </div>
-                </FieldRow>
-
-                <FieldRow label={t('pageGeneralDetailsDatePickerTo')}>
-                  <div className={FIELD_CONTROL_TALL_INNER}>
+                  </DateField>
+                  <DateField label={t('pageGeneralDetailsDatePickerTo')}>
                     <DatePicker
                       date={dateTo ? moment(dateTo) : undefined}
                       fromDate={moment('2020')}
@@ -519,11 +566,14 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
                         }
                       }}
                     />
-                  </div>
-                </FieldRow>
+                  </DateField>
+                </div>
+              </section>
 
-                <FieldRow label={t('pageGeneralDetailsDatePickerRegistrationFrom')}>
-                  <div className={FIELD_CONTROL_TALL_INNER}>
+              <section className={EDITOR_CARD_CLASS}>
+                <h2 className={SECTION_H2}>{t('sectionRegistrationPeriod')}</h2>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <DateField label={t('pageGeneralDetailsDatePickerRegistrationFrom')}>
                     <DatePicker
                       date={registrationDateFrom ? moment(registrationDateFrom) : undefined}
                       fromDate={moment('2020')}
@@ -534,11 +584,8 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
                         }
                       }}
                     />
-                  </div>
-                </FieldRow>
-
-                <FieldRow label={t('pageGeneralDetailsDatePickerRegistrationTo')}>
-                  <div className={FIELD_CONTROL_TALL_INNER}>
+                  </DateField>
+                  <DateField label={t('pageGeneralDetailsDatePickerRegistrationTo')}>
                     <DatePicker
                       date={registrationDateTo ? moment(registrationDateTo) : undefined}
                       fromDate={moment('2020')}
@@ -549,30 +596,70 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
                         }
                       }}
                     />
-                  </div>
-                </FieldRow>
-              </div>
+                  </DateField>
+                </div>
+              </section>
+
+              {validationHints.length > 0 && (
+                <ul
+                  className="flex flex-col gap-1.5 rounded-2xl border border-amber-300/60 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200"
+                  role="status"
+                >
+                  {validationHints.map(h => (
+                    <li key={h} className="flex items-start gap-2">
+                      <IconAlertTriangle className="mt-0.5 h-4 w-4 shrink-0" stroke={1.75} aria-hidden />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
 
           {/* Page: Overview */}
           {page && page === CreationProcessPage.OVERVIEW && (
-            <div className={EDITOR_CARD_CLASS}>
-              <h2 className={cn(SECTION_H2, 'text-center sm:text-left')}>{t('pageCheckoutOverviewDescription')}</h2>
+            <div className="flex min-w-0 flex-col gap-4">
+              <h2 className={SECTION_H2}>{t('pageCheckoutOverviewDescription')}</h2>
 
-              <div className="flex flex-col gap-4">
-                <div className="min-w-0 text-base font-medium text-foreground">{eventName}</div>
-
-                {eventType && (
-                  <MetaRow icon={<img src={eventType === EventType.MEETING ? imgMeeting : imgCompetition} alt="" />}>
-                    {eventType === EventType.MEETING ? getNameByEventType(eventType) : `${getNameByEventType(eventType)} (${toTitleCase(eventCategory)})`}
-                  </MetaRow>
-                )}
-
-                {eventType !== EventType.COMPETITION_ONLINE && venueCountryCode && <MetaRow icon={<img src={imgLocation} alt="" />}>{getCountryNameByCode(venueCountryCode)}</MetaRow>}
-
-                {dateFrom && dateTo && <MetaRow icon={<img src={imgCalender} alt="" />}>{`${getShortDateString(moment(dateFrom), false)} – ${getShortDateString(moment(dateTo))}`}</MetaRow>}
-              </div>
+              <section className="overflow-hidden rounded-3xl border border-border bg-background shadow-xs">
+                <div className="flex flex-col gap-4 p-4 sm:flex-row sm:p-6">
+                  <div className="h-28 w-full shrink-0 overflow-hidden rounded-2xl ring-1 ring-border sm:h-32 sm:w-32">{eventType && <EventPosterPlaceholder eventType={eventType} />}</div>
+                  <div className="flex min-w-0 flex-1 flex-col gap-3">
+                    {eventType && (
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-brand-soft px-2.5 py-1 text-xs font-semibold text-brand-strong">
+                          <EventTypeGlyph eventType={eventType} className="h-3.5 w-3.5" />
+                          {getNameByEventType(eventType)}
+                        </span>
+                        {eventType !== EventType.MEETING && (
+                          <span className="inline-flex items-center rounded-full border border-border px-2.5 py-1 text-xs font-semibold text-foreground/80">{toTitleCase(eventCategory)}</span>
+                        )}
+                      </div>
+                    )}
+                    <div className="min-w-0 wrap-break-word text-2xl font-bold tracking-tight text-foreground">{eventName}</div>
+                    <div className="flex flex-col gap-2.5">
+                      {dateRange && (
+                        <MetaRow icon={<IconCalendarEvent stroke={1.75} />}>
+                          <span className="block text-xs font-medium uppercase tracking-wider text-muted-foreground">{t('sectionEventDates')}</span>
+                          {dateRange}
+                        </MetaRow>
+                      )}
+                      {registrationRange && (
+                        <MetaRow icon={<IconHourglass stroke={1.75} />}>
+                          <span className="block text-xs font-medium uppercase tracking-wider text-muted-foreground">{t('sectionRegistrationPeriod')}</span>
+                          {registrationRange}
+                        </MetaRow>
+                      )}
+                      {eventType !== EventType.COMPETITION_ONLINE && venueCountryCode && <MetaRow icon={<IconMapPin stroke={1.75} />}>{getCountryNameByCode(venueCountryCode)}</MetaRow>}
+                      {eventType === EventType.COMPETITION_ONLINE && <MetaRow icon={<IconWorld stroke={1.75} />}>{t('pageCompTypeOnline')}</MetaRow>}
+                    </div>
+                  </div>
+                </div>
+                <p className="flex items-start gap-2 border-t border-border/70 bg-muted/40 px-4 py-3 text-sm text-muted-foreground sm:px-6">
+                  <IconInfoCircle className="mt-0.5 h-4 w-4 shrink-0" stroke={1.75} aria-hidden />
+                  {t('reviewHintUnlisted')}
+                </p>
+              </section>
             </div>
           )}
         </div>
@@ -585,7 +672,7 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
 
         {/* Button Cancel Process */}
         {cancelButtonShown() && (
-          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCancelClicked}>
+          <Button type="button" variant="outline" className="rounded-xl" onClick={handleCancelClicked}>
             {t('btnBackToOverview')}
           </Button>
         )}

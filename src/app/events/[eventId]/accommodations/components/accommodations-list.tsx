@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { IconGripVertical } from '@tabler/icons-react';
+import { IconBed, IconGripVertical } from '@tabler/icons-react';
+import { EmptyState } from '@/components/common/empty-state';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { toast, Toaster } from 'sonner';
@@ -72,6 +73,10 @@ const AccommodationsList = ({ eventId, currency, accommodations }: Accommodation
     setDropIndex(null);
   };
 
+  if (items.length === 0) {
+    return <EmptyState icon={<IconBed stroke={1.75} aria-hidden />} title={t('textNoAccommodations')} />;
+  }
+
   return (
     <>
       <Toaster richColors />
@@ -134,11 +139,7 @@ const AccommodationsList = ({ eventId, currency, accommodations }: Accommodation
                 <TableCell className="whitespace-nowrap">{convertCurrencyIntegerToDecimal(accommodation.cost, currency)}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-1">
-                    <ActionButton
-                      href={`${routeEvents}/${eventId}/accommodations/${accommodation.id}/edit`}
-                      action={Action.EDIT}
-                      tooltip={t('tooltipEditAccommodation')}
-                    />
+                    <ActionButton href={`${routeEvents}/${eventId}/accommodations/${accommodation.id}/edit`} action={Action.EDIT} tooltip={t('tooltipEditAccommodation')} />
                   </div>
                 </TableCell>
               </TableRow>

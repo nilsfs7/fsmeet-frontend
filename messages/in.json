@@ -11,9 +11,19 @@
     "navMap": "मैप",
     "navCommunity": "समुदाय",
     "navVoice": "आवाज़",
+    "navTraining": "ट्रेनिंग",
     "navAdminOverview": "एडमिन",
     "navWffaOverview": "WFFA",
-    "navAbout": "परिचय"
+    "navAbout": "परिचय",
+    "heroEyebrow": "फ्रीस्टाइल फ़ुटबॉल कम्युनिटी",
+    "eventsTitle": "इवेंट्स",
+    "eventsSubtitle": "चल रहे, आने वाले और हाल के हाइलाइट्स",
+    "exploreTitle": "कम्युनिटी एक्सप्लोर करें",
+    "exploreMapText": "अपने पास के फ्रीस्टाइलर्स खोजें और मैप पर खुद को दिखाएं।",
+    "exploreCommunityText": "एथलीट, जज, आयोजक और ब्रांड देखें।",
+    "exploreVoiceText": "सीन को आकार देने वाले प्रस्तावों पर अपनी राय दें।",
+    "exploreTrainingText": "अपने स्किल्स की ट्रेनिंग करें और अपनी प्रगति देखें।",
+    "exploreAboutText": "जानें FSMeet क्या है, इसे कौन बनाता है और कैसे सपोर्ट करें।"
   },
   "/about": {
     "pageTitle": "परिचय",
@@ -27,10 +37,20 @@
     "lnkTermsOfService": "सेवा की शर्तें",
     "lnkPrivacyPolicy": "गोपनीयता नीति",
     "build": "बिल्ड",
-    "ariaLegal": "कानूनी"
+    "ariaLegal": "कानूनी",
+    "heroEyebrow": "FSMeet के बारे में",
+    "sectionGetInvolved": "जुड़ें",
+    "btnFeedback": "फ़ीडबैक भेजें",
+    "sectionSupport": "FSMeet का समर्थन करें",
+    "supportText": "FSMeet कम्युनिटी के लिए मुफ़्त है। दान सर्वर और डेवलपमेंट का खर्च उठाने में मदद करता है।",
+    "contributorsText": "उन लोगों से मिलें जो FSMeet बनाते, अनुवाद करते और आकार देते हैं।",
+    "btnShowContributors": "योगदानकर्ता देखें",
+    "sectionOpenSource": "ओपन सोर्स",
+    "openSourceText": "FSMeet का फ्रंटएंड GitHub पर ओपन सोर्स है।"
   },
   "/about/contributors": {
     "pageTitle": "योगदानकर्ता",
+    "pageDescription": "वे लोग जो FSMeet बनाते, अनुवाद करते और आकार देते हैं।",
     "sectionMainContributors": "मुख्य योगदानकर्ता",
     "textHeadOfDevelopment": "विकास प्रमुख",
     "textMobileAppDevelopment": "मोबाइल ऐप विकास",
@@ -39,6 +59,7 @@
     "textJapaneseAndOtherLanguagesTranslation": "अनुवादक - जापानी व अन्य भाषाएँ",
     "textUxAdvisor": "यूएक्स सलाहकार",
     "sectionCommunityProposals": "समुदाय प्रस्ताव",
+    "sectionCommunityProposalsText": "कम्युनिटी के आइडिया जो FSMeet में शामिल हुए।",
     "textPersonalSchedule": "एथलीट्स के लिए व्यक्तिगत शेड्यूल",
     "textSearchByGender": "लिंग के अनुसार फ्रीस्टाइलर मैप खोजें",
     "lnkAnnouncement": "घोषणा",
@@ -50,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "खाता सेटिंग्स",
+    "pageDescription": "अपनी प्रोफ़ाइल, मैप पिन, जॉब्स और अकाउंट प्रबंधित करें।",
     "profilePictureAddPicture": "तस्वीर जोड़ें",
     "profilePictureNoFileChosen": "कोई फ़ाइल नहीं चुनी गई",
     "btnSave": "सहेजें",
@@ -165,7 +187,24 @@
     "toastProfileUpdated": "प्रोफ़ाइल अपडेट हुई।",
     "toastProfileLoadFailed": "सेशन स्टोरेज से उपयोगकर्ता जानकारी लोड नहीं हो सकी।",
     "toastStripeAccount": "Stripe खाता बन गया।",
-    "toastVerificationRequested": "सत्यापन का अनुरोध हो गया।"
+    "toastVerificationRequested": "सत्यापन का अनुरोध हो गया।",
+    "btnChangePicture": "फ़ोटो बदलें",
+    "btnViewProfile": "प्रोफ़ाइल देखें",
+    "tabAccountSectionDangerZone": "डेंजर ज़ोन",
+    "tabAccountDeleteAccountHint": "अकाउंट डिलीट करना स्थायी है और इसे वापस नहीं लिया जा सकता।",
+    "lblStripeDashboardOpening": "Stripe खोला जा रहा है…",
+    "alertStripeDashboardUnavailableTitle": "Stripe डैशबोर्ड उपलब्ध नहीं है",
+    "alertStripeDashboardUnavailableText": "इस भुगतान खाते के लिए Stripe डैशबोर्ड नहीं खोला जा सकता। आपके भुगतान अब भी “भुगतान प्रबंधित करें” में उपलब्ध हैं। अगर आपने Stripe सेटअप पूरा नहीं किया है, तो उसे “जानकारी संपादित करें” से पूरा करें।",
+    "alertStripeOnboardingIncompleteTitle": "Stripe सेटअप पूरा नहीं हुआ",
+    "alertStripeOnboardingIncompleteText": "आपका Stripe सेटअप अभी पूरा नहीं हुआ है। Stripe डैशबोर्ड इस्तेमाल करने के लिए इसे पूरा करें।",
+    "alertStripeDashboardErrorTitle": "Stripe डैशबोर्ड नहीं खुल सका",
+    "toastStripeDashboardGeneric": "Stripe डैशबोर्ड नहीं खुल सका। कृपया बाद में फिर कोशिश करें या सपोर्ट से संपर्क करें।",
+    "toastStripeDashboardSession": "आपका सत्र समाप्त हो गया है। कृपया फिर से लॉग इन करें।",
+    "btnFinishStripeSetup": "Stripe सेटअप पूरा करें",
+    "btnContactSupport": "सपोर्ट से संपर्क करें",
+    "errWebsiteInvalid": "कृपया एक मान्य वेब पता दर्ज करें, जैसे https://example.com।",
+    "errCityRequiredForPin": "मानचित्र पर अपना पिन प्रकाशित करने के लिए शहर दर्ज करें, या प्रकाशन से टिक हटाएँ।",
+    "toastFixErrors": "सहेजने से पहले कृपया चिह्नित फ़ील्ड ठीक करें।"
   },
   "/account/deleted": {
     "textGoodbye": "अलविदा!",
@@ -175,7 +214,11 @@
   "/account/image": {
     "pageTitle": "खाता सेटिंग्स",
     "btnUpload": "अपलोड करें",
-    "btnDelete": "हटाएं"
+    "btnDelete": "हटाएं",
+    "pageTitlePicture": "प्रोफ़ाइल फ़ोटो",
+    "pageDescription": "चौकोर फ़ोटो सबसे अच्छी लगती है। आपकी फ़ोटो प्रोफ़ाइल, मैप और इवेंट लिस्ट में दिखती है।",
+    "lblChooseImage": "फ़ोटो चुनें",
+    "hintImage": "JPG, PNG या WebP"
   },
   "/account/payments": {
     "pageTitle": "भुगतान प्रबंधित करें",
@@ -337,7 +380,32 @@
     "btnCopyUrlToast": "इवेंट URL क्लिपबोर्ड में कॉपी किया गया।",
     "btnCopyUrlToolTip": "इवेंट URL कॉपी करें",
     "btnRegistration": "पंजीकरण",
-    "btnFeedback": "फीडबैक"
+    "btnFeedback": "फीडबैक",
+    "cardRegistrationTitle": "रजिस्ट्रेशन",
+    "regStatusOpen": "खुला",
+    "regStatusUpcoming": "अभी नहीं खुला",
+    "regStatusClosed": "बंद",
+    "regOpensOn": "{date} को खुलेगा",
+    "regClosesOn": "{date} को बंद होगा",
+    "regClosedOn": "{date} को बंद हुआ",
+    "regDaysLeft": "{count, plural, =0 {आखिरी दिन} one {# दिन बाकी} other {# दिन बाकी}}",
+    "lblVisitorFee": "विज़िटर शुल्क",
+    "lblOrganizer": "आयोजक",
+    "lblWhen": "कब",
+    "lblWhere": "कहाँ",
+    "lblEventOver": "यह इवेंट समाप्त हो गया है।",
+    "lblParticipantsRegistered": "{count, plural, =0 {अभी कोई प्रतिभागी नहीं} one {# प्रतिभागी} other {# प्रतिभागी}}",
+    "sectionAbout": "इस इवेंट के बारे में",
+    "sectionLinks": "लिंक",
+    "lblCategory": "श्रेणी",
+    "tabOverviewSectionSponsorsPresentedBy": "प्रस्तुतकर्ता",
+    "tabOverviewSectionSponsorsHint": "उन साझेदारों का धन्यवाद जो इस इवेंट को संभव बनाते हैं।",
+    "tabOverviewSectionSponsorsVisit": "वेबसाइट देखें (नए टैब में)",
+    "toastCommentPosted": "टिप्पणी पोस्ट हो गई",
+    "toastReplyPosted": "जवाब पोस्ट हो गया",
+    "btnPostComment": "टिप्पणी पोस्ट करें",
+    "btnPostReply": "जवाब पोस्ट करें",
+    "btnReply": "जवाब दें"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "आवास प्रबंधित करें",
@@ -372,11 +440,13 @@
     "pageTitle": "दस्तावेज़ संपादित करें",
     "dlgDeleteFileTitle": "दस्तावेज़ हटाएं",
     "dlgDeleteFileText": "क्या आप वास्तव में इस दस्तावेज़ को हटाना चाहते हैं?",
-    "btnSave": "सहेजें"
+    "btnSave": "सहेजें",
+    "pageDescription": "कोई फ़ाइल अपलोड करें या किसी दस्तावेज़ का लिंक जोड़ें जिसे प्रतिभागी इवेंट पेज पर खोल सकें।"
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "दस्तावेज़ बनाएं",
-    "btnCreate": "बनाएं"
+    "btnCreate": "बनाएं",
+    "pageDescription": "कोई फ़ाइल अपलोड करें या किसी दस्तावेज़ का लिंक जोड़ें जिसे प्रतिभागी इवेंट पेज पर खोल सकें।"
   },
   "/events/eventid/comps": {
     "pageTitle": "प्रतियोगिताएं प्रबंधित करें",
@@ -449,7 +519,14 @@
     "errorLoadArena": "एरीना स्क्रीन लोड नहीं हो सकी",
     "styleUnavailable": "एरीना स्टाइल उपलब्ध नहीं",
     "openSlot": "खाली स्लॉट",
-    "noCountry": "कोई देश नहीं"
+    "noCountry": "कोई देश नहीं",
+    "sectionLiveMatch": "लाइव मैच",
+    "sectionLiveMatchHint": "वह प्रतियोगिता और बैटल चुनें जो एरीना स्क्रीन पर अभी दिखनी चाहिए।",
+    "sectionShow": "स्क्रीन पर दिखाएं",
+    "sectionShowHint": "पूर्ण-स्क्रीन एरीना व्यू नए टैब में खोलता है। यह हर कुछ सेकंड में अपने-आप रीफ़्रेश होता है।",
+    "noMatchSelected": "दिखाने के लिए कोई मैच चुनें",
+    "labelPosition": "स्थान {position}",
+    "textRetrying": "हर कुछ सेकंड में अपने-आप फिर से कोशिश होती है।"
   },
   "/events/eventid/pro": {
     "pageTitle": "इवेंट लाइसेंस",
@@ -516,7 +593,20 @@
     "dlgDownloadResultsBtnDownload": "डाउनलोड करें",
     "toastMatchesInconsistent": "मैच के डेटा असंगत लगते हैं।",
     "toastResultsProcessed": "मैच परिणाम प्रोसेस हो गए।",
-    "toastExportInconsistent": "परिणामों का एक्सपोर्ट असंगत है।"
+    "toastExportInconsistent": "परिणामों का एक्सपोर्ट असंगत है।",
+    "tabInfoNone": "कोई नहीं",
+    "tabInfoParticipants": "प्रतिभागी",
+    "tabInfoRounds": "राउंड",
+    "textNoScheduleTitle": "अभी कोई शेड्यूल नहीं",
+    "textNoScheduleDescription": "आयोजक ने अभी इस प्रतियोगिता का शेड्यूल नहीं बनाया है। बाद में देखें।",
+    "btnCopyUrlToolTip": "प्रतियोगिता URL कॉपी करें",
+    "btnCopyUrlToast": "प्रतियोगिता URL क्लिपबोर्ड पर कॉपी हो गया।"
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "प्रतियोगिता नहीं मिली",
+    "textNotFoundHint": "यह प्रतियोगिता लिंक अमान्य है या प्रतियोगिता अब मौजूद नहीं है।",
+    "btnBackHome": "होम पर वापस जाएं",
+    "btnBackToEvents": "सारांश पर वापस जाएं"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "खिलाड़ी पूल प्रबंधित करें",
@@ -615,12 +705,27 @@
     "toastRoundsUpdated": "राउंड अपडेट हो गए",
     "toastRoundDeleted": "राउंड हटाया गया",
     "defaultRoundName": "राउंड {index}",
-    "defaultMatchName": "मैच {index}"
+    "defaultMatchName": "मैच {index}",
+    "btnAddRound": "राउंड जोड़ें",
+    "statPlayers": "{count, plural, one {पूल में # खिलाड़ी} other {पूल में # खिलाड़ी}}",
+    "statRounds": "{count, plural, one {# राउंड} other {# राउंड}}",
+    "statMatches": "{count, plural, one {# मैच} other {# मैच}}",
+    "chipNotSaved": "अभी सेव नहीं हुआ",
+    "hintMode": "पहले से आख़िरी तक राउंड बनाएं। एक राउंड से आगे बढ़ने वाले खिलाड़ी अगले राउंड में उपलब्ध होते हैं।",
+    "noteFinalSet": "फ़ाइनल राउंड तय है। ज़रूरत हो तो मैच बदलें, फिर सेव करें।",
+    "textNoRounds": "अभी कोई राउंड नहीं। पहले राउंड से शुरू करें।",
+    "btnGoToPool": "पूल पर जाएं",
+    "chipUnsavedChanges": "बिना सेव किए बदलाव",
+    "hintReorder": "राउंड के अंदर क्रम बदलने के लिए मैच कार्ड खींचें या तीरों का उपयोग करें, फिर सेव करें।",
+    "dlgDeleteRoundHint": "इस राउंड के सभी मैच भी हट जाएंगे। गेम मोड सेव करने पर ही बदलाव लागू होते हैं।",
+    "dlgApplyHint": "गेम मोड सेव करने पर ही बदलाव लागू होते हैं।"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "सीडिंग और परिणाम",
     "textNoGameMode": "आपने अभी तक गेम मोड कॉन्फ़िगर नहीं किया है।",
-    "toastSlotUpdated": "स्लॉट अपडेट हुआ"
+    "toastSlotUpdated": "स्लॉट अपडेट हुआ",
+    "btnGoToGameMode": "गेम मोड सेट करें",
+    "hintSeeding": "हर स्लॉट में खिलाड़ी चुनें और परिणाम दर्ज करें। हर बदलाव तुरंत सेव होता है; ज़्यादा परिणाम वाला जीतता है।"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "प्रतियोगिता संपादित करें",
@@ -640,8 +745,10 @@
     "btnSubmit": "सबमिट करें"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "इवेंट नहीं मिला।",
-    "btnBackToEvents": "सारांश पर वापस जाएं"
+    "textNotFound": "इवेंट नहीं मिला",
+    "btnBackToEvents": "सारांश पर वापस जाएं",
+    "textNotFoundHint": "लिंक पुराना हो सकता है, या इवेंट हटा दिया गया है या सार्वजनिक नहीं है।",
+    "btnBackHome": "होम पर वापस जाएं"
   },
   "/events/eventid/offerings": {
     "pageTitle": "सेवाएं प्रबंधित करें",
@@ -698,7 +805,10 @@
     "textNoFilterMatch": "फ़िल्टर से कोई उपस्थित नहीं मिला।",
     "alertPendingRegistrations": "{count, plural, other{समीक्षा के लिए # लंबित पंजीकरण हैं।}}",
     "toastRemoved": "{name} हटाया गया",
-    "toastStatusUpdated": "{name} का स्टेटस अपडेट हुआ"
+    "toastStatusUpdated": "{name} का स्टेटस अपडेट हुआ",
+    "statTotal": "सभी पंजीकरण",
+    "textShown": "{total} में से {shown} दिखाए गए",
+    "btnClearSearch": "खोज साफ़ करें"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "इवेंट पंजीकरण सारांश",
@@ -744,7 +854,22 @@
     "btnPay": "अभी भुगतान करें",
     "btnWorking": "चेकआउट शुरू हो रहा है…",
     "errorMissingSecret": "चेकआउट प्रतिक्रिया अधूरी है। फिर से कोशिश करें या सहायता से संपर्क करें।",
-    "errorCheckout": "भुगतान शुरू नहीं हो सका। फिर से कोशिश करें या सहायता से संपर्क करें।"
+    "errorCheckout": "भुगतान शुरू नहीं हो सका। फिर से कोशिश करें या सहायता से संपर्क करें।",
+    "stepDetails": "आपकी जानकारी",
+    "stepCompetitions": "प्रतियोगिताएँ",
+    "stepOfferings": "अतिरिक्त",
+    "stepAccommodations": "आवास",
+    "stepCheckout": "समीक्षा",
+    "stepCounter": "चरण {current} / {total}",
+    "summaryTitle": "आपका चयन",
+    "typeParticipant": "प्रतिभागी",
+    "typeVisitor": "दर्शक",
+    "summaryNone": "अभी कुछ नहीं चुना गया",
+    "statusUnregistered": "पंजीकृत नहीं",
+    "statusPending": "लंबित",
+    "statusApproved": "स्वीकृत",
+    "statusDenied": "अस्वीकृत",
+    "daysLeft": "{count, plural, one {# दिन शेष} other {# दिन शेष}}"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "पंजीकरण सफलतापूर्वक सबमिट हुआ।",
@@ -769,7 +894,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "आपका अनुरोध सफलतापूर्वक भेजा गया!",
     "textSuccess2": "स्वीकृति की प्रतीक्षा करें।",
-    "btnBack": "वापस"
+    "btnBack": "वापस",
+    "btnEvent": "इवेंट पर जाएं"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "प्रायोजक प्रबंधित करें",
@@ -786,13 +912,21 @@
     "tooltipViewStats": "आँकड़े देखें",
     "textNoAds": "अभी तक कोई विज्ञापन नहीं।",
     "tableColDescription": "विवरण",
-    "tableColActions": "कार्रवाइयाँ"
+    "tableColActions": "कार्रवाइयाँ",
+    "pageDescription": "FSMeet पर अपने प्रोडक्ट और सेवाओं का प्रचार करें।",
+    "chipActive": "सक्रिय",
+    "chipInactive": "निष्क्रिय",
+    "hintReorder": "विज्ञापनों के दिखने का क्रम बदलने के लिए उन्हें हैंडल से खींचें।",
+    "tooltipDragAd": "क्रम बदलने के लिए खींचें",
+    "toastReorderFailed": "विज्ञापनों का क्रम अपडेट नहीं हो सका।",
+    "toastReorderUnavailable": "विज्ञापनों का क्रम बदलना अभी उपलब्ध नहीं है। कृपया बाद में पुनः प्रयास करें।"
   },
   "/ads/create": {
     "pageTitle": "विज्ञापन बनाएं",
     "btnCreate": "बनाएं",
     "toastNeedLogin": "विज्ञापन बनाने के लिए लॉग इन करें।",
-    "toastCreateFailed": "विज्ञापन नहीं बना पाए।"
+    "toastCreateFailed": "विज्ञापन नहीं बना पाए।",
+    "pageDescription": "अपने प्रोडक्ट का वर्णन करें, इमेज और लिंक जोड़ें – पूर्वावलोकन दिखाता है कि यह कैसा दिखेगा।"
   },
   "/ads/edit": {
     "pageTitle": "विज्ञापन संपादित करें",
@@ -801,7 +935,8 @@
     "btnSave": "सहेजें",
     "toastSaveFailed": "विज्ञापन सहेजा नहीं जा सका।",
     "toastDeleteFailed": "विज्ञापन हटाया नहीं जा सका।",
-    "toastLoadFailed": "विज्ञापन लोड नहीं हो सका।"
+    "toastLoadFailed": "विज्ञापन लोड नहीं हो सका।",
+    "pageDescription": "अपने विज्ञापन की सामग्री, इमेज और दृश्यता अपडेट करें।"
   },
   "/ads/stats": {
     "pageTitle": "विज्ञापन आँकड़े",
@@ -887,17 +1022,20 @@
     "dlgRequestInfoTravelMethod": "यात्रा का तरीका",
     "dlgRequestInfoTravelFee": "यात्रा शुल्क",
     "dlgOfferTravelFeeFromRateHint": "किलोमीटर दर से सुझाव: {amount} (नीचे कुल राशि संपादित कर सकते हैं)",
-    "dlgOfferTravelFeeShortDistanceHint": "{km} किमी से कम एक तरफ़ा दूरी पर कोई यात्रा शुल्क सुझाया नहीं जाता।"
+    "dlgOfferTravelFeeShortDistanceHint": "{km} किमी से कम एक तरफ़ा दूरी पर कोई यात्रा शुल्क सुझाया नहीं जाता।",
+    "pageDescription": "FreestyleActs के ज़रिए मिली बुकिंग रिक्वेस्ट।"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "प्रायोजक बनाएं",
-    "btnCreate": "नया जोड़ें"
+    "btnCreate": "नया जोड़ें",
+    "pageDescription": "नाम, वेबसाइट और लोगो के साथ प्रायोजक जोड़ें। सार्वजनिक प्रायोजक इवेंट पेज पर दिखते हैं।"
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "प्रायोजक संपादित करें",
     "dlgDeleteTitle": "प्रायोजक हटाएं",
     "dlgDeleteText": "क्या आप वाकई इस प्रायोजक को हटाना चाहते हैं?",
-    "btnSave": "सहेजें"
+    "btnSave": "सहेजें",
+    "pageDescription": "नाम, वेबसाइट और लोगो के साथ प्रायोजक जोड़ें। सार्वजनिक प्रायोजक इवेंट पेज पर दिखते हैं।"
   },
   "/events/eventid/stats": {
     "pageTitle": "आंकड़े",
@@ -934,40 +1072,81 @@
     "btnBackToOverview": "रद्द करें",
     "btnNextPage": "अगला",
     "btnCreateEvent": "बनाएं",
-    "dlgUnlistedEvents": "जब आपके 2 या अधिक इवेंट सूचीबद्ध नहीं हों, तब आप दूसरा इवेंट नहीं बना सकते।"
+    "dlgUnlistedEvents": "जब आपके 2 या अधिक इवेंट सूचीबद्ध नहीं हों, तब आप दूसरा इवेंट नहीं बना सकते।",
+    "stepType": "प्रकार",
+    "stepFormat": "फ़ॉर्मेट",
+    "stepDetails": "विवरण",
+    "stepReview": "समीक्षा",
+    "stepCounter": "चरण {current} / {total}",
+    "pageEventTypeCompetitionHint": "प्रतिभागियों के लिए बैटल, रैंकिंग और जजिंग।",
+    "pageEventTypeMeetingHint": "जैम, वर्कशॉप और मिलन।",
+    "pageCompTypeOnsiteHint": "प्रतिभागी आयोजन स्थल पर मिलते हैं।",
+    "pageCompTypeOnlineHint": "प्रतिभागी ऑनलाइन वीडियो भेजते हैं।",
+    "sectionBasics": "मूल जानकारी",
+    "sectionEventDates": "इवेंट की तारीखें",
+    "sectionRegistrationPeriod": "पंजीकरण अवधि",
+    "errNameTooShort": "इवेंट के नाम में कम से कम 3 अक्षर होने चाहिए।",
+    "errDateOrder": "समाप्ति तिथि आरंभ तिथि से पहले नहीं हो सकती।",
+    "errRegistrationOrder": "पंजीकरण की अंतिम तिथि पंजीकरण शुरू होने से पहले नहीं हो सकती।",
+    "errRegistrationAfterStart": "पंजीकरण की अंतिम तिथि इवेंट शुरू होने के बाद नहीं हो सकती।",
+    "reviewHintUnlisted": "एडमिन की स्वीकृति तक आपका इवेंट सूचीबद्ध नहीं होगा। बाकी विवरण आप बनाने के बाद जोड़ सकते हैं।",
+    "pageEventTypeLaterHint": "स्थान, शुल्क और प्रतियोगिताएँ इवेंट बनने के बाद जोड़ी जाती हैं।"
   },
   "/events/manage": {
     "pageTitle": "इवेंट प्रबंधित करें",
+    "pageDescription": "आपके रजिस्ट्रेशन और आपके इवेंट्स एक ही जगह।",
     "tabRegistrationsTitle": "पंजीकरण",
     "tabRegistrationsTextNoEvents": "आपने अभी तक किसी इवेंट के लिए साइन अप नहीं किया है।",
     "tabEventsHostedTitle": "मेरे इवेंट",
     "tabEventsHostedTextNoEvents": "आपने अभी तक कोई इवेंट नहीं बनाया है।",
-    "btnCreate": "इवेंट बनाएं"
+    "btnCreate": "इवेंट बनाएं",
+    "sectionHosting": "होस्टिंग",
+    "sectionCoOrganizing": "सह-आयोजक",
+    "btnBrowseEvents": "इवेंट्स देखें",
+    "inputSearchPlaceholder": "नाम, उपनाम या शहर खोजें",
+    "btnFilters": "फ़िल्टर",
+    "filterStatus": "स्थिति",
+    "statusListed": "सूचीबद्ध",
+    "statusWaiting": "स्वीकृति की प्रतीक्षा",
+    "statusNotListed": "सूचीबद्ध नहीं",
+    "filterTime": "समय",
+    "timeUpcoming": "आगामी और जारी",
+    "timePast": "पिछले",
+    "lblResultCount": "{total} में से {shown} इवेंट",
+    "btnResetFilters": "फ़िल्टर रीसेट करें",
+    "emptyFilteredTitle": "कोई मेल खाता इवेंट नहीं",
+    "emptyFilteredText": "कोई दूसरा शब्द खोजें या फ़िल्टर रीसेट करें।"
   },
   "/feedback": {
     "pageTitle": "प्रतिक्रिया",
     "pageDescription": "नीचे एक विकल्प चुनकर हमें अपनी प्रतिक्रिया भेजें।",
     "pageGeneralFeedback": "सामान्य फीडबैक",
     "btnFeatures": "फीचर अनुरोध",
-    "btnBugs": "बग रिपोर्ट करें"
+    "btnBugs": "बग रिपोर्ट करें",
+    "descGeneral": "हमें बताएं कि आपको क्या पसंद है या क्या बेहतर हो सकता है।",
+    "descFeatures": "कोई नया फ़ीचर या सुधार सुझाएं।",
+    "descBugs": "कुछ खराब है? हमें बताएं क्या हुआ।"
   },
   "/feedback/bugs": {
     "pageTitle": "बग रिपोर्ट करें",
     "inputMessage": "संदेश",
     "inputMessagePlaceholder": "आपने जो भी समस्या देखी उसका विवरण दें।",
-    "btnSubmit": "सबमिट करें"
+    "btnSubmit": "सबमिट करें",
+    "pageDescription": "बताएं आपने क्या किया, क्या उम्मीद थी और इसके बजाय क्या हुआ।"
   },
   "/feedback/features": {
     "pageTitle": "फीचर अनुरोध",
     "inputMessage": "संदेश",
     "inputMessagePlaceholder": "क्या आपके पास हमारे लिए कोई आइडिया या सुधार है?",
-    "btnSubmit": "सबमिट करें"
+    "btnSubmit": "सबमिट करें",
+    "pageDescription": "अपना आइडिया शेयर करें – जितनी ज़्यादा जानकारी, उतना बेहतर।"
   },
   "/feedback/general": {
     "pageTitle": "फीडबैक भेजें",
     "inputMessage": "संदेश",
     "inputMessagePlaceholder": "किसी भी फीडबैक की बहुत सराहना की जाती है!",
-    "btnSubmit": "सबमिट करें"
+    "btnSubmit": "सबमिट करें",
+    "pageDescription": "हमें बताएं कि आपको क्या पसंद है या क्या बेहतर हो सकता है।"
   },
   "/feedback/thankyou": {
     "thankYouText1": "धन्यवाद!",
@@ -986,6 +1165,7 @@
   },
   "/map": {
     "pageTitle": "फ्रीस्टाइलर मैप",
+    "pageDescription": "अपने आस-पास फ्रीस्टाइलर्स, क्रू और आयोजकों को खोजें और खुद को मैप पर जोड़ें।",
     "dlgAddPinTitle": "अपना पिन जोड़ें",
     "dlgAddPinCornfirmText": "पुष्टि करें",
     "dlgAddPinInputCity": "शहर",
@@ -1002,21 +1182,37 @@
     "btnCopyUrlToast": "मैप URL क्लिपबोर्ड पर कॉपी हो गया।",
     "btnCopyUrlToolTip": "मैप URL कॉपी करें",
     "infoWindowGoToProfileInternal": "प्रोफ़ाइल के लिए क्लिक करें",
-    "infoWindowGoToProfileExternal": "FSMeet पर देखें"
+    "infoWindowGoToProfileExternal": "FSMeet पर देखें",
+    "resultsCount": "{count, plural, =0 {आपके फ़िल्टर से कोई मेल नहीं खाता} one {मैप पर # व्यक्ति} other {मैप पर # लोग}}"
   },
   "/password/forgot": {
     "inputUsername": "यूज़रनेम / ईमेल",
-    "btnResetPassword": "पासवर्ड रीसेट करें"
+    "btnResetPassword": "पासवर्ड रीसेट करें",
+    "pageTitle": "पासवर्ड भूल गए?",
+    "pageDescription": "अपना यूज़रनेम या ईमेल पता दर्ज करें, हम आपको नया पासवर्ड सेट करने के लिए एक लिंक भेजेंगे।",
+    "lnkBackToLogin": "लॉगिन पर वापस जाएँ"
   },
   "/password/forgot/pending": {
     "thankYouText1": "अपना मेल चेक करें।",
     "thankYouText2": "रीसेट लिंक भेज दिया गया है।",
-    "btnBackHome": "होम पर वापस"
+    "btnBackHome": "होम पर वापस",
+    "hintSpam": "ईमेल नहीं मिला? अपना स्पैम फ़ोल्डर देखें या नया लिंक मँगवाएँ।",
+    "btnRequestNewLink": "नया लिंक मँगवाएँ",
+    "btnBackToLogin": "लॉगिन पर वापस जाएँ"
   },
   "/password/reset": {
     "inputPassword": "नया पासवर्ड",
     "btnSave": "सेव करें",
-    "errorMissingResetLink": "यह रीसेट लिंक अमान्य या अधूरा है। पासवर्ड रीसेट ईमेल वाला लिंक खोलें।"
+    "errorMissingResetLink": "यह रीसेट लिंक अमान्य या अधूरा है। पासवर्ड रीसेट ईमेल वाला लिंक खोलें।",
+    "pageTitle": "नया पासवर्ड सेट करें",
+    "pageDescription": "अपने FSMeet खाते के लिए नया पासवर्ड चुनें।",
+    "showPassword": "पासवर्ड दिखाएँ",
+    "hidePassword": "पासवर्ड छिपाएँ",
+    "invalidLinkTitle": "रीसेट लिंक मान्य नहीं है",
+    "btnRequestNewLink": "नया लिंक मँगवाएँ",
+    "successTitle": "पासवर्ड बदल गया",
+    "successText": "आपका पासवर्ड अपडेट हो गया है। अब आप नए पासवर्ड से लॉगिन कर सकते हैं।",
+    "btnGoToLogin": "लॉगिन पर जाएँ"
   },
   "/registration": {
     "headlineCreateAccount": "अकाउंट बनाएं",
@@ -1028,20 +1224,36 @@
     "cbCountry": "देश",
     "inputEmail": "ईमेल",
     "inputPassword": "पासवर्ड",
-    "btnSignUp": "साइन अप"
+    "btnSignUp": "साइन अप",
+    "sectionProfile": "प्रोफ़ाइल",
+    "sectionAccount": "लॉगिन विवरण",
+    "hintUsername": "छोटे अक्षरों में, बिना स्पेस के। यह आपकी सार्वजनिक प्रोफ़ाइल के लिंक में दिखता है।",
+    "showPassword": "पासवर्ड दिखाएं",
+    "hidePassword": "पासवर्ड छिपाएं",
+    "textHaveAccount": "पहले से खाता है?",
+    "lnkSignIn": "साइन इन करें"
   },
   "/registration/confirm": {
     "registrationSuccess": "रजिस्ट्रेशन सफल",
     "registrationFailure": "कुछ गलत हो गया",
-    "btnProceed": "आगे बढ़ें"
+    "btnProceed": "आगे बढ़ें",
+    "successText": "आपका खाता पुष्टि हो गया है। अब आप साइन इन कर सकते हैं।",
+    "failureText": "पुष्टि लिंक अमान्य है या समाप्त हो गया है, या खाता पहले से पुष्टि है। साइन इन करके देखें।",
+    "btnBackHome": "होम पर वापस जाएं"
   },
   "/registration/pending": {
     "registrationPendingText1": "एक पुष्टि लिंक भेजा गया है",
     "registrationPendingText2": "मेल आने में थोड़ा समय लग सकता है। अगर नहीं मिला तो स्पैम भी चेक करें।",
-    "btnBackHome": "होम पर वापस"
+    "btnBackHome": "होम पर वापस",
+    "titleCheckInbox": "अपना इनबॉक्स देखें",
+    "step1": "FSMeet का ईमेल खोलें।",
+    "step2": "पुष्टि लिंक पर क्लिक करें।",
+    "step3": "अपने नए खाते से साइन इन करें।",
+    "btnGoToLogin": "लॉगिन पर जाएं"
   },
   "/users": {
     "pageTitle": "कम्युनिटी",
+    "pageDescription": "दुनिया भर के फ्रीस्टाइलर्स, जज, आयोजक और ब्रांड खोजें।",
     "inputSearchPlaceholder": "नाम खोजें...",
     "tableSortByName": "नाम के अनुसार क्रम",
     "tableSortByCountry": "देश के अनुसार क्रम",
@@ -1063,7 +1275,15 @@
     "navFirst": "पहला पेज",
     "navPrevious": "पिछला पेज",
     "navNext": "अगला पेज",
-    "navLast": "अंतिम पेज"
+    "navLast": "अंतिम पेज",
+    "sortLabel": "क्रमबद्ध करें",
+    "sortNameAsc": "नाम (A–Z)",
+    "sortNameDesc": "नाम (Z–A)",
+    "sortCountryAsc": "देश (A–Z)",
+    "sortCountryDesc": "देश (Z–A)",
+    "cbCardDetails": "कार्ड पर दिखाएँ",
+    "membersCount": "{count, plural, =0 {कोई सदस्य नहीं मिला} one {# सदस्य} other {# सदस्य}}",
+    "lnkShowOnMap": "मैप पर दिखाएँ"
   },
   "/users/username": {
     "accordionItemSocials": "सोशल्स",
@@ -1103,9 +1323,16 @@
     "placeholderDescription": "उत्पाद विवरण",
     "inputTargetUrl": "लक्ष्य URL",
     "tooltipTargetUrl": "आपकी वेबसाइट या उत्पाद का लिंक।",
-    "inputDisplayOrder": "प्रदर्शन क्रम",
-    "tooltipDisplayOrder": "एक से अधिक विज्ञापन होने पर किस क्रम में दिखेंगे। 0 सबसे पहले दिखता है।",
-    "chbEnabled": "सक्रिय"
+    "chbEnabled": "सक्रिय",
+    "lblImage": "इमेज",
+    "lblChooseImage": "इमेज चुनें",
+    "sectionContent": "सामग्री",
+    "sectionVisibility": "दृश्यता",
+    "hintImage": "क्लिक करें या इमेज छोड़ें (JPG, PNG, WebP)",
+    "lblPreview": "पूर्वावलोकन",
+    "lblAdBadge": "विज्ञापन",
+    "hintPreview": "इवेंट सूची के पास आपका विज्ञापन लगभग ऐसा दिखेगा।",
+    "hintPreviewInactive": "यह विज्ञापन निष्क्रिय है और किसी को नहीं दिखता।"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "विवरण",
@@ -1118,7 +1345,17 @@
     "inputUrl": "URL",
     "chbExpires": "समाप्त होता है",
     "datePickerExpiryDate": "समाप्ति तिथि",
-    "chbEnabled": "सक्रिय"
+    "chbEnabled": "सक्रिय",
+    "sectionSource": "स्रोत",
+    "optSourceFile": "फ़ाइल अपलोड करें",
+    "optSourceLink": "बाहरी लिंक",
+    "lblCurrentFile": "वर्तमान फ़ाइल:",
+    "lblChooseFile": "फ़ाइल चुनें",
+    "lblReplaceFile": "फ़ाइल बदलें",
+    "hintDropFile": "क्लिक करें या फ़ाइल यहाँ छोड़ें",
+    "sectionAvailability": "उपलब्धता",
+    "lblUploadedFile": "अपलोड किया गया दस्तावेज़",
+    "lnkOpenFile": "खोलें"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "प्रकार",
@@ -1129,11 +1366,30 @@
   "global/components/battle-grid": {
     "btnAddMatch": "मैच जोड़ें",
     "labelAssignSlot": "स्लॉट असाइन करें",
-    "labelUnassigned": "असाइन नहीं"
+    "labelUnassigned": "असाइन नहीं",
+    "labelExtraMatch": "अतिरिक्त",
+    "labelTbd": "तय होना बाकी",
+    "labelResult": "परिणाम",
+    "labelTimeLimit": "समय सीमा",
+    "labelMatchCount": "{count, plural, one {# मैच} other {# मैच}}",
+    "btnMoveMatchUp": "“{name}” को ऊपर ले जाएं",
+    "btnMoveMatchDown": "“{name}” को नीचे ले जाएं",
+    "labelDragToReorder": "क्रम बदलने के लिए खींचें",
+    "labelStartAt": "यहाँ से शुरू",
+    "labelAlsoInRound": "इस राउंड में यह भी",
+    "labelNextRound": "अगला: {name}",
+    "btnPreviousRound": "पिछला राउंड",
+    "btnNextRound": "अगला राउंड"
   },
   "global/components/competition-editor": {
     "inputName": "प्रतियोगिता का नाम",
     "inputNamePlaceHolder": "पुरुष बैटल्स",
+    "inputAlias": "प्रतियोगिता उपनाम",
+    "tooltipAlias": "साझा करने में आसान, छोटे और साफ़ प्रतियोगिता URL (/e/<इवेंट उपनाम>/c/<प्रतियोगिता उपनाम>) के लिए उपयोग होता है।",
+    "aliasHintRules": "केवल छोटे अक्षर और अंक, अधिकतम 16 अक्षर। इस इवेंट में अद्वितीय होना चाहिए।",
+    "aliasHintUrl": "छोटा URL:",
+    "aliasHintNoEventAlias": "इस प्रतियोगिता को छोटा URL देने के लिए पहले इवेंट एडिटर में इवेंट उपनाम सेट करें।",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "प्रकार",
     "cbGender": "लिंग",
     "cbMaxAge": "अधिकतम आयु",
@@ -1222,7 +1478,9 @@
     "inputWaiver": "वेवर",
     "chbVisaInvitationRequestsEnabled": "वीज़ा आमंत्रण उपलब्ध कराएं",
     "toastPosterDeleted": "पोस्टर हटाया गया",
-    "placeholderWaiver": "इस इवेंट में भाग लेकर मैं स्वीकार करता/करती हूँ ..."
+    "placeholderWaiver": "इस इवेंट में भाग लेकर मैं स्वीकार करता/करती हूँ ...",
+    "lblPoster": "पोस्टर",
+    "lblChoosePoster": "पोस्टर इमेज चुनें"
   },
   "global/components/loading-spinner": {
     "textLoading": "लोड हो रहा है..."
@@ -1262,13 +1520,20 @@
   "global/components/sponsor-editor": {
     "inputName": "प्रायोजक का नाम",
     "inputWebsite": "वेबसाइट",
-    "chbIsPublic": "सार्वजनिक रूप से दिखाएं?"
+    "chbIsPublic": "सार्वजनिक रूप से दिखाएं?",
+    "lblLogo": "लोगो",
+    "lblChooseLogo": "लोगो चुनें",
+    "hintLogo": "वर्गाकार चित्र सबसे अच्छे रहते हैं"
   },
   "/wffa": {
     "pageTitle": "एडमिन अवलोकन (WFFA)",
     "linkIds": "फ्रीस्टाइलर आईडी",
     "linkStatistics": "ऐप आँकड़े",
-    "linkVisa": "वीज़ा अनुरोध"
+    "linkVisa": "वीज़ा अनुरोध",
+    "pageDescription": "WFFA एडमिनिस्ट्रेटर्स के लिए टूल्स।",
+    "linkIdsText": "WFFA फ्रीस्टाइलर ID असाइन और एडिट करें",
+    "linkVisaText": "वीज़ा इनविटेशन लेटर की समीक्षा और स्वीकृति",
+    "linkStatisticsText": "यूज़र्स, इवेंट्स और गतिविधि"
   },
   "/wffa/ids": {
     "pageTitle": "फ्रीस्टाइलर आईडी प्रबंधन",
@@ -1364,6 +1629,64 @@
     "search": "खोजें ...",
     "select": "चुनें",
     "noData": "कोई डेटा नहीं मिला।",
-    "appNav": "ऐप"
+    "appNav": "ऐप",
+    "time": "समय",
+    "clearTime": "समय हटाएं",
+    "mainNav": "मुख्य नेविगेशन"
+  },
+  "global/components/app-header": {
+    "navHome": "होम",
+    "navEvents": "इवेंट्स",
+    "navMap": "मैप",
+    "navCommunity": "कम्युनिटी",
+    "navVoice": "Voice",
+    "navTraining": "ट्रेनिंग",
+    "navAbout": "परिचय",
+    "btnCreateEvent": "इवेंट बनाएं",
+    "menuOpen": "मेनू खोलें",
+    "menuClose": "मेनू बंद करें",
+    "sectionDiscover": "खोजें",
+    "sectionMore": "और",
+    "menuItemAdmin": "एडमिन",
+    "menuItemWffa": "WFFA"
+  },
+  "global/components/date-picker": {
+    "placeholder": "तारीख चुनें"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "नाम से खोजें",
+    "clearSearch": "खोज साफ़ करें",
+    "all": "सभी",
+    "status": "स्थिति",
+    "type": "प्रकार",
+    "country": "देश",
+    "gender": "लिंग",
+    "competition": "प्रतियोगिता",
+    "statusApproved": "स्वीकृत",
+    "statusPending": "लंबित",
+    "typeParticipants": "प्रतिभागी",
+    "typeVisitors": "दर्शक",
+    "genderMale": "पुरुष",
+    "genderFemale": "महिला",
+    "competitionNone": "कोई प्रतियोगिता नहीं",
+    "shown": "{total} में से {shown} दिखाए जा रहे हैं",
+    "reset": "फ़िल्टर रीसेट करें",
+    "noMatch": "इन फ़िल्टर से कोई मेल नहीं खाता।"
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "प्रतियोगिता सेटअप के चरण",
+    "stepDetails": "विवरण",
+    "stepPool": "पूल",
+    "stepGameMode": "गेम मोड",
+    "stepSeeding": "सीडिंग और परिणाम",
+    "statusPool": "{count, plural, one {# खिलाड़ी} other {# खिलाड़ी}}",
+    "statusRounds": "{count, plural, one {# राउंड} other {# राउंड}}",
+    "statusSeeded": "{count, plural, one {# स्लॉट भरा} other {# स्लॉट भरे}}",
+    "statusOpen": "अभी सेट नहीं",
+    "btnViewCompetition": "प्रतियोगिता पेज देखें"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "और पढ़ें",
+    "sponsored": "प्रायोजित"
   }
 }

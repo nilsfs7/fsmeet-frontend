@@ -9,7 +9,7 @@ import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
 import { useSession } from 'next-auth/react';
 import type { Advertisement } from '@/domain/types/advertisement';
-import { createAdvertisement, updateAdvertisementImage } from '@/infrastructure/clients/advertisement.client';
+import { createAdvertisement, getAdvertisements, updateAdvertisementImage } from '@/infrastructure/clients/advertisement.client';
 import AdvertisementEditor from '@/components/events/advertisement-editor';
 import NavigateBackButton from '@/components/navigate-back-button';
 import { useTranslations } from 'next-intl';
@@ -33,7 +33,11 @@ export default function CreateAdvertisementPage() {
     }
     if (advertisement) {
       try {
-        const res = await createAdvertisement(advertisement, session);
+        // the backend requires a display order: append the new ad after the user's existing ads (reorder via drag & drop on the list)
+        const displayOrder = await getAdvertisements(username)
+          .then(ads => ads.reduce((max, ad) => Math.max(max, ad.displayOrder ?? -1), -1) + 1)
+          .catch(() => 0);
+        const res = await createAdvertisement({ ...advertisement, displayOrder }, session);
 
         if (advertisementImage) {
           await updateAdvertisementImage(res.id, advertisementImage, session);
@@ -53,9 +57,9 @@ export default function CreateAdvertisementPage() {
       <Toaster richColors />
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={t('pageDescription')} />
 
-        <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
+        <div className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
           <AdvertisementEditor
             username={username}
             onAdvertisementUpdate={(next: Advertisement) => {

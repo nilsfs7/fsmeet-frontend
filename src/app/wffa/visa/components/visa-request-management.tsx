@@ -21,7 +21,7 @@ import moment from 'moment';
 import { getShortDateString } from '@/functions/time';
 
 /** Same layout for Pending / Approved / Denied so columns line up vertically. */
-const VISA_TABLE_CLASS = 'table-fixed w-full min-w-3xl border-separate border-spacing-x-3 border-spacing-y-0';
+const VISA_TABLE_CLASS = 'table-fixed w-full min-w-3xl';
 
 /** Extra horizontal padding so long text doesn’t touch column edges. */
 const VISA_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
@@ -55,16 +55,16 @@ function ApplicantCell({ item, verificationByUsername }: { item: VisaInvitationR
   const verified = verificationByUsername[item.username] === UserVerificationState.VERIFIED;
   const profileHref = `${routeUsers}/${item.username}`;
   return (
-    <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.applicant)}>
+    <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.applicant)}>
       <div className="flex flex-col gap-0.5 min-w-0">
-        <Link href={profileHref} className="underline hover:text-primary/80">
+        <Link href={profileHref} className="font-medium text-brand-strong underline-offset-2 hover:underline">
           {formatDisplayName(item.firstName, item.lastName)}
         </Link>
         <div className="flex items-center gap-1.5">
-          <Link href={profileHref} className="text-primary/90 underline hover:text-primary/80">
+          <Link href={profileHref} className="font-medium text-foreground underline-offset-2 hover:text-brand-strong hover:underline">
             {item.username}
           </Link>
-          {verified && <img src={imgVerifiedCheckmark} alt="" className="h-6 w-6 shrink-0" width={16} height={16} />}
+          {verified && <img src={imgVerifiedCheckmark} alt="" className="h-4 w-4 shrink-0" width={16} height={16} />}
         </div>
       </div>
     </TableCell>
@@ -153,8 +153,8 @@ export const VisaRequestManagement = () => {
     <>
       <Toaster richColors />
 
-      <div className="mx-2 overflow-y-auto pb-4">
-        <div className="rounded-lg border border-primary bg-secondary-light p-2 text-sm">
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+        <div className="mx-auto flex w-full max-w-content flex-col gap-8 text-sm">
           <PendingTable items={pending} verificationByUsername={verificationByUsername} onApprove={handleApproveClicked} onDeny={handleDeniedClicked} />
           <ApprovedTable items={approved} verificationByUsername={verificationByUsername} />
           <DeniedTable items={denied} verificationByUsername={verificationByUsername} onApprove={handleApproveClicked} />
@@ -163,6 +163,15 @@ export const VisaRequestManagement = () => {
     </>
   );
 };
+
+function SectionHeading({ label, count, tone }: { label: string; count: number; tone: string }) {
+  return (
+    <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-foreground">
+      {label}
+      <span className={cn('inline-flex h-6 min-w-6 items-center justify-center rounded-full px-2 text-xs font-semibold', tone)}>{count}</span>
+    </h2>
+  );
+}
 
 function PendingTable({
   items,
@@ -178,46 +187,46 @@ function PendingTable({
   const t = useTranslations('/wffa/visa');
   if (items.length === 0) {
     return (
-      <div className="mb-6">
-        <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('pending')}</h2>
-        <p className="text-center text-sm text-primary/70">{t('noEntries')}</p>
+      <div>
+        <SectionHeading label={t('pending')} count={items.length} tone="bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300" />
+        <p className="rounded-2xl border border-dashed border-border bg-background/60 px-4 py-6 text-center text-sm text-muted-foreground">{t('noEntries')}</p>
       </div>
     );
   }
 
   return (
-    <div className="mb-6">
-      <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('pending')}</h2>
-      <div className="rounded-md border border-secondary-dark bg-background">
+    <div>
+      <SectionHeading label={t('pending')} count={items.length} tone="bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300" />
+      <div>
         <Table className={VISA_TABLE_CLASS}>
           <TableHeader>
-            <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.applicant)}>{t('applicant')}</TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.country)} title={t('countryCode')}>
+            <TableRow className="border-border/70">
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.applicant)}>{t('applicant')}</TableHead>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.country)} title={t('countryCode')}>
                 {t('country')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title={t('passportNumber')}>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.passport)} title={t('passportNumber')}>
                 {t('passport')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title={t('requestDate')}>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.requestDate)} title={t('requestDate')}>
                 {t('requested')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}></TableHead>
-              <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>{t('actions')}</TableHead>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.approver)}></TableHead>
+              <TableHead className={cn('text-right', VISA_HEAD_PAD, visaCol.actions)}>{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">
             {items.map(item => (
-              <TableRow key={item.id} className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
+              <TableRow key={item.id} className="border-border/70">
                 <ApplicantCell item={item} verificationByUsername={verificationByUsername} />
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.country)}>{item.countryCode || '—'}</TableCell>
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.passport)} title={item.passportNumber || undefined}>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.country)}>{item.countryCode || '—'}</TableCell>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.passport)} title={item.passportNumber || undefined}>
                   {item.passportNumber}
                 </TableCell>
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.requestDate)} title={item.requestDate || undefined}>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.requestDate)} title={item.requestDate || undefined}>
                   {formatRequestDate(item.requestDate)}
                 </TableCell>
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.approver)}></TableCell>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.approver)}></TableCell>
                 <TableCell className={cn(VISA_CELL_PAD, 'text-right align-top', visaCol.actions)}>
                   <div className="flex justify-end gap-1">
                     <ActionButton action={Action.ACCEPT} onClick={() => onApprove(item)} />
@@ -237,48 +246,48 @@ function ApprovedTable({ items, verificationByUsername }: { items: VisaInvitatio
   const t = useTranslations('/wffa/visa');
   if (items.length === 0) {
     return (
-      <div className="mb-6">
-        <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('approved')}</h2>
-        <p className="text-center text-sm text-primary/70">{t('noEntries')}</p>
+      <div>
+        <SectionHeading label={t('approved')} count={items.length} tone="bg-brand-soft text-brand-strong" />
+        <p className="rounded-2xl border border-dashed border-border bg-background/60 px-4 py-6 text-center text-sm text-muted-foreground">{t('noEntries')}</p>
       </div>
     );
   }
 
   return (
-    <div className="mb-6">
-      <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('approved')}</h2>
-      <div className="rounded-md border border-secondary-dark bg-background">
+    <div>
+      <SectionHeading label={t('approved')} count={items.length} tone="bg-brand-soft text-brand-strong" />
+      <div>
         <Table className={VISA_TABLE_CLASS}>
           <TableHeader>
-            <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent p-2">
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.applicant)}>{t('applicant')}</TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.country)} title={t('countryCode')}>
+            <TableRow className="border-border/70 p-2">
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.applicant)}>{t('applicant')}</TableHead>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.country)} title={t('countryCode')}>
                 {t('country')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title={t('passportNumber')}>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.passport)} title={t('passportNumber')}>
                 {t('passport')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title={t('requestDate')}>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.requestDate)} title={t('requestDate')}>
                 {t('requested')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}>{t('approver')}</TableHead>
-              <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>{t('document')}</TableHead>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.approver)}>{t('approver')}</TableHead>
+              <TableHead className={cn('text-right', VISA_HEAD_PAD, visaCol.actions)}>{t('document')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">
             {items.map(item => (
-              <TableRow key={item.id} className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
+              <TableRow key={item.id} className="border-border/70">
                 <ApplicantCell item={item} verificationByUsername={verificationByUsername} />
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.country)}>{item.countryCode || '—'}</TableCell>
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.passport)} title={item.passportNumber || undefined}>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.country)}>{item.countryCode || '—'}</TableCell>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.passport)} title={item.passportNumber || undefined}>
                   {item.passportNumber}
                 </TableCell>
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.requestDate)} title={item.requestDate || undefined}>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.requestDate)} title={item.requestDate || undefined}>
                   {formatRequestDate(item.requestDate)}
                 </TableCell>
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.approver)}>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.approver)}>
                   {item.approver ? (
-                    <Link href={`${routeUsers}/${item.approver}`} className="underline hover:text-primary/80">
+                    <Link href={`${routeUsers}/${item.approver}`} className="font-medium text-brand-strong underline-offset-2 hover:underline">
                       {item.approver}
                     </Link>
                   ) : (
@@ -315,48 +324,48 @@ function DeniedTable({
   const t = useTranslations('/wffa/visa');
   if (items.length === 0) {
     return (
-      <div className="mb-6">
-        <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('denied')}</h2>
-        <p className="text-center text-sm text-primary/70">{t('noEntries')}</p>
+      <div>
+        <SectionHeading label={t('denied')} count={items.length} tone="bg-destructive/10 text-destructive" />
+        <p className="rounded-2xl border border-dashed border-border bg-background/60 px-4 py-6 text-center text-sm text-muted-foreground">{t('noEntries')}</p>
       </div>
     );
   }
 
   return (
-    <div className="mb-6">
-      <h2 className="mb-2 text-center text-base font-semibold text-primary">{t('denied')}</h2>
-      <div className="rounded-md border border-secondary-dark bg-background">
+    <div>
+      <SectionHeading label={t('denied')} count={items.length} tone="bg-destructive/10 text-destructive" />
+      <div>
         <Table className={VISA_TABLE_CLASS}>
           <TableHeader>
-            <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.applicant)}>{t('applicant')}</TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.country)} title={t('countryCode')}>
+            <TableRow className="border-border/70">
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.applicant)}>{t('applicant')}</TableHead>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.country)} title={t('countryCode')}>
                 {t('country')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.passport)} title={t('passportNumber')}>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.passport)} title={t('passportNumber')}>
                 {t('passport')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.requestDate)} title={t('requestDate')}>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.requestDate)} title={t('requestDate')}>
                 {t('requested')}
               </TableHead>
-              <TableHead className={cn('text-primary', VISA_HEAD_PAD, visaCol.approver)}>{t('approver')}</TableHead>
-              <TableHead className={cn('text-right text-primary', VISA_HEAD_PAD, visaCol.actions)}>{t('actions')}</TableHead>
+              <TableHead className={cn(VISA_HEAD_PAD, visaCol.approver)}>{t('approver')}</TableHead>
+              <TableHead className={cn('text-right', VISA_HEAD_PAD, visaCol.actions)}>{t('actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">
             {items.map(item => (
-              <TableRow key={item.id} className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
+              <TableRow key={item.id} className="border-border/70">
                 <ApplicantCell item={item} verificationByUsername={verificationByUsername} />
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.country)}>{item.countryCode || '—'}</TableCell>
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.passport)} title={item.passportNumber || undefined}>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.country)}>{item.countryCode || '—'}</TableCell>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.passport)} title={item.passportNumber || undefined}>
                   {item.passportNumber}
                 </TableCell>
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.requestDate)} title={item.requestDate || undefined}>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.requestDate)} title={item.requestDate || undefined}>
                   {formatRequestDate(item.requestDate)}
                 </TableCell>
-                <TableCell className={cn(VISA_CELL_PAD, 'text-primary align-top', visaCol.approver)}>
+                <TableCell className={cn(VISA_CELL_PAD, 'align-top', visaCol.approver)}>
                   {item.approver ? (
-                    <Link href={`${routeUsers}/${item.approver}`} className="underline hover:text-primary/80">
+                    <Link href={`${routeUsers}/${item.approver}`} className="font-medium text-brand-strong underline-offset-2 hover:underline">
                       {item.approver}
                     </Link>
                   ) : (

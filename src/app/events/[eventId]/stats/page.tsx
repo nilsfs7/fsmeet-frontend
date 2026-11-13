@@ -3,7 +3,6 @@ import ActionButton from '@/components/common/action-button';
 import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import PageTitle from '@/components/page-title';
-import Separator from '@/components/separator';
 import { getTranslations } from 'next-intl/server';
 import { getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
@@ -14,7 +13,7 @@ import { ChartParticipantAge } from './chart-participant-age';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { cn } from '@/lib/utils';
 
-const constrainedContentClass = 'mx-auto w-full max-w-3xl min-w-0 px-3 sm:px-4';
+const constrainedContentClass = 'mx-auto w-full max-w-5xl min-w-0 px-4 sm:px-6';
 
 export default async function Statistics(props: { params: Promise<{ eventId: string }> }) {
   const params = await props.params;
@@ -101,9 +100,9 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
       </div>
 
       <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
-        <div className="grid gap-2 p-2 text-sm">
+        <div className="grid gap-4 pb-6 text-sm">
           {/* Attendees */}
-          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <ChartPie
               key={'amount-attendees'}
               data={[registeredParticipants.length, registeredVisitors.length]}
@@ -113,10 +112,8 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
             />
           </div>
 
-          <Separator />
-
           {/* Participants */}
-          <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <ChartPie
               key={'gender-participants'}
               data={[maleParticipants.length, femaleParticipants.length]}

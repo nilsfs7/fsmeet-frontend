@@ -1,21 +1,21 @@
 'use client';
 
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
 import TextInput from '../common/text-input';
 import { Advertisement } from '@/domain/types/advertisement';
 import { imgImagePlaceholder } from '@/domain/constants/images';
 import { useTranslations } from 'next-intl';
 import CheckBox from '../common/check-box';
 import { cn } from '@/lib/utils';
-import Separator from '../separator';
-import { Input } from '@/components/ui/input';
-import { FieldLabel } from '@/components/common/field-label';
+import { IconPhotoUp } from '@tabler/icons-react';
+import { FileDropzone } from '@/components/common/file-dropzone';
 import TextInputLarge from '../common/text-input-large';
 
+const SECTION_TITLE_CLASS = 'text-xs font-semibold uppercase tracking-wide text-muted-foreground';
+
 const EDITOR_CARD_CLASS = cn(
-  'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 rounded-xl border border-border/60 bg-secondary-light/85 p-2.5 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
+  'flex w-full min-w-0 flex-col',
+  'gap-4 rounded-2xl border border-border bg-background p-4 shadow-xs sm:gap-5 sm:p-6',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
 
@@ -32,37 +32,13 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
   const [title, setTitle] = useState(advertisement?.title ?? '');
   const [description, setDescription] = useState(advertisement?.description ?? '');
   const [targetUrl, setTargetUrl] = useState(advertisement?.targetUrl ?? '');
-  const [displayOrder, setDisplayOrder] = useState(String(Math.max(0, advertisement?.displayOrder ?? 0)));
   const [imgPreview, setImgPreview] = useState<File>();
   const [imgPreviewObjectURL, setImgPreviewObjectURL] = useState<string>();
   const [enabled, setEnabled] = useState(advertisement?.enabled ?? true);
 
-  const uploadToClient = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files?.[0]) {
-      const f = event.target.files[0];
-      setImgPreview(f);
-      setImgPreviewObjectURL(URL.createObjectURL(f));
-    }
-  };
-
-  const parseDisplayOrder = (raw: string): number => {
-    const n = Number.parseInt(raw, 10);
-    if (!Number.isFinite(n)) return 0;
-    return Math.max(0, n);
-  };
-
-  const onDisplayOrderChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const raw = e.currentTarget.value;
-    if (raw === '') {
-      setDisplayOrder('');
-      return;
-    }
-    const n = Number.parseInt(raw, 10);
-    if (!Number.isFinite(n)) {
-      setDisplayOrder('');
-      return;
-    }
-    setDisplayOrder(String(Math.max(0, n)));
+  const selectImage = (f: File) => {
+    setImgPreview(f);
+    setImgPreviewObjectURL(URL.createObjectURL(f));
   };
 
   const pushAdvertisement = () => {
@@ -72,7 +48,8 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
       description,
       targetUrl,
       imageUrl: advertisement?.imageUrl,
-      displayOrder: parseDisplayOrder(displayOrder),
+      // order is managed by drag & drop on the ads list; keep the stored value (create page appends new ads at the end)
+      displayOrder: advertisement?.displayOrder ?? 0,
       enabled,
       username,
     });
@@ -86,67 +63,91 @@ const AdvertisementEditor = ({ advertisement, username, onAdvertisementUpdate, o
 
   useEffect(() => {
     pushAdvertisement();
-  }, [title, description, targetUrl, displayOrder, enabled, username]);
+  }, [title, description, targetUrl, enabled, username]);
 
   useEffect(() => {
     pushImage();
   }, [imgPreviewObjectURL]);
 
   const previewSrc = imgPreviewObjectURL ?? (advertisement?.imageUrl ? advertisement.imageUrl : imgImagePlaceholder);
+  const hasImage = previewSrc !== imgImagePlaceholder;
+  const previewHost = (() => {
+    try {
+      return new URL(targetUrl).host.replace(/^www\./, '');
+    } catch {
+      return targetUrl;
+    }
+  })();
 
   return (
-    <div className={EDITOR_CARD_CLASS}>
-      <TextInput id="advertisement-title" label={t('inputTitle')} placeholder={t('placeholderTitle')} value={title} onChange={e => setTitle(e.currentTarget.value)} />
-      <TextInputLarge
-        id={'description'}
-        label={t('inputDescription')}
-        placeholder={t('placeholderDescription')}
-        value={description}
-        resizable={true}
-        onChange={e => {
-          setDescription(e.currentTarget.value);
-        }}
-      />
-
-      <TextInput id="advertisement-target-url" label={t('inputTargetUrl')} placeholder="https://" value={targetUrl} labelTooltip={t('tooltipTargetUrl')} onChange={e => setTargetUrl(e.currentTarget.value)} />
-
-      <div className="grid grid-cols-2 items-start gap-x-2 gap-y-1">
-        <FieldLabel
-          id="advertisement-display-order"
-          label={t('inputDisplayOrder')}
-          tooltip={t('tooltipDisplayOrder')}
-          className="pt-2 text-sm font-medium leading-none"
-        />
-        <Input
-          className={cn('h-9 w-18 shrink-0 text-right text-sm font-medium tabular-nums', 'border-border/60 bg-background/80 shadow-sm hover:border-primary/50 dark:bg-background/50')}
-          id="advertisement-display-order"
-          aria-label={t('inputDisplayOrder')}
-          type="number"
-          placeholder="0"
-          min={0}
-          max={99}
-          value={displayOrder}
-          onChange={onDisplayOrderChange}
-        />
-      </div>
-
-      <div className="py-1">
-        <Separator />
-      </div>
-      <div className="flex min-w-0 flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
-        <div className="shrink-0">
-          <img src={previewSrc} alt="" className="h-12 w-12 rounded-lg border border-border/60 object-cover" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <input
-            type="file"
-            accept="image/*"
-            className="w-full min-w-0 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-primary-foreground"
-            onChange={uploadToClient}
+    <div className="grid w-full max-w-5xl min-w-0 grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-6">
+      <div className={EDITOR_CARD_CLASS}>
+        <section className="flex flex-col gap-4">
+          <h2 className={SECTION_TITLE_CLASS}>{t('sectionContent')}</h2>
+          <TextInput id="advertisement-title" label={t('inputTitle')} placeholder={t('placeholderTitle')} value={title} onChange={e => setTitle(e.currentTarget.value)} />
+          <TextInputLarge
+            id={'description'}
+            label={t('inputDescription')}
+            placeholder={t('placeholderDescription')}
+            value={description}
+            resizable={true}
+            onChange={e => {
+              setDescription(e.currentTarget.value);
+            }}
           />
-        </div>
+
+          <TextInput
+            id="advertisement-target-url"
+            label={t('inputTargetUrl')}
+            placeholder="https://"
+            value={targetUrl}
+            labelTooltip={t('tooltipTargetUrl')}
+            onChange={e => setTargetUrl(e.currentTarget.value)}
+          />
+        </section>
+
+        <section className="flex flex-col gap-3 border-t border-border pt-4 sm:pt-5">
+          <h2 className={SECTION_TITLE_CLASS}>{t('lblImage')}</h2>
+          <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-stretch">
+            <img
+              src={previewSrc}
+              alt=""
+              className={cn('h-28 w-28 shrink-0 self-center rounded-2xl border border-border/60 bg-muted sm:self-auto', hasImage ? 'object-cover' : 'object-contain p-7 opacity-40 dark:invert')}
+            />
+            <FileDropzone
+              className="min-w-0 flex-1"
+              label={t('lblChooseImage')}
+              hint={t('hintImage')}
+              fileName={imgPreview?.name}
+              accept="image/*"
+              icon={<IconPhotoUp className="h-5 w-5" stroke={1.75} aria-hidden />}
+              onFile={selectImage}
+            />
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-3 border-t border-border pt-4 sm:pt-5">
+          <h2 className={SECTION_TITLE_CLASS}>{t('sectionVisibility')}</h2>
+          <CheckBox id="advertisement-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
+        </section>
       </div>
-      <CheckBox id="advertisement-enabled" label={t('chbEnabled')} value={enabled} onChange={() => setEnabled(p => !p)} />
+
+      <aside className="flex min-w-0 flex-col gap-2 lg:sticky lg:top-0">
+        <h2 className={cn(SECTION_TITLE_CLASS, 'px-1')}>{t('lblPreview')}</h2>
+        <div className={cn('relative overflow-hidden rounded-2xl border border-dashed border-border bg-background shadow-xs', !enabled && 'opacity-60')}>
+          <span className="absolute right-2 top-2 z-1 rounded-md bg-muted/90 px-1.5 py-0.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground">{t('lblAdBadge')}</span>
+          <div className="flex aspect-[16/10] w-full items-center justify-center bg-muted/40">
+            {/* eslint-disable-next-line @next/next/no-img-element -- live preview of a local object URL */}
+            <img src={previewSrc} alt="" className={cn('h-full w-full', hasImage ? 'object-contain' : 'object-contain p-10 opacity-40 dark:invert')} />
+          </div>
+          <div className="flex flex-col gap-1 p-3">
+            <p className={cn('line-clamp-2 font-semibold', title ? 'text-foreground' : 'text-muted-foreground')}>{title || t('placeholderTitle')}</p>
+            <p className={cn('line-clamp-3 text-sm', description ? 'text-muted-foreground' : 'text-muted-foreground/60')}>{description || t('placeholderDescription')}</p>
+            {previewHost && <p className="truncate pt-1 text-xs font-medium text-brand-strong">{previewHost}</p>}
+          </div>
+        </div>
+        <p className="px-1 text-xs text-muted-foreground">{enabled ? t('hintPreview') : t('hintPreviewInactive')}</p>
+      </aside>
     </div>
   );
 };
