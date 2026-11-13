@@ -1077,7 +1077,20 @@
     "btnCreate": "Créer un événement",
     "sectionHosting": "Organisateur",
     "sectionCoOrganizing": "Co-organisateur",
-    "btnBrowseEvents": "Parcourir les événements"
+    "btnBrowseEvents": "Parcourir les événements",
+    "inputSearchPlaceholder": "Rechercher un nom, alias ou une ville",
+    "btnFilters": "Filtres",
+    "filterStatus": "Statut",
+    "statusListed": "Publié",
+    "statusWaiting": "En attente de validation",
+    "statusNotListed": "Non publié",
+    "filterTime": "Période",
+    "timeUpcoming": "À venir et en cours",
+    "timePast": "Passés",
+    "lblResultCount": "{shown} sur {total} événements",
+    "btnResetFilters": "Réinitialiser les filtres",
+    "emptyFilteredTitle": "Aucun événement correspondant",
+    "emptyFilteredText": "Essayez un autre terme ou réinitialisez les filtres."
   },
   "/feedback": {
     "pageTitle": "Avis",

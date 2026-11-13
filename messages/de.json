@@ -1077,7 +1077,20 @@
     "btnCreate": "Event erstellen",
     "sectionHosting": "Veranstalter",
     "sectionCoOrganizing": "Mitorganisator",
-    "btnBrowseEvents": "Events entdecken"
+    "btnBrowseEvents": "Events entdecken",
+    "inputSearchPlaceholder": "Name, Alias oder Stadt suchen",
+    "btnFilters": "Filter",
+    "filterStatus": "Status",
+    "statusListed": "Gelistet",
+    "statusWaiting": "Wartet auf Freigabe",
+    "statusNotListed": "Nicht gelistet",
+    "filterTime": "Zeitraum",
+    "timeUpcoming": "Bevorstehend & laufend",
+    "timePast": "Vergangen",
+    "lblResultCount": "{shown} von {total} Events",
+    "btnResetFilters": "Filter zurücksetzen",
+    "emptyFilteredTitle": "Keine passenden Events",
+    "emptyFilteredText": "Versuche einen anderen Suchbegriff oder setze die Filter zurück."
   },
   "/feedback": {
     "pageTitle": "Feedback",

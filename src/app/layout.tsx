@@ -9,6 +9,7 @@ import { AppShellColumn } from '@/components/layout/app-shell-column';
 import { AppHeader } from '@/components/header';
 import { cn } from '@/lib/utils';
 import { getSiteUrl } from '@/lib/site-url';
+import { htmlLangForLocale } from '@/i18n/locales';
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 
@@ -41,7 +42,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={cn(fontSans.variable, 'h-dvh min-h-0 overflow-hidden')}>
+    <html lang={htmlLangForLocale(locale)} className={cn(fontSans.variable, 'h-dvh min-h-0 overflow-hidden')}>
       <body className={cn(fontSans.className, 'm-0 h-dvh min-h-0 overflow-hidden p-0')}>
         {/* Single height pass-through: providers (fragments) do not establish a % height for the shell. */}
         <div className="h-full min-h-0">

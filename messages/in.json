@@ -1102,7 +1102,20 @@
     "btnCreate": "इवेंट बनाएं",
     "sectionHosting": "होस्टिंग",
     "sectionCoOrganizing": "सह-आयोजक",
-    "btnBrowseEvents": "इवेंट्स देखें"
+    "btnBrowseEvents": "इवेंट्स देखें",
+    "inputSearchPlaceholder": "नाम, उपनाम या शहर खोजें",
+    "btnFilters": "फ़िल्टर",
+    "filterStatus": "स्थिति",
+    "statusListed": "सूचीबद्ध",
+    "statusWaiting": "स्वीकृति की प्रतीक्षा",
+    "statusNotListed": "सूचीबद्ध नहीं",
+    "filterTime": "समय",
+    "timeUpcoming": "आगामी और जारी",
+    "timePast": "पिछले",
+    "lblResultCount": "{total} में से {shown} इवेंट",
+    "btnResetFilters": "फ़िल्टर रीसेट करें",
+    "emptyFilteredTitle": "कोई मेल खाता इवेंट नहीं",
+    "emptyFilteredText": "कोई दूसरा शब्द खोजें या फ़िल्टर रीसेट करें।"
   },
   "/feedback": {
     "pageTitle": "प्रतिक्रिया",

@@ -1102,7 +1102,20 @@
     "btnCreate": "إنشاء فعالية",
     "sectionHosting": "المنظِّم",
     "sectionCoOrganizing": "منظِّم مشارك",
-    "btnBrowseEvents": "تصفح الفعاليات"
+    "btnBrowseEvents": "تصفح الفعاليات",
+    "inputSearchPlaceholder": "ابحث بالاسم أو الاسم المختصر أو المدينة",
+    "btnFilters": "عوامل التصفية",
+    "filterStatus": "الحالة",
+    "statusListed": "منشورة",
+    "statusWaiting": "بانتظار الموافقة",
+    "statusNotListed": "غير منشورة",
+    "filterTime": "الوقت",
+    "timeUpcoming": "قادمة وجارية",
+    "timePast": "سابقة",
+    "lblResultCount": "{shown} من {total} فعالية",
+    "btnResetFilters": "إعادة تعيين عوامل التصفية",
+    "emptyFilteredTitle": "لا توجد فعاليات مطابقة",
+    "emptyFilteredText": "جرّب كلمة بحث أخرى أو أعد تعيين عوامل التصفية."
   },
   "/feedback": {
     "pageTitle": "الملاحظات",

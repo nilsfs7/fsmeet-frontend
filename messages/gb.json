@@ -1102,7 +1102,20 @@
     "btnCreate": "Create Event",
     "sectionHosting": "Hosting",
     "sectionCoOrganizing": "Co-organizing",
-    "btnBrowseEvents": "Browse events"
+    "btnBrowseEvents": "Browse events",
+    "inputSearchPlaceholder": "Search name, alias or city",
+    "btnFilters": "Filters",
+    "filterStatus": "Status",
+    "statusListed": "Listed",
+    "statusWaiting": "Waiting for approval",
+    "statusNotListed": "Not listed",
+    "filterTime": "Time",
+    "timeUpcoming": "Upcoming & ongoing",
+    "timePast": "Past",
+    "lblResultCount": "{shown} of {total} events",
+    "btnResetFilters": "Reset filters",
+    "emptyFilteredTitle": "No matching events",
+    "emptyFilteredText": "Try another search term or reset the filters."
   },
   "/feedback": {
     "pageTitle": "Feedback",

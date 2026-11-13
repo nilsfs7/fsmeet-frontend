@@ -1102,7 +1102,20 @@
     "btnCreate": "创建活动",
     "sectionHosting": "主办",
     "sectionCoOrganizing": "协办",
-    "btnBrowseEvents": "浏览活动"
+    "btnBrowseEvents": "浏览活动",
+    "inputSearchPlaceholder": "搜索名称、别名或城市",
+    "btnFilters": "筛选",
+    "filterStatus": "状态",
+    "statusListed": "已发布",
+    "statusWaiting": "等待审核",
+    "statusNotListed": "未发布",
+    "filterTime": "时间",
+    "timeUpcoming": "即将开始和进行中",
+    "timePast": "已结束",
+    "lblResultCount": "{shown} / {total} 个活动",
+    "btnResetFilters": "重置筛选",
+    "emptyFilteredTitle": "没有匹配的活动",
+    "emptyFilteredText": "请尝试其他搜索词或重置筛选。"
   },
   "/feedback": {
     "pageTitle": "反馈",

@@ -1102,7 +1102,20 @@
     "btnCreate": "イベントを作成",
     "sectionHosting": "主催",
     "sectionCoOrganizing": "共同主催",
-    "btnBrowseEvents": "イベントを探す"
+    "btnBrowseEvents": "イベントを探す",
+    "inputSearchPlaceholder": "名前、エイリアス、都市で検索",
+    "btnFilters": "フィルター",
+    "filterStatus": "ステータス",
+    "statusListed": "掲載中",
+    "statusWaiting": "承認待ち",
+    "statusNotListed": "非掲載",
+    "filterTime": "期間",
+    "timeUpcoming": "開催予定・開催中",
+    "timePast": "終了",
+    "lblResultCount": "{total}件中{shown}件のイベント",
+    "btnResetFilters": "フィルターをリセット",
+    "emptyFilteredTitle": "該当するイベントがありません",
+    "emptyFilteredText": "別のキーワードで検索するか、フィルターをリセットしてください。"
   },
   "/feedback": {
     "pageTitle": "フィードバック",

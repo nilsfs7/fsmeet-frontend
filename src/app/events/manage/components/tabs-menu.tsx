@@ -15,7 +15,8 @@ import { UserType } from '@/domain/enums/user-type';
 import { EmptyState } from '@/components/common/empty-state';
 import { CreateEventButton } from '@/components/events/create-event-button';
 import { Button } from '@/components/ui/button';
-import { IconCalendarPlus, IconTicket } from '@tabler/icons-react';
+import { IconCalendarPlus, IconSearchOff, IconTicket } from '@tabler/icons-react';
+import { EventListToolbar, filterEvents, useEventListFilters } from './event-list-filters';
 
 interface ITabsMenu {
   actingUser: User;
@@ -32,7 +33,7 @@ function EventGrid({ events, keyPrefix }: { events: Event[]; keyPrefix: string }
   return (
     <ul className="grid min-w-0 grid-cols-1 gap-3 lg:grid-cols-2">
       {events.map((event: Event, i: number) => (
-        <li key={`${keyPrefix}-${i.toString()}`} className="min-w-0">
+        <li key={`${keyPrefix}-${event.id ?? i.toString()}`} className="min-w-0">
           <Link href={`${routeEvents}/${event.id}`} className="block rounded-2xl focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand">
             <EventCard event={event} />
           </Link>
@@ -52,6 +53,25 @@ export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSu
   const tab = searchParams?.get('tab');
 
   const maintainingOnly = eventsMaintaining.filter(event => !isEventAdmin(event, session));
+
+  const myFilters = useEventListFilters('');
+  const regFilters = useEventListFilters('r');
+  const owningShown = filterEvents(eventsOwning, myFilters.state);
+  const maintainingShown = filterEvents(maintainingOnly, myFilters.state);
+  const subscribedShown = filterEvents(eventsSubscribed, regFilters.state);
+
+  const noMatch = (onReset: () => void) => (
+    <EmptyState
+      icon={<IconSearchOff stroke={1.75} aria-hidden />}
+      title={t('emptyFilteredTitle')}
+      description={t('emptyFilteredText')}
+      action={
+        <Button type="button" variant="outline" className="h-10 rounded-xl px-4" onClick={onReset}>
+          {t('btnResetFilters')}
+        </Button>
+      }
+    />
+  );
 
   return (
     <Tabs defaultValue={tab || `registrations`} className="flex h-full flex-col">
@@ -91,7 +111,10 @@ export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSu
             }
           />
         ) : (
-          <EventGrid events={eventsSubscribed} keyPrefix="event-subscribed" />
+          <div className="flex flex-col gap-4">
+            <EventListToolbar idPrefix="registrations" filters={regFilters} shown={subscribedShown.length} total={eventsSubscribed.length} showStatus={false} />
+            {subscribedShown.length === 0 ? noMatch(regFilters.reset) : <EventGrid events={subscribedShown} keyPrefix="event-subscribed" />}
+          </div>
         )}
       </TabsContent>
 
@@ -100,16 +123,23 @@ export const TabsMenu = ({ actingUser, eventsOwning, eventsMaintaining, eventsSu
           <EmptyState icon={<IconCalendarPlus stroke={1.75} aria-hidden />} title={t('tabEventsHostedTextNoEvents')} action={<CreateEventButton label={t('btnCreate')} />} />
         ) : (
           <div className="flex flex-col gap-6">
-            {eventsOwning.length > 0 && (
+            <EventListToolbar
+              idPrefix="myevents"
+              filters={myFilters}
+              shown={owningShown.length + maintainingShown.length}
+              total={eventsOwning.length + maintainingOnly.length}
+            />
+            {owningShown.length === 0 && maintainingShown.length === 0 && noMatch(myFilters.reset)}
+            {owningShown.length > 0 && (
               <section className="flex flex-col gap-3">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{t('sectionHosting')}</h2>
-                <EventGrid events={eventsOwning} keyPrefix="event-owning" />
+                <EventGrid events={owningShown} keyPrefix="event-owning" />
               </section>
             )}
-            {maintainingOnly.length > 0 && (
+            {maintainingShown.length > 0 && (
               <section className="flex flex-col gap-3">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{t('sectionCoOrganizing')}</h2>
-                <EventGrid events={maintainingOnly} keyPrefix="event-maintaining" />
+                <EventGrid events={maintainingShown} keyPrefix="event-maintaining" />
               </section>
             )}
           </div>

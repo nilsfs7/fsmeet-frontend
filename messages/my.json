@@ -1102,7 +1102,20 @@
     "btnCreate": "Cipta Acara",
     "sectionHosting": "Penganjur",
     "sectionCoOrganizing": "Penganjur bersama",
-    "btnBrowseEvents": "Lihat acara"
+    "btnBrowseEvents": "Lihat acara",
+    "inputSearchPlaceholder": "Cari nama, alias atau bandar",
+    "btnFilters": "Penapis",
+    "filterStatus": "Status",
+    "statusListed": "Disenaraikan",
+    "statusWaiting": "Menunggu kelulusan",
+    "statusNotListed": "Tidak disenaraikan",
+    "filterTime": "Masa",
+    "timeUpcoming": "Akan datang & sedang berlangsung",
+    "timePast": "Lepas",
+    "lblResultCount": "{shown} daripada {total} acara",
+    "btnResetFilters": "Set semula penapis",
+    "emptyFilteredTitle": "Tiada acara yang sepadan",
+    "emptyFilteredText": "Cuba kata carian lain atau set semula penapis."
   },
   "/feedback": {
     "pageTitle": "Maklum balas",

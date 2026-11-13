@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 import { Fragment } from 'react';
 import { Transition } from '@headlessui/react';
 import ReactCountryFlag from 'react-country-flag';
-import { getCookie, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { getSupportedlanguages } from '../functions/get-supported-languages';
 import { cn } from '@/lib/utils';
 import type { CSSProperties } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 const flagFrameClass =
   'flex h-6 w-6 items-center justify-center overflow-hidden rounded-full ring-1 ring-border';
@@ -24,18 +24,14 @@ const LanguagePicker = () => {
   const t = useTranslations('global/ui');
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [locale, setLocale] = useState<string>('GB');
+  // the server-resolved locale (cookie, else browser language) is the current one; a pick shows immediately until the refresh lands
+  const serverLocale = useLocale().toUpperCase();
+  const [pickedLocale, setLocale] = useState<string>();
+  const locale = pickedLocale ?? serverLocale;
   const [opened, setOpened] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(undefined);
 
   const supportedLanguages = getSupportedlanguages();
-
-  useEffect(() => {
-    const c = getCookie('locale')?.toString();
-    if (c) {
-      setLocale(c.toUpperCase() || 'GB');
-    }
-  }, []);
 
   useEffect(() => {
     if (!opened) return;
