@@ -391,7 +391,8 @@
     "toastCommentPosted": "تم نشر التعليق",
     "toastReplyPosted": "تم نشر الرد",
     "btnPostComment": "نشر التعليق",
-    "btnPostReply": "نشر الرد"
+    "btnPostReply": "نشر الرد",
+    "btnReply": "رد"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "إدارة الإقامات",

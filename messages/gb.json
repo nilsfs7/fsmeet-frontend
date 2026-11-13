@@ -391,7 +391,8 @@
     "toastCommentPosted": "Comment posted",
     "toastReplyPosted": "Reply posted",
     "btnPostComment": "Post comment",
-    "btnPostReply": "Post reply"
+    "btnPostReply": "Post reply",
+    "btnReply": "Reply"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Manage Accommodations",

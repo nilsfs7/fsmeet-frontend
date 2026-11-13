@@ -183,14 +183,12 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
   }
 }
 
-export async function getComments(eventId: string, noStore = false): Promise<EventComment[]> {
+export async function getComments(eventId: string): Promise<EventComment[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`;
 
   const response = await fetch(url, {
     method: 'GET',
-    ...(noStore ? { cache: 'no-store' as const } : {}),
   });
-  if (noStore && !response.ok) throw Error(`Fetching comments failed (${response.status})`);
 
   return await response.json();
 }
@@ -440,7 +438,8 @@ export async function createEventRegistrationCheckout(eventId: string, session: 
   throw Error(error.message);
 }
 
-export async function createComment(eventId: string, message: string, session: Session | null): Promise<void> {
+/** Creates a root comment and returns its id. */
+export async function createComment(eventId: string, message: string, session: Session | null): Promise<string> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`;
 
   const body = JSON.stringify({
@@ -459,13 +458,16 @@ export async function createComment(eventId: string, message: string, session: S
 
   if (response.ok) {
     console.info('Creating comment successful');
+    const { id } = (await response.json()) as { id: string };
+    return id;
   } else {
     const error = await response.json();
     throw Error(error.message);
   }
 }
 
-export async function createSubComment(eventId: string, rootCommentId: string, message: string, session: Session | null): Promise<void> {
+/** Creates a sub comment (reply) and returns its id. */
+export async function createSubComment(eventId: string, rootCommentId: string, message: string, session: Session | null): Promise<string> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments/subs`;
 
   const body = JSON.stringify({
@@ -484,6 +486,8 @@ export async function createSubComment(eventId: string, rootCommentId: string, m
 
   if (response.ok) {
     console.info('Creating sub comment successful');
+    const { id } = (await response.json()) as { id: string };
+    return id;
   } else {
     const error = await response.json();
     throw Error(error.message);

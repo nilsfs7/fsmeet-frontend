@@ -366,7 +366,8 @@
     "toastCommentPosted": "Kommentar veröffentlicht",
     "toastReplyPosted": "Antwort veröffentlicht",
     "btnPostComment": "Kommentar senden",
-    "btnPostReply": "Antwort senden"
+    "btnPostReply": "Antwort senden",
+    "btnReply": "Antworten"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Unterkünfte verwalten",

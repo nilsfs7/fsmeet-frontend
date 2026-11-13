@@ -391,7 +391,8 @@
     "toastCommentPosted": "コメントを投稿しました",
     "toastReplyPosted": "返信を投稿しました",
     "btnPostComment": "コメントを投稿",
-    "btnPostReply": "返信を投稿"
+    "btnPostReply": "返信を投稿",
+    "btnReply": "返信"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "宿泊を管理",

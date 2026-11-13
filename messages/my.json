@@ -391,7 +391,8 @@
     "toastCommentPosted": "Komen disiarkan",
     "toastReplyPosted": "Balasan disiarkan",
     "btnPostComment": "Siarkan komen",
-    "btnPostReply": "Siarkan balasan"
+    "btnPostReply": "Siarkan balasan",
+    "btnReply": "Balas"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Urus Penginapan",

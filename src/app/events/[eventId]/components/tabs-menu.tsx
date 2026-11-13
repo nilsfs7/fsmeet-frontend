@@ -17,7 +17,7 @@ import { User } from '@/domain/types/user';
 import { EventComment } from '@/domain/types/event-comment';
 import { Sponsor } from '@/domain/types/sponsor';
 import { validateSession } from '@/functions/validate-session';
-import { createComment, createSubComment, deleteComment, deleteSubComment, getComments, getEventRegistrations } from '@/infrastructure/clients/event.client';
+import { createComment, createSubComment, deleteComment, deleteSubComment, getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { Session } from 'next-auth';
 import { SponsorSection } from './sponsor-section';
 import { EventInfo } from './event-info';
@@ -68,10 +68,9 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
     if (!event.id) return;
 
-    await createComment(event.id, message, session);
+    const id = await createComment(event.id, message, session);
     router.refresh();
-    // refetch so the section can find, scroll to and highlight the new comment (the API returns no id)
-    return getComments(event.id, true).catch(() => undefined);
+    return id;
   };
 
   const handlePostSubCommentClicked = async (commentId: string, message: string) => {
@@ -82,9 +81,9 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
     if (!event.id) return;
 
-    await createSubComment(event.id, commentId, message, session);
+    const id = await createSubComment(event.id, commentId, message, session);
     router.refresh();
-    return getComments(event.id, true).catch(() => undefined);
+    return id;
   };
 
   const handleDeleteCommentClicked = (commentId: string, isSubComment: boolean) => {

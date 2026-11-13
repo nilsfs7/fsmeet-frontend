@@ -366,7 +366,8 @@
     "toastCommentPosted": "Comentario publicado",
     "toastReplyPosted": "Respuesta publicada",
     "btnPostComment": "Publicar comentario",
-    "btnPostReply": "Publicar respuesta"
+    "btnPostReply": "Publicar respuesta",
+    "btnReply": "Responder"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Administrar alojamientos",

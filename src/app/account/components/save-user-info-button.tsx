@@ -1,7 +1,8 @@
 'use client';
 
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import { updateUser } from '@/infrastructure/clients/user.client';
+import { getUser, updateUser } from '@/infrastructure/clients/user.client';
+import { dispatchUserSaved } from './user-saved-event';
 import { User } from '@/domain/types/user';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -19,7 +20,12 @@ export const SaveUserInfoButton = () => {
       const user: User = JSON.parse(userInfoObject);
 
       try {
-        await updateUser(user, session);
+        let saved = await updateUser(user, session);
+        // the backend geocodes the city on save; if the response lacks the coordinates, read them back
+        if (saved.city && (!saved.locLatitude || !saved.locLongitude) && user.username) {
+          saved = await getUser(user.username, session).catch(() => saved);
+        }
+        dispatchUserSaved(saved);
         toast.success(t('toastProfileUpdated'));
       } catch (error: any) {
         toast.error(error.message);

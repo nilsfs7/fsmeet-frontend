@@ -391,7 +391,8 @@
     "toastCommentPosted": "टिप्पणी पोस्ट हो गई",
     "toastReplyPosted": "जवाब पोस्ट हो गया",
     "btnPostComment": "टिप्पणी पोस्ट करें",
-    "btnPostReply": "जवाब पोस्ट करें"
+    "btnPostReply": "जवाब पोस्ट करें",
+    "btnReply": "जवाब दें"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "आवास प्रबंधित करें",

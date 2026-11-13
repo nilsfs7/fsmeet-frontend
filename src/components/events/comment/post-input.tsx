@@ -39,7 +39,7 @@ const PostInput = ({ elementId, username, userProfileImageUrl, value, posting = 
     >
       <div className="h-8 w-8 shrink-0">
         <Link href={`${routeUsers}/${username}`} className="block h-full w-full">
-          <img src={userProfileImageUrl ? userProfileImageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-background object-cover" />
+          <img src={userProfileImageUrl ? userProfileImageUrl : imgUserDefaultImg} alt={username} className="h-full w-full rounded-full bg-background object-cover" />
         </Link>
       </div>
 

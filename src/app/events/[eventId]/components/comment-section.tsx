@@ -19,9 +19,9 @@ interface ICommentSectionProps {
   canDelete: boolean;
   username: string;
   userProfileImageUrl?: string;
-  /** Posts the comment and resolves with the refetched comment list (used to find and reveal the new comment). */
-  onPostComment: (message: string) => Promise<EventComment[] | void>;
-  onPostReply: (commentId: string, message: string) => Promise<EventComment[] | void>;
+  /** Posts the comment and resolves with its id (used to scroll to and highlight it once the refreshed list renders it). */
+  onPostComment: (message: string) => Promise<string | void>;
+  onPostReply: (commentId: string, message: string) => Promise<string | void>;
   onDeleteComment: (commentId: string, isSubComment: boolean) => void;
 }
 
@@ -34,38 +34,9 @@ function getErrorMessage(error: unknown, fallback: string): string {
   return fallback;
 }
 
-function collectIds(comments: EventComment[]): Set<string> {
-  const ids = new Set<string>();
-  comments.forEach(c => {
-    ids.add(c.id);
-    c.subComments?.forEach(s => ids.add(s.id));
-  });
-  return ids;
-}
-
-/** Finds the comment the current user just posted: a new id (vs. before), preferring own + same message, newest last. */
-function findNewCommentId(before: EventComment[], after: EventComment[], username: string, message: string, parentId?: string): string | undefined {
-  const known = collectIds(before);
-  const candidates: { id: string; username: string; message: string }[] = [];
-  after.forEach(c => {
-    if (!parentId && !known.has(c.id)) candidates.push({ id: c.id, username: c.user?.username, message: c.message });
-    if (parentId && c.id === parentId) c.subComments?.forEach(s => !known.has(s.id) && candidates.push({ id: s.id, username: s.user?.username, message: s.message }));
-  });
-  const own = candidates.filter(c => c.username === username);
-  const exact = own.filter(c => c.message === message);
-  return (exact.length ? exact : own.length ? own : candidates).at(-1)?.id;
-}
-
 export const CommentSection = ({ eventComments, canDelete, username, userProfileImageUrl, onPostComment, onPostReply, onDeleteComment }: ICommentSectionProps) => {
   const t = useTranslations('/events/eventid');
 
-  // local copy so a freshly posted comment shows up immediately (the server refresh catches up afterwards)
-  const [comments, setComments] = useState<EventComment[]>(eventComments);
-  const [syncedFrom, setSyncedFrom] = useState<EventComment[]>(eventComments);
-  if (syncedFrom !== eventComments) {
-    setSyncedFrom(eventComments);
-    setComments(eventComments);
-  }
 
   const [newComment, setNewComment] = useState<string>('');
   const [replyTo, setReplyTo] = useState<string>();
@@ -76,24 +47,25 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
   const [highlightOn, setHighlightOn] = useState(false);
   const highlightTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const reveal = (id: string | undefined) => {
-    if (!id) return;
-    clearTimeout(highlightTimer.current);
-    setHighlightId(id);
-    setHighlightOn(true);
-  };
+  /** Id of a just-posted comment that still has to be scrolled to (it appears once the refreshed list arrives). */
+  const [pendingRevealId, setPendingRevealId] = useState<string>();
 
-  // scroll the new comment into view once it is rendered, then fade the highlight out
+  // as soon as the new comment is rendered: scroll it into view, highlight it, fade the highlight out
   useEffect(() => {
-    if (!highlightId || !highlightOn) return;
-    const el = document.getElementById(`comment-${highlightId}`);
-    if (el) {
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
-    }
+    if (!pendingRevealId) return;
+    const el = document.getElementById(`comment-${pendingRevealId}`);
+    if (!el) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    clearTimeout(highlightTimer.current);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reacting to the DOM node appearing after the server refresh
+    setHighlightId(pendingRevealId);
+    setHighlightOn(true);
+    setPendingRevealId(undefined);
     highlightTimer.current = setTimeout(() => setHighlightOn(false), HIGHLIGHT_MS);
-    return () => clearTimeout(highlightTimer.current);
-  }, [highlightId, highlightOn]);
+  }, [pendingRevealId, eventComments]);
+
+  useEffect(() => () => clearTimeout(highlightTimer.current), []);
 
   const handlePostCommentClicked = async () => {
     const message = newComment.trim();
@@ -101,14 +73,10 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
 
     setPosting('comment');
     try {
-      const fresh = await onPostComment(message);
+      const id = await onPostComment(message);
       setNewComment('');
       toast.success(t('toastCommentPosted'));
-      if (fresh) {
-        const id = findNewCommentId(comments, fresh, username, message);
-        setComments(fresh);
-        reveal(id);
-      }
+      if (id) setPendingRevealId(id);
     } catch (error: unknown) {
       // keep the text so the user can retry
       toast.error(getErrorMessage(error, t('toastCommentFailed')));
@@ -124,15 +92,11 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
     const parentId = replyTo;
     setPosting('reply');
     try {
-      const fresh = await onPostReply(parentId, message);
+      const id = await onPostReply(parentId, message);
       setReplyTo('');
       setReplyMessage('');
       toast.success(t('toastReplyPosted'));
-      if (fresh) {
-        const id = findNewCommentId(comments, fresh, username, message, parentId);
-        setComments(fresh);
-        reveal(id);
-      }
+      if (id) setPendingRevealId(id);
     } catch (error: unknown) {
       toast.error(getErrorMessage(error, t('toastCommentFailed')));
     } finally {
@@ -180,7 +144,7 @@ export const CommentSection = ({ eventComments, canDelete, username, userProfile
 
         {/* posted comments */}
         <div className="flex flex-col gap-2">
-          {comments.map((comment: EventComment) => {
+          {eventComments.map((comment: EventComment) => {
             return (
               <div key={comment.id} className="flex flex-col gap-1">
                 {/* root comments */}

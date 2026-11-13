@@ -8,6 +8,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession, signOut } from 'next-auth/react';
 import { User } from '@/domain/types/user';
+import { onUserSaved } from './user-saved-event';
 import { Toaster, toast } from 'sonner';
 import { routeAccount, routeAccountDeleted, routeAccountPayments, routeHome, routeMap } from '@/domain/constants/routes';
 import { JOB_TERMS_VERSION, jobTermsAcceptedVersionStorageKey } from '@/domain/constants/job-terms';
@@ -558,6 +559,21 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
       console.error(error.message);
     }
   };
+
+  // after a successful save: take over the server-side location (geocoded from the city) so "show my pin" appears without a reload
+  useEffect(
+    () =>
+      onUserSaved(saved => {
+        setUserInfo(prev => {
+          // the user kept typing after saving: don't attach coordinates that belong to another city
+          if ((saved.city ?? '') !== (prev.city ?? '')) return prev;
+          const next = { ...prev, exposeLocation: saved.exposeLocation ?? prev.exposeLocation, locLatitude: saved.locLatitude, locLongitude: saved.locLongitude };
+          cacheUserInfo(next);
+          return next;
+        });
+      }),
+    [],
+  );
 
   useEffect(() => {
     cacheUserInfo(user);
