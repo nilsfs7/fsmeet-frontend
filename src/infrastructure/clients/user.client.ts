@@ -521,6 +521,18 @@ export async function createStripeAccountOnboardingLink(refreshUrl: string, retu
   }
 }
 
+/** Thrown by `createStripeLoginLink`; carries the HTTP status and (if the backend sends one) a stable error code. */
+export class StripeLoginLinkError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+    readonly code?: string,
+  ) {
+    super(message);
+    this.name = 'StripeLoginLinkError';
+  }
+}
+
 export async function createStripeLoginLink(session: Session | null): Promise<string> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/stripe/loginlink`;
 
@@ -537,8 +549,9 @@ export async function createStripeLoginLink(session: Session | null): Promise<st
     console.info('Creating Stripe login link successful');
     return dto.loginUrl;
   } else {
-    const error = await response.json();
-    throw Error(error.message);
+    const error = await response.json().catch(() => ({}));
+    const message = typeof error?.message === 'string' ? error.message : Array.isArray(error?.message) ? error.message.join(', ') : response.statusText;
+    throw new StripeLoginLinkError(message, response.status, typeof error?.code === 'string' ? error.code : undefined);
   }
 }
 

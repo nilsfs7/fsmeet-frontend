@@ -191,7 +191,17 @@
     "btnChangePicture": "写真を変更",
     "btnViewProfile": "プロフィールを見る",
     "tabAccountSectionDangerZone": "危険な操作",
-    "tabAccountDeleteAccountHint": "アカウントの削除は永久的で、元に戻せません。"
+    "tabAccountDeleteAccountHint": "アカウントの削除は永久的で、元に戻せません。",
+    "lblStripeDashboardOpening": "Stripeを開いています…",
+    "alertStripeDashboardUnavailableTitle": "Stripeダッシュボードは利用できません",
+    "alertStripeDashboardUnavailableText": "この支払いアカウントではStripeダッシュボードを開けません。支払いは引き続き「支払いを管理」で確認できます。Stripeの設定がまだ完了していない場合は、「情報を編集」から完了してください。",
+    "alertStripeOnboardingIncompleteTitle": "Stripeの設定が完了していません",
+    "alertStripeOnboardingIncompleteText": "Stripeの設定がまだ完了していません。Stripeダッシュボードを利用するには設定を完了してください。",
+    "alertStripeDashboardErrorTitle": "Stripeダッシュボードを開けませんでした",
+    "toastStripeDashboardGeneric": "Stripeダッシュボードを開けませんでした。しばらくしてから再度お試しいただくか、サポートにお問い合わせください。",
+    "toastStripeDashboardSession": "セッションの有効期限が切れました。もう一度ログインしてください。",
+    "btnFinishStripeSetup": "Stripeの設定を完了する",
+    "btnContactSupport": "サポートに問い合わせる"
   },
   "/account/deleted": {
     "textGoodbye": "さようなら！",

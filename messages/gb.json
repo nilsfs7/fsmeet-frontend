@@ -191,7 +191,17 @@
     "btnChangePicture": "Change picture",
     "btnViewProfile": "View profile",
     "tabAccountSectionDangerZone": "Danger zone",
-    "tabAccountDeleteAccountHint": "Deleting your account is permanent and cannot be undone."
+    "tabAccountDeleteAccountHint": "Deleting your account is permanent and cannot be undone.",
+    "lblStripeDashboardOpening": "Opening Stripe…",
+    "alertStripeDashboardUnavailableTitle": "Stripe dashboard not available",
+    "alertStripeDashboardUnavailableText": "The Stripe dashboard can't be opened for this payment account. Your payments are still listed under “Manage payments”. If you haven't finished your Stripe setup yet, complete it via “Edit Info”.",
+    "alertStripeOnboardingIncompleteTitle": "Stripe setup not finished",
+    "alertStripeOnboardingIncompleteText": "Your Stripe setup isn't complete yet. Finish it to access the Stripe dashboard.",
+    "alertStripeDashboardErrorTitle": "Stripe dashboard couldn't be opened",
+    "toastStripeDashboardGeneric": "The Stripe dashboard couldn't be opened. Please try again later or contact support.",
+    "toastStripeDashboardSession": "Your session has expired. Please log in again.",
+    "btnFinishStripeSetup": "Finish Stripe setup",
+    "btnContactSupport": "Contact support"
   },
   "/account/deleted": {
     "textGoodbye": "Goodbye!",

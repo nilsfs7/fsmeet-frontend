@@ -191,7 +191,17 @@
     "btnChangePicture": "Bild ändern",
     "btnViewProfile": "Profil ansehen",
     "tabAccountSectionDangerZone": "Gefahrenzone",
-    "tabAccountDeleteAccountHint": "Das Löschen deines Kontos ist endgültig und kann nicht rückgängig gemacht werden."
+    "tabAccountDeleteAccountHint": "Das Löschen deines Kontos ist endgültig und kann nicht rückgängig gemacht werden.",
+    "lblStripeDashboardOpening": "Stripe wird geöffnet…",
+    "alertStripeDashboardUnavailableTitle": "Stripe-Dashboard nicht verfügbar",
+    "alertStripeDashboardUnavailableText": "Das Stripe-Dashboard kann für dieses Zahlungskonto nicht geöffnet werden. Deine Zahlungen findest du weiterhin unter „Zahlungen verwalten“. Falls du die Einrichtung bei Stripe noch nicht abgeschlossen hast, schließe sie über „Info editieren“ ab.",
+    "alertStripeOnboardingIncompleteTitle": "Stripe-Einrichtung nicht abgeschlossen",
+    "alertStripeOnboardingIncompleteText": "Deine Einrichtung bei Stripe ist noch nicht abgeschlossen. Schließe sie ab, um das Stripe-Dashboard zu nutzen.",
+    "alertStripeDashboardErrorTitle": "Stripe-Dashboard konnte nicht geöffnet werden",
+    "toastStripeDashboardGeneric": "Das Stripe-Dashboard konnte nicht geöffnet werden. Bitte versuche es später erneut oder kontaktiere den Support.",
+    "toastStripeDashboardSession": "Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.",
+    "btnFinishStripeSetup": "Stripe-Einrichtung abschließen",
+    "btnContactSupport": "Support kontaktieren"
   },
   "/account/deleted": {
     "textGoodbye": "Mach's gut!",

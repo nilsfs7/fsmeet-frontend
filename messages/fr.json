@@ -191,7 +191,17 @@
     "btnChangePicture": "Changer la photo",
     "btnViewProfile": "Voir le profil",
     "tabAccountSectionDangerZone": "Zone de danger",
-    "tabAccountDeleteAccountHint": "La suppression de ton compte est définitive et irréversible."
+    "tabAccountDeleteAccountHint": "La suppression de ton compte est définitive et irréversible.",
+    "lblStripeDashboardOpening": "Ouverture de Stripe…",
+    "alertStripeDashboardUnavailableTitle": "Tableau de bord Stripe indisponible",
+    "alertStripeDashboardUnavailableText": "Le tableau de bord Stripe ne peut pas être ouvert pour ce compte de paiement. Vos paiements restent disponibles sous « Gérer les paiements ». Si vous n'avez pas encore terminé la configuration Stripe, finalisez-la via « Modifier info ».",
+    "alertStripeOnboardingIncompleteTitle": "Configuration Stripe inachevée",
+    "alertStripeOnboardingIncompleteText": "Votre configuration Stripe n'est pas encore terminée. Finalisez-la pour accéder au tableau de bord Stripe.",
+    "alertStripeDashboardErrorTitle": "Impossible d'ouvrir le tableau de bord Stripe",
+    "toastStripeDashboardGeneric": "Le tableau de bord Stripe n'a pas pu être ouvert. Veuillez réessayer plus tard ou contacter le support.",
+    "toastStripeDashboardSession": "Votre session a expiré. Veuillez vous reconnecter.",
+    "btnFinishStripeSetup": "Terminer la configuration Stripe",
+    "btnContactSupport": "Contacter le support"
   },
   "/account/deleted": {
     "textGoodbye": "Au revoir !",

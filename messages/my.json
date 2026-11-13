@@ -191,7 +191,17 @@
     "btnChangePicture": "Tukar gambar",
     "btnViewProfile": "Lihat profil",
     "tabAccountSectionDangerZone": "Zon bahaya",
-    "tabAccountDeleteAccountHint": "Pemadaman akaun adalah kekal dan tidak boleh dibuat asal."
+    "tabAccountDeleteAccountHint": "Pemadaman akaun adalah kekal dan tidak boleh dibuat asal.",
+    "lblStripeDashboardOpening": "Membuka Stripe…",
+    "alertStripeDashboardUnavailableTitle": "Papan pemuka Stripe tidak tersedia",
+    "alertStripeDashboardUnavailableText": "Papan pemuka Stripe tidak boleh dibuka untuk akaun pembayaran ini. Pembayaran anda masih tersenarai di bawah “Urus pembayaran”. Jika anda belum melengkapkan persediaan Stripe, lengkapkannya melalui “Edit Maklumat”.",
+    "alertStripeOnboardingIncompleteTitle": "Persediaan Stripe belum selesai",
+    "alertStripeOnboardingIncompleteText": "Persediaan Stripe anda belum lengkap. Lengkapkannya untuk mengakses papan pemuka Stripe.",
+    "alertStripeDashboardErrorTitle": "Papan pemuka Stripe tidak dapat dibuka",
+    "toastStripeDashboardGeneric": "Papan pemuka Stripe tidak dapat dibuka. Sila cuba lagi nanti atau hubungi sokongan.",
+    "toastStripeDashboardSession": "Sesi anda telah tamat. Sila log masuk semula.",
+    "btnFinishStripeSetup": "Lengkapkan persediaan Stripe",
+    "btnContactSupport": "Hubungi sokongan"
   },
   "/account/deleted": {
     "textGoodbye": "Selamat tinggal!",

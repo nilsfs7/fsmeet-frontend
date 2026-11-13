@@ -191,7 +191,17 @@
     "btnChangePicture": "फ़ोटो बदलें",
     "btnViewProfile": "प्रोफ़ाइल देखें",
     "tabAccountSectionDangerZone": "डेंजर ज़ोन",
-    "tabAccountDeleteAccountHint": "अकाउंट डिलीट करना स्थायी है और इसे वापस नहीं लिया जा सकता।"
+    "tabAccountDeleteAccountHint": "अकाउंट डिलीट करना स्थायी है और इसे वापस नहीं लिया जा सकता।",
+    "lblStripeDashboardOpening": "Stripe खोला जा रहा है…",
+    "alertStripeDashboardUnavailableTitle": "Stripe डैशबोर्ड उपलब्ध नहीं है",
+    "alertStripeDashboardUnavailableText": "इस भुगतान खाते के लिए Stripe डैशबोर्ड नहीं खोला जा सकता। आपके भुगतान अब भी “भुगतान प्रबंधित करें” में उपलब्ध हैं। अगर आपने Stripe सेटअप पूरा नहीं किया है, तो उसे “जानकारी संपादित करें” से पूरा करें।",
+    "alertStripeOnboardingIncompleteTitle": "Stripe सेटअप पूरा नहीं हुआ",
+    "alertStripeOnboardingIncompleteText": "आपका Stripe सेटअप अभी पूरा नहीं हुआ है। Stripe डैशबोर्ड इस्तेमाल करने के लिए इसे पूरा करें।",
+    "alertStripeDashboardErrorTitle": "Stripe डैशबोर्ड नहीं खुल सका",
+    "toastStripeDashboardGeneric": "Stripe डैशबोर्ड नहीं खुल सका। कृपया बाद में फिर कोशिश करें या सपोर्ट से संपर्क करें।",
+    "toastStripeDashboardSession": "आपका सत्र समाप्त हो गया है। कृपया फिर से लॉग इन करें।",
+    "btnFinishStripeSetup": "Stripe सेटअप पूरा करें",
+    "btnContactSupport": "सपोर्ट से संपर्क करें"
   },
   "/account/deleted": {
     "textGoodbye": "अलविदा!",

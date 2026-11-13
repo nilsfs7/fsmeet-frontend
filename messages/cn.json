@@ -191,7 +191,17 @@
     "btnChangePicture": "更换头像",
     "btnViewProfile": "查看个人资料",
     "tabAccountSectionDangerZone": "危险区域",
-    "tabAccountDeleteAccountHint": "删除账户是永久性的，无法撤销。"
+    "tabAccountDeleteAccountHint": "删除账户是永久性的，无法撤销。",
+    "lblStripeDashboardOpening": "正在打开 Stripe…",
+    "alertStripeDashboardUnavailableTitle": "Stripe 控制台不可用",
+    "alertStripeDashboardUnavailableText": "无法为此收款账户打开 Stripe 控制台。你仍可在“管理收款”中查看付款。如果你尚未完成 Stripe 设置，请通过“编辑信息”完成。",
+    "alertStripeOnboardingIncompleteTitle": "Stripe 设置未完成",
+    "alertStripeOnboardingIncompleteText": "你的 Stripe 设置尚未完成。完成后即可使用 Stripe 控制台。",
+    "alertStripeDashboardErrorTitle": "无法打开 Stripe 控制台",
+    "toastStripeDashboardGeneric": "无法打开 Stripe 控制台。请稍后重试或联系客服。",
+    "toastStripeDashboardSession": "你的会话已过期，请重新登录。",
+    "btnFinishStripeSetup": "完成 Stripe 设置",
+    "btnContactSupport": "联系客服"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",

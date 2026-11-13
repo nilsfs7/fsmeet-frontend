@@ -191,7 +191,17 @@
     "btnChangePicture": "تغيير الصورة",
     "btnViewProfile": "عرض الملف الشخصي",
     "tabAccountSectionDangerZone": "منطقة الخطر",
-    "tabAccountDeleteAccountHint": "حذف حسابك نهائي ولا يمكن التراجع عنه."
+    "tabAccountDeleteAccountHint": "حذف حسابك نهائي ولا يمكن التراجع عنه.",
+    "lblStripeDashboardOpening": "جارٍ فتح Stripe…",
+    "alertStripeDashboardUnavailableTitle": "لوحة تحكم Stripe غير متاحة",
+    "alertStripeDashboardUnavailableText": "لا يمكن فتح لوحة تحكم Stripe لحساب الدفع هذا. لا تزال مدفوعاتك متاحة ضمن «إدارة المدفوعات». إذا لم تُكمل إعداد Stripe بعد، فأكمله عبر «تعديل المعلومات».",
+    "alertStripeOnboardingIncompleteTitle": "لم يكتمل إعداد Stripe",
+    "alertStripeOnboardingIncompleteText": "لم يكتمل إعداد Stripe الخاص بك بعد. أكمله للوصول إلى لوحة تحكم Stripe.",
+    "alertStripeDashboardErrorTitle": "تعذر فتح لوحة تحكم Stripe",
+    "toastStripeDashboardGeneric": "تعذر فتح لوحة تحكم Stripe. يرجى المحاولة لاحقًا أو التواصل مع الدعم.",
+    "toastStripeDashboardSession": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+    "btnFinishStripeSetup": "إكمال إعداد Stripe",
+    "btnContactSupport": "التواصل مع الدعم"
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",

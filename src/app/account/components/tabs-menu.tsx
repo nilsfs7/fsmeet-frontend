@@ -9,8 +9,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession, signOut } from 'next-auth/react';
 import { User } from '@/domain/types/user';
 import { onUserSaved } from './user-saved-event';
+import { classifyStripeLoginLinkError, isDashboardKnownUnavailable, openPendingTab, rememberDashboardUnavailable, type StripeDashboardIssue } from './stripe-login-link';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Toaster, toast } from 'sonner';
-import { routeAccount, routeAccountDeleted, routeAccountPayments, routeHome, routeMap } from '@/domain/constants/routes';
+import { routeAbout, routeAccount, routeAccountDeleted, routeAccountPayments, routeHome, routeMap } from '@/domain/constants/routes';
 import { JOB_TERMS_VERSION, jobTermsAcceptedVersionStorageKey } from '@/domain/constants/job-terms';
 import { JobsTermsAddendumText } from '@/app/account/components/jobs-terms-addendum-text';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -48,6 +50,7 @@ import { cn } from '@/lib/utils';
 import {
   IconAdjustmentsHorizontal,
   IconAlertTriangle,
+  IconLoader2,
   IconArrowUpRight,
   IconBell,
   IconBriefcase,
@@ -457,27 +460,61 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     }
   };
 
+  const [stripeBusy, setStripeBusy] = useState<'onboarding' | 'dashboard'>();
+  const [stripeDashboardIssue, setStripeDashboardIssue] = useState<StripeDashboardIssue>();
+  const [stripeDashboardKnownUnavailable, setStripeDashboardKnownUnavailable] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sessionStorage is only readable after mount
+    if (userInfo.stripeAccountId) setStripeDashboardKnownUnavailable(isDashboardKnownUnavailable(userInfo.stripeAccountId));
+  }, [userInfo.stripeAccountId]);
+
   const handleCreateStripeAccountOnboardingLinkClicked = async () => {
+    if (stripeBusy) return;
+    setStripeBusy('onboarding');
     try {
       const url = await createStripeAccountOnboardingLink(
         `${window.location.origin}${pathname}?tab=account&stripeRefresh=1`,
         `${window.location.origin}${pathname}?tab=account&stripeReturn=1`,
         session,
       );
-      router.push(url);
+      // same tab: Stripe returns to the account tab when onboarding is done
+      window.location.assign(url);
     } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
+      toast.error(error?.message || t('toastStripeDashboardGeneric'));
+      console.error(error?.message);
+      setStripeBusy(undefined);
     }
   };
 
   const handleCreateStripeLoginLinkClicked = async () => {
+    if (stripeBusy) return;
+    setStripeBusy('dashboard');
+    setStripeDashboardIssue(undefined);
+    const tab = openPendingTab(t('lblStripeDashboardOpening'));
     try {
       const url = await createStripeLoginLink(session);
-      window.open(url, '_blank');
-    } catch (error: any) {
-      toast.error(error.message);
-      console.error(error.message);
+      tab.go(url);
+    } catch (error: unknown) {
+      tab.cancel();
+      const issue = classifyStripeLoginLinkError(error);
+      setStripeDashboardIssue(issue);
+      if (issue === 'unavailable' && userInfo.stripeAccountId) {
+        rememberDashboardUnavailable(userInfo.stripeAccountId);
+        setStripeDashboardKnownUnavailable(true);
+      }
+      toast.error(
+        issue === 'session'
+          ? t('toastStripeDashboardSession')
+          : issue === 'generic'
+            ? t('toastStripeDashboardGeneric')
+            : issue === 'onboarding'
+              ? t('alertStripeOnboardingIncompleteTitle')
+              : t('alertStripeDashboardUnavailableTitle'),
+      );
+      console.error(error instanceof Error ? error.message : error);
+    } finally {
+      setStripeBusy(undefined);
     }
   };
 
@@ -1103,14 +1140,73 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                       <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'min-w-0')}>
                         <Link href={routeAccountPayments}>{t('tabAccountBtnManagePayments')}</Link>
                       </Button>
-                      <Button type="button" variant="outline" className="h-10 rounded-xl px-4" onClick={handleCreateStripeAccountOnboardingLinkClicked}>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="h-10 rounded-xl px-4"
+                        disabled={!!stripeBusy}
+                        aria-busy={stripeBusy === 'onboarding'}
+                        onClick={handleCreateStripeAccountOnboardingLinkClicked}
+                      >
+                        {stripeBusy === 'onboarding' && <IconLoader2 className="h-4 w-4 animate-spin" stroke={1.75} aria-hidden />}
                         {t('tabAccountBtnEditPaymentsAccount')}
                       </Button>
-                      <Button type="button" variant="outline" className="h-10 rounded-xl px-4" onClick={handleCreateStripeLoginLinkClicked}>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="h-10 rounded-xl px-4"
+                        disabled={!!stripeBusy || stripeDashboardKnownUnavailable}
+                        aria-busy={stripeBusy === 'dashboard'}
+                        aria-describedby={stripeDashboardKnownUnavailable ? 'stripe-dashboard-hint' : undefined}
+                        onClick={handleCreateStripeLoginLinkClicked}
+                        data-testid="btn-stripe-dashboard"
+                      >
+                        {stripeBusy === 'dashboard' ? (
+                          <IconLoader2 className="h-4 w-4 animate-spin" stroke={1.75} aria-hidden />
+                        ) : (
+                          <IconArrowUpRight className="order-last h-4 w-4 opacity-70" stroke={1.75} aria-hidden />
+                        )}
                         {t('tabAccountBtnViewPaymentsInStripe')}
-                        <IconArrowUpRight className="h-4 w-4 opacity-70" stroke={1.75} aria-hidden />
                       </Button>
                     </div>
+
+                    {(stripeDashboardIssue || stripeDashboardKnownUnavailable) && (
+                      <Alert id="stripe-dashboard-hint" className="rounded-xl border-amber-300/60 bg-amber-50 dark:border-amber-500/30 dark:bg-amber-500/10" data-testid="stripe-dashboard-hint">
+                        <IconAlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-300" stroke={1.75} aria-hidden />
+                        <AlertTitle>
+                          {stripeDashboardIssue === 'onboarding'
+                            ? t('alertStripeOnboardingIncompleteTitle')
+                            : stripeDashboardIssue === 'session' || stripeDashboardIssue === 'generic'
+                              ? t('alertStripeDashboardErrorTitle')
+                              : t('alertStripeDashboardUnavailableTitle')}
+                        </AlertTitle>
+                        <AlertDescription className="flex flex-col gap-3 text-muted-foreground">
+                          <p>
+                            {stripeDashboardIssue === 'onboarding'
+                              ? t('alertStripeOnboardingIncompleteText')
+                              : stripeDashboardIssue === 'session'
+                                ? t('toastStripeDashboardSession')
+                                : stripeDashboardIssue === 'generic'
+                                  ? t('toastStripeDashboardGeneric')
+                                  : t('alertStripeDashboardUnavailableText')}
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {stripeDashboardIssue === 'onboarding' ? (
+                              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0')} disabled={!!stripeBusy} onClick={handleCreateStripeAccountOnboardingLinkClicked}>
+                                {t('btnFinishStripeSetup')}
+                              </Button>
+                            ) : (
+                              <Button asChild variant="outline" className="h-9 rounded-xl px-3">
+                                <Link href={routeAccountPayments}>{t('tabAccountBtnManagePayments')}</Link>
+                              </Button>
+                            )}
+                            <Button asChild variant="ghost" className="h-9 rounded-xl px-3">
+                              <Link href={routeAbout}>{t('btnContactSupport')}</Link>
+                            </Button>
+                          </div>
+                        </AlertDescription>
+                      </Alert>
+                    )}
                   </>
                 )}
               </SettingsCard>
