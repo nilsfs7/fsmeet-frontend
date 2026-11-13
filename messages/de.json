@@ -913,7 +913,7 @@
   },
   "/events/manage": {
     "pageTitle": "Events verwalten",
-    "tabRegistrationsTitle": "Registrieungen",
+    "tabRegistrationsTitle": "Registrierungen",
     "tabRegistrationsTextNoEvents": "Du hast dich noch für kein Event angemeldet.",
     "tabEventsHostedTitle": "Meine Events",
     "tabEventsHostedTextNoEvents": "Du hast noch kein Event erstellt.",
