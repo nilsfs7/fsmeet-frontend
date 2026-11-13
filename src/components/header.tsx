@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { IconArrowUpRight, IconCalendarEvent, IconHome, IconInfoCircle, IconMap2, IconMenu2, IconSpeakerphone, IconStopwatch, IconUsers, IconX } from '@tabler/icons-react';
+import { IconArrowUpRight, IconCalendarEvent, IconChevronDown, IconHome, IconInfoCircle, IconMap2, IconMenu2, IconSpeakerphone, IconStopwatch, IconUsers, IconX } from '@tabler/icons-react';
 import LanguagePicker from './language-picker';
 import { appShellContentClass } from '@/components/layout/app-shell-content';
 import { LogoFSMeet } from './logo';
@@ -17,6 +17,7 @@ import { UserType } from '@/domain/enums/user-type';
 import { getVoiceBaseUrl } from '@/lib/voice-url';
 import { getTrainingBaseUrl } from '@/lib/training-url';
 import { cn } from '@/lib/utils';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 type NavIcon = typeof IconHome;
 
@@ -77,28 +78,8 @@ export const AppHeader = () => {
           <LogoFSMeet />
         </div>
 
-        {/* desktop destinations */}
-        <nav aria-label={tUi('mainNav')} className="hidden min-w-0 flex-1 items-center gap-0.5 md:flex xl:gap-1">
-          {[...primary, ...secondary].map(entry => (
-            <Link
-              key={entry.href}
-              href={entry.href}
-              target={entry.external ? '_blank' : undefined}
-              rel={entry.external ? 'noopener noreferrer' : undefined}
-              aria-current={isActive(entry) ? 'page' : undefined}
-              className={cn(
-                'inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2 text-sm font-medium text-muted-foreground transition-colors xl:px-3',
-                'hover:bg-muted hover:text-foreground',
-                isActive(entry) && 'bg-brand-soft text-brand-strong hover:bg-brand-soft hover:text-brand-strong',
-              )}
-            >
-              {/* icons only where there is room (xl+) so all destinations fit at md/lg */}
-              <entry.Icon className="hidden h-4 w-4 xl:block" stroke={1.75} />
-              {entry.label}
-              {entry.external && <IconArrowUpRight className="h-3.5 w-3.5 opacity-60" stroke={1.75} />}
-            </Link>
-          ))}
-        </nav>
+        {/* desktop destinations: entries that don't fit (long labels, narrow widths) move into a "more" menu instead of overlapping the CTA */}
+        <DesktopNav entries={[...primary, ...secondary]} isActive={isActive} ariaLabel={tUi('mainNav')} moreLabel={t('sectionMore')} />
 
         <div className="ml-auto flex shrink-0 items-center gap-2">
           {canCreateEvents && (
@@ -194,3 +175,124 @@ const SheetLink = ({ entry, active, onNavigate }: { entry: NavEntry; active: boo
     {entry.external && <IconArrowUpRight className="h-4 w-4 opacity-60" stroke={1.75} />}
   </Link>
 );
+
+const desktopLinkClass = (active: boolean) =>
+  cn(
+    'inline-flex h-9 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg px-2 text-sm font-medium text-muted-foreground transition-colors xl:px-3',
+    'hover:bg-muted hover:text-foreground',
+    active && 'bg-brand-soft text-brand-strong hover:bg-brand-soft hover:text-brand-strong',
+  );
+
+const DesktopLinkContent = ({ entry }: { entry: NavEntry }) => (
+  <>
+    {/* icons only where there is room (xl+) */}
+    <entry.Icon className="hidden h-4 w-4 xl:block" stroke={1.75} />
+    {entry.label}
+    {entry.external && <IconArrowUpRight className="h-3.5 w-3.5 opacity-60" stroke={1.75} />}
+  </>
+);
+
+/** Priority navigation: shows as many entries as fit into the available width, the rest goes into a "more" dropdown. */
+const DesktopNav = ({ entries, isActive, ariaLabel, moreLabel }: { entries: NavEntry[]; isActive: (entry: NavEntry) => boolean; ariaLabel: string; moreLabel: string }) => {
+  const navRef = useRef<HTMLElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
+  const [visibleCount, setVisibleCount] = useState(entries.length);
+  const signature = entries.map(e => e.label).join('|');
+
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    const measure = measureRef.current;
+    if (!nav || !measure) return;
+
+    const recalc = () => {
+      const items = Array.from(measure.children) as HTMLElement[];
+      const more = items.pop();
+      if (!more) return;
+      const gap = parseFloat(getComputedStyle(measure).columnGap) || 0;
+      const available = nav.clientWidth;
+      const widths = items.map(el => el.getBoundingClientRect().width);
+      const total = widths.reduce((sum, w, i) => sum + w + (i > 0 ? gap : 0), 0);
+      if (total <= available) {
+        setVisibleCount(widths.length);
+        return;
+      }
+      const budget = available - more.getBoundingClientRect().width - gap;
+      let used = 0;
+      let count = 0;
+      for (const w of widths) {
+        const next = used + (count > 0 ? gap : 0) + w;
+        if (next > budget) break;
+        used = next;
+        count++;
+      }
+      setVisibleCount(count);
+    };
+
+    recalc();
+    const observer = new ResizeObserver(recalc);
+    observer.observe(nav);
+    observer.observe(measure);
+    return () => observer.disconnect();
+  }, [signature]);
+
+  const visible = entries.slice(0, visibleCount);
+  const overflow = entries.slice(visibleCount);
+
+  return (
+    <nav ref={navRef} aria-label={ariaLabel} className="relative hidden min-w-0 flex-1 items-center gap-0.5 overflow-hidden md:flex xl:gap-1">
+      {/* invisible copy of all entries (+ the "more" button) to measure their natural widths */}
+      <div ref={measureRef} aria-hidden inert className="pointer-events-none invisible absolute left-0 top-0 flex items-center gap-0.5 xl:gap-1">
+        {entries.map(entry => (
+          <span key={`m-${entry.href}`} className={desktopLinkClass(false)}>
+            <DesktopLinkContent entry={entry} />
+          </span>
+        ))}
+        <span className={desktopLinkClass(false)}>
+          {moreLabel}
+          <IconChevronDown className="h-3.5 w-3.5" stroke={1.75} />
+        </span>
+      </div>
+
+      {visible.map(entry => (
+        <Link
+          key={entry.href}
+          href={entry.href}
+          target={entry.external ? '_blank' : undefined}
+          rel={entry.external ? 'noopener noreferrer' : undefined}
+          aria-current={isActive(entry) ? 'page' : undefined}
+          className={desktopLinkClass(isActive(entry))}
+        >
+          <DesktopLinkContent entry={entry} />
+        </Link>
+      ))}
+
+      {overflow.length > 0 && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button type="button" className={desktopLinkClass(overflow.some(isActive))} data-testid="nav-more">
+              {moreLabel}
+              <IconChevronDown className="h-3.5 w-3.5" stroke={1.75} />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="min-w-48">
+            {overflow.map(entry => (
+              <DropdownMenuItem key={entry.href} asChild>
+                <Link
+                  href={entry.href}
+                  target={entry.external ? '_blank' : undefined}
+                  rel={entry.external ? 'noopener noreferrer' : undefined}
+                  aria-current={isActive(entry) ? 'page' : undefined}
+                  className={cn('flex cursor-pointer items-center gap-2', isActive(entry) && 'text-brand-strong')}
+                >
+                  <entry.Icon className="h-4 w-4" stroke={1.75} />
+                  <span className="flex-1">{entry.label}</span>
+                  {entry.external && <IconArrowUpRight className="h-3.5 w-3.5 opacity-60" stroke={1.75} />}
+                </Link>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+    </nav>
+  );
+};
