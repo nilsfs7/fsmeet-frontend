@@ -41,7 +41,7 @@ export function ChartParticipantAge({ data, labels, colors = [], title, descript
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-base font-semibold">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>

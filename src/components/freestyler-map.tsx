@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { User } from '@/domain/types/user';
 import { routeUsers } from '@/domain/constants/routes';
 import { getUserTypeImages, getUserTypeLabels } from '@/functions/user-type';
+import { UserTypeIcon } from '@/components/user/user-type-icon';
 import { UserType } from '@/domain/enums/user-type';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import Link from 'next/link';
@@ -17,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { menuGender } from '@/domain/constants/menus/menu-gender';
 import { ChevronDown } from 'lucide-react';
+import { IconAdjustmentsHorizontal, IconArrowRight, IconArrowUpRight, IconSearch } from '@tabler/icons-react';
 import { Gender } from '@/domain/enums/gender';
 import LoadingSpinner from './animation/loading-spinner';
 import { isNaturalPerson } from '../functions/is-natural-person';
@@ -96,17 +98,9 @@ const containerStyle = {
 
 const MAP_FILTER_ALL = '__all__' as const;
 
-const mapCountrySelectTriggerClass = 'h-9 w-full min-w-0 border-border/60 bg-background/80 text-left dark:border-zinc-700';
+const mapCountrySelectTriggerClass = 'h-9 w-full min-w-0 rounded-xl border-border bg-background text-left';
 
-const DEFAULT_MAP_USER_TYPES: UserType[] = [
-  UserType.FREESTYLER,
-  UserType.ASSOCIATION,
-  UserType.BRAND,
-  UserType.DJ,
-  UserType.EVENT_ORGANIZER,
-  UserType.MC,
-  UserType.MEDIA,
-];
+const DEFAULT_MAP_USER_TYPES: UserType[] = [UserType.FREESTYLER, UserType.ASSOCIATION, UserType.BRAND, UserType.DJ, UserType.EVENT_ORGANIZER, UserType.MC, UserType.MEDIA];
 
 function sameUserTypeSelection(a: UserType[], b: UserType[]) {
   if (a.length !== b.length) return false;
@@ -269,10 +263,7 @@ const Map = ({
   }, [filterCountryCode, userCountryOptions]);
 
   const hasAdvancedFiltersActive = useMemo(
-    () =>
-      Boolean(filterCountryCode.trim()) ||
-      !sameUserTypeSelection(filterUserType, DEFAULT_MAP_USER_TYPES) ||
-      !sameGenderSelection(filterGender, DEFAULT_MAP_GENDERS),
+    () => Boolean(filterCountryCode.trim()) || !sameUserTypeSelection(filterUserType, DEFAULT_MAP_USER_TYPES) || !sameGenderSelection(filterGender, DEFAULT_MAP_GENDERS),
     [filterCountryCode, filterUserType, filterGender],
   );
 
@@ -295,11 +286,7 @@ const Map = ({
       const typeOk = filterUserType.includes(user.type);
 
       // filter by country (associations & brands always pass — they typically have no country code)
-      const countryOk =
-        !selectedCc ||
-        user.type === UserType.ASSOCIATION ||
-        user.type === UserType.BRAND ||
-        (user.countryCode || '').trim().toUpperCase() === selectedCc;
+      const countryOk = !selectedCc || user.type === UserType.ASSOCIATION || user.type === UserType.BRAND || (user.countryCode || '').trim().toUpperCase() === selectedCc;
 
       return nameOk && genderOk && typeOk && countryOk;
     });
@@ -326,7 +313,13 @@ const Map = ({
   };
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
-    setMapOptions({ center: new google.maps.LatLng(lat, lng), streetViewControl: streetViewEnabled, zoom: zoom });
+    setMapOptions({
+      center: new google.maps.LatLng(lat, lng),
+      streetViewControl: streetViewEnabled,
+      zoom: zoom,
+      // the floating search panel sits top-left, so move the map/satellite toggle out of its way
+      ...(isIframe ? {} : { mapTypeControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM } }),
+    });
     setMap(map);
   }, []);
 
@@ -336,38 +329,61 @@ const Map = ({
 
   if (!isLoaded || !iconFreestylerMale || !iconFreestylerFemale) return <LoadingSpinner />;
 
-  return (
-    <div className="flex min-h-0 flex-1 flex-col gap-2">
-      {!isIframe && (
-        <div className="flex shrink-0 flex-col gap-1.5 px-3 sm:px-4">
-          <div className="mx-auto w-full min-w-0 max-w-lg">
-            <Input
-              placeholder={t('inputSearchPlaceholder')}
-              value={filterName}
-              onChange={(event: any) => {
-                setFilterName(event.target.value);
-              }}
-              className="w-full min-w-0"
-            />
-          </div>
+  const advancedFilterCount =
+    (filterCountryCode.trim() ? 1 : 0) + (sameUserTypeSelection(filterUserType, DEFAULT_MAP_USER_TYPES) ? 0 : 1) + (sameGenderSelection(filterGender, DEFAULT_MAP_GENDERS) ? 0 : 1);
 
-          <div className="w-full min-w-0 max-w-lg sm:mx-auto">
-            <button
-              type="button"
-              onClick={() => setAdvancedOpen(v => !v)}
-              className="flex w-full min-w-0 items-center justify-center gap-2 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              aria-expanded={advancedOpen}
-            >
-              {hasAdvancedFiltersActive ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden /> : null}
-              <span className="font-medium text-foreground/90">{t('searchAdvancedLabel')}</span>
-              <ChevronDown className={cn('h-4 w-4 shrink-0 transition-transform duration-200', advancedOpen && 'rotate-180')} aria-hidden />
-            </button>
+  return (
+    <div className={cn('relative flex min-h-0 flex-1 flex-col', !isIframe && 'overflow-hidden rounded-3xl border border-border bg-muted shadow-sm')}>
+      {!isIframe && (
+        // floating search + filter panel; leaves room for the fullscreen control on the right (mobile)
+        <div className="pointer-events-none absolute inset-x-3 top-3 z-10 pr-12 sm:inset-x-auto sm:left-4 sm:top-4 sm:w-[23rem] sm:pr-0">
+          <div className="pointer-events-auto max-h-[min(70vh,34rem)] overflow-y-auto rounded-2xl border border-border/70 bg-background/95 p-2 shadow-lg backdrop-blur-md">
+            <div className="flex items-center gap-2">
+              <div className="relative min-w-0 flex-1">
+                <IconSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" stroke={1.75} aria-hidden />
+                <Input
+                  placeholder={t('inputSearchPlaceholder')}
+                  aria-label={t('inputSearchPlaceholder')}
+                  value={filterName}
+                  onChange={(event: any) => {
+                    setFilterName(event.target.value);
+                  }}
+                  className="h-10 w-full min-w-0 rounded-xl pl-9"
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setAdvancedOpen(v => !v)}
+                aria-expanded={advancedOpen}
+                aria-label={t('searchAdvancedLabel')}
+                className={cn(
+                  'inline-flex h-10 shrink-0 items-center gap-1.5 rounded-xl border px-3 text-sm font-medium transition-colors',
+                  advancedOpen || hasAdvancedFiltersActive ? 'border-brand/40 bg-brand-soft text-brand-strong' : 'border-border bg-background text-foreground hover:bg-muted',
+                )}
+              >
+                <IconAdjustmentsHorizontal className="h-4 w-4" stroke={1.75} aria-hidden />
+                <span className="hidden sm:inline">{t('searchAdvancedLabel')}</span>
+                {advancedFilterCount > 0 && (
+                  <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand px-1 text-2xs font-semibold text-brand-foreground">{advancedFilterCount}</span>
+                )}
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between gap-2 px-1 pt-2 text-xs text-muted-foreground">
+              <span aria-live="polite">{t('resultsCount', { count: filteredUsers.length })}</span>
+              {hasAnyFiltersActive && (
+                <button type="button" onClick={clearAllFilters} className="font-medium text-brand-strong hover:underline">
+                  {t('filterClearAll')}
+                </button>
+              )}
+            </div>
 
             {advancedOpen && (
-              <div className="space-y-3 pt-0.5 pb-1">
+              <div className="mt-2 space-y-3 border-t border-border/70 px-1 pb-1 pt-3">
                 {userCountryOptions.length > 0 && (
                   <div>
-                    <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('filterUserCountry')}</div>
+                    <div className="mb-1 text-xs font-medium text-muted-foreground">{t('filterUserCountry')}</div>
                     <Select value={filterCountryCode || MAP_FILTER_ALL} onValueChange={v => setFilterCountryCode(v === MAP_FILTER_ALL ? '' : v)}>
                       <SelectTrigger className={mapCountrySelectTriggerClass}>
                         <SelectValue />
@@ -384,90 +400,86 @@ const Map = ({
                   </div>
                 )}
 
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="w-full min-w-0 justify-between">
-                      {t('drpDwnGender')}
-                      <ChevronDown className="ml-2 h-4 w-4 shrink-0" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="max-h-80 overflow-y-auto">
-                    {menuGender.map(menuItem => {
-                      return (
-                        <DropdownMenuCheckboxItem
-                          key={menuItem.value}
-                          checked={filterGender.includes(menuItem.value as Gender)}
-                          onCheckedChange={(value: any) => {
-                            const genders = Array.from(filterGender);
-
-                            if (value === true) {
-                              genders.push(menuItem.value as Gender);
-                            } else {
-                              const index = genders.indexOf(menuItem.value as Gender);
-                              if (index > -1) {
-                                genders.splice(index, 1);
-                              }
-                            }
-
-                            setFilterGender(genders);
-                          }}
-                        >
-                          {menuItem.text}
-                        </DropdownMenuCheckboxItem>
-                      );
-                    })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="w-full min-w-0 justify-between">
-                      {t('drpDwnUserTypes')}
-                      <ChevronDown className="ml-2 h-4 w-4 shrink-0" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="max-h-80 overflow-y-auto">
-                    {menuUserType
-                      .filter(type => type.value !== UserType.FAN)
-                      .map(menuItem => {
+                <div className="grid grid-cols-2 gap-2">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" className="h-9 w-full min-w-0 justify-between rounded-xl px-3 text-sm font-normal">
+                        {t('drpDwnGender')}
+                        <ChevronDown className="ml-2 h-4 w-4 shrink-0" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" className="max-h-80 overflow-y-auto">
+                      {menuGender.map(menuItem => {
                         return (
                           <DropdownMenuCheckboxItem
                             key={menuItem.value}
-                            checked={filterUserType.includes(menuItem.value as UserType)}
+                            checked={filterGender.includes(menuItem.value as Gender)}
                             onCheckedChange={(value: any) => {
-                              const types = Array.from(filterUserType);
+                              const genders = Array.from(filterGender);
 
-                              // add or remove user type from array
                               if (value === true) {
-                                types.push(menuItem.value as UserType);
+                                genders.push(menuItem.value as Gender);
                               } else {
-                                const index = types.indexOf(menuItem.value as UserType);
+                                const index = genders.indexOf(menuItem.value as Gender);
                                 if (index > -1) {
-                                  types.splice(index, 1);
+                                  genders.splice(index, 1);
                                 }
                               }
 
-                              setFilterUserType(types);
+                              setFilterGender(genders);
                             }}
                           >
                             {menuItem.text}
                           </DropdownMenuCheckboxItem>
                         );
                       })}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
 
-                <div className="flex w-full min-w-0 flex-col gap-2 pt-1 sm:flex-row sm:items-center sm:justify-between">
-                  <Button
-                    type="button"
-                    variant="action"
-                    className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm')}
-                    onClick={clearAllFilters}
-                    disabled={!hasAnyFiltersActive}
-                  >
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" className="h-9 w-full min-w-0 justify-between rounded-xl px-3 text-sm font-normal">
+                        {t('drpDwnUserTypes')}
+                        <ChevronDown className="ml-2 h-4 w-4 shrink-0" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" className="max-h-80 overflow-y-auto">
+                      {menuUserType
+                        .filter(type => type.value !== UserType.FAN)
+                        .map(menuItem => {
+                          return (
+                            <DropdownMenuCheckboxItem
+                              key={menuItem.value}
+                              checked={filterUserType.includes(menuItem.value as UserType)}
+                              onCheckedChange={(value: any) => {
+                                const types = Array.from(filterUserType);
+
+                                // add or remove user type from array
+                                if (value === true) {
+                                  types.push(menuItem.value as UserType);
+                                } else {
+                                  const index = types.indexOf(menuItem.value as UserType);
+                                  if (index > -1) {
+                                    types.splice(index, 1);
+                                  }
+                                }
+
+                                setFilterUserType(types);
+                              }}
+                            >
+                              {menuItem.text}
+                            </DropdownMenuCheckboxItem>
+                          );
+                        })}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+
+                <div className="flex w-full min-w-0 items-center justify-between gap-2 pt-1">
+                  <Button type="button" variant="outline" className="h-9 min-w-0 rounded-xl px-3 text-sm" onClick={clearAllFilters} disabled={!hasAnyFiltersActive}>
                     {t('filterClearAll')}
                   </Button>
-                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
+                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'h-9 min-w-0! px-4 text-sm')} onClick={() => setAdvancedOpen(false)}>
                     {t('filterApply')}
                   </Button>
                 </div>
@@ -519,54 +531,49 @@ const Map = ({
                       removeFromSelectedUsers(user);
                     }}
                   >
-                    <div className="bg-white shadow-lg rounded-lg">
-                      <div className="flex flex-col gap-1">
-                        <div className="grid grid-flow-col justify-start items-center gap-1">
-                          <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} className="h-6 w-6 rounded-full object-cover" />
+                    <div className="w-56 max-w-full p-0.5 font-sans text-zinc-900">
+                      <div className="flex items-center gap-3">
+                        <img src={user.imageUrl ? user.imageUrl : imgUserDefaultImg} alt="" className="h-11 w-11 shrink-0 rounded-full object-cover ring-1 ring-zinc-200" />
+                        <div className="min-w-0">
+                          <div className="truncate text-sm font-semibold">{user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`}</div>
 
-                          <div className="text-md font-semibold">{user.lastName ? `${user.firstName} ${user.lastName}` : `${user.firstName}`}</div>
-                        </div>
-
-                        {user.type === UserType.FREESTYLER && user.countryCode && (
-                          <div className="grid grid-flow-col justify-start items-center gap-1">
-                            <div className="h-6 w-6">
-                              <ReactCountryFlag
-                                countryCode={user.countryCode}
-                                svg
-                                style={{
-                                  width: '100%',
-                                  height: '100%',
-                                }}
-                                title={user.countryCode}
-                              />
+                          {user.type === UserType.FREESTYLER && user.countryCode && (
+                            <div className="mt-0.5 flex items-center gap-1.5 text-xs text-zinc-600">
+                              <ReactCountryFlag countryCode={user.countryCode} svg style={{ width: '1rem', height: '0.75rem', borderRadius: '2px' }} title={user.countryCode} />
+                              <span className="truncate">{getCountryNameByCode(user.countryCode)}</span>
                             </div>
+                          )}
 
-                            <div>{getCountryNameByCode(user.countryCode)}</div>
-                          </div>
-                        )}
-
-                        {user.type !== UserType.FREESTYLER && (
-                          <div className="grid grid-flow-col justify-start items-center gap-1">
-                            <img src={getUserTypeImages(user.type, undefined).path} className="h-6 w-6 object-cover" />
-
-                            {user.type && <div>{`${getUserTypeLabels(user.type, t)}`}</div>}
-                          </div>
-                        )}
+                          {user.type !== UserType.FREESTYLER && (
+                            <div className="mt-0.5 flex items-center gap-1.5 text-xs text-zinc-600">
+                              <UserTypeIcon userType={user.type} variant="tile" className="h-4 w-4 rounded" />
+                              {user.type && <span className="truncate">{`${getUserTypeLabels(user.type, t)}`}</span>}
+                            </div>
+                          )}
+                        </div>
                       </div>
 
-                      <div className="flex justify-end mt-2">
-                        {!isIframe && (
-                          <Link href={`${routeUsers}/${user.username}`}>
-                            <u>{t('infoWindowGoToProfileInternal')}</u>
-                          </Link>
-                        )}
+                      {!isIframe && (
+                        <Link
+                          href={`${routeUsers}/${user.username}`}
+                          className="mt-3 flex items-center justify-center gap-1 rounded-lg bg-brand px-3 py-1.5 text-xs font-semibold text-brand-foreground! no-underline transition-colors hover:bg-brand-strong"
+                        >
+                          {t('infoWindowGoToProfileInternal')}
+                          <IconArrowRight className="h-3.5 w-3.5" stroke={2} aria-hidden />
+                        </Link>
+                      )}
 
-                        {isIframe && (
-                          <a href={`${window.location.origin}/${routeUsers}/${user.username}`} target="_blank" rel="noopener noreferrer">
-                            <u>{t('infoWindowGoToProfileExternal')}</u>
-                          </a>
-                        )}
-                      </div>
+                      {isIframe && (
+                        <a
+                          href={`${window.location.origin}${routeUsers}/${user.username}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 flex items-center justify-center gap-1 rounded-lg bg-brand px-3 py-1.5 text-xs font-semibold text-brand-foreground! no-underline transition-colors hover:bg-brand-strong"
+                        >
+                          {t('infoWindowGoToProfileExternal')}
+                          <IconArrowUpRight className="h-3.5 w-3.5" stroke={2} aria-hidden />
+                        </a>
+                      )}
                     </div>
                   </InfoWindow>
                 )}

@@ -3,7 +3,8 @@
 import { MenuItem } from '@/domain/types/menu-item';
 import { User } from '@/domain/types/user';
 import Link from 'next/link';
-import { imgClock, imgUserDefaultImg } from '@/domain/constants/images';
+import { imgUserDefaultImg } from '@/domain/constants/images';
+import { IconClock } from '@tabler/icons-react';
 import moment, { Moment } from 'moment';
 import { getTimeString } from '@/functions/time';
 import ComboBox from '../common/combo-box';
@@ -16,15 +17,6 @@ import ReactCountryFlag from 'react-country-flag';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
-
-const cardSurface = cn(
-  'group min-w-0 overflow-hidden rounded-xl border border-border/60',
-  'bg-secondary-light/85 shadow-xs backdrop-blur-xs',
-  'supports-backdrop-filter:bg-secondary-light/70',
-  'transition-all duration-200',
-  'hover:border-primary/50 hover:shadow-md',
-  'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50 dark:hover:border-primary/40',
-);
 
 interface IMatchProps {
   match: Match;
@@ -69,66 +61,65 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
 
   const isEditSingleSlot = editingEnabled && match.slots === 1;
 
+  // Higher result wins (same rule as the results export). Only highlight a unique winner once every slot has a result.
+  const results = [...Array(match.slots)].map((_, i) => match.matchSlots.find(slot => slot.slotIndex === i)?.result);
+  const complete = match.slots > 1 && results.every(r => r !== undefined && r >= 0);
+  const best = complete ? Math.max(...(results as number[])) : null;
+  const winnerIndex = best !== null && results.filter(r => r === best).length === 1 ? results.indexOf(best) : -1;
+
   return (
     <div
       className={cn(
-        cardSurface,
-        isEditSingleSlot && 'border-warning/50 bg-warning/20 supports-backdrop-filter:bg-warning/15 dark:border-warning/40 dark:bg-warning/10 dark:supports-backdrop-filter:bg-warning/10',
+        'group min-w-0 overflow-hidden rounded-2xl border border-border bg-background shadow-xs transition-colors',
+        !editingEnabled && !seedingEnabled && 'hover:border-brand/40',
+        isEditSingleSlot && 'border-amber-300/70 bg-amber-50/60 dark:border-amber-500/30 dark:bg-amber-500/5',
+        match.isExtraMatch && 'border-dashed',
       )}
     >
-      <div className="p-2.5 sm:p-3">
-        <div className={cn('min-w-0', editingEnabled && 'mb-2')}>
-          <div
+      <div className="flex min-w-0 items-center justify-between gap-2 border-b border-border/60 bg-muted/30 px-3 py-2">
+        <div className="flex min-w-0 items-center gap-1.5">
+          <span
             className={cn(
-              'flex w-full min-w-0 items-center gap-2',
-              !editingEnabled && !showTime && 'justify-center',
-              (editingEnabled || showTime) && 'justify-between',
+              'min-w-0 truncate text-xs font-semibold uppercase tracking-wide text-muted-foreground',
+              match.name.length === 0 && 'rounded-md bg-destructive/10 px-1.5 py-0.5 text-destructive',
             )}
           >
-            <div
-              className={cn(
-                'type-body-sm min-w-0 font-medium text-foreground',
-                !editingEnabled && !showTime && 'text-center',
-                !editingEnabled && showTime && 'flex-1',
-                match.name.length === 0 && 'rounded-md border border-destructive/50 bg-destructive/10 px-1.5 py-0.5 text-destructive dark:border-destructive/40 dark:bg-destructive/15',
-              )}
-            >
-              {match.name}
-            </div>
-            {editingEnabled && (
-              <div className="flex w-fit shrink-0 gap-1">
-                {onEditMatch && <ActionButton action={Action.EDIT} size={Size.S} onClick={() => onEditMatch(match.matchIndex)} />}
-                {onDeleteMatch && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteMatch(match.matchIndex)} />}
-              </div>
-            )}
-            {!editingEnabled && showTime && (
-              <div className="shrink-0 type-body-sm tabular-nums text-muted-foreground">{match.time && getTimeString(moment(match.time).utc())}</div>
-            )}
-          </div>
-
-          {editingEnabled && (
-            <div className="mt-2 flex items-center gap-2">
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center [&>img]:h-full [&>img]:w-full [&>img]:object-contain">
-                <img src={imgClock} alt="" />
-              </div>
-              <div className="type-body-sm tabular-nums text-foreground/90">
-                {match.time ? getTimeString(moment(match.time).utc()) : '--:--'}
-              </div>
-            </div>
+            {match.name || '—'}
+          </span>
+          {match.isExtraMatch && (
+            <span className="shrink-0 rounded-full bg-amber-100 px-1.5 py-0.5 text-2xs font-semibold text-amber-800 dark:bg-amber-500/15 dark:text-amber-300">{t('labelExtraMatch')}</span>
           )}
         </div>
 
-        <div className="mt-2 border-t border-border/50 pt-2.5 sm:pt-3">
+        <div className="flex shrink-0 items-center gap-1">
+          {(showTime || editingEnabled) && (
+            <span className="inline-flex items-center gap-1 text-xs tabular-nums text-muted-foreground">
+              <IconClock className="h-3.5 w-3.5" stroke={1.75} aria-hidden />
+              {match.time ? getTimeString(moment(match.time).utc()) : '--:--'}
+            </span>
+          )}
+          {editingEnabled && (
+            <span className="ml-1 flex gap-1">
+              {onEditMatch && <ActionButton action={Action.EDIT} size={Size.S} onClick={() => onEditMatch(match.matchIndex)} />}
+              {onDeleteMatch && <ActionButton action={Action.DELETE} size={Size.S} onClick={() => onDeleteMatch(match.matchIndex)} />}
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-1 p-2">
         {[...Array(match.slots)].map((val: number, i: number) => {
           const matchSlot = match.matchSlots.filter(slot => {
             if (slot.slotIndex === i) return slot;
           })[0];
 
+          const slotCountryCode = matchSlot?.name ? usersMap?.get(matchSlot.name)?.countryCode : undefined;
+          // without a known country (e.g. user not in the participant list) fall back to the avatar instead of a broken flag
           const playerImage = matchSlot?.name ? (
-            showUserCountryFlag ? (
+            showUserCountryFlag && slotCountryCode ? (
               <ReactCountryFlag
                 className="w-full h-full"
-                countryCode={usersMap?.get(matchSlot?.name)?.countryCode || ''}
+                countryCode={slotCountryCode}
                 svg
                 style={{
                   width: '100%',
@@ -138,14 +129,10 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                 }}
               />
             ) : (
-              <img
-                src={usersMap?.get(matchSlot?.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg}
-                className="h-full w-full rounded-full bg-muted object-cover"
-                alt=""
-              />
+              <img src={usersMap?.get(matchSlot?.name)?.imageUrl ? usersMap?.get(matchSlot.name)?.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-muted object-cover" alt="" />
             )
           ) : (
-            <img src={imgUserDefaultImg} className="h-full w-full rounded-full bg-muted object-cover" alt="" />
+            <img src={imgUserDefaultImg} className="h-full w-full rounded-full bg-muted object-cover opacity-50" alt="" />
           );
 
           const playerNameText = matchSlot?.name
@@ -154,10 +141,13 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
               : usersMap?.get(matchSlot.name)?.firstName || matchSlot?.name || ''
             : '';
 
+          const hasResult = matchSlot && matchSlot.result != undefined && matchSlot.result >= 0;
+          const isWinner = i === winnerIndex;
+
           return (
-            <div key={`slot-${i}`} className={cn('flex items-center justify-between', i > 0 && 'mt-1.5')}>
+            <div key={`slot-${i}`} className="flex items-center justify-between">
               {!seedingEnabled && (
-                <div className="flex w-full min-w-0 items-center justify-between gap-2">
+                <div className={cn('flex w-full min-w-0 items-center justify-between gap-2 rounded-xl px-1.5 py-1', isWinner && 'bg-brand-soft')}>
                   <div className="flex min-w-0 flex-1 items-center gap-2">
                     <div className="h-7 w-7 shrink-0 overflow-hidden rounded-full">
                       {matchSlot?.name ? (
@@ -168,28 +158,33 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                         playerImage
                       )}
                     </div>
-                    <div className="min-w-0 flex-1 items-center overflow-hidden text-ellipsis">
+                    <div className="min-w-0 flex-1 overflow-hidden">
                       {matchSlot?.name ? (
                         <Link
-                          className="type-body-sm min-w-0 truncate text-foreground/90 no-underline hover:underline"
+                          className={cn('block truncate text-sm text-foreground no-underline hover:underline', isWinner && 'font-semibold text-brand-strong')}
                           href={`${routeUsers}/${matchSlot.name}`}
                         >
                           {playerNameText}
                         </Link>
                       ) : (
-                        <span className="type-body-sm min-w-0 text-foreground/90">{playerNameText}</span>
+                        <span className="block truncate text-sm italic text-muted-foreground">{t('labelTbd')}</span>
                       )}
                     </div>
                   </div>
 
-                  <div className="shrink-0 min-w-[1.5ch] text-right text-base font-semibold tabular-nums text-foreground">
-                    {matchSlot && matchSlot.result != undefined && matchSlot.result >= 0 ? matchSlot.result : '-'}
+                  <div
+                    className={cn(
+                      'flex h-7 min-w-7 shrink-0 items-center justify-center rounded-lg px-1.5 text-sm font-semibold tabular-nums',
+                      isWinner ? 'bg-brand text-brand-foreground' : hasResult ? 'bg-muted text-foreground' : 'text-muted-foreground',
+                    )}
+                  >
+                    {hasResult ? matchSlot.result : '–'}
                   </div>
                 </div>
               )}
 
               {seedingEnabled && (
-                <div className={cn('flex w-full min-w-0 items-stretch justify-between gap-2', i > 0 && 'mt-1')}>
+                <div className="flex w-full min-w-0 items-stretch justify-between gap-2">
                   <ComboBox
                     className="w-full min-w-0"
                     menus={playerMenu}
@@ -202,11 +197,10 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
                   />
 
                   <Input
-                    className={cn(
-                      'h-9 w-18 shrink-0 text-right text-sm font-medium tabular-nums',
-                      'border-border/60 bg-background/80 shadow-sm hover:border-primary/50 dark:bg-background/50',
-                    )}
+                    className="h-9 w-16 shrink-0 text-right text-sm font-semibold tabular-nums"
                     id={`input-max-passing-${match.id}-${i}`}
+                    aria-label={t('labelResult')}
+                    placeholder="–"
                     type="number"
                     min={-1}
                     max={99}
@@ -220,7 +214,6 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
             </div>
           );
         })}
-        </div>
       </div>
     </div>
   );

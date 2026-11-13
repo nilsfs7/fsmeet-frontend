@@ -2,7 +2,6 @@ import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { routeAccount } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
-import { Header } from '@/components/header';
 import PageTitle from '@/components/page-title';
 import { ColumnInfo, PaymentsList } from './components/payments-list';
 import { getTranslations } from 'next-intl/server';
@@ -31,8 +30,6 @@ export default async function Payments() {
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">
-      <Header />
-
       <div className={constrainedContentClass}>
         <PageTitle title={t('pageTitle')} />
       </div>

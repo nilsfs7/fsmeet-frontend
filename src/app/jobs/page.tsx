@@ -19,15 +19,12 @@ export default async function Jobs() {
   const [t, session] = await Promise.all([getTranslations('/jobs'), auth()]);
 
   const username = session?.user?.username;
-  const [bookingRequests, user] = await Promise.all([
-    getBookingRequests(session),
-    username ? getUser(username, session) : Promise.resolve(null),
-  ]);
+  const [bookingRequests, user] = await Promise.all([getBookingRequests(session), username ? getUser(username, session) : Promise.resolve(null)]);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className={constrainedContentClass}>
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={t('pageDescription')} />
       </div>
 
       <div className={cn('mt-2 flex-1 min-h-0 flex flex-col overflow-hidden', constrainedContentClass)}>

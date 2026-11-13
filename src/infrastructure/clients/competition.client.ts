@@ -10,6 +10,13 @@ import { defaultHeaders } from './default-headers';
 import { createMatch } from '@/domain/types/match';
 import { CompetitionType } from '@/domain/enums/competition-type';
 
+/** Backend validation errors can be a string or a list of strings. */
+function toErrorMessage(error: { message?: unknown } | null): string {
+  const message = error?.message;
+  if (Array.isArray(message)) return message.filter(m => typeof m === 'string').join(' ');
+  return typeof message === 'string' && message ? message : 'Request failed.';
+}
+
 export async function getCompetitions(eventId: string | null, compType: CompetitionType | null): Promise<Competition[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/competitions?`;
 
@@ -81,6 +88,7 @@ export async function createCompetition(eventId: string, comp: Competition, sess
   const body = JSON.stringify({
     eventId: eventId,
     name: comp?.name.trim(),
+    ...(comp.alias?.trim() ? { alias: comp.alias.trim().toLowerCase() } : {}),
     type: comp.type,
     gender: comp.gender,
     maxAge: comp?.maxAge,
@@ -107,8 +115,8 @@ export async function createCompetition(eventId: string, comp: Competition, sess
   if (response.ok) {
     console.info('Creating competition successful');
   } else {
-    const error = await response.json();
-    throw Error(error.message);
+    const error = await response.json().catch(() => null);
+    throw Error(toErrorMessage(error));
   }
 }
 
@@ -170,6 +178,8 @@ export async function updateCompetition(comp: Competition, session: Session | nu
 
   const body = JSON.stringify({
     name: comp?.name.trim(),
+    // omit to leave unchanged; an empty string clears the alias
+    ...(comp.alias !== undefined && comp.alias !== null ? { alias: comp.alias.trim().toLowerCase() } : {}),
     maxAge: comp?.maxAge,
     maxAmountParticipants: comp.maxAmountParticipants,
     isFollowUpCompetition: comp.isFollowUpCompetition,
@@ -194,8 +204,8 @@ export async function updateCompetition(comp: Competition, session: Session | nu
   if (response.ok) {
     console.info('Updating competition successful');
   } else {
-    const error = await response.json();
-    throw Error(error.message);
+    const error = await response.json().catch(() => null);
+    throw Error(toErrorMessage(error));
   }
 }
 

@@ -23,6 +23,11 @@ const config = {
       colors: {
         /* Core (see src/app/globals.css) */
         background: channel('--background'),
+        canvas: channel('--canvas'),
+        brand: channel('--brand'),
+        'brand-strong': channel('--brand-strong'),
+        'brand-soft': channel('--brand-soft'),
+        'brand-foreground': channel('--brand-foreground'),
         foreground: channel('--foreground'),
         primary: channel('--primary'),
         'primary-foreground': channel('--primary-foreground'),
@@ -54,7 +59,7 @@ const config = {
         neutral,
       },
       fontFamily: {
-        sans: ['"Roboto"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-sans)', '"Roboto"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
       fontSize: {

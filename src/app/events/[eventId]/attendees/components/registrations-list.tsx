@@ -23,9 +23,10 @@ import { EventRegistrationType } from '../../../../../domain/types/event-registr
 import { User } from '@/domain/types/user';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { AlertTriangle, ChevronsUpDown, ChevronUp, ChevronDown } from 'lucide-react';
+import { IconSearch, IconUsers, IconX } from '@tabler/icons-react';
+import { EmptyState } from '@/components/common/empty-state';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import moment from 'moment';
 
@@ -155,6 +156,15 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
   const [registrationSelected, setRegistrationSelected] = useState<EventRegistration>();
 
   const pendingCount = useMemo(() => registrations.filter(r => r.status === EventRegistrationStatus.PENDING).length, [registrations]);
+  const statusCounts = useMemo(
+    () => ({
+      all: registrations.length,
+      [EventRegistrationStatus.PENDING]: pendingCount,
+      [EventRegistrationStatus.APPROVED]: registrations.filter(r => r.status === EventRegistrationStatus.APPROVED).length,
+      [EventRegistrationStatus.DENIED]: registrations.filter(r => r.status === EventRegistrationStatus.DENIED).length,
+    }),
+    [registrations, pendingCount],
+  );
 
   const filteredRegistrations = useMemo(() => {
     return registrations.filter(registration => {
@@ -235,26 +245,6 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
     return ty === EventRegistrationType.PARTICIPANT ? t('regTypeParticipant') : t('regTypeVisitor');
   };
 
-  const statusIcon = (s: EventRegistrationStatus) => {
-    const label = statusLabel(s);
-    const common = 'h-4 w-4 shrink-0';
-    const wrap = (node: ReactNode) => (
-      <span className="inline-flex h-7 w-7 items-center justify-center" title={label} aria-label={label} role="img">
-        {node}
-      </span>
-    );
-    switch (s) {
-      case EventRegistrationStatus.PENDING:
-        return wrap(<IconHourglass className={cn(common, 'text-amber-600 dark:text-amber-400')} stroke={2} aria-hidden />);
-      case EventRegistrationStatus.APPROVED:
-        return wrap(<IconCheck className={cn(common, 'text-success')} stroke={2} aria-hidden />);
-      case EventRegistrationStatus.DENIED:
-        return wrap(<IconBan className={cn(common, 'text-destructive')} stroke={2} aria-hidden />);
-      default:
-        return <span className="text-zinc-600">{label}</span>;
-    }
-  };
-
   const handleInfoClicked = async (username: string) => {
     setRegistrationSelected(getRegistrationByUsername(username));
     router.replace(`${routeEvents}/${eventId}/attendees?info=1`);
@@ -300,80 +290,124 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
     }
   };
 
+  const statusChipClass = (s: EventRegistrationStatus) =>
+    cn(
+      'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold whitespace-nowrap',
+      s === EventRegistrationStatus.APPROVED && 'bg-brand-soft text-brand-strong',
+      s === EventRegistrationStatus.PENDING && 'bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300',
+      s === EventRegistrationStatus.DENIED && 'bg-destructive/10 text-destructive',
+    );
+
+  const statusChip = (s: EventRegistrationStatus) => (
+    <span className={statusChipClass(s)}>
+      {s === EventRegistrationStatus.PENDING && <IconHourglass className="h-3.5 w-3.5" stroke={2} aria-hidden />}
+      {s === EventRegistrationStatus.APPROVED && <IconCheck className="h-3.5 w-3.5" stroke={2} aria-hidden />}
+      {s === EventRegistrationStatus.DENIED && <IconBan className="h-3.5 w-3.5" stroke={2} aria-hidden />}
+      {statusLabel(s)}
+    </span>
+  );
+
+  const rowActions = (registration: EventRegistration) => {
+    const { user, status } = registration;
+    return (
+      <div className="inline-flex flex-wrap items-center justify-end gap-1">
+        <ActionButton
+          action={Action.INFO}
+          onClick={() => {
+            handleInfoClicked(user.username);
+          }}
+        />
+        {(status === EventRegistrationStatus.APPROVED || status === EventRegistrationStatus.DENIED) && (
+          <ActionButton
+            action={Action.DELETE}
+            onClick={() => {
+              handleRemoveParticipantClicked(user.username);
+            }}
+          />
+        )}
+        {status === EventRegistrationStatus.PENDING && (
+          <>
+            <ActionButton
+              action={Action.ACCEPT}
+              onClick={() => {
+                handleApproveParticipantClicked(user.username, EventRegistrationStatus.APPROVED);
+              }}
+            />
+            <ActionButton
+              action={Action.DENY}
+              onClick={() => {
+                handleDenyParticipantClicked(user.username);
+              }}
+            />
+          </>
+        )}
+      </div>
+    );
+  };
+
+  const infoRow = (label: string, value: ReactNode, key?: string) => (
+    <div key={key} className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-3 py-2">
+      <dt className="text-muted-foreground">{label}</dt>
+      <dd className="min-w-0 break-words font-medium text-foreground">{value}</dd>
+    </div>
+  );
+
+  const statusTabs: StatusFilter[] = ['all', EventRegistrationStatus.PENDING, EventRegistrationStatus.APPROVED, EventRegistrationStatus.DENIED];
+
   return (
     <>
       <Toaster richColors />
 
       <Dialog title={t('dlgRegistrationInfoTitle')} queryParam="info" onCancel={handleCancelDialogClicked}>
-        <div className="grid grid-cols-2 gap-1">
-          <p>{`${t('dlgRegistrationInfoType')}:`}</p>
-          <p>{`${registrationSelected?.type}`}</p>
-        </div>
-        <div className="grid grid-cols-2 gap-1">
-          <p>{`${t('dlgRegistrationInfoStatus')}:`}</p>
-          <p>{`${registrationSelected?.status}`}</p>
-        </div>
-        <div className="grid grid-cols-2 gap-1">
-          <p>{`${t('dlgRegistrationInfoDate')}:`}</p>
-          <p>{`${moment(registrationSelected?.date).format('YYYY-MM-DD HH:mm')}`}</p>
-        </div>
+        {registrationSelected && (
+          <div className="flex flex-col gap-3">
+            <div className="flex min-w-0 items-center justify-between gap-3 rounded-xl bg-muted/50 px-3 py-2.5">
+              <span className="min-w-0 truncate font-semibold text-foreground">{formatRegistrantFullName(registrationSelected.user)}</span>
+              {statusChip(registrationSelected.status)}
+            </div>
+            <dl className="divide-y divide-border">
+              {infoRow(t('dlgRegistrationInfoType'), typeLabel(registrationSelected.type))}
+              {infoRow(t('dlgRegistrationInfoStatus'), statusLabel(registrationSelected.status))}
+              {infoRow(t('dlgRegistrationInfoDate'), moment(registrationSelected.date).format('YYYY-MM-DD HH:mm'))}
+              {registrationSelected.phoneNumber && infoRow(t('dlgRegistrationInfoPhoneNumber'), `+${registrationSelected.phoneCountryCode} ${registrationSelected.phoneNumber}`)}
+              {registrationSelected.email && infoRow(t('dlgRegistrationInfoEmail'), registrationSelected.email)}
+            </dl>
 
-        {registrationSelected?.offeringOrders && registrationSelected?.offeringOrders.length > 0 && (
-          <>
-            <br />
+            {registrationSelected.offeringOrders && registrationSelected.offeringOrders.length > 0 && (
+              <section>
+                <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t('dlgRegistrationInfoOfferings')}</h3>
+                <dl className="divide-y divide-border">
+                  {registrationSelected.offeringOrders.map((id, index) => {
+                    const off = getOfferingById(id);
+                    if (!off) return null;
+                    return infoRow(
+                      off.description,
+                      `${convertCurrencyIntegerToDecimal(paymentFeeCover ? off.costIncPaymentCosts : off.cost, currency)} ${getCurrencySymbol(currency)}`,
+                      `off-${index}`,
+                    );
+                  })}
+                  {infoRow(t('dlgRegistrationInfoShirtSize'), registrationSelected.offeringTShirtSize || na)}
+                </dl>
+              </section>
+            )}
 
-            <p>{`${t('dlgRegistrationInfoOfferings')}:`}</p>
-            {registrationSelected?.offeringOrders.map((id, index) => {
-              const off = getOfferingById(id);
-              if (off)
-                return (
-                  <p key={`off-${index}`} className="grid grid-cols-2 gap-1">
-                    <p>{`- ${off?.description}`}</p>
-                    <p>
-                      {convertCurrencyIntegerToDecimal(paymentFeeCover ? off.costIncPaymentCosts : off.cost, currency)} {getCurrencySymbol(currency)}
-                    </p>
-                  </p>
-                );
-            })}
-
-            <p className="grid grid-cols-2 gap-1">
-              <p>{`${t('dlgRegistrationInfoShirtSize')}:`}</p>
-              <p>{`${registrationSelected.offeringTShirtSize || na}`}</p>
-            </p>
-          </>
-        )}
-
-        {registrationSelected?.accommodationOrders && registrationSelected?.accommodationOrders.length > 0 && (
-          <>
-            <br />
-
-            <p>{`${t('dlgRegistrationInfoAccommodations')}:`}</p>
-            {registrationSelected?.accommodationOrders.map((id, index) => {
-              const acc = getAccommodationById(id);
-              if (acc)
-                return (
-                  <p key={`acc-${index}`} className="grid grid-cols-2 gap-1">
-                    <p>{`- ${acc?.description}`}</p>
-                    <p>
-                      {convertCurrencyIntegerToDecimal(paymentFeeCover ? acc.costIncPaymentCosts : acc.cost, currency)} {getCurrencySymbol(currency)}
-                    </p>
-                  </p>
-                );
-            })}
-          </>
-        )}
-
-        {registrationSelected?.phoneNumber && (
-          <p className="grid grid-cols-2 gap-1">
-            <p>{`${t('dlgRegistrationInfoPhoneNumber')}:`}</p>
-            <p>{`+${registrationSelected?.phoneCountryCode} ${registrationSelected?.phoneNumber}`}</p>
-          </p>
-        )}
-        {registrationSelected?.email && (
-          <p className="grid grid-cols-2 gap-1">
-            <p>{`${t('dlgRegistrationInfoEmail')}:`}</p>
-            <p>{registrationSelected?.email}</p>
-          </p>
+            {registrationSelected.accommodationOrders && registrationSelected.accommodationOrders.length > 0 && (
+              <section>
+                <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t('dlgRegistrationInfoAccommodations')}</h3>
+                <dl className="divide-y divide-border">
+                  {registrationSelected.accommodationOrders.map((id, index) => {
+                    const acc = getAccommodationById(id);
+                    if (!acc) return null;
+                    return infoRow(
+                      acc.description,
+                      `${convertCurrencyIntegerToDecimal(paymentFeeCover ? acc.costIncPaymentCosts : acc.cost, currency)} ${getCurrencySymbol(currency)}`,
+                      `acc-${index}`,
+                    );
+                  })}
+                </dl>
+              </section>
+            )}
+          </div>
         )}
       </Dialog>
 
@@ -409,138 +443,159 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
         </p>
       </Dialog>
 
-      <div className={cn('text-sm flex min-h-0 min-w-0 flex-1 flex-col gap-3 overflow-y-auto scrollbar-none')}>
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-4 overflow-y-auto pb-6 text-sm scrollbar-none">
+        {registrations.length === 0 && <EmptyState icon={<IconUsers stroke={1.75} aria-hidden />} title={t('textNoParticipants')} />}
+
         {registrations.length > 0 && (
           <>
             {pendingCount > 0 && (
-              <Alert className={cn('shrink-0 border-amber-200/90 bg-amber-50 text-amber-950', 'dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100')}>
+              <Alert className={cn('shrink-0 rounded-2xl border-amber-200/90 bg-amber-50 text-amber-950', 'dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100')}>
                 <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" aria-hidden />
                 <AlertDescription>{t('alertPendingRegistrations', { count: pendingCount })}</AlertDescription>
               </Alert>
             )}
 
-            <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
-              <div className="min-w-0 flex-1 sm:max-w-xs">
-                <label className="mb-1 block text-left text-xs text-zinc-600" htmlFor="attendees-filter-name">
+            {/* Status tiles double as the status filter */}
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4" role="group" aria-label={t('filterStatusLabel')}>
+              {statusTabs.map(s => {
+                const active = statusFilter === s;
+                return (
+                  <button
+                    key={s}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => setStatusFilter(s)}
+                    className={cn(
+                      'flex min-w-0 flex-col items-start rounded-2xl border px-3 py-2.5 text-left shadow-xs transition-colors',
+                      active ? 'border-brand/60 bg-brand-soft' : 'border-border bg-background hover:border-brand/30',
+                    )}
+                  >
+                    <span className={cn('text-xl font-bold tabular-nums', active ? 'text-brand-strong' : 'text-foreground')}>{statusCounts[s]}</span>
+                    <span className="truncate text-xs text-muted-foreground">{s === 'all' ? t('statTotal') : statusLabel(s)}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div className="relative min-w-0 sm:w-80">
+                <label className="sr-only" htmlFor="attendees-filter-name">
                   {t('filterNameLabel')}
                 </label>
-                <Input id="attendees-filter-name" type="search" value={nameQuery} onChange={e => setNameQuery(e.target.value)} placeholder={t('filterNamePlaceholder')} className="w-full" />
+                <IconSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" stroke={1.75} aria-hidden />
+                <Input
+                  id="attendees-filter-name"
+                  type="search"
+                  value={nameQuery}
+                  onChange={e => setNameQuery(e.target.value)}
+                  placeholder={t('filterNamePlaceholder')}
+                  className="w-full pl-9 pr-9 [&::-webkit-search-cancel-button]:hidden"
+                />
+                {nameQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setNameQuery('')}
+                    className="absolute inset-y-0 right-0 flex w-9 items-center justify-center text-muted-foreground hover:text-foreground"
+                    aria-label={t('btnClearSearch')}
+                  >
+                    <IconX className="h-4 w-4" stroke={1.75} aria-hidden />
+                  </button>
+                )}
               </div>
-              <div className="w-full min-w-40 sm:w-48">
-                <span className="mb-1 block text-left text-xs text-zinc-600">{t('filterStatusLabel')}</span>
-                <Select value={statusFilter} onValueChange={v => setStatusFilter(v === 'all' ? 'all' : (v as EventRegistrationStatus))}>
-                  <SelectTrigger aria-label={t('filterStatusLabel')}>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">{t('filterStatusAll')}</SelectItem>
-                    <SelectItem value={EventRegistrationStatus.PENDING}>{t('statusPending')}</SelectItem>
-                    <SelectItem value={EventRegistrationStatus.APPROVED}>{t('statusApproved')}</SelectItem>
-                    <SelectItem value={EventRegistrationStatus.DENIED}>{t('statusDenied')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <span className="text-xs text-muted-foreground">{t('textShown', { shown: filteredRegistrations.length, total: registrations.length })}</span>
             </div>
           </>
         )}
 
-        {registrations.length === 0 && <div className="m-1 flex justify-center text-zinc-600">{t('textNoParticipants')}</div>}
-
-        {registrations.length > 0 && filteredRegistrations.length === 0 && <div className="m-1 flex justify-center text-zinc-600">{t('textNoFilterMatch')}</div>}
+        {registrations.length > 0 && filteredRegistrations.length === 0 && <EmptyState icon={<IconSearch stroke={1.75} aria-hidden />} title={t('textNoFilterMatch')} />}
 
         {registrations.length > 0 && displayedRegistrations.length > 0 && (
-          <div className="min-h-0 min-w-0 max-w-full overflow-x-auto scrollbar-none">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="min-w-40" aria-sort={ariaSortForColumn('name', tableSort)}>
-                    <SortColumnHeaderButton
-                      column="name"
-                      tableSort={tableSort}
-                      onCycle={cycleColumnSort}
-                      label={t('tableColFullName')}
-                      title={t('tableSortByName')}
-                      aria-label={`${t('tableColFullName')}, ${t('tableSortByName')}`}
-                    />
-                  </TableHead>
-                  <TableHead className="w-[1%] whitespace-nowrap" aria-sort={ariaSortForColumn('type', tableSort)}>
-                    <SortColumnHeaderButton
-                      column="type"
-                      tableSort={tableSort}
-                      onCycle={cycleColumnSort}
-                      label={t('tableColType')}
-                      title={t('tableSortByType')}
-                      aria-label={`${t('tableColType')}, ${t('tableSortByType')}`}
-                    />
-                  </TableHead>
-                  <TableHead className="w-[1%] whitespace-nowrap" aria-sort={ariaSortForColumn('status', tableSort)}>
-                    <SortColumnHeaderButton
-                      column="status"
-                      tableSort={tableSort}
-                      onCycle={cycleColumnSort}
-                      label={t('tableColStatus')}
-                      title={t('tableSortByStatus')}
-                      aria-label={`${t('tableColStatus')}, ${t('tableSortByStatus')}`}
-                    />
-                  </TableHead>
-                  <TableHead className="min-w-40 text-right">{t('tableColActions')}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {displayedRegistrations.map(registration => {
-                  const { user, status, type } = registration;
-                  return (
-                    <TableRow key={user.username}>
-                      <TableCell className="align-middle">
-                        <Link
-                          href={`${routeUsers}/${encodeURIComponent(user.username)}`}
-                          className="font-medium text-primary underline-offset-2 hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        >
+          <>
+            {/* Desktop: sortable table */}
+            <div className="hidden min-w-0 overflow-hidden rounded-2xl border border-border bg-background shadow-xs sm:block">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="min-w-40" aria-sort={ariaSortForColumn('name', tableSort)}>
+                      <SortColumnHeaderButton
+                        column="name"
+                        tableSort={tableSort}
+                        onCycle={cycleColumnSort}
+                        label={t('tableColFullName')}
+                        title={t('tableSortByName')}
+                        aria-label={`${t('tableColFullName')}, ${t('tableSortByName')}`}
+                      />
+                    </TableHead>
+                    <TableHead className="w-[1%] whitespace-nowrap" aria-sort={ariaSortForColumn('type', tableSort)}>
+                      <SortColumnHeaderButton
+                        column="type"
+                        tableSort={tableSort}
+                        onCycle={cycleColumnSort}
+                        label={t('tableColType')}
+                        title={t('tableSortByType')}
+                        aria-label={`${t('tableColType')}, ${t('tableSortByType')}`}
+                      />
+                    </TableHead>
+                    <TableHead className="w-[1%] whitespace-nowrap" aria-sort={ariaSortForColumn('status', tableSort)}>
+                      <SortColumnHeaderButton
+                        column="status"
+                        tableSort={tableSort}
+                        onCycle={cycleColumnSort}
+                        label={t('tableColStatus')}
+                        title={t('tableSortByStatus')}
+                        aria-label={`${t('tableColStatus')}, ${t('tableSortByStatus')}`}
+                      />
+                    </TableHead>
+                    <TableHead className="min-w-40 text-right">{t('tableColActions')}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {displayedRegistrations.map(registration => {
+                    const { user, status, type } = registration;
+                    return (
+                      <TableRow key={user.username}>
+                        <TableCell className="align-middle">
+                          <Link
+                            href={`${routeUsers}/${encodeURIComponent(user.username)}`}
+                            className="font-medium text-foreground underline-offset-2 hover:text-brand-strong hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                          >
+                            {formatRegistrantFullName(user)}
+                          </Link>
+                          <div className="text-xs text-muted-foreground">@{user.username}</div>
+                        </TableCell>
+                        <TableCell className="whitespace-nowrap text-muted-foreground">{typeLabel(type)}</TableCell>
+                        <TableCell className="whitespace-nowrap">{statusChip(status)}</TableCell>
+                        <TableCell className="text-right align-middle">{rowActions(registration)}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+
+            {/* Mobile: cards with all actions visible */}
+            <div className="flex flex-col gap-2 sm:hidden">
+              {displayedRegistrations.map(registration => {
+                const { user, status, type } = registration;
+                return (
+                  <div key={user.username} className="flex flex-col gap-2 rounded-2xl border border-border bg-background p-3 shadow-xs">
+                    <div className="flex min-w-0 items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <Link href={`${routeUsers}/${encodeURIComponent(user.username)}`} className="block truncate font-semibold text-foreground hover:text-brand-strong">
                           {formatRegistrantFullName(user)}
                         </Link>
-                      </TableCell>
-                      <TableCell className="whitespace-nowrap text-zinc-700">{typeLabel(type)}</TableCell>
-                      <TableCell className="whitespace-nowrap text-zinc-800">{statusIcon(status)}</TableCell>
-                      <TableCell className="text-right align-middle">
-                        <div className="inline-flex flex-wrap items-center justify-end gap-1">
-                          <ActionButton
-                            action={Action.INFO}
-                            onClick={() => {
-                              handleInfoClicked(user.username);
-                            }}
-                          />
-                          {(status === EventRegistrationStatus.APPROVED || status === EventRegistrationStatus.DENIED) && (
-                            <ActionButton
-                              action={Action.DELETE}
-                              onClick={() => {
-                                handleRemoveParticipantClicked(user.username);
-                              }}
-                            />
-                          )}
-                          {status === EventRegistrationStatus.PENDING && (
-                            <>
-                              <ActionButton
-                                action={Action.ACCEPT}
-                                onClick={() => {
-                                  handleApproveParticipantClicked(user.username, EventRegistrationStatus.APPROVED);
-                                }}
-                              />
-                              <ActionButton
-                                action={Action.DENY}
-                                onClick={() => {
-                                  handleDenyParticipantClicked(user.username);
-                                }}
-                              />
-                            </>
-                          )}
+                        <div className="truncate text-xs text-muted-foreground">
+                          @{user.username} · {typeLabel(type)}
                         </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </div>
+                      </div>
+                      {statusChip(status)}
+                    </div>
+                    <div className="flex justify-end border-t border-border/60 pt-2">{rowActions(registration)}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
     </>

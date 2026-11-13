@@ -9,6 +9,7 @@ import { getTranslations } from 'next-intl/server';
 import { getEvent, getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { auth } from '@/auth';
 import { PageInset } from '@/components/layout/page-inset';
+import { CompWorkflowSteps } from '@/components/comp/comp-workflow-steps';
 import { AppDataStateError } from '@/components/shared/app-data-state-error';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
 
@@ -27,11 +28,11 @@ export default async function CompetitionPool(props: { params: Promise<{ eventId
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <PageTitle title={t('pageTitle')} className="mb-1 sm:mb-2" />
-      {competitionResult.status === 'fulfilled' && <p className="px-4 text-center text-sm font-medium text-muted-foreground sm:px-6 md:px-8">{competitionResult.value.name}</p>}
+      <PageTitle title={t('pageTitle')} description={competitionResult.status === 'fulfilled' ? competitionResult.value.name : undefined} />
 
-      <div className="mt-4 min-h-0 flex-1 overflow-y-auto">
-        <PageInset>
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <PageInset className="flex flex-col gap-4">
+          <CompWorkflowSteps eventId={params.eventId} compId={params.compId} current="pool" />
           {loaded ? (
             <Participants event={eventResult.value} competition={competitionResult.value} registrations={registrationsResult.value} initialPool={poolResult.value} />
           ) : (

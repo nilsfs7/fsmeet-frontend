@@ -15,9 +15,9 @@ export const CompetitionSection = ({ competitions, eventId }: ICompetitionSectio
   const t = useTranslations('/events/eventid');
 
   return (
-    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
-      <div className="text-base font-bold">{t('tabCompetitionsSectionCompetitions')}</div>
-      <div className="mt-1 flex flex-wrap gap-2">
+    <div className="rounded-2xl border border-border bg-background p-4 text-sm shadow-xs sm:p-6">
+      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t('tabCompetitionsSectionCompetitions')}</div>
+      <div className="mt-3 flex flex-wrap gap-2">
         {competitions.map((competition, i) => {
           return (
             <Link key={i} href={`${routeEvents}/${eventId}/comps/${competition.id}`}>

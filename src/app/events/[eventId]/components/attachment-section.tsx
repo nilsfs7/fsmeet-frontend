@@ -23,10 +23,10 @@ export const AttachmentSection = ({ eventAttachments }: IAttachmentSectionProps)
   }
 
   return (
-    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2'}>
-      <div className="text-base font-bold">{t('tabOverviewSectionAttachments')}</div>
+    <div className="rounded-2xl border border-border bg-background p-4 shadow-xs sm:p-6">
+      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{t('tabOverviewSectionAttachments')}</div>
 
-      <div className="mt-1 flex flex-wrap gap-2">
+      <div className="mt-3 flex flex-wrap gap-2">
         {orderedAttachments
           .filter(att => {
             if (att.enabled && att.url) {

@@ -77,7 +77,7 @@ export default function EditEventOffering(props: { params: Promise<{ eventId: st
     getOffering(params.offeringId).then(offering => {
       setOffering(offering);
     });
-  }, [event === undefined, offering === undefined]);
+  }, [event === undefined, offering === undefined, session?.user?.username]);
 
   return (
     <>

@@ -11,9 +11,7 @@ export function JobsTermsAddendumText() {
   return (
     <div className="prose-flow select-text w-full wrap-break-word text-start text-sm">
       <p className="not-prose text-sm text-muted-foreground">Version 1.0 – Stand: 28.07.2026</p>
-      <p>
-        Hinweis: Diese Zusatzvereinbarung ist in deutscher und englischer Sprache verfügbar. Im Falle von Widersprüchen oder Auslegungsfragen ist die deutsche Version maßgeblich.
-      </p>
+      <p>Hinweis: Diese Zusatzvereinbarung ist in deutscher und englischer Sprache verfügbar. Im Falle von Widersprüchen oder Auslegungsfragen ist die deutsche Version maßgeblich.</p>
 
       <hr className="not-prose my-6 border-border" />
 

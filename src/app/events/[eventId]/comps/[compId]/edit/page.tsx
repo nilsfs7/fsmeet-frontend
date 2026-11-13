@@ -20,11 +20,12 @@ import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
 import { addFetchTrigger } from '@/functions/add-fetch-trigger';
 import LoadingSpinner from '@/components/animation/loading-spinner';
+import { CompWorkflowSteps } from '@/components/comp/comp-workflow-steps';
 
 export default function CompetitionEditing(props: { params: Promise<{ eventId: string; compId: string }> }) {
   const params = use(props.params);
   const t = useTranslations('/events/eventid/comps/edit');
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   const [event, setEvent] = useState<Event>();
@@ -62,6 +63,9 @@ export default function CompetitionEditing(props: { params: Promise<{ eventId: s
   };
 
   useEffect(() => {
+    // wait for the session: unlisted events are only returned to authenticated admins
+    if (status === 'loading') return;
+
     getEvent(params.eventId, session)
       .then((event: Event) => {
         setEvent(event);
@@ -73,7 +77,7 @@ export default function CompetitionEditing(props: { params: Promise<{ eventId: s
     getCompetition(params.compId).then((comp: Competition) => {
       setComp(comp);
     });
-  }, []);
+  }, [status]);
 
   if (!event) {
     return <LoadingSpinner />;
@@ -88,17 +92,22 @@ export default function CompetitionEditing(props: { params: Promise<{ eventId: s
       </Dialog>
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={comp?.name} />
 
-        <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
-          <CompetitionEditor
-            event={event}
-            editorMode={EditorMode.EDIT}
-            comp={comp}
-            onCompUpdate={(comp: Competition) => {
-              setComp(comp);
-            }}
-          />
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+          <div className="mx-auto flex w-full max-w-content flex-col items-center gap-4">
+            <div className="w-full max-w-3xl">
+              <CompWorkflowSteps eventId={params.eventId} compId={params.compId} current="details" />
+            </div>
+            <CompetitionEditor
+              event={event}
+              editorMode={EditorMode.EDIT}
+              comp={comp}
+              onCompUpdate={(comp: Competition) => {
+                setComp(comp);
+              }}
+            />
+          </div>
         </div>
 
         <Navigation>

@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import { imgThumbsUp } from '@/domain/constants/images';
+import { IconMailCheck } from '@tabler/icons-react';
 import { routeEvents } from '@/domain/constants/routes';
-import Image from 'next/image';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
+import { StatusCard } from '@/components/common/status-card';
+import { cn } from '@/lib/utils';
 import { getTranslations } from 'next-intl/server';
 
 export default async function ThankYou(props: { params: Promise<{ eventId: string }> }) {
@@ -10,20 +11,15 @@ export default async function ThankYou(props: { params: Promise<{ eventId: strin
   const t = await getTranslations('/events/eventid/registration/visa/success');
 
   return (
-    <div className={'absolute inset-0 flex flex-col items-center justify-center font-sans'}>
-      <div className="py-2">
-        <Image src={imgThumbsUp} width={0} height={0} sizes="100vw" className={`h-12 w-full`} alt={'image'} />
-        <div className="m-1 text-center text-lg font-bold">
-          <div>{t('textSuccess1')}</div>
-          <div>{t('textSuccess2')}</div>
-        </div>
-      </div>
-
-      <div className="py-2">
-        <Button asChild variant="action" className={ctaActionButtonClassName}>
+    <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 sm:px-6 md:px-8">
+      <StatusCard icon={<IconMailCheck stroke={1.75} aria-hidden />} title={t('textSuccess1')} description={t('textSuccess2')}>
+        <Button asChild variant="action" className={cn(ctaActionButtonClassName, 'h-11 w-full min-w-0')}>
           <Link href={`${routeEvents}/${params.eventId}/registration`}>{t('btnBack')}</Link>
         </Button>
-      </div>
+        <Button asChild variant="outline" className="h-11 w-full min-w-0 rounded-xl text-base font-semibold">
+          <Link href={`${routeEvents}/${params.eventId}`}>{t('btnEvent')}</Link>
+        </Button>
+      </StatusCard>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import Navigation from '@/components/navigation';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { useSession } from 'next-auth/react';
-import PageTitle from '@/components/page-title';
+import { RegistrationEventHeader, RegistrationStepper, RegistrationSummary, type RegistrationSummaryGroup } from './registration-chrome';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, type ReactNode } from 'react';
 import { Event } from '@/domain/types/event';
@@ -16,7 +16,7 @@ import { EventRegistrationInfo } from '@/domain/types/event-registration-info';
 import Link from 'next/link';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { createEventRegistration_v1, createEventRegistration_v2, createEventRegistrationCheckout, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
-import Label from '@/components/label';
+import { IconCircleCheck, IconCircleX, IconHourglass, IconPlaneDeparture, IconUserQuestion } from '@tabler/icons-react';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import moment, { Moment } from 'moment';
 import Dialog from '@/components/dialog';
@@ -46,7 +46,6 @@ import { Competition } from '@/domain/types/competition';
 import { isNaturalPerson } from '@/functions/is-natural-person';
 import { getCompetitionParticipants } from '@/infrastructure/clients/competition.client';
 import { Offering } from '../../../../../domain/types/offering';
-import Separator from '@/components/separator';
 import { TShirtSize } from '../../../../../domain/enums/t-shirt-size';
 import { cn } from '@/lib/utils';
 import CheckoutForm from '@/components/stripe-checkout';
@@ -55,17 +54,16 @@ import type { ReadStripeCheckoutResponseDto } from '@/infrastructure/clients/dto
 /** @see `competition-editor.tsx` `EDITOR_CARD_CLASS` — same glass card + rhythm */
 const registrationStepClass = 'flex w-full min-w-0 max-w-2xl flex-col gap-3 self-center';
 const registrationStepIntroTextClass = 'm-0 text-balance text-sm text-foreground/90';
-const registrationSectionHeadingClass = 'text-sm font-semibold leading-tight text-foreground/90';
+const registrationSectionHeadingClass = 'text-base font-semibold leading-tight text-foreground';
 const registrationFormPanelClass = cn(
   'flex w-full max-w-2xl min-w-0 flex-col overflow-y-auto scrollbar-none',
-  'gap-3 self-center rounded-xl border border-border/60 bg-secondary-light/85 p-2.5',
-  'shadow-xs backdrop-blur-xs supports-backdrop-filter:bg-secondary-light/70',
+  'gap-4 self-center rounded-2xl border border-border bg-background p-4 sm:gap-5 sm:p-6',
+  'shadow-xs',
   'dark:border-border/50 dark:bg-background/60 dark:supports-backdrop-filter:bg-background/50',
 );
-const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] items-center gap-x-3 gap-y-1';
-const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-none';
+const FIELD_ROW_CLASS = 'grid min-w-0 grid-cols-1 gap-1.5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] sm:items-center sm:gap-x-4';
+const FIELD_LABEL_CLASS = 'min-w-0 text-sm font-medium leading-tight text-foreground/80';
 const FIELD_CONTROL_CLASS = 'min-w-0 w-full';
-const READONLY_VALUE_CLASS = 'min-w-0 text-sm text-foreground/90';
 
 function RegistrationFieldRow({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -75,6 +73,31 @@ function RegistrationFieldRow({ label, children }: { label: string; children: Re
     </div>
   );
 }
+function OverviewFact({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-sm font-semibold text-foreground sm:text-right">{children}</span>
+    </div>
+  );
+}
+
+function RegistrationStatusPill({ status }: { status: string }) {
+  const t = useTranslations('/events/eventid/registration');
+  const config: Record<string, { label: string; className: string; Icon: typeof IconCircleCheck }> = {
+    [EventRegistrationStatus.APPROVED]: { label: t('statusApproved'), className: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300', Icon: IconCircleCheck },
+    [EventRegistrationStatus.PENDING]: { label: t('statusPending'), className: 'bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300', Icon: IconHourglass },
+    [EventRegistrationStatus.DENIED]: { label: t('statusDenied'), className: 'bg-rose-100 text-rose-800 dark:bg-rose-500/15 dark:text-rose-300', Icon: IconCircleX },
+  };
+  const c = config[status] ?? { label: t('statusUnregistered'), className: 'bg-muted text-muted-foreground', Icon: IconUserQuestion };
+  return (
+    <span className={cn('inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-semibold', c.className)}>
+      <c.Icon className="h-4 w-4" stroke={2} aria-hidden />
+      {c.label}
+    </span>
+  );
+}
+
 const registrationMainScrollClass = 'min-h-0 min-w-0 flex-1 overflow-y-auto';
 const registrationContentColumnClass = cn('mx-auto w-full min-w-0 max-w-content', 'px-4 py-4 sm:px-6 md:px-8');
 
@@ -373,6 +396,49 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     }
   };
 
+  /** Which page follows `current` (mirrors the registration rules for stripe / non-stripe events). */
+  const getNextPage = (current: string): RegistrationProcessPage | undefined => {
+    switch (current) {
+      case RegistrationProcessPage.REGISTRATION_TYPE:
+        if (event.paymentMethodStripe.enabled) {
+          if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) return RegistrationProcessPage.COMPETITIONS;
+          if (hasActiveOfferings()) return RegistrationProcessPage.OFFERINGS;
+          if (hasActiveAccommodations()) return RegistrationProcessPage.ACCOMMODATIONS;
+          return RegistrationProcessPage.CHECKOUT_OVERVIEW;
+        }
+        // non-stripe events: only REGISTRATION_TYPE, COMPETITIONS and CHECKOUT_OVERVIEW
+        if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && competitions.length > 0) return RegistrationProcessPage.COMPETITIONS;
+        return RegistrationProcessPage.CHECKOUT_OVERVIEW;
+
+      case RegistrationProcessPage.COMPETITIONS:
+        if (!event.paymentMethodStripe.enabled) return RegistrationProcessPage.CHECKOUT_OVERVIEW;
+        if (hasActiveOfferings()) return RegistrationProcessPage.OFFERINGS;
+        if (hasActiveAccommodations()) return RegistrationProcessPage.ACCOMMODATIONS;
+        return RegistrationProcessPage.CHECKOUT_OVERVIEW;
+
+      case RegistrationProcessPage.OFFERINGS:
+        if (hasActiveAccommodations()) return RegistrationProcessPage.ACCOMMODATIONS;
+        return RegistrationProcessPage.CHECKOUT_OVERVIEW;
+
+      case RegistrationProcessPage.ACCOMMODATIONS:
+        return RegistrationProcessPage.CHECKOUT_OVERVIEW;
+
+      default:
+        return undefined;
+    }
+  };
+
+  /** Steps the current user will walk through, used for the progress indicator. */
+  const getStepSequence = (): RegistrationProcessPage[] => {
+    const steps: RegistrationProcessPage[] = [RegistrationProcessPage.REGISTRATION_TYPE];
+    let next = getNextPage(RegistrationProcessPage.REGISTRATION_TYPE);
+    while (next && steps.length < 6) {
+      steps.push(next);
+      next = getNextPage(next);
+    }
+    return steps;
+  };
+
   const handleCancelClicked = async () => {
     router.replace(pageUrl);
   };
@@ -453,73 +519,19 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
       }
     } else {
       let nextPage: string = '';
-      switch (page) {
-        case RegistrationProcessPage.REGISTRATION_TYPE:
-          if (userInfoChanged) {
-            // update user profile
-            try {
-              await updateUser(user, session);
-            } catch (error: any) {
-              console.error(error);
-            } finally {
-              setUserInfoChanged(false);
-            }
-          }
 
-          if (event.paymentMethodStripe.enabled) {
-            if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type)) {
-              nextPage = RegistrationProcessPage.COMPETITIONS;
-            } else {
-              if (hasActiveOfferings()) {
-                nextPage = RegistrationProcessPage.OFFERINGS;
-              } else {
-                if (hasActiveAccommodations()) {
-                  nextPage = RegistrationProcessPage.ACCOMMODATIONS;
-                } else {
-                  nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
-                }
-              }
-            }
-          } else {
-            // non-stripe events: only REGISTRATION_TYPE, COMPETITIONS and CHECKOUT_OVERVIEW
-            if (registrationType === EventRegistrationType.PARTICIPANT && isCompetition(event.type) && competitions.length > 0) {
-              nextPage = RegistrationProcessPage.COMPETITIONS;
-            } else {
-              nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
-            }
-          }
-
-          break;
-
-        case RegistrationProcessPage.COMPETITIONS:
-          if (!event.paymentMethodStripe.enabled) {
-            nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
-          } else if (hasActiveOfferings()) {
-            nextPage = RegistrationProcessPage.OFFERINGS;
-          } else {
-            if (hasActiveAccommodations()) {
-              nextPage = RegistrationProcessPage.ACCOMMODATIONS;
-            } else {
-              nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
-            }
-          }
-          break;
-
-        case RegistrationProcessPage.OFFERINGS:
-          if (hasActiveAccommodations()) {
-            nextPage = RegistrationProcessPage.ACCOMMODATIONS;
-          } else {
-            nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
-          }
-          break;
-
-        case RegistrationProcessPage.ACCOMMODATIONS:
-          nextPage = RegistrationProcessPage.CHECKOUT_OVERVIEW;
-          break;
-
-        case RegistrationProcessPage.CHECKOUT_OVERVIEW:
-          break;
+      if (page === RegistrationProcessPage.REGISTRATION_TYPE && userInfoChanged) {
+        // update user profile
+        try {
+          await updateUser(user, session);
+        } catch (error: any) {
+          console.error(error);
+        } finally {
+          setUserInfoChanged(false);
+        }
       }
+
+      nextPage = getNextPage(page) ?? '';
 
       if (nextPage) {
         router.replace(`${pageUrl}?page=${nextPage}`);
@@ -757,6 +769,41 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     addMandatoryOfferings();
   }, [event]);
 
+  const stepSequence = getStepSequence();
+  const stepLabel = (step: RegistrationProcessPage): string => {
+    switch (step) {
+      case RegistrationProcessPage.REGISTRATION_TYPE:
+        return t('stepDetails');
+      case RegistrationProcessPage.COMPETITIONS:
+        return t('stepCompetitions');
+      case RegistrationProcessPage.OFFERINGS:
+        return t('stepOfferings');
+      case RegistrationProcessPage.ACCOMMODATIONS:
+        return t('stepAccommodations');
+      default:
+        return t('stepCheckout');
+    }
+  };
+  const summaryGroups: RegistrationSummaryGroup[] = [
+    {
+      label: t('pageCheckoutOverviewSectionRegistrationType'),
+      items: registrationType ? [registrationType === EventRegistrationType.PARTICIPANT ? t('typeParticipant') : t('typeVisitor')] : [],
+    },
+    { label: t('pageCheckoutOverviewSectionCompetitions'), items: competitions.filter(c => c.id && compSignUps.includes(c.id)).map(c => c.name) },
+    {
+      label: t('pageCheckoutOverviewSectionOfferings'),
+      items: getActiveOfferings()
+        .filter(o => o.id && offeringOrders.includes(o.id))
+        .map(o => o.description),
+    },
+    {
+      label: t('pageCheckoutOverviewSectionAccommodations'),
+      items: getActiveAccommodations()
+        .filter(a => a.id && accommodationOrders.includes(a.id))
+        .map(a => a.description),
+    },
+  ];
+
   return (
     <div className="min-h-0 flex-1 flex flex-col">
       <Toaster richColors />
@@ -782,320 +829,342 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
         <p>{t('dlgEventUnregisterText')}</p>
       </Dialog>
 
-      {!page && <PageTitle title={t('pageTitleOverview')} />}
-      {page && <PageTitle title={`${t('pageTitleRegistrationFlow')}: ${event.name}`} />}
-
       <div className={registrationMainScrollClass}>
         <div className={registrationContentColumnClass}>
-          <div className="mx-auto flex w-full min-w-0 max-w-2xl flex-col items-stretch">
-            {/* Overview */}
-            {!page && (
-              <div className={registrationFormPanelClass}>
-                <RegistrationFieldRow label={`${t('pageOverviewEvent')}:`}>
-                  <div className={READONLY_VALUE_CLASS}>{event.name}</div>
-                </RegistrationFieldRow>
+          <div className="mx-auto flex w-full min-w-0 max-w-5xl flex-col gap-4 sm:gap-6">
+            <RegistrationEventHeader event={event} title={page ? t('pageTitleRegistrationFlow') : t('pageTitleOverview')}>
+              {page && <RegistrationStepper steps={stepSequence.map(stepLabel)} currentIndex={stepSequence.indexOf(page as RegistrationProcessPage)} />}
+            </RegistrationEventHeader>
 
-                {event?.id && moment(event?.registrationOpen).unix() > moment().unix() && (
-                  <RegistrationFieldRow label={`${t('pageOverviewRegistrationStart')}:`}>
-                    <div className={READONLY_VALUE_CLASS}>{`${getShortDateString(moment(event?.registrationOpen))}  -  ${moment(event?.registrationOpen).diff(moment(), 'days')} day(s) left`}</div>
-                  </RegistrationFieldRow>
-                )}
-                {event?.id && moment(event?.registrationOpen).unix() < moment().unix() && event?.id && moment(event?.registrationDeadline).unix() > moment().unix() && (
-                  <RegistrationFieldRow label={`${t('pageOverviewRegistrationOpenUntil')}:`}>
-                    <div className={READONLY_VALUE_CLASS}>
-                      {`${getShortDateString(moment(event?.registrationDeadline))}  -  ${moment(event?.registrationDeadline).diff(moment(), 'days')} day(s) left`}
-                    </div>
-                  </RegistrationFieldRow>
-                )}
-                {event?.id && moment(event?.registrationDeadline).unix() < moment().unix() && (
-                  <RegistrationFieldRow label={`${t('pageOverviewRegistrationOver')}:`}>
-                    <div className={READONLY_VALUE_CLASS}>{`${getShortDateString(moment(event?.registrationDeadline))}`}</div>
-                  </RegistrationFieldRow>
-                )}
+            <div className={cn('grid min-w-0 grid-cols-1 gap-4 sm:gap-6', page && 'lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start')}>
+              <div className="flex w-full min-w-0 flex-col items-stretch">
+                {/* Overview */}
+                {!page && (
+                  <div className="flex w-full min-w-0 max-w-2xl flex-col gap-4 self-center">
+                    <section className={registrationFormPanelClass}>
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('pageOverviewRegistrationStatus')}</div>
+                          <div className="mt-1.5">
+                            <RegistrationStatusPill status={registrationStatus} />
+                          </div>
+                        </div>
+                        {registrationType && registrationStatus !== 'Unregistered' && (
+                          <span className="rounded-full border border-border px-3 py-1 text-sm font-medium text-foreground/80">
+                            {registrationType === EventRegistrationType.PARTICIPANT ? t('typeParticipant') : t('typeVisitor')}
+                          </span>
+                        )}
+                      </div>
 
-                <RegistrationFieldRow label={`${t('pageOverviewRegistrationStatus')}:`}>
-                  <Label text={registrationStatus} />
-                </RegistrationFieldRow>
+                      <div className="grid grid-cols-1 gap-3 rounded-xl bg-muted/50 p-3 sm:p-4">
+                        {event?.id && moment(event?.registrationOpen).unix() > moment().unix() && (
+                          <OverviewFact label={t('pageOverviewRegistrationStart')}>
+                            {getShortDateString(moment(event?.registrationOpen))}
+                            <span className="ml-2 text-sm font-medium text-brand-strong">{t('daysLeft', { count: Math.max(0, moment(event?.registrationOpen).diff(moment(), 'days')) })}</span>
+                          </OverviewFact>
+                        )}
+                        {event?.id && moment(event?.registrationOpen).unix() < moment().unix() && event?.id && moment(event?.registrationDeadline).unix() > moment().unix() && (
+                          <OverviewFact label={t('pageOverviewRegistrationOpenUntil')}>
+                            {getShortDateString(moment(event?.registrationDeadline))}
+                            <span className="ml-2 text-sm font-medium text-brand-strong">{t('daysLeft', { count: Math.max(0, moment(event?.registrationDeadline).diff(moment(), 'days')) })}</span>
+                          </OverviewFact>
+                        )}
+                        {event?.id && moment(event?.registrationDeadline).unix() < moment().unix() && (
+                          <OverviewFact label={t('pageOverviewRegistrationOver')}>{getShortDateString(moment(event?.registrationDeadline))}</OverviewFact>
+                        )}
+                      </div>
+                    </section>
 
-                {event.visaInvitationRequestsEnabled && isNaturalPerson(user.type) && user.type !== UserType.FAN && moment(event.dateFrom) > moment() && (
-                  <>
-                    <div className="py-1">
-                      <Separator />
-                    </div>
-                    <div className="flex min-w-0 flex-col gap-3">
-                      <p className={registrationStepIntroTextClass}>{t('pageOverviewRequireVisa')}</p>
-                      <div className="flex min-w-0 justify-start">
-                        <Button asChild variant="action" className={ctaActionButtonClassName}>
+                    {event.visaInvitationRequestsEnabled && isNaturalPerson(user.type) && user.type !== UserType.FAN && moment(event.dateFrom) > moment() && (
+                      <section className={cn(registrationFormPanelClass, 'sm:flex-row sm:items-center sm:justify-between')}>
+                        <div className="flex min-w-0 items-center gap-3">
+                          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">
+                            <IconPlaneDeparture className="h-5 w-5" stroke={1.75} aria-hidden />
+                          </span>
+                          <p className="m-0 text-sm font-medium text-foreground">{t('pageOverviewRequireVisa')}</p>
+                        </div>
+                        <Button asChild variant="outline" className="rounded-xl">
                           <Link href={`${routeEvents}/${event.id}/registration/visa`}>{t('pageOverviewBtnRequestVisa')}</Link>
                         </Button>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
-
-            {/* Page: Personal Details and Registration Type */}
-            {page && page === RegistrationProcessPage.REGISTRATION_TYPE && (
-              <div className={registrationFormPanelClass}>
-                <h2 className={registrationSectionHeadingClass}>{t('pageParticipantSectionRegistrationTypeDescription')}</h2>
-                <AttendeeChoice
-                  participantFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.participationFeeIncPaymentCosts : event.participationFee}
-                  visitorFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.visitorFeeIncPaymentCosts : event.visitorFee}
-                  eventType={event.type}
-                  userType={user.type}
-                  disabled={[moment().unix() > moment(event.registrationDeadline).unix(), moment().unix() > moment(event.dateTo).unix()]}
-                  currency={event.currency}
-                  checked={registrationType}
-                  selectable={true}
-                  hideVisitorOption={!event.enableVisitorRegistration || event.paymentMethodStripe.enabled === false}
-                  onCheckedChange={registrationType => {
-                    handleRadioItemRegistrationTypeClicked(registrationType);
-                  }}
-                />
-
-                {event.paymentMethodStripe.enabled && (
-                  <>
-                    <div className="py-1">
-                      <Separator />
-                    </div>
-                    <h2 className={registrationSectionHeadingClass}>{t('pageParticipantSectionTravelInfoDescription')}</h2>
-                    <RegistrationFieldRow label={t('pageParticipantSectionTravelInfoArrivalDate')}>
-                      <DatePicker
-                        date={arrivalDate}
-                        fromDate={moment(event.dateFrom).subtract(14, 'd')}
-                        toDate={moment(event.dateTo)}
-                        onChange={value => {
-                          handleArrivalChanged(value);
-                        }}
-                      />
-                    </RegistrationFieldRow>
-                    <RegistrationFieldRow label={t('pageParticipantSectionTravelInfoDepartureDate')}>
-                      <DatePicker
-                        date={departureDate}
-                        fromDate={moment(event.dateFrom)}
-                        toDate={moment(event.dateTo).add(14, 'd')}
-                        onChange={value => {
-                          handleDepartureChanged(value);
-                        }}
-                      />
-                    </RegistrationFieldRow>
-                  </>
+                      </section>
+                    )}
+                  </div>
                 )}
 
-                <div className="py-1">
-                  <Separator />
-                </div>
-                <h2 className={registrationSectionHeadingClass}>{t('pageParticipantSectionUserInfoDescription')}</h2>
-                <div className="flex min-w-0 flex-col gap-3">
-                  <TextInput
-                    id={'firstName'}
-                    label={t('pageParticipantSectionUserInfoFirstName')}
-                    value={user.firstName}
-                    onChange={e => {
-                      handleFirstNameChanged(e.currentTarget.value);
-                    }}
-                  />
+                {/* Page: Personal Details and Registration Type */}
+                {page && page === RegistrationProcessPage.REGISTRATION_TYPE && (
+                  <div className="flex flex-col gap-4">
+                    <section className={registrationFormPanelClass}>
+                      <h2 className={registrationSectionHeadingClass}>{t('pageParticipantSectionRegistrationTypeDescription')}</h2>
+                      <AttendeeChoice
+                        participantFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.participationFeeIncPaymentCosts : event.participationFee}
+                        visitorFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.visitorFeeIncPaymentCosts : event.visitorFee}
+                        eventType={event.type}
+                        userType={user.type}
+                        disabled={[moment().unix() > moment(event.registrationDeadline).unix(), moment().unix() > moment(event.dateTo).unix()]}
+                        currency={event.currency}
+                        checked={registrationType}
+                        selectable={true}
+                        hideVisitorOption={!event.enableVisitorRegistration || event.paymentMethodStripe.enabled === false}
+                        onCheckedChange={registrationType => {
+                          handleRadioItemRegistrationTypeClicked(registrationType);
+                        }}
+                      />
+                    </section>
 
-                  <TextInput
-                    id={'lastName'}
-                    label={t('pageParticipantSectionUserInfoLastName')}
-                    value={user.lastName}
-                    onChange={e => {
-                      handleLastNameChanged(e.currentTarget.value);
-                    }}
-                  />
-
-                  {user.type !== UserType.FAN && (
-                    <TextInput
-                      id={'nickName'}
-                      label={t('pageParticipantSectionUserInfoArtistName')}
-                      value={user.nickName}
-                      onChange={e => {
-                        handleNickNameChanged(e.currentTarget.value);
-                      }}
-                    />
-                  )}
-
-                  <RegistrationFieldRow label={t('pageParticipantSectionUserInfoBirthday')}>
-                    <DatePicker
-                      date={moment(user.birthday)}
-                      fromDate={moment(1970)}
-                      toDate={moment().subtract(6, 'y')}
-                      onChange={value => {
-                        handleBirthdayChanged(value);
-                      }}
-                    />
-                  </RegistrationFieldRow>
-
-                  {user.type !== UserType.FAN && (
-                    <>
-                      {(event.type == EventType.COMPETITION_ONLINE || event.registrationCollectPhoneNumber) && registrationType !== EventRegistrationType.VISITOR && (
-                        <RegistrationFieldRow label={t('pageParticipantSectionUserPhoneNumber')}>
-                          <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-end sm:gap-2">
-                            <div className="min-w-0 w-full flex-1">
-                              <ComboBox
-                                menus={menuPhoneCountryCodesWithUnspecified}
-                                value={user.phoneCountryCode ? user.phoneCountryCode?.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
-                                searchEnabled={true}
-                                onChange={(value: any) => {
-                                  handlePhoneCountryCodeChanged(value);
-                                }}
-                              />
-                            </div>
-                            <div className="min-w-0 w-full flex-1 sm:pb-0.5">
-                              <TextInput
-                                id={'phoneNumber'}
-                                label={''}
-                                labelOnTop={true}
-                                type="tel"
-                                placeholder="1516 123456"
-                                value={user.phoneNumber?.toString() || ''}
-                                onChange={e => {
-                                  handlePhoneNumberChanged(e.currentTarget.value);
-                                }}
-                              />
-                            </div>
-                          </div>
+                    {event.paymentMethodStripe.enabled && (
+                      <section className={registrationFormPanelClass}>
+                        <h2 className={registrationSectionHeadingClass}>{t('pageParticipantSectionTravelInfoDescription')}</h2>
+                        <RegistrationFieldRow label={t('pageParticipantSectionTravelInfoArrivalDate')}>
+                          <DatePicker
+                            date={arrivalDate}
+                            fromDate={moment(event.dateFrom).subtract(14, 'd')}
+                            toDate={moment(event.dateTo)}
+                            onChange={value => {
+                              handleArrivalChanged(value);
+                            }}
+                          />
                         </RegistrationFieldRow>
-                      )}
+                        <RegistrationFieldRow label={t('pageParticipantSectionTravelInfoDepartureDate')}>
+                          <DatePicker
+                            date={departureDate}
+                            fromDate={moment(event.dateFrom)}
+                            toDate={moment(event.dateTo).add(14, 'd')}
+                            onChange={value => {
+                              handleDepartureChanged(value);
+                            }}
+                          />
+                        </RegistrationFieldRow>
+                      </section>
+                    )}
 
-                      <TextInput
-                        id={'instagramHandle'}
-                        label={t('pageParticipantSectionUserInfoInstagramHandle')}
-                        placeholder="@fsmeet_com"
-                        value={user.instagramHandle}
-                        onChange={e => {
-                          handleInstagramHandleChanged(e.currentTarget.value);
-                        }}
-                      />
-                    </>
-                  )}
-                </div>
-              </div>
-            )}
+                    <section className={registrationFormPanelClass}>
+                      <h2 className={registrationSectionHeadingClass}>{t('pageParticipantSectionUserInfoDescription')}</h2>
+                      <div className="flex min-w-0 flex-col gap-3">
+                        <TextInput
+                          id={'firstName'}
+                          label={t('pageParticipantSectionUserInfoFirstName')}
+                          value={user.firstName}
+                          onChange={e => {
+                            handleFirstNameChanged(e.currentTarget.value);
+                          }}
+                        />
 
-            {/* Page: Competitions */}
-            {page && page === RegistrationProcessPage.COMPETITIONS && (
-              <div className={registrationStepClass}>
-                <p className={registrationStepIntroTextClass}>{t('pageCompetitionDescription')}</p>
+                        <TextInput
+                          id={'lastName'}
+                          label={t('pageParticipantSectionUserInfoLastName')}
+                          value={user.lastName}
+                          onChange={e => {
+                            handleLastNameChanged(e.currentTarget.value);
+                          }}
+                        />
 
-                <CompetitionList
-                  competitions={competitions}
-                  amountRegistrations={Array.from(existingCompetitionRegistrations.values())}
-                  paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
-                  currency={event.currency}
-                  userAge={user.age}
-                  userGender={user.gender}
-                  disabled={competitions.map(comp => {
-                    // validate competition
-                    if (comp.isFollowUpCompetition) {
-                      return true;
-                    }
+                        {user.type !== UserType.FAN && (
+                          <TextInput
+                            id={'nickName'}
+                            label={t('pageParticipantSectionUserInfoArtistName')}
+                            value={user.nickName}
+                            onChange={e => {
+                              handleNickNameChanged(e.currentTarget.value);
+                            }}
+                          />
+                        )}
 
-                    if (comp.registrationEnabled === false) {
-                      return true;
-                    }
+                        <RegistrationFieldRow label={t('pageParticipantSectionUserInfoBirthday')}>
+                          <DatePicker
+                            date={moment(user.birthday)}
+                            fromDate={moment(1970)}
+                            toDate={moment().subtract(6, 'y')}
+                            onChange={value => {
+                              handleBirthdayChanged(value);
+                            }}
+                          />
+                        </RegistrationFieldRow>
 
-                    // check if gender does not fit
-                    if (comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender) {
-                      return true;
-                    }
+                        {user.type !== UserType.FAN && (
+                          <>
+                            {(event.type == EventType.COMPETITION_ONLINE || event.registrationCollectPhoneNumber) && registrationType !== EventRegistrationType.VISITOR && (
+                              <RegistrationFieldRow label={t('pageParticipantSectionUserPhoneNumber')}>
+                                <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-end sm:gap-2">
+                                  <div className="min-w-0 w-full flex-1">
+                                    <ComboBox
+                                      menus={menuPhoneCountryCodesWithUnspecified}
+                                      value={user.phoneCountryCode ? user.phoneCountryCode?.toString() : menuPhoneCountryCodesWithUnspecified[0].value}
+                                      searchEnabled={true}
+                                      onChange={(value: any) => {
+                                        handlePhoneCountryCodeChanged(value);
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="min-w-0 w-full flex-1 sm:pb-0.5">
+                                    <TextInput
+                                      id={'phoneNumber'}
+                                      label={''}
+                                      labelOnTop={true}
+                                      type="tel"
+                                      placeholder="1516 123456"
+                                      value={user.phoneNumber?.toString() || ''}
+                                      onChange={e => {
+                                        handlePhoneNumberChanged(e.currentTarget.value);
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              </RegistrationFieldRow>
+                            )}
 
-                    // check if age does not fit
-                    if (comp.maxAge > 0 && (!user.age || comp.maxAge < user.age)) {
-                      return true;
-                    }
-
-                    // check if comp is full
-                    if (comp.id) {
-                      const amountRegs = existingCompetitionRegistrations.get(comp.id);
-                      if (comp.maxAmountParticipants > 0 && amountRegs && comp.maxAmountParticipants <= amountRegs) {
-                        return true;
-                      }
-                    }
-
-                    return false;
-                  })}
-                  checked={competitions.map(comp => {
-                    return comp.id && compSignUps.includes(comp.id) ? true : false;
-                  })}
-                  selectable={true}
-                  onCheckedChange={(checked, comId) => {
-                    if (comId) handleCheckBoxSignUpForCompChanged(comId);
-                  }}
-                />
-              </div>
-            )}
-
-            {/* Page: Offerings */}
-            {page && page === RegistrationProcessPage.OFFERINGS && (
-              <div className={registrationStepClass}>
-                <p className={registrationStepIntroTextClass}>{t('pageOfferingDescription')}</p>
-
-                <OfferingList
-                  offerings={getActiveOfferings()}
-                  paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
-                  currency={event.currency}
-                  registrationType={registrationType}
-                  checked={getActiveOfferings().map(off => {
-                    return off.id && offeringOrders.includes(off.id) ? true : false;
-                  })}
-                  tShirtSize={offeringTShirtSize}
-                  selectable={true}
-                  onCheckedChange={(checked, offeringId) => {
-                    if (offeringId) handleCheckBoxOrderOfferingChanged(offeringId);
-                  }}
-                  onShirtSizeChange={size => {
-                    setOfferingShirtSize(size);
-                  }}
-                />
-              </div>
-            )}
-
-            {/* Page: Accommodations */}
-            {page && page === RegistrationProcessPage.ACCOMMODATIONS && (
-              <div className={registrationStepClass}>
-                <p className={registrationStepIntroTextClass}>{t('pageAccommodationDescription')}</p>
-
-                <AccommodationList
-                  accommodations={getActiveAccommodations()}
-                  paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
-                  currency={event.currency}
-                  checked={getActiveAccommodations().map(acc => {
-                    return acc.id && accommodationOrders.includes(acc.id) ? true : false;
-                  })}
-                  selectable={true}
-                  onCheckedChange={(checked, accommodationId) => {
-                    if (accommodationId) handleCheckBoxOrderAccommodationChanged(accommodationId);
-                  }}
-                />
-              </div>
-            )}
-
-            {/* Page: Checkout Overview */}
-            {page && page === RegistrationProcessPage.CHECKOUT_OVERVIEW && (
-              <div className={registrationStepClass}>
-                <p className={registrationStepIntroTextClass}>{t('pageCheckoutOverviewDescription')}</p>
-
-                {registrationType && (
-                  <PaymentDetails
-                    event={event}
-                    competitions={competitions}
-                    registrationType={registrationType}
-                    compSignUps={compSignUps}
-                    accommodationOrders={accommodationOrders}
-                    offeringOrders={offeringOrders}
-                    paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
-                    donationLocked={registrationStatus !== 'Unregistered' || paymentLoading || !!paymentClientSecret}
-                    onDonationCheckedChange={donationAmount => {
-                      setDonationAmount(donationAmount);
-                    }}
-                  />
+                            <TextInput
+                              id={'instagramHandle'}
+                              label={t('pageParticipantSectionUserInfoInstagramHandle')}
+                              placeholder="@fsmeet_com"
+                              value={user.instagramHandle}
+                              onChange={e => {
+                                handleInstagramHandleChanged(e.currentTarget.value);
+                              }}
+                            />
+                          </>
+                        )}
+                      </div>
+                    </section>
+                  </div>
                 )}
 
-                {paymentClientSecret && (
-                  <div className="w-full rounded-xl border border-border/60 bg-background p-4">
+                {/* Page: Competitions */}
+                {page && page === RegistrationProcessPage.COMPETITIONS && (
+                  <div className={registrationStepClass}>
+                    <p className={registrationStepIntroTextClass}>{t('pageCompetitionDescription')}</p>
+
+                    <CompetitionList
+                      competitions={competitions}
+                      amountRegistrations={Array.from(existingCompetitionRegistrations.values())}
+                      paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                      currency={event.currency}
+                      userAge={user.age}
+                      userGender={user.gender}
+                      disabled={competitions.map(comp => {
+                        // validate competition
+                        if (comp.isFollowUpCompetition) {
+                          return true;
+                        }
+
+                        if (comp.registrationEnabled === false) {
+                          return true;
+                        }
+
+                        // check if gender does not fit
+                        if (comp.gender !== CompetitionGender.MIXED && comp.gender !== user.gender) {
+                          return true;
+                        }
+
+                        // check if age does not fit
+                        if (comp.maxAge > 0 && (!user.age || comp.maxAge < user.age)) {
+                          return true;
+                        }
+
+                        // check if comp is full
+                        if (comp.id) {
+                          const amountRegs = existingCompetitionRegistrations.get(comp.id);
+                          if (comp.maxAmountParticipants > 0 && amountRegs && comp.maxAmountParticipants <= amountRegs) {
+                            return true;
+                          }
+                        }
+
+                        return false;
+                      })}
+                      checked={competitions.map(comp => {
+                        return comp.id && compSignUps.includes(comp.id) ? true : false;
+                      })}
+                      selectable={true}
+                      onCheckedChange={(checked, comId) => {
+                        if (comId) handleCheckBoxSignUpForCompChanged(comId);
+                      }}
+                    />
+                  </div>
+                )}
+
+                {/* Page: Offerings */}
+                {page && page === RegistrationProcessPage.OFFERINGS && (
+                  <div className={registrationStepClass}>
+                    <p className={registrationStepIntroTextClass}>{t('pageOfferingDescription')}</p>
+
+                    <OfferingList
+                      offerings={getActiveOfferings()}
+                      paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                      currency={event.currency}
+                      registrationType={registrationType}
+                      checked={getActiveOfferings().map(off => {
+                        return off.id && offeringOrders.includes(off.id) ? true : false;
+                      })}
+                      tShirtSize={offeringTShirtSize}
+                      selectable={true}
+                      onCheckedChange={(checked, offeringId) => {
+                        if (offeringId) handleCheckBoxOrderOfferingChanged(offeringId);
+                      }}
+                      onShirtSizeChange={size => {
+                        setOfferingShirtSize(size);
+                      }}
+                    />
+                  </div>
+                )}
+
+                {/* Page: Accommodations */}
+                {page && page === RegistrationProcessPage.ACCOMMODATIONS && (
+                  <div className={registrationStepClass}>
+                    <p className={registrationStepIntroTextClass}>{t('pageAccommodationDescription')}</p>
+
+                    <AccommodationList
+                      accommodations={getActiveAccommodations()}
+                      paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                      currency={event.currency}
+                      checked={getActiveAccommodations().map(acc => {
+                        return acc.id && accommodationOrders.includes(acc.id) ? true : false;
+                      })}
+                      selectable={true}
+                      onCheckedChange={(checked, accommodationId) => {
+                        if (accommodationId) handleCheckBoxOrderAccommodationChanged(accommodationId);
+                      }}
+                    />
+                  </div>
+                )}
+
+                {/* Page: Checkout Overview */}
+                {page && page === RegistrationProcessPage.CHECKOUT_OVERVIEW && (
+                  <div className={registrationStepClass}>
+                    <p className={registrationStepIntroTextClass}>{t('pageCheckoutOverviewDescription')}</p>
+
+                    {registrationType && (
+                      <PaymentDetails
+                        event={event}
+                        competitions={competitions}
+                        registrationType={registrationType}
+                        compSignUps={compSignUps}
+                        accommodationOrders={accommodationOrders}
+                        offeringOrders={offeringOrders}
+                        paymentFeeCover={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee}
+                        donationLocked={registrationStatus !== 'Unregistered' || paymentLoading || !!paymentClientSecret}
+                        onDonationCheckedChange={donationAmount => {
+                          setDonationAmount(donationAmount);
+                        }}
+                      />
+                    )}
+
+                    {paymentClientSecret && (
+                      <div className="w-full rounded-xl border border-border/60 bg-background p-4">
+                        <CheckoutForm
+                          key={paymentClientSecret}
+                          clientSecret={paymentClientSecret}
+                          stripeAccount={paymentCheckout?.stripeAccountId || undefined}
+                          confirmPaymentBtnText={t('btnPay')}
+                          returnUrl={paymentReturnUrl}
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Overview: embedded payment after Proceed Payment */}
+                {!page && paymentClientSecret && (
+                  <div className="mx-auto mt-4 w-full min-w-0 max-w-2xl rounded-xl border border-border/60 bg-background p-4">
                     <CheckoutForm
                       key={paymentClientSecret}
                       clientSecret={paymentClientSecret}
@@ -1106,20 +1175,13 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                   </div>
                 )}
               </div>
-            )}
 
-            {/* Overview: embedded payment after Proceed Payment */}
-            {!page && paymentClientSecret && (
-              <div className="mx-auto mt-4 w-full min-w-0 max-w-2xl rounded-xl border border-border/60 bg-background p-4">
-                <CheckoutForm
-                  key={paymentClientSecret}
-                  clientSecret={paymentClientSecret}
-                  stripeAccount={paymentCheckout?.stripeAccountId || undefined}
-                  confirmPaymentBtnText={t('btnPay')}
-                  returnUrl={paymentReturnUrl}
-                />
-              </div>
-            )}
+              {page && (
+                <aside className="min-w-0 lg:sticky lg:top-0">
+                  <RegistrationSummary groups={summaryGroups} />
+                </aside>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -1128,7 +1190,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
         {!page && <ActionButton href={`${routeEvents}/${event.id}`} action={Action.BACK} />}
         {/* Button Cancel Process */}
         {page && (
-          <Button type="button" variant="action" className={ctaActionButtonClassName} onClick={handleCancelClicked}>
+          <Button type="button" variant="outline" className="rounded-xl" onClick={handleCancelClicked}>
             {t('btnBackToOverview')}
           </Button>
         )}

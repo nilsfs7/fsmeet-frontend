@@ -11,6 +11,7 @@ import { Action } from '../../../domain/enums/action';
 import { Size } from '../../../domain/enums/size';
 import { AdministrativeUser } from '../../../domain/enums/administrative-user';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 interface IUserCommentProps {
   comment: EventComment;
@@ -22,6 +23,7 @@ interface IUserCommentProps {
 
 const UserComment = ({ comment, canDelete, onClickReply, onClickDelete }: IUserCommentProps) => {
   const { data: session } = useSession();
+  const t = useTranslations('/events/eventid');
 
   const handleDeleteClicked = (commentId: string) => {
     onClickDelete(commentId);
@@ -30,7 +32,7 @@ const UserComment = ({ comment, canDelete, onClickReply, onClickDelete }: IUserC
     <div className="flex w-full min-w-0 gap-2 text-sm">
       <div className="h-8 w-8 shrink-0">
         <Link href={`${routeUsers}/${comment.user.username}`} className="block h-full w-full">
-          <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} className="h-full w-full rounded-full bg-background object-cover" />
+          <img src={comment.user.imageUrl ? comment.user.imageUrl : imgUserDefaultImg} alt={`${comment.user.firstName ?? ''} ${comment.user.lastName ?? ''}`.trim() || comment.user.username} className="h-full w-full rounded-full bg-background object-cover" />
         </Link>
       </div>
 
@@ -47,7 +49,7 @@ const UserComment = ({ comment, canDelete, onClickReply, onClickDelete }: IUserC
           <div className="text-muted-foreground">{`${formatTs(moment(comment.timestamp), 'DD.MM HH:mm')}`}</div>
 
           <button type="button" className="text-foreground/90 hover:underline" onClick={onClickReply}>
-            Reply
+            {t('btnReply')}
           </button>
 
           {/* delete */}

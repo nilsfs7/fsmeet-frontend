@@ -53,17 +53,7 @@ export type ColumnInfo = {
   date: Moment;
 };
 
-function HeaderSortButton<TData>({
-  column,
-  label,
-  title,
-  'aria-label': ariaLabel,
-}: {
-  column: Column<TData, unknown>;
-  label: string;
-  title: string;
-  'aria-label': string;
-}) {
+function HeaderSortButton<TData>({ column, label, title, 'aria-label': ariaLabel }: { column: Column<TData, unknown>; label: string; title: string; 'aria-label': string }) {
   const sorted = column.getIsSorted();
   return (
     <button
@@ -121,28 +111,14 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
     {
       accessorKey: 'date',
       enableHiding: false,
-      header: ({ column }) => (
-        <HeaderSortButton<ColumnInfo>
-          column={column}
-          label={t('tblColumnDate')}
-          title={t('tblColumnDate')}
-          aria-label={t('tblColumnDate')}
-        />
-      ),
+      header: ({ column }) => <HeaderSortButton<ColumnInfo> column={column} label={t('tblColumnDate')} title={t('tblColumnDate')} aria-label={t('tblColumnDate')} />,
       cell: ({ row }) => <div className="whitespace-nowrap">{moment(row.getValue('date')).format('yyyy-MM-DD HH:mm')}</div>,
     },
 
     {
       accessorKey: 'username',
       enableHiding: true,
-      header: ({ column }) => (
-        <HeaderSortButton<ColumnInfo>
-          column={column}
-          label={t('tblColumnUsername')}
-          title={t('tblColumnUsername')}
-          aria-label={t('tblColumnUsername')}
-        />
-      ),
+      header: ({ column }) => <HeaderSortButton<ColumnInfo> column={column} label={t('tblColumnUsername')} title={t('tblColumnUsername')} aria-label={t('tblColumnUsername')} />,
       cell: ({ row }) => <div className="flex items-center gap-2">{<Link href={`${routeUsers}/${row.getValue('username')}`}>{row.getValue('username')} </Link>}</div>,
       sortingFn: (rowA: Row<ColumnInfo>, rowB: Row<ColumnInfo>, columnId: string) => {
         const rowAVal = `${rowA.original.username}`;
@@ -168,14 +144,7 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
 
     {
       accessorKey: 'amount',
-      header: ({ column }) => (
-        <HeaderSortButton<ColumnInfo>
-          column={column}
-          label={t('tblColumnAmount')}
-          title={t('tblColumnAmount')}
-          aria-label={t('tblColumnAmount')}
-        />
-      ),
+      header: ({ column }) => <HeaderSortButton<ColumnInfo> column={column} label={t('tblColumnAmount')} title={t('tblColumnAmount')} aria-label={t('tblColumnAmount')} />,
       cell: ({ row }) => (
         <div className={(row.getValue('amount') as Amount).amountRefunded === (row.getValue('amount') as Amount).amount ? 'line-through' : ''}>
           {convertCurrencyIntegerToDecimal((row.getValue('amount') as Amount).amount, (row.getValue('amount') as Amount).currency)
@@ -243,7 +212,11 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
   });
 
   const hasHiddenColumns = useMemo(
-    () => table.getAllColumns().filter(c => c.getCanHide()).some(c => !c.getIsVisible()),
+    () =>
+      table
+        .getAllColumns()
+        .filter(c => c.getCanHide())
+        .some(c => !c.getIsVisible()),
     [table, columnVisibility],
   );
 
@@ -395,7 +368,6 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
               </Button>
             </div>
           </div>
-
         </div>
       </div>
     </>

@@ -80,18 +80,20 @@ export default function EditEventSponsor(props: { params: Promise<{ eventId: str
       </Dialog>
 
       <div className="min-h-0 flex-1 flex flex-col">
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={t('pageDescription')} />
 
-        <div className={'flex columns-1 flex-col items-center overflow-y-auto'}>
-          <SponsorEditor
-            sponsor={sponsor}
-            onSponsorUpdate={(sponsor: Sponsor) => {
-              setSponsor(sponsor);
-            }}
-            onSponsorLogoUpdate={(image: any) => {
-              setSponsorLogo(image);
-            }}
-          />
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
+          <div className="mx-auto flex w-full max-w-2xl flex-col items-stretch gap-4">
+            <SponsorEditor
+              sponsor={sponsor}
+              onSponsorUpdate={(sponsor: Sponsor) => {
+                setSponsor(sponsor);
+              }}
+              onSponsorLogoUpdate={(image: any) => {
+                setSponsorLogo(image);
+              }}
+            />
+          </div>
         </div>
 
         <Navigation>

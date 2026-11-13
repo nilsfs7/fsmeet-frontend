@@ -11,9 +11,9 @@ interface IUserSectionProps {
 
 const UserSection = ({ sectionTitle, users, showUserCountryFlag = false, registrationStatus }: IUserSectionProps) => {
   return (
-    <div className={'rounded-lg border border-secondary-dark bg-secondary-light p-2 text-sm'}>
-      <div className="text-base font-bold">{sectionTitle}</div>
-      <div className="mt-1 flex flex-wrap gap-2">
+    <div className="rounded-2xl border border-border bg-background p-4 text-sm shadow-xs sm:p-6">
+      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{sectionTitle}</div>
+      <div className="mt-3 flex flex-wrap gap-2">
         {users.map((user, i) => {
           return (
             <div key={i}>

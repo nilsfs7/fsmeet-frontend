@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ChevronDown } from 'lucide-react';
+import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
 import { EventType } from '@/domain/enums/event-type';
 import { EventCategory } from '@/domain/enums/event-category';
@@ -63,6 +64,7 @@ function pickInlineAdvertisement(ads: ReadAdvertisementResponseDto[], adSlot: nu
 
 export const EventsList = () => {
   const t = useTranslations('/events');
+  const tHeader = useTranslations('global/components/app-header');
   const tData = useTranslations('global/data-states');
   const tDataRef = useRef(tData);
   tDataRef.current = tData;
@@ -226,201 +228,211 @@ export const EventsList = () => {
 
   return (
     <>
-      <div className="mt-2 flex justify-center gap-2">
-        <div>
-          <div className="mx-2">{t('datePickerFrom')}</div>
-          <DatePicker
-            date={dateFrom}
-            fromDate={moment().subtract(2, 'y')}
-            toDate={dateTo}
-            onChange={newDate => {
-              handleDateFromChanged(newDate);
-            }}
-          />
-        </div>
-
-        <div>
-          <div className="mx-2">{t('datePickerTo')}</div>
-          <DatePicker
-            date={dateTo}
-            fromDate={dateFrom}
-            toDate={moment().add(2, 'y')}
-            onChange={newDate => {
-              handleDateToChanged(newDate);
-            }}
-          />
-        </div>
-      </div>
-
-      <div className="mt-1.5 w-full min-w-0 max-w-lg px-2 sm:mx-auto sm:px-0">
-        <button
-          type="button"
-          onClick={() => setAdvancedOpen(v => !v)}
-          className="flex w-full min-w-0 items-center justify-center gap-2 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          aria-expanded={advancedOpen}
-        >
-          {hasActiveFilters ? <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden /> : null}
-          <span className="font-medium text-foreground/90">{t('searchAdvancedLabel')}</span>
-          <ChevronDown className={cn('h-4 w-4 shrink-0 transition-transform duration-200', advancedOpen && 'rotate-180')} aria-hidden />
-        </button>
-
-        {advancedOpen && (
-          <div className="space-y-3 pt-0.5 pb-1">
-            <div>
-              <label className="mb-1 block text-2xs text-muted-foreground sm:text-xs" htmlFor="events-list-search">
-                {t('searchNamePlaceholder')}
-              </label>
-              <Input
-                id="events-list-search"
-                type="search"
-                className="h-9 w-full bg-background/80"
-                placeholder={t('searchNamePlaceholder')}
-                value={nameQuery}
-                onChange={e => setNameQuery(e.target.value)}
-                autoComplete="off"
-                spellCheck={false}
-              />
-            </div>
-
-            <div>
-              <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('filterVenueCountry')}</div>
-              <Select value={filterVenue || ALL} onValueChange={v => setFilterVenue(v === ALL ? '' : v)}>
-                <SelectTrigger className={selectTriggerClass}>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL}>{t('filterAll')}</SelectItem>
-                  {venueCountryOptions.map(({ code, name }) => (
-                    <SelectItem key={code} value={code}>
-                      {name} ({code})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
-              <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('filterType')}</div>
-              <Select value={filterType || ALL} onValueChange={v => setFilterType(v === ALL ? '' : v)}>
-                <SelectTrigger className={selectTriggerClass}>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL}>{t('filterAll')}</SelectItem>
-                  {EVENT_TYPES.map(et => (
-                    <SelectItem key={et} value={et}>
-                      {typeLabel[et]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            {!isMeetingTypeFilter && (
-              <>
-                <div>
-                  <div className="mb-1 text-2xs text-muted-foreground sm:text-xs">{t('filterCategory')}</div>
-                  <Select value={filterCategory || ALL} onValueChange={v => setFilterCategory(v === ALL ? '' : v)}>
-                    <SelectTrigger className={selectTriggerClass}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value={ALL}>{t('filterAll')}</SelectItem>
-                      {EVENT_CATS.map(c => (
-                        <SelectItem key={c} value={c}>
-                          {categoryLabel[c]}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="flex items-start gap-2 py-0.5">
-                  <Checkbox id="events-filter-wffa" checked={wffaRankedOnly} onCheckedChange={c => setWffaRankedOnly(c === true)} className="mt-0.5" />
-                  <label htmlFor="events-filter-wffa" className="type-body-sm cursor-pointer leading-snug text-foreground/90">
-                    {t('filterWffa')}
-                  </label>
-                </div>
-
-                <div className="flex items-start gap-2 py-0.5">
-                  <Checkbox id="events-filter-prize-money" checked={prizeMoneyOnly} onCheckedChange={c => setPrizeMoneyOnly(c === true)} className="mt-0.5" />
-                  <label htmlFor="events-filter-prize-money" className="type-body-sm cursor-pointer leading-snug text-foreground/90">
-                    {t('filterPrizeWith')}
-                  </label>
-                </div>
-              </>
-            )}
-
-            <div className="flex w-full min-w-0 flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between">
-              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm')} onClick={clearAllFilters} disabled={!hasActiveFilters}>
-                {t('filterClearAll')}
-              </Button>
-              <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-3 text-sm sm:self-end')} onClick={() => setAdvancedOpen(false)}>
-                {t('filterApply')}
-              </Button>
-            </div>
+      <div className="mx-auto flex w-full max-w-content flex-col items-center gap-3 px-4 pt-4 text-center sm:gap-4 sm:px-6 sm:pt-6 md:px-8">
+        <h1 className="text-heading-1">{tHeader('navEvents')}</h1>
+        {/* date range, centered on all breakpoints */}
+        <div className="flex w-full max-w-md items-end justify-center gap-2 text-left">
+          <div className="min-w-0">
+            <div className="mb-1 text-xs font-medium text-muted-foreground">{t('datePickerFrom')}</div>
+            <DatePicker
+              date={dateFrom}
+              fromDate={moment().subtract(2, 'y')}
+              toDate={dateTo}
+              onChange={newDate => {
+                handleDateFromChanged(newDate);
+              }}
+            />
           </div>
-        )}
+
+          <div className="min-w-0">
+            <div className="mb-1 text-xs font-medium text-muted-foreground">{t('datePickerTo')}</div>
+            <DatePicker
+              date={dateTo}
+              fromDate={dateFrom}
+              toDate={moment().add(2, 'y')}
+              onChange={newDate => {
+                handleDateToChanged(newDate);
+              }}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="mt-2 flex min-h-0 max-h-full justify-center overflow-y-auto px-2 scrollbar-none">
-        <div className={cn('w-full', showDesktopSideGrid && 'lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-x-6')}>
-          {showDesktopAdColumn && (
-            <aside className="hidden lg:col-start-1 lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-end lg:self-start">
-              <AdvertisementCard advertisement={advertisements[0]!} badgeLabel={t('advertisementBadge')} slotIndex={0} variant="sidebar" />
-            </aside>
-          )}
-
-          <div
-            className={cn(
-              'mx-auto grid min-w-0 w-full max-w-lg justify-items-center gap-2',
-              showDesktopSideGrid && 'lg:col-start-2 lg:mx-0 lg:justify-self-center',
-            )}
-          >
-            {loadState === 'loading' && <AppDataStateListSkeleton />}
-
-            {loadState === 'error' && errorMessage && (
-              <div className="w-full min-w-0 max-w-lg">
-                <AppDataStateError title={tData('errorTitle')} message={errorMessage} onRetry={() => void loadForRange(dateFrom, dateTo)} retryLabel={tData('btnRetry')} />
+      <div className="mt-4 min-h-0 flex-1 overflow-y-auto pb-6 scrollbar-none">
+        <div className="mx-auto w-full max-w-content px-4 sm:px-6 md:px-8">
+          <div className={cn('grid grid-cols-1 gap-6', showDesktopSideGrid && 'lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start')}>
+            <div className="flex min-w-0 flex-col gap-3">
+              {/* filter toolbar, aligned with the list column */}
+              <div className="flex min-w-0 items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setAdvancedOpen(v => !v)}
+                  className={cn(
+                    'inline-flex h-10 min-w-0 items-center gap-2 rounded-xl border border-border bg-background px-3.5 text-sm font-medium text-foreground/90 shadow-xs transition-colors hover:bg-muted',
+                    advancedOpen && 'border-brand/40 bg-brand-soft/40',
+                  )}
+                  aria-expanded={advancedOpen}
+                >
+                  <IconAdjustmentsHorizontal className="h-4 w-4 shrink-0 text-muted-foreground" stroke={1.75} aria-hidden />
+                  <span className="truncate">{t('searchAdvancedLabel')}</span>
+                  {hasActiveFilters ? <span className="h-2 w-2 shrink-0 rounded-full bg-brand" aria-hidden /> : null}
+                  <ChevronDown className={cn('h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200', advancedOpen && 'rotate-180')} aria-hidden />
+                </button>
+                {hasActiveFilters && !advancedOpen && (
+                  <Button type="button" variant="ghost" size="sm" className="h-10 rounded-xl px-3 text-sm text-muted-foreground" onClick={clearAllFilters}>
+                    {t('filterClearAll')}
+                  </Button>
+                )}
               </div>
-            )}
 
-            {loadState === 'ok' && events.length === 0 && <AppDataStateEmpty description={t('textNoEventsFound')} />}
-
-            {loadState === 'ok' && events.length > 0 && filteredEvents.length === 0 && <AppDataStateEmpty description={t('textNoFilterMatch')} />}
-
-            {loadState === 'ok' &&
-              filteredEvents.length > 0 &&
-              filteredEvents.flatMap((event, i) => {
-                const row = (
-                  <div key={event.id ?? `event-${i.toString()}`} className="w-full max-w-lg">
-                    <Link href={`${routeEvents}/${event.id}`}>
-                      <EventCard event={event} />
-                    </Link>
+              {advancedOpen && (
+                <div className="grid grid-cols-1 gap-3 rounded-2xl border border-border bg-background p-4 shadow-xs sm:grid-cols-2 sm:p-5 lg:grid-cols-3">
+                  <div className="sm:col-span-full lg:col-span-1">
+                    <label className="mb-1 block text-xs font-medium text-muted-foreground" htmlFor="events-list-search">
+                      {t('searchNamePlaceholder')}
+                    </label>
+                    <Input
+                      id="events-list-search"
+                      type="search"
+                      className="h-9 w-full bg-background/80"
+                      placeholder={t('searchNamePlaceholder')}
+                      value={nameQuery}
+                      onChange={e => setNameQuery(e.target.value)}
+                      autoComplete="off"
+                      spellCheck={false}
+                    />
                   </div>
-                );
-                if ((i + 1) % listAdAfterEveryNEvents !== 0 || advertisements.length === 0) {
-                  return [row];
-                }
-                const adSlot = Math.floor(i / listAdAfterEveryNEvents);
-                const inlineAd = pickInlineAdvertisement(advertisements, adSlot, isLg);
-                if (!inlineAd) {
-                  return [row];
-                }
-                return [
-                  row,
-                  <div key={`advertisement-slot-${event.id ?? i.toString()}`} className="w-full max-w-lg">
-                    <AdvertisementCard advertisement={inlineAd} badgeLabel={t('advertisementBadge')} slotIndex={adSlot} variant="inline" />
-                  </div>,
-                ];
-              })}
-          </div>
 
-          {showFeaturedColumn && featuredEvent && (
-            <aside className="hidden lg:col-start-3 lg:block lg:sticky lg:top-2 lg:w-72 lg:max-w-full lg:shrink-0 lg:justify-self-start lg:self-start">
-              <FeaturedEventCard event={featuredEvent} badgeLabel={t('featuredEventBadge')} linkLabel={t('featuredEventCta')} />
-            </aside>
-          )}
+                  <div>
+                    <div className="mb-1 text-xs font-medium text-muted-foreground">{t('filterVenueCountry')}</div>
+                    <Select value={filterVenue || ALL} onValueChange={v => setFilterVenue(v === ALL ? '' : v)}>
+                      <SelectTrigger className={selectTriggerClass}>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={ALL}>{t('filterAll')}</SelectItem>
+                        {venueCountryOptions.map(({ code, name }) => (
+                          <SelectItem key={code} value={code}>
+                            {name} ({code})
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <div className="mb-1 text-xs font-medium text-muted-foreground">{t('filterType')}</div>
+                    <Select value={filterType || ALL} onValueChange={v => setFilterType(v === ALL ? '' : v)}>
+                      <SelectTrigger className={selectTriggerClass}>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={ALL}>{t('filterAll')}</SelectItem>
+                        {EVENT_TYPES.map(et => (
+                          <SelectItem key={et} value={et}>
+                            {typeLabel[et]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {!isMeetingTypeFilter && (
+                    <>
+                      <div>
+                        <div className="mb-1 text-xs font-medium text-muted-foreground">{t('filterCategory')}</div>
+                        <Select value={filterCategory || ALL} onValueChange={v => setFilterCategory(v === ALL ? '' : v)}>
+                          <SelectTrigger className={selectTriggerClass}>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value={ALL}>{t('filterAll')}</SelectItem>
+                            {EVENT_CATS.map(c => (
+                              <SelectItem key={c} value={c}>
+                                {categoryLabel[c]}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="flex flex-col justify-end gap-2 sm:col-span-full sm:flex-row sm:flex-wrap sm:gap-6">
+                        <div className="flex items-start gap-2 py-0.5">
+                          <Checkbox id="events-filter-wffa" checked={wffaRankedOnly} onCheckedChange={c => setWffaRankedOnly(c === true)} className="mt-0.5" />
+                          <label htmlFor="events-filter-wffa" className="type-body-sm cursor-pointer leading-snug text-foreground/90">
+                            {t('filterWffa')}
+                          </label>
+                        </div>
+
+                        <div className="flex items-start gap-2 py-0.5">
+                          <Checkbox id="events-filter-prize-money" checked={prizeMoneyOnly} onCheckedChange={c => setPrizeMoneyOnly(c === true)} className="mt-0.5" />
+                          <label htmlFor="events-filter-prize-money" className="type-body-sm cursor-pointer leading-snug text-foreground/90">
+                            {t('filterPrizeWith')}
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  <div className="flex w-full min-w-0 flex-col-reverse gap-2 pt-1 sm:col-span-full sm:flex-row sm:justify-end">
+                    <Button type="button" variant="outline" className="rounded-xl px-4 text-sm" onClick={clearAllFilters} disabled={!hasActiveFilters}>
+                      {t('filterClearAll')}
+                    </Button>
+                    <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'min-w-0! px-4 text-sm')} onClick={() => setAdvancedOpen(false)}>
+                      {t('filterApply')}
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              <div className="grid min-w-0 grid-cols-1 gap-3 xl:grid-cols-2">
+                {loadState === 'loading' && <AppDataStateListSkeleton />}
+
+                {loadState === 'error' && errorMessage && (
+                  <div className="w-full min-w-0 xl:col-span-full">
+                    <AppDataStateError title={tData('errorTitle')} message={errorMessage} onRetry={() => void loadForRange(dateFrom, dateTo)} retryLabel={tData('btnRetry')} />
+                  </div>
+                )}
+
+                {loadState === 'ok' && events.length === 0 && <AppDataStateEmpty description={t('textNoEventsFound')} />}
+
+                {loadState === 'ok' && events.length > 0 && filteredEvents.length === 0 && <AppDataStateEmpty description={t('textNoFilterMatch')} />}
+
+                {loadState === 'ok' &&
+                  filteredEvents.length > 0 &&
+                  filteredEvents.flatMap((event, i) => {
+                    const row = (
+                      <div key={event.id ?? `event-${i.toString()}`} className="min-w-0">
+                        <Link href={`${routeEvents}/${event.id}`}>
+                          <EventCard event={event} />
+                        </Link>
+                      </div>
+                    );
+                    if ((i + 1) % listAdAfterEveryNEvents !== 0 || advertisements.length === 0) {
+                      return [row];
+                    }
+                    const adSlot = Math.floor(i / listAdAfterEveryNEvents);
+                    const inlineAd = pickInlineAdvertisement(advertisements, adSlot, isLg);
+                    if (!inlineAd) {
+                      return [row];
+                    }
+                    return [
+                      row,
+                      <div key={`advertisement-slot-${event.id ?? i.toString()}`} className="min-w-0 [&>article]:max-w-none">
+                        <AdvertisementCard advertisement={inlineAd} badgeLabel={t('advertisementBadge')} slotIndex={adSlot} variant="inline" />
+                      </div>,
+                    ];
+                  })}
+              </div>
+            </div>
+
+            {showDesktopSideGrid && (
+              <aside className="hidden lg:sticky lg:top-0 lg:flex lg:flex-col lg:gap-4">
+                {showFeaturedColumn && featuredEvent && <FeaturedEventCard event={featuredEvent} badgeLabel={t('featuredEventBadge')} linkLabel={t('featuredEventCta')} />}
+                {showDesktopAdColumn && <AdvertisementCard advertisement={advertisements[0]!} badgeLabel={t('advertisementBadge')} slotIndex={0} variant="sidebar" />}
+              </aside>
+            )}
+          </div>
         </div>
       </div>
     </>

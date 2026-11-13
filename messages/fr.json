@@ -11,9 +11,19 @@
     "navMap": "Carte",
     "navCommunity": "Communauté",
     "navVoice": "Votes",
+    "navTraining": "Entraînement",
     "navAdminOverview": "Admin",
     "navWffaOverview": "WFFA",
-    "navAbout": "À propos"
+    "navAbout": "À propos",
+    "heroEyebrow": "Communauté de football freestyle",
+    "eventsTitle": "Événements",
+    "eventsSubtitle": "En cours, à venir et temps forts récents",
+    "exploreTitle": "Explorer la communauté",
+    "exploreMapText": "Trouve des freestylers près de chez toi et affiche-toi sur la carte.",
+    "exploreCommunityText": "Parcours athlètes, juges, organisateurs et marques.",
+    "exploreVoiceText": "Donne ton avis sur les propositions qui façonnent la scène.",
+    "exploreTrainingText": "Entraîne tes skills et suis ta progression.",
+    "exploreAboutText": "Découvre FSMeet, qui le développe et comment le soutenir."
   },
   "/about": {
     "pageTitle": "À propos",
@@ -27,10 +37,20 @@
     "lnkTermsOfService": "Conditions d'utilisation",
     "lnkPrivacyPolicy": "Politique de confidentialité",
     "build": "Version",
-    "ariaLegal": "Mentions légales"
+    "ariaLegal": "Mentions légales",
+    "heroEyebrow": "À propos de FSMeet",
+    "sectionGetInvolved": "Participe",
+    "btnFeedback": "Envoyer un avis",
+    "sectionSupport": "Soutenir FSMeet",
+    "supportText": "FSMeet est gratuit pour la communauté. Les dons aident à financer les serveurs et le développement.",
+    "contributorsText": "Découvre les personnes qui développent, traduisent et façonnent FSMeet.",
+    "btnShowContributors": "Voir les contributeurs",
+    "sectionOpenSource": "Open source",
+    "openSourceText": "Le frontend de FSMeet est open source sur GitHub."
   },
   "/about/contributors": {
     "pageTitle": "Contributeurs",
+    "pageDescription": "Les personnes qui développent, traduisent et façonnent FSMeet.",
     "sectionMainContributors": "Contributeurs Principaux",
     "textHeadOfDevelopment": "Responsable du développement",
     "textMobileAppDevelopment": "Développement d’applications mobiles",
@@ -39,6 +59,7 @@
     "textJapaneseAndOtherLanguagesTranslation": "Traducteur - Japonais et autres langues",
     "textUxAdvisor": "Conseiller UX",
     "sectionCommunityProposals": "Propositions communautaires",
+    "sectionCommunityProposalsText": "Des idées de la communauté intégrées à FSMeet.",
     "textPersonalSchedule": "Calendrier personnel pour les athlètes",
     "textSearchByGender": "Recherchedes freestylers par genre sur la carte",
     "lnkAnnouncement": "Annonce",
@@ -50,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "Paramètres du compte",
+    "pageDescription": "Gère ton profil, ton épingle sur la carte, tes jobs et ton compte.",
     "profilePictureAddPicture": "Ajouter une photo",
     "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Enregistrer",
@@ -165,7 +187,24 @@
     "toastProfileUpdated": "Profil mis à jour.",
     "toastProfileLoadFailed": "Impossible de charger les informations depuis le stockage de session.",
     "toastStripeAccount": "Compte Stripe créé.",
-    "toastVerificationRequested": "Demande de vérification envoyée."
+    "toastVerificationRequested": "Demande de vérification envoyée.",
+    "btnChangePicture": "Changer la photo",
+    "btnViewProfile": "Voir le profil",
+    "tabAccountSectionDangerZone": "Zone de danger",
+    "tabAccountDeleteAccountHint": "La suppression de ton compte est définitive et irréversible.",
+    "lblStripeDashboardOpening": "Ouverture de Stripe…",
+    "alertStripeDashboardUnavailableTitle": "Tableau de bord Stripe indisponible",
+    "alertStripeDashboardUnavailableText": "Le tableau de bord Stripe ne peut pas être ouvert pour ce compte de paiement. Vos paiements restent disponibles sous « Gérer les paiements ». Si vous n'avez pas encore terminé la configuration Stripe, finalisez-la via « Modifier info ».",
+    "alertStripeOnboardingIncompleteTitle": "Configuration Stripe inachevée",
+    "alertStripeOnboardingIncompleteText": "Votre configuration Stripe n'est pas encore terminée. Finalisez-la pour accéder au tableau de bord Stripe.",
+    "alertStripeDashboardErrorTitle": "Impossible d'ouvrir le tableau de bord Stripe",
+    "toastStripeDashboardGeneric": "Le tableau de bord Stripe n'a pas pu être ouvert. Veuillez réessayer plus tard ou contacter le support.",
+    "toastStripeDashboardSession": "Votre session a expiré. Veuillez vous reconnecter.",
+    "btnFinishStripeSetup": "Terminer la configuration Stripe",
+    "btnContactSupport": "Contacter le support",
+    "errWebsiteInvalid": "Veuillez saisir une adresse web valide, p. ex. https://example.com.",
+    "errCityRequiredForPin": "Indiquez une ville pour publier votre repère sur la carte, ou décochez la publication.",
+    "toastFixErrors": "Veuillez corriger les champs signalés avant d'enregistrer."
   },
   "/account/deleted": {
     "textGoodbye": "Au revoir !",
@@ -175,7 +214,11 @@
   "/account/image": {
     "pageTitle": "Paramètres du compte",
     "btnUpload": "Charger",
-    "btnDelete": "Supprimer"
+    "btnDelete": "Supprimer",
+    "pageTitlePicture": "Photo de profil",
+    "pageDescription": "Les images carrées rendent le mieux. Ta photo apparaît sur ton profil, la carte et les listes d'événements.",
+    "lblChooseImage": "Choisir une image",
+    "hintImage": "JPG, PNG ou WebP"
   },
   "/donate": {
     "pageTitle": "Faire un don",
@@ -312,7 +355,32 @@
     "btnCopyUrlToast": "URL de l'événement copié dans le presse-papiers.",
     "btnCopyUrlToolTip": "Copier l'URL de l'événement",
     "btnRegistration": "Inscription",
-    "btnFeedback": "Commentaires"
+    "btnFeedback": "Commentaires",
+    "cardRegistrationTitle": "Inscription",
+    "regStatusOpen": "Ouverte",
+    "regStatusUpcoming": "Pas encore ouverte",
+    "regStatusClosed": "Fermée",
+    "regOpensOn": "Ouvre le {date}",
+    "regClosesOn": "Ferme le {date}",
+    "regClosedOn": "Fermée le {date}",
+    "regDaysLeft": "{count, plural, =0 {Dernier jour} one {# jour restant} other {# jours restants}}",
+    "lblVisitorFee": "Tarif visiteur",
+    "lblOrganizer": "Organisateur",
+    "lblWhen": "Quand",
+    "lblWhere": "Où",
+    "lblEventOver": "Cet événement est terminé.",
+    "lblParticipantsRegistered": "{count, plural, =0 {Aucun participant} one {# participant} other {# participants}}",
+    "sectionAbout": "À propos de cet événement",
+    "sectionLinks": "Liens",
+    "lblCategory": "Catégorie",
+    "tabOverviewSectionSponsorsPresentedBy": "Présenté par",
+    "tabOverviewSectionSponsorsHint": "Merci aux partenaires qui rendent cet événement possible.",
+    "tabOverviewSectionSponsorsVisit": "Visiter le site (nouvel onglet)",
+    "toastCommentPosted": "Commentaire publié",
+    "toastReplyPosted": "Réponse publiée",
+    "btnPostComment": "Publier le commentaire",
+    "btnPostReply": "Publier la réponse",
+    "btnReply": "Répondre"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Gérer les hébergements",
@@ -347,11 +415,13 @@
     "pageTitle": "Modifier le document",
     "dlgDeleteFileTitle": "Supprimer le document",
     "dlgDeleteFileText": "Voulez-vous vraiment supprimer ce document?",
-    "btnSave": "Enregistrer"
+    "btnSave": "Enregistrer",
+    "pageDescription": "Téléverse un fichier ou ajoute le lien d’un document que les participants pourront ouvrir sur la page de l’événement."
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "Créer un document",
-    "btnCreate": "Créer"
+    "btnCreate": "Créer",
+    "pageDescription": "Téléverse un fichier ou ajoute le lien d’un document que les participants pourront ouvrir sur la page de l’événement."
   },
   "/events/eventid/comps": {
     "pageTitle": "Gérer les compétitions",
@@ -424,7 +494,14 @@
     "errorLoadArena": "Impossible de charger l'écran d'arène",
     "styleUnavailable": "Style d’arène indisponible",
     "openSlot": "Créneau libre",
-    "noCountry": "Aucun pays"
+    "noCountry": "Aucun pays",
+    "sectionLiveMatch": "Match en direct",
+    "sectionLiveMatchHint": "Choisis la compétition et le battle que l’écran de l’arène doit afficher maintenant.",
+    "sectionShow": "Afficher à l’écran",
+    "sectionShowHint": "Ouvre la vue plein écran de l’arène dans un nouvel onglet. Elle s’actualise automatiquement toutes les quelques secondes.",
+    "noMatchSelected": "Choisis un match à afficher",
+    "labelPosition": "Position {position}",
+    "textRetrying": "Nouvelle tentative automatique toutes les quelques secondes."
   },
   "/events/eventid/pro": {
     "pageTitle": "Licence événement",
@@ -491,7 +568,20 @@
     "dlgDownloadResultsBtnDownload": "Télécharger",
     "toastMatchesInconsistent": "Les battles semblent avoir des données incohérentes.",
     "toastResultsProcessed": "Résultats des battles traités.",
-    "toastExportInconsistent": "L'export des résultats est incohérent."
+    "toastExportInconsistent": "L'export des résultats est incohérent.",
+    "tabInfoNone": "Aucune",
+    "tabInfoParticipants": "Participants",
+    "tabInfoRounds": "Tours",
+    "textNoScheduleTitle": "Pas encore de programme",
+    "textNoScheduleDescription": "L’organisateur n’a pas encore créé de programme pour cette compétition. Reviens plus tard.",
+    "btnCopyUrlToolTip": "Copier l'URL de la compétition",
+    "btnCopyUrlToast": "URL de la compétition copiée dans le presse-papiers."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "Compétition introuvable",
+    "textNotFoundHint": "Ce lien de compétition n'est pas valide ou la compétition n'existe plus.",
+    "btnBackHome": "Retour à l’accueil",
+    "btnBackToEvents": "Retour à l'aperçu"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Gérer les groupes",
@@ -590,12 +680,27 @@
     "toastRoundsUpdated": "Manches mises à jour",
     "toastRoundDeleted": "Manche supprimée",
     "defaultRoundName": "Manche {index}",
-    "defaultMatchName": "Battle {index}"
+    "defaultMatchName": "Battle {index}",
+    "btnAddRound": "Ajouter un tour",
+    "statPlayers": "{count, plural, one {# joueur dans le pool} other {# joueurs dans le pool}}",
+    "statRounds": "{count, plural, one {# tour} other {# tours}}",
+    "statMatches": "{count, plural, one {# match} other {# matchs}}",
+    "chipNotSaved": "Pas encore enregistré",
+    "hintMode": "Crée les tours du premier au dernier. Les joueurs qualifiés d’un tour sont ceux disponibles au tour suivant.",
+    "noteFinalSet": "Le tour final est défini. Ajuste les matchs si besoin, puis enregistre.",
+    "textNoRounds": "Aucun tour pour l’instant. Commence par le premier tour.",
+    "btnGoToPool": "Aller au pool",
+    "chipUnsavedChanges": "Modifications non enregistrées",
+    "hintReorder": "Glisse les cartes de match ou utilise les flèches pour changer leur ordre dans un tour, puis enregistre.",
+    "dlgDeleteRoundHint": "Tous les matchs de ce tour sont aussi supprimés. Les modifications prennent effet une fois le mode de jeu enregistré.",
+    "dlgApplyHint": "Les modifications prennent effet une fois le mode de jeu enregistré."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Tirage au sort et résultats",
     "textNoGameMode": "Vous n'avez pas encore configuré de tournois.",
-    "toastSlotUpdated": "Créneau mis à jour"
+    "toastSlotUpdated": "Créneau mis à jour",
+    "btnGoToGameMode": "Configurer le format",
+    "hintSeeding": "Attribue un joueur à chaque place et saisis les résultats. Chaque modification est enregistrée immédiatement ; le meilleur résultat gagne."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Modifier la compétition",
@@ -615,8 +720,10 @@
     "btnSubmit": "Soumettre"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "Événement introuvable.",
-    "btnBackToEvents": "Retour à l'aperçu"
+    "textNotFound": "Événement introuvable",
+    "btnBackToEvents": "Retour à l'aperçu",
+    "textNotFoundHint": "Le lien est peut-être obsolète, ou l’événement a été supprimé ou n’est pas public.",
+    "btnBackHome": "Retour à l’accueil"
   },
   "/events/eventid/offerings": {
     "pageTitle": "Gérer les offres",
@@ -673,7 +780,10 @@
     "textNoFilterMatch": "Aucun inscrit ne correspond aux filtres.",
     "alertPendingRegistrations": "{count, plural, =1 {Il y a une inscription en attente de validation.} other {Il y a # inscriptions en attente de validation.}}",
     "toastRemoved": "{name} retiré",
-    "toastStatusUpdated": "Statut de {name} mis à jour"
+    "toastStatusUpdated": "Statut de {name} mis à jour",
+    "statTotal": "Toutes les inscriptions",
+    "textShown": "{shown} sur {total} affichés",
+    "btnClearSearch": "Effacer la recherche"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Aperçu de l'inscription",
@@ -719,7 +829,22 @@
     "btnPay": "Payer maintenant",
     "btnWorking": "Démarrage du paiement…",
     "errorMissingSecret": "Réponse de paiement incomplète. Réessaie ou contacte le support.",
-    "errorCheckout": "Impossible de démarrer le paiement. Réessaie ou contacte le support."
+    "errorCheckout": "Impossible de démarrer le paiement. Réessaie ou contacte le support.",
+    "stepDetails": "Tes informations",
+    "stepCompetitions": "Compétitions",
+    "stepOfferings": "Extras",
+    "stepAccommodations": "Hébergement",
+    "stepCheckout": "Récapitulatif",
+    "stepCounter": "Étape {current} sur {total}",
+    "summaryTitle": "Ta sélection",
+    "typeParticipant": "Participant",
+    "typeVisitor": "Visiteur",
+    "summaryNone": "Rien de sélectionné",
+    "statusUnregistered": "Non inscrit",
+    "statusPending": "En attente",
+    "statusApproved": "Approuvé",
+    "statusDenied": "Refusé",
+    "daysLeft": "{count, plural, one {# jour restant} other {# jours restants}}"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Inscription soumise avec succès.",
@@ -744,7 +869,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "Votre demande a été envoyée avec succès!",
     "textSuccess2": "En attente d'approbation.",
-    "btnBack": "Retour"
+    "btnBack": "Retour",
+    "btnEvent": "Aller à l’événement"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Gérer les partenariats",
@@ -761,13 +887,21 @@
     "tooltipViewStats": "Voir les statistiques",
     "textNoAds": "Aucune annonce pour le moment.",
     "tableColDescription": "Description",
-    "tableColActions": "Actions"
+    "tableColActions": "Actions",
+    "pageDescription": "Fais la promotion de tes produits et services sur FSMeet.",
+    "chipActive": "Active",
+    "chipInactive": "Inactive",
+    "hintReorder": "Faites glisser les annonces par la poignée pour changer leur ordre d'affichage.",
+    "tooltipDragAd": "Glisser pour réordonner",
+    "toastReorderFailed": "Impossible de mettre à jour l'ordre des annonces.",
+    "toastReorderUnavailable": "Le tri des annonces n'est pas encore disponible. Veuillez réessayer plus tard."
   },
   "/ads/create": {
     "pageTitle": "Créer une annonce",
     "btnCreate": "Créer",
     "toastNeedLogin": "Vous devez être connecté pour créer une annonce.",
-    "toastCreateFailed": "Impossible de créer l'annonce."
+    "toastCreateFailed": "Impossible de créer l'annonce.",
+    "pageDescription": "Décris ton produit, ajoute une image et un lien – l’aperçu montre le rendu."
   },
   "/ads/edit": {
     "pageTitle": "Modifier l'annonce",
@@ -776,7 +910,8 @@
     "btnSave": "Enregistrer",
     "toastSaveFailed": "Impossible d'enregistrer l'annonce.",
     "toastDeleteFailed": "Impossible de supprimer l'annonce.",
-    "toastLoadFailed": "Impossible de charger l'annonce."
+    "toastLoadFailed": "Impossible de charger l'annonce.",
+    "pageDescription": "Modifie le contenu, l’image et la visibilité de ton annonce."
   },
   "/ads/stats": {
     "pageTitle": "Statistiques de l'annonce",
@@ -862,17 +997,20 @@
     "dlgRequestInfoTravelMethod": "Mode de transport",
     "dlgRequestInfoTravelFee": "Frais de déplacement",
     "dlgOfferTravelFeeFromRateHint": "Suggestion selon le taux kilométrique : {amount} (modifiable ci-dessous)",
-    "dlgOfferTravelFeeShortDistanceHint": "Aucun frais de déplacement n'est proposé pour les distances aller simple inférieures à {km} km."
+    "dlgOfferTravelFeeShortDistanceHint": "Aucun frais de déplacement n'est proposé pour les distances aller simple inférieures à {km} km.",
+    "pageDescription": "Les demandes de réservation reçues via FreestyleActs."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Créer un partenaire",
-    "btnCreate": "Ajouter un nouveau"
+    "btnCreate": "Ajouter un nouveau",
+    "pageDescription": "Ajoute un sponsor avec son nom, son site et son logo. Les sponsors publics apparaissent sur la page de l’événement."
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "Modifier le partenaire",
     "dlgDeleteTitle": "Supprimer le partenaire",
     "dlgDeleteText": "Voulez-vous vraiment supprimer ce partenaire ?",
-    "btnSave": "Enregistrer"
+    "btnSave": "Enregistrer",
+    "pageDescription": "Ajoute un sponsor avec son nom, son site et son logo. Les sponsors publics apparaissent sur la page de l’événement."
   },
   "/events/eventid/stats": {
     "pageTitle": "Statistiques",
@@ -909,40 +1047,81 @@
     "btnBackToOverview": "Annuler",
     "btnNextPage": "Suivante",
     "btnCreateEvent": "Créer",
-    "dlgUnlistedEvents": "Vous ne pouvez pas créer un autre événement tant qu’au moins 2 de vos événements ne sont pas listés."
+    "dlgUnlistedEvents": "Vous ne pouvez pas créer un autre événement tant qu’au moins 2 de vos événements ne sont pas listés.",
+    "stepType": "Type",
+    "stepFormat": "Format",
+    "stepDetails": "Détails",
+    "stepReview": "Récapitulatif",
+    "stepCounter": "Étape {current} sur {total}",
+    "pageEventTypeCompetitionHint": "Battles, classements et jury pour les participants.",
+    "pageEventTypeMeetingHint": "Jams, ateliers et rencontres.",
+    "pageCompTypeOnsiteHint": "Les participants se retrouvent sur place.",
+    "pageCompTypeOnlineHint": "Les participants envoient des vidéos en ligne.",
+    "sectionBasics": "Informations de base",
+    "sectionEventDates": "Dates de l'événement",
+    "sectionRegistrationPeriod": "Période d'inscription",
+    "errNameTooShort": "Le nom de l'événement doit comporter au moins 3 caractères.",
+    "errDateOrder": "La date de fin ne peut pas précéder la date de début.",
+    "errRegistrationOrder": "La clôture des inscriptions ne peut pas précéder leur ouverture.",
+    "errRegistrationAfterStart": "La clôture des inscriptions ne peut pas être après le début de l'événement.",
+    "reviewHintUnlisted": "Ton événement reste non répertorié jusqu'à sa validation par un admin. Tu pourras ajouter tous les autres détails après la création.",
+    "pageEventTypeLaterHint": "Le lieu, les frais et les compétitions s'ajoutent une fois l'événement créé."
   },
   "/events/manage": {
     "pageTitle": "Gérer les événements",
+    "pageDescription": "Tes inscriptions et les événements que tu organises, au même endroit.",
     "tabRegistrationsTitle": "Inscriptions",
     "tabRegistrationsTextNoEvents": "Vous n'êtes pas encore inscrit à un événement",
     "tabEventsHostedTitle": "Mes événements",
     "tabEventsHostedTextNoEvents": "Vous n'avez pas encore créé d'événements.",
-    "btnCreate": "Créer un événement"
+    "btnCreate": "Créer un événement",
+    "sectionHosting": "Organisateur",
+    "sectionCoOrganizing": "Co-organisateur",
+    "btnBrowseEvents": "Parcourir les événements",
+    "inputSearchPlaceholder": "Rechercher un nom, alias ou une ville",
+    "btnFilters": "Filtres",
+    "filterStatus": "Statut",
+    "statusListed": "Publié",
+    "statusWaiting": "En attente de validation",
+    "statusNotListed": "Non publié",
+    "filterTime": "Période",
+    "timeUpcoming": "À venir et en cours",
+    "timePast": "Passés",
+    "lblResultCount": "{shown} sur {total} événements",
+    "btnResetFilters": "Réinitialiser les filtres",
+    "emptyFilteredTitle": "Aucun événement correspondant",
+    "emptyFilteredText": "Essayez un autre terme ou réinitialisez les filtres."
   },
   "/feedback": {
     "pageTitle": "Avis",
     "pageDescription": "Choisis une catégorie ci-dessous pour nous envoyer ton retour.",
     "pageGeneralFeedback": "Retour d'expérience général",
     "btnFeatures": "Proposer une fonctionnalité",
-    "btnBugs": "Signaler un bug"
+    "btnBugs": "Signaler un bug",
+    "descGeneral": "Dis-nous ce que tu aimes ou ce qui pourrait être amélioré.",
+    "descFeatures": "Propose une nouvelle fonctionnalité ou une amélioration.",
+    "descBugs": "Quelque chose ne marche pas ? Dis-nous ce qui s'est passé."
   },
   "/feedback/bugs": {
     "pageTitle": "Signaler un bug",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Décrivez le mieux possible tout dysfonctionnement que vous avez remarqué.",
-    "btnSubmit": "Soumettre"
+    "btnSubmit": "Soumettre",
+    "pageDescription": "Décris ce que tu as fait, ce que tu attendais et ce qui s'est passé à la place."
   },
   "/feedback/features": {
     "pageTitle": "Proposer une fonctionnalité",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Avez-vous une idée ou une amélioration à nous suggérer ?",
-    "btnSubmit": "Soumettre"
+    "btnSubmit": "Soumettre",
+    "pageDescription": "Partage ton idée – plus il y a de détails, mieux c’est."
   },
   "/feedback/general": {
     "pageTitle": "Envoyer un retour d'expérience",
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Tout retour d'expérience est grandement apprécié !",
-    "btnSubmit": "Soumettre"
+    "btnSubmit": "Soumettre",
+    "pageDescription": "Dis-nous ce que tu aimes ou ce qui pourrait être amélioré."
   },
   "/feedback/thankyou": {
     "thankYouText1": "Merci !",
@@ -961,6 +1140,7 @@
   },
   "/map": {
     "pageTitle": "Carte des Freestylers",
+    "pageDescription": "Trouve des freestylers, crews et organisateurs près de chez toi et ajoute-toi sur la carte.",
     "dlgAddPinTitle": "Ajoutez votre localisation",
     "dlgAddPinCornfirmText": "Confirmer",
     "dlgAddPinInputCity": "Ville",
@@ -977,21 +1157,37 @@
     "btnCopyUrlToast": "URL de la carte copiée dans le presse-papiers.",
     "btnCopyUrlToolTip": "Copier l'URL de la carte",
     "infoWindowGoToProfileInternal": "Cliquez pour voir le profil",
-    "infoWindowGoToProfileExternal": "Voir sur FSMeet"
+    "infoWindowGoToProfileExternal": "Voir sur FSMeet",
+    "resultsCount": "{count, plural, =0 {Personne ne correspond à tes filtres} one {# personne sur la carte} other {# personnes sur la carte}}"
   },
   "/password/forgot": {
     "inputUsername": "Nom d'utilisateur / E-mail",
-    "btnResetPassword": "Réinitialiser le mot de passe"
+    "btnResetPassword": "Réinitialiser le mot de passe",
+    "pageTitle": "Mot de passe oublié ?",
+    "pageDescription": "Saisis ton nom d'utilisateur ou ton adresse e-mail et nous t'enverrons un lien pour définir un nouveau mot de passe.",
+    "lnkBackToLogin": "Retour à la connexion"
   },
   "/password/forgot/pending": {
     "thankYouText1": "Vérifiez votre e-mail.",
     "thankYouText2": "Un lien de réinitialisation vous a été envoyé.",
-    "btnBackHome": "Retour à l'accueil"
+    "btnBackHome": "Retour à l'accueil",
+    "hintSpam": "Pas reçu d'e-mail ? Vérifie tes spams ou demande un nouveau lien.",
+    "btnRequestNewLink": "Demander un nouveau lien",
+    "btnBackToLogin": "Retour à la connexion"
   },
   "/password/reset": {
     "inputPassword": "Nouveau mot de passe",
     "btnSave": "Enregistrer",
-    "errorMissingResetLink": "Ce lien est invalide ou incomplet. Ouvrez le lien reçu dans l'e-mail de réinitialisation."
+    "errorMissingResetLink": "Ce lien est invalide ou incomplet. Ouvrez le lien reçu dans l'e-mail de réinitialisation.",
+    "pageTitle": "Définir un nouveau mot de passe",
+    "pageDescription": "Choisis un nouveau mot de passe pour ton compte FSMeet.",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "invalidLinkTitle": "Lien de réinitialisation invalide",
+    "btnRequestNewLink": "Demander un nouveau lien",
+    "successTitle": "Mot de passe modifié",
+    "successText": "Ton mot de passe a été mis à jour. Tu peux maintenant te connecter avec ton nouveau mot de passe.",
+    "btnGoToLogin": "Aller à la connexion"
   },
   "/registration": {
     "headlineCreateAccount": "Créer un compte",
@@ -1003,20 +1199,36 @@
     "cbCountry": "Pays",
     "inputEmail": "E-mail",
     "inputPassword": "Mot de passe",
-    "btnSignUp": "S'inscrire"
+    "btnSignUp": "S'inscrire",
+    "sectionProfile": "Profil",
+    "sectionAccount": "Identifiants",
+    "hintUsername": "En minuscules, sans espaces. Il apparaît dans le lien de ton profil public.",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "textHaveAccount": "Tu as déjà un compte ?",
+    "lnkSignIn": "Se connecter"
   },
   "/registration/confirm": {
     "registrationSuccess": "Inscription réussie",
     "registrationFailure": "Une erreur est survenue",
-    "btnProceed": "Continuer"
+    "btnProceed": "Continuer",
+    "successText": "Ton compte est confirmé. Tu peux maintenant te connecter.",
+    "failureText": "Le lien de confirmation est invalide ou a expiré, ou le compte est déjà confirmé. Essaie de te connecter.",
+    "btnBackHome": "Retour à l’accueil"
   },
   "/registration/pending": {
     "registrationPendingText1": "Un lien de confirmation a été envoyé à",
     "registrationPendingText2": "Cela peut prendre un certain temps avant que votre e-mail ne soit envoyé. Vérifiez également votre dossier spam si vous n'avez rien reçu.",
-    "btnBackHome": "Retour à l'accueil"
+    "btnBackHome": "Retour à l'accueil",
+    "titleCheckInbox": "Vérifie ta boîte mail",
+    "step1": "Ouvre l’e-mail de FSMeet.",
+    "step2": "Clique sur le lien de confirmation.",
+    "step3": "Connecte-toi avec ton nouveau compte.",
+    "btnGoToLogin": "Aller à la connexion"
   },
   "/users": {
     "pageTitle": "Communauté",
+    "pageDescription": "Découvre des freestylers, juges, organisateurs et marques du monde entier.",
     "inputSearchPlaceholder": "Rechercher par nom...",
     "tableSortByName": "Trier par nom",
     "tableSortByCountry": "Trier par pays",
@@ -1038,7 +1250,15 @@
     "navFirst": "Première page",
     "navPrevious": "Page précédente",
     "navNext": "Page suivante",
-    "navLast": "Dernière page"
+    "navLast": "Dernière page",
+    "sortLabel": "Trier",
+    "sortNameAsc": "Nom (A–Z)",
+    "sortNameDesc": "Nom (Z–A)",
+    "sortCountryAsc": "Pays (A–Z)",
+    "sortCountryDesc": "Pays (Z–A)",
+    "cbCardDetails": "Afficher sur les cartes",
+    "membersCount": "{count, plural, =0 {Aucun membre trouvé} one {# membre} other {# membres}}",
+    "lnkShowOnMap": "Voir sur la carte"
   },
   "/users/username": {
     "accordionItemSocials": "Réseaux sociaux",
@@ -1078,9 +1298,16 @@
     "placeholderDescription": "Description du produit",
     "inputTargetUrl": "URL cible",
     "tooltipTargetUrl": "Lien vers votre site web ou produit.",
-    "inputDisplayOrder": "Ordre d'affichage",
-    "tooltipDisplayOrder": "Ordre d'affichage des annonces lorsqu'il y en a plusieurs. 0 est affiché en premier.",
-    "chbEnabled": "Actif"
+    "chbEnabled": "Actif",
+    "lblImage": "Image",
+    "lblChooseImage": "Choisir une image",
+    "sectionContent": "Contenu",
+    "sectionVisibility": "Visibilité",
+    "hintImage": "Clique ou dépose une image (JPG, PNG, WebP)",
+    "lblPreview": "Aperçu",
+    "lblAdBadge": "Annonce",
+    "hintPreview": "Aperçu approximatif de ton annonce à côté de la liste des événements.",
+    "hintPreviewInactive": "Cette annonce est inactive et n’est affichée à personne."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Description",
@@ -1093,7 +1320,17 @@
     "inputUrl": "URL",
     "chbExpires": "Expire",
     "datePickerExpiryDate": "Date d'expiration",
-    "chbEnabled": "Actif"
+    "chbEnabled": "Actif",
+    "sectionSource": "Source",
+    "optSourceFile": "Téléverser un fichier",
+    "optSourceLink": "Lien externe",
+    "lblCurrentFile": "Fichier actuel :",
+    "lblChooseFile": "Choisir un fichier",
+    "lblReplaceFile": "Remplacer le fichier",
+    "hintDropFile": "Clique ou dépose un fichier ici",
+    "sectionAvailability": "Disponibilité",
+    "lblUploadedFile": "Document importé",
+    "lnkOpenFile": "Ouvrir"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Type",
@@ -1104,11 +1341,30 @@
   "global/components/battle-grid": {
     "btnAddMatch": "Ajouter une battle",
     "labelAssignSlot": "Attribuer un créneau",
-    "labelUnassigned": "non attribué"
+    "labelUnassigned": "non attribué",
+    "labelExtraMatch": "Extra",
+    "labelTbd": "À déterminer",
+    "labelResult": "Résultat",
+    "labelTimeLimit": "Temps limité",
+    "labelMatchCount": "{count, plural, one {# match} other {# matchs}}",
+    "btnMoveMatchUp": "Monter « {name} »",
+    "btnMoveMatchDown": "Descendre « {name} »",
+    "labelDragToReorder": "Glisser pour réordonner",
+    "labelStartAt": "Commencer à",
+    "labelAlsoInRound": "Aussi dans ce tour",
+    "labelNextRound": "Suivant : {name}",
+    "btnPreviousRound": "Tour précédent",
+    "btnNextRound": "Tour suivant"
   },
   "global/components/competition-editor": {
     "inputName": "Nom de la compétition",
     "inputNamePlaceHolder": "Battles Homme ou Femme",
+    "inputAlias": "Alias de la compétition",
+    "tooltipAlias": "Permet une URL de compétition plus courte et plus lisible (/e/<alias de l'événement>/c/<alias de la compétition>), plus facile à partager.",
+    "aliasHintRules": "Lettres minuscules et chiffres uniquement, 16 caractères max. Doit être unique au sein de cet événement.",
+    "aliasHintUrl": "URL courte :",
+    "aliasHintNoEventAlias": "Définissez d'abord un alias d'événement dans l'éditeur d'événement pour donner une URL courte à cette compétition.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "Type",
     "cbGender": "Genre",
     "cbMaxAge": "Âge maximum",
@@ -1197,7 +1453,9 @@
     "inputWaiver": "Renoncer",
     "chbVisaInvitationRequestsEnabled": "Proposer des invitations de visa",
     "toastPosterDeleted": "Affiche supprimée",
-    "placeholderWaiver": "En participant à cet événement, je reconnais ..."
+    "placeholderWaiver": "En participant à cet événement, je reconnais ...",
+    "lblPoster": "Affiche",
+    "lblChoosePoster": "Choisir une image d'affiche"
   },
   "global/components/loading-spinner": {
     "textLoading": "Chargement.."
@@ -1237,13 +1495,20 @@
   "global/components/sponsor-editor": {
     "inputName": "Nom du partenaire",
     "inputWebsite": "Site web",
-    "chbIsPublic": "Rendre public?"
+    "chbIsPublic": "Rendre public?",
+    "lblLogo": "Logo",
+    "lblChooseLogo": "Choisir un logo",
+    "hintLogo": "Les images carrées conviennent le mieux"
   },
   "/wffa": {
     "pageTitle": "Aperçu admin (WFFA)",
     "linkIds": "IDs freestyler",
     "linkStatistics": "Statistiques de l'app",
-    "linkVisa": "Demandes de visa"
+    "linkVisa": "Demandes de visa",
+    "pageDescription": "Outils pour les administrateurs WFFA.",
+    "linkIdsText": "Attribuer et modifier les identifiants WFFA",
+    "linkVisaText": "Examiner et approuver les lettres d'invitation pour visa",
+    "linkStatisticsText": "Utilisateurs, événements et activité"
   },
   "/wffa/ids": {
     "pageTitle": "Gestion des IDs freestyler",
@@ -1339,7 +1604,10 @@
     "search": "Rechercher ...",
     "select": "Sélectionner",
     "noData": "Aucune donnée.",
-    "appNav": "Appli"
+    "appNav": "Appli",
+    "time": "Heure",
+    "clearTime": "Effacer l’heure",
+    "mainNav": "Navigation principale"
   },
   "/account/payments": {
     "pageTitle": "Gérer les paiements",
@@ -1365,5 +1633,60 @@
     "navNext": "Aller à la page suivante",
     "navLast": "Aller à la dernière page",
     "openMenu": "Ouvrir le menu"
+  },
+  "global/components/app-header": {
+    "navHome": "Accueil",
+    "navEvents": "Événements",
+    "navMap": "Carte",
+    "navCommunity": "Communauté",
+    "navVoice": "Voice",
+    "navTraining": "Entraînement",
+    "navAbout": "À propos",
+    "btnCreateEvent": "Créer un événement",
+    "menuOpen": "Ouvrir le menu",
+    "menuClose": "Fermer le menu",
+    "sectionDiscover": "Découvrir",
+    "sectionMore": "Plus",
+    "menuItemAdmin": "Admin",
+    "menuItemWffa": "WFFA"
+  },
+  "global/components/date-picker": {
+    "placeholder": "Choisir une date"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "Rechercher par nom",
+    "clearSearch": "Effacer la recherche",
+    "all": "Tous",
+    "status": "Statut",
+    "type": "Type",
+    "country": "Pays",
+    "gender": "Genre",
+    "competition": "Compétition",
+    "statusApproved": "Approuvé",
+    "statusPending": "En attente",
+    "typeParticipants": "Participants",
+    "typeVisitors": "Visiteurs",
+    "genderMale": "Homme",
+    "genderFemale": "Femme",
+    "competitionNone": "Aucune compétition",
+    "shown": "{shown} sur {total} affichés",
+    "reset": "Réinitialiser les filtres",
+    "noMatch": "Personne ne correspond à ces filtres."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "Étapes de configuration de la compétition",
+    "stepDetails": "Détails",
+    "stepPool": "Pool",
+    "stepGameMode": "Format",
+    "stepSeeding": "Têtes de série & résultats",
+    "statusPool": "{count, plural, one {# joueur} other {# joueurs}}",
+    "statusRounds": "{count, plural, one {# tour} other {# tours}}",
+    "statusSeeded": "{count, plural, one {# place attribuée} other {# places attribuées}}",
+    "statusOpen": "Pas encore configuré",
+    "btnViewCompetition": "Voir la page de la compétition"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "En savoir plus",
+    "sponsored": "sponsorisé"
   }
 }

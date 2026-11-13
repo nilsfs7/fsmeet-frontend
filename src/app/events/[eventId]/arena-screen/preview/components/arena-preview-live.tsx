@@ -6,6 +6,7 @@ import { ReadPartialUser2ResponseDto } from '@/infrastructure/clients/dtos/user/
 import { ReadArenaScreenStyleResponseDto } from '@/infrastructure/clients/dtos/event/read-arena-screen-style.response.dto';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { IconAlertTriangle } from '@tabler/icons-react';
 import { ArenaMatchScreen, type ArenaMatchPlain, type ArenaParticipantPlain } from './arena-match-screen';
 
 const POLL_MS = 5000;
@@ -78,7 +79,8 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
 
   if (!hasLoadedOnce && !loadError) {
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-slate-950 text-zinc-400">
+      <div className="flex min-h-dvh flex-col items-center justify-center gap-4 bg-slate-950 text-zinc-400">
+        <span className="h-8 w-8 animate-spin rounded-full border-2 border-white/15 border-t-amber-400" aria-hidden />
         <p className="text-sm">{t('loadingArena')}</p>
       </div>
     );
@@ -86,9 +88,15 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
 
   if (loadError && !hasLoadedOnce) {
     return (
-      <div className="flex min-h-dvh flex-col items-center justify-center gap-2 bg-slate-950 px-6 text-center text-zinc-300">
-        <p className="text-lg font-medium text-white">{t('errorLoadArenaTitle')}</p>
-        <p className="text-sm text-destructive">{loadError}</p>
+      <div className="flex min-h-dvh flex-col items-center justify-center bg-slate-950 px-6 text-center text-zinc-300">
+        <div className="flex max-w-md flex-col items-center gap-3 rounded-3xl border border-white/10 bg-white/5 px-6 py-8">
+          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-500/15 text-red-300">
+            <IconAlertTriangle className="h-6 w-6" stroke={1.75} aria-hidden />
+          </span>
+          <p className="text-lg font-semibold text-white">{t('errorLoadArenaTitle')}</p>
+          <p className="text-sm text-red-200/90">{loadError}</p>
+          <p className="text-xs text-zinc-400">{t('textRetrying')}</p>
+        </div>
       </div>
     );
   }
@@ -96,7 +104,9 @@ export function ArenaPreviewLive({ eventId }: { eventId: string }) {
   if (!style) {
     return (
       <div className="flex min-h-dvh flex-col items-center justify-center gap-2 bg-slate-950 px-6 text-center text-zinc-300">
-        <p className="text-lg font-medium text-white">{t('styleUnavailable')}</p>
+        <div className="flex max-w-md flex-col items-center gap-3 rounded-3xl border border-white/10 bg-white/5 px-6 py-8">
+          <p className="text-lg font-semibold text-white">{t('styleUnavailable')}</p>
+        </div>
       </div>
     );
   }

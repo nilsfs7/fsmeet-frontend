@@ -23,10 +23,10 @@ export default async function EventOffering(props: { params: Promise<{ eventId: 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className={constrainedContentClass}>
-        <PageTitle title={t('pageTitle')} />
+        <PageTitle title={t('pageTitle')} description={event.name} />
       </div>
 
-      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto pb-6', constrainedContentClass)}>
         <div className="flex flex-col gap-3 text-sm">
           <div className="min-h-0 min-w-0 overflow-x-auto">
             <OfferingsList eventId={params.eventId} currency={event.currency} offerings={offerings} />

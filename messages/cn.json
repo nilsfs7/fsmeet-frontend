@@ -11,9 +11,19 @@
     "navMap": "地图",
     "navCommunity": "社区",
     "navVoice": "声音",
+    "navTraining": "训练",
     "navAdminOverview": "管理",
     "navWffaOverview": "WFFA",
-    "navAbout": "关于"
+    "navAbout": "关于",
+    "heroEyebrow": "花式足球社区",
+    "eventsTitle": "活动",
+    "eventsSubtitle": "进行中、即将开始和近期亮点",
+    "exploreTitle": "探索社区",
+    "exploreMapText": "找到你附近的花式足球玩家，并在地图上展示自己。",
+    "exploreCommunityText": "浏览运动员、裁判、组织者和品牌。",
+    "exploreVoiceText": "就塑造圈子的提案发表意见。",
+    "exploreTrainingText": "练习技巧，记录你的进步。",
+    "exploreAboutText": "了解 FSMeet、开发者以及如何支持它。"
   },
   "/about": {
     "pageTitle": "关于",
@@ -27,10 +37,20 @@
     "lnkTermsOfService": "服务条款",
     "lnkPrivacyPolicy": "隐私政策",
     "build": "构建",
-    "ariaLegal": "法律信息"
+    "ariaLegal": "法律信息",
+    "heroEyebrow": "关于 FSMeet",
+    "sectionGetInvolved": "参与进来",
+    "btnFeedback": "发送反馈",
+    "sectionSupport": "支持 FSMeet",
+    "supportText": "FSMeet 对社区免费。捐款有助于支付服务器和开发费用。",
+    "contributorsText": "认识开发、翻译和塑造 FSMeet 的人们。",
+    "btnShowContributors": "查看贡献者",
+    "sectionOpenSource": "开源",
+    "openSourceText": "FSMeet 前端在 GitHub 上开源。"
   },
   "/about/contributors": {
     "pageTitle": "贡献者",
+    "pageDescription": "开发、翻译和塑造 FSMeet 的人们。",
     "sectionMainContributors": "主要贡献者",
     "textHeadOfDevelopment": "开发负责人",
     "textMobileAppDevelopment": "移动应用开发",
@@ -39,6 +59,7 @@
     "textJapaneseAndOtherLanguagesTranslation": "翻译 - 日语及其他语言",
     "textUxAdvisor": "用户体验顾问",
     "sectionCommunityProposals": "社区提案",
+    "sectionCommunityProposalsText": "被 FSMeet 采纳的社区创意。",
     "textPersonalSchedule": "运动员个人日程",
     "textSearchByGender": "按性别搜索自由式选手地图",
     "lnkAnnouncement": "公告",
@@ -50,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "账户设置",
+    "pageDescription": "管理你的个人资料、地图标记、工作和账户。",
     "profilePictureAddPicture": "添加图片",
     "profilePictureNoFileChosen": "未选择文件",
     "btnSave": "保存",
@@ -165,7 +187,24 @@
     "toastProfileUpdated": "资料已更新。",
     "toastProfileLoadFailed": "无法从会话存储加载用户信息。",
     "toastStripeAccount": "已创建 Stripe 账户。",
-    "toastVerificationRequested": "已申请认证。"
+    "toastVerificationRequested": "已申请认证。",
+    "btnChangePicture": "更换头像",
+    "btnViewProfile": "查看个人资料",
+    "tabAccountSectionDangerZone": "危险区域",
+    "tabAccountDeleteAccountHint": "删除账户是永久性的，无法撤销。",
+    "lblStripeDashboardOpening": "正在打开 Stripe…",
+    "alertStripeDashboardUnavailableTitle": "Stripe 控制台不可用",
+    "alertStripeDashboardUnavailableText": "无法为此收款账户打开 Stripe 控制台。你仍可在“管理收款”中查看付款。如果你尚未完成 Stripe 设置，请通过“编辑信息”完成。",
+    "alertStripeOnboardingIncompleteTitle": "Stripe 设置未完成",
+    "alertStripeOnboardingIncompleteText": "你的 Stripe 设置尚未完成。完成后即可使用 Stripe 控制台。",
+    "alertStripeDashboardErrorTitle": "无法打开 Stripe 控制台",
+    "toastStripeDashboardGeneric": "无法打开 Stripe 控制台。请稍后重试或联系客服。",
+    "toastStripeDashboardSession": "你的会话已过期，请重新登录。",
+    "btnFinishStripeSetup": "完成 Stripe 设置",
+    "btnContactSupport": "联系客服",
+    "errWebsiteInvalid": "请输入有效的网址，例如 https://example.com。",
+    "errCityRequiredForPin": "请输入城市以在地图上发布你的标记，或取消勾选发布。",
+    "toastFixErrors": "保存前请修正标出的字段。"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",
@@ -175,7 +214,11 @@
   "/account/image": {
     "pageTitle": "账户设置",
     "btnUpload": "上传",
-    "btnDelete": "删除"
+    "btnDelete": "删除",
+    "pageTitlePicture": "头像",
+    "pageDescription": "方形图片效果最佳。你的头像会显示在个人资料、地图和活动列表中。",
+    "lblChooseImage": "选择图片",
+    "hintImage": "JPG、PNG 或 WebP"
   },
   "/account/payments": {
     "pageTitle": "管理收款",
@@ -337,7 +380,32 @@
     "btnCopyUrlToast": "活动链接已复制到剪贴板。",
     "btnCopyUrlToolTip": "复制活动链接",
     "btnRegistration": "报名",
-    "btnFeedback": "反馈"
+    "btnFeedback": "反馈",
+    "cardRegistrationTitle": "报名",
+    "regStatusOpen": "开放中",
+    "regStatusUpcoming": "尚未开放",
+    "regStatusClosed": "已截止",
+    "regOpensOn": "{date} 开放",
+    "regClosesOn": "{date} 截止",
+    "regClosedOn": "已于 {date} 截止",
+    "regDaysLeft": "{count, plural, =0 {最后一天} other {剩余 # 天}}",
+    "lblVisitorFee": "观众费用",
+    "lblOrganizer": "组织者",
+    "lblWhen": "时间",
+    "lblWhere": "地点",
+    "lblEventOver": "该活动已结束。",
+    "lblParticipantsRegistered": "{count, plural, =0 {暂无参赛者} other {# 名参赛者}}",
+    "sectionAbout": "关于此活动",
+    "sectionLinks": "链接",
+    "lblCategory": "类别",
+    "tabOverviewSectionSponsorsPresentedBy": "赞助呈现",
+    "tabOverviewSectionSponsorsHint": "感谢让本次活动成为可能的合作伙伴。",
+    "tabOverviewSectionSponsorsVisit": "访问网站（新标签页）",
+    "toastCommentPosted": "评论已发布",
+    "toastReplyPosted": "回复已发布",
+    "btnPostComment": "发布评论",
+    "btnPostReply": "发布回复",
+    "btnReply": "回复"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "管理住宿",
@@ -372,11 +440,13 @@
     "pageTitle": "编辑文档",
     "dlgDeleteFileTitle": "删除文档",
     "dlgDeleteFileText": "你确定要删除这个文档吗？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "pageDescription": "上传文件或添加文档链接，参与者可在活动页面打开。"
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "创建文档",
-    "btnCreate": "创建"
+    "btnCreate": "创建",
+    "pageDescription": "上传文件或添加文档链接，参与者可在活动页面打开。"
   },
   "/events/eventid/comps": {
     "pageTitle": "管理比赛项目",
@@ -449,7 +519,14 @@
     "errorLoadArena": "无法加载场地屏幕",
     "styleUnavailable": "场地样式不可用",
     "openSlot": "空位",
-    "noCountry": "无国家"
+    "noCountry": "无国家",
+    "sectionLiveMatch": "当前比赛",
+    "sectionLiveMatchHint": "选择竞技场屏幕当前要显示的比赛和对战。",
+    "sectionShow": "在屏幕上显示",
+    "sectionShowHint": "在新标签页中打开全屏竞技场视图，每隔几秒自动刷新。",
+    "noMatchSelected": "请选择要显示的比赛",
+    "labelPosition": "位置 {position}",
+    "textRetrying": "每隔几秒自动重试。"
   },
   "/events/eventid/pro": {
     "pageTitle": "活动许可证",
@@ -516,7 +593,20 @@
     "dlgDownloadResultsBtnDownload": "下载",
     "toastMatchesInconsistent": "比赛数据似乎不一致。",
     "toastResultsProcessed": "已处理比赛结果。",
-    "toastExportInconsistent": "比赛结果导出不一致。"
+    "toastExportInconsistent": "比赛结果导出不一致。",
+    "tabInfoNone": "无",
+    "tabInfoParticipants": "参赛者",
+    "tabInfoRounds": "轮次",
+    "textNoScheduleTitle": "尚无赛程",
+    "textNoScheduleDescription": "主办方尚未为本比赛创建赛程，请稍后再来查看。",
+    "btnCopyUrlToolTip": "复制比赛网址",
+    "btnCopyUrlToast": "比赛网址已复制到剪贴板。"
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "未找到比赛",
+    "textNotFoundHint": "此比赛链接无效或比赛已不存在。",
+    "btnBackHome": "返回首页",
+    "btnBackToEvents": "返回概览"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "管理选手池",
@@ -615,12 +705,27 @@
     "toastRoundsUpdated": "回合已更新",
     "toastRoundDeleted": "回合已删除",
     "defaultRoundName": "回合 {index}",
-    "defaultMatchName": "比赛 {index}"
+    "defaultMatchName": "比赛 {index}",
+    "btnAddRound": "添加轮次",
+    "statPlayers": "选手池中 {count} 人",
+    "statRounds": "{count} 轮",
+    "statMatches": "{count} 场比赛",
+    "chipNotSaved": "尚未保存",
+    "hintMode": "从第一轮到最后一轮依次创建。每轮晋级的选手就是下一轮可用的选手。",
+    "noteFinalSet": "决赛轮已设置。如有需要请调整比赛，然后保存。",
+    "textNoRounds": "还没有轮次。从第一轮开始吧。",
+    "btnGoToPool": "前往选手池",
+    "chipUnsavedChanges": "有未保存的更改",
+    "hintReorder": "拖动比赛卡片或使用箭头调整同一轮内的顺序，然后保存。",
+    "dlgDeleteRoundHint": "本轮的所有比赛也会被删除。 保存比赛模式后更改才会生效。",
+    "dlgApplyHint": "保存比赛模式后更改才会生效。"
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "种子位与结果",
     "textNoGameMode": "你尚未配置比赛模式。",
-    "toastSlotUpdated": "席位已更新"
+    "toastSlotUpdated": "席位已更新",
+    "btnGoToGameMode": "设置赛制",
+    "hintSeeding": "为每个位置分配选手并填写结果。每次更改都会立即保存；结果更高者获胜。"
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "编辑比赛项目",
@@ -640,8 +745,10 @@
     "btnSubmit": "提交"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "未找到活动。",
-    "btnBackToEvents": "返回概览"
+    "textNotFound": "未找到活动",
+    "btnBackToEvents": "返回概览",
+    "textNotFoundHint": "链接可能已过期，或活动已被删除或未公开。",
+    "btnBackHome": "返回首页"
   },
   "/events/eventid/offerings": {
     "pageTitle": "管理选项/套餐",
@@ -698,7 +805,10 @@
     "textNoFilterMatch": "没有符合筛选条件的与会者。",
     "alertPendingRegistrations": "{count, plural, other{有 # 个待处理报名，请及时审核。}}",
     "toastRemoved": "已移除 {name}",
-    "toastStatusUpdated": "已更新 {name} 的状态"
+    "toastStatusUpdated": "已更新 {name} 的状态",
+    "statTotal": "全部报名",
+    "textShown": "显示 {shown} / {total}",
+    "btnClearSearch": "清除搜索"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "活动报名概览",
@@ -744,7 +854,22 @@
     "btnPay": "立即支付",
     "btnWorking": "正在开始结账…",
     "errorMissingSecret": "结账响应不完整。请重试或联系支持。",
-    "errorCheckout": "无法开始付款。请重试或联系支持。"
+    "errorCheckout": "无法开始付款。请重试或联系支持。",
+    "stepDetails": "你的信息",
+    "stepCompetitions": "比赛",
+    "stepOfferings": "附加项目",
+    "stepAccommodations": "住宿",
+    "stepCheckout": "确认",
+    "stepCounter": "第 {current} 步，共 {total} 步",
+    "summaryTitle": "你的选择",
+    "typeParticipant": "参赛者",
+    "typeVisitor": "观众",
+    "summaryNone": "尚未选择",
+    "statusUnregistered": "未报名",
+    "statusPending": "待审核",
+    "statusApproved": "已通过",
+    "statusDenied": "已拒绝",
+    "daysLeft": "剩余 {count} 天"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "报名已成功提交。",
@@ -769,7 +894,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "你的申请已成功发送！",
     "textSuccess2": "等待审核。",
-    "btnBack": "返回"
+    "btnBack": "返回",
+    "btnEvent": "前往活动"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "管理赞助商",
@@ -786,13 +912,21 @@
     "tooltipViewStats": "查看统计",
     "textNoAds": "暂无广告。",
     "tableColDescription": "描述",
-    "tableColActions": "操作"
+    "tableColActions": "操作",
+    "pageDescription": "在 FSMeet 上推广你的产品和服务。",
+    "chipActive": "已启用",
+    "chipInactive": "未启用",
+    "hintReorder": "拖动手柄即可更改广告的显示顺序。",
+    "tooltipDragAd": "拖动以排序",
+    "toastReorderFailed": "无法更新广告顺序。",
+    "toastReorderUnavailable": "广告排序功能暂不可用，请稍后再试。"
   },
   "/ads/create": {
     "pageTitle": "创建广告",
     "btnCreate": "创建",
     "toastNeedLogin": "请先登录后再创建广告。",
-    "toastCreateFailed": "无法创建广告。"
+    "toastCreateFailed": "无法创建广告。",
+    "pageDescription": "描述你的产品，添加图片和链接——预览会显示效果。"
   },
   "/ads/edit": {
     "pageTitle": "编辑广告",
@@ -801,7 +935,8 @@
     "btnSave": "保存",
     "toastSaveFailed": "无法保存广告。",
     "toastDeleteFailed": "无法删除广告。",
-    "toastLoadFailed": "无法加载广告。"
+    "toastLoadFailed": "无法加载广告。",
+    "pageDescription": "更新广告的内容、图片和可见性。"
   },
   "/ads/stats": {
     "pageTitle": "广告统计",
@@ -887,17 +1022,20 @@
     "dlgRequestInfoTravelMethod": "出行方式",
     "dlgRequestInfoTravelFee": "差旅费",
     "dlgOfferTravelFeeFromRateHint": "根据里程费率建议：{amount}（可在下方修改总额）",
-    "dlgOfferTravelFeeShortDistanceHint": "单程距离低于 {km} 公里时不建议收取差旅费。"
+    "dlgOfferTravelFeeShortDistanceHint": "单程距离低于 {km} 公里时不建议收取差旅费。",
+    "pageDescription": "你通过 FreestyleActs 收到的预约请求。"
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "创建赞助商",
-    "btnCreate": "新增"
+    "btnCreate": "新增",
+    "pageDescription": "添加赞助商的名称、网站和标志。公开的赞助商会显示在活动页面上。"
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "编辑赞助商",
     "dlgDeleteTitle": "删除赞助商",
     "dlgDeleteText": "确定要删除此赞助商吗？",
-    "btnSave": "保存"
+    "btnSave": "保存",
+    "pageDescription": "添加赞助商的名称、网站和标志。公开的赞助商会显示在活动页面上。"
   },
   "/events/eventid/stats": {
     "pageTitle": "统计",
@@ -934,40 +1072,81 @@
     "btnBackToOverview": "取消",
     "btnNextPage": "下一步",
     "btnCreateEvent": "创建",
-    "dlgUnlistedEvents": "当你有 2 个或更多未列出的活动时，无法再创建活动。"
+    "dlgUnlistedEvents": "当你有 2 个或更多未列出的活动时，无法再创建活动。",
+    "stepType": "类型",
+    "stepFormat": "形式",
+    "stepDetails": "详情",
+    "stepReview": "确认",
+    "stepCounter": "第 {current} 步，共 {total} 步",
+    "pageEventTypeCompetitionHint": "面向参赛者的对战、排名和评审。",
+    "pageEventTypeMeetingHint": "交流、工作坊和聚会。",
+    "pageCompTypeOnsiteHint": "参赛者在现场集合。",
+    "pageCompTypeOnlineHint": "参赛者在线提交视频。",
+    "sectionBasics": "基本信息",
+    "sectionEventDates": "活动日期",
+    "sectionRegistrationPeriod": "报名时间",
+    "errNameTooShort": "活动名称至少需要 3 个字符。",
+    "errDateOrder": "结束日期不能早于开始日期。",
+    "errRegistrationOrder": "报名截止不能早于报名开始。",
+    "errRegistrationAfterStart": "报名截止不能晚于活动开始。",
+    "reviewHintUnlisted": "在管理员批准之前，你的活动不会公开显示。创建后可以补充所有其他信息。",
+    "pageEventTypeLaterHint": "地点、费用和比赛将在活动创建后添加。"
   },
   "/events/manage": {
     "pageTitle": "管理活动",
+    "pageDescription": "在一个地方管理你的报名和你举办的活动。",
     "tabRegistrationsTitle": "报名",
     "tabRegistrationsTextNoEvents": "你还没有报名任何活动。",
     "tabEventsHostedTitle": "我的活动",
     "tabEventsHostedTextNoEvents": "你还没有创建任何活动。",
-    "btnCreate": "创建活动"
+    "btnCreate": "创建活动",
+    "sectionHosting": "主办",
+    "sectionCoOrganizing": "协办",
+    "btnBrowseEvents": "浏览活动",
+    "inputSearchPlaceholder": "搜索名称、别名或城市",
+    "btnFilters": "筛选",
+    "filterStatus": "状态",
+    "statusListed": "已发布",
+    "statusWaiting": "等待审核",
+    "statusNotListed": "未发布",
+    "filterTime": "时间",
+    "timeUpcoming": "即将开始和进行中",
+    "timePast": "已结束",
+    "lblResultCount": "{shown} / {total} 个活动",
+    "btnResetFilters": "重置筛选",
+    "emptyFilteredTitle": "没有匹配的活动",
+    "emptyFilteredText": "请尝试其他搜索词或重置筛选。"
   },
   "/feedback": {
     "pageTitle": "反馈",
     "pageDescription": "请选择一项，向我们发送反馈。",
     "pageGeneralFeedback": "通用反馈",
     "btnFeatures": "功能建议",
-    "btnBugs": "报告问题"
+    "btnBugs": "报告问题",
+    "descGeneral": "告诉我们你喜欢什么，或哪些地方可以改进。",
+    "descFeatures": "建议新功能或改进。",
+    "descBugs": "有地方出错了？告诉我们发生了什么。"
   },
   "/feedback/bugs": {
     "pageTitle": "报告问题",
     "inputMessage": "留言",
     "inputMessagePlaceholder": "描述你注意到的任何异常行为。",
-    "btnSubmit": "提交"
+    "btnSubmit": "提交",
+    "pageDescription": "请描述你做了什么、预期结果以及实际发生了什么。"
   },
   "/feedback/features": {
     "pageTitle": "功能建议",
     "inputMessage": "留言",
     "inputMessagePlaceholder": "你有什么想法或改进建议吗？",
-    "btnSubmit": "提交"
+    "btnSubmit": "提交",
+    "pageDescription": "分享你的想法——越详细越好。"
   },
   "/feedback/general": {
     "pageTitle": "发送反馈",
     "inputMessage": "留言",
     "inputMessagePlaceholder": "任何反馈都非常感谢！",
-    "btnSubmit": "提交"
+    "btnSubmit": "提交",
+    "pageDescription": "告诉我们你喜欢什么，或哪些地方可以改进。"
   },
   "/feedback/thankyou": {
     "thankYouText1": "谢谢！",
@@ -986,6 +1165,7 @@
   },
   "/map": {
     "pageTitle": "自由式选手地图",
+    "pageDescription": "查找你附近的花式足球玩家、团队和组织者，并把自己加到地图上。",
     "dlgAddPinTitle": "添加你的定位",
     "dlgAddPinCornfirmText": "确认",
     "dlgAddPinInputCity": "城市",
@@ -1002,21 +1182,37 @@
     "btnCopyUrlToast": "地图链接已复制到剪贴板。",
     "btnCopyUrlToolTip": "复制地图链接",
     "infoWindowGoToProfileInternal": "点击查看资料",
-    "infoWindowGoToProfileExternal": "在 FSMeet 查看"
+    "infoWindowGoToProfileExternal": "在 FSMeet 查看",
+    "resultsCount": "{count, plural, =0 {没有符合筛选条件的人} other {地图上有 # 人}}"
   },
   "/password/forgot": {
     "inputUsername": "用户名 / 邮箱",
-    "btnResetPassword": "重置密码"
+    "btnResetPassword": "重置密码",
+    "pageTitle": "忘记密码？",
+    "pageDescription": "输入你的用户名或电子邮箱，我们会向你发送设置新密码的链接。",
+    "lnkBackToLogin": "返回登录"
   },
   "/password/forgot/pending": {
     "thankYouText1": "请查看你的邮箱。",
     "thankYouText2": "重置链接已发送给你。",
-    "btnBackHome": "返回首页"
+    "btnBackHome": "返回首页",
+    "hintSpam": "没有收到邮件？请检查垃圾邮件文件夹或重新申请链接。",
+    "btnRequestNewLink": "重新申请链接",
+    "btnBackToLogin": "返回登录"
   },
   "/password/reset": {
     "inputPassword": "新密码",
     "btnSave": "保存",
-    "errorMissingResetLink": "此重置链接无效或不完整。请打开密码重置邮件中的链接。"
+    "errorMissingResetLink": "此重置链接无效或不完整。请打开密码重置邮件中的链接。",
+    "pageTitle": "设置新密码",
+    "pageDescription": "为你的 FSMeet 账户设置一个新密码。",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
+    "invalidLinkTitle": "重置链接无效",
+    "btnRequestNewLink": "重新申请链接",
+    "successTitle": "密码已更改",
+    "successText": "你的密码已更新。现在可以使用新密码登录。",
+    "btnGoToLogin": "前往登录"
   },
   "/registration": {
     "headlineCreateAccount": "创建账户",
@@ -1028,20 +1224,36 @@
     "cbCountry": "国家",
     "inputEmail": "邮箱",
     "inputPassword": "密码",
-    "btnSignUp": "注册"
+    "btnSignUp": "注册",
+    "sectionProfile": "个人资料",
+    "sectionAccount": "登录信息",
+    "hintUsername": "小写且不含空格，将显示在你的公开主页链接中。",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
+    "textHaveAccount": "已有账号？",
+    "lnkSignIn": "登录"
   },
   "/registration/confirm": {
     "registrationSuccess": "注册成功",
     "registrationFailure": "出现问题",
-    "btnProceed": "继续"
+    "btnProceed": "继续",
+    "successText": "你的账号已确认，现在可以登录了。",
+    "failureText": "确认链接无效或已过期，或账号已确认。请尝试登录。",
+    "btnBackHome": "返回首页"
   },
   "/registration/pending": {
     "registrationPendingText1": "确认链接已发送至",
     "registrationPendingText2": "邮件送达可能需要一些时间。如果没有收到，也请检查垃圾邮件。",
-    "btnBackHome": "返回首页"
+    "btnBackHome": "返回首页",
+    "titleCheckInbox": "请查收邮件",
+    "step1": "打开来自 FSMeet 的邮件。",
+    "step2": "点击确认链接。",
+    "step3": "使用新账号登录。",
+    "btnGoToLogin": "前往登录"
   },
   "/users": {
     "pageTitle": "社区",
+    "pageDescription": "发现来自世界各地的花式足球玩家、裁判、组织者和品牌。",
     "inputSearchPlaceholder": "搜索姓名…",
     "tableSortByName": "按姓名排序",
     "tableSortByCountry": "按国家排序",
@@ -1063,7 +1275,15 @@
     "navFirst": "第一页",
     "navPrevious": "上一页",
     "navNext": "下一页",
-    "navLast": "最后一页"
+    "navLast": "最后一页",
+    "sortLabel": "排序",
+    "sortNameAsc": "名称 (A–Z)",
+    "sortNameDesc": "名称 (Z–A)",
+    "sortCountryAsc": "国家 (A–Z)",
+    "sortCountryDesc": "国家 (Z–A)",
+    "cbCardDetails": "在卡片上显示",
+    "membersCount": "{count, plural, =0 {未找到成员} other {# 位成员}}",
+    "lnkShowOnMap": "在地图上查看"
   },
   "/users/username": {
     "accordionItemSocials": "社交账号",
@@ -1103,9 +1323,16 @@
     "placeholderDescription": "产品描述",
     "inputTargetUrl": "目标链接",
     "tooltipTargetUrl": "指向您网站或产品的链接。",
-    "inputDisplayOrder": "展示顺序",
-    "tooltipDisplayOrder": "有多个广告时的展示顺序。数字越小越靠前，0 最先显示。",
-    "chbEnabled": "启用"
+    "chbEnabled": "启用",
+    "lblImage": "图片",
+    "lblChooseImage": "选择图片",
+    "sectionContent": "内容",
+    "sectionVisibility": "可见性",
+    "hintImage": "点击或拖放图片（JPG、PNG、WebP）",
+    "lblPreview": "预览",
+    "lblAdBadge": "广告",
+    "hintPreview": "广告在活动列表旁的大致显示效果。",
+    "hintPreviewInactive": "此广告未启用，不会向任何人显示。"
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "描述",
@@ -1118,7 +1345,17 @@
     "inputUrl": "链接",
     "chbExpires": "是否过期",
     "datePickerExpiryDate": "过期日期",
-    "chbEnabled": "启用"
+    "chbEnabled": "启用",
+    "sectionSource": "来源",
+    "optSourceFile": "上传文件",
+    "optSourceLink": "外部链接",
+    "lblCurrentFile": "当前文件：",
+    "lblChooseFile": "选择文件",
+    "lblReplaceFile": "替换文件",
+    "hintDropFile": "点击或将文件拖到此处",
+    "sectionAvailability": "可用性",
+    "lblUploadedFile": "已上传的文档",
+    "lnkOpenFile": "打开"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "类型",
@@ -1129,11 +1366,30 @@
   "global/components/battle-grid": {
     "btnAddMatch": "添加比赛",
     "labelAssignSlot": "分配席位",
-    "labelUnassigned": "未分配"
+    "labelUnassigned": "未分配",
+    "labelExtraMatch": "加赛",
+    "labelTbd": "待定",
+    "labelResult": "结果",
+    "labelTimeLimit": "限时",
+    "labelMatchCount": "{count} 场比赛",
+    "btnMoveMatchUp": "上移“{name}”",
+    "btnMoveMatchDown": "下移“{name}”",
+    "labelDragToReorder": "拖动以排序",
+    "labelStartAt": "起始轮次",
+    "labelAlsoInRound": "本轮其他对战",
+    "labelNextRound": "下一轮：{name}",
+    "btnPreviousRound": "上一轮",
+    "btnNextRound": "下一轮"
   },
   "global/components/competition-editor": {
     "inputName": "比赛名称",
     "inputNamePlaceHolder": "男子对战",
+    "inputAlias": "比赛别名",
+    "tooltipAlias": "用于更短、更清晰、便于分享的比赛网址（/e/<活动别名>/c/<比赛别名>）。",
+    "aliasHintRules": "仅限小写字母和数字，最多 16 个字符。在本活动内必须唯一。",
+    "aliasHintUrl": "短网址：",
+    "aliasHintNoEventAlias": "请先在活动编辑器中设置活动别名，才能为此比赛设置短网址。",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "类型",
     "cbGender": "性别",
     "cbMaxAge": "最大年龄",
@@ -1222,7 +1478,9 @@
     "inputWaiver": "免责声明",
     "chbVisaInvitationRequestsEnabled": "提供签证邀请",
     "toastPosterDeleted": "海报已删除",
-    "placeholderWaiver": "参加本活动即表示我确认……"
+    "placeholderWaiver": "参加本活动即表示我确认……",
+    "lblPoster": "海报",
+    "lblChoosePoster": "选择海报图片"
   },
   "global/components/loading-spinner": {
     "textLoading": "加载中…"
@@ -1262,13 +1520,20 @@
   "global/components/sponsor-editor": {
     "inputName": "赞助商名称",
     "inputWebsite": "网站",
-    "chbIsPublic": "公开展示？"
+    "chbIsPublic": "公开展示？",
+    "lblLogo": "标志",
+    "lblChooseLogo": "选择标志",
+    "hintLogo": "建议使用正方形图片"
   },
   "/wffa": {
     "pageTitle": "管理概览（WFFA）",
     "linkIds": "花式足球选手 ID",
     "linkStatistics": "应用统计",
-    "linkVisa": "签证申请"
+    "linkVisa": "签证申请",
+    "pageDescription": "WFFA 管理员工具。",
+    "linkIdsText": "分配和编辑 WFFA 选手 ID",
+    "linkVisaText": "审核并批准签证邀请函",
+    "linkStatisticsText": "用户、活动和动态"
   },
   "/wffa/ids": {
     "pageTitle": "花式足球选手 ID 管理",
@@ -1364,6 +1629,64 @@
     "search": "搜索...",
     "select": "选择",
     "noData": "未找到数据。",
-    "appNav": "应用"
+    "appNav": "应用",
+    "time": "时间",
+    "clearTime": "清除时间",
+    "mainNav": "主导航"
+  },
+  "global/components/app-header": {
+    "navHome": "首页",
+    "navEvents": "活动",
+    "navMap": "地图",
+    "navCommunity": "社区",
+    "navVoice": "Voice",
+    "navTraining": "训练",
+    "navAbout": "关于",
+    "btnCreateEvent": "创建活动",
+    "menuOpen": "打开菜单",
+    "menuClose": "关闭菜单",
+    "sectionDiscover": "发现",
+    "sectionMore": "更多",
+    "menuItemAdmin": "管理",
+    "menuItemWffa": "WFFA"
+  },
+  "global/components/date-picker": {
+    "placeholder": "选择日期"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "按姓名搜索",
+    "clearSearch": "清除搜索",
+    "all": "全部",
+    "status": "状态",
+    "type": "类型",
+    "country": "国家",
+    "gender": "性别",
+    "competition": "比赛",
+    "statusApproved": "已批准",
+    "statusPending": "待处理",
+    "typeParticipants": "参赛者",
+    "typeVisitors": "观众",
+    "genderMale": "男",
+    "genderFemale": "女",
+    "competitionNone": "未报名比赛",
+    "shown": "显示 {shown} / {total}",
+    "reset": "重置筛选",
+    "noMatch": "没有符合筛选条件的人。"
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "比赛设置步骤",
+    "stepDetails": "详情",
+    "stepPool": "选手池",
+    "stepGameMode": "赛制",
+    "stepSeeding": "种子与结果",
+    "statusPool": "{count} 名选手",
+    "statusRounds": "{count} 轮",
+    "statusSeeded": "已分配 {count} 个位置",
+    "statusOpen": "尚未设置",
+    "btnViewCompetition": "查看比赛页面"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "了解更多",
+    "sponsored": "赞助"
   }
 }

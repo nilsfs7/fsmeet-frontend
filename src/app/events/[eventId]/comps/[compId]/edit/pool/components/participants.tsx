@@ -4,11 +4,10 @@ import { useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import moment from 'moment';
 import ReactCountryFlag from 'react-country-flag';
-import { IconAlertTriangle, IconInfoCircle, IconMinus, IconPlus, IconUsersPlus } from '@tabler/icons-react';
+import { IconAlertTriangle, IconInfoCircle, IconMinus, IconPlus, IconSearch, IconUsersPlus } from '@tabler/icons-react';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Toaster, toast } from 'sonner';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -208,13 +207,15 @@ export const Participants = ({ event, competition, registrations, initialPool }:
       <Toaster richColors />
 
       <div className="flex flex-col gap-4 text-sm">
-        <Alert>
-          <IconInfoCircle className="h-4 w-4" stroke={2} aria-hidden />
-          <AlertDescription className="text-muted-foreground">
+        <div className="flex items-start gap-3 rounded-2xl border border-border bg-background p-4 shadow-xs">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-strong">
+            <IconInfoCircle className="h-5 w-5" stroke={1.75} aria-hidden />
+          </span>
+          <div className="min-w-0 text-muted-foreground">
             <p>{t('intro', { competition: competition.name })}</p>
             {counts.hiddenIneligible > 0 && <p className="mt-1 text-xs">{t('noteHiddenIneligible', { count: counts.hiddenIneligible })}</p>}
-          </AlertDescription>
-        </Alert>
+          </div>
+        </div>
 
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {chips
@@ -226,13 +227,13 @@ export const Participants = ({ event, competition, registrations, initialPool }:
                 onClick={() => setView(chip.key)}
                 aria-pressed={view === chip.key}
                 className={cn(
-                  'flex min-w-0 flex-col items-start rounded-lg border px-3 py-2 text-left transition-colors',
-                  'border-border/60 bg-secondary-light/70 hover:border-primary/50',
-                  chip.warning && 'border-warning/50 bg-warning/10',
-                  view === chip.key && 'border-primary ring-1 ring-primary',
+                  'flex min-w-0 flex-col items-start rounded-2xl border bg-background px-4 py-3 text-left shadow-xs transition-colors',
+                  'border-border hover:border-brand/50',
+                  chip.warning && 'border-amber-300/70 bg-amber-50/70 dark:border-amber-500/30 dark:bg-amber-500/10',
+                  view === chip.key && 'border-brand bg-brand-soft/60 ring-1 ring-brand',
                 )}
               >
-                <span className="text-lg font-semibold leading-tight tabular-nums">{chip.value}</span>
+                <span className={cn('text-2xl font-semibold leading-tight tabular-nums', view === chip.key ? 'text-brand-strong' : 'text-foreground')}>{chip.value}</span>
                 <span className="truncate text-xs text-muted-foreground">{chip.label}</span>
               </button>
             ))}
@@ -245,18 +246,21 @@ export const Participants = ({ event, competition, registrations, initialPool }:
           </Button>
         )}
 
-        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+        <div className="flex flex-col gap-3 rounded-2xl border border-border bg-background p-3 shadow-xs sm:flex-row sm:flex-wrap sm:items-end sm:p-4">
           <div className="min-w-0 flex-1 sm:min-w-48">
             <label className="mb-1 block text-xs text-muted-foreground" htmlFor="pool-search">
               {t('filterSearchLabel')}
             </label>
-            <Input id="pool-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder={t('filterSearchPlaceholder')} />
+            <div className="relative">
+              <IconSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" stroke={1.75} aria-hidden />
+              <Input id="pool-search" type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder={t('filterSearchPlaceholder')} className="pl-9" />
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:contents">
             <div className="col-span-2 min-w-0 sm:w-56">
               <span className="mb-1 block text-xs text-muted-foreground">{t('filterViewLabel')}</span>
               <Select value={view} onValueChange={v => setView(v as ViewFilter)}>
-                <SelectTrigger aria-label={t('filterViewLabel')}>
+                <SelectTrigger aria-label={t('filterViewLabel')} className="rounded-lg text-left">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -271,7 +275,7 @@ export const Participants = ({ event, competition, registrations, initialPool }:
             <div className="min-w-0 sm:w-40">
               <span className="mb-1 block text-xs text-muted-foreground">{t('filterStatusLabel')}</span>
               <Select value={statusFilter} onValueChange={v => setStatusFilter(v as StatusFilter)}>
-                <SelectTrigger aria-label={t('filterStatusLabel')}>
+                <SelectTrigger aria-label={t('filterStatusLabel')} className="rounded-lg text-left">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -284,7 +288,7 @@ export const Participants = ({ event, competition, registrations, initialPool }:
             <div className="min-w-0 sm:w-40">
               <span className="mb-1 block text-xs text-muted-foreground">{t('sortLabel')}</span>
               <Select value={sort} onValueChange={v => setSort(v as SortKey)}>
-                <SelectTrigger aria-label={t('sortLabel')}>
+                <SelectTrigger aria-label={t('sortLabel')} className="rounded-lg text-left">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -315,12 +319,12 @@ export const Participants = ({ event, competition, registrations, initialPool }:
             <AppDataStateEmpty title={view === 'signedUp' && !query ? t('textNoSignUps') : t('textNoFilterMatch')} description={view === 'signedUp' && !query ? t('textNoSignUpsHint') : undefined} />
           </div>
         ) : (
-          <ul className="flex flex-col divide-y divide-border/60 overflow-hidden rounded-xl border border-border/60 bg-secondary-light/40">
+          <ul className="flex flex-col divide-y divide-border overflow-hidden rounded-2xl border border-border bg-background shadow-xs">
             {visibleRows.map(row => {
               const busy = busyUsernames.has(row.user.username);
               return (
-                <li key={row.user.username} className={cn('flex min-w-0 items-center gap-3 px-3 py-2.5', row.inPool && 'bg-success/5')}>
-                  <Link href={`${routeUsers}/${row.user.username}`} className="h-9 w-9 shrink-0 overflow-hidden rounded-full">
+                <li key={row.user.username} className={cn('flex min-w-0 items-center gap-3 px-3 py-3 sm:px-4', row.inPool && 'bg-brand-soft/30')}>
+                  <Link href={`${routeUsers}/${row.user.username}`} className={cn('h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2', row.inPool ? 'ring-brand/40' : 'ring-transparent')}>
                     <img src={row.user.imageUrl || imgUserDefaultImg} alt="" className="h-full w-full object-cover" />
                   </Link>
 
@@ -344,7 +348,14 @@ export const Participants = ({ event, competition, registrations, initialPool }:
                       <span className="sr-only min-[400px]:not-sr-only">{t('btnRemove')}</span>
                     </Button>
                   ) : (
-                    <Button type="button" variant={row.signedUp ? 'action' : 'actionWarning'} size="sm" className="h-9 shrink-0 gap-1 rounded-lg px-3" disabled={busy} onClick={() => handleAddClicked(row)}>
+                    <Button
+                      type="button"
+                      variant={row.signedUp ? 'action' : 'actionWarning'}
+                      size="sm"
+                      className="h-9 shrink-0 gap-1 rounded-lg px-3"
+                      disabled={busy}
+                      onClick={() => handleAddClicked(row)}
+                    >
                       <IconPlus className="h-4 w-4" stroke={2} aria-hidden />
                       <span className="sr-only min-[400px]:not-sr-only">{t('btnAdd')}</span>
                     </Button>

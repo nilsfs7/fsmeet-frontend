@@ -7,7 +7,6 @@ import { Event } from '@/domain/types/event';
 import { toast, Toaster } from 'sonner';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { switchTab } from '@/functions/switch-tab';
-import UserSection from '@/components/events/user-section';
 import { routeEvents, routeLogin } from '@/domain/constants/routes';
 import { EventRegistration } from '@/domain/types/event-registration';
 import { useEffect, useState } from 'react';
@@ -27,6 +26,7 @@ import { CompetitionSection } from './competition-section';
 import { isEventAdmin } from '@/functions/is-event-admin';
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { Competition } from '@/domain/types/competition';
+import { RegistrationsPanel } from './registrations-panel';
 import { AttachmentSection } from './attachment-section';
 import { Attachment } from '@/domain/types/attachment';
 import moment from 'moment';
@@ -68,8 +68,9 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
     if (!event.id) return;
 
-    await createComment(event.id, message, session);
+    const id = await createComment(event.id, message, session);
     router.refresh();
+    return id;
   };
 
   const handlePostSubCommentClicked = async (commentId: string, message: string) => {
@@ -80,8 +81,9 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
     if (!event.id) return;
 
-    await createSubComment(event.id, commentId, message, session);
+    const id = await createSubComment(event.id, commentId, message, session);
     router.refresh();
+    return id;
   };
 
   const handleDeleteCommentClicked = (commentId: string, isSubComment: boolean) => {
@@ -180,8 +182,8 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
         <p>{t('dlgDeleteCommentText')}</p>
       </Dialog>
 
-      <Tabs defaultValue={tab || `overview`} className="flex flex-col h-full">
-        <TabsList>
+      <Tabs defaultValue={tab || `overview`} className="flex flex-col">
+        <TabsList className="self-start">
           <TabsTrigger
             value="overview"
             onClick={() => {
@@ -213,11 +215,11 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
         </TabsList>
 
         {/* Details */}
-        <TabsContent value="overview" className="overflow-hidden overflow-y-auto scrollbar-none">
+        <TabsContent value="overview">
           {eventAdmin && <EventInfo event={event} eventAdmin={eventAdmin} showMessengerInvitationUrl={isEventAdmin(event, session) || isInEventRegistrations(eventRegistrations, session)} />}
 
           {sponsors?.length > 0 && (
-            <div className="mt-2">
+            <div className="mt-4">
               <SponsorSection eventSponsors={sponsors} />
             </div>
           )}
@@ -229,13 +231,13 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
               }
             }
           }) && (
-            <div className="mt-2">
+            <div className="mt-4">
               <AttachmentSection eventAttachments={attachments} />
             </div>
           )}
 
           {event.allowComments && session?.user?.username && (
-            <div className="mt-2">
+            <div className="mt-4">
               <CommentSection
                 username={session.user.username}
                 canDelete={isEventAdminOrMaintainer(event, session)}
@@ -251,41 +253,20 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
         {/* Competitions */}
         {event.id && competitions.length > 0 && (
-          <TabsContent value="competitions" className="overflow-hidden overflow-y-auto scrollbar-none">
+          <TabsContent value="competitions">
             <CompetitionSection competitions={competitions} eventId={event.id} />
           </TabsContent>
         )}
 
         {/* Attendees */}
         {(participantRegistrations.length > 0 || visitorRegistrations.length > 0) && (
-          <TabsContent value="registrations" className="overflow-hidden overflow-y-auto scrollbar-none">
-            <div className="flex flex-col gap-2">
-              {participantRegistrations.length > 0 && (
-                <UserSection
-                  sectionTitle={t('tabRegistrationsSectionRegistrationParticipants')}
-                  users={participantRegistrations.map(registration => {
-                    return registration.user;
-                  })}
-                  showUserCountryFlag={event.showUserCountryFlag}
-                  registrationStatus={participantRegistrations.map(registration => {
-                    return registration.status;
-                  })}
-                />
-              )}
-
-              {visitorRegistrations.length > 0 && (
-                <UserSection
-                  sectionTitle={t('tabRegistrationsSectionRegistrationVisitors')}
-                  users={visitorRegistrations.map(registration => {
-                    return registration.user;
-                  })}
-                  showUserCountryFlag={event.showUserCountryFlag}
-                  registrationStatus={visitorRegistrations.map(registration => {
-                    return registration.status;
-                  })}
-                />
-              )}
-            </div>
+          <TabsContent value="registrations">
+            <RegistrationsPanel
+              participantRegistrations={participantRegistrations}
+              visitorRegistrations={visitorRegistrations}
+              competitions={competitions}
+              showUserCountryFlag={Boolean(event.showUserCountryFlag)}
+            />
           </TabsContent>
         )}
       </Tabs>

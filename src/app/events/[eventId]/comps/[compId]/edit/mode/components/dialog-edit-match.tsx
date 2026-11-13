@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import Dialog from '@/components/dialog';
 import { TimePicker } from '@/components/common/time-picker';
 import { Input } from '@/components/ui/input';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslations } from 'next-intl';
+import { DialogField, DialogToggle, dialogFormClassName } from './dialog-fields';
 
 interface IDialogProps {
   title: string;
@@ -54,42 +54,32 @@ const DialogEditMatch = ({ title, queryParam, onCancel, onConfirm, cancelText, c
       cancelText={cancelText}
       confirmText={confirmText}
     >
-      <div className="grid gap-1">
-        <div className="grid grid-cols-2 items-center gap-2">
-          <div className="min-w-0">{t('dlgEditMatchName')}</div>
+      <div className={dialogFormClassName}>
+        <DialogField label={t('dlgEditMatchName')} htmlFor="input-round-name">
           <Input id="input-round-name" value={matchName} onChange={e => setMatchName(e.currentTarget.value)} />
+        </DialogField>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <DialogField label={t('dlgEditMatchTime')} htmlFor="input-match-time">
+            <TimePicker id="input-match-time" value={matchTime} onChange={setMatchTime} />
+          </DialogField>
+
+          <DialogField label={t('dlgEditMatchAmountPlayers')} htmlFor="input-slots-per-match">
+            <Input
+              id="input-slots-per-match"
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={999}
+              value={matchSlots}
+              onChange={e => {
+                setMatchSlots(+e.currentTarget.value);
+              }}
+            />
+          </DialogField>
         </div>
 
-        <div className="grid grid-cols-2 items-center gap-2">
-          <div className="min-w-0">{t('dlgEditMatchTime')}</div>
-          <TimePicker value={matchTime} onChange={setMatchTime} className="rounded-lg" />
-        </div>
-
-        <div className="grid grid-cols-2 items-center gap-2">
-          <div className="min-w-0">{t('dlgEditMatchAmountPlayers')}</div>
-          <Input
-            id="input-slots-per-match"
-            type="number"
-            min={1}
-            max={999}
-            value={matchSlots}
-            onChange={e => {
-              setMatchSlots(+e.currentTarget.value);
-            }}
-          />
-        </div>
-
-        <div className="grid grid-cols-2 items-center gap-2">
-          <div className="min-w-0">{t('dlgEditMatchIsExtraBattle')}</div>
-          <Checkbox
-            id="input-is-extra-battle"
-            checked={isExtraMatch}
-            onCheckedChange={v => {
-              setIsExtraMatch(v === true);
-            }}
-            className="shrink-0"
-          />
-        </div>
+        <DialogToggle id="input-is-extra-battle" label={t('dlgEditMatchIsExtraBattle')} checked={isExtraMatch} onCheckedChange={setIsExtraMatch} />
       </div>
     </Dialog>
   );

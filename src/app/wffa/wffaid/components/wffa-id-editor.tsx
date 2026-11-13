@@ -22,7 +22,6 @@ import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { menuGender } from '@/domain/constants/menus/menu-gender';
 
-
 function matchesNameFilter(user: User, query: string): boolean {
   const q = query.trim().toLowerCase();
   if (!q) return true;
@@ -39,7 +38,7 @@ function matchesFilters(user: User, filterCountry: string, filterGender: string,
 }
 
 /** Align with /wffa/visa and /admin/verification table layout */
-const WFFA_TABLE_CLASS = 'table-fixed w-full min-w-160 border-separate border-spacing-x-3 border-spacing-y-0';
+const WFFA_TABLE_CLASS = 'table-fixed w-full min-w-160';
 
 const WFFA_HEAD_PAD = 'px-3 py-2.5 align-top h-auto! min-h-10';
 const WFFA_CELL_PAD = 'py-2.5 px-3';
@@ -77,15 +76,15 @@ function UserCell({ user }: { user: User }) {
   const profileHref = `${routeUsers}/${user.username}`;
   const verified = user.verificationState === UserVerificationState.VERIFIED;
   return (
-    <TableCell className={cn(WFFA_CELL_PAD, 'text-primary align-top', wffaCol.user)}>
+    <TableCell className={cn(WFFA_CELL_PAD, 'align-top', wffaCol.user)}>
       <div className="flex flex-col gap-0.5 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
-          <Link href={profileHref} className="underline hover:text-primary/80">
+          <Link href={profileHref} className="font-medium text-foreground underline-offset-2 hover:text-brand-strong hover:underline">
             {user.username}
           </Link>
-          {verified && <img src={imgVerifiedCheckmark} alt="" className="h-6 w-6 shrink-0" width={16} height={16} />}
+          {verified && <img src={imgVerifiedCheckmark} alt="" className="h-4 w-4 shrink-0" width={16} height={16} />}
         </div>
-        <span className="text-primary/90">({user.firstName})</span>
+        <span className="text-muted-foreground">{user.firstName}</span>
       </div>
     </TableCell>
   );
@@ -111,54 +110,58 @@ function WffaIdTableSection({
   const t = useTranslations('/wffa/ids');
   if (items.length === 0) {
     return (
-      <div className="mb-6">
-        <h2 className="mb-2 text-center text-base font-semibold text-primary">{title}</h2>
-        <p className="text-center text-sm text-primary/70">{t('noEntries')}</p>
+      <div>
+        <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-foreground">
+          {title}
+          <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-muted px-2 text-xs font-semibold text-muted-foreground">{items.length}</span>
+        </h2>
+        <p className="rounded-2xl border border-dashed border-border bg-background/60 px-4 py-6 text-center text-sm text-muted-foreground">{t('noEntries')}</p>
       </div>
     );
   }
 
   return (
-    <div className="mb-6">
-      <h2 className="mb-2 text-center text-base font-semibold text-primary">{title}</h2>
-      <div className="rounded-md border border-secondary-dark bg-background">
+    <div>
+      <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-foreground">
+        {title}
+        <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-muted px-2 text-xs font-semibold text-muted-foreground">{items.length}</span>
+      </h2>
+      <div>
         <Table className={WFFA_TABLE_CLASS}>
           <TableHeader>
-            <TableRow className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
-              <TableHead className={cn('text-primary', WFFA_HEAD_PAD, wffaCol.user)}>
+            <TableRow className="border-border/70">
+              <TableHead className={cn(WFFA_HEAD_PAD, wffaCol.user)}>
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1.5 text-left font-medium hover:text-primary/80"
+                  className="inline-flex items-center gap-1.5 text-left uppercase hover:text-foreground"
                   onClick={() => onSortColumnClick('user')}
                   title={sortColumn === 'user' ? (sortDescending ? t('sortUserAsc') : t('sortUserDesc')) : t('sortByUser')}
                 >
                   {t('colUser')}
-                  {sortColumn === 'user' &&
-                    (sortDescending ? <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden /> : <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />)}
+                  {sortColumn === 'user' && (sortDescending ? <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden /> : <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />)}
                 </button>
               </TableHead>
-              <TableHead className={cn('text-primary', WFFA_HEAD_PAD, wffaCol.wffaId)}>
+              <TableHead className={cn(WFFA_HEAD_PAD, wffaCol.wffaId)}>
                 <button
                   type="button"
-                  className="inline-flex items-center gap-1.5 text-left font-medium hover:text-primary/80"
+                  className="inline-flex items-center gap-1.5 text-left uppercase hover:text-foreground"
                   onClick={() => onSortColumnClick('wffaId')}
                   title={sortColumn === 'wffaId' ? (sortDescending ? t('sortIdAsc') : t('sortIdDesc')) : t('sortById')}
                 >
                   {t('colId')}
-                  {sortColumn === 'wffaId' &&
-                    (sortDescending ? <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden /> : <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />)}
+                  {sortColumn === 'wffaId' && (sortDescending ? <ArrowDown className="h-4 w-4 shrink-0 opacity-70" aria-hidden /> : <ArrowUp className="h-4 w-4 shrink-0 opacity-70" aria-hidden />)}
                 </button>
               </TableHead>
-              <TableHead className={cn('text-right text-primary', WFFA_HEAD_PAD, wffaCol.actions)}>{t('colActions')}</TableHead>
+              <TableHead className={cn('text-right', WFFA_HEAD_PAD, wffaCol.actions)}>{t('colActions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="[&_tr:first-child_td]:pt-3">
             {items.map(item => {
               const dirty = item.user.wffaId !== item.newWffaId;
               return (
-                <TableRow key={item.user.username} className="border-secondary-dark hover:bg-transparent dark:hover:bg-transparent">
+                <TableRow key={item.user.username} className="border-border/70">
                   <UserCell user={item.user} />
-                  <TableCell className={cn(WFFA_CELL_PAD, 'text-primary align-top', wffaCol.wffaId)}>
+                  <TableCell className={cn(WFFA_CELL_PAD, 'align-top', wffaCol.wffaId)}>
                     <Input
                       className="w-full max-w-48"
                       value={item.newWffaId}
@@ -222,10 +225,7 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
     }
   };
 
-  const filteredUsersMap = useMemo(
-    () => usersMap.filter(item => matchesFilters(item.user, filterCountry, filterGender, filterName)),
-    [usersMap, filterCountry, filterGender, filterName],
-  );
+  const filteredUsersMap = useMemo(() => usersMap.filter(item => matchesFilters(item.user, filterCountry, filterGender, filterName)), [usersMap, filterCountry, filterGender, filterName]);
 
   const { withoutSavedId, withSavedId } = useMemo(() => {
     const without = filteredUsersMap.filter(item => !item.user.wffaId);
@@ -233,14 +233,8 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
     return { withoutSavedId: without, withSavedId: with_ };
   }, [filteredUsersMap]);
 
-  const sortedWithoutSavedId = useMemo(
-    () => sortUserWffaRows(withoutSavedId, sort.column, sort.descending),
-    [withoutSavedId, sort.column, sort.descending],
-  );
-  const sortedWithSavedId = useMemo(
-    () => sortUserWffaRows(withSavedId, sort.column, sort.descending),
-    [withSavedId, sort.column, sort.descending],
-  );
+  const sortedWithoutSavedId = useMemo(() => sortUserWffaRows(withoutSavedId, sort.column, sort.descending), [withoutSavedId, sort.column, sort.descending]);
+  const sortedWithSavedId = useMemo(() => sortUserWffaRows(withSavedId, sort.column, sort.descending), [withSavedId, sort.column, sort.descending]);
 
   const handleSortColumnClick = useCallback((column: WffaSortColumn) => {
     setSort(prev => {
@@ -257,20 +251,27 @@ export const WffaIdEditor = ({ users: initialUsers }: IWffaIdEditorProps) => {
     <>
       <Toaster richColors />
 
-      <div className="mx-2 overflow-y-auto pb-4">
-        <div className="rounded-lg border border-primary bg-secondary-light p-2 text-sm">
-          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+        <div className="mx-auto flex w-full max-w-content flex-col gap-8 text-sm">
+          <div className="flex flex-col gap-3 rounded-2xl border border-border bg-background p-3 shadow-xs sm:flex-row sm:flex-wrap sm:items-end">
             <div className="flex min-w-0 flex-1 flex-col gap-1 sm:max-w-56">
-              <span className="text-xs font-medium text-primary/80">{t('filterName')}</span>
+              <span className="text-xs font-medium text-muted-foreground">{t('filterName')}</span>
               <Input placeholder={t('search')} value={filterName} onChange={e => setFilterName(e.target.value)} className="w-full" />
             </div>
             <div className="flex min-w-0 flex-col gap-1 sm:max-w-[min(100%,14rem)]">
-              <span className="text-xs font-medium text-primary/80">{t('filterCountry')}</span>
+              <span className="text-xs font-medium text-muted-foreground">{t('filterCountry')}</span>
               <ComboBox menus={countryFilterMenus} value={filterCountry} searchEnabled label={t('filterCountry')} className="w-full max-w-none" onChange={(value: string) => setFilterCountry(value)} />
             </div>
             <div className="flex min-w-0 flex-col gap-1 sm:max-w-48">
-              <span className="text-xs font-medium text-primary/80">{t('filterGender')}</span>
-              <ComboBox menus={genderFilterMenus} value={filterGender} searchEnabled={false} label={t('filterGender')} className="w-full max-w-none" onChange={(value: string) => setFilterGender(value)} />
+              <span className="text-xs font-medium text-muted-foreground">{t('filterGender')}</span>
+              <ComboBox
+                menus={genderFilterMenus}
+                value={filterGender}
+                searchEnabled={false}
+                label={t('filterGender')}
+                className="w-full max-w-none"
+                onChange={(value: string) => setFilterGender(value)}
+              />
             </div>
           </div>
 

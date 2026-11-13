@@ -11,9 +11,19 @@
     "navMap": "Peta",
     "navCommunity": "Komuniti",
     "navVoice": "Suara",
+    "navTraining": "Latihan",
     "navAdminOverview": "Admin",
     "navWffaOverview": "WFFA",
-    "navAbout": "Tentang"
+    "navAbout": "Tentang",
+    "heroEyebrow": "Komuniti bola sepak gaya bebas",
+    "eventsTitle": "Acara",
+    "eventsSubtitle": "Sedang berlangsung, akan datang dan sorotan terkini",
+    "exploreTitle": "Terokai komuniti",
+    "exploreMapText": "Cari freestyler berdekatan dan paparkan diri anda pada peta.",
+    "exploreCommunityText": "Lihat atlet, juri, penganjur dan jenama.",
+    "exploreVoiceText": "Suarakan pendapat tentang cadangan yang membentuk komuniti.",
+    "exploreTrainingText": "Latih kemahiran anda dan jejaki kemajuan anda.",
+    "exploreAboutText": "Ketahui apa itu FSMeet, siapa yang membinanya dan cara menyokongnya."
   },
   "/about": {
     "pageTitle": "Tentang",
@@ -27,10 +37,20 @@
     "lnkTermsOfService": "Terma perkhidmatan",
     "lnkPrivacyPolicy": "Dasar Privasi",
     "build": "Binaan",
-    "ariaLegal": "Perundangan"
+    "ariaLegal": "Perundangan",
+    "heroEyebrow": "Tentang FSMeet",
+    "sectionGetInvolved": "Sertai kami",
+    "btnFeedback": "Hantar maklum balas",
+    "sectionSupport": "Sokong FSMeet",
+    "supportText": "FSMeet adalah percuma untuk komuniti. Derma membantu menampung kos pelayan dan pembangunan.",
+    "contributorsText": "Kenali orang yang membina, menterjemah dan membentuk FSMeet.",
+    "btnShowContributors": "Lihat penyumbang",
+    "sectionOpenSource": "Sumber terbuka",
+    "openSourceText": "Frontend FSMeet adalah sumber terbuka di GitHub."
   },
   "/about/contributors": {
     "pageTitle": "Penyumbang",
+    "pageDescription": "Orang yang membina, menterjemah dan membentuk FSMeet.",
     "sectionMainContributors": "Penyumbang Utama",
     "textHeadOfDevelopment": "Ketua pembangunan",
     "textMobileAppDevelopment": "Pembangunan aplikasi mudah alih",
@@ -39,6 +59,7 @@
     "textJapaneseAndOtherLanguagesTranslation": "Penterjemah - Jepun dan bahasa lain",
     "textUxAdvisor": "Penasihat UX",
     "sectionCommunityProposals": "Cadangan Komuniti",
+    "sectionCommunityProposalsText": "Idea daripada komuniti yang kini ada dalam FSMeet.",
     "textPersonalSchedule": "Jadual peribadi untuk atlet",
     "textSearchByGender": "Cari peta freestyler mengikut jantina",
     "lnkAnnouncement": "Pengumuman",
@@ -50,6 +71,7 @@
   },
   "/account": {
     "pageTitle": "Tetapan Akaun",
+    "pageDescription": "Urus profil, pin peta, kerja dan akaun anda.",
     "profilePictureAddPicture": "Tambah gambar",
     "profilePictureNoFileChosen": "No file chosen",
     "btnSave": "Simpan",
@@ -165,7 +187,24 @@
     "toastProfileUpdated": "Profil dikemas kini.",
     "toastProfileLoadFailed": "Gagal memuatkan maklumat pengguna daripada storan sesi.",
     "toastStripeAccount": "Akaun Stripe dijana.",
-    "toastVerificationRequested": "Permintaan pengesahan berjaya."
+    "toastVerificationRequested": "Permintaan pengesahan berjaya.",
+    "btnChangePicture": "Tukar gambar",
+    "btnViewProfile": "Lihat profil",
+    "tabAccountSectionDangerZone": "Zon bahaya",
+    "tabAccountDeleteAccountHint": "Pemadaman akaun adalah kekal dan tidak boleh dibuat asal.",
+    "lblStripeDashboardOpening": "Membuka Stripe…",
+    "alertStripeDashboardUnavailableTitle": "Papan pemuka Stripe tidak tersedia",
+    "alertStripeDashboardUnavailableText": "Papan pemuka Stripe tidak boleh dibuka untuk akaun pembayaran ini. Pembayaran anda masih tersenarai di bawah “Urus pembayaran”. Jika anda belum melengkapkan persediaan Stripe, lengkapkannya melalui “Edit Maklumat”.",
+    "alertStripeOnboardingIncompleteTitle": "Persediaan Stripe belum selesai",
+    "alertStripeOnboardingIncompleteText": "Persediaan Stripe anda belum lengkap. Lengkapkannya untuk mengakses papan pemuka Stripe.",
+    "alertStripeDashboardErrorTitle": "Papan pemuka Stripe tidak dapat dibuka",
+    "toastStripeDashboardGeneric": "Papan pemuka Stripe tidak dapat dibuka. Sila cuba lagi nanti atau hubungi sokongan.",
+    "toastStripeDashboardSession": "Sesi anda telah tamat. Sila log masuk semula.",
+    "btnFinishStripeSetup": "Lengkapkan persediaan Stripe",
+    "btnContactSupport": "Hubungi sokongan",
+    "errWebsiteInvalid": "Sila masukkan alamat web yang sah, cth. https://example.com.",
+    "errCityRequiredForPin": "Masukkan bandar untuk menyiarkan pin anda pada peta, atau nyahtanda penyiaran.",
+    "toastFixErrors": "Sila betulkan medan yang ditanda sebelum menyimpan."
   },
   "/account/deleted": {
     "textGoodbye": "Selamat tinggal!",
@@ -175,7 +214,11 @@
   "/account/image": {
     "pageTitle": "Tetapan Akaun",
     "btnUpload": "Muat naik",
-    "btnDelete": "Padam"
+    "btnDelete": "Padam",
+    "pageTitlePicture": "Gambar profil",
+    "pageDescription": "Imej segi empat sama kelihatan terbaik. Gambar anda dipaparkan pada profil, peta dan senarai acara.",
+    "lblChooseImage": "Pilih imej",
+    "hintImage": "JPG, PNG atau WebP"
   },
   "/account/payments": {
     "pageTitle": "Urus Pembayaran",
@@ -337,7 +380,32 @@
     "btnCopyUrlToast": "URL acara telah disalin ke papan klip.",
     "btnCopyUrlToolTip": "Salin URL acara",
     "btnRegistration": "Pendaftaran",
-    "btnFeedback": "Maklum balas"
+    "btnFeedback": "Maklum balas",
+    "cardRegistrationTitle": "Pendaftaran",
+    "regStatusOpen": "Dibuka",
+    "regStatusUpcoming": "Belum dibuka",
+    "regStatusClosed": "Ditutup",
+    "regOpensOn": "Dibuka {date}",
+    "regClosesOn": "Ditutup {date}",
+    "regClosedOn": "Ditutup pada {date}",
+    "regDaysLeft": "{count, plural, =0 {Hari terakhir} other {# hari lagi}}",
+    "lblVisitorFee": "Yuran pelawat",
+    "lblOrganizer": "Penganjur",
+    "lblWhen": "Bila",
+    "lblWhere": "Di mana",
+    "lblEventOver": "Acara ini telah tamat.",
+    "lblParticipantsRegistered": "{count, plural, =0 {Belum ada peserta} other {# peserta}}",
+    "sectionAbout": "Tentang acara ini",
+    "sectionLinks": "Pautan",
+    "lblCategory": "Kategori",
+    "tabOverviewSectionSponsorsPresentedBy": "Dipersembahkan oleh",
+    "tabOverviewSectionSponsorsHint": "Terima kasih kepada rakan kongsi yang menjayakan acara ini.",
+    "tabOverviewSectionSponsorsVisit": "Lawati laman web (tab baharu)",
+    "toastCommentPosted": "Komen disiarkan",
+    "toastReplyPosted": "Balasan disiarkan",
+    "btnPostComment": "Siarkan komen",
+    "btnPostReply": "Siarkan balasan",
+    "btnReply": "Balas"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Urus Penginapan",
@@ -372,11 +440,13 @@
     "pageTitle": "Edit Dokumen",
     "dlgDeleteFileTitle": "Padam Dokumen",
     "dlgDeleteFileText": "Adakah anda benar-benar mahu memadam dokumen ini?",
-    "btnSave": "Simpan"
+    "btnSave": "Simpan",
+    "pageDescription": "Muat naik fail atau pautkan dokumen yang boleh dibuka oleh peserta di halaman acara."
   },
   "/events/eventid/attachments/create": {
     "pageTitle": "Cipta dokumen",
-    "btnCreate": "Cipta"
+    "btnCreate": "Cipta",
+    "pageDescription": "Muat naik fail atau pautkan dokumen yang boleh dibuka oleh peserta di halaman acara."
   },
   "/events/eventid/comps": {
     "pageTitle": "Urus Pertandingan",
@@ -449,7 +519,14 @@
     "errorLoadArena": "Gagal memuatkan skrin arena",
     "styleUnavailable": "Gaya arena tidak tersedia",
     "openSlot": "Slot kosong",
-    "noCountry": "Tiada negara"
+    "noCountry": "Tiada negara",
+    "sectionLiveMatch": "Perlawanan langsung",
+    "sectionLiveMatchHint": "Pilih pertandingan dan pertarungan yang perlu dipaparkan pada skrin arena sekarang.",
+    "sectionShow": "Papar pada skrin",
+    "sectionShowHint": "Membuka paparan arena skrin penuh dalam tab baharu. Ia dikemas kini secara automatik setiap beberapa saat.",
+    "noMatchSelected": "Pilih perlawanan untuk dipaparkan",
+    "labelPosition": "Kedudukan {position}",
+    "textRetrying": "Mencuba semula secara automatik setiap beberapa saat."
   },
   "/events/eventid/pro": {
     "pageTitle": "Lesen acara",
@@ -516,7 +593,20 @@
     "dlgDownloadResultsBtnDownload": "Muat turun",
     "toastMatchesInconsistent": "Perlawanan nampaknya mempunyai data yang tidak konsisten.",
     "toastResultsProcessed": "Keputusan perlawanan diproses.",
-    "toastExportInconsistent": "Eksport keputusan tidak konsisten."
+    "toastExportInconsistent": "Eksport keputusan tidak konsisten.",
+    "tabInfoNone": "Tiada",
+    "tabInfoParticipants": "Peserta",
+    "tabInfoRounds": "Pusingan",
+    "textNoScheduleTitle": "Belum ada jadual",
+    "textNoScheduleDescription": "Penganjur belum membuat jadual untuk pertandingan ini. Sila semak semula nanti.",
+    "btnCopyUrlToolTip": "Salin URL pertandingan",
+    "btnCopyUrlToast": "URL pertandingan disalin ke papan keratan."
+  },
+  "/events/eventid/comps/compid/not-found": {
+    "textNotFound": "Pertandingan tidak ditemui",
+    "textNotFoundHint": "Pautan pertandingan ini tidak sah atau pertandingan tidak lagi wujud.",
+    "btnBackHome": "Kembali ke laman utama",
+    "btnBackToEvents": "Kembali Ke Gambaran Keseluruhan"
   },
   "/events/eventid/comps/compid/edit/pool": {
     "pageTitle": "Urus Pool Pemain",
@@ -615,12 +705,27 @@
     "toastRoundsUpdated": "Pusingan berjaya dikemas kini",
     "toastRoundDeleted": "Pusingan berjaya dipadam",
     "defaultRoundName": "Pusingan {index}",
-    "defaultMatchName": "Perlawanan {index}"
+    "defaultMatchName": "Perlawanan {index}",
+    "btnAddRound": "Tambah pusingan",
+    "statPlayers": "{count} pemain dalam kumpulan",
+    "statRounds": "{count} pusingan",
+    "statMatches": "{count} perlawanan",
+    "chipNotSaved": "Belum disimpan",
+    "hintMode": "Bina pusingan dari pertama hingga terakhir. Pemain yang mara dari satu pusingan ialah pemain bagi pusingan seterusnya.",
+    "noteFinalSet": "Pusingan akhir telah ditetapkan. Laraskan perlawanan jika perlu, kemudian simpan.",
+    "textNoRounds": "Belum ada pusingan. Mulakan dengan pusingan pertama.",
+    "btnGoToPool": "Pergi ke kumpulan",
+    "chipUnsavedChanges": "Perubahan belum disimpan",
+    "hintReorder": "Seret kad perlawanan atau gunakan anak panah untuk menukar susunan dalam pusingan, kemudian simpan.",
+    "dlgDeleteRoundHint": "Semua perlawanan dalam pusingan ini turut dibuang. Perubahan berkuat kuasa selepas anda menyimpan mod permainan.",
+    "dlgApplyHint": "Perubahan berkuat kuasa selepas anda menyimpan mod permainan."
   },
   "/events/eventid/comps/compid/edit/seeding": {
     "pageTitle": "Seeding & Keputusan",
     "textNoGameMode": "Anda belum mengkonfigurasi mod permainan lagi.",
-    "toastSlotUpdated": "Slot dikemas kini"
+    "toastSlotUpdated": "Slot dikemas kini",
+    "btnGoToGameMode": "Sediakan mod permainan",
+    "hintSeeding": "Tetapkan pemain bagi setiap slot dan masukkan keputusan. Setiap perubahan disimpan serta-merta; keputusan lebih tinggi menang."
   },
   "/events/eventid/comps/edit": {
     "pageTitle": "Edit Pertandingan",
@@ -640,8 +745,10 @@
     "btnSubmit": "Hantar"
   },
   "/events/eventid/not-found": {
-    "textNotFound": "Acara tidak ditemui.",
-    "btnBackToEvents": "Kembali Ke Gambaran Keseluruhan"
+    "textNotFound": "Acara tidak ditemui",
+    "btnBackToEvents": "Kembali Ke Gambaran Keseluruhan",
+    "textNotFoundHint": "Pautan mungkin sudah lapuk, atau acara telah dipadam atau tidak awam.",
+    "btnBackHome": "Kembali ke laman utama"
   },
   "/events/eventid/offerings": {
     "pageTitle": "Urus Tawaran",
@@ -698,7 +805,10 @@
     "textNoFilterMatch": "Tiada hadirin yang sepadan dengan penapis.",
     "alertPendingRegistrations": "{count, plural, other{Ada # pendaftaran menunggu semakan.}}",
     "toastRemoved": "{name} dialih keluar",
-    "toastStatusUpdated": "Status untuk {name} dikemas kini"
+    "toastStatusUpdated": "Status untuk {name} dikemas kini",
+    "statTotal": "Semua pendaftaran",
+    "textShown": "Memaparkan {shown} daripada {total}",
+    "btnClearSearch": "Kosongkan carian"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Gambaran Keseluruhan Pendaftaran Acara",
@@ -744,7 +854,22 @@
     "btnPay": "Bayar sekarang",
     "btnWorking": "Memulakan checkout…",
     "errorMissingSecret": "Respons checkout tidak lengkap. Cuba lagi atau hubungi sokongan.",
-    "errorCheckout": "Tidak dapat memulakan pembayaran. Cuba lagi atau hubungi sokongan."
+    "errorCheckout": "Tidak dapat memulakan pembayaran. Cuba lagi atau hubungi sokongan.",
+    "stepDetails": "Butiran anda",
+    "stepCompetitions": "Pertandingan",
+    "stepOfferings": "Tambahan",
+    "stepAccommodations": "Penginapan",
+    "stepCheckout": "Semakan",
+    "stepCounter": "Langkah {current} daripada {total}",
+    "summaryTitle": "Pilihan anda",
+    "typeParticipant": "Peserta",
+    "typeVisitor": "Pengunjung",
+    "summaryNone": "Belum ada pilihan",
+    "statusUnregistered": "Belum mendaftar",
+    "statusPending": "Menunggu",
+    "statusApproved": "Diluluskan",
+    "statusDenied": "Ditolak",
+    "daysLeft": "{count, plural, other {# hari lagi}}"
   },
   "/events/eventid/registration/completed": {
     "registrationSuccess": "Pendaftaran berjaya dihantar.",
@@ -769,7 +894,8 @@
   "/events/eventid/registration/visa/success": {
     "textSuccess1": "Permohonan anda berjaya dihantar!",
     "textSuccess2": "Menunggu kelulusan.",
-    "btnBack": "Kembali"
+    "btnBack": "Kembali",
+    "btnEvent": "Pergi ke acara"
   },
   "/events/eventid/sponsors": {
     "pageTitle": "Urus Penaja",
@@ -786,13 +912,21 @@
     "tooltipViewStats": "Lihat statistik",
     "textNoAds": "Belum ada iklan.",
     "tableColDescription": "Penerangan",
-    "tableColActions": "Tindakan"
+    "tableColActions": "Tindakan",
+    "pageDescription": "Promosikan produk dan perkhidmatan anda di FSMeet.",
+    "chipActive": "Aktif",
+    "chipInactive": "Tidak aktif",
+    "hintReorder": "Seret iklan melalui pemegang untuk menukar susunan paparannya.",
+    "tooltipDragAd": "Seret untuk menyusun semula",
+    "toastReorderFailed": "Tidak dapat mengemas kini susunan iklan.",
+    "toastReorderUnavailable": "Penyusunan semula iklan belum tersedia. Sila cuba lagi kemudian."
   },
   "/ads/create": {
     "pageTitle": "Cipta Iklan",
     "btnCreate": "Cipta",
     "toastNeedLogin": "Anda mesti log masuk untuk mencipta iklan.",
-    "toastCreateFailed": "Tidak dapat mencipta iklan."
+    "toastCreateFailed": "Tidak dapat mencipta iklan.",
+    "pageDescription": "Terangkan produk anda, tambah imej dan pautan – pratonton menunjukkan rupanya."
   },
   "/ads/edit": {
     "pageTitle": "Edit Iklan",
@@ -801,7 +935,8 @@
     "btnSave": "Simpan",
     "toastSaveFailed": "Tidak dapat menyimpan iklan.",
     "toastDeleteFailed": "Tidak dapat memadamkan iklan.",
-    "toastLoadFailed": "Tidak dapat memuatkan iklan."
+    "toastLoadFailed": "Tidak dapat memuatkan iklan.",
+    "pageDescription": "Kemas kini kandungan, imej dan keterlihatan iklan anda."
   },
   "/ads/stats": {
     "pageTitle": "Statistik Iklan",
@@ -887,17 +1022,20 @@
     "dlgRequestInfoTravelMethod": "Kaedah perjalanan",
     "dlgRequestInfoTravelFee": "Yuran perjalanan",
     "dlgOfferTravelFeeFromRateHint": "Cadangan dari kadar km: {amount} (boleh edit jumlah di bawah)",
-    "dlgOfferTravelFeeShortDistanceHint": "Tiada yuran perjalanan dicadangkan untuk jarak sehala di bawah {km} km."
+    "dlgOfferTravelFeeShortDistanceHint": "Tiada yuran perjalanan dicadangkan untuk jarak sehala di bawah {km} km.",
+    "pageDescription": "Permintaan tempahan yang anda terima melalui FreestyleActs."
   },
   "/events/eventid/sponsors/create": {
     "pageTitle": "Cipta Penaja",
-    "btnCreate": "Tambah baharu"
+    "btnCreate": "Tambah baharu",
+    "pageDescription": "Tambah penaja dengan nama, laman web dan logo. Penaja awam dipaparkan di halaman acara."
   },
   "/events/eventid/sponsors/edit": {
     "pageTitle": "Edit Penaja",
     "dlgDeleteTitle": "Padam Penaja",
     "dlgDeleteText": "Adakah anda benar-benar mahu memadamkan penaja ini?",
-    "btnSave": "Simpan"
+    "btnSave": "Simpan",
+    "pageDescription": "Tambah penaja dengan nama, laman web dan logo. Penaja awam dipaparkan di halaman acara."
   },
   "/events/eventid/stats": {
     "pageTitle": "Statistik",
@@ -934,40 +1072,81 @@
     "btnBackToOverview": "Batal",
     "btnNextPage": "Seterusnya",
     "btnCreateEvent": "Cipta",
-    "dlgUnlistedEvents": "Anda tidak boleh mencipta acara lain semasa 2 atau lebih acara anda tidak disenaraikan."
+    "dlgUnlistedEvents": "Anda tidak boleh mencipta acara lain semasa 2 atau lebih acara anda tidak disenaraikan.",
+    "stepType": "Jenis",
+    "stepFormat": "Format",
+    "stepDetails": "Butiran",
+    "stepReview": "Semakan",
+    "stepCounter": "Langkah {current} daripada {total}",
+    "pageEventTypeCompetitionHint": "Pertarungan, ranking dan penjurian untuk peserta.",
+    "pageEventTypeMeetingHint": "Jam, bengkel dan pertemuan.",
+    "pageCompTypeOnsiteHint": "Peserta berkumpul di lokasi.",
+    "pageCompTypeOnlineHint": "Peserta menghantar video secara dalam talian.",
+    "sectionBasics": "Asas",
+    "sectionEventDates": "Tarikh acara",
+    "sectionRegistrationPeriod": "Tempoh pendaftaran",
+    "errNameTooShort": "Nama acara memerlukan sekurang-kurangnya 3 aksara.",
+    "errDateOrder": "Tarikh tamat tidak boleh sebelum tarikh mula.",
+    "errRegistrationOrder": "Tarikh tutup pendaftaran tidak boleh sebelum pendaftaran dibuka.",
+    "errRegistrationAfterStart": "Tarikh tutup pendaftaran tidak boleh selepas acara bermula.",
+    "reviewHintUnlisted": "Acara anda kekal tidak disenaraikan sehingga diluluskan oleh admin. Anda boleh menambah butiran lain selepas menciptanya.",
+    "pageEventTypeLaterHint": "Lokasi, yuran dan pertandingan ditambah selepas acara dicipta."
   },
   "/events/manage": {
     "pageTitle": "Urus Acara",
+    "pageDescription": "Pendaftaran anda dan acara yang anda anjurkan di satu tempat.",
     "tabRegistrationsTitle": "Pendaftaran",
     "tabRegistrationsTextNoEvents": "Anda belum mendaftar untuk mana-mana acara lagi.",
     "tabEventsHostedTitle": "Acara Saya",
     "tabEventsHostedTextNoEvents": "Anda belum mencipta sebarang acara lagi.",
-    "btnCreate": "Cipta Acara"
+    "btnCreate": "Cipta Acara",
+    "sectionHosting": "Penganjur",
+    "sectionCoOrganizing": "Penganjur bersama",
+    "btnBrowseEvents": "Lihat acara",
+    "inputSearchPlaceholder": "Cari nama, alias atau bandar",
+    "btnFilters": "Penapis",
+    "filterStatus": "Status",
+    "statusListed": "Disenaraikan",
+    "statusWaiting": "Menunggu kelulusan",
+    "statusNotListed": "Tidak disenaraikan",
+    "filterTime": "Masa",
+    "timeUpcoming": "Akan datang & sedang berlangsung",
+    "timePast": "Lepas",
+    "lblResultCount": "{shown} daripada {total} acara",
+    "btnResetFilters": "Set semula penapis",
+    "emptyFilteredTitle": "Tiada acara yang sepadan",
+    "emptyFilteredText": "Cuba kata carian lain atau set semula penapis."
   },
   "/feedback": {
     "pageTitle": "Maklum balas",
     "pageDescription": "Pilih kategori di bawah untuk menghantar maklum balas anda.",
     "pageGeneralFeedback": "Maklum Balas Umum",
     "btnFeatures": "Cadangan Ciri",
-    "btnBugs": "Lapor Pepijat"
+    "btnBugs": "Lapor Pepijat",
+    "descGeneral": "Beritahu kami apa yang anda suka atau apa yang boleh diperbaiki.",
+    "descFeatures": "Cadangkan ciri baharu atau penambahbaikan.",
+    "descBugs": "Ada yang rosak? Beritahu kami apa yang berlaku."
   },
   "/feedback/bugs": {
     "pageTitle": "Lapor Pepijat",
     "inputMessage": "Mesej",
     "inputMessagePlaceholder": "Terangkan sebarang salah laku yang anda perasan.",
-    "btnSubmit": "Hantar"
+    "btnSubmit": "Hantar",
+    "pageDescription": "Terangkan apa yang anda lakukan, apa yang dijangka dan apa yang berlaku."
   },
   "/feedback/features": {
     "pageTitle": "Permintaan Ciri",
     "inputMessage": "Mesej",
     "inputMessagePlaceholder": "Ada idea atau penambahbaikan untuk kami?",
-    "btnSubmit": "Hantar"
+    "btnSubmit": "Hantar",
+    "pageDescription": "Kongsi idea anda – lebih terperinci lebih baik."
   },
   "/feedback/general": {
     "pageTitle": "Hantar Maklum Balas",
     "inputMessage": "Mesej",
     "inputMessagePlaceholder": "Sebarang maklum balas amat dihargai!",
-    "btnSubmit": "Hantar"
+    "btnSubmit": "Hantar",
+    "pageDescription": "Beritahu kami apa yang anda suka atau apa yang boleh diperbaiki."
   },
   "/feedback/thankyou": {
     "thankYouText1": "Terima kasih!",
@@ -986,6 +1165,7 @@
   },
   "/map": {
     "pageTitle": "Peta Freestyler",
+    "pageDescription": "Cari freestyler, krew dan penganjur berhampiran anda dan letakkan diri anda di peta.",
     "dlgAddPinTitle": "Tambah Pin Anda",
     "dlgAddPinCornfirmText": "Sahkan",
     "dlgAddPinInputCity": "Bandar",
@@ -1002,21 +1182,37 @@
     "btnCopyUrlToast": "URL peta telah disalin ke papan klip.",
     "btnCopyUrlToolTip": "Salin URL peta",
     "infoWindowGoToProfileInternal": "Klik untuk profil",
-    "infoWindowGoToProfileExternal": "Lihat di FSMeet"
+    "infoWindowGoToProfileExternal": "Lihat di FSMeet",
+    "resultsCount": "{count, plural, =0 {Tiada siapa yang sepadan dengan penapis anda} other {# orang di peta}}"
   },
   "/password/forgot": {
     "inputUsername": "Nama pengguna / E-mel",
-    "btnResetPassword": "Tetapkan Semula Kata Laluan"
+    "btnResetPassword": "Tetapkan Semula Kata Laluan",
+    "pageTitle": "Lupa kata laluan?",
+    "pageDescription": "Masukkan nama pengguna atau alamat e-mel anda dan kami akan menghantar pautan untuk menetapkan kata laluan baharu.",
+    "lnkBackToLogin": "Kembali ke log masuk"
   },
   "/password/forgot/pending": {
     "thankYouText1": "Semak e-mel anda.",
     "thankYouText2": "Pautan tetapan semula telah dihantar kepada anda.",
-    "btnBackHome": "Kembali ke laman utama"
+    "btnBackHome": "Kembali ke laman utama",
+    "hintSpam": "Tidak menerima e-mel? Semak folder spam anda atau minta pautan baharu.",
+    "btnRequestNewLink": "Minta pautan baharu",
+    "btnBackToLogin": "Kembali ke log masuk"
   },
   "/password/reset": {
     "inputPassword": "Kata laluan baharu",
     "btnSave": "Simpan",
-    "errorMissingResetLink": "Pautan tetapan semula ini tidak sah atau tidak lengkap. Buka pautan daripada e-mel tetapan semula kata laluan."
+    "errorMissingResetLink": "Pautan tetapan semula ini tidak sah atau tidak lengkap. Buka pautan daripada e-mel tetapan semula kata laluan.",
+    "pageTitle": "Tetapkan kata laluan baharu",
+    "pageDescription": "Pilih kata laluan baharu untuk akaun FSMeet anda.",
+    "showPassword": "Tunjukkan kata laluan",
+    "hidePassword": "Sembunyikan kata laluan",
+    "invalidLinkTitle": "Pautan tetapan semula tidak sah",
+    "btnRequestNewLink": "Minta pautan baharu",
+    "successTitle": "Kata laluan ditukar",
+    "successText": "Kata laluan anda telah dikemas kini. Anda kini boleh log masuk dengan kata laluan baharu.",
+    "btnGoToLogin": "Pergi ke log masuk"
   },
   "/registration": {
     "headlineCreateAccount": "Cipta akaun",
@@ -1028,20 +1224,36 @@
     "cbCountry": "Negara",
     "inputEmail": "E-mel",
     "inputPassword": "Kata laluan",
-    "btnSignUp": "Daftar"
+    "btnSignUp": "Daftar",
+    "sectionProfile": "Profil",
+    "sectionAccount": "Butiran log masuk",
+    "hintUsername": "Huruf kecil, tanpa ruang. Ia dipaparkan dalam pautan profil awam anda.",
+    "showPassword": "Tunjukkan kata laluan",
+    "hidePassword": "Sembunyikan kata laluan",
+    "textHaveAccount": "Sudah mempunyai akaun?",
+    "lnkSignIn": "Log masuk"
   },
   "/registration/confirm": {
     "registrationSuccess": "Pendaftaran berjaya",
     "registrationFailure": "Ada masalah berlaku",
-    "btnProceed": "Teruskan"
+    "btnProceed": "Teruskan",
+    "successText": "Akaun anda telah disahkan. Anda kini boleh log masuk.",
+    "failureText": "Pautan pengesahan tidak sah atau telah tamat tempoh, atau akaun telah disahkan. Cuba log masuk.",
+    "btnBackHome": "Kembali ke laman utama"
   },
   "/registration/pending": {
     "registrationPendingText1": "Pautan pengesahan telah dihantar kepada",
     "registrationPendingText2": "Ia mungkin mengambil sedikit masa untuk e-mel anda sampai. Juga semak spam jika anda tidak menerimanya.",
-    "btnBackHome": "Kembali ke laman utama"
+    "btnBackHome": "Kembali ke laman utama",
+    "titleCheckInbox": "Semak peti masuk anda",
+    "step1": "Buka e-mel daripada FSMeet.",
+    "step2": "Klik pautan pengesahan.",
+    "step3": "Log masuk dengan akaun baharu anda.",
+    "btnGoToLogin": "Pergi ke log masuk"
   },
   "/users": {
     "pageTitle": "Komuniti",
+    "pageDescription": "Temui freestyler, juri, penganjur dan jenama dari seluruh dunia.",
     "inputSearchPlaceholder": "Cari nama...",
     "tableSortByName": "Isih mengikut nama",
     "tableSortByCountry": "Isih mengikut negara",
@@ -1063,7 +1275,15 @@
     "navFirst": "Halaman pertama",
     "navPrevious": "Halaman sebelumnya",
     "navNext": "Halaman seterusnya",
-    "navLast": "Halaman terakhir"
+    "navLast": "Halaman terakhir",
+    "sortLabel": "Isih",
+    "sortNameAsc": "Nama (A–Z)",
+    "sortNameDesc": "Nama (Z–A)",
+    "sortCountryAsc": "Negara (A–Z)",
+    "sortCountryDesc": "Negara (Z–A)",
+    "cbCardDetails": "Papar pada kad",
+    "membersCount": "{count, plural, =0 {Tiada ahli ditemui} other {# ahli}}",
+    "lnkShowOnMap": "Lihat di peta"
   },
   "/users/username": {
     "accordionItemSocials": "Media sosial",
@@ -1103,9 +1323,16 @@
     "placeholderDescription": "Penerangan produk",
     "inputTargetUrl": "URL destinasi",
     "tooltipTargetUrl": "Pautan ke laman web atau produk anda.",
-    "inputDisplayOrder": "Susunan paparan",
-    "tooltipDisplayOrder": "Urutan iklan dipaparkan apabila ada lebih daripada satu. 0 dipaparkan dahulu.",
-    "chbEnabled": "Aktif"
+    "chbEnabled": "Aktif",
+    "lblImage": "Imej",
+    "lblChooseImage": "Pilih imej",
+    "sectionContent": "Kandungan",
+    "sectionVisibility": "Keterlihatan",
+    "hintImage": "Klik atau lepaskan imej (JPG, PNG, WebP)",
+    "lblPreview": "Pratonton",
+    "lblAdBadge": "Iklan",
+    "hintPreview": "Lebih kurang beginilah iklan anda dipaparkan di sebelah senarai acara.",
+    "hintPreviewInactive": "Iklan ini tidak aktif dan tidak dipaparkan kepada sesiapa."
   },
   "global/components/accommodation-list": {
     "columnTitleDescription": "Penerangan",
@@ -1118,7 +1345,17 @@
     "inputUrl": "URL",
     "chbExpires": "Tamat tempoh",
     "datePickerExpiryDate": "Tarikh tamat tempoh",
-    "chbEnabled": "Aktif"
+    "chbEnabled": "Aktif",
+    "sectionSource": "Sumber",
+    "optSourceFile": "Muat naik fail",
+    "optSourceLink": "Pautan luar",
+    "lblCurrentFile": "Fail semasa:",
+    "lblChooseFile": "Pilih fail",
+    "lblReplaceFile": "Ganti fail",
+    "hintDropFile": "Klik atau lepaskan fail di sini",
+    "sectionAvailability": "Ketersediaan",
+    "lblUploadedFile": "Dokumen dimuat naik",
+    "lnkOpenFile": "Buka"
   },
   "global/components/attendee-choice": {
     "columnTitleAttendeeType": "Jenis",
@@ -1129,11 +1366,30 @@
   "global/components/battle-grid": {
     "btnAddMatch": "Tambah Perlawanan",
     "labelAssignSlot": "Tetapkan slot",
-    "labelUnassigned": "belum ditetapkan"
+    "labelUnassigned": "belum ditetapkan",
+    "labelExtraMatch": "Tambahan",
+    "labelTbd": "Belum ditentukan",
+    "labelResult": "Keputusan",
+    "labelTimeLimit": "Had masa",
+    "labelMatchCount": "{count} perlawanan",
+    "btnMoveMatchUp": "Alih “{name}” ke atas",
+    "btnMoveMatchDown": "Alih “{name}” ke bawah",
+    "labelDragToReorder": "Seret untuk menyusun semula",
+    "labelStartAt": "Mula dari",
+    "labelAlsoInRound": "Juga dalam pusingan ini",
+    "labelNextRound": "Seterusnya: {name}",
+    "btnPreviousRound": "Pusingan sebelumnya",
+    "btnNextRound": "Pusingan seterusnya"
   },
   "global/components/competition-editor": {
     "inputName": "Nama Pertandingan",
     "inputNamePlaceHolder": "Battle Lelaki",
+    "inputAlias": "Alias Pertandingan",
+    "tooltipAlias": "Digunakan untuk URL pertandingan yang lebih pendek dan kemas (/e/<alias acara>/c/<alias pertandingan>) yang mudah dikongsi.",
+    "aliasHintRules": "Huruf kecil dan digit sahaja, maks. 16 aksara. Mesti unik dalam acara ini.",
+    "aliasHintUrl": "URL pendek:",
+    "aliasHintNoEventAlias": "Tetapkan alias acara dalam editor acara dahulu untuk memberi pertandingan ini URL pendek.",
+    "inputAliasPlaceHolder": "menbattles",
     "cbType": "Jenis",
     "cbGender": "Jantina",
     "cbMaxAge": "Umur Maksimum",
@@ -1222,7 +1478,9 @@
     "inputWaiver": "Pelepasan liabiliti",
     "chbVisaInvitationRequestsEnabled": "Tawarkan jemputan visa",
     "toastPosterDeleted": "Poster dipadam",
-    "placeholderWaiver": "Dengan menyertai acara ini, saya mengakui ..."
+    "placeholderWaiver": "Dengan menyertai acara ini, saya mengakui ...",
+    "lblPoster": "Poster",
+    "lblChoosePoster": "Pilih imej poster"
   },
   "global/components/loading-spinner": {
     "textLoading": "Memuat..."
@@ -1262,13 +1520,20 @@
   "global/components/sponsor-editor": {
     "inputName": "Nama Penaja",
     "inputWebsite": "Laman web",
-    "chbIsPublic": "Papar kepada umum?"
+    "chbIsPublic": "Papar kepada umum?",
+    "lblLogo": "Logo",
+    "lblChooseLogo": "Pilih logo",
+    "hintLogo": "Imej segi empat sama paling sesuai"
   },
   "/wffa": {
     "pageTitle": "Gambaran Admin (WFFA)",
     "linkIds": "ID Freestyler",
     "linkStatistics": "Statistik Apl",
-    "linkVisa": "Permohonan Visa"
+    "linkVisa": "Permohonan Visa",
+    "pageDescription": "Alat untuk pentadbir WFFA.",
+    "linkIdsText": "Tetapkan dan sunting ID freestyler WFFA",
+    "linkVisaText": "Semak dan luluskan surat jemputan visa",
+    "linkStatisticsText": "Pengguna, acara dan aktiviti"
   },
   "/wffa/ids": {
     "pageTitle": "Pengurusan ID Freestyler",
@@ -1364,6 +1629,64 @@
     "search": "Cari ...",
     "select": "Pilih",
     "noData": "Tiada data dijumpai.",
-    "appNav": "Apl"
+    "appNav": "Apl",
+    "time": "Masa",
+    "clearTime": "Kosongkan masa",
+    "mainNav": "Navigasi utama"
+  },
+  "global/components/app-header": {
+    "navHome": "Laman Utama",
+    "navEvents": "Acara",
+    "navMap": "Peta",
+    "navCommunity": "Komuniti",
+    "navVoice": "Voice",
+    "navTraining": "Latihan",
+    "navAbout": "Tentang",
+    "btnCreateEvent": "Cipta acara",
+    "menuOpen": "Buka menu",
+    "menuClose": "Tutup menu",
+    "sectionDiscover": "Terokai",
+    "sectionMore": "Lagi",
+    "menuItemAdmin": "Admin",
+    "menuItemWffa": "WFFA"
+  },
+  "global/components/date-picker": {
+    "placeholder": "Pilih tarikh"
+  },
+  "global/components/attendee-filters": {
+    "searchPlaceholder": "Cari mengikut nama",
+    "clearSearch": "Kosongkan carian",
+    "all": "Semua",
+    "status": "Status",
+    "type": "Jenis",
+    "country": "Negara",
+    "gender": "Jantina",
+    "competition": "Pertandingan",
+    "statusApproved": "Diluluskan",
+    "statusPending": "Belum selesai",
+    "typeParticipants": "Peserta",
+    "typeVisitors": "Pengunjung",
+    "genderMale": "Lelaki",
+    "genderFemale": "Perempuan",
+    "competitionNone": "Tiada pertandingan",
+    "shown": "Memaparkan {shown} daripada {total}",
+    "reset": "Tetapkan semula penapis",
+    "noMatch": "Tiada sesiapa sepadan dengan penapis ini."
+  },
+  "global/components/comp-workflow": {
+    "ariaLabel": "Langkah persediaan pertandingan",
+    "stepDetails": "Butiran",
+    "stepPool": "Kumpulan",
+    "stepGameMode": "Mod permainan",
+    "stepSeeding": "Pembenihan & keputusan",
+    "statusPool": "{count} pemain",
+    "statusRounds": "{count} pusingan",
+    "statusSeeded": "{count} slot diisi",
+    "statusOpen": "Belum disediakan",
+    "btnViewCompetition": "Lihat halaman pertandingan"
+  },
+  "global/components/advertisement-card": {
+    "readMore": "Baca lagi",
+    "sponsored": "ditaja"
   }
 }

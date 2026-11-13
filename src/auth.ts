@@ -16,6 +16,7 @@ import {
 import { AdministrativeUser } from './domain/enums/administrative-user';
 import type { UserType } from './domain/enums/user-type';
 import { defaultHeaders } from './infrastructure/clients/default-headers';
+import { isManagementRoute } from './functions/is-management-route';
 
 export class LoginRejected extends AuthError {
   status: number;
@@ -90,12 +91,16 @@ const config = {
         pathname.startsWith(routeFeedback) ||
         pathname.startsWith(routeEventSubs) ||
         pathname.startsWith(routeEventsCreate) ||
-        pathname.startsWith(routeWffaOverview)
+        pathname.startsWith(routeWffaOverview) ||
+        isManagementRoute(pathname)
       ) {
         return !!auth;
       }
 
-      // deny access to /admin routes
+      // deny access to /admin routes (logged-out users are sent to login first)
+      if (pathname.startsWith(routeAdminOverview) && !auth) {
+        return false;
+      }
       if (pathname.startsWith(routeAdminOverview) && auth?.user?.username !== AdministrativeUser.ADMIN) {
         return Response.redirect(new URL(routeHome, nextUrl));
       }
