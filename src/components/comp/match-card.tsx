@@ -113,11 +113,13 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
             if (slot.slotIndex === i) return slot;
           })[0];
 
+          const slotCountryCode = matchSlot?.name ? usersMap?.get(matchSlot.name)?.countryCode : undefined;
+          // without a known country (e.g. user not in the participant list) fall back to the avatar instead of a broken flag
           const playerImage = matchSlot?.name ? (
-            showUserCountryFlag ? (
+            showUserCountryFlag && slotCountryCode ? (
               <ReactCountryFlag
                 className="w-full h-full"
-                countryCode={usersMap?.get(matchSlot?.name)?.countryCode || ''}
+                countryCode={slotCountryCode}
                 svg
                 style={{
                   width: '100%',

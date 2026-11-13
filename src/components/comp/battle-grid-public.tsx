@@ -102,7 +102,7 @@ const BattleGridPublic = ({ rounds, usersMap = new Map<string, User>(), showUser
       <div ref={desktopScroller} className="max-h-[calc(100dvh-22.5rem)] min-h-[22rem] overflow-auto rounded-2xl border border-border bg-muted/30" data-testid="battle-grid-scroller">
         <div className="flex w-fit min-w-full gap-3 px-3 pb-4 sm:px-4">
           {visibleRounds.map(round => (
-            <div key={`col-${round.roundIndex}`} className="flex min-w-52 shrink-0 grow basis-52 flex-col lg:max-w-80">
+            <div key={`col-${round.roundIndex}`} className="flex w-44 min-w-44 shrink-0 grow basis-44 flex-col lg:max-w-80">
               <div className="sticky top-0 z-10 -mx-1 bg-background/80 px-1 pb-2 pt-3 backdrop-blur-sm sm:pt-4">
                 <div className="rounded-2xl border border-border bg-background px-3 py-2.5 shadow-xs">
                   <RoundHeader round={round} />
