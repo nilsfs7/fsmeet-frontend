@@ -65,6 +65,12 @@ const BattleGridPublic = ({ rounds, usersMap = new Map<string, User>(), showUser
   const [desktopStart, setDesktopStart] = useState(0);
   const [mobileRound, setMobileRound] = useState(0);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const desktopScroller = useRef<HTMLDivElement>(null);
+
+  const selectDesktopStart = (index: number) => {
+    setDesktopStart(index);
+    desktopScroller.current?.scrollTo({ top: 0, left: 0 });
+  };
 
   const card = (match: Match, key: string) => (
     <div key={key} data-testid="grid-match">
@@ -91,9 +97,9 @@ const BattleGridPublic = ({ rounds, usersMap = new Map<string, User>(), showUser
   const visibleRounds = sortedRounds.slice(hasControls ? desktopStart : 0);
   const desktop = (
     <div className="hidden flex-col gap-3 md:flex" data-testid="battle-grid-desktop">
-      {hasControls && <RoundChips rounds={sortedRounds} selected={desktopStart} onSelect={setDesktopStart} label={t('labelStartAt')} />}
+      {hasControls && <RoundChips rounds={sortedRounds} selected={desktopStart} onSelect={selectDesktopStart} label={t('labelStartAt')} />}
       {/* both scroll axes live in this box (max. viewport height) so the horizontal scrollbar is always reachable */}
-      <div className="max-h-[calc(100dvh-22.5rem)] min-h-[22rem] overflow-auto rounded-2xl border border-border bg-muted/30" data-testid="battle-grid-scroller">
+      <div ref={desktopScroller} className="max-h-[calc(100dvh-22.5rem)] min-h-[22rem] overflow-auto rounded-2xl border border-border bg-muted/30" data-testid="battle-grid-scroller">
         <div className="flex w-fit min-w-full gap-3 px-3 pb-4 sm:px-4">
           {visibleRounds.map(round => (
             <div key={`col-${round.roundIndex}`} className="flex min-w-52 shrink-0 grow basis-52 flex-col lg:max-w-80">
@@ -113,7 +119,15 @@ const BattleGridPublic = ({ rounds, usersMap = new Map<string, User>(), showUser
   // ---------- mobile ----------
   const current = sortedRounds[Math.min(mobileRound, sortedRounds.length - 1)];
   const next = sortedRounds[mobileRound + 1];
-  const goTo = (index: number) => setMobileRound(Math.max(0, Math.min(sortedRounds.length - 1, index)));
+  const mobileRoot = useRef<HTMLDivElement>(null);
+  const goTo = (index: number) => {
+    setMobileRound(Math.max(0, Math.min(sortedRounds.length - 1, index)));
+    // jump back to the start of the list when the round switcher has already scrolled out of its natural position
+    const root = mobileRoot.current;
+    const strip = root?.firstElementChild;
+    // the sticky chip strip sits below the root's top edge once the page has scrolled past it
+    if (root && strip && root.getBoundingClientRect().top < strip.getBoundingClientRect().top - 1) root.scrollIntoView({ block: 'start' });
+  };
 
   const onTouchStart = (e: TouchEvent) => {
     const touch = e.touches[0];
@@ -130,7 +144,7 @@ const BattleGridPublic = ({ rounds, usersMap = new Map<string, User>(), showUser
   };
 
   const mobile = hasControls ? (
-    <div className="flex flex-col md:hidden" data-testid="battle-grid-mobile">
+    <div ref={mobileRoot} className="flex flex-col md:hidden" data-testid="battle-grid-mobile">
       {/* sticks to the top of the page scroller */}
       <div className="sticky top-0 z-20 -mx-4 flex flex-col gap-2 border-b border-border/60 bg-background px-4 pb-2 pt-2 shadow-xs">
         <RoundChips rounds={sortedRounds} selected={mobileRound} onSelect={goTo} />
