@@ -1342,7 +1342,12 @@
     "labelMatchCount": "{count} 场比赛",
     "btnMoveMatchUp": "上移“{name}”",
     "btnMoveMatchDown": "下移“{name}”",
-    "labelDragToReorder": "拖动以排序"
+    "labelDragToReorder": "拖动以排序",
+    "labelStartAt": "起始轮次",
+    "labelAlsoInRound": "本轮其他对战",
+    "labelNextRound": "下一轮：{name}",
+    "btnPreviousRound": "上一轮",
+    "btnNextRound": "下一轮"
   },
   "global/components/competition-editor": {
     "inputName": "比赛名称",

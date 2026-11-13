@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl';
 import { Competition } from '@/domain/types/competition';
 import type { Round } from '@/domain/types/round';
 import BattleList from '@/components/comp/battle-list';
-import BattleGrid from '@/components/comp/battle-grid';
+import BattleGridPublic from '@/components/comp/battle-grid-public';
 import { MaxAge } from '@/domain/enums/max-age';
 import UserSection from '@/components/events/user-section';
 import { ParticipantsPanel } from './participants-panel';
@@ -198,9 +198,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
           {rounds.length === 0 ? (
             noSchedule
           ) : (
-            <div className="overflow-x-auto rounded-2xl border border-border bg-muted/30 p-3 sm:p-4">
-              <BattleGrid rounds={rounds} usersMap={usersMap} showUserCountryFlag={event.showUserCountryFlag} />
-            </div>
+            <BattleGridPublic rounds={rounds} usersMap={usersMap} showUserCountryFlag={event.showUserCountryFlag} />
           )}
         </TabsContent>
 

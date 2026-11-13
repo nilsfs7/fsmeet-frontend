@@ -1342,7 +1342,12 @@
     "labelMatchCount": "{count, plural, one {# match} other {# matches}}",
     "btnMoveMatchUp": "Move “{name}” up",
     "btnMoveMatchDown": "Move “{name}” down",
-    "labelDragToReorder": "Drag to reorder"
+    "labelDragToReorder": "Drag to reorder",
+    "labelStartAt": "Start at",
+    "labelAlsoInRound": "Also in this round",
+    "labelNextRound": "Next: {name}",
+    "btnPreviousRound": "Previous round",
+    "btnNextRound": "Next round"
   },
   "global/components/competition-editor": {
     "inputName": "Competition Name",

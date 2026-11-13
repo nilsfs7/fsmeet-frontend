@@ -1317,7 +1317,12 @@
     "labelMatchCount": "{count, plural, one {# match} other {# matchs}}",
     "btnMoveMatchUp": "Monter « {name} »",
     "btnMoveMatchDown": "Descendre « {name} »",
-    "labelDragToReorder": "Glisser pour réordonner"
+    "labelDragToReorder": "Glisser pour réordonner",
+    "labelStartAt": "Commencer à",
+    "labelAlsoInRound": "Aussi dans ce tour",
+    "labelNextRound": "Suivant : {name}",
+    "btnPreviousRound": "Tour précédent",
+    "btnNextRound": "Tour suivant"
   },
   "global/components/competition-editor": {
     "inputName": "Nom de la compétition",

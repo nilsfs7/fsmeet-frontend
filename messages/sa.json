@@ -1342,7 +1342,12 @@
     "labelMatchCount": "{count, plural, one {مباراة واحدة} other {# مباريات}}",
     "btnMoveMatchUp": "نقل \"{name}\" للأعلى",
     "btnMoveMatchDown": "نقل \"{name}\" للأسفل",
-    "labelDragToReorder": "اسحب لإعادة الترتيب"
+    "labelDragToReorder": "اسحب لإعادة الترتيب",
+    "labelStartAt": "البدء من",
+    "labelAlsoInRound": "أيضًا في هذه الجولة",
+    "labelNextRound": "التالي: {name}",
+    "btnPreviousRound": "الجولة السابقة",
+    "btnNextRound": "الجولة التالية"
   },
   "global/components/competition-editor": {
     "inputName": "اسم المنافسة",

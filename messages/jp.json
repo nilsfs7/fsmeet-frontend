@@ -1342,7 +1342,12 @@
     "labelMatchCount": "{count}試合",
     "btnMoveMatchUp": "「{name}」を上へ移動",
     "btnMoveMatchDown": "「{name}」を下へ移動",
-    "labelDragToReorder": "ドラッグして並べ替え"
+    "labelDragToReorder": "ドラッグして並べ替え",
+    "labelStartAt": "開始ラウンド",
+    "labelAlsoInRound": "このラウンドのその他",
+    "labelNextRound": "次：{name}",
+    "btnPreviousRound": "前のラウンド",
+    "btnNextRound": "次のラウンド"
   },
   "global/components/competition-editor": {
     "inputName": "カテゴリ名",

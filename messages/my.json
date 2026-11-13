@@ -1342,7 +1342,12 @@
     "labelMatchCount": "{count} perlawanan",
     "btnMoveMatchUp": "Alih “{name}” ke atas",
     "btnMoveMatchDown": "Alih “{name}” ke bawah",
-    "labelDragToReorder": "Seret untuk menyusun semula"
+    "labelDragToReorder": "Seret untuk menyusun semula",
+    "labelStartAt": "Mula dari",
+    "labelAlsoInRound": "Juga dalam pusingan ini",
+    "labelNextRound": "Seterusnya: {name}",
+    "btnPreviousRound": "Pusingan sebelumnya",
+    "btnNextRound": "Pusingan seterusnya"
   },
   "global/components/competition-editor": {
     "inputName": "Nama Pertandingan",

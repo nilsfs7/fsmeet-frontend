@@ -1317,7 +1317,12 @@
     "labelMatchCount": "{count, plural, one {# enfrentamiento} other {# enfrentamientos}}",
     "btnMoveMatchUp": "Subir «{name}»",
     "btnMoveMatchDown": "Bajar «{name}»",
-    "labelDragToReorder": "Arrastra para reordenar"
+    "labelDragToReorder": "Arrastra para reordenar",
+    "labelStartAt": "Empezar en",
+    "labelAlsoInRound": "También en esta ronda",
+    "labelNextRound": "Siguiente: {name}",
+    "btnPreviousRound": "Ronda anterior",
+    "btnNextRound": "Ronda siguiente"
   },
   "global/components/competition-editor": {
     "inputName": "Nombre de la competición",

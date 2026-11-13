@@ -1342,7 +1342,12 @@
     "labelMatchCount": "{count, plural, one {# मैच} other {# मैच}}",
     "btnMoveMatchUp": "“{name}” को ऊपर ले जाएं",
     "btnMoveMatchDown": "“{name}” को नीचे ले जाएं",
-    "labelDragToReorder": "क्रम बदलने के लिए खींचें"
+    "labelDragToReorder": "क्रम बदलने के लिए खींचें",
+    "labelStartAt": "यहाँ से शुरू",
+    "labelAlsoInRound": "इस राउंड में यह भी",
+    "labelNextRound": "अगला: {name}",
+    "btnPreviousRound": "पिछला राउंड",
+    "btnNextRound": "अगला राउंड"
   },
   "global/components/competition-editor": {
     "inputName": "प्रतियोगिता का नाम",
