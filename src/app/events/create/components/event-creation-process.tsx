@@ -445,6 +445,10 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
           {page && page === CreationProcessPage.EVENT_TYPE && (
             <section className="flex min-w-0 flex-col gap-3">
               <h2 className={SECTION_H2}>{t('pageEventTypeDescription')}</h2>
+              <p className="flex items-start gap-2 rounded-xl border border-border/70 bg-muted/40 px-3 py-2.5 text-sm text-muted-foreground" data-testid="create-event-later-hint">
+                <IconInfoCircle className="mt-0.5 h-4 w-4 shrink-0" stroke={1.75} aria-hidden />
+                {t('pageEventTypeLaterHint')}
+              </p>
               <div className="grid grid-cols-1 gap-3">
                 <ChoiceCard
                   title={t('pageEventTypeCompetition')}

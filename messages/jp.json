@@ -201,7 +201,10 @@
     "toastStripeDashboardGeneric": "Stripeダッシュボードを開けませんでした。しばらくしてから再度お試しいただくか、サポートにお問い合わせください。",
     "toastStripeDashboardSession": "セッションの有効期限が切れました。もう一度ログインしてください。",
     "btnFinishStripeSetup": "Stripeの設定を完了する",
-    "btnContactSupport": "サポートに問い合わせる"
+    "btnContactSupport": "サポートに問い合わせる",
+    "errWebsiteInvalid": "有効なウェブアドレスを入力してください（例: https://example.com）。",
+    "errCityRequiredForPin": "地図にピンを公開するには都市を入力するか、公開のチェックを外してください。",
+    "toastFixErrors": "保存する前に、強調表示された項目を修正してください。"
   },
   "/account/deleted": {
     "textGoodbye": "さようなら！",
@@ -1086,7 +1089,8 @@
     "errDateOrder": "終了日は開始日より前にできません。",
     "errRegistrationOrder": "登録締切は登録開始より前にできません。",
     "errRegistrationAfterStart": "登録締切はイベント開始より後にできません。",
-    "reviewHintUnlisted": "管理者が承認するまで、イベントは非公開のままです。その他の詳細は作成後に追加できます。"
+    "reviewHintUnlisted": "管理者が承認するまで、イベントは非公開のままです。その他の詳細は作成後に追加できます。",
+    "pageEventTypeLaterHint": "会場、料金、競技はイベント作成後に追加します。"
   },
   "/events/manage": {
     "pageTitle": "イベント管理",

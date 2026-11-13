@@ -201,7 +201,10 @@
     "toastStripeDashboardGeneric": "تعذر فتح لوحة تحكم Stripe. يرجى المحاولة لاحقًا أو التواصل مع الدعم.",
     "toastStripeDashboardSession": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
     "btnFinishStripeSetup": "إكمال إعداد Stripe",
-    "btnContactSupport": "التواصل مع الدعم"
+    "btnContactSupport": "التواصل مع الدعم",
+    "errWebsiteInvalid": "يرجى إدخال عنوان ويب صالح، مثل https://example.com.",
+    "errCityRequiredForPin": "أدخل مدينة لنشر دبوسك على الخريطة، أو ألغِ تحديد النشر.",
+    "toastFixErrors": "يرجى تصحيح الحقول المميزة قبل الحفظ."
   },
   "/account/deleted": {
     "textGoodbye": "وداعاً!",
@@ -1086,7 +1089,8 @@
     "errDateOrder": "لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ البدء.",
     "errRegistrationOrder": "لا يمكن أن يكون موعد إغلاق التسجيل قبل فتحه.",
     "errRegistrationAfterStart": "لا يمكن أن يكون موعد إغلاق التسجيل بعد بدء الفعالية.",
-    "reviewHintUnlisted": "تبقى فعاليتك غير مدرجة حتى يوافق عليها أحد المشرفين. يمكنك إضافة باقي التفاصيل بعد الإنشاء."
+    "reviewHintUnlisted": "تبقى فعاليتك غير مدرجة حتى يوافق عليها أحد المشرفين. يمكنك إضافة باقي التفاصيل بعد الإنشاء.",
+    "pageEventTypeLaterHint": "تتم إضافة الموقع والرسوم والمسابقات بعد إنشاء الفعالية."
   },
   "/events/manage": {
     "pageTitle": "إدارة الفعاليات",

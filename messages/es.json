@@ -201,7 +201,10 @@
     "toastStripeDashboardGeneric": "No se pudo abrir el panel de Stripe. Inténtalo de nuevo más tarde o contacta con soporte.",
     "toastStripeDashboardSession": "Tu sesión ha caducado. Vuelve a iniciar sesión.",
     "btnFinishStripeSetup": "Completar configuración de Stripe",
-    "btnContactSupport": "Contactar con soporte"
+    "btnContactSupport": "Contactar con soporte",
+    "errWebsiteInvalid": "Introduce una dirección web válida, p. ej. https://example.com.",
+    "errCityRequiredForPin": "Introduce una ciudad para publicar tu pin en el mapa o desmarca la publicación.",
+    "toastFixErrors": "Corrige los campos marcados antes de guardar."
   },
   "/account/deleted": {
     "textGoodbye": "¡Cuídese!",
@@ -1061,7 +1064,8 @@
     "errDateOrder": "La fecha de fin no puede ser anterior a la de inicio.",
     "errRegistrationOrder": "El cierre de inscripción no puede ser anterior a su apertura.",
     "errRegistrationAfterStart": "El cierre de inscripción no puede ser posterior al inicio del evento.",
-    "reviewHintUnlisted": "Tu evento permanece oculto hasta que un admin lo apruebe. Puedes añadir el resto de detalles después de crearlo."
+    "reviewHintUnlisted": "Tu evento permanece oculto hasta que un admin lo apruebe. Puedes añadir el resto de detalles después de crearlo.",
+    "pageEventTypeLaterHint": "La ubicación, las cuotas y las competiciones se añaden después de crear el evento."
   },
   "/events/manage": {
     "pageTitle": "Gestionar eventos",

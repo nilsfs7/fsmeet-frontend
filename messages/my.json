@@ -201,7 +201,10 @@
     "toastStripeDashboardGeneric": "Papan pemuka Stripe tidak dapat dibuka. Sila cuba lagi nanti atau hubungi sokongan.",
     "toastStripeDashboardSession": "Sesi anda telah tamat. Sila log masuk semula.",
     "btnFinishStripeSetup": "Lengkapkan persediaan Stripe",
-    "btnContactSupport": "Hubungi sokongan"
+    "btnContactSupport": "Hubungi sokongan",
+    "errWebsiteInvalid": "Sila masukkan alamat web yang sah, cth. https://example.com.",
+    "errCityRequiredForPin": "Masukkan bandar untuk menyiarkan pin anda pada peta, atau nyahtanda penyiaran.",
+    "toastFixErrors": "Sila betulkan medan yang ditanda sebelum menyimpan."
   },
   "/account/deleted": {
     "textGoodbye": "Selamat tinggal!",
@@ -1086,7 +1089,8 @@
     "errDateOrder": "Tarikh tamat tidak boleh sebelum tarikh mula.",
     "errRegistrationOrder": "Tarikh tutup pendaftaran tidak boleh sebelum pendaftaran dibuka.",
     "errRegistrationAfterStart": "Tarikh tutup pendaftaran tidak boleh selepas acara bermula.",
-    "reviewHintUnlisted": "Acara anda kekal tidak disenaraikan sehingga diluluskan oleh admin. Anda boleh menambah butiran lain selepas menciptanya."
+    "reviewHintUnlisted": "Acara anda kekal tidak disenaraikan sehingga diluluskan oleh admin. Anda boleh menambah butiran lain selepas menciptanya.",
+    "pageEventTypeLaterHint": "Lokasi, yuran dan pertandingan ditambah selepas acara dicipta."
   },
   "/events/manage": {
     "pageTitle": "Urus Acara",

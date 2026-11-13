@@ -2,7 +2,8 @@
 
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { getUser, updateUser } from '@/infrastructure/clients/user.client';
-import { dispatchUserSaved } from './user-saved-event';
+import { dispatchUserSaveBlocked, dispatchUserSaved } from './user-saved-event';
+import { normalizeWebsite, validateUserInfo } from '@/functions/validate-user-info';
 import { User } from '@/domain/types/user';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -18,6 +19,14 @@ export const SaveUserInfoButton = () => {
 
     if (userInfoObject) {
       const user: User = JSON.parse(userInfoObject);
+
+      const errors = validateUserInfo(user);
+      if (Object.keys(errors).length > 0) {
+        dispatchUserSaveBlocked(errors);
+        toast.error(t('toastFixErrors'));
+        return;
+      }
+      user.website = normalizeWebsite(user.website) ?? user.website;
 
       try {
         let saved = await updateUser(user, session);

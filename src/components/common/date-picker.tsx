@@ -15,11 +15,22 @@ interface IDatePicker {
   date: Moment | undefined;
   fromDate: Moment;
   toDate: Moment;
+  /** Month the calendar opens at when no date is selected (the selected date wins otherwise). */
+  defaultMonth?: Moment;
   onChange?: (date: Moment) => void;
   className?: string;
 }
 
-export const DatePicker = ({ date, fromDate, toDate, onChange }: IDatePicker) => {
+/** Month to open: selected date, else `defaultMonth`, clamped into [fromDate, toDate] (otherwise react-day-picker starts at today/toDate). */
+function openingMonth(date: Moment | undefined, defaultMonth: Moment | undefined, fromDate: Moment, toDate: Moment): Date | undefined {
+  const base = date && date.isValid() ? date : defaultMonth && defaultMonth.isValid() ? defaultMonth : undefined;
+  if (!base) return undefined;
+  if (base.isBefore(fromDate)) return fromDate.toDate();
+  if (base.isAfter(toDate)) return toDate.toDate();
+  return base.toDate();
+}
+
+export const DatePicker = ({ date, fromDate, toDate, defaultMonth, onChange }: IDatePicker) => {
   const t = useTranslations('global/components/date-picker');
   const locale = useLocale();
 
@@ -38,7 +49,15 @@ export const DatePicker = ({ date, fromDate, toDate, onChange }: IDatePicker) =>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
-        <Calendar mode="single" captionLayout="dropdown-buttons" selected={date?.toDate()} onSelect={handleValueChanged} fromDate={fromDate.toDate()} toDate={toDate.toDate()} />
+        <Calendar
+          mode="single"
+          captionLayout="dropdown-buttons"
+          defaultMonth={openingMonth(date, defaultMonth, fromDate, toDate)}
+          selected={date && date.isValid() ? date.toDate() : undefined}
+          onSelect={handleValueChanged}
+          fromDate={fromDate.toDate()}
+          toDate={toDate.toDate()}
+        />
       </PopoverContent>
     </Popover>
   );

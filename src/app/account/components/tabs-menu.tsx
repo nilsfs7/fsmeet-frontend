@@ -8,7 +8,8 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useSession, signOut } from 'next-auth/react';
 import { User } from '@/domain/types/user';
-import { onUserSaved } from './user-saved-event';
+import { onUserSaveBlocked, onUserSaved } from './user-saved-event';
+import { normalizeWebsite, validateUserInfo } from '@/functions/validate-user-info';
 import { classifyStripeLoginLinkError, forgetDashboardUnavailable, isDashboardKnownUnavailable, openPendingTab, rememberDashboardUnavailable, type StripeDashboardIssue } from './stripe-login-link';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Toaster, toast } from 'sonner';
@@ -140,6 +141,9 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const tab = searchParams?.get('tab');
 
   const [userInfo, setUserInfo] = useState<User>(user);
+  /** Inline errors show once a field was touched or a save attempt was blocked. */
+  const [touched, setTouched] = useState<{ website?: boolean; city?: boolean }>({});
+  const validationErrors = validateUserInfo(userInfo);
   const [jobMileageFeeDisplay, setJobMileageFeeDisplay] = useState(() =>
     user.jobMileageFee != null ? String(convertCurrencyIntegerToDecimal(user.jobMileageFee, user.jobCurrencyCode ?? CurrencyCode.EUR)).replace('.', ',') : '',
   );
@@ -279,6 +283,12 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(newUserInfo);
   };
 
+  const handleWebsiteBlurred = () => {
+    setTouched(prev => ({ ...prev, website: true }));
+    const normalized = normalizeWebsite(userInfo.website);
+    if (normalized && normalized !== userInfo.website) handleWebsiteChanged(normalized);
+  };
+
   const handleWebsiteChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.website = value.toLowerCase();
@@ -305,7 +315,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
   const handleCityChanged = (value: string) => {
     const newUserInfo = Object.assign({}, userInfo);
     newUserInfo.city = value;
-    newUserInfo.exposeLocation = true; // when changing city name a user's location should be exposed by default
+    if (value.trim()) newUserInfo.exposeLocation = true; // when entering a city a user's location should be exposed by default
     newUserInfo.locLatitude = undefined;
     newUserInfo.locLongitude = undefined;
     setUserInfo(newUserInfo);
@@ -601,6 +611,23 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     }
   };
 
+  // save blocked by validation: show all errors and jump to the first invalid field
+  useEffect(
+    () =>
+      onUserSaveBlocked(errors => {
+        setTouched({ website: true, city: true });
+        const target = errors.website ? { tab: 'general', field: 'website' } : errors.city ? { tab: 'map', field: 'city' } : undefined;
+        if (!target) return;
+        switchTab(router, target.tab);
+        setTimeout(() => {
+          const el = document.getElementById(target.field);
+          el?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          el?.focus({ preventScroll: true });
+        }, 150);
+      }),
+    [router],
+  );
+
   // after a successful save: take over the server-side location (geocoded from the city) so "show my pin" appears without a reload
   useEffect(
     () =>
@@ -817,7 +844,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 <FieldRow label={t('tabGeneralBirthday')}>
                   <div className={FIELD_CONTROL_TALL_INNER}>
                     <DatePicker
-                      date={moment(userInfo.birthday)}
+                      date={userInfo.birthday ? moment(userInfo.birthday) : undefined}
+                      defaultMonth={moment().subtract(20, 'y')}
                       fromDate={moment(1970)}
                       toDate={moment().subtract(6, 'y')}
                       onChange={value => {
@@ -890,6 +918,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                   label={t('tabGeneralWebsite')}
                   placeholder="https://dffb.org"
                   value={userInfo.website}
+                  error={touched.website && validationErrors.website ? t('errWebsiteInvalid') : undefined}
+                  onBlur={handleWebsiteBlurred}
                   onChange={e => {
                     handleWebsiteChanged(e.currentTarget.value);
                   }}
@@ -908,6 +938,8 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 label={t('tabMapCity')}
                 placeholder="Munich"
                 value={userInfo.city}
+                error={touched.city && validationErrors.city ? t('errCityRequiredForPin') : undefined}
+                onBlur={() => setTouched(prev => ({ ...prev, city: true }))}
                 onChange={e => {
                   handleCityChanged(e.currentTarget.value);
                 }}
@@ -918,6 +950,7 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 label={t('tabMapPublish')}
                 value={userInfo.exposeLocation}
                 onChange={e => {
+                  setTouched(prev => ({ ...prev, city: true }));
                   handleExposeLocationChanged(!userInfo.exposeLocation);
                 }}
               />

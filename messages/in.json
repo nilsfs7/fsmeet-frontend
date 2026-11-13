@@ -201,7 +201,10 @@
     "toastStripeDashboardGeneric": "Stripe डैशबोर्ड नहीं खुल सका। कृपया बाद में फिर कोशिश करें या सपोर्ट से संपर्क करें।",
     "toastStripeDashboardSession": "आपका सत्र समाप्त हो गया है। कृपया फिर से लॉग इन करें।",
     "btnFinishStripeSetup": "Stripe सेटअप पूरा करें",
-    "btnContactSupport": "सपोर्ट से संपर्क करें"
+    "btnContactSupport": "सपोर्ट से संपर्क करें",
+    "errWebsiteInvalid": "कृपया एक मान्य वेब पता दर्ज करें, जैसे https://example.com।",
+    "errCityRequiredForPin": "मानचित्र पर अपना पिन प्रकाशित करने के लिए शहर दर्ज करें, या प्रकाशन से टिक हटाएँ।",
+    "toastFixErrors": "सहेजने से पहले कृपया चिह्नित फ़ील्ड ठीक करें।"
   },
   "/account/deleted": {
     "textGoodbye": "अलविदा!",
@@ -1086,7 +1089,8 @@
     "errDateOrder": "समाप्ति तिथि आरंभ तिथि से पहले नहीं हो सकती।",
     "errRegistrationOrder": "पंजीकरण की अंतिम तिथि पंजीकरण शुरू होने से पहले नहीं हो सकती।",
     "errRegistrationAfterStart": "पंजीकरण की अंतिम तिथि इवेंट शुरू होने के बाद नहीं हो सकती।",
-    "reviewHintUnlisted": "एडमिन की स्वीकृति तक आपका इवेंट सूचीबद्ध नहीं होगा। बाकी विवरण आप बनाने के बाद जोड़ सकते हैं।"
+    "reviewHintUnlisted": "एडमिन की स्वीकृति तक आपका इवेंट सूचीबद्ध नहीं होगा। बाकी विवरण आप बनाने के बाद जोड़ सकते हैं।",
+    "pageEventTypeLaterHint": "स्थान, शुल्क और प्रतियोगिताएँ इवेंट बनने के बाद जोड़ी जाती हैं।"
   },
   "/events/manage": {
     "pageTitle": "इवेंट प्रबंधित करें",

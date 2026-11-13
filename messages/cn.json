@@ -201,7 +201,10 @@
     "toastStripeDashboardGeneric": "无法打开 Stripe 控制台。请稍后重试或联系客服。",
     "toastStripeDashboardSession": "你的会话已过期，请重新登录。",
     "btnFinishStripeSetup": "完成 Stripe 设置",
-    "btnContactSupport": "联系客服"
+    "btnContactSupport": "联系客服",
+    "errWebsiteInvalid": "请输入有效的网址，例如 https://example.com。",
+    "errCityRequiredForPin": "请输入城市以在地图上发布你的标记，或取消勾选发布。",
+    "toastFixErrors": "保存前请修正标出的字段。"
   },
   "/account/deleted": {
     "textGoodbye": "再见！",
@@ -1086,7 +1089,8 @@
     "errDateOrder": "结束日期不能早于开始日期。",
     "errRegistrationOrder": "报名截止不能早于报名开始。",
     "errRegistrationAfterStart": "报名截止不能晚于活动开始。",
-    "reviewHintUnlisted": "在管理员批准之前，你的活动不会公开显示。创建后可以补充所有其他信息。"
+    "reviewHintUnlisted": "在管理员批准之前，你的活动不会公开显示。创建后可以补充所有其他信息。",
+    "pageEventTypeLaterHint": "地点、费用和比赛将在活动创建后添加。"
   },
   "/events/manage": {
     "pageTitle": "管理活动",

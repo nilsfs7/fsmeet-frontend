@@ -201,7 +201,10 @@
     "toastStripeDashboardGeneric": "Das Stripe-Dashboard konnte nicht geöffnet werden. Bitte versuche es später erneut oder kontaktiere den Support.",
     "toastStripeDashboardSession": "Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.",
     "btnFinishStripeSetup": "Stripe-Einrichtung abschließen",
-    "btnContactSupport": "Support kontaktieren"
+    "btnContactSupport": "Support kontaktieren",
+    "errWebsiteInvalid": "Bitte gib eine gültige Webadresse ein, z. B. https://example.com.",
+    "errCityRequiredForPin": "Gib eine Stadt ein, um deinen Pin auf der Karte zu veröffentlichen, oder entferne den Haken.",
+    "toastFixErrors": "Bitte korrigiere die markierten Felder vor dem Speichern."
   },
   "/account/deleted": {
     "textGoodbye": "Mach's gut!",
@@ -1061,7 +1064,8 @@
     "errDateOrder": "Das Enddatum darf nicht vor dem Startdatum liegen.",
     "errRegistrationOrder": "Der Anmeldeschluss darf nicht vor dem Anmeldebeginn liegen.",
     "errRegistrationAfterStart": "Der Anmeldeschluss darf nicht nach dem Eventbeginn liegen.",
-    "reviewHintUnlisted": "Dein Event bleibt ungelistet, bis ein Admin es freigibt. Alle weiteren Details kannst du nach dem Erstellen ergänzen."
+    "reviewHintUnlisted": "Dein Event bleibt ungelistet, bis ein Admin es freigibt. Alle weiteren Details kannst du nach dem Erstellen ergänzen.",
+    "pageEventTypeLaterHint": "Ort, Gebühren und Wettbewerbe fügst du hinzu, nachdem das Event erstellt wurde."
   },
   "/events/manage": {
     "pageTitle": "Events verwalten",

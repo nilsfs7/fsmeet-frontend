@@ -201,7 +201,10 @@
     "toastStripeDashboardGeneric": "Le tableau de bord Stripe n'a pas pu être ouvert. Veuillez réessayer plus tard ou contacter le support.",
     "toastStripeDashboardSession": "Votre session a expiré. Veuillez vous reconnecter.",
     "btnFinishStripeSetup": "Terminer la configuration Stripe",
-    "btnContactSupport": "Contacter le support"
+    "btnContactSupport": "Contacter le support",
+    "errWebsiteInvalid": "Veuillez saisir une adresse web valide, p. ex. https://example.com.",
+    "errCityRequiredForPin": "Indiquez une ville pour publier votre repère sur la carte, ou décochez la publication.",
+    "toastFixErrors": "Veuillez corriger les champs signalés avant d'enregistrer."
   },
   "/account/deleted": {
     "textGoodbye": "Au revoir !",
@@ -1061,7 +1064,8 @@
     "errDateOrder": "La date de fin ne peut pas précéder la date de début.",
     "errRegistrationOrder": "La clôture des inscriptions ne peut pas précéder leur ouverture.",
     "errRegistrationAfterStart": "La clôture des inscriptions ne peut pas être après le début de l'événement.",
-    "reviewHintUnlisted": "Ton événement reste non répertorié jusqu'à sa validation par un admin. Tu pourras ajouter tous les autres détails après la création."
+    "reviewHintUnlisted": "Ton événement reste non répertorié jusqu'à sa validation par un admin. Tu pourras ajouter tous les autres détails après la création.",
+    "pageEventTypeLaterHint": "Le lieu, les frais et les compétitions s'ajoutent une fois l'événement créé."
   },
   "/events/manage": {
     "pageTitle": "Gérer les événements",
