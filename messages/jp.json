@@ -387,7 +387,11 @@
     "lblCategory": "カテゴリー",
     "tabOverviewSectionSponsorsPresentedBy": "提供",
     "tabOverviewSectionSponsorsHint": "このイベントを支えてくださるパートナーの皆さまに感謝します。",
-    "tabOverviewSectionSponsorsVisit": "ウェブサイトを開く（新しいタブ）"
+    "tabOverviewSectionSponsorsVisit": "ウェブサイトを開く（新しいタブ）",
+    "toastCommentPosted": "コメントを投稿しました",
+    "toastReplyPosted": "返信を投稿しました",
+    "btnPostComment": "コメントを投稿",
+    "btnPostReply": "返信を投稿"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "宿泊を管理",

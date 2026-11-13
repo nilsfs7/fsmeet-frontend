@@ -387,7 +387,11 @@
     "lblCategory": "Kategori",
     "tabOverviewSectionSponsorsPresentedBy": "Dipersembahkan oleh",
     "tabOverviewSectionSponsorsHint": "Terima kasih kepada rakan kongsi yang menjayakan acara ini.",
-    "tabOverviewSectionSponsorsVisit": "Lawati laman web (tab baharu)"
+    "tabOverviewSectionSponsorsVisit": "Lawati laman web (tab baharu)",
+    "toastCommentPosted": "Komen disiarkan",
+    "toastReplyPosted": "Balasan disiarkan",
+    "btnPostComment": "Siarkan komen",
+    "btnPostReply": "Siarkan balasan"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Urus Penginapan",

@@ -387,7 +387,11 @@
     "lblCategory": "श्रेणी",
     "tabOverviewSectionSponsorsPresentedBy": "प्रस्तुतकर्ता",
     "tabOverviewSectionSponsorsHint": "उन साझेदारों का धन्यवाद जो इस इवेंट को संभव बनाते हैं।",
-    "tabOverviewSectionSponsorsVisit": "वेबसाइट देखें (नए टैब में)"
+    "tabOverviewSectionSponsorsVisit": "वेबसाइट देखें (नए टैब में)",
+    "toastCommentPosted": "टिप्पणी पोस्ट हो गई",
+    "toastReplyPosted": "जवाब पोस्ट हो गया",
+    "btnPostComment": "टिप्पणी पोस्ट करें",
+    "btnPostReply": "जवाब पोस्ट करें"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "आवास प्रबंधित करें",

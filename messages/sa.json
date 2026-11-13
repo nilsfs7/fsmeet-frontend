@@ -387,7 +387,11 @@
     "lblCategory": "الفئة",
     "tabOverviewSectionSponsorsPresentedBy": "برعاية",
     "tabOverviewSectionSponsorsHint": "شكرًا للشركاء الذين جعلوا هذه الفعالية ممكنة.",
-    "tabOverviewSectionSponsorsVisit": "زيارة الموقع (في علامة تبويب جديدة)"
+    "tabOverviewSectionSponsorsVisit": "زيارة الموقع (في علامة تبويب جديدة)",
+    "toastCommentPosted": "تم نشر التعليق",
+    "toastReplyPosted": "تم نشر الرد",
+    "btnPostComment": "نشر التعليق",
+    "btnPostReply": "نشر الرد"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "إدارة الإقامات",

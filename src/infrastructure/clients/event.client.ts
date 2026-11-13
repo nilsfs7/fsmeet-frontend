@@ -183,12 +183,14 @@ export async function getEventByAlias(alias: string, session?: Session | null): 
   }
 }
 
-export async function getComments(eventId: string): Promise<EventComment[]> {
+export async function getComments(eventId: string, noStore = false): Promise<EventComment[]> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/comments`;
 
   const response = await fetch(url, {
     method: 'GET',
+    ...(noStore ? { cache: 'no-store' as const } : {}),
   });
+  if (noStore && !response.ok) throw Error(`Fetching comments failed (${response.status})`);
 
   return await response.json();
 }

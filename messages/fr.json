@@ -362,7 +362,11 @@
     "lblCategory": "Catégorie",
     "tabOverviewSectionSponsorsPresentedBy": "Présenté par",
     "tabOverviewSectionSponsorsHint": "Merci aux partenaires qui rendent cet événement possible.",
-    "tabOverviewSectionSponsorsVisit": "Visiter le site (nouvel onglet)"
+    "tabOverviewSectionSponsorsVisit": "Visiter le site (nouvel onglet)",
+    "toastCommentPosted": "Commentaire publié",
+    "toastReplyPosted": "Réponse publiée",
+    "btnPostComment": "Publier le commentaire",
+    "btnPostReply": "Publier la réponse"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Gérer les hébergements",

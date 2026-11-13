@@ -387,7 +387,11 @@
     "lblCategory": "Category",
     "tabOverviewSectionSponsorsPresentedBy": "Presented by",
     "tabOverviewSectionSponsorsHint": "Thanks to the partners who make this event possible.",
-    "tabOverviewSectionSponsorsVisit": "Visit website (opens in new tab)"
+    "tabOverviewSectionSponsorsVisit": "Visit website (opens in new tab)",
+    "toastCommentPosted": "Comment posted",
+    "toastReplyPosted": "Reply posted",
+    "btnPostComment": "Post comment",
+    "btnPostReply": "Post reply"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Manage Accommodations",

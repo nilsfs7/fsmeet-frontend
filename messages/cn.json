@@ -387,7 +387,11 @@
     "lblCategory": "类别",
     "tabOverviewSectionSponsorsPresentedBy": "赞助呈现",
     "tabOverviewSectionSponsorsHint": "感谢让本次活动成为可能的合作伙伴。",
-    "tabOverviewSectionSponsorsVisit": "访问网站（新标签页）"
+    "tabOverviewSectionSponsorsVisit": "访问网站（新标签页）",
+    "toastCommentPosted": "评论已发布",
+    "toastReplyPosted": "回复已发布",
+    "btnPostComment": "发布评论",
+    "btnPostReply": "发布回复"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "管理住宿",

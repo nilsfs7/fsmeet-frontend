@@ -362,7 +362,11 @@
     "lblCategory": "Kategorie",
     "tabOverviewSectionSponsorsPresentedBy": "Präsentiert von",
     "tabOverviewSectionSponsorsHint": "Danke an die Partner, die dieses Event möglich machen.",
-    "tabOverviewSectionSponsorsVisit": "Website besuchen (öffnet in neuem Tab)"
+    "tabOverviewSectionSponsorsVisit": "Website besuchen (öffnet in neuem Tab)",
+    "toastCommentPosted": "Kommentar veröffentlicht",
+    "toastReplyPosted": "Antwort veröffentlicht",
+    "btnPostComment": "Kommentar senden",
+    "btnPostReply": "Antwort senden"
   },
   "/events/eventid/accommodations": {
     "pageTitle": "Unterkünfte verwalten",
