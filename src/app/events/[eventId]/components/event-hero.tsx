@@ -17,7 +17,7 @@ import { isPublicEventState } from '@/functions/event-state';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { NotListedLabel } from '@/components/events/not-listed-label';
 import { EventPosterPlaceholder, EventTypeGlyph } from '@/components/events/event-type-icon';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { ImageLightbox } from '@/components/common/image-lightbox';
 import { cn } from '@/lib/utils';
 
 const typeBadgeClass: Record<EventType, string> = {
@@ -73,14 +73,7 @@ export const EventHero = ({ event, eventAdmin }: IEventHero) => {
   return (
     <section className="overflow-hidden rounded-3xl border border-border bg-background shadow-xs">
       {hasPoster && (
-        <Dialog open={posterPreviewOpen} onOpenChange={setPosterPreviewOpen}>
-          <DialogContent aria-describedby={undefined} className="w-auto max-w-[min(100vw-2rem,64rem)]">
-            <DialogHeader className="sr-only">
-              <DialogTitle>{event.name}</DialogTitle>
-            </DialogHeader>
-            <img src={event.imageUrlPoster} alt="" className="max-h-[min(70dvh,100%)] w-full object-contain" />
-          </DialogContent>
-        </Dialog>
+        <ImageLightbox open={posterPreviewOpen} onOpenChange={setPosterPreviewOpen} src={event.imageUrlPoster!} title={event.name} alt={event.name ?? ''} />
       )}
 
       <div className="flex flex-col gap-5 p-4 sm:flex-row sm:gap-6 sm:p-6 md:gap-8">
