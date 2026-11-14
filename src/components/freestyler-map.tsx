@@ -12,17 +12,11 @@ import { imgUserDefaultImg } from '@/domain/constants/images';
 import Link from 'next/link';
 import ReactCountryFlag from 'react-country-flag';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
-import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { menuGender } from '@/domain/constants/menus/menu-gender';
-import { ChevronDown } from 'lucide-react';
-import { IconAdjustmentsHorizontal, IconArrowRight, IconArrowUpRight, IconSearch } from '@tabler/icons-react';
+import { IconArrowRight, IconArrowUpRight } from '@tabler/icons-react';
+import { MapFilters } from './freestyler-map-filters';
 import { Gender } from '@/domain/enums/gender';
 import LoadingSpinner from './animation/loading-spinner';
 import { isNaturalPerson } from '../functions/is-natural-person';
-import { menuUserType } from '../domain/constants/menus/menu-user-type';
 import { cn } from '@/lib/utils';
 
 interface IMapWrapperProps {
@@ -96,27 +90,11 @@ const containerStyle = {
   height: '100%',
 };
 
-const MAP_FILTER_ALL = '__all__' as const;
-
-const mapCountrySelectTriggerClass = 'h-9 w-full min-w-0 rounded-xl border-border bg-background text-left';
-
 const DEFAULT_MAP_USER_TYPES: UserType[] = [UserType.FREESTYLER, UserType.ASSOCIATION, UserType.BRAND, UserType.DJ, UserType.EVENT_ORGANIZER, UserType.MC, UserType.MEDIA];
 
-function sameUserTypeSelection(a: UserType[], b: UserType[]) {
-  if (a.length !== b.length) return false;
-  const sa = [...a].sort();
-  const sb = [...b].sort();
-  return sa.every((v, i) => v === sb[i]);
-}
 
 const DEFAULT_MAP_GENDERS: Gender[] = [Gender.FEMALE, Gender.MALE];
 
-function sameGenderSelection(a: Gender[], b: Gender[]) {
-  if (a.length !== b.length) return false;
-  const sa = [...a].sort();
-  const sb = [...b].sort();
-  return sa.every((v, i) => v === sb[i]);
-}
 
 const getSelectedUsers = (users: User[], selectedUsernames: string[]): User[] => {
   return users.filter(usr => selectedUsernames.includes(usr.username));
@@ -140,7 +118,6 @@ const Map = ({
   const [filterName, setFilterName] = useState('');
   const [filterGender, setFilterGender] = useState<Gender[]>(() => [...DEFAULT_MAP_GENDERS]);
   const [filterUserType, setFilterUserType] = useState<UserType[]>(() => [...DEFAULT_MAP_USER_TYPES]);
-  const [advancedOpen, setAdvancedOpen] = useState(false);
   const [filterCountryCode, setFilterCountryCode] = useState('');
   const [map, setMap] = React.useState<google.maps.Map | null>();
   const [mapOptions, setMapOptions] = useState<google.maps.MapOptions>();
@@ -242,32 +219,26 @@ const Map = ({
   }, [isLoaded]);
 
   const userCountryOptions = useMemo(() => {
-    const seen = new Set<string>();
+    const seen = new globalThis.Map<string, number>();
     for (const u of userList) {
       const c = (u.countryCode || '').trim().toUpperCase();
-      if (c) seen.add(c);
+      if (c) seen.set(c, (seen.get(c) ?? 0) + 1);
     }
-    return [...seen]
-      .map(code => {
+    return [...seen.entries()]
+      .map(([code, count]) => {
         const name = getCountryNameByCode(code) || code;
-        return { code, name };
+        return { code, name, count };
       })
       .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
   }, [userList]);
 
-  useEffect(() => {
-    if (!filterCountryCode) return;
-    const v = filterCountryCode.trim().toUpperCase();
-    const stillValid = userCountryOptions.some(o => o.code === v);
-    if (!stillValid) setFilterCountryCode('');
-  }, [filterCountryCode, userCountryOptions]);
+  // a country can only be picked from the options, so it is always one of them; no reset effect needed
 
-  const hasAdvancedFiltersActive = useMemo(
-    () => Boolean(filterCountryCode.trim()) || !sameUserTypeSelection(filterUserType, DEFAULT_MAP_USER_TYPES) || !sameGenderSelection(filterGender, DEFAULT_MAP_GENDERS),
-    [filterCountryCode, filterUserType, filterGender],
-  );
-
-  const hasAnyFiltersActive = useMemo(() => Boolean(filterName.trim()) || hasAdvancedFiltersActive, [filterName, hasAdvancedFiltersActive]);
+  const typeCounts = useMemo(() => {
+    const counts: Partial<Record<UserType, number>> = {};
+    for (const u of userList) counts[u.type] = (counts[u.type] ?? 0) + 1;
+    return counts;
+  }, [userList]);
 
   // Memoize filtered users to avoid filtering on every render
   const filteredUsers = useMemo(() => {
@@ -329,166 +300,26 @@ const Map = ({
 
   if (!isLoaded || !iconFreestylerMale || !iconFreestylerFemale) return <LoadingSpinner />;
 
-  const advancedFilterCount =
-    (filterCountryCode.trim() ? 1 : 0) + (sameUserTypeSelection(filterUserType, DEFAULT_MAP_USER_TYPES) ? 0 : 1) + (sameGenderSelection(filterGender, DEFAULT_MAP_GENDERS) ? 0 : 1);
-
   return (
     <div className={cn('relative flex min-h-0 flex-1 flex-col', !isIframe && 'overflow-hidden rounded-3xl border border-border bg-muted shadow-sm')}>
       {!isIframe && (
-        // floating search + filter panel; leaves room for the fullscreen control on the right (mobile)
-        <div className="pointer-events-none absolute inset-x-3 top-3 z-10 pr-12 sm:inset-x-auto sm:left-4 sm:top-4 sm:w-[23rem] sm:pr-0">
-          <div className="pointer-events-auto max-h-[min(70vh,34rem)] overflow-y-auto rounded-2xl border border-border/70 bg-background/95 p-2 shadow-lg backdrop-blur-md">
-            <div className="flex items-center gap-2">
-              <div className="relative min-w-0 flex-1">
-                <IconSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" stroke={1.75} aria-hidden />
-                <Input
-                  placeholder={t('inputSearchPlaceholder')}
-                  aria-label={t('inputSearchPlaceholder')}
-                  value={filterName}
-                  onChange={(event: any) => {
-                    setFilterName(event.target.value);
-                  }}
-                  className="h-10 w-full min-w-0 rounded-xl pl-9"
-                />
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setAdvancedOpen(v => !v)}
-                aria-expanded={advancedOpen}
-                aria-label={t('searchAdvancedLabel')}
-                className={cn(
-                  'inline-flex h-10 shrink-0 items-center gap-1.5 rounded-xl border px-3 text-sm font-medium transition-colors',
-                  advancedOpen || hasAdvancedFiltersActive ? 'border-brand/40 bg-brand-soft text-brand-strong' : 'border-border bg-background text-foreground hover:bg-muted',
-                )}
-              >
-                <IconAdjustmentsHorizontal className="h-4 w-4" stroke={1.75} aria-hidden />
-                <span className="hidden sm:inline">{t('searchAdvancedLabel')}</span>
-                {advancedFilterCount > 0 && (
-                  <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand px-1 text-2xs font-semibold text-brand-foreground">{advancedFilterCount}</span>
-                )}
-              </button>
-            </div>
-
-            <div className="flex items-center justify-between gap-2 px-1 pt-2 text-xs text-muted-foreground">
-              <span aria-live="polite">{t('resultsCount', { count: filteredUsers.length })}</span>
-              {hasAnyFiltersActive && (
-                <button type="button" onClick={clearAllFilters} className="font-medium text-brand-strong hover:underline">
-                  {t('filterClearAll')}
-                </button>
-              )}
-            </div>
-
-            {advancedOpen && (
-              <div className="mt-2 space-y-3 border-t border-border/70 px-1 pb-1 pt-3">
-                {userCountryOptions.length > 0 && (
-                  <div>
-                    <div className="mb-1 text-xs font-medium text-muted-foreground">{t('filterUserCountry')}</div>
-                    <Select value={filterCountryCode || MAP_FILTER_ALL} onValueChange={v => setFilterCountryCode(v === MAP_FILTER_ALL ? '' : v)}>
-                      <SelectTrigger className={mapCountrySelectTriggerClass}>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value={MAP_FILTER_ALL}>{t('filterAll')}</SelectItem>
-                        {userCountryOptions.map(({ code, name }) => (
-                          <SelectItem key={code} value={code}>
-                            {name} ({code})
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-
-                <div className="grid grid-cols-2 gap-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="h-9 w-full min-w-0 justify-between rounded-xl px-3 text-sm font-normal">
-                        {t('drpDwnGender')}
-                        <ChevronDown className="ml-2 h-4 w-4 shrink-0" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start" className="max-h-80 overflow-y-auto">
-                      {menuGender.map(menuItem => {
-                        return (
-                          <DropdownMenuCheckboxItem
-                            key={menuItem.value}
-                            checked={filterGender.includes(menuItem.value as Gender)}
-                            onCheckedChange={(value: any) => {
-                              const genders = Array.from(filterGender);
-
-                              if (value === true) {
-                                genders.push(menuItem.value as Gender);
-                              } else {
-                                const index = genders.indexOf(menuItem.value as Gender);
-                                if (index > -1) {
-                                  genders.splice(index, 1);
-                                }
-                              }
-
-                              setFilterGender(genders);
-                            }}
-                          >
-                            {menuItem.text}
-                          </DropdownMenuCheckboxItem>
-                        );
-                      })}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="h-9 w-full min-w-0 justify-between rounded-xl px-3 text-sm font-normal">
-                        {t('drpDwnUserTypes')}
-                        <ChevronDown className="ml-2 h-4 w-4 shrink-0" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start" className="max-h-80 overflow-y-auto">
-                      {menuUserType
-                        .filter(type => type.value !== UserType.FAN)
-                        .map(menuItem => {
-                          return (
-                            <DropdownMenuCheckboxItem
-                              key={menuItem.value}
-                              checked={filterUserType.includes(menuItem.value as UserType)}
-                              onCheckedChange={(value: any) => {
-                                const types = Array.from(filterUserType);
-
-                                // add or remove user type from array
-                                if (value === true) {
-                                  types.push(menuItem.value as UserType);
-                                } else {
-                                  const index = types.indexOf(menuItem.value as UserType);
-                                  if (index > -1) {
-                                    types.splice(index, 1);
-                                  }
-                                }
-
-                                setFilterUserType(types);
-                              }}
-                            >
-                              {menuItem.text}
-                            </DropdownMenuCheckboxItem>
-                          );
-                        })}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-
-                <div className="flex w-full min-w-0 items-center justify-between gap-2 pt-1">
-                  <Button type="button" variant="outline" className="h-9 min-w-0 rounded-xl px-3 text-sm" onClick={clearAllFilters} disabled={!hasAnyFiltersActive}>
-                    {t('filterClearAll')}
-                  </Button>
-                  <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'h-9 min-w-0! px-4 text-sm')} onClick={() => setAdvancedOpen(false)}>
-                    {t('filterApply')}
-                  </Button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        <MapFilters
+          filters={{ name: filterName, countryCode: filterCountryCode, genders: filterGender, userTypes: filterUserType }}
+          onChange={next => {
+            setFilterName(next.name);
+            setFilterCountryCode(next.countryCode);
+            setFilterGender(next.genders);
+            setFilterUserType(next.userTypes);
+          }}
+          onReset={clearAllFilters}
+          defaultUserTypes={DEFAULT_MAP_USER_TYPES}
+          defaultGenders={DEFAULT_MAP_GENDERS}
+          countryOptions={userCountryOptions}
+          typeCounts={typeCounts}
+          resultCount={filteredUsers.length}
+          totalCount={userList.length}
+        />
       )}
-
       <div className="min-h-0 flex-1 overflow-hidden">
         <GoogleMap mapContainerStyle={containerStyle} options={mapOptions} onLoad={onLoad} onUnmount={onUnmount}>
           {filteredUsers.map(user => {

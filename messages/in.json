@@ -1183,7 +1183,21 @@
     "btnCopyUrlToolTip": "मैप URL कॉपी करें",
     "infoWindowGoToProfileInternal": "प्रोफ़ाइल के लिए क्लिक करें",
     "infoWindowGoToProfileExternal": "FSMeet पर देखें",
-    "resultsCount": "{count, plural, =0 {आपके फ़िल्टर से कोई मेल नहीं खाता} one {मैप पर # व्यक्ति} other {मैप पर # लोग}}"
+    "resultsCount": "{count, plural, =0 {आपके फ़िल्टर से कोई मेल नहीं खाता} one {मैप पर # व्यक्ति} other {मैप पर # लोग}}",
+    "btnFilters": "फ़िल्टर",
+    "filterSheetTitle": "मानचित्र फ़िल्टर करें",
+    "btnCloseFilters": "फ़िल्टर बंद करें",
+    "filterGroupType": "प्रोफ़ाइल प्रकार",
+    "filterSelectAll": "सभी चुनें",
+    "filterGenderFemale": "महिला",
+    "filterGenderMale": "पुरुष",
+    "filterGenderHint": "ब्रांड और संघ हमेशा दिखाए जाते हैं।",
+    "filterAllCountries": "सभी देश",
+    "btnShowResults": "{count, plural, =0 {कोई परिणाम नहीं} one {# व्यक्ति दिखाएँ} other {# लोग दिखाएँ}}",
+    "resultsCountOf": "मानचित्र पर {total} में से {count} लोग",
+    "filterChipTypes": "{count} प्रोफ़ाइल प्रकार",
+    "filterChipNoGender": "कोई लिंग नहीं चुना",
+    "filterRemoveChip": "फ़िल्टर हटाएँ"
   },
   "/password/forgot": {
     "inputUsername": "यूज़रनेम / ईमेल",

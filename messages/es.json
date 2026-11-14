@@ -1158,7 +1158,21 @@
     "btnCopyUrlToolTip": "Copiar la URL del mapa",
     "infoWindowGoToProfileInternal": "Haz clic para ver el perfil",
     "infoWindowGoToProfileExternal": "Ver en FSMeet",
-    "resultsCount": "{count, plural, =0 {Nadie coincide con tus filtros} one {# persona en el mapa} other {# personas en el mapa}}"
+    "resultsCount": "{count, plural, =0 {Nadie coincide con tus filtros} one {# persona en el mapa} other {# personas en el mapa}}",
+    "btnFilters": "Filtros",
+    "filterSheetTitle": "Filtrar mapa",
+    "btnCloseFilters": "Cerrar filtros",
+    "filterGroupType": "Tipo de perfil",
+    "filterSelectAll": "Seleccionar todo",
+    "filterGenderFemale": "Mujer",
+    "filterGenderMale": "Hombre",
+    "filterGenderHint": "Las marcas y asociaciones se muestran siempre.",
+    "filterAllCountries": "Todos los países",
+    "btnShowResults": "{count, plural, =0 {Sin resultados} one {Mostrar # persona} other {Mostrar # personas}}",
+    "resultsCountOf": "{count} de {total} personas en el mapa",
+    "filterChipTypes": "{count} tipos de perfil",
+    "filterChipNoGender": "Ningún género seleccionado",
+    "filterRemoveChip": "Quitar filtro"
   },
   "/password/forgot": {
     "inputUsername": "Nombre de usuario / e-mail",

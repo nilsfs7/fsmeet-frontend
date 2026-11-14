@@ -1,4 +1,5 @@
 import Navigation from '@/components/navigation';
+import { heroSurfaceClassName } from '@/lib/hero-surface';
 import ActionButton from '@/components/common/action-button';
 import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint, routeTermsOfService } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
@@ -46,9 +47,7 @@ export default async function About() {
       <div className="min-h-0 flex-1 overflow-y-auto">
         <PageInset className="flex flex-col gap-6 pb-6 pt-4 sm:gap-8 sm:pt-8">
           {/* hero */}
-          <section className="relative overflow-hidden rounded-3xl bg-[#0b1220] px-6 py-10 text-white shadow-lg sm:px-10 sm:py-12">
-            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/40 blur-3xl" />
-            <div aria-hidden className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
+          <section className={cn(heroSurfaceClassName, 'px-6 py-10 sm:px-10 sm:py-12')}>
             <div className="relative flex max-w-2xl flex-col gap-4">
               <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-wider text-white/80">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand" />

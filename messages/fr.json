@@ -1158,7 +1158,21 @@
     "btnCopyUrlToolTip": "Copier l'URL de la carte",
     "infoWindowGoToProfileInternal": "Cliquez pour voir le profil",
     "infoWindowGoToProfileExternal": "Voir sur FSMeet",
-    "resultsCount": "{count, plural, =0 {Personne ne correspond à tes filtres} one {# personne sur la carte} other {# personnes sur la carte}}"
+    "resultsCount": "{count, plural, =0 {Personne ne correspond à tes filtres} one {# personne sur la carte} other {# personnes sur la carte}}",
+    "btnFilters": "Filtres",
+    "filterSheetTitle": "Filtrer la carte",
+    "btnCloseFilters": "Fermer les filtres",
+    "filterGroupType": "Type de profil",
+    "filterSelectAll": "Tout sélectionner",
+    "filterGenderFemale": "Femme",
+    "filterGenderMale": "Homme",
+    "filterGenderHint": "Les marques et associations sont toujours affichées.",
+    "filterAllCountries": "Tous les pays",
+    "btnShowResults": "{count, plural, =0 {Aucun résultat} one {Afficher # personne} other {Afficher # personnes}}",
+    "resultsCountOf": "{count} sur {total} personnes sur la carte",
+    "filterChipTypes": "{count} types de profil",
+    "filterChipNoGender": "Aucun genre sélectionné",
+    "filterRemoveChip": "Retirer le filtre"
   },
   "/password/forgot": {
     "inputUsername": "Nom d'utilisateur / E-mail",

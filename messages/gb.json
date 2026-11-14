@@ -1183,7 +1183,21 @@
     "btnCopyUrlToolTip": "Copy map URL",
     "infoWindowGoToProfileInternal": "Click for profile",
     "infoWindowGoToProfileExternal": "View on FSMeet",
-    "resultsCount": "{count, plural, =0 {Nobody matches your filters} one {# person on the map} other {# people on the map}}"
+    "resultsCount": "{count, plural, =0 {Nobody matches your filters} one {# person on the map} other {# people on the map}}",
+    "btnFilters": "Filters",
+    "filterSheetTitle": "Filter map",
+    "btnCloseFilters": "Close filters",
+    "filterGroupType": "Profile type",
+    "filterSelectAll": "Select all",
+    "filterGenderFemale": "Female",
+    "filterGenderMale": "Male",
+    "filterGenderHint": "Brands and associations are always shown.",
+    "filterAllCountries": "All countries",
+    "btnShowResults": "{count, plural, =0 {No results} one {Show # person} other {Show # people}}",
+    "resultsCountOf": "{count} of {total} people on the map",
+    "filterChipTypes": "{count} profile types",
+    "filterChipNoGender": "No gender selected",
+    "filterRemoveChip": "Remove filter"
   },
   "/password/forgot": {
     "inputUsername": "Username / Email",

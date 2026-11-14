@@ -1183,7 +1183,21 @@
     "btnCopyUrlToolTip": "Salin URL peta",
     "infoWindowGoToProfileInternal": "Klik untuk profil",
     "infoWindowGoToProfileExternal": "Lihat di FSMeet",
-    "resultsCount": "{count, plural, =0 {Tiada siapa yang sepadan dengan penapis anda} other {# orang di peta}}"
+    "resultsCount": "{count, plural, =0 {Tiada siapa yang sepadan dengan penapis anda} other {# orang di peta}}",
+    "btnFilters": "Penapis",
+    "filterSheetTitle": "Tapis peta",
+    "btnCloseFilters": "Tutup penapis",
+    "filterGroupType": "Jenis profil",
+    "filterSelectAll": "Pilih semua",
+    "filterGenderFemale": "Perempuan",
+    "filterGenderMale": "Lelaki",
+    "filterGenderHint": "Jenama dan persatuan sentiasa dipaparkan.",
+    "filterAllCountries": "Semua negara",
+    "btnShowResults": "{count, plural, =0 {Tiada hasil} other {Tunjuk # orang}}",
+    "resultsCountOf": "{count} daripada {total} orang di peta",
+    "filterChipTypes": "{count} jenis profil",
+    "filterChipNoGender": "Tiada jantina dipilih",
+    "filterRemoveChip": "Buang penapis"
   },
   "/password/forgot": {
     "inputUsername": "Nama pengguna / E-mel",
