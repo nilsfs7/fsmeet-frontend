@@ -1,4 +1,5 @@
 import { getEventsFeatured, getEventsOngoing, getEventsRecent, getEventsUpcoming } from '@/infrastructure/clients/event.client';
+import { heroSurfaceClassName } from '@/lib/hero-surface';
 import Link from 'next/link';
 import { imgFreestyler } from '@/domain/constants/images';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
@@ -51,9 +52,7 @@ export default async function Home() {
       <div className="min-h-0 flex-1 overflow-y-auto">
         <PageInset className="flex flex-col gap-10 pt-4 sm:gap-14 sm:pt-8">
           {/* hero */}
-          <section className="relative overflow-hidden rounded-3xl bg-[#0b1220] px-6 py-10 text-white shadow-lg sm:px-10 sm:py-14">
-            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand/40 blur-3xl" />
-            <div aria-hidden className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
+          <section className={cn(heroSurfaceClassName, 'px-6 py-10 sm:px-10 sm:py-14')}>
             <div className="relative flex flex-col items-start gap-8 md:flex-row md:items-center md:justify-between">
               <div className="flex max-w-xl flex-col gap-4">
                 <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-wider text-white/80">

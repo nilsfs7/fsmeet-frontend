@@ -1183,7 +1183,21 @@
     "btnCopyUrlToolTip": "复制地图链接",
     "infoWindowGoToProfileInternal": "点击查看资料",
     "infoWindowGoToProfileExternal": "在 FSMeet 查看",
-    "resultsCount": "{count, plural, =0 {没有符合筛选条件的人} other {地图上有 # 人}}"
+    "resultsCount": "{count, plural, =0 {没有符合筛选条件的人} other {地图上有 # 人}}",
+    "btnFilters": "筛选",
+    "filterSheetTitle": "筛选地图",
+    "btnCloseFilters": "关闭筛选",
+    "filterGroupType": "资料类型",
+    "filterSelectAll": "全选",
+    "filterGenderFemale": "女",
+    "filterGenderMale": "男",
+    "filterGenderHint": "品牌和协会始终显示。",
+    "filterAllCountries": "所有国家",
+    "btnShowResults": "{count, plural, =0 {无结果} other {显示 # 人}}",
+    "resultsCountOf": "地图上 {total} 人中的 {count} 人",
+    "filterChipTypes": "{count} 种资料类型",
+    "filterChipNoGender": "未选择性别",
+    "filterRemoveChip": "移除筛选"
   },
   "/password/forgot": {
     "inputUsername": "用户名 / 邮箱",

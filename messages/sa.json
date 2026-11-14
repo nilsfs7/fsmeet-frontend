@@ -1183,7 +1183,21 @@
     "btnCopyUrlToolTip": "نسخ رابط الخريطة",
     "infoWindowGoToProfileInternal": "انقر للملف الشخصي",
     "infoWindowGoToProfileExternal": "عرض على FSMeet",
-    "resultsCount": "{count, plural, =0 {لا أحد يطابق عوامل التصفية} one {شخص واحد على الخريطة} other {# أشخاص على الخريطة}}"
+    "resultsCount": "{count, plural, =0 {لا أحد يطابق عوامل التصفية} one {شخص واحد على الخريطة} other {# أشخاص على الخريطة}}",
+    "btnFilters": "عوامل التصفية",
+    "filterSheetTitle": "تصفية الخريطة",
+    "btnCloseFilters": "إغلاق عوامل التصفية",
+    "filterGroupType": "نوع الملف الشخصي",
+    "filterSelectAll": "تحديد الكل",
+    "filterGenderFemale": "أنثى",
+    "filterGenderMale": "ذكر",
+    "filterGenderHint": "تُعرض العلامات التجارية والجمعيات دائمًا.",
+    "filterAllCountries": "كل الدول",
+    "btnShowResults": "{count, plural, =0 {لا نتائج} one {عرض شخص واحد} other {عرض # أشخاص}}",
+    "resultsCountOf": "{count} من {total} أشخاص على الخريطة",
+    "filterChipTypes": "{count} أنواع ملفات",
+    "filterChipNoGender": "لم يتم اختيار الجنس",
+    "filterRemoveChip": "إزالة عامل التصفية"
   },
   "/password/forgot": {
     "inputUsername": "اسم المستخدم / البريد الإلكتروني",

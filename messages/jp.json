@@ -1183,7 +1183,21 @@
     "btnCopyUrlToolTip": "マップURLをコピー",
     "infoWindowGoToProfileInternal": "クリックでプロフィール",
     "infoWindowGoToProfileExternal": "FSMeetで見る",
-    "resultsCount": "{count, plural, =0 {条件に一致する人はいません} other {地図上に#人}}"
+    "resultsCount": "{count, plural, =0 {条件に一致する人はいません} other {地図上に#人}}",
+    "btnFilters": "フィルター",
+    "filterSheetTitle": "地図を絞り込む",
+    "btnCloseFilters": "フィルターを閉じる",
+    "filterGroupType": "プロフィールの種類",
+    "filterSelectAll": "すべて選択",
+    "filterGenderFemale": "女性",
+    "filterGenderMale": "男性",
+    "filterGenderHint": "ブランドと団体は常に表示されます。",
+    "filterAllCountries": "すべての国",
+    "btnShowResults": "{count, plural, =0 {該当なし} other {#人を表示}}",
+    "resultsCountOf": "地図上の{total}人中{count}人",
+    "filterChipTypes": "{count}種類のプロフィール",
+    "filterChipNoGender": "性別未選択",
+    "filterRemoveChip": "フィルターを解除"
   },
   "/password/forgot": {
     "inputUsername": "ユーザー名／メール",
