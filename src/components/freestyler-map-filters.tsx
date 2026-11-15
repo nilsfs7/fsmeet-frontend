@@ -4,7 +4,7 @@ import { useMemo, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import ReactCountryFlag from 'react-country-flag';
-import { IconAdjustmentsHorizontal, IconCheck, IconSearch, IconX } from '@tabler/icons-react';
+import { IconAdjustmentsHorizontal, IconCheck, IconInfoCircle, IconSearch, IconTicket, IconTrophy, IconUsersGroup, IconX } from '@tabler/icons-react';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -14,6 +14,11 @@ import { getUserTypeLabels } from '@/functions/user-type';
 import { UserType } from '@/domain/enums/user-type';
 import { Gender } from '@/domain/enums/gender';
 import { cn } from '@/lib/utils';
+import { EventType } from '@/domain/enums/event-type';
+import { DEFAULT_EVENT_FILTERS, EVENT_TIME_WINDOWS, MAP_EVENT_TYPES, type EventFilterState, type EventTimeWindow } from './freestyler-map-events';
+
+export type MapLayer = 'all' | 'people' | 'events';
+export const MAP_LAYERS: MapLayer[] = ['all', 'people', 'events'];
 
 const FILTER_ALL = '__all__' as const;
 
@@ -34,7 +39,27 @@ interface IMapFiltersProps {
   typeCounts: Partial<Record<UserType, number>>;
   resultCount: number;
   totalCount: number;
+  /** events layer; omitted when the map has no events (e.g. iframe) */
+  events?: {
+    layer: MapLayer;
+    onLayerChange: (layer: MapLayer) => void;
+    filters: EventFilterState;
+    onChange: (next: EventFilterState) => void;
+    /** events matching all event filters + search */
+    resultCount: number;
+    typeCounts: Partial<Record<EventType, number>>;
+  };
 }
+
+export function eventFiltersChanged(f: EventFilterState) {
+  return {
+    time: f.time !== DEFAULT_EVENT_FILTERS.time,
+    types: !sameSet(f.types, DEFAULT_EVENT_FILTERS.types),
+    reg: f.registrationOpenOnly !== DEFAULT_EVENT_FILTERS.registrationOpenOnly,
+  };
+}
+
+const TIME_LABEL_KEYS: Record<EventTimeWindow, string> = { live: 'eventTimeLive', '30d': 'eventTime30d', '3m': 'eventTime3m', all: 'eventTimeAll' };
 
 function sameSet<T>(a: T[], b: T[]) {
   return a.length === b.length && a.every(v => b.includes(v));
@@ -92,13 +117,63 @@ function FilterGroup({ title, action, children }: { title: string; action?: Reac
   );
 }
 
-function FilterPanelBody({ filters, onChange, defaultUserTypes, countryOptions, typeCounts }: IMapFiltersProps) {
+function EventFilterGroups({ events }: { events: NonNullable<IMapFiltersProps['events']> }) {
+  const t = useTranslations('/map');
+  const { filters, onChange, typeCounts } = events;
+  return (
+    <>
+      <FilterGroup title={t('filterGroupEventTime')}>
+        <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={t('filterGroupEventTime')}>
+          {EVENT_TIME_WINDOWS.map(w => (
+            <ChipToggle key={w} pressed={filters.time === w} onClick={() => onChange({ ...filters, time: w })} testId={`map-filter-etime-${w}`}>
+              {t(TIME_LABEL_KEYS[w])}
+            </ChipToggle>
+          ))}
+        </div>
+      </FilterGroup>
+      <FilterGroup title={t('filterGroupEventType')}>
+        <div className="flex flex-wrap gap-2">
+          {MAP_EVENT_TYPES.map(type => (
+            <ChipToggle key={type} pressed={filters.types.includes(type)} onClick={() => onChange({ ...filters, types: toggle(filters.types, type) })} testId={`map-filter-etype-${type}`}>
+              {type === EventType.MEETING ? <IconUsersGroup className="h-4 w-4" stroke={1.75} aria-hidden /> : <IconTrophy className="h-4 w-4" stroke={1.75} aria-hidden />}
+              {type === EventType.MEETING ? t('etypeMeet') : t('etypeComp')}
+              <span className="text-xs tabular-nums opacity-60">{typeCounts[type] ?? 0}</span>
+            </ChipToggle>
+          ))}
+          <ChipToggle pressed={filters.registrationOpenOnly} onClick={() => onChange({ ...filters, registrationOpenOnly: !filters.registrationOpenOnly })} testId="map-filter-eregopen">
+            <IconTicket className="h-4 w-4" stroke={1.75} aria-hidden />
+            {t('filterRegOpen')}
+          </ChipToggle>
+        </div>
+        <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
+          <IconInfoCircle className="mt-px h-3.5 w-3.5 shrink-0" stroke={1.75} aria-hidden />
+          {t('filterEventsOnlineHint')}
+        </p>
+      </FilterGroup>
+    </>
+  );
+}
+
+function FilterPanelBody(props: IMapFiltersProps) {
+  const { events } = props;
+  const showPeople = !events || events.layer !== 'events';
+  const showEvents = Boolean(events) && events!.layer !== 'people';
+  return (
+    <div className="flex flex-col gap-5">
+      {showEvents && <EventFilterGroups events={events!} />}
+      {showEvents && showPeople && <div className="-my-1 border-t border-border" aria-hidden />}
+      {showPeople && <PeopleFilterGroups {...props} />}
+    </div>
+  );
+}
+
+function PeopleFilterGroups({ filters, onChange, defaultUserTypes, countryOptions, typeCounts }: IMapFiltersProps) {
   const t = useTranslations('/map');
   const visibleTypes = getVisibleTypes(defaultUserTypes, typeCounts);
   const allTypesSelected = visibleTypes.every(type => filters.userTypes.includes(type));
 
   return (
-    <div className="flex flex-col gap-5">
+    <>
       <FilterGroup
         title={t('filterGroupType')}
         action={
@@ -152,11 +227,11 @@ function FilterPanelBody({ filters, onChange, defaultUserTypes, countryOptions, 
           </Select>
         </FilterGroup>
       )}
-    </div>
+    </>
   );
 }
 
-function PanelFooter({ onReset, onDone, canReset, resultCount }: { onReset: () => void; onDone: () => void; canReset: boolean; resultCount: number }) {
+function PanelFooter({ onReset, onDone, canReset, resultCount, generic }: { onReset: () => void; onDone: () => void; canReset: boolean; resultCount: number; generic?: boolean }) {
   const t = useTranslations('/map');
   return (
     <div className="flex items-center justify-between gap-2">
@@ -164,14 +239,14 @@ function PanelFooter({ onReset, onDone, canReset, resultCount }: { onReset: () =
         {t('filterClearAll')}
       </Button>
       <Button type="button" variant="action" className={cn(ctaActionButtonClassName, 'h-10 min-w-0! px-5 text-sm')} onClick={onDone} data-testid="map-filters-done">
-        {t('btnShowResults', { count: resultCount })}
+        {generic ? t('btnShowResultsGeneric', { count: resultCount }) : t('btnShowResults', { count: resultCount })}
       </Button>
     </div>
   );
 }
 
 export function MapFilters(props: IMapFiltersProps) {
-  const { filters, onChange, onReset, defaultUserTypes, defaultGenders, countryOptions, typeCounts, resultCount, totalCount } = props;
+  const { filters, onChange, onReset, defaultUserTypes, defaultGenders, countryOptions, typeCounts, resultCount, totalCount, events } = props;
   const t = useTranslations('/map');
   const isSmUp = useIsSmUp();
   const [open, setOpen] = useState(false);
@@ -180,12 +255,30 @@ export function MapFilters(props: IMapFiltersProps) {
   const selectedVisibleTypes = visibleTypes.filter(type => filters.userTypes.includes(type));
   const typesChanged = selectedVisibleTypes.length !== visibleTypes.length;
   const gendersChanged = !sameSet(filters.genders, defaultGenders);
-  const activeCount = (filters.countryCode ? 1 : 0) + (typesChanged ? 1 : 0) + (gendersChanged ? 1 : 0);
-  const canReset = activeCount > 0 || Boolean(filters.name.trim());
+  const showPeople = !events || events.layer !== 'events';
+  const showEvents = Boolean(events) && events!.layer !== 'people';
+  const evChanged = events ? eventFiltersChanged(events.filters) : { time: false, types: false, reg: false };
+  const peopleActive = showPeople ? (filters.countryCode ? 1 : 0) + (typesChanged ? 1 : 0) + (gendersChanged ? 1 : 0) : 0;
+  const eventsActive = showEvents ? (evChanged.time ? 1 : 0) + (evChanged.types ? 1 : 0) + (evChanged.reg ? 1 : 0) : 0;
+  const activeCount = peopleActive + eventsActive;
+  const canReset = activeCount > 0 || Boolean(filters.name.trim()) || (events ? events.layer !== 'all' : false);
+  const panelResultCount = (showPeople ? resultCount : 0) + (showEvents ? events!.resultCount : 0);
 
   // removable chips for what is currently narrowing the map
   const activeChips = useMemo(() => {
     const chips: { key: string; label: ReactNode; clear: () => void }[] = [];
+    if (events && showEvents) {
+      const ev = events.filters;
+      if (evChanged.time) chips.push({ key: 'etime', label: t(TIME_LABEL_KEYS[ev.time]), clear: () => events.onChange({ ...ev, time: DEFAULT_EVENT_FILTERS.time }) });
+      if (evChanged.types)
+        chips.push({
+          key: 'etypes',
+          label: ev.types.length === 1 ? (ev.types[0] === EventType.MEETING ? t('etypeMeet') : t('etypeComp')) : t('filterChipNoEventType'),
+          clear: () => events.onChange({ ...ev, types: [...DEFAULT_EVENT_FILTERS.types] }),
+        });
+      if (evChanged.reg) chips.push({ key: 'ereg', label: t('filterRegOpen'), clear: () => events.onChange({ ...ev, registrationOpenOnly: false }) });
+    }
+    if (!showPeople) return chips;
     if (filters.countryCode) {
       const name = countryOptions.find(c => c.code === filters.countryCode)?.name ?? filters.countryCode;
       chips.push({
@@ -212,7 +305,18 @@ export function MapFilters(props: IMapFiltersProps) {
       chips.push({ key: 'gender', label, clear: () => onChange({ ...filters, genders: [...defaultGenders] }) });
     }
     return chips;
-  }, [filters, countryOptions, typesChanged, selectedVisibleTypes, gendersChanged, defaultUserTypes, defaultGenders, onChange, t]);
+  }, [filters, countryOptions, typesChanged, selectedVisibleTypes, gendersChanged, defaultUserTypes, defaultGenders, onChange, t, events, showEvents, showPeople, evChanged.time, evChanged.types, evChanged.reg]);
+
+  const peopleLine = resultCount === totalCount ? t('resultsCount', { count: resultCount }) : t('resultsCountOf', { count: resultCount, total: totalCount });
+  const resultLine = !events
+    ? peopleLine
+    : events.layer === 'people'
+      ? peopleLine
+      : events.layer === 'events'
+        ? t('resultsEvents', { count: events.resultCount })
+        : `${t('resultsPeopleShort', { count: resultCount })} · ${t('resultsEventsShort', { count: events.resultCount })}`;
+
+  const searchPlaceholder = events && events.layer !== 'people' ? (events.layer === 'events' ? t('inputSearchPlaceholderEvents') : t('inputSearchPlaceholderAll')) : t('inputSearchPlaceholder');
 
   const trigger = (
     <button
@@ -240,8 +344,8 @@ export function MapFilters(props: IMapFiltersProps) {
             <IconSearch className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" stroke={1.75} aria-hidden />
             <Input
               type="search"
-              placeholder={t('inputSearchPlaceholder')}
-              aria-label={t('inputSearchPlaceholder')}
+              placeholder={searchPlaceholder}
+              aria-label={searchPlaceholder}
               value={filters.name}
               onChange={event => onChange({ ...filters, name: event.target.value })}
               className="h-10 w-full min-w-0 rounded-xl border-transparent bg-muted/60 pl-9 shadow-none focus-visible:bg-background"
@@ -261,7 +365,7 @@ export function MapFilters(props: IMapFiltersProps) {
               >
                 <FilterPanelBody {...props} />
                 <div className="border-t border-border pt-3">
-                  <PanelFooter onReset={onReset} onDone={() => setOpen(false)} canReset={canReset} resultCount={resultCount} />
+                  <PanelFooter onReset={onReset} onDone={() => setOpen(false)} canReset={canReset} resultCount={panelResultCount} generic={showEvents} />
                 </div>
               </PopoverContent>
             </Popover>
@@ -281,12 +385,12 @@ export function MapFilters(props: IMapFiltersProps) {
                       <IconX className="h-5 w-5" stroke={1.75} />
                     </DialogPrimitive.Close>
                   </div>
-                  <DialogPrimitive.Description className="sr-only">{t('resultsCount', { count: resultCount })}</DialogPrimitive.Description>
+                  <DialogPrimitive.Description className="sr-only">{resultLine}</DialogPrimitive.Description>
                   <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-4">
                     <FilterPanelBody {...props} />
                   </div>
                   <div className="border-t border-border px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] pt-3">
-                    <PanelFooter onReset={onReset} onDone={() => setOpen(false)} canReset={canReset} resultCount={resultCount} />
+                    <PanelFooter onReset={onReset} onDone={() => setOpen(false)} canReset={canReset} resultCount={panelResultCount} generic={showEvents} />
                   </div>
                 </DialogPrimitive.Content>
               </DialogPrimitive.Portal>
@@ -294,9 +398,33 @@ export function MapFilters(props: IMapFiltersProps) {
           )}
         </div>
 
+        {events && (
+          <div className="mt-1.5 grid grid-cols-3 gap-1 rounded-xl bg-muted/60 p-1" role="radiogroup" aria-label={t('layerLabel')} data-testid="map-layer-switch">
+            {MAP_LAYERS.map(layer => (
+              <button
+                key={layer}
+                type="button"
+                role="radio"
+                aria-checked={events.layer === layer}
+                onClick={() => events.onLayerChange(layer)}
+                data-testid={`map-layer-${layer}`}
+                className={cn(
+                  'inline-flex h-8 min-w-0 items-center justify-center gap-1 truncate rounded-lg px-2 text-xs font-semibold transition-colors sm:text-[0.8rem]',
+                  events.layer === layer ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground',
+                )}
+              >
+                {layer === 'all' ? t('layerAll') : layer === 'people' ? t('layerPeople') : t('layerEvents')}
+                {layer === 'events' && (
+                  <span className={cn('rounded-full px-1.5 text-[0.65rem] tabular-nums', events.layer === layer ? 'bg-brand text-brand-foreground' : 'bg-background text-muted-foreground')}>{events.resultCount}</span>
+                )}
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className="flex items-center justify-between gap-2 px-1.5 pb-0.5 pt-1.5 text-xs text-muted-foreground">
           <span aria-live="polite" data-testid="map-result-count">
-            {resultCount === totalCount ? t('resultsCount', { count: resultCount }) : t('resultsCountOf', { count: resultCount, total: totalCount })}
+            {resultLine}
           </span>
           {canReset && (
             <button type="button" onClick={onReset} className="font-semibold text-brand-strong hover:underline">
