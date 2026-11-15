@@ -380,8 +380,9 @@ const Map = ({
     const projection = map?.getProjection();
     if (!map || !projection) return;
     const height = map.getDiv().clientHeight;
-    // desktop: pin ~120px from the top so the card below it fits; mobile: pin between toolbar (~170px) and sheet (~400px)
-    const offsetPx = isSmUp ? Math.max(0, height / 2 - 120) : Math.max(0, (400 - 170) / 2);
+    // desktop: pin tip ~120px from the top so the card below it fits; mobile: pin (≈55px tall incl. date badge)
+    // between the floating toolbar (~170px) and the bottom sheet
+    const offsetPx = isSmUp ? Math.max(0, height / 2 - 120) : 80;
     const point = projection.fromLatLngToPoint(pos);
     if (!point) return;
     const scale = 2 ** (map.getZoom() ?? currentZoom);
