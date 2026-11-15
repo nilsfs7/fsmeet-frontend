@@ -20,6 +20,7 @@ import { getTrainingBaseUrl } from '@/lib/training-url';
 import { IconArrowRight, IconArrowUpRight, IconInfoCircle, IconMap2, IconSpeakerphone, IconStopwatch, IconUsers } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
 import { headers } from 'next/headers';
+import { getRequestOrigin } from '@/lib/request-origin';
 import { HomeFooter } from '@/components/footer/home-footer';
 import { routeAppDownload } from '@/domain/constants/routes';
 
@@ -39,10 +40,7 @@ export default async function Home() {
   }
 
   // QR target: this deployment's `/app` store redirect (fsmeet.com, lora, local …)
-  const requestHeaders = await headers();
-  const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'fsmeet.com';
-  const proto = requestHeaders.get('x-forwarded-proto') ?? (host.startsWith('localhost') ? 'http' : 'https');
-  const appQrUrl = `${proto}://${host}${routeAppDownload}`;
+  const appQrUrl = `${getRequestOrigin(await headers())}${routeAppDownload}`;
 
   const voiceUrl = getVoiceBaseUrl();
   const trainingUrl = getTrainingBaseUrl();
