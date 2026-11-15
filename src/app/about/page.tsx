@@ -1,4 +1,5 @@
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import { heroSurfaceClassName } from '@/lib/hero-surface';
 import ActionButton from '@/components/common/action-button';
 import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint, routeTermsOfService } from '@/domain/constants/routes';
@@ -167,6 +168,7 @@ export default async function About() {
               </Link>
             ))}
           </nav>
+          <SiteFooter className="pt-2" />
         </PageInset>
       </div>
 

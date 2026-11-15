@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { routeEventNotFound, routeEvents } from '@/domain/constants/routes';
 import { notFound } from 'next/navigation';
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import { TabsMenu } from './components/tabs-menu';
 import { auth } from '@/auth';
 import { getComments, getEvent } from '@/infrastructure/clients/event.client';
@@ -97,8 +98,8 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <JsonLd data={buildEventJsonLd(event)} />
 
-      <div className="min-h-0 flex-1 overflow-y-auto">
-        <div className={cn('flex flex-col gap-4 pb-8 pt-4 sm:gap-6 sm:pt-6', constrainedContentClass)}>
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        <div className={cn('flex flex-1 flex-col gap-4 pb-8 pt-4 sm:gap-6 sm:pt-6', constrainedContentClass)}>
           {isEventAdminOrMaintainer(event, session) && <AdminPanel event={event} competitions={competitions} />}
 
           <EventHero event={event} eventAdmin={eventAdmin} />
@@ -113,6 +114,8 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
               <TabsMenu event={event} competitions={competitions} sponsors={sponsors} attachments={attachments} comments={comments} />
             </div>
           </div>
+
+          <SiteFooter className="pt-4" />
         </div>
       </div>
 

@@ -1,4 +1,5 @@
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import ActionButton from '@/components/common/action-button';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
@@ -66,6 +67,7 @@ export default async function Users() {
           <p className="max-w-[44rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
         </div>
         <UsersList columnData={columnData} />
+        <SiteFooter />
       </div>
 
       <Navigation>

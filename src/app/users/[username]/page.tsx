@@ -1,5 +1,6 @@
 import { IconMapPin } from '@tabler/icons-react';
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import ActionButton from '@/components/common/action-button';
 import { imgUserDefaultImg, imgVerifiedCheckmark } from '@/domain/constants/images';
 import { routeAccount, routeMap, routeUsers } from '@/domain/constants/routes';
@@ -143,6 +144,7 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
             {user.type === UserType.FREESTYLER && <ProfileCompetitionHistory username={params.username} />}
           </div>
         </div>
+        <SiteFooter />
       </div>
 
       <Navigation>

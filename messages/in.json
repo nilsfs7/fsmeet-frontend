@@ -1740,5 +1740,18 @@
   "global/components/advertisement-card": {
     "readMore": "और पढ़ें",
     "sponsored": "प्रायोजित"
+  },
+  "global/components/site-footer": {
+    "legalNav": "कानूनी",
+    "linkImprint": "इम्प्रिंट",
+    "linkTerms": "शर्तें",
+    "linkPrivacy": "गोपनीयता",
+    "badgeAppStore": "App Store से डाउनलोड करें",
+    "badgeGooglePlay": "Google Play पर पाएं",
+    "appEyebrow": "मोबाइल ऐप",
+    "appHeadline": "FSMeet आपकी जेब में",
+    "appText": "इवेंट्स, नतीजे और आपके रजिस्ट्रेशन, हमेशा आपके साथ। iPhone और Android के लिए मुफ़्त FSMeet ऐप पाएं।",
+    "qrTitle": "FSMeet ऐप का QR कोड",
+    "qrHint": "ऐप पाने के लिए फ़ोन से स्कैन करें"
   }
 }

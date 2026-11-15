@@ -1740,5 +1740,18 @@
   "global/components/advertisement-card": {
     "readMore": "En savoir plus",
     "sponsored": "sponsorisé"
+  },
+  "global/components/site-footer": {
+    "legalNav": "Mentions légales",
+    "linkImprint": "Mentions légales",
+    "linkTerms": "Conditions",
+    "linkPrivacy": "Confidentialité",
+    "badgeAppStore": "Télécharger dans l'App Store",
+    "badgeGooglePlay": "Disponible sur Google Play",
+    "appEyebrow": "Application mobile",
+    "appHeadline": "FSMeet dans ta poche",
+    "appText": "Événements, résultats et tes inscriptions, toujours avec toi. Télécharge l'application FSMeet gratuite pour iPhone et Android.",
+    "qrTitle": "Code QR vers l'application FSMeet",
+    "qrHint": "Scanne avec ton téléphone pour obtenir l'application"
   }
 }

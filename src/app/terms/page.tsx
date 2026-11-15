@@ -1,4 +1,5 @@
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
@@ -15,6 +16,7 @@ export default async function TermsPage() {
 
       <PageInset variant="prose" className="flex min-h-0 min-w-0 flex-1 flex-col overflow-y-auto scrollbar-none">
         <TermsOfServiceText />
+        <SiteFooter />
       </PageInset>
 
       <Navigation>

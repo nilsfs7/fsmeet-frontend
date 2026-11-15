@@ -24,6 +24,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ChevronDown } from 'lucide-react';
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
+import { SiteFooter } from '@/components/footer/site-footer';
 import { EventType } from '@/domain/enums/event-type';
 import { EventCategory } from '@/domain/enums/event-category';
 
@@ -258,8 +259,8 @@ export const EventsList = () => {
         </div>
       </div>
 
-      <div className="mt-4 min-h-0 flex-1 overflow-y-auto pb-6 scrollbar-none">
-        <div className="mx-auto w-full max-w-content px-4 sm:px-6 md:px-8">
+      <div className="mt-4 flex min-h-0 flex-1 flex-col overflow-y-auto pb-6 scrollbar-none">
+        <div className="mx-auto flex w-full max-w-content flex-1 flex-col px-4 sm:px-6 md:px-8">
           <div className={cn('grid grid-cols-1 gap-6', showDesktopSideGrid && 'lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start')}>
             <div className="flex min-w-0 flex-col gap-3">
               {/* filter toolbar, aligned with the list column */}
@@ -433,6 +434,8 @@ export const EventsList = () => {
               </aside>
             )}
           </div>
+
+          <SiteFooter />
         </div>
       </div>
     </>

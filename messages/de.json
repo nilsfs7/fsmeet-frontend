@@ -1740,5 +1740,18 @@
   "global/components/advertisement-card": {
     "readMore": "Mehr erfahren",
     "sponsored": "gesponsert"
+  },
+  "global/components/site-footer": {
+    "legalNav": "Rechtliches",
+    "linkImprint": "Impressum",
+    "linkTerms": "AGB",
+    "linkPrivacy": "Datenschutz",
+    "badgeAppStore": "Laden im App Store",
+    "badgeGooglePlay": "Jetzt bei Google Play",
+    "appEyebrow": "Mobile App",
+    "appHeadline": "FSMeet für die Hosentasche",
+    "appText": "Events, Ergebnisse und deine Anmeldungen immer dabei. Hol dir die kostenlose FSMeet App für iPhone und Android.",
+    "qrTitle": "QR-Code zur FSMeet App",
+    "qrHint": "Mit dem Handy scannen und die App laden"
   }
 }

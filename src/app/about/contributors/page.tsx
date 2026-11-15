@@ -1,4 +1,5 @@
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
@@ -106,6 +107,7 @@ export default async function Contributors() {
             colContribution={t('tableColProposal')}
             lnkAnnouncement={t('lnkAnnouncement')}
           />
+          <SiteFooter className="pt-2" />
         </PageInset>
       </div>
 

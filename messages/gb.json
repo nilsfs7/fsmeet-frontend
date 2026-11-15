@@ -1740,5 +1740,18 @@
   "global/components/advertisement-card": {
     "readMore": "Read more",
     "sponsored": "sponsored"
+  },
+  "global/components/site-footer": {
+    "legalNav": "Legal",
+    "linkImprint": "Imprint",
+    "linkTerms": "Terms",
+    "linkPrivacy": "Privacy",
+    "badgeAppStore": "Download on the App Store",
+    "badgeGooglePlay": "Get it on Google Play",
+    "appEyebrow": "Mobile app",
+    "appHeadline": "FSMeet in your pocket",
+    "appText": "Events, results and your registrations, always with you. Get the free FSMeet app for iPhone and Android.",
+    "qrTitle": "QR code to the FSMeet app",
+    "qrHint": "Scan with your phone to get the app"
   }
 }

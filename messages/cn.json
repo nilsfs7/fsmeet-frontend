@@ -1740,5 +1740,18 @@
   "global/components/advertisement-card": {
     "readMore": "了解更多",
     "sponsored": "赞助"
+  },
+  "global/components/site-footer": {
+    "legalNav": "法律信息",
+    "linkImprint": "法律声明",
+    "linkTerms": "条款",
+    "linkPrivacy": "隐私",
+    "badgeAppStore": "在 App Store 下载",
+    "badgeGooglePlay": "在 Google Play 上获取",
+    "appEyebrow": "移动应用",
+    "appHeadline": "口袋里的 FSMeet",
+    "appText": "活动、成绩和你的报名，随时随地掌握。免费下载适用于 iPhone 和 Android 的 FSMeet 应用。",
+    "qrTitle": "FSMeet 应用二维码",
+    "qrHint": "用手机扫描即可获取应用"
   }
 }
