@@ -6,7 +6,9 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import LocalizationProvider from '@/lib/providers';
 import { AppShellColumn } from '@/components/layout/app-shell-column';
+import { Suspense } from 'react';
 import { AppHeader } from '@/components/header';
+import { AppHeaderGate } from '@/components/layout/app-header-gate';
 import { cn } from '@/lib/utils';
 import { getSiteUrl } from '@/lib/site-url';
 import { htmlLangForLocale } from '@/i18n/locales';
@@ -50,7 +52,10 @@ export default async function RootLayout({
             <LocalizationProvider>
               <NextIntlClientProvider messages={messages}>
                 <AppShellColumn>
-                  <AppHeader />
+                  {/* no header for embeds (`/map?iframe=1`); see AppHeaderGate */}
+                  <Suspense fallback={<AppHeader />}>
+                    <AppHeaderGate />
+                  </Suspense>
                   {/* `relative` so `absolute inset-0` pages layer below the app bar, not over it */}
                   <div className="relative flex min-h-0 flex-1 flex-col">{children}</div>
                 </AppShellColumn>
