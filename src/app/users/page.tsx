@@ -66,8 +66,8 @@ export default async function Users() {
           <h1 className="text-heading-1">{t('pageTitle')}</h1>
           <p className="max-w-[44rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
         </div>
-        <UsersList columnData={columnData} />
-        <SiteFooter />
+        {/* the list is the scroll area; the footer is its last item */}
+        <UsersList columnData={columnData} footer={<SiteFooter className="pb-4" />} />
       </div>
 
       <Navigation>

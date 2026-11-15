@@ -144,7 +144,7 @@ export default async function PublicUserProfile(props: { params: Promise<{ usern
             {user.type === UserType.FREESTYLER && <ProfileCompetitionHistory username={params.username} />}
           </div>
         </div>
-        <SiteFooter />
+        <SiteFooter className="pb-6" />
       </div>
 
       <Navigation>
