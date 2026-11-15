@@ -2,6 +2,7 @@ import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { getUser, getUsers } from '@/infrastructure/clients/user.client';
+import { getMapEvents } from '@/infrastructure/clients/event.client';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { ActionButtonCopyUrl } from './components/action-button-copy-url';
@@ -15,7 +16,7 @@ import { AddMapPinButton } from './components/add-map-pin-button';
 import { getSupportedlanguages } from '../../functions/get-supported-languages';
 import { cn } from '@/lib/utils';
 
-export default async function Map(props: { searchParams: Promise<{ iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string }> }) {
+export default async function Map(props: { searchParams: Promise<{ iframe: string; locale: string; user: string; lat: string; lng: string; zoom: string; sv: string; layer: string; et: string; etype: string; ereg: string }> }) {
   const searchParams = await props.searchParams;
   let t = await getTranslations('/map');
   const session = await auth();
@@ -25,9 +26,11 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
   const streetViewEnabled = searchParams?.sv === '1';
   const iframeView = searchParams?.iframe === '1';
 
-  const [users, actingUser] = await Promise.all([
+  // events are only shown on fsmeet itself, not in the embeddable iframe map
+  const [users, actingUser, mapEvents] = await Promise.all([
     getUsers(undefined, undefined, undefined, undefined, undefined, true),
     session?.user.username ? getUser(session.user.username) : Promise.resolve(undefined),
+    iframeView ? Promise.resolve(undefined) : getMapEvents(),
   ]);
 
   // overwrite translation
@@ -58,6 +61,11 @@ export default async function Map(props: { searchParams: Promise<{ iframe: strin
           zoom={+searchParams?.zoom || 4}
           streetViewEnabled={streetViewEnabled}
           isIframe={iframeView}
+          events={mapEvents}
+          initialLayer={searchParams?.layer}
+          initialEventTime={searchParams?.et}
+          initialEventTypes={searchParams?.etype}
+          initialEventRegOpen={searchParams?.ereg}
         />
       </div>
 

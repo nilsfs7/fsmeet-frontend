@@ -1,6 +1,8 @@
 import { EventComment } from '@/domain/types/event-comment';
 import { Session } from 'next-auth';
 import { Event } from '@/domain/types/event';
+import { MapEvent } from '@/domain/types/map-event';
+import { EventType } from '@/domain/enums/event-type';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
 import { EventState } from '@/domain/enums/event-state';
 import { CreateEventRegistrationBodyDto } from './dtos/event/registration/create-event-registration.body.dto';
@@ -904,5 +906,62 @@ export async function updateArenaScreenBackgroundImage(eventId: string, image: F
   } else {
     const error = await response.json();
     throw Error(error.message);
+  }
+}
+
+/** Days back from today for the map query: `dateFrom` filters on an event's start, so ongoing multi-day events need some slack. */
+const MAP_EVENTS_LOOKBACK_DAYS = 14;
+
+/**
+ * Public events with a venue position for the freestyler map, trimmed to the map fields.
+ * Interim until the backend offers a light map endpoint: GET /v1/events?dateFrom=<today-14d>, then drop
+ * online events, events without coordinates and anything that isn't approved. Whether an event is still
+ * ongoing/upcoming is decided on the client (user's clock), so a cached response stays correct.
+ * Cached for 5 minutes; failures yield an empty list so the map still renders.
+ */
+/** coordinates may arrive as numbers or numeric strings; null/empty means "no position" */
+function hasCoordinate(v: unknown) {
+  return v !== null && v !== undefined && v !== '' && Number.isFinite(Number(v));
+}
+
+export async function getMapEvents(): Promise<MapEvent[]> {
+  const from = moment.utc().startOf('day').subtract(MAP_EVENTS_LOOKBACK_DAYS, 'days');
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?dateFrom=${from.format('YYYY-MM-DDTHH:mm:ss.SSS')}Z`;
+
+  try {
+    const response = await fetch(url, { method: 'GET', next: { revalidate: 300 } });
+    if (!response.ok) return [];
+    const events: Event[] = await response.json();
+
+    return events
+      .filter(
+        e =>
+          e.id &&
+          e.state === EventState.APPROVED &&
+          e.type !== EventType.COMPETITION_ONLINE &&
+          hasCoordinate(e.venueLatitude) &&
+          hasCoordinate(e.venueLongitude) &&
+          moment(e.dateTo).isSameOrAfter(from),
+      )
+      .map(e => ({
+        id: e.id as string,
+        alias: e.alias || null,
+        name: e.name,
+        type: e.type,
+        category: e.category,
+        isWffaRanked: e.isWffaRanked,
+        dateFrom: e.dateFrom,
+        dateTo: e.dateTo,
+        registrationOpen: e.registrationOpen,
+        registrationDeadline: e.registrationDeadline,
+        venueName: e.venueName,
+        venueCity: e.venueCity,
+        venueCountryCode: e.venueCountryCode,
+        lat: Number(e.venueLatitude),
+        lng: Number(e.venueLongitude),
+        imageUrlPoster: e.imageUrlPoster || null,
+      }));
+  } catch {
+    return [];
   }
 }
