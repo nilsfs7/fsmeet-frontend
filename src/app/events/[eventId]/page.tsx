@@ -15,6 +15,7 @@ import { getTranslations } from 'next-intl/server';
 import { ActionButtonCopyEventUrl } from './components/action-button-copy-event-url';
 import { EventFeedbackButton } from './components/event-feedback-button';
 import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
+import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import moment from 'moment';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
@@ -98,9 +99,9 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <JsonLd data={buildEventJsonLd(event)} />
 
-      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
-        <div className={cn('flex flex-1 flex-col gap-4 pb-8 pt-4 sm:gap-6 sm:pt-6', constrainedContentClass)}>
-          {isEventAdminOrMaintainer(event, session) && <AdminPanel event={event} competitions={competitions} />}
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className={cn('flex flex-col gap-4 pb-8 pt-4 sm:gap-6 sm:pt-6', constrainedContentClass)}>
+          {(session?.user?.username === AdministrativeUser.ADMIN || isEventAdminOrMaintainer(event, session)) && <AdminPanel event={event} competitions={competitions} />}
 
           <EventHero event={event} eventAdmin={eventAdmin} />
 
