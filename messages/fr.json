@@ -33,11 +33,7 @@
     "aboutText4": " ou en nous envoyant un message privé sur Instagram",
     "lnkDonate": "Faire un don",
     "lnkContributors": "Contributeurs",
-    "lnkImprint": "Mentions légales",
-    "lnkTermsOfService": "Conditions d'utilisation",
-    "lnkPrivacyPolicy": "Politique de confidentialité",
     "build": "Version",
-    "ariaLegal": "Mentions légales",
     "heroEyebrow": "À propos de FSMeet",
     "sectionGetInvolved": "Participe",
     "btnFeedback": "Envoyer un avis",
@@ -1740,5 +1736,18 @@
   "global/components/advertisement-card": {
     "readMore": "En savoir plus",
     "sponsored": "sponsorisé"
+  },
+  "global/components/site-footer": {
+    "legalNav": "Mentions légales",
+    "linkImprint": "Mentions légales",
+    "linkTerms": "Conditions",
+    "linkPrivacy": "Confidentialité",
+    "badgeAppStore": "Télécharger dans l'App Store",
+    "badgeGooglePlay": "Disponible sur Google Play",
+    "appEyebrow": "Application mobile",
+    "appHeadline": "FSMeet dans ta poche",
+    "appText": "Événements, résultats et tes inscriptions, toujours avec toi. Télécharge l'application FSMeet gratuite pour iPhone et Android.",
+    "qrTitle": "Code QR vers l'application FSMeet",
+    "qrHint": "Scanne avec ton téléphone pour obtenir l'application"
   }
 }

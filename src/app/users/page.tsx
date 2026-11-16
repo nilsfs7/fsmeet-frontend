@@ -1,4 +1,5 @@
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import ActionButton from '@/components/common/action-button';
 import { routeHome, routeMap } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
@@ -65,7 +66,8 @@ export default async function Users() {
           <h1 className="text-heading-1">{t('pageTitle')}</h1>
           <p className="max-w-[44rem] text-balance text-sm text-muted-foreground sm:text-base">{t('pageDescription')}</p>
         </div>
-        <UsersList columnData={columnData} />
+        {/* the list is the scroll area; the footer is its last item */}
+        <UsersList columnData={columnData} footer={<SiteFooter className="pb-4" />} />
       </div>
 
       <Navigation>

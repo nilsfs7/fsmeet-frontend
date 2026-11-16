@@ -33,11 +33,7 @@
     "aboutText4": "またはInstagramのDMからお願いします。",
     "lnkDonate": "寄付",
     "lnkContributors": "協力者",
-    "lnkImprint": "運営者情報",
-    "lnkTermsOfService": "利用規約",
-    "lnkPrivacyPolicy": "プライバシーポリシー",
     "build": "バージョン",
-    "ariaLegal": "法的情報",
     "heroEyebrow": "FSMeetについて",
     "sectionGetInvolved": "参加しよう",
     "btnFeedback": "フィードバックを送る",
@@ -1740,5 +1736,18 @@
   "global/components/advertisement-card": {
     "readMore": "詳しく見る",
     "sponsored": "スポンサー"
+  },
+  "global/components/site-footer": {
+    "legalNav": "法的情報",
+    "linkImprint": "運営者情報",
+    "linkTerms": "利用規約",
+    "linkPrivacy": "プライバシー",
+    "badgeAppStore": "App Store からダウンロード",
+    "badgeGooglePlay": "Google Play で手に入れよう",
+    "appEyebrow": "モバイルアプリ",
+    "appHeadline": "FSMeet をポケットに",
+    "appText": "イベント、結果、エントリー状況をいつでも手元に。iPhone と Android 向けの無料 FSMeet アプリをどうぞ。",
+    "qrTitle": "FSMeet アプリの QR コード",
+    "qrHint": "スマホでスキャンしてアプリを入手"
   }
 }

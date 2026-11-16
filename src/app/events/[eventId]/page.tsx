@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { routeEventNotFound, routeEvents } from '@/domain/constants/routes';
 import { notFound } from 'next/navigation';
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import { TabsMenu } from './components/tabs-menu';
 import { auth } from '@/auth';
 import { getComments, getEvent } from '@/infrastructure/clients/event.client';
@@ -114,6 +115,8 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
               <TabsMenu event={event} competitions={competitions} sponsors={sponsors} attachments={attachments} comments={comments} />
             </div>
           </div>
+
+          <SiteFooter className="pt-4" />
         </div>
       </div>
 

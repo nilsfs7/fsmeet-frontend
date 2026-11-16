@@ -19,6 +19,10 @@ import { getVoiceBaseUrl } from '@/lib/voice-url';
 import { getTrainingBaseUrl } from '@/lib/training-url';
 import { IconArrowRight, IconArrowUpRight, IconInfoCircle, IconMap2, IconSpeakerphone, IconStopwatch, IconUsers } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
+import { headers } from 'next/headers';
+import { getRequestOrigin } from '@/lib/request-origin';
+import { HomeFooter } from '@/components/footer/home-footer';
+import { routeAppDownload } from '@/domain/constants/routes';
 
 export default async function Home() {
   const [t, session, upcomingEvents, ongoingEvents, recentEvents, fetauredEvents] = await Promise.all([
@@ -34,6 +38,9 @@ export default async function Home() {
   if (session?.user.username) {
     actingUser = await getUser(session.user.username);
   }
+
+  // QR target: this deployment's `/app` store redirect (fsmeet.com, lora, local …)
+  const appQrUrl = `${getRequestOrigin(await headers())}${routeAppDownload}`;
 
   const voiceUrl = getVoiceBaseUrl();
   const trainingUrl = getTrainingBaseUrl();
@@ -124,6 +131,8 @@ export default async function Home() {
               ))}
             </div>
           </section>
+
+          <HomeFooter qrUrl={appQrUrl} />
         </PageInset>
       </div>
     </div>

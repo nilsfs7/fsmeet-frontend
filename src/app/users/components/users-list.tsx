@@ -41,6 +41,8 @@ const COUNTRIES_MAP = countries as Record<string, { name: string }>;
 
 interface IUsersList {
   columnData: ColumnInfo[];
+  /** Rendered as the last item inside the list's scroll area (pushed to the bottom when the list is short). */
+  footer?: React.ReactNode;
 }
 
 export type UserInfo = {
@@ -95,7 +97,7 @@ function HeaderSortButton<TData>({ column, label, title, 'aria-label': ariaLabel
   );
 }
 
-export const UsersList = ({ columnData }: IUsersList) => {
+export const UsersList = ({ columnData, footer }: IUsersList) => {
   const t = useTranslations('/users');
   const tEvents = useTranslations('/events');
 
@@ -607,6 +609,8 @@ export const UsersList = ({ columnData }: IUsersList) => {
           </div>
         </div>
       )}
+
+      {footer}
     </div>
   );
 };
