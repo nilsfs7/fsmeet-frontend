@@ -33,11 +33,7 @@
     "aboutText4": " atau hantarkan DM kepada kami di Instagram.",
     "lnkDonate": "Derma",
     "lnkContributors": "Penyumbang",
-    "lnkImprint": "Imprint",
-    "lnkTermsOfService": "Terma perkhidmatan",
-    "lnkPrivacyPolicy": "Dasar Privasi",
     "build": "Binaan",
-    "ariaLegal": "Perundangan",
     "heroEyebrow": "Tentang FSMeet",
     "sectionGetInvolved": "Sertai kami",
     "btnFeedback": "Hantar maklum balas",
@@ -1740,5 +1736,18 @@
   "global/components/advertisement-card": {
     "readMore": "Baca lagi",
     "sponsored": "ditaja"
+  },
+  "global/components/site-footer": {
+    "legalNav": "Undang-undang",
+    "linkImprint": "Imprint",
+    "linkTerms": "Terma",
+    "linkPrivacy": "Privasi",
+    "badgeAppStore": "Muat turun di App Store",
+    "badgeGooglePlay": "Dapatkan di Google Play",
+    "appEyebrow": "Aplikasi mudah alih",
+    "appHeadline": "FSMeet dalam poket anda",
+    "appText": "Acara, keputusan dan pendaftaran anda, sentiasa bersama anda. Dapatkan aplikasi FSMeet percuma untuk iPhone dan Android.",
+    "qrTitle": "Kod QR ke aplikasi FSMeet",
+    "qrHint": "Imbas dengan telefon anda untuk mendapatkan aplikasi"
   }
 }

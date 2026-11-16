@@ -1,5 +1,6 @@
 import { IconCreditCard, IconCurrencyBitcoin, IconHeart } from '@tabler/icons-react';
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import PageTitle from '@/components/page-title';
 import ActionButton from '@/components/common/action-button';
 import { routeAbout } from '@/domain/constants/routes';
@@ -59,6 +60,7 @@ export default async function Donate() {
             </section>
           </div>
         </div>
+        <SiteFooter />
       </PageInset>
 
       <Navigation>

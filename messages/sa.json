@@ -33,11 +33,7 @@
     "aboutText4": " أو مراسلتنا برسالة خاصة على إنستغرام.",
     "lnkDonate": "تبرع",
     "lnkContributors": "المساهمون",
-    "lnkImprint": "بيانات النشر",
-    "lnkTermsOfService": "شروط الخدمة",
-    "lnkPrivacyPolicy": "سياسة الخصوصية",
     "build": "الإصدار",
-    "ariaLegal": "قانوني",
     "heroEyebrow": "حول FSMeet",
     "sectionGetInvolved": "شارك معنا",
     "btnFeedback": "أرسل ملاحظاتك",
@@ -1740,5 +1736,18 @@
   "global/components/advertisement-card": {
     "readMore": "اقرأ المزيد",
     "sponsored": "ممول"
+  },
+  "global/components/site-footer": {
+    "legalNav": "قانوني",
+    "linkImprint": "بيانات الناشر",
+    "linkTerms": "الشروط",
+    "linkPrivacy": "الخصوصية",
+    "badgeAppStore": "حمّله من App Store",
+    "badgeGooglePlay": "احصل عليه من Google Play",
+    "appEyebrow": "تطبيق الجوال",
+    "appHeadline": "FSMeet في جيبك",
+    "appText": "الفعاليات والنتائج وتسجيلاتك معك دائمًا. احصل على تطبيق FSMeet المجاني لأجهزة iPhone وAndroid.",
+    "qrTitle": "رمز QR لتطبيق FSMeet",
+    "qrHint": "امسح الرمز بهاتفك للحصول على التطبيق"
   }
 }

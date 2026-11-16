@@ -1,7 +1,8 @@
 import Navigation from '@/components/navigation';
+import { SiteFooter } from '@/components/footer/site-footer';
 import { heroSurfaceClassName } from '@/lib/hero-surface';
 import ActionButton from '@/components/common/action-button';
-import { routeContributors, routeDataProtection, routeDonate, routeFeedback, routeHome, routeImprint, routeTermsOfService } from '@/domain/constants/routes';
+import { routeContributors, routeDonate, routeFeedback, routeHome } from '@/domain/constants/routes';
 import { Action } from '@/domain/enums/action';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
@@ -44,8 +45,8 @@ export default async function About() {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="min-h-0 flex-1 overflow-y-auto">
-        <PageInset className="flex flex-col gap-6 pb-6 pt-4 sm:gap-8 sm:pt-8">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        <PageInset className="flex flex-1 flex-col gap-6 pb-6 pt-4 sm:gap-8 sm:pt-8">
           {/* hero */}
           <section className={cn(heroSurfaceClassName, 'px-6 py-10 sm:px-10 sm:py-12')}>
             <div className="relative flex max-w-2xl flex-col gap-4">
@@ -156,17 +157,7 @@ export default async function About() {
             </AboutCard>
           </div>
 
-          <nav className="flex flex-wrap items-center justify-center gap-2 border-t border-border pt-6" aria-label={t('ariaLegal')}>
-            {[
-              { href: routeImprint, label: t('lnkImprint') },
-              { href: routeTermsOfService, label: t('lnkTermsOfService') },
-              { href: routeDataProtection, label: t('lnkPrivacyPolicy') },
-            ].map(l => (
-              <Link key={l.href} href={l.href} className="rounded-full px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-                {l.label}
-              </Link>
-            ))}
-          </nav>
+          <SiteFooter className="pt-2" />
         </PageInset>
       </div>
 

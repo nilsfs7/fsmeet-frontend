@@ -44,3 +44,6 @@ export const routeUsers = '/users';
 export const routeMap = '/map';
 
 export const routeStatistics = '/stats';
+
+/** Smart redirect to the right app store (used by the QR code in the Home app section). */
+export const routeAppDownload = '/app';
