@@ -1,5 +1,4 @@
 import { EventType } from '@/domain/enums/event-type';
-import { Moment } from 'moment';
 import { CreateEventMaintainerBodyDto } from './create-event-maintainer.body.dto';
 import { CreatePaymentMethodCashBodyDto } from './payment/create-payment-method-cash.body.dto';
 import { CreatePaymentMethodSepaBodyDto } from './payment/create-payment-method-sepa.body.dto';
@@ -11,14 +10,14 @@ export class CreateEventBodyDto {
   name: string;
   alias: string;
   maintainers: CreateEventMaintainerBodyDto[];
-  dateFrom: Moment;
-  dateTo: Moment;
+  dateFrom: string;
+  dateTo: string;
   participationFee: number;
   enableVisitorRegistration: boolean;
   visitorFee: number;
   currency: CurrencyCode;
-  registrationOpen: Moment;
-  registrationDeadline: Moment;
+  registrationOpen: string;
+  registrationDeadline: string;
   description: string;
   venueName: string;
   venueHouseNo: string;
@@ -52,14 +51,14 @@ export class CreateEventBodyDto {
     name: string,
     alias: string,
     maintainers: CreateEventMaintainerBodyDto[],
-    dateFrom: Moment,
-    dateTo: Moment,
+    dateFrom: string,
+    dateTo: string,
     participationFee: number,
     enableVisitorRegistration: boolean,
     visitorFee: number,
     currency: CurrencyCode,
-    registrationOpen: Moment,
-    registrationDeadline: Moment,
+    registrationOpen: string,
+    registrationDeadline: string,
     description: string,
     venueName: string,
     venueHouseNo: string,

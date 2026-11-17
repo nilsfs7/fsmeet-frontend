@@ -4,7 +4,6 @@ import { Session } from 'next-auth';
 import { CreateRoundBodyDto } from './dtos/competition/create-round.body.dto';
 import { PutCompetitionOrderBodyDto } from './dtos/competition/put-competition-order.body.dto';
 import { CreateMatchBodyDto } from './dtos/competition/create-match.body.dto';
-import moment from 'moment';
 import { ReadPartialUser1ResponseDto } from './dtos/user/read-partial-user-1.response.dto';
 import { defaultHeaders } from './default-headers';
 import { createMatch } from '@/domain/types/match';
@@ -150,9 +149,9 @@ export async function createRounds(compId: string, rounds: Round[], session: Ses
   const body = JSON.stringify(
     rounds.map(round => {
       const matchDtos: CreateMatchBodyDto[] = round.matches.map(match => {
-        return new CreateMatchBodyDto(match.matchIndex, match.name, moment(match.time), match.isExtraMatch, match.slots);
+        return new CreateMatchBodyDto(match.matchIndex, match.name, match.time, match.isExtraMatch, match.slots);
       });
-      return new CreateRoundBodyDto(round.roundIndex, round.name, moment(round.date), round.timeLimit, matchDtos, round.advancingTotal);
+      return new CreateRoundBodyDto(round.roundIndex, round.name, round.date, round.timeLimit, matchDtos, round.advancingTotal);
     }),
   );
 

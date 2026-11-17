@@ -163,7 +163,7 @@ export const EventsList = () => {
   const loadForRange = useCallback((from: Moment, to: Moment) => {
     setLoadState('loading');
     setErrorMessage(null);
-    return getEvents(null, null, null, from, to)
+    return getEvents(null, null, null, from.toISOString(), to.toISOString())
       .then(data => {
         setEvents(Array.isArray(data) ? data : []);
         setLoadState('ok');
