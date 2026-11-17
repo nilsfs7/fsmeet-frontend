@@ -1,16 +1,8 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
-import {
-  imgAccommodation,
-  imgParticipantDrinks,
-  imgParticipantDrinksAndSnacks,
-  imgParticipantSnacks,
-  imgPrizeMoney,
-  imgUserDefaultImg,
-} from '@/domain/constants/images';
+import { imgAccommodation, imgParticipantDrinks, imgParticipantDrinksAndSnacks, imgParticipantSnacks, imgPrizeMoney } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
-import { getShortDateString } from '@/lib/format-date';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { QRCodeSVG } from 'qrcode.react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -22,17 +14,13 @@ import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import VideoDialog from '@/components/video-dialog';
 import { useRouter } from 'next/navigation';
-import { routeEvents, routeUsers } from '@/domain/constants/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { convertCurrencyIntegerToDecimal } from '@/functions/currency-conversion';
 import { getCurrencySymbol } from '@/functions/get-currency-symbol';
-import { isPublicEventState } from '@/functions/event-state';
-import Link from 'next/link';
 import { LocationMap } from '../../../../components/location-map';
-import { NotListedLabel } from '@/components/events/not-listed-label';
 import { cn } from '@/lib/utils';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { IconCalendarEvent, IconHourglassHigh, IconHourglassOff, IconMapPin, IconWorld } from '@tabler/icons-react';
 import { Size } from '@/domain/enums/size';
 
 const cardSurface = cn('h-fit min-w-0 overflow-hidden rounded-2xl border border-border bg-background shadow-xs');

@@ -18,7 +18,6 @@ import { EventComment } from '@/domain/types/event-comment';
 import { Sponsor } from '@/domain/types/sponsor';
 import { validateSession } from '@/functions/validate-session';
 import { createComment, createSubComment, deleteComment, deleteSubComment, getEventRegistrations } from '@/infrastructure/clients/event.client';
-import { Session } from 'next-auth';
 import { SponsorSection } from './sponsor-section';
 import { EventInfo } from './event-info';
 import { CommentSection } from './comment-section';
