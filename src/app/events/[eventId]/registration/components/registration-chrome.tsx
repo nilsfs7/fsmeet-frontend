@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import moment from 'moment';
+import { isSameDay } from 'date-fns';
 import type { ReactNode } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { IconCalendarEvent, IconCheck, IconMapPin, IconWorld } from '@tabler/icons-react';
@@ -12,14 +12,15 @@ import { EventPosterPlaceholder } from '@/components/events/event-type-icon';
 import { formatDateLong, formatDateRange } from '@/lib/format-date';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { LabeledStepper } from '@/components/common/labeled-stepper';
+import { toDate } from '@/lib/date';
 
 /** Compact event identity shown above every registration step. */
 export function RegistrationEventHeader({ event, title, children }: { event: Event; title: string; children?: ReactNode }) {
   const locale = useLocale();
   const tEvent = useTranslations('/events/eventid');
-  const from = moment(event.dateFrom);
-  const to = moment(event.dateTo);
-  const when = from.isSame(to, 'day') ? formatDateLong(from.toDate(), locale) : formatDateRange(from.toDate(), to.toDate(), locale);
+  const from = toDate(event.dateFrom);
+  const to = toDate(event.dateTo);
+  const when = isSameDay(from, to) ? formatDateLong(from, locale) : formatDateRange(from, to, locale);
   const isOnline = event.type === EventType.COMPETITION_ONLINE;
   const where = isOnline ? null : [event.venueCity, event.venueCountryCode && event.venueCountryCode !== '--' ? getCountryNameByCode(event.venueCountryCode) : undefined].filter(Boolean).join(', ');
   const hasPoster = !!event.imageUrlPoster;

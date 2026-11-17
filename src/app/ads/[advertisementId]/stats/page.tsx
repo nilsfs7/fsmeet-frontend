@@ -8,7 +8,7 @@ import { getTranslations } from 'next-intl/server';
 import { getAdvertisement, getAdvertisementActivity } from '@/infrastructure/clients/advertisement.client';
 import { auth } from '@/auth';
 import { Platform } from '@/domain/enums/platform';
-import moment from 'moment';
+import { formatLocalDate, parseYearMonth } from '@/lib/date';
 import { AppDataStateError } from '@/components/shared/app-data-state-error';
 import { ChartLine } from '@/components/charts/chart-line';
 import { ActivityTable, type ActivityTableRow, type DisplayPlatform } from './components/activity-table';
@@ -18,8 +18,8 @@ function toDisplayPlatform(platform: Platform): DisplayPlatform {
 }
 
 function formatMonth(month: string): string {
-  const parsed = moment(month, ['YYYY-MM', 'YYYY-MM-DD'], true);
-  return parsed.isValid() ? parsed.format('MMM YY') : month;
+  const parsed = parseYearMonth(month);
+  return parsed ? formatLocalDate(parsed, 'MMM yy') : month;
 }
 
 export default async function AdvertisementStatsPage(props: { params: Promise<{ advertisementId: string }> }) {

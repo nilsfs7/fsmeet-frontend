@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import moment from 'moment';
+import { endOfYear, isSameDay, startOfYear } from 'date-fns';
 import { useSession } from 'next-auth/react';
 import { toast, Toaster } from 'sonner';
 import { IconAlertTriangle, IconTrash } from '@tabler/icons-react';
@@ -23,12 +23,13 @@ import { EventState } from '@/domain/enums/event-state';
 import { EventType } from '@/domain/enums/event-type';
 import { Event } from '@/domain/types/event';
 import { getShortDateString } from '@/lib/format-date';
+import { isValidDate, toDate } from '@/lib/date';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
 import { deleteEvent, getEvents, updateEventState } from '@/infrastructure/clients/event.client';
 import { cn } from '@/lib/utils';
 
-const DATE_FROM = moment('2000').startOf('year');
-const DATE_TO = moment('2099').endOf('year');
+const DATE_FROM = startOfYear(new Date(2000, 0, 1));
+const DATE_TO = endOfYear(new Date(2099, 0, 1));
 const ALL_STATES = 'all';
 const ALL_TYPES = 'all';
 
@@ -52,11 +53,11 @@ const TYPE_LABEL: Record<EventType, string> = {
 const cardSurface = cn('min-w-0 rounded-2xl border border-border bg-background p-4 shadow-xs', 'dark:border-border/50 dark:bg-background/60');
 
 function eventDateLabel(event: Event): string {
-  const from = moment(event.dateFrom);
-  const to = moment(event.dateTo);
-  if (!from.isValid()) return '';
-  if (from.isSame(to, 'day')) return getShortDateString(from.toDate());
-  return `${getShortDateString(from.toDate(), false)} – ${getShortDateString(to.toDate())}`;
+  const from = toDate(event.dateFrom);
+  const to = toDate(event.dateTo);
+  if (!isValidDate(from)) return '';
+  if (isSameDay(from, to)) return getShortDateString(from);
+  return `${getShortDateString(from, false)} – ${getShortDateString(to)}`;
 }
 
 function matchesQuery(event: Event, query: string): boolean {
@@ -94,7 +95,7 @@ function sortEvents(events: Event[], sort: SortKey, drafts: Record<string, Event
       const byState = stateA.localeCompare(stateB);
       return byState !== 0 ? byState : a.name.localeCompare(b.name);
     }
-    const delta = moment(a.dateFrom).valueOf() - moment(b.dateFrom).valueOf();
+    const delta = toDate(a.dateFrom).getTime() - toDate(b.dateFrom).getTime();
     if (delta !== 0) return sort === 'dateAsc' ? delta : -delta;
     return a.name.localeCompare(b.name);
   });

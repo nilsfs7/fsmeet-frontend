@@ -4,7 +4,7 @@ import { useRef, type TouchEvent } from 'react';
 import Link from 'next/link';
 import { OVERLAY_MOUSE_TARGET, FLOAT_PANE, OverlayViewF } from '@react-google-maps/api';
 import { useLocale, useTranslations } from 'next-intl';
-import moment from 'moment';
+import { addDays, endOfDay, differenceInDays, startOfDay } from 'date-fns';
 import ReactCountryFlag from 'react-country-flag';
 import { IconArrowRight, IconCalendarEvent, IconChevronLeft, IconChevronRight, IconClock, IconMapPin, IconStar, IconTicket, IconTrophy, IconUsersGroup, IconX } from '@tabler/icons-react';
 import { MapEvent } from '@/domain/types/map-event';
@@ -13,6 +13,7 @@ import { routeEvents } from '@/domain/constants/routes';
 import { formatDateRange, toIntlLocale } from '@/lib/format-date';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { cn } from '@/lib/utils';
+import { toDate } from '@/lib/date';
 
 export type EventTimeWindow = 'live' | '30d' | '3m' | 'all';
 export const EVENT_TIME_WINDOWS: EventTimeWindow[] = ['live', '30d', '3m', 'all'];
@@ -32,26 +33,26 @@ export const EVENT_CLUSTER_MAX_ZOOM = 14;
 const EVENT_CLUSTER_RADIUS_PX = 44;
 
 export function isEventLive(e: MapEvent, now: number) {
-  return moment(e.dateFrom).valueOf() <= now && moment(e.dateTo).valueOf() >= now;
+  return toDate(e.dateFrom).getTime() <= now && toDate(e.dateTo).getTime() >= now;
 }
 
 export function isRegistrationOpen(e: MapEvent, now: number) {
-  return Boolean(e.registrationOpen && e.registrationDeadline) && moment(e.registrationOpen).valueOf() <= now && moment(e.registrationDeadline).valueOf() >= now;
+  return Boolean(e.registrationOpen && e.registrationDeadline) && toDate(e.registrationOpen).getTime() <= now && toDate(e.registrationDeadline).getTime() >= now;
 }
 
 /** whole calendar days (user's time zone) until the event starts */
 export function daysUntilEvent(e: MapEvent, now: number) {
-  return Math.max(0, moment(e.dateFrom).startOf('day').diff(moment(now).startOf('day'), 'days'));
+  return Math.max(0, differenceInDays(startOfDay(toDate(e.dateFrom)), startOfDay(now)));
 }
 
 /** ongoing or upcoming events within the time window (user's clock), optionally only with open registration */
 export function eventMatchesTime(e: MapEvent, time: EventTimeWindow, now: number) {
-  if (moment(e.dateTo).valueOf() < now) return false;
+  if (toDate(e.dateTo).getTime() < now) return false;
   if (isEventLive(e, now)) return true;
   if (time === 'live') return false;
   if (time === 'all') return true;
-  const limit = moment(now).add(time === '30d' ? 30 : 90, 'days').endOf('day').valueOf();
-  return moment(e.dateFrom).valueOf() <= limit;
+  const limit = endOfDay(addDays(now, time === '30d' ? 30 : 90)).getTime();
+  return toDate(e.dateFrom).getTime() <= limit;
 }
 
 export function eventMatchesQuery(e: MapEvent, query: string) {
@@ -69,7 +70,7 @@ export function filterMapEvents(events: MapEvent[], filters: EventFilterState, q
         (!filters.registrationOpenOnly || isRegistrationOpen(e, now)) &&
         eventMatchesQuery(e, query),
     )
-    .sort((a, b) => moment(a.dateFrom).valueOf() - moment(b.dateFrom).valueOf());
+    .sort((a, b) => toDate(a.dateFrom).getTime() - toDate(b.dateFrom).getTime());
 }
 
 export interface EventGroup {
@@ -110,7 +111,7 @@ export function groupMapEvents(events: MapEvent[], zoom: number): EventGroup[] {
   }
   return clusters.map(c => {
     if (c.groups.length === 1) return c.groups[0];
-    const all = c.groups.flatMap(g => g.events).sort((a, b) => moment(a.dateFrom).valueOf() - moment(b.dateFrom).valueOf());
+    const all = c.groups.flatMap(g => g.events).sort((a, b) => toDate(a.dateFrom).getTime() - toDate(b.dateFrom).getTime());
     return {
       key: c.groups.map(g => g.key).join('|'),
       lat: c.groups.reduce((s, g) => s + g.lat, 0) / c.groups.length,

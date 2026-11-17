@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import moment from 'moment';
+import { isSameDay } from 'date-fns';
+import { toDate } from '@/lib/date';
 import { cn } from '@/lib/utils';
 import { Event } from '@/domain/types/event';
 import { routeEvents } from '@/domain/constants/routes';
@@ -29,7 +30,7 @@ export function FeaturedEventCard({ event, badgeLabel, linkLabel }: FeaturedEven
   const href = `${routeEvents}/${event.id}`;
   const titleId = `featured-event-title-${event.id}`;
   const poster = event.imageUrlPoster;
-  const dateLine = moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
+  const dateLine = isSameDay(toDate(event.dateFrom), toDate(event.dateTo))
     ? getShortDateString(event.dateFrom)
     : `${getShortDateString(event.dateFrom, false)} – ${getShortDateString(event.dateTo)}`;
 

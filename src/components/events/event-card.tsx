@@ -6,7 +6,8 @@ import { IconCalendarEvent, IconHourglassHigh, IconHourglassOff, IconMapPin, Ico
 import { useTranslations } from 'next-intl';
 import { getShortDateString } from '@/lib/format-date';
 import { Event } from '@/domain/types/event';
-import moment from 'moment';
+import { isSameDay } from 'date-fns';
+import { toDate } from '@/lib/date';
 import { EventType } from '@/domain/enums/event-type';
 import { isPublicEventState } from '@/functions/event-state';
 import { getUser } from '@/infrastructure/clients/user.client';
@@ -48,7 +49,7 @@ const EventCard = ({ event }: IEventProps) => {
   }, [event.admin]);
 
   const poster = event.imageUrlPoster;
-  const registrationOpen = moment(event.registrationDeadline) > moment();
+  const registrationOpen = toDate(event.registrationDeadline) > new Date();
   const typeLabel = event.type === EventType.MEETING ? t('eventTypeMeet') : event.type === EventType.COMPETITION_ONLINE ? t('eventTypeCompOnline') : t('eventTypeComp');
 
   return (
@@ -77,7 +78,7 @@ const EventCard = ({ event }: IEventProps) => {
 
           <div className="flex min-h-0 flex-col gap-1.5">
             <MetaRow icon={<IconCalendarEvent stroke={1.75} />}>
-              {moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
+              {isSameDay(toDate(event.dateFrom), toDate(event.dateTo))
                 ? getShortDateString(event.dateFrom)
                 : `${getShortDateString(event.dateFrom, false)} – ${getShortDateString(event.dateTo)}`}
             </MetaRow>

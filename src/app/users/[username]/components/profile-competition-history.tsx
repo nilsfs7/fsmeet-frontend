@@ -6,7 +6,7 @@ import { getUserBattleHistory } from '@/infrastructure/clients/history.client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ReadUserBattleHistoryResponseDto } from '@/infrastructure/clients/dtos/history/read-user-battle-history.response.dto';
 import MatchCard from '@/components/comp/match-card';
-import moment from 'moment';
+import { formatLocalDate, toDate } from '@/lib/date';
 import Link from 'next/link';
 import { routeEvents } from '@/domain/constants/routes';
 import { User } from '@/domain/types/user';
@@ -99,12 +99,12 @@ function getLatestRoundDate(entry: ReadUserBattleHistoryResponseDto): string | n
   let latestMs: number | null = null;
   entry.rounds.forEach(round => {
     if (!round.date) return;
-    const ms = moment(round.date).valueOf();
+    const ms = toDate(round.date).getTime();
     if (latestMs === null || ms > latestMs) {
       latestMs = ms;
     }
   });
-  return latestMs === null ? null : moment(latestMs).format('YYYY-MM-DD');
+  return latestMs === null ? null : formatLocalDate(latestMs, 'yyyy-MM-dd');
 }
 
 export function ProfileCompetitionHistory({ username }: ProfileCompetitionHistoryProps) {
@@ -285,12 +285,12 @@ export function ProfileCompetitionHistory({ username }: ProfileCompetitionHistor
                         <div key={`history-round-${entry.competitionId}-${roundIndex}`} className="mt-2 first:mt-0">
                           {round.matches.map((match, matchIndex) => (
                             <div key={`history-match-${entry.competitionId}-${roundIndex}-${matchIndex}`} className="mt-2 first:mt-0">
-                              <div className="mx-2 mb-1 text-sm">{`${round.name} (${moment(round.date).format('YYYY-MM-DD')})`}</div>
+                              <div className="mx-2 mb-1 text-sm">{`${round.name} (${formatLocalDate(round.date, 'yyyy-MM-dd')})`}</div>
                               <MatchCard
                                 match={{
                                   matchIndex: match.matchIndex,
                                   name: match.name,
-                                  time: moment(match.time).format(),
+                                  time: match.time,
                                   isExtraMatch: match.isExtraMatch,
                                   slots: match.slots,
                                   matchSlots: match.matchSlots,

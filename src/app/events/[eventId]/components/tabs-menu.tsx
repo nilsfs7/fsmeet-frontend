@@ -29,7 +29,7 @@ import { Competition } from '@/domain/types/competition';
 import { RegistrationsPanel } from './registrations-panel';
 import { AttachmentSection } from './attachment-section';
 import { Attachment } from '@/domain/types/attachment';
-import moment from 'moment';
+import { toDate } from '@/lib/date';
 import { isInEventRegistrations } from '../../../../functions/is-in-event-registrations';
 import { isEventAdminOrMaintainer } from '../../../../functions/is-event-admin-or-maintrainer';
 import Dialog from '@/components/dialog';
@@ -226,7 +226,7 @@ export const TabsMenu = ({ event, competitions, sponsors, attachments, comments 
 
           {attachments?.some(att => {
             if (att.enabled) {
-              if (!att.expires || (att.expires && moment(att.expiryDate) > moment())) {
+              if (!att.expires || (att.expires && toDate(att.expiryDate) > new Date())) {
                 return att;
               }
             }

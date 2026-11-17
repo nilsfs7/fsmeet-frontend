@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import ReactCountryFlag from 'react-country-flag';
-import moment from 'moment';
+import { formatLocalDate, parseYearMonth } from '@/lib/date';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { cn } from '@/lib/utils';
@@ -40,8 +40,8 @@ export function ActivityTable({ rows }: IActivityTable) {
   };
 
   const formatMonth = (month: string): string => {
-    const parsed = moment(month, ['YYYY-MM', 'YYYY-MM-DD'], true);
-    return parsed.isValid() ? parsed.format('MMM YY') : month;
+    const parsed = parseYearMonth(month);
+    return parsed ? formatLocalDate(parsed, 'MMM yy') : month;
   };
 
   const compareRows = (a: ActivityTableRow, b: ActivityTableRow): number => {

@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import Label from '@/components/label';
 import { useEffect, useState } from 'react';
-import moment from 'moment';
+import { toDate } from '@/lib/date';
 import { toast } from 'sonner';
 import { Competition } from '@/domain/types/competition';
 import { isCompetition } from '@/functions/is-competition';
@@ -136,7 +136,7 @@ export const ActionButtonStateAction = ({ event, competitions }: IActionButtonSt
           {isPublicEventState(event.state) && (
             <>
               {/* public and ongoing */}
-              {event.state === EventState.APPROVED && moment(event.dateTo) > moment() && (
+              {event.state === EventState.APPROVED && toDate(event.dateTo) > new Date() && (
                 <>
                   <p className="mt-2">{t('dlgEventStateApprovedText1')}</p>
                   <p>{t('dlgEventStateApprovedText2')}</p>
@@ -149,7 +149,7 @@ export const ActionButtonStateAction = ({ event, competitions }: IActionButtonSt
               )}
 
               {/* public and over */}
-              {event.state === EventState.APPROVED && moment(event.dateTo) < moment() && (
+              {event.state === EventState.APPROVED && toDate(event.dateTo) < new Date() && (
                 <>
                   <p className="mt-2">{t('dlgEventStateApprovedEventOverText')}</p>
                   <div className={eventStateDialogCtaRowClassName}>

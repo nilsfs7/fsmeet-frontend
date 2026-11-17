@@ -28,7 +28,7 @@ import { AlertTriangle, ChevronsUpDown, ChevronUp, ChevronDown } from 'lucide-re
 import { IconSearch, IconUsers, IconX } from '@tabler/icons-react';
 import { EmptyState } from '@/components/common/empty-state';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import moment from 'moment';
+import { formatLocalDate } from '@/lib/date';
 
 type StatusFilter = 'all' | EventRegistrationStatus;
 
@@ -368,7 +368,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
             <dl className="divide-y divide-border">
               {infoRow(t('dlgRegistrationInfoType'), typeLabel(registrationSelected.type))}
               {infoRow(t('dlgRegistrationInfoStatus'), statusLabel(registrationSelected.status))}
-              {infoRow(t('dlgRegistrationInfoDate'), moment(registrationSelected.date).format('YYYY-MM-DD HH:mm'))}
+              {infoRow(t('dlgRegistrationInfoDate'), formatLocalDate(registrationSelected.date, 'yyyy-MM-dd HH:mm'))}
               {registrationSelected.phoneNumber && infoRow(t('dlgRegistrationInfoPhoneNumber'), `+${registrationSelected.phoneCountryCode} ${registrationSelected.phoneNumber}`)}
               {registrationSelected.email && infoRow(t('dlgRegistrationInfoEmail'), registrationSelected.email)}
             </dl>

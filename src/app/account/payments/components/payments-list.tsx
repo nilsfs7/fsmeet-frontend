@@ -27,7 +27,7 @@ import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRigh
 import { useTranslations } from 'next-intl';
 import { CurrencyCode } from '../../../../domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '../../../../functions/currency-conversion';
-import moment from 'moment';
+import { formatLocalDate } from '@/lib/date';
 import { createRefund } from '../../../../infrastructure/clients/payment.client';
 import { useSession } from 'next-auth/react';
 import { toast, Toaster } from 'sonner';
@@ -111,7 +111,7 @@ export const PaymentsList = ({ columnData }: IUsersList) => {
       accessorKey: 'date',
       enableHiding: false,
       header: ({ column }) => <HeaderSortButton<ColumnInfo> column={column} label={t('tblColumnDate')} title={t('tblColumnDate')} aria-label={t('tblColumnDate')} />,
-      cell: ({ row }) => <div className="whitespace-nowrap">{moment(row.getValue('date')).format('yyyy-MM-DD HH:mm')}</div>,
+      cell: ({ row }) => <div className="whitespace-nowrap">{formatLocalDate(row.getValue<string>('date'), 'yyyy-MM-dd HH:mm')}</div>,
     },
 
     {

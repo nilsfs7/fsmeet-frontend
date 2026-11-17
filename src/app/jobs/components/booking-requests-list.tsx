@@ -23,7 +23,7 @@ import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { AlertTriangle, ChevronsUpDown, ChevronUp, ChevronDown } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import moment from 'moment';
+import { formatLocalDate, toDate } from '@/lib/date';
 
 type StateFilter = 'all' | FreestyleActsBookingRequestState;
 
@@ -55,12 +55,12 @@ function compareBookingRequestsBySort(a: BookingRequest, b: BookingRequest, col:
   const mult = dir === 'asc' ? 1 : -1;
 
   if (col === 'date') {
-    return (moment(a.createdAt).valueOf() - moment(b.createdAt).valueOf()) * mult;
+    return (toDate(a.createdAt).getTime() - toDate(b.createdAt).getTime()) * mult;
   }
 
   if (col === 'preferredDate') {
-    const dateA = a.preferredDate ? moment(a.preferredDate).valueOf() : 0;
-    const dateB = b.preferredDate ? moment(b.preferredDate).valueOf() : 0;
+    const dateA = a.preferredDate ? toDate(a.preferredDate).getTime() : 0;
+    const dateB = b.preferredDate ? toDate(b.preferredDate).getTime() : 0;
     return (dateA - dateB) * mult;
   }
 
@@ -344,14 +344,14 @@ export const BookingRequestsList = ({ bookingRequests, jobCarAvailable, jobPrefe
     if (!value) {
       return na;
     }
-    return moment(value).format('YYYY-MM-DD');
+    return formatLocalDate(value, 'yyyy-MM-dd');
   };
 
   const formatDateTime = (value: string | null) => {
     if (!value) {
       return na;
     }
-    return moment(value).format('YYYY-MM-DD HH:mm');
+    return formatLocalDate(value, 'yyyy-MM-dd HH:mm');
   };
 
   const formatFee = (value: number | null | undefined) => {

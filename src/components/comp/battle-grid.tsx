@@ -3,7 +3,6 @@
 import type { Round } from '@/domain/types/round';
 import MatchCard from './match-card';
 import { User } from '@/domain/types/user';
-import { Moment } from 'moment';
 import ActionButton from '../common/action-button';
 import { Action } from '@/domain/enums/action';
 import { Size } from '@/domain/enums/size';
@@ -23,7 +22,7 @@ interface IBattleGridProps {
   onDeleteRound?: (roundIndex: number, name: string) => void;
   onAddMatch?: (roundIndex: number) => void;
   onEditRound?: (roundIndex: number) => void;
-  onUpdateTime?: (roundIndex: number, matchIndex: number, matchId: string, time: Moment | null) => void;
+  onUpdateTime?: (roundIndex: number, matchIndex: number, matchId: string, time: Date | null) => void;
   onEditMatch?: (roundIndex: number, matchIndex: number) => void;
   onDeleteMatch?: (roundIndex: number, matchIndex: number) => void;
   onUpdateSlot?: (roundIndex: number, matchId: string, slotIndex: number, username: string, result: number) => void;
@@ -104,7 +103,7 @@ const BattleGrid = ({
                     editingEnabled={editingEnabled}
                     seedingEnabled={seedingEnabled}
                     showUserCountryFlag={showUserCountryFlag}
-                    onUpdateTime={(matchIndex: number, matchId: string, time: Moment | null) => {
+                    onUpdateTime={(matchIndex: number, matchId: string, time: Date | null) => {
                       onUpdateTime && onUpdateTime(rounds[i].roundIndex, matchIndex, matchId, time);
                     }}
                     onEditMatch={(matchIndex: number) => {

@@ -13,7 +13,8 @@ import { Toaster, toast } from 'sonner';
 import { UnlistedEventsCreateDialog } from '@/components/events/unlisted-events-create-dialog';
 import { isBlockedByUnlistedEvents } from '@/functions/unlisted-events';
 import { createEvent, getEvents } from '@/infrastructure/clients/event.client';
-import moment, { Moment } from 'moment';
+import { addYears, endOfDay, startOfDay, subDays } from 'date-fns';
+import { toDate, toUtcIso } from '@/lib/date';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import TextInput from '@/components/common/text-input';
@@ -104,7 +105,7 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
   const [venueCountryCode, setVenueCountryCode] = useState<string>(eventAdmin?.countryCode || '');
   const [dateFrom, setDateFrom] = useState<string>();
   const [dateTo, setDateTo] = useState<string>();
-  const [registrationDateFrom, setRegistrationDateFrom] = useState<string>(moment().startOf('day').utc().format());
+  const [registrationDateFrom, setRegistrationDateFrom] = useState<string>(toUtcIso(startOfDay(new Date())));
   const [registrationDateTo, setRegistrationDateTo] = useState<string>();
   const [unlistedBlocked, setUnlistedBlocked] = useState(false);
 
@@ -185,28 +186,28 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
     setEventCategory(value);
   };
 
-  const handleDateFromChanged = (value: Moment) => {
-    setDateFrom(value.startOf('day').utc().format());
+  const handleDateFromChanged = (value: Date) => {
+    setDateFrom(toUtcIso(startOfDay(value)));
 
     if (!dateTo) {
-      setDateTo(value.endOf('day').utc().format()); // set dateTo to same date when dateFrom from was changed (convenience)
+      setDateTo(toUtcIso(endOfDay(value))); // set dateTo to same date when dateFrom from was changed (convenience)
     }
 
     if (!registrationDateTo) {
-      setRegistrationDateTo(value.subtract(1, 'day').endOf('day').utc().format()); // set RegistrationDateTo to previous day when dateFrom from was changed (convenience)
+      setRegistrationDateTo(toUtcIso(endOfDay(subDays(value, 1)))); // set RegistrationDateTo to previous day when dateFrom from was changed (convenience)
     }
   };
 
-  const handleDateToChanged = (value: Moment) => {
-    setDateTo(value.endOf('day').utc().format());
+  const handleDateToChanged = (value: Date) => {
+    setDateTo(toUtcIso(endOfDay(value)));
   };
 
-  const handleDateRegistrationFromChanged = (value: Moment) => {
-    setRegistrationDateFrom(value.startOf('day').utc().format());
+  const handleDateRegistrationFromChanged = (value: Date) => {
+    setRegistrationDateFrom(toUtcIso(startOfDay(value)));
   };
 
-  const handleDateRegistrationToChanged = (value: Moment) => {
-    setRegistrationDateTo(value.endOf('day').utc().format());
+  const handleDateRegistrationToChanged = (value: Date) => {
+    setRegistrationDateTo(toUtcIso(endOfDay(value)));
   };
 
   const nextButtonDisabled = (): boolean => {
@@ -545,9 +546,9 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <DateField label={t('pageGeneralDetailsDatePickerFrom')}>
                     <DatePicker
-                      date={dateFrom ? moment(dateFrom) : undefined}
-                      fromDate={moment('2020')}
-                      toDate={moment().add(2, 'y')}
+                      date={dateFrom ? toDate(dateFrom) : undefined}
+                      fromDate={new Date(2020, 0, 1)}
+                      toDate={addYears(new Date(), 2)}
                       onChange={value => {
                         if (value) {
                           handleDateFromChanged(value);
@@ -557,9 +558,9 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
                   </DateField>
                   <DateField label={t('pageGeneralDetailsDatePickerTo')}>
                     <DatePicker
-                      date={dateTo ? moment(dateTo) : undefined}
-                      fromDate={moment('2020')}
-                      toDate={moment().add(2, 'y')}
+                      date={dateTo ? toDate(dateTo) : undefined}
+                      fromDate={new Date(2020, 0, 1)}
+                      toDate={addYears(new Date(), 2)}
                       onChange={value => {
                         if (value) {
                           handleDateToChanged(value);
@@ -575,9 +576,9 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <DateField label={t('pageGeneralDetailsDatePickerRegistrationFrom')}>
                     <DatePicker
-                      date={registrationDateFrom ? moment(registrationDateFrom) : undefined}
-                      fromDate={moment('2020')}
-                      toDate={moment().add(2, 'y')}
+                      date={registrationDateFrom ? toDate(registrationDateFrom) : undefined}
+                      fromDate={new Date(2020, 0, 1)}
+                      toDate={addYears(new Date(), 2)}
                       onChange={value => {
                         if (value) {
                           handleDateRegistrationFromChanged(value);
@@ -587,9 +588,9 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
                   </DateField>
                   <DateField label={t('pageGeneralDetailsDatePickerRegistrationTo')}>
                     <DatePicker
-                      date={registrationDateTo ? moment(registrationDateTo) : undefined}
-                      fromDate={moment('2020')}
-                      toDate={moment().add(2, 'y')}
+                      date={registrationDateTo ? toDate(registrationDateTo) : undefined}
+                      fromDate={new Date(2020, 0, 1)}
+                      toDate={addYears(new Date(), 2)}
                       onChange={value => {
                         if (value) {
                           handleDateRegistrationToChanged(value);

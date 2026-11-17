@@ -2,7 +2,6 @@
 
 import { useMemo, useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import moment from 'moment';
 import ReactCountryFlag from 'react-country-flag';
 import { IconAlertTriangle, IconInfoCircle, IconMinus, IconPlus, IconSearch, IconUsersPlus } from '@tabler/icons-react';
 import { useSession } from 'next-auth/react';
@@ -22,6 +21,7 @@ import { EventRegistration } from '@/domain/types/event-registration';
 import { buildPoolRows, countPool, formatUserFullName, PoolMember, PoolRow, userMatchesNameQuery } from '@/functions/competition-pool';
 import { createCompetitionParticipation, deleteCompetitionParticipation } from '@/infrastructure/clients/competition.client';
 import { cn } from '@/lib/utils';
+import { toDate } from '@/lib/date';
 
 type ViewFilter = 'signedUp' | 'inPool' | 'notAdded' | 'withoutSignUp' | 'all';
 type StatusFilter = 'all' | EventRegistrationStatus.APPROVED | EventRegistrationStatus.PENDING;
@@ -58,8 +58,8 @@ function compareRows(a: PoolRow, b: PoolRow, sort: SortKey): number {
     if (cmp !== 0) return cmp;
   }
   if (sort === 'date') {
-    const dateA = a.registration ? moment(a.registration.date).valueOf() : 0;
-    const dateB = b.registration ? moment(b.registration.date).valueOf() : 0;
+    const dateA = a.registration ? toDate(a.registration.date).getTime() : 0;
+    const dateB = b.registration ? toDate(b.registration.date).getTime() : 0;
     if (dateA !== dateB) return dateB - dateA;
   }
   return formatUserFullName(a.user).localeCompare(formatUserFullName(b.user), undefined, { sensitivity: 'base' });

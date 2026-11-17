@@ -1,4 +1,4 @@
-import { formatISO } from 'date-fns';
+import { format, formatISO } from 'date-fns';
 
 /** Anything `toDate` accepts: a Date, a date or ISO string, a timestamp, or nothing. */
 export type DateLike = Date | string | number | null | undefined;
@@ -29,6 +29,12 @@ export function isValidDate(date: Date): boolean {
 export function toLocalIso(value: DateLike): string {
   const date = toDate(value);
   return isValidDate(date) ? formatISO(date) : '';
+}
+
+/** Formats a local date with a date-fns pattern; empty string for missing or invalid input (date-fns would throw). */
+export function formatLocalDate(value: DateLike, pattern: string): string {
+  const date = toDate(value);
+  return isValidDate(date) ? format(date, pattern) : '';
 }
 
 /** UTC without milliseconds, e.g. `2026-11-17T07:22:00Z`. */

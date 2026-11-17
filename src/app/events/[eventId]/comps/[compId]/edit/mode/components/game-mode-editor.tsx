@@ -12,7 +12,8 @@ import DialogEditRound from '@/app/events/[eventId]/comps/[compId]/edit/mode/com
 import DialogEditMatch from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-edit-match';
 import DialogDeleteMatch from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-delete-match';
 import DialogDeleteRound from '@/app/events/[eventId]/comps/[compId]/edit/mode/components/dialog-delete-round';
-import moment, { Moment } from 'moment';
+import { addDays, differenceInDays } from 'date-fns';
+import { toDate, toLocalIso, toUtcIso, toUtcTime } from '@/lib/date';
 import { createRound, roundAddMatch, type Round } from '@/domain/types/round';
 import { createRounds, deleteRounds, getCompetitionParticipants, updateRounds } from '@/infrastructure/clients/competition.client';
 import ActionButton from '@/components/common/action-button';
@@ -101,23 +102,17 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
     return rounds[rounds.length - 1];
   };
 
-  function getDiffInNumOfDays(date1: Moment, date2: Moment): number {
-    let diff = date1.diff(date2, 'days');
-
-    if (diff < 0) {
-      diff *= -1;
-    }
-
-    return diff;
+  function getDiffInNumOfDays(date1: Date, date2: Date): number {
+    return Math.abs(differenceInDays(date1, date2));
   }
 
   function setRoundDateToMatchTime(roundDate: string | null, matchTime: string | null) {
     if (roundDate && matchTime) {
-      const r = moment(roundDate).utc();
+      // UTC calendar day of the round (`YYYY-MM-DD` prefix of the UTC ISO string)
+      const utcDay = toUtcIso(roundDate).slice(0, 10);
       // Support "HH:mm" from TimePicker; otherwise parse as full datetime (e.g. ISO from server)
-      const timePart = /^\d{1,2}:\d{2}$/.test(matchTime.trim()) ? matchTime.trim() : moment(matchTime).utc().format('HH:mm');
-      const format = `${r.format('YYYY-MM-DD')}T${timePart}:00.000Z`;
-      return moment(format).utc().format();
+      const timePart = /^\d{1,2}:\d{2}$/.test(matchTime.trim()) ? matchTime.trim() : toUtcTime(matchTime);
+      return toUtcIso(`${utcDay}T${timePart}:00.000Z`);
     }
 
     return null;
@@ -285,9 +280,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
         availablePlayers={getAvailablePlayers()}
         dateFrom={
           getLastRound()?.date
-            ? moment(event.dateFrom)
-                .add(getDiffInNumOfDays(moment(event.dateFrom), moment(getLastRound().date)), 'days')
-                .format()
+            ? toLocalIso(addDays(toDate(event.dateFrom), getDiffInNumOfDays(toDate(event.dateFrom), toDate(getLastRound().date))))
             : event.dateFrom
         }
         dateTo={event.dateTo}

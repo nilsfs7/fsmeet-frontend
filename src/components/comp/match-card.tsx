@@ -5,7 +5,6 @@ import { User } from '@/domain/types/user';
 import Link from 'next/link';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { IconClock } from '@tabler/icons-react';
-import moment, { Moment } from 'moment';
 import ComboBox from '../common/combo-box';
 import { routeUsers } from '@/domain/constants/routes';
 import ActionButton from '../common/action-button';
@@ -15,6 +14,7 @@ import { Match } from '@/domain/types/match';
 import ReactCountryFlag from 'react-country-flag';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import { toUtcTime } from '@/lib/date';
 import { useTranslations } from 'next-intl';
 
 interface IMatchProps {
@@ -24,7 +24,7 @@ interface IMatchProps {
   editingEnabled?: boolean;
   seedingEnabled?: boolean;
   showUserCountryFlag?: boolean;
-  onUpdateTime?: (matchIndex: number, matchId: string, time: Moment | null) => void;
+  onUpdateTime?: (matchIndex: number, matchId: string, time: Date | null) => void;
   onEditMatch?: (matchIndex: number) => void; // matchId: string
   onDeleteMatch?: (matchIndex: number) => void;
   onUpdateSlot?: (matchId: string, slotIndex: number, username: string, result: number) => void;
@@ -94,7 +94,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
           {(showTime || editingEnabled) && (
             <span className="inline-flex items-center gap-1 text-xs tabular-nums text-muted-foreground">
               <IconClock className="h-3.5 w-3.5" stroke={1.75} aria-hidden />
-              {match.time ? moment(match.time).utc().format('HH:mm') : '--:--'}
+              {match.time ? toUtcTime(match.time) : '--:--'}
             </span>
           )}
           {editingEnabled && (
