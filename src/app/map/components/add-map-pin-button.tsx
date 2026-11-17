@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Toaster, toast } from 'sonner';
+import { Toaster } from 'sonner';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import Dialog from '@/components/dialog';
 import { routeLogin, routeMap } from '@/domain/constants/routes';

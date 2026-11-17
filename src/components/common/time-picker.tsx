@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { IconClock, IconX } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
