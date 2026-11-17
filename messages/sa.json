@@ -915,7 +915,17 @@
     "hintReorder": "اسحب الإعلانات من المقبض لتغيير ترتيب عرضها.",
     "tooltipDragAd": "اسحب لإعادة الترتيب",
     "toastReorderFailed": "تعذّر تحديث ترتيب الإعلانات.",
-    "toastReorderUnavailable": "إعادة ترتيب الإعلانات غير متاحة بعد. يرجى المحاولة لاحقًا."
+    "toastReorderUnavailable": "إعادة ترتيب الإعلانات غير متاحة بعد. يرجى المحاولة لاحقًا.",
+    "adminPageTitle": "كل الإعلانات",
+    "adminPageDescription": "نظرة عامة للمشرف على جميع الإعلانات في FSMeet من كل المعلنين.",
+    "adminSearchPlaceholder": "ابحث في العنوان أو الرابط أو المعلن…",
+    "adminFilterOwner": "المعلن",
+    "adminFilterOwnerAll": "كل المعلنين",
+    "adminFilterStatus": "الحالة",
+    "adminFilterStatusAll": "كل الحالات",
+    "adminResultCount": "الإعلانات: {shown} / {total} · المعلنون: {owners}",
+    "adminNoMatches": "لا توجد إعلانات تطابق عوامل التصفية.",
+    "adminResetFilters": "إعادة ضبط عوامل التصفية"
   },
   "/ads/create": {
     "pageTitle": "إنشاء إعلان",

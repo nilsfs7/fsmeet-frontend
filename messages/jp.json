@@ -915,7 +915,17 @@
     "hintReorder": "ハンドルをドラッグして広告の表示順を変更できます。",
     "tooltipDragAd": "ドラッグして並べ替え",
     "toastReorderFailed": "広告の順序を更新できませんでした。",
-    "toastReorderUnavailable": "広告の並べ替えはまだ利用できません。後でもう一度お試しください。"
+    "toastReorderUnavailable": "広告の並べ替えはまだ利用できません。後でもう一度お試しください。",
+    "adminPageTitle": "すべての広告",
+    "adminPageDescription": "FSMeet 上のすべての広告主の広告を一覧できる管理者ビューです。",
+    "adminSearchPlaceholder": "タイトル、リンク、広告主を検索…",
+    "adminFilterOwner": "広告主",
+    "adminFilterOwnerAll": "すべての広告主",
+    "adminFilterStatus": "ステータス",
+    "adminFilterStatusAll": "すべてのステータス",
+    "adminResultCount": "広告：{shown} / {total} · 広告主：{owners}",
+    "adminNoMatches": "条件に一致する広告はありません。",
+    "adminResetFilters": "フィルターをリセット"
   },
   "/ads/create": {
     "pageTitle": "広告を作成",

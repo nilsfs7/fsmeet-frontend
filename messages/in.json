@@ -915,7 +915,17 @@
     "hintReorder": "विज्ञापनों के दिखने का क्रम बदलने के लिए उन्हें हैंडल से खींचें।",
     "tooltipDragAd": "क्रम बदलने के लिए खींचें",
     "toastReorderFailed": "विज्ञापनों का क्रम अपडेट नहीं हो सका।",
-    "toastReorderUnavailable": "विज्ञापनों का क्रम बदलना अभी उपलब्ध नहीं है। कृपया बाद में पुनः प्रयास करें।"
+    "toastReorderUnavailable": "विज्ञापनों का क्रम बदलना अभी उपलब्ध नहीं है। कृपया बाद में पुनः प्रयास करें।",
+    "adminPageTitle": "सभी विज्ञापन",
+    "adminPageDescription": "FSMeet पर सभी विज्ञापनदाताओं के सभी विज्ञापनों का एडमिन ओवरव्यू।",
+    "adminSearchPlaceholder": "शीर्षक, लिंक या विज्ञापनदाता खोजें…",
+    "adminFilterOwner": "विज्ञापनदाता",
+    "adminFilterOwnerAll": "सभी विज्ञापनदाता",
+    "adminFilterStatus": "स्थिति",
+    "adminFilterStatusAll": "सभी स्थितियाँ",
+    "adminResultCount": "विज्ञापन: {shown} / {total} · विज्ञापनदाता: {owners}",
+    "adminNoMatches": "आपके फ़िल्टर से कोई विज्ञापन मेल नहीं खाता।",
+    "adminResetFilters": "फ़िल्टर रीसेट करें"
   },
   "/ads/create": {
     "pageTitle": "विज्ञापन बनाएं",

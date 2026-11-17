@@ -890,7 +890,17 @@
     "hintReorder": "Faites glisser les annonces par la poignée pour changer leur ordre d'affichage.",
     "tooltipDragAd": "Glisser pour réordonner",
     "toastReorderFailed": "Impossible de mettre à jour l'ordre des annonces.",
-    "toastReorderUnavailable": "Le tri des annonces n'est pas encore disponible. Veuillez réessayer plus tard."
+    "toastReorderUnavailable": "Le tri des annonces n'est pas encore disponible. Veuillez réessayer plus tard.",
+    "adminPageTitle": "Toutes les annonces",
+    "adminPageDescription": "Vue d'administration de toutes les annonces sur FSMeet, tous annonceurs confondus.",
+    "adminSearchPlaceholder": "Rechercher un titre, un lien ou un annonceur…",
+    "adminFilterOwner": "Annonceur",
+    "adminFilterOwnerAll": "Tous les annonceurs",
+    "adminFilterStatus": "Statut",
+    "adminFilterStatusAll": "Tous les statuts",
+    "adminResultCount": "Annonces : {shown} / {total} · Annonceurs : {owners}",
+    "adminNoMatches": "Aucune annonce ne correspond à tes filtres.",
+    "adminResetFilters": "Réinitialiser les filtres"
   },
   "/ads/create": {
     "pageTitle": "Créer une annonce",

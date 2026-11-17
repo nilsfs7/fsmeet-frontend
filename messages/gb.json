@@ -915,7 +915,17 @@
     "hintReorder": "Drag ads by the handle to change the order in which they are shown.",
     "tooltipDragAd": "Drag to reorder",
     "toastReorderFailed": "Could not update the ad order.",
-    "toastReorderUnavailable": "Reordering ads is not available yet. Please try again later."
+    "toastReorderUnavailable": "Reordering ads is not available yet. Please try again later.",
+    "adminPageTitle": "All Ads",
+    "adminPageDescription": "Admin overview of every ad on FSMeet, across all advertisers.",
+    "adminSearchPlaceholder": "Search title, link or advertiser…",
+    "adminFilterOwner": "Advertiser",
+    "adminFilterOwnerAll": "All advertisers",
+    "adminFilterStatus": "Status",
+    "adminFilterStatusAll": "All statuses",
+    "adminResultCount": "Ads: {shown} / {total} · Advertisers: {owners}",
+    "adminNoMatches": "No ads match your filters.",
+    "adminResetFilters": "Reset filters"
   },
   "/ads/create": {
     "pageTitle": "Create Ad",
