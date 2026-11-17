@@ -859,18 +859,18 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                       <div className="grid grid-cols-1 gap-3 rounded-xl bg-muted/50 p-3 sm:p-4">
                         {event?.id && moment(event?.registrationOpen).unix() > moment().unix() && (
                           <OverviewFact label={t('pageOverviewRegistrationStart')}>
-                            {getShortDateString(moment(event?.registrationOpen))}
+                            {getShortDateString(event?.registrationOpen)}
                             <span className="ml-2 text-sm font-medium text-brand-strong">{t('daysLeft', { count: Math.max(0, moment(event?.registrationOpen).diff(moment(), 'days')) })}</span>
                           </OverviewFact>
                         )}
                         {event?.id && moment(event?.registrationOpen).unix() < moment().unix() && event?.id && moment(event?.registrationDeadline).unix() > moment().unix() && (
                           <OverviewFact label={t('pageOverviewRegistrationOpenUntil')}>
-                            {getShortDateString(moment(event?.registrationDeadline))}
+                            {getShortDateString(event?.registrationDeadline)}
                             <span className="ml-2 text-sm font-medium text-brand-strong">{t('daysLeft', { count: Math.max(0, moment(event?.registrationDeadline).diff(moment(), 'days')) })}</span>
                           </OverviewFact>
                         )}
                         {event?.id && moment(event?.registrationDeadline).unix() < moment().unix() && (
-                          <OverviewFact label={t('pageOverviewRegistrationOver')}>{getShortDateString(moment(event?.registrationDeadline))}</OverviewFact>
+                          <OverviewFact label={t('pageOverviewRegistrationOver')}>{getShortDateString(event?.registrationDeadline)}</OverviewFact>
                         )}
                       </div>
                     </section>

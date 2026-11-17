@@ -17,7 +17,6 @@ import { UserVerificationState } from '@/domain/enums/user-verification-state';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { imgVerifiedCheckmark } from '../../../../domain/constants/images';
 import { cn } from '@/lib/utils';
-import moment from 'moment';
 import { getShortDateString } from '@/lib/format-date';
 
 /** Same layout for Pending / Approved / Denied so columns line up vertically. */
@@ -47,8 +46,7 @@ function formatDisplayName(firstName: string, lastName: string): string {
 
 function formatRequestDate(requestDate: string): string {
   if (!requestDate) return '—';
-  const m = moment(requestDate);
-  return m.isValid() ? getShortDateString(m) : '—';
+  return getShortDateString(requestDate) || '—';
 }
 
 function ApplicantCell({ item, verificationByUsername }: { item: VisaInvitationRequest; verificationByUsername: Record<string, UserVerificationState | undefined> }) {

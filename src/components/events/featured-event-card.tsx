@@ -6,7 +6,6 @@ import moment from 'moment';
 import { cn } from '@/lib/utils';
 import { Event } from '@/domain/types/event';
 import { routeEvents } from '@/domain/constants/routes';
-import { EventType } from '@/domain/enums/event-type';
 import { EventPosterPlaceholder } from '@/components/events/event-type-icon';
 import { getShortDateString } from '@/lib/format-date';
 
@@ -31,8 +30,8 @@ export function FeaturedEventCard({ event, badgeLabel, linkLabel }: FeaturedEven
   const titleId = `featured-event-title-${event.id}`;
   const poster = event.imageUrlPoster;
   const dateLine = moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
-    ? getShortDateString(moment(event.dateFrom))
-    : `${getShortDateString(moment(event.dateFrom), false)} – ${getShortDateString(moment(event.dateTo))}`;
+    ? getShortDateString(event.dateFrom)
+    : `${getShortDateString(event.dateFrom, false)} – ${getShortDateString(event.dateTo)}`;
 
   const badge = (
     <div className="pointer-events-none absolute right-2 top-2 z-1 rounded-md bg-muted/90 px-1.5 py-0.5 text-2xs font-medium uppercase tracking-wide text-muted-foreground shadow-xs">

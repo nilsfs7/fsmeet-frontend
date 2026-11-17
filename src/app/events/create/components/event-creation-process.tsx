@@ -424,8 +424,8 @@ export const EventCreationProcess = ({ eventAdmin }: IEventCreationProcess) => {
     if (registrationDateTo && dateFrom && registrationDateTo > dateFrom) validationHints.push(t('errRegistrationAfterStart'));
   }
 
-  const dateRange = dateFrom && dateTo ? `${getShortDateString(moment(dateFrom), false)} – ${getShortDateString(moment(dateTo))}` : undefined;
-  const registrationRange = registrationDateFrom && registrationDateTo ? `${getShortDateString(moment(registrationDateFrom), false)} – ${getShortDateString(moment(registrationDateTo))}` : undefined;
+  const dateRange = dateFrom && dateTo ? `${getShortDateString(dateFrom, false)} – ${getShortDateString(dateTo)}` : undefined;
+  const registrationRange = registrationDateFrom && registrationDateTo ? `${getShortDateString(registrationDateFrom, false)} – ${getShortDateString(registrationDateTo)}` : undefined;
 
   return (
     <div className="min-h-0 flex-1 flex flex-col">

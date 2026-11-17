@@ -55,8 +55,8 @@ function eventDateLabel(event: Event): string {
   const from = moment(event.dateFrom);
   const to = moment(event.dateTo);
   if (!from.isValid()) return '';
-  if (from.isSame(to, 'day')) return getShortDateString(from);
-  return `${getShortDateString(from, false)} – ${getShortDateString(to)}`;
+  if (from.isSame(to, 'day')) return getShortDateString(from.toDate());
+  return `${getShortDateString(from.toDate(), false)} – ${getShortDateString(to.toDate())}`;
 }
 
 function matchesQuery(event: Event, query: string): boolean {
