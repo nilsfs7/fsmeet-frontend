@@ -32,7 +32,7 @@ import { getCountryNameByCode } from '../../../../functions/get-country-name-by-
 import { menuEventCategories } from '../../../../domain/constants/menus/menu-event-categories';
 import { getNameByEventType } from '../../../../functions/get-name-by-event-type';
 import { toTitleCase } from '../../../../functions/string-manipulation';
-import { getShortDateString } from '../../../../functions/time';
+import { getShortDateString } from '@/lib/format-date';
 import { LicenseType } from '../../../../domain/enums/license-type';
 import { cn } from '@/lib/utils';
 

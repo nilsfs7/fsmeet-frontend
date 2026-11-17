@@ -18,7 +18,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { imgVerifiedCheckmark } from '../../../../domain/constants/images';
 import { cn } from '@/lib/utils';
 import moment from 'moment';
-import { getShortDateString } from '@/functions/time';
+import { getShortDateString } from '@/lib/format-date';
 
 /** Same layout for Pending / Approved / Denied so columns line up vertically. */
 const VISA_TABLE_CLASS = 'table-fixed w-full min-w-3xl';

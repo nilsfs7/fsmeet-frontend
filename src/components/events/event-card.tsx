@@ -4,7 +4,7 @@ import { imgUserDefaultImg } from '@/domain/constants/images';
 import { EventPosterPlaceholder } from '@/components/events/event-type-icon';
 import { IconCalendarEvent, IconHourglassHigh, IconHourglassOff, IconMapPin, IconWorld } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
-import { getShortDateString } from '@/functions/time';
+import { getShortDateString } from '@/lib/format-date';
 import { Event } from '@/domain/types/event';
 import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';

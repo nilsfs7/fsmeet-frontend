@@ -22,7 +22,7 @@ import moment, { Moment } from 'moment';
 import Dialog from '@/components/dialog';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
-import { getShortDateString } from '@/functions/time';
+import { getShortDateString } from '@/lib/format-date';
 import { CompetitionList } from './competition-list';
 import { PaymentDetails } from './payment-details';
 import { AccommodationList } from './accommodation-list';

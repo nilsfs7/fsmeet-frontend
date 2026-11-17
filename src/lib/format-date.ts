@@ -1,3 +1,5 @@
+import moment, { Moment } from 'moment';
+
 /** App locales are country-style codes (`gb`, `de`, `jp`, …); map them to BCP 47 tags for `Intl`. */
 const LOCALE_TAGS: Record<string, string> = {
   gb: 'en-GB',
@@ -24,4 +26,13 @@ export function formatDateLong(date: Date, appLocale: string | undefined, withWe
 export function formatDateRange(from: Date, to: Date, appLocale: string | undefined): string {
   const fmt = new Intl.DateTimeFormat(toIntlLocale(appLocale), { day: 'numeric', month: 'short', year: 'numeric' });
   return fmt.formatRange(from, to);
+}
+
+/** Short date like `DD.MM.YY`, or `DD.MM.` without the year. */
+export function getShortDateString(timestamp: Moment, appendYear: boolean = true): string {
+  if (appendYear) {
+    return moment(timestamp).format('DD.MM.YY');
+  } else {
+    return moment(timestamp).format('DD.MM.');
+  }
 }

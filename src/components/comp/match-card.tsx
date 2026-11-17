@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { IconClock } from '@tabler/icons-react';
 import moment, { Moment } from 'moment';
-import { getTimeString } from '@/functions/time';
 import ComboBox from '../common/combo-box';
 import { routeUsers } from '@/domain/constants/routes';
 import ActionButton from '../common/action-button';
@@ -95,7 +94,7 @@ const MatchCard = ({ match, usersMap, showTime = false, editingEnabled = false, 
           {(showTime || editingEnabled) && (
             <span className="inline-flex items-center gap-1 text-xs tabular-nums text-muted-foreground">
               <IconClock className="h-3.5 w-3.5" stroke={1.75} aria-hidden />
-              {match.time ? getTimeString(moment(match.time).utc()) : '--:--'}
+              {match.time ? moment(match.time).utc().format('HH:mm') : '--:--'}
             </span>
           )}
           {editingEnabled && (
