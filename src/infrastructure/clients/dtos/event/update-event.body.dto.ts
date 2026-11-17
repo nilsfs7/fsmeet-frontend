@@ -1,4 +1,3 @@
-import { Moment } from 'moment';
 import { UpdateEventMaintainerBodyDto } from './update-event-maintainer.body.dto';
 import { UpdatePaymentMethodCashBodyDto } from './payment/update-payment-method-cash.body.dto';
 import { UpdatePaymentMethodSepaBodyDto } from './payment/update-payment-method-sepa.body.dto';
@@ -10,14 +9,14 @@ export class UpdateEventBodyDto {
   name: string;
   alias: string;
   maintainers: UpdateEventMaintainerBodyDto[];
-  dateFrom: Moment;
-  dateTo: Moment;
+  dateFrom: string;
+  dateTo: string;
   participationFee: number;
   enableVisitorRegistration: boolean;
   visitorFee: number;
   currency: CurrencyCode;
-  registrationOpen: Moment;
-  registrationDeadline: Moment;
+  registrationOpen: string;
+  registrationDeadline: string;
   description: string;
   venueName: string;
   venueHouseNo: string;
@@ -50,14 +49,14 @@ export class UpdateEventBodyDto {
     name: string,
     alias: string,
     maintainers: UpdateEventMaintainerBodyDto[],
-    dateFrom: Moment,
-    dateTo: Moment,
+    dateFrom: string,
+    dateTo: string,
     participationFee: number,
     enableVisitorRegistration: boolean,
     visitorFee: number,
     currency: CurrencyCode,
-    registrationOpen: Moment,
-    registrationDeadline: Moment,
+    registrationOpen: string,
+    registrationDeadline: string,
     description: string,
     venueName: string,
     venueHouseNo: string,

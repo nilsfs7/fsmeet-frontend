@@ -1,11 +1,10 @@
 import { EventRegistrationType } from '@/domain/types/event-registration-type';
-import { Moment } from 'moment';
 import { TShirtSize } from '../../../../../domain/enums/t-shirt-size';
 
 export class CreateEventRegistrationBodyDto {
   eventRegistrationType: EventRegistrationType;
-  arrivalDate: Moment | null;
-  departureDate: Moment | null;
+  arrivalDate: string | null;
+  departureDate: string | null;
   compSignUps: string[];
   accommodationOrders: string[];
   offeringOrders: string[];
@@ -16,8 +15,8 @@ export class CreateEventRegistrationBodyDto {
 
   constructor(
     eventRegistrationType: EventRegistrationType,
-    arrivalDate: Moment | null,
-    departureDate: Moment | null,
+    arrivalDate: string | null,
+    departureDate: string | null,
     compSignUps: string[],
     accommodationOrders: string[],
     offeringOrders: string[],

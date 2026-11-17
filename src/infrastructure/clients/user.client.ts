@@ -256,8 +256,8 @@ export async function updateUser(user: User, session: Session | null): Promise<U
     user.jobOfferWalkActs,
     user.jobOfferWorkshops,
     new UpdatePrivateUserInfoBodyDto(
-      //@ts-ignore TODO
       user.birthday,
+      //@ts-ignore TODO
       user.tShirtSize,
       user.houseNumber,
       user.street,

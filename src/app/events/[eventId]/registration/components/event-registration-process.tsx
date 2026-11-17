@@ -570,8 +570,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
           await createEventRegistration_v2(
             event.id,
             registrationType,
-            arrivalDate || null,
-            departureDate || null,
+            arrivalDate ? arrivalDate.toISOString() : null,
+            departureDate ? departureDate.toISOString() : null,
             compSignUps,
             accommodationOrders,
             offeringOrders,

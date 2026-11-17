@@ -122,7 +122,7 @@ export const EventsEditor = () => {
     if (status === 'loading' || !session || !isAdmin) return;
 
     let cancelled = false;
-    getEvents(null, null, null, DATE_FROM, DATE_TO, session)
+    getEvents(null, null, null, DATE_FROM.toISOString(), DATE_TO.toISOString(), session)
       .then(async data => {
         if (cancelled) return;
         setEvents(data);

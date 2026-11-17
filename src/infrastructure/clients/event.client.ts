@@ -19,7 +19,7 @@ import { CreateEventMaintainerBodyDto } from './dtos/event/create-event-maintain
 import { CreatePaymentMethodCashBodyDto } from './dtos/event/payment/create-payment-method-cash.body.dto';
 import { CreatePaymentMethodSepaBodyDto } from './dtos/event/payment/create-payment-method-sepa.body.dto';
 import { CreatePaymentMethodStripeBodyDto } from './dtos/event/payment/create-payment-method-stripe.body.dto';
-import moment, { Moment } from 'moment';
+import { toDate } from '@/lib/date';
 import { UpdateEventBodyDto } from './dtos/event/update-event.body.dto';
 import { UpdateEventMaintainerBodyDto } from './dtos/event/update-event-maintainer.body.dto';
 import { UpdatePaymentMethodCashBodyDto } from './dtos/event/payment/update-payment-method-cash.body.dto';
@@ -38,11 +38,10 @@ export async function getEvents(
   admin: string | null,
   maintainer: string | null,
   participant: string | null,
-  from: moment.Moment | null,
-  to: moment.Moment | null,
+  from: string | null,
+  to: string | null,
   session?: Session | null,
 ): Promise<Event[]> {
-  const format = 'YYYY-MM-DDTHH:mm:ss.SSS';
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?`;
 
   if (admin) {
@@ -58,13 +57,11 @@ export async function getEvents(
   }
 
   if (from) {
-    const fromString = `${from.format(format)}Z`;
-    url += `&dateFrom=${fromString}`;
+    url += `&dateFrom=${from}`;
   }
 
   if (to) {
-    const toString = `${to.format(format)}Z`;
-    url += `&dateTo=${toString}`;
+    url += `&dateTo=${to}`;
   }
 
   let response;
@@ -204,14 +201,14 @@ export async function createEvent(event: Event, session: Session | null): Promis
     event.maintainers.map(maintainer => {
       return new CreateEventMaintainerBodyDto(maintainer.username);
     }),
-    moment(event?.dateFrom),
-    moment(event?.dateTo),
+    event.dateFrom,
+    event.dateTo,
     event?.participationFee,
     event?.enableVisitorRegistration,
     event?.visitorFee,
     event.currency,
-    moment(event?.registrationOpen),
-    moment(event?.registrationDeadline),
+    event.registrationOpen,
+    event.registrationDeadline,
     event?.description,
     event?.venueName,
     event?.venueHouseNo,
@@ -336,8 +333,8 @@ export async function createEventRegistration_v1(eventId: string, compSignUps: s
 export async function createEventRegistration_v2(
   eventId: string,
   eventRegistrationType: EventRegistrationType,
-  arrivalDate: Moment | null,
-  departureDate: Moment | null,
+  arrivalDate: string | null,
+  departureDate: string | null,
   compSignUps: string[],
   accommodationOrders: string[],
   offeringOrders: string[],
@@ -573,14 +570,14 @@ export async function updateEvent(event: Event, session: Session | null): Promis
     event.maintainers.map(maintainer => {
       return new UpdateEventMaintainerBodyDto(maintainer.username);
     }),
-    moment(event?.dateFrom),
-    moment(event?.dateTo),
+    event.dateFrom,
+    event.dateTo,
     event?.participationFee,
     event?.enableVisitorRegistration,
     event?.visitorFee,
     event.currency,
-    moment(event?.registrationOpen),
-    moment(event?.registrationDeadline),
+    event.registrationOpen,
+    event.registrationDeadline,
     event?.description,
     event?.venueName,
     event?.venueHouseNo,
@@ -925,8 +922,10 @@ function hasCoordinate(v: unknown) {
 }
 
 export async function getMapEvents(): Promise<MapEvent[]> {
-  const from = moment.utc().startOf('day').subtract(MAP_EVENTS_LOOKBACK_DAYS, 'days');
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?dateFrom=${from.format('YYYY-MM-DDTHH:mm:ss.SSS')}Z`;
+  const now = new Date();
+  // UTC midnight, MAP_EVENTS_LOOKBACK_DAYS ago; toISOString yields `YYYY-MM-DDTHH:mm:ss.SSSZ`
+  const from = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - MAP_EVENTS_LOOKBACK_DAYS));
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?dateFrom=${from.toISOString()}`;
 
   try {
     const response = await fetch(url, { method: 'GET', next: { revalidate: 300 } });
@@ -941,7 +940,7 @@ export async function getMapEvents(): Promise<MapEvent[]> {
           e.type !== EventType.COMPETITION_ONLINE &&
           hasCoordinate(e.venueLatitude) &&
           hasCoordinate(e.venueLongitude) &&
-          moment(e.dateTo).isSameOrAfter(from),
+          toDate(e.dateTo).getTime() >= from.getTime(),
       )
       .map(e => ({
         id: e.id as string,

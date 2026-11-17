@@ -1,10 +1,8 @@
 import { ShowExperience } from '@/domain/enums/show-experience';
 import { JobPreferredTravelMethod } from '@/domain/enums/job-preferred-travel-method';
 import { CurrencyCode } from '@/domain/enums/currency-code';
-import { Moment } from 'moment';
-
 export class UpdatePrivateUserInfoBodyDto {
-  birthday: Moment;
+  birthday: string | undefined;
   tShirtSize: string;
   houseNumber: string;
   street: string;
@@ -22,7 +20,7 @@ export class UpdatePrivateUserInfoBodyDto {
   preferredLanguageCode: string;
 
   constructor(
-    birthday: Moment,
+    birthday: string | undefined,
     tShirtSize: string,
     houseNumber: string,
     street: string,
