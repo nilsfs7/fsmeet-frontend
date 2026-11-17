@@ -49,7 +49,7 @@ export default async function Ads() {
 
   // GET /v1/advertisements without `username` returns every ad: only the app admin gets that overview.
   // Everyone else sees their own ads; logged-out visitors none (previously they got the full list).
-  const advertisements = isAdmin ? await getAdvertisements(null) : username ? await getAdvertisements(username) : [];
+  const advertisements = isAdmin ? await getAdvertisements(null, session) : username ? await getAdvertisements(username, session) : [];
   const owners = isAdmin ? await getAdOwners(advertisements) : [];
 
   return (

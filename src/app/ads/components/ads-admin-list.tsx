@@ -23,7 +23,7 @@ const ALL_OWNERS = '__all__';
 interface IAdsAdminListProps {
   advertisements: ReadAdvertisementResponseDto[];
   owners: AdOwner[];
-  /** The acting admin; edit / stats stay available for own ads only (the backend allows them for the owner only). */
+  /** The acting admin: stats for every ad (admin may read all activity), edit only for own ads (PATCH/DELETE are owner-only). */
   currentUsername: string;
 }
 
@@ -35,7 +35,7 @@ function hostOf(url: string): string {
   }
 }
 
-/** Read-only overview of every ad for the app admin: search, owner and status filter, owner info. No reordering. */
+/** Overview of every ad for the app admin: search, owner and status filter, owner info, stats for each ad. No editing of others' ads, no reordering. */
 export function AdsAdminList({ advertisements, owners, currentUsername }: IAdsAdminListProps) {
   const t = useTranslations('/ads');
   const [query, setQuery] = useState('');
@@ -150,12 +150,11 @@ export function AdsAdminList({ advertisements, owners, currentUsername }: IAdsAd
                         {hostOf(ad.targetUrl)}
                       </a>
                     </div>
-                    {own && (
-                      <div className="flex shrink-0 items-center gap-1">
-                        <ActionButton href={`${routeAds}/${ad.id}/stats`} action={Action.STATISTICS} tooltip={t('tooltipViewStats')} />
-                        <ActionButton href={`${routeAds}/${ad.id}/edit`} action={Action.EDIT} tooltip={t('tooltipEditAd')} />
-                      </div>
-                    )}
+                    <div className="flex shrink-0 items-center gap-1">
+                      {/* the backend lets the app admin read the activity of every ad */}
+                      <ActionButton href={`${routeAds}/${ad.id}/stats`} action={Action.STATISTICS} tooltip={t('tooltipViewStats')} />
+                      {own && <ActionButton href={`${routeAds}/${ad.id}/edit`} action={Action.EDIT} tooltip={t('tooltipEditAd')} />}
+                    </div>
                   </div>
                 </div>
               </li>
