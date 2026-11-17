@@ -1,14 +1,12 @@
-import { Moment } from 'moment';
-
 export class ReadUserGrowthResponseDto {
-  date: Moment;
+  date: string;
   total: number;
   malesCount: number;
   femalesCount: number;
   maleFreestylersCount: number;
   femaleFreestylersCount: number;
 
-  constructor(date: Moment, total: number, malesCount: number, femalesCount: number, maleFreestylersCount: number, femaleFreestylersCount: number) {
+  constructor(date: string, total: number, malesCount: number, femalesCount: number, maleFreestylersCount: number, femaleFreestylersCount: number) {
     this.date = date;
     this.total = total;
     this.malesCount = malesCount;

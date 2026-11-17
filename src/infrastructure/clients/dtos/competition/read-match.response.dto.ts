@@ -1,16 +1,15 @@
-import { Moment } from 'moment';
 import { ReadMatchSlotResponseDto } from './read-match-slots.response.dto';
 
 export class ReadMatchResponseDto {
   id: string;
   matchIndex: number;
   name: string;
-  time: Moment;
+  time: string;
   isExtraMatch: boolean;
   slots: number;
   matchSlots: ReadMatchSlotResponseDto[];
 
-  constructor(id: string, matchIndex: number, name: string, time: Moment, isExtraMatch: boolean, slots: number, matchSlots: ReadMatchSlotResponseDto[]) {
+  constructor(id: string, matchIndex: number, name: string, time: string, isExtraMatch: boolean, slots: number, matchSlots: ReadMatchSlotResponseDto[]) {
     this.id = id;
     this.matchIndex = matchIndex;
     this.name = name;

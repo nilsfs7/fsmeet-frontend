@@ -1,4 +1,3 @@
-import { Moment } from 'moment';
 import { CurrencyCode } from '../../../../domain/enums/currency-code';
 import { PaymentProduct } from '../../../../domain/enums/payment-product';
 
@@ -13,7 +12,7 @@ export class ReadPaymentResponseDto {
   refPaymentProduct: PaymentProduct;
   refProduct: string;
   refUsername: string;
-  date: Moment;
+  date: string;
 
   constructor(
     intentId: string,
@@ -26,7 +25,7 @@ export class ReadPaymentResponseDto {
     refPaymentProduct: PaymentProduct,
     refProduct: string,
     refUsername: string,
-    date: Moment
+    date: string
   ) {
     this.intentId = intentId;
     this.amount = amount;
