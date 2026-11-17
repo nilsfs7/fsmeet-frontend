@@ -78,8 +78,8 @@ const EventCard = ({ event }: IEventProps) => {
           <div className="flex min-h-0 flex-col gap-1.5">
             <MetaRow icon={<IconCalendarEvent stroke={1.75} />}>
               {moment(event.dateFrom).isSame(moment(event.dateTo), 'day')
-                ? getShortDateString(moment(event.dateFrom))
-                : `${getShortDateString(moment(event.dateFrom), false)} – ${getShortDateString(moment(event.dateTo))}`}
+                ? getShortDateString(event.dateFrom)
+                : `${getShortDateString(event.dateFrom, false)} – ${getShortDateString(event.dateTo)}`}
             </MetaRow>
 
             <MetaRow icon={event.type === EventType.COMPETITION_ONLINE ? <IconWorld stroke={1.75} /> : <IconMapPin stroke={1.75} />}>
@@ -87,7 +87,7 @@ const EventCard = ({ event }: IEventProps) => {
             </MetaRow>
 
             <MetaRow icon={registrationOpen ? <IconHourglassHigh stroke={1.75} /> : <IconHourglassOff stroke={1.75} />} className={registrationOpen ? undefined : 'opacity-70'}>
-              {tCard('lblDeadline')} {getShortDateString(moment(event.registrationDeadline))}
+              {tCard('lblDeadline')} {getShortDateString(event.registrationDeadline)}
             </MetaRow>
           </div>
 

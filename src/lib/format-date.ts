@@ -1,4 +1,5 @@
-import moment, { Moment } from 'moment';
+import { format } from 'date-fns';
+import { DateLike, isValidDate, toDate } from '@/lib/date';
 
 /** App locales are country-style codes (`gb`, `de`, `jp`, …); map them to BCP 47 tags for `Intl`. */
 const LOCALE_TAGS: Record<string, string> = {
@@ -28,11 +29,9 @@ export function formatDateRange(from: Date, to: Date, appLocale: string | undefi
   return fmt.formatRange(from, to);
 }
 
-/** Short date like `DD.MM.YY`, or `DD.MM.` without the year. */
-export function getShortDateString(timestamp: Moment, appendYear: boolean = true): string {
-  if (appendYear) {
-    return moment(timestamp).format('DD.MM.YY');
-  } else {
-    return moment(timestamp).format('DD.MM.');
-  }
+/** Short date like `30.11.26`, or `30.11.` without the year. Empty string for missing or invalid input. */
+export function getShortDateString(timestamp: DateLike, appendYear: boolean = true): string {
+  const date = toDate(timestamp);
+  if (!isValidDate(date)) return '';
+  return format(date, appendYear ? 'dd.MM.yy' : 'dd.MM.');
 }
