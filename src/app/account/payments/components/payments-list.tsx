@@ -27,7 +27,6 @@ import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRigh
 import { useTranslations } from 'next-intl';
 import { CurrencyCode } from '../../../../domain/enums/currency-code';
 import { convertCurrencyIntegerToDecimal } from '../../../../functions/currency-conversion';
-import { Moment } from 'moment';
 import moment from 'moment';
 import { createRefund } from '../../../../infrastructure/clients/payment.client';
 import { useSession } from 'next-auth/react';
@@ -50,7 +49,7 @@ export type ColumnInfo = {
   intentId: string;
   username: string;
   amount: Amount;
-  date: Moment;
+  date: string;
 };
 
 function HeaderSortButton<TData>({ column, label, title, 'aria-label': ariaLabel }: { column: Column<TData, unknown>; label: string; title: string; 'aria-label': string }) {
