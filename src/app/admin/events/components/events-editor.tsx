@@ -30,6 +30,7 @@ import { cn } from '@/lib/utils';
 const DATE_FROM = moment('2000').startOf('year');
 const DATE_TO = moment('2099').endOf('year');
 const ALL_STATES = 'all';
+const ALL_TYPES = 'all';
 
 type SortKey = 'dateDesc' | 'dateAsc' | 'name' | 'state';
 
@@ -109,6 +110,7 @@ export const EventsEditor = () => {
   const [reloadKey, setReloadKey] = useState(0);
   const [query, setQuery] = useState('');
   const [stateFilter, setStateFilter] = useState(ALL_STATES);
+  const [typeFilter, setTypeFilter] = useState(ALL_TYPES);
   const [sort, setSort] = useState<SortKey>('dateDesc');
   const [draftStateByEventId, setDraftStateByEventId] = useState<Record<string, EventState>>({});
   const [competitionCountByEventId, setCompetitionCountByEventId] = useState<Record<string, number>>({});
@@ -153,9 +155,14 @@ export const EventsEditor = () => {
   }, [status, session, isAdmin, reloadKey]);
 
   const visibleEvents = useMemo(() => {
-    const filtered = (events ?? []).filter(event => (stateFilter === ALL_STATES || displayedState(event, draftStateByEventId) === stateFilter) && matchesQuery(event, query));
+    const filtered = (events ?? []).filter(
+      event =>
+        (stateFilter === ALL_STATES || displayedState(event, draftStateByEventId) === stateFilter) &&
+        (typeFilter === ALL_TYPES || event.type === typeFilter) &&
+        matchesQuery(event, query),
+    );
     return sortEvents(filtered, sort, draftStateByEventId);
-  }, [events, draftStateByEventId, stateFilter, query, sort]);
+  }, [events, draftStateByEventId, stateFilter, typeFilter, query, sort]);
 
   const dirtyEvents = useMemo(() => (events ?? []).filter(event => event.id && draftStateByEventId[event.id] && draftStateByEventId[event.id] !== event.state), [events, draftStateByEventId]);
 
@@ -261,6 +268,22 @@ export const EventsEditor = () => {
           </div>
           <div className="grid grid-cols-2 gap-3 sm:contents">
             <div className="min-w-0 sm:w-52">
+              <span className="mb-1 block text-xs text-muted-foreground">Type</span>
+              <Select value={typeFilter} onValueChange={setTypeFilter}>
+                <SelectTrigger aria-label="Type">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={ALL_TYPES}>All types</SelectItem>
+                  {Object.values(EventType).map(type => (
+                    <SelectItem key={type} value={type}>
+                      {TYPE_LABEL[type]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="min-w-0 sm:w-52">
               <span className="mb-1 block text-xs text-muted-foreground">State</span>
               <Select value={stateFilter} onValueChange={setStateFilter}>
                 <SelectTrigger aria-label="State">
@@ -303,7 +326,7 @@ export const EventsEditor = () => {
           </div>
         ) : visibleEvents.length === 0 ? (
           <div className="flex justify-center">
-            <AppDataStateEmpty title="No matching events" description="Change the search or the state filter." />
+            <AppDataStateEmpty title="No matching events" description="Change the search, the type or the state filter." />
           </div>
         ) : (
           <ul className="flex flex-col gap-3">
