@@ -15,7 +15,6 @@ import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { QRCodeSVG } from 'qrcode.react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Event } from '@/domain/types/event';
-import moment from 'moment';
 import { EventType } from '@/domain/enums/event-type';
 import { User } from '@/domain/types/user';
 import { useTranslations } from 'next-intl';
