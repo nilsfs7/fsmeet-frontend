@@ -10,7 +10,7 @@ import {
   imgUserDefaultImg,
 } from '@/domain/constants/images';
 import TextareaAutosize from 'react-textarea-autosize';
-import { getShortDateString } from '@/functions/time';
+import { getShortDateString } from '@/lib/format-date';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { QRCodeSVG } from 'qrcode.react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';

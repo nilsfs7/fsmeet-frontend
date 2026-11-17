@@ -22,7 +22,7 @@ import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { EventState } from '@/domain/enums/event-state';
 import { EventType } from '@/domain/enums/event-type';
 import { Event } from '@/domain/types/event';
-import { getShortDateString } from '@/functions/time';
+import { getShortDateString } from '@/lib/format-date';
 import { getCompetitions } from '@/infrastructure/clients/competition.client';
 import { deleteEvent, getEvents, updateEventState } from '@/infrastructure/clients/event.client';
 import { cn } from '@/lib/utils';

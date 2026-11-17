@@ -11,7 +11,7 @@ import { Offering } from '@/domain/types/offering';
 import { Accommodation } from '@/domain/types/accommodation';
 import { getCountryNameByCode } from '@/functions/get-country-name-by-code';
 import { Competition } from '@/domain/types/competition';
-import { getShortDateString } from '../../../../../functions/time';
+import { getShortDateString } from '@/lib/format-date';
 
 const CSV_EMPTY = '';
 const CSV_MARK = 'x';

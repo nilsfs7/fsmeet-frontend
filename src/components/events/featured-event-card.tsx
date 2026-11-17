@@ -8,7 +8,7 @@ import { Event } from '@/domain/types/event';
 import { routeEvents } from '@/domain/constants/routes';
 import { EventType } from '@/domain/enums/event-type';
 import { EventPosterPlaceholder } from '@/components/events/event-type-icon';
-import { getShortDateString } from '@/functions/time';
+import { getShortDateString } from '@/lib/format-date';
 
 export interface FeaturedEventCardProps {
   event: Event;

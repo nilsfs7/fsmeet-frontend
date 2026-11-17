@@ -3,7 +3,6 @@
 import { imgUserDefaultImg } from '@/domain/constants/images';
 import { routeUsers } from '@/domain/constants/routes';
 import { EventComment } from '@/domain/types/event-comment';
-import { formatTs } from '@/functions/time';
 import moment from 'moment';
 import Link from 'next/link';
 import ActionButton from '../../common/action-button';
@@ -46,7 +45,7 @@ const UserComment = ({ comment, canDelete, onClickReply, onClickDelete }: IUserC
         </div>
 
         <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 px-1 text-xs">
-          <div className="text-muted-foreground">{`${formatTs(moment(comment.timestamp), 'DD.MM HH:mm')}`}</div>
+          <div className="text-muted-foreground">{moment(comment.timestamp).format('DD.MM HH:mm')}</div>
 
           <button type="button" className="text-foreground/90 hover:underline" onClick={onClickReply}>
             {t('btnReply')}
