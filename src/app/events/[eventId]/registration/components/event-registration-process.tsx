@@ -694,8 +694,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
       const info: EventRegistrationInfo = {
         eventId: event.id,
         registrationType: registrationType,
-        arrivalDate,
-        departureDate,
+        arrivalDate: arrivalDate?.toISOString(),
+        departureDate: departureDate?.toISOString(),
         compSignUps: compSignUps,
         accommodationOrders: accommodationOrders,
         offeringOrders: offeringOrders,
