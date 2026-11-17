@@ -14,7 +14,8 @@ import { useTranslations } from 'next-intl';
 import { createVisaInvitationRequest } from '@/infrastructure/clients/event.client';
 import TextInput from '@/components/common/text-input';
 import { DatePicker } from '@/components/common/date-picker';
-import moment, { Moment } from 'moment';
+import { startOfDay, subYears } from 'date-fns';
+import { toDate, toUtcIso } from '@/lib/date';
 import ComboBox from '@/components/common/combo-box';
 import { menuCountries } from '@/domain/constants/menus/menu-countries';
 import { getUser } from '@/infrastructure/clients/user.client';
@@ -108,9 +109,9 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
     }
   };
 
-  const handleBirthdayChanged = (value: Moment) => {
+  const handleBirthdayChanged = (value: Date) => {
     if (value) {
-      setBirthday(value.startOf('day').utc().format());
+      setBirthday(toUtcIso(startOfDay(value)));
     }
   };
 
@@ -213,9 +214,9 @@ export default function VisaInvitationRequest(props: { params: Promise<{ eventId
 
                 <FieldRow label={t('datePickerBirthday')}>
                   <DatePicker
-                    date={moment(birthday)}
-                    fromDate={moment(1970)}
-                    toDate={moment().subtract(6, 'y')}
+                    date={toDate(birthday)}
+                    fromDate={new Date(1970, 0, 1)}
+                    toDate={subYears(new Date(), 6)}
                     onChange={value => {
                       handleBirthdayChanged(value);
                     }}

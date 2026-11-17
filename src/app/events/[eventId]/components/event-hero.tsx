@@ -2,9 +2,10 @@
 
 import { useState, type ReactNode } from 'react';
 import Link from 'next/link';
-import moment from 'moment';
+import { isSameDay } from 'date-fns';
 import { useLocale, useTranslations } from 'next-intl';
 import { formatDateLong, formatDateRange } from '@/lib/format-date';
+import { toDate } from '@/lib/date';
 import ReactCountryFlag from 'react-country-flag';
 import { IconCalendarEvent, IconMapPin, IconStarFilled, IconWorld } from '@tabler/icons-react';
 import { Event } from '@/domain/types/event';
@@ -51,10 +52,10 @@ export const EventHero = ({ event, eventAdmin }: IEventHero) => {
   const [posterPreviewOpen, setPosterPreviewOpen] = useState(false);
 
   const hasPoster = Boolean(event.imageUrlPoster);
-  const from = moment(event.dateFrom);
-  const to = moment(event.dateTo);
-  const sameDay = from.isSame(to, 'day');
-  const when = sameDay ? formatDateLong(from.toDate(), locale) : formatDateRange(from.toDate(), to.toDate(), locale);
+  const from = toDate(event.dateFrom);
+  const to = toDate(event.dateTo);
+  const sameDay = isSameDay(from, to);
+  const when = sameDay ? formatDateLong(from, locale) : formatDateRange(from, to, locale);
 
   const typeLabel = event.type === EventType.MEETING ? tEvents('eventTypeMeet') : event.type === EventType.COMPETITION_ONLINE ? tEvents('eventTypeCompOnline') : tEvents('eventTypeComp');
   const categoryLabels: Record<EventCategory, string> = {

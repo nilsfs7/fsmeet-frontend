@@ -10,7 +10,7 @@ import CheckBox from '@/components/common/check-box';
 import Dialog from '@/components/dialog';
 import { Toaster, toast } from 'sonner';
 import { useEffect, useState } from 'react';
-import moment from 'moment';
+import { formatLocalDate } from '@/lib/date';
 import { ConfigOptions, download, generateCsv, mkConfig } from 'export-to-csv';
 import { MatchSlot } from '@/domain/types/match-slot';
 import { User } from '@/domain/types/user';
@@ -57,7 +57,7 @@ export const ActionButtonDownloadResults = ({ event, comp, rounds }: IActionButt
   };
 
   const handleDownloadResultsConfirmedClicked = () => {
-    const options: ConfigOptions = { filename: `${moment().format('YYYYMMDD HHmmss')} - ${comp?.name} - results`, useKeysAsHeaders: true };
+    const options: ConfigOptions = { filename: `${formatLocalDate(new Date(), 'yyyyMMdd HHmmss')} - ${comp?.name} - results`, useKeysAsHeaders: true };
     const csvConfig = mkConfig(options);
 
     const data = mapRoundsToCsv(rounds, exportContainsPlayerNames);

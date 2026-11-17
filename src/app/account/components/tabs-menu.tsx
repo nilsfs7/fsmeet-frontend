@@ -31,7 +31,8 @@ import SocialLink from '@/components/user/social-link';
 import { SocialPlatform } from '@/domain/enums/social-platform';
 import { menuFreestyleSinceWithUnspecified } from '@/domain/constants/menus/menu-freestyle-since';
 import { DatePicker } from '@/components/common/date-picker';
-import moment, { Moment } from 'moment';
+import { startOfDay, subYears } from 'date-fns';
+import { toDate, toUtcIso } from '@/lib/date';
 import { menuTShirtSizesWithUnspecified } from '@/domain/constants/menus/menu-t-shirt-sizes';
 import { menuShowExperience } from '@/domain/constants/menus/menu-show-experience';
 import { menuJobPreferredTravelMethod } from '@/domain/constants/menus/menu-job-preferred-travel-method';
@@ -296,10 +297,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
     cacheUserInfo(newUserInfo);
   };
 
-  const handleBirthdayChanged = (value: Moment) => {
+  const handleBirthdayChanged = (value: Date) => {
     if (value) {
       const newUserInfo = Object.assign({}, userInfo);
-      newUserInfo.birthday = value.startOf('day').utc().format();
+      newUserInfo.birthday = toUtcIso(startOfDay(value));
       setUserInfo(newUserInfo);
       cacheUserInfo(newUserInfo);
     }
@@ -844,10 +845,10 @@ export const TabsMenu = ({ user }: ITabsMenu) => {
                 <FieldRow label={t('tabGeneralBirthday')}>
                   <div className={FIELD_CONTROL_TALL_INNER}>
                     <DatePicker
-                      date={userInfo.birthday ? moment(userInfo.birthday) : undefined}
-                      defaultMonth={moment().subtract(20, 'y')}
-                      fromDate={moment(1970)}
-                      toDate={moment().subtract(6, 'y')}
+                      date={userInfo.birthday ? toDate(userInfo.birthday) : undefined}
+                      defaultMonth={subYears(new Date(), 20)}
+                      fromDate={new Date(1970, 0, 1)}
+                      toDate={subYears(new Date(), 6)}
                       onChange={value => {
                         handleBirthdayChanged(value);
                       }}

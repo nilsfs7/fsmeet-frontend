@@ -18,7 +18,8 @@ import { EventRegistrationType } from '@/domain/types/event-registration-type';
 import { createEventRegistration_v1, createEventRegistration_v2, createEventRegistrationCheckout, deleteEventRegistration, getEventRegistration } from '@/infrastructure/clients/event.client';
 import { IconCircleCheck, IconCircleX, IconHourglass, IconPlaneDeparture, IconUserQuestion } from '@tabler/icons-react';
 import { EventRegistrationStatus } from '@/domain/enums/event-registration-status';
-import moment, { Moment } from 'moment';
+import { addDays, differenceInDays, differenceInYears, startOfDay, subDays, subYears } from 'date-fns';
+import { toDate, toUtcIso } from '@/lib/date';
 import Dialog from '@/components/dialog';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
@@ -130,8 +131,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   const [existingCompetitionRegistrations, setExistingCompetitionRegistrations] = useState<Map<string, number>>(new Map());
   const [phoneCountryCode, setPhoneCountryCode] = useState<number | undefined | null>(user.phoneCountryCode);
   const [phoneNumber, setPhoneNumber] = useState<string | null | undefined>(user.phoneNumber);
-  const [arrivalDate, setArrivalDate] = useState<Moment | undefined>();
-  const [departureDate, setDepartureDate] = useState<Moment | undefined>();
+  const [arrivalDate, setArrivalDate] = useState<Date | undefined>();
+  const [departureDate, setDepartureDate] = useState<Date | undefined>();
   const [registrationType, setRegistrationType] = useState<EventRegistrationType>();
   const [compSignUps, setCompSignUps] = useState<string[]>([]);
   const [accommodationOrders, setAccommodationOrders] = useState<string[]>([]);
@@ -188,11 +189,11 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     setUserInfoChanged(true);
   };
 
-  const handleBirthdayChanged = (value: Moment) => {
+  const handleBirthdayChanged = (value: Date) => {
     if (value) {
       const newUser = Object.assign({}, user);
-      newUser.birthday = value.startOf('day').utc().format();
-      newUser.age = moment(moment().diff(newUser.birthday)).year() - 1970;
+      newUser.birthday = toUtcIso(startOfDay(value));
+      newUser.age = differenceInYears(new Date(), toDate(newUser.birthday));
       setUser(newUser);
       setUserInfoChanged(true);
     }
@@ -229,13 +230,13 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
     setUserInfoChanged(true);
   };
 
-  const handleArrivalChanged = (value: Moment) => {
+  const handleArrivalChanged = (value: Date) => {
     if (value) {
       setArrivalDate(value);
     }
   };
 
-  const handleDepartureChanged = (value: Moment) => {
+  const handleDepartureChanged = (value: Date) => {
     if (value) {
       setDepartureDate(value);
     }
@@ -311,7 +312,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   const nextButtonDisabled = (): boolean => {
     if (!page) {
       // participant deadline exceeded
-      if (moment(event?.registrationDeadline).unix() < moment().unix()) {
+      if (toDate(event?.registrationDeadline) < new Date()) {
         if (event.type === EventType.COMPETITION_ONLINE) return true; // disable since only participants can join online competitions
 
         if (!event.paymentMethodStripe.enabled) return true; // disable since visitors can not can join non-stripe events
@@ -619,7 +620,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
   };
 
   const handleUnregisterClicked = async () => {
-    if (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix()) {
+    if (registrationType === EventRegistrationType.PARTICIPANT && toDate(event?.registrationDeadline) < new Date()) {
       console.error('Registration deadline for participants exceeded.');
       return;
     } else {
@@ -633,7 +634,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
   const handleConfirmUnregisterClicked = async () => {
     if (session?.user?.username) {
-      if (!event?.id || (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix())) {
+      if (!event?.id || (registrationType === EventRegistrationType.PARTICIPANT && toDate(event?.registrationDeadline) < new Date())) {
         console.error('Registration deadline for participants exceeded.');
         return;
       } else {
@@ -857,25 +858,25 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                       </div>
 
                       <div className="grid grid-cols-1 gap-3 rounded-xl bg-muted/50 p-3 sm:p-4">
-                        {event?.id && moment(event?.registrationOpen).unix() > moment().unix() && (
+                        {event?.id && toDate(event?.registrationOpen) > new Date() && (
                           <OverviewFact label={t('pageOverviewRegistrationStart')}>
                             {getShortDateString(event?.registrationOpen)}
-                            <span className="ml-2 text-sm font-medium text-brand-strong">{t('daysLeft', { count: Math.max(0, moment(event?.registrationOpen).diff(moment(), 'days')) })}</span>
+                            <span className="ml-2 text-sm font-medium text-brand-strong">{t('daysLeft', { count: Math.max(0, differenceInDays(toDate(event?.registrationOpen), new Date())) })}</span>
                           </OverviewFact>
                         )}
-                        {event?.id && moment(event?.registrationOpen).unix() < moment().unix() && event?.id && moment(event?.registrationDeadline).unix() > moment().unix() && (
+                        {event?.id && toDate(event?.registrationOpen) < new Date() && event?.id && toDate(event?.registrationDeadline) > new Date() && (
                           <OverviewFact label={t('pageOverviewRegistrationOpenUntil')}>
                             {getShortDateString(event?.registrationDeadline)}
-                            <span className="ml-2 text-sm font-medium text-brand-strong">{t('daysLeft', { count: Math.max(0, moment(event?.registrationDeadline).diff(moment(), 'days')) })}</span>
+                            <span className="ml-2 text-sm font-medium text-brand-strong">{t('daysLeft', { count: Math.max(0, differenceInDays(toDate(event?.registrationDeadline), new Date())) })}</span>
                           </OverviewFact>
                         )}
-                        {event?.id && moment(event?.registrationDeadline).unix() < moment().unix() && (
+                        {event?.id && toDate(event?.registrationDeadline) < new Date() && (
                           <OverviewFact label={t('pageOverviewRegistrationOver')}>{getShortDateString(event?.registrationDeadline)}</OverviewFact>
                         )}
                       </div>
                     </section>
 
-                    {event.visaInvitationRequestsEnabled && isNaturalPerson(user.type) && user.type !== UserType.FAN && moment(event.dateFrom) > moment() && (
+                    {event.visaInvitationRequestsEnabled && isNaturalPerson(user.type) && user.type !== UserType.FAN && toDate(event.dateFrom) > new Date() && (
                       <section className={cn(registrationFormPanelClass, 'sm:flex-row sm:items-center sm:justify-between')}>
                         <div className="flex min-w-0 items-center gap-3">
                           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">
@@ -901,7 +902,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                         visitorFee={event.paymentMethodStripe.enabled && event.paymentMethodStripe.coverProviderFee ? event.visitorFeeIncPaymentCosts : event.visitorFee}
                         eventType={event.type}
                         userType={user.type}
-                        disabled={[moment().unix() > moment(event.registrationDeadline).unix(), moment().unix() > moment(event.dateTo).unix()]}
+                        disabled={[new Date() > toDate(event.registrationDeadline), new Date() > toDate(event.dateTo)]}
                         currency={event.currency}
                         checked={registrationType}
                         selectable={true}
@@ -918,8 +919,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                         <RegistrationFieldRow label={t('pageParticipantSectionTravelInfoArrivalDate')}>
                           <DatePicker
                             date={arrivalDate}
-                            fromDate={moment(event.dateFrom).subtract(14, 'd')}
-                            toDate={moment(event.dateTo)}
+                            fromDate={subDays(toDate(event.dateFrom), 14)}
+                            toDate={toDate(event.dateTo)}
                             onChange={value => {
                               handleArrivalChanged(value);
                             }}
@@ -928,8 +929,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
                         <RegistrationFieldRow label={t('pageParticipantSectionTravelInfoDepartureDate')}>
                           <DatePicker
                             date={departureDate}
-                            fromDate={moment(event.dateFrom)}
-                            toDate={moment(event.dateTo).add(14, 'd')}
+                            fromDate={toDate(event.dateFrom)}
+                            toDate={addDays(toDate(event.dateTo), 14)}
                             onChange={value => {
                               handleDepartureChanged(value);
                             }}
@@ -972,9 +973,9 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
 
                         <RegistrationFieldRow label={t('pageParticipantSectionUserInfoBirthday')}>
                           <DatePicker
-                            date={moment(user.birthday)}
-                            fromDate={moment(1970)}
-                            toDate={moment().subtract(6, 'y')}
+                            date={toDate(user.birthday)}
+                            fromDate={new Date(1970, 0, 1)}
+                            toDate={subYears(new Date(), 6)}
                             onChange={value => {
                               handleBirthdayChanged(value);
                             }}
@@ -1205,7 +1206,7 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
               type="button"
               variant="action"
               className={ctaActionButtonClassName}
-              disabled={nextButtonDisabled() || moment(event?.registrationOpen).unix() > moment().unix() || moment(event?.dateTo).unix() < moment().unix() || false}
+              disabled={nextButtonDisabled() || toDate(event?.registrationOpen) > new Date() || toDate(event?.dateTo) < new Date() || false}
               onClick={handleNextClicked}
             >
               {page ? t('btnNextPage') : t('btnRegister')}
@@ -1226,8 +1227,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
               variant="actionCritical"
               className={ctaActionButtonClassName}
               disabled={
-                (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.registrationDeadline).unix() < moment().unix()) ||
-                (registrationType === EventRegistrationType.VISITOR && moment(event?.dateTo).unix() < moment().unix()) ||
+                (registrationType === EventRegistrationType.PARTICIPANT && toDate(event?.registrationDeadline) < new Date()) ||
+                (registrationType === EventRegistrationType.VISITOR && toDate(event?.dateTo) < new Date()) ||
                 false
               }
               onClick={() => {
@@ -1246,8 +1247,8 @@ export const EventRegistrationProcess = ({ event, competitions, attendee }: IEve
               className={ctaActionButtonClassName}
               disabled={
                 paymentLoading ||
-                (registrationType === EventRegistrationType.PARTICIPANT && moment(event?.dateFrom).unix() < moment().unix()) ||
-                (registrationType === EventRegistrationType.VISITOR && moment(event?.dateTo).unix() < moment().unix()) ||
+                (registrationType === EventRegistrationType.PARTICIPANT && toDate(event?.dateFrom) < new Date()) ||
+                (registrationType === EventRegistrationType.VISITOR && toDate(event?.dateTo) < new Date()) ||
                 false
               }
               onClick={() => {

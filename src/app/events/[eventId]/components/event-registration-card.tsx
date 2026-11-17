@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import moment from 'moment';
+import { differenceInDays, startOfDay } from 'date-fns';
 import { useLocale, useTranslations } from 'next-intl';
+import { toDate } from '@/lib/date';
 import { formatDateLong } from '@/lib/format-date';
 import { IconArrowRight, IconBroadcast, IconTicket, IconUsers } from '@tabler/icons-react';
 import { Event } from '@/domain/types/event';
@@ -45,13 +46,13 @@ export const EventRegistrationCard = ({ event, participantCount, className }: IE
   const t = useTranslations('/events/eventid');
   const locale = useLocale();
 
-  const now = moment();
-  const opens = moment(event.registrationOpen);
-  const closes = moment(event.registrationDeadline);
-  const eventOver = moment(event.dateTo).unix() <= now.unix();
-  const phase: RegistrationPhase = now.isBefore(opens) ? 'upcoming' : now.isAfter(closes) ? 'closed' : 'open';
-  const daysLeft = Math.max(0, closes.clone().startOf('day').diff(now.clone().startOf('day'), 'days'));
-  const fmt = (m: moment.Moment) => formatDateLong(m.toDate(), locale, false);
+  const now = new Date();
+  const opens = toDate(event.registrationOpen);
+  const closes = toDate(event.registrationDeadline);
+  const eventOver = toDate(event.dateTo) <= now;
+  const phase: RegistrationPhase = now < opens ? 'upcoming' : now > closes ? 'closed' : 'open';
+  const daysLeft = Math.max(0, differenceInDays(startOfDay(closes), startOfDay(now)));
+  const fmt = (d: Date) => formatDateLong(d, locale, false);
 
   const statusStyles: Record<RegistrationPhase, string> = {
     open: 'bg-brand-soft text-brand-strong',

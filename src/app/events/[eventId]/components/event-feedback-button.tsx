@@ -4,12 +4,12 @@ import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Event } from '@/domain/types/event';
-import moment from 'moment';
 import { routeEvents } from '@/domain/constants/routes';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getEventRegistrations } from '@/infrastructure/clients/event.client';
 import { EventRegistration } from '@/domain/types/event-registration';
+import { toDate } from '@/lib/date';
 import { isInEventRegistrations } from '@/functions/is-in-event-registrations';
 
 export interface EventFeedbackButtonProps {
@@ -31,7 +31,7 @@ export const EventFeedbackButton = ({ event }: EventFeedbackButtonProps) => {
 
   return (
     isInEventRegistrations(eventRegistrations, session) &&
-    moment(event.dateTo).unix() < moment().unix() && (
+    toDate(event.dateTo) < new Date() && (
       <Button asChild variant="action" className={ctaActionButtonClassName}>
         <Link href={`${routeEvents}/${event.id}/feedback`}>{t('btnFeedback')}</Link>
       </Button>

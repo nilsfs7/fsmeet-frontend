@@ -17,7 +17,7 @@ import { EventFeedbackButton } from './components/event-feedback-button';
 import { isEventAdminOrMaintainer } from '@/functions/is-event-admin-or-maintrainer';
 import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
-import moment from 'moment';
+import { formatLocalDate, toDate } from '@/lib/date';
 import { getAttachments } from '@/infrastructure/clients/attachment.client';
 import AdminPanel from './components/admin-panel';
 import { EventHero } from './components/event-hero';
@@ -39,7 +39,7 @@ export async function generateMetadata(props: { params: Promise<{ eventId: strin
 
   try {
     const event = await getEvent(eventId);
-    const dateLabel = moment(event.dateFrom).isValid() ? moment(event.dateFrom).format('D MMM YYYY') : '';
+    const dateLabel = formatLocalDate(event.dateFrom, 'd MMM yyyy');
     const placeParts = [event.venueCity, event.venueCountryCode].filter(Boolean);
     const placeLabel = placeParts.join(', ');
     const fallbackDescription = [dateLabel, placeLabel].filter(Boolean).join(' · ');
@@ -93,7 +93,7 @@ export default async function EventDetails(props: { params: Promise<{ eventId: s
     getEventRegistrations(params.eventId, EventRegistrationType.PARTICIPANT, session).catch(() => undefined),
   ]);
   const participantCount = Array.isArray(registrations) ? registrations.filter(r => r.status === EventRegistrationStatus.APPROVED).length : undefined;
-  const eventOver = moment(event?.dateTo).unix() <= moment().unix();
+  const eventOver = toDate(event?.dateTo) <= new Date();
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">

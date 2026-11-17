@@ -3,7 +3,8 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Dialog from '@/components/dialog';
-import moment from 'moment';
+import { startOfDay } from 'date-fns';
+import { formatLocalDate, toDate, toUtcIso } from '@/lib/date';
 import { getMenuAvailableDays } from '@/domain/constants/menus/menu-available-days';
 import { Input } from '@/components/ui/input';
 import { useTranslations } from 'next-intl';
@@ -73,9 +74,9 @@ const DialogAddRound = ({ title, queryParam, onCancel, onConfirm, cancelText, co
           <DialogDaySelect
             id="input-round-day"
             menus={getMenuAvailableDays(dateFrom, dateTo)}
-            value={moment(roundDate).format('YYYY-MM-DD') || getMenuAvailableDays(dateFrom, dateTo)[0].value}
+            value={formatLocalDate(roundDate, 'yyyy-MM-dd') || getMenuAvailableDays(dateFrom, dateTo)[0].value}
             onChange={value => {
-              setRoundDate(moment(value).startOf('day').utc().format());
+              setRoundDate(toUtcIso(startOfDay(toDate(value))));
             }}
           />
         </DialogField>

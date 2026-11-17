@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import moment from 'moment';
+import { endOfDay } from 'date-fns';
 import { IconAdjustmentsHorizontal, IconSearch } from '@tabler/icons-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -12,6 +12,7 @@ import { EventType } from '@/domain/enums/event-type';
 import { EventState } from '@/domain/enums/event-state';
 import { isPublicEventState } from '@/functions/event-state';
 import { cn } from '@/lib/utils';
+import { toDate } from '@/lib/date';
 
 const ALL = 'all';
 
@@ -48,14 +49,14 @@ function matchesStatus(event: Event, status: EventStatusFilter): boolean {
 }
 
 /** Upcoming includes running events (end date not yet over). */
-function matchesTime(event: Event, time: EventTimeFilter, now: moment.Moment): boolean {
+function matchesTime(event: Event, time: EventTimeFilter, now: Date): boolean {
   if (time === ALL) return true;
-  const isPast = moment(event.dateTo || event.dateFrom).endOf('day').isBefore(now);
+  const isPast = endOfDay(toDate(event.dateTo || event.dateFrom)) < now;
   return time === 'past' ? isPast : !isPast;
 }
 
 export function filterEvents(events: Event[], f: EventListFilterState): Event[] {
-  const now = moment();
+  const now = new Date();
   return events.filter(e => matchesQuery(e, f.query) && (f.type === ALL || e.type === f.type) && matchesStatus(e, f.status) && matchesTime(e, f.time, now));
 }
 

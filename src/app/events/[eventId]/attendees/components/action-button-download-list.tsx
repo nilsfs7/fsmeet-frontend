@@ -4,7 +4,7 @@ import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
 import { Event } from '@/domain/types/event';
 import { Toaster } from 'sonner';
-import moment from 'moment';
+import { formatLocalDate } from '@/lib/date';
 import { ConfigOptions, download, generateCsv, mkConfig } from 'export-to-csv';
 import { EventRegistration } from '@/domain/types/event-registration';
 import { Offering } from '@/domain/types/offering';
@@ -44,7 +44,7 @@ function mapRegistrationsToCsv(
     const code = user.countryCode;
 
     return {
-      'Registration Date': `${moment(registration?.date).format('YYYY-MM-DD HH:mm')}`,
+      'Registration Date': `${formatLocalDate(registration?.date, 'yyyy-MM-dd HH:mm')}`,
       'Registration Type': registration.type,
       'Registration Status': registration.status,
       Username: user.username,
@@ -78,7 +78,7 @@ interface IActionButtonDownloadList {
 
 export const ActionButtonDownloadList = ({ event, competitions, registrations, offerings, accommodations }: IActionButtonDownloadList) => {
   const handleDownloadResultsClicked = async () => {
-    const options: ConfigOptions = { filename: `${moment().format('YYYYMMDD HHmmss')} - ${event.name} -  registrations`, useKeysAsHeaders: true };
+    const options: ConfigOptions = { filename: `${formatLocalDate(new Date(), 'yyyyMMdd HHmmss')} - ${event.name} -  registrations`, useKeysAsHeaders: true };
     const csvConfig = mkConfig(options);
 
     const data = mapRegistrationsToCsv(competitions, registrations, offerings, accommodations);

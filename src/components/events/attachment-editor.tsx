@@ -6,7 +6,8 @@ import { Attachment } from '@/domain/types/attachment';
 import { useTranslations } from 'next-intl';
 import CheckBox from '../common/check-box';
 import { DatePicker } from '../common/date-picker';
-import moment, { type Moment } from 'moment';
+import { addYears, startOfDay } from 'date-fns';
+import { isValidDate, toDate, toUtcIso } from '@/lib/date';
 import { getFilenameFromUrl } from '@/functions/string-manipulation';
 import { cn } from '@/lib/utils';
 import { FileDropzone } from '../common/file-dropzone';
@@ -25,12 +26,12 @@ const FIELD_CONTROL_TALL_INNER = 'flex min-h-10 w-full min-w-0 items-center';
 
 const SECTION_TITLE_CLASS = 'text-xs font-semibold uppercase tracking-wide text-muted-foreground';
 
-function expiryMoment(expiryDate: string | null | undefined): Moment | undefined {
+function expiryDateValue(expiryDate: string | null | undefined): Date | undefined {
   if (!expiryDate) {
     return undefined;
   }
-  const m = moment(expiryDate);
-  return m.isValid() ? m : undefined;
+  const date = toDate(expiryDate);
+  return isValidDate(date) ? date : undefined;
 }
 
 interface IAttachmentEditorProps {
@@ -170,12 +171,12 @@ const AttachmentEditor = ({ attachment, onAttachmentUpdate, onAttachmentFileUpda
             <div className={FIELD_CONTROL_CLASS}>
               <div className={FIELD_CONTROL_TALL_INNER}>
                 <DatePicker
-                  date={expiryMoment(expiryDate)}
-                  fromDate={moment('2020')}
-                  toDate={moment().add(2, 'y')}
+                  date={expiryDateValue(expiryDate)}
+                  fromDate={new Date(2020, 0, 1)}
+                  toDate={addYears(new Date(), 2)}
                   onChange={value => {
                     if (value) {
-                      setExpiryDate(value.startOf('day').utc().format());
+                      setExpiryDate(toUtcIso(startOfDay(value)));
                     }
                   }}
                 />

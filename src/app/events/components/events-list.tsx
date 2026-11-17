@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
-import moment, { Moment } from 'moment';
+import { addMonths, addYears, subMonths, subYears } from 'date-fns';
 import Link from 'next/link';
 import { countries } from 'countries-list';
 import EventCard from '@/components/events/event-card';
@@ -28,8 +28,8 @@ import { SiteFooter } from '@/components/footer/site-footer';
 import { EventType } from '@/domain/enums/event-type';
 import { EventCategory } from '@/domain/enums/event-category';
 
-const defaultDateFrom = moment(moment().subtract(3, 'months').toString());
-const defaultDateTo = moment(moment().add(6, 'months').toString());
+const defaultDateFrom = subMonths(new Date(), 3);
+const defaultDateTo = addMonths(new Date(), 6);
 
 const ALL = '__all__' as const;
 
@@ -77,8 +77,8 @@ export const EventsList = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [advertisements, setAdvertisements] = useState<ReadAdvertisementResponseDto[]>([]);
   const [featuredEvents, setFeaturedEvents] = useState<Event[]>([]);
-  const [dateFrom, setDateFrom] = useState<Moment>(defaultDateFrom);
-  const [dateTo, setDateTo] = useState<Moment>(defaultDateTo);
+  const [dateFrom, setDateFrom] = useState<Date>(defaultDateFrom);
+  const [dateTo, setDateTo] = useState<Date>(defaultDateTo);
   const [nameQuery, setNameQuery] = useState('');
   const [advancedOpen, setAdvancedOpen] = useState(false);
 
@@ -160,7 +160,7 @@ export const EventsList = () => {
     setPrizeMoneyOnly(false);
   };
 
-  const loadForRange = useCallback((from: Moment, to: Moment) => {
+  const loadForRange = useCallback((from: Date, to: Date) => {
     setLoadState('loading');
     setErrorMessage(null);
     return getEvents(null, null, null, from.toISOString(), to.toISOString())
@@ -211,14 +211,14 @@ export const EventsList = () => {
     }
   }, [filterType]);
 
-  const handleDateFromChanged = (m: Moment | null) => {
+  const handleDateFromChanged = (m: Date | null) => {
     if (m) {
       setDateFrom(m);
       void loadForRange(m, dateTo);
     }
   };
 
-  const handleDateToChanged = (m: Moment | null) => {
+  const handleDateToChanged = (m: Date | null) => {
     if (m) {
       setDateTo(m);
       void loadForRange(dateFrom, m);
@@ -237,7 +237,7 @@ export const EventsList = () => {
             <div className="mb-1 text-xs font-medium text-muted-foreground">{t('datePickerFrom')}</div>
             <DatePicker
               date={dateFrom}
-              fromDate={moment().subtract(2, 'y')}
+              fromDate={subYears(new Date(), 2)}
               toDate={dateTo}
               onChange={newDate => {
                 handleDateFromChanged(newDate);
@@ -250,7 +250,7 @@ export const EventsList = () => {
             <DatePicker
               date={dateTo}
               fromDate={dateFrom}
-              toDate={moment().add(2, 'y')}
+              toDate={addYears(new Date(), 2)}
               onChange={newDate => {
                 handleDateToChanged(newDate);
               }}

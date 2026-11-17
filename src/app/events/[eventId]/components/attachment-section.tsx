@@ -3,7 +3,7 @@
 import { Attachment } from '@/domain/types/attachment';
 import AttachmentCard from './attachment-card';
 import { useTranslations } from 'next-intl';
-import moment from 'moment';
+import { toDate } from '@/lib/date';
 import { compareByIndex } from '@/functions/compare-by-index';
 
 interface IAttachmentSectionProps {
@@ -30,7 +30,7 @@ export const AttachmentSection = ({ eventAttachments }: IAttachmentSectionProps)
         {orderedAttachments
           .filter(att => {
             if (att.enabled && att.url) {
-              if (!att.expires || (att.expires && moment(att.expiryDate) > moment())) {
+              if (!att.expires || (att.expires && toDate(att.expiryDate) > new Date())) {
                 return att;
               }
             }

@@ -2,7 +2,8 @@
 
 import { useEffect, useState, type ChangeEvent, type ReactNode } from 'react';
 import TextInput from '../common/text-input';
-import moment from 'moment';
+import { addDays, addYears, endOfDay, startOfDay } from 'date-fns';
+import { toDate, toUtcIso } from '@/lib/date';
 import { Event } from '@/domain/types/event';
 import { EventType } from '@/domain/enums/event-type';
 import CheckBox from '../common/check-box';
@@ -102,10 +103,10 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
 
   const [name, setEventName] = useState(event?.name || '');
   const [alias, setEventAlias] = useState(event?.alias || '');
-  const [dateFrom, setDateFrom] = useState<string>(event?.dateFrom ? event.dateFrom : moment().startOf('day').add(7, 'day').utc().format());
-  const [dateTo, setDateTo] = useState<string>(event?.dateTo ? event.dateTo : moment().endOf('day').add(7, 'day').utc().format());
-  const [registrationOpen, setRegistrationOpen] = useState<string>(event?.registrationOpen ? event.registrationOpen : moment().startOf('day').utc().format());
-  const [registrationDeadline, setRegistrationDeadline] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : moment().endOf('day').add(6, 'day').utc().format());
+  const [dateFrom, setDateFrom] = useState<string>(event?.dateFrom ? event.dateFrom : toUtcIso(addDays(startOfDay(new Date()), 7)));
+  const [dateTo, setDateTo] = useState<string>(event?.dateTo ? event.dateTo : toUtcIso(addDays(endOfDay(new Date()), 7)));
+  const [registrationOpen, setRegistrationOpen] = useState<string>(event?.registrationOpen ? event.registrationOpen : toUtcIso(startOfDay(new Date())));
+  const [registrationDeadline, setRegistrationDeadline] = useState<string>(event?.registrationDeadline ? event.registrationDeadline : toUtcIso(addDays(endOfDay(new Date()), 6)));
   const [description, setDescription] = useState(event?.description || '');
   const [venueName, setVenueName] = useState(event?.venueName || '');
   const [venueHouseNo, setVenueHouseNo] = useState(event?.venueHouseNo || '');
@@ -550,13 +551,13 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           <span className={FIELD_LABEL_CLASS}>{t('datePickerFrom')}</span>
           <div>
             <DatePicker
-              date={moment(dateFrom)}
-              fromDate={moment('2020')}
-              toDate={moment().add(2, 'y')}
+              date={toDate(dateFrom)}
+              fromDate={new Date(2020, 0, 1)}
+              toDate={addYears(new Date(), 2)}
               onChange={value => {
                 if (value) {
-                  setDateFrom(value.startOf('day').utc().format());
-                  setDateTo(value.endOf('day').utc().format());
+                  setDateFrom(toUtcIso(startOfDay(value)));
+                  setDateTo(toUtcIso(endOfDay(value)));
                 }
               }}
             />
@@ -567,12 +568,12 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           <span className={FIELD_LABEL_CLASS}>{t('datePickerTo')}</span>
           <div>
             <DatePicker
-              date={moment(dateTo)}
-              fromDate={moment('2020')}
-              toDate={moment().add(2, 'y')}
+              date={toDate(dateTo)}
+              fromDate={new Date(2020, 0, 1)}
+              toDate={addYears(new Date(), 2)}
               onChange={value => {
                 if (value) {
-                  setDateTo(value.endOf('day').utc().format());
+                  setDateTo(toUtcIso(endOfDay(value)));
                 }
               }}
             />
@@ -583,12 +584,12 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           <span className={FIELD_LABEL_CLASS}>{t('datePickerRegistrationFrom')}</span>
           <div>
             <DatePicker
-              date={moment(registrationOpen)}
-              fromDate={moment('2020')}
-              toDate={moment().add(2, 'y')}
+              date={toDate(registrationOpen)}
+              fromDate={new Date(2020, 0, 1)}
+              toDate={addYears(new Date(), 2)}
               onChange={value => {
                 if (value) {
-                  setRegistrationOpen(value.startOf('day').utc().format());
+                  setRegistrationOpen(toUtcIso(startOfDay(value)));
                 }
               }}
             />
@@ -599,12 +600,12 @@ const EventEditor = ({ editorMode, users, event, onEventUpdate, onEventPosterUpd
           <span className={FIELD_LABEL_CLASS}>{t('datePickerRegistrationTo')}</span>
           <div>
             <DatePicker
-              date={moment(registrationDeadline)}
-              fromDate={moment('2020')}
-              toDate={moment().add(2, 'y')}
+              date={toDate(registrationDeadline)}
+              fromDate={new Date(2020, 0, 1)}
+              toDate={addYears(new Date(), 2)}
               onChange={value => {
                 if (value) {
-                  setRegistrationDeadline(value.endOf('day').utc().format());
+                  setRegistrationDeadline(toUtcIso(endOfDay(value)));
                 }
               }}
             />
