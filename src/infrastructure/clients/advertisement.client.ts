@@ -11,7 +11,8 @@ import { CreateActivityBodyDto } from './dtos/advertisement/create-activity.body
 import { UserActivity } from '@/domain/enums/user-activity';
 import { ReadAdvertisementActivityResponseDto } from './dtos/advertisement/read-activity.response.dto';
 
-export async function getAdvertisements(username: string | null): Promise<ReadAdvertisementResponseDto[]> {
+/** `session` is optional: with the admin's token the backend may return admin-only data (all ads incl. inactive ones). */
+export async function getAdvertisements(username: string | null, session?: Session | null): Promise<ReadAdvertisementResponseDto[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/advertisements?`;
 
   if (username) {
@@ -22,6 +23,7 @@ export async function getAdvertisements(username: string | null): Promise<ReadAd
     method: 'GET',
     headers: {
       ...defaultHeaders,
+      ...(session?.user?.accessToken ? { Authorization: `Bearer ${session.user.accessToken}` } : {}),
     },
   });
 

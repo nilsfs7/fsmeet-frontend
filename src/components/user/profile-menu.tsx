@@ -139,11 +139,11 @@ const ProfileMenu = () => {
   };
 
   const effectiveUserType = session?.user?.type ?? userTypeFromApi;
-  const showAdsMenu = effectiveUserType === UserType.BRAND;
+  const isAdmin = (username ?? session?.user?.username) === AdministrativeUser.ADMIN;
+  // brands manage their own ads; the app admin gets the overview of all ads
+  const showAdsMenu = effectiveUserType === UserType.BRAND || isAdmin;
   // Temporarily limited to German freestylers (same gate as account Jobs tab)
   const showJobsMenu = effectiveUserType === UserType.FREESTYLER && countryCodeFromApi === 'DE';
-
-  const isAdmin = (username ?? session?.user?.username) === AdministrativeUser.ADMIN;
   const tHeader = useTranslations('global/components/app-header');
 
   type MenuEntry = { label: string; Icon: Icon; action: () => void; critical?: boolean; divider?: boolean };
