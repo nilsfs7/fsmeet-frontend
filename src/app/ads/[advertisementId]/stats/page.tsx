@@ -7,6 +7,7 @@ import PageTitle from '@/components/page-title';
 import { getTranslations } from 'next-intl/server';
 import { getAdvertisement, getAdvertisementActivity } from '@/infrastructure/clients/advertisement.client';
 import { auth } from '@/auth';
+import { AdministrativeUser } from '@/domain/enums/administrative-user';
 import { Platform } from '@/domain/enums/platform';
 import { formatLocalDate, parseYearMonth } from '@/lib/date';
 import { AppDataStateError } from '@/components/shared/app-data-state-error';
@@ -27,16 +28,22 @@ export default async function AdvertisementStatsPage(props: { params: Promise<{ 
   const [t, tGlobal, session] = await Promise.all([getTranslations('/ads/stats'), getTranslations('global/data-states'), auth()]);
 
   let advertisementTitle: string | undefined;
+  let advertisementOwner: string | undefined;
   let activity: Awaited<ReturnType<typeof getAdvertisementActivity>> = [];
   let loadError = false;
 
   try {
     const [advertisement, activityRows] = await Promise.all([getAdvertisement(params.advertisementId), getAdvertisementActivity(params.advertisementId, session)]);
     advertisementTitle = advertisement.title;
+    advertisementOwner = advertisement.username;
     activity = activityRows;
   } catch {
     loadError = true;
   }
+
+  // the app admin reads stats of other people's ads: back leads to the all-ads overview, not into an editor
+  const isAdmin = session?.user?.username === AdministrativeUser.ADMIN;
+  const backHref = isAdmin && advertisementOwner !== session?.user?.username ? routeAds : `${routeAds}/${params.advertisementId}/edit`;
 
   const totalClicks = activity.reduce((sum, row) => sum + row.clicks, 0);
   const totalHovers = activity.reduce((sum, row) => sum + row.hovers, 0);
@@ -103,7 +110,7 @@ export default async function AdvertisementStatsPage(props: { params: Promise<{ 
       </div>
 
       <Navigation>
-        <ActionButton href={`${routeAds}/${params.advertisementId}/edit`} action={Action.BACK} />
+        <ActionButton href={backHref} action={Action.BACK} />
       </Navigation>
     </div>
   );
