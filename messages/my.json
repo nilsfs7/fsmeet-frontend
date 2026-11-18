@@ -915,7 +915,17 @@
     "hintReorder": "Seret iklan melalui pemegang untuk menukar susunan paparannya.",
     "tooltipDragAd": "Seret untuk menyusun semula",
     "toastReorderFailed": "Tidak dapat mengemas kini susunan iklan.",
-    "toastReorderUnavailable": "Penyusunan semula iklan belum tersedia. Sila cuba lagi kemudian."
+    "toastReorderUnavailable": "Penyusunan semula iklan belum tersedia. Sila cuba lagi kemudian.",
+    "adminPageTitle": "Semua Iklan",
+    "adminPageDescription": "Gambaran keseluruhan admin bagi setiap iklan di FSMeet, merentasi semua pengiklan.",
+    "adminSearchPlaceholder": "Cari tajuk, pautan atau pengiklan…",
+    "adminFilterOwner": "Pengiklan",
+    "adminFilterOwnerAll": "Semua pengiklan",
+    "adminFilterStatus": "Status",
+    "adminFilterStatusAll": "Semua status",
+    "adminResultCount": "Iklan: {shown} / {total} · Pengiklan: {owners}",
+    "adminNoMatches": "Tiada iklan sepadan dengan penapis anda.",
+    "adminResetFilters": "Set semula penapis"
   },
   "/ads/create": {
     "pageTitle": "Cipta Iklan",

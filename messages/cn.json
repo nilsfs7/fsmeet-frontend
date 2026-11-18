@@ -915,7 +915,17 @@
     "hintReorder": "拖动手柄即可更改广告的显示顺序。",
     "tooltipDragAd": "拖动以排序",
     "toastReorderFailed": "无法更新广告顺序。",
-    "toastReorderUnavailable": "广告排序功能暂不可用，请稍后再试。"
+    "toastReorderUnavailable": "广告排序功能暂不可用，请稍后再试。",
+    "adminPageTitle": "所有广告",
+    "adminPageDescription": "管理员概览：FSMeet 上所有广告主的全部广告。",
+    "adminSearchPlaceholder": "搜索标题、链接或广告主…",
+    "adminFilterOwner": "广告主",
+    "adminFilterOwnerAll": "所有广告主",
+    "adminFilterStatus": "状态",
+    "adminFilterStatusAll": "所有状态",
+    "adminResultCount": "广告：{shown} / {total} · 广告主：{owners}",
+    "adminNoMatches": "没有符合筛选条件的广告。",
+    "adminResetFilters": "重置筛选"
   },
   "/ads/create": {
     "pageTitle": "创建广告",

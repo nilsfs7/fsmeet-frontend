@@ -890,7 +890,17 @@
     "hintReorder": "Ziehe Anzeigen am Griff, um die Reihenfolge der Ausspielung zu ändern.",
     "tooltipDragAd": "Zum Sortieren ziehen",
     "toastReorderFailed": "Die Reihenfolge der Anzeigen konnte nicht gespeichert werden.",
-    "toastReorderUnavailable": "Das Sortieren von Anzeigen ist noch nicht verfügbar. Bitte versuche es später erneut."
+    "toastReorderUnavailable": "Das Sortieren von Anzeigen ist noch nicht verfügbar. Bitte versuche es später erneut.",
+    "adminPageTitle": "Alle Anzeigen",
+    "adminPageDescription": "Admin-Übersicht aller Anzeigen auf FSMeet, über alle Werbetreibenden hinweg.",
+    "adminSearchPlaceholder": "Titel, Link oder Werbetreibenden suchen…",
+    "adminFilterOwner": "Werbetreibender",
+    "adminFilterOwnerAll": "Alle Werbetreibenden",
+    "adminFilterStatus": "Status",
+    "adminFilterStatusAll": "Alle Status",
+    "adminResultCount": "Anzeigen: {shown} / {total} · Werbetreibende: {owners}",
+    "adminNoMatches": "Keine Anzeigen passen zu deinen Filtern.",
+    "adminResetFilters": "Filter zurücksetzen"
   },
   "/ads/create": {
     "pageTitle": "Anzeige erstellen",
