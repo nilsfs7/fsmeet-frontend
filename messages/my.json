@@ -804,7 +804,15 @@
     "toastStatusUpdated": "Status untuk {name} dikemas kini",
     "statTotal": "Semua pendaftaran",
     "textShown": "Memaparkan {shown} daripada {total}",
-    "btnClearSearch": "Kosongkan carian"
+    "btnClearSearch": "Kosongkan carian",
+    "dlgAddRegistrationTitle": "Tambah peserta",
+    "dlgAddRegistrationText": "Daftarkan pengguna bagi pihak mereka.",
+    "dlgAddRegistrationUser": "Pengguna",
+    "dlgAddRegistrationNoUsers": "Semua pengguna sudah berdaftar.",
+    "dlgAddRegistrationType": "Daftar sebagai",
+    "dlgAddRegistrationFanHint": "Peminat hanya boleh ditambah sebagai pelawat.",
+    "dlgAddRegistrationConfirm": "Tambah",
+    "toastAdded": "{name} ditambah"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Gambaran Keseluruhan Pendaftaran Acara",

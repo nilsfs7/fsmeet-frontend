@@ -33,15 +33,9 @@ import { TShirtSize } from '../../domain/enums/t-shirt-size';
 import { PutArenaScreenBodyDto } from './dtos/event/put-arena-screen.body.dto';
 import { ReadArenaScreenResponseDto } from './dtos/event/read-arena-screen.response.dto';
 import { Platform } from '@/domain/enums/platform';
+import { CreateEventRegistrationOnBehalfBodyDto } from './dtos/event/registration/create-event-registration-on-behalf.body.dto';
 
-export async function getEvents(
-  admin: string | null,
-  maintainer: string | null,
-  participant: string | null,
-  from: string | null,
-  to: string | null,
-  session?: Session | null,
-): Promise<Event[]> {
+export async function getEvents(admin: string | null, maintainer: string | null, participant: string | null, from: string | null, to: string | null, session?: Session | null): Promise<Event[]> {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events?`;
 
   if (admin) {
@@ -324,6 +318,28 @@ export async function createEventRegistration_v1(eventId: string, compSignUps: s
 
   if (response.ok) {
     console.info('Creating event registration successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function createEventRegistrationOnBehalf(eventId: string, username: string, eventRegistrationType: EventRegistrationType, session: Session | null): Promise<void> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/registrations/on-behalf`;
+
+  const body = new CreateEventRegistrationOnBehalfBodyDto(username, eventRegistrationType);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    console.info('Creating event registration on behalf successful');
   } else {
     const error = await response.json();
     throw Error(error.message);

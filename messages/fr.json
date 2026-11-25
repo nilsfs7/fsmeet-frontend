@@ -779,7 +779,15 @@
     "toastStatusUpdated": "Statut de {name} mis à jour",
     "statTotal": "Toutes les inscriptions",
     "textShown": "{shown} sur {total} affichés",
-    "btnClearSearch": "Effacer la recherche"
+    "btnClearSearch": "Effacer la recherche",
+    "dlgAddRegistrationTitle": "Ajouter un inscrit",
+    "dlgAddRegistrationText": "Inscrire un utilisateur en son nom.",
+    "dlgAddRegistrationUser": "Utilisateur",
+    "dlgAddRegistrationNoUsers": "Tous les utilisateurs sont déjà inscrits.",
+    "dlgAddRegistrationType": "Inscrire en tant que",
+    "dlgAddRegistrationFanHint": "Les fans ne peuvent être ajoutés qu’en tant que visiteurs.",
+    "dlgAddRegistrationConfirm": "Ajouter",
+    "toastAdded": "{name} ajouté(e)"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Aperçu de l'inscription",

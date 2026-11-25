@@ -804,7 +804,15 @@
     "toastStatusUpdated": "Status for {name} updated",
     "statTotal": "All registrations",
     "textShown": "Showing {shown} of {total}",
-    "btnClearSearch": "Clear search"
+    "btnClearSearch": "Clear search",
+    "dlgAddRegistrationTitle": "Add attendee",
+    "dlgAddRegistrationText": "Register a user on their behalf.",
+    "dlgAddRegistrationUser": "User",
+    "dlgAddRegistrationNoUsers": "All users are already registered.",
+    "dlgAddRegistrationType": "Register as",
+    "dlgAddRegistrationFanHint": "Fans can only be added as visitors.",
+    "dlgAddRegistrationConfirm": "Add",
+    "toastAdded": "{name} added"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "Event Registration Overview",

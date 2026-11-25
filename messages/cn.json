@@ -804,7 +804,15 @@
     "toastStatusUpdated": "已更新 {name} 的状态",
     "statTotal": "全部报名",
     "textShown": "显示 {shown} / {total}",
-    "btnClearSearch": "清除搜索"
+    "btnClearSearch": "清除搜索",
+    "dlgAddRegistrationTitle": "添加参与者",
+    "dlgAddRegistrationText": "代表用户进行报名。",
+    "dlgAddRegistrationUser": "用户",
+    "dlgAddRegistrationNoUsers": "所有用户均已报名。",
+    "dlgAddRegistrationType": "报名身份",
+    "dlgAddRegistrationFanHint": "粉丝只能作为观众添加。",
+    "dlgAddRegistrationConfirm": "添加",
+    "toastAdded": "已添加 {name}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "活动报名概览",
