@@ -804,7 +804,15 @@
     "toastStatusUpdated": "تم تحديث حالة {name}",
     "statTotal": "كل التسجيلات",
     "textShown": "عرض {shown} من {total}",
-    "btnClearSearch": "مسح البحث"
+    "btnClearSearch": "مسح البحث",
+    "dlgAddRegistrationTitle": "إضافة حاضر",
+    "dlgAddRegistrationText": "سجّل مستخدمًا نيابةً عنه.",
+    "dlgAddRegistrationUser": "المستخدم",
+    "dlgAddRegistrationNoUsers": "جميع المستخدمين مسجلون بالفعل.",
+    "dlgAddRegistrationType": "التسجيل بصفة",
+    "dlgAddRegistrationFanHint": "يمكن إضافة المعجبين كزوار فقط.",
+    "dlgAddRegistrationConfirm": "إضافة",
+    "toastAdded": "تمت إضافة {name}"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "نظرة عامة على تسجيل الفعالية",

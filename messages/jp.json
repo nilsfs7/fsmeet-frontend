@@ -804,7 +804,15 @@
     "toastStatusUpdated": "{name} のステータスを更新しました",
     "statTotal": "すべての登録",
     "textShown": "{total}件中{shown}件を表示",
-    "btnClearSearch": "検索をクリア"
+    "btnClearSearch": "検索をクリア",
+    "dlgAddRegistrationTitle": "参加者を追加",
+    "dlgAddRegistrationText": "ユーザーに代わって登録します。",
+    "dlgAddRegistrationUser": "ユーザー",
+    "dlgAddRegistrationNoUsers": "すべてのユーザーが登録済みです。",
+    "dlgAddRegistrationType": "登録区分",
+    "dlgAddRegistrationFanHint": "ファンは観客としてのみ追加できます。",
+    "dlgAddRegistrationConfirm": "追加",
+    "toastAdded": "{name} を追加しました"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "参加登録の概要",

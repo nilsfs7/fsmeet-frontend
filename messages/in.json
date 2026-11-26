@@ -804,7 +804,15 @@
     "toastStatusUpdated": "{name} का स्टेटस अपडेट हुआ",
     "statTotal": "सभी पंजीकरण",
     "textShown": "{total} में से {shown} दिखाए गए",
-    "btnClearSearch": "खोज साफ़ करें"
+    "btnClearSearch": "खोज साफ़ करें",
+    "dlgAddRegistrationTitle": "उपस्थित व्यक्ति जोड़ें",
+    "dlgAddRegistrationText": "किसी उपयोगकर्ता की ओर से पंजीकरण करें।",
+    "dlgAddRegistrationUser": "उपयोगकर्ता",
+    "dlgAddRegistrationNoUsers": "सभी उपयोगकर्ता पहले से पंजीकृत हैं।",
+    "dlgAddRegistrationType": "इस रूप में पंजीकृत करें",
+    "dlgAddRegistrationFanHint": "फ़ैन को केवल दर्शक के रूप में जोड़ा जा सकता है।",
+    "dlgAddRegistrationConfirm": "जोड़ें",
+    "toastAdded": "{name} जोड़ा गया"
   },
   "/events/eventid/registration": {
     "pageTitleOverview": "इवेंट पंजीकरण सारांश",
