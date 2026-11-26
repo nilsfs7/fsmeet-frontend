@@ -23,6 +23,7 @@ import { EventRegistrationType } from '../../../../../domain/types/event-registr
 import { User } from '@/domain/types/user';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { AlertTriangle, ChevronsUpDown, ChevronUp, ChevronDown } from 'lucide-react';
 import { IconSearch, IconUsers, IconX } from '@tabler/icons-react';
@@ -31,6 +32,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { formatLocalDate } from '@/lib/date';
 
 type StatusFilter = 'all' | EventRegistrationStatus;
+type TypeFilter = 'all' | EventRegistrationType;
 
 function formatRegistrantFullName(user: User): string {
   const full = [user.firstName, user.lastName].filter(Boolean).join(' ').trim();
@@ -144,6 +146,7 @@ interface IRegistrationsList {
 
 export const RegistrationsList = ({ eventId, registrations, accommodations, offerings, currency, paymentFeeCover }: IRegistrationsList) => {
   const t = useTranslations('/events/eventid/attendees');
+  const filterT = useTranslations('global/components/attendee-filters');
   const na = 'n/a';
 
   const { data: session } = useSession();
@@ -151,6 +154,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
 
   const [nameQuery, setNameQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>('all');
   const [tableSort, setTableSort] = useState<TableSort>({ col: null, dir: 'asc' });
   const [userSelected, setUserSelected] = useState('');
   const [registrationSelected, setRegistrationSelected] = useState<EventRegistration>();
@@ -171,9 +175,12 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
       if (statusFilter !== 'all' && registration.status !== statusFilter) {
         return false;
       }
+      if (typeFilter !== 'all' && registration.type !== typeFilter) {
+        return false;
+      }
       return registrationMatchesNameQuery(registration.user, nameQuery.trim());
     });
-  }, [registrations, nameQuery, statusFilter]);
+  }, [registrations, nameQuery, statusFilter, typeFilter]);
 
   const displayedRegistrations = useMemo(() => {
     if (!tableSort.col) {
@@ -477,7 +484,7 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
               })}
             </div>
 
-            <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
               <div className="relative min-w-0 sm:w-80">
                 <label className="sr-only" htmlFor="attendees-filter-name">
                   {t('filterNameLabel')}
@@ -502,6 +509,19 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
                   </button>
                 )}
               </div>
+              <Select value={typeFilter} onValueChange={(value: TypeFilter) => setTypeFilter(value)}>
+                <SelectTrigger aria-label={t('tableColType')} className="h-10 w-full sm:w-44">
+                  <span className="flex min-w-0 items-center gap-1.5 truncate">
+                    <span className="shrink-0 text-muted-foreground">{t('tableColType')}:</span>
+                    <SelectValue />
+                  </span>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{filterT('all')}</SelectItem>
+                  <SelectItem value={EventRegistrationType.PARTICIPANT}>{t('regTypeParticipant')}</SelectItem>
+                  <SelectItem value={EventRegistrationType.VISITOR}>{t('regTypeVisitor')}</SelectItem>
+                </SelectContent>
+              </Select>
               <span className="text-xs text-muted-foreground">{t('textShown', { shown: filteredRegistrations.length, total: registrations.length })}</span>
             </div>
           </>
