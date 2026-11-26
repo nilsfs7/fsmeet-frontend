@@ -7,6 +7,8 @@ const LOCALE_TAGS: Record<string, string> = {
   de: 'de-DE',
   fr: 'fr-FR',
   es: 'es-ES',
+  pt: 'pt-PT',
+  it: 'it-IT',
   jp: 'ja-JP',
   cn: 'zh-CN',
   sa: 'ar-SA-u-ca-gregory',

@@ -6,6 +6,8 @@ const LANGUAGE_TO_LOCALE: Record<string, string> = {
   de: 'de',
   fr: 'fr',
   es: 'es',
+  pt: 'pt',
+  it: 'it',
   ja: 'jp',
   zh: 'cn',
   ar: 'sa',
