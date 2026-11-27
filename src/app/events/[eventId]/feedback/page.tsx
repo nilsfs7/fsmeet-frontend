@@ -4,7 +4,7 @@ import { useState, use } from 'react';
 import { Button, ctaActionButtonClassName } from '@/components/ui/button';
 import TextInputLarge from '@/components/common/text-input-large';
 import { useRouter } from 'next/navigation';
-import { routeEvents, routeFeedbackThankyou } from '@/domain/constants/routes';
+import { routeEvents } from '@/domain/constants/routes';
 import Navigation from '@/components/navigation';
 import ActionButton from '@/components/common/action-button';
 import { Action } from '@/domain/enums/action';
@@ -32,7 +32,7 @@ export default function EventFeedback(props: { params: Promise<{ eventId: string
   const handleSubmitClicked = async () => {
     try {
       await createEventFeedback(params.eventId, message, session);
-      router.push(routeFeedbackThankyou);
+      router.replace(`${routeEvents}/${params.eventId}/feedback/thankyou`);
     } catch (error: unknown) {
       const msg = error instanceof Error ? error.message : String(error);
       toast.error(msg);
