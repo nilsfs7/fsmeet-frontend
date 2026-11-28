@@ -337,6 +337,7 @@
     "adminPanelBtnManageAttachmentsToolTip": "文档",
     "adminPanelBtnManageEventStateToolTip": "活动状态",
     "adminPanelBtnViewStatisticsToolTip": "统计",
+    "adminPanelBtnViewFeedbackToolTip": "查看反馈",
     "adminPanelBtnManageArenaScreenToolTip": "竞技场屏幕",
     "adminPanelBtnUpgradePro": "升级 Pro",
     "adminPanelBtnUpgradeProToolTip": "比较此活动的免费版与 Pro。",
@@ -739,6 +740,13 @@
     "inputMessage": "留言",
     "inputMessagePlaceholder": "任何反馈都非常感谢！",
     "btnSubmit": "提交"
+  },
+  "/events/eventid/feedback/list": {
+    "pageTitle": "活动反馈",
+    "textNoFeedback": "暂无反馈。",
+    "tableColDate": "日期",
+    "tableColSender": "发送者",
+    "tableColMessage": "留言"
   },
   "/events/eventid/not-found": {
     "textNotFound": "未找到活动",

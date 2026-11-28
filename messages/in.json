@@ -337,6 +337,7 @@
     "adminPanelBtnManageAttachmentsToolTip": "दस्तावेज़",
     "adminPanelBtnManageEventStateToolTip": "इवेंट स्थिति",
     "adminPanelBtnViewStatisticsToolTip": "आंकड़े",
+    "adminPanelBtnViewFeedbackToolTip": "फीडबैक देखें",
     "adminPanelBtnManageArenaScreenToolTip": "Arena screen",
     "adminPanelBtnUpgradePro": "प्रो लाइसेंस",
     "adminPanelBtnUpgradeProToolTip": "इस इवेंट के लिए फ्री और प्रो की तुलना करें।",
@@ -739,6 +740,13 @@
     "inputMessage": "संदेश",
     "inputMessagePlaceholder": "कोई भी फीडबैक अत्यंत सराहनीय है!",
     "btnSubmit": "सबमिट करें"
+  },
+  "/events/eventid/feedback/list": {
+    "pageTitle": "इवेंट फीडबैक",
+    "textNoFeedback": "अभी तक कोई फीडबैक नहीं।",
+    "tableColDate": "तारीख",
+    "tableColSender": "भेजने वाला",
+    "tableColMessage": "संदेश"
   },
   "/events/eventid/not-found": {
     "textNotFound": "इवेंट नहीं मिला",

@@ -337,6 +337,7 @@
     "adminPanelBtnManageAttachmentsToolTip": "ドキュメント",
     "adminPanelBtnManageEventStateToolTip": "イベント状態",
     "adminPanelBtnViewStatisticsToolTip": "統計",
+    "adminPanelBtnViewFeedbackToolTip": "フィードバックを見る",
     "adminPanelBtnManageArenaScreenToolTip": "アリーナスクリーン",
     "adminPanelBtnUpgradePro": "Proにアップグレード",
     "adminPanelBtnUpgradeProToolTip": "このイベントのFreeとProを比較します。",
@@ -739,6 +740,13 @@
     "inputMessage": "メッセージ",
     "inputMessagePlaceholder": "どんなフィードバックでも大歓迎です！",
     "btnSubmit": "送信"
+  },
+  "/events/eventid/feedback/list": {
+    "pageTitle": "イベントのフィードバック",
+    "textNoFeedback": "まだフィードバックはありません。",
+    "tableColDate": "日付",
+    "tableColSender": "送信者",
+    "tableColMessage": "メッセージ"
   },
   "/events/eventid/not-found": {
     "textNotFound": "イベントが見つかりませんでした",

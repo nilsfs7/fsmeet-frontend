@@ -20,6 +20,7 @@ import {
   IconHeartHandshake,
   IconInfoCircle,
   IconMessage2,
+  IconMessageCircle,
   IconPencil,
   IconPlayerPlay,
   IconScoreboard,
@@ -78,6 +79,7 @@ const ACTION_ICON: Record<Action, ActionIconConfig> = {
   [Action.SHARE]: { kind: 'icon', Icon: IconShare },
   [Action.SHOW]: { kind: 'icon', Icon: IconEye },
   [Action.STATISTICS]: { kind: 'icon', Icon: IconChartBar },
+  [Action.VIEW_FEEDBACK]: { kind: 'icon', Icon: IconMessageCircle },
 };
 
 type ActionIconSize = 'icon' | 'iconSm' | 'iconXs';

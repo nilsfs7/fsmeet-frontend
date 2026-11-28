@@ -83,6 +83,9 @@ const AdminPanel = async ({ event, competitions }: IAttachmentCardProps) => {
 
         {/* row 3 */}
         <div className="contents">
+          {/* feedback is submitted after the event ended, so it stays reachable for archived events */}
+          <ActionButton href={`${routeEvents}/${event.id}/feedback/list`} action={Action.VIEW_FEEDBACK} tooltip={t('adminPanelBtnViewFeedbackToolTip')} />
+
           {!isArchivedEventState(event.state) && (
             <>
               <ActionButton

@@ -27,6 +27,7 @@ import { UpdatePaymentMethodSepaBodyDto } from './dtos/event/payment/update-paym
 import { UpdatePaymentMethodStripeBodyDto } from './dtos/event/payment/update-payment-method-stripe.body.dto';
 import { CreateEventResponseDto } from './dtos/event/create-event.response.dto';
 import { defaultHeaders } from './default-headers';
+import { ReadEventFeedbackResponseDto } from './dtos/event/read-event-feedback.response.dto';
 import { DeleteEventCommentBodyDto } from './dtos/event/delete-comment.body.dto';
 import { DeleteEventSubCommentBodyDto } from './dtos/event/delete-sub-comment.body.dto';
 import { TShirtSize } from '../../domain/enums/t-shirt-size';
@@ -571,6 +572,25 @@ export async function createEventFeedback(eventId: string, message: string, sess
 
   if (response.ok) {
     console.info('Creating event feedback successful');
+  } else {
+    const error = await response.json();
+    throw Error(error.message);
+  }
+}
+
+export async function getEventFeedbacks(eventId: string, session: Session | null): Promise<ReadEventFeedbackResponseDto[]> {
+  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/events/${eventId}/feedback`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      ...defaultHeaders,
+      Authorization: `Bearer ${session?.user?.accessToken}`,
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
   } else {
     const error = await response.json();
     throw Error(error.message);
