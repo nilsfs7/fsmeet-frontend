@@ -450,13 +450,14 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
         </p>
       </Dialog>
 
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-4 overflow-y-auto pb-6 text-sm scrollbar-none">
+      {/* Mobile: filters scroll with the list. sm+: filters stay put, only rows scroll. */}
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-4 overflow-y-auto pb-6 text-sm scrollbar-none sm:overflow-hidden sm:pb-0">
         {registrations.length === 0 && <EmptyState icon={<IconUsers stroke={1.75} aria-hidden />} title={t('textNoParticipants')} />}
 
         {registrations.length > 0 && (
-          <>
+          <div className="flex shrink-0 flex-col gap-4">
             {pendingCount > 0 && (
-              <Alert className={cn('shrink-0 rounded-2xl border-amber-200/90 bg-amber-50 text-amber-950', 'dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100')}>
+              <Alert className={cn('rounded-2xl border-amber-200/90 bg-amber-50 text-amber-950', 'dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100')}>
                 <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" aria-hidden />
                 <AlertDescription>{t('alertPendingRegistrations', { count: pendingCount })}</AlertDescription>
               </Alert>
@@ -524,98 +525,102 @@ export const RegistrationsList = ({ eventId, registrations, accommodations, offe
               </Select>
               <span className="text-xs text-muted-foreground">{t('textShown', { shown: filteredRegistrations.length, total: registrations.length })}</span>
             </div>
-          </>
+          </div>
         )}
 
-        {registrations.length > 0 && filteredRegistrations.length === 0 && <EmptyState icon={<IconSearch stroke={1.75} aria-hidden />} title={t('textNoFilterMatch')} />}
+        {registrations.length > 0 && (
+          <div className="min-h-0 min-w-0 sm:flex-1 sm:overflow-y-auto sm:pb-6 sm:scrollbar-none">
+            {filteredRegistrations.length === 0 && <EmptyState icon={<IconSearch stroke={1.75} aria-hidden />} title={t('textNoFilterMatch')} />}
 
-        {registrations.length > 0 && displayedRegistrations.length > 0 && (
-          <>
-            {/* Desktop: sortable table */}
-            <div className="hidden min-w-0 overflow-hidden rounded-2xl border border-border bg-background shadow-xs sm:block">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="min-w-40" aria-sort={ariaSortForColumn('name', tableSort)}>
-                      <SortColumnHeaderButton
-                        column="name"
-                        tableSort={tableSort}
-                        onCycle={cycleColumnSort}
-                        label={t('tableColFullName')}
-                        title={t('tableSortByName')}
-                        aria-label={`${t('tableColFullName')}, ${t('tableSortByName')}`}
-                      />
-                    </TableHead>
-                    <TableHead className="w-[1%] whitespace-nowrap" aria-sort={ariaSortForColumn('type', tableSort)}>
-                      <SortColumnHeaderButton
-                        column="type"
-                        tableSort={tableSort}
-                        onCycle={cycleColumnSort}
-                        label={t('tableColType')}
-                        title={t('tableSortByType')}
-                        aria-label={`${t('tableColType')}, ${t('tableSortByType')}`}
-                      />
-                    </TableHead>
-                    <TableHead className="w-[1%] whitespace-nowrap" aria-sort={ariaSortForColumn('status', tableSort)}>
-                      <SortColumnHeaderButton
-                        column="status"
-                        tableSort={tableSort}
-                        onCycle={cycleColumnSort}
-                        label={t('tableColStatus')}
-                        title={t('tableSortByStatus')}
-                        aria-label={`${t('tableColStatus')}, ${t('tableSortByStatus')}`}
-                      />
-                    </TableHead>
-                    <TableHead className="min-w-40 text-right">{t('tableColActions')}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+            {displayedRegistrations.length > 0 && (
+              <>
+                {/* Desktop: sortable table */}
+                <div className="hidden min-h-0 min-w-0 max-w-full sm:block">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="min-w-40" aria-sort={ariaSortForColumn('name', tableSort)}>
+                          <SortColumnHeaderButton
+                            column="name"
+                            tableSort={tableSort}
+                            onCycle={cycleColumnSort}
+                            label={t('tableColFullName')}
+                            title={t('tableSortByName')}
+                            aria-label={`${t('tableColFullName')}, ${t('tableSortByName')}`}
+                          />
+                        </TableHead>
+                        <TableHead className="w-[1%] whitespace-nowrap" aria-sort={ariaSortForColumn('type', tableSort)}>
+                          <SortColumnHeaderButton
+                            column="type"
+                            tableSort={tableSort}
+                            onCycle={cycleColumnSort}
+                            label={t('tableColType')}
+                            title={t('tableSortByType')}
+                            aria-label={`${t('tableColType')}, ${t('tableSortByType')}`}
+                          />
+                        </TableHead>
+                        <TableHead className="w-[1%] whitespace-nowrap" aria-sort={ariaSortForColumn('status', tableSort)}>
+                          <SortColumnHeaderButton
+                            column="status"
+                            tableSort={tableSort}
+                            onCycle={cycleColumnSort}
+                            label={t('tableColStatus')}
+                            title={t('tableSortByStatus')}
+                            aria-label={`${t('tableColStatus')}, ${t('tableSortByStatus')}`}
+                          />
+                        </TableHead>
+                        <TableHead className="min-w-40 text-right">{t('tableColActions')}</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {displayedRegistrations.map(registration => {
+                        const { user, status, type } = registration;
+                        return (
+                          <TableRow key={user.username}>
+                            <TableCell className="align-middle">
+                              <Link
+                                href={`${routeUsers}/${encodeURIComponent(user.username)}`}
+                                className="font-medium text-foreground underline-offset-2 hover:text-brand-strong hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                              >
+                                {formatRegistrantFullName(user)}
+                              </Link>
+                              <div className="text-xs text-muted-foreground">@{user.username}</div>
+                            </TableCell>
+                            <TableCell className="whitespace-nowrap text-muted-foreground">{typeLabel(type)}</TableCell>
+                            <TableCell className="whitespace-nowrap">{statusChip(status)}</TableCell>
+                            <TableCell className="text-right align-middle">{rowActions(registration)}</TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
+
+                {/* Mobile: cards with all actions visible */}
+                <div className="flex flex-col gap-2 sm:hidden">
                   {displayedRegistrations.map(registration => {
                     const { user, status, type } = registration;
                     return (
-                      <TableRow key={user.username}>
-                        <TableCell className="align-middle">
-                          <Link
-                            href={`${routeUsers}/${encodeURIComponent(user.username)}`}
-                            className="font-medium text-foreground underline-offset-2 hover:text-brand-strong hover:underline focus-visible:rounded-sm focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                          >
-                            {formatRegistrantFullName(user)}
-                          </Link>
-                          <div className="text-xs text-muted-foreground">@{user.username}</div>
-                        </TableCell>
-                        <TableCell className="whitespace-nowrap text-muted-foreground">{typeLabel(type)}</TableCell>
-                        <TableCell className="whitespace-nowrap">{statusChip(status)}</TableCell>
-                        <TableCell className="text-right align-middle">{rowActions(registration)}</TableCell>
-                      </TableRow>
+                      <div key={user.username} className="flex flex-col gap-2 rounded-2xl border border-border bg-background p-3 shadow-xs">
+                        <div className="flex min-w-0 items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <Link href={`${routeUsers}/${encodeURIComponent(user.username)}`} className="block truncate font-semibold text-foreground hover:text-brand-strong">
+                              {formatRegistrantFullName(user)}
+                            </Link>
+                            <div className="truncate text-xs text-muted-foreground">
+                              @{user.username} · {typeLabel(type)}
+                            </div>
+                          </div>
+                          {statusChip(status)}
+                        </div>
+                        <div className="flex justify-end border-t border-border/60 pt-2">{rowActions(registration)}</div>
+                      </div>
                     );
                   })}
-                </TableBody>
-              </Table>
-            </div>
-
-            {/* Mobile: cards with all actions visible */}
-            <div className="flex flex-col gap-2 sm:hidden">
-              {displayedRegistrations.map(registration => {
-                const { user, status, type } = registration;
-                return (
-                  <div key={user.username} className="flex flex-col gap-2 rounded-2xl border border-border bg-background p-3 shadow-xs">
-                    <div className="flex min-w-0 items-start justify-between gap-2">
-                      <div className="min-w-0">
-                        <Link href={`${routeUsers}/${encodeURIComponent(user.username)}`} className="block truncate font-semibold text-foreground hover:text-brand-strong">
-                          {formatRegistrantFullName(user)}
-                        </Link>
-                        <div className="truncate text-xs text-muted-foreground">
-                          @{user.username} · {typeLabel(type)}
-                        </div>
-                      </div>
-                      {statusChip(status)}
-                    </div>
-                    <div className="flex justify-end border-t border-border/60 pt-2">{rowActions(registration)}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </>
+                </div>
+              </>
+            )}
+          </div>
         )}
       </div>
     </>

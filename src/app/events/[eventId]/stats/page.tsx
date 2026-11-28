@@ -99,7 +99,7 @@ export default async function Statistics(props: { params: Promise<{ eventId: str
         <PageTitle title={t('pageTitle')} />
       </div>
 
-      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto', constrainedContentClass)}>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto scrollbar-none', constrainedContentClass)}>
         <div className="grid gap-4 pb-6 text-sm">
           {/* Attendees */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

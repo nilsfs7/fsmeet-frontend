@@ -28,7 +28,7 @@ export default async function EventEditing(props: { params: Promise<{ eventId: s
     <div className="min-h-0 flex-1 flex flex-col">
       <PageTitle title={t('pageTitle')} description={event.name} />
 
-      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
+      <div className="min-h-0 flex-1 overflow-y-auto scrollbar-none px-4 pb-6 sm:px-6">
         <div className="mx-auto flex w-full max-w-2xl justify-center">
           <Editor users={users} event={event} />
         </div>

@@ -338,7 +338,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
         confirmText={t('dlgDeleteMatchBtnConfirm')}
       />
 
-      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+      <div className="min-h-0 flex-1 overflow-y-auto scrollbar-none px-4 pb-6 sm:px-6 md:px-8">
         <div className="mx-auto flex w-full max-w-content flex-col gap-4">
           <CompWorkflowSteps eventId={event.id ?? ''} compId={compId} current="mode" refreshKey={refreshKey} />
 
@@ -382,7 +382,7 @@ export const GameModeEditor = ({ event, compId, roundsInit, participants }: IRou
           {numParticipants > 1 && rounds.length === 0 && <EmptyState icon={<IconTournament stroke={1.75} aria-hidden />} title={t('textNoRounds')} />}
 
           {rounds.length > 0 && (
-            <div className="overflow-x-auto rounded-2xl border border-border bg-muted/30 p-3 sm:p-4">
+            <div className="overflow-x-auto scrollbar-none rounded-2xl border border-border bg-muted/30 p-3 sm:p-4">
               <BattleGrid
                 rounds={rounds}
                 usersMap={usersMap}

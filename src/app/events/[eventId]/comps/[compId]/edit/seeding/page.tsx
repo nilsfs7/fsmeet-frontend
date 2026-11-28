@@ -111,7 +111,7 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
       <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title={t('pageTitle')} description={comp?.name} />
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+        <div className="min-h-0 flex-1 overflow-y-auto scrollbar-none px-4 pb-6 sm:px-6 md:px-8">
           <div className="mx-auto flex w-full max-w-content flex-col gap-4">
             <CompWorkflowSteps eventId={params.eventId} compId={params.compId} current="seeding" refreshKey={refreshKey} />
 
@@ -134,7 +134,7 @@ export default function Seeding(props: { params: Promise<{ eventId: string; comp
                   <p>{t('hintSeeding')}</p>
                 </div>
 
-                <div className="overflow-x-auto rounded-2xl border border-border bg-muted/30 p-3 sm:p-4">
+                <div className="overflow-x-auto scrollbar-none rounded-2xl border border-border bg-muted/30 p-3 sm:p-4">
                   <BattleGrid
                     rounds={rounds}
                     usersMap={usersMap}
