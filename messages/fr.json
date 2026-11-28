@@ -312,6 +312,7 @@
     "adminPanelBtnManageAttachmentsToolTip": "Documents",
     "adminPanelBtnManageEventStateToolTip": "État de l'événement",
     "adminPanelBtnViewStatisticsToolTip": "Statistiques",
+    "adminPanelBtnViewFeedbackToolTip": "Voir les retours",
     "adminPanelBtnManageArenaScreenToolTip": "Écran Arène",
     "adminPanelBtnUpgradePro": "Licence Pro",
     "adminPanelBtnUpgradeProToolTip": "Comparer Free et Pro pour cet événement.",
@@ -714,6 +715,13 @@
     "inputMessage": "Message",
     "inputMessagePlaceholder": "Tout retour d'expérience est grandement apprécié !",
     "btnSubmit": "Soumettre"
+  },
+  "/events/eventid/feedback/list": {
+    "pageTitle": "Retours sur l'événement",
+    "textNoFeedback": "Aucun retour pour le moment.",
+    "tableColDate": "Date",
+    "tableColSender": "Expéditeur",
+    "tableColMessage": "Message"
   },
   "/events/eventid/not-found": {
     "textNotFound": "Événement introuvable",

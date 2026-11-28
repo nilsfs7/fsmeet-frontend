@@ -31,4 +31,5 @@ export enum Action {
   SHARE,
   SHOW,
   STATISTICS,
+  VIEW_FEEDBACK,
 }

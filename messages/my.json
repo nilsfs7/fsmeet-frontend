@@ -337,6 +337,7 @@
     "adminPanelBtnManageAttachmentsToolTip": "Dokumen",
     "adminPanelBtnManageEventStateToolTip": "Status acara",
     "adminPanelBtnViewStatisticsToolTip": "Statistik",
+    "adminPanelBtnViewFeedbackToolTip": "Lihat maklum balas",
     "adminPanelBtnManageArenaScreenToolTip": "Skrin arena",
     "adminPanelBtnUpgradePro": "Naik taraf Pro",
     "adminPanelBtnUpgradeProToolTip": "Bandingkan Free dan Pro untuk acara ini.",
@@ -739,6 +740,13 @@
     "inputMessage": "Mesej",
     "inputMessagePlaceholder": "Sebarang maklum balas amat dihargai!",
     "btnSubmit": "Hantar"
+  },
+  "/events/eventid/feedback/list": {
+    "pageTitle": "Maklum balas acara",
+    "textNoFeedback": "Belum ada maklum balas.",
+    "tableColDate": "Tarikh",
+    "tableColSender": "Penghantar",
+    "tableColMessage": "Mesej"
   },
   "/events/eventid/not-found": {
     "textNotFound": "Acara tidak ditemui",

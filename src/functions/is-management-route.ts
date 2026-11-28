@@ -11,6 +11,7 @@ const eventManagementSubroutes: RegExp[] = [
   /^\/attendees$/,
   /^\/stats$/,
   /^\/feedback$/,
+  /^\/feedback\/list$/,
   /^\/pro(\/.*)?$/,
   /^\/arena-screen$/,
   /^\/comps$/,

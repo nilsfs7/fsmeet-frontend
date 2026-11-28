@@ -337,6 +337,7 @@
     "adminPanelBtnManageAttachmentsToolTip": "Documenti",
     "adminPanelBtnManageEventStateToolTip": "Stato dell'evento",
     "adminPanelBtnViewStatisticsToolTip": "Statistiche",
+    "adminPanelBtnViewFeedbackToolTip": "Vedi feedback",
     "adminPanelBtnManageArenaScreenToolTip": "Schermo arena",
     "adminPanelBtnUpgradePro": "Passa a Pro",
     "adminPanelBtnUpgradeProToolTip": "Confronta Gratis e Pro per questo evento.",
@@ -739,6 +740,13 @@
     "inputMessage": "Messaggio",
     "inputMessagePlaceholder": "Ogni feedback è molto apprezzato!",
     "btnSubmit": "Invia"
+  },
+  "/events/eventid/feedback/list": {
+    "pageTitle": "Feedback sull'evento",
+    "textNoFeedback": "Ancora nessun feedback.",
+    "tableColDate": "Data",
+    "tableColSender": "Mittente",
+    "tableColMessage": "Messaggio"
   },
   "/events/eventid/not-found": {
     "textNotFound": "Evento non trovato",

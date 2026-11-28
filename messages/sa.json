@@ -337,6 +337,7 @@
     "adminPanelBtnManageAttachmentsToolTip": "المستندات",
     "adminPanelBtnManageEventStateToolTip": "حالة الفعالية",
     "adminPanelBtnViewStatisticsToolTip": "الإحصائيات",
+    "adminPanelBtnViewFeedbackToolTip": "عرض الملاحظات",
     "adminPanelBtnManageArenaScreenToolTip": "شاشة الأرينا",
     "adminPanelBtnUpgradePro": "ترقية Pro",
     "adminPanelBtnUpgradeProToolTip": "قارن بين الإصدار المجاني وPro لهذا الحدث.",
@@ -739,6 +740,13 @@
     "inputMessage": "رسالة",
     "inputMessagePlaceholder": "أي ملاحظات محل تقدير كبير!",
     "btnSubmit": "إرسال"
+  },
+  "/events/eventid/feedback/list": {
+    "pageTitle": "ملاحظات الفعالية",
+    "textNoFeedback": "لا توجد ملاحظات بعد.",
+    "tableColDate": "التاريخ",
+    "tableColSender": "المرسل",
+    "tableColMessage": "الرسالة"
   },
   "/events/eventid/not-found": {
     "textNotFound": "لم يتم العثور على الفعالية",

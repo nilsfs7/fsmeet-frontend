@@ -312,6 +312,7 @@
     "adminPanelBtnManageAttachmentsToolTip": "Dokumente",
     "adminPanelBtnManageEventStateToolTip": "Event Status",
     "adminPanelBtnViewStatisticsToolTip": "Statistiken",
+    "adminPanelBtnViewFeedbackToolTip": "Feedback ansehen",
     "adminPanelBtnManageArenaScreenToolTip": "Arena-Screen",
     "adminPanelBtnUpgradePro": "Pro-Lizenz",
     "adminPanelBtnUpgradeProToolTip": "Free- und Pro-Lizenz für dieses Event vergleichen.",
@@ -714,6 +715,13 @@
     "inputMessage": "Nachricht",
     "inputMessagePlaceholder": "Jegliches Feedback zum Event ist willkommen!",
     "btnSubmit": "Senden"
+  },
+  "/events/eventid/feedback/list": {
+    "pageTitle": "Event-Feedback",
+    "textNoFeedback": "Noch kein Feedback.",
+    "tableColDate": "Datum",
+    "tableColSender": "Absender",
+    "tableColMessage": "Nachricht"
   },
   "/events/eventid/not-found": {
     "textNotFound": "Event nicht gefunden",
