@@ -111,7 +111,7 @@ export const TabsMenu = ({ comp, event }: ITabsMenu) => {
   const noSchedule = <EmptyState icon={<IconCalendarOff stroke={1.75} aria-hidden />} title={t('textNoScheduleTitle')} description={t('textNoScheduleDescription')} />;
 
   return (
-    <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+    <div className="min-h-0 flex-1 overflow-y-auto scrollbar-none px-4 pb-6 sm:px-6 md:px-8">
       <Tabs defaultValue={initialTab} className="mx-auto flex w-full max-w-content flex-col gap-4">
         <TabsList className="flex-nowrap justify-start self-start overflow-x-auto scrollbar-none max-w-full">
           <TabsTrigger

@@ -94,7 +94,7 @@ export default function CompetitionEditing(props: { params: Promise<{ eventId: s
       <div className="min-h-0 flex-1 flex flex-col">
         <PageTitle title={t('pageTitle')} description={comp?.name} />
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 sm:px-6 md:px-8">
+        <div className="min-h-0 flex-1 overflow-y-auto scrollbar-none px-4 pb-6 sm:px-6 md:px-8">
           <div className="mx-auto flex w-full max-w-content flex-col items-center gap-4">
             <div className="w-full max-w-3xl">
               <CompWorkflowSteps eventId={params.eventId} compId={params.compId} current="details" />

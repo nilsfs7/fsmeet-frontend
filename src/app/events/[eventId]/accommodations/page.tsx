@@ -26,9 +26,9 @@ export default async function EventAccommodation(props: { params: Promise<{ even
         <PageTitle title={t('pageTitle')} description={event.name} />
       </div>
 
-      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto pb-6', constrainedContentClass)}>
+      <div className={cn('mt-2 min-h-0 flex-1 overflow-y-auto pb-6 scrollbar-none', constrainedContentClass)}>
         <div className="flex flex-col gap-3 text-sm">
-          <div className="min-h-0 min-w-0 overflow-x-auto">
+          <div className="min-h-0 min-w-0 overflow-x-auto scrollbar-none">
             <AccommodationsList eventId={params.eventId} currency={event.currency} accommodations={accommodations} />
           </div>
         </div>

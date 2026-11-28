@@ -42,7 +42,7 @@ export default async function ManageCompetitions(props: { params: Promise<{ even
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <PageTitle title={t('pageTitle')} />
 
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto scrollbar-none">
         <PageInset className="flex flex-col gap-4">
           <Alert>
             <IconInfoCircle className="h-4 w-4" stroke={2} aria-hidden />

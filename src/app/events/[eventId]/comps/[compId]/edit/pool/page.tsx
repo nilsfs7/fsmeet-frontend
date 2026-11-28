@@ -30,7 +30,7 @@ export default async function CompetitionPool(props: { params: Promise<{ eventId
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <PageTitle title={t('pageTitle')} description={competitionResult.status === 'fulfilled' ? competitionResult.value.name : undefined} />
 
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto scrollbar-none">
         <PageInset className="flex flex-col gap-4">
           <CompWorkflowSteps eventId={params.eventId} compId={params.compId} current="pool" />
           {loaded ? (
